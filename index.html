@@ -132,22 +132,22 @@
           <p id="validation-summary" class="limit-note">Run validation to inspect project issues.</p>
         </section>
         <section class="simulation-control example-control">
-          <h3>Released examples</h3>
-          <label for="example-picker">Load a tested starter project</label>
+          <h3 data-i18n="releasedExamples">Released examples</h3>
+          <label for="example-picker" data-i18n="loadTestedStarter">Load a tested starter project</label>
           <select id="example-picker">
             <option value="examples/001-led-current-limiter.adigun.json">LED current limiter</option>
             <option value="examples/002-dc-voltage-divider.adigun.json">DC voltage divider</option>
             <option value="examples/003-led-current-limiter-9v.adigun.json">9 V LED current limiter</option>
           </select>
-          <button id="load-example" class="outline-button" type="button">Load selected example</button>
-          <p class="limit-note">Three released projects. Other catalogue entries are planned and are not loadable yet.</p>
+          <button id="load-example" class="outline-button" type="button" data-i18n="loadSelectedExample">Load selected example</button>
+          <p class="limit-note" data-i18n="morePlannedExamples">Three projects released. Other catalogue entries are planned and cannot be loaded yet.</p>
         </section>
         <section class="simulation-control connection-control">
-          <h3>Electrical connections</h3>
+          <h3 data-i18n="electricalConnections">Electrical connections</h3>
           <form id="connection-form" class="connection-form">
-            <label for="connection-first">First pin</label><select id="connection-first" required></select>
-            <label for="connection-second">Second pin</label><select id="connection-second" required></select>
-            <button class="outline-button" type="submit">Connect pins</button>
+            <label for="connection-first" data-i18n="firstPin">First pin</label><select id="connection-first" required></select>
+            <label for="connection-second" data-i18n="secondPin">Second pin</label><select id="connection-second" required></select>
+            <button class="outline-button" type="submit" data-i18n="connectPins">Connect pins</button>
           </form>
           <ul id="net-list" class="net-list" aria-live="polite"></ul>
         </section>
