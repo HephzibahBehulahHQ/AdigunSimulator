@@ -245,10 +245,15 @@ function runAnalysis() {
       const { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn } = result.result;
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Ω`);
       log(`[RESULT] I=${(currentA * 1000).toFixed(3)} mA, Presistor=${(resistorPowerW * 1000).toFixed(3)} mW, LED ${ledOn ? "conducting" : "off"}.`);
-    } else {
+    } else if (kind === "voltage-divider") {
       const { sourceVoltage, upperResistance, lowerResistance, outputVoltage, currentA, totalPowerW } = result.result;
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Rupper=${upperResistance.toFixed(3)} Ω, Rlower=${lowerResistance.toFixed(3)} Ω`);
       log(`[RESULT] Vout=${outputVoltage.toFixed(3)} V, I=${(currentA * 1000).toFixed(3)} mA, Ptotal=${(totalPowerW * 1000).toFixed(3)} mW.`);
+    } else {
+      const { sourceVoltage, sourceCurrentA, nodeVoltages, resistors } = result.result;
+      log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Isource=${(sourceCurrentA * 1000).toFixed(3)} mA.`);
+      for (const [node, voltage] of Object.entries(nodeVoltages)) log(`[NODE] ${node}=${voltage.toFixed(3)} V`);
+      for (const item of resistors) log(`[RESISTOR] ${item.reference}: V=${item.voltage.toFixed(3)} V, I=${(item.currentA * 1000).toFixed(3)} mA, P=${(item.powerW * 1000).toFixed(3)} mW`);
     }
     log(`[LIMIT] ${result.message}`);
   } else log(`[${result.state.toUpperCase()}] ${result.message}`);
@@ -416,7 +421,7 @@ $("#grid-toggle").addEventListener("change", renderCanvas);
 $("#run-simulation").addEventListener("click", runAnalysis);
 $("#run-validation").addEventListener("click", validateAndReport);
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
-$("#help-button").addEventListener("click", () => showDialog("Implementation status", "Implemented: local project document, starter library, shared identity and net layouts, local save/import/export, validation, four UI locales, three tested native examples, and two bounded analytical DC calculations. Not implemented: a 1,000 verified-part catalogue, general SPICE/digital simulation, real PCB routing/DRC/manufacturing, cloud accounts, or an AI service."));
+$("#help-button").addEventListener("click", () => showDialog("Implementation status", "Implemented: local project document, starter library, shared identity and net layouts, local save/import/export, validation, four UI locales, three tested native examples, and bounded DC analysis for LED, voltage-divider, and linear resistor networks. Not implemented: a 1,000 verified-part catalogue, general SPICE/nonlinear/transient or digital simulation, real PCB routing/DRC/manufacturing, cloud accounts, or an AI service."));
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
 $("#import-file").addEventListener("change", async (event) => {
