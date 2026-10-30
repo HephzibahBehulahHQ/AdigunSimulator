@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-30",
+  "records": [
+    {
+      "id": "ti.lm555p",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "LM555P",
+      "category": "Active components",
+      "type": "555 timer",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "LM555 Timer datasheet (Rev. D)",
+        "url": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
+        "accessedAt": "2026-10-30"
+      },
+      "notes": "Authoritative candidate source recorded. Pin, footprint, model, checksum and reviewer evidence are not yet complete."
+    },
+    {
+      "id": "st.lm358dt",
+      "manufacturer": "STMicroelectronics",
+      "manufacturerPartNumber": "LM358DT",
+      "category": "Active components",
+      "type": "dual operational amplifier",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "LM358 product and datasheet page",
+        "url": "https://www.st.com/en/amplifiers-and-comparators/lm358.html",
+        "accessedAt": "2026-10-30"
+      },
+      "notes": "Authoritative candidate source recorded. It is not counted as verified until package/pin/footprint/model evidence is complete."
+    },
+    {
+      "id": "microchip.atmega328p-pu",
+      "manufacturer": "Microchip Technology",
+      "manufacturerPartNumber": "ATMEGA328P-PU",
+      "category": "Programmable controllers",
+      "type": "8-bit microcontroller",
+      "lifecycle": "not-recommended-for-new-designs",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "ATmega328P product and documentation page",
+        "url": "https://www.microchip.com/en-us/product/ATMEGA328P",
+        "accessedAt": "2026-10-30"
+      },
+      "notes": "Candidate only. The official source identifies the family as not recommended for new designs; no lifecycle claim is hidden."
+    },
+    {
+      "id": "nexperia.1n4148",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "1N4148",
+      "category": "Diodes",
+      "type": "high-speed switching diode",
+      "lifecycle": "end-of-life",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "1N4448 high-speed diode product page covering 1N4148/1N4448 family information",
+        "url": "https://www.nexperia.com/product/1N4448",
+        "accessedAt": "2026-10-30"
+      },
+      "notes": "Candidate only. The official product family page must be supplemented by an exact orderable-part datasheet before verification."
+    }
+  ]
+}
+
