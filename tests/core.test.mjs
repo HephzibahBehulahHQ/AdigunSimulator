@@ -92,6 +92,14 @@ test("native project serialization round-trips", () => {
   assert.deepEqual(parseProject(serializeProject(project)), project);
 });
 
+test("malformed imported project shapes return validation errors instead of throwing", () => {
+  for (const value of [null, [], {}, { schemaVersion: 1, metadata: { name: "Broken" }, components: [], nets: [null] }, { schemaVersion: 1, metadata: { name: "Broken" }, components: [], nets: [{ id: "NET" }] }]) {
+    assert.doesNotThrow(() => validateProject(value));
+    assert.equal(validateProject(value).valid, false);
+  }
+  assert.throws(() => parseProject(JSON.stringify({ schemaVersion: 1, metadata: { name: "Broken" }, components: [], nets: [{ id: "NET" }] })));
+});
+
 test("part ledger records authoritative candidate sources without counting candidates as verified", async () => {
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url)));
   assert.equal(validatePartLedger(ledger).valid, true);
