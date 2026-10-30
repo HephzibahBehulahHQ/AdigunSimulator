@@ -4,7 +4,7 @@ AdigunSimulator is a local-first electrical and electronics design workspace for
 
 ## Current implementation status
 
-The first implementation establishes a dependency-free browser foundation: a responsive engineering workspace, a versioned native project document, local save/export/import, a small explicitly labelled starter library, shared component identity across views, validation, four interface locales, and a real analytical DC result for the supplied LED-resistor demonstration circuit.
+The current implementation establishes a dependency-free browser foundation: a responsive engineering workspace, a versioned native project document, local save/export/import, a small explicitly labelled starter library, shared component identity across views, validation, four interface locales, and bounded analytical DC results for the supplied LED-resistor and unloaded two-resistor voltage-divider topologies. Three native example projects are released and tested.
 
 It does **not** yet claim a 1,000 verified-part library, general SPICE simulation, PCB manufacturing readiness, physical hardware safety, cloud accounts, or an AI service. Unsupported actions are disclosed in the interface rather than simulated.
 

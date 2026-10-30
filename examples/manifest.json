@@ -10,6 +10,26 @@
       "testId": "core-led-current-limiter",
       "projectFile": "examples/001-led-current-limiter.adigun.json",
       "safetyNote": "Educational low-voltage model only. Do not use the result as a physical-product, thermal, mains, or regulatory safety approval."
+    },
+    {
+      "id": "002-dc-voltage-divider",
+      "title": "Unloaded DC voltage divider",
+      "status": "released",
+      "objective": "Calculate unloaded output voltage, branch current, and total power for a 9 V, 1 kΩ / 2 kΩ divider.",
+      "acceptanceTest": "tests/core.test.mjs: a documented voltage divider produces bounded DC values",
+      "testId": "core-dc-voltage-divider",
+      "projectFile": "examples/002-dc-voltage-divider.adigun.json",
+      "safetyNote": "Educational low-voltage unloaded model only. A connected load changes the result; do not use it for a physical-product, thermal, mains, or regulatory safety approval."
+    },
+    {
+      "id": "003-led-current-limiter-9v",
+      "title": "9 V LED current limiter",
+      "status": "released",
+      "objective": "Calculate current and resistor dissipation for a 9 V source, 470 Ω resistor, and red LED.",
+      "acceptanceTest": "tests/core.test.mjs: released examples carry a native project, acceptance test, safety scope, and supported result",
+      "testId": "core-led-current-limiter-9v",
+      "projectFile": "examples/003-led-current-limiter-9v.adigun.json",
+      "safetyNote": "Educational low-voltage model only. Confirm actual LED limits, resistor wattage, supply tolerance, and heat before building hardware."
     }
   ]
 }
