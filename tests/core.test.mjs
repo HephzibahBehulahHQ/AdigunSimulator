@@ -171,6 +171,12 @@ test("released examples carry a native project, acceptance test, safety scope, a
   assert.equal(getExampleCoverage(registry).remaining, 197);
 });
 
+test("released example status cannot be asserted without passing CI evidence", () => {
+  const entry = { id: "x", title: "x", status: "released", objective: "x", acceptanceTest: "x", safetyNote: "x", testId: "x", projectFile: "examples/x.json" };
+  assert.ok(validateExampleRegistry({ schemaVersion: 1, examples: [entry] }).errors.some((issue) => issue.code === "RELEASE_RESULT"));
+  assert.ok(validateExampleRegistry({ schemaVersion: 1, examples: [null] }).errors.some((issue) => issue.code === "EXAMPLE_OBJECT"));
+});
+
 test("all supported UI locales contain every declared interface key", () => {
   for (const locale of UI_LOCALES) {
     for (const key of UI_KEYS) assert.ok(TRANSLATIONS[locale][key], `${locale} is missing ${key}`);
