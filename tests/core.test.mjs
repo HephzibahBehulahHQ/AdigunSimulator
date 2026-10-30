@@ -26,6 +26,33 @@ test("a documented voltage divider produces bounded DC values", () => {
   assert.equal(result.result.currentA, 0.003);
 });
 
+test("linear DC nodal analysis solves a resistor branch network", () => {
+  const project = createVoltageDividerProject({ sourceValue: "5 V", upperResistanceValue: "1 kΩ", lowerResistanceValue: "1 kΩ" });
+  project.components.push({ instanceId: "resistor-branch-1", libraryId: "passive.resistor", reference: "R3", value: "1 kΩ", position: { breadboard: [520, 140], schematic: [520, 140], pcb: [520, 140] } });
+  project.nets = [
+    { id: "VCC", endpoints: ["source-1:+", "resistor-top-1:1"] },
+    { id: "MID", endpoints: ["resistor-top-1:2", "resistor-bottom-1:1", "resistor-branch-1:1"] },
+    { id: "GND", endpoints: ["resistor-bottom-1:2", "resistor-branch-1:2", "source-1:-", "ground-1:0"] }
+  ];
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "resistive-network");
+  assert.ok(Math.abs(result.result.nodeVoltages.MID - (5 / 3)) < 1e-9);
+  assert.ok(Math.abs(result.result.sourceCurrentA - (5 / 1500)) < 1e-9);
+  assert.equal(result.result.resistors.length, 3);
+});
+
+test("linear DC nodal analysis blocks a floating resistor island", () => {
+  const project = createVoltageDividerProject();
+  project.nets = [
+    { id: "VCC", endpoints: ["source-1:+"] },
+    { id: "UPPER", endpoints: ["resistor-top-1:1", "resistor-top-1:2"] },
+    { id: "LOWER", endpoints: ["resistor-bottom-1:1", "resistor-bottom-1:2"] },
+    { id: "GND", endpoints: ["source-1:-", "ground-1:0"] }
+  ];
+  assert.equal(runSupportedAnalysis(project).state, "blocked");
+});
+
 test("a voltage divider with a broken netlist is blocked rather than guessed", () => {
   const project = createVoltageDividerProject();
   project.nets = [];
