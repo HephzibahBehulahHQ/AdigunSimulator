@@ -1,6 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { addComponent, createProject, parseProject, runSupportedAnalysis, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
+import { getLedgerCoverage, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -37,5 +39,20 @@ test("component insertion assigns a unique reference and retains project validit
 test("native project serialization round-trips", () => {
   const project = createProject();
   assert.deepEqual(parseProject(serializeProject(project)), project);
+});
+
+test("part ledger records authoritative candidate sources without counting candidates as verified", async () => {
+  const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url)));
+  assert.equal(validatePartLedger(ledger).valid, true);
+  const coverage = getLedgerCoverage(ledger);
+  assert.equal(coverage.total, 4);
+  assert.equal(coverage.verified, 0);
+  assert.equal(coverage.remaining, 1000);
+});
+
+test("a verified record cannot bypass checksum, mapping, model, and human-review evidence", () => {
+  const errors = validatePartRecord({ id: "unsafe.example", manufacturer: "Example", manufacturerPartNumber: "X1", category: "Test", type: "test", lifecycle: "active", verificationStatus: "verified", datasheet: { title: "Source", url: "https://example.invalid", accessedAt: "2026-10-30" } });
+  assert.ok(errors.some((error) => error.code === "DATASHEET_CHECKSUM"));
+  assert.ok(errors.some((error) => error.code === "VERIFIED_EVIDENCE"));
 });
 
