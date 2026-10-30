@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "examples": [
+    {
+      "id": "001-led-current-limiter",
+      "title": "LED current limiter",
+      "status": "released",
+      "objective": "Calculate the DC current and resistor dissipation for a 5 V source, 330 Ω resistor, and red LED.",
+      "acceptanceTest": "tests/core.test.mjs: starter project validates and produces a bounded analytical DC result",
+      "testId": "core-led-current-limiter",
+      "projectFile": "examples/001-led-current-limiter.adigun.json",
+      "safetyNote": "Educational low-voltage model only. Do not use the result as a physical-product, thermal, mains, or regulatory safety approval."
+    }
+  ]
+}
+
