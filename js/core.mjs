@@ -174,9 +174,12 @@ export function validateProject(project) {
     }
   }
   const endpointOwners = new Map();
+  const netIds = new Set();
   for (const net of nets) {
     if (!net || typeof net !== "object" || Array.isArray(net)) { errors.push({ rule: "NET_OBJECT", message: "Each net must be an object." }); continue; }
     if (typeof net.id !== "string" || !net.id.trim()) errors.push({ rule: "NET_ID", message: "Each net must have a non-empty identifier." });
+    else if (netIds.has(net.id)) errors.push({ rule: "DUPLICATE_NET_ID", message: `Net identifier ${net.id} is used more than once.` });
+    netIds.add(net.id);
     if (!Array.isArray(net.endpoints)) { errors.push({ rule: "NET_ENDPOINTS_ARRAY", message: `Net ${net.id || "unnamed"} endpoints must be an array.` }); continue; }
     if (net.endpoints.length < 2) warnings.push({ rule: "NET_ENDPOINTS", message: `Net ${net.id || "unnamed"} has fewer than two endpoints.` });
     const localEndpoints = new Set();
@@ -358,8 +361,8 @@ function analyseLedCurrentLimiter(project, { source, resistor, led, ground, vali
   const sourceVoltage = voltageValue(source.value);
   const resistance = resistanceValue(resistor.value);
   const ledVf = forwardVoltage(led.value);
-  if (!Number.isFinite(sourceVoltage) || !Number.isFinite(resistance) || !Number.isFinite(ledVf) || resistance <= 0) {
-    return { state: "blocked", message: "The demo needs a numeric voltage, positive resistance, and LED forward voltage." };
+  if (!Number.isFinite(sourceVoltage) || !Number.isFinite(resistance) || !Number.isFinite(ledVf) || resistance <= 0 || ledVf <= 0) {
+    return { state: "blocked", message: "The demo needs a numeric source voltage, positive resistance, and positive LED forward voltage.", validation };
   }
   const currentA = Math.max(0, (sourceVoltage - ledVf) / resistance);
   const resistorPowerW = currentA ** 2 * resistance;
