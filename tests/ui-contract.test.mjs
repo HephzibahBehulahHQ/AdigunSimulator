@@ -57,6 +57,16 @@ test("electrical connection controls route through the validated project net mod
   assert.match(app, /validateAndReport\(\)/);
 });
 
+test("net list supports cross-view probing and accessible selection state", async () => {
+  const [app, css] = await Promise.all([readFile(appFile, "utf8"), readFile(new URL("../styles.css", import.meta.url), "utf8")]);
+  assert.match(app, /data-net-id=/);
+  assert.match(app, /state\.selectedNetId = state\.selectedNetId === netButton\.dataset\.netId/);
+  assert.match(app, /aria-pressed="\$\{net\.id === state\.selectedNetId\}"/);
+  assert.match(app, /data-net="\$\{escape\(net\.id\)\}"/);
+  assert.match(css, /\.placed-component\.is-net-highlight/);
+  assert.match(css, /\.wire-layer \.is-net-highlight/);
+});
+
 test("the published example catalogue retains all 200 individually specified acceptance rows", async () => {
   const catalogue = await readFile(catalogueFile, "utf8");
   const rows = [...catalogue.matchAll(/^\|\s*(\d{1,3})\s*\|/gm)].map((match) => Number(match[1]));
