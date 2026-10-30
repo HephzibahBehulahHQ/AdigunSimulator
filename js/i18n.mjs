@@ -51,6 +51,11 @@ Object.assign(TRANSLATIONS.de, { availableAnalysis: "Verfügbar: LED-Strombegren
 Object.assign(TRANSLATIONS.yo, { availableAnalysis: "Ìṣirò tó wà: ààlà ìṣàn LED, voltage-divider tí kò ní ẹrù, àwọn nẹ́tìwọ́ọ̀kì DC olùtakò, àti ìdáhùn ìgbésẹ̀ RC kan." });
 Object.assign(TRANSLATIONS.pcm, { availableAnalysis: "Analysis wey dey: LED current limiter, unloaded voltage divider, DC resistor networks, and one RC step response." });
 
+Object.assign(TRANSLATIONS.en, { availableAnalysis: "Available analyses: LED current limiter, unloaded voltage divider, linear DC resistor networks, and first-order RC and RL step responses." });
+Object.assign(TRANSLATIONS.de, { availableAnalysis: "Verfügbar: LED-Strombegrenzung, unbelasteter Spannungsteiler, lineare Gleichstrom-Widerstandsnetze sowie RC- und RL-Sprungantworten erster Ordnung." });
+Object.assign(TRANSLATIONS.yo, { availableAnalysis: "Ìṣirò tó wà: ààlà ìṣàn LED, voltage-divider tí kò ní ẹrù, àwọn nẹ́tìwọ́ọ̀kì DC olùtakò, àti ìdáhùn ìgbésẹ̀ RC àti RL." });
+Object.assign(TRANSLATIONS.pcm, { availableAnalysis: "Analysis wey dey: LED current limiter, unloaded voltage divider, DC resistor networks, and first-order RC and RL step responses." });
+
 export function translate(locale, key) {
   return TRANSLATIONS[locale]?.[key] ?? TRANSLATIONS.en[key] ?? key;
 }
