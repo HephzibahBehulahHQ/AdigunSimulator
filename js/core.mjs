@@ -130,6 +130,44 @@ export function moveComponent(project, instanceId, view, position, { snap = fals
   return next;
 }
 
+export function connectPins(project, firstEndpoint, secondEndpoint) {
+  if (firstEndpoint === secondEndpoint) throw new Error("Choose two different component pins.");
+  for (const pinEndpoint of [firstEndpoint, secondEndpoint]) {
+    const [instanceId, pin] = String(pinEndpoint).split(":");
+    const component = project.components.find((item) => item.instanceId === instanceId);
+    const part = component && findLibraryPart(component.libraryId);
+    if (!part?.pins.includes(pin)) throw new Error(`Unknown component pin: ${pinEndpoint}`);
+  }
+  const next = clone(project);
+  const firstNet = next.nets.find((net) => net.endpoints.includes(firstEndpoint));
+  const secondNet = next.nets.find((net) => net.endpoints.includes(secondEndpoint));
+  if (firstNet && firstNet === secondNet) return next;
+  if (firstNet && secondNet) {
+    firstNet.endpoints = [...new Set([...firstNet.endpoints, ...secondNet.endpoints])];
+    next.nets = next.nets.filter((net) => net !== secondNet);
+  } else if (firstNet || secondNet) {
+    const target = firstNet ?? secondNet;
+    const endpointToAdd = firstNet ? secondEndpoint : firstEndpoint;
+    target.endpoints.push(endpointToAdd);
+  } else {
+    let index = 1;
+    while (next.nets.some((net) => net.id === `N${index}`)) index += 1;
+    next.nets.push({ id: `N${index}`, endpoints: [firstEndpoint, secondEndpoint] });
+  }
+  next.metadata.updatedAt = new Date().toISOString();
+  return next;
+}
+
+export function disconnectPin(project, pinEndpoint) {
+  const next = clone(project);
+  const net = next.nets.find((item) => item.endpoints.includes(pinEndpoint));
+  if (!net) return next;
+  net.endpoints = net.endpoints.filter((item) => item !== pinEndpoint);
+  if (net.endpoints.length < 2) next.nets = next.nets.filter((item) => item !== net);
+  next.metadata.updatedAt = new Date().toISOString();
+  return next;
+}
+
 export function validateProject(project) {
   const errors = [];
   const warnings = [];
