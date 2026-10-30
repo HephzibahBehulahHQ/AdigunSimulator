@@ -420,6 +420,25 @@ $("#language").addEventListener("change", (event) => {
 $("#grid-toggle").addEventListener("change", renderCanvas);
 $("#run-simulation").addEventListener("click", runAnalysis);
 $("#run-validation").addEventListener("click", validateAndReport);
+$("#load-example").addEventListener("click", async () => {
+  const path = $("#example-picker").value;
+  try {
+    const response = await fetch(path, { headers: { Accept: "application/json" } });
+    if (!response.ok) throw new Error(`The example request returned ${response.status}.`);
+    const project = parseProject(await response.text());
+    const analysis = runSupportedAnalysis(project);
+    if (analysis.state !== "complete") throw new Error("The selected example does not pass its supported analysis check.");
+    if (state.dirty && !confirm("Replace the current project with this released example? Export unsaved work first if you need it.")) return;
+    state.history = [];
+    state.future = [];
+    state.lastValidation = null;
+    state.activeOutput = "output";
+    replaceProject(project, { dirty: false });
+    log(`[EXAMPLE] Loaded and validated ${project.metadata.name}.`);
+  } catch (error) {
+    showDialog("Example unavailable", error instanceof Error ? error.message : "The selected example could not be loaded.");
+  }
+});
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
 $("#help-button").addEventListener("click", () => showDialog("Implementation status", "Implemented: local project document, starter library, shared identity and net layouts, local save/import/export, validation, four UI locales, three tested native examples, and bounded DC analysis for LED, voltage-divider, and linear resistor networks. Not implemented: a 1,000 verified-part catalogue, general SPICE/nonlinear/transient or digital simulation, real PCB routing/DRC/manufacturing, cloud accounts, or an AI service."));
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
