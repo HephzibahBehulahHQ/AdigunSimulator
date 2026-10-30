@@ -83,6 +83,10 @@ test("single-pole RC step response reports time constant and analytic samples", 
   const broken = structuredClone(project);
   broken.nets[1].endpoints = ["resistor-1:2"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
+  const overflow = structuredClone(project);
+  overflow.components.find((item) => item.instanceId === "resistor-1").value = "1e300 Ω";
+  overflow.components.find((item) => item.instanceId === "capacitor-1").value = "1e300 F";
+  assert.equal(runSupportedAnalysis(overflow).state, "blocked");
 });
 
 test("linear DC nodal analysis blocks a floating resistor island", () => {
