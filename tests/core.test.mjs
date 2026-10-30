@@ -76,6 +76,14 @@ test("invalid net endpoints are rejected before analysis", () => {
   assert.equal(runSupportedAnalysis(project).state, "blocked");
 });
 
+test("duplicate net identifiers and invalid LED forward voltage are blocked", () => {
+  const duplicate = createProject();
+  duplicate.nets[1].id = duplicate.nets[0].id;
+  assert.ok(validateProject(duplicate).errors.some((issue) => issue.rule === "DUPLICATE_NET_ID"));
+  const invalidLed = updateComponent(createProject(), "led-1", { value: "Vf -2.0 V" });
+  assert.equal(runSupportedAnalysis(invalidLed).state, "blocked");
+});
+
 test("electrical-rule validation warns about unconnected pins and blocks a source short", () => {
   const incomplete = addComponent(createProject(), "input.pushbutton");
   assert.ok(validateProject(incomplete).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"));
