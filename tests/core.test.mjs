@@ -14,6 +14,20 @@ test("invalid resistance blocks the supported analysis", () => {
   assert.equal(runSupportedAnalysis(project).state, "blocked");
 });
 
+test("invalid net endpoints are rejected before analysis", () => {
+  const project = createProject();
+  project.nets[0].endpoints.push("resistor-1:9");
+  const validation = validateProject(project);
+  assert.equal(validation.valid, false);
+  assert.equal(runSupportedAnalysis(project).state, "blocked");
+});
+
+test("a disconnected LED demo is not presented as a supported calculation", () => {
+  const project = createProject();
+  project.nets = [];
+  assert.equal(runSupportedAnalysis(project).state, "blocked");
+});
+
 test("component insertion assigns a unique reference and retains project validity", () => {
   const project = addComponent(createProject(), "input.pushbutton");
   assert.equal(project.components.at(-1).reference, "SW1");
