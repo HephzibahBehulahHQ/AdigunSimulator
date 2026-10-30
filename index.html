@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B1220" />
+    <meta name="description" content="AdigunSimulator local-first electrical and electronics design workspace." />
+    <title>AdigunSimulator — HB Elektroniker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#workspace">Skip to workspace</a>
+    <header class="identity-header">
+      <div class="identity">
+        <div class="logo-mark" aria-label="Hephzibah Behulah">HB</div>
+        <div class="owner">
+          <strong>HEPHZIBAH BEHULAH</strong>
+          <span>Technology · Knowledge · Impact</span>
+        </div>
+        <div class="identity-divider" aria-hidden="true"></div>
+        <div>
+          <h1>Adigun<span>Simulator</span></h1>
+          <p>BY HB ELEKTRONIKER <small>Design · Simulate · Prototype · Manufacture</small></p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <label class="global-search"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Search components, tools, or help…" /></label>
+        <label class="select-wrap"><span class="sr-only">Language</span><select id="language"><option value="en">English</option><option value="de">Deutsch</option><option value="yo">Yorùbá</option><option value="pcm">Nigerian Pidgin</option></select></label>
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch colour theme" title="Switch colour theme">☼</button>
+        <button id="help-button" class="icon-button" type="button" aria-label="Open implementation status" title="Implementation status">?</button>
+      </div>
+    </header>
+
+    <nav class="command-bar" aria-label="Application commands">
+      <div class="menu-buttons">
+        <button type="button" class="menu-button" data-action="new-project">⌑ <span data-i18n="newProject">New Project</span></button>
+        <button type="button" class="menu-button" data-action="import-project">⇧ <span data-i18n="import">Import</span></button>
+        <button type="button" class="menu-button" data-action="validate">✓ <span data-i18n="validate">Validate</span></button>
+        <button type="button" class="menu-button" data-action="undo">↶ <span data-i18n="undo">Undo</span></button>
+        <button type="button" class="menu-button" data-action="redo">↷ <span data-i18n="redo">Redo</span></button>
+        <button type="button" class="menu-button disabled-command" disabled title="Planned after the circuit core is expanded">Simulation</button>
+        <button type="button" class="menu-button disabled-command" disabled title="Planned after the PCB workflow is implemented">PCB</button>
+        <button type="button" class="menu-button disabled-command" disabled title="Planned tools are not represented as working">Tools</button>
+      </div>
+      <div class="project-actions">
+        <button id="new-project" class="gold-button" type="button" data-action="new-project" data-i18n="newProject">New Project</button>
+        <button id="open-project" class="secondary-button" type="button" data-action="import-project" data-i18n="open">Open</button>
+        <button id="save-project" class="secondary-button" type="button" data-action="save" data-i18n="save">Save</button>
+        <button id="export-project" class="secondary-button" type="button" data-action="export" data-i18n="export">Export</button>
+      </div>
+    </nav>
+
+    <main id="workspace" class="workspace">
+      <aside class="library-panel panel" aria-label="Components library">
+        <div class="panel-heading"><h2 data-i18n="components">Components</h2><button class="panel-close" type="button" aria-label="Collapse component library" data-collapse="library-panel">×</button></div>
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="component-search" type="search" placeholder="Search starter library…" /></label>
+        <div id="library-status" class="library-note">Starter generic library — not the verified 1,000-part catalogue.</div>
+        <ul id="component-list" class="component-list" aria-label="Starter components"></ul>
+        <section class="selected-library-part" aria-live="polite">
+          <p id="selected-part-type">Select a component</p>
+          <strong id="selected-part-name">No part selected</strong>
+          <span id="selected-part-detail">Search the available starter library.</span>
+          <button id="add-component" class="outline-button" type="button" disabled>Add to project</button>
+        </section>
+      </aside>
+
+      <section class="canvas-area" aria-label="Circuit design workspace">
+        <div class="view-tabs" role="tablist" aria-label="Circuit representations">
+          <button class="view-tab active" role="tab" aria-selected="true" data-view="breadboard">▦ <span data-i18n="breadboard">Breadboard View</span></button>
+          <button class="view-tab" role="tab" aria-selected="false" data-view="schematic">⌘ <span data-i18n="schematic">Schematic View</span></button>
+          <button class="view-tab" role="tab" aria-selected="false" data-view="pcb">▣ <span data-i18n="pcb">PCB View</span></button>
+          <span class="save-state" id="save-state" aria-live="polite">Unsaved changes</span>
+        </div>
+        <div class="canvas-toolbar" aria-label="Canvas toolbar">
+          <button type="button" class="toolbar-button active" data-tool="select" aria-pressed="true">↖ <span>Select</span></button>
+          <button type="button" class="toolbar-button" data-tool="pan" aria-pressed="false">✥ <span>Pan</span></button>
+          <button type="button" class="toolbar-button" data-tool="zoom-out">− <span>Zoom out</span></button>
+          <strong id="zoom-level">100%</strong>
+          <button type="button" class="toolbar-button" data-tool="zoom-in">+ <span>Zoom in</span></button>
+          <label><input id="snap-toggle" type="checkbox" checked /> Snap</label>
+          <label><input id="grid-toggle" type="checkbox" checked /> Grid</label>
+          <span class="toolbar-spacer"></span>
+          <button type="button" class="toolbar-button" data-action="undo">↶ <span>Undo</span></button>
+          <button type="button" class="toolbar-button" data-action="redo">↷ <span>Redo</span></button>
+        </div>
+        <div id="design-canvas" class="design-canvas grid-enabled" tabindex="0" aria-label="Breadboard representation. Select a component to inspect it."></div>
+        <div class="overview-row" aria-label="Synchronized view overview">
+          <section class="mini-view"><div class="mini-heading"><strong>Schematic View</strong><button type="button" data-view="schematic" aria-label="Maximize schematic view">↗</button></div><div id="schematic-mini" class="mini-canvas"></div></section>
+          <section class="mini-view"><div class="mini-heading"><strong>PCB View</strong><button type="button" data-view="pcb" aria-label="Maximize PCB view">↗</button></div><div id="pcb-mini" class="mini-canvas"></div></section>
+        </div>
+        <section class="output-panel panel" aria-label="Diagnostics and analysis output">
+          <div class="output-tabs"><button class="output-tab active" type="button" data-output="output">Simulation Output</button><button class="output-tab" type="button" data-output="errors">Errors (<span id="error-count">0</span>)</button><button class="output-tab" type="button" data-output="warnings">Warnings (<span id="warning-count">0</span>)</button></div>
+          <pre id="output-log" tabindex="0">[READY] Local project created. Run is available for the LED/resistor analytical demonstration only.</pre>
+        </section>
+      </section>
+
+      <aside class="inspector-panel panel" aria-label="Properties and simulation controls">
+        <div class="panel-heading"><h2 data-i18n="properties">Properties</h2><button class="panel-close" type="button" aria-label="Collapse properties" data-collapse="inspector-panel">×</button></div>
+        <div class="inspector-tabs" role="tablist"><button class="inspector-tab active" type="button" data-inspector="component">Component</button><button class="inspector-tab" type="button" data-inspector="project">Project</button><button class="inspector-tab" type="button" data-inspector="simulation">Simulation</button></div>
+        <form id="component-form" class="property-form">
+          <label>Type <input id="property-type" readonly /></label>
+          <label>Reference <input id="property-reference" required /></label>
+          <label>Value <input id="property-value" required /></label>
+          <label>Library status <input id="property-status" readonly /></label>
+          <button class="outline-button" type="submit">Apply properties</button>
+        </form>
+        <form id="project-form" class="property-form hidden">
+          <label>Project name <input id="project-name" required /></label>
+          <label>Locale <input id="project-locale" readonly /></label>
+          <button class="outline-button" type="submit">Apply project settings</button>
+        </form>
+        <section id="simulation-form" class="simulation-control hidden">
+          <h3>Simulation Control</h3>
+          <p>Available analysis: analytical DC LED demonstration.</p>
+          <button id="run-simulation" class="run-button" type="button">▶ Run calculation</button>
+          <button id="stop-simulation" class="secondary-button" type="button" disabled>■ Stop</button>
+          <p class="limit-note">General SPICE, digital and mixed-signal engines are not implemented yet.</p>
+        </section>
+        <section class="simulation-control">
+          <h3>Validation</h3>
+          <button id="run-validation" class="outline-button" type="button">Run validation</button>
+          <p id="validation-summary" class="limit-note">Run validation to inspect project issues.</p>
+        </section>
+      </aside>
+    </main>
+
+    <section id="bot" class="bot-panel" aria-label="Adigun BOT">
+      <header><span class="bot-orb" aria-hidden="true">◉</span><div><strong>Adigun BOT</strong><small>Your AI engineering assistant</small></div><button id="bot-collapse" type="button" aria-label="Minimize Adigun BOT">−</button></header>
+      <div id="bot-content"><p><strong>Not configured.</strong> This local foundation does not connect to an AI service or send project data externally.</p><p>Use the implementation status button for current supported features.</p><label class="bot-input"><input id="bot-input" disabled placeholder="AI service not configured" /><button disabled type="button" aria-label="Send to Adigun BOT">➤</button></label></div>
+    </section>
+
+    <input id="import-file" type="file" accept="application/json,.json,.adigun" hidden />
+    <dialog id="status-dialog"><div><h2 id="dialog-title">Status</h2><p id="dialog-message"></p><button id="dialog-close" class="gold-button" type="button">Close</button></div></dialog>
+    <footer><span>HB</span><strong>HEPHZIBAH BEHULAH</strong><span>AdigunSimulator · HB Elektroniker</span><a href="https://hephzibahbehulah.com/" target="_blank" rel="noreferrer">Corporate website</a></footer>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
+
