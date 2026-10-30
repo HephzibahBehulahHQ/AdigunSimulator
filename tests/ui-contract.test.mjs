@@ -67,6 +67,15 @@ test("net list supports cross-view probing and accessible selection state", asyn
   assert.match(css, /\.wire-layer \.is-net-highlight/);
 });
 
+test("keyboard shortcuts expose undo, redo, save, and selection removal", async () => {
+  const app = await readFile(appFile, "utf8");
+  assert.match(app, /modifier && key === "z"/);
+  assert.match(app, /modifier && key === "y"/);
+  assert.match(app, /modifier && key === "s"/);
+  assert.match(app, /event\.key === "Delete" \|\| event\.key === "Backspace"/);
+  assert.match(app, /const editingText = target instanceof HTMLElement/);
+});
+
 test("the published example catalogue retains all 200 individually specified acceptance rows", async () => {
   const catalogue = await readFile(catalogueFile, "utf8");
   const rows = [...catalogue.matchAll(/^\|\s*(\d{1,3})\s*\|/gm)].map((match) => Number(match[1]));
