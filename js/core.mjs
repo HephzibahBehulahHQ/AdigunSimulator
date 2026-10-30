@@ -5,7 +5,7 @@ const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistanc
 
 export const STARTER_LIBRARY = Object.freeze([
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
-  { id: "passive.resistor", category: "Passive", type: "Resistor", prefix: "R", pins: ["1", "2"], defaultValue: "330 Ω", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.capacitor", category: "Passive", type: "Capacitor", prefix: "C", pins: ["1", "2"], defaultValue: "100 µF", simulation: "analytical-rc-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "ground.signal", category: "Power & Ground", type: "Signal ground", prefix: "GND", pins: ["0"], defaultValue: "0 V", simulation: "reference", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -307,17 +307,21 @@ function resistanceValue(value) {
   return engineeringValue(value, "Ω");
 }
 
+function capacitanceValue(value) {
+  return engineeringValue(value, "F");
+}
+
 function forwardVoltage(value) {
   return engineeringValue(value, "V");
 }
 
 function engineeringValue(value, expectedUnit) {
-  const match = String(value).trim().match(/^(?:[A-Za-z]+\s+)?([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*([pnumkKMGµμ]?)(?:\s*(Ω|ohms?|[Vv]))?$/);
+  const match = String(value).trim().match(/^(?:[A-Za-z]+\s+)?([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*([pnumkKMGµμ]?)(?:\s*(Ω|ohms?|[VvFf]))?$/);
   if (!match) return Number.NaN;
   const unit = match[3];
   if (unit) {
     const isOhm = unit === "Ω" || /^ohms?$/i.test(unit);
-    if ((expectedUnit === "Ω" && !isOhm) || (expectedUnit === "V" && !/^[Vv]$/.test(unit))) return Number.NaN;
+    if ((expectedUnit === "Ω" && !isOhm) || (expectedUnit === "V" && !/^[Vv]$/.test(unit)) || (expectedUnit === "F" && !/^[Ff]$/.test(unit))) return Number.NaN;
   }
   const multipliers = { p: 1e-12, n: 1e-9, u: 1e-6, "µ": 1e-6, "μ": 1e-6, m: 1e-3, k: 1e3, K: 1e3, M: 1e6, G: 1e9, "": 1 };
   const parsed = Number(match[1]) * multipliers[match[2]];
@@ -329,6 +333,7 @@ export function runSupportedAnalysis(project) {
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const resistor = project.components.filter((item) => item.libraryId === "passive.resistor");
+  const capacitor = project.components.filter((item) => item.libraryId === "passive.capacitor");
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
   if (source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length >= 1) {
@@ -338,10 +343,36 @@ export function runSupportedAnalysis(project) {
     const divider = findVoltageDivider(project, source[0], resistor, ground[0]);
     if (divider) return analyseVoltageDivider(project, { source: source[0], ground: ground[0], validation, ...divider });
   }
+  if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRcStep(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
   if (source.length === 1 && resistor.length > 0 && resistor.length === project.components.length - source.length - ground.length && ground.length >= 1) {
     return analyseResistiveNetwork(project, { source: source[0], resistors: resistor, ground: ground[0], validation });
   }
-  return { state: "unsupported", message: "This foundation can analyse only the documented DC LED current-limiter and two-resistor DC voltage-divider topologies. General SPICE/digital simulation is not implemented.", validation };
+  return { state: "unsupported", message: "This foundation supports only the documented analytical DC circuits and single-pole RC step response. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
+}
+
+function analyseRcStep(project, { source, resistor, capacitor, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const resistance = resistanceValue(resistor.value);
+  const capacitance = capacitanceValue(capacitor.value);
+  if (![sourceVoltage, resistance, capacitance].every(Number.isFinite) || sourceVoltage <= 0 || resistance <= 0 || capacitance <= 0) return { state: "blocked", message: "The RC step model requires positive numeric source voltage, resistance, and capacitance values.", validation };
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const sourcePositive = netByEndpoint.get(endpoint(source, "+"));
+  const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
+  const resistorInput = netByEndpoint.get(endpoint(resistor, "1"));
+  const resistorOutput = netByEndpoint.get(endpoint(resistor, "2"));
+  const capacitorInput = netByEndpoint.get(endpoint(capacitor, "1"));
+  const capacitorReturn = netByEndpoint.get(endpoint(capacitor, "2"));
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  if (!sourcePositive || sourcePositive !== resistorInput || !resistorOutput || resistorOutput !== capacitorInput || !groundNet || groundNet !== capacitorReturn || groundNet !== sourceNegative || sourcePositive === groundNet) return { state: "blocked", message: "The RC step model requires source positive → resistor → capacitor → ground, with source negative on the same ground reference.", validation };
+  const timeConstantS = resistance * capacitance;
+  const samples = [0, 1, 3, 5].map((multiples) => {
+    const timeS = multiples * timeConstantS;
+    const capacitorVoltage = sourceVoltage * (1 - Math.exp(-multiples));
+    const currentA = (sourceVoltage / resistance) * Math.exp(-multiples);
+    return { timeS, capacitorVoltage, currentA, resistorPowerW: currentA ** 2 * resistance };
+  });
+  return { state: "complete", engine: "Analytical first-order RC step response", message: "Solved an ideal single-pole RC response to a DC step from zero initial capacitor voltage. Parasitics, source impedance, tolerances, nonlinear effects, and general SPICE are not included.", result: { kind: "rc-step-response", sourceVoltage, resistance, capacitance, timeConstantS, samples }, validation };
 }
 
 function analyseResistiveNetwork(project, { source, resistors, ground, validation }) {
