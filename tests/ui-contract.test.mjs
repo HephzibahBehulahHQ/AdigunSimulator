@@ -5,6 +5,7 @@ import { UI_KEYS, UI_LOCALES } from "../js/i18n.mjs";
 
 const indexFile = new URL("../index.html", import.meta.url);
 const appFile = new URL("../app.js", import.meta.url);
+const catalogueFile = new URL("../docs/EXAMPLE_CATALOGUE.md", import.meta.url);
 
 function values(text, expression) {
   return [...text.matchAll(expression)].map((match) => match[1]);
@@ -25,5 +26,13 @@ test("enabled project commands are implemented while unreleased tools remain dis
   for (const command of ["Simulation", "PCB", "Tools"]) {
     assert.match(html, new RegExp(`<button[^>]*disabled-command[^>]*disabled[^>]*>${command}</button>`));
   }
+});
+
+test("the published example catalogue retains all 200 individually specified acceptance rows", async () => {
+  const catalogue = await readFile(catalogueFile, "utf8");
+  const rows = [...catalogue.matchAll(/^\|\s*(\d{1,3})\s*\|/gm)].map((match) => Number(match[1]));
+  assert.equal(rows.length, 200);
+  assert.deepEqual(rows, Array.from({ length: 200 }, (_, index) => index + 1));
+  assert.match(catalogue, /row specifies[\s\S]*implemented or passed/i);
 });
 
