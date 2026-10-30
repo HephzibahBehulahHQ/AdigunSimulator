@@ -22,6 +22,7 @@ const translations = {
 const state = {
   project: loadProject(),
   selectedLibraryId: null,
+  activeCategory: "All",
   selectedInstanceId: "resistor-1",
   activeView: "breadboard",
   activeInspector: "component",
@@ -90,7 +91,7 @@ function selectedComponent() {
 
 function renderLibrary() {
   const query = $("#component-search").value.trim().toLowerCase();
-  const matching = STARTER_LIBRARY.filter((part) => `${part.type} ${part.id}`.toLowerCase().includes(query));
+  const matching = STARTER_LIBRARY.filter((part) => (state.activeCategory === "All" || part.category === state.activeCategory) && `${part.type} ${part.id} ${part.category}`.toLowerCase().includes(query));
   $("#component-list").innerHTML = matching.map((part) => `
     <li><button type="button" class="component-item ${part.id === state.selectedLibraryId ? "selected" : ""}" data-library-id="${escape(part.id)}">
       <span class="component-icon">◇</span><span><strong>${escape(part.type)}</strong><small>${escape(part.defaultValue)} · ${escape(part.simulation)}</small></span>
@@ -249,6 +250,12 @@ document.addEventListener("click", (event) => {
   if (action) handleAction(action);
   const libraryButton = event.target.closest("[data-library-id]");
   if (libraryButton) { state.selectedLibraryId = libraryButton.dataset.libraryId; renderLibrary(); }
+  const categoryButton = event.target.closest("[data-category]");
+  if (categoryButton) {
+    state.activeCategory = categoryButton.dataset.category;
+    $$(".category-filter").forEach((button) => button.classList.toggle("active", button === categoryButton));
+    renderLibrary();
+  }
   const instanceButton = event.target.closest("[data-instance-id]");
   if (instanceButton) { state.selectedInstanceId = instanceButton.dataset.instanceId; render(); }
   const viewButton = event.target.closest("[data-view]");
