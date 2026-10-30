@@ -122,6 +122,17 @@ test("component insertion assigns a unique reference and retains project validit
   assert.equal(validateProject(project).valid, true);
 });
 
+test("added components use open canvas positions in each representation", () => {
+  let project = createEmptyProject();
+  for (let index = 0; index < 12; index += 1) project = addComponent(project, "passive.resistor");
+  const overlaps = validateProject(project).warnings.filter((issue) => issue.rule === "LAYOUT_OVERLAP");
+  assert.deepEqual(overlaps, []);
+  for (const view of ["breadboard", "schematic", "pcb"]) {
+    const coordinates = project.components.map((item) => item.position[view]);
+    assert.equal(new Set(coordinates.map((position) => position.join(","))).size, coordinates.length);
+  }
+});
+
 test("component movement is view-specific, bounded, and may snap to the grid", () => {
   const moved = moveComponent(createProject(), "resistor-1", "schematic", [300, 147], { snap: true });
   const resistor = moved.components.find((component) => component.instanceId === "resistor-1");

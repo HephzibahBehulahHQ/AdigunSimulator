@@ -109,14 +109,22 @@ export function nextReference(project, libraryId) {
 export function addComponent(project, libraryId) {
   const part = findLibraryPart(libraryId);
   if (!part) throw new Error(`Unknown library component: ${libraryId}`);
+  const positions = Object.fromEntries(DESIGN_VIEWS.map((view) => [view, nextFreePosition(project, view)]));
   const item = {
     instanceId: cryptoSafeId(),
     libraryId,
     reference: nextReference(project, libraryId),
     value: part.defaultValue,
-    position: { breadboard: [180, 168], schematic: [310, 168], pcb: [320, 164] }
+    position: positions
   };
   return { ...project, components: [...project.components, item], metadata: { ...project.metadata, updatedAt: new Date().toISOString() } };
+}
+
+function nextFreePosition(project, view) {
+  const existing = (project.components ?? []).map((item) => item.position?.[view]).filter((position) => Array.isArray(position) && position.length === 2);
+  const candidates = [];
+  for (let y = 60; y <= 228; y += 48) for (let x = 48; x <= 600; x += 72) candidates.push([x, y]);
+  return candidates.find(([x, y]) => existing.every(([otherX, otherY]) => Math.hypot(x - otherX, y - otherY) >= CANVAS_LIMITS.overlapDistance)) ?? [48, 228];
 }
 
 export function updateComponent(project, instanceId, changes) {
