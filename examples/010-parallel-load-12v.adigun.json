@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "example-010-parallel-load-12v",
+  "metadata": { "name": "12 V Parallel Resistor Load", "locale": "en", "createdAt": "2026-10-31T00:00:00.000Z", "updatedAt": "2026-10-31T00:00:00.000Z" },
+  "components": [
+    { "instanceId": "source-1", "libraryId": "power.dc-source", "reference": "V1", "value": "12 V", "position": { "breadboard": [60, 142], "schematic": [95, 128], "pcb": [92, 130] } },
+    { "instanceId": "resistor-top-1", "libraryId": "passive.resistor", "reference": "R1", "value": "1 kΩ", "position": { "breadboard": [250, 122], "schematic": [260, 112], "pcb": [244, 112] } },
+    { "instanceId": "resistor-bottom-1", "libraryId": "passive.resistor", "reference": "R2", "value": "2 kΩ", "position": { "breadboard": [425, 118], "schematic": [438, 118], "pcb": [418, 118] } },
+    { "instanceId": "resistor-branch-1", "libraryId": "passive.resistor", "reference": "R3", "value": "3 kΩ", "position": { "breadboard": [425, 205], "schematic": [438, 205], "pcb": [418, 205] } },
+    { "instanceId": "ground-1", "libraryId": "ground.signal", "reference": "GND", "value": "0 V", "position": { "breadboard": [600, 175], "schematic": [600, 175], "pcb": [550, 175] } }
+  ],
+  "nets": [
+    { "id": "VCC", "endpoints": ["source-1:+", "resistor-top-1:1"] },
+    { "id": "MID", "endpoints": ["resistor-top-1:2", "resistor-bottom-1:1", "resistor-branch-1:1"] },
+    { "id": "GND", "endpoints": ["resistor-bottom-1:2", "resistor-branch-1:2", "source-1:-", "ground-1:0"] }
+  ],
+  "history": []
+}

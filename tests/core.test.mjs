@@ -252,6 +252,41 @@ test("a verified record cannot bypass checksum, mapping, model, and human-review
   assert.ok(errors.some((error) => error.code === "VERIFIED_EVIDENCE"));
 });
 
+test("12 V LED limiter example calculates the documented current", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/007-led-current-limiter-12v.adigun.json", import.meta.url)));
+  const result = runSupportedAnalysis(project);
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(result.state, "complete");
+  assert.ok(Math.abs(result.result.currentA - (10 / 2200)) < 1e-12);
+});
+
+test("3.3 V LED limiter example calculates the documented current", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/008-led-current-limiter-3v3.adigun.json", import.meta.url)));
+  const result = runSupportedAnalysis(project);
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(result.state, "complete");
+  assert.ok(Math.abs(result.result.currentA - (1.3 / 150)) < 1e-12);
+});
+
+test("3 kΩ / 1 kΩ divider example calculates output voltage", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/009-dc-voltage-divider-3k-1k.adigun.json", import.meta.url)));
+  const result = runSupportedAnalysis(project);
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "voltage-divider");
+  assert.equal(result.result.outputVoltage, 2.25);
+});
+
+test("12 V parallel load example solves its midpoint and source current", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/010-parallel-load-12v.adigun.json", import.meta.url)));
+  const result = runSupportedAnalysis(project);
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "resistive-network");
+  assert.ok(Math.abs(result.result.nodeVoltages.MID - (12 * 6 / 11)) < 1e-9);
+  assert.ok(Math.abs(result.result.sourceCurrentA - (12 / 2200)) < 1e-12);
+});
+
 test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
