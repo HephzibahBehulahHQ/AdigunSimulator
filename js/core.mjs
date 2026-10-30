@@ -1,5 +1,6 @@
 export const SCHEMA_VERSION = 1;
 export const DESIGN_VIEWS = Object.freeze(["breadboard", "schematic", "pcb"]);
+const UI_LOCALES_FOR_PROJECT = Object.freeze(["en", "de", "yo", "pcm"]);
 const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistance: 34 });
 
 export const STARTER_LIBRARY = Object.freeze([
@@ -132,14 +133,24 @@ export function moveComponent(project, instanceId, view, position, { snap = fals
 export function validateProject(project) {
   const errors = [];
   const warnings = [];
-  if (!project || project.schemaVersion !== SCHEMA_VERSION) errors.push({ rule: "SCHEMA_VERSION", message: "Project schema is missing or unsupported." });
-  if (!project?.metadata?.name?.trim()) errors.push({ rule: "PROJECT_NAME", message: "Project name is required." });
+  if (!project || typeof project !== "object" || Array.isArray(project)) {
+    return { errors: [{ rule: "PROJECT_OBJECT", message: "Project document must be a JSON object." }], warnings, valid: false };
+  }
+  if (project.schemaVersion !== SCHEMA_VERSION) errors.push({ rule: "SCHEMA_VERSION", message: "Project schema is missing or unsupported." });
+  if (!project.metadata || typeof project.metadata !== "object" || Array.isArray(project.metadata)) errors.push({ rule: "METADATA_OBJECT", message: "Project metadata must be an object." });
+  if (typeof project.metadata?.name !== "string" || !project.metadata.name.trim()) errors.push({ rule: "PROJECT_NAME", message: "Project name is required." });
+  if (project.metadata?.locale && !UI_LOCALES_FOR_PROJECT.includes(project.metadata.locale)) warnings.push({ rule: "PROJECT_LOCALE", message: `Project locale ${project.metadata.locale} is unsupported; English fallback will be used.` });
+  if (!Array.isArray(project.components)) errors.push({ rule: "COMPONENTS_ARRAY", message: "Project components must be an array." });
+  if (!Array.isArray(project.nets)) errors.push({ rule: "NETS_ARRAY", message: "Project nets must be an array." });
+  const components = Array.isArray(project.components) ? project.components : [];
+  const nets = Array.isArray(project.nets) ? project.nets : [];
   const ids = new Set();
   const references = new Set();
-  for (const item of project?.components ?? []) {
-    if (!item.instanceId || ids.has(item.instanceId)) errors.push({ rule: "COMPONENT_ID", message: `Component instance IDs must be unique (${item.reference || "unnamed"}).` });
+  for (const item of components) {
+    if (!item || typeof item !== "object" || Array.isArray(item)) { errors.push({ rule: "COMPONENT_OBJECT", message: "Each component must be an object." }); continue; }
+    if (typeof item.instanceId !== "string" || !item.instanceId || ids.has(item.instanceId)) errors.push({ rule: "COMPONENT_ID", message: `Component instance IDs must be unique (${item.reference || "unnamed"}).` });
     ids.add(item.instanceId);
-    if (!item.reference || references.has(item.reference)) errors.push({ rule: "REFERENCE", message: `Reference designators must be unique (${item.reference || "unnamed"}).` });
+    if (typeof item.reference !== "string" || !item.reference.trim() || references.has(item.reference)) errors.push({ rule: "REFERENCE", message: `Reference designators must be unique (${item.reference || "unnamed"}).` });
     references.add(item.reference);
     if (!findLibraryPart(item.libraryId)) warnings.push({ rule: "UNLOCKED_LIBRARY", message: `${item.reference || "Component"} is not in the starter library.` });
     for (const view of DESIGN_VIEWS) {
@@ -148,10 +159,11 @@ export function validateProject(project) {
     }
   }
   for (const view of DESIGN_VIEWS) {
-    for (let first = 0; first < (project?.components?.length ?? 0); first += 1) {
-      for (let second = first + 1; second < (project?.components?.length ?? 0); second += 1) {
-        const a = project.components[first];
-        const b = project.components[second];
+    for (let first = 0; first < components.length; first += 1) {
+      for (let second = first + 1; second < components.length; second += 1) {
+        const a = components[first];
+        const b = components[second];
+        if (!a || !b || typeof a !== "object" || typeof b !== "object") continue;
         const aPosition = a.position?.[view];
         const bPosition = b.position?.[view];
         if (!Array.isArray(aPosition) || !Array.isArray(bPosition)) continue;
@@ -162,12 +174,15 @@ export function validateProject(project) {
     }
   }
   const endpointOwners = new Map();
-  for (const net of project?.nets ?? []) {
-    if (!net.id || net.endpoints.length < 2) warnings.push({ rule: "NET_ENDPOINTS", message: `Net ${net.id || "unnamed"} has fewer than two endpoints.` });
+  for (const net of nets) {
+    if (!net || typeof net !== "object" || Array.isArray(net)) { errors.push({ rule: "NET_OBJECT", message: "Each net must be an object." }); continue; }
+    if (typeof net.id !== "string" || !net.id.trim()) errors.push({ rule: "NET_ID", message: "Each net must have a non-empty identifier." });
+    if (!Array.isArray(net.endpoints)) { errors.push({ rule: "NET_ENDPOINTS_ARRAY", message: `Net ${net.id || "unnamed"} endpoints must be an array.` }); continue; }
+    if (net.endpoints.length < 2) warnings.push({ rule: "NET_ENDPOINTS", message: `Net ${net.id || "unnamed"} has fewer than two endpoints.` });
     const localEndpoints = new Set();
     for (const endpoint of net.endpoints ?? []) {
       const [instanceId, pin] = String(endpoint).split(":");
-      const component = project.components.find((item) => item.instanceId === instanceId);
+      const component = components.find((item) => item?.instanceId === instanceId);
       const part = component && findLibraryPart(component.libraryId);
       if (!component || !part || !part.pins.includes(pin)) {
         errors.push({ rule: "NET_ENDPOINT", message: `Net ${net.id || "unnamed"} references an unknown endpoint (${endpoint}).` });
@@ -181,18 +196,19 @@ export function validateProject(project) {
       endpointOwners.set(endpoint, net.id);
     }
   }
-  for (const item of project?.components ?? []) {
+  for (const item of components) {
+    if (!item || typeof item !== "object") continue;
     const part = findLibraryPart(item.libraryId);
     if (!part) continue;
     for (const pin of part.pins) {
       if (!endpointOwners.has(endpoint(item, pin))) warnings.push({ rule: "UNCONNECTED_PIN", message: `${item.reference} pin ${pin} is not connected to a project net.` });
     }
     if (item.libraryId === "power.dc-source") {
-      const sourceIsShorted = project.nets.some((net) => net.endpoints.includes(endpoint(item, "+")) && net.endpoints.includes(endpoint(item, "-")));
+      const sourceIsShorted = nets.some((net) => Array.isArray(net?.endpoints) && net.endpoints.includes(endpoint(item, "+")) && net.endpoints.includes(endpoint(item, "-")));
       if (sourceIsShorted) errors.push({ rule: "SOURCE_SHORT", message: `${item.reference} positive and negative pins are connected to the same net.` });
     }
   }
-  if ((project?.components ?? []).length && !(project?.components ?? []).some((item) => item.libraryId === "ground.signal")) {
+  if (components.length && !components.some((item) => item?.libraryId === "ground.signal")) {
     warnings.push({ rule: "NO_REFERENCE", message: "The project has no signal-ground reference component." });
   }
   return { errors, warnings, valid: errors.length === 0 };
