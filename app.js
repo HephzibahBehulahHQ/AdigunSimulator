@@ -10,14 +10,9 @@ import {
   updateComponent,
   validateProject
 } from "./js/core.mjs";
+import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 
 const STORAGE_KEY = "adigun-simulator.project.v1";
-const translations = {
-  en: { newProject: "New Project", import: "Import", validate: "Validate", undo: "Undo", redo: "Redo", open: "Open", save: "Save", export: "Export", components: "Components", breadboard: "Breadboard View", schematic: "Schematic View", pcb: "PCB View", properties: "Properties" },
-  de: { newProject: "Neues Projekt", import: "Importieren", validate: "Prüfen", undo: "Rückgängig", redo: "Wiederholen", open: "Öffnen", save: "Speichern", export: "Exportieren", components: "Bauteile", breadboard: "Steckbrett", schematic: "Schaltplan", pcb: "Leiterplatte", properties: "Eigenschaften" },
-  yo: { newProject: "Iṣẹ́ tuntun", import: "Gbé wọlé", validate: "Ṣàyẹ̀wò", undo: "Padà", redo: "Tún ṣe", open: "Ṣí", save: "Fipamọ́", export: "Gbé jáde", components: "Àwọn ẹ̀yà", breadboard: "Pátákó ìdánwò", schematic: "Àwòrán asopọ", pcb: "PCB", properties: "Àwọn àbùdá" },
-  pcm: { newProject: "New Project", import: "Bring am enter", validate: "Check am", undo: "Undo am", redo: "Do am again", open: "Open", save: "Save", export: "Export", components: "Parts", breadboard: "Breadboard View", schematic: "Circuit drawing", pcb: "PCB View", properties: "Properties" }
-};
 
 const state = {
   project: loadProject(),
@@ -36,6 +31,7 @@ const state = {
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const escape = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
+const t = (key) => translate(state.project.metadata.locale, key);
 
 function loadProject() {
   try {
@@ -95,11 +91,11 @@ function renderLibrary() {
   $("#component-list").innerHTML = matching.map((part) => `
     <li><button type="button" class="component-item ${part.id === state.selectedLibraryId ? "selected" : ""}" data-library-id="${escape(part.id)}">
       <span class="component-icon">◇</span><span><strong>${escape(part.type)}</strong><small>${escape(part.defaultValue)} · ${escape(part.simulation)}</small></span>
-    </button></li>`).join("") || "<li class=\"empty-list\">No starter components match the search.</li>";
+    </button></li>`).join("") || `<li class="empty-list">${escape(t("libraryHelp"))}</li>`;
   const part = findLibraryPart(state.selectedLibraryId);
-  $("#selected-part-type").textContent = part ? part.type : "Select a component";
-  $("#selected-part-name").textContent = part ? part.id : "No part selected";
-  $("#selected-part-detail").textContent = part ? `${part.status}; simulation: ${part.simulation}.` : "Search the available starter library.";
+  $("#selected-part-type").textContent = part ? part.type : t("selectComponent");
+  $("#selected-part-name").textContent = part ? part.id : t("noPartSelected");
+  $("#selected-part-detail").textContent = part ? `${part.status}; simulation: ${part.simulation}.` : t("libraryHelp");
   $("#add-component").disabled = !part;
 }
 
@@ -153,15 +149,18 @@ function renderValidation() {
   $("#error-count").textContent = validation.errors.length;
   $("#warning-count").textContent = validation.warnings.length;
   $("#validation-summary").textContent = validation.valid
-    ? `${validation.warnings.length} warning(s); no blocking project schema errors.`
+    ? (state.lastValidation ? `${validation.warnings.length} warning(s); no blocking project schema errors.` : t("validationHelp"))
     : `${validation.errors.length} error(s) block analysis.`;
 }
 
 function applyLocale() {
   const locale = state.project.metadata.locale;
-  const messages = translations[locale] ?? translations.en;
+  const messages = TRANSLATIONS[locale] ?? TRANSLATIONS.en;
   document.documentElement.lang = locale;
-  $$('[data-i18n]').forEach((node) => { node.textContent = messages[node.dataset.i18n] ?? translations.en[node.dataset.i18n] ?? node.textContent; });
+  $$("[data-i18n]").forEach((node) => { node.textContent = messages[node.dataset.i18n] ?? TRANSLATIONS.en[node.dataset.i18n] ?? node.textContent; });
+  $$("[data-i18n-placeholder]").forEach((node) => { node.placeholder = messages[node.dataset.i18nPlaceholder] ?? TRANSLATIONS.en[node.dataset.i18nPlaceholder] ?? node.placeholder; });
+  $$("[data-i18n-aria]").forEach((node) => { node.setAttribute("aria-label", messages[node.dataset.i18nAria] ?? TRANSLATIONS.en[node.dataset.i18nAria] ?? node.getAttribute("aria-label")); });
+  $$("[data-i18n-title]").forEach((node) => { node.title = messages[node.dataset.i18nTitle] ?? TRANSLATIONS.en[node.dataset.i18nTitle] ?? node.title; });
   $("#language").value = locale;
 }
 

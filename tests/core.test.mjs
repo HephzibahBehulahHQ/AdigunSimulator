@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { addComponent, createProject, getViewReconciliationIssues, parseProject, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
 import { getLedgerCoverage, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
+import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -81,5 +82,12 @@ test("released examples carry a native project, acceptance test, and safety scop
   assert.equal(runSupportedAnalysis(example).state, "complete");
   assert.equal(getExampleCoverage(registry).released, 1);
   assert.equal(getExampleCoverage(registry).remaining, 199);
+});
+
+test("all supported UI locales contain every declared interface key", () => {
+  for (const locale of UI_LOCALES) {
+    for (const key of UI_KEYS) assert.ok(TRANSLATIONS[locale][key], `${locale} is missing ${key}`);
+  }
+  assert.equal(translate("unsupported-locale", "newProject"), "New Project");
 });
 
