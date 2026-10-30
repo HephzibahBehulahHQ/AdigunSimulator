@@ -367,6 +367,7 @@ function analyseRcStep(project, { source, resistor, capacitor, ground, validatio
   const groundNet = netByEndpoint.get(endpoint(ground, "0"));
   if (!sourcePositive || sourcePositive !== resistorInput || !resistorOutput || resistorOutput !== capacitorInput || !groundNet || groundNet !== capacitorReturn || groundNet !== sourceNegative || sourcePositive === groundNet) return { state: "blocked", message: "The RC step model requires source positive → resistor → capacitor → ground, with source negative on the same ground reference.", validation };
   const timeConstantS = resistance * capacitance;
+  if (!Number.isFinite(timeConstantS) || timeConstantS > Number.MAX_VALUE / 5) return { state: "blocked", message: "The RC time constant is outside the numerically supported range; reduce the resistance or capacitance.", validation };
   const samples = [0, 1, 3, 5].map((multiples) => {
     const timeS = multiples * timeConstantS;
     const capacitorVoltage = sourceVoltage * (1 - Math.exp(-multiples));
