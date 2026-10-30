@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "example-006-rl-step-response",
+  "metadata": { "name": "5 V RL Step Response", "locale": "en", "createdAt": "2026-10-31T00:00:00.000Z", "updatedAt": "2026-10-31T00:00:00.000Z" },
+  "components": [
+    { "instanceId": "source-1", "libraryId": "power.dc-source", "reference": "V1", "value": "5 V", "position": { "breadboard": [60, 142], "schematic": [95, 128], "pcb": [92, 130] } },
+    { "instanceId": "resistor-1", "libraryId": "passive.resistor", "reference": "R1", "value": "100 Ω", "position": { "breadboard": [250, 142], "schematic": [260, 128], "pcb": [244, 128] } },
+    { "instanceId": "inductor-1", "libraryId": "passive.inductor", "reference": "L1", "value": "100 mH", "position": { "breadboard": [435, 142], "schematic": [445, 128], "pcb": [425, 128] } },
+    { "instanceId": "ground-1", "libraryId": "ground.signal", "reference": "GND", "value": "0 V", "position": { "breadboard": [570, 220], "schematic": [570, 220], "pcb": [520, 220] } }
+  ],
+  "nets": [
+    { "id": "VCC", "endpoints": ["source-1:+", "resistor-1:1"] },
+    { "id": "RL_NODE", "endpoints": ["resistor-1:2", "inductor-1:1"] },
+    { "id": "GND", "endpoints": ["inductor-1:2", "source-1:-", "ground-1:0"] }
+  ],
+  "history": []
+}
