@@ -197,10 +197,17 @@ function runAnalysis() {
   validateAndReport();
   const result = runSupportedAnalysis(state.project);
   if (result.state === "complete") {
-    const { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn } = result.result;
+    const { kind } = result.result;
     log(`[ANALYSIS] ${result.engine}`);
-    log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Ω`);
-    log(`[RESULT] I=${(currentA * 1000).toFixed(3)} mA, Presistor=${(resistorPowerW * 1000).toFixed(3)} mW, LED ${ledOn ? "conducting" : "off"}.`);
+    if (kind === "led-current-limiter") {
+      const { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn } = result.result;
+      log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Ω`);
+      log(`[RESULT] I=${(currentA * 1000).toFixed(3)} mA, Presistor=${(resistorPowerW * 1000).toFixed(3)} mW, LED ${ledOn ? "conducting" : "off"}.`);
+    } else {
+      const { sourceVoltage, upperResistance, lowerResistance, outputVoltage, currentA, totalPowerW } = result.result;
+      log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Rupper=${upperResistance.toFixed(3)} Ω, Rlower=${lowerResistance.toFixed(3)} Ω`);
+      log(`[RESULT] Vout=${outputVoltage.toFixed(3)} V, I=${(currentA * 1000).toFixed(3)} mA, Ptotal=${(totalPowerW * 1000).toFixed(3)} mW.`);
+    }
     log(`[LIMIT] ${result.message}`);
   } else log(`[${result.state.toUpperCase()}] ${result.message}`);
 }
