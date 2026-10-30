@@ -399,7 +399,7 @@ $("#grid-toggle").addEventListener("change", renderCanvas);
 $("#run-simulation").addEventListener("click", runAnalysis);
 $("#run-validation").addEventListener("click", validateAndReport);
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
-$("#help-button").addEventListener("click", () => showDialog("Implementation status", "Implemented: local project document, starter library, shared component identity, local save/import/export, validation, four base UI locales, and one analytical DC LED calculation. Not implemented: 1,000 verified parts, general SPICE/digital simulation, real PCB routing/DRC/manufacturing, cloud accounts, or an AI service."));
+$("#help-button").addEventListener("click", () => showDialog("Implementation status", "Implemented: local project document, starter library, shared identity and net layouts, local save/import/export, validation, four UI locales, three tested native examples, and two bounded analytical DC calculations. Not implemented: a 1,000 verified-part catalogue, general SPICE/digital simulation, real PCB routing/DRC/manufacturing, cloud accounts, or an AI service."));
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
 $("#import-file").addEventListener("change", async (event) => {
