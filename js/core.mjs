@@ -223,20 +223,28 @@ function endpoint(component, pin) {
 }
 
 function voltageValue(value) {
-  const match = String(value).match(/(-?\d+(?:\.\d+)?)/);
-  return match ? Number(match[1]) : Number.NaN;
+  return engineeringValue(value, "V");
 }
 
 function resistanceValue(value) {
-  const match = String(value).replace("Ω", "").match(/(-?\d+(?:\.\d+)?)\s*(k|M|m)?/i);
-  if (!match) return Number.NaN;
-  const multipliers = { k: 1e3, m: 1e6 };
-  return Number(match[1]) * (multipliers[(match[2] || "").toLowerCase()] || 1);
+  return engineeringValue(value, "Ω");
 }
 
 function forwardVoltage(value) {
-  const match = String(value).match(/(-?\d+(?:\.\d+)?)/);
-  return match ? Number(match[1]) : Number.NaN;
+  return engineeringValue(value, "V");
+}
+
+function engineeringValue(value, expectedUnit) {
+  const match = String(value).trim().match(/^(?:[A-Za-z]+\s+)?([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*([pnumkKMGµμ]?)(?:\s*(Ω|ohms?|[Vv]))?$/);
+  if (!match) return Number.NaN;
+  const unit = match[3];
+  if (unit) {
+    const isOhm = unit === "Ω" || /^ohms?$/i.test(unit);
+    if ((expectedUnit === "Ω" && !isOhm) || (expectedUnit === "V" && !/^[Vv]$/.test(unit))) return Number.NaN;
+  }
+  const multipliers = { p: 1e-12, n: 1e-9, u: 1e-6, "µ": 1e-6, "μ": 1e-6, m: 1e-3, k: 1e3, K: 1e3, M: 1e6, G: 1e9, "": 1 };
+  const parsed = Number(match[1]) * multipliers[match[2]];
+  return Number.isFinite(parsed) ? parsed : Number.NaN;
 }
 
 export function runSupportedAnalysis(project) {
