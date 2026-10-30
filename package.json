@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check app.js && node --check js/core.mjs"
+    "check": "node --check app.js && node --check js/core.mjs && node --check js/i18n.mjs"
   }
 }
 
