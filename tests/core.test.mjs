@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { addComponent, createProject, parseProject, runSupportedAnalysis, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
+import { addComponent, createProject, getViewReconciliationIssues, parseProject, runSupportedAnalysis, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
 import { getLedgerCoverage, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
 
@@ -29,6 +29,13 @@ test("a disconnected LED demo is not presented as a supported calculation", () =
   const project = createProject();
   project.nets = [];
   assert.equal(runSupportedAnalysis(project).state, "blocked");
+});
+
+test("views report missing mappings instead of fabricating a representation", () => {
+  const project = addComponent(createProject(), "instrument.voltmeter");
+  assert.equal(getViewReconciliationIssues(project, "schematic").length, 0);
+  assert.equal(getViewReconciliationIssues(project, "breadboard").at(-1).reference, "M1");
+  assert.equal(getViewReconciliationIssues(project, "pcb").length, project.components.length);
 });
 
 test("component insertion assigns a unique reference and retains project validity", () => {
