@@ -10,7 +10,11 @@
       "testId": "core-led-current-limiter",
       "projectFile": "examples/001-led-current-limiter.adigun.json",
       "safetyNote": "Educational low-voltage model only. Do not use the result as a physical-product, thermal, mains, or regulatory safety approval.",
-      "verification": { "status": "passed", "workflow": "Verify AdigunSimulator", "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348" }
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
+      }
     },
     {
       "id": "002-dc-voltage-divider",
@@ -21,7 +25,11 @@
       "testId": "core-dc-voltage-divider",
       "projectFile": "examples/002-dc-voltage-divider.adigun.json",
       "safetyNote": "Educational low-voltage unloaded model only. A connected load changes the result; do not use it for a physical-product, thermal, mains, or regulatory safety approval.",
-      "verification": { "status": "passed", "workflow": "Verify AdigunSimulator", "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348" }
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
+      }
     },
     {
       "id": "003-led-current-limiter-9v",
@@ -32,8 +40,26 @@
       "testId": "core-led-current-limiter-9v",
       "projectFile": "examples/003-led-current-limiter-9v.adigun.json",
       "safetyNote": "Educational low-voltage model only. Confirm actual LED limits, resistor wattage, supply tolerance, and heat before building hardware.",
-      "verification": { "status": "passed", "workflow": "Verify AdigunSimulator", "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348" }
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
+      }
+    },
+    {
+      "id": "004-parallel-resistor-load",
+      "title": "5 V parallel resistor load",
+      "status": "released",
+      "objective": "Solve a 5 V source feeding a 1 kΩ series resistor and two 1 kΩ parallel load resistors; report midpoint voltage and source current.",
+      "acceptanceTest": "tests/core.test.mjs: parallel resistor load example has a reproducible DC operating point",
+      "testId": "core-parallel-resistor-load",
+      "projectFile": "examples/004-parallel-resistor-load.adigun.json",
+      "safetyNote": "Educational low-voltage ideal DC model only. Check real resistor power ratings, supply tolerance, heat, and wiring before hardware use.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146042966"
+      }
     }
   ]
 }
-
