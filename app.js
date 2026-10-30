@@ -538,8 +538,12 @@ $("#import-file").addEventListener("change", async (event) => {
   const [file] = event.target.files;
   if (!file) return;
   try {
+    const importedProject = parseProject(await file.text());
+    if (state.dirty && !confirm("Replace the current project with this imported file? Export unsaved work first if you need it.")) return;
     captureHistory();
-    replaceProject(parseProject(await file.text()));
+    state.lastValidation = null;
+    state.activeOutput = "output";
+    replaceProject(importedProject, { dirty: false });
     log(`[IMPORTED] ${file.name} loaded after schema validation.`);
   } catch (error) {
     showDialog("Import blocked", error instanceof Error ? error.message : "The selected file is not a supported project.");
