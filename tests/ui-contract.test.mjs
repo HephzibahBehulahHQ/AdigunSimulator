@@ -76,6 +76,16 @@ test("keyboard shortcuts expose undo, redo, save, and selection removal", async 
   assert.match(app, /const editingText = target instanceof HTMLElement/);
 });
 
+test("project import validates and confirms replacement before capturing or replacing state", async () => {
+  const app = await readFile(appFile, "utf8");
+  const parser = app.indexOf("const importedProject = parseProject(await file.text())");
+  const confirmation = app.indexOf('if (state.dirty && !confirm("Replace the current project with this imported file?', parser);
+  const capture = app.indexOf("captureHistory();", confirmation);
+  const replacement = app.indexOf("replaceProject(importedProject, { dirty: false })", capture);
+  assert.ok(parser >= 0 && parser < confirmation && confirmation < capture && capture < replacement);
+  assert.match(app.slice(app.indexOf('catch (error)', parser), app.indexOf('finally { event.target.value', parser)), /Import blocked/);
+});
+
 test("the published example catalogue retains all 200 individually specified acceptance rows", async () => {
   const catalogue = await readFile(catalogueFile, "utf8");
   const rows = [...catalogue.matchAll(/^\|\s*(\d{1,3})\s*\|/gm)].map((match) => Number(match[1]));
