@@ -46,6 +46,11 @@ Object.assign(TRANSLATIONS.de, { releasedExamples: "Veröffentlichte Beispiele",
 Object.assign(TRANSLATIONS.yo, { releasedExamples: "Àwọn àpẹẹrẹ tí a tú síta", loadTestedStarter: "Ṣí iṣẹ́ àpẹẹrẹ tí a ti dán wò", loadSelectedExample: "Ṣí àpẹẹrẹ yìí", morePlannedExamples: "A ti tú iṣẹ́ mẹ́rin síta. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí.", electricalConnections: "Àwọn ìsopọ̀ iná mànàmáná", firstPin: "Pinni àkọ́kọ́", secondPin: "Pinni kejì", connectPins: "So àwọn pinni pọ̀", noConnectedNets: "Kò sí nẹ́tìwọ́ọ̀kì tó so pọ̀ síbẹ̀.", disconnect: "Yọ ìsopọ̀", removeComponent: "Yọ ẹ̀yà kúrò" });
 Object.assign(TRANSLATIONS.pcm, { releasedExamples: "Examples wey don release", loadTestedStarter: "Load tested starter project", loadSelectedExample: "Load selected example", morePlannedExamples: "Four projects don release. Other catalogue projects never ready to load.", electricalConnections: "Electrical connections", firstPin: "First pin", secondPin: "Second pin", connectPins: "Connect pins", noConnectedNets: "No connected nets yet.", disconnect: "Disconnect", removeComponent: "Remove part" });
 
+Object.assign(TRANSLATIONS.en, { availableAnalysis: "Available analyses: LED current limiter, unloaded voltage divider, linear DC resistor networks, and a single-pole RC step response." });
+Object.assign(TRANSLATIONS.de, { availableAnalysis: "Verfügbar: LED-Strombegrenzung, unbelasteter Spannungsteiler, lineare Gleichstrom-Widerstandsnetze und eine RC-Sprungantwort erster Ordnung." });
+Object.assign(TRANSLATIONS.yo, { availableAnalysis: "Ìṣirò tó wà: ààlà ìṣàn LED, voltage-divider tí kò ní ẹrù, àwọn nẹ́tìwọ́ọ̀kì DC olùtakò, àti ìdáhùn ìgbésẹ̀ RC kan." });
+Object.assign(TRANSLATIONS.pcm, { availableAnalysis: "Analysis wey dey: LED current limiter, unloaded voltage divider, DC resistor networks, and one RC step response." });
+
 export function translate(locale, key) {
   return TRANSLATIONS[locale]?.[key] ?? TRANSLATIONS.en[key] ?? key;
 }
