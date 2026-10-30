@@ -40,6 +40,16 @@ test("invalid net endpoints are rejected before analysis", () => {
   assert.equal(runSupportedAnalysis(project).state, "blocked");
 });
 
+test("electrical-rule validation warns about unconnected pins and blocks a source short", () => {
+  const incomplete = addComponent(createProject(), "input.pushbutton");
+  assert.ok(validateProject(incomplete).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"));
+  const shorted = createProject();
+  shorted.nets[0].endpoints.push("source-1:-");
+  const validation = validateProject(shorted);
+  assert.ok(validation.errors.some((issue) => issue.rule === "SOURCE_SHORT"));
+  assert.equal(runSupportedAnalysis(shorted).state, "blocked");
+});
+
 test("a disconnected LED demo is not presented as a supported calculation", () => {
   const project = createProject();
   project.nets = [];

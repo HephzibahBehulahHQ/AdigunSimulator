@@ -216,7 +216,7 @@ function validateAndReport() {
   state.lastValidation = validateProject(state.project);
   renderValidation();
   const issues = [...state.lastValidation.errors, ...state.lastValidation.warnings];
-  if (!issues.length) log("[VALIDATION] No schema errors or warnings were found in the current starter project.");
+  if (!issues.length) log("[VALIDATION] No project errors or warnings were found.");
   else issues.forEach((issue) => log(`[${issue.rule}] ${issue.message}`));
 }
 
