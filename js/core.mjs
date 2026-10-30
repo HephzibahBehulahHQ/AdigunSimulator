@@ -16,20 +16,49 @@ function clone(value) {
 }
 
 export function createProject() {
+  return createLedCurrentLimiterProject();
+}
+
+function projectMetadata(name) {
+  const now = new Date().toISOString();
+  return { name, locale: "en", createdAt: now, updatedAt: now };
+}
+
+export function createLedCurrentLimiterProject({ name = "LED Current Limiter", sourceValue = "5 V", resistanceValue = "330 Ω", ledValue = "Vf 2.0 V" } = {}) {
   return {
     schemaVersion: SCHEMA_VERSION,
     id: cryptoSafeId(),
-    metadata: { name: "LED Current Limiter", locale: "en", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    metadata: projectMetadata(name),
     components: [
-      { instanceId: "source-1", libraryId: "power.dc-source", reference: "V1", value: "5 V", position: { breadboard: [60, 142], schematic: [95, 128], pcb: [92, 130] } },
-      { instanceId: "resistor-1", libraryId: "passive.resistor", reference: "R1", value: "330 Ω", position: { breadboard: [255, 142], schematic: [260, 128], pcb: [244, 128] } },
-      { instanceId: "led-1", libraryId: "diode.led-red", reference: "D1", value: "Vf 2.0 V", position: { breadboard: [455, 142], schematic: [452, 128], pcb: [408, 142] } },
+      { instanceId: "source-1", libraryId: "power.dc-source", reference: "V1", value: sourceValue, position: { breadboard: [60, 142], schematic: [95, 128], pcb: [92, 130] } },
+      { instanceId: "resistor-1", libraryId: "passive.resistor", reference: "R1", value: resistanceValue, position: { breadboard: [255, 142], schematic: [260, 128], pcb: [244, 128] } },
+      { instanceId: "led-1", libraryId: "diode.led-red", reference: "D1", value: ledValue, position: { breadboard: [455, 142], schematic: [452, 128], pcb: [408, 142] } },
       { instanceId: "ground-1", libraryId: "ground.signal", reference: "GND", value: "0 V", position: { breadboard: [565, 192], schematic: [564, 190], pcb: [506, 192] } }
     ],
     nets: [
       { id: "VCC", endpoints: ["source-1:+", "resistor-1:1"] },
       { id: "LED_A", endpoints: ["resistor-1:2", "led-1:A"] },
       { id: "GND", endpoints: ["led-1:K", "source-1:-", "ground-1:0"] }
+    ],
+    history: []
+  };
+}
+
+export function createVoltageDividerProject({ name = "DC Voltage Divider", sourceValue = "9 V", upperResistanceValue = "1 kΩ", lowerResistanceValue = "2 kΩ" } = {}) {
+  return {
+    schemaVersion: SCHEMA_VERSION,
+    id: cryptoSafeId(),
+    metadata: projectMetadata(name),
+    components: [
+      { instanceId: "source-1", libraryId: "power.dc-source", reference: "V1", value: sourceValue, position: { breadboard: [60, 142], schematic: [95, 128], pcb: [92, 130] } },
+      { instanceId: "resistor-top-1", libraryId: "passive.resistor", reference: "R1", value: upperResistanceValue, position: { breadboard: [250, 122], schematic: [260, 112], pcb: [244, 112] } },
+      { instanceId: "resistor-bottom-1", libraryId: "passive.resistor", reference: "R2", value: lowerResistanceValue, position: { breadboard: [425, 188], schematic: [438, 188], pcb: [418, 188] } },
+      { instanceId: "ground-1", libraryId: "ground.signal", reference: "GND", value: "0 V", position: { breadboard: [565, 222], schematic: [564, 220], pcb: [506, 222] } }
+    ],
+    nets: [
+      { id: "VCC", endpoints: ["source-1:+", "resistor-top-1:1"] },
+      { id: "VOUT", endpoints: ["resistor-top-1:2", "resistor-bottom-1:1"] },
+      { id: "GND", endpoints: ["resistor-bottom-1:2", "source-1:-", "ground-1:0"] }
     ],
     history: []
   };
@@ -125,6 +154,10 @@ function hasNet(project, ...endpoints) {
   return project.nets.some((net) => endpoints.every((endpoint) => net.endpoints.includes(endpoint)));
 }
 
+function endpoint(component, pin) {
+  return `${component.instanceId}:${pin}`;
+}
+
 function voltageValue(value) {
   const match = String(value).match(/(-?\d+(?:\.\d+)?)/);
   return match ? Number(match[1]) : Number.NaN;
@@ -145,18 +178,27 @@ function forwardVoltage(value) {
 export function runSupportedAnalysis(project) {
   const validation = validateProject(project);
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
-  const source = project.components.find((item) => item.libraryId === "power.dc-source");
-  const resistor = project.components.find((item) => item.libraryId === "passive.resistor");
-  const led = project.components.find((item) => item.libraryId === "diode.led-red");
-  const ground = project.components.find((item) => item.libraryId === "ground.signal");
-  if (!source || !resistor || !led || !ground) {
-    return { state: "unsupported", message: "This foundation can analyse only a DC source + resistor + red LED + ground demonstration. General SPICE/digital simulation is not implemented." };
+  const source = project.components.filter((item) => item.libraryId === "power.dc-source");
+  const resistor = project.components.filter((item) => item.libraryId === "passive.resistor");
+  const led = project.components.filter((item) => item.libraryId === "diode.led-red");
+  const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length >= 1) {
+    return analyseLedCurrentLimiter(project, { source: source[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
-  const topologyIsSupported = hasNet(project, "source-1:+", "resistor-1:1")
-    && hasNet(project, "resistor-1:2", "led-1:A")
-    && hasNet(project, "led-1:K", "source-1:-", "ground-1:0");
+  if (source.length === 1 && resistor.length === 2 && led.length === 0 && ground.length >= 1) {
+    const divider = findVoltageDivider(project, source[0], resistor, ground[0]);
+    if (divider) return analyseVoltageDivider(project, { source: source[0], ground: ground[0], validation, ...divider });
+    return { state: "blocked", message: "The voltage-divider calculation requires its documented source → upper resistor → output → lower resistor → ground topology. The current netlist is not that topology.", validation };
+  }
+  return { state: "unsupported", message: "This foundation can analyse only the documented DC LED current-limiter and two-resistor DC voltage-divider topologies. General SPICE/digital simulation is not implemented.", validation };
+}
+
+function analyseLedCurrentLimiter(project, { source, resistor, led, ground, validation }) {
+  const topologyIsSupported = hasNet(project, endpoint(source, "+"), endpoint(resistor, "1"))
+    && hasNet(project, endpoint(resistor, "2"), endpoint(led, "A"))
+    && hasNet(project, endpoint(led, "K"), endpoint(source, "-"), endpoint(ground, "0"));
   if (!topologyIsSupported) {
-    return { state: "blocked", message: "The analytical demonstration requires its documented source → resistor → LED → ground topology. The current netlist is not that topology." };
+    return { state: "blocked", message: "The analytical LED calculation requires its documented source → resistor → LED → ground topology. The current netlist is not that topology.", validation };
   }
   const sourceVoltage = voltageValue(source.value);
   const resistance = resistanceValue(resistor.value);
@@ -170,7 +212,38 @@ export function runSupportedAnalysis(project) {
     state: "complete",
     engine: "Analytical DC LED demonstration",
     message: "Completed an analytical DC calculation; this is not a general SPICE result.",
-    result: { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn: currentA > 0.0005 },
+    result: { kind: "led-current-limiter", sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn: currentA > 0.0005 },
+    validation
+  };
+}
+
+function findVoltageDivider(project, source, resistors, ground) {
+  for (const upper of resistors) {
+    const lower = resistors.find((candidate) => candidate.instanceId !== upper.instanceId);
+    if (!lower) continue;
+    const topologyIsSupported = hasNet(project, endpoint(source, "+"), endpoint(upper, "1"))
+      && hasNet(project, endpoint(upper, "2"), endpoint(lower, "1"))
+      && hasNet(project, endpoint(lower, "2"), endpoint(source, "-"), endpoint(ground, "0"));
+    if (topologyIsSupported) return { upper, lower };
+  }
+  return null;
+}
+
+function analyseVoltageDivider(project, { source, upper, lower, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const upperResistance = resistanceValue(upper.value);
+  const lowerResistance = resistanceValue(lower.value);
+  if (!Number.isFinite(sourceVoltage) || !Number.isFinite(upperResistance) || !Number.isFinite(lowerResistance) || upperResistance <= 0 || lowerResistance <= 0) {
+    return { state: "blocked", message: "The voltage-divider calculation needs a numeric source voltage and two positive resistor values.", validation };
+  }
+  const totalResistance = upperResistance + lowerResistance;
+  const currentA = sourceVoltage / totalResistance;
+  const outputVoltage = currentA * lowerResistance;
+  return {
+    state: "complete",
+    engine: "Analytical DC voltage-divider calculation",
+    message: "Completed an unloaded two-resistor analytical DC calculation; this is not a general SPICE result.",
+    result: { kind: "voltage-divider", sourceVoltage, upperResistance, lowerResistance, totalResistance, currentA, outputVoltage, totalPowerW: sourceVoltage * currentA },
     validation
   };
 }
