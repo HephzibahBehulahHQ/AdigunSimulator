@@ -225,7 +225,11 @@ export function validateProject(project) {
     if (!findLibraryPart(item.libraryId)) warnings.push({ rule: "UNLOCKED_LIBRARY", message: `${item.reference || "Component"} is not in the starter library.` });
     for (const view of DESIGN_VIEWS) {
       const position = item.position?.[view];
-      if (!Array.isArray(position) || position.length !== 2 || !position.every(Number.isFinite)) warnings.push({ rule: "LAYOUT_POSITION", message: `${item.reference || "Component"} has no valid ${view} position.` });
+      if (!Array.isArray(position) || position.length !== 2 || !position.every((coordinate) => Number.isFinite(coordinate) && Number.isSafeInteger(coordinate))) {
+        errors.push({ rule: "LAYOUT_POSITION", message: `${item.reference || "Component"} must have two finite integer coordinates for the ${view} layout.` });
+      } else if (position[0] < 0 || position[0] > 640 || position[1] < 0 || position[1] > 280) {
+        errors.push({ rule: "LAYOUT_BOUNDS", message: `${item.reference || "Component"} is outside the supported ${view} canvas bounds.` });
+      }
     }
   }
   for (const view of DESIGN_VIEWS) {
@@ -236,7 +240,7 @@ export function validateProject(project) {
         if (!a || !b || typeof a !== "object" || typeof b !== "object") continue;
         const aPosition = a.position?.[view];
         const bPosition = b.position?.[view];
-        if (!Array.isArray(aPosition) || !Array.isArray(bPosition)) continue;
+        if (!Array.isArray(aPosition) || !Array.isArray(bPosition) || !aPosition.every(Number.isFinite) || !bPosition.every(Number.isFinite)) continue;
         if (Math.hypot(aPosition[0] - bPosition[0], aPosition[1] - bPosition[1]) < CANVAS_LIMITS.overlapDistance) {
           warnings.push({ rule: "LAYOUT_OVERLAP", message: `${a.reference} and ${b.reference} overlap in the ${view} layout.` });
         }
