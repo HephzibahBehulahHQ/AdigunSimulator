@@ -26,6 +26,7 @@ const state = {
   activeView: "breadboard",
   activeInspector: "component",
   activeOutput: "output",
+  selectedNetId: null,
   activeTool: "select",
   pan: { x: 0, y: 0 },
   drag: null,
@@ -111,10 +112,12 @@ function componentVisual(component, view) {
   const part = findLibraryPart(component.libraryId);
   const type = part?.type ?? "Unknown component";
   const selected = component.instanceId === state.selectedInstanceId ? "is-selected" : "";
+  const activeNet = state.project.nets.find((net) => net.id === state.selectedNetId);
+  const netSelected = activeNet?.endpoints.some((item) => item.startsWith(`${component.instanceId}:`)) ? "is-net-highlight" : "";
   const x = component.position?.[view]?.[0] ?? 120;
   const y = component.position?.[view]?.[1] ?? 120;
   const className = component.libraryId.replaceAll(".", "-");
-  return `<button type="button" class="placed-component ${className} ${selected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span><span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span><span class="part-value">${escape(component.value)}</span></button>`;
+  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span><span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span><span class="part-value">${escape(component.value)}</span></button>`;
 }
 
 function componentCenter(component, view) {
@@ -137,7 +140,7 @@ function netSvg(project, view, unavailable = new Set()) {
       .map((component) => componentCenter(component, view));
     if (points.length < 2) return [];
     const origin = points[0];
-    return points.slice(1).map((point) => `<path class="${netClass(net.id)}" d="M${origin.x} ${origin.y} L${point.x} ${origin.y} L${point.x} ${point.y}" data-net="${escape(net.id)}"/>`);
+    return points.slice(1).map((point) => `<path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""}" d="M${origin.x} ${origin.y} L${point.x} ${origin.y} L${point.x} ${point.y}" data-net="${escape(net.id)}"/>`);
   }).join("");
   return `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true">${paths}</svg>`;
 }
@@ -189,7 +192,7 @@ function renderConnections() {
     if (options.some((item) => item.value === previous)) select.value = previous;
   }
   $("#net-list").innerHTML = state.project.nets.map((net) => `
-    <li><strong>${escape(net.id)}</strong><ul>${net.endpoints.map((item) => `<li>${escape(item)} <button type="button" class="disconnect-pin" data-endpoint="${escape(item)}" aria-label="${escape(t("disconnect"))} ${escape(item)}">×</button></li>`).join("")}</ul></li>`).join("") || `<li>${escape(t("noConnectedNets"))}</li>`;
+    <li><button type="button" class="net-select ${net.id === state.selectedNetId ? "active" : ""}" data-net-id="${escape(net.id)}" aria-pressed="${net.id === state.selectedNetId}">${escape(net.id)}</button><ul>${net.endpoints.map((item) => `<li>${escape(item)} <button type="button" class="disconnect-pin" data-endpoint="${escape(item)}" aria-label="${escape(t("disconnect"))} ${escape(item)}">×</button></li>`).join("")}</ul></li>`).join("") || `<li>${escape(t("noConnectedNets"))}</li>`;
 }
 
 function renderValidation() {
@@ -451,6 +454,12 @@ $("#connection-form").addEventListener("submit", (event) => {
   }
 });
 $("#net-list").addEventListener("click", (event) => {
+  const netButton = event.target.closest("[data-net-id]");
+  if (netButton) {
+    state.selectedNetId = state.selectedNetId === netButton.dataset.netId ? null : netButton.dataset.netId;
+    render();
+    return;
+  }
   const button = event.target.closest("[data-endpoint]");
   if (!button) return;
   captureHistory();
