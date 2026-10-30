@@ -1,4 +1,6 @@
 export const SCHEMA_VERSION = 1;
+export const DESIGN_VIEWS = Object.freeze(["breadboard", "schematic", "pcb"]);
+const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistance: 34 });
 
 export const STARTER_LIBRARY = Object.freeze([
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -113,6 +115,20 @@ export function updateComponent(project, instanceId, changes) {
   return next;
 }
 
+export function moveComponent(project, instanceId, view, position, { snap = false } = {}) {
+  if (!DESIGN_VIEWS.includes(view)) throw new Error(`Unsupported design view: ${view}`);
+  if (!Array.isArray(position) || position.length !== 2 || !position.every(Number.isFinite)) throw new Error("A component position must contain two finite coordinates.");
+  const next = clone(project);
+  const target = next.components.find((item) => item.instanceId === instanceId);
+  if (!target) throw new Error(`Component not found: ${instanceId}`);
+  const grid = snap ? 12 : 1;
+  const x = Math.min(CANVAS_LIMITS.x[1], Math.max(CANVAS_LIMITS.x[0], Math.round(position[0] / grid) * grid));
+  const y = Math.min(CANVAS_LIMITS.y[1], Math.max(CANVAS_LIMITS.y[0], Math.round(position[1] / grid) * grid));
+  target.position = { ...target.position, [view]: [x, y] };
+  next.metadata.updatedAt = new Date().toISOString();
+  return next;
+}
+
 export function validateProject(project) {
   const errors = [];
   const warnings = [];
@@ -126,6 +142,24 @@ export function validateProject(project) {
     if (!item.reference || references.has(item.reference)) errors.push({ rule: "REFERENCE", message: `Reference designators must be unique (${item.reference || "unnamed"}).` });
     references.add(item.reference);
     if (!findLibraryPart(item.libraryId)) warnings.push({ rule: "UNLOCKED_LIBRARY", message: `${item.reference || "Component"} is not in the starter library.` });
+    for (const view of DESIGN_VIEWS) {
+      const position = item.position?.[view];
+      if (!Array.isArray(position) || position.length !== 2 || !position.every(Number.isFinite)) warnings.push({ rule: "LAYOUT_POSITION", message: `${item.reference || "Component"} has no valid ${view} position.` });
+    }
+  }
+  for (const view of DESIGN_VIEWS) {
+    for (let first = 0; first < (project?.components?.length ?? 0); first += 1) {
+      for (let second = first + 1; second < (project?.components?.length ?? 0); second += 1) {
+        const a = project.components[first];
+        const b = project.components[second];
+        const aPosition = a.position?.[view];
+        const bPosition = b.position?.[view];
+        if (!Array.isArray(aPosition) || !Array.isArray(bPosition)) continue;
+        if (Math.hypot(aPosition[0] - bPosition[0], aPosition[1] - bPosition[1]) < CANVAS_LIMITS.overlapDistance) {
+          warnings.push({ rule: "LAYOUT_OVERLAP", message: `${a.reference} and ${b.reference} overlap in the ${view} layout.` });
+        }
+      }
+    }
   }
   const endpointOwners = new Map();
   for (const net of project?.nets ?? []) {

@@ -4,6 +4,7 @@ import {
   createProject,
   findLibraryPart,
   getViewReconciliationIssues,
+  moveComponent,
   parseProject,
   runSupportedAnalysis,
   serializeProject,
@@ -21,6 +22,9 @@ const state = {
   selectedInstanceId: "resistor-1",
   activeView: "breadboard",
   activeInspector: "component",
+  activeTool: "select",
+  pan: { x: 0, y: 0 },
+  drag: null,
   scale: 1,
   history: [],
   future: [],
@@ -106,7 +110,32 @@ function componentVisual(component, view) {
   const x = component.position?.[view]?.[0] ?? 120;
   const y = component.position?.[view]?.[1] ?? 120;
   const className = component.libraryId.replaceAll(".", "-");
-  return `<button type="button" class="placed-component ${className} ${selected}" data-instance-id="${escape(component.instanceId)}" style="--x:${x}px;--y:${y}px" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span><span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span><span class="part-value">${escape(component.value)}</span></button>`;
+  return `<button type="button" class="placed-component ${className} ${selected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span><span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span><span class="part-value">${escape(component.value)}</span></button>`;
+}
+
+function componentCenter(component, view) {
+  const [x = 120, y = 120] = component.position?.[view] ?? [];
+  return { x: x + 28, y: y + 29 };
+}
+
+function netClass(netId) {
+  if (/^(gnd|ground|0)$/i.test(netId)) return "net-ground";
+  if (/^(vcc|vdd|vin|power)$/i.test(netId)) return "net-power";
+  return "net-signal";
+}
+
+function netSvg(project, view, unavailable = new Set()) {
+  const componentsById = new Map(project.components.map((component) => [component.instanceId, component]));
+  const paths = project.nets.flatMap((net) => {
+    const points = net.endpoints
+      .map((entry) => componentsById.get(String(entry).split(":")[0]))
+      .filter((component) => component && !unavailable.has(component.instanceId))
+      .map((component) => componentCenter(component, view));
+    if (points.length < 2) return [];
+    const origin = points[0];
+    return points.slice(1).map((point) => `<path class="${netClass(net.id)}" d="M${origin.x} ${origin.y} L${point.x} ${origin.y} L${point.x} ${point.y}" data-net="${escape(net.id)}"/>`);
+  }).join("");
+  return `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true">${paths}</svg>`;
 }
 
 function renderCanvas() {
@@ -116,17 +145,15 @@ function renderCanvas() {
   const issues = getViewReconciliationIssues(state.project, state.activeView);
   const unavailable = new Set(issues.map((issue) => issue.instanceId));
   const parts = state.project.components.filter((component) => !unavailable.has(component.instanceId)).map((component) => componentVisual(component, state.activeView)).join("");
-  const wires = state.activeView === "schematic"
-    ? `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true"><path d="M130 145 H255 M325 145 H450 M510 145 V205 H560 M560 205 H95 V145"/><circle cx="255" cy="145" r="4"/><circle cx="450" cy="145" r="4"/></svg>`
-    : state.activeView === "pcb"
-      ? `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true"><path class="track-red" d="M105 132 H240 V180 H410"/><path class="track-blue" d="M118 195 H330 V142 H500"/></svg>`
-      : `<div class="breadboard-board" aria-hidden="true"><i></i><i></i><i></i><i></i></div><svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true"><path class="jumper-red" d="M112 145 H250 H460"/><path class="jumper-black" d="M112 198 H560"/></svg>`;
+  const surface = state.activeView === "breadboard" ? `<div class="breadboard-board" aria-hidden="true"><i></i><i></i><i></i><i></i></div>` : "";
+  const wires = netSvg(state.project, state.activeView, unavailable);
   const reconciliationNotice = issues.length ? `<div class="reconciliation-notice"><strong>Reconciliation needed</strong>${issues.map((issue) => `<span>${escape(issue.reference)}: ${escape(issue.reason)}</span>`).join("")}</div>` : "";
-  canvas.innerHTML = `<div class="canvas-label">${state.activeView === "breadboard" ? "Topology-aware breadboard representation" : state.activeView === "schematic" ? "Canonical net representation" : "PCB mapping preview — routing/DRC not implemented"}</div>${reconciliationNotice}${wires}${parts}`;
+  const label = state.activeView === "breadboard" ? "Shared project net layout — confirm physical breadboard rows before energising." : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : "PCB mapping preview — routing/DRC not implemented.";
+  canvas.innerHTML = `<div class="canvas-label">${label}</div>${reconciliationNotice}<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${surface}${wires}${parts}</div>`;
   const miniSchematic = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "schematic").length).map((component) => componentVisual(component, "schematic")).join("");
   const miniPcb = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "pcb").length).map((component) => componentVisual(component, "pcb")).join("");
-  $("#schematic-mini").innerHTML = `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true"><path d="M130 145 H255 M325 145 H450 M510 145 V205 H560 M560 205 H95 V145"/></svg>${miniSchematic}`;
-  $("#pcb-mini").innerHTML = `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true"><path class="track-red" d="M105 132 H240 V180 H410"/><path class="track-blue" d="M118 195 H330 V142 H500"/></svg>${miniPcb}`;
+  $("#schematic-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "schematic", new Set(getViewReconciliationIssues(state.project, "schematic").map((issue) => issue.instanceId)))}${miniSchematic}</div>`;
+  $("#pcb-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "pcb", new Set(getViewReconciliationIssues(state.project, "pcb").map((issue) => issue.instanceId)))}${miniPcb}</div>`;
 }
 
 function renderInspector() {
@@ -272,12 +299,67 @@ document.addEventListener("click", (event) => {
   if (tool) {
     if (tool.dataset.tool === "zoom-in") state.scale = Math.min(1.5, state.scale + 0.1);
     if (tool.dataset.tool === "zoom-out") state.scale = Math.max(0.6, state.scale - 0.1);
+    if (["select", "pan"].includes(tool.dataset.tool)) state.activeTool = tool.dataset.tool;
     $$("[data-tool]").forEach((button) => button.classList.toggle("active", button === tool && !["zoom-in", "zoom-out"].includes(tool.dataset.tool)));
     $("#zoom-level").textContent = `${Math.round(state.scale * 100)}%`;
     $("#design-canvas").style.setProperty("--canvas-scale", state.scale);
   }
   const collapse = event.target.closest("[data-collapse]");
   if (collapse) document.querySelector(`.${collapse.dataset.collapse}`).classList.toggle("collapsed");
+});
+
+document.addEventListener("pointerdown", (event) => {
+  const canvas = event.target.closest("#design-canvas");
+  if (!canvas) return;
+  const component = event.target.closest(".placed-component");
+  const point = { x: event.clientX, y: event.clientY };
+  if (component && state.activeTool === "select") {
+    const item = state.project.components.find((candidate) => candidate.instanceId === component.dataset.instanceId);
+    if (!item) return;
+    state.drag = { mode: "move", pointerId: event.pointerId, instanceId: item.instanceId, start: point, startPosition: [...item.position[state.activeView]], canvas };
+    canvas.setPointerCapture?.(event.pointerId);
+    return;
+  }
+  if (!component && state.activeTool === "pan") {
+    state.drag = { mode: "pan", pointerId: event.pointerId, start: point, startPan: { ...state.pan }, canvas };
+    canvas.setPointerCapture?.(event.pointerId);
+  }
+});
+
+document.addEventListener("pointermove", (event) => {
+  if (!state.drag || event.pointerId !== state.drag.pointerId) return;
+  const deltaX = event.clientX - state.drag.start.x;
+  const deltaY = event.clientY - state.drag.start.y;
+  if (state.drag.mode === "pan") {
+    state.pan = { x: Math.max(-120, Math.min(120, state.drag.startPan.x + deltaX)), y: Math.max(-80, Math.min(80, state.drag.startPan.y + deltaY)) };
+    const scene = $("#design-canvas .canvas-scene");
+    if (scene) { scene.style.setProperty("--pan-x", `${state.pan.x}px`); scene.style.setProperty("--pan-y", `${state.pan.y}px`); }
+    return;
+  }
+  const rect = state.drag.canvas.getBoundingClientRect();
+  const scaleX = 680 / rect.width;
+  const scaleY = 300 / rect.height;
+  const x = state.drag.startPosition[0] + (deltaX * scaleX);
+  const y = state.drag.startPosition[1] + (deltaY * scaleY);
+  const visual = state.drag.canvas.querySelector(`[data-instance-id="${CSS.escape(state.drag.instanceId)}"]`);
+  if (visual) { visual.style.setProperty("--x", `${x}px`); visual.style.setProperty("--y", `${y}px`); }
+});
+
+document.addEventListener("pointerup", (event) => {
+  if (!state.drag || event.pointerId !== state.drag.pointerId) return;
+  const drag = state.drag;
+  state.drag = null;
+  drag.canvas.releasePointerCapture?.(event.pointerId);
+  if (drag.mode !== "move") return;
+  const rect = drag.canvas.getBoundingClientRect();
+  const x = drag.startPosition[0] + ((event.clientX - drag.start.x) * (680 / rect.width));
+  const y = drag.startPosition[1] + ((event.clientY - drag.start.y) * (300 / rect.height));
+  captureHistory();
+  state.project = moveComponent(state.project, drag.instanceId, state.activeView, [x, y], { snap: $("#snap-toggle").checked });
+  state.selectedInstanceId = drag.instanceId;
+  state.dirty = true;
+  state.lastValidation = null;
+  render();
 });
 
 $("#component-search").addEventListener("input", renderLibrary);

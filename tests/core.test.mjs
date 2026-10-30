@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { addComponent, createProject, createVoltageDividerProject, getViewReconciliationIssues, parseProject, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
+import { addComponent, createProject, createVoltageDividerProject, getViewReconciliationIssues, moveComponent, parseProject, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
 import { getLedgerCoverage, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
@@ -57,6 +57,15 @@ test("component insertion assigns a unique reference and retains project validit
   const project = addComponent(createProject(), "input.pushbutton");
   assert.equal(project.components.at(-1).reference, "SW1");
   assert.equal(validateProject(project).valid, true);
+});
+
+test("component movement is view-specific, bounded, and may snap to the grid", () => {
+  const moved = moveComponent(createProject(), "resistor-1", "schematic", [300, 147], { snap: true });
+  const resistor = moved.components.find((component) => component.instanceId === "resistor-1");
+  assert.deepEqual(resistor.position.schematic, [300, 144]);
+  assert.deepEqual(resistor.position.breadboard, [255, 142]);
+  const bounded = moveComponent(moved, "resistor-1", "breadboard", [-400, 900]);
+  assert.deepEqual(bounded.components.find((component) => component.instanceId === "resistor-1").position.breadboard, [28, 244]);
 });
 
 test("all starter library entries have a visible category and explicit view mappings", () => {
