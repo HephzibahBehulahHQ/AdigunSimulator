@@ -89,6 +89,20 @@ test("single-pole RC step response reports time constant and analytic samples", 
   assert.equal(runSupportedAnalysis(overflow).state, "blocked");
 });
 
+test("single-pole RL step response reports current rise and inductor voltage", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/006-rl-step-response.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "rl-step-response");
+  assert.ok(Math.abs(result.result.timeConstantS - 0.001) < 1e-12);
+  assert.ok(Math.abs(result.result.samples[1].currentA - 0.05 * (1 - Math.exp(-1))) < 1e-12);
+  assert.ok(Math.abs(result.result.samples[1].inductorVoltage - 5 * Math.exp(-1)) < 1e-12);
+  const broken = structuredClone(project);
+  broken.nets[1].endpoints = ["resistor-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("linear DC nodal analysis blocks a floating resistor island", () => {
   const project = createVoltageDividerProject();
   project.nets = [
