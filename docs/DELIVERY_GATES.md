@@ -24,7 +24,7 @@ Each catalogue entry is planned until its registry entry includes a native proje
 
 ## Simulation and layout gate
 
-Only an engine that produced the displayed result may be named. The current analytical engine supports the documented LED current-limiter, unloaded two-resistor voltage-divider, and linear resistor networks with one ideal DC source and a shared ground reference. General SPICE, nonlinear/reactive/transient and digital/mixed-signal simulation, thermal analysis, PCB autorouting, DRC, Gerber output and manufacturing checks remain unavailable.
+Only an engine that produced the displayed result may be named. The current analytical engine supports the documented LED current-limiter, unloaded two-resistor voltage-divider, and linear resistor networks with one ideal DC source and a shared ground reference, and an ideal single-pole RC response to a DC step from zero initial voltage. General SPICE, arbitrary nonlinear/reactive/transient and digital/mixed-signal simulation, thermal analysis, PCB autorouting, DRC, Gerber output and manufacturing checks remain unavailable.
 
 The workspace shares component identity, nets and per-view positions. A view mapping is withheld rather than fabricated when a verified representation is absent. Operators must review physical breadboard rows, component orientation, wiring, power limits, measurements and applicable standards before energising any hardware.
 

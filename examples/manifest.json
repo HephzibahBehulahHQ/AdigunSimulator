@@ -60,6 +60,21 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146042966"
       }
+    },
+    {
+      "id": "005-rc-step-response",
+      "title": "First-order RC step response",
+      "status": "released",
+      "objective": "Calculate the ideal 5 V step response of a 1 kΩ resistor charging a 100 µF capacitor from zero initial voltage; report time constant and sampled voltage/current.",
+      "acceptanceTest": "tests/core.test.mjs: single-pole RC step response reports time constant and analytic samples",
+      "testId": "core-rc-step-response",
+      "projectFile": "examples/005-rc-step-response.adigun.json",
+      "safetyNote": "Educational ideal low-voltage transient model only. It omits parasitics, source impedance, tolerances, leakage, dielectric effects, and component ratings; verify real parts before hardware use.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146807195"
+      }
     }
   ]
 }
