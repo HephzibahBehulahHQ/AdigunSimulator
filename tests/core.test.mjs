@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { addComponent, connectPins, createProject, createVoltageDividerProject, disconnectPin, getViewReconciliationIssues, moveComponent, parseProject, removeComponent, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
+import { addComponent, connectPins, createEmptyProject, createProject, createVoltageDividerProject, disconnectPin, getViewReconciliationIssues, moveComponent, parseProject, removeComponent, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
 import { getLedgerCoverage, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
@@ -11,6 +11,15 @@ test("starter project validates and produces a bounded analytical DC result", ()
   assert.equal(result.state, "complete");
   assert.equal(result.result.ledOn, true);
   assert.ok(Math.abs(result.result.currentA - 0.00909) < 0.0001);
+});
+
+test("a new project starts blank and remains a valid native document", () => {
+  const project = createEmptyProject({ locale: "de" });
+  assert.equal(project.components.length, 0);
+  assert.equal(project.nets.length, 0);
+  assert.equal(project.metadata.locale, "de");
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(runSupportedAnalysis(project).state, "unsupported");
 });
 
 test("invalid resistance blocks the supported analysis", () => {
