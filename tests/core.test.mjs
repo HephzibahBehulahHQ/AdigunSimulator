@@ -18,6 +18,15 @@ test("invalid resistance blocks the supported analysis", () => {
   assert.equal(runSupportedAnalysis(project).state, "blocked");
 });
 
+test("DC analysis parses SI prefixes with case-sensitive milli and mega units", () => {
+  const milli = updateComponent(createProject(), "resistor-1", { value: "1 mΩ" });
+  const mega = updateComponent(createProject(), "resistor-1", { value: "1 MΩ" });
+  assert.equal(runSupportedAnalysis(milli).state, "complete");
+  assert.ok(Math.abs(runSupportedAnalysis(milli).result.resistance - 0.001) < 1e-12);
+  assert.ok(Math.abs(runSupportedAnalysis(mega).result.resistance - 1e6) < 1e-6);
+  assert.equal(runSupportedAnalysis(updateComponent(createProject(), "resistor-1", { value: "330 bananas" })).state, "blocked");
+});
+
 test("a documented voltage divider produces bounded DC values", () => {
   const result = runSupportedAnalysis(createVoltageDividerProject());
   assert.equal(result.state, "complete");
