@@ -89,10 +89,31 @@ export function validateProject(project) {
     references.add(item.reference);
     if (!findLibraryPart(item.libraryId)) warnings.push({ rule: "UNLOCKED_LIBRARY", message: `${item.reference || "Component"} is not in the starter library.` });
   }
+  const endpointOwners = new Map();
   for (const net of project?.nets ?? []) {
     if (!net.id || net.endpoints.length < 2) warnings.push({ rule: "NET_ENDPOINTS", message: `Net ${net.id || "unnamed"} has fewer than two endpoints.` });
+    const localEndpoints = new Set();
+    for (const endpoint of net.endpoints ?? []) {
+      const [instanceId, pin] = String(endpoint).split(":");
+      const component = project.components.find((item) => item.instanceId === instanceId);
+      const part = component && findLibraryPart(component.libraryId);
+      if (!component || !part || !part.pins.includes(pin)) {
+        errors.push({ rule: "NET_ENDPOINT", message: `Net ${net.id || "unnamed"} references an unknown endpoint (${endpoint}).` });
+        continue;
+      }
+      if (localEndpoints.has(endpoint)) errors.push({ rule: "DUPLICATE_NET_ENDPOINT", message: `Net ${net.id || "unnamed"} connects ${endpoint} more than once.` });
+      localEndpoints.add(endpoint);
+      if (endpointOwners.has(endpoint) && endpointOwners.get(endpoint) !== net.id) {
+        errors.push({ rule: "MULTI_NET_PIN", message: `${endpoint} is assigned to both ${endpointOwners.get(endpoint)} and ${net.id}.` });
+      }
+      endpointOwners.set(endpoint, net.id);
+    }
   }
   return { errors, warnings, valid: errors.length === 0 };
+}
+
+function hasNet(project, ...endpoints) {
+  return project.nets.some((net) => endpoints.every((endpoint) => net.endpoints.includes(endpoint)));
 }
 
 function voltageValue(value) {
@@ -121,6 +142,12 @@ export function runSupportedAnalysis(project) {
   const ground = project.components.find((item) => item.libraryId === "ground.signal");
   if (!source || !resistor || !led || !ground) {
     return { state: "unsupported", message: "This foundation can analyse only a DC source + resistor + red LED + ground demonstration. General SPICE/digital simulation is not implemented." };
+  }
+  const topologyIsSupported = hasNet(project, "source-1:+", "resistor-1:1")
+    && hasNet(project, "resistor-1:2", "led-1:A")
+    && hasNet(project, "led-1:K", "source-1:-", "ground-1:0");
+  if (!topologyIsSupported) {
+    return { state: "blocked", message: "The analytical demonstration requires its documented source → resistor → LED → ground topology. The current netlist is not that topology." };
   }
   const sourceVoltage = voltageValue(source.value);
   const resistance = resistanceValue(resistor.value);
