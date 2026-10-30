@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { addComponent, createProject, getViewReconciliationIssues, parseProject, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
+import { addComponent, createProject, createVoltageDividerProject, getViewReconciliationIssues, parseProject, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
 import { getLedgerCoverage, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
@@ -15,6 +15,20 @@ test("starter project validates and produces a bounded analytical DC result", ()
 
 test("invalid resistance blocks the supported analysis", () => {
   const project = updateComponent(createProject(), "resistor-1", { value: "0 Ω" });
+  assert.equal(runSupportedAnalysis(project).state, "blocked");
+});
+
+test("a documented voltage divider produces bounded DC values", () => {
+  const result = runSupportedAnalysis(createVoltageDividerProject());
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "voltage-divider");
+  assert.equal(result.result.outputVoltage, 6);
+  assert.equal(result.result.currentA, 0.003);
+});
+
+test("a voltage divider with a broken netlist is blocked rather than guessed", () => {
+  const project = createVoltageDividerProject();
+  project.nets = [];
   assert.equal(runSupportedAnalysis(project).state, "blocked");
 });
 
@@ -74,14 +88,16 @@ test("a verified record cannot bypass checksum, mapping, model, and human-review
   assert.ok(errors.some((error) => error.code === "VERIFIED_EVIDENCE"));
 });
 
-test("released examples carry a native project, acceptance test, and safety scope", async () => {
+test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
-  const example = JSON.parse(await readFile(new URL("../examples/001-led-current-limiter.adigun.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
-  assert.equal(validateProject(example).valid, true);
-  assert.equal(runSupportedAnalysis(example).state, "complete");
-  assert.equal(getExampleCoverage(registry).released, 1);
-  assert.equal(getExampleCoverage(registry).remaining, 199);
+  for (const item of registry.examples.filter((example) => example.status === "released")) {
+    const example = JSON.parse(await readFile(new URL(`../${item.projectFile}`, import.meta.url)));
+    assert.equal(validateProject(example).valid, true, item.id);
+    assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
+  }
+  assert.equal(getExampleCoverage(registry).released, 3);
+  assert.equal(getExampleCoverage(registry).remaining, 197);
 });
 
 test("all supported UI locales contain every declared interface key", () => {
