@@ -7,6 +7,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.resistor", category: "Passive", type: "Resistor", prefix: "R", pins: ["1", "2"], defaultValue: "330 Ω", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.capacitor", category: "Passive", type: "Capacitor", prefix: "C", pins: ["1", "2"], defaultValue: "100 µF", simulation: "analytical-rc-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.inductor", category: "Passive", type: "Inductor", prefix: "L", pins: ["1", "2"], defaultValue: "100 mH", simulation: "analytical-rl-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "ground.signal", category: "Power & Ground", type: "Signal ground", prefix: "GND", pins: ["0"], defaultValue: "0 V", simulation: "reference", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -312,17 +313,21 @@ function capacitanceValue(value) {
   return engineeringValue(value, "F");
 }
 
+function inductanceValue(value) {
+  return engineeringValue(value, "H");
+}
+
 function forwardVoltage(value) {
   return engineeringValue(value, "V");
 }
 
 function engineeringValue(value, expectedUnit) {
-  const match = String(value).trim().match(/^(?:[A-Za-z]+\s+)?([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*([pnumkKMGµμ]?)(?:\s*(Ω|ohms?|[VvFf]))?$/);
+  const match = String(value).trim().match(/^(?:[A-Za-z]+\s+)?([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*([pnumkKMGµμ]?)(?:\s*(Ω|ohms?|[VvFfHh]))?$/);
   if (!match) return Number.NaN;
   const unit = match[3];
   if (unit) {
     const isOhm = unit === "Ω" || /^ohms?$/i.test(unit);
-    if ((expectedUnit === "Ω" && !isOhm) || (expectedUnit === "V" && !/^[Vv]$/.test(unit)) || (expectedUnit === "F" && !/^[Ff]$/.test(unit))) return Number.NaN;
+    if ((expectedUnit === "Ω" && !isOhm) || (expectedUnit === "V" && !/^[Vv]$/.test(unit)) || (expectedUnit === "F" && !/^[Ff]$/.test(unit)) || (expectedUnit === "H" && !/^[Hh]$/.test(unit))) return Number.NaN;
   }
   const multipliers = { p: 1e-12, n: 1e-9, u: 1e-6, "µ": 1e-6, "μ": 1e-6, m: 1e-3, k: 1e3, K: 1e3, M: 1e6, G: 1e9, "": 1 };
   const parsed = Number(match[1]) * multipliers[match[2]];
@@ -335,6 +340,7 @@ export function runSupportedAnalysis(project) {
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const resistor = project.components.filter((item) => item.libraryId === "passive.resistor");
   const capacitor = project.components.filter((item) => item.libraryId === "passive.capacitor");
+  const inductor = project.components.filter((item) => item.libraryId === "passive.inductor");
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
   if (source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length >= 1) {
@@ -345,10 +351,37 @@ export function runSupportedAnalysis(project) {
     if (divider) return analyseVoltageDivider(project, { source: source[0], ground: ground[0], validation, ...divider });
   }
   if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRcStep(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
+  if (source.length === 1 && resistor.length === 1 && inductor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRlStep(project, { source: source[0], resistor: resistor[0], inductor: inductor[0], ground: ground[0], validation });
   if (source.length === 1 && resistor.length > 0 && resistor.length === project.components.length - source.length - ground.length && ground.length >= 1) {
     return analyseResistiveNetwork(project, { source: source[0], resistors: resistor, ground: ground[0], validation });
   }
-  return { state: "unsupported", message: "This foundation supports only the documented analytical DC circuits and single-pole RC step response. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
+  return { state: "unsupported", message: "This foundation supports only the documented analytical DC circuits and single-pole RC/RL step responses. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
+}
+
+function analyseRlStep(project, { source, resistor, inductor, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const resistance = resistanceValue(resistor.value);
+  const inductance = inductanceValue(inductor.value);
+  if (![sourceVoltage, resistance, inductance].every(Number.isFinite) || sourceVoltage <= 0 || resistance <= 0 || inductance <= 0) return { state: "blocked", message: "The RL step model requires positive numeric source voltage, resistance, and inductance values.", validation };
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const sourcePositive = netByEndpoint.get(endpoint(source, "+"));
+  const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
+  const resistorInput = netByEndpoint.get(endpoint(resistor, "1"));
+  const resistorOutput = netByEndpoint.get(endpoint(resistor, "2"));
+  const inductorInput = netByEndpoint.get(endpoint(inductor, "1"));
+  const inductorReturn = netByEndpoint.get(endpoint(inductor, "2"));
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  if (!sourcePositive || sourcePositive !== resistorInput || !resistorOutput || resistorOutput !== inductorInput || !groundNet || groundNet !== inductorReturn || groundNet !== sourceNegative || sourcePositive === groundNet) return { state: "blocked", message: "The RL step model requires source positive → resistor → inductor → ground, with source negative on the same ground reference.", validation };
+  const timeConstantS = inductance / resistance;
+  if (!Number.isFinite(timeConstantS) || timeConstantS > Number.MAX_VALUE / 5) return { state: "blocked", message: "The RL time constant is outside the numerically supported range; reduce the inductance or increase the resistance.", validation };
+  const samples = [0, 1, 3, 5].map((multiples) => {
+    const timeS = multiples * timeConstantS;
+    const currentA = (sourceVoltage / resistance) * (1 - Math.exp(-multiples));
+    const inductorVoltage = sourceVoltage * Math.exp(-multiples);
+    return { timeS, currentA, inductorVoltage, resistorPowerW: currentA ** 2 * resistance };
+  });
+  return { state: "complete", engine: "Analytical first-order RL step response", message: "Solved an ideal single-pole RL response to a DC step from zero initial inductor current. Parasitics, source impedance, tolerances, saturation, nonlinear effects, and general SPICE are not included.", result: { kind: "rl-step-response", sourceVoltage, resistance, inductance, timeConstantS, samples }, validation };
 }
 
 function analyseRcStep(project, { source, resistor, capacitor, ground, validation }) {
