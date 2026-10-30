@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { addComponent, createProject, createVoltageDividerProject, getViewReconciliationIssues, moveComponent, parseProject, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
+import { addComponent, connectPins, createProject, createVoltageDividerProject, disconnectPin, getViewReconciliationIssues, moveComponent, parseProject, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
 import { getLedgerCoverage, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
@@ -120,6 +120,18 @@ test("component movement is view-specific, bounded, and may snap to the grid", (
   assert.deepEqual(resistor.position.breadboard, [255, 142]);
   const bounded = moveComponent(moved, "resistor-1", "breadboard", [-400, 900]);
   assert.deepEqual(bounded.components.find((component) => component.instanceId === "resistor-1").position.breadboard, [28, 244]);
+});
+
+test("pin wiring merges existing nets and disconnection preserves remaining nets", () => {
+  const project = createProject();
+  const connected = connectPins(project, "source-1:+", "led-1:A");
+  assert.equal(connected.nets.length, 2);
+  assert.ok(connected.nets.some((net) => net.endpoints.includes("source-1:+") && net.endpoints.includes("resistor-1:1") && net.endpoints.includes("led-1:A")));
+  assert.equal(validateProject(connected).valid, true);
+  const disconnected = disconnectPin(connected, "led-1:A");
+  assert.ok(!disconnected.nets.some((net) => net.endpoints.includes("led-1:A")));
+  assert.equal(validateProject(disconnected).valid, true);
+  assert.throws(() => connectPins(project, "missing:1", "led-1:A"));
 });
 
 test("all starter library entries have a visible category and explicit view mappings", () => {
