@@ -22,6 +22,7 @@ const state = {
   selectedInstanceId: "resistor-1",
   activeView: "breadboard",
   activeInspector: "component",
+  activeOutput: "output",
   activeTool: "select",
   pan: { x: 0, y: 0 },
   drag: null,
@@ -178,6 +179,20 @@ function renderValidation() {
   $("#validation-summary").textContent = validation.valid
     ? (state.lastValidation ? `${validation.warnings.length} warning(s); no blocking project schema errors.` : t("validationHelp"))
     : `${validation.errors.length} error(s) block analysis.`;
+  renderOutput(validation);
+}
+
+function renderOutput(validation = state.lastValidation ?? validateProject(state.project)) {
+  const isLog = state.activeOutput === "output";
+  const issues = state.activeOutput === "errors" ? validation.errors : validation.warnings;
+  $$(".output-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.output === state.activeOutput));
+  $("#output-log").classList.toggle("hidden", !isLog);
+  $("#issue-list").classList.toggle("hidden", isLog);
+  if (!isLog) {
+    $("#issue-list").textContent = issues.length
+      ? issues.map((issue) => `[${issue.rule}] ${issue.message}`).join("\n")
+      : `[${state.activeOutput.toUpperCase()}] None.`;
+  }
 }
 
 function applyLocale() {
@@ -295,6 +310,8 @@ document.addEventListener("click", (event) => {
   if (viewButton) activateView(viewButton.dataset.view);
   const inspector = event.target.closest("[data-inspector]");
   if (inspector) setInspector(inspector.dataset.inspector);
+  const outputTab = event.target.closest("[data-output]");
+  if (outputTab) { state.activeOutput = outputTab.dataset.output; renderOutput(); }
   const tool = event.target.closest("[data-tool]");
   if (tool) {
     if (tool.dataset.tool === "zoom-in") state.scale = Math.min(1.5, state.scale + 0.1);

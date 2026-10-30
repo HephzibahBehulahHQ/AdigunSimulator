@@ -28,6 +28,14 @@ test("enabled project commands are implemented while unreleased tools remain dis
   }
 });
 
+test("diagnostics tabs have an accessible target and a stateful handler", async () => {
+  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  assert.deepEqual(values(html, /data-output="([^"]+)"/g), ["output", "errors", "warnings"]);
+  assert.match(html, /id="issue-list"/);
+  assert.match(app, /state\.activeOutput = outputTab\.dataset\.output/);
+  assert.match(app, /function renderOutput/);
+});
+
 test("the published example catalogue retains all 200 individually specified acceptance rows", async () => {
   const catalogue = await readFile(catalogueFile, "utf8");
   const rows = [...catalogue.matchAll(/^\|\s*(\d{1,3})\s*\|/gm)].map((match) => Number(match[1]));
