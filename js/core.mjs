@@ -252,9 +252,92 @@ export function runSupportedAnalysis(project) {
   if (source.length === 1 && resistor.length === 2 && led.length === 0 && ground.length >= 1) {
     const divider = findVoltageDivider(project, source[0], resistor, ground[0]);
     if (divider) return analyseVoltageDivider(project, { source: source[0], ground: ground[0], validation, ...divider });
-    return { state: "blocked", message: "The voltage-divider calculation requires its documented source → upper resistor → output → lower resistor → ground topology. The current netlist is not that topology.", validation };
+  }
+  if (source.length === 1 && resistor.length > 0 && resistor.length === project.components.length - source.length - ground.length && ground.length >= 1) {
+    return analyseResistiveNetwork(project, { source: source[0], resistors: resistor, ground: ground[0], validation });
   }
   return { state: "unsupported", message: "This foundation can analyse only the documented DC LED current-limiter and two-resistor DC voltage-divider topologies. General SPICE/digital simulation is not implemented.", validation };
+}
+
+function analyseResistiveNetwork(project, { source, resistors, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  if (!Number.isFinite(sourceVoltage)) return { state: "blocked", message: "The DC network needs one numeric source voltage.", validation };
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  const sourcePositive = netByEndpoint.get(endpoint(source, "+"));
+  const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
+  if (!groundNet || !sourcePositive || !sourceNegative || sourceNegative !== groundNet) {
+    return { state: "blocked", message: "The supported resistive solver requires the DC source negative terminal and signal ground on the same reference net.", validation };
+  }
+  if (sourcePositive === groundNet) return { state: "blocked", message: "The source positive terminal is shorted to ground.", validation };
+
+  const branches = [];
+  for (const resistor of resistors) {
+    const resistance = resistanceValue(resistor.value);
+    const nodeA = netByEndpoint.get(endpoint(resistor, "1"));
+    const nodeB = netByEndpoint.get(endpoint(resistor, "2"));
+    if (!Number.isFinite(resistance) || resistance <= 0) return { state: "blocked", message: `${resistor.reference} needs a numeric positive resistance.`, validation };
+    if (!nodeA || !nodeB) return { state: "blocked", message: `${resistor.reference} must connect both pins to named project nets.`, validation };
+    if (nodeA === nodeB) return { state: "blocked", message: `${resistor.reference} is shorted by connecting both terminals to ${nodeA}.`, validation };
+    branches.push({ reference: resistor.reference, nodeA, nodeB, resistance });
+  }
+  const nodes = [...new Set(branches.flatMap((branch) => [branch.nodeA, branch.nodeB]))]
+    .filter((node) => node !== groundNet && node !== sourcePositive).sort();
+  const matrix = nodes.map(() => Array(nodes.length).fill(0));
+  const rhs = nodes.map(() => 0);
+  const index = new Map(nodes.map((node, position) => [node, position]));
+  for (const branch of branches) {
+    const conductance = 1 / branch.resistance;
+    const a = index.get(branch.nodeA);
+    const b = index.get(branch.nodeB);
+    if (a !== undefined) matrix[a][a] += conductance;
+    if (b !== undefined) matrix[b][b] += conductance;
+    if (a !== undefined && b !== undefined) { matrix[a][b] -= conductance; matrix[b][a] -= conductance; }
+    if (a !== undefined && branch.nodeB === sourcePositive) rhs[a] += conductance * sourceVoltage;
+    if (b !== undefined && branch.nodeA === sourcePositive) rhs[b] += conductance * sourceVoltage;
+  }
+  const solved = solveLinearSystem(matrix, rhs);
+  if (!solved) return { state: "blocked", message: "The resistor network is floating, disconnected from the source/reference, or numerically singular.", validation };
+  const nodeVoltages = Object.fromEntries([[groundNet, 0], [sourcePositive, sourceVoltage], ...nodes.map((node, position) => [node, solved[position]])]);
+  const resistorResults = branches.map((branch) => {
+    const voltage = nodeVoltages[branch.nodeA] - nodeVoltages[branch.nodeB];
+    const currentA = voltage / branch.resistance;
+    return { reference: branch.reference, voltage, currentA, powerW: currentA ** 2 * branch.resistance };
+  });
+  const sourceCurrentA = branches.reduce((sum, branch) => {
+    if (branch.nodeA === sourcePositive) return sum + (sourceVoltage - nodeVoltages[branch.nodeB]) / branch.resistance;
+    if (branch.nodeB === sourcePositive) return sum + (sourceVoltage - nodeVoltages[branch.nodeA]) / branch.resistance;
+    return sum;
+  }, 0);
+  if (!Number.isFinite(sourceCurrentA) || sourceCurrentA < -1e-9) return { state: "blocked", message: "The network produced an invalid source-current result; check source polarity and topology.", validation };
+  return {
+    state: "complete",
+    engine: "Linear DC resistive nodal analysis",
+    message: "Solved the documented linear DC resistor network with one ideal voltage source. No reactive, nonlinear, thermal, transient, or general SPICE model is included.",
+    result: { kind: "resistive-network", sourceVoltage, sourceCurrentA, sourcePowerW: sourceVoltage * sourceCurrentA, nodeVoltages, resistors: resistorResults },
+    validation
+  };
+}
+
+function solveLinearSystem(matrix, rhs) {
+  const size = rhs.length;
+  if (size === 0) return [];
+  const augmented = matrix.map((row, index) => [...row, rhs[index]]);
+  for (let column = 0; column < size; column += 1) {
+    let pivot = column;
+    for (let row = column + 1; row < size; row += 1) if (Math.abs(augmented[row][column]) > Math.abs(augmented[pivot][column])) pivot = row;
+    if (Math.abs(augmented[pivot][column]) < 1e-12) return null;
+    [augmented[column], augmented[pivot]] = [augmented[pivot], augmented[column]];
+    const divisor = augmented[column][column];
+    for (let item = column; item <= size; item += 1) augmented[column][item] /= divisor;
+    for (let row = 0; row < size; row += 1) {
+      if (row === column) continue;
+      const factor = augmented[row][column];
+      for (let item = column; item <= size; item += 1) augmented[row][item] -= factor * augmented[column][item];
+    }
+  }
+  return augmented.map((row) => row[size]);
 }
 
 function analyseLedCurrentLimiter(project, { source, resistor, led, ground, validation }) {
