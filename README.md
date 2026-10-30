@@ -17,11 +17,14 @@ Open `index.html` in a modern browser, or serve the folder with any static web s
 ```text
 npm test
 npm run check
+npm run validate:library
 ```
 
 ## Project data
 
 Projects are stored locally in browser storage and can be exported as a native JSON document. The data model and validation rules live in `js/core.mjs`.
+
+The part evidence gate is implemented in `js/part-ledger.mjs`. Run `npm run validate:library` to validate the ledger and report truthful candidate/in-review/verified coverage; only verified records count toward the 1,000-part target.
 
 ## Ownership
 
