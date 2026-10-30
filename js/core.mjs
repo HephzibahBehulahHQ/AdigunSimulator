@@ -181,6 +181,20 @@ export function validateProject(project) {
       endpointOwners.set(endpoint, net.id);
     }
   }
+  for (const item of project?.components ?? []) {
+    const part = findLibraryPart(item.libraryId);
+    if (!part) continue;
+    for (const pin of part.pins) {
+      if (!endpointOwners.has(endpoint(item, pin))) warnings.push({ rule: "UNCONNECTED_PIN", message: `${item.reference} pin ${pin} is not connected to a project net.` });
+    }
+    if (item.libraryId === "power.dc-source") {
+      const sourceIsShorted = project.nets.some((net) => net.endpoints.includes(endpoint(item, "+")) && net.endpoints.includes(endpoint(item, "-")));
+      if (sourceIsShorted) errors.push({ rule: "SOURCE_SHORT", message: `${item.reference} positive and negative pins are connected to the same net.` });
+    }
+  }
+  if ((project?.components ?? []).length && !(project?.components ?? []).some((item) => item.libraryId === "ground.signal")) {
+    warnings.push({ rule: "NO_REFERENCE", message: "The project has no signal-ground reference component." });
+  }
   return { errors, warnings, valid: errors.length === 0 };
 }
 
