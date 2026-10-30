@@ -9,7 +9,8 @@
       "acceptanceTest": "tests/core.test.mjs: starter project validates and produces a bounded analytical DC result",
       "testId": "core-led-current-limiter",
       "projectFile": "examples/001-led-current-limiter.adigun.json",
-      "safetyNote": "Educational low-voltage model only. Do not use the result as a physical-product, thermal, mains, or regulatory safety approval."
+      "safetyNote": "Educational low-voltage model only. Do not use the result as a physical-product, thermal, mains, or regulatory safety approval.",
+      "verification": { "status": "passed", "workflow": "Verify AdigunSimulator", "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348" }
     },
     {
       "id": "002-dc-voltage-divider",
@@ -19,7 +20,8 @@
       "acceptanceTest": "tests/core.test.mjs: a documented voltage divider produces bounded DC values",
       "testId": "core-dc-voltage-divider",
       "projectFile": "examples/002-dc-voltage-divider.adigun.json",
-      "safetyNote": "Educational low-voltage unloaded model only. A connected load changes the result; do not use it for a physical-product, thermal, mains, or regulatory safety approval."
+      "safetyNote": "Educational low-voltage unloaded model only. A connected load changes the result; do not use it for a physical-product, thermal, mains, or regulatory safety approval.",
+      "verification": { "status": "passed", "workflow": "Verify AdigunSimulator", "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348" }
     },
     {
       "id": "003-led-current-limiter-9v",
@@ -29,7 +31,8 @@
       "acceptanceTest": "tests/core.test.mjs: released examples carry a native project, acceptance test, safety scope, and supported result",
       "testId": "core-led-current-limiter-9v",
       "projectFile": "examples/003-led-current-limiter-9v.adigun.json",
-      "safetyNote": "Educational low-voltage model only. Confirm actual LED limits, resistor wattage, supply tolerance, and heat before building hardware."
+      "safetyNote": "Educational low-voltage model only. Confirm actual LED limits, resistor wattage, supply tolerance, and heat before building hardware.",
+      "verification": { "status": "passed", "workflow": "Verify AdigunSimulator", "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348" }
     }
   ]
 }
