@@ -60,6 +60,17 @@ test("linear DC nodal analysis solves a resistor branch network", () => {
   assert.equal(result.result.resistors.length, 3);
 });
 
+test("parallel resistor load example has a reproducible DC operating point", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/004-parallel-resistor-load.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "resistive-network");
+  assert.ok(Math.abs(result.result.nodeVoltages.MID - (5 / 3)) < 1e-9);
+  assert.ok(Math.abs(result.result.sourceCurrentA - (5 / 1500)) < 1e-9);
+  assert.equal(result.result.resistors.length, 3);
+});
+
 test("linear DC nodal analysis blocks a floating resistor island", () => {
   const project = createVoltageDividerProject();
   project.nets = [
