@@ -168,6 +168,18 @@ export function disconnectPin(project, pinEndpoint) {
   return next;
 }
 
+export function removeComponent(project, instanceId) {
+  if (!project.components.some((item) => item.instanceId === instanceId)) throw new Error(`Component not found: ${instanceId}`);
+  const next = clone(project);
+  next.components = next.components.filter((item) => item.instanceId !== instanceId);
+  next.nets = next.nets.flatMap((net) => {
+    const endpoints = net.endpoints.filter((item) => !item.startsWith(`${instanceId}:`));
+    return endpoints.length >= 2 ? [{ ...net, endpoints }] : [];
+  });
+  next.metadata.updatedAt = new Date().toISOString();
+  return next;
+}
+
 export function validateProject(project) {
   const errors = [];
   const warnings = [];

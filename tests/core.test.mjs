@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { addComponent, connectPins, createProject, createVoltageDividerProject, disconnectPin, getViewReconciliationIssues, moveComponent, parseProject, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
+import { addComponent, connectPins, createProject, createVoltageDividerProject, disconnectPin, getViewReconciliationIssues, moveComponent, parseProject, removeComponent, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
 import { getLedgerCoverage, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
@@ -132,6 +132,14 @@ test("pin wiring merges existing nets and disconnection preserves remaining nets
   assert.ok(!disconnected.nets.some((net) => net.endpoints.includes("led-1:A")));
   assert.equal(validateProject(disconnected).valid, true);
   assert.throws(() => connectPins(project, "missing:1", "led-1:A"));
+});
+
+test("component removal cleans its pins from nets and leaves project valid", () => {
+  const removed = removeComponent(createProject(), "led-1");
+  assert.ok(!removed.components.some((item) => item.instanceId === "led-1"));
+  assert.ok(removed.nets.every((net) => net.endpoints.every((item) => !item.startsWith("led-1:"))));
+  assert.equal(validateProject(removed).valid, true);
+  assert.throws(() => removeComponent(removed, "missing"));
 });
 
 test("all starter library entries have a visible category and explicit view mappings", () => {

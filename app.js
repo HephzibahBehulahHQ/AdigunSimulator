@@ -7,6 +7,7 @@ import {
   findLibraryPart,
   getViewReconciliationIssues,
   moveComponent,
+  removeComponent,
   parseProject,
   runSupportedAnalysis,
   serializeProject,
@@ -172,6 +173,7 @@ function renderInspector() {
   $("#project-name").value = state.project.metadata.name;
   $("#project-locale").value = state.project.metadata.locale;
   $("#component-form button").disabled = !component;
+  $("#remove-component").disabled = !component;
   renderConnections();
 }
 
@@ -422,6 +424,18 @@ $("#component-form").addEventListener("submit", (event) => {
   state.dirty = true;
   validateAndReport();
   render();
+});
+$("#remove-component").addEventListener("click", () => {
+  const component = selectedComponent();
+  if (!component) return;
+  captureHistory();
+  state.project = removeComponent(state.project, component.instanceId);
+  state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
+  state.dirty = true;
+  state.lastValidation = null;
+  render();
+  validateAndReport();
+  log(`[REMOVE] Removed ${component.reference} and cleaned its net endpoints.`);
 });
 $("#connection-form").addEventListener("submit", (event) => {
   event.preventDefault();
