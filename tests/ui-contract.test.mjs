@@ -16,7 +16,8 @@ test("the interface references only declared translation keys and exposes four l
   const keys = values(html, /data-i18n(?:-(?:placeholder|aria|title))?="([^"]+)"/g);
   assert.ok(keys.length > 30);
   for (const key of keys) assert.ok(UI_KEYS.includes(key), `index.html references unknown translation key: ${key}`);
-  assert.deepEqual(values(html, /<option value="([^"]+)">/g), UI_LOCALES);
+  const languageSelect = html.match(/<select id="language">([\s\S]*?)<\/select>/)?.[1] ?? "";
+  assert.deepEqual(values(languageSelect, /<option value="([^"]+)">/g), UI_LOCALES);
 });
 
 test("enabled project commands are implemented while unreleased tools remain disabled", async () => {
@@ -34,6 +35,18 @@ test("diagnostics tabs have an accessible target and a stateful handler", async 
   assert.match(html, /id="issue-list"/);
   assert.match(app, /state\.activeOutput = outputTab\.dataset\.output/);
   assert.match(app, /function renderOutput/);
+});
+
+test("released example picker points only to tested registry projects", async () => {
+  const [html, app, manifestText] = await Promise.all([
+    readFile(indexFile, "utf8"), readFile(appFile, "utf8"), readFile(new URL("../examples/manifest.json", import.meta.url), "utf8")
+  ]);
+  const manifest = JSON.parse(manifestText);
+  const releasedFiles = manifest.examples.filter((example) => example.status === "released").map((example) => example.projectFile).sort();
+  const pickerFiles = values(html, /<option value="(examples\/[^"]+\.adigun\.json)">/g).sort();
+  assert.deepEqual(pickerFiles, releasedFiles);
+  assert.match(app, /runSupportedAnalysis\(project\)/);
+  assert.match(app, /Loaded and validated/);
 });
 
 test("the published example catalogue retains all 200 individually specified acceptance rows", async () => {
