@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { addComponent, createProject, getViewReconciliationIssues, parseProject, runSupportedAnalysis, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
+import { addComponent, createProject, getViewReconciliationIssues, parseProject, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
 import { getLedgerCoverage, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
 
@@ -42,6 +42,15 @@ test("component insertion assigns a unique reference and retains project validit
   const project = addComponent(createProject(), "input.pushbutton");
   assert.equal(project.components.at(-1).reference, "SW1");
   assert.equal(validateProject(project).valid, true);
+});
+
+test("all starter library entries have a visible category and explicit view mappings", () => {
+  for (const part of STARTER_LIBRARY) {
+    assert.ok(part.category);
+    assert.equal(typeof part.views.breadboard, "boolean");
+    assert.equal(typeof part.views.schematic, "boolean");
+    assert.equal(typeof part.views.pcb, "boolean");
+  }
 });
 
 test("native project serialization round-trips", () => {
