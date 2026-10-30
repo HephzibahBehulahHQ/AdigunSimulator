@@ -75,6 +75,21 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146807195"
       }
+    },
+    {
+      "id": "006-rl-step-response",
+      "title": "First-order RL step response",
+      "status": "released",
+      "objective": "Calculate the ideal 5 V step response of a 100 Ω resistor and 100 mH inductor from zero initial current; report time constant and sampled current/voltage.",
+      "acceptanceTest": "tests/core.test.mjs: single-pole RL step response reports current rise and inductor voltage",
+      "testId": "core-rl-step-response",
+      "projectFile": "examples/006-rl-step-response.adigun.json",
+      "safetyNote": "Educational ideal low-voltage transient model only. It omits parasitics, source impedance, tolerances, magnetic saturation, thermal effects, and component ratings; verify real parts before hardware use.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147338342"
+      }
     }
   ]
 }
