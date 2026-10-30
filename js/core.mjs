@@ -22,6 +22,18 @@ export function createProject() {
   return createLedCurrentLimiterProject();
 }
 
+export function createEmptyProject({ name = "Untitled Circuit", locale = "en" } = {}) {
+  const project = {
+    schemaVersion: SCHEMA_VERSION,
+    id: cryptoSafeId(),
+    metadata: { ...projectMetadata(name), locale },
+    components: [],
+    nets: [],
+    history: []
+  };
+  return project;
+}
+
 function projectMetadata(name) {
   const now = new Date().toISOString();
   return { name, locale: "en", createdAt: now, updatedAt: now };
