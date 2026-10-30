@@ -49,6 +49,14 @@ test("released example picker points only to tested registry projects", async ()
   assert.match(app, /Loaded and validated/);
 });
 
+test("electrical connection controls route through the validated project net model", async () => {
+  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  for (const id of ["connection-form", "connection-first", "connection-second", "net-list"]) assert.match(html, new RegExp(`id="${id}"`));
+  assert.match(app, /connectPins\(state\.project/);
+  assert.match(app, /disconnectPin\(state\.project/);
+  assert.match(app, /validateAndReport\(\)/);
+});
+
 test("the published example catalogue retains all 200 individually specified acceptance rows", async () => {
   const catalogue = await readFile(catalogueFile, "utf8");
   const rows = [...catalogue.matchAll(/^\|\s*(\d{1,3})\s*\|/gm)].map((match) => Number(match[1]));

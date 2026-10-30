@@ -142,6 +142,15 @@
           <button id="load-example" class="outline-button" type="button">Load selected example</button>
           <p class="limit-note">Three released projects. Other catalogue entries are planned and are not loadable yet.</p>
         </section>
+        <section class="simulation-control connection-control">
+          <h3>Electrical connections</h3>
+          <form id="connection-form" class="connection-form">
+            <label for="connection-first">First pin</label><select id="connection-first" required></select>
+            <label for="connection-second">Second pin</label><select id="connection-second" required></select>
+            <button class="outline-button" type="submit">Connect pins</button>
+          </form>
+          <ul id="net-list" class="net-list" aria-live="polite"></ul>
+        </section>
       </aside>
     </main>
 

@@ -2,6 +2,8 @@ import {
   STARTER_LIBRARY,
   addComponent,
   createProject,
+  connectPins,
+  disconnectPin,
   findLibraryPart,
   getViewReconciliationIssues,
   moveComponent,
@@ -170,6 +172,22 @@ function renderInspector() {
   $("#project-name").value = state.project.metadata.name;
   $("#project-locale").value = state.project.metadata.locale;
   $("#component-form button").disabled = !component;
+  renderConnections();
+}
+
+function renderConnections() {
+  const options = state.project.components.flatMap((component) => {
+    const part = findLibraryPart(component.libraryId);
+    return (part?.pins ?? []).map((pin) => ({ value: `${component.instanceId}:${pin}`, label: `${component.reference}.${pin} — ${part.type}` }));
+  });
+  for (const selector of ["#connection-first", "#connection-second"]) {
+    const select = $(selector);
+    const previous = select.value;
+    select.innerHTML = options.map((item) => `<option value="${escape(item.value)}">${escape(item.label)}</option>`).join("");
+    if (options.some((item) => item.value === previous)) select.value = previous;
+  }
+  $("#net-list").innerHTML = state.project.nets.map((net) => `
+    <li><strong>${escape(net.id)}</strong><ul>${net.endpoints.map((item) => `<li>${escape(item)} <button type="button" class="disconnect-pin" data-endpoint="${escape(item)}" aria-label="Disconnect ${escape(item)}">×</button></li>`).join("")}</ul></li>`).join("") || "<li>No connected nets yet.</li>";
 }
 
 function renderValidation() {
@@ -404,6 +422,29 @@ $("#component-form").addEventListener("submit", (event) => {
   state.dirty = true;
   validateAndReport();
   render();
+});
+$("#connection-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  try {
+    captureHistory();
+    state.project = connectPins(state.project, $("#connection-first").value, $("#connection-second").value);
+    state.dirty = true;
+    state.lastValidation = null;
+    render();
+    validateAndReport();
+  } catch (error) {
+    showDialog("Connection not added", error instanceof Error ? error.message : "The selected pins could not be connected.");
+  }
+});
+$("#net-list").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-endpoint]");
+  if (!button) return;
+  captureHistory();
+  state.project = disconnectPin(state.project, button.dataset.endpoint);
+  state.dirty = true;
+  state.lastValidation = null;
+  render();
+  validateAndReport();
 });
 $("#project-form").addEventListener("submit", (event) => {
   event.preventDefault();
