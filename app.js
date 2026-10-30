@@ -353,6 +353,33 @@ document.addEventListener("click", (event) => {
   if (collapse) document.querySelector(`.${collapse.dataset.collapse}`).classList.toggle("collapsed");
 });
 
+document.addEventListener("keydown", (event) => {
+  const target = event.target;
+  const editingText = target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
+  const modifier = event.ctrlKey || event.metaKey;
+  const key = event.key.toLowerCase();
+  if (modifier && key === "z") {
+    event.preventDefault();
+    if (event.shiftKey) redo(); else undo();
+    return;
+  }
+  if (modifier && key === "y") { event.preventDefault(); redo(); return; }
+  if (modifier && key === "s") { event.preventDefault(); saveLocal(); return; }
+  if (!editingText && (event.key === "Delete" || event.key === "Backspace")) {
+    const component = selectedComponent();
+    if (!component) return;
+    event.preventDefault();
+    captureHistory();
+    state.project = removeComponent(state.project, component.instanceId);
+    state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
+    state.dirty = true;
+    state.lastValidation = null;
+    render();
+    validateAndReport();
+    log(`[REMOVE] Removed ${component.reference} and cleaned its net endpoints.`);
+  }
+});
+
 document.addEventListener("pointerdown", (event) => {
   const canvas = event.target.closest("#design-canvas");
   if (!canvas) return;
