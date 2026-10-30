@@ -3,6 +3,7 @@ import {
   addComponent,
   createProject,
   findLibraryPart,
+  getViewReconciliationIssues,
   parseProject,
   runSupportedAnalysis,
   serializeProject,
@@ -115,15 +116,18 @@ function renderCanvas() {
   const canvas = $("#design-canvas");
   canvas.className = `design-canvas ${state.activeView} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
   canvas.setAttribute("aria-label", `${state.activeView} representation. Select a component to inspect it.`);
-  const parts = state.project.components.map((component) => componentVisual(component, state.activeView)).join("");
+  const issues = getViewReconciliationIssues(state.project, state.activeView);
+  const unavailable = new Set(issues.map((issue) => issue.instanceId));
+  const parts = state.project.components.filter((component) => !unavailable.has(component.instanceId)).map((component) => componentVisual(component, state.activeView)).join("");
   const wires = state.activeView === "schematic"
     ? `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true"><path d="M130 145 H255 M325 145 H450 M510 145 V205 H560 M560 205 H95 V145"/><circle cx="255" cy="145" r="4"/><circle cx="450" cy="145" r="4"/></svg>`
     : state.activeView === "pcb"
       ? `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true"><path class="track-red" d="M105 132 H240 V180 H410"/><path class="track-blue" d="M118 195 H330 V142 H500"/></svg>`
       : `<div class="breadboard-board" aria-hidden="true"><i></i><i></i><i></i><i></i></div><svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true"><path class="jumper-red" d="M112 145 H250 H460"/><path class="jumper-black" d="M112 198 H560"/></svg>`;
-  canvas.innerHTML = `<div class="canvas-label">${state.activeView === "breadboard" ? "Topology-aware breadboard representation" : state.activeView === "schematic" ? "Canonical net representation" : "PCB mapping preview — routing/DRC not implemented"}</div>${wires}${parts}`;
-  const miniSchematic = state.project.components.map((component) => componentVisual(component, "schematic")).join("");
-  const miniPcb = state.project.components.map((component) => componentVisual(component, "pcb")).join("");
+  const reconciliationNotice = issues.length ? `<div class="reconciliation-notice"><strong>Reconciliation needed</strong>${issues.map((issue) => `<span>${escape(issue.reference)}: ${escape(issue.reason)}</span>`).join("")}</div>` : "";
+  canvas.innerHTML = `<div class="canvas-label">${state.activeView === "breadboard" ? "Topology-aware breadboard representation" : state.activeView === "schematic" ? "Canonical net representation" : "PCB mapping preview — routing/DRC not implemented"}</div>${reconciliationNotice}${wires}${parts}`;
+  const miniSchematic = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "schematic").length).map((component) => componentVisual(component, "schematic")).join("");
+  const miniPcb = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "pcb").length).map((component) => componentVisual(component, "pcb")).join("");
   $("#schematic-mini").innerHTML = `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true"><path d="M130 145 H255 M325 145 H450 M510 145 V205 H560 M560 205 H95 V145"/></svg>${miniSchematic}`;
   $("#pcb-mini").innerHTML = `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true"><path class="track-red" d="M105 132 H240 V180 H410"/><path class="track-blue" d="M118 195 H330 V142 H500"/></svg>${miniPcb}`;
 }
