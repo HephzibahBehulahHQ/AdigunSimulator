@@ -10,7 +10,8 @@ export const UI_KEYS = Object.freeze([
   "reference", "value", "libraryStatus", "applyProperties", "projectName", "locale", "applyProject",
   "simulationControl", "availableAnalysis", "runCalculation", "stopSimulation", "simulationLimit",
   "runValidation", "validationHelp", "botAssistant", "botUnavailable", "botPrivacy", "botPlaceholder",
-  "close", "collapseLibrary", "collapseProperties", "maximizeSchematic", "maximizePcb"
+  "close", "collapseLibrary", "collapseProperties", "maximizeSchematic", "maximizePcb",
+  "releasedExamples", "loadTestedStarter", "loadSelectedExample", "morePlannedExamples", "electricalConnections", "firstPin", "secondPin", "connectPins", "noConnectedNets", "disconnect"
 ]);
 
 export const TRANSLATIONS = Object.freeze({
@@ -39,6 +40,11 @@ export const TRANSLATIONS = Object.freeze({
     breadboard: "Breadboard View", schematic: "Circuit drawing", pcb: "PCB View", select: "Select", pan: "Move view", zoomOut: "Zoom out", zoomIn: "Zoom in", snap: "Snap", grid: "Grid", simulationOutput: "Simulation Output", errors: "Errors", warnings: "Warnings", component: "Part", project: "Project", simulation: "Simulation", type: "Type", reference: "Reference", value: "Value", libraryStatus: "Library status", applyProperties: "Apply properties", projectName: "Project name", locale: "Language", applyProject: "Apply project settings", simulationControl: "Simulation Control", availableAnalysis: "Analysis wey dey: LED current limiter and unloaded two-resistor voltage divider.", runCalculation: "Run calculation", stopSimulation: "Stop", simulationLimit: "General SPICE, digital and mixed-signal engines never dey yet.", runValidation: "Run validation", validationHelp: "Run validation make you see project issues.", botAssistant: "Your AI engineering assistant", botUnavailable: "E never configure.", botPrivacy: "This local foundation no connect to AI service and no send project data outside.", botPlaceholder: "AI service never configure", close: "Close", collapseLibrary: "Close component library", collapseProperties: "Close properties", maximizeSchematic: "Make circuit drawing full screen", maximizePcb: "Make PCB full screen"
   }
 });
+
+Object.assign(TRANSLATIONS.en, { releasedExamples: "Released examples", loadTestedStarter: "Load a tested starter project", loadSelectedExample: "Load selected example", morePlannedExamples: "Three projects released. Other catalogue entries are planned and cannot be loaded yet.", electricalConnections: "Electrical connections", firstPin: "First pin", secondPin: "Second pin", connectPins: "Connect pins", noConnectedNets: "No connected nets yet.", disconnect: "Disconnect" });
+Object.assign(TRANSLATIONS.de, { releasedExamples: "Veröffentlichte Beispiele", loadTestedStarter: "Geprüftes Starterprojekt laden", loadSelectedExample: "Ausgewähltes Beispiel laden", morePlannedExamples: "Drei Projekte veröffentlicht. Die übrigen Katalogeinträge sind geplant und noch nicht ladbar.", electricalConnections: "Elektrische Verbindungen", firstPin: "Erster Pin", secondPin: "Zweiter Pin", connectPins: "Pins verbinden", noConnectedNets: "Noch keine verbundenen Netze.", disconnect: "Trennen" });
+Object.assign(TRANSLATIONS.yo, { releasedExamples: "Àwọn àpẹẹrẹ tí a tú síta", loadTestedStarter: "Ṣí iṣẹ́ àpẹẹrẹ tí a ti dán wò", loadSelectedExample: "Ṣí àpẹẹrẹ yìí", morePlannedExamples: "A ti tú iṣẹ́ mẹ́ta síta. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí.", electricalConnections: "Àwọn ìsopọ̀ iná mànàmáná", firstPin: "Pinni àkọ́kọ́", secondPin: "Pinni kejì", connectPins: "So àwọn pinni pọ̀", noConnectedNets: "Kò sí nẹ́tìwọ́ọ̀kì tó so pọ̀ síbẹ̀.", disconnect: "Yọ ìsopọ̀" });
+Object.assign(TRANSLATIONS.pcm, { releasedExamples: "Examples wey don release", loadTestedStarter: "Load tested starter project", loadSelectedExample: "Load selected example", morePlannedExamples: "Three projects don release. Other catalogue projects never ready to load.", electricalConnections: "Electrical connections", firstPin: "First pin", secondPin: "Second pin", connectPins: "Connect pins", noConnectedNets: "No connected nets yet.", disconnect: "Disconnect" });
 
 export function translate(locale, key) {
   return TRANSLATIONS[locale]?.[key] ?? TRANSLATIONS.en[key] ?? key;

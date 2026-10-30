@@ -187,7 +187,7 @@ function renderConnections() {
     if (options.some((item) => item.value === previous)) select.value = previous;
   }
   $("#net-list").innerHTML = state.project.nets.map((net) => `
-    <li><strong>${escape(net.id)}</strong><ul>${net.endpoints.map((item) => `<li>${escape(item)} <button type="button" class="disconnect-pin" data-endpoint="${escape(item)}" aria-label="Disconnect ${escape(item)}">×</button></li>`).join("")}</ul></li>`).join("") || "<li>No connected nets yet.</li>";
+    <li><strong>${escape(net.id)}</strong><ul>${net.endpoints.map((item) => `<li>${escape(item)} <button type="button" class="disconnect-pin" data-endpoint="${escape(item)}" aria-label="${escape(t("disconnect"))} ${escape(item)}">×</button></li>`).join("")}</ul></li>`).join("") || `<li>${escape(t("noConnectedNets"))}</li>`;
 }
 
 function renderValidation() {
