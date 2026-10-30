@@ -184,6 +184,16 @@ test("malformed imported project shapes return validation errors instead of thro
   assert.throws(() => parseProject(JSON.stringify({ schemaVersion: 1, metadata: { name: "Broken" }, components: [], nets: [{ id: "NET" }] })));
 });
 
+test("layout positions must be numeric, safe, and within canvas bounds", () => {
+  const malformed = createProject();
+  malformed.components[0].position.schematic = ['0" onmouseover="alert(1)', 120];
+  assert.ok(validateProject(malformed).errors.some((issue) => issue.rule === "LAYOUT_POSITION"));
+  assert.throws(() => parseProject(JSON.stringify(malformed)));
+  const outside = createProject();
+  outside.components[0].position.pcb = [5000, 120];
+  assert.ok(validateProject(outside).errors.some((issue) => issue.rule === "LAYOUT_BOUNDS"));
+});
+
 test("part ledger records authoritative candidate sources without counting candidates as verified", async () => {
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url)));
   assert.equal(validatePartLedger(ledger).valid, true);
