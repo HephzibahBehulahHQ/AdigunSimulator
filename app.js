@@ -3,6 +3,7 @@ import {
   addComponent,
   createProject,
   connectPins,
+  createEmptyProject,
   disconnectPin,
   findLibraryPart,
   getViewReconciliationIssues,
@@ -310,8 +311,8 @@ function handleAction(action) {
     state.history = [];
     state.future = [];
     state.lastValidation = null;
-    replaceProject(createProject());
-    log("[NEW] Created a new LED demonstration project.");
+    replaceProject(createEmptyProject({ locale: state.project.metadata.locale }));
+    log("[NEW] Created a blank circuit project.");
   }
   if (action === "import-project") $("#import-file").click();
   if (action === "save") saveLocal();
