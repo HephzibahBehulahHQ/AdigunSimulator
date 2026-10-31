@@ -381,6 +381,29 @@
             <button class="outline-button" type="submit" data-i18n="connectPins">Connect pins</button>
           </form>
           <ul id="net-list" class="net-list" aria-live="polite"></ul>
+
+        <section class="breadboard-controls" aria-labelledby="breadboard-editor-heading">
+          <h3 id="breadboard-editor-heading" data-i18n="breadboardEditor">Physical breadboard</h3>
+          <p id="breadboard-status" role="status" aria-live="polite"></p>
+          <datalist id="breadboard-hole-options"></datalist>
+          <form id="breadboard-pin-form" class="connection-form">
+            <label for="breadboard-pin" data-i18n="breadboardComponentPin">Component pin</label>
+            <select id="breadboard-pin" required></select>
+            <label for="breadboard-hole" data-i18n="breadboardHole">Breadboard hole</label>
+            <input id="breadboard-hole" list="breadboard-hole-options" placeholder="A1–J30, TP1–BM30" pattern="([A-Ja-j]([1-9]|[12][0-9]|30)|(TP|TM|BP|BM|tp|tm|bp|bm)([1-9]|[12][0-9]|30))" required />
+            <button class="outline-button" type="submit" data-i18n="breadboardAssignPin">Place pin</button>
+          </form>
+          <ul id="breadboard-placement-list" class="breadboard-list" aria-live="polite"></ul>
+          <form id="breadboard-jumper-form" class="connection-form">
+            <label for="breadboard-jumper-from" data-i18n="breadboardJumperFrom">Jumper from hole</label>
+            <input id="breadboard-jumper-from" list="breadboard-hole-options" placeholder="A1–J30, TP1–BM30" pattern="([A-Ja-j]([1-9]|[12][0-9]|30)|(TP|TM|BP|BM|tp|tm|bp|bm)([1-9]|[12][0-9]|30))" required />
+            <label for="breadboard-jumper-to" data-i18n="breadboardJumperTo">Jumper to hole</label>
+            <input id="breadboard-jumper-to" list="breadboard-hole-options" placeholder="A1–J30, TP1–BM30" pattern="([A-Ja-j]([1-9]|[12][0-9]|30)|(TP|TM|BP|BM|tp|tm|bp|bm)([1-9]|[12][0-9]|30))" required />
+            <button class="outline-button" type="submit" data-i18n="breadboardAddJumper">Add jumper</button>
+          </form>
+          <ul id="breadboard-jumper-list" class="breadboard-list" aria-live="polite"></ul>
+        </section>
+
         </section>
       </aside>
     </main>
