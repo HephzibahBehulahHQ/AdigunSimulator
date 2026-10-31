@@ -2390,3 +2390,31 @@ test("catalogue GSM alarm notifier follows mocked AT steps and aborts on modem e
   broken.nets.find(net=>net.id==="UART_TX").endpoints=["controller:TX"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue Wi-Fi relay controller applies valid commands and fails safe offline", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/084-wifi-relay-controller.adigun.json",import.meta.url)));
+  const on=runSupportedAnalysis(project);
+  assert.equal(on.state,"complete",on.message);
+  assert.equal(on.result.kind,"wifi-relay-control");
+  assert.equal(on.result.transactionState,"applied-on");
+  assert.equal(on.result.relayEnergized,true);
+  assert.equal(on.result.coilCurrentMa,70);
+  assert.equal(on.result.physicalRelaySwitched,false);
+  assert.equal(on.result.networkTransmitted,false);
+  assert.match(on.result.authentication,/placeholder/);
+  const off=runSupportedAnalysis(updateComponent(project,"command",{value:"Command OFF; Token TEST_TOKEN"}));
+  assert.equal(off.result.transactionState,"applied-off");
+  assert.equal(off.result.relayEnergized,false);
+  const badToken=runSupportedAnalysis(updateComponent(project,"command",{value:"Command ON; Token WRONG"}));
+  assert.equal(badToken.result.transactionState,"denied-placeholder-token");
+  assert.equal(badToken.result.relayEnergized,false);
+  const offline=runSupportedAnalysis(updateComponent(project,"wifi",{value:"Mode local-mock; Link offline"}));
+  assert.equal(offline.result.transactionState,"offline-fail-safe");
+  assert.equal(offline.result.relayEnergized,false);
+  const overCurrent=runSupportedAnalysis(updateComponent(project,"driver",{value:"Mode ideal-switch; RequestedCoilCurrentMa 120; MaximumCurrentMa 100"}));
+  assert.equal(overCurrent.result.transactionState,"driver-current-limit");
+  assert.equal(overCurrent.result.relayEnergized,false);
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="DRIVE").endpoints=["controller:DRIVE"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
