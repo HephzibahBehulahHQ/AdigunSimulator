@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-141-dc-voltmeter-use",
+  "metadata": {
+    "name": "DC voltmeter across a divider",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          60,
+          142
+        ],
+        "schematic": [
+          95,
+          128
+        ],
+        "pcb": [
+          92,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-top-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          250,
+          122
+        ],
+        "schematic": [
+          260,
+          112
+        ],
+        "pcb": [
+          244,
+          112
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-bottom-1",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "2 kΩ",
+      "position": {
+        "breadboard": [
+          425,
+          188
+        ],
+        "schematic": [
+          438,
+          188
+        ],
+        "pcb": [
+          418,
+          188
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          565,
+          222
+        ],
+        "schematic": [
+          564,
+          220
+        ],
+        "pcb": [
+          506,
+          222
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "resistor-top-1:1"
+      ]
+    },
+    {
+      "id": "VOUT",
+      "endpoints": [
+        "resistor-top-1:2",
+        "resistor-bottom-1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "resistor-bottom-1:2",
+        "source-1:-",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": [],
+  "instrument": {
+    "type": "dc-voltmeter",
+    "sourceReference": "V1",
+    "positiveNet": "VOUT",
+    "negativeNet": "GND",
+    "inputResistanceOhms": 10000000
+  }
+}

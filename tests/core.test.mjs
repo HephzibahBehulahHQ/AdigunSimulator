@@ -1437,7 +1437,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 150);
+  assert.equal(getExampleCoverage(registry).total, 151);
   assert.equal(getExampleCoverage(registry).released, 140);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 60);
@@ -3866,4 +3866,24 @@ test("catalogue assembly variant board generates two BOMs and excludes DNP parts
   assert.ok(pack.files["SHA256SUMS.txt"].includes("BOM-indicator.csv"));
   const broken=JSON.parse(JSON.stringify(project));broken.assemblyVariants[0].dnpReferences=["U99"];
   assert.equal(createManufacturingExportPack(broken).status,"blocked");
+});
+
+test("catalogue DC voltmeter measures divider voltage with units, input loading and lead-placement checks", async () => {
+  const {analyzeDcVoltmeter}=await import("../js/dc-voltmeter-analysis.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/141-dc-voltmeter-use.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const reading=analyzeDcVoltmeter(project);
+  assert.equal(reading.state,"complete");
+  assert.equal(reading.result.kind,"dc-voltmeter");
+  assert.equal(reading.result.unit,"V");
+  assert.ok(Math.abs(reading.result.measuredVoltageV-5.9997)<0.001);
+  assert.equal(reading.result.positiveLeadNet,"VOUT");
+  assert.equal(reading.result.negativeLeadNet,"GND");
+  assert.equal(reading.result.inputResistanceOhms,10000000);
+  assert.equal(reading.result.loadingModeled,true);
+  const reversed=JSON.parse(JSON.stringify(project));reversed.instrument.positiveNet="GND";reversed.instrument.negativeNet="VOUT";
+  assert.ok(analyzeDcVoltmeter(reversed).result.measuredVoltageV<0);
+  const misplaced=JSON.parse(JSON.stringify(project));misplaced.instrument.positiveNet="VOUT";misplaced.instrument.negativeNet="VOUT";
+  assert.equal(analyzeDcVoltmeter(misplaced).state,"blocked");
 });

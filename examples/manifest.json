@@ -5726,6 +5726,18 @@
           "unresolvedExportBlocked": true
         }
       }
+    },
+    {
+      "id": "141-dc-voltmeter-use",
+      "title": "DC voltmeter use",
+      "status": "in-review",
+      "objective": "Measure divider output against ground in volts using a finite-input-resistance meter model, report loading and polarity, and reject invalid lead placement.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue DC voltmeter measures divider voltage with units, input loading and lead-placement checks",
+      "testId": "core-dc-voltmeter-use",
+      "projectFile": "examples/141-dc-voltmeter-use.adigun.json",
+      "readmeFile": "examples/141-dc-voltmeter-use/README.md",
+      "safetyNote": "The voltmeter model covers a bounded ideal DC divider with declared finite input resistance. It does not model meter accuracy, protection, AC ranges, burden, transients, or physical instrument safety ratings.",
+      "scope": "catalogue"
     }
   ]
 }

@@ -19,6 +19,7 @@ import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
+import { analyzeDcVoltmeter } from "./js/dc-voltmeter-analysis.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -439,11 +440,12 @@ function validateAndReport() {
 
 function runAnalysis() {
   validateAndReport();
-  const result = runSupportedAnalysis(state.project);
+  const result = state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : runSupportedAnalysis(state.project);
   state.lastAnalysis = result;
   if (result.state === "complete") {
     const { kind } = result.result;
     log(`[ANALYSIS] ${result.engine}`);
+    if(kind==="dc-voltmeter")log(`[METER] ${result.result.measuredVoltageV.toFixed(4)} ${result.result.unit} from ${result.result.positiveLeadNet} to ${result.result.negativeLeadNet} (${result.result.polarity} polarity).`);
     if (kind === "led-current-limiter") {
       const { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn } = result.result;
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Ω`);
