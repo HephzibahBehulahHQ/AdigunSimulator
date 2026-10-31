@@ -7377,7 +7377,7 @@
     {
       "id": "191-rc-timing-calculator",
       "title": "RC timing calculator",
-      "status": "in-review",
+      "status": "released",
       "objective": "Calculate the first-order RC time constant and ideal cutoff frequency from resistance and capacitance values with decimal SI-prefix conversion.",
       "acceptanceTest": "tests/core.test.mjs: catalogue RC timing calculator handles decimal resistance and capacitance prefixes",
       "testId": "core-rc-timing-calculator",
@@ -7385,7 +7385,31 @@
       "readmeFile": "examples/191-rc-timing-calculator/README.md",
       "safetyNote": "Ideal first-order calculation only. Capacitor tolerance, ESR, leakage, source impedance, loading, and parasitic effects are not modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 191,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41215874926",
+        "headRevision": "81cbf0d4896ab22563af711535445ac967d1652c",
+        "engine": "First-order RC time constant and cutoff",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "rc-timing-cases-v1",
+        "expectedResult": {
+          "kind": "rc-timing-cases",
+          "caseCount": 3,
+          "timeConstantsSeconds": [
+            0.001,
+            0.047,
+            0.0000022
+          ],
+          "cutoffFrequenciesHz": [
+            159.1549430919,
+            3.3862753849,
+            72343.1559509
+          ]
+        }
+      }
     }
   ]
 }
