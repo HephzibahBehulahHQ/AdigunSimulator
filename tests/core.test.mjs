@@ -1158,7 +1158,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 132);
+  assert.equal(getExampleCoverage(registry).total, 133);
   assert.equal(getExampleCoverage(registry).released, 122);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 78);
@@ -3286,6 +3286,28 @@ test("catalogue hot-swap limits capacitor inrush and trips an overload", async (
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="GATE").endpoints=["controller:GATE"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue op-amp filter PCB preserves native netlist and matches fabrication snapshots", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/123-opamp-filter-pcb.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  assert.equal(analysis.result.kind,"active-low-pass");
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  assert.ok(drc.checks.includes("native/PCB netlist equivalence"));
+  const nativeNets=project.nets.map(net=>net.id).sort();
+  const pcbNets=[...new Set(project.pcbFabrication.pads.filter(pad=>pad.netId!=="NC").map(pad=>pad.netId))].sort();
+  assert.deepEqual(pcbNets,nativeNets);
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  for(const [name,content] of Object.entries(generated.files)){
+    const expected=await readFile(new URL("../examples/123-opamp-filter-pcb/expected/"+name,import.meta.url),"utf8");
+    assert.equal(content,expected,name);
+  }
+  const changed=structuredClone(project);
+  changed.pcbFabrication.pads.find(pad=>pad.reference==="U1"&&pad.number==="6").netId="INVERTING";
+  assert.equal(validatePcbFabrication(changed).status,"failed");
 });
 
 test("catalogue 555 timer PCB maps every routed net and matches fabrication snapshots", async () => {
