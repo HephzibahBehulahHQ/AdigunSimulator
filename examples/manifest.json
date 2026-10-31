@@ -4369,6 +4369,47 @@
           "protectionActuated": false
         }
       }
+    },
+    {
+      "id": "106-solar-mppt-concept",
+      "title": "Solar MPPT concept",
+      "status": "released",
+      "objective": "Sweep a synthetic piecewise-linear solar I-V curve from short circuit to open circuit, identify the highest sampled power point, and apply an explicit conversion-efficiency assumption across irradiance settings.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue solar MPP sweep finds maximum sample and scales current with irradiance",
+      "testId": "core-solar-mpp-sweep",
+      "projectFile": "examples/106-solar-mppt-concept.adigun.json",
+      "safetyNote": "Static synthetic I-V sweep only. It is not a perturb-and-observe tracker, dynamic converter, irradiance-dependent open-circuit-voltage model, physical solar panel, or hardware MPPT validation.",
+      "scope": "catalogue",
+      "catalogueIndex": 106,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41188244953",
+        "headRevision": "586563a26a57193b4bb5af40ae81eed12869bee7",
+        "engine": "Piecewise-linear solar I-V sweep and sampled maximum-power estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "synthetic-solar-iv-static-sweep-v1",
+        "expectedResult": {
+          "kind": "solar-mpp-sweep",
+          "openCircuitVoltageV": 10,
+          "shortCircuitCurrentA": 1,
+          "configuredMppVoltageV": 8,
+          "configuredMppCurrentA": 0.9,
+          "configuredMppPowerW": 7.2,
+          "irradiancePercent": 100,
+          "sampleCount": 21,
+          "sweepStepV": 0.5,
+          "maximumPowerPoint": {
+            "voltageV": 8,
+            "currentA": 0.9,
+            "powerW": 7.2
+          },
+          "conversionOutputPowerW": 6.84,
+          "assumedEfficiencyPercent": 95,
+          "trackingAlgorithmModeled": false,
+          "converterHardwareModeled": false
+        }
+      }
     }
   ]
 }
