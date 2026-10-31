@@ -3074,7 +3074,7 @@ function analysePwmDac(project,{source,settings,pwm,report,resistors,capacitor,g
   const supplyVoltage=voltageValue(source.value),seriesResistor=resistors.find(part=>n(part,"1")===n(pwm,"OUT")||n(part,"2")===n(pwm,"OUT")),loadResistor=resistors.find(part=>part!==seriesResistor);
   const seriesOhm=seriesResistor?resistanceValue(seriesResistor.value):Number.NaN,loadOhm=loadResistor?resistanceValue(loadResistor.value):Number.NaN,capacitance=capacitanceValue(capacitor.value);
   const nodeNet=seriesResistor?(n(seriesResistor,"1")===n(pwm,"OUT")?n(seriesResistor,"2"):n(seriesResistor,"1")):undefined,groundNet=n(ground,"0"),vccNet=n(source,"+");
-  const topology=n(settings,"CONFIG")===n(pwm,"CONFIG")&&nodeNet===n(report,"IN")&&nodeNet===n(capacitor,"1")||nodeNet===n(capacitor,"2");
+  const topology=n(settings,"CONFIG")===n(pwm,"CONFIG")&&nodeNet===n(report,"IN")&&((nodeNet===n(capacitor,"1")&&groundNet===n(capacitor,"2"))||(nodeNet===n(capacitor,"2")&&groundNet===n(capacitor,"1")));
   const loadWired=loadResistor&&((n(loadResistor,"1")===nodeNet&&n(loadResistor,"2")===groundNet)||(n(loadResistor,"2")===nodeNet&&n(loadResistor,"1")===groundNet));
   const capWired=(n(capacitor,"1")===nodeNet&&n(capacitor,"2")===groundNet)||(n(capacitor,"2")===nodeNet&&n(capacitor,"1")===groundNet);
   const powerWired=n(source,"-")===groundNet&&n(pwm,"VCC")===vccNet&&n(report,"VCC")===vccNet&&n(pwm,"GND")===groundNet&&n(report,"GND")===groundNet&&n(settings,"GND")===groundNet;
