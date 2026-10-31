@@ -2261,3 +2261,26 @@ test("catalogue NFC example displays a successful UID read and blocks read error
   broken.nets.find(net=>net.id==="READER_DATA").endpoints=["reader:DATA"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+
+test("catalogue EEPROM data logger wraps a full ring buffer and replays retained samples",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/079-eeprom-data-logger.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"eeprom-ring-logger");
+  assert.equal(result.result.samplePeriodMs,100);
+  assert.equal(result.result.writeCycleMs,5);
+  assert.equal(result.result.capacity,3);
+  assert.equal(result.result.recordedSamples,5);
+  assert.equal(result.result.overwrittenRecords,2);
+  assert.equal(result.result.bufferWrapped,true);
+  assert.deepEqual(result.result.replayValues,[30,40,50]);
+  assert.deepEqual(result.result.replayTimesMs,[200,300,400]);
+  assert.match(result.result.displayText,/200 ms: 30 °C.*400 ms: 50 °C/);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"eeprom",{value:"Capacity 0; WriteCycleMs 5; Mode circular"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Samples 10,broken,30; PeriodMs 100; Unit C"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SDA").endpoints=["controller:SDA","pull-sda:2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
