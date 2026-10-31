@@ -5436,14 +5436,35 @@
     {
       "id": "132-qfn-footprint-validation",
       "title": "QFN footprint validation — exposed thermal pad",
-      "status": "in-review",
+      "status": "released",
       "objective": "Validate the TI TPS62130RGTR RGT0016C 16-lead VQFN footprint, pad map, segmented stencil proposal and courtyard using bounded geometric checks.",
       "acceptanceTest": "tests/core.test.mjs: QFN footprint validation checks pad map, land pattern, stencil apertures and courtyard",
       "testId": "core-qfn-footprint-validation",
       "projectFile": "examples/132-qfn-footprint-validation.adigun.json",
       "readmeFile": "examples/132-qfn-footprint-validation/README.md",
       "safetyNote": "Package drawing and pin map are identified from TI documentation. Stencil openings and courtyard are declared project proposals; no paste-transfer, assembly, thermal, manufacturing DRC or production qualification is performed.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 132,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41199054560",
+        "headRevision": "077803b2d8b11cf6da04d24d5e6e520ef8e37335",
+        "engine": "Bounded QFN package pad, stencil and courtyard geometry checker",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ti-rgt0016c-qfn-footprint-v1",
+        "expectedResult": {
+          "kind": "qfn-footprint-validation",
+          "device": "TPS62130RGTR",
+          "package": "RGT0016C",
+          "electricalPads": 16,
+          "exposedPadNumber": "17",
+          "stencilApertures": 20,
+          "pasteCoveragePercent": 69.4,
+          "manufacturingQualified": false,
+          "artifact": "QFN-Footprint-Review.csv"
+        }
+      }
     }
   ]
 }
