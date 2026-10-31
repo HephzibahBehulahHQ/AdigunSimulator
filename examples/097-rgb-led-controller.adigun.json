@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-097-rgb-led-controller",
+  "metadata": {
+    "name": "RGB LED PWM Colour Controller",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          30,
+          50
+        ],
+        "schematic": [
+          30,
+          50
+        ],
+        "pcb": [
+          30,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "command",
+      "libraryId": "input.rgb-colour-command",
+      "reference": "CMD1",
+      "value": "R 255; G 128; B 0; Frequency 1000 Hz",
+      "position": {
+        "breadboard": [
+          105,
+          50
+        ],
+        "schematic": [
+          105,
+          50
+        ],
+        "pcb": [
+          105,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.rgb-pwm-controller-ideal",
+      "reference": "U1",
+      "value": "Mode active-high PWM; Resolution 8 bit",
+      "position": {
+        "breadboard": [
+          240,
+          50
+        ],
+        "schematic": [
+          240,
+          50
+        ],
+        "pcb": [
+          240,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "r-red",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "220 Ω",
+      "position": {
+        "breadboard": [
+          315,
+          130
+        ],
+        "schematic": [
+          315,
+          130
+        ],
+        "pcb": [
+          315,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "r-green",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "220 Ω",
+      "position": {
+        "breadboard": [
+          355,
+          150
+        ],
+        "schematic": [
+          355,
+          150
+        ],
+        "pcb": [
+          355,
+          150
+        ]
+      }
+    },
+    {
+      "instanceId": "r-blue",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "220 Ω",
+      "position": {
+        "breadboard": [
+          395,
+          170
+        ],
+        "schematic": [
+          395,
+          170
+        ],
+        "pcb": [
+          395,
+          170
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "output.rgb-led-common-cathode",
+      "reference": "LED1",
+      "value": "VfRed 2.0 V; VfGreen 3.0 V; VfBlue 3.0 V",
+      "position": {
+        "breadboard": [
+          430,
+          50
+        ],
+        "schematic": [
+          430,
+          50
+        ],
+        "pcb": [
+          430,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.rgb-pwm-report",
+      "reference": "SCOPE1",
+      "value": "RGB channel report",
+      "position": {
+        "breadboard": [
+          510,
+          50
+        ],
+        "schematic": [
+          510,
+          50
+        ],
+        "pcb": [
+          510,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          575,
+          220
+        ],
+        "schematic": [
+          575,
+          220
+        ],
+        "pcb": [
+          575,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "controller:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "command:GND",
+        "controller:GND",
+        "led:K",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "CONFIG",
+      "endpoints": [
+        "command:CONFIG",
+        "controller:CONFIG"
+      ]
+    },
+    {
+      "id": "RED_PWM",
+      "endpoints": [
+        "controller:R_PWM",
+        "r-red:1"
+      ]
+    },
+    {
+      "id": "RED_OUT",
+      "endpoints": [
+        "r-red:2",
+        "led:R",
+        "report:R_SENSE"
+      ]
+    },
+    {
+      "id": "GREEN_PWM",
+      "endpoints": [
+        "controller:G_PWM",
+        "r-green:1"
+      ]
+    },
+    {
+      "id": "GREEN_OUT",
+      "endpoints": [
+        "r-green:2",
+        "led:G",
+        "report:G_SENSE"
+      ]
+    },
+    {
+      "id": "BLUE_PWM",
+      "endpoints": [
+        "controller:B_PWM",
+        "r-blue:1"
+      ]
+    },
+    {
+      "id": "BLUE_OUT",
+      "endpoints": [
+        "r-blue:2",
+        "led:B",
+        "report:B_SENSE"
+      ]
+    }
+  ],
+  "history": []
+}
