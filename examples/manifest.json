@@ -2561,14 +2561,31 @@
     {
       "id": "062-arduino-button-debounce",
       "title": "Uno-class debounced button toggle",
-      "status": "in-review",
+      "status": "released",
       "objective": "Reject short digital bounce sequences and toggle the D13 output only after each three-sample stable press.",
       "acceptanceTest": "tests/core.test.mjs: catalogue Arduino button debounce rejects bounce and toggles once per stable press",
       "testId": "core-arduino-button-debounce",
       "projectFile": "examples/062-arduino-button-debounce.adigun.json",
       "safetyNote": "Configured sampled digital behavior only; it does not execute Arduino C++ or model switch contacts, analog RC behavior, CPU scheduling, or electrical noise.",
       "scope": "catalogue",
-      "catalogueIndex": 62
+      "catalogueIndex": 62,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41176694806",
+        "headRevision": "4c1e0234569a1b9a2302ba15a82664f80b4acb40",
+        "engine": "Ideal Uno-class sampled button debounce model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-button-debounce-toggle-v1",
+        "expectedResult": {
+          "stableSamples": 3,
+          "sampleRateHz": 1000,
+          "acceptedPresses": 2,
+          "toggleCount": 2,
+          "finalOutput": "off",
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
