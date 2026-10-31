@@ -7410,6 +7410,19 @@
           ]
         }
       }
+    },
+    {
+      "id": "192-op-amp-gain-calculator",
+      "title": "Op-amp gain calculator",
+      "status": "in-review",
+      "objective": "Compute ideal inverting and non-inverting closed-loop op-amp gain from resistor ratios, rejecting invalid or zero resistance values.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue op-amp gain calculator covers both topologies and rejects zero or invalid resistors",
+      "testId": "core-op-amp-gain-calculator",
+      "projectFile": "examples/192-op-amp-gain-calculator.adigun.json",
+      "readmeFile": "examples/192-op-amp-gain-calculator/README.md",
+      "safetyNote": "Ideal closed-loop gain equations only. Bandwidth, input offset/bias, output swing, slew rate, stability, load, and supply limits are not modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
