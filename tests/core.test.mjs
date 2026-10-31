@@ -3439,7 +3439,7 @@ test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs,
   assert.equal(report.split("\r\n").length,19);
   assert.match(report,/A5,CC1,CC1/);
   assert.match(report,/B5,CC2,CC2/);
-  assert.match(report,/A6,D\\+,USB_DP/);
+  assert.match(report,/A6,D\+,USB_DP/);
   const drc=validatePcbFabrication(project);
   assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
   const generated=exportPcbFabrication(project);
