@@ -51,6 +51,7 @@ import { runBreadboardSchematicSync } from "../js/breadboard-schematic-sync.mjs"
 import { runSchematicPcbSync } from "../js/schematic-pcb-sync.mjs";
 import { runThreeViewLedHistory } from "../js/three-view-led-history.mjs";
 import { projectComponentsForView, runUnsupportedBreadboardPackage } from "../js/view-projection.mjs";
+import { runMissingFootprintWorkflow } from "../js/pcb-update-resolution.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1483,7 +1484,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 194);
+  assert.equal(getExampleCoverage(registry).total, 195);
   assert.equal(getExampleCoverage(registry).released, 184);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 16);
@@ -4505,4 +4506,14 @@ test("catalogue unsupported BGA package becomes a breadboard reconciliation item
   const result=runUnsupportedBreadboardPackage(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"unsupported-breadboard-package-reconciliation");assert.equal(result.result.breadboardPlaced,false);
   assert.equal(result.result.schematicPlaced,true);assert.equal(result.result.pcbPlaced,true);assert.equal(result.result.fabricationQualified,false);assert.equal(result.result.claimsManufacturable,false);
   const invalid=structuredClone(project);invalid.unsupportedBreadboardPackage.instanceId="missing";assert.equal(runUnsupportedBreadboardPackage(invalid).state,"blocked");
+});
+test("catalogue missing-footprint workflow blocks PCB update and returns required resolution report", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/185-missing-footprint-workflow.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"complete");
+  const before=serializeProject(project),result=runMissingFootprintWorkflow(project);assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"missing-footprint-resolution-report");assert.equal(result.result.pcbUpdateBlocked,true);assert.equal(result.result.projectUnchanged,true);assert.equal(serializeProject(project),before);
+  assert.equal(result.result.missingFootprintCount,project.components.length);assert.equal(result.result.placedComponentCount,0);assert.equal(result.result.requiredReport.status,"required");
+  assert.ok(result.result.missingFootprints.some(item=>item.reference==="U1"&&item.part==="active.ne555"));assert.equal(result.result.requiredReport.blockedReferences.length,project.components.length);
+  assert.equal(result.result.requiredReport.resolutionOptions.length,3);assert.equal(result.result.automaticSubstitution,false);assert.equal(result.result.unverifiedFootprintsAssigned,false);
+  const invalid=structuredClone(project);invalid.missingFootprintWorkflow.targetView="breadboard";assert.equal(runMissingFootprintWorkflow(invalid).state,"blocked");
 });

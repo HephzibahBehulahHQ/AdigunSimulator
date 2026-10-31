@@ -7108,6 +7108,19 @@
           "claimsManufacturable": false
         }
       }
+    },
+    {
+      "id": "185-missing-footprint-workflow",
+      "title": "Missing-footprint workflow",
+      "status": "in-review",
+      "objective": "Attempt a PCB update for a valid 555 schematic whose generic parts lack verified PCB view mappings; block the update, produce the required report with reviewed resolution options, and preserve the project unchanged.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue missing-footprint workflow blocks PCB update and returns required resolution report",
+      "testId": "core-missing-footprint-resolution-report",
+      "projectFile": "examples/185-missing-footprint-workflow.adigun.json",
+      "readmeFile": "examples/185-missing-footprint-workflow/README.md",
+      "safetyNote": "The starter NE555 and generic parts have no verified PCB footprints. PCB update is blocked; no automatic substitution or unverified footprint assignment occurs.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }

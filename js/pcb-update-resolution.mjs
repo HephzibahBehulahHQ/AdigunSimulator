@@ -1,0 +1,12 @@
+import { getViewReconciliationIssues, serializeProject, validateProject } from "./core.mjs";
+import { projectComponentsForView } from "./view-projection.mjs";
+
+export function runMissingFootprintWorkflow(project) {
+  const cfg=project?.missingFootprintWorkflow;
+  if(cfg?.kind!=="block-and-resolve"||cfg.targetView!=="pcb")return {state:"blocked",engine:"PCB missing-footprint resolution report",message:"Declare the PCB update workflow.",errors:[{code:"MISSING_FOOTPRINT_CONFIGURATION",message:"A PCB target view is required."}],warnings:[],result:null};
+  const validation=validateProject(project);if(!validation.valid)return {state:"blocked",engine:"PCB missing-footprint resolution report",message:"Resolve schematic project errors before preparing a PCB update report.",errors:validation.errors,warnings:[],result:null};
+  const before=serializeProject(project),issues=getViewReconciliationIssues(project,"pcb"),projection=projectComponentsForView(project,"pcb");
+  if(!issues.length)return {state:"blocked",engine:"PCB missing-footprint resolution report",message:"This example requires at least one missing PCB mapping.",errors:[{code:"FOOTPRINT_PRESENT",message:"No missing footprint was found."}],warnings:[],result:null};
+  const changed=serializeProject(project)!==before;
+  return {state:"complete",engine:"PCB view capability and footprint reconciliation",message:"PCB update is blocked and a required missing-footprint report lists reviewed resolution paths. No component or project data was modified.",errors:[],warnings:[{code:"PCB_UPDATE_BLOCKED",message:"Do not assign an unverified footprint or auto-substitute a part."}],result:{kind:"missing-footprint-resolution-report",pcbUpdateBlocked:true,projectUnchanged:!changed,placedComponentCount:projection.components.length,missingFootprintCount:issues.length,missingFootprints:issues.map(issue=>({instanceId:issue.instanceId,reference:issue.reference,part:project.components.find(component=>component.instanceId===issue.instanceId)?.libraryId,reason:issue.reason})),requiredReport:{status:"required",targetView:"pcb",blockedReferences:issues.map(issue=>issue.reference),resolutionOptions:["Select a package-specific library part with a verified pin map and footprint.","Create or import a custom footprint using the manufacturer package drawing, then review pad numbering and geometry.","Keep this project schematic-only and defer the PCB update."]},automaticSubstitution:false,unverifiedFootprintsAssigned:false}};
+}
