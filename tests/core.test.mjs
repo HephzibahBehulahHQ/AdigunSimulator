@@ -91,6 +91,29 @@ test("RC high-pass response attenuates below cutoff and passes above it", async 
   assert.equal(runSupportedAnalysis(invalid).state, "blocked");
 });
 
+test("RL low-pass response uses the calculated cutoff and attenuates above it", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/014-rl-low-pass.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "rl-low-pass");
+  assert.ok(Math.abs(result.result.timeConstantS - 0.0001) < 1e-15);
+  assert.ok(Math.abs(result.result.cutoffHz - 1000 / (2 * Math.PI * 0.1)) < 1e-9);
+  const [below, cutoff, above] = result.result.samples;
+  assert.ok(Math.abs(cutoff.gain - Math.SQRT1_2) < 1e-12);
+  assert.ok(Math.abs(cutoff.outputAmplitudeV - Math.SQRT1_2) < 1e-12);
+  assert.ok(below.gain > cutoff.gain && cutoff.gain > above.gain);
+  assert.ok(Math.abs(above.gain - 1 / Math.sqrt(101)) < 1e-12);
+
+  const broken = structuredClone(project);
+  broken.nets[1].endpoints = ["resistor-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+  const invalid = updateComponent(project, "inductor-1", { value: "0 H" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const extreme = updateComponent(project, "inductor-1", { value: "1e300 H" });
+  assert.equal(runSupportedAnalysis(extreme).state, "blocked");
+});
+
 test("RC low-pass response uses the calculated cutoff and attenuates above it", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/012-rc-low-pass.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
