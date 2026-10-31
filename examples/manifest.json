@@ -393,6 +393,16 @@
         }
       },
       "scope": "supplemental"
+    },
+    {
+      "id": "005-pwm-led-dimmer",
+      "title": "PWM LED dimmer with a low-side MOSFET",
+      "status": "in-review",
+      "objective": "Sweep a 1 kHz ideal PWM command through 10%, 50%, and 90% duty and confirm that average LED current changes in proportion to duty for an ideal low-side MOSFET switch.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue PWM LED dimmer reports a bounded average-current duty sweep and blocks invalid input and wiring",
+      "testId": "core-pwm-led-dimmer",
+      "projectFile": "examples/005-pwm-led-dimmer.adigun.json",
+      "safetyNote": "Ideal educational average-current model only. It does not model PWM waveforms, switching transients, MOSFET on-resistance, gate charge, ripple, thermal effects, component ratings, or physical hardware safety."
     }
   ]
 }
