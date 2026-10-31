@@ -2732,14 +2732,34 @@
     {
       "id": "067-arduino-stepper-driver",
       "title": "Uno-class bipolar stepper driver",
-      "status": "in-review",
+      "status": "released",
       "objective": "Apply an ideal full-step bipolar phase sequence and calculate signed angular travel, final position, and duration for CW and CCW motion.",
       "acceptanceTest": "tests/core.test.mjs: catalogue Arduino stepper driver sequence maps CW/CCW pulses to motion",
       "testId": "core-arduino-stepper-driver",
       "projectFile": "examples/067-arduino-stepper-driver.adigun.json",
       "safetyNote": "Ideal digital phase and position model; no Arduino C++ execution, acceleration, torque, missed steps, coil current/temperature, resonance, or end-stop physics.",
       "scope": "catalogue",
-      "catalogueIndex": 67
+      "catalogueIndex": 67,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41177644194",
+        "headRevision": "e9438e9c3db44c8ff32f202dea22de5e1012957e",
+        "engine": "Ideal Uno-class bipolar stepper sequence and position model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-uno-stepper-phase-position-v1",
+        "expectedResult": {
+          "stepsPerRevolution": 200,
+          "stepAngleDegrees": 1.8,
+          "clockwise200StepsTravelDegrees": 360,
+          "counterclockwise50StepsTravelDegrees": -90,
+          "stepRateHz": [
+            100,
+            200
+          ],
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
