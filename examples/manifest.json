@@ -6875,6 +6875,19 @@
           "safetyCertified": false
         }
       }
+    },
+    {
+      "id": "178-access-control-strike-lock",
+      "title": "Access-control strike lock",
+      "status": "in-review",
+      "objective": "Grant a brief strike command only to mock allowlisted credential IDs, deny unknown IDs without extending unlock time, and emit mock audit events.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue access strike mock grants allowlisted IDs briefly and audits denials",
+      "testId": "core-access-control-strike-lock",
+      "projectFile": "examples/178-access-control-strike-lock.adigun.json",
+      "readmeFile": "examples/178-access-control-strike-lock/README.md",
+      "safetyNote": "Mock access-control logic only. No secure RFID, reader, physical lock, egress, cryptography, secure audit retention, or real security assurance is included.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
