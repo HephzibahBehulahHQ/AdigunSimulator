@@ -77,6 +77,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.data-logger-controller-ideal", category: "Active", type: "Ideal EEPROM data logger controller behavior model", prefix: "U", pins: ["SENSOR", "SDA", "SCL", "DISPLAY", "VCC", "GND"], defaultValue: "SamplePeriodMs 100; Mode circular logger", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.eeprom-ring-buffer-ideal", category: "Active", type: "Ideal EEPROM circular ring-buffer model", prefix: "MEM", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Capacity 3; WriteCycleMs 5; Mode circular", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.data-log-display", category: "Output", type: "Ideal EEPROM replay text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Newest retained samples", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.ir-remote-action-decoder", category: "Active", type: "Ideal NEC-like remote action mapping model", prefix: "U", pins: ["INT0", "ACTION", "VCC", "GND"], defaultValue: "Program Decode NEC-like and dispatch; Input INT0; Output ACTION; Tolerance 20%; Map A2=TOGGLE_LIGHT,B2=VOLUME_UP", simulation: "analytical-ir-remote-action", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.ir-action-display", category: "Output", type: "Ideal infrared action display sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Selected remote action", simulation: "analytical-ir-remote-action", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.ethernet-sensor-config", category: "Inputs", type: "Ideal Ethernet sensor/configuration fixture", prefix: "SIG", pins: ["DATA", "GND"], defaultValue: "LinkTransitions down>negotiating>up; Configuration configured; DeviceId 1; TemperatureC 24.6; Sequence 42", simulation: "fixture-ethernet-sensor-config", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.ethernet-sensor-controller-ideal", category: "Active", type: "Generic Ethernet sensor payload and state model", prefix: "U", pins: ["SENSOR", "TX", "LINK", "REPORT", "VCC", "GND"], defaultValue: "Mode eth2-mock; SourceMac 02:00:00:00:00:01; DestinationMac 02:00:00:00:00:02; EtherType 0x88B5", simulation: "analytical-ethernet-sensor-frame", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ethernet-phy-mock", category: "Active", type: "Ideal Ethernet PHY link-state fixture (no packets)", prefix: "PHY", pins: ["RX", "LINK", "VCC", "GND"], defaultValue: "Mode mock; Link up", simulation: "analytical-ethernet-sensor-frame", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -543,6 +545,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const nfcReaders = project.components.filter((item) => item.libraryId === "active.nfc-reader-ideal");
   const nfcControllers = project.components.filter((item) => item.libraryId === "active.nfc-display-controller-ideal");
   const nfcDisplays = project.components.filter((item) => item.libraryId === "output.nfc-uid-display");
+  const irActionDecoders = project.components.filter((item) => item.libraryId === "active.ir-remote-action-decoder");
+  const irActionDisplays = project.components.filter((item) => item.libraryId === "output.ir-action-display");
   const ethernetConfigs = project.components.filter((item) => item.libraryId === "input.ethernet-sensor-config");
   const ethernetControllers = project.components.filter((item) => item.libraryId === "active.ethernet-sensor-controller-ideal");
   const ethernetPhys = project.components.filter((item) => item.libraryId === "active.ethernet-phy-mock");
@@ -642,6 +646,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (dataLogFixtures.length === 1 && dataLogControllers.length === 1 && ringEeproms.length === 1 && dataLogDisplays.length === 1 && resistor.length === 2 && source.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseEepromRingLogger(project, { source: source[0], fixture: dataLogFixtures[0], controller: dataLogControllers[0], eeprom: ringEeproms[0], display: dataLogDisplays[0], pullups: resistor, ground: ground[0], validation });
+  }
+  if (irFrames.length === 1 && irReceivers.length === 1 && irActionDecoders.length === 1 && irActionDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseIrRemoteActions(project, { source: source[0], frame: irFrames[0], receiver: irReceivers[0], decoder: irActionDecoders[0], display: irActionDisplays[0], ground: ground[0], validation });
   }
   if (ethernetConfigs.length === 1 && ethernetControllers.length === 1 && ethernetPhys.length === 1 && ethernetReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseEthernetSensorFrame(project, { source: source[0], config: ethernetConfigs[0], controller: ethernetControllers[0], phy: ethernetPhys[0], report: ethernetReports[0], ground: ground[0], validation });
@@ -1757,6 +1764,33 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
+function analyseIrRemoteActions(project,{source,frame,receiver,decoder,display,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const frameFields=fields(frame.value),receiverFields=fields(receiver.value),decoderFields=fields(decoder.value);
+  const numberField=(list,label,suffix)=>Number(field(list,label)?.replace(new RegExp(suffix+"$","i"),""));
+  const bytes=(field(frameFields,"Bytes")??"").split(/\s+/).filter(Boolean).map(value=>/^[0-9a-f]{2}$/i.test(value)?Number.parseInt(value,16):Number.NaN);
+  const tolerance=Number((field(decoderFields,"Tolerance")??"").replace(/%$/,""));
+  const timing={leaderMark:numberField(frameFields,"LeaderMarkUs","us"),leaderSpace:numberField(frameFields,"LeaderSpaceUs","us"),bitMark:numberField(frameFields,"BitMarkUs","us"),zeroSpace:numberField(frameFields,"ZeroSpaceUs","us"),oneSpace:numberField(frameFields,"OneSpaceUs","us"),stopMark:numberField(frameFields,"StopMarkUs","us"),carrierHz:numberField(frameFields,"CarrierHz","Hz")};
+  const within=(actual,nominal)=>Number.isFinite(actual)&&actual>0&&Math.abs(actual-nominal)<=nominal*tolerance/100;
+  const timingValid=within(timing.leaderMark,9000)&&within(timing.leaderSpace,4500)&&within(timing.bitMark,560)&&within(timing.zeroSpace,560)&&within(timing.oneSpace,1690)&&within(timing.stopMark,560)&&within(timing.carrierHz,38000);
+  const mapText=field(decoderFields,"Map")??"",map=mapText.split(",").map(token=>{const match=token.trim().match(/^([0-9a-f]{2})=([A-Z][A-Z0-9_]{1,20})$/i);return match?{command:match[1].toUpperCase(),action:match[2].toUpperCase()}:null;});
+  const validActions=new Set(["TOGGLE_LIGHT","VOLUME_UP","VOLUME_DOWN","POWER"]),mapValid=map.length>0&&map.length<=256&&map.every(item=>item&&validActions.has(item.action))&&new Set(map.map(item=>item.command)).size===map.length;
+  const groundNet=n(ground,"0"),vccNet=n(decoder,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const powered=n(receiver,"VCC")===vccNet&&n(receiver,"GND")===groundNet&&n(decoder,"GND")===groundNet&&n(display,"VCC")===vccNet&&n(display,"GND")===groundNet&&n(frame,"GND")===groundNet;
+  const signalPath=n(frame,"OUT")===n(receiver,"SIG")&&n(receiver,"OUT")===n(decoder,"INT0")&&n(decoder,"ACTION")===n(display,"DATA");
+  const complementValid=bytes.length===4&&bytes.every(value=>Number.isInteger(value)&&value>=0&&value<=255)&&((bytes[0]^bytes[1])===255)&&((bytes[2]^bytes[3])===255);
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!powered||!signalPath||field(frameFields,"Protocol")!=="NEC-like"||field(receiverFields,"Output")!=="demodulated active-low"||numberField(receiverFields,"CarrierHz","Hz")!==38000||field(decoderFields,"Program")!=="Decode NEC-like and dispatch"||field(decoderFields,"Input")!=="INT0"||field(decoderFields,"Output")!=="ACTION"||!Number.isFinite(tolerance)||tolerance<1||tolerance>30||!timingValid||!complementValid||!mapValid){
+    return {state:"blocked",message:"Wire the NEC-like frame fixture through the 38 kHz IR receiver to the action decoder and display. Provide a four-byte complementary frame, timings within tolerance, and a unique action map using supported action names.",validation};
+  }
+  const bits=bytes.flatMap(byte=>Array.from({length:8},(_,bit)=>(byte>>bit)&1)),ones=bits.reduce((sum,bit)=>sum+bit,0),zeros=bits.length-ones;
+  const frameDurationUs=timing.leaderMark+timing.leaderSpace+bits.length*timing.bitMark+ones*timing.oneSpace+zeros*timing.zeroSpace+timing.stopMark;
+  const command=bytes[2],mapping=map.find(item=>item.command===command.toString(16).padStart(2,"0").toUpperCase()),action=mapping?.action??"UNMAPPED";
+  const rawCode="0x"+bytes.map(value=>value.toString(16).padStart(2,"0")).join("").toUpperCase(),displayText="Key 0x"+command.toString(16).padStart(2,"0").toUpperCase()+" → "+action;
+  return {state:"complete",engine:"Ideal NEC-like IR remote action dispatcher",message:"Checks the NEC-like frame timing and complementary bytes, then maps the command byte to a configured action label. The action is displayed only; no appliance is controlled. Optical propagation, carrier waveform, receiver AGC, firmware, and physical timing margins are not modeled.",result:{kind:"ir-remote-action",protocol:"NEC-like",rawCode,address:"0x"+bytes[0].toString(16).padStart(2,"0").toUpperCase(),command:"0x"+command.toString(16).padStart(2,"0").toUpperCase(),action,mapped:Boolean(mapping),mapEntries:map.length,bitCount:bits.length,frameDurationUs,displayText,actionExecuted:false,firmwareExecuted:false},validation};
+}
+
 function analyseEthernetSensorFrame(project,{source,config,controller,phy,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());

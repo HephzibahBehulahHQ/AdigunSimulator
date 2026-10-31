@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-086-ir-remote-actions",
+  "metadata": {
+    "name": "NEC-Like IR Remote Action Decoder",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          38,
+          56
+        ],
+        "schematic": [
+          38,
+          56
+        ],
+        "pcb": [
+          38,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "frame",
+      "libraryId": "input.ir-nec-frame",
+      "reference": "SIG1",
+      "value": "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000",
+      "position": {
+        "breadboard": [
+          125,
+          56
+        ],
+        "schematic": [
+          125,
+          56
+        ],
+        "pcb": [
+          125,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "receiver",
+      "libraryId": "sensor.ir-receiver-ideal",
+      "reference": "IR1",
+      "value": "CarrierHz 38000; Output demodulated active-low",
+      "position": {
+        "breadboard": [
+          260,
+          56
+        ],
+        "schematic": [
+          260,
+          56
+        ],
+        "pcb": [
+          260,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "decoder",
+      "libraryId": "active.ir-remote-action-decoder",
+      "reference": "U1",
+      "value": "Program Decode NEC-like and dispatch; Input INT0; Output ACTION; Tolerance 20%; Map A2=TOGGLE_LIGHT,B2=VOLUME_UP",
+      "position": {
+        "breadboard": [
+          410,
+          56
+        ],
+        "schematic": [
+          410,
+          56
+        ],
+        "pcb": [
+          410,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "output.ir-action-display",
+      "reference": "DISP1",
+      "value": "Selected remote action",
+      "position": {
+        "breadboard": [
+          530,
+          56
+        ],
+        "schematic": [
+          530,
+          56
+        ],
+        "pcb": [
+          530,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          245
+        ],
+        "schematic": [
+          605,
+          245
+        ],
+        "pcb": [
+          605,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "receiver:VCC",
+        "decoder:VCC",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "frame:GND",
+        "receiver:GND",
+        "decoder:GND",
+        "display:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "OPTICAL_FRAME",
+      "endpoints": [
+        "frame:OUT",
+        "receiver:SIG"
+      ]
+    },
+    {
+      "id": "DEMODULATED",
+      "endpoints": [
+        "receiver:OUT",
+        "decoder:INT0"
+      ]
+    },
+    {
+      "id": "ACTION",
+      "endpoints": [
+        "decoder:ACTION",
+        "display:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
