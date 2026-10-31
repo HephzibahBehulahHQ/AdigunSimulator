@@ -233,7 +233,6 @@
       "id": "STATUS",
       "endpoints": [
         "controller:STATUS",
-        "fet:STATUS",
         "report:STATUS"
       ]
     }
