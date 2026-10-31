@@ -5244,7 +5244,7 @@
     {
       "id": "127-relay-module-pcb",
       "title": "Low-voltage relay module PCB",
-      "status": "in-review",
+      "status": "released",
       "objective": "Build a 5 V G5V-1 relay module using an NPN low-side driver, 1N4007 flyback diode, control header and isolated COM/NC/NO terminal block; apply separate control, coil and contact net classes, preserve a no-copper isolation barrier, and test coil/load isolation annotations.",
       "acceptanceTest": "tests/core.test.mjs: catalogue relay module tests driver, relay pin map, contact isolation classes, BOM, placement and export",
       "testId": "core-relay-module-pcb",
@@ -5252,7 +5252,37 @@
       "readmeFile": "examples/127-relay-module-pcb/README.md",
       "safetyNote": "Educational low-voltage relay-board template. G5V-1 manufacturer isolation and contact ratings do not certify this PCB. Restrict example use to low-voltage DC resistive loads at or below 24 V and 1 A; never use the board as a mains design.",
       "scope": "catalogue",
-      "catalogueIndex": 127
+      "catalogueIndex": 127,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41196161641",
+        "headRevision": "c5a1bb0292a2526f26d69169bff3f246d69b3d9e",
+        "engine": "Bounded G5V-1 relay-driver estimate and relay netclass/isolation checks",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "g5v1-dc5-npn-flyback-isolated-pcb-v1",
+        "expectedResult": {
+          "kind": "low-voltage-relay-driver",
+          "coilVoltageV": 5,
+          "coilResistanceOhms": 167,
+          "coilCurrentA": 0.02874251497005988,
+          "baseResistorOhms": 1000,
+          "flybackDiodeMapped": true,
+          "netClassStatus": "passed",
+          "coilContactClearanceMm": 3.2,
+          "contactRating": "1 A at 24 VDC resistive",
+          "artifacts": [
+            "BOM.csv",
+            "Placement.csv",
+            "Relay-Isolation-Report.csv",
+            "board-F_Cu.gbr",
+            "board-Edge_Cuts.gbr",
+            "board-PTH.drl"
+          ],
+          "contactLoadSimulation": false,
+          "hardwareManufacturingQualified": false
+        }
+      }
     }
   ]
 }
