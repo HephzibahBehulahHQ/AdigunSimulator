@@ -44,6 +44,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-traffic-fsm-ideal", category: "Active", type: "Ideal six-phase traffic-light state machine", prefix: "U", pins: ["CLK", "RESET_N", "NS_R", "NS_Y", "NS_G", "EW_R", "EW_Y", "EW_G", "VCC", "GND"], defaultValue: "Six-phase traffic-light FSM", simulation: "analytical-traffic-light-fsm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-debounce-ideal", category: "Active", type: "Ideal N-sample digital debounce filter", prefix: "U", pins: ["INPUT", "CLK", "RESET_N", "Q", "VCC", "GND"], defaultValue: "Stable samples 3", simulation: "analytical-digital-debounce", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-ring-shift-4bit-ideal", category: "Active", type: "Ideal four-bit ring shift register", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Four-bit one-hot ring; reset Q0", simulation: "analytical-shift-register-chaser", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-mux4-ideal", category: "Active", type: "Ideal four-to-one multiplexer (static logic)", prefix: "U", pins: ["I0", "I1", "I2", "I3", "S0", "S1", "Y", "VCC", "GND"], defaultValue: "Ideal 4:1 mux; S1:S0 selects I0–I3", simulation: "analytical-mux4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -401,6 +402,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const trafficFsms = project.components.filter((item) => item.libraryId === "active.logic-traffic-fsm-ideal");
   const debounceFilters = project.components.filter((item) => item.libraryId === "active.logic-debounce-ideal");
   const ringShiftRegisters = project.components.filter((item) => item.libraryId === "active.logic-ring-shift-4bit-ideal");
+  const mux4s = project.components.filter((item) => item.libraryId === "active.logic-mux4-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -465,6 +467,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (mux4s.length === 1 && source.length === 7 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 11) {
+    return analyseMux4(project, { sources: source, mux: mux4s[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
   if (ringShiftRegisters.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && project.components.length === 13) {
     return analyseRingShiftChaser(project, { sources: source, register: ringShiftRegisters[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
@@ -1451,6 +1456,25 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+
+
+function analyseMux4(project,{sources,mux,resistor,led,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(mux,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  const sourceFor=(pin)=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===n(mux,pin));
+  const dataSources=[0,1,2,3].map(i=>sourceFor(`I${i}`)),s0=sourceFor("S0"),s1=sourceFor("S1");
+  const outputNet=n(mux,"Y"),outputPath=(n(resistor,"1")===outputNet&&n(resistor,"2")===n(led,"A"))||(n(resistor,"2")===outputNet&&n(resistor,"1")===n(led,"A"));
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,dataVoltages=dataSources.map(v=>v?voltageValue(v.value):Number.NaN),s0Voltage=s0?voltageValue(s0.value):Number.NaN,s1Voltage=s1?voltageValue(s1.value):Number.NaN;
+  const resistance=resistanceValue(resistor.value),forwardV=forwardVoltage(led.value),thresholdV=supplyVoltage/2;
+  if(!supply||dataSources.some(v=>!v)||!s0||!s1||!outputPath||n(mux,"GND")!==groundNet||n(led,"K")!==groundNet
+    ||![supplyVoltage,...dataVoltages,s0Voltage,s1Voltage,resistance,forwardV].every(Number.isFinite)||supplyVoltage<=0||[...dataVoltages,s0Voltage,s1Voltage].some(v=>v<0||v>supplyVoltage)||resistance<=0||forwardV<=0){
+    return {state:"blocked",message:"Wire all four mux data inputs, both select bits, powered ideal mux, and current-limited output indicator using valid 0–VCC values.",validation};
+  }
+  const dataBits=dataVoltages.map(v=>v>=thresholdV),select0=s0Voltage>=thresholdV,select1=s1Voltage>=thresholdV,selectedIndex=(select1?2:0)+(select0?1:0),outputHigh=dataBits[selectedIndex],outputVoltage=outputHigh?supplyVoltage:0;
+  const ledCurrentA=outputHigh?Math.max(0,(outputVoltage-forwardV)/resistance):0;
+  return {state:"complete",engine:"Ideal four-to-one static multiplexer",message:"Selects one of four static logic inputs using S1:S0 and drives an ideal rail-to-rail output. Propagation delay, input loading, leakage, noise, logic-family thresholds, and device-specific limits are not modeled.",result:{kind:"mux4",supplyVoltage,logicThresholdV:thresholdV,dataVoltages,dataBits,select0,select1,selectedIndex,selectedInput:dataBits[selectedIndex],outputHigh,outputVoltage,ledOn:ledCurrentA>0,ledCurrentA},validation};
+}
 
 function analyseRingShiftChaser(project,{sources,register,resistors,leds,ground,previousState,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
