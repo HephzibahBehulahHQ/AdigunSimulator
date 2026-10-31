@@ -206,6 +206,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.poe-input-bridge-ideal", category: "Active", type: "Ideal polarity-correcting PoE input bridge", prefix: "BR", pins: ["A1", "A2", "B1", "B2", "VOUT", "RETURN", "VCC", "GND"], defaultValue: "Mode full-wave; ForwardDrop 0.6 V", simulation: "analytical-poe-pd", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.poe-pd-dcdc-ideal", category: "Active", type: "Ideal PoE powered-device DC/DC policy", prefix: "U", pins: ["VIN", "RETURN", "VOUT", "VOUT_RETURN", "STATUS", "VCC", "GND"], defaultValue: "UVLO 37 V; MaxInput 57 V; Output 12 V; MaxPower 12 W; Efficiency 90%; Mode ideal-buck", simulation: "analytical-poe-pd", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.poe-pd-report", category: "Output", type: "PoE PD rectifier and DC/DC report", prefix: "SCOPE", pins: ["STATUS", "VOUT", "VOUT_RETURN", "VCC", "GND"], defaultValue: "PoE powered-device input report", simulation: "analytical-poe-pd", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.led-string-fixture", category: "Inputs", type: "LED string voltage and open-load fixture", prefix: "LED", pins: ["LED+", "LED-", "VCC", "GND"], defaultValue: "Vf 9 V; Open no; Mode led-string", simulation: "fixture-cc-led-string", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.led-cc-driver-ideal", category: "Active", type: "Ideal constant-current LED driver", prefix: "U", pins: ["VIN", "LED+", "LED-", "SENSE", "STATUS", "VCC", "GND"], defaultValue: "SenseReference 0.35 V; MaxCurrent 1 A; MaxInput 24 V; MaxPower 12 W; Compliance 1 V; Efficiency 90%; Mode constant-current", simulation: "analytical-cc-led-driver", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.led-cc-report", category: "Output", type: "LED current regulation and fault report", prefix: "SCOPE", pins: ["STATUS", "VCC", "GND"], defaultValue: "Constant-current LED driver report", simulation: "analytical-cc-led-driver", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -722,6 +725,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const poeBridges = project.components.filter((item) => item.libraryId === "active.poe-input-bridge-ideal");
   const poeConverters = project.components.filter((item) => item.libraryId === "active.poe-pd-dcdc-ideal");
   const poeReports = project.components.filter((item) => item.libraryId === "output.poe-pd-report");
+  const ledStringFixtures = project.components.filter((item) => item.libraryId === "input.led-string-fixture");
+  const ccLedDrivers = project.components.filter((item) => item.libraryId === "active.led-cc-driver-ideal");
+  const ccLedReports = project.components.filter((item) => item.libraryId === "output.led-cc-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -972,6 +978,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (poeFixtures.length===1&&poeBridges.length===1&&poeConverters.length===1&&poeReports.length===1&&source.length===1&&resistor.length===1&&ground.length===1&&project.components.length===7) {
     return analysePoePdInput(project,{source:source[0],fixture:poeFixtures[0],bridge:poeBridges[0],converter:poeConverters[0],report:poeReports[0],load:resistor[0],ground:ground[0],validation});
+  }
+  if (ledStringFixtures.length===1&&ccLedDrivers.length===1&&ccLedReports.length===1&&source.length===1&&resistor.length===1&&ground.length===1&&project.components.length===6) {
+    return analyseConstantCurrentLedDriver(project,{source:source[0],fixture:ledStringFixtures[0],driver:ccLedDrivers[0],report:ccLedReports[0],sense:resistor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3322,6 +3331,42 @@ function analysePoePdInput(project,{source,fixture,bridge,converter,report,load,
   const dcDcEnabled=rectifiedInputV>=uvloV&&rectifiedInputV<=maxInputV&&loadPowerW<=availableOutputPowerW;
   if(!dcDcEnabled)return {state:"complete",engine:"Bounded PoE polarity bridge and DC/DC availability estimator",message:"Alternative feed polarity is rectified before the configured DC/DC input check. The requested load exceeds the modeled input, UVLO, voltage, or converter power envelope; output is disabled. This is not a compliant or physical PoE design.",result:{kind:"poe-pd-input",activeFeed:feed,inputPolarity:polarity,inputVoltageV,rectifiedInputVoltageV:rectifiedInputV,bridgeForwardDropV:bridgeDropV,converterEnabled:false,outputVoltageV:0,loadCurrentA:0,loadPowerW:0,requiredInputPowerW,availableInputPowerW,availableOutputPowerW,uvloV,maxInputV,maxOutputPowerW:maxOutputW,alternativeFeedPolarityCorrected:true,ieeePoEComplianceCertified:false},validation};
   return {state:"complete",engine:"Bounded PoE polarity bridge and DC/DC load estimator",message:"Models alternative feed selection, polarity correction by a full-wave bridge, and a bounded DC/DC input/output power estimate. It does not implement PoE detection/classification, negotiation, isolation design, protection, thermal limits, IEEE compliance, or hardware safety.",result:{kind:"poe-pd-input",activeFeed:feed,inputPolarity:polarity,inputVoltageV,rectifiedInputVoltageV:rectifiedInputV,bridgeForwardDropV:bridgeDropV,converterEnabled:true,outputVoltageV:outputSetV,loadCurrentA,loadPowerW,requiredInputPowerW,availableInputPowerW,availableOutputPowerW,dcDcEfficiencyPercent:efficiencyPercent,uvloV,maxInputV,maxOutputPowerW:maxOutputW,alternativeFeedPolarityCorrected:true,ieeePoEComplianceCertified:false},validation};
+}
+function analyseConstantCurrentLedDriver(project,{source,fixture,driver,report,sense,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const f=fields(fixture.value),c=fields(driver.value),vf=voltageValue(field(f,"Vf")??"");
+  const isOpen=field(f,"Open")==="yes",senseReferenceV=voltageValue(field(c,"SenseReference")??"");
+  const maxCurrentA=currentValue(field(c,"MaxCurrent")??""),maxInputV=voltageValue(field(c,"MaxInput")??"");
+  const maxPowerW=Number((field(c,"MaxPower")??"").replace(/\s*W$/i,"")),complianceV=voltageValue(field(c,"Compliance")??"");
+  const efficiencyPercent=Number((field(c,"Efficiency")??"").replace("%","")),senseOhm=resistanceValue(sense.value);
+  const supplyV=voltageValue(source.value),gnd=n(ground,"0"),vcc=n(source,"+");
+  const powered=n(source,"-")===gnd&&n(driver,"VIN")===vcc&&n(driver,"VCC")===vcc&&n(fixture,"VCC")===vcc&&n(report,"VCC")===vcc
+    &&n(driver,"GND")===gnd&&n(fixture,"GND")===gnd&&n(report,"GND")===gnd;
+  const ledPath=n(driver,"LED+")===n(fixture,"LED+")&&n(driver,"LED-")===n(fixture,"LED-");
+  const sensePath=n(driver,"SENSE")===n(sense,"1")&&n(sense,"2")===gnd,statusPath=n(driver,"STATUS")===n(report,"STATUS");
+  const required=[gnd,vcc,n(driver,"LED+"),n(fixture,"LED+"),n(driver,"LED-"),n(fixture,"LED-"),n(driver,"SENSE"),n(sense,"1"),n(sense,"2"),n(driver,"STATUS"),n(report,"STATUS")];
+  if(required.some(x=>typeof x!=="string"||!x)||!powered||!ledPath||!sensePath||!statusPath||field(f,"Mode")!=="led-string"||field(c,"Mode")!=="constant-current"
+    ||!["yes","no"].includes(field(f,"Open"))||![vf,senseReferenceV,maxCurrentA,maxInputV,maxPowerW,complianceV,efficiencyPercent,senseOhm,supplyV].every(Number.isFinite)
+    ||vf<=0||vf>24||senseReferenceV<=0||senseReferenceV>1||maxCurrentA<=0||maxCurrentA>5||maxInputV<5||maxInputV>60
+    ||maxPowerW<=0||maxPowerW>100||complianceV<=0||complianceV>5||efficiencyPercent<70||efficiencyPercent>99||senseOhm<=0||senseOhm>100||supplyV<3.3||supplyV>maxInputV){
+    return {state:"blocked",message:"Wire the LED string, sense resistor, supply, and report; use bounded current, input, compliance, and power settings.",validation};
+  }
+  const setCurrentA=senseReferenceV/senseOhm;
+  if(setCurrentA>maxCurrentA)return {state:"blocked",message:"The sense resistor requests more current than the driver limit.",validation};
+  let currentA=0,regulationState="open-load",headroomV=supplyV-vf-senseReferenceV,warning="LED string is open; driver output current is zero.";
+  if(!isOpen){
+    if(vf*setCurrentA>maxPowerW)return {state:"blocked",message:"LED load exceeds the configured driver output-power limit.",validation};
+    if(headroomV<complianceV){
+      currentA=Math.max(0,Math.min(setCurrentA,(supplyV-vf-complianceV)/senseOhm));
+      regulationState="compliance-limited";warning="Input headroom is insufficient to maintain the requested LED current.";
+    }else{currentA=setCurrentA;regulationState="regulated";warning="";}
+  }
+  const senseVoltageV=currentA*senseOhm,ledPowerW=currentA*vf,sensePowerW=currentA*currentA*senseOhm;
+  const inputPowerW=currentA>0?(ledPowerW+sensePowerW)/(efficiencyPercent/100):0;
+  const inputCurrentA=inputPowerW/supplyV,driverLossW=Math.max(0,inputPowerW-ledPowerW-sensePowerW);
+  return {state:"complete",engine:"Bounded constant-current LED compliance and load estimator",message:"Models sense-reference current regulation across a configured LED voltage range, supply headroom, load-open warning, and idealized power estimates. It does not model switching ripple, control-loop stability, thermal behavior, component tolerances, protection circuitry, or hardware safety.",result:{kind:"constant-current-led-driver",regulationState,warning,supplyVoltageV:supplyV,ledForwardVoltageV:vf,requestedCurrentA:setCurrentA,ledCurrentA:currentA,senseResistanceOhm:senseOhm,senseVoltageV,headroomV,complianceVoltageV:complianceV,ledPowerW,sensePowerW,inputPowerW,inputCurrentA,driverLossW,efficiencyAssumptionPercent:efficiencyPercent,openLed:isOpen},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);

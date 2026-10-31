@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-110-constant-current-led-driver",
+  "metadata": {
+    "name": "Constant-Current LED Driver",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          35,
+          50
+        ],
+        "schematic": [
+          35,
+          50
+        ],
+        "pcb": [
+          35,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "driver",
+      "libraryId": "active.led-cc-driver-ideal",
+      "reference": "U1",
+      "value": "SenseReference 0.35 V; MaxCurrent 1 A; MaxInput 24 V; MaxPower 12 W; Compliance 1 V; Efficiency 90%; Mode constant-current",
+      "position": {
+        "breadboard": [
+          230,
+          50
+        ],
+        "schematic": [
+          220,
+          50
+        ],
+        "pcb": [
+          220,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "led-string",
+      "libraryId": "input.led-string-fixture",
+      "reference": "LED1",
+      "value": "Vf 9 V; Open no; Mode led-string",
+      "position": {
+        "breadboard": [
+          390,
+          50
+        ],
+        "schematic": [
+          390,
+          50
+        ],
+        "pcb": [
+          390,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "sense",
+      "libraryId": "passive.resistor",
+      "reference": "RS1",
+      "value": "1 Ω",
+      "position": {
+        "breadboard": [
+          490,
+          50
+        ],
+        "schematic": [
+          480,
+          50
+        ],
+        "pcb": [
+          480,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.led-cc-report",
+      "reference": "SCOPE1",
+      "value": "Constant-current LED driver report",
+      "position": {
+        "breadboard": [
+          550,
+          50
+        ],
+        "schematic": [
+          550,
+          50
+        ],
+        "pcb": [
+          550,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VIN",
+      "endpoints": [
+        "supply:+",
+        "driver:VIN",
+        "driver:VCC",
+        "led-string:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "driver:GND",
+        "led-string:GND",
+        "report:GND",
+        "sense:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "LED_POS",
+      "endpoints": [
+        "driver:LED+",
+        "led-string:LED+"
+      ]
+    },
+    {
+      "id": "LED_RETURN",
+      "endpoints": [
+        "driver:LED-",
+        "led-string:LED-"
+      ]
+    },
+    {
+      "id": "SENSE",
+      "endpoints": [
+        "driver:SENSE",
+        "sense:1"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "driver:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}
