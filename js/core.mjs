@@ -73,6 +73,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.led-bargraph-10seg-ideal", category: "Output", type: "Ideal 10-segment LED bargraph behavior sink", prefix: "LED", pins: ["IN0", "IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "IN9", "VCC", "GND"], defaultValue: "Segments 10; Mode bar", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.ir-nec-frame", category: "Inputs", type: "Ideal NEC-like optical timing fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000", simulation: "fixture-ir-nec-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "sensor.ir-receiver-ideal", category: "Sensors", type: "Ideal 38 kHz IR demodulator behavior model", prefix: "IR", pins: ["SIG", "VCC", "GND", "OUT"], defaultValue: "CarrierHz 38000; Output demodulated active-low", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.rfid-uid-fixture", category: "Inputs", type: "Ideal passive RFID tag UID fixture", prefix: "TAG", pins: ["UID", "GND"], defaultValue: "UID 04A1B2C3", simulation: "fixture-rfid-uid", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.rfid-uid-reader-ideal", category: "Active", type: "Ideal UID-only RFID reader behavior model", prefix: "RFID", pins: ["TAG", "DATA", "VCC", "GND"], defaultValue: "Mode UID-only; Band 13.56 MHz", simulation: "analytical-rfid-access", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.rfid-access-controller-ideal", category: "Active", type: "Ideal RFID UID allowlist controller model", prefix: "U", pins: ["TAG", "LOCK", "VCC", "GND"], defaultValue: "Allowlist 04A1B2C3,11223344; UnlockState 1; DenyState 0", simulation: "analytical-rfid-access", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.lock-state-indicator-ideal", category: "Output", type: "Ideal simulated lock state indicator", prefix: "LOCK", pins: ["CTRL", "VCC", "GND"], defaultValue: "Simulated lock state", simulation: "analytical-rfid-access", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "sensor.gnss-nmea-ideal", category: "Sensors", type: "Ideal GNSS NMEA sentence fixture", prefix: "GPS", pins: ["TX", "VCC", "GND"], defaultValue: "Sentence $GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A", simulation: "fixture-gnss-nmea", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.gnss-nmea-parser-ideal", category: "Active", type: "Ideal RMC sentence parser behavior model", prefix: "U", pins: ["RX", "DISPLAY", "VCC", "GND"], defaultValue: "SentenceType RMC", simulation: "analytical-gnss-rmc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.gnss-position-display", category: "Output", type: "Ideal GNSS position text display sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Latitude and longitude", simulation: "analytical-gnss-rmc", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -501,6 +505,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const gnssFixtures = project.components.filter((item) => item.libraryId === "sensor.gnss-nmea-ideal");
   const gnssParsers = project.components.filter((item) => item.libraryId === "active.gnss-nmea-parser-ideal");
   const gnssDisplays = project.components.filter((item) => item.libraryId === "output.gnss-position-display");
+  const rfidFixtures = project.components.filter((item) => item.libraryId === "input.rfid-uid-fixture");
+  const rfidReaders = project.components.filter((item) => item.libraryId === "active.rfid-uid-reader-ideal");
+  const rfidControllers = project.components.filter((item) => item.libraryId === "active.rfid-access-controller-ideal");
+  const lockIndicators = project.components.filter((item) => item.libraryId === "output.lock-state-indicator-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -571,6 +579,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (picControllers.length === 1 && adcPotentiometers.length === 1 && ledBargraphs.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePicAdcBargraph(project, { source: source[0], potentiometer: adcPotentiometers[0], pic: picControllers[0], bargraph: ledBargraphs[0], ground: ground[0], validation });
+  }
+  if (rfidFixtures.length === 1 && rfidReaders.length === 1 && rfidControllers.length === 1 && lockIndicators.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseRfidAllowlist(project, { source: source[0], tag: rfidFixtures[0], reader: rfidReaders[0], controller: rfidControllers[0], indicator: lockIndicators[0], ground: ground[0], validation });
   }
   if (gnssFixtures.length === 1 && gnssParsers.length === 1 && gnssDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseGnssRmc(project, { source: source[0], gnss: gnssFixtures[0], parser: gnssParsers[0], display: gnssDisplays[0], ground: ground[0], validation });
@@ -1661,6 +1672,22 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const adcCount=Math.round(position*1023/100),illuminatedSegments=Math.min(10,Math.floor(adcCount*10/1023));
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
+}
+function analyseRfidAllowlist(project,{source,tag,reader,controller,indicator,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const tagUid=(field(fields(tag.value),"UID")??"").replace(/\s+/g,"").toUpperCase(),readerFields=fields(reader.value),controllerFields=fields(controller.value),allowlistText=field(controllerFields,"Allowlist")??"";
+  const allowlist=allowlistText.split(",").map(uid=>uid.trim().toUpperCase()),validUid=uid=>/^(?:[0-9A-F]{8}|[0-9A-F]{14}|[0-9A-F]{20})$/.test(uid);
+  const supplyVoltage=voltageValue(source.value),groundNet=n(ground,"0"),vccNet=n(controller,"VCC");
+  const powered=n(source,"+")===vccNet&&n(source,"-")===groundNet&&[reader,controller,indicator].every(part=>n(part,"VCC")===vccNet&&n(part,"GND")===groundNet)&&n(tag,"GND")===groundNet;
+  const signalPath=n(tag,"UID")===n(reader,"TAG")&&n(reader,"DATA")===n(controller,"TAG")&&n(controller,"LOCK")===n(indicator,"CTRL");
+  const configuration=field(readerFields,"Mode")==="UID-only"&&field(readerFields,"Band")==="13.56 MHz"&&field(controllerFields,"UnlockState")==="1"&&field(controllerFields,"DenyState")==="0"&&validUid(tagUid)&&allowlist.length>0&&allowlist.every(validUid);
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!powered||!signalPath||!configuration){
+    return {state:"blocked",message:"Power the reader, controller, and indicator; connect the passive tag UID to the reader, reader DATA to controller TAG, and controller LOCK to the indicator; configure a valid UID-only allowlist.",validation};
+  }
+  const allowed=allowlist.includes(tagUid),lockOpen=allowed,accessState=allowed?"granted":"denied";
+  return {state:"complete",engine:"Ideal RFID UID allowlist behavior model",message:"Compares a fixture UID against an explicit allowlist and reports a simulated lock output. UID-only identification is cloneable and is not cryptographic authentication or a security-grade access-control design; RF coupling, anti-collision, credentials, firmware, and physical lock behavior are not modeled.",result:{kind:"rfid-access",uid:tagUid,allowed,accessState,lockOpen,lockOutput:lockOpen?1:0,allowlistEntries:allowlist.length,authentication:"UID only; not secure",firmwareExecuted:false},validation};
 }
 function analyseGnssRmc(project,{source,gnss,parser,display,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
