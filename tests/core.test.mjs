@@ -390,8 +390,8 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).released, 13);
-  assert.equal(getExampleCoverage(registry).remaining, 187);
+  assert.equal(getExampleCoverage(registry).released, 14);
+  assert.equal(getExampleCoverage(registry).remaining, 186);
 });
 
 test("released example status cannot be asserted without passing CI evidence", () => {
