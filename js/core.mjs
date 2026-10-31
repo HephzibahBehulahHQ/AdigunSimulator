@@ -13,6 +13,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "power.ac-source", category: "Power & Ground", type: "AC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "1 V", simulation: "analytical-rc-low-pass", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.resistor", category: "Passive", type: "Resistor", prefix: "R", pins: ["1", "2"], defaultValue: "330 Ω", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.capacitor", category: "Passive", type: "Capacitor", prefix: "C", pins: ["1", "2"], defaultValue: "100 µF", simulation: "analytical-rc-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.supercapacitor", category: "Passive", type: "Supercapacitor (ideal RC hold-up model)", prefix: "C", pins: ["+", "-"], defaultValue: "C 1 F; Vstart 4.7 V; Vmin 3 V; Vmax 5 V", simulation: "analytical-supercap-hold-up", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.inductor", category: "Passive", type: "Inductor", prefix: "L", pins: ["1", "2"], defaultValue: "100 mH", simulation: "analytical-rl-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.transformer-ideal", category: "Passive", type: "Ideal transformer ratio model", prefix: "T", pins: ["PRI1", "PRI2", "SEC1", "SEC2"], defaultValue: "230:12", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.ldr", category: "Passive", type: "Photoresistor (light-dependent resistor)", prefix: "R", pins: ["1", "2"], defaultValue: "Rbright 10 kΩ; Rdark 1 MΩ; light 100%", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -373,6 +374,7 @@ export function runSupportedAnalysis(project) {
   const solarCells = project.components.filter((item) => item.libraryId === "power.solar-cell");
   const batteries = project.components.filter((item) => item.libraryId === "power.rechargeable-battery");
   const photoresistors = project.components.filter((item) => item.libraryId === "passive.ldr");
+  const supercapacitors = project.components.filter((item) => item.libraryId === "passive.supercapacitor");
   const schottkyDiodes = project.components.filter((item) => item.libraryId === "diode.schottky");
   const currentSource = project.components.filter((item) => item.libraryId === "power.dc-current-source");
   const acSource = project.components.filter((item) => item.libraryId === "power.ac-source");
@@ -384,6 +386,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
   if (solarCells.length === 1 && batteries.length === 1 && photoresistors.length === 1 && schottkyDiodes.length === 1 && mosfets.length === 1 && led.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 9) {
     return analyseSolarGardenLight(project, { solar: solarCells[0], battery: batteries[0], ldr: photoresistors[0], diode: schottkyDiodes[0], mosfet: mosfets[0], led: led[0], resistors: resistor, ground: ground[0], validation });
   }
@@ -570,6 +575,61 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
     engine: "Analytical ideal low-battery comparator and divider",
     message: "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
     result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
+    validation
+  };
+}
+
+function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const diodeVf = forwardVoltage(diode.value);
+  const loadResistance = resistanceValue(load.value);
+  const fields = String(capacitor.value).match(/C\s*([^;]+)\s*;\s*Vstart\s*([^;]+)\s*;\s*Vmin\s*([^;]+)\s*;\s*Vmax\s*(.+)/i);
+  const capacitance = fields ? capacitanceValue(fields[1]) : Number.NaN;
+  const initialVoltage = fields ? voltageValue(fields[2]) : Number.NaN;
+  const minimumVoltage = fields ? voltageValue(fields[3]) : Number.NaN;
+  const ratedVoltage = fields ? voltageValue(fields[4]) : Number.NaN;
+  if (![sourceVoltage, diodeVf, loadResistance, capacitance, initialVoltage, minimumVoltage, ratedVoltage].every(Number.isFinite)
+    || sourceVoltage <= 0 || diodeVf <= 0 || loadResistance <= 0 || capacitance <= 0
+    || initialVoltage <= minimumVoltage || minimumVoltage <= 0 || ratedVoltage < initialVoltage
+    || sourceVoltage - diodeVf + 1e-12 < initialVoltage || sourceVoltage - diodeVf > ratedVoltage) {
+    return { state: "blocked", message: "The hold-up model needs positive supply, diode, load, capacitance and voltage values; the initial voltage must be between the minimum and rating and chargeable through the diode.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const supplyPositive = n(source, "+"), supplyReturn = n(source, "-");
+  const diodeAnode = n(diode, "A"), diodeCathode = n(diode, "K");
+  const capPositive = n(capacitor, "+"), capNegative = n(capacitor, "-");
+  const loadPositive = n(load, "1"), loadNegative = n(load, "2");
+  const groundNet = n(ground, "0");
+  if (!supplyPositive || supplyPositive === groundNet || diodeAnode !== supplyPositive
+    || !diodeCathode || diodeCathode === groundNet || capPositive !== diodeCathode || loadPositive !== diodeCathode
+    || supplyReturn !== groundNet || capNegative !== groundNet || loadNegative !== groundNet) {
+    return { state: "blocked", message: "Wire supply positive through the isolation diode to the supercapacitor and load in parallel; connect their returns and supply negative to ground.", validation };
+  }
+  const timeConstantS = loadResistance * capacitance;
+  const holdUpTimeS = timeConstantS * Math.log(initialVoltage / minimumVoltage);
+  const initialCurrentA = initialVoltage / loadResistance;
+  const initialLoadPowerW = initialVoltage ** 2 / loadResistance;
+  const initialStoredEnergyJ = 0.5 * capacitance * initialVoltage ** 2;
+  if (![timeConstantS, holdUpTimeS, initialCurrentA, initialLoadPowerW, initialStoredEnergyJ].every(Number.isFinite)
+    || timeConstantS <= 0 || holdUpTimeS <= 0) {
+    return { state: "blocked", message: "The supercapacitor discharge time is outside the numerically supported range.", validation };
+  }
+  const sampleTimes = [0, holdUpTimeS * 0.25, holdUpTimeS * 0.5, holdUpTimeS, holdUpTimeS * 1.25];
+  const samples = sampleTimes.map(timeS => {
+    const voltage = initialVoltage * Math.exp(-timeS / timeConstantS);
+    const currentA = voltage / loadResistance;
+    return { timeS, voltage, currentA, loadPowerW: voltage * currentA, storedEnergyJ: 0.5 * capacitance * voltage ** 2 };
+  });
+  if (samples.some(sample => ![sample.voltage, sample.currentA, sample.loadPowerW, sample.storedEnergyJ].every(Number.isFinite))) {
+    return { state: "blocked", message: "The supercapacitor sample curve exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical supercapacitor RC power-interruption response",
+    message: "Assumed the supercapacitor has charged through an ideal isolation diode, then disconnected the input supply at time zero and calculated its ideal RC discharge. ESR, leakage, capacitance/voltage tolerance, diode reverse leakage, load dynamics, recharge time, temperature, component ratings, and general SPICE are not modeled.",
+    result: { kind: "supercap-hold-up", sourceVoltage, diodeVf, chargeVoltage: sourceVoltage - diodeVf, capacitance, initialVoltage, minimumVoltage, ratedVoltage, loadResistance, timeConstantS, holdUpTimeS, initialCurrentA, initialLoadPowerW, initialStoredEnergyJ, samples },
     validation
   };
 }
