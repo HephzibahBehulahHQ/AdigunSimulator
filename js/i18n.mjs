@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -610,10 +610,18 @@ Object.assign(TRANSLATIONS.en, { exampleMosfetHalfBridge: "MOSFET half-bridge", 
 Object.assign(TRANSLATIONS.de, { exampleMosfetHalfBridge: "MOSFET-Halbbrücke", morePlannedExamples: "111 der 200 Katalogprojekte sind veröffentlicht; zusätzlich sind zehn ergänzende Studien verfügbar. Die übrigen Katalogprojekte sind geplant." });
 Object.assign(TRANSLATIONS.yo, { exampleMosfetHalfBridge: "Ìsopọ MOSFET aláàrin méjì", morePlannedExamples: "A ti ṣe ìtújáde 111 nínú iṣẹ́ kátálọ́ọ̀gì 200; ìkẹ́kọ̀ọ́ àfikún mẹ́wàá tún wà. A ṣètò àwọn iṣẹ́ kátálọ́ọ̀gì tó kù." });
 Object.assign(TRANSLATIONS.pcm, { exampleMosfetHalfBridge: "MOSFET half-bridge", morePlannedExamples: "One hundred and eleven out of 200 catalogue projects don release; ten extra studies dey available too. Dem plan di remaining catalogue projects." });
-Object.assign(TRANSLATIONS.en, {"exampleIgbtInverterLeg":"IGBT inverter leg"});
+Object.assign(TRANSLATIONS.en, {exampleIgbtInverterLeg:"IGBT inverter leg"});
 
-Object.assign(TRANSLATIONS.de, {"exampleIgbtInverterLeg":"IGBT-Wechselrichterzweig"});
+Object.assign(TRANSLATIONS.de, {exampleIgbtInverterLeg:"IGBT-Wechselrichterzweig"});
 
-Object.assign(TRANSLATIONS.yo, {"exampleIgbtInverterLeg":"Ẹsẹ̀ inverter IGBT"});
+Object.assign(TRANSLATIONS.yo, {exampleIgbtInverterLeg:"Ẹsẹ̀ inverter IGBT"});
 
-Object.assign(TRANSLATIONS.pcm, {"exampleIgbtInverterLeg":"IGBT inverter leg"});
+Object.assign(TRANSLATIONS.pcm, {exampleIgbtInverterLeg:"IGBT inverter leg"});
+
+Object.assign(TRANSLATIONS.en, {"morePlannedExamples":"112 of the 200 catalogue projects are released; ten supplemental studies are also available. The remaining catalogue projects are planned and cannot be loaded yet."});
+
+Object.assign(TRANSLATIONS.de, {"morePlannedExamples":"112 der 200 Katalogprojekte sind veröffentlicht; zehn ergänzende Studien sind ebenfalls verfügbar. Die übrigen Katalogprojekte sind geplant und noch nicht ladbar."});
+
+Object.assign(TRANSLATIONS.yo, {"morePlannedExamples":"A ti tú iṣẹ́ kátàlọ́ọ̀gù 112 nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí."});
+
+Object.assign(TRANSLATIONS.pcm, {"morePlannedExamples":"112 out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load."});

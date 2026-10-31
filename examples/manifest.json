@@ -4616,7 +4616,7 @@
     {
       "id": "112-igbt-inverter-leg",
       "title": "IGBT inverter leg",
-      "status": "in-review",
+      "status": "released",
       "objective": "Check high/low gate logic, mutual exclusion, fault interlock shutdown, and resistive-load switching state for an ideal IGBT pair.",
       "acceptanceTest": "tests/core.test.mjs: catalogue IGBT inverter leg respects gate logic and fault interlock",
       "testId": "core-igbt-inverter-leg",
@@ -4624,7 +4624,39 @@
       "readmeFile": "examples/112-igbt-inverter-leg/README.md",
       "safetyNote": "Ideal logic and resistive-load estimator only; no switching transient, inductive current, isolation, thermal, protection, or hardware safety qualification.",
       "scope": "catalogue",
-      "catalogueIndex": 112
+      "catalogueIndex": 112,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41190819675",
+        "headRevision": "7cda0543a7037ff106ba542c267063ae4f5807a9",
+        "engine": "Bounded IGBT inverter-leg logic and resistive-load estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-igbt-fault-interlock-v1",
+        "expectedResult": {
+          "kind": "igbt-inverter-leg",
+          "switchingState": "high-side-on",
+          "highCommand": "on",
+          "lowCommand": "off",
+          "highGateOn": true,
+          "lowGateOn": false,
+          "commandConflict": false,
+          "fault": "none",
+          "faultActive": false,
+          "interlockActive": false,
+          "gateHighVoltageV": 15,
+          "busVoltageV": 24,
+          "vceSaturationVoltageV": 1.8,
+          "outputVoltageV": 22.2,
+          "loadResistanceOhm": 12,
+          "loadCurrentA": 1.85,
+          "loadPowerW": 41.07,
+          "deviceMaximumVoltageV": 600,
+          "deviceMaximumCurrentA": 20,
+          "shootThrough": false,
+          "hardwareSafetyQualified": false
+        }
+      }
     }
   ]
 }
