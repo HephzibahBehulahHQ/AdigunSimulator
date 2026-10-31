@@ -6408,7 +6408,7 @@
     {
       "id": "163-plc-tank-level-controller",
       "title": "PLC tank level controller",
-      "status": "in-review",
+      "status": "released",
       "objective": "Simulate a bounded PLC pump controller with separate low and high level thresholds; verify hysteresis prevents relay chatter across intermediate samples.",
       "acceptanceTest": "tests/core.test.mjs: catalogue tank controller applies low/high hysteresis across synthetic levels",
       "testId": "core-plc-tank-level-controller",
@@ -6416,7 +6416,25 @@
       "readmeFile": "examples/163-plc-tank-level-controller/README.md",
       "safetyNote": "Educational state-model only. No sensor calibration, liquid dynamics, pump protection, dry-run protection, tank overflow protection, field wiring, PLC scan timing, or safety certification is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 163,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41209970464",
+        "headRevision": "b2d17136fee7bff9736227d86f8f8cca95f0a918",
+        "engine": "Deterministic low/high PLC hysteresis concept",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "tank-level-hysteresis-concept-v1",
+        "expectedResult": {
+          "kind": "tank-level-hysteresis",
+          "sampleCount": 10,
+          "pumpOnSamples": 7,
+          "lowLevelPct": 30,
+          "highLevelPct": 80,
+          "physicalPumpModel": false
+        }
+      }
     }
   ]
 }
