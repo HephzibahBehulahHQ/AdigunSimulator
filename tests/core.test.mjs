@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 62);
+  assert.equal(getExampleCoverage(registry).total, 63);
   assert.equal(getExampleCoverage(registry).released, 52);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 148);
@@ -1713,6 +1713,26 @@ test("catalogue four-to-one multiplexer selects each input for all data vectors"
   assert.equal(runSupportedAnalysis(updateComponent(project, "select-0", { value: "6 V" })).state, "blocked");
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "I3").endpoints = ["input-3:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue two-to-four decoder asserts exactly one matching output", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/053-decoder-controlled-leds.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-decoder-2to4-ideal"), true);
+  for (let address = 0; address < 4; address++) {
+    let vector = updateComponent(project, "address-0", { value: address & 1 ? "5 V" : "0 V" });
+    vector = updateComponent(vector, "address-1", { value: address & 2 ? "5 V" : "0 V" });
+    const result = runSupportedAnalysis(vector);
+    assert.equal(result.state, "complete");
+    assert.equal(result.result.address, address);
+    assert.deepEqual(result.result.outputsHigh, [0,1,2,3].map(i=>i===address));
+    assert.equal(result.result.oneHot, true);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project, "address-1", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "Y3").endpoints = ["decoder:Y3"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
