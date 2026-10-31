@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "example-166-forward-reverse-motor-concept",
+  "metadata": {
+    "name": "Example 166 — Forward/Reverse Motor Interlock Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "forwardReverseMotor": {
+    "kind": "mutually-exclusive-direction-concept",
+    "events": [
+      {
+        "request": "forward"
+      },
+      {
+        "request": "forward"
+      },
+      {
+        "request": "reverse"
+      },
+      {
+        "request": "stop"
+      },
+      {
+        "request": "reverse"
+      },
+      {
+        "request": "forward"
+      },
+      {
+        "request": "stop"
+      }
+    ]
+  }
+}

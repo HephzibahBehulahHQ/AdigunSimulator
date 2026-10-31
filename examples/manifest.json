@@ -6498,6 +6498,19 @@
           "physicalMotorModel": false
         }
       }
+    },
+    {
+      "id": "166-forward-reverse-motor-concept",
+      "title": "Forward/reverse motor concept",
+      "status": "in-review",
+      "objective": "Evaluate mutually exclusive forward and reverse commands; reject an opposite-direction request while a direction remains active and permit restart after stop.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue forward/reverse logic rejects an opposite-direction request until stopped",
+      "testId": "core-forward-reverse-motor-concept",
+      "projectFile": "examples/166-forward-reverse-motor-concept.adigun.json",
+      "readmeFile": "examples/166-forward-reverse-motor-concept/README.md",
+      "safetyNote": "Logic-only concept. No motor, contactor, drive, electrical interlock wiring, reversing-current transient, coast time, overload, or machine-safety model is included.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
