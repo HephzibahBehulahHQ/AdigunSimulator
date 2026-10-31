@@ -1,0 +1,5 @@
+export function diagnoseMissingGround(project) {
+  const ground=project.components?.find(component=>component.libraryId==="ground.signal");
+  if(ground)return {state:"complete",engine:"Ground-reference preflight",message:"A signal-ground reference component is present.",errors:[],warnings:[],result:{kind:"ground-reference-check",referencePresent:true}};
+  return {state:"blocked",engine:"Ground-reference preflight",message:"No signal-ground reference component is present; the DC reference is undefined.",errors:[{code:"MISSING_GROUND_REFERENCE",message:"Add or identify the intended reference node before running DC analysis. Verify polarity and return-path intent; do not assume a net label creates a physical reference."}],warnings:[],result:null,diagnostics:{ruleId:"NO_REFERENCE",affectedNetIds:project.nets?.filter(net=>net.id==="GND").map(net=>net.id)??[],suggestions:["Inspect the circuit's return path and reference-node intent.","Add an explicit ground/reference symbol only where the design requires it.","Run validation and analysis again after the circuit is reviewed."]}};
+}
