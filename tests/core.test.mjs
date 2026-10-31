@@ -2444,3 +2444,26 @@ test("catalogue Ethernet sensor shows link transitions and builds a local mock f
   broken.nets.find(net=>net.id==="TX").endpoints=["controller:TX"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue IR remote maps valid NEC-like keys to actions and rejects invalid pulses", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/086-ir-remote-actions.adigun.json",import.meta.url)));
+  const first=runSupportedAnalysis(project);
+  assert.equal(first.state,"complete",first.message);
+  assert.equal(first.result.kind,"ir-remote-action");
+  assert.equal(first.result.rawCode,"0x00FFA25D");
+  assert.equal(first.result.command,"0xA2");
+  assert.equal(first.result.action,"TOGGLE_LIGHT");
+  assert.equal(first.result.mapped,true);
+  assert.equal(first.result.actionExecuted,false);
+  const second=runSupportedAnalysis(updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 FF B2 4D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000"}));
+  assert.equal(second.result.action,"VOLUME_UP");
+  const unmapped=runSupportedAnalysis(updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 FF 44 BB; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000"}));
+  assert.equal(unmapped.result.action,"UNMAPPED");
+  assert.equal(unmapped.result.mapped,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 500; StopMarkUs 560; CarrierHz 38000"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 FF A2 00; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"decoder",{value:"Program Decode NEC-like and dispatch; Input INT0; Output ACTION; Tolerance 20%; Map A2=EXECUTE_UNKNOWN"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="DEMODULATED").endpoints=["receiver:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
