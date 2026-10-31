@@ -77,6 +77,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.data-logger-controller-ideal", category: "Active", type: "Ideal EEPROM data logger controller behavior model", prefix: "U", pins: ["SENSOR", "SDA", "SCL", "DISPLAY", "VCC", "GND"], defaultValue: "SamplePeriodMs 100; Mode circular logger", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.eeprom-ring-buffer-ideal", category: "Active", type: "Ideal EEPROM circular ring-buffer model", prefix: "MEM", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Capacity 3; WriteCycleMs 5; Mode circular", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.data-log-display", category: "Output", type: "Ideal EEPROM replay text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Newest retained samples", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.interrupt-edge-sequence-ideal", category: "Inputs", type: "Ideal interrupt edge sequence fixture", prefix: "SIG", pins: ["INT", "GND"], defaultValue: "Events 100:rising,130:falling,400:rising; DurationMs 500", simulation: "analytical-low-power-sleep-wake", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.low-power-mcu-ideal", category: "Active", type: "Generic low-power MCU sleep/wake behavior model", prefix: "U", pins: ["INT", "LED", "VCC", "GND"], defaultValue: "RunCurrentUa 5000; SleepCurrentUa 8; WakeDurationMs 20; WakeMode rising", simulation: "analytical-low-power-sleep-wake", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.nfc-tag-ideal", category: "Sensors", type: "Ideal NFC tag UID and read-status fixture", prefix: "TAG", pins: ["UID", "GND"], defaultValue: "UID 04A1B2C3; ReadStatus ok", simulation: "fixture-nfc-tag", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.nfc-reader-ideal", category: "Active", type: "Ideal UID-only NFC reader behavior model", prefix: "NFC", pins: ["TAG", "DATA", "VCC", "GND"], defaultValue: "Mode UID-only; Band 13.56 MHz", simulation: "analytical-nfc-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.nfc-display-controller-ideal", category: "Active", type: "Generic NFC UID display controller behavior model", prefix: "U", pins: ["RX", "DISPLAY", "VCC", "GND"], defaultValue: "Program Display UID; Mode UID-display-only", simulation: "analytical-nfc-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -521,6 +523,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const nfcReaders = project.components.filter((item) => item.libraryId === "active.nfc-reader-ideal");
   const nfcControllers = project.components.filter((item) => item.libraryId === "active.nfc-display-controller-ideal");
   const nfcDisplays = project.components.filter((item) => item.libraryId === "output.nfc-uid-display");
+  const interruptFixtures = project.components.filter((item) => item.libraryId === "input.interrupt-edge-sequence-ideal");
+  const lowPowerControllers = project.components.filter((item) => item.libraryId === "active.low-power-mcu-ideal");
   const dataLogFixtures = project.components.filter((item) => item.libraryId === "input.data-log-samples");
   const dataLogControllers = project.components.filter((item) => item.libraryId === "active.data-logger-controller-ideal");
   const ringEeproms = project.components.filter((item) => item.libraryId === "active.eeprom-ring-buffer-ideal");
@@ -598,6 +602,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (dataLogFixtures.length === 1 && dataLogControllers.length === 1 && ringEeproms.length === 1 && dataLogDisplays.length === 1 && resistor.length === 2 && source.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseEepromRingLogger(project, { source: source[0], fixture: dataLogFixtures[0], controller: dataLogControllers[0], eeprom: ringEeproms[0], display: dataLogDisplays[0], pullups: resistor, ground: ground[0], validation });
+  }
+  if (interruptFixtures.length === 1 && lowPowerControllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseLowPowerSleepWake(project, { source: source[0], fixture: interruptFixtures[0], controller: lowPowerControllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
   if (nfcTags.length === 1 && nfcReaders.length === 1 && nfcControllers.length === 1 && nfcDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseNfcUidDisplay(project, { source: source[0], tag: nfcTags[0], reader: nfcReaders[0], controller: nfcControllers[0], display: nfcDisplays[0], ground: ground[0], validation });
@@ -1695,6 +1702,38 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
+function analyseLowPowerSleepWake(project,{source,fixture,controller,resistor,led,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const fixtureFields=fields(fixture.value),controllerFields=fields(controller.value);
+  const durationMs=Number((field(fixtureFields,"DurationMs")??"").replace(/ms$/i,""));
+  const eventText=field(fixtureFields,"Events")??"";
+  const events=eventText.split(",").map(token=>{const match=token.trim().match(/^(\d+):(rising|falling)$/i);return match?{timeMs:Number(match[1]),edge:match[2].toLowerCase()}:null;});
+  const runCurrentUa=Number(field(controllerFields,"RunCurrentUa")),sleepCurrentUa=Number(field(controllerFields,"SleepCurrentUa"));
+  const wakeDurationMs=Number((field(controllerFields,"WakeDurationMs")??"").replace(/ms$/i,"")),wakeMode=field(controllerFields,"WakeMode");
+  const groundNet=n(ground,"0"),vccNet=n(controller,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const fixtureWired=n(fixture,"INT")===n(controller,"INT")&&n(fixture,"GND")===groundNet&&n(controller,"GND")===groundNet;
+  const ledPath=((n(controller,"LED")===n(resistor,"1")&&n(resistor,"2")===n(led,"A"))||(n(controller,"LED")===n(resistor,"2")&&n(resistor,"1")===n(led,"A")))&&n(led,"K")===groundNet;
+  const resistance=resistanceValue(resistor.value),vf=forwardVoltage(led.value);
+  const eventsValid=events.length>0&&events.length<=1000&&events.every((event,index)=>event&&Number.isInteger(event.timeMs)&&event.timeMs>=0&&event.timeMs<durationMs&&(!index||event.timeMs>events[index-1].timeMs));
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<1||supplyVoltage>5.5||!fixtureWired||!ledPath||!Number.isFinite(durationMs)||!Number.isInteger(durationMs)||durationMs<1||durationMs>3600000||!eventsValid||field(controllerFields,"WakeMode")!=="rising"||!Number.isFinite(runCurrentUa)||!Number.isFinite(sleepCurrentUa)||sleepCurrentUa<0||runCurrentUa<=sleepCurrentUa||runCurrentUa>1e7||sleepCurrentUa>1e6||!Number.isFinite(wakeDurationMs)||!Number.isInteger(wakeDurationMs)||wakeDurationMs<1||wakeDurationMs>durationMs||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(vf)||vf<=0||vf>=supplyVoltage){
+    return {state:"blocked",message:"Power the MCU, connect the interrupt fixture to INT and ground, and wire a current-limited LED output. Configure ordered rising/falling events within the run duration, a rising-edge wake mode, and positive sleep/run currents and wake time.",validation};
+  }
+  const wakeIntervals=[];let awakeUntilMs=0,wakeCount=0;
+  const eventResults=events.map(event=>{
+    if(event.edge!=="rising")return {...event,woke:false,reason:"wake edge is rising only"};
+    if(event.timeMs<awakeUntilMs)return {...event,woke:false,reason:"MCU is already awake"};
+    awakeUntilMs=Math.min(durationMs,event.timeMs+wakeDurationMs);wakeIntervals.push([event.timeMs,awakeUntilMs]);wakeCount++;
+    return {...event,woke:true,reason:"rising edge woke MCU"};
+  });
+  const awakeTimeMs=wakeIntervals.reduce((sum,[start,end])=>sum+end-start,0),sleepTimeMs=durationMs-awakeTimeMs;
+  const ledCurrentA=Math.max(0,(supplyVoltage-vf)/resistance),mcuChargeUaMs=sleepCurrentUa*sleepTimeMs+runCurrentUa*awakeTimeMs,ledChargeUaMs=ledCurrentA*1e6*awakeTimeMs;
+  const averageMcuCurrentUa=mcuChargeUaMs/durationMs,averageLedCurrentUa=ledChargeUaMs/durationMs,averageSupplyCurrentUa=averageMcuCurrentUa+averageLedCurrentUa;
+  const energyMj=supplyVoltage*(mcuChargeUaMs+ledChargeUaMs)*1e-6;
+  return {state:"complete",engine:"Ideal MCU sleep/wake duty and LED load estimate",message:"Counts rising-edge wake events, ignores falling edges and interrupts that arrive while the MCU is already awake, and estimates time-weighted MCU plus LED current. It does not execute firmware or model a specific MCU, leakage, wake latency, oscillator startup, GPIO limits, regulator losses, or real sleep current.",result:{kind:"low-power-sleep-wake",supplyVoltage,durationMs,runCurrentUa,sleepCurrentUa,wakeDurationMs,wakeMode,wakeCount,events:eventResults,awakeTimeMs,sleepTimeMs,ledPeakCurrentMa:ledCurrentA*1000,averageMcuCurrentUa,averageLedCurrentUa,averageSupplyCurrentUa,energyMj,ledOnAtEnd:wakeIntervals.some(([start,end])=>start<=durationMs&&end>durationMs),firmwareExecuted:false},validation};
+}
+
 function analyseEepromRingLogger(project,{source,fixture,controller,eeprom,display,pullups,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());

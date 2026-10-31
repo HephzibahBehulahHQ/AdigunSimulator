@@ -2284,3 +2284,29 @@ test("catalogue EEPROM data logger wraps a full ring buffer and replays retained
   broken.nets.find(net=>net.id==="SDA").endpoints=["controller:SDA","pull-sda:2"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue low-power MCU sleeps between rising-edge interrupts and estimates supply current", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/080-low-power-sleep-wake.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",analysis.message);
+  assert.equal(analysis.result.kind,"low-power-sleep-wake");
+  assert.equal(analysis.result.durationMs,500);
+  assert.equal(analysis.result.wakeCount,2);
+  assert.deepEqual(analysis.result.events.map(event=>[event.timeMs,event.edge,event.woke]),[[100,"rising",true],[130,"falling",false],[400,"rising",true]]);
+  assert.equal(analysis.result.awakeTimeMs,40);
+  assert.equal(analysis.result.sleepTimeMs,460);
+  assert.equal(analysis.result.sleepCurrentUa,8);
+  assert.equal(analysis.result.runCurrentUa,5000);
+  assert.ok(Math.abs(analysis.result.averageSupplyCurrentUa-511.36)<1e-9);
+  assert.ok(Math.abs(analysis.result.energyMj-0.843744)<1e-9);
+  assert.equal(analysis.result.firmwareExecuted,false);
+  const noWake=runSupportedAnalysis(updateComponent(project,"interrupts",{value:"Events 100:falling; DurationMs 500"}));
+  assert.equal(noWake.state,"complete",noWake.message);
+  assert.equal(noWake.result.wakeCount,0);
+  assert.equal(noWake.result.averageSupplyCurrentUa,8);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"interrupts",{value:"Events 100:rise; DurationMs 500"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"mcu",{value:"RunCurrentUa 4; SleepCurrentUa 8; WakeDurationMs 20; WakeMode rising"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="INT").endpoints=["interrupts:INT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
