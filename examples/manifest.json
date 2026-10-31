@@ -121,14 +121,40 @@
     {
       "id": "004-latching-led-switch",
       "title": "Latching LED switch",
-      "status": "in-review",
+      "status": "released",
       "objective": "Model an SPDT switch that selects an illuminated or off state for a low-voltage LED circuit.",
       "acceptanceTest": "tests/core.test.mjs: catalogue latching SPDT switch selects a defined LED state",
       "testId": "core-latching-led-switch",
       "projectFile": "examples/004-latching-led-switch.adigun.json",
       "safetyNote": "Ideal educational low-voltage model only. It omits switch contact resistance/bounce, part tolerances and ratings, thermal effects, and physical hardware validation.",
       "scope": "catalogue",
-      "catalogueIndex": 4
+      "catalogueIndex": 4,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41152593055",
+        "headRevision": "c5a07ec296261735ea5dea659eead65255ead731",
+        "engine": "Analytical ideal latching SPDT LED switch",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-latching-led-v1",
+        "libraryLock": "adigun-simulator@61694eb035190b8da18d3f3471529ef9b13c04d5",
+        "expectedResult": {
+          "positionA": {
+            "switchPosition": "A",
+            "ledOn": true,
+            "ledCurrentA": 0.00909090909090909,
+            "sourceCurrentA": 0.00909090909090909,
+            "powerBalanceW": 0
+          },
+          "positionB": {
+            "switchPosition": "B",
+            "ledOn": false,
+            "ledCurrentA": 0,
+            "sourceCurrentA": 0,
+            "powerBalanceW": 0
+          }
+        }
+      }
     },
     {
       "id": "003-led-current-limiter-9v",
