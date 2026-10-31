@@ -1391,6 +1391,8 @@ function analyseElectretAudioPreamp(project,{source,microphone,opAmp,resistors,c
   const frequencyHz=micFields?frequencyValue(micFields[3]):Number.NaN;
   const micSourceResistance=micFields?resistanceValue(micFields[4]):Number.NaN;
   const inputNet=n(opAmp,"+"),invertingNet=n(opAmp,"-"),outputNet=n(opAmp,"OUT");
+  const coupling=capacitors.find(c=>(n(c,"1")===micOutNet&&n(c,"2")===inputNet)||(n(c,"2")===micOutNet&&n(c,"1")===inputNet));
+  const decoupling=capacitors.find(c=>c!==coupling&&((n(c,"1")===vccNet&&n(c,"2")===groundNet)||(n(c,"2")===vccNet&&n(c,"1")===groundNet)));
   const referenceNet=[...new Set(netByEndpoint.values())].find(net=>net!==vccNet&&net!==groundNet
     &&resistors.filter(r=>n(r,"1")===net||n(r,"2")===net).length===4
     &&resistors.some(r=>(n(r,"1")===vccNet&&n(r,"2")===net)||(n(r,"2")===vccNet&&n(r,"1")===net))
