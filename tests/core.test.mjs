@@ -1437,7 +1437,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 153);
+  assert.equal(getExampleCoverage(registry).total, 154);
   assert.equal(getExampleCoverage(registry).released, 143);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 57);
@@ -3925,4 +3925,23 @@ test("catalogue oscilloscope trigger locks edge and threshold and emits trace me
   assert.equal(captureTriggeredPulse(falling).result.triggerTimeMs,0.75);
   const badLevel=JSON.parse(JSON.stringify(project));badLevel.oscilloscope.triggerLevelV=5;
   assert.equal(captureTriggeredPulse(badLevel).state,"blocked");
+});
+
+test("catalogue two-channel phase measurement reports a known 90 degree offset and rejects mismatched sources", async () => {
+  const {measureTwoChannelPhase}=await import("../js/phase-measurement.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/144-two-channel-phase.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const measured=measureTwoChannelPhase(project);
+  assert.equal(measured.state,"complete");
+  assert.equal(measured.result.kind,"two-channel-phase");
+  assert.equal(measured.result.unit,"deg");
+  assert.ok(Math.abs(measured.result.phaseOffsetDeg-90)<1e-9);
+  assert.equal(measured.result.channelBLeadsChannelA,true);
+  assert.equal(measured.result.frequencyHz,1000);
+  assert.equal(measured.result.sampleCount,201);
+  const reversed=JSON.parse(JSON.stringify(project));reversed.phaseScope.channelB.phaseDeg=270;
+  assert.equal(measureTwoChannelPhase(reversed).result.phaseOffsetDeg,-90);
+  const mismatched=JSON.parse(JSON.stringify(project));mismatched.phaseScope.channelB.frequencyHz=1001;
+  assert.equal(measureTwoChannelPhase(mismatched).state,"blocked");
 });

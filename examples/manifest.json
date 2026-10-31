@@ -5817,6 +5817,18 @@
           "analogScopeQualified": false
         }
       }
+    },
+    {
+      "id": "144-two-channel-phase",
+      "title": "Two-channel phase measurement",
+      "status": "in-review",
+      "objective": "Measure the signed phase offset between matched ideal sine sources and report frequency, period, units and sampled trace metadata; validate against a known 90-degree case.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue two-channel phase measurement reports a known 90 degree offset and rejects mismatched sources",
+      "testId": "core-two-channel-phase",
+      "projectFile": "examples/144-two-channel-phase.adigun.json",
+      "readmeFile": "examples/144-two-channel-phase/README.md",
+      "safetyNote": "The tool calculates phase from ideal declared sine-source phases and matched frequencies. It does not infer phase from sampled analog data or model noise, probe delay, loading, bandwidth or instrument uncertainty.",
+      "scope": "catalogue"
     }
   ]
 }
