@@ -22,6 +22,7 @@ import { analyzeConvergenceStudy } from "../js/convergence-study.mjs";
 import { diagnoseFloatingNode } from "../js/floating-node-diagnosis.mjs";
 import { diagnoseSupplyShort } from "../js/short-circuit-diagnosis.mjs";
 import { diagnoseMissingGround } from "../js/missing-ground-diagnosis.mjs";
+import { reportUnavailableModel } from "../js/model-unavailable-diagnosis.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1454,7 +1455,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 165);
+  assert.equal(getExampleCoverage(registry).total, 166);
   assert.equal(getExampleCoverage(registry).released, 155);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 45);
@@ -4149,4 +4150,17 @@ test("catalogue missing-ground diagnosis blocks and identifies the reference rul
   assert.ok(result.diagnostics.suggestions.length>=2);
   const grounded=JSON.parse(JSON.stringify(project));grounded.components.push({instanceId:"ground-restored",libraryId:"ground.signal",reference:"GND2",value:"0 V"});
   assert.equal(diagnoseMissingGround(grounded).result.referencePresent,true);
+});
+
+test("catalogue unavailable-model fixture is schematic-only and never simulates a fake model", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/156-model-unavailable-diagnosis.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=reportUnavailableModel(project);
+  assert.equal(result.state,"blocked");assert.equal(result.result,null);
+  assert.equal(result.diagnostics.analysisAttempted,false);
+  assert.equal(result.diagnostics.status,"unavailable");
+  assert.equal(result.diagnostics.displayMode,"schematic-only");
+  assert.equal(result.errors[0].code,"COMPONENT_MODEL_UNAVAILABLE");
+  assert.match(result.message,/shown in the schematic/);
 });

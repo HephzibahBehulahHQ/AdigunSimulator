@@ -6184,6 +6184,19 @@
         }
       },
       "expectedAnalysis": "unsupported"
+    },
+    {
+      "id": "156-model-unavailable-diagnosis",
+      "title": "Model-unavailable diagnosis",
+      "status": "in-review",
+      "objective": "Display a schematic-only component whose requested vendor macromodel is absent, mark it unavailable, and block analysis without substituting a fake behavioral model.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue unavailable-model fixture is schematic-only and never simulates a fake model",
+      "testId": "core-model-unavailable-diagnosis",
+      "projectFile": "examples/156-model-unavailable-diagnosis.adigun.json",
+      "readmeFile": "examples/156-model-unavailable-diagnosis/README.md",
+      "safetyNote": "The generic schematic symbol is not a validated TL081C device model. No analog result is produced; install and verify an appropriate manufacturer model before relying on simulation.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
