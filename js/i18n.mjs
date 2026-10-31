@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
