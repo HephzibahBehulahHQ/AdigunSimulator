@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-098-oled-status-panel",
+  "metadata": {
+    "name": "OLED Sensor Status Panel",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          30,
+          50
+        ],
+        "schematic": [
+          30,
+          50
+        ],
+        "pcb": [
+          30,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "sensors",
+      "libraryId": "input.status-sensor-fixture",
+      "reference": "SNS1",
+      "value": "TemperatureC 23.5; HumidityPct 48; PressureHpa 1013; Present T,H,P",
+      "position": {
+        "breadboard": [
+          130,
+          50
+        ],
+        "schematic": [
+          130,
+          50
+        ],
+        "pcb": [
+          130,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.oled-status-controller-ideal",
+      "reference": "U1",
+      "value": "Program status; Required T,H,P; Columns 16; Rows 2",
+      "position": {
+        "breadboard": [
+          300,
+          50
+        ],
+        "schematic": [
+          300,
+          50
+        ],
+        "pcb": [
+          300,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "panel",
+      "libraryId": "output.oled-status-panel",
+      "reference": "OLED1",
+      "value": "Columns 16; Rows 2",
+      "position": {
+        "breadboard": [
+          470,
+          50
+        ],
+        "schematic": [
+          470,
+          50
+        ],
+        "pcb": [
+          470,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "sensors:VCC",
+        "controller:VCC",
+        "panel:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "sensors:GND",
+        "controller:GND",
+        "panel:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "TEMPERATURE",
+      "endpoints": [
+        "sensors:T",
+        "controller:T"
+      ]
+    },
+    {
+      "id": "HUMIDITY",
+      "endpoints": [
+        "sensors:H",
+        "controller:H"
+      ]
+    },
+    {
+      "id": "PRESSURE",
+      "endpoints": [
+        "sensors:P",
+        "controller:P"
+      ]
+    },
+    {
+      "id": "DISPLAY_DATA",
+      "endpoints": [
+        "controller:DATA",
+        "panel:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
