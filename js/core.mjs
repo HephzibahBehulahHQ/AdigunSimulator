@@ -193,6 +193,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.bms-cell-stack-fixture", category: "Inputs", type: "Three-cell BMS voltage fixture", prefix: "CELL", pins: ["C1", "C2", "C3", "VCC", "GND"], defaultValue: "Cell1 3.70 V; Cell2 3.72 V; Cell3 3.71 V; Mode 3S", simulation: "fixture-bms-3s", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.bms-cell-monitor-ideal", category: "Active", type: "Ideal three-cell over/under-voltage monitor", prefix: "U", pins: ["C1", "C2", "C3", "STATUS", "VCC", "GND"], defaultValue: "Mode 3S; OV 4.20 V; UV 3.00 V; BalanceDelta 0.03 V; MaxCell 4.35 V", simulation: "analytical-bms-3s", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.bms-cell-report", category: "Output", type: "BMS cell voltage and balance request report", prefix: "SCOPE", pins: ["STATUS", "VCC", "GND"], defaultValue: "Cell monitor report", simulation: "analytical-bms-3s", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.solar-iv-curve-fixture", category: "Inputs", type: "Solar I-V curve fixture", prefix: "PV", pins: ["PV+", "PV-", "VCC", "GND"], defaultValue: "Voc 10 V; Isc 1 A; Vmp 8 V; Imp 0.9 A; Irradiance 100%; Mode piecewise-linear", simulation: "fixture-solar-iv", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.solar-mpp-sweep-ideal", category: "Active", type: "Ideal static solar maximum-power sweep", prefix: "U", pins: ["PV+", "PV-", "VCC", "GND", "REPORT"], defaultValue: "Mode sweep; Samples 20; Efficiency 95%; MaxVoc 24 V; MaxCurrent 5 A", simulation: "analytical-solar-mpp", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.solar-mpp-report", category: "Output", type: "Solar curve sweep and MPP report", prefix: "SCOPE", pins: ["REPORT", "VCC", "GND"], defaultValue: "Maximum-power report", simulation: "analytical-solar-mpp", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -696,6 +699,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const bmsCellFixtures = project.components.filter((item) => item.libraryId === "input.bms-cell-stack-fixture");
   const bmsCellMonitors = project.components.filter((item) => item.libraryId === "active.bms-cell-monitor-ideal");
   const bmsCellReports = project.components.filter((item) => item.libraryId === "output.bms-cell-report");
+  const solarCurveFixtures = project.components.filter((item) => item.libraryId === "input.solar-iv-curve-fixture");
+  const solarMppControllers = project.components.filter((item) => item.libraryId === "active.solar-mpp-sweep-ideal");
+  const solarMppReports = project.components.filter((item) => item.libraryId === "output.solar-mpp-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -934,6 +940,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
+  }
+  if (solarCurveFixtures.length === 1 && solarMppControllers.length === 1 && solarMppReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseSolarMppSweep(project, { source: source[0], fixture: solarCurveFixtures[0], controller: solarMppControllers[0], report: solarMppReports[0], ground: ground[0], validation });
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3158,6 +3167,35 @@ function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,spe
   return {state:"complete",engine:"Generic low-voltage class-AB amplifier and R-L speaker estimate",message:"Models configurable voltage gain and output swing, a single-supply midpoint bias, a series output coupling capacitor, and a nominal speaker R-L load. It reports a sinusoidal fundamental and real load power only. It does not calculate THD, compression, slew, output-stage current limiting, mechanical sound, thermal behavior, or manufacturer-specific LM386 performance.",result:{kind:"audio-power-amplifier",supplyVoltage,inputAmplitudeV,frequencyHz,gainVPerV:gain,requestedOutputAmplitudeV,amplifierOutputAmplitudeV,clipped,clippingWarning:clipped?"Input exceeds the configured output swing; distortion is not modeled.":null,outputBiasVoltageV:biasVoltageV,quiescentCurrentA:quiescentCurrent,speakerResistanceOhm:speakerResistance,speakerInductanceH:speakerInductance,couplingCapacitanceF:couplingCapacitance,couplingGain,speakerImpedanceOhm,speakerVoltagePeakV,speakerVoltageRmsV,speakerCurrentRmsA,speakerRealPowerW,frequencyResponse},validation};
 }
 
+function analyseSolarMppSweep(project,{source,fixture,controller,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const curve=fields(fixture.value),settings=fields(controller.value);
+  const vocV=voltageValue(field(curve,"Voc")??""),iscA=currentValue(field(curve,"Isc")??""),vmpV=voltageValue(field(curve,"Vmp")??""),impA=currentValue(field(curve,"Imp")??"");
+  const irradiancePercent=Number((field(curve,"Irradiance")??"").replace("%","")),samples=Number(field(settings,"Samples"));
+  const efficiencyPercent=Number((field(settings,"Efficiency")??"").replace("%","")),maxVocV=voltageValue(field(settings,"MaxVoc")??""),maxCurrentA=currentValue(field(settings,"MaxCurrent")??"");
+  const sourceVoltage=voltageValue(source.value),groundNet=n(ground,"0"),vccNet=n(source,"+");
+  const powered=n(source,"-")===groundNet&&n(fixture,"VCC")===vccNet&&n(controller,"VCC")===vccNet&&n(report,"VCC")===vccNet&&n(fixture,"GND")===groundNet&&n(controller,"GND")===groundNet&&n(report,"GND")===groundNet;
+  const pvPath=n(fixture,"PV+")===n(controller,"PV+")&&n(fixture,"PV-")===n(controller,"PV-"),reportPath=n(controller,"REPORT")===n(report,"REPORT");
+  const required=[groundNet,vccNet,n(fixture,"PV+"),n(fixture,"PV-"),n(fixture,"VCC"),n(fixture,"GND"),n(controller,"PV+"),n(controller,"PV-"),n(controller,"REPORT"),n(controller,"VCC"),n(controller,"GND"),n(report,"REPORT"),n(report,"VCC"),n(report,"GND")];
+  if(required.some(net=>typeof net!=="string"||!net)||!powered||!pvPath||!reportPath||!Number.isFinite(sourceVoltage)||sourceVoltage<2.7||sourceVoltage>5.5
+    ||field(curve,"Mode")!=="piecewise-linear"||field(settings,"Mode")!=="sweep"||!Number.isFinite(vocV)||vocV<=0||vocV>maxVocV||vocV>24
+    ||!Number.isFinite(iscA)||iscA<=0||iscA>maxCurrentA||maxCurrentA>10||!Number.isFinite(vmpV)||vmpV<=0||vmpV>=vocV
+    ||!Number.isFinite(impA)||impA<=0||impA>iscA||!Number.isFinite(irradiancePercent)||irradiancePercent<1||irradiancePercent>100
+    ||!Number.isInteger(samples)||samples<4||samples>200||!Number.isFinite(efficiencyPercent)||efficiencyPercent<80||efficiencyPercent>99){
+    return {state:"blocked",message:"Wire the solar fixture and report; use a valid bounded I-V curve, irradiance, sweep resolution, and efficiency assumption.",validation};
+  }
+  const irradianceScale=irradiancePercent/100,scaledIscA=iscA*irradianceScale,scaledImpA=impA*irradianceScale,stepV=vocV/samples;
+  const sweepPoints=Array.from({length:samples+1},(_,index)=>{
+    const voltageV=index*stepV;
+    const currentA=voltageV<=vmpV?scaledIscA+(scaledImpA-scaledIscA)*(voltageV/vmpV):scaledImpA*(vocV-voltageV)/(vocV-vmpV);
+    return {voltageV,currentA:Math.max(0,currentA),powerW:voltageV*Math.max(0,currentA)};
+  });
+  const maximumPoint=sweepPoints.reduce((best,point)=>point.powerW>best.powerW?point:best,sweepPoints[0]);
+  const idealConfiguredPowerW=vmpV*scaledImpA,conversionOutputPowerW=maximumPoint.powerW*(efficiencyPercent/100);
+  return {state:"complete",engine:"Piecewise-linear solar I-V sweep and sampled maximum-power estimate",message:"Sweeps a synthetic piecewise-linear I-V curve and reports the highest sampled power point with an explicit conversion-efficiency assumption. This is not a perturb-and-observe tracker, a dynamic converter, an irradiance-dependent Voc model, or a hardware MPPT simulation.",result:{kind:"solar-mpp-sweep",openCircuitVoltageV:vocV,shortCircuitCurrentA:scaledIscA,configuredMppVoltageV:vmpV,configuredMppCurrentA:scaledImpA,configuredMppPowerW:idealConfiguredPowerW,irradiancePercent,sampleCount:samples+1,sweepStepV:stepV,sweepPoints,maximumPowerPoint:maximumPoint,conversionOutputPowerW,assumedEfficiencyPercent:efficiencyPercent,trackingAlgorithmModeled:false,converterHardwareModeled:false},validation};
+}
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
