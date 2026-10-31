@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "example-175-garage-door-concept",
+  "metadata": {
+    "name": "Example 175 — Garage Door Limit-Switch Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "garageDoorConcept": {
+    "kind": "limit-switch-direction-concept",
+    "initialPosition": "closed",
+    "events": [
+      {
+        "action": "open"
+      },
+      {
+        "action": "open-limit"
+      },
+      {
+        "action": "close"
+      },
+      {
+        "action": "open"
+      },
+      {
+        "action": "closed-limit"
+      },
+      {
+        "action": "close"
+      },
+      {
+        "action": "open"
+      }
+    ]
+  }
+}

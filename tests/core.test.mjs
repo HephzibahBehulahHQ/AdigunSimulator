@@ -41,6 +41,7 @@ import { runFanThermostat } from "../js/fan-thermostat.mjs";
 import { runPwmFanController } from "../js/pwm-fan-controller.mjs";
 import { runAutomaticNightLight } from "../js/automatic-night-light.mjs";
 import { runSmartIrrigation } from "../js/smart-irrigation.mjs";
+import { runGarageDoorConcept } from "../js/garage-door-concept.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1473,7 +1474,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 184);
+  assert.equal(getExampleCoverage(registry).total, 185);
   assert.equal(getExampleCoverage(registry).released, 174);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 26);
@@ -4394,4 +4395,14 @@ test("catalogue irrigation waters only when dry and permitted and fails off on s
   assert.deepEqual(result.result.frames.map(frame=>frame.watering),[true,false,false,false,false,true]);
   assert.equal(result.result.faultsFailOff,true);assert.equal(result.result.sensorFaults,1);
   const invalid=structuredClone(project);invalid.smartIrrigation.samples[3].sensorFault=false;assert.equal(runSmartIrrigation(invalid).state,"blocked");
+});
+
+test("catalogue garage door limit switches stop motion and reject opposite-direction commands", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/175-garage-door-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runGarageDoorConcept(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"garage-door-limit-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.mode),["opening","stopped","closing","closing","stopped","stopped","opening"]);
+  assert.equal(result.result.frames[3].conflictRejected,true);assert.equal(result.result.conflictingRequestsRejected,1);
+  assert.equal(result.result.noDriveOverlap,true);
+  const invalid=structuredClone(project);invalid.garageDoorConcept.events[0].action="reverse";assert.equal(runGarageDoorConcept(invalid).state,"blocked");
 });
