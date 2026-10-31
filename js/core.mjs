@@ -446,6 +446,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
   }
+  if (andGates.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseAndGateTruthTable(project, { sources: source, gate: andGates[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+  }
   if (dualComparators.length === 2 && andGates.length === 1 && source.length === 2 && resistor.length === 4 && led.length === 1 && ground.length === 1 && project.components.length === 11) {
     return analyseWindowComparator(project, { sources: source, comparators: dualComparators, gate: andGates[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
@@ -1390,6 +1393,29 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
   }
   const loadCurrentA=referenceVoltage/loadResistance;
   return {state:"complete",engine:"Ideal reference-voltage follower load estimate",message:"Buffers a fixed reference voltage and reports the ideal resistive load current. It assumes zero output impedance and unlimited output current, and omits accuracy drift, noise, bandwidth, stability, thermal effects, and device-specific limits.",result:{kind:"reference-buffer",referenceVoltage,outputVoltage:referenceVoltage,gainVPerV:1,loadResistanceOhm:loadResistance,loadCurrentA,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage},validation};
+}
+
+function analyseAndGateTruthTable(project,{sources,gate,resistor,led,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(gate,"VCC"),outputNet=n(gate,"Y");
+  const supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  const inputA=sources.find(v=>v!==supply&&n(v,"+")===n(gate,"A")&&n(v,"-")===groundNet);
+  const inputB=sources.find(v=>v!==supply&&v!==inputA&&n(v,"+")===n(gate,"B")&&n(v,"-")===groundNet);
+  const resistorWired=(n(resistor,"1")===outputNet&&n(resistor,"2")===n(led,"A"))||(n(resistor,"2")===outputNet&&n(resistor,"1")===n(led,"A"));
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN;
+  const inputAVoltage=inputA?voltageValue(inputA.value):Number.NaN,inputBVoltage=inputB?voltageValue(inputB.value):Number.NaN;
+  const r=resistanceValue(resistor.value),vf=forwardVoltage(led.value),logicThresholdV=supplyVoltage/2;
+  if(!supply||!inputA||!inputB||n(gate,"GND")!==groundNet||n(led,"K")!==groundNet||!resistorWired
+    ||![supplyVoltage,inputAVoltage,inputBVoltage,r,vf].every(Number.isFinite)
+    ||supplyVoltage<=0||inputAVoltage<0||inputBVoltage<0||inputAVoltage>supplyVoltage||inputBVoltage>supplyVoltage||r<=0||vf<=0){
+    return {state:"blocked",message:"Wire a two-input AND gate, three grounded low-voltage sources, and a current-limited LED output path.",validation};
+  }
+  const inputAHigh=inputAVoltage>=logicThresholdV,inputBHigh=inputBVoltage>=logicThresholdV;
+  const outputHigh=inputAHigh&&inputBHigh,outputVoltage=outputHigh?supplyVoltage:0;
+  const ledCurrentA=outputHigh?Math.max(0,(outputVoltage-vf)/r):0;
+  return {state:"complete",engine:"Ideal static two-input AND truth-table estimate",message:"Uses a 50% supply-voltage threshold and an ideal rail-to-rail logic output. LED current is estimated with a fixed forward voltage and resistor; propagation delay, output-current limit, input leakage, logic-family thresholds, and manufacturer-specific behavior are omitted.",result:{kind:"and-gate-truth-table",supplyVoltage,logicThresholdV,inputAVoltage,inputBVoltage,inputAHigh,inputBHigh,outputHigh,outputVoltage,ledOn:ledCurrentA>0,ledCurrentA},validation};
 }
 
 function analyseWienBridgeOscillator(project,{sources,opAmp,resistors,capacitors,diodes,ground,validation}){
