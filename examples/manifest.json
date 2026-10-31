@@ -7414,7 +7414,7 @@
     {
       "id": "192-op-amp-gain-calculator",
       "title": "Op-amp gain calculator",
-      "status": "in-review",
+      "status": "released",
       "objective": "Compute ideal inverting and non-inverting closed-loop op-amp gain from resistor ratios, rejecting invalid or zero resistance values.",
       "acceptanceTest": "tests/core.test.mjs: catalogue op-amp gain calculator covers both topologies and rejects zero or invalid resistors",
       "testId": "core-op-amp-gain-calculator",
@@ -7422,7 +7422,31 @@
       "readmeFile": "examples/192-op-amp-gain-calculator/README.md",
       "safetyNote": "Ideal closed-loop gain equations only. Bandwidth, input offset/bias, output swing, slew rate, stability, load, and supply limits are not modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 192,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41216074699",
+        "headRevision": "a51fb2fb3cb089ade0e858b41b48dc72b0cd9e8a",
+        "engine": "Ideal closed-loop resistor-ratio equations",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "op-amp-gain-cases-v1",
+        "expectedResult": {
+          "kind": "op-amp-gain-cases",
+          "caseCount": 3,
+          "gains": [
+            -10,
+            10,
+            2
+          ],
+          "phaseInverted": [
+            true,
+            false,
+            false
+          ]
+        }
+      }
     }
   ]
 }
