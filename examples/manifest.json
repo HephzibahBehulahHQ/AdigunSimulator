@@ -6317,7 +6317,7 @@
     {
       "id": "160-reproducible-run-lockfile",
       "title": "Reproducible run lockfile",
-      "status": "in-review",
+      "status": "released",
       "objective": "Lock the supported RC project component identities/values, analysis mode, engine version, and expected model selection; detect project drift before relying on repeatability.",
       "acceptanceTest": "tests/core.test.mjs: catalogue run lockfile selects the same RC model and detects project drift",
       "testId": "core-reproducible-run-lockfile",
@@ -6325,7 +6325,23 @@
       "readmeFile": "examples/160-reproducible-run-lockfile/README.md",
       "lockfileFile": "examples/160-reproducible-run-lockfile/simulation.lock.json",
       "safetyNote": "The run lock pins application model selection and listed project inputs only. It is not a signed supply-chain attestation, cryptographic identity guarantee, or statement of physical component authenticity.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 160,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41208958495",
+        "headRevision": "dbd5c81bc2127ad8bf1697bfe0be066a02900cc3",
+        "engine": "Deterministic supported-model lock verification",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "first-order-rc-step-v1",
+        "expectedResult": {
+          "kind": "run-lock-verification",
+          "matchForUnchangedProject": true,
+          "detectsComponentValueDrift": true,
+          "cryptographicAttestation": false
+        }
+      }
     }
   ]
 }
