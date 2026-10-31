@@ -1,0 +1,8 @@
+"Check","Observed","Status"
+"Concept package identity","CONCEPT_BGA_4X4_0P8","pass"
+"All sixteen A1–D4 ball designators are unique and present","16 lands","pass"
+"Declared 0.80 mm concept pitch and 0.35 mm square lands","0.8 mm pitch; 0.35 mm land","pass"
+"Nominal land-to-land gap from declared assumptions","0.45 mm","pass"
+"No unsupported router, via-escape or manufacturability claim","No routed escapes; manufacturing status not assessed","pass"
+"Escape routing performed","No","not-supported"
+"Manufacturability","Not assessed","not-qualified"
