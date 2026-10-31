@@ -60,6 +60,7 @@ import { calculateVoltageDivider, runVoltageDividerCalculator } from "../js/volt
 import { calculateRcTiming, runRcTimingCalculator } from "../js/rc-timing-calculator.mjs";
 import { calculateOpAmpGain, runOpAmpGainCalculator } from "../js/op-amp-gain-calculator.mjs";
 import { calculatePcbTraceWidth, runPcbTraceWidthAdvisor } from "../js/pcb-trace-width-advisor.mjs";
+import { buildBomReport, exportBomCsv, runBomExportPlaceholder } from "../js/bom-report.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1492,7 +1493,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 203);
+  assert.equal(getExampleCoverage(registry).total, 204);
   assert.equal(getExampleCoverage(registry).released, 193);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 7);
@@ -4598,4 +4599,22 @@ test("catalogue PCB trace-width advisor provides scoped external/internal estima
   assert.equal(calculatePcbTraceWidth({currentA:1,copperThicknessUm:-1,temperatureRiseC:10,layerType:"external"}).ok,false);
   assert.equal(calculatePcbTraceWidth({currentA:1,copperThicknessUm:35,temperatureRiseC:10,layerType:"unknown"}).ok,false);
   const invalid=structuredClone(project);invalid.pcbTraceWidthAdvisor.cases[0].temperatureRiseC=0;assert.equal(runPcbTraceWidthAdvisor(invalid).state,"blocked");
+});
+
+test("catalogue BOM export groups verified fields and leaves unsourced cost blank", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/194-bom-export-cost-placeholder.adigun.json",import.meta.url)));
+  const result=runBomExportPlaceholder(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"bom-cost-placeholder");
+  assert.equal(result.result.itemCount,4);assert.equal(result.result.rowCount,4);assert.equal(result.result.totalCost,null);
+  assert.ok(result.result.rows.every(row=>row.unitCost===null&&row.extendedCost===null));
+  const csv=exportBomCsv(buildBomReport(project));assert.equal(csv.ok,true);
+  assert.match(csv.csv,/"Unit Cost","Extended Cost","Currency","Price Source","Price As Of"/);
+  assert.ok(csv.csv.split("\r\n").filter(Boolean).every(line=>!line.includes("$0")&&!line.includes("\"0\"")));
+  const grouped=structuredClone(project);grouped.components.push({...structuredClone(project.components[1]),instanceId:"resistor-2",reference:"R, \"2\""});
+  const groupedReport=buildBomReport(grouped);const resistorRow=groupedReport.rows.find(row=>row.libraryId==="passive.resistor");
+  assert.equal(resistorRow.quantity,2);assert.equal(resistorRow.references,"R, \"2\", R1");
+  assert.match(exportBomCsv(groupedReport).csv,/"R, ""2"", R1"/);
+  const priced=structuredClone(project);priced.components[1].verifiedPrice={unitCost:0.12,currency:"EUR",source:"https://example.com/parts/resistor",asOf:"2026-10-30"};
+  const pricedReport=buildBomReport(priced);assert.equal(pricedReport.rows.find(row=>row.libraryId==="passive.resistor").extendedCost,0.12);assert.equal(pricedReport.totalCost,null);
+  const invalid=structuredClone(project);invalid.components[0].libraryId="unknown.part";assert.equal(runBomExportPlaceholder(invalid).state,"blocked");
 });
