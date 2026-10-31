@@ -137,7 +137,22 @@ h1 span { color: var(--cyan); }
 .design-canvas.schematic.is-wire-mode .schematic-wire-layer .schematic-pin-target { pointer-events:all; cursor:crosshair; }
 .design-canvas.schematic.is-wire-mode .schematic-pin-hit { pointer-events:all; }
 .schematic-pin-target.is-wire-origin .schematic-pin-dot { fill:#f5c84b; stroke:#fff3c4; stroke-width:1; }
-#schematic-wire-status { color:var(--cyan); font-size:.72rem; }.pcb { background: #06251c; }.pcb .canvas-label { color: #cfffe6; }.pcb::before { content: "PCB mapping preview"; position: absolute; z-index: 0; inset: 13% 5%; border: 2px solid #48d799; border-radius: .8rem; color: #5de1a4; display: grid; place-items: end center; padding-bottom: 1rem; font-size: .75rem; font-weight: 700; }
+#schematic-wire-status { color:var(--cyan); font-size:.72rem; }.pcb { background: #06251c; }.pcb .canvas-label { color: #cfffe6; }
+.pcb-preview-svg { position:absolute; z-index:0; inset:0; width:100%; height:100%; pointer-events:none; }
+.pcb-board-outline { fill:#08784f; stroke:#e3c85d; stroke-width:2; filter:drop-shadow(0 3px 6px rgb(0 0 0 / 35%)); }
+.pcb-board-caption { fill:#e0f5ea; font:600 8px system-ui,sans-serif; }
+.pcb-empty-note { fill:#ddf7e8; font:600 10px system-ui,sans-serif; text-anchor:middle; }
+.pcb-footprint-outline { fill:rgb(11 18 32 / 22%); stroke:#d5c575; stroke-width:1; stroke-dasharray:3 2; }
+.pcb-footprint-label { fill:#f1f6e7; font:700 7px system-ui,sans-serif; text-anchor:middle; paint-order:stroke; stroke:#123227; stroke-width:2px; stroke-linejoin:round; }
+.pcb-route { fill:none; stroke:#e44646; stroke-linecap:round; stroke-linejoin:round; }
+.pcb-route.net-ground { stroke:#111923; }
+.pcb-route.net-signal { stroke:#42b8e8; }
+.pcb-pad-smd { fill:#d6b45a; stroke:#f7df92; stroke-width:.8; }
+.pcb-pad-through-hole { fill:#e0bf5f; stroke:#fff0a6; stroke-width:.8; }
+.pcb-pad-drill { fill:#06251c; stroke:#627a6c; stroke-width:.45; }
+.pcb-pad-label { fill:#f4f3d9; font:600 4px system-ui,sans-serif; text-anchor:middle; dominant-baseline:middle; }
+.pcb-airwire-layer { z-index:1; pointer-events:none; }
+.pcb-airwire-layer .pcb-airwire { fill:none; stroke-width:1.4; stroke-dasharray:4 4; opacity:.8; }
 .placed-component { position: absolute; z-index: 2; left: var(--x); top: var(--y); display: grid; justify-items: center; gap: .16rem; min-width: 3.7rem; padding: .18rem .35rem; transform: scale(var(--canvas-scale, 1)); transform-origin: center; border: 1px solid transparent; border-radius: .35rem; color: var(--ivory); background: transparent; text-shadow: 0 1px 2px #000; }
 .placed-component:hover, .placed-component.is-selected { z-index: 3; border-color: var(--gold); background: rgb(212 175 55 / 14%); }
 .part-reference { color: var(--ivory); font-weight: 800; font-size: .7rem; }.part-body { display: grid; place-items: center; min-width: 2.6rem; min-height: 1.5rem; padding: .1rem .3rem; border: 1px solid #d7bd78; border-radius: .3rem; background: #283a4e; color: var(--gold); font-size: 1rem; font-weight: 800; }.part-value { max-width: 5.5rem; overflow: hidden; color: var(--muted); font-size: .62rem; text-overflow: ellipsis; white-space: nowrap; }
