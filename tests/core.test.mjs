@@ -1179,7 +1179,7 @@ test("LM386 audio amplifier PCB validates topology, grounding review, DRC, BOM, 
     const expected = await readFile(new URL("../examples/128-audio-amplifier-pcb/expected/" + name, import.meta.url), "utf8");
     assert.equal(actual, expected, name);
   }
-  assert.match(snapshots["BOM.csv"], /U1,TI LM386N-1/);
+  assert.match(snapshots["BOM.csv"], /"U1","1","TI LM386N-1/);
   assert.match(snapshots["Placement.csv"], /J2,/);
   assert.match(snapshots["Grounding-Routing-Review.csv"], /star-point,"pass"/);
 
