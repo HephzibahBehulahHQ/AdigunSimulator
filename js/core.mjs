@@ -178,6 +178,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.epaper-update-request", category: "Inputs", type: "E-paper frame and refresh request fixture", prefix: "REQ", pins: ["CONFIG", "VCC", "GND"], defaultValue: "Refresh partial; ChangedTiles 1; TotalTiles 100; BusyMs 800; TimeoutMs 1200; PowerState sleep; PanelPower on; PartialsSinceFull 1", simulation: "fixture-epaper-refresh", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.epaper-update-controller-ideal", category: "Active", type: "Ideal e-paper refresh state controller", prefix: "U", pins: ["REQ", "DATA", "VCC", "GND"], defaultValue: "Mode e-paper; PartialLimit 0.20; GhostRefreshLimit 4; MaxBusyMs 2000", simulation: "analytical-epaper-refresh", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.epaper-panel-report", category: "Output", type: "E-paper panel refresh state report", prefix: "EPD", pins: ["DATA", "VCC", "GND"], defaultValue: "Refresh state report", simulation: "analytical-epaper-refresh", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.audio-amp-generic", category: "Active", type: "Generic low-voltage class-AB audio amplifier (LM386-class estimate)", prefix: "U", pins: ["VCC", "GND", "IN", "OUT"], defaultValue: "Av 20; Swing 2 V; Q 4 mA; f 1 kHz", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.speaker-r-l-generic", category: "Output", type: "Generic speaker electrical R-L model", prefix: "SP", pins: ["+", "-"], defaultValue: "R 8 Ω; L 0.5 mH", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.npn-small-signal", category: "Active", type: "NPN transistor (ideal common-emitter small-signal)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "β 100; VBE 0.7 V; VCEsat 0.2 V", simulation: "analytical-npn-common-emitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -663,6 +666,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const epaperRequests = project.components.filter((item) => item.libraryId === "input.epaper-update-request");
   const epaperControllers = project.components.filter((item) => item.libraryId === "active.epaper-update-controller-ideal");
   const epaperReports = project.components.filter((item) => item.libraryId === "output.epaper-panel-report");
+  const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
+  const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
+  const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
   const npnTransistors = project.components.filter((item) => item.libraryId === "active.npn-small-signal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
@@ -901,6 +907,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (epaperRequests.length === 1 && epaperControllers.length === 1 && epaperReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseEpaperRefresh(project, { source: source[0], request: epaperRequests[0], controller: epaperControllers[0], report: epaperReports[0], ground: ground[0], validation });
+  }
+  if (clockTickFixtures.length === 1 && sevenSegmentClocks.length === 1 && sevenSegmentDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseSevenSegmentClock(project, { source: source[0], fixture: clockTickFixtures[0], controller: sevenSegmentClocks[0], display: sevenSegmentDisplays[0], ground: ground[0], validation });
   }
   if (statusSensorFixtures.length === 1 && oledStatusControllers.length === 1 && oledStatusPanels.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseOledStatusPanel(project, { source: source[0], sensors: statusSensorFixtures[0], controller: oledStatusControllers[0], panel: oledStatusPanels[0], ground: ground[0], validation });
@@ -3125,6 +3134,32 @@ function analyseEpaperRefresh(project,{source,request,controller,report,ground,v
   const stateSequence=[...(powerState==="sleep"?["WAKE"]:["READY"]),refresh==="partial"?"LOAD_PARTIAL_DIFF":"LOAD_FULL_FRAME",refresh==="partial"?"PARTIAL_REFRESH":"FULL_REFRESH","WAIT_BUSY","UPDATE_COMPLETE","RETURN_TO_SLEEP"];
   const wakeTimeMs=powerState==="sleep"?50:0,estimatedDurationMs=wakeTimeMs+busyMs+25,partialsSinceFullNext=refresh==="full"?0:partialsSinceFull+1;
   return {state:"complete",engine:"Generic e-paper partial/full refresh state estimator",message:"Checks a bounded frame-change request through an ideal wake, load, refresh, busy-wait, completion, and sleep sequence. The partial-change limit and ghosting counter are configurable generic assumptions, not tied to a specific panel. Controller commands, waveforms, temperature behavior, power consumption, optical quality, firmware and hardware are not modeled.",result:{kind:"epaper-refresh",refreshMode:refresh,changedTiles,totalTiles,changeFraction,partialLimit,partialsSinceFullBefore:partialsSinceFull,partialsSinceFullAfter:partialsSinceFullNext,powerStateBefore:powerState,panelPower,wakeOccurred:powerState==="sleep",stateSequence,estimatedDurationMs,busyTimeoutMs:timeoutMs,refreshCompleted:true,powerStateAfter:"sleep",firmwareExecuted:false},validation};
+}
+function analyseSevenSegmentClock(project,{source,fixture,controller,display,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const fixtureFields=fields(fixture.value),clockFields=fields(controller.value),displayFields=fields(display.value);
+  const start=(field(fixtureFields,"Start")??"").match(/^(\d{2}):(\d{2}):(\d{2})$/);
+  const hours=start?Number(start[1]):Number.NaN,minutes=start?Number(start[2]):Number.NaN,seconds=start?Number(start[3]):Number.NaN;
+  const ticks=Number(field(fixtureFields,"Ticks")),tickHz=Number(field(fixtureFields,"TickHz"));
+  const supplyVoltage=voltageValue(source.value),groundNet=n(ground,"0"),vccNet=n(source,"+");
+  const fixturePowered=n(source,"-")===groundNet&&n(fixture,"VCC")===vccNet&&n(controller,"VCC")===vccNet&&n(display,"VCC")===vccNet&&n(fixture,"GND")===groundNet&&n(controller,"GND")===groundNet&&n(display,"GND")===groundNet;
+  const signalPath=n(fixture,"TIME")===n(controller,"RTC")&&n(controller,"SEG")===n(display,"SEG");
+  const required=[groundNet,vccNet,n(fixture,"TIME"),n(fixture,"VCC"),n(fixture,"GND"),n(controller,"RTC"),n(controller,"SEG"),n(controller,"VCC"),n(controller,"GND"),n(display,"SEG"),n(display,"VCC"),n(display,"GND")];
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<3||supplyVoltage>5.5||!fixturePowered||!signalPath||required.some(net=>typeof net!=="string"||!net)
+    ||!start||hours>23||minutes>59||seconds>59||!Number.isInteger(ticks)||ticks<0||ticks>86400||!Number.isFinite(tickHz)||tickHz<=0||tickHz>1000
+    ||field(fixtureFields,"Mode")!=="rising-edge"||field(clockFields,"Mode")!=="24h"||field(clockFields,"Digits")!=="6"||field(clockFields,"Common")!=="cathode"
+    ||field(displayFields,"Digits")!=="6"||field(displayFields,"Segments")!=="a,b,c,d,e,f,g"||field(displayFields,"Common")!=="cathode"){
+    return {state:"blocked",message:"Use a valid 24-hour start time, bounded rising-edge ticks, a powered 3–5.5 V clock/display path, six digits, and a common-cathode segment map.",validation};
+  }
+  const startSeconds=hours*3600+minutes*60+seconds,totalSeconds=startSeconds+ticks,daySeconds=totalSeconds%86400;
+  const outputHours=Math.floor(daySeconds/3600),outputMinutes=Math.floor(daySeconds%3600/60),outputSeconds=daySeconds%60;
+  const outputTime=[outputHours,outputMinutes,outputSeconds].map(value=>String(value).padStart(2,"0")).join(":");
+  const digitValues=outputTime.replaceAll(":","").split("").map(Number);
+  const glyphs=["abcdef","bc","abdeg","abcdg","bcfg","acdfg","acdefg","abc","abcdefg","abcdfg"];
+  const segmentVectors=digitValues.map((digit,index)=>({position:index,digit,segmentsOn:glyphs[digit].split("")}));
+  return {state:"complete",engine:"Ideal 24-hour clock tick and seven-segment formatter",message:"Applies integer rising-edge ticks to a validated 24-hour time and maps the six output digits to common-cathode segment vectors. RTC drift, multiplex timing, segment current, driver circuitry, optical behavior, firmware, and hardware are not modeled.",result:{kind:"seven-segment-clock",initialTime:field(fixtureFields,"Start"),ticks,tickHz,outputTime,digitValues,segmentVectors,midnightRollovers:Math.floor(totalSeconds/86400),displayDigits:6,displayType:"common-cathode",firmwareExecuted:false,displayDriven:false},validation};
 }
 function analyseOledStatusPanel(project,{source,sensors,controller,panel,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);

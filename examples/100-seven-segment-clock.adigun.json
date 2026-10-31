@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-100-seven-segment-clock",
+  "metadata": {
+    "name": "24-hour RTC Seven-Segment Clock",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          30,
+          50
+        ],
+        "schematic": [
+          30,
+          50
+        ],
+        "pcb": [
+          30,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.clock-tick-fixture",
+      "reference": "RTC1",
+      "value": "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge",
+      "position": {
+        "breadboard": [
+          130,
+          50
+        ],
+        "schematic": [
+          130,
+          50
+        ],
+        "pcb": [
+          130,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "clock",
+      "libraryId": "active.seven-segment-clock-ideal",
+      "reference": "U1",
+      "value": "Mode 24h; Digits 6; Common cathode",
+      "position": {
+        "breadboard": [
+          300,
+          50
+        ],
+        "schematic": [
+          300,
+          50
+        ],
+        "pcb": [
+          300,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "output.seven-segment-display",
+      "reference": "DISP1",
+      "value": "Digits 6; Segments a,b,c,d,e,f,g; Common cathode",
+      "position": {
+        "breadboard": [
+          480,
+          50
+        ],
+        "schematic": [
+          480,
+          50
+        ],
+        "pcb": [
+          480,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "fixture:VCC",
+        "clock:VCC",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "fixture:GND",
+        "clock:GND",
+        "display:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "RTC_TIME",
+      "endpoints": [
+        "fixture:TIME",
+        "clock:RTC"
+      ]
+    },
+    {
+      "id": "SEGMENTS",
+      "endpoints": [
+        "clock:SEG",
+        "display:SEG"
+      ]
+    }
+  ],
+  "history": []
+}
