@@ -6252,14 +6252,31 @@
     {
       "id": "158-component-property-audit",
       "title": "Component property audit",
-      "status": "in-review",
+      "status": "released",
       "objective": "Allow a valid resistor value edit, block a zero or out-of-range value before history changes, and preserve standard undo/redo for accepted property edits.",
       "acceptanceTest": "tests/core.test.mjs: catalogue component property audit accepts valid resistor edits and rejects unsafe ranges before history mutation",
       "testId": "core-component-property-audit",
       "projectFile": "examples/158-component-property-audit.adigun.json",
       "readmeFile": "examples/158-component-property-audit/README.md",
       "safetyNote": "The resistor edit guard checks only finite nominal resistance from 0.01 Ω through 1 GΩ. It does not validate power rating, tolerance, temperature, footprint, voltage rating, datasheet suitability, or PCB routing.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 158,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41208504339",
+        "headRevision": "bd8d72752f3e965af7b4e3c779399809c97d2947",
+        "engine": "Inspector resistor property validation before history capture",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "resistor-property-range-guard-v1",
+        "expectedResult": {
+          "kind": "component-property-audit",
+          "minimumOhms": 0.01,
+          "maximumOhms": 1000000000,
+          "invalidEditDoesNotCaptureHistory": true,
+          "undoRedoAvailable": true
+        }
+      }
     }
   ]
 }
