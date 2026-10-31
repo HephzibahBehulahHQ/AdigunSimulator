@@ -2113,14 +2113,42 @@
     {
       "id": "050-debounced-digital-input",
       "title": "Debounced digital input",
-      "status": "in-review",
+      "status": "released",
       "objective": "Reject short alternating bounce samples and change the logical output only after three matching samples at rising clock edges; test reset, bounce and stable press.",
       "acceptanceTest": "tests/core.test.mjs: catalogue digital debouncer rejects short bounce and accepts stable samples",
       "testId": "core-debounced-digital-input",
       "projectFile": "examples/050-debounced-digital-input.adigun.json",
       "safetyNote": "Ideal sampled digital stability-window model, not an analog RC/Schmitt circuit. It omits actual bounce timing, analog time constants, thresholds, metastability, noise coupling, and component-specific behavior.",
       "scope": "catalogue",
-      "catalogueIndex": 50
+      "catalogueIndex": 50,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41174382431",
+        "headRevision": "8ec87b69197758039add192ddf76f24ba0f46be3",
+        "engine": "Ideal clocked N-sample digital debounce filter",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-digital-debounce-v1",
+        "expectedResult": {
+          "samplesRequired": 3,
+          "bounceSequenceRejected": [
+            5,
+            0,
+            5,
+            0,
+            5,
+            0
+          ],
+          "stableHighSequence": [
+            5,
+            5,
+            5
+          ],
+          "outputAfterTwoStableHighSamples": false,
+          "outputAfterThreeStableHighSamples": true,
+          "invalidVoltage": "blocked"
+        }
+      }
     }
   ]
 }
