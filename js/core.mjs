@@ -455,7 +455,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
   }
   if (dFlipFlops.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
-    return analyseDFlipFlop(project, { source, flipFlop: dFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], previousState, validation });
+    return analyseDFlipFlop(project, { sources: source, flipFlop: dFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], previousState, validation });
   }
   if (norGates.length === 2 && source.length === 3 && resistor.length === 2 && led.length === 2 && ground.length === 1 && project.components.length === 10) {
     return analyseNorSrLatch(project, { sources: source, gates: norGates, resistors: resistor, leds: led, ground: ground[0], previousState, validation });
