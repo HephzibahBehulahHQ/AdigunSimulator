@@ -2862,6 +2862,18 @@
           "physicalTimerAndGPIOBehavior": "not modeled"
         }
       }
+    },
+    {
+      "id": "071-pic-adc-bargraph",
+      "title": "PIC-class ADC LED bargraph",
+      "status": "in-review",
+      "objective": "Map a 0–100% potentiometer input through an ideal 10-bit PIC-class ADC and illuminate the corresponding count on a ten-segment LED bargraph.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue PIC ADC bargraph maps 10-bit readings to LED count",
+      "testId": "core-pic-adc-bargraph",
+      "projectFile": "examples/071-pic-adc-bargraph.adigun.json",
+      "safetyNote": "Logical ADC and display behavior model only. PIC firmware, analog input noise, LED current limiting, device-specific pin assignment, and physical bargraph ratings are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 71
     }
   ]
 }
