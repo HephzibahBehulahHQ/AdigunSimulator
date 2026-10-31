@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 65);
+  assert.equal(getExampleCoverage(registry).total, 66);
   assert.equal(getExampleCoverage(registry).released, 55);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 145);
@@ -1786,3 +1786,26 @@ test("catalogue four-bit ALU matches exhaustive unsigned add/subtract vectors", 
   broken.nets.find((net) => net.id === "B3").endpoints = ["b3:+"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
+
+test("catalogue UART transmitter emits valid 8N1 frames LSB-first", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/056-uart-transmitter.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.uart-tx-ideal"), true);
+  for (const [byte, baud] of [[0x00,9600],[0xA5,9600],[0xFF,115200]]) {
+    const configured = updateComponent(project, "uart", { value: `Byte 0x${byte.toString(16)}; Baud ${baud}` });
+    const result = runSupportedAnalysis(configured);
+    assert.equal(result.state, "complete", result.message);
+    assert.equal(result.result.byte, byte);
+    assert.equal(result.result.baud, baud);
+    assert.deepEqual(result.result.dataBits, Array.from({length:8},(_,bit)=>Boolean(byte&(1<<bit))));
+    assert.deepEqual(result.result.frameBits, [false,...result.result.dataBits,true]);
+    assert.equal(result.result.frameDurationSeconds, 10/baud);
+    assert.equal(result.result.frameFormat, "8N1");
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"uart",{value:"Byte 256; Baud 9600"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"uart",{value:"Byte 42; Baud 100"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TX").endpoints=["uart:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
