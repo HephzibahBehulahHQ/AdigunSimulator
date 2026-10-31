@@ -201,6 +201,32 @@
           "gainAt10Cutoff": 0.099503719
         }
       }
+    },
+    {
+      "id": "013-rc-high-pass",
+      "title": "RC high-pass frequency response",
+      "status": "released",
+      "objective": "Calculate the ideal sinusoidal steady-state response of a 1 kΩ / 100 µF RC high-pass filter at 0.1×, 1×, and 10× cutoff and verify 1/√2 gain at cutoff.",
+      "acceptanceTest": "tests/core.test.mjs: RC high-pass response uses the calculated cutoff and attenuates below it",
+      "testId": "core-rc-high-pass",
+      "projectFile": "examples/013-rc-high-pass.adigun.json",
+      "safetyNote": "Ideal educational frequency-domain model only. Generic components have no verified physical ratings, tolerances, parasitics, exact manufacturer BOM, hole-level breadboard mapping, or PCB footprints. It is not hardware or manufacturing guidance.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41149669214",
+        "headRevision": "95ef8106d0ed443dddff3d0d7d39c62e1adc83e5",
+        "engine": "Analytical first-order RC high-pass frequency response",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-rc-highpass-v1",
+        "libraryLock": "generic-starter-library@54fef732b8a7b0f446cbf25c34c83ed06a33ad6e",
+        "expectedResult": {
+          "cutoffHz": 1.5915494309189535,
+          "gainAt0_1Cutoff": 0.099503719,
+          "gainAtCutoff": 0.7071067812,
+          "gainAt10Cutoff": 0.9950371902
+        }
+      }
     }
   ]
 }
