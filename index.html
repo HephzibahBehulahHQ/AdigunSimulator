@@ -12,15 +12,11 @@
     <a class="skip-link" href="#workspace" data-i18n="skipToWorkspace">Skip to workspace</a>
     <header class="identity-header">
       <div class="identity">
-        <div class="logo-mark" aria-label="Hephzibah Behulah">HB</div>
-        <div class="owner">
-          <strong>HEPHZIBAH BEHULAH</strong>
-          <span>Technology · Knowledge · Impact</span>
-        </div>
+        <img class="corporate-logo" src="assets/brand/hephzibah-behulah-official.jpg" alt="Official Hephzibah Behulah corporate logo" data-i18n-alt="corporateLogoAlt" />
         <div class="identity-divider" aria-hidden="true"></div>
-        <div>
+        <div class="product-brand">
           <h1>Adigun<span>Simulator</span></h1>
-          <p>BY HB ELEKTRONIKER <small>Design · Simulate · Prototype · Manufacture</small></p>
+          <p>BY HB ELEKTRONIKER <small>Design · Analyze · Prototype</small></p>
         </div>
       </div>
       <div class="header-actions">
@@ -173,7 +169,20 @@
 
     <input id="import-file" type="file" accept="application/json,.json,.adigun" hidden />
     <dialog id="status-dialog"><div><h2 id="dialog-title">Status</h2><p id="dialog-message"></p><button id="dialog-close" class="gold-button" type="button" data-i18n="close">Close</button></div></dialog>
-    <footer><span>HB</span><strong>HEPHZIBAH BEHULAH</strong><span>AdigunSimulator · HB Elektroniker</span><a href="https://hephzibahbehulah.com/" target="_blank" rel="noreferrer">Corporate website</a></footer>
+    <footer class="site-footer">
+      <div class="footer-identity"><strong>HEPHZIBAH BEHULAH</strong><span>AdigunSimulator · HB Elektroniker</span></div>
+      <nav class="footer-links" aria-label="Official company links">
+        <a href="https://hephzibahbehulah.com/" target="_blank" rel="noopener noreferrer" data-i18n="corporateWebsite">Corporate website</a>
+        <a href="https://github.com/HephzibahBehulahHQ/AdigunSimulator" target="_blank" rel="noopener noreferrer" data-i18n="documentation">Documentation</a>
+        <a href="https://github.com/HephzibahBehulahHQ/AdigunSimulator/issues" target="_blank" rel="noopener noreferrer" data-i18n="support">Support</a>
+        <a href="https://www.facebook.com/HephzibahBehulah/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://x.com/HephzibaBehulah" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://www.instagram.com/hephzibahbehulah" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.tiktok.com/@hephzibahbhehulah" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="https://www.linkedin.com/in/isaacoluwoleadigun/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn personal profile"><span>LinkedIn</span> <small data-i18n="personalProfile">(personal profile)</small></a>
+      </nav>
+      <small>© <span id="copyright-year"></span> Hephzibah Behulah. <span data-i18n="allRightsReserved">All rights reserved.</span></small>
+    </footer>
     <script type="module" src="app.js"></script>
   </body>
 </html>
