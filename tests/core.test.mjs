@@ -55,6 +55,7 @@ import { runMissingFootprintWorkflow } from "../js/pcb-update-resolution.mjs";
 import { cancelPartSubstitutionPreview, createPartSubstitutionPreview, runPinIncompatibleSubstitution } from "../js/pin-substitution-preview.mjs";
 import { convertEngineeringUnit, runUnitConversionCalculator } from "../js/unit-conversion-calculator.mjs";
 import { readResistorBands, runResistorColorCodeReader } from "../js/resistor-color-code.mjs";
+import { calculateLedSeriesResistor, runLedResistorCalculator } from "../js/led-resistor-calculator.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1487,7 +1488,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 198);
+  assert.equal(getExampleCoverage(registry).total, 199);
   assert.equal(getExampleCoverage(registry).released, 188);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 12);
@@ -4546,4 +4547,13 @@ test("catalogue resistor color-code reader decodes four/five-band values and rej
   assert.equal(readResistorBands(["gold","brown","red","gold"]).valid,false);assert.equal(readResistorBands(["brown","black","pink","gold"]).valid,false);
   assert.equal(readResistorBands(["yellow","violet","red","gold"]).formattedResistance,"4.7 kΩ");assert.equal(readResistorBands(["brown","black","black","brown","brown"]).formattedResistance,"1 kΩ");
   const invalid=structuredClone(project);invalid.resistorColorCodeReader.cases=[];assert.equal(runResistorColorCodeReader(invalid).state,"blocked");
+});
+test("catalogue LED resistor calculator rounds upward to E12 and warns on resistor power", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/189-led-resistor-calculator.adigun.json",import.meta.url)));
+  const result=runLedResistorCalculator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"led-series-resistor-cases");
+  const [red,blue,power]=result.result.results;assert.ok(Math.abs(red.requiredResistanceOhms-130)<1e-9);assert.equal(red.recommendedResistanceOhms,150);assert.ok(red.estimatedCurrentmA<=red.targetCurrentmA);
+  assert.equal(blue.recommendedResistanceOhms,150);assert.ok(blue.estimatedCurrentmA<=blue.targetCurrentmA);
+  assert.equal(power.recommendedResistanceOhms,560);assert.ok(power.warnings.some(warning=>warning.code==="RESISTOR_POWER_EXCEEDED"));assert.equal(result.result.powerWarningCount,1);
+  assert.equal(calculateLedSeriesResistor({supplyVoltageV:2,ledForwardVoltageV:2,targetCurrentmA:10,resistorPowerRatingW:0.125}).ok,false);
+  const invalid=structuredClone(project);invalid.ledResistorCalculator.cases[0].targetCurrentmA=0;assert.equal(runLedResistorCalculator(invalid).state,"blocked");
 });
