@@ -12,7 +12,7 @@ export const UI_KEYS = Object.freeze([
   "simulationControl", "availableAnalysis", "runCalculation", "stopSimulation", "simulationLimit",
   "runValidation", "validationHelp", "botAssistant", "botUnavailable", "botPrivacy", "botPlaceholder",
   "close", "collapseLibrary", "collapseProperties", "maximizeSchematic", "maximizePcb",
-  "releasedExamples", "examplePwmLedDimmer", "exampleBatteryDischargeMonitor", "exampleLinearSupply", "exampleUsbLed", "exampleSolarGardenLight", "exampleSupercapHoldUp", "examplePassiveToneControl", "exampleBridgeRectifier", "exampleSmoothingCapacitor", "exampleZenerShuntRegulator", "exampleTvsSurgeClamp", "exampleNtcTemperatureDivider", "exampleLdrNightLight", "exampleNe555Astable", "exampleNe555Monostable", "loadTestedStarter", "loadSelectedExample", "morePlannedExamples", "electricalConnections", "firstPin", "secondPin", "connectPins", "noConnectedNets", "disconnect", "removeComponent"
+  "releasedExamples", "examplePwmLedDimmer", "exampleBatteryDischargeMonitor", "exampleLinearSupply", "exampleUsbLed", "exampleSolarGardenLight", "exampleSupercapHoldUp", "examplePassiveToneControl", "exampleBridgeRectifier", "exampleSmoothingCapacitor", "exampleZenerShuntRegulator", "exampleTvsSurgeClamp", "exampleNtcTemperatureDivider", "exampleLdrNightLight", "exampleNe555Astable", "exampleNe555Monostable", "exampleNe556DualTimer", "loadTestedStarter", "loadSelectedExample", "morePlannedExamples", "electricalConnections", "firstPin", "secondPin", "connectPins", "noConnectedNets", "disconnect", "removeComponent"
 ]);
 
 export const TRANSLATIONS = Object.freeze({
