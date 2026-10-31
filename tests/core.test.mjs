@@ -71,6 +71,29 @@ test("parallel resistor load example has a reproducible DC operating point", asy
   assert.equal(result.result.resistors.length, 3);
 });
 
+test("RC low-pass response uses the calculated cutoff and attenuates above it", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/012-rc-low-pass.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "rc-low-pass");
+  assert.ok(Math.abs(result.result.cutoffHz - 1 / (2 * Math.PI * 0.1)) < 1e-12);
+  const [below, cutoff, above] = result.result.samples;
+  assert.ok(Math.abs(cutoff.gain - Math.SQRT1_2) < 1e-12);
+  assert.ok(Math.abs(cutoff.outputAmplitudeV - Math.SQRT1_2) < 1e-12);
+  assert.ok(below.gain > cutoff.gain && cutoff.gain > above.gain);
+  assert.ok(Math.abs(above.gain - 1 / Math.sqrt(101)) < 1e-12);
+
+  const broken = structuredClone(project);
+  broken.nets[1].endpoints = ["resistor-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+  const invalid = updateComponent(project, "capacitor-1", { value: "0 F" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const underflow = updateComponent(project, "capacitor-1", { value: "1e-300 F" });
+  const tinyResistance = updateComponent(underflow, "resistor-1", { value: "1e-300 Ω" });
+  assert.equal(runSupportedAnalysis(tinyResistance).state, "blocked");
+});
+
 test("single-pole RC step response reports time constant and analytic samples", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/005-rc-step-response.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
