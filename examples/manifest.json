@@ -2919,14 +2919,33 @@
     {
       "id": "072-avr-ir-receiver",
       "title": "AVR NEC-like IR receiver",
-      "status": "in-review",
+      "status": "released",
       "objective": "Decode a known four-byte NEC-like IR frame through an ideal 38 kHz receiver model, verify byte complements and timing tolerances, and display the address and command.",
       "acceptanceTest": "tests/core.test.mjs: catalogue AVR IR receiver decodes NEC-like timing and flags invalid frames",
       "testId": "core-avr-ir-receiver",
       "projectFile": "examples/072-avr-ir-receiver.adigun.json",
       "safetyNote": "Ideal demodulated timing and byte-decoder model only. It omits optical propagation, carrier waveform, receiver AGC, AVR firmware, ambient-light effects, and physical timing margins.",
       "scope": "catalogue",
-      "catalogueIndex": 72
+      "catalogueIndex": 72,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41179186525",
+        "headRevision": "d87baa5447ddee94158c0d932c85bbf03acd3111",
+        "engine": "Ideal AVR NEC-like infrared frame decoder",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-avr-nec-like-ir-v1",
+        "expectedResult": {
+          "protocol": "NEC-like",
+          "rawCode": "0x00FFA25D",
+          "address": "0x00",
+          "command": "0xA2",
+          "bitOrder": "LSB-first within each byte",
+          "carrierHz": 38000,
+          "frameDurationUs": 67980,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
