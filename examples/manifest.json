@@ -3148,6 +3148,46 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "079-eeprom-data-logger",
+      "title": "EEPROM circular data logger",
+      "status": "released",
+      "objective": "Record periodic temperature fixture samples into a bounded EEPROM ring buffer and replay the newest entries chronologically after wrap.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue EEPROM data logger wraps a full ring buffer and replays retained samples",
+      "testId": "core-eeprom-ring-logger",
+      "projectFile": "examples/079-eeprom-data-logger.adigun.json",
+      "safetyNote": "Ideal deterministic ring-buffer model only. MCU firmware, EEPROM page behavior, write endurance, power-loss recovery, I²C timing, and sensor accuracy are not modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 79,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41181542805",
+        "headRevision": "de930305c998459579f887317df01847ac481e21",
+        "engine": "Ideal EEPROM circular sample-buffer model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-eeprom-ring-buffer-v1",
+        "expectedResult": {
+          "samplePeriodMs": 100,
+          "writeCycleMs": 5,
+          "capacity": 3,
+          "recordedSamples": 5,
+          "overwrittenRecords": 2,
+          "bufferWrapped": true,
+          "replayValues": [
+            30,
+            40,
+            50
+          ],
+          "replayTimesMs": [
+            200,
+            300,
+            400
+          ],
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
