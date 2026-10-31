@@ -1532,8 +1532,8 @@ function analyseMcuTemperatureMonitor(project,{source,mcu,sensor,lcd,ground,vali
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
-  const temperature=Number(field(sensorFields,"Temperature")?.split(/\\s+/)[0]),scaleText=field(sensorFields,"Scale"),offsetText=field(sensorFields,"Offset");
-  const scaleVPerC=scaleText?voltageValue(scaleText.replace(/\\/C$/i,"")):Number.NaN,offsetV=offsetText?voltageValue(offsetText):Number.NaN;
+  const temperature=Number(field(sensorFields,"Temperature")?.split(/\s+/)[0]),scaleText=field(sensorFields,"Scale"),offsetText=field(sensorFields,"Offset");
+  const scaleVPerC=scaleText?voltageValue(scaleText.split("/")[0]):Number.NaN,offsetV=offsetText?voltageValue(offsetText):Number.NaN;
   const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
   const outputConnected=n(sensor,"OUT")===n(mcu,"A0")&&n(mcu,"D8")===n(lcd,"DATA");
   const sensorPowered=n(sensor,"VCC")===vccNet&&n(sensor,"GND")===groundNet,lcdPowered=n(lcd,"VCC")===vccNet&&n(lcd,"GND")===groundNet;
