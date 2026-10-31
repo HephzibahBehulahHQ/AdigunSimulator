@@ -41,6 +41,13 @@ test("schematic connectivity resolves wires to named pin anchors", async () => {
   assert.doesNotMatch(app, /\.map\(\(component\) => componentCenter\(component, view\)\)/);
 });
 
+test("schematic view uses explicit generic symbols and pin labels", async () => {
+  const app = await readFile(appFile, "utf8");
+  assert.match(app, /renderSchematicSymbol\(part\)/);
+  assert.match(app, /view === "schematic"/);
+  assert.match(app, /class="schematic-symbol/);
+});
+
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   const logo = await readFile(new URL("../assets/brand/hephzibah-behulah-official.jpg", import.meta.url));
