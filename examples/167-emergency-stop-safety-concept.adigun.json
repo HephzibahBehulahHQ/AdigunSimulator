@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "example-167-emergency-stop-safety-concept",
+  "metadata": {
+    "name": "Example 167 — Emergency-Stop Latch Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "emergencyStopConcept": {
+    "kind": "latched-stop-reset-concept",
+    "events": [
+      {
+        "action": "start"
+      },
+      {
+        "action": "estop-trip"
+      },
+      {
+        "action": "reset"
+      },
+      {
+        "action": "estop-release"
+      },
+      {
+        "action": "reset"
+      },
+      {
+        "action": "start"
+      },
+      {
+        "action": "stop"
+      }
+    ]
+  }
+}

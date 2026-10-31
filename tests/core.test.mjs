@@ -33,6 +33,7 @@ import { runTankLevelController } from "../js/tank-level-controller.mjs";
 import { runConveyorCounter } from "../js/conveyor-counter.mjs";
 import { runStarDeltaStarter } from "../js/star-delta-starter.mjs";
 import { runForwardReverseInterlock } from "../js/forward-reverse-interlock.mjs";
+import { runEmergencyStopConcept } from "../js/emergency-stop-concept.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1465,7 +1466,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 176);
+  assert.equal(getExampleCoverage(registry).total, 177);
   assert.equal(getExampleCoverage(registry).released, 166);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 34);
@@ -4310,4 +4311,14 @@ test("catalogue forward/reverse logic rejects an opposite-direction request unti
   assert.equal(result.result.conflictRequestsRejected,2);assert.equal(result.result.noOverlap,true);
   assert.ok(result.result.frames.every(frame=>!(frame.forwardEnergized&&frame.reverseEnergized)));
   const invalid=structuredClone(project);invalid.forwardReverseMotor.events[0].request="both";assert.equal(runForwardReverseInterlock(invalid).state,"blocked");
+});
+
+test("catalogue E-stop latch rejects reset while tripped and needs separate restart", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/167-emergency-stop-safety-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runEmergencyStopConcept(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"emergency-stop-latched-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.loadEnabled),[true,false,false,false,false,true,false]);
+  assert.equal(result.result.frames[2].resetRejected,true);assert.equal(result.result.frames[4].latched,false);
+  assert.equal(result.result.unsafeResetRejected,true);assert.equal(result.result.restartRequiresNewStart,true);
+  const invalid=structuredClone(project);invalid.emergencyStopConcept.events[0].action="auto-restart";assert.equal(runEmergencyStopConcept(invalid).state,"blocked");
 });

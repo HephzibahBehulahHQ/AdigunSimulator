@@ -6528,6 +6528,19 @@
           "physicalMotorModel": false
         }
       }
+    },
+    {
+      "id": "167-emergency-stop-safety-concept",
+      "title": "Emergency-stop safety concept",
+      "status": "in-review",
+      "objective": "Demonstrate a latched stop state that rejects reset while the trip input is active and requires a separate start action after reset.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue E-stop latch rejects reset while tripped and needs separate restart",
+      "testId": "core-emergency-stop-safety-concept",
+      "projectFile": "examples/167-emergency-stop-safety-concept.adigun.json",
+      "readmeFile": "examples/167-emergency-stop-safety-concept/README.md",
+      "safetyNote": "Educational logic example only; not an emergency-stop circuit, safety relay, validated safety function, risk assessment, performance-level design, or machine-safety certification. Never use for real safety implementation.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
