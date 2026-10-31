@@ -2333,6 +2333,18 @@
           "invalidInput": "blocked"
         }
       }
+    },
+    {
+      "id": "055-alu-add-subtract",
+      "title": "Four-bit ALU add/subtract",
+      "status": "in-review",
+      "objective": "Compute unsigned four-bit addition or two's-complement subtraction, display the result and carry/no-borrow flag, and test all 512 operand/operation combinations.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue four-bit ALU matches exhaustive unsigned add/subtract vectors",
+      "testId": "core-alu-add-subtract",
+      "projectFile": "examples/055-alu-add-subtract.adigun.json",
+      "safetyNote": "Generic ideal combinational arithmetic model. Signed overflow, propagation delay, logic hazards, real gates, and device-specific electrical limits are not modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 55
     }
   ]
 }
