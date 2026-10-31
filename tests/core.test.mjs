@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 128);
+  assert.equal(getExampleCoverage(registry).total, 129);
   assert.equal(getExampleCoverage(registry).released, 118);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 82);
@@ -3284,5 +3284,31 @@ test("catalogue hot-swap limits capacitor inrush and trips an overload", async (
 
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="GATE").endpoints=["controller:GATE"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue reverse-polarity MOSFET protector passes forward input and blocks reverse polarity", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/119-reverse-polarity.adigun.json",import.meta.url)));
+  const forward=runSupportedAnalysis(project);
+  assert.equal(forward.state,"complete",JSON.stringify(forward.validation?.errors??forward));
+  assert.equal(forward.result.kind,"reverse-polarity-protection");
+  assert.equal(forward.result.inputPolarity,"forward");
+  assert.equal(forward.result.protectedOn,true);
+  assert.equal(forward.result.outputVoltageV,11.6);
+  assert.equal(forward.result.loadCurrentA,0.116);
+  assert.equal(forward.result.reverseBlocked,false);
+
+  const reverse=runSupportedAnalysis(updateComponent(project,"source",{value:"-12 V"}));
+  assert.equal(reverse.state,"complete");
+  assert.equal(reverse.result.inputPolarity,"reverse");
+  assert.equal(reverse.result.protectedOn,false);
+  assert.equal(reverse.result.reverseBlocked,true);
+  assert.equal(reverse.result.outputVoltageV,0);
+  assert.equal(reverse.result.loadCurrentA,0);
+
+  const overVoltage=runSupportedAnalysis(updateComponent(project,"source",{value:"36 V"}));
+  assert.equal(overVoltage.state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["protector:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
