@@ -4698,7 +4698,7 @@
     {
       "id": "114-ssr-ac-switch",
       "title": "SSR AC load switch",
-      "status": "in-review",
+      "status": "released",
       "objective": "Model optically isolated AC load control, commanded on/off state, SSR on-state voltage drop, and configured off-state leakage current.",
       "acceptanceTest": "tests/core.test.mjs: catalogue SSR follows isolated control and models off leakage",
       "testId": "core-ssr-ac-switch",
@@ -4706,7 +4706,34 @@
       "readmeFile": "examples/114-ssr-ac-switch/README.md",
       "safetyNote": "Educational AC load estimator only. Isolation is a modeled behavior, not a physical safety qualification; no mains wiring, surge, thermal, snubber, or compliance approval.",
       "scope": "catalogue",
-      "catalogueIndex": 114
+      "catalogueIndex": 114,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41191420944",
+        "headRevision": "f4272a0f7e10e37777d982d8d08db553e4eed58f",
+        "engine": "Bounded AC solid-state relay and off-leakage estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-ac-ssr-off-leakage-v1",
+        "expectedResult": {
+          "kind": "ssr-ac-switch",
+          "control": "off",
+          "fault": "none",
+          "conducting": false,
+          "loadState": "off-with-leakage",
+          "isolationModeled": true,
+          "physicalIsolationQualified": false,
+          "sourceRmsVoltageV": 120,
+          "frequencyHz": 60,
+          "loadVoltageRmsV": 2,
+          "loadCurrentRmsA": 0.002,
+          "loadPowerW": 0.004,
+          "offLeakageCurrentA": 0.002,
+          "configuredLeakageCurrentA": 0.002,
+          "loadResistanceOhm": 1000,
+          "mainsSafetyQualified": false
+        }
+      }
     }
   ]
 }
