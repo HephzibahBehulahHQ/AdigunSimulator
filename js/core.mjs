@@ -40,6 +40,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-dff-ideal", category: "Active", type: "Ideal positive-edge D flip-flop (static logic)", prefix: "U", pins: ["D", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge D flip-flop", simulation: "analytical-d-flip-flop", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-jk-ideal", category: "Active", type: "Ideal positive-edge JK flip-flop (static logic)", prefix: "U", pins: ["J", "K", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge JK flip-flop", simulation: "analytical-jk-toggle-divider", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-counter-4bit-ideal", category: "Active", type: "Ideal 4-bit binary counter (static state)", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Ideal modulo-16 rising-edge counter", simulation: "analytical-4bit-counter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-bcd-display-ideal", category: "Active", type: "Ideal BCD decade counter and seven-segment decoder", prefix: "U", pins: ["CLK", "RESET_N", "SEG_A", "SEG_B", "SEG_C", "SEG_D", "SEG_E", "SEG_F", "SEG_G", "VCC", "GND"], defaultValue: "Ideal BCD decade counter; common-cathode segments", simulation: "analytical-bcd-counter-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -393,6 +394,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const dFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-dff-ideal");
   const jkFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-jk-ideal");
   const fourBitCounters = project.components.filter((item) => item.libraryId === "active.logic-counter-4bit-ideal");
+  const bcdDisplays = project.components.filter((item) => item.libraryId === "active.logic-bcd-display-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -457,6 +459,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (bcdDisplays.length === 1 && source.length === 3 && resistor.length === 7 && led.length === 7 && ground.length === 1 && project.components.length === 19) {
+    return analyseBcdCounterDisplay(project, { sources: source, counter: bcdDisplays[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
   }
   if (fourBitCounters.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && project.components.length === 13) {
     return analyseFourBitCounter(project, { sources: source, counter: fourBitCounters[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
@@ -1427,6 +1432,38 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+
+
+function analyseBcdCounterDisplay(project,{sources,counter,resistors,leds,ground,previousState,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(counter,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  const clockNet=n(counter,"CLK"),resetNet=n(counter,"RESET_N");
+  const clockSource=sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===clockNet);
+  const resetSource=sources.find(v=>v!==supply&&v!==clockSource&&n(v,"-")===groundNet&&n(v,"+")===resetNet);
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,clockVoltage=clockSource?voltageValue(clockSource.value):Number.NaN,resetVoltage=resetSource?voltageValue(resetSource.value):Number.NaN;
+  const thresholdV=supplyVoltage/2,segments=["A","B","C","D","E","F","G"];
+  const paths=segments.map(segment=>{
+    const outputNet=n(counter,`SEG_${segment}`);
+    const resistor=resistors.find(r=>n(r,"1")===outputNet||n(r,"2")===outputNet);
+    const led=resistor&&leds.find(x=>((n(resistor,"1")===outputNet&&n(resistor,"2")===n(x,"A"))||(n(resistor,"2")===outputNet&&n(resistor,"1")===n(x,"A")))&&n(x,"K")===groundNet);
+    return {segment,outputNet,resistor,led,currentR:resistor?resistanceValue(resistor.value):Number.NaN,forwardV:led?forwardVoltage(led.value):Number.NaN};
+  });
+  if(!supply||!clockSource||!resetSource||n(counter,"GND")!==groundNet
+    ||paths.some(p=>!p.outputNet||!p.resistor||!p.led||!Number.isFinite(p.currentR)||!Number.isFinite(p.forwardV)||p.currentR<=0||p.forwardV<=0)
+    ||![supplyVoltage,clockVoltage,resetVoltage].every(Number.isFinite)||supplyVoltage<=0||[clockVoltage,resetVoltage].some(v=>v<0||v>supplyVoltage)){
+    return {state:"blocked",message:"Wire the ideal BCD counter/decoder, clock, active-low reset, seven current-limited segments, and supply/ground rails.",validation};
+  }
+  const clockHigh=clockVoltage>=thresholdV,resetActive=resetVoltage<thresholdV,previous=previousState?.result,previousClockHigh=previous?.clockHigh;
+  const risingEdge=previousClockHigh===false&&clockHigh;
+  if(!resetActive&&clockHigh&&typeof previousClockHigh!=="boolean")return {state:"blocked",message:"Start with the clock low, then apply rising edges so each BCD count is deterministic.",validation};
+  if(risingEdge&&!resetActive&&!Number.isInteger(previous?.digit))return {state:"blocked",message:"Initialize the BCD counter with active-low reset before applying clock edges.",validation};
+  const digit=resetActive?0:risingEdge?(previous.digit+1)%10:Number.isInteger(previous?.digit)?previous.digit:null;
+  const patterns=[[1,1,1,1,1,1,0],[0,1,1,0,0,0,0],[1,1,0,1,1,0,1],[1,1,1,1,0,0,1],[0,1,1,0,0,1,1],[1,0,1,1,0,1,1],[1,0,1,1,1,1,1],[1,1,1,0,0,0,0],[1,1,1,1,1,1,1],[1,1,1,1,0,1,1]];
+  const segmentsOn=digit===null?null:patterns[digit].map(Boolean);
+  const segmentCurrents=segmentsOn?paths.map((p,index)=>segmentsOn[index]?Math.max(0,(supplyVoltage-p.forwardV)/p.currentR):0):Array(7).fill(0);
+  return {state:"complete",engine:"Ideal BCD decade counter and seven-segment decoder",message:"Counts 0 through 9 on rising clock edges and wraps to 0; active-low reset initializes zero. Display segments are ideal static outputs. Clock timing, propagation delay, setup/hold, metastability, decoder loading, and device-specific behavior are not modeled.",result:{kind:"bcd-counter-display",supplyVoltage,logicThresholdV:thresholdV,clockVoltage,resetVoltage,clockHigh,resetActive,risingEdge,digit,bcdBits:digit===null?null:[0,1,2,3].map(bit=>Boolean(digit&(1<<bit))),segmentsOn,segmentCurrents,risingEdgeCount:(previous?.risingEdgeCount||0)+(risingEdge?1:0),mode:resetActive?"asynchronous reset":risingEdge?"count":clockHigh?"high-level hold":"low-level hold",timingAnnotation:"Setup/hold and decoder propagation behavior are not simulated."},validation};
+}
 
 function analyseFourBitCounter(project,{sources,counter,resistors,leds,ground,previousState,validation}){
   const netByEndpoint=new Map();
