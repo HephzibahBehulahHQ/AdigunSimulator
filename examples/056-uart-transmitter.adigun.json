@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-056-uart-transmitter",
+  "metadata": {
+    "name": "UART 8N1 Transmitter",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          45,
+          60
+        ],
+        "schematic": [
+          45,
+          60
+        ],
+        "pcb": [
+          45,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "uart",
+      "libraryId": "active.uart-tx-ideal",
+      "reference": "U1",
+      "value": "Byte 0xA5; Baud 9600",
+      "position": {
+        "breadboard": [
+          160,
+          60
+        ],
+        "schematic": [
+          160,
+          60
+        ],
+        "pcb": [
+          160,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RTX",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          275,
+          60
+        ],
+        "schematic": [
+          275,
+          60
+        ],
+        "pcb": [
+          275,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "DTX",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          390,
+          60
+        ],
+        "schematic": [
+          390,
+          60
+        ],
+        "pcb": [
+          390,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          505,
+          60
+        ],
+        "schematic": [
+          505,
+          60
+        ],
+        "pcb": [
+          505,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "uart:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "uart:GND",
+        "led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "TX",
+      "endpoints": [
+        "uart:TX",
+        "resistor:1"
+      ]
+    },
+    {
+      "id": "TX_LED",
+      "endpoints": [
+        "resistor:2",
+        "led:A"
+      ]
+    }
+  ],
+  "history": []
+}
