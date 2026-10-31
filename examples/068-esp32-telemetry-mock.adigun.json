@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-068-esp32-telemetry-mock",
+  "metadata": {
+    "name": "ESP32 Offline Temperature Telemetry Payload",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          45,
+          60
+        ],
+        "schematic": [
+          45,
+          60
+        ],
+        "pcb": [
+          45,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "esp32",
+      "libraryId": "active.esp32-telemetry-ideal",
+      "reference": "U1",
+      "value": "Device esp32-node-01; Sequence 1; Transport offline-mock",
+      "position": {
+        "breadboard": [
+          165,
+          60
+        ],
+        "schematic": [
+          165,
+          60
+        ],
+        "pcb": [
+          165,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "sensor",
+      "libraryId": "sensor.temperature-analog-ideal",
+      "reference": "TS1",
+      "value": "Temperature 25 C; Scale 10 mV/C; Offset 0 mV",
+      "position": {
+        "breadboard": [
+          300,
+          60
+        ],
+        "schematic": [
+          300,
+          60
+        ],
+        "pcb": [
+          300,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "payload",
+      "libraryId": "output.telemetry-payload-sink",
+      "reference": "OUT1",
+      "value": "JSON payload",
+      "position": {
+        "breadboard": [
+          430,
+          60
+        ],
+        "schematic": [
+          430,
+          60
+        ],
+        "pcb": [
+          430,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          540,
+          60
+        ],
+        "schematic": [
+          540,
+          60
+        ],
+        "pcb": [
+          540,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "esp32:VCC",
+        "sensor:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "esp32:GND",
+        "sensor:GND",
+        "payload:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "ADC",
+      "endpoints": [
+        "sensor:OUT",
+        "esp32:ADC"
+      ]
+    },
+    {
+      "id": "TX",
+      "endpoints": [
+        "esp32:TX",
+        "payload:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
