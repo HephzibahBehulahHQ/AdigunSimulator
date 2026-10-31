@@ -1414,12 +1414,12 @@ function analyseNorSrLatch(project,{sources,gates,resistors,leds,ground,previous
   const netByEndpoint=new Map();
   for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
-  const [setGate,resetGate]=gates,groundNet=n(ground,"0"),qNet=n(setGate,"Y"),qBarNet=n(resetGate,"Y");
+  const [setGate,resetGate]=gates,groundNet=n(ground,"0"),qNet=n(resetGate,"Y"),qBarNet=n(setGate,"Y");
   const supply=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")!==groundNet);
   const inputSourceFor=(gate)=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&([n(gate,"A"),n(gate,"B")].includes(n(v,"+"))));
   const setSource=inputSourceFor(setGate),resetSource=inputSourceFor(resetGate);
   const setSourceNet=setSource?n(setSource,"+"):undefined,resetSourceNet=resetSource?n(resetSource,"+"):undefined;
-  const setFeedback=[n(setGate,"A"),n(setGate,"B")].includes(qBarNet),resetFeedback=[n(resetGate,"A"),n(resetGate,"B")].includes(qNet);
+  const setFeedback=[n(setGate,"A"),n(setGate,"B")].includes(qNet),resetFeedback=[n(resetGate,"A"),n(resetGate,"B")].includes(qBarNet);
   const setPinSource=setSource&&[n(setGate,"A"),n(setGate,"B")].includes(setSourceNet)&&setSourceNet!==qBarNet;
   const resetPinSource=resetSource&&[n(resetGate,"A"),n(resetGate,"B")].includes(resetSourceNet)&&resetSourceNet!==qNet;
   const ledPath=(outputNet)=>resistors.find(r=>{const d=leds.find(x=>((n(r,"1")===outputNet&&n(r,"2")===n(x,"A"))||(n(r,"2")===outputNet&&n(r,"1")===n(x,"A")))&&n(x,"K")===groundNet);return Boolean(d);});
