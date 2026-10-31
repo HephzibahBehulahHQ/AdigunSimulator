@@ -17,6 +17,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "ground.signal", category: "Power & Ground", type: "Signal ground", prefix: "GND", pins: ["0"], defaultValue: "0 V", simulation: "reference", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge/ideal-latching-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.comparator-ideal", category: "Active", type: "Ideal low-battery comparator model", prefix: "U", pins: ["VCC", "GND", "SENSE", "OUT"], defaultValue: "Vref 3.75 V", simulation: "analytical-battery-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
@@ -352,6 +353,7 @@ export function runSupportedAnalysis(project) {
   const validation = validateProject(project);
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
+  const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
   const currentSource = project.components.filter((item) => item.libraryId === "power.dc-current-source");
@@ -364,6 +366,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (source.length === 1 && resistor.length === 3 && led.length === 1 && comparators.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseBatteryDischargeMonitor(project, { source: source[0], resistors: resistor, led: led[0], comparator: comparators[0], ground: ground[0], validation });
+  }
   if (source.length === 1 && resistor.length === 1 && led.length === 1 && pwmSources.length === 1 && mosfets.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analysePwmLedAverage(project, { source: source[0], resistor: resistor[0], led: led[0], pwmSource: pwmSources[0], mosfet: mosfets[0], ground: ground[0], validation });
   }
@@ -473,6 +478,71 @@ function analysePwmLedAverage(project, { source, resistor, led, pwmSource, mosfe
       sourcePowerW,
       powerBalanceW: sourcePowerW - resistorPowerW - ledPowerW
     },
+    validation
+  };
+}
+
+function analyseBatteryDischargeMonitor(project, { source, resistors, led, comparator, ground, validation }) {
+  const batteryVoltage = voltageValue(source.value);
+  const ledVf = forwardVoltage(led.value);
+  const tripVoltage = voltageValue(comparator.value);
+  if (![batteryVoltage, ledVf, tripVoltage].every(Number.isFinite) || batteryVoltage <= 0 || ledVf <= 0 || tripVoltage <= 0) {
+    return { state: "blocked", message: "The battery monitor requires positive numeric battery, reference threshold, and LED forward voltages.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const batteryNet = netByEndpoint.get(endpoint(source, "+"));
+  const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  const comparatorSupply = netByEndpoint.get(endpoint(comparator, "VCC"));
+  const comparatorGround = netByEndpoint.get(endpoint(comparator, "GND"));
+  const senseNet = netByEndpoint.get(endpoint(comparator, "SENSE"));
+  const outputNet = netByEndpoint.get(endpoint(comparator, "OUT"));
+  const ledAnode = netByEndpoint.get(endpoint(led, "A"));
+  const ledCathode = netByEndpoint.get(endpoint(led, "K"));
+  if (!batteryNet || batteryNet === groundNet || sourceNegative !== groundNet || comparatorSupply !== batteryNet
+    || comparatorGround !== groundNet || !senseNet || senseNet === batteryNet || senseNet === groundNet
+    || !outputNet || outputNet === groundNet || ledCathode !== groundNet) {
+    return { state: "blocked", message: "Wire the battery to comparator supply, divider and shared ground; connect the divider midpoint to SENSE and comparator OUT through the LED resistor and LED to ground.", validation };
+  }
+  const between = (part, netA, netB) => {
+    const a = netByEndpoint.get(endpoint(part, "1"));
+    const b = netByEndpoint.get(endpoint(part, "2"));
+    return (a === netA && b === netB) || (a === netB && b === netA);
+  };
+  const upperDivider = resistors.find(part => between(part, batteryNet, senseNet));
+  const lowerDivider = resistors.find(part => part !== upperDivider && between(part, senseNet, groundNet));
+  const ledResistor = resistors.find(part => part !== upperDivider && part !== lowerDivider && between(part, outputNet, ledAnode));
+  if (!upperDivider || !lowerDivider || !ledResistor) {
+    return { state: "blocked", message: "The monitor needs a battery-to-sense upper resistor, a sense-to-ground lower resistor, and a separate comparator-output LED resistor.", validation };
+  }
+  const upperResistance = resistanceValue(upperDivider.value);
+  const lowerResistance = resistanceValue(lowerDivider.value);
+  const ledResistance = resistanceValue(ledResistor.value);
+  if (![upperResistance, lowerResistance, ledResistance].every(Number.isFinite) || upperResistance <= 0 || lowerResistance <= 0 || ledResistance <= 0) {
+    return { state: "blocked", message: "Both divider resistors and the LED series resistor must have positive numeric resistance values.", validation };
+  }
+  const dividerResistance = upperResistance + lowerResistance;
+  const dividerCurrentA = batteryVoltage / dividerResistance;
+  const senseVoltage = batteryVoltage * lowerResistance / dividerResistance;
+  const tripBatteryVoltage = tripVoltage * dividerResistance / lowerResistance;
+  const lowBattery = senseVoltage < tripVoltage;
+  const comparatorOutputVoltage = lowBattery ? batteryVoltage : 0;
+  const ledCurrentA = lowBattery ? Math.max(0, (comparatorOutputVoltage - ledVf) / ledResistance) : 0;
+  const dividerPowerW = dividerCurrentA ** 2 * dividerResistance;
+  const ledResistorPowerW = ledCurrentA ** 2 * ledResistance;
+  const ledPowerW = ledCurrentA * ledVf;
+  const sourceCurrentA = dividerCurrentA + ledCurrentA;
+  const sourcePowerW = batteryVoltage * sourceCurrentA;
+  const powerBalanceW = sourcePowerW - dividerPowerW - ledResistorPowerW - ledPowerW;
+  if (![dividerCurrentA, senseVoltage, tripBatteryVoltage, ledCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourceCurrentA, sourcePowerW, powerBalanceW].every(Number.isFinite)) {
+    return { state: "blocked", message: "The battery monitor result exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical ideal low-battery comparator and divider",
+    message: "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
+    result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
     validation
   };
 }
