@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 66);
+  assert.equal(getExampleCoverage(registry).total, 67);
   assert.equal(getExampleCoverage(registry).released, 56);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 144);
@@ -1806,6 +1806,34 @@ test("catalogue UART transmitter emits valid 8N1 frames LSB-first", async () => 
   assert.equal(runSupportedAnalysis(updateComponent(project,"uart",{value:"Byte 42; Baud 100"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="TX").endpoints=["uart:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue UART receiver decodes valid frames and flags start/stop errors", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/057-uart-receiver.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "input.uart-frame-source"), true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.uart-rx-ideal"), true);
+  const valid = runSupportedAnalysis(project);
+  assert.equal(valid.state, "complete");
+  assert.equal(valid.result.byte, 0xA5);
+  assert.equal(valid.result.byteHex, "0xA5");
+  assert.equal(valid.result.valid, true);
+  assert.equal(valid.result.framingError, false);
+  assert.equal(valid.result.frameDurationSeconds, 10/9600);
+
+  const badStart=updateComponent(project,"serial-frame",{value:"Bits 1,1,0,1,0,0,1,0,1,1; Baud 9600"});
+  const startError=runSupportedAnalysis(badStart);
+  assert.equal(startError.state,"complete");
+  assert.equal(startError.result.framingError,true);
+  assert.equal(startError.result.valid,false);
+  const badStop=updateComponent(project,"serial-frame",{value:"Bits 0,1,0,1,0,0,1,0,1,0; Baud 9600"});
+  assert.equal(runSupportedAnalysis(badStop).result.framingError,true);
+  const badLength=updateComponent(project,"serial-frame",{value:"Bits 0,1,0; Baud 9600"});
+  assert.equal(runSupportedAnalysis(badLength).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="RX").endpoints=["receiver:RX"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 
