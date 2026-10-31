@@ -3901,6 +3901,40 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "095-pwm-audio-dac",
+      "title": "PWM audio DAC RC filter concept",
+      "status": "released",
+      "objective": "Estimate loaded average output and steady-state ripple for a PWM-to-RC filter across bounded duty cycles and frequencies, confirming that mean voltage tracks duty and ripple falls as frequency rises.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue PWM DAC tracks duty and ripple falls as PWM frequency rises",
+      "testId": "core-pwm-audio-dac",
+      "projectFile": "examples/095-pwm-audio-dac.adigun.json",
+      "safetyNote": "Ideal steady-state first-order RC/PWM model only. Switching edge time, capacitor ESR and leakage, component tolerances, noise, DAC accuracy, firmware, and physical behavior are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 95,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41185766802",
+        "headRevision": "c8cfd33f9f7315a313b3b1b407d78b664c823e4c",
+        "engine": "Ideal PWM-to-RC average and steady-state ripple estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "loaded-pwm-first-order-rc-dac-v1",
+        "expectedResult": {
+          "kind": "pwm-audio-dac",
+          "frequencyHz": 1000,
+          "dutyCyclePercent": 50,
+          "logicVoltageV": 5,
+          "seriesResistanceOhm": 1000,
+          "loadResistanceOhm": 100000,
+          "capacitanceF": 0.00001,
+          "averageOutputV": 2.475247524752475,
+          "rippleVppBelow": 0.2,
+          "tracksDutyCycle": true,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
