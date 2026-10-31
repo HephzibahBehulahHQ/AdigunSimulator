@@ -2607,3 +2607,22 @@ test("catalogue guitar JFET buffer has high input impedance and bounded AC respo
   broken.nets.find(net=>net.id==="BUFFER_OUT").endpoints=["buffer:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue simple mixer computes a resistor-weighted source sum without clipping", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/094-simple-audio-mixer.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"audio-summing-mixer");
+  assert.equal(result.result.sumNodeV,1.5);
+  assert.equal(result.result.outputV,1.5);
+  assert.equal(result.result.weight1,0.5);
+  assert.equal(result.result.weight2,0.5);
+  assert.equal(result.result.clipped,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"V1 1 V; V2 3 V"})).result.outputV,2);
+  const unequal=updateComponent(updateComponent(project,"fixture",{value:"V1 1 V; V2 3 V"}),"r2",{value:"20 kΩ"});
+  assert.ok(Math.abs(runSupportedAnalysis(unequal).result.outputV-1.6666666666666667)<1e-12);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"V1 5 V; V2 5 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SUM").endpoints=["r1:2","r2:2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
