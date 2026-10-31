@@ -51,6 +51,15 @@ test("schematic view uses explicit generic symbols and pin labels", async () => 
   assert.match(symbols, /class="schematic-symbol/);
 });
 
+test("schematic wire tool connects named pins through the shared project net model", async () => {
+  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  assert.match(html, /data-action="schematic-wire-mode"/);
+  assert.match(html, /id="schematic-wire-status"/);
+  assert.match(app, /data-schematic-endpoint=/);
+  assert.match(app, /schematicPinTarget && state\.schematicWireMode && state\.activeView === "schematic"/);
+  assert.match(app, /connectPins\(state\.project, state\.schematicWireStart, endpoint\)/);
+});
+
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   const logo = await readFile(new URL("../assets/brand/hephzibah-behulah-official.jpg", import.meta.url));
