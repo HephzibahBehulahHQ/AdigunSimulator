@@ -3209,7 +3209,7 @@ function analyseUsbCPdSink(project,{source,fixture,sink,report,load,ground,valid
   const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
   const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
   const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
-  const sf=fields(fixture.value),policy=fields(sink.value),profiles=(field(sf,"Profiles")??"").replace(/\\s*V$/,"").split(",").map(x=>Number(x.trim()));
+  const sf=fields(fixture.value),policy=fields(sink.value),profiles=(field(sf,"Profiles")??"").replace(/\s*V$/,"").split(",").map(x=>Number(x.trim()));
   const requested=voltageValue(field(sf,"Requested")??""),preferred=voltageValue(field(policy,"Preferred")??""),maxV=voltageValue(field(policy,"MaxVoltage")??"");
   const maxA=currentValue(field(policy,"MaxCurrent")??""),fallback=voltageValue(field(policy,"Fallback")??""),loadOhm=engineeringValue(load.value,"Ω");
   const gnd=n(ground,"0"),vcc=n(source,"+");
