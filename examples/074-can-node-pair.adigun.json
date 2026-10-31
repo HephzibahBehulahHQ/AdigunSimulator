@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-074-can-node-pair",
+  "metadata": {
+    "name": "CAN Node Pair with ACK",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          35,
+          65
+        ],
+        "schematic": [
+          35,
+          65
+        ],
+        "pcb": [
+          35,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "frame",
+      "libraryId": "input.can-frame-fixture",
+      "reference": "SIG1",
+      "value": "Identifier 0x123; DLC 2; Data DE AD; Bitrate 500000",
+      "position": {
+        "breadboard": [
+          115,
+          65
+        ],
+        "schematic": [
+          115,
+          65
+        ],
+        "pcb": [
+          115,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "tx-node",
+      "libraryId": "active.can-node-ideal",
+      "reference": "U1",
+      "value": "Role transmit; FilterId 0x123",
+      "position": {
+        "breadboard": [
+          205,
+          65
+        ],
+        "schematic": [
+          205,
+          65
+        ],
+        "pcb": [
+          205,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "tx-xcvr",
+      "libraryId": "active.can-transceiver-ideal",
+      "reference": "XCVR1",
+      "value": "Mode normal",
+      "position": {
+        "breadboard": [
+          295,
+          65
+        ],
+        "schematic": [
+          295,
+          65
+        ],
+        "pcb": [
+          295,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "rx-node",
+      "libraryId": "active.can-node-ideal",
+      "reference": "U2",
+      "value": "Role receive; FilterId 0x123",
+      "position": {
+        "breadboard": [
+          385,
+          65
+        ],
+        "schematic": [
+          385,
+          65
+        ],
+        "pcb": [
+          385,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "rx-xcvr",
+      "libraryId": "active.can-transceiver-ideal",
+      "reference": "XCVR2",
+      "value": "Mode normal",
+      "position": {
+        "breadboard": [
+          475,
+          65
+        ],
+        "schematic": [
+          475,
+          65
+        ],
+        "pcb": [
+          475,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "term-a",
+      "libraryId": "passive.can-termination",
+      "reference": "RT1",
+      "value": "120 Ω",
+      "position": {
+        "breadboard": [
+          260,
+          155
+        ],
+        "schematic": [
+          260,
+          155
+        ],
+        "pcb": [
+          260,
+          155
+        ]
+      }
+    },
+    {
+      "instanceId": "term-b",
+      "libraryId": "passive.can-termination",
+      "reference": "RT2",
+      "value": "120 Ω",
+      "position": {
+        "breadboard": [
+          420,
+          155
+        ],
+        "schematic": [
+          420,
+          155
+        ],
+        "pcb": [
+          420,
+          155
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "output.can-frame-display",
+      "reference": "DISP1",
+      "value": "CAN frame and ACK status",
+      "position": {
+        "breadboard": [
+          550,
+          65
+        ],
+        "schematic": [
+          550,
+          65
+        ],
+        "pcb": [
+          550,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          600,
+          230
+        ],
+        "schematic": [
+          600,
+          230
+        ],
+        "pcb": [
+          600,
+          230
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "tx-node:VCC",
+        "rx-node:VCC",
+        "tx-xcvr:VCC",
+        "rx-xcvr:VCC",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "frame:GND",
+        "tx-node:GND",
+        "rx-node:GND",
+        "tx-xcvr:GND",
+        "rx-xcvr:GND",
+        "display:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "FRAME_IN",
+      "endpoints": [
+        "frame:OUT",
+        "tx-node:FRAME"
+      ]
+    },
+    {
+      "id": "TX1",
+      "endpoints": [
+        "tx-node:TX",
+        "tx-xcvr:TXD"
+      ]
+    },
+    {
+      "id": "RX1",
+      "endpoints": [
+        "tx-xcvr:RXD",
+        "tx-node:RX"
+      ]
+    },
+    {
+      "id": "TX2",
+      "endpoints": [
+        "rx-node:TX",
+        "rx-xcvr:TXD"
+      ]
+    },
+    {
+      "id": "RX2",
+      "endpoints": [
+        "rx-xcvr:RXD",
+        "rx-node:RX",
+        "display:DATA"
+      ]
+    },
+    {
+      "id": "CAN_H",
+      "endpoints": [
+        "tx-xcvr:CANH",
+        "rx-xcvr:CANH",
+        "term-a:1",
+        "term-b:1"
+      ]
+    },
+    {
+      "id": "CAN_L",
+      "endpoints": [
+        "tx-xcvr:CANL",
+        "rx-xcvr:CANL",
+        "term-a:2",
+        "term-b:2"
+      ]
+    }
+  ],
+  "history": []
+}
