@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-033-nmos-low-side-switch",
+  "metadata": {
+    "name": "NMOS Low-Side Inductive Load Driver",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "gate-drive",
+      "libraryId": "power.dc-source",
+      "reference": "VG",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "mosfet",
+      "libraryId": "active.nmos-switch",
+      "reference": "Q1",
+      "value": "Vth 2 V; RdsOn 0.1 Ω",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "coil-r",
+      "libraryId": "passive.resistor",
+      "reference": "RCOIL",
+      "value": "24 Ω",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "coil-l",
+      "libraryId": "passive.inductor",
+      "reference": "L1",
+      "value": "100 mH",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "flyback",
+      "libraryId": "diode.schottky",
+      "reference": "D1",
+      "value": "Vf 0.3 V",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "coil-r:1",
+        "flyback:K"
+      ]
+    },
+    {
+      "id": "COIL",
+      "endpoints": [
+        "coil-r:2",
+        "coil-l:1"
+      ]
+    },
+    {
+      "id": "DRAIN",
+      "endpoints": [
+        "coil-l:2",
+        "mosfet:D",
+        "flyback:A"
+      ]
+    },
+    {
+      "id": "GATE",
+      "endpoints": [
+        "gate-drive:+",
+        "mosfet:G"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "gate-drive:-",
+        "mosfet:S",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": []
+}
