@@ -52,6 +52,7 @@ import { runSchematicPcbSync } from "../js/schematic-pcb-sync.mjs";
 import { runThreeViewLedHistory } from "../js/three-view-led-history.mjs";
 import { projectComponentsForView, runUnsupportedBreadboardPackage } from "../js/view-projection.mjs";
 import { runMissingFootprintWorkflow } from "../js/pcb-update-resolution.mjs";
+import { cancelPartSubstitutionPreview, createPartSubstitutionPreview, runPinIncompatibleSubstitution } from "../js/pin-substitution-preview.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1484,7 +1485,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 195);
+  assert.equal(getExampleCoverage(registry).total, 196);
   assert.equal(getExampleCoverage(registry).released, 185);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 15);
@@ -4516,4 +4517,13 @@ test("catalogue missing-footprint workflow blocks PCB update and returns require
   assert.ok(result.result.missingFootprints.some(item=>item.reference==="U1"&&item.part==="active.ne555"));assert.equal(result.result.requiredReport.blockedReferences.length,project.components.length);
   assert.equal(result.result.requiredReport.resolutionOptions.length,3);assert.equal(result.result.automaticSubstitution,false);assert.equal(result.result.unverifiedFootprintsAssigned,false);
   const invalid=structuredClone(project);invalid.missingFootprintWorkflow.targetView="breadboard";assert.equal(runMissingFootprintWorkflow(invalid).state,"blocked");
+});
+test("catalogue pin-incompatible substitution is previewed, blocked, and canceled without changing original", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/186-pin-incompatible-substitution.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);const before=serializeProject(project);
+  const preview=createPartSubstitutionPreview(project);assert.equal(preview.state,"complete");assert.equal(preview.blocked,true);assert.equal(preview.sourcePart.pins.length,8);assert.equal(preview.candidate.pins.length,8);
+  assert.deepEqual(preview.sharedPinNames,[]);assert.equal(preview.unmappedUsedPins.length,8);assert.ok(preview.affectedNets.includes("TIMING"));
+  const canceled=cancelPartSubstitutionPreview(preview);assert.equal(canceled.cancelled,true);assert.equal(serializeProject(canceled.project),before);assert.equal(serializeProject(project),before);
+  const result=runPinIncompatibleSubstitution(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"pin-incompatible-substitution-preview");assert.equal(result.result.substitutionBlocked,true);assert.equal(result.result.previewCancelled,true);assert.equal(result.result.projectUnchanged,true);
+  assert.equal(result.result.originalLibraryId,"active.ne555");assert.equal(result.result.candidateLibraryId,"active.lm386-classab");assert.equal(result.result.unmappedUsedPins.length,8);
 });

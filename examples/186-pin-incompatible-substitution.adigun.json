@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "id": "example-186-pin-incompatible-substitution",
+  "metadata": {
+    "name": "Example 186 — Pin-Incompatible Substitution",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          35,
+          75
+        ],
+        "schematic": [
+          35,
+          75
+        ],
+        "pcb": [
+          35,
+          75
+        ]
+      }
+    },
+    {
+      "instanceId": "timer-1",
+      "libraryId": "active.ne555",
+      "reference": "U1",
+      "value": "NE555 astable ideal model",
+      "position": {
+        "breadboard": [
+          135,
+          75
+        ],
+        "schematic": [
+          135,
+          75
+        ],
+        "pcb": [
+          135,
+          75
+        ]
+      }
+    },
+    {
+      "instanceId": "ra-1",
+      "libraryId": "passive.resistor",
+      "reference": "RA",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          235,
+          75
+        ],
+        "schematic": [
+          235,
+          75
+        ],
+        "pcb": [
+          235,
+          75
+        ]
+      }
+    },
+    {
+      "instanceId": "rb-1",
+      "libraryId": "passive.resistor",
+      "reference": "RB",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          335,
+          75
+        ],
+        "schematic": [
+          335,
+          75
+        ],
+        "pcb": [
+          335,
+          75
+        ]
+      }
+    },
+    {
+      "instanceId": "timing-capacitor-1",
+      "libraryId": "passive.capacitor",
+      "reference": "CT",
+      "value": "100 µF",
+      "position": {
+        "breadboard": [
+          435,
+          75
+        ],
+        "schematic": [
+          435,
+          75
+        ],
+        "pcb": [
+          435,
+          75
+        ]
+      }
+    },
+    {
+      "instanceId": "control-capacitor-1",
+      "libraryId": "passive.capacitor",
+      "reference": "CCTRL",
+      "value": "10 nF",
+      "position": {
+        "breadboard": [
+          535,
+          75
+        ],
+        "schematic": [
+          535,
+          75
+        ],
+        "pcb": [
+          535,
+          75
+        ]
+      }
+    },
+    {
+      "instanceId": "led-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "RLED",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          235,
+          175
+        ],
+        "schematic": [
+          235,
+          175
+        ],
+        "pcb": [
+          235,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          335,
+          175
+        ],
+        "schematic": [
+          335,
+          175
+        ],
+        "pcb": [
+          335,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          535,
+          175
+        ],
+        "schematic": [
+          535,
+          175
+        ],
+        "pcb": [
+          535,
+          175
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "timer-1:8",
+        "timer-1:4",
+        "ra-1:1"
+      ]
+    },
+    {
+      "id": "DISCHARGE",
+      "endpoints": [
+        "timer-1:7",
+        "ra-1:2",
+        "rb-1:1"
+      ]
+    },
+    {
+      "id": "TIMING",
+      "endpoints": [
+        "timer-1:2",
+        "timer-1:6",
+        "rb-1:2",
+        "timing-capacitor-1:1"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "timer-1:3",
+        "led-resistor-1:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "led-resistor-1:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "CONTROL",
+      "endpoints": [
+        "timer-1:5",
+        "control-capacitor-1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source-1:-",
+        "timer-1:1",
+        "timing-capacitor-1:2",
+        "control-capacitor-1:2",
+        "led-1:K",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": [],
+  "substitutionPreview": {
+    "kind": "pin-map-compatibility-preview",
+    "targetInstanceId": "timer-1",
+    "candidateLibraryId": "active.lm386-classab"
+  }
+}
