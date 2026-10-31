@@ -46,6 +46,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-ring-shift-4bit-ideal", category: "Active", type: "Ideal four-bit ring shift register", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Four-bit one-hot ring; reset Q0", simulation: "analytical-shift-register-chaser", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-mux4-ideal", category: "Active", type: "Ideal four-to-one multiplexer (static logic)", prefix: "U", pins: ["I0", "I1", "I2", "I3", "S0", "S1", "Y", "VCC", "GND"], defaultValue: "Ideal 4:1 mux; S1:S0 selects I0–I3", simulation: "analytical-mux4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-decoder-2to4-ideal", category: "Active", type: "Ideal two-to-four decoder (static logic)", prefix: "U", pins: ["A0", "A1", "Y0", "Y1", "Y2", "Y3", "VCC", "GND"], defaultValue: "Ideal active-high 2:4 decoder", simulation: "analytical-decoder-2to4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-priority-encoder-4to2-ideal", category: "Active", type: "Ideal four-input priority encoder", prefix: "U", pins: ["D0", "D1", "D2", "D3", "CODE0", "CODE1", "VALID", "VCC", "GND"], defaultValue: "D3 has highest priority; valid output", simulation: "analytical-priority-encoder", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -405,6 +406,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const ringShiftRegisters = project.components.filter((item) => item.libraryId === "active.logic-ring-shift-4bit-ideal");
   const mux4s = project.components.filter((item) => item.libraryId === "active.logic-mux4-ideal");
   const decoders2to4 = project.components.filter((item) => item.libraryId === "active.logic-decoder-2to4-ideal");
+  const priorityEncoders = project.components.filter((item) => item.libraryId === "active.logic-priority-encoder-4to2-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -469,6 +471,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (priorityEncoders.length === 1 && source.length === 5 && resistor.length === 3 && led.length === 3 && ground.length === 1 && project.components.length === 13) {
+    return analysePriorityEncoder(project, { sources: source, encoder: priorityEncoders[0], resistors: resistor, leds: led, ground: ground[0], validation });
   }
   if (decoders2to4.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && project.components.length === 13) {
     return analyseDecoder2to4(project, { sources: source, decoder: decoders2to4[0], resistors: resistor, leds: led, ground: ground[0], validation });
@@ -1463,6 +1468,28 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+
+
+function analysePriorityEncoder(project,{sources,encoder,resistors,leds,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(encoder,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  const inputSources=[0,1,2,3].map(index=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===n(encoder,`D${index}`)));
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,inputVoltages=inputSources.map(v=>v?voltageValue(v.value):Number.NaN),thresholdV=supplyVoltage/2;
+  const outputPins=["CODE0","CODE1","VALID"];
+  const outputs=outputPins.map(pin=>{
+    const net=n(encoder,pin),resistor=resistors.find(r=>n(r,"1")===net||n(r,"2")===net);
+    const led=resistor&&leds.find(x=>((n(resistor,"1")===net&&n(resistor,"2")===n(x,"A"))||(n(resistor,"2")===net&&n(resistor,"1")===n(x,"A")))&&n(x,"K")===groundNet);
+    return {pin,net,resistor,led,resistance:resistor?resistanceValue(resistor.value):Number.NaN,vf:led?forwardVoltage(led.value):Number.NaN};
+  });
+  if(!supply||inputSources.some(v=>!v)||n(encoder,"GND")!==groundNet||outputs.some(o=>!o.net||!o.resistor||!o.led||!Number.isFinite(o.resistance)||!Number.isFinite(o.vf)||o.resistance<=0||o.vf<=0)
+    ||![supplyVoltage,...inputVoltages].every(Number.isFinite)||supplyVoltage<=0||inputVoltages.some(v=>v<0||v>supplyVoltage)){
+    return {state:"blocked",message:"Wire four valid 0–VCC priority inputs, the ideal encoder, code/valid outputs, LED resistors, and supply/ground rails.",validation};
+  }
+  const inputs=inputVoltages.map(v=>v>=thresholdV),highestIndex=inputs.lastIndexOf(true),valid=highestIndex>=0,code=valid?highestIndex:0,codeBits=[Boolean(code&1),Boolean(code&2)],outputBits=[...codeBits,valid];
+  const outputCurrents=outputs.map((o,i)=>outputBits[i]?Math.max(0,(supplyVoltage-o.vf)/o.resistance):0);
+  return {state:"complete",engine:"Ideal four-input priority encoder",message:"Encodes the highest-numbered asserted input (D3 highest) and exposes a separate valid output for the all-low case. Propagation delay, input loading, noise, and device-specific priority behavior are not modeled.",result:{kind:"priority-encoder",supplyVoltage,logicThresholdV:thresholdV,inputVoltages,inputs,highestIndex,valid,code,codeBits,outputBits,outputCurrents},validation};
+}
 
 function analyseDecoder2to4(project,{sources,decoder,resistors,leds,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
