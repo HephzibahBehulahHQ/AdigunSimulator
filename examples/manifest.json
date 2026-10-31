@@ -6281,14 +6281,38 @@
     {
       "id": "159-simulation-report-export",
       "title": "Simulation report export",
-      "status": "in-review",
+      "status": "released",
       "objective": "Export a known RC step analysis as a JSON report with project settings, engine/model version, exact results, warnings, and limitations.",
       "acceptanceTest": "tests/core.test.mjs: catalogue simulation report exports reproducible RC settings, model version, results, and warnings",
       "testId": "core-simulation-report-export",
       "projectFile": "examples/159-simulation-report-export.adigun.json",
       "readmeFile": "examples/159-simulation-report-export/README.md",
       "safetyNote": "A report records the bounded analytical engine result; it is not a full SPICE report, certification, or substitute for validating physical parts and operating conditions.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 159,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41208737732",
+        "headRevision": "227528656c45a819184d10776a3a800b4a7ade14",
+        "engine": "Bounded first-order RC step-response reporting",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "first-order-rc-step-v1",
+        "expectedResult": {
+          "kind": "rc-step-response",
+          "sampleCountGreaterThan": 0,
+          "projectValues": {
+            "resistor": "1 kΩ",
+            "capacitor": "100 µF"
+          },
+          "reportIncludes": [
+            "settings",
+            "modelVersion",
+            "result",
+            "warnings"
+          ]
+        }
+      }
     }
   ]
 }
