@@ -19,6 +19,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "passive.ldr", category: "Passive", type: "Photoresistor (light-dependent resistor)", prefix: "R", pins: ["1", "2"], defaultValue: "Rbright 10 kΩ; Rdark 1 MΩ; light 100%", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.potentiometer", category: "Passive", type: "Potentiometer (two-terminal rheostat model)", prefix: "RP", pins: ["1", "2"], defaultValue: "Rmax 10 kΩ; position 50%", simulation: "analytical-passive-tone-control", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.bridge-ideal", category: "Active", type: "Ideal bridge rectifier (fixed diode drop)", prefix: "BR", pins: ["AC1", "AC2", "POS", "NEG"], defaultValue: "0.7 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "diode.zener-ideal", category: "Active", type: "Zener diode (ideal shunt-clamp model)", prefix: "DZ", pins: ["K", "A"], defaultValue: "Vz 5.1 V; Pmax 0.5 W", simulation: "analytical-zener-shunt", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.schottky", category: "Active", type: "Schottky diode (fixed-drop estimate)", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 0.3 V", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.nmos-switch", category: "Active", type: "N-channel MOSFET (ideal PWM switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -369,6 +370,7 @@ export function runSupportedAnalysis(project) {
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
   const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
   const bridges = project.components.filter((item) => item.libraryId === "diode.bridge-ideal");
+  const zeners = project.components.filter((item) => item.libraryId === "diode.zener-ideal");
 
   const regulators = project.components.filter((item) => item.libraryId === "active.regulator-7805-ideal");
   const usbSources = project.components.filter((item) => item.libraryId === "power.usb-source");
@@ -389,6 +391,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (source.length === 1 && zeners.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 5) {
+    return analyseZenerShuntRegulator(project, { source: source[0], resistors: resistor, zener: zeners[0], ground: ground[0], validation });
+  }
   if (acSource.length === 1 && bridges.length === 1 && resistor.length === 1 && capacitor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBridgeSmoothingCapacitor(project, { source: acSource[0], bridge: bridges[0], load: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
   }
@@ -656,6 +661,53 @@ function analyseBridgeRectifier(project, { source, bridge, load, ground, validat
     engine: "Analytical full-wave bridge waveform with fixed diode drops",
     message: "Generated a sampled full-wave rectified load waveform with two conducting diode drops. No smoothing capacitor is present. Diode switching, reverse recovery, source impedance, transformer behavior, component tolerance, thermal effects, ratings, and general SPICE are not modeled.",
     result: { kind: "bridge-rectifier-waveform", sourceRmsVoltage, inputFrequencyHz, peakInputVoltage, diodeDropEach: diodeDrop, peakOutputVoltage, rectifiedFrequencyHz, rippleFrequencyHz: rectifiedFrequencyHz, loadResistance, averageOutputVoltage, rmsOutputVoltage, averageLoadCurrentA, averageLoadPowerW, estimatedSourcePowerW, bridgeDissipationW, powerBalanceW, waveform },
+    validation
+  };
+}
+
+function analyseZenerShuntRegulator(project, { source, resistors, zener, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const zenerMatch = String(zener.value).match(/^\\s*Vz\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*;\\s*Pmax\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*W\\s*$/i);
+  const zenerVoltage = zenerMatch ? Number(zenerMatch[1]) : Number.NaN;
+  const maxZenerPowerW = zenerMatch ? Number(zenerMatch[2]) : Number.NaN;
+  const seriesResistor = resistors.find(item => /series/i.test(item.reference)) ?? resistors.find(item => /R1/.test(item.reference));
+  const loadResistor = resistors.find(item => item !== seriesResistor);
+  const seriesResistance = seriesResistor ? resistanceValue(seriesResistor.value) : Number.NaN;
+  const loadResistance = loadResistor ? resistanceValue(loadResistor.value) : Number.NaN;
+  if (![sourceVoltage, zenerVoltage, maxZenerPowerW, seriesResistance, loadResistance].every(Number.isFinite)
+    || sourceVoltage <= 0 || zenerVoltage <= 0 || maxZenerPowerW <= 0 || seriesResistance <= 0 || loadResistance <= 0) {
+    return { state: "blocked", message: "The Zener estimate needs positive source, clamp-voltage, power-limit, series-resistance, and load-resistance values.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const sourcePositive = n(source, "+"), sourceNegative = n(source, "-");
+  const seriesInput = n(seriesResistor, "1"), seriesOutput = n(seriesResistor, "2");
+  const loadInput = n(loadResistor, "1"), loadOutput = n(loadResistor, "2");
+  const zenerCathode = n(zener, "K"), zenerAnode = n(zener, "A"), groundNet = n(ground, "0");
+  if (!sourcePositive || sourcePositive === sourceNegative || sourcePositive !== seriesInput
+    || !seriesOutput || seriesOutput !== loadInput || seriesOutput !== zenerCathode
+    || !groundNet || sourceNegative !== groundNet || loadOutput !== groundNet || zenerAnode !== groundNet) {
+    return { state: "blocked", message: "Connect the source through the series resistor to the output; place the load and Zener in parallel from output to ground, with the Zener cathode at the output.", validation };
+  }
+  const dividerOutput = sourceVoltage * loadResistance / (seriesResistance + loadResistance);
+  const zenerOn = dividerOutput >= zenerVoltage;
+  const outputVoltage = zenerOn ? zenerVoltage : dividerOutput;
+  const seriesCurrentA = (sourceVoltage - outputVoltage) / seriesResistance;
+  const loadCurrentA = outputVoltage / loadResistance;
+  const zenerCurrentA = Math.max(0, seriesCurrentA - loadCurrentA);
+  const zenerPowerW = outputVoltage * zenerCurrentA;
+  const seriesPowerW = seriesCurrentA ** 2 * seriesResistance;
+  const loadPowerW = outputVoltage ** 2 / loadResistance;
+  const sourcePowerW = sourceVoltage * seriesCurrentA;
+  const overPower = zenerPowerW > maxZenerPowerW;
+  const warnings = overPower ? ["The ideal clamp exceeds the entered Zener power limit; reduce source current or revise the design."] : [];
+  return {
+    state: "complete",
+    engine: "Analytical ideal Zener shunt-regulator estimate",
+    message: "Uses a hard breakdown-voltage clamp with no dynamic resistance, tolerance, temperature, or reverse-recovery model. The power warning compares against the entered generic limit; it is not a hardware safety approval.",
+    warnings,
+    result: { kind: "zener-shunt-regulator", sourceVoltage, zenerVoltage, maxZenerPowerW, seriesResistance, loadResistance, outputVoltage, zenerOn, seriesCurrentA, loadCurrentA, zenerCurrentA, zenerPowerW, seriesPowerW, loadPowerW, sourcePowerW, powerBalanceW: sourcePowerW - seriesPowerW - loadPowerW - zenerPowerW },
     validation
   };
 }
