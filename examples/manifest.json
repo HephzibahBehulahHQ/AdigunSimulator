@@ -7252,7 +7252,7 @@
     {
       "id": "188-resistor-color-code-reader",
       "title": "Resistor colour-code reader",
-      "status": "in-review",
+      "status": "released",
       "objective": "Decode supported four- and five-band resistor color combinations into nominal resistance and tolerance, and reject invalid or unsupported band combinations.",
       "acceptanceTest": "tests/core.test.mjs: catalogue resistor color-code reader decodes four/five-band values and rejects invalid bands",
       "testId": "core-resistor-color-code-reader",
@@ -7260,7 +7260,33 @@
       "readmeFile": "examples/188-resistor-color-code-reader/README.md",
       "safetyNote": "Educational resistor code lookup only. Verify the physical part and tolerance from its datasheet or measurement before design use.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 188,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41215256890",
+        "headRevision": "06004c95ef8f8341116527976ba57ac538041d06",
+        "engine": "Standard four- and five-band resistor code",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "resistor-color-code-cases-v1",
+        "expectedResult": {
+          "kind": "resistor-color-code-cases",
+          "caseCount": 4,
+          "validCount": 2,
+          "rejectedCount": 2,
+          "readings": [
+            {
+              "ohms": 4700,
+              "tolerancePercent": 5
+            },
+            {
+              "ohms": 1000,
+              "tolerancePercent": 1
+            }
+          ]
+        }
+      }
     }
   ]
 }
