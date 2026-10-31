@@ -2123,3 +2123,31 @@ test("workspace matches the approved simulator layout references",async()=>{
   assert.match(styles,/canvas-area\.has-overview/);
   assert.match(styles,/PCB placement preview/);
 });
+
+
+test("catalogue MCU watchdog resets to a safe state after an induced service stall",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/073-mcu-watchdog.adigun.json",import.meta.url)));
+  const valid=runSupportedAnalysis(project);
+  assert.equal(valid.state,"complete",valid.message);
+  assert.equal(valid.result.kind,"mcu-watchdog");
+  assert.equal(valid.result.timeoutMs,100);
+  assert.equal(valid.result.servicesAccepted,3);
+  assert.equal(valid.result.resetCount,1);
+  assert.equal(valid.result.resetAtMs,180);
+  assert.equal(valid.result.controllerState,"safe-reset");
+  assert.equal(valid.result.heartbeatHigh,false);
+  assert.equal(valid.result.displayText,"WATCHDOG RESET @ 180 ms");
+  assert.equal(valid.result.firmwareExecuted,false);
+
+  const healthy=updateComponent(project,"fixture",{value:"ServiceTimesMs 0,40,80,120,160,200; RunDurationMs 300"});
+  const healthyResult=runSupportedAnalysis(healthy);
+  assert.equal(healthyResult.state,"complete",healthyResult.message);
+  assert.equal(healthyResult.result.resetCount,0);
+  assert.equal(healthyResult.result.controllerState,"running");
+  assert.equal(healthyResult.result.heartbeatHigh,true);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project,"mcu",{value:"Program Watchdog state model; TimeoutMs 0"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="WDI").endpoints=["fixture:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
