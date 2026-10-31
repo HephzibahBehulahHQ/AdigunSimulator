@@ -28,7 +28,7 @@ test("breadboard click placement keeps the accessible manual hole-entry workflow
   assert.match(app, /data-breadboard-hole=/);
   assert.match(app, /state\.breadboardPlacementMode && state\.activeView === "breadboard"/);
   assert.match(app, /assignBreadboardPin\(\$\("#breadboard-pin"\)\.value, holeTarget\.dataset\.breadboardHole\)/);
-  assert.match(app, /event\.key === "Escape" && state\.breadboardPlacementMode/);
+  assert.match(app, /event\.key === "Escape" && \(state\.breadboardPlacementMode \|\| state\.schematicWireMode\)/);
   assert.match(app, /tabindex="-1"/);
   assert.match(app, /\["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"\]/);
   assert.match(app, /requestAnimationFrame\(\(\) => \$\("#design-canvas \[data-breadboard-hole\]"\)\?\.focus\(\)\)/);
