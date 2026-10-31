@@ -7034,7 +7034,7 @@
     {
       "id": "183-three-view-led-project",
       "title": "Three-view LED project",
-      "status": "in-review",
+      "status": "released",
       "objective": "Edit the LED series resistor once and verify the shared component and net graph remains consistent across breadboard, schematic, and PCB projections, while unsupported PCB mappings remain reconciliation items and serialized undo/redo restore exact project snapshots.",
       "acceptanceTest": "tests/core.test.mjs: catalogue three-view LED edit shares component identity and restores undo/redo snapshots",
       "testId": "core-three-view-led-sync-history",
@@ -7042,7 +7042,36 @@
       "readmeFile": "examples/183-three-view-led-project/README.md",
       "safetyNote": "Structural editor-state check only. Breadboard and schematic mappings are generic; the starter LED project has no PCB mappings and must remain in reconciliation with no invented placement. DRC/manufacturing are not validated.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 183,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41213985210",
+        "headRevision": "53d1c19e4e794fa8caf17508b2ac229553240122",
+        "engine": "Canonical project graph with serialized undo/redo snapshots",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "three-view-led-sync-history-v1",
+        "expectedResult": {
+          "kind": "three-view-led-sync-history",
+          "componentCount": 4,
+          "netCount": 3,
+          "reference": "R1",
+          "originalValue": "330 Ω",
+          "editedValue": "470 Ω",
+          "undoValue": "330 Ω",
+          "redoValue": "470 Ω",
+          "reconciliationByView": {
+            "breadboard": 0,
+            "schematic": 0,
+            "pcb": 4
+          },
+          "identitiesPreserved": true,
+          "sharedIdentity": true,
+          "historyRestored": true,
+          "redoRestored": true
+        }
+      }
     }
   ]
 }
