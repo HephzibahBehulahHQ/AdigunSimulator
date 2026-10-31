@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-003-pushbutton-led",
+  "metadata": {
+    "name": "5 V Pushbutton LED with Pull-down",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          60,
+          80
+        ],
+        "schematic": [
+          60,
+          80
+        ],
+        "pcb": [
+          60,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "switch-1",
+      "libraryId": "input.pushbutton",
+      "reference": "SW1",
+      "value": "Normally open",
+      "position": {
+        "breadboard": [
+          160,
+          80
+        ],
+        "schematic": [
+          160,
+          80
+        ],
+        "pcb": [
+          160,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-series",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          260,
+          80
+        ],
+        "schematic": [
+          260,
+          80
+        ],
+        "pcb": [
+          260,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-pulldown",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          360,
+          80
+        ],
+        "schematic": [
+          360,
+          80
+        ],
+        "pcb": [
+          360,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          460,
+          80
+        ],
+        "schematic": [
+          460,
+          80
+        ],
+        "pcb": [
+          460,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          80
+        ],
+        "schematic": [
+          560,
+          80
+        ],
+        "pcb": [
+          560,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "switch-1:1"
+      ]
+    },
+    {
+      "id": "SW_OUT",
+      "endpoints": [
+        "switch-1:2",
+        "resistor-series:1",
+        "resistor-pulldown:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "resistor-series:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "led-1:K",
+        "source-1:-",
+        "resistor-pulldown:2",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}
