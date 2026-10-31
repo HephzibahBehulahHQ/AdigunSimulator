@@ -1158,7 +1158,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 135);
+  assert.equal(getExampleCoverage(registry).total, 136);
   assert.equal(getExampleCoverage(registry).released, 125);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 75);
@@ -3461,4 +3461,41 @@ test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs,
   assert.ok(createUsbCPinReport(broken).includes('"J1","B5","CC2","CC1"'));
   broken.pcbFabrication.pads=broken.pcbFabrication.pads.filter(pad=>!(pad.reference==="J1"&&pad.pin==="A5"));
   assert.equal(validatePcbFabrication(broken).status,"failed");
+});
+
+test("catalogue BME280 sensor breakout checks native/ERC subset, sensor wiring, BOM, placement, DRC and exports", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/126-bme280-breakout.adigun.json",import.meta.url)));
+  const {createPcbPlacementReport}=await import("../js/pcb-placement-report.mjs");
+  const electrical=validateProject(project);
+  assert.equal(electrical.valid,true,JSON.stringify(electrical.errors));
+  assert.equal(electrical.errors.length,0);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  assert.equal(analysis.result.kind,"bme280-i2c-sensor-breakout");
+  assert.equal(analysis.result.regulatedVoltageV,3.3);
+  assert.equal(analysis.result.i2cAddress,"0x76");
+  assert.equal(analysis.result.sensorPinMapValid,true);
+  assert.equal(analysis.result.sdaPullupOhms,4700);
+  assert.equal(analysis.result.sclPullupOhms,4700);
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  const placement=createPcbPlacementReport(project);
+  const bom=generated.files["BOM.csv"];
+  for(const part of project.pcbFabrication.parts) {
+    assert.ok(bom.includes('"'+part.reference+'"'),part.reference);
+    assert.ok(placement.includes('"'+part.reference+'"'),part.reference);
+  }
+  const files={...generated.files,"Placement.csv":placement};
+  for(const [name,content] of Object.entries(files)){
+    const expected=await readFile(new URL("../examples/126-bme280-breakout/expected/"+name,import.meta.url),"utf8");
+    assert.equal(content,expected,name);
+  }
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SCL").endpoints=broken.nets.find(net=>net.id==="SCL").endpoints.filter(endpoint=>endpoint!=="bme:SCL");
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+  const badPad=structuredClone(project);
+  badPad.pcbFabrication.pads.find(pad=>pad.reference==="U1"&&pad.number==="3").netId="SCL";
+  assert.equal(validatePcbFabrication(badPad).status,"failed");
 });

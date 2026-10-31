@@ -5197,6 +5197,19 @@
           "hardwareManufacturingQualified": false
         }
       }
+    },
+    {
+      "id": "126-bme280-breakout",
+      "title": "BME280 I²C sensor breakout",
+      "status": "in-review",
+      "objective": "Build a BME280 environmental sensor breakout around a TLV70033 3.3 V regulator, local bypass capacitors and 4.7 kΩ I²C pull-ups; verify the manufacturer pin map, native/ERC subset, bounded DRC, BOM and placement export.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue BME280 sensor breakout checks native/ERC subset, sensor wiring, BOM, placement, DRC and exports",
+      "testId": "core-bme280-breakout",
+      "projectFile": "examples/126-bme280-breakout.adigun.json",
+      "readmeFile": "examples/126-bme280-breakout/README.md",
+      "safetyNote": "Educational BME280 and TLV70033 breakout template. Manufacturer pin functions and electrical ranges are recorded; package land patterns, regulator thermal limits, I²C timing, sensor conversion and manufacturing compliance require separate review.",
+      "scope": "catalogue",
+      "catalogueIndex": 126
     }
   ]
 }
