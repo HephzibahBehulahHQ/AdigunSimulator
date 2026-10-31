@@ -42,6 +42,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-counter-4bit-ideal", category: "Active", type: "Ideal 4-bit binary counter (static state)", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Ideal modulo-16 rising-edge counter", simulation: "analytical-4bit-counter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-bcd-display-ideal", category: "Active", type: "Ideal BCD decade counter and seven-segment decoder", prefix: "U", pins: ["CLK", "RESET_N", "SEG_A", "SEG_B", "SEG_C", "SEG_D", "SEG_E", "SEG_F", "SEG_G", "VCC", "GND"], defaultValue: "Ideal BCD decade counter; common-cathode segments", simulation: "analytical-bcd-counter-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-traffic-fsm-ideal", category: "Active", type: "Ideal six-phase traffic-light state machine", prefix: "U", pins: ["CLK", "RESET_N", "NS_R", "NS_Y", "NS_G", "EW_R", "EW_Y", "EW_G", "VCC", "GND"], defaultValue: "Six-phase traffic-light FSM", simulation: "analytical-traffic-light-fsm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-debounce-ideal", category: "Active", type: "Ideal N-sample digital debounce filter", prefix: "U", pins: ["INPUT", "CLK", "RESET_N", "Q", "VCC", "GND"], defaultValue: "Stable samples 3", simulation: "analytical-digital-debounce", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -397,6 +398,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const fourBitCounters = project.components.filter((item) => item.libraryId === "active.logic-counter-4bit-ideal");
   const bcdDisplays = project.components.filter((item) => item.libraryId === "active.logic-bcd-display-ideal");
   const trafficFsms = project.components.filter((item) => item.libraryId === "active.logic-traffic-fsm-ideal");
+  const debounceFilters = project.components.filter((item) => item.libraryId === "active.logic-debounce-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -461,6 +463,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (debounceFilters.length === 1 && source.length === 4 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
+    return analyseDigitalDebounce(project, { sources: source, filter: debounceFilters[0], resistor: resistor[0], led: led[0], ground: ground[0], previousState, validation });
   }
   if (trafficFsms.length === 1 && source.length === 3 && resistor.length === 6 && led.length === 6 && ground.length === 1 && project.components.length === 17) {
     return analyseTrafficLightFsm(project, { sources: source, fsm: trafficFsms[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
@@ -1439,6 +1444,42 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+
+
+function analyseDigitalDebounce(project,{sources,filter,resistor,led,ground,previousState,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(filter,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  const inputNet=n(filter,"INPUT"),clockNet=n(filter,"CLK"),resetNet=n(filter,"RESET_N");
+  const inputSource=sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===inputNet);
+  const clockSource=sources.find(v=>v!==supply&&v!==inputSource&&n(v,"-")===groundNet&&n(v,"+")===clockNet);
+  const resetSource=sources.find(v=>v!==supply&&v!==inputSource&&v!==clockSource&&n(v,"-")===groundNet&&n(v,"+")===resetNet);
+  const outputNet=n(filter,"Q"),outputPath=(n(resistor,"1")===outputNet&&n(resistor,"2")===n(led,"A"))||(n(resistor,"2")===outputNet&&n(resistor,"1")===n(led,"A"));
+  const sampleMatch=String(filter.value).match(/(?:stable\s+samples?\s*)(\d+)/i),sampleCount=sampleMatch?Number(sampleMatch[1]):Number.NaN;
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,inputVoltage=inputSource?voltageValue(inputSource.value):Number.NaN,clockVoltage=clockSource?voltageValue(clockSource.value):Number.NaN,resetVoltage=resetSource?voltageValue(resetSource.value):Number.NaN;
+  const resistance=resistanceValue(resistor.value),forwardV=forwardVoltage(led.value),thresholdV=supplyVoltage/2;
+  if(!supply||!inputSource||!clockSource||!resetSource||!outputPath||n(filter,"GND")!==groundNet||n(led,"K")!==groundNet
+    ||![sampleCount,supplyVoltage,inputVoltage,clockVoltage,resetVoltage,resistance,forwardV].every(Number.isFinite)
+    ||!Number.isInteger(sampleCount)||sampleCount<2||sampleCount>20||supplyVoltage<=0||[inputVoltage,clockVoltage,resetVoltage].some(v=>v<0||v>supplyVoltage)||resistance<=0||forwardV<=0){
+    return {state:"blocked",message:"Wire the ideal sampled debounce filter, 2–20 stable-sample setting, 0–VCC raw input/clock/reset, and current-limited Q indicator.",validation};
+  }
+  const inputHigh=inputVoltage>=thresholdV,clockHigh=clockVoltage>=thresholdV,resetActive=resetVoltage<thresholdV,previous=previousState?.result,previousClockHigh=previous?.clockHigh,risingEdge=previousClockHigh===false&&clockHigh;
+  if(!resetActive&&clockHigh&&typeof previousClockHigh!=="boolean")return {state:"blocked",message:"Start with the sampling clock low, then apply rising edges to process the input history.",validation};
+  let output,candidateHigh,stableSamples,mode;
+  if(resetActive){output=false;candidateHigh=null;stableSamples=0;mode="asynchronous reset";}
+  else if(risingEdge){
+    candidateHigh=inputHigh===previous?.candidateHigh?inputHigh:inputHigh;
+    stableSamples=inputHigh===previous?.candidateHigh?(previous.stableSamples||0)+1:1;
+    output=stableSamples>=sampleCount?inputHigh:(typeof previous?.output==="boolean"?previous.output:false);
+    mode=stableSamples>=sampleCount&&output!==previous?.output?"debounced transition":"sample";
+  }else{
+    output=typeof previous?.output==="boolean"?previous.output:false;
+    candidateHigh=previous?.candidateHigh??null;stableSamples=previous?.stableSamples||0;
+    mode=clockHigh?"high-level hold":"low-level hold";
+  }
+  const qVoltage=output?supplyVoltage:0,ledCurrentA=output?Math.max(0,(qVoltage-forwardV)/resistance):0;
+  return {state:"complete",engine:"Ideal clocked N-sample digital debounce filter",message:"Changes the output only after the raw digital input has matched for the configured number of rising-edge samples. This is a digital stability-window model, not a simulated RC/Schmitt analog circuit; analog time constants, bounce duration, thresholds, metastability and device-specific behavior are omitted.",result:{kind:"digital-debounce",supplyVoltage,logicThresholdV:thresholdV,inputVoltage,inputHigh,clockVoltage,clockHigh,resetVoltage,resetActive,risingEdge,sampleCount,candidateHigh,stableSamples,output,qVoltage,ledCurrentA,mode},validation};
+}
 
 function analyseTrafficLightFsm(project,{sources,fsm,resistors,leds,ground,previousState,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);

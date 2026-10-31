@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-050-debounced-digital-input",
+  "metadata": {
+    "name": "Debounced Digital Input",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "raw-input",
+      "libraryId": "power.dc-source",
+      "reference": "RAW",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          160,
+          55
+        ],
+        "schematic": [
+          160,
+          55
+        ],
+        "pcb": [
+          160,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "clock-input",
+      "libraryId": "power.dc-source",
+      "reference": "SAMPLE_CLK",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          280,
+          55
+        ],
+        "schematic": [
+          280,
+          55
+        ],
+        "pcb": [
+          280,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "reset-input",
+      "libraryId": "power.dc-source",
+      "reference": "RESET_N",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          400,
+          55
+        ],
+        "schematic": [
+          400,
+          55
+        ],
+        "pcb": [
+          400,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "debounce",
+      "libraryId": "active.logic-debounce-ideal",
+      "reference": "U1",
+      "value": "Stable samples 3",
+      "position": {
+        "breadboard": [
+          40,
+          155
+        ],
+        "schematic": [
+          40,
+          155
+        ],
+        "pcb": [
+          40,
+          155
+        ]
+      }
+    },
+    {
+      "instanceId": "q-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RQ",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          160,
+          155
+        ],
+        "schematic": [
+          160,
+          155
+        ],
+        "pcb": [
+          160,
+          155
+        ]
+      }
+    },
+    {
+      "instanceId": "q-led",
+      "libraryId": "diode.led-red",
+      "reference": "DQ",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          280,
+          155
+        ],
+        "schematic": [
+          280,
+          155
+        ],
+        "pcb": [
+          280,
+          155
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          400,
+          155
+        ],
+        "schematic": [
+          400,
+          155
+        ],
+        "pcb": [
+          400,
+          155
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "debounce:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "raw-input:-",
+        "clock-input:-",
+        "reset-input:-",
+        "debounce:GND",
+        "q-led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "RAW",
+      "endpoints": [
+        "raw-input:+",
+        "debounce:INPUT"
+      ]
+    },
+    {
+      "id": "CLOCK",
+      "endpoints": [
+        "clock-input:+",
+        "debounce:CLK"
+      ]
+    },
+    {
+      "id": "RESET_N",
+      "endpoints": [
+        "reset-input:+",
+        "debounce:RESET_N"
+      ]
+    },
+    {
+      "id": "Q",
+      "endpoints": [
+        "debounce:Q",
+        "q-resistor:1"
+      ]
+    },
+    {
+      "id": "Q_LED",
+      "endpoints": [
+        "q-resistor:2",
+        "q-led:A"
+      ]
+    }
+  ],
+  "history": []
+}

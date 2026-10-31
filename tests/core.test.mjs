@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 59);
+  assert.equal(getExampleCoverage(registry).total, 60);
   assert.equal(getExampleCoverage(registry).released, 49);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 151);
@@ -1627,5 +1627,42 @@ test("catalogue traffic-light FSM cycles safe six-phase states without opposing 
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "LAMP_EW_G").endpoints = ["fsm:EW_G"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue digital debouncer rejects short bounce and accepts stable samples", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/050-debounced-digital-input.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-debounce-ideal"), true);
+  const reset = runSupportedAnalysis(project);
+  assert.equal(reset.state, "complete");
+  assert.equal(reset.result.output, false);
+  let p = updateComponent(project, "reset-input", { value: "5 V" });
+  let state = runSupportedAnalysis(p, { previousState: reset });
+  const bounce = [5, 0, 5, 0, 5, 0];
+  for (const voltage of bounce) {
+    p = updateComponent(p, "raw-input", { value: `${voltage} V` });
+    p = updateComponent(p, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+    assert.equal(state.state, "complete");
+    assert.equal(state.result.output, false);
+    p = updateComponent(p, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+  }
+  for (let sample = 1; sample <= 3; sample++) {
+    p = updateComponent(p, "raw-input", { value: "5 V" });
+    p = updateComponent(p, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+    assert.equal(state.state, "complete");
+    assert.equal(state.result.stableSamples, sample);
+    assert.equal(state.result.output, sample === 3);
+    p = updateComponent(p, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+  }
+  assert.equal(state.result.output, true);
+  assert.match(state.message, /not a simulated RC\/Schmitt analog circuit/);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "raw-input", { value: "6 V" })).state, "blocked");
+  const invalidCount = updateComponent(project, "debounce", { value: "Stable samples 1" });
+  assert.equal(runSupportedAnalysis(invalidCount).state, "blocked");
 });
 
