@@ -3471,6 +3471,94 @@
           "offlineState": "de-energized"
         }
       }
+    },
+    {
+      "id": "085-ethernet-sensor-node",
+      "title": "Ethernet sensor node link and frame mock",
+      "status": "released",
+      "objective": "Show Ethernet link and configuration state changes, then form a local Ethernet-II header plus versioned temperature payload when the link is up and configured.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Ethernet sensor shows link transitions and builds a local mock frame",
+      "testId": "core-ethernet-sensor-frame",
+      "projectFile": "examples/085-ethernet-sensor-node.adigun.json",
+      "safetyNote": "Local frame-format and state mock only. EtherType 0x88B5 is the IEEE local experimental value; this project is not a production protocol assignment or network implementation. It omits padding, FCS, preamble, PHY signaling, IP, switching, firmware, and packet transmission.",
+      "scope": "catalogue",
+      "catalogueIndex": 85,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41183123048",
+        "headRevision": "ae220d20512fa5806412fc980da67eefbfac09d9",
+        "engine": "Mock Ethernet-II header and sensor application payload",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "mock-ethernet2-sensor-header-v1",
+        "expectedResult": {
+          "linkTransitions": [
+            "down",
+            "negotiating",
+            "up"
+          ],
+          "linkState": "up",
+          "configurationState": "configured",
+          "deviceId": 1,
+          "temperatureC": 24.6,
+          "temperatureDeciC": 246,
+          "sequence": 42,
+          "sourceMac": "02:00:00:00:00:01",
+          "destinationMac": "02:00:00:00:00:02",
+          "etherType": "0x88B5",
+          "headerBytes": [
+            2,
+            0,
+            0,
+            0,
+            0,
+            2,
+            2,
+            0,
+            0,
+            0,
+            0,
+            1,
+            136,
+            181
+          ],
+          "payloadBytes": [
+            1,
+            1,
+            0,
+            42,
+            0,
+            246
+          ],
+          "frameBytes": [
+            2,
+            0,
+            0,
+            0,
+            0,
+            2,
+            2,
+            0,
+            0,
+            0,
+            0,
+            1,
+            136,
+            181,
+            1,
+            1,
+            0,
+            42,
+            0,
+            246
+          ],
+          "frameLengthOctets": 20,
+          "paddingIncluded": false,
+          "fcsIncluded": false,
+          "packetTransmitted": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
