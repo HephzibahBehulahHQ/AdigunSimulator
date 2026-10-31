@@ -16,7 +16,7 @@ import {
   validateProject
 } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
-import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
+import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
@@ -108,7 +108,8 @@ const state = {
   history: [],
   future: [],
   dirty: initialProject.recovered,
-  lastValidation: null
+  lastValidation: null,
+  breadboardSyncPreview: null
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -342,6 +343,11 @@ function breadboardPinMarkers(project) {
   }).join("");
 }
 
+
+function breadboardSyncFingerprint(project) {
+  return JSON.stringify({ components: project.components, nets: project.nets, breadboard: project.breadboard });
+}
+
 function renderBreadboardControls() {
   const config = state.project.breadboard;
   const pinSelect = $("#breadboard-pin");
@@ -363,6 +369,20 @@ function renderBreadboardControls() {
     return `<li><span>${escape(component?.reference ?? endpoint)} → ${escape(hole)}</span><button type="button" data-bb-unassign="${escape(endpoint)}" aria-label="${escape(t("breadboardRemovePlacement"))} ${escape(endpoint)}">×</button></li>`;
   }).join("") || `<li>${escape(t("breadboardNoPlacements"))}</li>`;
   $("#breadboard-jumper-list").innerHTML = (config?.jumpers ?? []).map((jumper, index) => `<li><span>${escape(jumper.from)} ↔ ${escape(jumper.to)}</span><button type="button" data-bb-remove-jumper="${index}" aria-label="${escape(t("breadboardRemoveJumper"))} ${escape(jumper.from)} ${escape(jumper.to)}">×</button></li>`).join("") || `<li>${escape(t("breadboardNoJumpers"))}</li>`;
+  const syncPreview = state.breadboardSyncPreview;
+  const stale = Boolean(syncPreview && syncPreview.fingerprint !== breadboardSyncFingerprint(state.project));
+  $("#breadboard-sync-summary").textContent = !syncPreview
+    ? t("breadboardSyncDefault")
+    : stale ? t("breadboardSyncStale")
+    : syncPreview.state !== "complete" ? t("breadboardSyncBlocked")
+    : syncPreview.changed ? `${t("breadboardSyncDiff")} ${syncPreview.mergedNetIds.length} ${t("breadboardSyncMerged")} · ${syncPreview.splitNetIds.length} ${t("breadboardSyncSplit")}`
+    : t("breadboardSyncReady");
+  $("#breadboard-sync-net-list").innerHTML = syncPreview?.state === "complete" && !stale
+    ? syncPreview.nets.map((net) => `<li><strong>${escape(net.id)}</strong><span>${net.endpoints.map(escape).join(", ")}</span></li>`).join("") || `<li>${escape(t("breadboardSyncNoNets"))}</li>`
+    : "";
+  $("#breadboard-sync-apply").hidden = !syncPreview || syncPreview.state !== "complete";
+  $("#breadboard-sync-apply").disabled = !syncPreview || syncPreview.state !== "complete" || !syncPreview.changed || stale;
+
 }
 
 function commitBreadboardEdit(project, message) {
@@ -1030,6 +1050,33 @@ function handleAction(action) {
   if (action === "undo") undo();
   if (action === "redo") redo();
   if (action === "run-simulation") runAnalysis();
+
+  if (action === "breadboard-sync-review") {
+    const preview = deriveBreadboardSchematicNets(state.project, { getPartPins: (libraryId) => findLibraryPart(libraryId)?.pins ?? [] });
+    state.breadboardSyncPreview = { ...preview, fingerprint: breadboardSyncFingerprint(state.project) };
+    renderBreadboardControls();
+    log(preview.message);
+  }
+  if (action === "breadboard-sync-apply") {
+    const preview = state.breadboardSyncPreview;
+    if (!preview || preview.state !== "complete" || preview.fingerprint !== breadboardSyncFingerprint(state.project) || !preview.changed) {
+      state.breadboardSyncPreview = null;
+      renderBreadboardControls();
+      return showDialog(t("breadboardSyncReview"), t("breadboardSyncStale"));
+    }
+    const next = { ...state.project, nets: preview.nets, metadata: { ...state.project.metadata, updatedAt: new Date().toISOString() } };
+    const validation = validateProject(next);
+    if (!validation.valid) return showDialog(t("breadboardSyncReview"), validation.errors.map((issue) => issue.message).join(" "));
+    captureHistory();
+    state.project = next;
+    state.breadboardSyncPreview = null;
+    state.dirty = true;
+    state.recoveryActive = true;
+    state.lastValidation = null;
+    render();
+    validateAndReport();
+    log("[SYNC] Applied reviewed physical breadboard connectivity to the canonical netlist shared by schematic and PCB views.");
+  }
   if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 199 released and tested catalogue examples, bounded analytical models, and a single-sided PCB export preview for projects that include fabrication data. Its checks do not replace manufacturer validation; the application is not a general SPICE engine.");
 }
 
