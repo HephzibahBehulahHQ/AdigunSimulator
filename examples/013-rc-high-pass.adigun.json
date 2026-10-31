@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "example-013-rc-high-pass",
+  "metadata": {
+    "name": "100 µF / 1 kΩ RC High-Pass Filter",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    { "instanceId": "source-1", "libraryId": "power.ac-source", "reference": "V1", "value": "1 V", "position": { "breadboard": [60, 142], "schematic": [95, 128], "pcb": [92, 130] } },
+    { "instanceId": "capacitor-1", "libraryId": "passive.capacitor", "reference": "C1", "value": "100 µF", "position": { "breadboard": [250, 142], "schematic": [260, 128], "pcb": [244, 128] } },
+    { "instanceId": "resistor-1", "libraryId": "passive.resistor", "reference": "R1", "value": "1 kΩ", "position": { "breadboard": [435, 142], "schematic": [445, 128], "pcb": [425, 128] } },
+    { "instanceId": "ground-1", "libraryId": "ground.signal", "reference": "GND", "value": "0 V", "position": { "breadboard": [570, 220], "schematic": [570, 220], "pcb": [520, 220] } }
+  ],
+  "nets": [
+    { "id": "AC_IN", "endpoints": ["source-1:+", "capacitor-1:1"] },
+    { "id": "HP_OUT", "endpoints": ["capacitor-1:2", "resistor-1:1"] },
+    { "id": "GND", "endpoints": ["resistor-1:2", "source-1:-", "ground-1:0"] }
+  ],
+  "history": []
+}
