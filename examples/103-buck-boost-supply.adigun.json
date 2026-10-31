@@ -135,15 +135,15 @@
       "value": "Average CCM report",
       "position": {
         "breadboard": [
-          650,
+          620,
           50
         ],
         "schematic": [
-          650,
+          620,
           50
         ],
         "pcb": [
-          650,
+          620,
           50
         ]
       }
