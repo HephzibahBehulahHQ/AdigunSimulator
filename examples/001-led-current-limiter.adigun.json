@@ -122,7 +122,7 @@
       "resistor-1:1": "A5",
       "resistor-1:2": "A10",
       "led-1:A": "C10",
-      "led-1:K": "A15",
+      "led-1:K": "C11",
       "ground-1:0": "BM10"
     },
     "jumpers": [
@@ -131,7 +131,7 @@
         "to": "A5"
       },
       {
-        "from": "A15",
+        "from": "C11",
         "to": "BM15"
       }
     ]
