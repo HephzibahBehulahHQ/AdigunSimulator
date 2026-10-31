@@ -18,7 +18,9 @@ function isIsoDate(value) {
 function isPinMap(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value)
     && Object.keys(value).length > 0
-    && Object.entries(value).every(([pin, mapping]) => hasString(pin) && hasString(String(mapping)));
+    && Object.entries(value).every(([pin, mapping]) => hasString(pin)
+      && ((typeof mapping === "string" && hasString(mapping))
+        || (typeof mapping === "number" && Number.isSafeInteger(mapping) && mapping > 0)));
 }
 
 function hasMatchingPinMaps(symbolPinMap, footprintPadMap) {
