@@ -1667,7 +1667,7 @@ function analyseGnssRmc(project,{source,gnss,parser,display,ground,validation}){
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
   const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
   const supplyVoltage=voltageValue(source.value),sentence=field(fields(gnss.value),"Sentence")??"",match=sentence.match(/^\$(GPRMC|GNRMC),([^*]+)\*([0-9A-F]{2})$/i);
-  const body=match?.[2]??"",check=match?.[3]??"",parts=(match?.[1]+" "+body).split(" "),dataFields=body.split(",");
+  const body=match?match[1]+","+match[2]:"",check=match?.[3]??"",dataFields=body.split(",");
   let calculated=0;for(const character of body)calculated^=character.charCodeAt(0);
   const checksumValid=Boolean(match)&&calculated===Number.parseInt(check,16),fixValid=dataFields[2]==="A";
   const parseCoordinate=(raw,hemisphere,degreeDigits,maximum)=>{
