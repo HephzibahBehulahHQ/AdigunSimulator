@@ -369,6 +369,7 @@ export function runSupportedAnalysis(project) {
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
   const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
   const bridges = project.components.filter((item) => item.libraryId === "diode.bridge-ideal");
+  const supercapacitors = project.components.filter((item) => item.libraryId === "passive.supercapacitor");
   const regulators = project.components.filter((item) => item.libraryId === "active.regulator-7805-ideal");
   const usbSources = project.components.filter((item) => item.libraryId === "power.usb-source");
   const ptcFuses = project.components.filter((item) => item.libraryId === "protection.ptc-polyfuse");
@@ -388,6 +389,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (acSource.length === 1 && bridges.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 4) {
+    return analyseBridgeRectifier(project, { source: acSource[0], bridge: bridges[0], load: resistor[0], ground: ground[0], validation });
+  }
   if (acSource.length === 1 && toneControls.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePassiveToneControl(project, { source: acSource[0], control: toneControls[0], capacitor: capacitor[0], load: resistor[0], ground: ground[0], validation });
   }
@@ -580,6 +584,75 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
     engine: "Analytical ideal low-battery comparator and divider",
     message: "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
     result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
+    validation
+  };
+}
+
+function analyseBridgeRectifier(project, { source, bridge, load, ground, validation }) {
+  const sourceFields = String(source.value).split(",").map(field => field.trim());
+  const rmsMatch = sourceFields.length === 2 ? sourceFields[0].match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*RMS$/i) : null;
+  const sourceRmsVoltage = rmsMatch ? Number(rmsMatch[1]) : Number.NaN;
+  const inputFrequencyHz = sourceFields.length === 2 ? frequencyValue(sourceFields[1]) : Number.NaN;
+  const diodeDrop = voltageValue(bridge.value);
+  const loadResistance = resistanceValue(load.value);
+  if (![sourceRmsVoltage, inputFrequencyHz, diodeDrop, loadResistance].every(Number.isFinite)
+    || sourceRmsVoltage <= 0 || inputFrequencyHz <= 0 || diodeDrop <= 0 || loadResistance <= 0) {
+    return { state: "blocked", message: "The bridge model requires positive AC RMS voltage, input frequency, conducting diode drop, and load resistance.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const sourcePositive = n(source, "+"), sourceNegative = n(source, "-");
+  const ac1 = n(bridge, "AC1"), ac2 = n(bridge, "AC2");
+  const positive = n(bridge, "POS"), negative = n(bridge, "NEG");
+  const loadPositive = n(load, "1"), loadNegative = n(load, "2"), groundNet = n(ground, "0");
+  if (!sourcePositive || sourcePositive === sourceNegative || sourcePositive !== ac1 || sourceNegative !== ac2
+    || !positive || positive === negative || loadPositive !== positive || negative !== groundNet || loadNegative !== groundNet) {
+    return { state: "blocked", message: "Connect the AC source across the bridge AC inputs; connect the load across bridge positive and negative, with bridge negative referenced to ground.", validation };
+  }
+  const peakInputVoltage = sourceRmsVoltage * Math.SQRT2;
+  const peakOutputVoltage = Math.max(0, peakInputVoltage - 2 * diodeDrop);
+  const rectifiedFrequencyHz = 2 * inputFrequencyHz;
+  const durationS = 2 / inputFrequencyHz;
+  const intervals = 480;
+  const stepS = durationS / intervals;
+  const pointAt = index => {
+    const timeS = index * stepS;
+    const inputVoltage = peakInputVoltage * Math.sin(2 * Math.PI * inputFrequencyHz * timeS);
+    const outputVoltage = Math.max(0, Math.abs(inputVoltage) - 2 * diodeDrop);
+    return { timeS, inputVoltage, outputVoltage, loadCurrentA: outputVoltage / loadResistance };
+  };
+  const waveform = [];
+  let averageVoltageIntegral = 0, rmsVoltageIntegral = 0, sourcePowerIntegral = 0;
+  let previous = pointAt(0);
+  waveform.push(previous);
+  for (let i = 1; i <= intervals; i += 1) {
+    const current = pointAt(i);
+    const weight = i === intervals ? 0.5 : 1;
+    const previousWeight = i === 1 ? 0.5 : 1;
+    averageVoltageIntegral += (previous.outputVoltage * previousWeight + current.outputVoltage * weight) * stepS / 2;
+    rmsVoltageIntegral += (previous.outputVoltage ** 2 * previousWeight + current.outputVoltage ** 2 * weight) * stepS / 2;
+    const previousPower = Math.abs(previous.inputVoltage) * previous.loadCurrentA;
+    const currentPower = Math.abs(current.inputVoltage) * current.loadCurrentA;
+    sourcePowerIntegral += (previousPower * previousWeight + currentPower * weight) * stepS / 2;
+    if (i % 5 === 0 || i === intervals) waveform.push(current);
+    previous = current;
+  }
+  const averageOutputVoltage = averageVoltageIntegral / durationS;
+  const rmsOutputVoltage = Math.sqrt(rmsVoltageIntegral / durationS);
+  const averageLoadCurrentA = averageOutputVoltage / loadResistance;
+  const averageLoadPowerW = rmsOutputVoltage ** 2 / loadResistance;
+  const estimatedSourcePowerW = sourcePowerIntegral / durationS;
+  const bridgeDissipationW = estimatedSourcePowerW - averageLoadPowerW;
+  const powerBalanceW = estimatedSourcePowerW - averageLoadPowerW - bridgeDissipationW;
+  if (![peakInputVoltage, peakOutputVoltage, rectifiedFrequencyHz, averageOutputVoltage, rmsOutputVoltage, averageLoadCurrentA, averageLoadPowerW, estimatedSourcePowerW, bridgeDissipationW, powerBalanceW].every(Number.isFinite)) {
+    return { state: "blocked", message: "The bridge waveform exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical full-wave bridge waveform with fixed diode drops",
+    message: "Generated a sampled full-wave rectified load waveform with two conducting diode drops. No smoothing capacitor is present. Diode switching, reverse recovery, source impedance, transformer behavior, component tolerance, thermal effects, ratings, and general SPICE are not modeled.",
+    result: { kind: "bridge-rectifier-waveform", sourceRmsVoltage, inputFrequencyHz, peakInputVoltage, diodeDropEach: diodeDrop, peakOutputVoltage, rectifiedFrequencyHz, rippleFrequencyHz: rectifiedFrequencyHz, loadResistance, averageOutputVoltage, rmsOutputVoltage, averageLoadCurrentA, averageLoadPowerW, estimatedSourcePowerW, bridgeDissipationW, powerBalanceW, waveform },
     validation
   };
 }
