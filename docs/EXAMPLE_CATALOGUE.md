@@ -2,7 +2,7 @@
 
 This is the authoritative scope catalogue for the 200 required examples. A row specifies a project, expected behaviour and acceptance criterion; it is **not** evidence that the project has been implemented or passed.
 
-The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has nineteen released analytical catalogue examples (rows 1–19) and ten supplemental studies; 181 catalogue entries remain planned until their release requirements are met. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 19, “NTC temperature divider,” uses a generic Beta-law model at 0, 25, and 60 °C.
+The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has twenty released analytical catalogue examples (rows 1–20) and ten supplemental studies; 180 catalogue entries remain planned until their release requirements are met. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 20, “LDR night light,” uses a generic log-interpolated sensor and ideal comparator threshold.
 
 ## 12. Catalogue of 200 individually specified, testable example projects
 
