@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-034-pmos-high-side-switch",
+  "metadata": {
+    "name": "P-Channel High-Side Switch",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "gate-drive",
+      "libraryId": "power.dc-source",
+      "reference": "VG",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "pmos",
+      "libraryId": "active.pmos-high-side-ideal",
+      "reference": "Q1",
+      "value": "Vth 2 V; RdsOn 0.1 Ω; |VGS|max 20 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "gate-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RG",
+      "value": "100 kΩ",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RL",
+      "value": "120 Ω",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "pmos:S"
+      ]
+    },
+    {
+      "id": "GATE",
+      "endpoints": [
+        "gate-resistor:2",
+        "pmos:G"
+      ]
+    },
+    {
+      "id": "LOAD",
+      "endpoints": [
+        "pmos:D",
+        "load:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "gate-drive:-",
+        "load:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "CONTROL",
+      "endpoints": [
+        "gate-drive:+",
+        "gate-resistor:1"
+      ]
+    }
+  ],
+  "history": []
+}

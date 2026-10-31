@@ -544,6 +544,23 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue P-MOS high-side switch drives load and blocks gate-source overvoltage",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/034-pmos-high-side-switch.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const on=runSupportedAnalysis(project);
+  assert.equal(on.state,"complete");
+  assert.equal(on.result.kind,"pmos-high-side-switch");
+  assert.equal(on.result.switchOn,true);
+  assert.ok(on.result.loadVoltage>11.9);
+  assert.ok(on.result.loadCurrentA>0.09);
+  const off=runSupportedAnalysis(updateComponent(project,"gate-drive",{value:"12 V"}));
+  assert.equal(off.result.switchOn,false);
+  assert.equal(off.result.loadCurrentA,0);
+  assert.equal(off.result.loadVoltage,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"gate-drive",{value:"-9 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"gate-drive",{value:"13 V"})).state,"blocked");
+});
+
 test("catalogue NMOS low-side driver switches coil and clamps turn-off with a flyback diode",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/033-nmos-low-side-switch.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -1111,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 43);
+  assert.equal(getExampleCoverage(registry).total, 44);
   assert.equal(getExampleCoverage(registry).released, 33);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 167);

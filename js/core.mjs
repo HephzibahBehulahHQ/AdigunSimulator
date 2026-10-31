@@ -25,6 +25,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "diode.schottky", category: "Active", type: "Schottky diode (fixed-drop estimate)", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 0.3 V", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.nmos-switch", category: "Active", type: "N-channel MOSFET (ideal PWM switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.pmos-high-side-ideal", category: "Active", type: "P-channel MOSFET (ideal high-side switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V; RdsOn 0.1 Ω; |VGS|max 20 V", simulation: "analytical-pmos-high-side", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-green", category: "Active", type: "Green LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.1 V", simulation: "analytical-polarity-indicator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "ground.signal", category: "Power & Ground", type: "Signal ground", prefix: "GND", pins: ["0"], defaultValue: "0 V", simulation: "reference", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -383,6 +384,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const npnTransistors = project.components.filter((item) => item.libraryId === "active.npn-small-signal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
+  const pmosSwitches = project.components.filter((item) => item.libraryId === "active.pmos-high-side-ideal");
   const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
   const bridges = project.components.filter((item) => item.libraryId === "diode.bridge-ideal");
   const zeners = project.components.filter((item) => item.libraryId === "diode.zener-ideal");
@@ -425,6 +427,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (acSource.length === 1 && toneControls.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePassiveToneControl(project, { source: acSource[0], control: toneControls[0], capacitor: capacitor[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (source.length === 2 && pmosSwitches.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 6) {
+    return analysePmosHighSideSwitch(project, { sources: source, mosfet: pmosSwitches[0], resistors: resistor, ground: ground[0], validation });
   }
   if (source.length === 2 && mosfets.length === 1 && schottkyDiodes.length === 1 && resistor.length === 1 && inductor.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analyseNmosLowSideSwitch(project, { sources: source, mosfet: mosfets[0], diode: schottkyDiodes[0], coilResistance: resistor[0], coil: inductor[0], ground: ground[0], validation });
@@ -998,6 +1003,24 @@ function analysePassiveToneControl(project, { source, control, capacitor, load, 
     result: { kind: "passive-tone-control", inputAmplitudeV, maximumResistance, positionPercent, seriesResistance, capacitance, loadResistance, cutoffHz, response },
     validation
   };
+}
+
+function analysePmosHighSideSwitch(project,{sources,mosfet,resistors,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),sourcePinNet=n(mosfet,"S"),drainNet=n(mosfet,"D"),gateNet=n(mosfet,"G");
+  const supply=sources.find(part=>n(part,"-")===groundNet&&n(part,"+")===sourcePinNet);
+  const gateSource=sources.find(part=>part!==supply&&n(part,"-")===groundNet);
+  const gateResistor=resistors.find(r=>gateSource&&((n(r,"1")===n(gateSource,"+")&&n(r,"2")===gateNet)||(n(r,"2")===n(gateSource,"+")&&n(r,"1")===gateNet)));
+  const load=resistors.find(r=>r!==gateResistor&&((n(r,"1")===drainNet&&n(r,"2")===groundNet)||(n(r,"2")===drainNet&&n(r,"1")===groundNet)));
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,gateVoltage=gateSource?voltageValue(gateSource.value):Number.NaN,rGate=gateResistor?resistanceValue(gateResistor.value):Number.NaN,rLoad=load?resistanceValue(load.value):Number.NaN;
+  const vgs=gateVoltage-supplyVoltage,vth=2,rdsOn=0.1,vgsAbsMax=20;
+  if(!supply||!gateSource||!gateResistor||!load||n(supply,"-")!==groundNet||![supplyVoltage,gateVoltage,rGate,rLoad].every(Number.isFinite)||supplyVoltage<=0||gateVoltage<0||gateVoltage>supplyVoltage||rGate<=0||rLoad<=0||Math.abs(vgs)>vgsAbsMax){
+    return {state:"blocked",message:"Use a positive load and gate resistor, keep the gate drive within the supply range, and respect the modeled ±20 V gate-source limit.",validation};
+  }
+  const vsg=supplyVoltage-gateVoltage,switchOn=vsg>=vth,loadCurrentA=switchOn?supplyVoltage/(rLoad+rdsOn):0,loadVoltage=switchOn?loadCurrentA*rLoad:0,sourceDrainDropV=switchOn?loadCurrentA*rdsOn:supplyVoltage;
+  return {state:"complete",engine:"Ideal P-channel MOSFET high-side switching estimate",message:"Uses a 2 V source-gate turn-on threshold, 0.1 Ω on-resistance, and a generic ±20 V gate-source limit. It omits switching edges, gate charge, body-diode transients, thermal behavior, and device-specific ratings.",result:{kind:"pmos-high-side-switch",supplyVoltage,gateVoltage,gateSourceVoltageV:vgs,sourceGateVoltageV:vsg,thresholdV:vth,gateSourceAbsoluteMaximumV:vgsAbsMax,switchOn,loadResistanceOhm:rLoad,loadVoltage,loadCurrentA,sourceDrainDropV},validation};
 }
 
 function analyseNmosLowSideSwitch(project,{sources,mosfet,diode,coilResistance,coil,ground,validation}){
