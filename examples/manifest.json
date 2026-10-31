@@ -2462,6 +2462,18 @@
           "pullUps": "one 4.7 kΩ resistor on each bus line"
         }
       }
+    },
+    {
+      "id": "059-spi-display",
+      "title": "SPI display byte transfer",
+      "status": "in-review",
+      "objective": "Deliver a configured byte MSB-first to an ideal SPI display endpoint in mode 0 and verify chip-select, sample edge, byte value, and transfer duration.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue SPI display receives mode-0 bytes MSB-first",
+      "testId": "core-spi-display",
+      "projectFile": "examples/059-spi-display.adigun.json",
+      "safetyNote": "Ideal transaction-level digital fixture. Display command sets, pixel rendering, signal integrity, setup/hold timing margins, and physical device limits are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 59
     }
   ]
 }
