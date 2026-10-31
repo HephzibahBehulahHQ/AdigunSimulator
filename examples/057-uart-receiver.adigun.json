@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-057-uart-receiver",
+  "metadata": {
+    "name": "UART 8N1 Receiver and Framing-Error Detector",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          45,
+          60
+        ],
+        "schematic": [
+          45,
+          60
+        ],
+        "pcb": [
+          45,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "serial-frame",
+      "libraryId": "input.uart-frame-source",
+      "reference": "SIG1",
+      "value": "Bits 0,1,0,1,0,0,1,0,1,1; Baud 9600",
+      "position": {
+        "breadboard": [
+          130,
+          60
+        ],
+        "schematic": [
+          130,
+          60
+        ],
+        "pcb": [
+          130,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "receiver",
+      "libraryId": "active.uart-rx-ideal",
+      "reference": "U1",
+      "value": "8N1 frame decoder",
+      "position": {
+        "breadboard": [
+          230,
+          60
+        ],
+        "schematic": [
+          230,
+          60
+        ],
+        "pcb": [
+          230,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RVALID",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          330,
+          60
+        ],
+        "schematic": [
+          330,
+          60
+        ],
+        "pcb": [
+          330,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "DVALID",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          425,
+          60
+        ],
+        "schematic": [
+          425,
+          60
+        ],
+        "pcb": [
+          425,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          520,
+          60
+        ],
+        "schematic": [
+          520,
+          60
+        ],
+        "pcb": [
+          520,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "receiver:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "serial-frame:GND",
+        "receiver:GND",
+        "led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "RX",
+      "endpoints": [
+        "serial-frame:TX",
+        "receiver:RX"
+      ]
+    },
+    {
+      "id": "VALID",
+      "endpoints": [
+        "receiver:VALID",
+        "resistor:1"
+      ]
+    },
+    {
+      "id": "VALID_LED",
+      "endpoints": [
+        "resistor:2",
+        "led:A"
+      ]
+    }
+  ],
+  "history": []
+}
