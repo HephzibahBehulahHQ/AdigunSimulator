@@ -60,6 +60,13 @@ test("schematic wire tool connects named pins through the shared project net mod
   assert.match(app, /connectPins\(state\.project, state\.schematicWireStart, endpoint\)/);
 });
 
+test("PCB view renders stored fabrication geometry and labels absent footprint data", async () => {
+  const [app, html] = await Promise.all([readFile(appFile, "utf8"), readFile(indexFile, "utf8")]);
+  assert.match(app, /renderPcbPreviewSvg\(state\.project, t\("pcbNoFootprintData"\)\)/);
+  assert.match(app, /pcbAirwireSvg\(state\.project, unavailable\)/);
+  assert.match(html, /data-view="pcb"/);
+});
+
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   const logo = await readFile(new URL("../assets/brand/hephzibah-behulah-official.jpg", import.meta.url));
