@@ -5503,14 +5503,34 @@
     {
       "id": "134-panel-mount-controller",
       "title": "Panel-mount controller mechanical plan",
-      "status": "in-review",
+      "status": "released",
       "objective": "Review a panel-status controller concept's board outline, four mounting-hole dimensions, top-edge cutout, linked mechanical keepouts and single-layer electrical DRC.",
       "acceptanceTest": "tests/core.test.mjs: panel-mount controller reviews hole/cutout dimensions and PCB clearances",
       "testId": "core-panel-mount-controller",
       "projectFile": "examples/134-panel-mount-controller.adigun.json",
       "readmeFile": "examples/134-panel-mount-controller/README.md",
       "safetyNote": "The checker validates declared board/mechanical geometry and supported single-layer electrical rules only. Mechanical features are not emitted in fabrication files; no enclosure fit, controller logic, or manufacturing qualification is performed.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 134,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41201210124",
+        "headRevision": "7e78cf3d2947f0f1432d8452c6b9d0bf82da009b",
+        "engine": "Panel-mount topology, mechanical geometry and single-layer electrical DRC checker",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "panel-mount-mechanical-review-v1",
+        "expectedResult": {
+          "kind": "panel-mount-controller-mechanical-plan",
+          "mountingHoleCount": 4,
+          "edgeCutoutCount": 1,
+          "electricalDrc": "passed",
+          "mechanicalFeatureExported": false,
+          "controllerLogicSimulated": false,
+          "manufacturingQualified": false,
+          "artifact": "Panel-Mount-Mechanical-Review.csv"
+        }
+      }
     }
   ]
 }
