@@ -3592,6 +3592,40 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "087-fm-front-end-response",
+      "title": "FM radio front-end response concept",
+      "status": "released",
+      "objective": "Sweep a bounded 88–108 MHz small-signal input through an ideal antenna placeholder, tuned band-pass response, and linear gain block; report the response peak at the configured center frequency.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue FM front-end response peaks at its tuned center frequency",
+      "testId": "core-fm-front-end-response",
+      "projectFile": "examples/087-fm-front-end-response.adigun.json",
+      "safetyNote": "Ideal small-signal response concept only. No antenna impedance/coupling, FM modulation or demodulation, local oscillator, IF chain, noise, regional band compliance, RF transmission, firmware, or hardware behavior is modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 87,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41183981655",
+        "headRevision": "5f794806e68f923cfa19349b8a11cbd80fc960a5",
+        "engine": "Small-signal ideal FM tuned response estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-fm-tuned-response-v1",
+        "expectedResult": {
+          "kind": "fm-front-end-response",
+          "centerFrequencyMHz": 100,
+          "q": 8,
+          "gainDb": 12,
+          "inputAmplitudeV": 0.01,
+          "peakFrequencyMHz": 100,
+          "peakResponseDb": 12,
+          "peakOutputAmplitudeV": 0.039810717055349734,
+          "rfTransmitted": false,
+          "demodulationModeled": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
