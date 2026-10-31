@@ -4134,6 +4134,49 @@
           "displayDriven": false
         }
       }
+    },
+    {
+      "id": "101-buck-converter-baseline",
+      "title": "Buck converter baseline",
+      "status": "released",
+      "objective": "Estimate an asynchronous buck converter steady state at 12 V input, 50% duty, 100 kHz, 100 µH, 100 µF and 24 Ω; verify CCM, output, ripple, diode loss, power balance, line/load movement and unsupported DCM blocking.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue buck converter reports bounded CCM average and ripple estimates",
+      "testId": "core-buck-converter-baseline",
+      "projectFile": "examples/101-buck-converter-baseline.adigun.json",
+      "safetyNote": "Bounded steady-state asynchronous CCM estimate only. It excludes switching transients, controller-loop stability, inductor saturation/core loss, capacitor ESR, MOSFET loss, thermal effects, tolerances, component ratings, and hardware validation.",
+      "scope": "catalogue",
+      "catalogueIndex": 101,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41186919065",
+        "headRevision": "33607823be4e17739110e7d9e06911c578ff5404",
+        "engine": "Asynchronous buck CCM average and triangular-ripple estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-asynchronous-buck-ccm-v1",
+        "expectedResult": {
+          "kind": "buck-converter",
+          "inputVoltageV": 12,
+          "dutyCyclePercent": 50,
+          "switchingFrequencyHz": 100000,
+          "diodeForwardVoltageV": 0.5,
+          "inductanceH": 0.0001,
+          "capacitanceF": 0.0001,
+          "loadResistanceOhm": 24,
+          "outputVoltageV": 5.75,
+          "loadCurrentA": 0.23958333333333334,
+          "inductorRipplePpA": 0.3125,
+          "outputRipplePpV": 0.00390625,
+          "conductionMode": "CCM",
+          "inputCurrentA": 0.11979166666666667,
+          "inputPowerW": 1.4375,
+          "outputPowerW": 1.3776041666666667,
+          "diodeLossW": 0.059895833333333336,
+          "estimatedEfficiencyPercent": 95.83333333333334,
+          "powerBalanceW": 0,
+          "controllerHardwareModeled": false
+        }
+      }
     }
   ]
 }
