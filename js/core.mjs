@@ -3582,7 +3582,7 @@ function analyseUpsTransfer(project,{source,fixture,charger,diode,battery,report
   if(required.some(x=>typeof x!=="string"||!x)||!groundPath||!mainsPath||!batteryPath||!mainPath||!outputPath||!chargerStatus||!diodeStatus
     ||field(f,"Mode")!=="ups-fixture"||field(c,"Mode")!=="ups-charger"||field(d,"Mode")!=="ideal-or"||!["yes","no"].includes(mains)
     ||![batteryV,capacityAh,socPercent,minimumSocPercent,holdUpMin,sourceV,efficiencyPercent,maxChargeA,diodeDropV,loadOhm].every(Number.isFinite)
-    ||batteryV<6||batteryV>60||capacityAh<=0||capacityAh>1000||socPercent<0||socPercent>100||minimumSocPercent<0||minimumSocPercent>=socPercent
+    ||batteryV<6||batteryV>60||capacityAh<=0||capacityAh>1000||socPercent<0||socPercent>100||minimumSocPercent<0||minimumSocPercent>100
     ||holdUpMin<=0||holdUpMin>1440||sourceV<batteryV+1||sourceV>100||efficiencyPercent<70||efficiencyPercent>99
     ||maxChargeA<=0||maxChargeA>20||diodeDropV<0||diodeDropV>1||loadOhm<=0||loadOhm>10000){
     return {state:"blocked",message:"Wire the charger, battery, ideal-diode selector and load; use supported battery, charge, reserve, and hold-up values.",validation};
