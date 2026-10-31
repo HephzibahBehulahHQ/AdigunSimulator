@@ -4265,6 +4265,49 @@
           "controllerWaveformsModeled": false
         }
       }
+    },
+    {
+      "id": "104-liion-charger-concept",
+      "title": "Li-ion charger concept",
+      "status": "released",
+      "objective": "Classify a configured single-cell Li-ion charger as constant-current, constant-voltage taper, terminated, or no-cell, and enforce input headroom, cell voltage, temperature, current, and connected-path limits.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Li-ion charger estimates CC, CV taper, termination, and safety inhibits",
+      "testId": "core-liion-charger-concept",
+      "projectFile": "examples/104-liion-charger-concept.adigun.json",
+      "safetyNote": "Ideal charger-state estimator only. It is not a charger IC, battery chemistry/state-of-charge model, balancing system, safety qualification, or physical charging instruction.",
+      "scope": "catalogue",
+      "catalogueIndex": 104,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41187803742",
+        "headRevision": "29e0988846860748fccb01d141209552c8d60e4b",
+        "engine": "Ideal Li-ion CC/CV phase and limit estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-single-cell-liion-cccv-v1",
+        "expectedResult": {
+          "kind": "liion-charge",
+          "cellPresent": true,
+          "phase": "CC",
+          "inputVoltageV": 5,
+          "cellVoltageV": 3.5,
+          "setVoltageV": 4.2,
+          "chargeCurrentA": 0.5,
+          "terminationCurrentA": 0.05,
+          "temperatureC": 25,
+          "temperatureWindowC": [
+            0,
+            45
+          ],
+          "batteryPowerW": 1.75,
+          "inputCurrentA": 0.3888888888888889,
+          "inputPowerW": 1.9444444444444444,
+          "chargerLossW": 0.19444444444444442,
+          "assumedEfficiencyPercent": 90,
+          "chargingEnabled": true,
+          "hardwareModeled": false
+        }
+      }
     }
   ]
 }
