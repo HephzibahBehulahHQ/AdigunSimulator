@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-094-simple-audio-mixer",
+  "metadata": {
+    "name": "Two-Source Weighted Audio Mixer",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          30,
+          50
+        ],
+        "schematic": [
+          30,
+          50
+        ],
+        "pcb": [
+          30,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.audio-mixer-two-source",
+      "reference": "SIG1",
+      "value": "V1 1 V; V2 2 V",
+      "position": {
+        "breadboard": [
+          125,
+          50
+        ],
+        "schematic": [
+          125,
+          50
+        ],
+        "pcb": [
+          125,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "r1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          205,
+          120
+        ],
+        "schematic": [
+          205,
+          120
+        ],
+        "pcb": [
+          205,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "r2",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          265,
+          120
+        ],
+        "schematic": [
+          265,
+          120
+        ],
+        "pcb": [
+          265,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "buffer",
+      "libraryId": "active.audio-summing-buffer-ideal",
+      "reference": "U1",
+      "value": "Mode unity buffer; Gain 1",
+      "position": {
+        "breadboard": [
+          350,
+          50
+        ],
+        "schematic": [
+          350,
+          50
+        ],
+        "pcb": [
+          350,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.audio-mixer-report",
+      "reference": "SCOPE1",
+      "value": "Mixer report",
+      "position": {
+        "breadboard": [
+          480,
+          50
+        ],
+        "schematic": [
+          480,
+          50
+        ],
+        "pcb": [
+          480,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "buffer:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "fixture:GND",
+        "buffer:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "SOURCE_1",
+      "endpoints": [
+        "fixture:IN1",
+        "r1:1"
+      ]
+    },
+    {
+      "id": "SOURCE_2",
+      "endpoints": [
+        "fixture:IN2",
+        "r2:1"
+      ]
+    },
+    {
+      "id": "SUM",
+      "endpoints": [
+        "r1:2",
+        "r2:2",
+        "buffer:IN"
+      ]
+    },
+    {
+      "id": "MIX_OUT",
+      "endpoints": [
+        "buffer:OUT",
+        "report:IN"
+      ]
+    }
+  ],
+  "history": []
+}
