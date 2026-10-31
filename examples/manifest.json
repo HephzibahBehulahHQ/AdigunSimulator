@@ -7552,7 +7552,7 @@
     {
       "id": "196-bot-floating-node-repair-preview",
       "title": "Adigun BOT floating-node repair preview",
-      "status": "in-review",
+      "status": "released",
       "objective": "Diagnose a capacitor-isolated DC floating node and build a separately validated 1 MΩ bleed-path preview; require explicit confirmation and reject stale previews before any project mutation.",
       "acceptanceTest": "tests/core.test.mjs: catalogue BOT repair preview validates a separate candidate, leaves project unchanged on cancel, requires confirmation, and rejects stale changes",
       "testId": "core-bot-floating-node-repair-preview",
@@ -7560,7 +7560,27 @@
       "readmeFile": "examples/196-bot-floating-node-repair-preview/README.md",
       "safetyNote": "The 1 MΩ bleed value is an illustrative candidate only; check signal loading and circuit intent. Preview does not silently edit or certify a physical design.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 196,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41218698950",
+        "headRevision": "0f203c3f8ca645f15b9c1476c732a5bded7c4c88",
+        "engine": "Adigun BOT floating-node repair preview",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "bot-floating-node-preview-v1",
+        "expectedResult": {
+          "kind": "bot-floating-node-repair-preview",
+          "diagnosedNet": "FLOATING",
+          "reference": "C1",
+          "proposedValue": "1 MΩ",
+          "candidateValidation": "passed",
+          "changeCount": 3,
+          "applied": false,
+          "confirmationRequired": true
+        }
+      }
     }
   ]
 }
