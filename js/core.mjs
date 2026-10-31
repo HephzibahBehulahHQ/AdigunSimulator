@@ -585,6 +585,55 @@ function engineeringValue(value, expectedUnit) {
 export function runSupportedAnalysis(project, { previousState } = {}) {
   const validation = validateProject(project);
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
+
+  const usbC = project.components.find((item) => item.libraryId === "connector.usb-c-receptacle");
+  if (usbC) {
+    const map = project.pcbFabrication?.connectorPinMap ?? [];
+    const mappedNet = (pin) => map.find((item) => item.reference === usbC.reference && item.pin === pin)?.netId;
+    const expectedPins = { A1:"GND",A4:"VBUS",A5:"CC1",A6:"USB_DP",A7:"USB_DM",A8:"NC",A9:"VBUS",A12:"GND",B1:"GND",B4:"VBUS",B5:"CC2",B6:"USB_DP",B7:"USB_DM",B8:"NC",B9:"VBUS",B12:"GND",SHIELD:"NC" };
+    const pinMapValid = map.length === 17 && Object.entries(expectedPins).every(([pin,net]) => mappedNet(pin) === net);
+    const resistorByReference = (reference) => project.components.find((item) => item.reference === reference);
+    const resistorOhms = (reference) => {
+      const resistor = resistorByReference(reference);
+      return resistor ? resistanceValue(String(resistor.value).split(";")[0]) : Number.NaN;
+    };
+    const hasEndpoint = (netId, instanceId, pin) => Boolean(project.nets.find((net) => net.id === netId)?.endpoints.includes(`${instanceId}:${pin}`));
+    const cc1 = resistorByReference("R1"), cc2 = resistorByReference("R2");
+    const ccTopologyValid = Boolean(cc1 && cc2
+      && resistorOhms("R1") === 5100 && resistorOhms("R2") === 5100
+      && hasEndpoint("CC1", usbC.instanceId, "A5") && hasEndpoint("CC1", cc1.instanceId, "1")
+      && hasEndpoint("GND", cc1.instanceId, "2")
+      && hasEndpoint("CC2", usbC.instanceId, "B5") && hasEndpoint("CC2", cc2.instanceId, "1")
+      && hasEndpoint("GND", cc2.instanceId, "2"));
+    const breakout = project.components.find((item) => item.libraryId === "connector.breakout-header-4");
+    const breakoutMapValid = Boolean(breakout
+      && hasEndpoint("VBUS", breakout.instanceId, "1")
+      && hasEndpoint("GND", breakout.instanceId, "2")
+      && hasEndpoint("USB_DP", breakout.instanceId, "3")
+      && hasEndpoint("USB_DM", breakout.instanceId, "4"));
+    if (!pinMapValid || !ccTopologyValid || !breakoutMapValid) {
+      return { state:"blocked", message:"Check the USB-C contacts, independent 5.1 kΩ CC pull-downs, and breakout nets.", validation };
+    }
+    return {
+      state:"complete",
+      engine:"USB-C breakout topology checker",
+      message:"Verified declared connector pin mapping and sink CC pull-down topology. USB protocol, USB-PD negotiation, signal integrity, current capacity, and electrical compliance are not simulated.",
+      validation,
+      result:{
+        kind:"usb-c-usb2-breakout",
+        connectorReference:usbC.reference,
+        connectorContacts:16,
+        connectorShells:1,
+        cc1RdOhms:resistorOhms("R1"),
+        cc2RdOhms:resistorOhms("R2"),
+        connectorPinMapValid:true,
+        breakoutNetsValid:true,
+        usbPowerDeliveryModeled:false,
+        signalIntegrityVerified:false,
+        hardwareManufacturingQualified:false
+      }
+    };
+  }
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
   const dualComparators = project.components.filter((item) => item.libraryId === "active.comparator-dual-ideal");
