@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 47);
+  assert.equal(getExampleCoverage(registry).total, 48);
   assert.equal(getExampleCoverage(registry).released, 37);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 163);
@@ -1258,4 +1258,32 @@ test("catalogue electret audio preamp calculates mic bias, midband gain, and cou
   const brokenCoupling = structuredClone(project);
   brokenCoupling.nets.find((net) => net.id === "MIC_OUT").endpoints = ["microphone:OUT", "mic-bias:2"];
   assert.equal(runSupportedAnalysis(brokenCoupling).state, "blocked");
+});
+
+test("catalogue class-AB audio amplifier reports speaker power and clipping warning", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/038-audio-power-amplifier.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "audio-power-amplifier");
+  assert.equal(result.result.clipped, false);
+  assert.equal(result.result.outputBiasVoltageV, 4.5);
+  assert.ok(Math.abs(result.result.requestedOutputAmplitudeV - 1.6) < 1e-12);
+  assert.ok(result.result.speakerVoltageRmsV > 0);
+  assert.ok(result.result.speakerCurrentRmsA > 0);
+  assert.ok(result.result.speakerRealPowerW > 0);
+  assert.ok(result.result.frequencyResponse[0].gain < result.result.frequencyResponse[1].gain);
+  assert.ok(result.result.frequencyResponse[0].gain < result.result.frequencyResponse[2].gain);
+  assert.equal(result.result.clippingWarning, null);
+  assert.match(result.message, /does not calculate THD/);
+
+  const overdriven = runSupportedAnalysis(updateComponent(project, "input", { value: "200 mV" }));
+  assert.equal(overdriven.state, "complete");
+  assert.equal(overdriven.result.clipped, true);
+  assert.equal(overdriven.result.amplifierOutputAmplitudeV, 2);
+  assert.match(overdriven.result.clippingWarning, /distortion is not modeled/);
+
+  const brokenOutput = structuredClone(project);
+  brokenOutput.nets.find((net) => net.id === "SPEAKER_PLUS").endpoints = ["speaker:+"];
+  assert.equal(runSupportedAnalysis(brokenOutput).state, "blocked");
 });

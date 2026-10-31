@@ -1458,6 +1458,18 @@
           "outputWithinSupplyRails": true
         }
       }
+    },
+    {
+      "id": "038-audio-power-amplifier",
+      "title": "Generic low-voltage class-AB audio amplifier",
+      "status": "in-review",
+      "objective": "Drive a nominal 8 Ω + 0.5 mH speaker model from a 9 V, gain-20 low-voltage class-AB amplifier using a 220 µF output coupling capacitor; test audio-band response, speaker RMS current/power, and configured output clipping.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue class-AB audio amplifier reports speaker power and clipping warning; blocks a disconnected speaker path",
+      "testId": "core-audio-power-amplifier",
+      "projectFile": "examples/038-audio-power-amplifier.adigun.json",
+      "safetyNote": "Generic ideal LM386-class estimate, not a manufacturer-specific LM386 model. It uses a 9 V supply, gain 20, 2 V peak output swing, 4 mA quiescent-current parameter, and an 8 Ω + 0.5 mH nominal speaker model. THD, actual output-stage current limits, mechanical sound, thermal behavior, supply decoupling parasitics, and device-specific ratings are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 38
     }
   ]
 }
