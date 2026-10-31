@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 49);
+  assert.equal(getExampleCoverage(registry).total, 50);
   assert.equal(getExampleCoverage(registry).released, 39);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 161);
@@ -1308,4 +1308,31 @@ test("catalogue active low-pass filter matches its designed cutoff and gain", as
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "FILTERED_INPUT").endpoints = ["input-resistor:2", "opamp:+"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue Wien bridge oscillator starts above unity loop gain and limits amplitude", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/040-wien-bridge-oscillator.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "wien-bridge-oscillator");
+  assert.ok(Math.abs(result.result.frequencyHz - 1 / (2 * Math.PI * 10e3 * 10e-9)) < 1e-12);
+  assert.equal(result.result.amplifierGain, 3.2);
+  assert.ok(result.result.loopGain > 1);
+  assert.equal(result.result.oscillationStarts, true);
+  assert.ok(Math.abs(result.result.estimatedSteadyAmplitudeV - (0.3 * 32 / 22)) < 1e-12);
+  assert.equal(result.result.outputWithinSupplyRails, true);
+
+  const belowStartup = runSupportedAnalysis(updateComponent(project, "feedback", { value: "18 kΩ" }));
+  assert.equal(belowStartup.state, "complete");
+  assert.equal(belowStartup.result.oscillationStarts, false);
+  assert.equal(belowStartup.result.estimatedSteadyAmplitudeV, 0);
+
+  const unbalancedBridge = runSupportedAnalysis(updateComponent(project, "shunt-resistor", { value: "12 kΩ" }));
+  assert.equal(unbalancedBridge.state, "blocked");
+
+  const sameDirectionDiodes = structuredClone(project);
+  sameDirectionDiodes.nets.find((net) => net.id === "OUTPUT").endpoints = ["opamp:OUT", "series-capacitor:1", "feedback:1", "limiter-1:A", "limiter-2:A"];
+  sameDirectionDiodes.nets.find((net) => net.id === "INVERTING").endpoints = ["opamp:-", "feedback:2", "gain-leg:1", "limiter-1:K", "limiter-2:K"];
+  assert.equal(runSupportedAnalysis(sameDirectionDiodes).state, "blocked");
 });

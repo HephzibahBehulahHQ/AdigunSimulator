@@ -476,6 +476,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (opAmps.length === 1 && electretMics.length === 1 && source.length === 1 && resistor.length === 6 && capacitor.length === 2 && ground.length === 1 && project.components.length === 12) {
     return analyseElectretAudioPreamp(project, { source: source[0], microphone: electretMics[0], opAmp: opAmps[0], resistors: resistor, capacitors: capacitor, ground: ground[0], validation });
   }
+  if (opAmps.length === 1 && source.length === 2 && acSource.length === 0 && resistor.length === 4 && capacitor.length === 2 && schottkyDiodes.length === 2 && ground.length === 1 && project.components.length === 12) {
+    return analyseWienBridgeOscillator(project, { sources: source, opAmp: opAmps[0], resistors: resistor, capacitors: capacitor, diodes: schottkyDiodes, ground: ground[0], validation });
+  }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && ((resistor.length === 2 && project.components.length === 7) || (resistor.length === 0 && project.components.length === 5)) && ground.length === 1) {
     return analyseOpAmpAmplifier(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, ground: ground[0], validation });
   }
@@ -1387,6 +1390,45 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
   }
   const loadCurrentA=referenceVoltage/loadResistance;
   return {state:"complete",engine:"Ideal reference-voltage follower load estimate",message:"Buffers a fixed reference voltage and reports the ideal resistive load current. It assumes zero output impedance and unlimited output current, and omits accuracy drift, noise, bandwidth, stability, thermal effects, and device-specific limits.",result:{kind:"reference-buffer",referenceVoltage,outputVoltage:referenceVoltage,gainVPerV:1,loadResistanceOhm:loadResistance,loadCurrentA,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage},validation};
+}
+
+function analyseWienBridgeOscillator(project,{sources,opAmp,resistors,capacitors,diodes,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),outputNet=n(opAmp,"OUT"),nonInvertingNet=n(opAmp,"+"),invertingNet=n(opAmp,"-");
+  const positiveRail=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")!==groundNet);
+  const negativeRail=sources.find(v=>n(v,"+")===groundNet&&n(v,"-")!==groundNet);
+  const seriesCap=capacitors.find(c=>n(c,"1")===outputNet||n(c,"2")===outputNet);
+  const seriesMid=seriesCap?([n(seriesCap,"1"),n(seriesCap,"2")].find(net=>net!==outputNet)):undefined;
+  const shuntCap=capacitors.find(c=>c!==seriesCap&&((n(c,"1")===nonInvertingNet&&n(c,"2")===groundNet)||(n(c,"2")===nonInvertingNet&&n(c,"1")===groundNet)));
+  const seriesResistor=resistors.find(r=>seriesMid&&((n(r,"1")===seriesMid&&n(r,"2")===nonInvertingNet)||(n(r,"2")===seriesMid&&n(r,"1")===nonInvertingNet)));
+  const shuntResistor=resistors.find(r=>r!==seriesResistor&&((n(r,"1")===nonInvertingNet&&n(r,"2")===groundNet)||(n(r,"2")===nonInvertingNet&&n(r,"1")===groundNet)));
+  const feedback=resistors.find(r=>(n(r,"1")===outputNet&&n(r,"2")===invertingNet)||(n(r,"2")===outputNet&&n(r,"1")===invertingNet));
+  const gainLeg=resistors.find(r=>r!==feedback&&r!==seriesResistor&&r!==shuntResistor&&((n(r,"1")===invertingNet&&n(r,"2")===groundNet)||(n(r,"2")===invertingNet&&n(r,"1")===groundNet)));
+  const rSeries=seriesResistor?resistanceValue(seriesResistor.value):Number.NaN,rShunt=shuntResistor?resistanceValue(shuntResistor.value):Number.NaN;
+  const cSeries=seriesCap?capacitanceValue(seriesCap.value):Number.NaN,cShunt=shuntCap?capacitanceValue(shuntCap.value):Number.NaN;
+  const rFeedback=feedback?resistanceValue(feedback.value):Number.NaN,rGain=gainLeg?resistanceValue(gainLeg.value):Number.NaN;
+  const diodeDrop=diodes.length===2?forwardVoltage(diodes[0].value):Number.NaN;
+  const positiveVoltage=positiveRail?voltageValue(positiveRail.value):Number.NaN,negativeVoltage=negativeRail?voltageValue(negativeRail.value):Number.NaN;
+  const diodePair=diodes.length===2&&diodes.every(d=>(n(d,"A")===outputNet&&n(d,"K")===invertingNet)||(n(d,"K")===outputNet&&n(d,"A")===invertingNet))
+    &&((n(diodes[0],"A")===outputNet&&n(diodes[1],"K")===outputNet)||(n(diodes[1],"A")===outputNet&&n(diodes[0],"K")===outputNet));
+  const powered=positiveRail&&negativeRail&&n(opAmp,"VCC")===n(positiveRail,"+")&&n(opAmp,"VEE")===n(negativeRail,"-");
+  const symmetrical=Math.abs(rSeries-rShunt)/Math.max(rSeries,rShunt)<=0.05&&Math.abs(cSeries-cShunt)/Math.max(cSeries,cShunt)<=0.05;
+  if(!powered||!seriesCap||!seriesResistor||!shuntResistor||!shuntCap||!feedback||!gainLeg||!diodePair
+    ||![rSeries,rShunt,cSeries,cShunt,rFeedback,rGain,diodeDrop,positiveVoltage,negativeVoltage].every(Number.isFinite)
+    ||rSeries<=0||rShunt<=0||cSeries<=0||cShunt<=0||rFeedback<=0||rGain<=0||diodeDrop<=0||positiveVoltage<=0||negativeVoltage<=0
+    ||!symmetrical){
+    return {state:"blocked",message:"Wire a balanced Wien RC bridge to the non-inverting input, gain network and anti-parallel limiter diodes to the inverting input, and valid dual op-amp rails.",validation};
+  }
+  const frequencyHz=1/(2*Math.PI*Math.sqrt(rSeries*rShunt*cSeries*cShunt));
+  const bridgeAttenuation=1/3,amplifierGain=1+rFeedback/rGain,loopGain=amplifierGain*bridgeAttenuation;
+  const oscillationStarts=loopGain>1;
+  const amplitudeLimitV=oscillationStarts?diodeDrop*(rFeedback+rGain)/rFeedback:0;
+  if(amplitudeLimitV>=Math.min(positiveVoltage,negativeVoltage)){
+    return {state:"blocked",message:"The diode-limited oscillator amplitude reaches an op-amp supply rail.",validation};
+  }
+  return {state:"complete",engine:"Wien bridge start-up and diode-limited amplitude estimate",message:"Uses the symmetric-bridge frequency, small-signal loop-gain start-up criterion, and an approximate anti-parallel Schottky feedback clamp. The estimated steady amplitude is a limiter threshold, not a nonlinear time-domain SPICE solution. Noise/start-up time, waveform distortion, op-amp bandwidth/slew, diode curve, loading, tolerances, and device limits are omitted.",result:{kind:"wien-bridge-oscillator",frequencyHz,bridgeAttenuation,amplifierGain,loopGain,oscillationStarts,amplitudeLimitV,estimatedSteadyAmplitudeV:amplitudeLimitV,limiterDiodeDropV:diodeDrop,phaseAtResonanceDeg:0,outputWithinSupplyRails:amplitudeLimitV<Math.min(positiveVoltage,negativeVoltage)},validation};
 }
 
 function analyseActiveLowPass(project,{sources,input,opAmp,resistors,capacitor,ground,validation}){
