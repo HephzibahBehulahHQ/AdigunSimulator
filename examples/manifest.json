@@ -982,6 +982,16 @@
         }
       },
       "scope": "supplemental"
+    },
+    {
+      "id": "022-555-monostable",
+      "title": "555 monostable LED pulse",
+      "status": "in-review",
+      "objective": "Model a 5 V ideal NE555 monostable with a normally-open active-low trigger, 100 kΩ timing resistor, and 10 µF capacitor; verify one output pulse of approximately 1.1 seconds per trigger.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue 555 monostable produces one pulse of approximately 1.1 RC and rejects zero capacitance and unsupported timing topology",
+      "testId": "core-555-monostable",
+      "projectFile": "examples/022-555-monostable.adigun.json",
+      "safetyNote": "Ideal timer equation and event-count estimate only. It does not simulate elapsed time, retriggering, timer tolerances, startup, output saturation, or physical hardware behavior."
     }
   ]
 }
