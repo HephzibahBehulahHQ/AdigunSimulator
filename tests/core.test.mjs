@@ -2335,3 +2335,28 @@ test("catalogue BLE beacon encodes standard legacy advertising data fields", asy
   broken.nets.find(net=>net.id==="RADIO_DATA").endpoints=["encoder:TX"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue LoRa sensor encodes its payload and blocks sends over the configured duty budget", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/082-lora-sensor-node.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",analysis.message);
+  assert.equal(analysis.result.kind,"lora-sensor-node");
+  assert.equal(analysis.result.temperatureDeciC,246);
+  assert.deepEqual(analysis.result.payloadBytes,[1,7,0,42,0,246]);
+  assert.equal(analysis.result.payloadHex,"01 07 00 2A 00 F6");
+  assert.equal(analysis.result.payloadLengthOctets,6);
+  assert.equal(analysis.result.airtimeBudgetMs,600);
+  assert.equal(analysis.result.usedAirtimeMs,600);
+  assert.equal(analysis.result.dutyCyclePercent,1);
+  assert.equal(analysis.result.sentCount,6);
+  assert.equal(analysis.result.rejectedCount,2);
+  assert.deepEqual(analysis.result.schedule.map(item=>item.sent),[true,true,true,true,true,true,false,false]);
+  assert.equal(analysis.result.schedule[6].reason,"configured duty budget exhausted");
+  assert.equal(analysis.result.radioTransmitted,false);
+  assert.equal(analysis.result.regionalCompliance,"not evaluated");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"controller",{value:"NodeId 7; Sequence 42; Mode payload-v1; AirtimeMs 100; DutyWindowMs 60000; DutyLimitPercent 101; RequestsMs 0,9000"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"controller",{value:"NodeId 7; Sequence 42; Mode payload-v1; AirtimeMs -1; DutyWindowMs 60000; DutyLimitPercent 1; RequestsMs 0,9000"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="RADIO_DATA").endpoints=["controller:RADIO"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
