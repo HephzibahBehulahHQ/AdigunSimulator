@@ -4542,7 +4542,7 @@
     {
       "id": "110-constant-current-led-driver",
       "title": "Constant-current LED driver",
-      "status": "planned",
+      "status": "released",
       "objective": "Regulate an LED string current from a sense reference and resistor across the supported load range, and report an open LED warning.",
       "acceptanceTest": "tests/core.test.mjs: catalogue constant-current LED driver regulates across load range and reports open LED",
       "testId": "core-constant-current-led-driver",
@@ -4550,7 +4550,32 @@
       "readmeFile": "examples/110-constant-current-led-driver/README.md",
       "safetyNote": "Ideal average current model only; no switching detail, thermal behavior, protection qualification, or hardware safety claim.",
       "scope": "catalogue",
-      "catalogueIndex": 110
+      "catalogueIndex": 110,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41190015082",
+        "headRevision": "9063284b0c20a8a499e14fd3c915f684ab31246c",
+        "engine": "Bounded constant-current LED compliance and load estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "sense-reference-cc-led-v1",
+        "expectedResult": {
+          "kind": "constant-current-led-driver",
+          "regulationState": "regulated",
+          "supplyVoltageV": 12,
+          "ledForwardVoltageV": 9,
+          "requestedCurrentA": 0.35,
+          "ledCurrentA": 0.35,
+          "senseResistanceOhm": 1,
+          "senseVoltageV": 0.35,
+          "headroomV": 2.65,
+          "ledPowerW": 3.15,
+          "sensePowerW": 0.1225,
+          "inputPowerW": 3.636111111111111,
+          "inputCurrentA": 0.30300925925925926,
+          "openLed": false
+        }
+      }
     }
   ]
 }
