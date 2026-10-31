@@ -65,6 +65,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.servo-angle-ideal", category: "Output", type: "Ideal hobby-servo position model", prefix: "SERVO", pins: ["PWM", "VCC", "GND"], defaultValue: "MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz", simulation: "analytical-servo-position", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.stepper-driver-ideal", category: "Active", type: "Ideal dual-H-bridge stepper driver (logic model)", prefix: "U", pins: ["STEP", "DIR", "VCC", "GND", "A1", "A2", "B1", "B2"], defaultValue: "Full-step dual-phase drive", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.stepper-motor-ideal", category: "Output", type: "Ideal bipolar stepper motor (position model)", prefix: "M", pins: ["A1", "A2", "B1", "B2"], defaultValue: "StepsPerRevolution 200; StepAngle 1.8 deg", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.esp32-telemetry-ideal", category: "Active", type: "Ideal ESP32-class sensor telemetry formatter", prefix: "U", pins: ["ADC", "TX", "VCC", "GND"], defaultValue: "Device esp32-node-01; Sequence 1; Transport offline-mock", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.telemetry-payload-sink", category: "Output", type: "Offline telemetry payload viewer", prefix: "OUT", pins: ["DATA", "GND"], defaultValue: "JSON payload", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -445,6 +447,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const servoModels = project.components.filter((item) => item.libraryId === "output.servo-angle-ideal");
   const stepperDrivers = project.components.filter((item) => item.libraryId === "active.stepper-driver-ideal");
   const stepperMotors = project.components.filter((item) => item.libraryId === "output.stepper-motor-ideal");
+  const esp32Formatters = project.components.filter((item) => item.libraryId === "active.esp32-telemetry-ideal");
+  const payloadSinks = project.components.filter((item) => item.libraryId === "output.telemetry-payload-sink");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -509,6 +513,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (esp32Formatters.length === 1 && payloadSinks.length === 1 && temperatureSensors.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseEsp32Telemetry(project, { source: source[0], esp32: esp32Formatters[0], sensor: temperatureSensors[0], sink: payloadSinks[0], ground: ground[0], validation });
   }
   if (stepperDrivers.length === 1 && stepperMotors.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuStepper(project, { source: source[0], mcu: mcuControllers[0], driver: stepperDrivers[0], motor: stepperMotors[0], ground: ground[0], validation });
@@ -1547,6 +1554,24 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseEsp32Telemetry(project,{source,esp32,sensor,sink,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(esp32.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
+  const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
+  const temperature=Number(field(sensorFields,"Temperature")?.split(" ")[0]),scale=field(sensorFields,"Scale"),offset=field(sensorFields,"Offset");
+  const scaleVPerC=scale?voltageValue(scale.split("/")[0]):Number.NaN,offsetV=offset?voltageValue(offset):Number.NaN;
+  const device=field(mcuFields,"Device"),sequence=Number(field(mcuFields,"Sequence")),transport=field(mcuFields,"Transport");
+  const groundNet=n(ground,"0"),vccNet=n(esp32,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const wired=n(sensor,"VCC")===vccNet&&n(sensor,"GND")===groundNet&&n(sensor,"OUT")===n(esp32,"ADC")&&n(esp32,"TX")===n(sink,"DATA")&&n(sink,"GND")===groundNet&&n(esp32,"GND")===groundNet;
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!wired||!device||device.length>40||!Number.isSafeInteger(sequence)||sequence<0||sequence>2147483647||transport!=="offline-mock"||!Number.isFinite(temperature)||temperature<0||temperature>125||!Number.isFinite(scaleVPerC)||scaleVPerC<=0||!Number.isFinite(offsetV)||offsetV<0){
+    return {state:"blocked",message:"Wire the linear temperature sensor to the ESP32-class ADC, TX to the offline payload sink, share power/ground, and configure a device ID, sequence, and offline-mock transport.",validation};
+  }
+  const sensorVoltage=offsetV+temperature*scaleVPerC;
+  if(!Number.isFinite(sensorVoltage)||sensorVoltage<0||sensorVoltage>supplyVoltage)return {state:"blocked",message:"The sensor output is outside the modeled ADC reference range.",validation};
+  const adcCount=Math.round(sensorVoltage/supplyVoltage*4095),measuredVoltage=adcCount/4095*supplyVoltage,measuredTemperatureC=Number(((measuredVoltage-offsetV)/scaleVPerC).toFixed(1));
+  const payload={device,sequence,temperatureC:measuredTemperatureC},payloadText=JSON.stringify(payload);
+  return {state:"complete",engine:"Ideal ESP32-class offline telemetry formatter",message:"Quantizes a linear sensor value to an ideal 12-bit ADC reading and formats a deterministic JSON payload for local inspection. No Wi-Fi association, socket, Internet request, authentication, or external data transfer occurs; ESP32 ADC nonlinearities and firmware execution are not modeled.",result:{kind:"esp32-telemetry-payload",adcResolutionBits:12,adcCount,sensorVoltageV:sensorVoltage,measuredTemperatureC,payload,payloadText,transport:"offline-mock",transmitted:false,firmwareExecuted:false},validation};
+}
 function analyseMcuStepper(project,{source,mcu,driver,motor,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),motorFields=String(motor.value).split(";").map(v=>v.trim());
