@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 56);
+  assert.equal(getExampleCoverage(registry).total, 57);
   assert.equal(getExampleCoverage(registry).released, 46);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 154);
@@ -1518,6 +1518,41 @@ test("catalogue JK toggle divider toggles on each rising edge and clears asynchr
 
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "J").endpoints = ["j-input:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue four-bit counter counts rising edges through 15 and wraps to zero", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/047-four-bit-binary-counter.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-counter-4bit-ideal"), true);
+  const reset = runSupportedAnalysis(project);
+  assert.equal(reset.state, "complete");
+  assert.equal(reset.result.count, 0);
+  assert.deepEqual(reset.result.bits, [false, false, false, false]);
+  assert.equal(reset.result.mode, "asynchronous reset");
+
+  let stateProject = updateComponent(project, "reset-input", { value: "5 V" });
+  let state = runSupportedAnalysis(stateProject, { previousState: reset });
+  assert.equal(state.result.count, 0);
+  for (let expected = 1; expected <= 16; expected++) {
+    stateProject = updateComponent(stateProject, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    assert.equal(state.state, "complete");
+    assert.equal(state.result.count, expected & 15);
+    assert.equal(state.result.risingEdge, true);
+    assert.equal(state.result.risingEdgeCount, expected);
+    stateProject = updateComponent(stateProject, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    assert.equal(state.result.count, expected & 15);
+    assert.equal(state.result.risingEdge, false);
+  }
+  assert.equal(state.result.bitFrequencyRatios[0], 0.5);
+  assert.equal(state.result.bitFrequencyRatios[3], 0.0625);
+  const invalid = updateComponent(project, "clock-input", { value: "6 V" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "BIT3").endpoints = ["counter:Q3"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
