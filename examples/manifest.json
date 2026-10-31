@@ -4952,6 +4952,19 @@
           "hardwareSafetyQualified": false
         }
       }
+    },
+    {
+      "id": "120-surge-protection",
+      "title": "Surge-protected input",
+      "status": "in-review",
+      "objective": "Estimate a source-resistance-limited surge pulse, TVS clamp energy, fuse I²t warning/trip, and RC-filtered output transient.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue surge input clamps a transient and reports fuse warning/trip",
+      "testId": "core-surge-protected-input",
+      "projectFile": "examples/120-surge-protection.adigun.json",
+      "readmeFile": "examples/120-surge-protection/README.md",
+      "safetyNote": "Single-pulse educational estimator only; no standardized surge compliance, MOV lifetime, fuse time-current behavior, thermal, or hardware safety qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 120
     }
   ]
 }
