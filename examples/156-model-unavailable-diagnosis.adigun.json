@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "id": "example-156-model-unavailable-diagnosis",
+  "metadata": {
+    "name": "Example 156 — Model-Unavailable Diagnosis",
+    "locale": "en",
+    "createdAt": "2026-10-30T00:00:00.000Z",
+    "updatedAt": "2026-10-30T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          60,
+          142
+        ],
+        "schematic": [
+          95,
+          128
+        ],
+        "pcb": [
+          92,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          255,
+          142
+        ],
+        "schematic": [
+          260,
+          128
+        ],
+        "pcb": [
+          244,
+          128
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          455,
+          142
+        ],
+        "schematic": [
+          452,
+          128
+        ],
+        "pcb": [
+          408,
+          142
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          565,
+          192
+        ],
+        "schematic": [
+          564,
+          190
+        ],
+        "pcb": [
+          506,
+          192
+        ]
+      }
+    },
+    {
+      "instanceId": "opamp-unavailable",
+      "libraryId": "active.opamp-ideal",
+      "reference": "U1",
+      "value": "Vendor model unavailable — schematic-only",
+      "position": {
+        "breadboard": [
+          600,
+          80
+        ],
+        "schematic": [
+          600,
+          80
+        ],
+        "pcb": [
+          600,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "feedback-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          650,
+          120
+        ],
+        "schematic": [
+          650,
+          120
+        ],
+        "pcb": [
+          650,
+          120
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "resistor-1:1",
+        "opamp-unavailable:VCC"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "resistor-1:2",
+        "led-1:A",
+        "opamp-unavailable:+"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "led-1:K",
+        "source-1:-",
+        "ground-1:0",
+        "opamp-unavailable:VEE"
+      ]
+    },
+    {
+      "id": "U1_MINUS",
+      "endpoints": [
+        "opamp-unavailable:-",
+        "feedback-resistor:1"
+      ]
+    },
+    {
+      "id": "U1_OUT",
+      "endpoints": [
+        "opamp-unavailable:OUT",
+        "feedback-resistor:2"
+      ]
+    }
+  ],
+  "history": [],
+  "modelAvailabilityFixture": {
+    "reference": "U1",
+    "modelName": "vendor-specific TL081C macromodel",
+    "status": "unavailable"
+  }
+}
