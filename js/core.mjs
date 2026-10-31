@@ -1011,11 +1011,11 @@ function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground
 
 function analyseLdrNightLight(project, { source, ldr, comparator, led, resistors, ground, validation }) {
   const supplyVoltage = voltageValue(source.value);
-  const ldrFields = String(ldr.value).match(/Rbright\\s*([^;]+)\\s*;\\s*Rdark\\s*([^;]+)\\s*;\\s*light\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*%/i);
+  const ldrFields = String(ldr.value).match(/Rbright\s*([^;]+)\s*;\s*Rdark\s*([^;]+)\s*;\s*light\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*%/i);
   const brightResistance = ldrFields ? resistanceValue(ldrFields[1]) : Number.NaN;
   const darkResistance = ldrFields ? resistanceValue(ldrFields[2]) : Number.NaN;
   const illuminationPercent = ldrFields ? Number(ldrFields[3]) : Number.NaN;
-  const referenceMatch = String(comparator.value).match(/^\\s*Vref\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*$/i);
+  const referenceMatch = String(comparator.value).match(/^\s*Vref\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*$/i);
   const referenceVoltage = referenceMatch ? Number(referenceMatch[1]) : Number.NaN;
   const ledVf = forwardVoltage(led.value);
   if (![supplyVoltage, brightResistance, darkResistance, illuminationPercent, referenceVoltage, ledVf].every(Number.isFinite)
