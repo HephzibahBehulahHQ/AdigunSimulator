@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-025-opamp-inverting",
+  "metadata": {
+    "name": "Op-Amp Inverting Amplifier",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "vplus",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "vminus",
+      "libraryId": "power.dc-source",
+      "reference": "V2",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "signal",
+      "libraryId": "power.ac-source",
+      "reference": "VIN",
+      "value": "0.1 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "opamp",
+      "libraryId": "active.opamp-ideal",
+      "reference": "U1",
+      "value": "Ideal op-amp, ±12 V supplies",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rin",
+      "libraryId": "passive.resistor",
+      "reference": "RIN",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rf",
+      "libraryId": "passive.resistor",
+      "reference": "RF",
+      "value": "20 kΩ",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VPLUS",
+      "endpoints": [
+        "vplus:+",
+        "opamp:VCC"
+      ]
+    },
+    {
+      "id": "VMINUS",
+      "endpoints": [
+        "vminus:-",
+        "opamp:VEE"
+      ]
+    },
+    {
+      "id": "INPUT",
+      "endpoints": [
+        "signal:+",
+        "rin:1"
+      ]
+    },
+    {
+      "id": "SUMMING",
+      "endpoints": [
+        "opamp:-",
+        "rin:2",
+        "rf:1"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "opamp:OUT",
+        "rf:2"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "vplus:-",
+        "vminus:+",
+        "signal:-",
+        "opamp:+",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": []
+}
