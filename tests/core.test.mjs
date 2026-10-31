@@ -2151,3 +2151,26 @@ test("catalogue MCU watchdog resets to a safe state after an induced service sta
   broken.nets.find(net=>net.id==="WDI").endpoints=["fixture:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+
+test("catalogue CAN node pair transfers a matching frame and verifies 60 ohm end termination",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/074-can-node-pair.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"can-node-pair");
+  assert.equal(result.result.identifier,"0x123");
+  assert.equal(result.result.dlc,2);
+  assert.deepEqual(result.result.dataBytes,["DE","AD"]);
+  assert.equal(result.result.bitrate,500000);
+  assert.equal(result.result.received,true);
+  assert.equal(result.result.acknowledged,true);
+  assert.equal(result.result.busTerminationOhm,60);
+  assert.equal(result.result.displayText,"RX 0x123 [DE AD] · ACK");
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"rx-node",{value:"Role receive; FilterId 0x456"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"term-b",{value:"240 Ω"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"frame",{value:"Identifier 0x123; DLC 2; Data DE AD; Bitrate 0"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="CAN_H").endpoints=["tx-xcvr:CANH","term-a:1","term-b:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
