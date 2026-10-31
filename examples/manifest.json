@@ -397,12 +397,71 @@
     {
       "id": "005-pwm-led-dimmer",
       "title": "PWM LED dimmer with a low-side MOSFET",
-      "status": "in-review",
+      "status": "released",
       "objective": "Sweep a 1 kHz ideal PWM command through 10%, 50%, and 90% duty and confirm that average LED current changes in proportion to duty for an ideal low-side MOSFET switch.",
       "acceptanceTest": "tests/core.test.mjs: catalogue PWM LED dimmer reports a bounded average-current duty sweep and blocks invalid input and wiring",
       "testId": "core-pwm-led-dimmer",
       "projectFile": "examples/005-pwm-led-dimmer.adigun.json",
-      "safetyNote": "Ideal educational average-current model only. It does not model PWM waveforms, switching transients, MOSFET on-resistance, gate charge, ripple, thermal effects, component ratings, or physical hardware safety."
+      "safetyNote": "Ideal educational average-current model only. It does not model PWM waveforms, switching transients, MOSFET on-resistance, gate charge, ripple, thermal effects, component ratings, or physical hardware safety.",
+      "scope": "catalogue",
+      "catalogueIndex": 5,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41152946819",
+        "headRevision": "5ed4e6823cb1cc8b823dba4302d817b0222423e8",
+        "engine": "Analytical PWM LED average-current model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-pwm-led-average-v1",
+        "libraryLock": "adigun-simulator@f1485b8360ecd83aa3a7e3795b634a78c473bf2a",
+        "expectedResult": {
+          "10PercentDuty": {
+            "frequencyHz": 1000,
+            "requestedDutyPercent": 10,
+            "gateHighVoltage": 5,
+            "thresholdVoltage": 2,
+            "mosfetConducting": true,
+            "onCurrentA": 0.00909090909090909,
+            "averageCurrentA": 0.0009090909090909091,
+            "resistorPowerW": 0.0027272727272727275,
+            "ledPowerW": 0.0018181818181818182,
+            "sourcePowerW": 0.004545454545454546,
+            "powerBalanceW": 0
+          },
+          "50PercentDuty": {
+            "frequencyHz": 1000,
+            "requestedDutyPercent": 50,
+            "gateHighVoltage": 5,
+            "thresholdVoltage": 2,
+            "mosfetConducting": true,
+            "onCurrentA": 0.00909090909090909,
+            "averageCurrentA": 0.004545454545454545,
+            "resistorPowerW": 0.013636363636363637,
+            "ledPowerW": 0.00909090909090909,
+            "sourcePowerW": 0.022727272727272728,
+            "powerBalanceW": 0
+          },
+          "90PercentDuty": {
+            "frequencyHz": 1000,
+            "requestedDutyPercent": 90,
+            "gateHighVoltage": 5,
+            "thresholdVoltage": 2,
+            "mosfetConducting": true,
+            "onCurrentA": 0.00909090909090909,
+            "averageCurrentA": 0.008181818181818182,
+            "resistorPowerW": 0.024545454545454544,
+            "ledPowerW": 0.01636363636363636,
+            "sourcePowerW": 0.04090909090909091,
+            "powerBalanceW": 0
+          },
+          "gateBelowThreshold": {
+            "gateHighVoltage": 1,
+            "thresholdVoltage": 2,
+            "effectiveDutyFraction": 0,
+            "averageCurrentA": 0
+          }
+        }
+      }
     }
   ]
 }
