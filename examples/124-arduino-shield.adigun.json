@@ -15,16 +15,16 @@
       "value": "5 V",
       "position": {
         "breadboard": [
-          65,
-          50
+          45,
+          40
         ],
         "schematic": [
-          65,
-          50
+          45,
+          40
         ],
         "pcb": [
-          65,
-          50
+          45,
+          40
         ]
       }
     },
@@ -35,16 +35,16 @@
       "value": "Program PWM dimmer; ADC A0; PWM D9; Frequency 490",
       "position": {
         "breadboard": [
-          310,
-          110
+          250,
+          100
         ],
         "schematic": [
-          310,
-          110
+          250,
+          100
         ],
         "pcb": [
-          310,
-          110
+          250,
+          100
         ]
       }
     },
@@ -55,16 +55,16 @@
       "value": "Position 50%; Resolution 10 bit",
       "position": {
         "breadboard": [
-          475,
-          180
+          450,
+          110
         ],
         "schematic": [
-          475,
-          180
+          450,
+          110
         ],
         "pcb": [
-          475,
-          180
+          450,
+          110
         ]
       }
     },
@@ -75,16 +75,16 @@
       "value": "Vth 2.0 V",
       "position": {
         "breadboard": [
-          315,
-          205
+          300,
+          190
         ],
         "schematic": [
-          315,
-          205
+          300,
+          190
         ],
         "pcb": [
-          315,
-          205
+          300,
+          190
         ]
       }
     },
@@ -95,16 +95,16 @@
       "value": "330 Ω",
       "position": {
         "breadboard": [
-          405,
-          165
+          390,
+          200
         ],
         "schematic": [
-          405,
-          165
+          390,
+          200
         ],
         "pcb": [
-          405,
-          165
+          390,
+          200
         ]
       }
     },
@@ -115,16 +115,16 @@
       "value": "Vf 2 V",
       "position": {
         "breadboard": [
-          495,
-          165
+          500,
+          200
         ],
         "schematic": [
-          495,
-          165
+          500,
+          200
         ],
         "pcb": [
-          495,
-          165
+          500,
+          200
         ]
       }
     },
@@ -1160,18 +1160,18 @@
         "heightMm": 4
       },
       {
-        "id": "Mounting hole lower-right",
-        "xMm": 63.5,
-        "yMm": 1,
-        "widthMm": 4,
-        "heightMm": 4
-      },
-      {
         "id": "Mounting hole upper-right",
         "xMm": 63.5,
         "yMm": 34,
         "widthMm": 4,
         "heightMm": 4
+      },
+      {
+        "id": "Mounting hole lower-right",
+        "xMm": 64.5,
+        "yMm": 8,
+        "widthMm": 3,
+        "heightMm": 3
       }
     ]
   }
