@@ -51,6 +51,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.uart-tx-ideal", category: "Active", type: "Ideal UART transmitter (8N1 frame model)", prefix: "U", pins: ["TX", "VCC", "GND"], defaultValue: "Byte 0xA5; Baud 9600", simulation: "analytical-uart-transmitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.uart-frame-source", category: "Inputs", type: "Ideal UART serial-frame source (digital fixture)", prefix: "SIG", pins: ["TX", "GND"], defaultValue: "Bits 0,1,0,1,0,0,1,0,1,1; Baud 9600", simulation: "fixture-uart-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.uart-rx-ideal", category: "Active", type: "Ideal UART 8N1 receiver (frame decoder)", prefix: "U", pins: ["RX", "VALID", "VCC", "GND"], defaultValue: "8N1 frame decoder", simulation: "analytical-uart-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.i2c-read-transaction", category: "Inputs", type: "Ideal I²C read transaction fixture", prefix: "BUS", pins: ["SDA", "SCL", "GND"], defaultValue: "Address 0x48; Register 0x00; Baud 100000; ACK yes", simulation: "fixture-i2c-read", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.i2c-sensor-ideal", category: "Active", type: "Ideal I²C register sensor (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x48; Register 0x00=0x2A", simulation: "analytical-i2c-register-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -415,6 +417,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const uartTransmitters = project.components.filter((item) => item.libraryId === "active.uart-tx-ideal");
   const uartReceivers = project.components.filter((item) => item.libraryId === "active.uart-rx-ideal");
   const uartFrameSources = project.components.filter((item) => item.libraryId === "input.uart-frame-source");
+  const i2cFixtures = project.components.filter((item) => item.libraryId === "input.i2c-read-transaction");
+  const i2cSensors = project.components.filter((item) => item.libraryId === "active.i2c-sensor-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -479,6 +483,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (i2cFixtures.length === 1 && i2cSensors.length === 1 && source.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 6) {
+    return analyseI2cRegisterRead(project, { source: source[0], fixture: i2cFixtures[0], sensor: i2cSensors[0], resistors: resistor, ground: ground[0], validation });
   }
   if (uartReceivers.length === 1 && uartFrameSources.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseUartReceiver(project, { source: source[0], frameSource: uartFrameSources[0], receiver: uartReceivers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
@@ -1487,6 +1494,29 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseI2cRegisterRead(project,{source,fixture,sensor,resistors,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(sensor,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const fixtureGround=n(fixture,"GND"),sdaNet=n(fixture,"SDA"),sclNet=n(fixture,"SCL");
+  const config=String(fixture.value),sensorConfig=String(sensor.value);
+  const hex=(text,label)=>{const match=text.match(new RegExp("\\\\b"+label+"\\\\s+(0x[0-9a-f]+|\\\\d+)","i"));return match?parseInt(match[1],match[1].toLowerCase().startsWith("0x")?16:10):Number.NaN;};
+  const address=hex(config,"Address"),register=hex(config,"Register"),sensorAddress=hex(sensorConfig,"Address");
+  const baudMatch=config.match(/\\bBaud\\s+(\\d+(?:\\.\\d+)?)/i),baud=baudMatch?Number(baudMatch[1]):Number.NaN;
+  const ackMatch=config.match(/\\bACK\\s+(yes|no)\\b/i),sensorResponds=ackMatch?.[1].toLowerCase()==="yes";
+  const mapMatch=sensorConfig.match(/\\bRegister\\s+(0x[0-9a-f]+|\\d+)\\s*=\\s*(0x[0-9a-f]+|\\d+)/i);
+  const mappedRegister=mapMatch?parseInt(mapMatch[1],mapMatch[1].toLowerCase().startsWith("0x")?16:10):Number.NaN;
+  const dataByte=mapMatch?parseInt(mapMatch[2],mapMatch[2].toLowerCase().startsWith("0x")?16:10):Number.NaN;
+  const resistanceValues=resistors.map(item=>resistanceValue(item.value));
+  const pullupNets=resistors.map(item=>{const a=n(item,"1"),b=n(item,"2");return a===vccNet?b:b===vccNet?a:undefined;});
+  const correctPullups=pullupNets.includes(sdaNet)&&pullupNets.includes(sclNet)&&sdaNet!==sclNet;
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(sensor,"GND")!==groundNet||fixtureGround!==groundNet||!sdaNet||n(sensor,"SDA")!==sdaNet||!sclNet||n(sensor,"SCL")!==sclNet||!correctPullups||resistanceValues.some(v=>!Number.isFinite(v)||v<=0)||![address,register,sensorAddress,mappedRegister,dataByte,baud].every(Number.isFinite)||address<0||address>0x7f||sensorAddress<0||sensorAddress>0x7f||register<0||register>0xff||mappedRegister<0||mappedRegister>0xff||dataByte<0||dataByte>0xff||baud<10000||baud>1000000||!ackMatch){
+    return {state:"blocked",message:"Wire shared SDA/SCL lines with one pull-up resistor per line, power and ground the sensor, and configure a 7-bit address, 8-bit register, and I²C clock from 10 kHz to 1 MHz.",validation};
+  }
+  const addressMatch=address===sensorAddress,registerMatch=register===mappedRegister,sensorAck=sensorResponds&&addressMatch,readComplete=sensorAck&&registerMatch;
+  const busPullupCurrentA=resistanceValues.reduce((sum,r)=>sum+supplyVoltage/r,0);
+  return {state:"complete",engine:"Ideal I²C register-read transaction model",message:readComplete?"Models START, address-write, register selection, repeated START, address-read, sensor ACKs, one data byte, master NACK, and STOP. Clock stretching, analog rise time, arbitration, noise, and device-specific timing are omitted.":!sensorAck?"The sensor did not acknowledge the requested 7-bit address; no register data is returned.":"The address was acknowledged, but the requested register is not present in the configured sensor map.",result:{kind:"i2c-register-read",address,register,sensorAddress,baud,addressMatch,registerMatch,sensorAck,readComplete,receivedByte:readComplete?dataByte:null,receivedHex:readComplete?"0x"+dataByte.toString(16).padStart(2,"0").toUpperCase():null,ackSequence:[sensorAck,sensorAck,sensorAck],masterFinalNack:true,transaction:["START","ADDRESS+WRITE","ACK","REGISTER","ACK","REPEATED START","ADDRESS+READ","ACK","DATA","MASTER NACK","STOP"],busPullupCurrentA},validation};
+}
 function analyseUartReceiver(project,{source,frameSource,receiver,resistor,led,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
