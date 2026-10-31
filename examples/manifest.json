@@ -6410,7 +6410,7 @@
       "title": "PLC tank level controller",
       "status": "in-review",
       "objective": "Simulate a bounded PLC pump controller with separate low and high level thresholds; verify hysteresis prevents relay chatter across intermediate samples.",
-      "acceptanceTest": "tests/core.test.mjs: tank controller starts at the low threshold and stops at the high threshold while retaining its state between thresholds",
+      "acceptanceTest": "tests/core.test.mjs: catalogue tank controller applies low/high hysteresis across synthetic levels",
       "testId": "core-plc-tank-level-controller",
       "projectFile": "examples/163-plc-tank-level-controller.adigun.json",
       "readmeFile": "examples/163-plc-tank-level-controller/README.md",

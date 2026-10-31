@@ -442,8 +442,7 @@ function renderOutput(validation = state.lastValidation ?? validateProject(state
   $("#issue-list").classList.toggle("hidden", isLog);
   if (!isLog) {
     $("#issue-list").textContent = issues.length
-      ? issues.map((issue) => `[${issue.rule}] ${issue.message}`).join("
-")
+      ? issues.map((issue) => `[${issue.rule}] ${issue.message}`).join("\n")
       : `[${state.activeOutput.toUpperCase()}] None.`;
   }
 }
@@ -474,8 +473,7 @@ function render() {
 
 function log(message) {
   const output = $("#output-log");
-  output.textContent = `${output.textContent.trim()}
-${message}`.trim();
+  output.textContent = `${output.textContent.trim()}\n${message}`.trim();
   output.scrollTop = output.scrollHeight;
 }
 
@@ -571,19 +569,14 @@ function exportProject() {
 
 function runPcbChecks() {
   const report=validatePcbFabrication(state.project);
-  const summary=report.status==="passed"?"Bounded PCB checks passed.":report.errors.join("
-");
-  showDialog("PCB fabrication checks",summary+"\
-\
-Checks: "+report.checks.join(", ")+"\
-These checks are educational and do not replace manufacturer validation.");
+  const summary=report.status==="passed"?"Bounded PCB checks passed.":report.errors.join("\n");
+  showDialog("PCB fabrication checks",summary+"\\n\\nChecks: "+report.checks.join(", ")+"\\nThese checks are educational and do not replace manufacturer validation.");
   log(`[PCB DRC] ${report.status.toUpperCase()} — ${report.errors.length} issue(s).`);
 }
 function exportPcbFiles() {
   const result=createManufacturingExportPack(state.project);
   if(result.status!=="passed"){
-    showDialog("PCB export blocked",(result.errors??result.drc?.errors??[]).join("\
-"));
+    showDialog("PCB export blocked",(result.errors??result.drc?.errors??[]).join("\\n"));
     log("[PCB EXPORT] Blocked until the bounded checks pass.");
     return;
   }
@@ -763,8 +756,7 @@ $("#component-form").addEventListener("submit", (event) => {
   const component = selectedComponent();
   if (!component) return;
   const propertyCheck=validateComponentProperty(component,$("#property-value").value);
-  if(!propertyCheck.valid){showDialog("Property not applied",propertyCheck.errors.map(error=>error.message).join("\
-"));log(`[PROPERTY] ${component.reference} edit blocked: ${propertyCheck.errors[0].code}.`);return;}
+  if(!propertyCheck.valid){showDialog("Property not applied",propertyCheck.errors.map(error=>error.message).join("\\n"));log(`[PROPERTY] ${component.reference} edit blocked: ${propertyCheck.errors[0].code}.`);return;}
   captureHistory();
   state.project = updateComponent(state.project, component.instanceId, { reference: $("#property-reference").value.trim(), value: $("#property-value").value.trim() });
   state.dirty = true;

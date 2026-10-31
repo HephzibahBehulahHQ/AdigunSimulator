@@ -3747,8 +3747,7 @@ test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs,
   assert.equal(project.components.find(part=>part.reference==="R2").value.startsWith("5.1 kΩ"),true);
   assert.deepEqual(STARTER_LIBRARY.find(part=>part.id==="connector.usb-c-receptacle").pins,["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"]);
   const report=createUsbCPinReport(project);
-  assert.equal(report.split("\r
-").length,19);
+  assert.equal(report.split("\r\n").length,19);
   assert.ok(report.includes('"J1","A5","CC1","CC1"'));
   assert.ok(report.includes('"J1","B5","CC2","CC2"'));
   assert.ok(report.includes('"J1","A6","D+","USB_DP"'));
@@ -3862,8 +3861,7 @@ test("catalogue manufacturing export pack contains bounded fabrication files, a 
   const manifest=JSON.parse(pack.files["Export-Manifest.json"]);
   assert.equal(manifest.projectId,project.id);
   assert.equal(manifest.checks["BOM.csv"],createHash("sha256").update(pack.files["BOM.csv"]).digest("hex"));
-  const rows=pack.files["SHA256SUMS.txt"].trim().split("
-");
+  const rows=pack.files["SHA256SUMS.txt"].trim().split("\n");
   assert.equal(rows.length,Object.keys(pack.files).length-1);
   for(const row of rows){const [,expected,name]=row.match(/^([a-f0-9]{64})  (.+)$/)??[];assert.ok(name,row);assert.equal(createHash("sha256").update(pack.files[name]).digest("hex"),expected,name);}
   assert.equal(pack.checksums["Export-Manifest.json"],createHash("sha256").update(pack.files["Export-Manifest.json"]).digest("hex"));
