@@ -1,0 +1,22 @@
+import { getViewReconciliationIssues, parseProject, serializeProject, updateComponent, validateProject } from "./core.mjs";
+
+export function runThreeViewLedHistory(project) {
+  const cfg=project?.threeViewLedHistory;
+  if(cfg?.kind!=="canonical-led-edit-undo-redo"||typeof cfg.instanceId!=="string"||typeof cfg.editedValue!=="string") return {state:"blocked",engine:"Three-view shared-state and history check",message:"Provide a declared component edit and undo/redo scenario.",errors:[{code:"THREE_VIEW_CONFIGURATION",message:"The project must declare an instance and edited value."}],warnings:[],result:null};
+  const validation=validateProject(project);
+  if(!validation.valid)return {state:"blocked",engine:"Three-view shared-state and history check",message:"Resolve project validation errors before checking view synchronization.",errors:validation.errors,warnings:[],result:null};
+  const before=project.components.find(item=>item.instanceId===cfg.instanceId);
+  if(!before)return {state:"blocked",engine:"Three-view shared-state and history check",message:"The target component is not in the project.",errors:[{code:"THREE_VIEW_TARGET",message:"Edit target does not exist."}],warnings:[],result:null};
+  const viewIssues=Object.fromEntries(["breadboard","schematic","pcb"].map(view=>[view,getViewReconciliationIssues(project,view)]));
+  if(viewIssues.breadboard.length||viewIssues.schematic.length)return {state:"blocked",engine:"Three-view shared-state and history check",message:"A component lacks a breadboard or schematic mapping.",errors:Object.entries(viewIssues).filter(([view])=>view!=="pcb").flatMap(([view,issues])=>issues.map(issue=>({code:"THREE_VIEW_RECONCILIATION",message:view+": "+issue.reason}))),warnings:[],result:null};
+  const beforeSnapshot=serializeProject(project),edited=updateComponent(project,cfg.instanceId,{value:cfg.editedValue}),editedSnapshot=serializeProject(edited);
+  const undoStack=[beforeSnapshot],redoStack=[]; redoStack.push(serializeProject(edited));
+  const undone=parseProject(undoStack.pop()),redone=parseProject(redoStack.pop());
+  const original=project.components.find(item=>item.instanceId===cfg.instanceId),updated=edited.components.find(item=>item.instanceId===cfg.instanceId);
+  const restored=undone.components.find(item=>item.instanceId===cfg.instanceId),replayed=redone.components.find(item=>item.instanceId===cfg.instanceId);
+  const sharedIdentity=project.nets.every((net,index)=>net.id===edited.nets[index]?.id&&JSON.stringify(net.endpoints)===JSON.stringify(edited.nets[index]?.endpoints));
+  const identitiesPreserved=project.components.every((item,index)=>item.instanceId===edited.components[index]?.instanceId&&item.reference===edited.components[index]?.reference);
+  const historyRestored=restored?.value===original.value&&serializeProject(undone)===beforeSnapshot,redoRestored=replayed?.value===cfg.editedValue&&serializeProject(redone)===editedSnapshot;
+  if(updated?.value!==cfg.editedValue||!sharedIdentity||!identitiesPreserved||!historyRestored||!redoRestored)return {state:"blocked",engine:"Three-view shared-state and history check",message:"The edit, shared graph, or undo/redo snapshot did not round-trip.",errors:[{code:"THREE_VIEW_HISTORY_MISMATCH",message:"Component identity, net identity, or history restoration failed."}],warnings:[],result:null};
+  return {state:"complete",engine:"Canonical project graph with serialized undo/redo snapshots",message:"The component edit is shared across breadboard, schematic, and PCB projections; undo and redo restore exact project snapshots.",errors:[],warnings:[{code:"VIEW_GEOMETRY_LIMIT",message:"This check validates shared component data and view availability only; it does not validate physical breadboard placement, schematic standards, PCB geometry, DRC, or manufacturing."}],result:{kind:"three-view-led-sync-history",componentCount:project.components.length,netCount:project.nets.length,instanceId:cfg.instanceId,reference:before.reference,originalValue:original.value,editedValue:updated.value,undoValue:restored.value,redoValue:replayed.value,availableViews:["breadboard","schematic","pcb"],reconciliationByView:Object.fromEntries(Object.entries(viewIssues).map(([view,issues])=>[view,issues.length])),pcbReconciliation:viewIssues.pcb.map(issue=>({instanceId:issue.instanceId,reference:issue.reference,reason:issue.reason})),sharedIdentity,identitiesPreserved,historyRestored,redoRestored}};
+}

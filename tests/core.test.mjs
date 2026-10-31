@@ -49,6 +49,7 @@ import { runWarehouseBeacon } from "../js/warehouse-beacon.mjs";
 import { runMachineFaultAnnunciator } from "../js/machine-fault-annunciator.mjs";
 import { runBreadboardSchematicSync } from "../js/breadboard-schematic-sync.mjs";
 import { runSchematicPcbSync } from "../js/schematic-pcb-sync.mjs";
+import { runThreeViewLedHistory } from "../js/three-view-led-history.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1481,7 +1482,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 192);
+  assert.equal(getExampleCoverage(registry).total, 193);
   assert.equal(getExampleCoverage(registry).released, 182);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 18);
@@ -4482,4 +4483,15 @@ test("catalogue schematic-to-PCB projection preserves every 555 net endpoint in 
   assert.equal(result.result.sourceEndpointCount,result.result.padEndpointCount);assert.equal(result.result.netlistPreserved,true);
   const missing=structuredClone(project);missing.schematicPcbSync.padMap.pop();assert.equal(runSchematicPcbSync(missing).state,"blocked");
   const duplicate=structuredClone(project);duplicate.schematicPcbSync.padMap[1].pad="1";assert.equal(runSchematicPcbSync(duplicate).state,"blocked");
+});
+test("catalogue three-view LED edit shares component identity and restores undo/redo snapshots", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/183-three-view-led-project.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.deepEqual(getViewReconciliationIssues(project,"breadboard"),[]);assert.deepEqual(getViewReconciliationIssues(project,"schematic"),[]);
+  const pcbIssues=getViewReconciliationIssues(project,"pcb");assert.equal(pcbIssues.length,4);assert.ok(pcbIssues.some(issue=>issue.instanceId==="resistor-1"));
+  const result=runThreeViewLedHistory(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"three-view-led-sync-history");
+  assert.deepEqual(result.result.availableViews,["breadboard","schematic","pcb"]);assert.deepEqual(result.result.reconciliationByView,{breadboard:0,schematic:0,pcb:4});assert.equal(result.result.pcbReconciliation.length,4);
+  assert.equal(result.result.identitiesPreserved,true);assert.equal(result.result.sharedIdentity,true);assert.equal(result.result.historyRestored,true);assert.equal(result.result.redoRestored,true);
+  assert.equal(result.result.originalValue,"330 Ω");assert.equal(result.result.editedValue,"470 Ω");assert.equal(result.result.undoValue,"330 Ω");assert.equal(result.result.redoValue,"470 Ω");
+  const invalid=structuredClone(project);invalid.threeViewLedHistory.instanceId="missing";assert.equal(runThreeViewLedHistory(invalid).state,"blocked");
 });
