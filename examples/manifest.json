@@ -2153,14 +2153,60 @@
     {
       "id": "051-shift-register-led-chaser",
       "title": "Four-bit shift-register LED chaser",
-      "status": "in-review",
+      "status": "released",
       "objective": "Initialize a one-hot Q0 state and move it through Q1, Q2, Q3, then back to Q0 on successive rising clock edges; assert exactly one LED is active.",
       "acceptanceTest": "tests/core.test.mjs: catalogue four-bit ring shift register moves one LED per rising edge",
       "testId": "core-shift-register-led-chaser",
       "projectFile": "examples/051-shift-register-led-chaser.adigun.json",
       "safetyNote": "Generic ideal discrete ring shift-register model. It omits part-specific timing, clock quality, power-up state, propagation delay, setup/hold, and metastability.",
       "scope": "catalogue",
-      "catalogueIndex": 51
+      "catalogueIndex": 51,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41174509417",
+        "headRevision": "8a51997cd6ce944454a26e9a70920c8e2784eba9",
+        "engine": "Ideal four-bit one-hot ring shift register",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-four-bit-ring-shift-v1",
+        "expectedResult": {
+          "resetBits": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "risingEdgeSequence": [
+            [
+              false,
+              true,
+              false,
+              false
+            ],
+            [
+              false,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              true
+            ],
+            [
+              true,
+              false,
+              false,
+              false
+            ]
+          ],
+          "oneHotEveryState": true,
+          "repeatsAfterFourEdges": true,
+          "invalidClockAboveSupply": "blocked"
+        }
+      }
     }
   ]
 }
