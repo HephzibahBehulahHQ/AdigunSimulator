@@ -1398,14 +1398,32 @@
     {
       "id": "036-hbridge-dc-motor",
       "title": "Four-switch H-bridge DC motor driver",
-      "status": "in-review",
+      "status": "released",
       "objective": "Use two generic P-channel high-side switches and two generic N-channel low-side switches to drive a 6 Ω + 10 mH motor electrical equivalent from 12 V; test forward and reverse static vectors, coast, MOSFET gate bounds, and same-leg shoot-through interlock.",
       "acceptanceTest": "tests/core.test.mjs: catalogue H-bridge reverses the motor model and blocks same-leg shoot-through",
       "testId": "core-hbridge-dc-motor",
       "projectFile": "examples/036-hbridge-dc-motor.adigun.json",
       "safetyNote": "Ideal static educational switch model only. It uses 0.1 Ω on-resistance per conducting MOSFET and represents the motor as a series resistance and inductance. It checks same-leg overlap but omits motor back EMF, speed/torque, switching dead time, body-diode commutation, transient current decay, thermal behavior, manufacturer-specific ratings, and safe physical direction reversal.",
       "scope": "catalogue",
-      "catalogueIndex": 36
+      "catalogueIndex": 36,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41171857367",
+        "headRevision": "e93e4d9bf34629e845af2241826cdd9795be2321",
+        "engine": "Ideal four-switch H-bridge DC motor electrical estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-hbridge-dc-motor-v1",
+        "expectedResult": {
+          "supplyVoltage": 12,
+          "direction": "forward",
+          "motorCurrentA": 1.9354838709677418,
+          "motorVoltageV": 11.61290322580645,
+          "leftOutputVoltageV": 11.806451612903226,
+          "rightOutputVoltageV": 0.1935483870967742,
+          "shootThrough": false
+        }
+      }
     }
   ]
 }
