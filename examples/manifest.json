@@ -5037,6 +5037,19 @@
           "hardwareManufacturingQualified": false
         }
       }
+    },
+    {
+      "id": "122-555-timer-pcb",
+      "title": "555 timer PCB",
+      "status": "in-review",
+      "objective": "Map the NE555 astable LED circuit onto a single-sided DIP-8 board; check all electrical nets, physical pads and routing continuity, and compare deterministic manufacturing outputs with expected files.",
+      "acceptanceTest": "tests/core.test.mjs: 555 timer PCB has complete schematic/PCB mapping, no unrouted physical nets, and matching fabrication snapshots",
+      "testId": "core-555-timer-pcb",
+      "projectFile": "examples/122-555-timer-pcb.adigun.json",
+      "readmeFile": "examples/122-555-timer-pcb/README.md",
+      "safetyNote": "Generic NE555-class educational layout and preview export only. Verify exact timer, passive footprints, routing clearances, current, thermal limits and manufacturer rules before building.",
+      "scope": "catalogue",
+      "catalogueIndex": 122
     }
   ]
 }
