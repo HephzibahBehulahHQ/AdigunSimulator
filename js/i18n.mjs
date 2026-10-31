@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleFourLayerMcuPlan", "exampleUsbDifferentialPair", "exampleQfnFootprintValidation", "exampleBgaEscapeConcept", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleFourLayerMcuPlan", "exampleUsbDifferentialPair", "exampleQfnFootprintValidation", "exampleBgaEscapeConcept", "examplePanelMountController", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -788,3 +788,8 @@ Object.assign(TRANSLATIONS.en, {exampleBgaEscapeConcept:"BGA escape concept — 
 Object.assign(TRANSLATIONS.de, {exampleBgaEscapeConcept:"BGA-Escape-Konzept — Funktionsgrenzen"});
 Object.assign(TRANSLATIONS.yo, {exampleBgaEscapeConcept:"Èrò BGA escape — àlàyé ààlà iṣẹ́"});
 Object.assign(TRANSLATIONS.pcm, {exampleBgaEscapeConcept:"BGA escape concept — wetin system fit do"});
+
+Object.assign(TRANSLATIONS.en, {examplePanelMountController:"Panel-mount controller mechanical plan"});
+Object.assign(TRANSLATIONS.de, {examplePanelMountController:"Mechanikplan für Panel-Steuerung"});
+Object.assign(TRANSLATIONS.yo, {examplePanelMountController:"Ètò ẹrọ fún controller panel"});
+Object.assign(TRANSLATIONS.pcm, {examplePanelMountController:"Panel controller mechanical plan"});

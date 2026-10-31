@@ -5499,6 +5499,18 @@
           "artifact": "BGA-Escape-Capability-Report.csv"
         }
       }
+    },
+    {
+      "id": "134-panel-mount-controller",
+      "title": "Panel-mount controller mechanical plan",
+      "status": "in-review",
+      "objective": "Review a panel-status controller concept's board outline, four mounting-hole dimensions, top-edge cutout, linked mechanical keepouts and single-layer electrical DRC.",
+      "acceptanceTest": "tests/core.test.mjs: panel-mount controller reviews hole/cutout dimensions and PCB clearances",
+      "testId": "core-panel-mount-controller",
+      "projectFile": "examples/134-panel-mount-controller.adigun.json",
+      "readmeFile": "examples/134-panel-mount-controller/README.md",
+      "safetyNote": "The checker validates declared board/mechanical geometry and supported single-layer electrical rules only. Mechanical features are not emitted in fabrication files; no enclosure fit, controller logic, or manufacturing qualification is performed.",
+      "scope": "catalogue"
     }
   ]
 }

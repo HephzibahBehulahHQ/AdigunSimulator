@@ -1,3 +1,4 @@
+import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs";
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
 import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
 export const SCHEMA_VERSION = 1;
@@ -276,6 +277,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "connector.usb-phy-logic-10", category: "Connectors", type: "10-pin USB PHY logic header", prefix: "J", pins: ["VCCIO","GND","VPO","VMO","VP","VM","RCV","OE","SUSPND","SPEED"], defaultValue: "VCCIO, GND, VPO, VMO, RCV, OE, SUSPND, SPEED", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "active.tps62130-qfn16", category: "Active", type: "TI TPS62130 16-pin VQFN with exposed thermal pad", prefix: "U", pins: ["SW_1","SW_2","SW_3","PG","FB","AGND","FSW","DEF","SS_TR","AVIN","PVIN_1","PVIN_2","EN","VOS","PGND_1","PGND_2","EP"], defaultValue: "TPS62130RGTR; RGT0016C; adjustable 3 A buck converter", simulation: "bounded-qfn-footprint-review", status: "TI pin map and package drawing; footprint and stencil proposal", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "package.generic-bga-4x4-concept", category: "Active", type: "Conceptual 4 × 4 ball-grid array package", prefix: "U", pins: ["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"], defaultValue: "Concept only; 0.80 mm pitch and 0.35 mm land are declared assumptions", simulation: "bounded-bga-escape-capability-review", status: "conceptual geometry; not a manufacturer-specific package", views: { breadboard: false, schematic: true, pcb: true } },
+  { id: "control.panel-mount-controller-concept", category: "Active", type: "Panel-mount status controller concept", prefix: "U", pins: ["VIN","GND","STATUS"], defaultValue: "Topology fixture only; no controller logic model", simulation: "bounded-panel-mount-mechanical-review", status: "generic concept; mechanical review only", views: { breadboard: false, schematic: true, pcb: false } },
 ]);
 
 function clone(value) {
@@ -607,6 +609,18 @@ function engineeringValue(value, expectedUnit) {
 export function runSupportedAnalysis(project, { previousState } = {}) {
   const validation = validateProject(project);
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
+
+  const panelController=project.components.find((item)=>item.libraryId==="control.panel-mount-controller-concept");
+  if(panelController){
+    const source=project.components.find(item=>item.libraryId==="power.dc-source"),terminal=project.components.find(item=>item.reference==="J1"),resistor=project.components.find(item=>item.reference==="R1"),led=project.components.find(item=>item.libraryId==="diode.led-red"),ground=project.components.find(item=>item.libraryId==="ground.signal");
+    const has=(net,component,pin)=>Boolean(component&&project.nets.find(item=>item.id===net)?.endpoints.includes(component.instanceId+":"+pin));
+    const topology=source&&terminal&&resistor&&led&&ground&&has("VIN",source,"+")&&has("VIN",terminal,"1")&&has("VIN",panelController,"VIN")&&has("VIN",resistor,"1")&&has("STATUS",panelController,"STATUS")&&has("STATUS",resistor,"2")&&has("STATUS",led,"A")&&has("GND",source,"-")&&has("GND",terminal,"2")&&has("GND",panelController,"GND")&&has("GND",led,"K")&&has("GND",ground,"0");
+    if(!topology)return {state:"blocked",engine:"Panel-mount topology and mechanical review",message:"Check the declared low-voltage supply, controller status-indicator topology and terminal map.",validation};
+    const review=reviewPanelMountMechanicals(project);
+    if(review.status!=="passed")return {state:"blocked",engine:"Panel-mount topology and mechanical review",message:"Correct PCB DRC or documented mounting-hole/cutout geometry.",validation,mechanicalReview:review};
+    return {state:"complete",engine:"Panel-mount topology and mechanical review",message:"Verified the declared low-voltage status-indicator topology, single-layer electrical DRC, mounting-hole dimensions and top-edge cutout. Controller logic and mechanical-feature manufacturing export are not implemented.",validation,result:{kind:"panel-mount-controller-mechanical-plan",mountingHoleCount:4,edgeCutoutCount:1,electricalDrc:"passed",mechanicalFeatureExported:false,controllerLogicSimulated:false,manufacturingQualified:false}};
+  }
+
 
   const bgaPart=project.components.find((item)=>item.libraryId==="package.generic-bga-4x4-concept");
   if(bgaPart){
