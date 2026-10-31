@@ -2847,3 +2847,27 @@ test("catalogue Li-ion charger estimates CC, CV taper, termination, and safety i
   broken.nets.find(net=>net.id==="STATUS").endpoints=["charger:STATUS"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue three-cell BMS flags voltage faults and balance requests without actuating protection", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/105-bms-cell-monitor.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"bms-cell-monitor");
+  assert.equal(result.result.stackVoltageV,11.13);
+  assert.equal(result.result.faultState,"normal");
+  assert.deepEqual(result.result.cellsToBalance,[]);
+  assert.equal(result.result.balancingActuated,false);
+  const faults=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Cell1 3.70 V; Cell2 4.25 V; Cell3 2.80 V; Mode 3S"}));
+  assert.equal(faults.state,"complete");
+  assert.equal(faults.result.faultState,"over-and-under-voltage");
+  assert.deepEqual(faults.result.overVoltageCells,[2]);
+  assert.deepEqual(faults.result.underVoltageCells,[3]);
+  assert.deepEqual(faults.result.cellsToBalance,[2]);
+  const balance=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Cell1 3.70 V; Cell2 3.80 V; Cell3 3.71 V; Mode 3S"}));
+  assert.deepEqual(balance.result.cellsToBalance,[2]);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Cell1 3.70 V; Cell2 4.50 V; Cell3 3.71 V; Mode 3S"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"monitor",{value:"Mode 3S; OV 2.0 V; UV 3.0 V; BalanceDelta 0.03 V; MaxCell 4.35 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="CELL2").endpoints=["fixture:C2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
