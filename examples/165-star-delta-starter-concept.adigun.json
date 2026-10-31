@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "example-165-star-delta-starter-concept",
+  "metadata": {
+    "name": "Example 165 — Star-Delta Starter Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "starDeltaStarter": {
+    "kind": "timed-star-delta-concept",
+    "starTimeMs": 1000,
+    "deadTimeMs": 100,
+    "events": [
+      {
+        "atMs": 0,
+        "command": "start"
+      },
+      {
+        "atMs": 500,
+        "command": "tick"
+      },
+      {
+        "atMs": 1000,
+        "command": "tick"
+      },
+      {
+        "atMs": 1099,
+        "command": "tick"
+      },
+      {
+        "atMs": 1100,
+        "command": "tick"
+      },
+      {
+        "atMs": 2000,
+        "command": "tick"
+      },
+      {
+        "atMs": 2100,
+        "command": "stop"
+      },
+      {
+        "atMs": 2200,
+        "command": "start"
+      }
+    ]
+  }
+}

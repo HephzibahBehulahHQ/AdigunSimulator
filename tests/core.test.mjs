@@ -31,6 +31,7 @@ import { runPlcStartStopSequence } from "../js/plc-start-stop-sequence.mjs";
 import { runTrafficLightSequence } from "../js/traffic-light-sequence.mjs";
 import { runTankLevelController } from "../js/tank-level-controller.mjs";
 import { runConveyorCounter } from "../js/conveyor-counter.mjs";
+import { runStarDeltaStarter } from "../js/star-delta-starter.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1463,7 +1464,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 174);
+  assert.equal(getExampleCoverage(registry).total, 175);
   assert.equal(getExampleCoverage(registry).released, 164);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 36);
@@ -4287,4 +4288,14 @@ test("catalogue conveyor counter counts rising photoeye edges and stops at targe
   assert.deepEqual(result.result.frames.map(frame=>frame.motorRunning),[true,true,true,true,true,true,false,false,false,false]);
   const invalid=structuredClone(project);invalid.conveyorCounter.targetCount=0;assert.equal(runConveyorCounter(invalid).state,"blocked");
   const invalidSignal=structuredClone(project);invalidSignal.conveyorCounter.photoeyeEvents[0]=1;assert.equal(runConveyorCounter(invalidSignal).state,"blocked");
+});
+
+test("catalogue star-delta starter moves through exclusive outputs and transition dead time", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/165-star-delta-starter-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runStarDeltaStarter(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"star-delta-transition-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.mode),["star","star","transition","transition","delta","delta","stopped","star"]);
+  assert.equal(result.result.noOverlap,true);assert.ok(result.result.frames.every(frame=>!(frame.starEnergized&&frame.deltaEnergized)));
+  const invalid=structuredClone(project);invalid.starDeltaStarter.deadTimeMs=0;assert.equal(runStarDeltaStarter(invalid).state,"blocked");
+  const unordered=structuredClone(project);unordered.starDeltaStarter.events[2].atMs=10;assert.equal(runStarDeltaStarter(unordered).state,"blocked");
 });
