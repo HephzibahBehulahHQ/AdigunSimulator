@@ -4580,7 +4580,7 @@
     {
       "id": "111-mosfet-half-bridge",
       "title": "MOSFET half-bridge",
-      "status": "planned",
+      "status": "released",
       "objective": "Model complementary high/low MOSFET gate timing with minimum dead time, reject overlap, and estimate the resistive load during high-side conduction.",
       "acceptanceTest": "tests/core.test.mjs: catalogue MOSFET half-bridge enforces dead time and prevents gate overlap",
       "testId": "core-mosfet-half-bridge",
@@ -4588,7 +4588,30 @@
       "readmeFile": "examples/111-mosfet-half-bridge/README.md",
       "safetyNote": "Ideal timing and resistive-load estimator; it is not a switching-transient, thermal, SOA, or hardware-safety simulation.",
       "scope": "catalogue",
-      "catalogueIndex": 111
+      "catalogueIndex": 111,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41190460713",
+        "headRevision": "c4d5fc06ea3338d713c6f7c4aca18ee1a4a81736",
+        "engine": "Complementary half-bridge timing and resistive-load estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "mosfet-half-bridge-dead-time-v1",
+        "expectedResult": {
+          "kind": "mosfet-half-bridge",
+          "periodS": 0.000009999999999999999,
+          "highDutyPercent": 45,
+          "lowDutyPercent": 45,
+          "deadTimeS": 5e-7,
+          "deadTimeFraction": 0.1,
+          "shootThrough": false,
+          "busVoltageV": 12,
+          "loadResistanceOhm": 8,
+          "mosfetRdsOnOhm": 0.08,
+          "highSideOnCurrentA": 1.4851485148514851,
+          "highSideAverageCurrentA": 0.6683168316831684
+        }
+      }
     }
   ]
 }
