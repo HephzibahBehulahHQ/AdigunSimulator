@@ -1654,7 +1654,7 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
 function analyseRs485PollNetwork(project,{source,poll,master,nodes,transceivers,terminations,sensors,display,ground,validation}){
-  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(endpoint(partInstance(item),partPin(item)),net.id);
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
   const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
   const addressValue=value=>/^0x[0-9a-f]{1,2}$/i.test(value??"")?Number.parseInt(value,16):Number.NaN;
@@ -1681,8 +1681,6 @@ function analyseRs485PollNetwork(project,{source,poll,master,nodes,transceivers,
   const temperatureC=sensorValues[nodeRecords.indexOf(target)],address="0x"+pollAddress.toString(16).padStart(2,"0").toUpperCase(),displayText="Address "+address+" → "+temperatureC.toFixed(1)+" °C; other node silent";
   return {state:"complete",engine:"Ideal addressed half-duplex RS-485 polling model",message:"Schedules one master request followed by only the uniquely addressed sensor node's response and checks the combined end termination. This deterministic logical model does not implement Modbus framing, MCU firmware, UART sampling, bias-network idle levels, transceiver enable delays, cable effects, or physical-layer faults.",result:{kind:"rs485-addressed-poll",baud,pollAddress:address,respondingAddress:address,temperatureC,respondingNodes:1,silentNodes:1,simultaneousDrivers:0,collisionAvoidance:"unique addresses; master then addressed node",terminationResistorsOhm:terminationValues,busTerminationOhm,displayText,firmwareExecuted:false},validation};
 }
-function partInstance(value){return String(value).split(":")[0];}
-function partPin(value){return String(value).slice(String(value).indexOf(":")+1);}
 function analyseCanNodePair(project,{source,frame,nodes,transceivers,terminations,display,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
