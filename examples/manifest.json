@@ -3435,6 +3435,42 @@
           "errorHandling": "stop at first unexpected modem response"
         }
       }
+    },
+    {
+      "id": "084-wifi-relay-controller",
+      "title": "Local Wi-Fi relay controller fail-safe mock",
+      "status": "released",
+      "objective": "Apply an authenticated-placeholder ON/OFF command to an ideal relay-driver state only when the configured local Wi-Fi link is online and requested coil current is within the configured guard.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Wi-Fi relay controller applies valid commands and fails safe offline",
+      "testId": "core-wifi-relay-control",
+      "projectFile": "examples/084-wifi-relay-controller.adigun.json",
+      "safetyNote": "Local behavior model only. The token comparison is a placeholder and is not security-grade authentication. It does not implement Wi-Fi, remote access, a physical relay, contact switching, coil dynamics, or device firmware.",
+      "scope": "catalogue",
+      "catalogueIndex": 84,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41182884446",
+        "headRevision": "3c5b67504fae45103af23e740d4ddd8a7116ba4c",
+        "engine": "Local Wi-Fi relay command and ideal driver-state model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-wifi-relay-placeholder-auth-v1",
+        "expectedResult": {
+          "command": "ON",
+          "linkState": "online",
+          "authentication": "placeholder string comparison only",
+          "authenticated": true,
+          "transactionState": "applied-on",
+          "relayEnergized": true,
+          "requestedCoilCurrentMa": 70,
+          "maximumCurrentMa": 100,
+          "coilCurrentMa": 70,
+          "physicalRelaySwitched": false,
+          "networkTransmitted": false,
+          "firmwareExecuted": false,
+          "offlineState": "de-energized"
+        }
+      }
     }
   ]
 }
