@@ -35,6 +35,18 @@
       "scope": "supplemental"
     },
     {
+      "id": "003-pushbutton-led",
+      "title": "5 V pushbutton LED with pull-down",
+      "status": "in-review",
+      "objective": "Model the catalogue pushbutton LED circuit with a 5 V ideal source, a normally-open series button, a 330 Ω LED resistor, a 10 kΩ pull-down, and a red LED.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue pushbutton LED stays off until pressed and includes its pull-down",
+      "testId": "core-pushbutton-led",
+      "projectFile": "examples/003-pushbutton-led.adigun.json",
+      "safetyNote": "Ideal low-voltage educational model only. It omits switch bounce, component tolerances and ratings, thermal effects, physical breadboard mapping, and hardware safety qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 3
+    },
+    {
       "id": "003-led-current-limiter-9v",
       "title": "9 V LED current limiter",
       "status": "released",
