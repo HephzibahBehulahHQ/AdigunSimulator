@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 80);
+  assert.equal(getExampleCoverage(registry).total, 81);
   assert.equal(getExampleCoverage(registry).released, 70);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 130);
@@ -2071,5 +2071,21 @@ test("catalogue STM32 timer PWM computes frequency, duty, and LED load estimate"
   assert.equal(runSupportedAnalysis(updateComponent(project,"timer",{value:"ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 499"})).result.frequencyHz,1000);
   const broken=structuredClone(project);
   broken.nets.find(n=>n.id==="PWM_LED").endpoints=["timer:TIM1_CH1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue PIC ADC bargraph maps 10-bit readings to LED count",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/071-pic-adc-bargraph.adigun.json",import.meta.url)));
+  for(const [position,expectedCount] of [[0,0],[25,2],[50,5],[75,7],[100,10]]){
+    const result=runSupportedAnalysis(updateComponent(project,"pot",{value:"Position "+position+"%; Resolution 10 bit"}));
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.adcResolutionBits,10);
+    assert.equal(result.result.illuminatedSegments,expectedCount);
+    assert.equal(result.result.segments.filter(Boolean).length,expectedCount);
+    assert.equal(result.result.firmwareExecuted,false);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Position 101%; Resolution 10 bit"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="BAR_9").endpoints=["pic:BAR9"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
