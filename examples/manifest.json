@@ -7659,7 +7659,7 @@
     {
       "id": "199-local-offline-recovery",
       "title": "Local offline recovery",
-      "status": "in-review",
+      "status": "released",
       "objective": "Simulate an unsaved edit, recover it from a versioned local draft, and prove a validated native-project export preserves the edit when browser storage is unavailable.",
       "acceptanceTest": "tests/core.test.mjs: catalogue offline recovery restores the unsaved edit and preserves it in a valid export when storage writes throw",
       "testId": "core-local-offline-recovery",
@@ -7667,7 +7667,25 @@
       "readmeFile": "examples/199-local-offline-recovery/README.md",
       "safetyNote": "The storage failure is mocked in CI; real browser quota, crashes, filesystem failures and eviction are not simulated. Export important project work when local draft storage is unavailable.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 199,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41219497765",
+        "headRevision": "2cb43c14936ef27d1cde9afbea1cab63d9ba5d89",
+        "engine": "Local versioned draft and validated native-project fallback",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "offline-recovery-fallback-v1",
+        "expectedResult": {
+          "kind": "offline-recovery-scenario",
+          "draftRestored": true,
+          "storageUnavailableFallbackValid": true,
+          "editedValue": "470 Ω",
+          "silentLoss": false,
+          "exportAction": "File → Export"
+        }
+      }
     }
   ]
 }
