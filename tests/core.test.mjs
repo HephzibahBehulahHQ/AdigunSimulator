@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 119);
+  assert.equal(getExampleCoverage(registry).total, 120);
   assert.equal(getExampleCoverage(registry).released, 109);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 91);
@@ -3019,5 +3019,30 @@ test("catalogue PoE PD input corrects alternate feed polarity and checks DC/DC p
   assert.equal(runSupportedAnalysis(updateComponent(project,"poe-fixture",{value:"Voltage 48 V; Current 350 mA; ActiveFeed A; Polarity invalid; Fault none; Mode poe-feed-fixture"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="FEED_A1").endpoints=["poe-fixture:A1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue constant-current LED driver regulates across load range and reports open LED", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/110-constant-current-led-driver.adigun.json",import.meta.url)));
+  for(const vf of [8,9,10.5]){
+    const result=runSupportedAnalysis(updateComponent(project,"led-string",{value:"Vf "+vf+" V; Open no; Mode led-string"}));
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.regulationState,"regulated");
+    assert.equal(result.result.ledCurrentA,0.35);
+  }
+  const open=runSupportedAnalysis(updateComponent(project,"led-string",{value:"Vf 9 V; Open yes; Mode led-string"}));
+  assert.equal(open.state,"complete");
+  assert.equal(open.result.regulationState,"open-load");
+  assert.equal(open.result.ledCurrentA,0);
+  assert.match(open.result.warning,/open/i);
+
+  const lowHeadroom=runSupportedAnalysis(updateComponent(project,"led-string",{value:"Vf 10.8 V; Open no; Mode led-string"}));
+  assert.equal(lowHeadroom.state,"complete");
+  assert.equal(lowHeadroom.result.regulationState,"compliance-limited");
+  assert.ok(lowHeadroom.result.ledCurrentA<0.35);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project,"sense",{value:"0.1 Ω"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="LED_POS").endpoints=["driver:LED+"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
