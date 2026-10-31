@@ -248,16 +248,16 @@
     {
       "id": "Q",
       "endpoints": [
-        "set-gate:Y",
-        "reset-gate:B",
+        "reset-gate:Y",
+        "set-gate:B",
         "q-resistor:1"
       ]
     },
     {
       "id": "QBAR",
       "endpoints": [
-        "reset-gate:Y",
-        "set-gate:B",
+        "set-gate:Y",
+        "reset-gate:B",
         "qbar-resistor:1"
       ]
     },
