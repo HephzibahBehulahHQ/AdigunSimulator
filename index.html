@@ -385,6 +385,10 @@
         <section class="breadboard-controls" aria-labelledby="breadboard-editor-heading">
           <h3 id="breadboard-editor-heading" data-i18n="breadboardEditor">Physical breadboard</h3>
           <p id="breadboard-status" role="status" aria-live="polite"></p>
+          <button id="breadboard-sync-review" class="outline-button" type="button" data-action="breadboard-sync-review" data-i18n="breadboardSyncReview">Preview schematic sync</button>
+          <p id="breadboard-sync-summary" role="status" aria-live="polite" data-i18n="breadboardSyncDefault">Preview how physical wiring would update the shared netlist.</p>
+          <ul id="breadboard-sync-net-list" class="breadboard-sync-net-list" aria-live="polite"></ul>
+          <button id="breadboard-sync-apply" class="outline-button" type="button" data-action="breadboard-sync-apply" data-i18n="breadboardSyncApply" hidden disabled>Apply reviewed netlist</button>
           <p class="package-note" data-i18n="breadboardPackageNote">Generic resistor, capacitor, axial diode, LED, and TO-92 body drawings are illustrative, not manufacturer-specific footprints.</p>
           <datalist id="breadboard-hole-options"></datalist>
           <form id="breadboard-pin-form" class="connection-form">
