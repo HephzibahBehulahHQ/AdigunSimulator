@@ -36,6 +36,7 @@ import { runForwardReverseInterlock } from "../js/forward-reverse-interlock.mjs"
 import { runEmergencyStopConcept } from "../js/emergency-stop-concept.mjs";
 import { runDoorInterlockConcept } from "../js/door-interlock-concept.mjs";
 import { runTemperatureAlarm } from "../js/temperature-alarm.mjs";
+import { runWaterLeakAlarm } from "../js/water-leak-alarm.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1468,7 +1469,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 179);
+  assert.equal(getExampleCoverage(registry).total, 180);
   assert.equal(getExampleCoverage(registry).released, 169);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 31);
@@ -4343,4 +4344,13 @@ test("catalogue temperature alarm latches at threshold and applies safe reset po
   assert.equal(result.result.frames[3].resetRejected,true);assert.equal(result.result.resetRejected,true);
   const invalid=structuredClone(project);invalid.temperatureAlarm.thresholdC=251;assert.equal(runTemperatureAlarm(invalid).state,"blocked");
   const invalidSample=structuredClone(project);invalidSample.temperatureAlarm.samples[0].tempC=Infinity;assert.equal(runTemperatureAlarm(invalidSample).state,"blocked");
+});
+
+test("catalogue water leak alarm triggers on wet input and recovers on dry input", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/170-water-leak-alarm.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runWaterLeakAlarm(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"water-leak-alarm-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.alarmOn),[false,true,true,false,false,true,false]);
+  assert.equal(result.result.alarmEpisodes,2);assert.equal(result.result.dryRecoveryObserved,true);
+  const invalid=structuredClone(project);invalid.waterLeakAlarm.wetSamples[0]="wet";assert.equal(runWaterLeakAlarm(invalid).state,"blocked");
 });

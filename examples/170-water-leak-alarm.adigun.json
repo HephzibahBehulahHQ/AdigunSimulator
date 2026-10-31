@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "example-170-water-leak-alarm",
+  "metadata": {
+    "name": "Example 170 — Water Leak Alarm",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "waterLeakAlarm": {
+    "kind": "direct-wet-dry-alarm",
+    "wetSamples": [
+      false,
+      true,
+      true,
+      false,
+      false,
+      true,
+      false
+    ]
+  }
+}
