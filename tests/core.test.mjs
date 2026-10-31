@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 124);
+  assert.equal(getExampleCoverage(registry).total, 125);
   assert.equal(getExampleCoverage(registry).released, 114);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 86);
@@ -3171,5 +3171,42 @@ test("catalogue SSR follows isolated control and models off leakage", async () =
 
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="CONTROL").endpoints=["fixture:CONTROL"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue UPS maintains output after mains loss within battery hold-up window", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/115-ups-transfer.adigun.json",import.meta.url)));
+  const mains=runSupportedAnalysis(project);
+  assert.equal(mains.state,"complete",JSON.stringify(mains.validation?.errors??mains));
+  assert.equal(mains.result.kind,"ups-transfer");
+  assert.equal(mains.result.sourceSelected,"mains");
+  assert.equal(mains.result.outputVoltageV,12);
+  assert.equal(mains.result.loadPowerW,6);
+  assert.equal(mains.result.holdUpSatisfied,true);
+  assert.ok(mains.result.batteryChargeCurrentA>0);
+
+  const loss=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Mains no; BatteryVoltage 12 V; Capacity 2 Ah; SOC 80%; MinSOC 20%; HoldUp 10 min; Mode ups-fixture"}));
+  assert.equal(loss.state,"complete");
+  assert.equal(loss.result.mainsAvailable,false);
+  assert.equal(loss.result.sourceSelected,"battery");
+  assert.equal(loss.result.outputEnabled,true);
+  assert.equal(loss.result.outputVoltageV,12);
+  assert.equal(loss.result.batteryDischargeCurrentA,1/2);
+  assert.equal(loss.result.holdUpSatisfied,true);
+
+  const short=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Mains no; BatteryVoltage 12 V; Capacity 2 Ah; SOC 23%; MinSOC 20%; HoldUp 10 min; Mode ups-fixture"}));
+  assert.equal(short.state,"complete");
+  assert.equal(short.result.outputEnabled,true);
+  assert.equal(short.result.holdUpSatisfied,false);
+  assert.ok(short.result.estimatedHoldUpMin<10);
+
+  const depleted=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Mains no; BatteryVoltage 12 V; Capacity 2 Ah; SOC 20%; MinSOC 20%; HoldUp 10 min; Mode ups-fixture"}));
+  assert.equal(depleted.state,"complete");
+  assert.equal(depleted.result.sourceSelected,"none");
+  assert.equal(depleted.result.outputEnabled,false);
+  assert.equal(depleted.result.outputVoltageV,0);
+
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="UPS_OUT").endpoints=["diode:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
