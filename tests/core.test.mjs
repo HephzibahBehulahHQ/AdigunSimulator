@@ -23,6 +23,7 @@ import { diagnoseFloatingNode } from "../js/floating-node-diagnosis.mjs";
 import { diagnoseSupplyShort } from "../js/short-circuit-diagnosis.mjs";
 import { diagnoseMissingGround } from "../js/missing-ground-diagnosis.mjs";
 import { reportUnavailableModel } from "../js/model-unavailable-diagnosis.mjs";
+import { runNetCrossProbe } from "../js/net-cross-probe.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1455,7 +1456,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 166);
+  assert.equal(getExampleCoverage(registry).total, 167);
   assert.equal(getExampleCoverage(registry).released, 156);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 44);
@@ -4163,4 +4164,18 @@ test("catalogue unavailable-model fixture is schematic-only and never simulates 
   assert.equal(result.diagnostics.displayMode,"schematic-only");
   assert.equal(result.errors[0].code,"COMPONENT_MODEL_UNAVAILABLE");
   assert.match(result.message,/shown in the schematic/);
+});
+
+test("catalogue net cross-probe preserves the same net ID across all design views", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/157-net-probe-cross-probe.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const result=runNetCrossProbe(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"net-cross-probe");
+  assert.equal(result.result.netId,"LED_A");assert.equal(result.result.sharedNetId,true);
+  assert.deepEqual(result.result.views,["breadboard","schematic","pcb"]);
+  assert.equal(result.result.endpointCount,2);
+  assert.equal(result.diagnostics.jumpTarget.netId,"LED_A");
+  const missing=JSON.parse(JSON.stringify(project));missing.crossProbe.netId="MISSING";
+  assert.equal(runNetCrossProbe(missing).state,"blocked");
 });
