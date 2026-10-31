@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-079-eeprom-data-logger",
+  "metadata": {
+    "name": "EEPROM Circular Data Logger",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          30,
+          55
+        ],
+        "schematic": [
+          30,
+          55
+        ],
+        "pcb": [
+          30,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.data-log-samples",
+      "reference": "SIG1",
+      "value": "Samples 10,20,30,40,50; PeriodMs 100; Unit C",
+      "position": {
+        "breadboard": [
+          120,
+          55
+        ],
+        "schematic": [
+          120,
+          55
+        ],
+        "pcb": [
+          120,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.data-logger-controller-ideal",
+      "reference": "U1",
+      "value": "SamplePeriodMs 100; Mode circular logger",
+      "position": {
+        "breadboard": [
+          245,
+          55
+        ],
+        "schematic": [
+          245,
+          55
+        ],
+        "pcb": [
+          245,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "eeprom",
+      "libraryId": "active.eeprom-ring-buffer-ideal",
+      "reference": "MEM1",
+      "value": "Capacity 3; WriteCycleMs 5; Mode circular",
+      "position": {
+        "breadboard": [
+          390,
+          55
+        ],
+        "schematic": [
+          390,
+          55
+        ],
+        "pcb": [
+          390,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "pull-sda",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          280,
+          145
+        ],
+        "schematic": [
+          280,
+          145
+        ],
+        "pcb": [
+          280,
+          145
+        ]
+      }
+    },
+    {
+      "instanceId": "pull-scl",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          380,
+          145
+        ],
+        "schematic": [
+          380,
+          145
+        ],
+        "pcb": [
+          380,
+          145
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "output.data-log-display",
+      "reference": "DISP1",
+      "value": "Newest retained samples",
+      "position": {
+        "breadboard": [
+          530,
+          55
+        ],
+        "schematic": [
+          530,
+          55
+        ],
+        "pcb": [
+          530,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          245
+        ],
+        "schematic": [
+          605,
+          245
+        ],
+        "pcb": [
+          605,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "controller:VCC",
+        "eeprom:VCC",
+        "pull-sda:1",
+        "pull-scl:1",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "fixture:GND",
+        "controller:GND",
+        "eeprom:GND",
+        "display:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "SAMPLES",
+      "endpoints": [
+        "fixture:DATA",
+        "controller:SENSOR"
+      ]
+    },
+    {
+      "id": "SDA",
+      "endpoints": [
+        "controller:SDA",
+        "eeprom:SDA",
+        "pull-sda:2"
+      ]
+    },
+    {
+      "id": "SCL",
+      "endpoints": [
+        "controller:SCL",
+        "eeprom:SCL",
+        "pull-scl:2"
+      ]
+    },
+    {
+      "id": "DISPLAY",
+      "endpoints": [
+        "controller:DISPLAY",
+        "display:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
