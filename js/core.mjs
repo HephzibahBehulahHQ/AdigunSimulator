@@ -12,7 +12,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "passive.inductor", category: "Passive", type: "Inductor", prefix: "L", pins: ["1", "2"], defaultValue: "100 mH", simulation: "analytical-rl-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "ground.signal", category: "Power & Ground", type: "Signal ground", prefix: "GND", pins: ["0"], defaultValue: "0 V", simulation: "reference", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
-  { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -351,12 +351,16 @@ export function runSupportedAnalysis(project) {
   const capacitor = project.components.filter((item) => item.libraryId === "passive.capacitor");
   const inductor = project.components.filter((item) => item.libraryId === "passive.inductor");
   const switches = project.components.filter((item) => item.libraryId === "input.spdt-switch");
+  const pushbuttons = project.components.filter((item) => item.libraryId === "input.pushbutton");
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
   if (currentSource.length > 0 && !project.components.every((item) => ["power.dc-source", "power.dc-current-source", "passive.resistor", "ground.signal"].includes(item.libraryId))) {
     return { state: "unsupported", message: "This DC current-source model supports resistor networks with ideal voltage/current sources only; reactive or nonlinear parts are not solved by this analysis.", validation };
   }
-  if (source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length >= 1) {
+  if (source.length === 1 && resistor.length === 2 && led.length === 1 && pushbuttons.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analysePushbuttonLed(project, { source: source[0], resistors: resistor, led: led[0], pushbutton: pushbuttons[0], ground: ground[0], validation });
+  }
+  if (source.length === 1 && resistor.length === 1 && led.length === 1 && pushbuttons.length === 0 && ground.length === 1 && project.components.length === 4) {
     return analyseLedCurrentLimiter(project, { source: source[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
   if (source.length === 1 && resistor.length === 2 && led.length === 0 && ground.length >= 1) {
@@ -780,6 +784,88 @@ function analyseLedCurrentLimiter(project, { source, resistor, led, ground, vali
     engine: "Analytical DC LED demonstration",
     message: "Completed an analytical DC calculation; this is not a general SPICE result.",
     result: { kind: "led-current-limiter", sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn: currentA > 0.0005 },
+    validation
+  };
+}
+
+
+function analysePushbuttonLed(project, { source, resistors, led, pushbutton, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const ledVf = forwardVoltage(led.value);
+  const switchValue = String(pushbutton.value).trim().toLowerCase();
+  const closed = ["pressed", "closed"].includes(switchValue);
+  const open = ["normally open", "open"].includes(switchValue);
+  if (!Number.isFinite(sourceVoltage) || sourceVoltage <= 0 || !Number.isFinite(ledVf) || ledVf <= 0) {
+    return { state: "blocked", message: "The pushbutton LED model requires positive numeric source voltage and LED forward voltage.", validation };
+  }
+  if (!closed && !open) return { state: "blocked", message: "Set the momentary pushbutton value to Normally open or Pressed.", validation };
+
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const sourcePositive = netByEndpoint.get(endpoint(source, "+"));
+  const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
+  const switchInput = netByEndpoint.get(endpoint(pushbutton, "1"));
+  const switchOutput = netByEndpoint.get(endpoint(pushbutton, "2"));
+  const ledAnode = netByEndpoint.get(endpoint(led, "A"));
+  const ledCathode = netByEndpoint.get(endpoint(led, "K"));
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  if (!sourcePositive || sourcePositive === groundNet || sourceNegative !== groundNet || switchInput !== sourcePositive
+    || !switchOutput || switchOutput === sourcePositive || ledCathode !== groundNet || !ledAnode) {
+    return { state: "blocked", message: "Wire source positive through the pushbutton, then through the LED resistor and LED to the shared source-negative/ground net.", validation };
+  }
+
+  const seriesResistor = resistors.find((resistor) => {
+    const first = netByEndpoint.get(endpoint(resistor, "1"));
+    const second = netByEndpoint.get(endpoint(resistor, "2"));
+    return (first === switchOutput && second === ledAnode) || (second === switchOutput && first === ledAnode);
+  });
+  const pullDown = resistors.find((resistor) => {
+    if (resistor === seriesResistor) return false;
+    const first = netByEndpoint.get(endpoint(resistor, "1"));
+    const second = netByEndpoint.get(endpoint(resistor, "2"));
+    return (first === switchOutput && second === groundNet) || (second === switchOutput && first === groundNet);
+  });
+  if (!seriesResistor || !pullDown) return { state: "blocked", message: "The circuit requires a series LED resistor and a pull-down resistor from the switched node to ground.", validation };
+
+  const seriesResistance = resistanceValue(seriesResistor.value);
+  const pullDownResistance = resistanceValue(pullDown.value);
+  if (![seriesResistance, pullDownResistance].every(Number.isFinite) || seriesResistance <= 0 || pullDownResistance <= 0) {
+    return { state: "blocked", message: "Both the LED series resistor and pull-down resistor need numeric positive resistance values.", validation };
+  }
+
+  const ledCurrentA = closed ? Math.max(0, (sourceVoltage - ledVf) / seriesResistance) : 0;
+  const pullDownCurrentA = closed ? sourceVoltage / pullDownResistance : 0;
+  const sourceCurrentA = ledCurrentA + pullDownCurrentA;
+  const seriesPowerW = ledCurrentA ** 2 * seriesResistance;
+  const pullDownPowerW = closed ? sourceVoltage ** 2 / pullDownResistance : 0;
+  const ledPowerW = ledCurrentA * ledVf;
+  const sourcePowerW = sourceVoltage * sourceCurrentA;
+  if (![ledCurrentA, pullDownCurrentA, sourceCurrentA, seriesPowerW, pullDownPowerW, ledPowerW, sourcePowerW].every(Number.isFinite)) {
+    return { state: "blocked", message: "The pushbutton LED calculation exceeds the numerically supported range.", validation };
+  }
+
+  return {
+    state: "complete",
+    engine: "Analytical ideal pushbutton LED circuit",
+    message: "Calculated the low-voltage series-switch LED circuit with an ideal momentary switch, a pull-down resistor, and a fixed LED forward-voltage model. Physical switch bounce, tolerances, LED curve, resistor ratings, and general SPICE are not included.",
+    result: {
+      kind: "pushbutton-led",
+      switchState: closed ? "pressed" : "normally-open",
+      ledOn: ledCurrentA > 0.0005,
+      sourceVoltage,
+      ledVf,
+      ledCurrentA,
+      sourceCurrentA,
+      pullDownCurrentA,
+      outputVoltageV: closed ? sourceVoltage : 0,
+      resistorResults: [
+        { reference: seriesResistor.reference, currentA: ledCurrentA, powerW: seriesPowerW },
+        { reference: pullDown.reference, currentA: pullDownCurrentA, powerW: pullDownPowerW }
+      ],
+      ledPowerW,
+      sourcePowerW,
+      powerBalanceW: sourcePowerW - seriesPowerW - pullDownPowerW - ledPowerW
+    },
     validation
   };
 }
