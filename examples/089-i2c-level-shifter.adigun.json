@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-089-i2c-level-shifter",
+  "metadata": {
+    "name": "Bidirectional I²C Bus Level Shifter",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-low",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          35,
+          50
+        ],
+        "schematic": [
+          35,
+          50
+        ],
+        "pcb": [
+          35,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "source-high",
+      "libraryId": "power.dc-source",
+      "reference": "V2",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          35,
+          100
+        ],
+        "schematic": [
+          35,
+          100
+        ],
+        "pcb": [
+          35,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.i2c-level-shifter-transition-fixture",
+      "reference": "BUS1",
+      "value": "SDA Drive low-side; SDA States H,L,H,L; SCL Drive high-side; SCL States L,H,L,H",
+      "position": {
+        "breadboard": [
+          140,
+          50
+        ],
+        "schematic": [
+          140,
+          50
+        ],
+        "pcb": [
+          140,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "shifter",
+      "libraryId": "active.i2c-bidirectional-level-shifter-ideal",
+      "reference": "Q1",
+      "value": "Mode open-drain bidirectional",
+      "position": {
+        "breadboard": [
+          285,
+          50
+        ],
+        "schematic": [
+          285,
+          50
+        ],
+        "pcb": [
+          285,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.i2c-level-shifter-report",
+      "reference": "DISP1",
+      "value": "I²C transition report",
+      "position": {
+        "breadboard": [
+          455,
+          50
+        ],
+        "schematic": [
+          455,
+          50
+        ],
+        "pcb": [
+          455,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "r-pull-sda-low",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          170,
+          150
+        ],
+        "schematic": [
+          170,
+          150
+        ],
+        "pcb": [
+          170,
+          150
+        ]
+      }
+    },
+    {
+      "instanceId": "r-pull-scl-low",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          240,
+          150
+        ],
+        "schematic": [
+          240,
+          150
+        ],
+        "pcb": [
+          240,
+          150
+        ]
+      }
+    },
+    {
+      "instanceId": "r-pull-sda-high",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          310,
+          150
+        ],
+        "schematic": [
+          310,
+          150
+        ],
+        "pcb": [
+          310,
+          150
+        ]
+      }
+    },
+    {
+      "instanceId": "r-pull-scl-high",
+      "libraryId": "passive.resistor",
+      "reference": "R4",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          380,
+          150
+        ],
+        "schematic": [
+          380,
+          150
+        ],
+        "pcb": [
+          380,
+          150
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VREF_L",
+      "endpoints": [
+        "source-low:+",
+        "shifter:VREF_L",
+        "report:VREF_L",
+        "r-pull-sda-low:2",
+        "r-pull-scl-low:2"
+      ]
+    },
+    {
+      "id": "VREF_H",
+      "endpoints": [
+        "source-high:+",
+        "shifter:VREF_H",
+        "report:VREF_H",
+        "r-pull-sda-high:2",
+        "r-pull-scl-high:2"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source-low:-",
+        "source-high:-",
+        "fixture:GND",
+        "shifter:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "SDA_LOW",
+      "endpoints": [
+        "fixture:SDA",
+        "shifter:SDA_L",
+        "report:SDA_L",
+        "r-pull-sda-low:1"
+      ]
+    },
+    {
+      "id": "SCL_LOW",
+      "endpoints": [
+        "fixture:SCL",
+        "shifter:SCL_L",
+        "report:SCL_L",
+        "r-pull-scl-low:1"
+      ]
+    },
+    {
+      "id": "SDA_HIGH",
+      "endpoints": [
+        "shifter:SDA_H",
+        "report:SDA_H",
+        "r-pull-sda-high:1"
+      ]
+    },
+    {
+      "id": "SCL_HIGH",
+      "endpoints": [
+        "shifter:SCL_H",
+        "report:SCL_H",
+        "r-pull-scl-high:1"
+      ]
+    }
+  ],
+  "history": []
+}
