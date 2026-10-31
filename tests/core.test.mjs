@@ -544,6 +544,21 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue NPN emitter follower tracks a DC sweep one VBE below input",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/032-emitter-follower.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const expected=[[0.5,0],[1.5,0.8],[2.5,1.8],[3.5,2.8],[5,4.3]];
+  for(const [inputV,outputV] of expected){
+    const result=runSupportedAnalysis(updateComponent(project,"input",{value:`${inputV} V`}));
+    assert.equal(result.state,"complete");
+    assert.equal(result.result.kind,"npn-emitter-follower");
+    assert.equal(result.result.outputVoltage,outputV);
+    if(inputV>0.7)assert.ok(Math.abs(result.result.voltageDropV-0.7)<1e-12);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"input",{value:"5.1 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"0 Ω"})).state,"blocked");
+});
+
 test("catalogue common-emitter amplifier solves active bias and inverted sine trace",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/031-transistor-common-emitter.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -1074,7 +1089,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 41);
+  assert.equal(getExampleCoverage(registry).total, 42);
   assert.equal(getExampleCoverage(registry).released, 31);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 169);
