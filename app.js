@@ -19,6 +19,7 @@ import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
+import { renderPcbPreviewSvg } from "./js/pcb-preview.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
@@ -261,6 +262,19 @@ function netSvg(project, view, unavailable = new Set()) {
 }
 
 
+function pcbAirwireSvg(project, unavailable = new Set()) {
+  const componentsById = new Map(project.components.map((component) => [component.instanceId, component]));
+  const paths = project.nets.flatMap((net) => {
+    const components = [...new Set(net.endpoints.map((endpoint) => String(endpoint).split(":")[0]))]
+      .map((id) => componentsById.get(id)).filter((component) => component && !unavailable.has(component.instanceId));
+    if (components.length < 2) return [];
+    const points = components.map((component) => componentCenter(component, "pcb"));
+    const origin = points[0];
+    return points.slice(1).map((point) => `<path class="pcb-airwire ${netClass(net.id)}" d="M${origin.x} ${origin.y} L${point.x} ${point.y}" data-net="${escape(net.id)}"/>`);
+  }).join("");
+  return `<svg class="wire-layer pcb-airwire-layer" viewBox="0 0 680 300" aria-hidden="true">${paths}</svg>`;
+}
+
 function breadboardBoardSvg(project) {
   const holes = breadboardHoleIds().map((id) => {
     const { x, y } = breadboardHolePoint(id);
@@ -439,16 +453,20 @@ function renderCanvas() {
   const issues = projection.reconciliationItems;
   const unavailable = new Set(issues.map((issue) => issue.instanceId));
   const isBreadboard = state.activeView === "breadboard";
+  const isPcb = state.activeView === "pcb";
   const hasPhysicalMap = Object.keys(state.project.breadboard?.pinHoles ?? {}).length > 0;
+  const pcbData = state.project.pcbFabrication;
+  const hasPcbData = isPcb && Boolean(pcbData?.board && Number.isFinite(pcbData.board.widthMm) && Number.isFinite(pcbData.board.heightMm) && Array.isArray(pcbData.parts) && Array.isArray(pcbData.pads) && Array.isArray(pcbData.routes));
   const parts = isBreadboard && hasPhysicalMap
     ? breadboardPinMarkers(state.project)
-    : projection.components.map((component) => componentVisual(component, state.activeView)).join("");
-  const surface = isBreadboard ? breadboardBoardSvg(state.project) : "";
+    : hasPcbData ? "" : projection.components.map((component) => componentVisual(component, state.activeView)).join("");
+  const surface = isBreadboard ? breadboardBoardSvg(state.project) : isPcb ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData")) : "";
   const wires = isBreadboard
     ? breadboardWireSvg(state.project)
-    : netSvg(state.project, state.activeView, unavailable);
+    : isPcb ? (hasPcbData ? "" : pcbAirwireSvg(state.project, unavailable))
+      : netSvg(state.project, state.activeView, unavailable);
   const reconciliationNotice = issues.length ? `<div class="reconciliation-notice"><strong>Reconciliation needed</strong>${issues.map((issue) => `<span>${escape(issue.reference)}: ${escape(issue.reason)}</span>`).join("")}</div>` : "";
-  const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : "PCB mapping preview — routing/DRC not implemented.";
+  const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : (hasPcbData ? t("pcbStoredLayoutPreview") : t("pcbNoFootprintData"));
   canvas.innerHTML = `<div class="canvas-label">${label}</div>${reconciliationNotice}<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${surface}${wires}${parts}</div>`;
   $("#schematic-wire-mode").setAttribute("aria-pressed", String(state.schematicWireMode));
   $("#schematic-wire-status").textContent = !state.schematicWireMode ? "" : state.schematicWireStart ? t("schematicWireNext") : t("schematicWireStart");
