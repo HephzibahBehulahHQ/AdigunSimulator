@@ -66,6 +66,7 @@ import { applyBotFloatingNodeRepairPreview, buildBotFloatingNodeRepairPreview, r
 import { applyBotCircuitProposal, buildBotCircuitProposal, runBotCircuitProposal } from "../js/bot-circuit-proposal.mjs";
 import { auditUiSource, runFourLanguageUiSweep } from "../js/locale-ui-sweep.mjs";
 import { runOfflineRecoveryScenario } from "../js/offline-recovery-scenario.mjs";
+import { runReleaseCandidateE2EFixtures } from "../js/release-candidate-e2e.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1498,7 +1499,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 209);
+  assert.equal(getExampleCoverage(registry).total, 210);
   assert.equal(getExampleCoverage(registry).released, 199);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 1);
@@ -4672,4 +4673,13 @@ test("catalogue offline recovery restores the unsaved edit and preserves a manua
   assert.equal(result.state,"complete",result.message);assert.equal(result.result.kind,"offline-recovery-scenario");
   assert.equal(result.result.editedValue,"470 Ω");assert.equal(result.result.draftSaved,true);assert.equal(result.result.storageFallbackAvailable,true);assert.equal(result.result.silentLoss,false);
   assert.equal(serializeProject(project),original);
+});
+test("catalogue release candidate passes build, import, edit, simulation, ERC/DRC, export, sync and BOT-preview gates", async () => {
+  const candidate=JSON.parse(await readFile(new URL("../examples/200-release-candidate-e2e.adigun.json",import.meta.url)));
+  const ids=["001-led-current-limiter","122-555-timer-pcb","182-schematic-pcb-sync","195-bot-explain-component"];
+  const projects=Object.fromEntries(await Promise.all(ids.map(async id=>[id,JSON.parse(await readFile(new URL("../examples/"+id+".adigun.json",import.meta.url)))])));
+  const result=runReleaseCandidateE2EFixtures({candidate,projects});
+  assert.equal(result.state,"complete",result.message);assert.equal(result.result.kind,"release-candidate-e2e");
+  assert.deepEqual(result.result.checks,{build:true,import:true,edit:true,simulation:true,erc:true,drc:true,export:true,schematicPcbSync:true,botPreview:true});
+  assert.equal(result.result.fixtureCount,4);assert.equal(result.result.pcbDrc,"passed");assert.equal(result.result.botMutation,false);
 });
