@@ -260,8 +260,9 @@ function breadboardWireSvg(project) {
     const start = from && breadboardHolePoint(from), end = to && breadboardHolePoint(to);
     if (!start || !end) return "";
     const netId = netForHole(from) ?? netForHole(to);
+    const highlight = netId && netId === state.selectedNetId ? " is-net-highlight" : "";
     const lift = Math.max(14, Math.min(38, Math.abs(end.x - start.x) * .08));
-    return `<path class="jumper-wire ${netId ? netClass(netId) : "net-signal"}" d="M${start.x} ${start.y} C${start.x} ${start.y - lift}, ${end.x} ${end.y - lift}, ${end.x} ${end.y}" data-jumper-index="${index}"/>`;
+    return `<path class="jumper-wire ${netId ? netClass(netId) : "net-signal"}${highlight}" d="M${start.x} ${start.y} C${start.x} ${start.y - lift}, ${end.x} ${end.y - lift}, ${end.x} ${end.y}" data-jumper-index="${index}"/>`;
   }).join("");
   return `<svg class="wire-layer breadboard-wire-layer" viewBox="0 0 680 300" preserveAspectRatio="none" aria-hidden="true">${paths}</svg>`;
 }
