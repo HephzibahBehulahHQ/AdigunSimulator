@@ -1815,14 +1815,47 @@
     {
       "id": "046-jk-toggle-divider",
       "title": "JK flip-flop toggle divider",
-      "status": "in-review",
+      "status": "released",
       "objective": "Use J=K=1 so Q toggles on each rising clock edge; assert asynchronous active-low clear initializes Q and the output frequency ratio is one half of the clock rate in ideal toggle mode.",
       "acceptanceTest": "tests/core.test.mjs: catalogue JK toggle divider toggles on each rising edge and clears asynchronously",
       "testId": "core-jk-toggle-divider",
       "projectFile": "examples/046-jk-toggle-divider.adigun.json",
       "safetyNote": "Generic ideal positive-edge static model. Setup/hold timing, propagation delay, metastability, clock waveform quality, physical frequency behavior, and device-specific limits are not modeled.",
       "scope": "catalogue",
-      "catalogueIndex": 46
+      "catalogueIndex": 46,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41173789608",
+        "headRevision": "777fce56fade24b5ec12cb616118c6fc9e26d708",
+        "engine": "Ideal positive-edge JK flip-flop with asynchronous clear",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-jk-toggle-divider-v1",
+        "expectedResult": {
+          "initializedClear": {
+            "mode": "asynchronous clear",
+            "q": false
+          },
+          "firstRisingEdge": {
+            "risingEdge": true,
+            "mode": "toggle",
+            "q": true,
+            "risingEdgeCount": 1,
+            "outputToClockFrequencyRatio": 0.5
+          },
+          "fallingEdge": {
+            "risingEdge": false,
+            "q": true
+          },
+          "secondRisingEdge": {
+            "risingEdge": true,
+            "mode": "toggle",
+            "q": false,
+            "risingEdgeCount": 2
+          },
+          "invalidClockAboveSupply": "blocked"
+        }
+      }
     }
   ]
 }
