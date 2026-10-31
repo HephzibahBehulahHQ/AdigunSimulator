@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-106-solar-mpp-sweep",
+  "metadata": {
+    "name": "Solar Curve Maximum-Power Sweep",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          20,
+          50
+        ],
+        "schematic": [
+          20,
+          50
+        ],
+        "pcb": [
+          20,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.solar-iv-curve-fixture",
+      "reference": "PV1",
+      "value": "Voc 10 V; Isc 1 A; Vmp 8 V; Imp 0.9 A; Irradiance 100%; Mode piecewise-linear",
+      "position": {
+        "breadboard": [
+          130,
+          50
+        ],
+        "schematic": [
+          130,
+          50
+        ],
+        "pcb": [
+          130,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.solar-mpp-sweep-ideal",
+      "reference": "U1",
+      "value": "Mode sweep; Samples 20; Efficiency 95%; MaxVoc 24 V; MaxCurrent 5 A",
+      "position": {
+        "breadboard": [
+          330,
+          50
+        ],
+        "schematic": [
+          330,
+          50
+        ],
+        "pcb": [
+          330,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.solar-mpp-report",
+      "reference": "SCOPE1",
+      "value": "Maximum-power report",
+      "position": {
+        "breadboard": [
+          520,
+          50
+        ],
+        "schematic": [
+          520,
+          50
+        ],
+        "pcb": [
+          520,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "fixture:VCC",
+        "controller:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "fixture:GND",
+        "controller:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "PV_POS",
+      "endpoints": [
+        "fixture:PV+",
+        "controller:PV+"
+      ]
+    },
+    {
+      "id": "PV_NEG",
+      "endpoints": [
+        "fixture:PV-",
+        "controller:PV-"
+      ]
+    },
+    {
+      "id": "REPORT",
+      "endpoints": [
+        "controller:REPORT",
+        "report:REPORT"
+      ]
+    }
+  ],
+  "history": []
+}
