@@ -1011,6 +1011,16 @@
         }
       },
       "scope": "supplemental"
+    },
+    {
+      "id": "023-556-dual-timer",
+      "title": "556 dual timer",
+      "status": "in-review",
+      "objective": "Model both NE556 astable channels from independent RA/RB/timing-capacitor networks; verify each frequency separately and ensure changing channel B's capacitor leaves channel A unchanged.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue 556 dual timer reports independent astable frequencies, rejects zero timing capacitance, and blocks crossed channel topology",
+      "testId": "core-556-dual-astable",
+      "projectFile": "examples/023-556-dual-timer.adigun.json",
+      "safetyNote": "Ideal analytical timer equations only. The generic model omits chip-specific tolerances, output saturation, startup, crosstalk, ratings, and hardware qualification."
     }
   ]
 }

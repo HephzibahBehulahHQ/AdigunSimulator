@@ -544,6 +544,22 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue 556 dual timer reports independent astable frequencies",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/023-556-dual-timer.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"ne556-dual-astable");
+  assert.ok(Math.abs(result.result.channelA.frequencyHz-1/(0.693*(10000+2*10000)*0.0001))<1e-12);
+  assert.ok(Math.abs(result.result.channelB.frequencyHz-1/(0.693*(10000+2*10000)*0.00001))<1e-12);
+  assert.notEqual(result.result.channelA.frequencyHz,result.result.channelB.frequencyHz);
+  assert.ok(result.result.channelA.ledAverageCurrentA>0&&result.result.channelB.ledAverageCurrentA>0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"ct-B",{value:"0 F"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="B_TIMING").endpoints=["timer-1:12","ct-B:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
 test("catalogue 555 monostable produces one pulse of approximately 1.1 RC", async () => {
   const project=JSON.parse(await readFile(new URL("../examples/022-555-monostable.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -921,7 +937,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 32);
+  assert.equal(getExampleCoverage(registry).total, 33);
   assert.equal(getExampleCoverage(registry).released, 22);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 178);

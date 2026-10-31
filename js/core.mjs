@@ -33,6 +33,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.ne556", category: "Active", type: "556 dual timer (ideal astable channels)", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"], defaultValue: "NE556-class", simulation: "analytical-556-dual-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
 ]);
@@ -369,6 +370,7 @@ export function runSupportedAnalysis(project) {
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
+  const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
   const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
@@ -416,6 +418,9 @@ export function runSupportedAnalysis(project) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (source.length === 1 && timers556.length === 1 && resistor.length === 6 && capacitor.length === 4 && led.length === 2 && ground.length === 1 && project.components.length === 15) {
+    return analyseNe556DualAstable(project, { source: source[0], timer: timers556[0], resistors: resistor, capacitors: capacitor, leds: led, ground: ground[0], validation });
   }
   if (source.length === 1 && timers555.length === 1 && pushbuttons.length === 1 && resistor.length === 3 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 10) {
     return analyseNe555Monostable(project, { source: source[0], timer: timers555[0], pushbutton: pushbuttons[0], resistors: resistor, capacitors: capacitor, led: led[0], ground: ground[0], validation });
@@ -1014,6 +1019,52 @@ function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground
     result: { kind: "supercap-hold-up", sourceVoltage, diodeVf, chargeVoltage: sourceVoltage - diodeVf, capacitance, initialVoltage, minimumVoltage, ratedVoltage, loadResistance, timeConstantS, holdUpTimeS, initialCurrentA, initialLoadPowerW, initialStoredEnergyJ, samples },
     validation
   };
+}
+
+function analyseNe556DualAstable(project,{source,timer,resistors,capacitors,leds,ground,validation}){
+  const supplyVoltage=voltageValue(source.value),groundNet=endpoint(ground,"0");
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0)return {state:"blocked",message:"The dual-timer model needs a positive supply voltage.",validation};
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const vcc=n(source,"+"),sourceNegative=n(source,"-"),sharedGround=n(ground,"0");
+  const timingChannels=[
+    {name:"A",discharge:1,threshold:2,control:3,reset:4,output:5,trigger:6,controlCap:0,timingCap:1,led:0,ledResistorReference:"RLED1"},
+    {name:"B",discharge:13,threshold:12,control:11,reset:10,output:9,trigger:8,controlCap:2,timingCap:3,led:1,ledResistorReference:"RLED2"}
+  ];
+  if(!vcc||vcc===sharedGround||sourceNegative!==sharedGround||n(timer,14)!==vcc||n(timer,7)!==sharedGround
+    ||timingChannels.some(ch=>n(timer,ch.reset)!==vcc)){
+    return {state:"blocked",message:"Connect the NE556 supply and both reset pins to VCC, and pin 7 plus source negative to ground.",validation};
+  }
+  const channelResults=[];
+  for(const ch of timingChannels){
+    const dischargeNet=n(timer,ch.discharge),timingNode=n(timer,ch.threshold),triggerNode=n(timer,ch.trigger),controlNode=n(timer,ch.control),outputNode=n(timer,ch.output);
+    if(!dischargeNet||!timingNode||timingNode!==triggerNode||dischargeNet===vcc||!controlNode||!outputNode){
+      return {state:"blocked",message:`The NE556 channel ${ch.name} needs tied trigger/threshold pins and a distinct discharge node.`,validation};
+    }
+    const timingCapacitor=capacitors.find(part=>n(part,"1")===timingNode||n(part,"2")===timingNode);
+    const controlCapacitor=capacitors.find(part=>part!==timingCapacitor&&(n(part,"1")===controlNode||n(part,"2")===controlNode));
+    const capOther=timingCapacitor?(n(timingCapacitor,"1")===timingNode?n(timingCapacitor,"2"):n(timingCapacitor,"1")):null;
+    const controlOther=controlCapacitor?(n(controlCapacitor,"1")===controlNode?n(controlCapacitor,"2"):n(controlCapacitor,"1")):null;
+    const ra=resistors.find(part=>{const a=n(part,"1"),b=n(part,"2");return(a===vcc&&b===dischargeNet)||(b===vcc&&a===dischargeNet)});
+    const rb=resistors.find(part=>part!==ra&&(()=>{const a=n(part,"1"),b=n(part,"2");return(a===dischargeNet&&b===timingNode)||(b===dischargeNet&&a===timingNode)})());
+    const led=leds[ch.led],ledAnode=n(led,"A"),ledCathode=n(led,"K");
+    const ledResistor=resistors.find(part=>part!==ra&&part!==rb&&part.reference===ch.ledResistorReference&&(()=>{
+      const a=n(part,"1"),b=n(part,"2");return(a===outputNode&&b===ledAnode)||(b===outputNode&&a===ledAnode)
+    })());
+    if(!ra||!rb||!timingCapacitor||!controlCapacitor||capOther!==sharedGround||controlOther!==sharedGround||!ledResistor||!ledAnode||ledCathode!==sharedGround){
+      return {state:"blocked",message:`Wire NE556 channel ${ch.name} as an independent astable: RA to VCC/discharge, RB to discharge/timing node, tied trigger-threshold, timing capacitor to ground, control capacitor to ground, and its output LED load.`,validation};
+    }
+    const raOhm=resistanceValue(ra.value),rbOhm=resistanceValue(rb.value),timingCapF=capacitanceValue(timingCapacitor.value),controlCapF=capacitanceValue(controlCapacitor.value);
+    const ledResistance=ledResistor?resistanceValue(ledResistor.value):Number.NaN,ledVf=forwardVoltage(led.value);
+    if(![raOhm,rbOhm,timingCapF,controlCapF,ledResistance,ledVf].every(Number.isFinite)||raOhm<=0||rbOhm<=0||timingCapF<=0||controlCapF<=0||ledResistance<=0||ledVf<=0){
+      return {state:"blocked",message:`NE556 channel ${ch.name} timing and output values must be positive numeric values.`,validation};
+    }
+    const highTimeS=0.693*(raOhm+rbOhm)*timingCapF,lowTimeS=0.693*rbOhm*timingCapF,periodS=highTimeS+lowTimeS,frequencyHz=1/periodS,dutyCycle=highTimeS/periodS;
+    const ledOnCurrentA=Math.max(0,(supplyVoltage-ledVf)/ledResistance);
+    channelResults.push({channel:ch.name,raOhm,rbOhm,timingCapacitanceF:timingCapF,controlCapacitanceF:controlCapF,highTimeS,lowTimeS,periodS,frequencyHz,dutyCycle,ledOnCurrentA,ledAverageCurrentA:ledOnCurrentA*dutyCycle});
+  }
+  return {state:"complete",engine:"Analytical independent NE556 astable timing estimates",message:"Calculates each ideal timer channel independently with its own RA, RB, timing capacitor, and output LED. It omits timer tolerances, output saturation, startup, discharge-transistor voltage, and hardware qualification.",result:{kind:"ne556-dual-astable",supplyVoltage,channelA:channelResults[0],channelB:channelResults[1]},validation};
 }
 
 function analyseNe555Monostable(project, { source, timer, pushbutton, resistors, capacitors, led, ground, validation }) {

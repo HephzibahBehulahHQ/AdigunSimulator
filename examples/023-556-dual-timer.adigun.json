@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-023-556-dual-timer",
+  "metadata": {
+    "name": "NE556 Dual Astable Timer",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "timer-1",
+      "libraryId": "active.ne556",
+      "reference": "U1",
+      "value": "NE556 independent astable channels",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ra-A",
+      "libraryId": "passive.resistor",
+      "reference": "RA1",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rb-A",
+      "libraryId": "passive.resistor",
+      "reference": "RB1",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ct-A",
+      "libraryId": "passive.capacitor",
+      "reference": "CT1",
+      "value": "100 µF",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "cc-A",
+      "libraryId": "passive.capacitor",
+      "reference": "CC1",
+      "value": "10 nF",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ra-B",
+      "libraryId": "passive.resistor",
+      "reference": "RA2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "rb-B",
+      "libraryId": "passive.resistor",
+      "reference": "RB2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          270,
+          130
+        ],
+        "schematic": [
+          270,
+          130
+        ],
+        "pcb": [
+          270,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ct-B",
+      "libraryId": "passive.capacitor",
+      "reference": "CT2",
+      "value": "10 µF",
+      "position": {
+        "breadboard": [
+          385,
+          130
+        ],
+        "schematic": [
+          385,
+          130
+        ],
+        "pcb": [
+          385,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "cc-B",
+      "libraryId": "passive.capacitor",
+      "reference": "CC2",
+      "value": "10 nF",
+      "position": {
+        "breadboard": [
+          500,
+          130
+        ],
+        "schematic": [
+          500,
+          130
+        ],
+        "pcb": [
+          500,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "rled-A",
+      "libraryId": "passive.resistor",
+      "reference": "RLED1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          40,
+          205
+        ],
+        "schematic": [
+          40,
+          205
+        ],
+        "pcb": [
+          40,
+          205
+        ]
+      }
+    },
+    {
+      "instanceId": "led-A",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          155,
+          205
+        ],
+        "schematic": [
+          155,
+          205
+        ],
+        "pcb": [
+          155,
+          205
+        ]
+      }
+    },
+    {
+      "instanceId": "rled-B",
+      "libraryId": "passive.resistor",
+      "reference": "RLED2",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          270,
+          205
+        ],
+        "schematic": [
+          270,
+          205
+        ],
+        "pcb": [
+          270,
+          205
+        ]
+      }
+    },
+    {
+      "instanceId": "led-B",
+      "libraryId": "diode.led-red",
+      "reference": "D2",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          385,
+          205
+        ],
+        "schematic": [
+          385,
+          205
+        ],
+        "pcb": [
+          385,
+          205
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          500,
+          205
+        ],
+        "schematic": [
+          500,
+          205
+        ],
+        "pcb": [
+          500,
+          205
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "timer-1:14",
+        "timer-1:4",
+        "timer-1:10",
+        "ra-A:1",
+        "ra-B:1"
+      ]
+    },
+    {
+      "id": "A_DISCHARGE",
+      "endpoints": [
+        "timer-1:1",
+        "ra-A:2",
+        "rb-A:1"
+      ]
+    },
+    {
+      "id": "A_TIMING",
+      "endpoints": [
+        "timer-1:2",
+        "timer-1:6",
+        "rb-A:2",
+        "ct-A:1"
+      ]
+    },
+    {
+      "id": "A_CONTROL",
+      "endpoints": [
+        "timer-1:3",
+        "cc-A:1"
+      ]
+    },
+    {
+      "id": "A_OUTPUT",
+      "endpoints": [
+        "timer-1:5",
+        "rled-A:1"
+      ]
+    },
+    {
+      "id": "A_LED",
+      "endpoints": [
+        "rled-A:2",
+        "led-A:A"
+      ]
+    },
+    {
+      "id": "B_DISCHARGE",
+      "endpoints": [
+        "timer-1:13",
+        "ra-B:2",
+        "rb-B:1"
+      ]
+    },
+    {
+      "id": "B_TIMING",
+      "endpoints": [
+        "timer-1:12",
+        "timer-1:8",
+        "rb-B:2",
+        "ct-B:1"
+      ]
+    },
+    {
+      "id": "B_CONTROL",
+      "endpoints": [
+        "timer-1:11",
+        "cc-B:1"
+      ]
+    },
+    {
+      "id": "B_OUTPUT",
+      "endpoints": [
+        "timer-1:9",
+        "rled-B:1"
+      ]
+    },
+    {
+      "id": "B_LED",
+      "endpoints": [
+        "rled-B:2",
+        "led-B:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source-1:-",
+        "timer-1:7",
+        "ct-A:2",
+        "cc-A:2",
+        "ct-B:2",
+        "cc-B:2",
+        "led-A:K",
+        "led-B:K",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}
