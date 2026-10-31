@@ -4414,7 +4414,7 @@
     {
       "id": "107-usb-c-sink-concept",
       "title": "USB-C sink profile concept",
-      "status": "planned",
+      "status": "released",
       "objective": "Select a supported USB-C fixed profile within sink voltage/current limits, estimate a resistive load, and use 5 V fallback when the preferred contract is unavailable.",
       "acceptanceTest": "tests/core.test.mjs: catalogue USB-C sink selects requested profile, falls back to 5 V, and blocks invalid paths",
       "testId": "core-usb-c-sink",
@@ -4422,7 +4422,33 @@
       "readmeFile": "examples/107-usb-c-sink-concept/README.md",
       "safetyNote": "Educational policy estimator only. It does not implement USB-PD signaling, cable behavior, protection circuitry, standards compliance, or hardware qualification.",
       "scope": "catalogue",
-      "catalogueIndex": 107
+      "catalogueIndex": 107,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41189110894",
+        "headRevision": "2ce36b2bf644db6ff90f4f79da8f32c51ba2356e",
+        "engine": "Bounded USB-C fixed-PDO sink policy and load estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "usb-c-pd-sink-policy-v1",
+        "expectedResult": {
+          "kind": "usb-c-pd-sink",
+          "availableProfilesV": [
+            5,
+            9,
+            12
+          ],
+          "requestedVoltageV": 12,
+          "preferredVoltageV": 12,
+          "selectedVoltageV": 12,
+          "loadResistanceOhm": 10,
+          "loadCurrentA": 1.2,
+          "loadPowerW": 14.399999999999999,
+          "negotiationState": "contract",
+          "protocolSignalingModeled": false,
+          "usbPdComplianceCertified": false
+        }
+      }
     }
   ]
 }
