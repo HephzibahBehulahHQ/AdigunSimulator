@@ -7159,7 +7159,7 @@
     {
       "id": "186-pin-incompatible-substitution",
       "title": "Pin-incompatible substitution",
-      "status": "in-review",
+      "status": "released",
       "objective": "Preview replacing the eight-pin NE555 with a superficially similar eight-pin LM386 and prove that incompatible named pin roles block substitution; cancel must preserve the original project exactly.",
       "acceptanceTest": "tests/core.test.mjs: catalogue pin-incompatible substitution is previewed, blocked, and canceled without changing original",
       "testId": "core-pin-incompatible-substitution-preview",
@@ -7167,7 +7167,47 @@
       "readmeFile": "examples/186-pin-incompatible-substitution/README.md",
       "safetyNote": "Equal pin count is not equivalence. The preview is blocked by incompatible pin names and no electrical or package interchangeability is claimed; cancel leaves the original NE555 project unchanged.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 186,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41214737171",
+        "headRevision": "1b474a730ac0948bbc608e84ba4ba0a17d66ffee",
+        "engine": "Pin-map compatibility preview and cancel/restore",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "pin-incompatible-substitution-preview-v1",
+        "expectedResult": {
+          "kind": "pin-incompatible-substitution-preview",
+          "substitutionBlocked": true,
+          "previewCancelled": true,
+          "projectUnchanged": true,
+          "reference": "U1",
+          "originalLibraryId": "active.ne555",
+          "candidateLibraryId": "active.lm386-classab",
+          "sourcePinCount": 8,
+          "candidatePinCount": 8,
+          "sharedPinNames": [],
+          "unmappedUsedPins": [
+            "8",
+            "4",
+            "7",
+            "2",
+            "6",
+            "3",
+            "5",
+            "1"
+          ],
+          "affectedNets": [
+            "VCC",
+            "DISCHARGE",
+            "TIMING",
+            "OUTPUT",
+            "CONTROL",
+            "GND"
+          ]
+        }
+      }
     }
   ]
 }
