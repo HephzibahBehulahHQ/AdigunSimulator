@@ -417,6 +417,9 @@ export function runSupportedAnalysis(project) {
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
   }
+  if (source.length === 1 && timers555.length === 1 && pushbuttons.length === 1 && resistor.length === 3 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 10) {
+    return analyseNe555Monostable(project, { source: source[0], timer: timers555[0], pushbutton: pushbuttons[0], resistors: resistor, capacitors: capacitor, led: led[0], ground: ground[0], validation });
+  }
   if (source.length === 1 && timers555.length === 1 && resistor.length === 3 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseNe555Astable(project, { source: source[0], timer: timers555[0], resistors: resistor, capacitors: capacitor, led: led[0], ground: ground[0], validation });
   }
@@ -1009,6 +1012,58 @@ function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground
     engine: "Analytical supercapacitor RC power-interruption response",
     message: "Assumed the supercapacitor has charged through an ideal isolation diode, then disconnected the input supply at time zero and calculated its ideal RC discharge. ESR, leakage, capacitance/voltage tolerance, diode reverse leakage, load dynamics, recharge time, temperature, component ratings, and general SPICE are not modeled.",
     result: { kind: "supercap-hold-up", sourceVoltage, diodeVf, chargeVoltage: sourceVoltage - diodeVf, capacitance, initialVoltage, minimumVoltage, ratedVoltage, loadResistance, timeConstantS, holdUpTimeS, initialCurrentA, initialLoadPowerW, initialStoredEnergyJ, samples },
+    validation
+  };
+}
+
+function analyseNe555Monostable(project, { source, timer, pushbutton, resistors, capacitors, led, ground, validation }) {
+  const supplyVoltage=voltageValue(source.value),ledVf=forwardVoltage(led.value);
+  const buttonState=String(pushbutton.value).trim().toLowerCase();
+  const pressed=["pressed","closed"].includes(buttonState),open=["normally open","open"].includes(buttonState);
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!Number.isFinite(ledVf)||ledVf<=0||(!pressed&&!open)){
+    return {state:"blocked",message:"The monostable model needs positive supply/LED values and a Normally open or Pressed trigger.",validation};
+  }
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,pin));
+  const vcc=n(source,"+"),groundNet=n(ground,"0"),timerVcc=n(timer,"8"),reset=n(timer,"4"),timerGround=n(timer,"1");
+  const triggerNet=n(timer,"2"),thresholdNet=n(timer,"6"),dischargeNet=n(timer,"7"),controlNet=n(timer,"5"),outputNet=n(timer,"3");
+  const timingCapacitor=capacitors.find(part=>n(part,"1")===thresholdNet||n(part,"2")===thresholdNet);
+  const controlCapacitor=capacitors.find(part=>part!==timingCapacitor);
+  const timingCapOther=timingCapacitor?(n(timingCapacitor,"1")===thresholdNet?n(timingCapacitor,"2"):n(timingCapacitor,"1")):null;
+  const controlCapOther=controlCapacitor?(n(controlCapacitor,"1")===controlNet?n(controlCapacitor,"2"):n(controlCapacitor,"1")):null;
+  const buttonInput=n(pushbutton,"1"),buttonOutput=n(pushbutton,"2");
+  const timingResistor=resistors.find(part=>{
+    const a=n(part,"1"),b=n(part,"2");
+    return (a===vcc&&b===thresholdNet)||(b===vcc&&a===thresholdNet);
+  });
+  const pullupResistor=resistors.find(part=>part!==timingResistor&&(()=>{
+    const a=n(part,"1"),b=n(part,"2");return (a===vcc&&b===triggerNet)||(b===vcc&&a===triggerNet);
+  })());
+  const ledAnode=n(led,"A"),ledCathode=n(led,"K");
+  const ledResistor=resistors.find(part=>part!==timingResistor&&part!==pullupResistor&&(()=>{
+    const a=n(part,"1"),b=n(part,"2");return (a===outputNet&&b===ledAnode)||(b===outputNet&&a===ledAnode);
+  })());
+  if(!vcc||vcc===groundNet||timerVcc!==vcc||reset!==vcc||timerGround!==groundNet
+    ||!triggerNet||!thresholdNet||thresholdNet!==dischargeNet||triggerNet===thresholdNet
+    ||!timingResistor||!pullupResistor||!ledResistor||timingCapOther!==groundNet||controlCapOther!==groundNet
+    ||buttonInput!==triggerNet||buttonOutput!==groundNet||n(source,"-")!==groundNet
+    ||ledCathode!==groundNet||!ledAnode||!controlNet){
+    return {state:"blocked",message:"Wire timer VCC/reset and ground correctly; connect the timing resistor/capacitor to pins 6/7, pull up pin 2 with a normally-open button to ground, and connect the LED to pin 3.",validation};
+  }
+  const timingResistance=resistanceValue(timingResistor.value),pullupResistance=resistanceValue(pullupResistor.value);
+  const ledResistance=resistanceValue(ledResistor.value),timingCapacitance=capacitanceValue(timingCapacitor.value),controlCapacitance=capacitanceValue(controlCapacitor.value);
+  if(![timingResistance,pullupResistance,ledResistance,timingCapacitance,controlCapacitance].every(Number.isFinite)
+    ||timingResistance<=0||pullupResistance<=0||ledResistance<=0||timingCapacitance<=0||controlCapacitance<=0){
+    return {state:"blocked",message:"The monostable timing, trigger, LED resistors, and capacitors must be positive numeric values.",validation};
+  }
+  const pulseWidthS=1.1*timingResistance*timingCapacitance;
+  const ledCurrentA=Math.max(0,(supplyVoltage-ledVf)/ledResistance);
+  return {
+    state:"complete",
+    engine:"Analytical ideal 555 monostable pulse-width estimate",
+    message:"A closed trigger produces one ideal output pulse with width approximately 1.1 × R × C. The button state represents a trigger event; elapsed-time output, retriggering, tolerances, startup, and timer saturation are not solved.",
+    result:{kind:"ne555-monostable",supplyVoltage,timingResistance,timingCapacitance,pulseWidthS,triggered:pressed,pulseCount:pressed?1:0,outputPulseCount:pressed?1:0,ledOnDuringPulse:pressed,ledCurrentDuringPulseA:pressed?ledCurrentA:0,triggerPullupResistance:pullupResistance,controlCapacitance},
     validation
   };
 }
