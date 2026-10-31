@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "example-179-warehouse-beacon-concept",
+  "metadata": {
+    "name": "Example 179 — Warehouse Occupancy Beacon",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "warehouseBeacon": {
+    "kind": "occupancy-status-beacon",
+    "samples": [
+      "vacant",
+      "occupied",
+      "fault",
+      "vacant"
+    ]
+  }
+}
