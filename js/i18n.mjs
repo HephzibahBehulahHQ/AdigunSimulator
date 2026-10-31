@@ -681,3 +681,11 @@ Object.assign(TRANSLATIONS.de, {exampleInverterWaveform:"Wechselrichter-Wellenfo
 Object.assign(TRANSLATIONS.yo, {exampleInverterWaveform:"Àwòṣe ìgbì inverter"});
 
 Object.assign(TRANSLATIONS.pcm, {exampleInverterWaveform:"Inverter waveform concept"});
+
+Object.assign(TRANSLATIONS.en, {morePlannedExamples:"116 of the 200 catalogue projects are released; ten supplemental studies are also available. The remaining catalogue projects are planned and cannot be loaded yet."});
+
+Object.assign(TRANSLATIONS.de, {morePlannedExamples:"116 der 200 Katalogprojekte sind veröffentlicht; zehn ergänzende Studien sind ebenfalls verfügbar. Die übrigen Katalogprojekte sind geplant und noch nicht ladbar."});
+
+Object.assign(TRANSLATIONS.yo, {morePlannedExamples:"A ti tú iṣẹ́ kátàlọ́ọ̀gù 116 nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí."});
+
+Object.assign(TRANSLATIONS.pcm, {morePlannedExamples:"116 out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load."});
