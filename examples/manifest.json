@@ -3334,6 +3334,58 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "082-lora-sensor-node",
+      "title": "LoRa temperature sensor node",
+      "status": "released",
+      "objective": "Encode a versioned application payload with node ID, sequence number, and signed deci-degree temperature, then admit scheduled sends only while within a configured airtime budget for one fixed window.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue LoRa sensor encodes its payload and blocks sends over the configured duty budget",
+      "testId": "core-lora-sensor-node",
+      "projectFile": "examples/082-lora-sensor-node.adigun.json",
+      "safetyNote": "A deterministic application-payload and configured fixed-window guard only. Airtime and duty percentage are inputs, not radio measurements or regional limits. No LoRa PHY, RF transmission, firmware, link quality, regulatory mapping, or compliance decision is modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 82,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41182529899",
+        "headRevision": "e98df60d1b393d16f130634cad3608a452b7e77d",
+        "engine": "Ideal LoRa sensor payload and configured duty-window guard",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-lora-payload-duty-window-v1",
+        "expectedResult": {
+          "temperatureC": 24.6,
+          "temperatureDeciC": 246,
+          "nodeId": 7,
+          "sequence": 42,
+          "payloadBytes": [
+            1,
+            7,
+            0,
+            42,
+            0,
+            246
+          ],
+          "payloadHex": "01 07 00 2A 00 F6",
+          "payloadLengthOctets": 6,
+          "airtimeMs": 100,
+          "dutyWindowMs": 60000,
+          "dutyLimitPercent": 1,
+          "airtimeBudgetMs": 600,
+          "usedAirtimeMs": 600,
+          "dutyCyclePercent": 1,
+          "sentCount": 6,
+          "rejectedCount": 2,
+          "rejectedTimesMs": [
+            54000,
+            55000
+          ],
+          "radioTransmitted": false,
+          "firmwareExecuted": false,
+          "regionalCompliance": "not evaluated"
+        }
+      }
     }
   ]
 }
