@@ -6373,6 +6373,19 @@
           "physicalSafetyModel": false
         }
       }
+    },
+    {
+      "id": "162-plc-traffic-light",
+      "title": "PLC traffic light",
+      "status": "in-review",
+      "objective": "Run a repeatable timed intersection state sequence with all-red transitions and verify opposing approaches are never green at the same time.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue traffic-light sequence repeats safe timed states without opposing green",
+      "testId": "core-plc-traffic-light",
+      "projectFile": "examples/162-plc-traffic-light.adigun.json",
+      "readmeFile": "examples/162-plc-traffic-light/README.md",
+      "safetyNote": "Logical traffic-light concept only. No controller hardware, pedestrian phases, detector logic, clearance-time engineering, jurisdictional code review, or intersection safety certification is included.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }

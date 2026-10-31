@@ -28,6 +28,7 @@ import { validateComponentProperty } from "../js/component-property-audit.mjs";
 import { createSimulationReport } from "../js/simulation-report.mjs";
 import { createSimulationLockfile, verifySimulationLockfile } from "../js/simulation-lockfile.mjs";
 import { runPlcStartStopSequence } from "../js/plc-start-stop-sequence.mjs";
+import { runTrafficLightSequence } from "../js/traffic-light-sequence.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1460,7 +1461,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 171);
+  assert.equal(getExampleCoverage(registry).total, 172);
   assert.equal(getExampleCoverage(registry).released, 161);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 39);
@@ -4247,4 +4248,17 @@ test("catalogue PLC motor seal-in holds on start and drops on stop or emergency 
   assert.equal(result.result.sealInRetained,true);assert.equal(result.result.emergencyStopDropsOutput,true);
   const invalid=JSON.parse(JSON.stringify(project));invalid.plcMotorSequence.frames[0].startPressed="false";
   assert.equal(runPlcStartStopSequence(invalid).state,"blocked");
+});
+
+test("catalogue traffic-light sequence repeats safe timed states without opposing green", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/162-plc-traffic-light.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runTrafficLightSequence(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"traffic-light-fsm-sequence");
+  assert.equal(result.result.cycleCount,2);assert.equal(result.result.phaseCount,14);
+  assert.equal(result.result.totalDurationS,100);assert.equal(result.result.phases[0].northSouth,"red");
+  assert.ok(result.result.states.every(state=>!(state.northSouth==="green"&&state.eastWest==="green")));
+  assert.equal(result.result.opposingGreenConflict,false);
+  const unsafe=JSON.parse(JSON.stringify(project));unsafe.trafficLight.phases[0]={name:"unsafe",northSouth:"green",eastWest:"green",durationS:5};
+  assert.equal(runTrafficLightSequence(unsafe).state,"blocked");
 });
