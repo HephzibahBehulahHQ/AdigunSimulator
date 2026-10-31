@@ -237,6 +237,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.hotswap-controller-ideal", category: "Active", type: "Ideal hot-swap controller with current limit", prefix: "U", pins: ["VIN", "ENABLE", "FAULT_IN", "SENSE", "GATE", "STATUS", "GND"], defaultValue: "Mode inrush-overload", simulation: "analytical-hotswap", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.hotswap-series-fet-ideal", category: "Active", type: "Ideal hot-swap series MOSFET", prefix: "Q", pins: ["VIN", "GATE", "VOUT", "SENSE", "GND"], defaultValue: "RdsOn 0.05 Ω; MaxVoltage 40 V; MaxCurrent 5 A; Mode hot-swap", simulation: "analytical-hotswap", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.hotswap-report", category: "Output", type: "Hot-swap inrush and overload report", prefix: "SCOPE", pins: ["VOUT", "INRUSH", "STATUS", "GND"], defaultValue: "Hot-swap protection report", simulation: "analytical-hotswap", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.reverse-polarity-mosfet-ideal", category: "Protection", type: "Ideal reverse-polarity MOSFET protector", prefix: "Q", pins: ["IN", "RETURN", "OUT", "STATUS", "GND"], defaultValue: "ForwardDrop 0.4 V; MaxVoltage 24 V; MaxCurrent 1 A; Mode reverse-block", simulation: "analytical-reverse-polarity", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.reverse-polarity-report", category: "Output", type: "Reverse-polarity protection report", prefix: "SCOPE", pins: ["VOUT", "STATUS", "GND"], defaultValue: "Polarity protection report", simulation: "analytical-reverse-polarity", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -784,6 +786,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const hotSwapControllers = project.components.filter((item) => item.libraryId === "active.hotswap-controller-ideal");
   const hotSwapFets = project.components.filter((item) => item.libraryId === "active.hotswap-series-fet-ideal");
   const hotSwapReports = project.components.filter((item) => item.libraryId === "output.hotswap-report");
+  const reversePolarityFets = project.components.filter((item) => item.libraryId === "active.reverse-polarity-mosfet-ideal");
+  const reversePolarityReports = project.components.filter((item) => item.libraryId === "output.reverse-polarity-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -1061,6 +1065,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length===1&&hotSwapFixtures.length===1&&hotSwapControllers.length===1&&hotSwapFets.length===1&&hotSwapReports.length===1&&resistor.length===1&&capacitor.length===1&&ground.length===1&&project.components.length===8) {
     return analyseHotSwap(project,{source:source[0],fixture:hotSwapFixtures[0],controller:hotSwapControllers[0],fet:hotSwapFets[0],report:hotSwapReports[0],load:resistor[0],capacitor:capacitor[0],ground:ground[0],validation});
+  }
+  if (source.length===1&&reversePolarityFets.length===1&&reversePolarityReports.length===1&&resistor.length===1&&ground.length===1&&project.components.length===5) {
+    return analyseReversePolarity(project,{source:source[0],protector:reversePolarityFets[0],report:reversePolarityReports[0],load:resistor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3740,6 +3747,31 @@ function analyseHotSwap(project,{source,fixture,controller,fet,report,load,capac
   return {state:"complete",engine:"Bounded hot-swap inrush and overload estimator",
     message:"Estimates capacitive inrush from C·V/t, clamps it to the configured current limit, and checks steady resistive-load current against the overload threshold. Startup dynamics, SOA, thermal behavior, controller timing, short-circuit response, and hardware safety are not modeled.",
     result:{kind:"hotswap-protection",enabled:enabled==="yes",fault,outputEnabled,overloadTrip,busVoltageV,outputVoltageV,loadResistanceOhm:loadOhm,loadCurrentA,steadyLoadCurrentA,loadPowerW:outputVoltageV*loadCurrentA,capacitanceF,rampTimeS,rawInrushCurrentA,inrushCurrentA,currentLimitA,inrushLimited,estimatedChargeTimeS,overloadLimitA,mosfetPowerW,estimatedSwitchInputPowerW:safeOperatingPowerW,hardwareSafetyQualified:false},validation};
+}
+function analyseReversePolarity(project,{source,protector,report,load,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const inputVoltageV=voltageValue(source.value),q=fields(protector.value),forwardDropV=voltageValue(field(q,"ForwardDrop")??"");
+  const maxVoltageV=voltageValue(field(q,"MaxVoltage")??""),maxCurrentA=currentValue(field(q,"MaxCurrent")??"");
+  const loadOhm=resistanceValue(load.value),gnd=n(ground,"0");
+  const inputPath=n(source,"+")===n(protector,"IN")&&n(source,"-")===n(protector,"RETURN");
+  const returnPath=n(protector,"RETURN")===n(load,"2")&&n(load,"2")===gnd&&n(protector,"GND")===gnd&&n(report,"GND")===gnd;
+  const outputPath=n(protector,"OUT")===n(load,"1")&&n(protector,"OUT")===n(report,"VOUT");
+  const statusPath=n(protector,"STATUS")===n(report,"STATUS");
+  const required=[gnd,n(source,"+"),n(source,"-"),n(protector,"IN"),n(protector,"RETURN"),n(protector,"OUT"),n(protector,"GND"),n(load,"1"),n(load,"2"),n(report,"VOUT"),n(protector,"STATUS"),n(report,"STATUS")];
+  if(required.some(x=>typeof x!=="string"||!x)||!inputPath||!returnPath||!outputPath||!statusPath
+    ||![inputVoltageV,forwardDropV,maxVoltageV,maxCurrentA,loadOhm].every(Number.isFinite)||inputVoltageV===0||Math.abs(inputVoltageV)>maxVoltageV||maxVoltageV>100
+    ||forwardDropV<0||forwardDropV>2||maxCurrentA<=0||maxCurrentA>100||loadOhm<=0||loadOhm>10000){
+    return {state:"blocked",message:"Wire the polarity protector between the input, return, load and report; use supported voltage, forward-drop and current ratings.",validation};
+  }
+  const inputPolarity=inputVoltageV>0?"forward":"reverse",protectedOn=inputPolarity==="forward";
+  const outputVoltageV=protectedOn?Math.max(0,inputVoltageV-forwardDropV):0;
+  const loadCurrentA=outputVoltageV/loadOhm;
+  if(loadCurrentA>maxCurrentA)return {state:"blocked",message:"Load current exceeds the configured protector current rating.",validation};
+  return {state:"complete",engine:"Ideal MOSFET reverse-polarity protection estimator",
+    message:"Passes a correctly oriented DC input through the configured idealized MOSFET drop and blocks a reversed input. Reverse recovery, body-diode details, gate startup, transient stress, thermal behavior, and hardware safety are not modeled.",
+    result:{kind:"reverse-polarity-protection",inputPolarity,inputVoltageV:Math.abs(inputVoltageV),protectedOn,reverseBlocked:!protectedOn,outputVoltageV,loadResistanceOhm:loadOhm,loadCurrentA,loadPowerW:outputVoltageV*loadCurrentA,forwardDropV,maxVoltageV,maxCurrentA,hardwareSafetyQualified:false},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
