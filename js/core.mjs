@@ -6,6 +6,8 @@ const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistanc
 export const STARTER_LIBRARY = Object.freeze([
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.usb-source", category: "Power & Ground", type: "USB 5 V supply model", prefix: "USB", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "power.solar-cell", category: "Power & Ground", type: "Solar cell (linear I–V estimate)", prefix: "PV", pins: ["+", "-"], defaultValue: "Voc 6 V; Isc 100 mA", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "power.rechargeable-battery", category: "Power & Ground", type: "Rechargeable battery (fixed-voltage model)", prefix: "BAT", pins: ["+", "-"], defaultValue: "3.7 V", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.pwm-source", category: "Inputs", type: "PWM control source", prefix: "PWM", pins: ["+", "-"], defaultValue: "1 kHz, 50%, 5 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.dc-current-source", category: "Power & Ground", type: "DC current source (positive current flows from − to +)", prefix: "I", pins: ["+", "-"], defaultValue: "1 mA", simulation: "mna-linear-dc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.ac-source", category: "Power & Ground", type: "AC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "1 V", simulation: "analytical-rc-low-pass", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -13,7 +15,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "passive.capacitor", category: "Passive", type: "Capacitor", prefix: "C", pins: ["1", "2"], defaultValue: "100 µF", simulation: "analytical-rc-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.inductor", category: "Passive", type: "Inductor", prefix: "L", pins: ["1", "2"], defaultValue: "100 mH", simulation: "analytical-rl-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.transformer-ideal", category: "Passive", type: "Ideal transformer ratio model", prefix: "T", pins: ["PRI1", "PRI2", "SEC1", "SEC2"], defaultValue: "230:12", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.ldr", category: "Passive", type: "Photoresistor (light-dependent resistor)", prefix: "R", pins: ["1", "2"], defaultValue: "Rbright 10 kΩ; Rdark 1 MΩ; light 100%", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.bridge-ideal", category: "Active", type: "Ideal bridge rectifier (fixed diode drop)", prefix: "BR", pins: ["AC1", "AC2", "POS", "NEG"], defaultValue: "0.7 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "diode.schottky", category: "Active", type: "Schottky diode (fixed-drop estimate)", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 0.3 V", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.nmos-switch", category: "Active", type: "N-channel MOSFET (ideal PWM switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-green", category: "Active", type: "Green LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.1 V", simulation: "analytical-polarity-indicator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -366,6 +370,10 @@ export function runSupportedAnalysis(project) {
   const regulators = project.components.filter((item) => item.libraryId === "active.regulator-7805-ideal");
   const usbSources = project.components.filter((item) => item.libraryId === "power.usb-source");
   const ptcFuses = project.components.filter((item) => item.libraryId === "protection.ptc-polyfuse");
+  const solarCells = project.components.filter((item) => item.libraryId === "power.solar-cell");
+  const batteries = project.components.filter((item) => item.libraryId === "power.rechargeable-battery");
+  const photoresistors = project.components.filter((item) => item.libraryId === "passive.ldr");
+  const schottkyDiodes = project.components.filter((item) => item.libraryId === "diode.schottky");
   const currentSource = project.components.filter((item) => item.libraryId === "power.dc-current-source");
   const acSource = project.components.filter((item) => item.libraryId === "power.ac-source");
   const resistor = project.components.filter((item) => item.libraryId === "passive.resistor");
@@ -376,6 +384,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (solarCells.length === 1 && batteries.length === 1 && photoresistors.length === 1 && schottkyDiodes.length === 1 && mosfets.length === 1 && led.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 9) {
+    return analyseSolarGardenLight(project, { solar: solarCells[0], battery: batteries[0], ldr: photoresistors[0], diode: schottkyDiodes[0], mosfet: mosfets[0], led: led[0], resistors: resistor, ground: ground[0], validation });
+  }
   if (usbSources.length === 1 && ptcFuses.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseUsbLedPtc(project, { source: usbSources[0], fuse: ptcFuses[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
@@ -559,6 +570,84 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
     engine: "Analytical ideal low-battery comparator and divider",
     message: "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
     result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
+    validation
+  };
+}
+
+function analyseSolarGardenLight(project, { solar, battery, ldr, diode, mosfet, led, resistors, ground, validation }) {
+  const batteryVoltage = voltageValue(battery.value);
+  const diodeVf = forwardVoltage(diode.value);
+  const ledVf = forwardVoltage(led.value);
+  const solarFields = String(solar.value).match(/Voc\s*([^;]+)\s*;\s*Isc\s*(.+)/i);
+  const openCircuitVoltage = solarFields ? voltageValue(solarFields[1]) : Number.NaN;
+  const shortCircuitCurrentA = solarFields ? currentValue(solarFields[2]) : Number.NaN;
+  const ldrFields = String(ldr.value).match(/Rbright\s*([^;]+)\s*;\s*Rdark\s*([^;]+)\s*;\s*light\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*%/i);
+  const brightResistance = ldrFields ? resistanceValue(ldrFields[1]) : Number.NaN;
+  const darkResistance = ldrFields ? resistanceValue(ldrFields[2]) : Number.NaN;
+  const illuminationPercent = ldrFields ? Number(ldrFields[3]) : Number.NaN;
+  const thresholdVoltage = voltageValue(mosfet.value);
+  if (![batteryVoltage, diodeVf, ledVf, openCircuitVoltage, shortCircuitCurrentA, brightResistance, darkResistance, illuminationPercent, thresholdVoltage].every(Number.isFinite)
+    || batteryVoltage <= 0 || diodeVf <= 0 || ledVf <= 0 || openCircuitVoltage <= 0 || shortCircuitCurrentA <= 0
+    || brightResistance <= 0 || darkResistance < brightResistance || illuminationPercent < 0 || illuminationPercent > 100 || thresholdVoltage < 0) {
+    return { state: "blocked", message: "The solar garden-light model requires positive battery, solar, diode, LED and light-sensor values; illumination must be between 0% and 100%.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const solarPositive = n(solar, "+"), solarNegative = n(solar, "-");
+  const batteryPositive = n(battery, "+"), batteryNegative = n(battery, "-");
+  const diodeAnode = n(diode, "A"), diodeCathode = n(diode, "K");
+  const gate = n(mosfet, "G"), drain = n(mosfet, "D"), source = n(mosfet, "S");
+  const ledAnode = n(led, "A"), ledCathode = n(led, "K"), groundNet = n(ground, "0");
+  const ldrFirst = n(ldr, "1"), ldrSecond = n(ldr, "2");
+  const batteryResistor = resistors.find(part => {
+    const a = n(part, "1"), b = n(part, "2");
+    return (a === batteryPositive && b === gate) || (b === batteryPositive && a === gate);
+  });
+  const ledResistor = resistors.find(part => part !== batteryResistor && (() => {
+    const a = n(part, "1"), b = n(part, "2");
+    return (a === batteryPositive && b === ledAnode) || (b === batteryPositive && a === ledAnode);
+  })());
+  if (!solarPositive || solarPositive === solarNegative || solarNegative !== groundNet
+    || !batteryPositive || batteryNegative !== groundNet || diodeAnode !== solarPositive || diodeCathode !== batteryPositive
+    || !gate || gate === batteryPositive || ldrFirst !== gate || ldrSecond !== groundNet
+    || source !== groundNet || !drain || drain === groundNet || ledCathode !== drain
+    || !ledAnode || !batteryResistor || !ledResistor) {
+    return { state: "blocked", message: "Wire the solar cell through the Schottky diode to the battery, and connect the battery-powered LED through its resistor and MOSFET. The battery-pull-up and LDR-to-ground divider must drive the MOSFET gate.", validation };
+  }
+  const batteryResistance = resistanceValue(batteryResistor.value);
+  const ledResistance = resistanceValue(ledResistor.value);
+  if (![batteryResistance, ledResistance].every(Number.isFinite) || batteryResistance <= 0 || ledResistance <= 0) {
+    return { state: "blocked", message: "The gate-divider and LED current-limiting resistors must be positive numeric values.", validation };
+  }
+  const lightFraction = illuminationPercent / 100;
+  const ldrResistance = brightResistance * (darkResistance / brightResistance) ** (1 - lightFraction);
+  const gateVoltage = batteryVoltage * ldrResistance / (batteryResistance + ldrResistance);
+  const mosfetConducting = gateVoltage > thresholdVoltage;
+  const ledCurrentA = mosfetConducting ? Math.max(0, (batteryVoltage - ledVf) / ledResistance) : 0;
+  const effectiveSolarVoc = openCircuitVoltage * lightFraction;
+  const effectiveSolarIsc = shortCircuitCurrentA * lightFraction;
+  const chargeHeadroomV = effectiveSolarVoc - batteryVoltage - diodeVf;
+  const chargeCurrentA = chargeHeadroomV > 0
+    ? effectiveSolarIsc * Math.max(0, 1 - (batteryVoltage + diodeVf) / effectiveSolarVoc)
+    : 0;
+  const batteryCurrentIntoBatteryA = chargeCurrentA - ledCurrentA;
+  const solarPowerAtDiodeInputW = chargeCurrentA > 0 ? (batteryVoltage + diodeVf) * chargeCurrentA : 0;
+  const diodePowerW = diodeVf * chargeCurrentA;
+  const batteryChargePowerW = batteryVoltage * chargeCurrentA;
+  const ledResistorPowerW = ledCurrentA ** 2 * ledResistance;
+  const ledPowerW = ledCurrentA * ledVf;
+  const batteryPowerToLedW = batteryVoltage * ledCurrentA;
+  const solarPowerBalanceW = solarPowerAtDiodeInputW - diodePowerW - batteryChargePowerW;
+  const ledPowerBalanceW = batteryPowerToLedW - ledResistorPowerW - ledPowerW;
+  if (![ldrResistance, gateVoltage, ledCurrentA, effectiveSolarVoc, effectiveSolarIsc, chargeHeadroomV, chargeCurrentA, batteryCurrentIntoBatteryA, solarPowerAtDiodeInputW, diodePowerW, batteryChargePowerW, ledResistorPowerW, ledPowerW, batteryPowerToLedW, solarPowerBalanceW, ledPowerBalanceW].every(Number.isFinite)) {
+    return { state: "blocked", message: "The solar garden-light estimate exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical solar garden-light day/night and charge estimate",
+    message: "Estimated solar charging with a linear photovoltaic I–V approximation and an ideal Schottky diode, and switched the LED from an LDR divider through an ideal MOSFET. The battery voltage is fixed; state of charge, charge acceptance, solar-cell curvature, diode/MOSFET dynamics, twilight hysteresis, component tolerance, thermal behavior, ratings, and general SPICE are not modeled.",
+    result: { kind: "solar-garden-light", batteryVoltage, illuminationPercent, ldrResistance, gateVoltage, mosfetThresholdVoltage: thresholdVoltage, mosfetConducting, ledOn: ledCurrentA > 0.0005, ledCurrentA, solarOpenCircuitVoltage: openCircuitVoltage, solarShortCircuitCurrentA: shortCircuitCurrentA, effectiveSolarVoc, effectiveSolarIsc, chargeHeadroomV, chargeCurrentA, batteryCurrentIntoBatteryA, solarPowerAtDiodeInputW, diodePowerW, batteryChargePowerW, ledResistorPowerW, ledPowerW, batteryPowerToLedW, solarPowerBalanceW, ledPowerBalanceW },
     validation
   };
 }

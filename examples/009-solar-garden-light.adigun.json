@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-009-solar-garden-light",
+  "metadata": {
+    "name": "Solar Garden Light Day/Night Model",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "solar-1",
+      "libraryId": "power.solar-cell",
+      "reference": "PV1",
+      "value": "Voc 6 V; Isc 100 mA",
+      "position": {
+        "breadboard": [
+          45,
+          80
+        ],
+        "schematic": [
+          45,
+          80
+        ],
+        "pcb": [
+          45,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "battery-1",
+      "libraryId": "power.rechargeable-battery",
+      "reference": "BAT1",
+      "value": "3.7 V",
+      "position": {
+        "breadboard": [
+          120,
+          80
+        ],
+        "schematic": [
+          120,
+          80
+        ],
+        "pcb": [
+          120,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "diode-1",
+      "libraryId": "diode.schottky",
+      "reference": "D1",
+      "value": "Vf 0.3 V",
+      "position": {
+        "breadboard": [
+          195,
+          80
+        ],
+        "schematic": [
+          195,
+          80
+        ],
+        "pcb": [
+          195,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ldr-1",
+      "libraryId": "passive.ldr",
+      "reference": "R1",
+      "value": "Rbright 10 kΩ; Rdark 1 MΩ; light 100%",
+      "position": {
+        "breadboard": [
+          270,
+          80
+        ],
+        "schematic": [
+          270,
+          80
+        ],
+        "pcb": [
+          270,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "gate-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "100 kΩ",
+      "position": {
+        "breadboard": [
+          345,
+          80
+        ],
+        "schematic": [
+          345,
+          80
+        ],
+        "pcb": [
+          345,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "led-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          420,
+          80
+        ],
+        "schematic": [
+          420,
+          80
+        ],
+        "pcb": [
+          420,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "mosfet-1",
+      "libraryId": "active.nmos-switch",
+      "reference": "Q1",
+      "value": "Vth 2.0 V",
+      "position": {
+        "breadboard": [
+          495,
+          80
+        ],
+        "schematic": [
+          495,
+          80
+        ],
+        "pcb": [
+          495,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D2",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          570,
+          80
+        ],
+        "schematic": [
+          570,
+          80
+        ],
+        "pcb": [
+          570,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          600,
+          150
+        ],
+        "schematic": [
+          600,
+          150
+        ],
+        "pcb": [
+          600,
+          150
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "SOLAR_POS",
+      "endpoints": [
+        "solar-1:+",
+        "diode-1:A"
+      ]
+    },
+    {
+      "id": "BAT_POS",
+      "endpoints": [
+        "diode-1:K",
+        "battery-1:+",
+        "gate-resistor-1:1",
+        "led-resistor-1:1"
+      ]
+    },
+    {
+      "id": "GATE",
+      "endpoints": [
+        "gate-resistor-1:2",
+        "ldr-1:1",
+        "mosfet-1:G"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "led-resistor-1:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "LED_K",
+      "endpoints": [
+        "led-1:K",
+        "mosfet-1:D"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "solar-1:-",
+        "battery-1:-",
+        "ldr-1:2",
+        "mosfet-1:S",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}

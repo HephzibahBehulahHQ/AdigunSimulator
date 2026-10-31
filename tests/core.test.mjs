@@ -544,6 +544,36 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue solar garden light charges in daylight and lights at night", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/009-solar-garden-light.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const day = runSupportedAnalysis(project);
+  assert.equal(day.state, "complete");
+  assert.equal(day.result.kind, "solar-garden-light");
+  assert.equal(day.result.illuminationPercent, 100);
+  assert.equal(day.result.mosfetConducting, false);
+  assert.equal(day.result.ledOn, false);
+  assert.ok(Math.abs(day.result.chargeCurrentA - 0.1 * (1 - 4 / 6)) < 1e-12);
+  assert.ok(Math.abs(day.result.solarPowerBalanceW) < 1e-12);
+
+  const nightProject = updateComponent(project, "ldr-1", { value: "Rbright 10 kΩ; Rdark 1 MΩ; light 0%" });
+  const night = runSupportedAnalysis(nightProject);
+  assert.equal(night.state, "complete");
+  assert.equal(night.result.illuminationPercent, 0);
+  assert.equal(night.result.chargeCurrentA, 0);
+  assert.equal(night.result.mosfetConducting, true);
+  assert.equal(night.result.ledOn, true);
+  assert.ok(Math.abs(night.result.ledCurrentA - (3.7 - 2) / 330) < 1e-12);
+  assert.ok(night.result.batteryCurrentIntoBatteryA < 0);
+  assert.ok(Math.abs(night.result.ledPowerBalanceW) < 1e-12);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "ldr-1", { value: "light 110%" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "GATE").endpoints = ["ldr-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue USB LED estimates normal current and flags a PTC hold-current overload", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/008-usb-powered-led.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -693,7 +723,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 21);
+  assert.equal(getExampleCoverage(registry).total, 22);
   assert.equal(getExampleCoverage(registry).released, 11);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 189);
