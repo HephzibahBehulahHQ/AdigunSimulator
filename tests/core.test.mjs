@@ -544,6 +544,24 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue NTC divider resistance and output vary monotonically from 0 to 60 C", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/019-ntc-temperature-divider.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "ntc-temperature-divider");
+  const [cold, room, hot] = result.result.samples;
+  assert.ok(cold.resistanceOhm > room.resistanceOhm && room.resistanceOhm > hot.resistanceOhm);
+  assert.ok(cold.outputVoltage < room.outputVoltage && room.outputVoltage < hot.outputVoltage);
+  assert.ok(Math.abs(room.resistanceOhm - 10000) < 1e-8);
+  assert.equal(room.outputVoltage, 2.5);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "ntc-1", { value: "R25 10 kΩ; B 3950 K; temp -300 °C" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find(net => net.id === "VOUT").endpoints = ["ntc-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue TVS clamp holds a pulse below the entered power and energy limits", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/018-tvs-surge-clamp.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -848,7 +866,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 28);
+  assert.equal(getExampleCoverage(registry).total, 29);
   assert.equal(getExampleCoverage(registry).released, 18);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 182);

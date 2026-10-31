@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-019-ntc-temperature-divider",
+  "metadata": {
+    "name": "NTC Temperature Divider",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          65,
+          80
+        ],
+        "schematic": [
+          65,
+          80
+        ],
+        "pcb": [
+          65,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ntc-1",
+      "libraryId": "passive.ntc-thermistor",
+      "reference": "TH1",
+      "value": "R25 10 kΩ; B 3950 K; temp 25 °C",
+      "position": {
+        "breadboard": [
+          205,
+          80
+        ],
+        "schematic": [
+          205,
+          80
+        ],
+        "pcb": [
+          205,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "fixed-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          345,
+          80
+        ],
+        "schematic": [
+          345,
+          80
+        ],
+        "pcb": [
+          345,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          485,
+          80
+        ],
+        "schematic": [
+          485,
+          80
+        ],
+        "pcb": [
+          485,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "ntc-1:1"
+      ]
+    },
+    {
+      "id": "VOUT",
+      "endpoints": [
+        "ntc-1:2",
+        "fixed-resistor-1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "fixed-resistor-1:2",
+        "source-1:-",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}
