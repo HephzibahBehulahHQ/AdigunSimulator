@@ -16,11 +16,16 @@ import {
   validateProject
 } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
+import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 
 const STORAGE_KEY = "adigun-simulator.project.v1";
+const RECOVERY_KEY = "adigun-simulator.recovery.v1";
+const initialProject = loadProject();
 
 const state = {
-  project: loadProject(),
+  project: initialProject.project,
+  recoveredDraft: initialProject.recovered,
+  recoveryActive: initialProject.recovered,
   selectedLibraryId: null,
   activeCategory: "All",
   selectedInstanceId: "resistor-1",
@@ -34,7 +39,7 @@ const state = {
   scale: 1,
   history: [],
   future: [],
-  dirty: true,
+  dirty: initialProject.recovered,
   lastValidation: null
 };
 
@@ -45,15 +50,19 @@ const t = (key) => translate(state.project.metadata.locale, key);
 
 function loadProject() {
   try {
+    const recovery = readRecoveryDraft(localStorage, RECOVERY_KEY);
+    if (recovery) return { project: recovery.project, recovered: true };
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? parseProject(stored) : createProject();
+    return { project: stored ? parseProject(stored) : createProject(), recovered: false };
   } catch {
-    return createProject();
+    return { project: createProject(), recovered: false };
   }
 }
 
 function saveLocal() {
   localStorage.setItem(STORAGE_KEY, serializeProject(state.project));
+  clearRecoveryDraft(localStorage, RECOVERY_KEY);
+  state.recoveryActive = false;
   state.dirty = false;
   updateSaveState();
   log("[SAVED] Project stored locally in this browser.");
@@ -63,12 +72,15 @@ function captureHistory() {
   state.history.push(serializeProject(state.project));
   if (state.history.length > 30) state.history.shift();
   state.future = [];
+  state.recoveryActive = true;
 }
 
 function replaceProject(project, { dirty = true } = {}) {
   state.project = project;
   state.selectedInstanceId = project.components[0]?.instanceId ?? null;
   state.dirty = dirty;
+  state.recoveryActive = dirty;
+  if (!dirty) clearRecoveryDraft(localStorage, RECOVERY_KEY);
   render();
 }
 
@@ -236,6 +248,9 @@ function render() {
   renderInspector();
   renderValidation();
   applyLocale();
+  if (state.dirty && state.recoveryActive && !writeRecoveryDraft(localStorage, RECOVERY_KEY, state.project)) {
+    log("[RECOVERY] The browser could not store a local recovery draft. Export important work before closing this tab.");
+  }
   updateSaveState();
 }
 
@@ -382,6 +397,7 @@ document.addEventListener("keydown", (event) => {
     state.project = removeComponent(state.project, component.instanceId);
     state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
     state.dirty = true;
+  state.recoveryActive = true;
     state.lastValidation = null;
     render();
     validateAndReport();
@@ -439,6 +455,7 @@ document.addEventListener("pointerup", (event) => {
   state.project = moveComponent(state.project, drag.instanceId, state.activeView, [x, y], { snap: $("#snap-toggle").checked });
   state.selectedInstanceId = drag.instanceId;
   state.dirty = true;
+  state.recoveryActive = true;
   state.lastValidation = null;
   render();
 });
@@ -451,6 +468,7 @@ $("#add-component").addEventListener("click", () => {
   state.project = addComponent(state.project, state.selectedLibraryId);
   state.selectedInstanceId = state.project.components.at(-1).instanceId;
   state.dirty = true;
+  state.recoveryActive = true;
   log(`[ADD] Added ${selectedComponent().reference} from the starter generic library.`);
   render();
 });
@@ -461,6 +479,7 @@ $("#component-form").addEventListener("submit", (event) => {
   captureHistory();
   state.project = updateComponent(state.project, component.instanceId, { reference: $("#property-reference").value.trim(), value: $("#property-value").value.trim() });
   state.dirty = true;
+  state.recoveryActive = true;
   validateAndReport();
   render();
 });
@@ -471,6 +490,7 @@ $("#remove-component").addEventListener("click", () => {
   state.project = removeComponent(state.project, component.instanceId);
   state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
   state.dirty = true;
+  state.recoveryActive = true;
   state.lastValidation = null;
   render();
   validateAndReport();
@@ -482,6 +502,7 @@ $("#connection-form").addEventListener("submit", (event) => {
     captureHistory();
     state.project = connectPins(state.project, $("#connection-first").value, $("#connection-second").value);
     state.dirty = true;
+  state.recoveryActive = true;
     state.lastValidation = null;
     render();
     validateAndReport();
@@ -501,6 +522,7 @@ $("#net-list").addEventListener("click", (event) => {
   captureHistory();
   state.project = disconnectPin(state.project, button.dataset.endpoint);
   state.dirty = true;
+  state.recoveryActive = true;
   state.lastValidation = null;
   render();
   validateAndReport();
@@ -510,11 +532,13 @@ $("#project-form").addEventListener("submit", (event) => {
   captureHistory();
   state.project = { ...state.project, metadata: { ...state.project.metadata, name: $("#project-name").value.trim(), updatedAt: new Date().toISOString() } };
   state.dirty = true;
+  state.recoveryActive = true;
   render();
 });
 $("#language").addEventListener("change", (event) => {
   state.project = { ...state.project, metadata: { ...state.project.metadata, locale: event.target.value } };
   state.dirty = true;
+  state.recoveryActive = true;
   render();
 });
 $("#grid-toggle").addEventListener("change", renderCanvas);
@@ -560,4 +584,5 @@ $("#import-file").addEventListener("change", async (event) => {
 });
 
 render();
+if (state.recoveredDraft) log("[RECOVERY] Restored the latest unsaved project saved in this browser.");
 

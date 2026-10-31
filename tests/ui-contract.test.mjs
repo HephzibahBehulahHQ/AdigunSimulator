@@ -86,6 +86,13 @@ test("project import validates and confirms replacement before capturing or repl
   assert.match(app.slice(app.indexOf('catch (error)', parser), app.indexOf('finally { event.target.value', parser)), /Import blocked/);
 });
 
+test("unsaved edits write a local recovery draft and successful saves clear it", async () => {
+  const source = await readFile(new URL("../app.js", import.meta.url), "utf8");
+  assert.match(source, /writeRecoveryDraft\(localStorage, RECOVERY_KEY, state\.project\)/);
+  assert.match(source, /clearRecoveryDraft\(localStorage, RECOVERY_KEY\)/);
+  assert.match(source, /Restored the latest unsaved project saved in this browser/);
+});
+
 test("the published example catalogue retains all 200 individually specified acceptance rows", async () => {
   const catalogue = await readFile(catalogueFile, "utf8");
   const rows = [...catalogue.matchAll(/^\|\s*(\d{1,3})\s*\|/gm)].map((match) => Number(match[1]));
