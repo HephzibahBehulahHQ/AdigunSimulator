@@ -353,6 +353,9 @@ export function runSupportedAnalysis(project) {
   const switches = project.components.filter((item) => item.libraryId === "input.spdt-switch");
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (currentSource.length > 0 && !project.components.every((item) => ["power.dc-source", "power.dc-current-source", "passive.resistor", "ground.signal"].includes(item.libraryId))) {
+    return { state: "unsupported", message: "This DC current-source model supports resistor networks with ideal voltage/current sources only; reactive or nonlinear parts are not solved by this analysis.", validation };
+  }
   if (source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length >= 1) {
     return analyseLedCurrentLimiter(project, { source: source[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
