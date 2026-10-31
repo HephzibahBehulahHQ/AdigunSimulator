@@ -453,8 +453,10 @@ function renderCanvas() {
   const issues = projection.reconciliationItems;
   const unavailable = new Set(issues.map((issue) => issue.instanceId));
   const isBreadboard = state.activeView === "breadboard";
+  const isPcb = state.activeView === "pcb";
   const hasPhysicalMap = Object.keys(state.project.breadboard?.pinHoles ?? {}).length > 0;
-  const hasPcbData = isPcb && Boolean(state.project.pcbFabrication);
+  const pcbData = state.project.pcbFabrication;
+  const hasPcbData = isPcb && Boolean(pcbData?.board && Number.isFinite(pcbData.board.widthMm) && Number.isFinite(pcbData.board.heightMm) && Array.isArray(pcbData.parts) && Array.isArray(pcbData.pads) && Array.isArray(pcbData.routes));
   const parts = isBreadboard && hasPhysicalMap
     ? breadboardPinMarkers(state.project)
     : hasPcbData ? "" : projection.components.map((component) => componentVisual(component, state.activeView)).join("");
@@ -464,7 +466,7 @@ function renderCanvas() {
     : isPcb ? (hasPcbData ? "" : pcbAirwireSvg(state.project, unavailable))
       : netSvg(state.project, state.activeView, unavailable);
   const reconciliationNotice = issues.length ? `<div class="reconciliation-notice"><strong>Reconciliation needed</strong>${issues.map((issue) => `<span>${escape(issue.reference)}: ${escape(issue.reason)}</span>`).join("")}</div>` : "";
-  const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : t("pcbStoredLayoutPreview");
+  const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : (hasPcbData ? t("pcbStoredLayoutPreview") : t("pcbNoFootprintData"));
   canvas.innerHTML = `<div class="canvas-label">${label}</div>${reconciliationNotice}<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${surface}${wires}${parts}</div>`;
   $("#schematic-wire-mode").setAttribute("aria-pressed", String(state.schematicWireMode));
   $("#schematic-wire-status").textContent = !state.schematicWireMode ? "" : state.schematicWireStart ? t("schematicWireNext") : t("schematicWireStart");
