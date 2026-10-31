@@ -2033,6 +2033,18 @@
           "invalidClockAboveSupply": "blocked"
         }
       }
+    },
+    {
+      "id": "049-traffic-light-fsm",
+      "title": "Traffic-light state machine",
+      "status": "in-review",
+      "objective": "Cycle through north/south green, north/south yellow, all red, east/west green, east/west yellow, all red; test all lamp vectors and ensure opposing directions are never green simultaneously.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue traffic-light FSM cycles safe six-phase states without opposing green",
+      "testId": "core-traffic-light-fsm",
+      "projectFile": "examples/049-traffic-light-fsm.adigun.json",
+      "safetyNote": "Generic educational six-phase static FSM. It advances once per rising edge and omits real-time duration, pedestrian control, sensor inputs, certified traffic-signal interlocks, propagation delay, and regulatory behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 49
     }
   ]
 }
