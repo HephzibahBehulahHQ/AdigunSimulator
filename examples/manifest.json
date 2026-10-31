@@ -5400,6 +5400,18 @@
           ]
         }
       }
+    },
+    {
+      "id": "131-usb-differential-pair-demo",
+      "title": "USB Full-Speed differential pair demo",
+      "status": "in-review",
+      "objective": "Verify USB-C D+/D− pin mapping to a TI TUSB1106 transceiver and produce a bounded width, gap, declared length-skew and reference-plane report.",
+      "acceptanceTest": "tests/core.test.mjs: USB differential pair demo verifies transceiver topology, bounded pair constraints and report snapshot",
+      "testId": "core-usb-differential-pair-demo",
+      "projectFile": "examples/131-usb-differential-pair-demo.adigun.json",
+      "readmeFile": "examples/131-usb-differential-pair-demo/README.md",
+      "safetyNote": "Four-layer USB pair-rule metadata only. The 90 Ω target and declared trace lengths are not field-solver results or measured geometry; USB protocol, eye, jitter, EMC, fabrication DRC and manufacturing qualification are not simulated.",
+      "scope": "catalogue"
     }
   ]
 }
