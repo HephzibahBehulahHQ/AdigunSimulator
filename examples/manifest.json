@@ -6219,14 +6219,35 @@
     {
       "id": "157-net-probe-cross-probe",
       "title": "Net-probe cross-probe",
-      "status": "in-review",
+      "status": "released",
       "objective": "Select one project net and synchronize its exact net ID across breadboard, schematic, and PCB displays without implying that cross-view highlighting performs routing.",
       "acceptanceTest": "tests/core.test.mjs: catalogue net cross-probe preserves the same net ID across all design views",
       "testId": "core-net-probe-cross-probe",
       "projectFile": "examples/157-net-probe-cross-probe.adigun.json",
       "readmeFile": "examples/157-net-probe-cross-probe/README.md",
       "safetyNote": "Cross-probe shares logical net identity and selection only. It does not create or verify PCB traces, electrical connectivity changes, or manufacturing-ready routing.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 157,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41208305270",
+        "headRevision": "1818197b5286fefd362b3b1d3ce203b0391e004e",
+        "engine": "Shared project net cross-probe",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "shared-net-id-cross-probe-v1",
+        "expectedResult": {
+          "kind": "net-cross-probe",
+          "netId": "LED_A",
+          "views": [
+            "breadboard",
+            "schematic",
+            "pcb"
+          ],
+          "sharedNetId": true,
+          "routingPerformed": false
+        }
+      }
     }
   ]
 }
