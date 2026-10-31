@@ -216,6 +216,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.igbt-leg-command-fixture", category: "Inputs", type: "IGBT inverter-leg command and fault fixture", prefix: "CMD", pins: ["H_CMD", "L_CMD", "FAULT", "VCC", "GND"], defaultValue: "HighCommand on; LowCommand off; Fault none; Mode igbt-leg", simulation: "fixture-igbt-leg", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.igbt-leg-driver-ideal", category: "Active", type: "Ideal IGBT gate driver with fault interlock", prefix: "U", pins: ["H_IN", "L_IN", "FAULT_IN", "H_OUT", "L_OUT", "STATUS", "VCC", "GND"], defaultValue: "Interlock yes; GateHigh 15 V; Mode fault-interlock", simulation: "analytical-igbt-leg", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.igbt-inverter-leg-ideal", category: "Active", type: "Ideal high-side and low-side IGBT inverter leg", prefix: "Q", pins: ["VIN", "GH", "GL", "SW", "VCC", "GND"], defaultValue: "VceSat 1.8 V; MaxVoltage 600 V; MaxCurrent 20 A; Mode igbt-leg", simulation: "analytical-igbt-leg", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.triac-phase-fixture", category: "Inputs", type: "AC dimmer phase-angle and fault fixture", prefix: "CMD", pins: ["ANGLE", "ENABLE", "FAULT"], defaultValue: "PhaseAngle 90 deg; Enable yes; Fault none; Mode phase-angle", simulation: "fixture-triac-dimmer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.optotriac-phase-driver-ideal", category: "Active", type: "Ideal zero-cross synchronized optotriac driver", prefix: "U", pins: ["AC_L", "AC_N", "ANGLE", "ENABLE", "FAULT", "FIRE", "STATUS"], defaultValue: "MaxFrequency 65 Hz; MaxCurrent 2 A; Mode zero-cross-optotriac", simulation: "analytical-triac-dimmer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.triac-dimmer-ideal", category: "Active", type: "Ideal phase-angle triac and resistive lamp", prefix: "Q", pins: ["AC_L", "AC_N", "GATE", "LAMP"], defaultValue: "OnDrop 1.5 V; Mode phase-angle", simulation: "analytical-triac-dimmer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.triac-dimmer-report", category: "Output", type: "AC dimmer RMS load and zero-cross report", prefix: "SCOPE", pins: ["LAMP", "STATUS"], defaultValue: "AC dimmer results", simulation: "analytical-triac-dimmer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -742,6 +746,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const igbtFixtures = project.components.filter((item) => item.libraryId === "input.igbt-leg-command-fixture");
   const igbtDrivers = project.components.filter((item) => item.libraryId === "active.igbt-leg-driver-ideal");
   const igbtLegs = project.components.filter((item) => item.libraryId === "active.igbt-inverter-leg-ideal");
+  const triacFixtures = project.components.filter((item) => item.libraryId === "input.triac-phase-fixture");
+  const triacDrivers = project.components.filter((item) => item.libraryId === "active.optotriac-phase-driver-ideal");
+  const triacDimmers = project.components.filter((item) => item.libraryId === "active.triac-dimmer-ideal");
+  const triacReports = project.components.filter((item) => item.libraryId === "output.triac-dimmer-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -1001,6 +1009,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (igbtFixtures.length===1&&igbtDrivers.length===1&&igbtLegs.length===1&&halfBridgeReports.length===1&&source.length===1&&resistor.length===1&&ground.length===1&&project.components.length===7) {
     return analyseIgbtInverterLeg(project,{source:source[0],fixture:igbtFixtures[0],driver:igbtDrivers[0],leg:igbtLegs[0],report:halfBridgeReports[0],load:resistor[0],ground:ground[0],validation});
+  }
+  if (acSource.length===1&&triacFixtures.length===1&&triacDrivers.length===1&&triacDimmers.length===1&&triacReports.length===1&&resistor.length===1&&ground.length===1&&project.components.length===7) {
+    return analyseTriacAcDimmer(project,{source:acSource[0],fixture:triacFixtures[0],driver:triacDrivers[0],triac:triacDimmers[0],report:triacReports[0],load:resistor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3462,6 +3473,42 @@ function analyseIgbtInverterLeg(project,{source,fixture,driver,leg,report,load,g
   return {state:"complete",engine:"Bounded IGBT inverter-leg logic and resistive-load estimator",
     message:"Checks high/low gate commands, mutual-exclusion interlock and injected fault shutdown, then estimates a resistive load during high-side conduction. Switching transients, inductive load current, diode recovery, thermal behavior, isolation, protection hardware, and safety qualification are not modeled.",
     result:{kind:"igbt-inverter-leg",switchingState,highCommand,lowCommand,highGateOn,lowGateOn,commandConflict,fault,faultActive,interlockActive,gateHighVoltageV:gateHighV,busVoltageV,vceSaturationVoltageV:vceSatV,outputVoltageV,loadResistanceOhm:loadOhm,loadCurrentA,loadPowerW:outputVoltageV*loadCurrentA,deviceMaximumVoltageV:maxVoltageV,deviceMaximumCurrentA:maxCurrentA,shootThrough:false,hardwareSafetyQualified:false},validation};
+}
+function analyseTriacAcDimmer(project,{source,fixture,driver,triac,report,load,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const f=fields(fixture.value),d=fields(driver.value),q=fields(triac.value);
+  const ac=String(source.value).match(/^\s*([\d.]+)\s*V\s*RMS\s*,\s*([\d.]+)\s*Hz\s*$/i);
+  const sourceRmsV=ac?Number(ac[1]):Number.NaN,frequencyHz=ac?Number(ac[2]):Number.NaN;
+  const phaseText=String(field(f,"PhaseAngle")??"").match(/^([\d.]+)\s*deg$/i),phaseAngleDeg=phaseText?Number(phaseText[1]):Number.NaN;
+  const enabled=field(f,"Enable")==="yes",fault=field(f,"Fault");
+  const maxFrequencyHz=Number(String(field(d,"MaxFrequency")??"").replace(/\s*Hz$/i,""));
+  const maxCurrentA=currentValue(field(d,"MaxCurrent")??""),onDropV=voltageValue(field(q,"OnDrop")??"");
+  const loadOhm=resistanceValue(load.value),live=n(source,"+"),neutral=n(source,"-"),gnd=n(ground,"0");
+  const sourcePath=live===n(driver,"AC_L")&&live===n(triac,"AC_L")&&neutral===n(driver,"AC_N")&&neutral===n(triac,"AC_N")&&neutral===gnd;
+  const controlPath=n(fixture,"ANGLE")===n(driver,"ANGLE")&&n(fixture,"ENABLE")===n(driver,"ENABLE")&&n(fixture,"FAULT")===n(driver,"FAULT");
+  const firingPath=n(driver,"FIRE")===n(triac,"GATE"),loadPath=n(triac,"LAMP")===n(load,"1")&&n(load,"2")===neutral&&n(report,"LAMP")===n(triac,"LAMP");
+  const statusPath=n(driver,"STATUS")===n(report,"STATUS");
+  const required=[live,neutral,gnd,...["ANGLE","ENABLE","FAULT"].flatMap(pin=>[n(fixture,pin),n(driver,pin)]),n(driver,"FIRE"),n(triac,"GATE"),n(triac,"LAMP"),n(load,"1"),n(load,"2"),n(driver,"STATUS"),n(report,"STATUS")];
+  if(required.some(x=>typeof x!=="string"||!x)||!sourcePath||!controlPath||!firingPath||!loadPath||!statusPath
+    ||field(f,"Mode")!=="phase-angle"||field(d,"Mode")!=="zero-cross-optotriac"||field(q,"Mode")!=="phase-angle"
+    ||!["none","sync-loss","overcurrent"].includes(fault)||![sourceRmsV,frequencyHz,phaseAngleDeg,maxFrequencyHz,maxCurrentA,onDropV,loadOhm].every(Number.isFinite)
+    ||sourceRmsV<12||sourceRmsV>240||frequencyHz<40||frequencyHz>65||maxFrequencyHz<frequencyHz||maxFrequencyHz>70
+    ||phaseAngleDeg<0||phaseAngleDeg>150||maxCurrentA<=0||maxCurrentA>10||onDropV<0||onDropV>3||loadOhm<=0||loadOhm>10000){
+    return {state:"blocked",message:"Wire the AC source, zero-cross synchronized driver, triac, resistive lamp, report and neutral; use the supported RMS voltage, frequency and phase-angle range.",validation};
+  }
+  const syncLocked=fault!=="sync-loss"&&frequencyHz<=maxFrequencyHz;
+  const firingEnabled=enabled&&syncLocked&&fault==="none";
+  const alpha=phaseAngleDeg*Math.PI/180;
+  let rmsFactor=firingEnabled?Math.sqrt(Math.max(0,(Math.PI-alpha+0.5*Math.sin(2*alpha))/Math.PI)):0;
+  let lampVoltageRmsV=sourceRmsV*rmsFactor;
+  let lampCurrentRmsA=Math.max(0,(lampVoltageRmsV-onDropV)/loadOhm);
+  let protectionTrip=fault==="overcurrent"||lampCurrentRmsA>maxCurrentA;
+  if(protectionTrip){lampVoltageRmsV=0;lampCurrentRmsA=0;rmsFactor=0;}
+  return {state:"complete",engine:"Bounded phase-angle AC dimmer RMS estimator",
+    message:"Estimates a resistive lamp's RMS voltage/current from a symmetric triac phase angle and checks a zero-cross synchronization/fault interlock. It does not model AC switching waveforms, latching/holding current, optocoupler isolation, snubbers, EMI, thermal behavior, mains clearances, or hardware safety.",
+    result:{kind:"triac-ac-dimmer",sourceRmsVoltageV:sourceRmsV,frequencyHz,phaseAngleDeg,zeroCrossLocked:syncLocked,fault,enabled,firingEnabled,protectionTrip,rmsFactor,lampVoltageRmsV,lampCurrentRmsA,lampPowerW:lampVoltageRmsV*lampCurrentRmsA,loadResistanceOhm:loadOhm,triacOnDropV:onDropV,zeroCrossSynchronizationModeled:true,isolationModeled:false,mainsSafetyQualified:false},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
