@@ -1,7 +1,7 @@
 const connected=(project,net,endpoint)=>Boolean(project.nets.find((x)=>x.id===net)?.endpoints.includes(endpoint));
 export function reviewDifferentialPair(project){
  const checks=[],add=(id,ok,detail)=>checks.push({id,status:ok?"pass":"fail",detail});
- const pcb=project?.pcbFabrication,pair=pcb?.differentialPairs?.[0],rule=pcb?.pairRules?.find((x)=>x.id===pair?.pairId);
+ const pcb=project?.pcbFabrication,pair=pcb?.differentialPairs?.[0],rule=pcb?.pairRules?.find((x)=>x.pairId===pair?.id);
  if(!pair||!rule)return {status:"failed",checks:[{id:"pair-rule-missing",status:"fail",detail:"Differential pair rule is missing."}]};
  const pairCount=(pcb.differentialPairs??[]).length;
  add("usb-dp-dm-mapping",pairCount===1&&pair.positiveNet==="USB_DP"&&pair.negativeNet==="USB_DM"&&connected(project,"USB_DP","usb:A6")&&connected(project,"USB_DP","usb:B6")&&connected(project,"USB_DP","phy:D+")&&connected(project,"USB_DM","usb:A7")&&connected(project,"USB_DM","usb:B7")&&connected(project,"USB_DM","phy:D-"),"USB-C D+/D− contacts map to the matching TUSB1106 transceiver pins.");
