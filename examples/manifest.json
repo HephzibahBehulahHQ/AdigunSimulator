@@ -90,6 +90,66 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147338342"
       }
+    },
+    {
+      "id": "007-led-current-limiter-12v",
+      "title": "12 V LED current limiter",
+      "status": "released",
+      "objective": "Calculate ideal LED current and resistor dissipation for a 12 V source, 2.2 kΩ resistor, and 2.0 V red LED.",
+      "acceptanceTest": "tests/core.test.mjs: 12 V LED limiter example calculates the documented current",
+      "testId": "core-led-current-limiter-12v",
+      "projectFile": "examples/007-led-current-limiter-12v.adigun.json",
+      "safetyNote": "Educational ideal low-voltage model only. Confirm the actual LED forward voltage/current rating, resistor wattage, supply tolerance and heat before hardware use.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
+      }
+    },
+    {
+      "id": "008-led-current-limiter-3v3",
+      "title": "3.3 V LED current limiter",
+      "status": "released",
+      "objective": "Calculate ideal LED current and resistor dissipation for a 3.3 V source, 150 Ω resistor, and 2.0 V red LED.",
+      "acceptanceTest": "tests/core.test.mjs: 3.3 V LED limiter example calculates the documented current",
+      "testId": "core-led-current-limiter-3v3",
+      "projectFile": "examples/008-led-current-limiter-3v3.adigun.json",
+      "safetyNote": "Educational ideal low-voltage model only. Actual LED forward voltage and supply tolerance change current; verify resistor rating, heat and LED limits before building.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
+      }
+    },
+    {
+      "id": "009-dc-voltage-divider-3k-1k",
+      "title": "9 V divider 3 kΩ / 1 kΩ",
+      "status": "released",
+      "objective": "Calculate the unloaded output voltage and current for a 9 V source and 3 kΩ / 1 kΩ divider.",
+      "acceptanceTest": "tests/core.test.mjs: 3 kΩ / 1 kΩ divider example calculates output voltage",
+      "testId": "core-dc-voltage-divider-3k-1k",
+      "projectFile": "examples/009-dc-voltage-divider-3k-1k.adigun.json",
+      "safetyNote": "Educational low-voltage unloaded model only. A connected load changes the output; do not use as product or regulatory design approval.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
+      }
+    },
+    {
+      "id": "010-parallel-load-12v",
+      "title": "12 V parallel resistor load",
+      "status": "released",
+      "objective": "Solve a 12 V source, 1 kΩ series resistor, and 2 kΩ / 3 kΩ parallel loads; report midpoint voltage and source current.",
+      "acceptanceTest": "tests/core.test.mjs: 12 V parallel load example solves its midpoint and source current",
+      "testId": "core-parallel-load-12v",
+      "projectFile": "examples/010-parallel-load-12v.adigun.json",
+      "safetyNote": "Educational ideal low-voltage DC model only. Check real resistor power ratings, heat, supply tolerance and wiring before hardware use.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
+      }
     }
   ]
 }

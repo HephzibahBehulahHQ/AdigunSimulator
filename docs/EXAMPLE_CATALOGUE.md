@@ -2,7 +2,7 @@
 
 This is the authoritative scope catalogue for the 200 required examples. A row specifies a project, expected behaviour and acceptance criterion; it is **not** evidence that the project has been implemented or passed.
 
-The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has six released low-voltage analytical examples; all other catalogue entries remain planned until those requirements are met.
+The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has ten released low-voltage analytical examples; all other catalogue entries remain planned until those requirements are met.
 
 ## 12. Catalogue of 200 individually specified, testable example projects
 
