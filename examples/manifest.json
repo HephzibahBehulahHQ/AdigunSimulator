@@ -435,6 +435,44 @@
       }
     },
     {
+      "id": "010-supercapacitor-hold-up",
+      "title": "5 V supercapacitor hold-up",
+      "status": "released",
+      "objective": "Calculate the exponential voltage/current decay of a 1 F supercapacitor feeding a 100 Ω load after a 5 V supply interruption, isolated by a Schottky diode; report time to a 3 V minimum and compare samples.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue supercapacitor hold-up follows an exponential discharge curve and blocks over-rating and broken wiring",
+      "testId": "core-supercapacitor-hold-up",
+      "projectFile": "examples/010-supercapacitor-hold-up.adigun.json",
+      "safetyNote": "Ideal RC educational model only. It assumes prior charging to the configured voltage and input removal at time zero; no capacitor balancing, ESR, leakage, recharge, temperature, ratings, or hardware safety is modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 10,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41154570174",
+        "headRevision": "b29bbd8dde49c852cd1fe902cc50d5798cde55f7",
+        "engine": "Analytical supercapacitor RC power-interruption response",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "supercap-hold-up-rc-v1",
+        "libraryLock": "adigun-simulator@f5a36b0c048cab0def616281f9d4de2597a2d278",
+        "expectedResult": {
+          "oneFaradHundredOhm": {
+            "sourceVoltage": 5,
+            "diodeVf": 0.3,
+            "chargeVoltage": 4.7,
+            "capacitanceF": 1,
+            "initialVoltage": 4.7,
+            "minimumVoltage": 3,
+            "loadResistanceOhm": 100,
+            "timeConstantS": 100,
+            "holdUpTimeS": 44.89502200479032,
+            "initialCurrentA": 0.047,
+            "initialStoredEnergyJ": 11.045000000000002,
+            "voltageAtThresholdV": 3
+          }
+        }
+      }
+    },
+    {
       "id": "003-led-current-limiter-9v",
       "title": "9 V LED current limiter",
       "status": "released",
@@ -671,16 +709,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "010-supercapacitor-hold-up",
-      "title": "5 V supercapacitor hold-up",
-      "status": "in-review",
-      "objective": "Calculate the exponential voltage/current decay of a 1 F supercapacitor feeding a 100 Ω load after a 5 V supply interruption, isolated by a Schottky diode; report time to a 3 V minimum and compare samples.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue supercapacitor hold-up follows an exponential discharge curve and blocks over-rating and broken wiring",
-      "testId": "core-supercapacitor-hold-up",
-      "projectFile": "examples/010-supercapacitor-hold-up.adigun.json",
-      "safetyNote": "Ideal RC educational model only. It assumes prior charging to the configured voltage and input removal at time zero; no capacitor balancing, ESR, leakage, recharge, temperature, ratings, or hardware safety is modeled."
     }
   ]
 }
