@@ -5161,7 +5161,7 @@
     {
       "id": "125-usbc-breakout",
       "title": "USB-C USB 2.0 breakout",
-      "status": "in-review",
+      "status": "released",
       "objective": "Map a GCT USB4105 USB 2.0 Type-C receptacle to VBUS, GND and USB 2.0 data outputs, add separate 5.1 kΩ CC1/CC2 Rd resistors, test every connector pin assignment, bounded DRC and the generated pin report.",
       "acceptanceTest": "tests/core.test.mjs: catalogue USB-C breakout verifies its connector pin report, CC pull-downs, DRC and export snapshots",
       "testId": "core-usbc-breakout",
@@ -5169,7 +5169,34 @@
       "readmeFile": "examples/125-usbc-breakout/README.md",
       "safetyNote": "Educational USB 2.0 sink breakout. USB-C pin and CC wiring are mapped from the USB-IF Type-C specification; the generic receptacle footprint coordinates are a visual template, not a verified production CAD footprint. No USB-PD, electrical compliance, current-carrying validation or manufacturing approval is provided.",
       "scope": "catalogue",
-      "catalogueIndex": 125
+      "catalogueIndex": 125,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41195184250",
+        "headRevision": "d6b76ba2aa7c953c60ebab69ef75040dc6ab2e4d",
+        "engine": "USB-C USB 2.0 connector-map and bounded single-layer PCB checks",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "usb4105-usb2-breakout-fcu-v1",
+        "expectedResult": {
+          "kind": "usb-c-usb2-breakout",
+          "connectorContacts": 16,
+          "connectorShells": 1,
+          "ccPullDownOhms": 5100,
+          "pinReport": "Connector-Pin-Report.csv",
+          "pcbDrcStatus": "passed",
+          "artifacts": [
+            "Connector-Pin-Report.csv",
+            "board-F_Cu.gbr",
+            "board-Edge_Cuts.gbr",
+            "board-PTH.drl",
+            "BOM.csv"
+          ],
+          "usbPowerDeliveryModeled": false,
+          "signalIntegrityVerified": false,
+          "hardwareManufacturingQualified": false
+        }
+      }
     }
   ]
 }
