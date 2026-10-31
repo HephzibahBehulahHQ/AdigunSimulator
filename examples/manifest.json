@@ -621,6 +621,16 @@
         }
       },
       "scope": "supplemental"
+    },
+    {
+      "id": "009-solar-garden-light",
+      "title": "Solar garden light day/night model",
+      "status": "in-review",
+      "objective": "Estimate solar-cell charging through a Schottky diode during daylight and switch a battery-powered LED through an LDR divider and ideal MOSFET at night; test both light extremes and energy accounting.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue solar garden light charges in daylight and lights at night, with invalid illumination and wiring blocked",
+      "testId": "core-solar-garden-light",
+      "projectFile": "examples/009-solar-garden-light.adigun.json",
+      "safetyNote": "Educational quasi-static model only. The battery is a fixed-voltage sink/source; no state-of-charge, chemistry, charge-control, cell curvature, twilight hysteresis, component ratings, thermal behavior, or hardware safety is modeled."
     }
   ]
 }
