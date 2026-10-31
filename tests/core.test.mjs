@@ -1437,7 +1437,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 146);
+  assert.equal(getExampleCoverage(registry).total, 147);
   assert.equal(getExampleCoverage(registry).released, 136);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 64);
@@ -3842,4 +3842,28 @@ test("catalogue manufacturing export pack contains bounded fabrication files, a 
   assert.equal(pack.checksums["Export-Manifest.json"],createHash("sha256").update(pack.files["Export-Manifest.json"]).digest("hex"));
   const invalid=JSON.parse(JSON.stringify(project));invalid.pcbFabrication.routes[0].netId="MISSING";
   assert.equal(createManufacturingExportPack(invalid).status,"blocked");
+});
+
+test("catalogue assembly variant board generates two BOMs and excludes DNP parts", async () => {
+  const {createManufacturingExportPack}=await import("../js/manufacturing-export-pack.mjs");
+  const {createAssemblyVariantBoms}=await import("../js/assembly-variant-bom.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/137-assembly-variant-board.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  assert.equal(validatePcbFabrication(project).status,"passed");
+  const variants=createAssemblyVariantBoms(project);
+  assert.equal(variants.status,"passed");
+  assert.deepEqual(Object.keys(variants.files),["BOM-basic.csv","BOM-indicator.csv"]);
+  assert.ok(!variants.files["BOM-basic.csv"].includes('"D1"'));
+  assert.ok(variants.files["BOM-indicator.csv"].includes('"D1"'));
+  assert.ok(variants.files["BOM-basic.csv"].includes('"R1"'));
+  assert.ok(variants.files["BOM-indicator.csv"].includes('"R1"'));
+  const pack=createManufacturingExportPack(project);
+  assert.equal(pack.status,"passed",JSON.stringify(pack.errors));
+  assert.ok(pack.files["BOM-basic.csv"]);
+  assert.ok(pack.files["BOM-indicator.csv"]);
+  assert.ok(pack.files["SHA256SUMS.txt"].includes("BOM-basic.csv"));
+  assert.ok(pack.files["SHA256SUMS.txt"].includes("BOM-indicator.csv"));
+  const broken=JSON.parse(JSON.stringify(project));broken.assemblyVariants[0].dnpReferences=["U99"];
+  assert.equal(createManufacturingExportPack(broken).status,"blocked");
 });

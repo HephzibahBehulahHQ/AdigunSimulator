@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-137-assembly-variant-board",
+  "metadata": {
+    "name": "LED assembly variant board",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "J1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          55,
+          90
+        ],
+        "schematic": [
+          55,
+          90
+        ],
+        "pcb": [
+          55,
+          90
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          220,
+          90
+        ],
+        "schematic": [
+          220,
+          90
+        ],
+        "pcb": [
+          220,
+          90
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          370,
+          90
+        ],
+        "schematic": [
+          370,
+          90
+        ],
+        "pcb": [
+          370,
+          90
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          530,
+          170
+        ],
+        "schematic": [
+          530,
+          170
+        ],
+        "pcb": [
+          530,
+          170
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "resistor-1:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "resistor-1:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "led-1:K",
+        "source-1:-",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 40,
+      "heightMm": 24,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "TerminalBlock_1x02_P5.00mm_PTH",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "footprint": "R_0805_2012Metric_SMD",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "footprint": "LED_0805_2012Metric_SMD",
+        "technology": "smd"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 4,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 13,
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 16,
+        "yMm": 8,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 1
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "LED_A",
+        "xMm": 18,
+        "yMm": 8,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 1
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "netId": "LED_A",
+        "xMm": 22,
+        "yMm": 8,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 1
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 24,
+        "yMm": 8,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 1
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            8
+          ],
+          [
+            16,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "LED_A",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            18,
+            8
+          ],
+          [
+            22,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            24,
+            8
+          ],
+          [
+            24,
+            18
+          ],
+          [
+            4,
+            18
+          ],
+          [
+            4,
+            13
+          ]
+        ]
+      }
+    ]
+  },
+  "assemblyVariants": [
+    {
+      "id": "basic",
+      "name": "Basic board without indicator LED",
+      "dnpReferences": [
+        "D1"
+      ]
+    },
+    {
+      "id": "indicator",
+      "name": "Board with indicator LED fitted",
+      "dnpReferences": []
+    }
+  ]
+}

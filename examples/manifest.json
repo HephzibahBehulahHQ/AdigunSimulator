@@ -5601,6 +5601,18 @@
           "manufacturingQualified": false
         }
       }
+    },
+    {
+      "id": "137-assembly-variant-board",
+      "title": "LED assembly variant board",
+      "status": "in-review",
+      "objective": "Generate separate assembly BOMs for an indicator LED fitted and not-fitted option, excluding DNP designators from each variant.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue assembly variant board generates two BOMs and excludes DNP parts",
+      "testId": "core-assembly-variant-board",
+      "projectFile": "examples/137-assembly-variant-board.adigun.json",
+      "readmeFile": "examples/137-assembly-variant-board/README.md",
+      "safetyNote": "Variant BOM generation excludes only explicit DNP designators from the selected BOM. It does not validate substitutions, sourcing, assembly compatibility or electrical behavior of every possible variant.",
+      "scope": "catalogue"
     }
   ]
 }
