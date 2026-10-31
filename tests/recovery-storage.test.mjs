@@ -36,3 +36,14 @@ test("saving the native project can clear its recovery draft", () => {
   clearRecoveryDraft(storage, "draft");
   assert.equal(readRecoveryDraft(storage, "draft"), null);
 });
+
+test("unavailable browser storage does not crash draft recovery or persistence", () => {
+  const unavailable = {
+    getItem() { throw new Error("Storage is blocked"); },
+    setItem() { throw new Error("Storage is full"); },
+    removeItem() { throw new Error("Storage is read-only"); }
+  };
+  assert.equal(readRecoveryDraft(unavailable, "draft"), null);
+  assert.equal(writeRecoveryDraft(unavailable, "draft", createProject()), false);
+  assert.equal(clearRecoveryDraft(unavailable, "draft"), false);
+});
