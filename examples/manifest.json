@@ -2037,14 +2037,78 @@
     {
       "id": "049-traffic-light-fsm",
       "title": "Traffic-light state machine",
-      "status": "in-review",
+      "status": "released",
       "objective": "Cycle through north/south green, north/south yellow, all red, east/west green, east/west yellow, all red; test all lamp vectors and ensure opposing directions are never green simultaneously.",
       "acceptanceTest": "tests/core.test.mjs: catalogue traffic-light FSM cycles safe six-phase states without opposing green",
       "testId": "core-traffic-light-fsm",
       "projectFile": "examples/049-traffic-light-fsm.adigun.json",
       "safetyNote": "Generic educational six-phase static FSM. It advances once per rising edge and omits real-time duration, pedestrian control, sensor inputs, certified traffic-signal interlocks, propagation delay, and regulatory behavior.",
       "scope": "catalogue",
-      "catalogueIndex": 49
+      "catalogueIndex": 49,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41174259998",
+        "headRevision": "3f91405d03f9d941f2008bdc3cedd111376bd8e4",
+        "engine": "Ideal six-phase traffic-light finite-state machine",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-six-phase-traffic-fsm-v1",
+        "expectedResult": {
+          "phaseLampVectors": [
+            [
+              false,
+              false,
+              true,
+              true,
+              false,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              true,
+              false,
+              false
+            ],
+            [
+              true,
+              false,
+              false,
+              true,
+              false,
+              false
+            ],
+            [
+              true,
+              false,
+              false,
+              false,
+              false,
+              true
+            ],
+            [
+              true,
+              false,
+              false,
+              false,
+              true,
+              false
+            ],
+            [
+              true,
+              false,
+              false,
+              true,
+              false,
+              false
+            ]
+          ],
+          "repeatsAfterSixPhases": true,
+          "opposingGreenInvariant": true,
+          "onePhasePerRisingEdge": true
+        }
+      }
     }
   ]
 }
