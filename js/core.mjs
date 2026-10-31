@@ -77,6 +77,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.data-logger-controller-ideal", category: "Active", type: "Ideal EEPROM data logger controller behavior model", prefix: "U", pins: ["SENSOR", "SDA", "SCL", "DISPLAY", "VCC", "GND"], defaultValue: "SamplePeriodMs 100; Mode circular logger", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.eeprom-ring-buffer-ideal", category: "Active", type: "Ideal EEPROM circular ring-buffer model", prefix: "MEM", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Capacity 3; WriteCycleMs 5; Mode circular", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.data-log-display", category: "Output", type: "Ideal EEPROM replay text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Newest retained samples", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.wifi-relay-command", category: "Inputs", type: "Ideal Wi-Fi relay command fixture", prefix: "CMD", pins: ["COMMAND", "TOKEN", "GND"], defaultValue: "Command ON; Token TEST_TOKEN", simulation: "fixture-wifi-relay-command", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.wifi-relay-controller-ideal", category: "Active", type: "Generic local Wi-Fi relay command controller", prefix: "U", pins: ["CMD", "TOKEN", "LINK", "DRIVE", "VCC", "GND"], defaultValue: "Mode local-relay; AuthMode placeholder; ExpectedToken TEST_TOKEN; OfflineState fail-safe", simulation: "analytical-wifi-relay-control", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.wifi-module-mock", category: "Active", type: "Ideal Wi-Fi link-state fixture (no network)", prefix: "WIFI", pins: ["LINK", "VCC", "GND"], defaultValue: "Mode local-mock; Link online", simulation: "analytical-wifi-relay-control", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.wifi-relay-driver-ideal", category: "Active", type: "Ideal relay driver current guard and state output", prefix: "Q", pins: ["IN", "VCC", "GND"], defaultValue: "Mode ideal-switch; RequestedCoilCurrentMa 70; MaximumCurrentMa 100", simulation: "analytical-wifi-relay-control", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.gsm-alarm-event", category: "Inputs", type: "Ideal GSM alarm event fixture", prefix: "SIG", pins: ["ALARM", "GND"], defaultValue: "AlarmState active; Message TEMP_LIMIT_EXCEEDED; Responses OK|+CREG:0,1|OK|>; SendResult +CMGS:0|OK", simulation: "fixture-gsm-alarm", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.gsm-alarm-controller-ideal", category: "Active", type: "Generic GSM alert AT-command sequence model", prefix: "U", pins: ["ALARM", "TX", "RX", "REPORT", "VCC", "GND"], defaultValue: "Mode sms-mock; Destination TEST_ONLY; CommandTimeoutMs 1000", simulation: "analytical-gsm-alarm-mock", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.gsm-modem-at-mock", category: "Active", type: "Ideal GSM modem AT response fixture", prefix: "MODEM", pins: ["RX", "TX", "VCC", "GND"], defaultValue: "Mode AT-mock; Registration registered", simulation: "analytical-gsm-alarm-mock", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -535,6 +539,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const nfcReaders = project.components.filter((item) => item.libraryId === "active.nfc-reader-ideal");
   const nfcControllers = project.components.filter((item) => item.libraryId === "active.nfc-display-controller-ideal");
   const nfcDisplays = project.components.filter((item) => item.libraryId === "output.nfc-uid-display");
+  const wifiCommands = project.components.filter((item) => item.libraryId === "input.wifi-relay-command");
+  const wifiControllers = project.components.filter((item) => item.libraryId === "active.wifi-relay-controller-ideal");
+  const wifiModules = project.components.filter((item) => item.libraryId === "active.wifi-module-mock");
+  const wifiDrivers = project.components.filter((item) => item.libraryId === "active.wifi-relay-driver-ideal");
   const gsmEvents = project.components.filter((item) => item.libraryId === "input.gsm-alarm-event");
   const gsmControllers = project.components.filter((item) => item.libraryId === "active.gsm-alarm-controller-ideal");
   const gsmModems = project.components.filter((item) => item.libraryId === "active.gsm-modem-at-mock");
@@ -626,6 +634,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (dataLogFixtures.length === 1 && dataLogControllers.length === 1 && ringEeproms.length === 1 && dataLogDisplays.length === 1 && resistor.length === 2 && source.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseEepromRingLogger(project, { source: source[0], fixture: dataLogFixtures[0], controller: dataLogControllers[0], eeprom: ringEeproms[0], display: dataLogDisplays[0], pullups: resistor, ground: ground[0], validation });
+  }
+  if (wifiCommands.length === 1 && wifiControllers.length === 1 && wifiModules.length === 1 && wifiDrivers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseWifiRelayControl(project, { source: source[0], command: wifiCommands[0], controller: wifiControllers[0], wifi: wifiModules[0], driver: wifiDrivers[0], ground: ground[0], validation });
   }
   if (gsmEvents.length === 1 && gsmControllers.length === 1 && gsmModems.length === 1 && gsmReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseGsmAlarmMock(project, { source: source[0], event: gsmEvents[0], controller: gsmControllers[0], modem: gsmModems[0], report: gsmReports[0], ground: ground[0], validation });
@@ -1735,6 +1746,29 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
+function analyseWifiRelayControl(project,{source,command,controller,wifi,driver,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const commandFields=fields(command.value),controllerFields=fields(controller.value),wifiFields=fields(wifi.value),driverFields=fields(driver.value);
+  const requestedCommand=field(commandFields,"Command"),suppliedToken=field(commandFields,"Token"),expectedToken=field(controllerFields,"ExpectedToken"),linkState=field(wifiFields,"Link");
+  const requestedCoilCurrentMa=Number((field(driverFields,"RequestedCoilCurrentMa")??"").replace(/mA$/i,"")),maximumCurrentMa=Number((field(driverFields,"MaximumCurrentMa")??"").replace(/mA$/i,""));
+  const groundNet=n(ground,"0"),vccNet=n(controller,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const dataPaths=n(command,"COMMAND")===n(controller,"CMD")&&n(command,"TOKEN")===n(controller,"TOKEN")&&n(wifi,"LINK")===n(controller,"LINK")&&n(controller,"DRIVE")===n(driver,"IN");
+  const powered=[controller,wifi,driver].every(part=>n(part,"VCC")===vccNet&&n(part,"GND")===groundNet)&&n(command,"GND")===groundNet;
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<3||supplyVoltage>5.5||!dataPaths||!powered||field(controllerFields,"Mode")!=="local-relay"||field(controllerFields,"AuthMode")!=="placeholder"||field(controllerFields,"OfflineState")!=="fail-safe"||expectedToken!=="TEST_TOKEN"||field(wifiFields,"Mode")!=="local-mock"||!["online","offline"].includes(linkState)||!["ON","OFF"].includes(requestedCommand)||suppliedToken===undefined||!/^([A-Z0-9_]{1,32})$/.test(suppliedToken)||field(driverFields,"Mode")!=="ideal-switch"||!Number.isFinite(requestedCoilCurrentMa)||requestedCoilCurrentMa<=0||!Number.isFinite(maximumCurrentMa)||maximumCurrentMa<=0||requestedCoilCurrentMa>1000||maximumCurrentMa>1000){
+    return {state:"blocked",message:"Wire the local command and token inputs to the controller, its link input to the Wi-Fi fixture, and its output to the relay driver. Use local-mock mode, the TEST_TOKEN placeholder, fail-safe offline mode, a valid ON/OFF command, and positive current settings.",validation};
+  }
+  const authenticated=suppliedToken===expectedToken;
+  let outcome,relayEnergized=false,reason="";
+  if(linkState!=="online"){outcome="offline-fail-safe";reason="Wi-Fi link is offline; relay remains de-energized.";}
+  else if(!authenticated){outcome="denied-placeholder-token";reason="The placeholder token does not match; relay remains de-energized.";}
+  else if(requestedCommand==="OFF"){outcome="applied-off";reason="Authorized local OFF command applied.";}
+  else if(requestedCoilCurrentMa>maximumCurrentMa){outcome="driver-current-limit";reason="Requested coil current exceeds the configured driver limit; relay remains de-energized.";}
+  else {outcome="applied-on";relayEnergized=true;reason="Authorized local ON command applied to the ideal relay-driver state.";}
+  return {state:"complete",engine:"Local Wi-Fi relay command and ideal driver-state model",message:reason+" The token check is a placeholder, not secure authentication; no network or physical relay is modeled.",result:{kind:"wifi-relay-control",command:requestedCommand,linkState,authentication:"placeholder string comparison only",authenticated,transactionState:outcome,relayEnergized,requestedCoilCurrentMa,maximumCurrentMa,coilCurrentMa:relayEnergized?requestedCoilCurrentMa:0,physicalRelaySwitched:false,networkTransmitted:false,firmwareExecuted:false,reason},validation};
+}
+
 function analyseGsmAlarmMock(project,{source,event,controller,modem,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
