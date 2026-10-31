@@ -564,7 +564,7 @@ $("#load-example").addEventListener("click", async () => {
   }
 });
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
-$("#help-button").addEventListener("click", () => showDialog("Implementation status", "Implemented: local project document, starter library, shared identity and net layouts, local save/import/export, validation, four UI locales, ten tested native examples, and bounded DC analysis for LED, voltage-divider, and linear resistor networks, and analytical first-order RC and RL step responses. Not implemented: a 1,000 verified-part catalogue, general SPICE, nonlinear or digital simulation, real PCB routing/DRC/manufacturing, cloud accounts, or an AI service."));
+$("#help-button").addEventListener("click", () => showDialog("Implementation status", "Implemented: local project document, starter library, shared identity and net layouts, local save/import/export, validation, four UI locales, eleven tested analytical examples, bounded DC analysis for LED, voltage-divider, and linear resistor networks, first-order RC and RL responses, and selectable RC charge/discharge. Not implemented: a 1,000 verified-part catalogue, general SPICE, nonlinear or digital simulation, real PCB routing/DRC/manufacturing, cloud accounts, or an AI service."));
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
 $("#import-file").addEventListener("change", async (event) => {
