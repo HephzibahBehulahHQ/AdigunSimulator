@@ -63,7 +63,90 @@
         <button class="secondary-button" type="button" data-action="save" data-i18n="save">Save</button>
         <button class="secondary-button" type="button" data-action="validate" data-i18n="validate">Validate</button>
         <button class="run-button toolbar-run" type="button" data-action="run-simulation" data-i18n="runCalculation">Run</button>
-        <label class="example-top-control"><span data-i18n="exampleSelector">Example</span><p class="example-help" data-i18n="examplePickerHelp">Choose a released example from the toolbar.</p></label>
+        <label class="example-top-control"><span data-i18n="exampleSelector">Example</span><select id="example-picker">
+            <option value="examples/001-led-current-limiter.adigun.json">LED current limiter</option>
+            <option value="examples/002-two-led-polarity-indicator.adigun.json">Two-LED polarity indicator</option>
+            <option value="examples/002-dc-voltage-divider.adigun.json">DC voltage divider</option>
+            <option value="examples/003-pushbutton-led.adigun.json">5 V pushbutton LED with pull-down</option>
+            <option value="examples/004-latching-led-switch.adigun.json">Latching LED switch</option>
+            <option value="examples/005-pwm-led-dimmer.adigun.json" data-i18n="examplePwmLedDimmer">5 V PWM LED dimmer</option>
+            <option value="examples/006-battery-discharge-monitor.adigun.json" data-i18n="exampleBatteryDischargeMonitor">9 V battery discharge monitor</option>
+            <option value="examples/007-linear-regulated-supply.adigun.json" data-i18n="exampleLinearSupply">5 V linear supply with rectifier and regulator</option>
+            <option value="examples/008-usb-powered-led.adigun.json" data-i18n="exampleUsbLed">USB-powered LED with PTC</option>
+            <option value="examples/009-solar-garden-light.adigun.json" data-i18n="exampleSolarGardenLight">Solar garden light day/night model</option>
+            <option value="examples/010-supercapacitor-hold-up.adigun.json" data-i18n="exampleSupercapHoldUp">Supercapacitor hold-up after power loss</option>
+            <option value="examples/003-led-current-limiter-9v.adigun.json">9 V LED current limiter</option>
+            <option value="examples/004-parallel-resistor-load.adigun.json">5 V parallel resistor load</option>
+            <option value="examples/005-rc-step-response.adigun.json">5 V RC step response</option>
+            <option value="examples/006-rl-step-response.adigun.json">5 V RL step response</option>
+            <option value="examples/007-led-current-limiter-12v.adigun.json">12 V LED current limiter</option>
+            <option value="examples/008-led-current-limiter-3v3.adigun.json">3.3 V LED current limiter</option>
+            <option value="examples/009-dc-voltage-divider-3k-1k.adigun.json">9 V divider 3 kΩ / 1 kΩ</option>
+            <option value="examples/010-parallel-load-12v.adigun.json">12 V parallel resistor load</option>
+            <option value="examples/011-rc-charge-discharge.adigun.json">RC charge and discharge</option>
+            <option value="examples/012-rc-low-pass.adigun.json">RC low-pass filter</option>
+            <option value="examples/013-rc-high-pass.adigun.json">RC high-pass filter</option>
+            <option value="examples/014-passive-tone-control.adigun.json" data-i18n="examplePassiveToneControl">Passive treble-cut tone control</option>
+            <option value="examples/015-bridge-rectifier.adigun.json" data-i18n="exampleBridgeRectifier">Full-wave bridge rectifier</option>
+            <option value="examples/016-smoothing-capacitor.adigun.json" data-i18n="exampleSmoothingCapacitor">Rectifier smoothing capacitor</option>
+            <option value="examples/017-zener-shunt-regulator.adigun.json" data-i18n="exampleZenerShuntRegulator">Zener shunt regulator</option>
+            <option value="examples/018-tvs-surge-clamp.adigun.json" data-i18n="exampleTvsSurgeClamp">TVS surge clamp</option>
+            <option value="examples/019-ntc-temperature-divider.adigun.json" data-i18n="exampleNtcTemperatureDivider">NTC temperature divider</option>
+            <option value="examples/020-ldr-night-light.adigun.json" data-i18n="exampleLdrNightLight">LDR comparator night light</option>
+            <option value="examples/021-555-astable-blinker.adigun.json" data-i18n="exampleNe555Astable">555 astable LED blinker</option>
+            <option value="examples/022-555-monostable.adigun.json" data-i18n="exampleNe555Monostable">555 monostable LED pulse</option>
+            <option value="examples/023-556-dual-timer.adigun.json" data-i18n="exampleNe556DualTimer">NE556 dual timer: two independent astables</option>
+            <option value="examples/024-opamp-noninverting.adigun.json" data-i18n="exampleOpAmpNonInverting">Op-amp non-inverting amplifier</option>
+            <option value="examples/025-opamp-inverting.adigun.json" data-i18n="exampleOpAmpInverting">Op-amp inverting amplifier</option>
+            <option value="examples/026-opamp-voltage-follower.adigun.json" data-i18n="exampleOpAmpVoltageFollower">Op-amp voltage follower</option>
+            <option value="examples/027-comparator-threshold.adigun.json" data-i18n="exampleComparatorThreshold">Comparator threshold indicator</option>
+            <option value="examples/028-schmitt-trigger.adigun.json" data-i18n="exampleSchmittTrigger">Schmitt trigger hysteresis</option>
+            <option value="examples/029-window-comparator.adigun.json" data-i18n="exampleWindowComparator">Dual-comparator window indicator</option>
+            <option value="examples/030-reference-buffer.adigun.json" data-i18n="exampleReferenceBuffer">Precision reference buffer</option>
+            <option value="examples/031-transistor-common-emitter.adigun.json" data-i18n="exampleNpnCommonEmitter">NPN common-emitter amplifier</option>
+            <option value="examples/032-emitter-follower.adigun.json" data-i18n="exampleEmitterFollower">NPN emitter follower</option>
+            <option value="examples/033-nmos-low-side-switch.adigun.json" data-i18n="exampleNmosLowSide">NMOS low-side inductive-load driver</option>
+            <option value="examples/034-pmos-high-side-switch.adigun.json" data-i18n="examplePmosHighSide">P-MOS high-side switch</option>
+            <option value="examples/035-npn-relay-driver.adigun.json" data-i18n="exampleNpnRelayDriver">NPN relay-coil driver with flyback</option>
+            <option value="examples/036-hbridge-dc-motor.adigun.json" data-i18n="exampleHbridgeMotor">Four-switch H-bridge DC motor driver</option>
+            <option value="examples/037-electret-audio-preamp.adigun.json" data-i18n="exampleElectretAudioPreamp">Electret microphone audio preamplifier</option>
+            <option value="examples/038-audio-power-amplifier.adigun.json" data-i18n="exampleAudioPowerAmplifier">Generic audio power amplifier and speaker model</option>
+            <option value="examples/039-active-low-pass.adigun.json" data-i18n="exampleActiveLowPass">Active low-pass filter</option>
+            <option value="examples/040-wien-bridge-oscillator.adigun.json" data-i18n="exampleWienOscillator">Wien bridge oscillator</option>
+            <option value="examples/041-and-gate-truth-table.adigun.json" data-i18n="exampleAndGate">Two-input AND gate truth table</option>
+            <option value="examples/042-or-gate-truth-table.adigun.json" data-i18n="exampleOrGate">Two-input OR gate truth table</option>
+            <option value="examples/043-xor-parity-checker.adigun.json" data-i18n="exampleXorParity">Two-input XOR odd-parity checker</option>
+            <option value="examples/044-sr-latch-nor.adigun.json" data-i18n="exampleSrLatchNor">Cross-coupled NOR SR latch</option>
+            <option value="examples/045-d-flip-flop-register.adigun.json" data-i18n="exampleDFlipFlop">Positive-edge D flip-flop register</option>
+            <option value="examples/046-jk-toggle-divider.adigun.json" data-i18n="exampleJkToggleDivider">JK flip-flop toggle divider</option>
+            <option value="examples/047-four-bit-binary-counter.adigun.json" data-i18n="exampleFourBitCounter">Four-bit binary counter</option>
+            <option value="examples/048-bcd-counter-display.adigun.json" data-i18n="exampleBcdDisplay">BCD counter and seven-segment display</option>
+            <option value="examples/049-traffic-light-fsm.adigun.json" data-i18n="exampleTrafficLightFsm">Traffic-light state machine</option>
+            <option value="examples/050-debounced-digital-input.adigun.json" data-i18n="exampleDebouncedInput">Debounced digital input</option>
+            <option value="examples/051-shift-register-led-chaser.adigun.json" data-i18n="exampleShiftRegisterChaser">Shift-register LED chaser</option>
+            <option value="examples/052-multiplexer-selector.adigun.json" data-i18n="exampleMultiplexerSelector">Four-to-one multiplexer selector</option>
+            <option value="examples/053-decoder-controlled-leds.adigun.json" data-i18n="exampleDecoderLeds">Two-to-four decoder-controlled LEDs</option>
+            <option value="examples/054-priority-encoder.adigun.json" data-i18n="examplePriorityEncoder">Four-input priority encoder</option>
+            <option value="examples/055-alu-add-subtract.adigun.json" data-i18n="exampleAluAddSubtract">Four-bit ALU add/subtract</option>
+            <option value="examples/056-uart-transmitter.adigun.json" data-i18n="exampleUartTransmitter">UART transmitter 8N1</option>
+            <option value="examples/057-uart-receiver.adigun.json" data-i18n="exampleUartReceiver">UART receiver 8N1</option>
+            <option value="examples/058-i2c-sensor-read.adigun.json" data-i18n="exampleI2cSensorRead">I²C sensor register read</option>
+            <option value="examples/059-spi-display.adigun.json" data-i18n="exampleSpiDisplay">SPI mode-0 display transfer</option>
+            <option value="examples/060-eeprom-data-logger.adigun.json" data-i18n="exampleEepromDataLogger">I²C EEPROM sample write and read-back</option>
+            <option value="examples/061-arduino-blink.adigun.json" data-i18n="exampleArduinoBlink">Uno-class D13 blink behavior</option>
+            <option value="examples/062-arduino-button-debounce.adigun.json" data-i18n="exampleArduinoButtonDebounce">Uno-class debounced button toggle</option>
+            <option value="examples/063-arduino-pwm-dimmer.adigun.json" data-i18n="exampleArduinoPwmDimmer">Uno-class potentiometer PWM dimmer</option>
+            <option value="examples/064-arduino-temperature-monitor.adigun.json" data-i18n="exampleArduinoTemperatureMonitor">Uno-class temperature monitor with LCD output</option>
+            <option value="examples/065-arduino-ultrasonic-ranger.adigun.json" data-i18n="exampleArduinoUltrasonicRanger">Uno-class ultrasonic ranger and OLED result</option>
+            <option value="examples/066-arduino-servo-control.adigun.json" data-i18n="exampleArduinoServoControl">Uno-class potentiometer servo sweep</option>
+            <option value="examples/067-arduino-stepper-driver.adigun.json" data-i18n="exampleArduinoStepperDriver">Uno-class bipolar stepper driver</option>
+            <option value="examples/068-esp32-telemetry-mock.adigun.json" data-i18n="exampleEsp32TelemetryMock">ESP32 temperature telemetry payload mock</option>
+            <option value="examples/069-pico-adc-voltmeter.adigun.json" data-i18n="examplePicoAdcVoltmeter">Pico ADC divider voltmeter with OLED</option>
+                        <option value="examples/070-stm32-timer-pwm.adigun.json" data-i18n="exampleStm32TimerPwm">STM32 timer PWM LED load</option>
+            <option value="examples/071-pic-adc-bargraph.adigun.json" data-i18n="examplePicAdcBargraph">PIC-class ADC LED bargraph</option>
+            <option value="examples/072-avr-ir-receiver.adigun.json" data-i18n="exampleAvrIrReceiver">AVR NEC-like IR receiver</option>
+<option value="examples/supplemental-rl-low-pass.adigun.json">Supplemental: RL low-pass filter</option>
+          </select></label>
         </div>
     </nav>
     <main id="workspace" class="workspace">
