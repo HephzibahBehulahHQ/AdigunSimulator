@@ -1462,14 +1462,35 @@
     {
       "id": "038-audio-power-amplifier",
       "title": "Generic low-voltage class-AB audio amplifier",
-      "status": "in-review",
+      "status": "released",
       "objective": "Drive a nominal 8 Ω + 0.5 mH speaker model from a 9 V, gain-20 low-voltage class-AB amplifier using a 220 µF output coupling capacitor; test audio-band response, speaker RMS current/power, and configured output clipping.",
       "acceptanceTest": "tests/core.test.mjs: catalogue class-AB audio amplifier reports speaker power and clipping warning; blocks a disconnected speaker path",
       "testId": "core-audio-power-amplifier",
       "projectFile": "examples/038-audio-power-amplifier.adigun.json",
       "safetyNote": "Generic ideal LM386-class estimate, not a manufacturer-specific LM386 model. It uses a 9 V supply, gain 20, 2 V peak output swing, 4 mA quiescent-current parameter, and an 8 Ω + 0.5 mH nominal speaker model. THD, actual output-stage current limits, mechanical sound, thermal behavior, supply decoupling parasitics, and device-specific ratings are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 38
+      "catalogueIndex": 38,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41172329608",
+        "headRevision": "77448d91f014b62807535e36ba4b65e4f84c0e76",
+        "engine": "Generic low-voltage class-AB amplifier and R-L speaker estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-audio-power-amp-v1",
+        "expectedResult": {
+          "supplyVoltage": 9,
+          "inputAmplitudeV": 0.08,
+          "frequencyHz": 1000,
+          "gainVPerV": 20,
+          "requestedOutputAmplitudeV": 1.6,
+          "clipped": false,
+          "outputBiasVoltageV": 4.5,
+          "speakerVoltageRmsV": 1.163489393852444,
+          "speakerCurrentRmsA": 0.1353722172005118,
+          "speakerRealPowerW": 0.1466050975182603
+        }
+      }
     }
   ]
 }
