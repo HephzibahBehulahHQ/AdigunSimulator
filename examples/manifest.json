@@ -5041,7 +5041,7 @@
     {
       "id": "122-555-timer-pcb",
       "title": "555 timer PCB",
-      "status": "in-review",
+      "status": "released",
       "objective": "Map the NE555 astable LED circuit onto a single-sided DIP-8 board; check all electrical nets, physical pads and routing continuity, and compare deterministic manufacturing outputs with expected files.",
       "acceptanceTest": "tests/core.test.mjs: 555 timer PCB has complete schematic/PCB mapping, no unrouted physical nets, and matching fabrication snapshots",
       "testId": "core-555-timer-pcb",
@@ -5049,7 +5049,34 @@
       "readmeFile": "examples/122-555-timer-pcb/README.md",
       "safetyNote": "Generic NE555-class educational layout and preview export only. Verify exact timer, passive footprints, routing clearances, current, thermal limits and manufacturer rules before building.",
       "scope": "catalogue",
-      "catalogueIndex": 122
+      "catalogueIndex": 122,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41194072676",
+        "headRevision": "94a59334e147ba88c93f4b921bab00248dde837d",
+        "engine": "Analytical ideal 555 astable timing estimate with bounded single-sided PCB exporter",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ne555-astable-fcu-dip8-v1",
+        "expectedResult": {
+          "kind": "ne555-astable",
+          "supplyVoltage": 5,
+          "raOhm": 10000,
+          "rbOhm": 10000,
+          "timingCapacitanceF": 0.0001,
+          "frequencyHz": 0.48100048100048104,
+          "dutyPercent": 66.66666666666666,
+          "ledBlinking": true,
+          "pcbDrcStatus": "passed",
+          "artifacts": [
+            "board-F_Cu.gbr",
+            "board-Edge_Cuts.gbr",
+            "board-PTH.drl",
+            "BOM.csv"
+          ],
+          "hardwareManufacturingQualified": false
+        }
+      }
     }
   ]
 }
