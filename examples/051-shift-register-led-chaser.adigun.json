@@ -1,0 +1,366 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-051-shift-register-led-chaser",
+  "metadata": {
+    "name": "Four-Bit Shift-Register LED Chaser",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          45
+        ],
+        "schematic": [
+          40,
+          45
+        ],
+        "pcb": [
+          40,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "clock-input",
+      "libraryId": "power.dc-source",
+      "reference": "CLK",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          45
+        ],
+        "schematic": [
+          155,
+          45
+        ],
+        "pcb": [
+          155,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "reset-input",
+      "libraryId": "power.dc-source",
+      "reference": "RESET_N",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          45
+        ],
+        "schematic": [
+          270,
+          45
+        ],
+        "pcb": [
+          270,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "register",
+      "libraryId": "active.logic-ring-shift-4bit-ideal",
+      "reference": "U1",
+      "value": "Four-bit one-hot ring; reset Q0",
+      "position": {
+        "breadboard": [
+          385,
+          45
+        ],
+        "schematic": [
+          385,
+          45
+        ],
+        "pcb": [
+          385,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "r0",
+      "libraryId": "passive.resistor",
+      "reference": "R0",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          500,
+          45
+        ],
+        "schematic": [
+          500,
+          45
+        ],
+        "pcb": [
+          500,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "r1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          40,
+          115
+        ],
+        "schematic": [
+          40,
+          115
+        ],
+        "pcb": [
+          40,
+          115
+        ]
+      }
+    },
+    {
+      "instanceId": "r2",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          155,
+          115
+        ],
+        "schematic": [
+          155,
+          115
+        ],
+        "pcb": [
+          155,
+          115
+        ]
+      }
+    },
+    {
+      "instanceId": "r3",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          270,
+          115
+        ],
+        "schematic": [
+          270,
+          115
+        ],
+        "pcb": [
+          270,
+          115
+        ]
+      }
+    },
+    {
+      "instanceId": "led0",
+      "libraryId": "diode.led-red",
+      "reference": "D0",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          385,
+          115
+        ],
+        "schematic": [
+          385,
+          115
+        ],
+        "pcb": [
+          385,
+          115
+        ]
+      }
+    },
+    {
+      "instanceId": "led1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          500,
+          115
+        ],
+        "schematic": [
+          500,
+          115
+        ],
+        "pcb": [
+          500,
+          115
+        ]
+      }
+    },
+    {
+      "instanceId": "led2",
+      "libraryId": "diode.led-red",
+      "reference": "D2",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          40,
+          185
+        ],
+        "schematic": [
+          40,
+          185
+        ],
+        "pcb": [
+          40,
+          185
+        ]
+      }
+    },
+    {
+      "instanceId": "led3",
+      "libraryId": "diode.led-red",
+      "reference": "D3",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          155,
+          185
+        ],
+        "schematic": [
+          155,
+          185
+        ],
+        "pcb": [
+          155,
+          185
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          185
+        ],
+        "schematic": [
+          270,
+          185
+        ],
+        "pcb": [
+          270,
+          185
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "register:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "clock-input:-",
+        "reset-input:-",
+        "register:GND",
+        "ground:0",
+        "led0:K",
+        "led1:K",
+        "led2:K",
+        "led3:K"
+      ]
+    },
+    {
+      "id": "CLOCK",
+      "endpoints": [
+        "clock-input:+",
+        "register:CLK"
+      ]
+    },
+    {
+      "id": "RESET_N",
+      "endpoints": [
+        "reset-input:+",
+        "register:RESET_N"
+      ]
+    },
+    {
+      "id": "Q0",
+      "endpoints": [
+        "register:Q0",
+        "r0:1"
+      ]
+    },
+    {
+      "id": "LED0",
+      "endpoints": [
+        "r0:2",
+        "led0:A"
+      ]
+    },
+    {
+      "id": "Q1",
+      "endpoints": [
+        "register:Q1",
+        "r1:1"
+      ]
+    },
+    {
+      "id": "LED1",
+      "endpoints": [
+        "r1:2",
+        "led1:A"
+      ]
+    },
+    {
+      "id": "Q2",
+      "endpoints": [
+        "register:Q2",
+        "r2:1"
+      ]
+    },
+    {
+      "id": "LED2",
+      "endpoints": [
+        "r2:2",
+        "led2:A"
+      ]
+    },
+    {
+      "id": "Q3",
+      "endpoints": [
+        "register:Q3",
+        "r3:1"
+      ]
+    },
+    {
+      "id": "LED3",
+      "endpoints": [
+        "r3:2",
+        "led3:A"
+      ]
+    }
+  ],
+  "history": []
+}
