@@ -2921,3 +2921,32 @@ test("catalogue solar MPP sweep finds maximum sample and scales current with irr
   broken.nets.find(net=>net.id==="PV_POS").endpoints=["fixture:PV+"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue USB-C sink selects requested profile, falls back to 5 V, and blocks invalid paths", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/107-usb-c-sink-concept.adigun.json",import.meta.url)));
+  const negotiated=runSupportedAnalysis(project);
+  assert.equal(negotiated.state,"complete",negotiated.message);
+  assert.equal(negotiated.result.kind,"usb-c-pd-sink");
+  assert.equal(negotiated.result.negotiationState,"contract");
+  assert.equal(negotiated.result.selectedVoltageV,12);
+  assert.equal(negotiated.result.loadCurrentA,1.2);
+  assert.equal(negotiated.result.loadPowerW,14.4);
+  assert.equal(negotiated.result.protocolSignalingModeled,false);
+
+  const fallback=runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"Profiles 5,9 V; Requested 12 V; Fault none; Mode pd-source"}));
+  assert.equal(fallback.state,"complete");
+  assert.equal(fallback.result.negotiationState,"fallback-5v");
+  assert.equal(fallback.result.selectedVoltageV,5);
+  assert.equal(fallback.result.loadCurrentA,0.5);
+
+  const ccOpen=runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"Profiles 5,9,12 V; Requested 12 V; Fault cc-open; Mode pd-source"}));
+  assert.equal(ccOpen.state,"complete");
+  assert.equal(ccOpen.result.negotiationState,"default-5v");
+  assert.equal(ccOpen.result.selectedVoltageV,5);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"1 Ω"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"Profiles 5,7,12 V; Requested 12 V; Fault none; Mode pd-source"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="CC2").endpoints=["source-fixture:CC2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
