@@ -18,6 +18,7 @@ import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 import { runParameterSweep } from "../js/parameter-sweep.mjs";
 import { runMonteCarloTolerance } from "../js/monte-carlo-tolerance.mjs";
 import { analyzeThermalWarningBoundary } from "../js/thermal-warning-boundary.mjs";
+import { analyzeConvergenceStudy } from "../js/convergence-study.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1440,7 +1441,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 161);
+  assert.equal(getExampleCoverage(registry).total, 162);
   assert.equal(getExampleCoverage(registry).released, 151);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 49);
@@ -4076,4 +4077,21 @@ test("catalogue thermal boundary reports dissipation without claiming a thermal 
   assert.ok(result.warnings.some(warning=>warning.code==="POWER_RATING_EXCEEDED"));
   const invalid=JSON.parse(JSON.stringify(project));invalid.thermalBoundary.ratedPowerW=0;
   assert.equal(analyzeThermalWarningBoundary(invalid).state,"blocked");
+});
+
+test("catalogue convergence study returns actionable limits without fabricating solver output", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/152-convergence-failure-study.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=analyzeConvergenceStudy(project);
+  assert.equal(result.state,"blocked");
+  assert.equal(result.result,null);
+  assert.equal(result.diagnostics.solverIterations,null);
+  assert.equal(result.diagnostics.reportedElectricalResult,null);
+  assert.ok(result.errors.some(error=>error.code==="SPICE_SOLVER_UNAVAILABLE"));
+  assert.ok(result.errors.some(error=>error.code==="CONVERGENCE_NOT_ATTEMPTED"));
+  assert.match(result.errors[0].message,/SPICE operating-point solver/);
+  assert.ok(result.diagnostics.actions.some(action=>/series resistance/.test(action)));
+  const invalid=JSON.parse(JSON.stringify(project));invalid.convergenceStudy.fixture="unknown";
+  assert.equal(analyzeConvergenceStudy(invalid).state,"blocked");
+  assert.equal(analyzeConvergenceStudy(invalid).errors[0].code,"CONVERGENCE_FIXTURE_UNKNOWN");
 });

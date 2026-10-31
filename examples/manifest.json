@@ -6067,6 +6067,18 @@
           "thermalModel": "not-modeled"
         }
       }
+    },
+    {
+      "id": "152-convergence-failure-study",
+      "title": "Convergence failure study",
+      "status": "in-review",
+      "objective": "Show an actionable boundary for a deliberately difficult nonlinear SPICE fixture; report that the solver was unavailable and fabricate no iteration count or electrical result.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue convergence study returns actionable limits without fabricating solver output",
+      "testId": "core-convergence-failure-study",
+      "projectFile": "examples/152-convergence-failure-study.adigun.json",
+      "readmeFile": "examples/152-convergence-failure-study/README.md",
+      "safetyNote": "This application does not run the requested nonlinear SPICE convergence analysis. The example is a diagnostic boundary, not a simulation result; use a validated SPICE tool and review component models and topology.",
+      "scope": "catalogue"
     }
   ]
 }
