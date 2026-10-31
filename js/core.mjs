@@ -14,7 +14,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "diode.led-green", category: "Active", type: "Green LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.1 V", simulation: "analytical-polarity-indicator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "ground.signal", category: "Power & Ground", type: "Signal ground", prefix: "GND", pins: ["0"], defaultValue: "0 V", simulation: "reference", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
-  { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge/ideal-latching-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
@@ -361,6 +361,9 @@ export function runSupportedAnalysis(project) {
   }
   if (source.length === 1 && resistor.length === 2 && led.length === 1 && greenLed.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseLedPolarityIndicator(project, { source: source[0], resistors: resistor, redLed: led[0], greenLed: greenLed[0], ground: ground[0], validation });
+  }
+  if (source.length === 1 && resistor.length === 1 && led.length === 1 && switches.length === 1 && pushbuttons.length === 0 && ground.length === 1 && greenLed.length === 0 && project.components.length === 5) {
+    return analyseLatchingLedSwitch(project, { source: source[0], resistor: resistor[0], led: led[0], switchPart: switches[0], ground: ground[0], validation });
   }
   if (source.length === 1 && resistor.length === 2 && led.length === 1 && pushbuttons.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analysePushbuttonLed(project, { source: source[0], resistors: resistor, led: led[0], pushbutton: pushbuttons[0], ground: ground[0], validation });
@@ -794,6 +797,67 @@ function analyseLedCurrentLimiter(project, { source, resistor, led, ground, vali
 }
 
 
+
+
+function analyseLatchingLedSwitch(project, { source, resistor, led, switchPart, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const ledVf = forwardVoltage(led.value);
+  const position = String(switchPart.value).trim().toLowerCase();
+  const onPosition = position === "position a";
+  const offPosition = position === "position b";
+  if (!Number.isFinite(sourceVoltage) || sourceVoltage <= 0 || !Number.isFinite(ledVf) || ledVf <= 0) {
+    return { state: "blocked", message: "The latching LED model requires positive numeric source voltage and LED forward voltage.", validation };
+  }
+  if (!onPosition && !offPosition) return { state: "blocked", message: "Set the latching SPDT switch to Position A or Position B.", validation };
+
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const sourcePositive = netByEndpoint.get(endpoint(source, "+"));
+  const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  const switchCommon = netByEndpoint.get(endpoint(switchPart, "COM"));
+  const switchA = netByEndpoint.get(endpoint(switchPart, "A"));
+  const switchB = netByEndpoint.get(endpoint(switchPart, "B"));
+  const ledAnode = netByEndpoint.get(endpoint(led, "A"));
+  const ledCathode = netByEndpoint.get(endpoint(led, "K"));
+  const resistorFirst = netByEndpoint.get(endpoint(resistor, "1"));
+  const resistorSecond = netByEndpoint.get(endpoint(resistor, "2"));
+  const resistorLeadsCommon = (switchCommon === resistorFirst && resistorSecond === ledAnode)
+    || (switchCommon === resistorSecond && resistorFirst === ledAnode);
+  if (!sourcePositive || sourcePositive === groundNet || sourceNegative !== groundNet || switchA !== sourcePositive
+    || switchB !== groundNet || switchCommon === groundNet || !resistorLeadsCommon || ledCathode !== groundNet) {
+    return { state: "blocked", message: "Wire switch A to source positive, switch B to ground, and switch COM through the series resistor and LED to ground.", validation };
+  }
+
+  const resistance = resistanceValue(resistor.value);
+  if (!Number.isFinite(resistance) || resistance <= 0) return { state: "blocked", message: "The latching LED circuit requires a numeric positive series resistor.", validation };
+  const ledCurrentA = onPosition ? Math.max(0, (sourceVoltage - ledVf) / resistance) : 0;
+  const resistorPowerW = ledCurrentA ** 2 * resistance;
+  const ledPowerW = ledCurrentA * ledVf;
+  const sourcePowerW = sourceVoltage * ledCurrentA;
+  if (![ledCurrentA, resistorPowerW, ledPowerW, sourcePowerW].every(Number.isFinite)) {
+    return { state: "blocked", message: "The latching LED result exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical ideal latching SPDT LED switch",
+    message: "Calculated a low-voltage LED circuit selected by an ideal latching SPDT contact. Contact bounce, resistance, component tolerance/rating, thermal behavior, and general SPICE are not included.",
+    result: {
+      kind: "latching-led-switch",
+      switchPosition: onPosition ? "A" : "B",
+      ledOn: ledCurrentA > 0.0005,
+      sourceVoltage,
+      ledVf,
+      ledCurrentA,
+      sourceCurrentA: ledCurrentA,
+      resistorPowerW,
+      ledPowerW,
+      sourcePowerW,
+      powerBalanceW: sourcePowerW - resistorPowerW - ledPowerW
+    },
+    validation
+  };
+}
 
 function analyseLedPolarityIndicator(project, { source, resistors, redLed, greenLed, ground, validation }) {
   const sourceVoltage = voltageValue(source.value);

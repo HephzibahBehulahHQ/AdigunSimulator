@@ -461,6 +461,30 @@ test("a verified record cannot bypass checksum, mapping, model, and human-review
   assert.ok(errors.some((error) => error.code === "VERIFIED_EVIDENCE"));
 });
 
+test("catalogue latching SPDT switch selects a defined LED state", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/004-latching-led-switch.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const on = runSupportedAnalysis(project);
+  assert.equal(on.state, "complete");
+  assert.equal(on.result.kind, "latching-led-switch");
+  assert.equal(on.result.switchPosition, "A");
+  assert.equal(on.result.ledOn, true);
+  assert.ok(Math.abs(on.result.ledCurrentA - (5 - 2) / 330) < 1e-12);
+  assert.ok(Math.abs(on.result.powerBalanceW) < 1e-12);
+
+  const off = runSupportedAnalysis(updateComponent(project, "switch-1", { value: "Position B" }));
+  assert.equal(off.state, "complete");
+  assert.equal(off.result.switchPosition, "B");
+  assert.equal(off.result.ledOn, false);
+  assert.equal(off.result.ledCurrentA, 0);
+  assert.equal(off.result.sourceCurrentA, 0);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "switch-1", { value: "Between positions" })).state, "blocked");
+
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "VCC").endpoints = ["source-1:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue anti-parallel LEDs change with source polarity", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/002-two-led-polarity-indicator.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -563,7 +587,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 16);
+  assert.equal(getExampleCoverage(registry).total, 17);
   assert.equal(getExampleCoverage(registry).released, 6);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 194);

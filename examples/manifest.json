@@ -119,6 +119,18 @@
       }
     },
     {
+      "id": "004-latching-led-switch",
+      "title": "Latching LED switch",
+      "status": "in-review",
+      "objective": "Model an SPDT switch that selects an illuminated or off state for a low-voltage LED circuit.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue latching SPDT switch selects a defined LED state",
+      "testId": "core-latching-led-switch",
+      "projectFile": "examples/004-latching-led-switch.adigun.json",
+      "safetyNote": "Ideal educational low-voltage model only. It omits switch contact resistance/bounce, part tolerances and ratings, thermal effects, and physical hardware validation.",
+      "scope": "catalogue",
+      "catalogueIndex": 4
+    },
+    {
       "id": "003-led-current-limiter-9v",
       "title": "9 V LED current limiter",
       "status": "released",
