@@ -42,10 +42,13 @@ test("schematic connectivity resolves wires to named pin anchors", async () => {
 });
 
 test("schematic view uses explicit generic symbols and pin labels", async () => {
-  const app = await readFile(appFile, "utf8");
+  const [app, symbols] = await Promise.all([
+    readFile(appFile, "utf8"),
+    readFile(new URL("../js/schematic-symbols.mjs", import.meta.url), "utf8")
+  ]);
   assert.match(app, /renderSchematicSymbol\(part\)/);
   assert.match(app, /view === "schematic"/);
-  assert.match(app, /class="schematic-symbol/);
+  assert.match(symbols, /class="schematic-symbol/);
 });
 
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
