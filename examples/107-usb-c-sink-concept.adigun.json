@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-107-usb-c-sink-concept",
+  "metadata": {
+    "name": "USB-C Sink Profile Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "control-source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          40,
+          50
+        ],
+        "schematic": [
+          30,
+          45
+        ],
+        "pcb": [
+          30,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "source-fixture",
+      "libraryId": "input.usb-c-pd-source-fixture",
+      "reference": "USBC1",
+      "value": "Profiles 5,9,12 V; Requested 12 V; Fault none; Mode pd-source",
+      "position": {
+        "breadboard": [
+          125,
+          50
+        ],
+        "schematic": [
+          150,
+          50
+        ],
+        "pcb": [
+          150,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "sink-policy",
+      "libraryId": "active.usb-c-pd-sink-policy-ideal",
+      "reference": "U1",
+      "value": "Preferred 12 V; MaxVoltage 20 V; MaxCurrent 1.5 A; Fallback 5 V; Mode sink-policy",
+      "position": {
+        "breadboard": [
+          305,
+          50
+        ],
+        "schematic": [
+          330,
+          50
+        ],
+        "pcb": [
+          330,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 Ω",
+      "position": {
+        "breadboard": [
+          440,
+          50
+        ],
+        "schematic": [
+          465,
+          50
+        ],
+        "pcb": [
+          465,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.usb-c-pd-contract-report",
+      "reference": "SCOPE1",
+      "value": "USB-C sink contract report",
+      "position": {
+        "breadboard": [
+          550,
+          50
+        ],
+        "schematic": [
+          555,
+          50
+        ],
+        "pcb": [
+          555,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "control-source:+",
+        "source-fixture:VCC",
+        "sink-policy:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "control-source:-",
+        "source-fixture:GND",
+        "sink-policy:GND",
+        "report:GND",
+        "load:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "VBUS_IN",
+      "endpoints": [
+        "source-fixture:VBUS",
+        "sink-policy:VBUS_IN"
+      ]
+    },
+    {
+      "id": "CC1",
+      "endpoints": [
+        "source-fixture:CC1",
+        "sink-policy:CC1"
+      ]
+    },
+    {
+      "id": "CC2",
+      "endpoints": [
+        "source-fixture:CC2",
+        "sink-policy:CC2"
+      ]
+    },
+    {
+      "id": "VBUS_OUT",
+      "endpoints": [
+        "sink-policy:VBUS_OUT",
+        "report:VBUS",
+        "load:1"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "sink-policy:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}
