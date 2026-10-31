@@ -653,6 +653,37 @@
       }
     },
     {
+      "id": "017-zener-shunt-regulator",
+      "title": "Zener shunt regulator",
+      "status": "released",
+      "objective": "Model a 9 V source feeding a 5.1 V ideal Zener through a 330 Ω series resistor with a 1 kΩ load; verify clamp current, branch power, and a warning when the entered Zener power limit is exceeded.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Zener shunt regulator clamps within power and reports overload",
+      "testId": "core-zener-shunt-regulator",
+      "projectFile": "examples/017-zener-shunt-regulator.adigun.json",
+      "safetyNote": "Ideal educational clamp model only. It omits dynamic resistance, voltage tolerance, temperature, reverse recovery, thermal coupling, and hardware qualification. The entered power limit is a generic scenario input, not a verified part rating.",
+      "scope": "catalogue",
+      "catalogueIndex": 17,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41167935879",
+        "headRevision": "54e99b26dff65dc9358eb4b6006c5120b69830fd",
+        "engine": "Analytical ideal Zener shunt-regulator estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "zener-shunt-clamp-v1",
+        "libraryLock": "adigun-simulator@a5d173fc132988fd4d9128649ea5912562672c55",
+        "expectedResult": {
+          "sourceVoltage": 9,
+          "zenerVoltage": 5.1,
+          "seriesResistanceOhm": 330,
+          "loadResistanceOhm": 1000,
+          "regulated": true,
+          "zenerPowerBelowEnteredLimit": true,
+          "overloadInputProducesWarning": true
+        }
+      }
+    },
+    {
       "id": "002-dc-voltage-divider",
       "title": "Unloaded DC voltage divider",
       "status": "released",
@@ -822,16 +853,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "017-zener-shunt-regulator",
-      "title": "Zener shunt regulator",
-      "status": "in-review",
-      "objective": "Model a 9 V source feeding a 5.1 V ideal Zener through a 330 Ω series resistor with a 1 kΩ load; verify clamp current, branch power, and a warning when the entered Zener power limit is exceeded.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue Zener shunt regulator clamps within power and reports overload",
-      "testId": "core-zener-shunt-regulator",
-      "projectFile": "examples/017-zener-shunt-regulator.adigun.json",
-      "safetyNote": "Ideal educational clamp model only. It omits dynamic resistance, voltage tolerance, temperature, reverse recovery, thermal coupling, and hardware qualification. The entered power limit is a generic scenario input, not a verified part rating."
     }
   ]
 }
