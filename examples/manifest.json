@@ -684,6 +684,38 @@
       }
     },
     {
+      "id": "018-tvs-surge-clamp",
+      "title": "TVS surge clamp",
+      "status": "released",
+      "objective": "Apply one 24 V, 1 ms rectangular pulse through a 10 Ω source resistor to a 1 kΩ load and an 18 V ideal TVS; verify output clamping and power/energy-limit warnings.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue TVS clamp holds a pulse below the entered power and energy limits and rejects invalid source format and wiring",
+      "testId": "core-tvs-surge-clamp",
+      "projectFile": "examples/018-tvs-surge-clamp.adigun.json",
+      "safetyNote": "Single ideal low-voltage pulse estimate only. It omits rise time, parasitic inductance, dynamic clamp impedance, thermal transients, pulse repetition, verified component ratings, mains safety, and hardware qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 18,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41168154294",
+        "headRevision": "f6d2b6eddebb26c5c373e857ade3a91cdc5897c5",
+        "engine": "Analytical ideal TVS pulse-clamp estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "tvs-single-pulse-clamp-v1",
+        "libraryLock": "adigun-simulator@8a7dbff7f95b2ff47a0a7913c694c99f68456d92",
+        "expectedResult": {
+          "idleVoltage": 12,
+          "pulseVoltage": 24,
+          "pulseWidthS": 0.001,
+          "clampVoltage": 18,
+          "loadPeakBelowUnclamped": true,
+          "tvsPulsePowerW": 10.476,
+          "pulseEnergyJ": 0.010476,
+          "energyLimitWarning": true
+        }
+      }
+    },
+    {
       "id": "002-dc-voltage-divider",
       "title": "Unloaded DC voltage divider",
       "status": "released",
@@ -853,16 +885,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "018-tvs-surge-clamp",
-      "title": "TVS surge clamp",
-      "status": "in-review",
-      "objective": "Apply one 24 V, 1 ms rectangular pulse through a 10 Ω source resistor to a 1 kΩ load and an 18 V ideal TVS; verify output clamping and power/energy-limit warnings.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue TVS clamp holds a pulse below the entered power and energy limits and rejects invalid source format and wiring",
-      "testId": "core-tvs-surge-clamp",
-      "projectFile": "examples/018-tvs-surge-clamp.adigun.json",
-      "safetyNote": "Single ideal low-voltage pulse estimate only. It omits rise time, parasitic inductance, dynamic clamp impedance, thermal transients, pulse repetition, verified component ratings, mains safety, and hardware qualification."
     }
   ]
 }
