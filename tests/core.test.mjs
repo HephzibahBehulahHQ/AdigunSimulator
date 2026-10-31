@@ -1158,7 +1158,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 136);
+  assert.equal(getExampleCoverage(registry).total, 137);
   assert.equal(getExampleCoverage(registry).released, 126);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 74);
@@ -3498,4 +3498,45 @@ test("catalogue BME280 sensor breakout checks native/ERC subset, sensor wiring, 
   const badPad=structuredClone(project);
   badPad.pcbFabrication.pads.find(pad=>pad.reference==="U1"&&pad.number==="3").netId="SCL";
   assert.equal(validatePcbFabrication(badPad).status,"failed");
+});
+
+test("catalogue relay module tests driver, relay pin map, contact isolation classes, BOM, placement and export", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/127-relay-module-pcb.adigun.json",import.meta.url)));
+  const {validateRelayModule,createRelayIsolationReport}=await import("../js/relay-module-checks.mjs");
+  const {createPcbPlacementReport}=await import("../js/pcb-placement-report.mjs");
+  const electrical=validateProject(project);
+  assert.equal(electrical.valid,true,JSON.stringify(electrical.errors));
+  assert.equal(electrical.errors.length,0);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  assert.equal(analysis.result.kind,"low-voltage-relay-driver");
+  assert.equal(analysis.result.coilResistanceOhms,167);
+  assert.ok(Math.abs(analysis.result.coilCurrentA-(4.8/167))<1e-12);
+  assert.equal(analysis.result.flybackDiodeMapped,true);
+  assert.equal(analysis.result.contactLoadSimulation,false);
+  const relayPads=project.pcbFabrication.pads.filter(pad=>pad.reference==="K1");
+  assert.deepEqual(relayPads.map(pad=>pad.pin),["COIL1","COIL2","COM","NC","NO"]);
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  const isolation=validateRelayModule(project);
+  assert.equal(isolation.status,"passed",JSON.stringify(isolation.errors));
+  const fab=exportPcbFabrication(project);
+  assert.equal(fab.status,"passed");
+  const files={...fab.files,"Placement.csv":createPcbPlacementReport(project),"Relay-Isolation-Report.csv":createRelayIsolationReport(project)};
+  for(const part of project.pcbFabrication.parts){
+    assert.ok(files["BOM.csv"].includes('"'+part.reference+'"'),part.reference);
+    assert.ok(files["Placement.csv"].includes('"'+part.reference+'"'),part.reference);
+  }
+  assert.ok(files["Relay-Isolation-Report.csv"].includes('"COIL","CONTACT","3.2"'));
+  for(const [name,content] of Object.entries(files)){
+    const expected=await readFile(new URL("../examples/127-relay-module-pcb/expected/"+name,import.meta.url),"utf8");
+    assert.equal(content,expected,name);
+  }
+  const widened=structuredClone(project);
+  widened.pcbFabrication.netClassRules.find(rule=>rule.classA==="COIL"&&rule.classB==="CONTACT").clearanceMm=12;
+  assert.equal(validateRelayModule(widened).status,"failed");
+  const crossed=structuredClone(project);
+  crossed.pcbFabrication.routes.find(route=>route.netId==="COIL").pointsMm[1]=[30,16];
+  assert.equal(validateRelayModule(crossed).status,"failed");
+  assert.equal(validatePcbFabrication(crossed).status,"failed");
 });
