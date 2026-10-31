@@ -150,6 +150,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.ne556", category: "Active", type: "556 dual timer (ideal astable channels)", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"], defaultValue: "NE556-class", simulation: "analytical-556-dual-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.opamp-ideal", category: "Active", type: "Ideal op-amp (non-inverting midband model)", prefix: "U", pins: ["VCC", "VEE", "+", "-", "OUT"], defaultValue: "Ideal op-amp, dual supply", simulation: "analytical-opamp-noninverting", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.electret-mic-generic", category: "Sensors", type: "Electret microphone (generic bias and small-signal model)", prefix: "MIC", pins: ["VCC", "OUT", "GND"], defaultValue: "Imic 0.5 mA; Vsig 10 mV; f 1 kHz; Rs 2.2 kΩ", simulation: "analytical-electret-audio-preamp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.electret-envelope-preamp-ideal", category: "Active", type: "Ideal electret small-signal preamplifier", prefix: "U", pins: ["IN", "OUT", "VCC", "GND"], defaultValue: "Gain 20", simulation: "analytical-electret-mic-meter", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.audio-envelope-rectifier-ideal", category: "Active", type: "Ideal full-wave audio envelope rectifier", prefix: "BR", pins: ["IN", "OUT", "VCC", "GND"], defaultValue: "Mode full-wave; DropV 0 V", simulation: "analytical-electret-mic-meter", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.audio-level-ledbar-ideal", category: "Output", type: "Ideal calibrated audio level LED bargraph", prefix: "LED", pins: ["IN", "VCC", "GND"], defaultValue: "ThresholdsV 0.02,0.04,0.06,0.08,0.10,0.12,0.14,0.16,0.18,0.20", simulation: "analytical-electret-mic-meter", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.audio-amp-generic", category: "Active", type: "Generic low-voltage class-AB audio amplifier (LM386-class estimate)", prefix: "U", pins: ["VCC", "GND", "IN", "OUT"], defaultValue: "Av 20; Swing 2 V; Q 4 mA; f 1 kHz", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.speaker-r-l-generic", category: "Output", type: "Generic speaker electrical R-L model", prefix: "SP", pins: ["+", "-"], defaultValue: "R 8 Ω; L 0.5 mH", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.npn-small-signal", category: "Active", type: "NPN transistor (ideal common-emitter small-signal)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "β 100; VBE 0.7 V; VCEsat 0.2 V", simulation: "analytical-npn-common-emitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -607,6 +610,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const audioAmplifiers = project.components.filter((item) => item.libraryId === "active.audio-amp-generic");
   const speakers = project.components.filter((item) => item.libraryId === "passive.speaker-r-l-generic");
   const electretMics = project.components.filter((item) => item.libraryId === "sensor.electret-mic-generic");
+  const electretMeterPreamps = project.components.filter((item) => item.libraryId === "active.electret-envelope-preamp-ideal");
+  const audioEnvelopeRectifiers = project.components.filter((item) => item.libraryId === "active.audio-envelope-rectifier-ideal");
+  const audioLevelLedBars = project.components.filter((item) => item.libraryId === "output.audio-level-ledbar-ideal");
   const npnTransistors = project.components.filter((item) => item.libraryId === "active.npn-small-signal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
@@ -842,6 +848,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
+  }
+  if (electretMics.length === 1 && electretMeterPreamps.length === 1 && audioEnvelopeRectifiers.length === 1 && audioLevelLedBars.length === 1 && source.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseElectretMicMeter(project, { source: source[0], microphone: electretMics[0], biasResistor: resistor[0], preamp: electretMeterPreamps[0], rectifier: audioEnvelopeRectifiers[0], bargraph: audioLevelLedBars[0], ground: ground[0], validation });
   }
   if (opAmps.length === 1 && electretMics.length === 1 && source.length === 1 && resistor.length === 6 && capacitor.length === 2 && ground.length === 1 && project.components.length === 12) {
     return analyseElectretAudioPreamp(project, { source: source[0], microphone: electretMics[0], opAmp: opAmps[0], resistors: resistor, capacitors: capacitor, ground: ground[0], validation });
@@ -3021,6 +3030,27 @@ function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,spe
   return {state:"complete",engine:"Generic low-voltage class-AB amplifier and R-L speaker estimate",message:"Models configurable voltage gain and output swing, a single-supply midpoint bias, a series output coupling capacitor, and a nominal speaker R-L load. It reports a sinusoidal fundamental and real load power only. It does not calculate THD, compression, slew, output-stage current limiting, mechanical sound, thermal behavior, or manufacturer-specific LM386 performance.",result:{kind:"audio-power-amplifier",supplyVoltage,inputAmplitudeV,frequencyHz,gainVPerV:gain,requestedOutputAmplitudeV,amplifierOutputAmplitudeV,clipped,clippingWarning:clipped?"Input exceeds the configured output swing; distortion is not modeled.":null,outputBiasVoltageV:biasVoltageV,quiescentCurrentA:quiescentCurrent,speakerResistanceOhm:speakerResistance,speakerInductanceH:speakerInductance,couplingCapacitanceF:couplingCapacitance,couplingGain,speakerImpedanceOhm,speakerVoltagePeakV,speakerVoltageRmsV,speakerCurrentRmsA,speakerRealPowerW,frequencyResponse},validation};
 }
 
+function analyseElectretMicMeter(project,{source,microphone,biasResistor,preamp,rectifier,bargraph,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const micFields=String(microphone.value).match(/Imic\s*([^;]+)\s*;\s*Vsig\s*([^;]+)\s*;\s*f\s*([^;]+)\s*;\s*Rs\s*(.+)/i);
+  const micCurrent=micFields?currentValue(micFields[1]):Number.NaN,inputAmplitudeV=micFields?voltageValue(micFields[2]):Number.NaN,frequencyHz=micFields?frequencyValue(micFields[3]):Number.NaN,micSourceResistance=micFields?resistanceValue(micFields[4]):Number.NaN;
+  const supplyVoltage=voltageValue(source.value),biasResistance=resistanceValue(biasResistor.value),micSupplyVoltage=supplyVoltage-micCurrent*biasResistance,gain=Number(field(fields(preamp.value),"Gain"));
+  const rectifierFields=fields(rectifier.value),barFields=fields(bargraph.value),dropV=voltageValue(field(rectifierFields,"DropV")??"0 V"),thresholds=(field(barFields,"ThresholdsV")??"").split(",").map(value=>Number(value.trim()));
+  const groundNet=n(ground,"0"),vccNet=n(source,"+"),micBiasNet=n(microphone,"VCC");
+  const biasWired=(n(biasResistor,"1")===vccNet&&n(biasResistor,"2")===micBiasNet)||(n(biasResistor,"2")===vccNet&&n(biasResistor,"1")===micBiasNet);
+  const signalPath=n(microphone,"OUT")===n(preamp,"IN")&&n(preamp,"OUT")===n(rectifier,"IN")&&n(rectifier,"OUT")===n(bargraph,"IN");
+  const powered=n(source,"-")===groundNet&&biasWired&&[preamp,rectifier,bargraph].every(part=>n(part,"VCC")===vccNet&&n(part,"GND")===groundNet)&&n(microphone,"GND")===groundNet;
+  const required=[groundNet,vccNet,micBiasNet,n(biasResistor,"1"),n(biasResistor,"2"),n(microphone,"OUT"),n(preamp,"IN"),n(preamp,"OUT"),n(rectifier,"IN"),n(rectifier,"OUT"),n(bargraph,"IN"),n(preamp,"VCC"),n(rectifier,"VCC"),n(bargraph,"VCC")];
+  const sorted=thresholds.every((value,index)=>Number.isFinite(value)&&value>0&&(!index||value>thresholds[index-1]));
+  const preampPeakV=inputAmplitudeV*gain,rectifiedPeakV=Math.max(0,preampPeakV-dropV),micBiasDropV=micCurrent*biasResistance;
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<3||supplyVoltage>5.5||!Number.isFinite(micCurrent)||micCurrent<=0||micCurrent>0.002||!Number.isFinite(inputAmplitudeV)||inputAmplitudeV<=0||inputAmplitudeV>0.1||!Number.isFinite(frequencyHz)||frequencyHz<20||frequencyHz>20000||!Number.isFinite(micSourceResistance)||Math.abs(micSourceResistance-biasResistance)>Math.max(1,micSourceResistance*0.05)||micSupplyVoltage<1.8||micSupplyVoltage>5.5||!Number.isFinite(gain)||gain<1||gain>100||!Number.isFinite(dropV)||dropV<0||field(rectifierFields,"Mode")!=="full-wave"||field(barFields,"Segments")!=="10"||thresholds.length!==10||!sorted||preampPeakV>=supplyVoltage-1||!signalPath||!powered||required.some(net=>typeof net!=="string"||!net)){
+    return {state:"blocked",message:"Bias the electret through a matching 1–100 kΩ resistor, connect the preamp, full-wave envelope rectifier, and ten-segment bargraph, and use bounded audio, gain, frequency, supply, and threshold values.",validation};
+  }
+  const segments=thresholds.map((threshold,index)=>({index:index+1,thresholdV:threshold,on:rectifiedPeakV>=threshold}));
+  return {state:"complete",engine:"Ideal electret envelope and calibrated LED meter estimate",message:"Treats microphone Vsig as a peak small-signal sine amplitude, applies a configured ideal voltage gain and full-wave rectifier, then compares the peak envelope with ten LED thresholds. Microphone acoustic sensitivity/noise, preamp bandwidth/noise, rectifier ripple/diode drops, analog clipping recovery, LED current limiting, and physical behavior are not modeled.",result:{kind:"electret-mic-meter",micBiasCurrentMa:micCurrent*1000,micBiasResistorOhm:biasResistance,micSupplyVoltageV:micSupplyVoltage,inputPeakV:inputAmplitudeV,frequencyHz,gain,preampPeakV,rectifierDropV:dropV,rectifiedPeakV,thresholdsV:thresholds,ledSegmentsOn:segments.filter(item=>item.on).length,segments,calibrationInputLevelsMv:[1,5,10,20],firmwareExecuted:false},validation};
+}
 function analyseElectretAudioPreamp(project,{source,microphone,opAmp,resistors,capacitors,ground,validation}){
   const netByEndpoint=new Map();
   for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);

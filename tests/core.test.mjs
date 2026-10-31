@@ -2550,3 +2550,20 @@ test("catalogue USB-UART console frames a known bidirectional byte stream", asyn
   broken.nets.find(net=>net.id==="TX_HOST").endpoints=["stream:TX"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue electret microphone meter follows calibrated sine amplitudes", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/091-electret-microphone-meter.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"electret-mic-meter");
+  assert.equal(result.result.micBiasCurrentMa,0.5);
+  assert.ok(Math.abs(result.result.micSupplyVoltageV-3.9)<1e-12);
+  assert.equal(result.result.rectifiedPeakV,0.2);
+  assert.equal(result.result.ledSegmentsOn,10);
+  assert.deepEqual([1,5,10,20].map(level=>runSupportedAnalysis(updateComponent(project,"microphone",{value:"Imic 0.5 mA; Vsig "+level+" mV; f 1 kHz; Rs 2.2 kΩ"})).result.ledSegmentsOn),[1,5,10,10]);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"microphone",{value:"Imic 0.5 mA; Vsig 10 mV; f 10 Hz; Rs 2.2 kΩ"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"preamp",{value:"Gain 500"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="PREAMP_OUT").endpoints=["preamp:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
