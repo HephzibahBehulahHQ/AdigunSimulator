@@ -73,6 +73,11 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.led-bargraph-10seg-ideal", category: "Output", type: "Ideal 10-segment LED bargraph behavior sink", prefix: "LED", pins: ["IN0", "IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "IN9", "VCC", "GND"], defaultValue: "Segments 10; Mode bar", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.ir-nec-frame", category: "Inputs", type: "Ideal NEC-like optical timing fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000", simulation: "fixture-ir-nec-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "sensor.ir-receiver-ideal", category: "Sensors", type: "Ideal 38 kHz IR demodulator behavior model", prefix: "IR", pins: ["SIG", "VCC", "GND", "OUT"], defaultValue: "CarrierHz 38000; Output demodulated active-low", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.can-frame-fixture", category: "Inputs", type: "Ideal CAN frame fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Identifier 0x123; DLC 2; Data DE AD; Bitrate 500000", simulation: "fixture-can-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.can-node-ideal", category: "Active", type: "Generic CAN MCU behavior model", prefix: "U", pins: ["FRAME", "TX", "RX", "VCC", "GND"], defaultValue: "Role transmit; FilterId 0x123", simulation: "analytical-can-node-pair", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.can-transceiver-ideal", category: "Active", type: "Ideal CAN transceiver model", prefix: "XCVR", pins: ["TXD", "RXD", "CANH", "CANL", "VCC", "GND"], defaultValue: "Mode normal", simulation: "analytical-can-node-pair", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.can-termination", category: "Passive", type: "CAN bus termination resistor", prefix: "RT", pins: ["1", "2"], defaultValue: "120 Ω", simulation: "analytical-can-node-pair", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.can-frame-display", category: "Output", type: "Ideal CAN receive/ACK status sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "CAN frame and ACK status", simulation: "analytical-can-node-pair", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.watchdog-service-sequence", category: "Inputs", type: "Ideal watchdog service-time fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "ServiceTimesMs 0,40,80,230; RunDurationMs 300", simulation: "fixture-watchdog-service-sequence", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.mcu-watchdog-ideal", category: "Active", type: "Generic MCU watchdog behavior model", prefix: "U", pins: ["WDI", "HEARTBEAT", "VCC", "GND"], defaultValue: "Program Watchdog state model; TimeoutMs 100", simulation: "analytical-mcu-watchdog", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.watchdog-status-display", category: "Output", type: "Ideal watchdog status text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Watchdog state", simulation: "analytical-mcu-watchdog", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -471,6 +476,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const watchdogFixtures = project.components.filter((item) => item.libraryId === "input.watchdog-service-sequence");
   const watchdogControllers = project.components.filter((item) => item.libraryId === "active.mcu-watchdog-ideal");
   const watchdogDisplays = project.components.filter((item) => item.libraryId === "output.watchdog-status-display");
+  const canFrames = project.components.filter((item) => item.libraryId === "input.can-frame-fixture");
+  const canNodes = project.components.filter((item) => item.libraryId === "active.can-node-ideal");
+  const canTransceivers = project.components.filter((item) => item.libraryId === "active.can-transceiver-ideal");
+  const canTerminations = project.components.filter((item) => item.libraryId === "passive.can-termination");
+  const canDisplays = project.components.filter((item) => item.libraryId === "output.can-frame-display");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -541,6 +551,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (picControllers.length === 1 && adcPotentiometers.length === 1 && ledBargraphs.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePicAdcBargraph(project, { source: source[0], potentiometer: adcPotentiometers[0], pic: picControllers[0], bargraph: ledBargraphs[0], ground: ground[0], validation });
+  }
+  if (canFrames.length === 1 && canNodes.length === 2 && canTransceivers.length === 2 && canTerminations.length === 2 && canDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 10) {
+    return analyseCanNodePair(project, { source: source[0], frame: canFrames[0], nodes: canNodes, transceivers: canTransceivers, terminations: canTerminations, display: canDisplays[0], ground: ground[0], validation });
   }
   if (watchdogFixtures.length === 1 && watchdogControllers.length === 1 && watchdogDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuWatchdog(project, { source: source[0], fixture: watchdogFixtures[0], mcu: watchdogControllers[0], display: watchdogDisplays[0], ground: ground[0], validation });
@@ -1622,6 +1635,33 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const adcCount=Math.round(position*1023/100),illuminatedSegments=Math.min(10,Math.floor(adcCount*10/1023));
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
+}
+function analyseCanNodePair(project,{source,frame,nodes,transceivers,terminations,display,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const frameFields=fields(frame.value),frameIdText=field(frameFields,"Identifier")??"",identifier=Number.parseInt(frameIdText,16),dlc=Number(field(frameFields,"DLC")),dataText=field(frameFields,"Data")??"",data=dataText.split(/\s+/).filter(Boolean).map(value=>/^[0-9a-f]{2}$/i.test(value)?Number.parseInt(value,16):Number.NaN),bitrate=Number(field(frameFields,"Bitrate"));
+  const roles=nodes.map(node=>field(fields(node.value),"Role")),filters=nodes.map(node=>field(fields(node.value),"FilterId"));
+  const transmitter=nodes.find(node=>field(fields(node.value),"Role")==="transmit"),receiver=nodes.find(node=>field(fields(node.value),"Role")==="receive");
+  const transceiverFor=(node)=>transceivers.find(item=>node&&n(node,"TX")===n(item,"TXD")&&n(node,"RX")===n(item,"RXD"));
+  const txTransceiver=transceiverFor(transmitter),rxTransceiver=transceiverFor(receiver);
+  const groundNet=n(ground,"0"),vccNet=n(transmitter,"VCC"),sourceVoltage=voltageValue(source.value);
+  const powered=n(source,"+")===vccNet&&n(source,"-")===groundNet&&nodes.every(node=>n(node,"VCC")===vccNet&&n(node,"GND")===groundNet)&&transceivers.every(item=>n(item,"VCC")===vccNet&&n(item,"GND")===groundNet)&&n(display,"VCC")===vccNet&&n(display,"GND")===groundNet&&n(frame,"GND")===groundNet;
+  const highNets=transceivers.map(item=>n(item,"CANH")),lowNets=transceivers.map(item=>n(item,"CANL"));
+  const busConnected=highNets[0]&&highNets.every(net=>net===highNets[0])&&lowNets[0]&&lowNets.every(net=>net===lowNets[0])&&highNets[0]!==lowNets[0];
+  const terminationsConnected=busConnected&&terminations.every(item=>{const first=n(item,"1"),second=n(item,"2");return(first===highNets[0]&&second===lowNets[0])||(second===highNets[0]&&first===lowNets[0]);});
+  const terminationOhm=terminations.map(item=>resistanceValue(item.value));
+  const busTerminationOhm=terminationOhm.every(value=>Number.isFinite(value)&&value>0)?1/terminationOhm.reduce((sum,value)=>sum+1/value,0):Number.NaN;
+  const txConnected=transmitter&&n(frame,"OUT")===n(transmitter,"FRAME")&&n(transmitter,"TX")===n(txTransceiver,"TXD")&&n(txTransceiver,"RXD")===n(transmitter,"RX");
+  const rxConnected=receiver&&n(receiver,"TX")===n(rxTransceiver,"TXD")&&n(rxTransceiver,"RXD")===n(receiver,"RX")&&n(receiver,"RX")===n(display,"DATA");
+  const parsedDataValid=Number.isInteger(dlc)&&dlc>=0&&dlc<=8&&data.length===dlc&&data.every(value=>Number.isInteger(value)&&value>=0&&value<=255);
+  const frameValid=Number.isInteger(identifier)&&identifier>=0&&identifier<=0x7ff&&parsedDataValid&&Number.isInteger(bitrate)&&bitrate>=10000&&bitrate<=1000000;
+  const filtersValid=roles.filter(Boolean).length===2&&filters.every(value=>/^0x[0-9a-f]{1,3}$/i.test(value??""))&&Number.parseInt(filters[0],16)===identifier&&Number.parseInt(filters[1],16)===identifier;
+  if(!Number.isFinite(sourceVoltage)||sourceVoltage<=0||!powered||!txConnected||!rxConnected||!busConnected||!terminationsConnected||!frameValid||!filtersValid||transceivers.some(item=>field(fields(item.value),"Mode")!=="normal")||!Number.isFinite(busTerminationOhm)||busTerminationOhm<55||busTerminationOhm>65){
+    return {state:"blocked",message:"Power both CAN nodes and transceivers, connect the frame fixture to the transmit node, wire TX/RX through each transceiver, join CANH and CANL across the bus, add two 120 Ω end terminators, and configure a valid matching standard frame/filter.",validation};
+  }
+  const dataHex=data.map(value=>value.toString(16).padStart(2,"0").toUpperCase()),frameHex="0x"+identifier.toString(16).padStart(3,"0").toUpperCase(),displayText="RX "+frameHex+" ["+dataHex.join(" ")+"] · ACK";
+  return {state:"complete",engine:"Ideal two-node CAN frame and ACK model",message:"Checks a configured standard CAN frame, matching receive filter, connected ideal transceivers, and approximately 60 Ω combined end termination. It does not model arbitration, bit stuffing, CRC faults, analog edges, bus faults, transceiver electrical limits, or MCU firmware.",result:{kind:"can-node-pair",identifier:frameHex,dlc,dataBytes:dataHex,bitrate,transmitted:true,received:true,acknowledged:true,terminationResistorsOhm:terminationOhm,busTerminationOhm,displayText,firmwareExecuted:false},validation};
 }
 function analyseMcuWatchdog(project,{source,fixture,mcu,display,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
