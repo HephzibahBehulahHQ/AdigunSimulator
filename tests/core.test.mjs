@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 45);
+  assert.equal(getExampleCoverage(registry).total, 46);
   assert.equal(getExampleCoverage(registry).released, 35);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 165);
@@ -1190,4 +1190,46 @@ test("catalogue NPN relay driver estimates coil pull-in and flyback release curr
 
   const excessiveBaseDrive = updateComponent(project, "base-resistor", { value: "10 Ω" });
   assert.equal(runSupportedAnalysis(excessiveBaseDrive).state, "blocked");
+});
+
+test("catalogue H-bridge reverses the motor model and blocks same-leg shoot-through", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/036-hbridge-dc-motor.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const forward = runSupportedAnalysis(project);
+  assert.equal(forward.state, "complete");
+  assert.equal(forward.result.kind, "hbridge-dc-motor");
+  assert.equal(forward.result.direction, "forward");
+  assert.equal(forward.result.shootThrough, false);
+  assert.equal(forward.result.switchState.leftHighOn, true);
+  assert.equal(forward.result.switchState.rightLowOn, true);
+  assert.ok(Math.abs(forward.result.motorCurrentA - 12 / 6.2) < 1e-12);
+  assert.ok(Math.abs(forward.result.motorVoltageV - forward.result.motorCurrentA * 6) < 1e-12);
+  assert.ok(forward.result.motorPowerW > 0);
+
+  let reverseProject = updateComponent(project, "gate-lh", { value: "12 V" });
+  reverseProject = updateComponent(reverseProject, "gate-ll", { value: "5 V" });
+  reverseProject = updateComponent(reverseProject, "gate-rh", { value: "0 V" });
+  reverseProject = updateComponent(reverseProject, "gate-rl", { value: "0 V" });
+  const reverse = runSupportedAnalysis(reverseProject);
+  assert.equal(reverse.state, "complete");
+  assert.equal(reverse.result.direction, "reverse");
+  assert.ok(reverse.result.motorCurrentA < 0);
+  assert.ok(reverse.result.motorVoltageV < 0);
+  assert.equal(reverse.result.shootThrough, false);
+
+  let coastProject = updateComponent(project, "gate-lh", { value: "12 V" });
+  coastProject = updateComponent(coastProject, "gate-rh", { value: "12 V" });
+  coastProject = updateComponent(coastProject, "gate-rl", { value: "0 V" });
+  const coast = runSupportedAnalysis(coastProject);
+  assert.equal(coast.state, "complete");
+  assert.equal(coast.result.direction, "coast");
+  assert.equal(coast.result.motorVoltageV, null);
+  assert.equal(coast.result.motorPowerW, 0);
+
+  const shootThrough = runSupportedAnalysis(updateComponent(project, "gate-ll", { value: "5 V" }));
+  assert.equal(shootThrough.state, "blocked");
+  assert.match(shootThrough.message, /Shoot-through interlock/);
+
+  const overvoltage = runSupportedAnalysis(updateComponent(project, "gate-lh", { value: "21 V" }));
+  assert.equal(overvoltage.state, "blocked");
 });
