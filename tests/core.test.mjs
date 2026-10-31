@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 61);
+  assert.equal(getExampleCoverage(registry).total, 62);
   assert.equal(getExampleCoverage(registry).released, 51);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 149);
@@ -1690,6 +1690,29 @@ test("catalogue four-bit ring shift register moves one LED per rising edge", asy
   assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "6 V" })).state, "blocked");
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "LED3").endpoints = ["led3:A"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue four-to-one multiplexer selects each input for all data vectors", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/052-multiplexer-selector.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-mux4-ideal"), true);
+  for (let data = 0; data < 16; data++) {
+    let vector = project;
+    for (let bit = 0; bit < 4; bit++) vector = updateComponent(vector, `input-${bit}`, { value: data & (1 << bit) ? "5 V" : "0 V" });
+    for (let selected = 0; selected < 4; selected++) {
+      let selection = updateComponent(vector, "select-0", { value: selected & 1 ? "5 V" : "0 V" });
+      selection = updateComponent(selection, "select-1", { value: selected & 2 ? "5 V" : "0 V" });
+      const result = runSupportedAnalysis(selection);
+      assert.equal(result.state, "complete");
+      assert.equal(result.result.selectedIndex, selected);
+      assert.equal(result.result.outputHigh, Boolean(data & (1 << selected)));
+    }
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project, "select-0", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "I3").endpoints = ["input-3:+"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
