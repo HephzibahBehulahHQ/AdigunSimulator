@@ -32,8 +32,7 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
       },
-      "scope": "catalogue",
-      "catalogueIndex": 2
+      "scope": "supplemental"
     },
     {
       "id": "003-led-current-limiter-9v",
@@ -49,8 +48,7 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
       },
-      "scope": "catalogue",
-      "catalogueIndex": 3
+      "scope": "supplemental"
     },
     {
       "id": "004-parallel-resistor-load",
@@ -66,8 +64,7 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146042966"
       },
-      "scope": "catalogue",
-      "catalogueIndex": 4
+      "scope": "supplemental"
     },
     {
       "id": "005-rc-step-response",
@@ -83,8 +80,7 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146807195"
       },
-      "scope": "catalogue",
-      "catalogueIndex": 5
+      "scope": "supplemental"
     },
     {
       "id": "006-rl-step-response",
@@ -100,8 +96,7 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147338342"
       },
-      "scope": "catalogue",
-      "catalogueIndex": 6
+      "scope": "supplemental"
     },
     {
       "id": "007-led-current-limiter-12v",
@@ -117,8 +112,7 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
       },
-      "scope": "catalogue",
-      "catalogueIndex": 7
+      "scope": "supplemental"
     },
     {
       "id": "008-led-current-limiter-3v3",
@@ -134,8 +128,7 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
       },
-      "scope": "catalogue",
-      "catalogueIndex": 8
+      "scope": "supplemental"
     },
     {
       "id": "009-dc-voltage-divider-3k-1k",
@@ -151,8 +144,7 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
       },
-      "scope": "catalogue",
-      "catalogueIndex": 9
+      "scope": "supplemental"
     },
     {
       "id": "010-parallel-load-12v",
@@ -168,8 +160,7 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
       },
-      "scope": "catalogue",
-      "catalogueIndex": 10
+      "scope": "supplemental"
     },
     {
       "id": "011-rc-charge-discharge",
