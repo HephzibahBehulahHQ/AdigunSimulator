@@ -1562,6 +1562,18 @@
           "outputWithinSupplyRails": true
         }
       }
+    },
+    {
+      "id": "041-and-gate-truth-table",
+      "title": "Two-input AND gate truth table",
+      "status": "in-review",
+      "objective": "Exercise an ideal five-volt two-input AND gate for all four static input vectors and drive a red LED through 330 Ω; test the truth table, threshold, and output current.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue AND gate matches all input vectors and drives a current-limited LED; blocks out-of-range input and broken LED wiring",
+      "testId": "core-and-gate-truth-table",
+      "projectFile": "examples/041-and-gate-truth-table.adigun.json",
+      "safetyNote": "Generic ideal static AND-gate model, not a manufacturer-specific 74xx device. It uses a 50% supply threshold and ideal rail-to-rail output. It omits propagation delay, output drive limits, input leakage, real logic-family thresholds, switching noise, and part ratings.",
+      "scope": "catalogue",
+      "catalogueIndex": 41
     }
   ]
 }
