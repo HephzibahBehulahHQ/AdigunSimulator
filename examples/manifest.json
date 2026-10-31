@@ -2526,14 +2526,37 @@
     {
       "id": "061-arduino-blink",
       "title": "Uno-class D13 blink behavior",
-      "status": "in-review",
+      "status": "released",
       "objective": "Produce a deterministic configured D13 high/low trace and estimate the series LED current for a 500 ms/500 ms blink cycle.",
       "acceptanceTest": "tests/core.test.mjs: catalogue Arduino blink produces a bounded D13 LED GPIO trace",
       "testId": "core-arduino-blink",
       "projectFile": "examples/061-arduino-blink.adigun.json",
       "safetyNote": "Configured ideal GPIO behavior model; Arduino C++ is not executed. CPU timing, output resistance, PWM, interrupts, and board-specific limits are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 61
+      "catalogueIndex": 61,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41176513029",
+        "headRevision": "8f0218ad683e3d164be44aad29fd015e107b6a9b",
+        "engine": "Ideal Uno-class GPIO blink sequence",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-uno-gpio-blink-v1",
+        "expectedResult": {
+          "pin": "D13",
+          "highMs": 500,
+          "lowMs": 500,
+          "runtimeMs": 2000,
+          "trace": [
+            "HIGH",
+            "LOW",
+            "HIGH",
+            "LOW"
+          ],
+          "frequencyHz": 1,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
