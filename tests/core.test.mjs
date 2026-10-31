@@ -544,6 +544,25 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue TVS clamp holds a pulse below the entered power and energy limits", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/018-tvs-surge-clamp.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "tvs-pulse-clamp");
+  assert.equal(result.result.pulseClamped, true);
+  assert.equal(result.result.pulseOutputVoltage, 18);
+  assert.ok(result.result.pulseEnergyJ > 0.01);
+  assert.ok(result.warnings.some(message => /energy exceeds/.test(message)));
+  assert.ok(result.result.pulseOutputVoltage < result.result.pulseUnclampedVoltage);
+
+  const invalid = updateComponent(project, "source-1", { value: "12 V" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find(net => net.id === "VOUT").endpoints = ["series-resistor-1:2", "load-resistor-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue Zener shunt regulator clamps within power and reports overload", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/017-zener-shunt-regulator.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -829,7 +848,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 27);
+  assert.equal(getExampleCoverage(registry).total, 28);
   assert.equal(getExampleCoverage(registry).released, 17);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 183);
