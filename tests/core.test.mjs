@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 73);
+  assert.equal(getExampleCoverage(registry).total, 74);
   assert.equal(getExampleCoverage(registry).released, 63);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 137);
@@ -1950,5 +1950,22 @@ test("catalogue Arduino PWM dimmer maps potentiometer ADC to MOSFET LED average 
   assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Position 101%; Resolution 10 bit"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(n=>n.id==="PWM").endpoints=["mcu:D9"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Arduino temperature monitor converts sensor samples for an LCD result",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/064-arduino-temperature-monitor.adigun.json",import.meta.url)));
+  for(const celsius of [0,25,100]){
+    const configured=updateComponent(project,"sensor",{value:`Temperature ${celsius} C; Scale 10 mV/C; Offset 0 mV`});
+    const result=runSupportedAnalysis(configured);
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.firmwareExecuted,false);
+    assert.ok(Math.abs(result.result.displayTemperatureC-celsius)<0.5);
+    assert.match(result.result.displayText,/°C$/);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"sensor",{value:"Temperature 130 C; Scale 10 mV/C; Offset 0 mV"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="SENSOR_OUT").endpoints=["sensor:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });

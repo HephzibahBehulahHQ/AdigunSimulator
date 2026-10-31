@@ -56,8 +56,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.i2c-eeprom-ideal", category: "Active", type: "Ideal I²C EEPROM byte memory (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x50; Memory 0x10=0x00", simulation: "analytical-i2c-eeprom-write-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
-  { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D8", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.potentiometer-adc-ideal", category: "Inputs", type: "Ideal potentiometer-to-ADC fixture", prefix: "RV", pins: ["VCC", "OUT", "GND"], defaultValue: "Position 50%; Resolution 10 bit", simulation: "fixture-potentiometer-adc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "sensor.temperature-analog-ideal", category: "Sensors", type: "Ideal linear analog temperature sensor model", prefix: "TS", pins: ["VCC", "OUT", "GND"], defaultValue: "Temperature 25 C; Scale 10 mV/C; Offset 0 mV", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.lcd-text-sink-ideal", category: "Output", type: "Ideal single-line LCD text sink (behavior model)", prefix: "LCD", pins: ["DATA", "VCC", "GND"], defaultValue: "16-character text row", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -431,6 +433,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const mcuControllers = project.components.filter((item) => item.libraryId === "active.mcu-uno-ideal");
   const digitalSampleFixtures = project.components.filter((item) => item.libraryId === "input.digital-sample-sequence");
   const adcPotentiometers = project.components.filter((item) => item.libraryId === "input.potentiometer-adc-ideal");
+  const temperatureSensors = project.components.filter((item) => item.libraryId === "sensor.temperature-analog-ideal");
+  const lcdSinks = project.components.filter((item) => item.libraryId === "output.lcd-text-sink-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -495,6 +499,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (temperatureSensors.length === 1 && lcdSinks.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseMcuTemperatureMonitor(project, { source: source[0], mcu: mcuControllers[0], sensor: temperatureSensors[0], lcd: lcdSinks[0], ground: ground[0], validation });
   }
   if (adcPotentiometers.length === 1 && mcuControllers.length === 1 && mosfets.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analyseMcuPwmDimmer(project, { source: source[0], mcu: mcuControllers[0], potentiometer: adcPotentiometers[0], mosfet: mosfets[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
@@ -1521,6 +1528,24 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseMcuTemperatureMonitor(project,{source,mcu,sensor,lcd,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
+  const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
+  const temperature=Number(field(sensorFields,"Temperature")?.split(/\s+/)[0]),scaleText=field(sensorFields,"Scale"),offsetText=field(sensorFields,"Offset");
+  const scaleVPerC=scaleText?voltageValue(scaleText.split("/")[0]):Number.NaN,offsetV=offsetText?voltageValue(offsetText):Number.NaN;
+  const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const outputConnected=n(sensor,"OUT")===n(mcu,"A0")&&n(mcu,"D8")===n(lcd,"DATA");
+  const sensorPowered=n(sensor,"VCC")===vccNet&&n(sensor,"GND")===groundNet,lcdPowered=n(lcd,"VCC")===vccNet&&n(lcd,"GND")===groundNet;
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!sensorPowered||!lcdPowered||n(mcu,"GND")!==groundNet||!outputConnected||field(mcuFields,"Program")?.toLowerCase()!=="temperature monitor"||field(mcuFields,"ADC")!=="A0"||field(mcuFields,"Output")!=="D8"||!Number.isFinite(temperature)||temperature<0||temperature>125||!Number.isFinite(scaleVPerC)||scaleVPerC<=0||!Number.isFinite(offsetV)||offsetV<0){
+    return {state:"blocked",message:"Wire the powered temperature sensor to ADC A0, the LCD data input to D8, share ground, and configure a supported 0–125 °C linear sensor transfer.",validation};
+  }
+  const sensorVoltage=offsetV+temperature*scaleVPerC;
+  if(!Number.isFinite(sensorVoltage)||sensorVoltage<0||sensorVoltage>supplyVoltage)return {state:"blocked",message:"The configured sensor output is outside the ADC reference range.",validation};
+  const adcCount=Math.round(sensorVoltage/supplyVoltage*1023),measuredVoltage=adcCount/1023*supplyVoltage,displayTemperature=(measuredVoltage-offsetV)/scaleVPerC;
+  const displayText=displayTemperature.toFixed(1)+" °C";
+  return {state:"complete",engine:"Ideal Uno-class linear temperature monitor",message:"Quantizes the configured linear sensor voltage through an ideal 10-bit ADC and formats a one-line LCD result. This does not execute Arduino C++ or model sensor self-heating, ADC noise, LCD bus timing, or physical display/controller details.",result:{kind:"mcu-temperature-monitor",sensorTemperatureC:temperature,sensorVoltageV:sensorVoltage,adcResolutionBits:10,adcCount,measuredVoltageV:measuredVoltage,displayTemperatureC:displayTemperature,displayText,firmwareExecuted:false},validation};
+}
 function analyseMcuPwmDimmer(project,{source,mcu,potentiometer,mosfet,resistor,led,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(mcu.value).split(";").map(v=>v.trim()),potFields=String(potentiometer.value).split(";").map(v=>v.trim());
