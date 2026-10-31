@@ -1521,7 +1521,7 @@ function analyseMcuButtonDebounce(project,{source,fixture,mcu,resistor,led,groun
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(mcu.value).split(";").map(v=>v.trim()),sampleFields=String(fixture.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
   const samplesText=field(sampleFields,"Samples")??"",samples=samplesText? samplesText.split(",").map(v=>Number(v.trim())):[];
-  const stableCount=Number(field(fields,"Stable")),rateText=field(sampleFields,"Rate")?.replace(/\\s*Hz$/i,""),sampleRate=Number(rateText);
+  const stableCount=Number(field(fields,"Stable")),rateText=field(sampleFields,"Rate")?.replace(/\s*Hz$/i,""),sampleRate=Number(rateText);
   const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
   const seriesPath=(n(mcu,"D13")===n(resistor,"1")&&n(resistor,"2")===n(led,"A"))||(n(mcu,"D13")===n(resistor,"2")&&n(resistor,"1")===n(led,"A"));
   const resistance=resistanceValue(resistor.value),vf=forwardVoltage(led.value);
