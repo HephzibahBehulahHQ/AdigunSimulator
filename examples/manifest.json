@@ -1280,14 +1280,30 @@
     {
       "id": "032-emitter-follower",
       "title": "NPN emitter follower",
-      "status": "in-review",
+      "status": "released",
       "objective": "Sweep a 5 V emitter-follower input from cutoff to the supply limit and verify the output follows about 0.7 V below the base voltage.",
       "acceptanceTest": "tests/core.test.mjs: catalogue NPN emitter follower tracks a DC sweep one VBE below input",
       "testId": "core-npn-emitter-follower",
       "projectFile": "examples/032-emitter-follower.adigun.json",
       "safetyNote": "Ideal fixed-VBE educational estimate with ideal base drive. It omits beta-dependent base current, output resistance, device curves, temperature, and physical ratings.",
       "scope": "catalogue",
-      "catalogueIndex": 32
+      "catalogueIndex": 32,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41170765504",
+        "headRevision": "d35e44e2f84504ad0e32710b71dbc0dfe0e5e237",
+        "engine": "Ideal NPN emitter-follower DC estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-npn-emitter-follower-v1",
+        "expectedResult": {
+          "supplyVoltage": 5,
+          "inputVoltage": 2.5,
+          "vbeV": 0.7,
+          "outputVoltage": 1.8,
+          "loadResistanceOhm": 1000
+        }
+      }
     }
   ]
 }
