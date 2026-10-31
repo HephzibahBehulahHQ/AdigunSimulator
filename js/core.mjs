@@ -1527,7 +1527,7 @@ function analyseI2cEepromWriteRead(project,{source,fixture,eeprom,resistors,grou
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
   const parseHex=value=>typeof value==="string"?(value.toLowerCase().startsWith("0x")?Number.parseInt(value.slice(2),16):Number(value)):Number.NaN;
   const address=parseHex(field(fields,"Address")),register=parseHex(field(fields,"Register")),writeByte=parseHex(field(fields,"Data")),eepromAddress=parseHex(field(memoryFields,"Address"));
-  const mem=field(memoryFields,"Memory")?.match(/^(0x[0-9a-f]+|\\d+)\\s*=\\s*(0x[0-9a-f]+|\\d+)$/i);
+  const mem=field(memoryFields,"Memory")?.match(/^(0x[0-9a-f]+|\d+)\s*=\s*(0x[0-9a-f]+|\d+)$/i);
   const memoryRegister=mem?parseHex(mem[1]):Number.NaN,initialByte=mem?parseHex(mem[2]):Number.NaN,baud=parseHex(field(fields,"Baud"));
   const ack=field(fields,"ACK")?.toLowerCase()==="yes",cycle=field(fields,"Cycle")?.toLowerCase();
   const groundNet=n(ground,"0"),vccNet=n(eeprom,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
