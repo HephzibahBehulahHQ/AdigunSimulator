@@ -1,6 +1,13 @@
 const round = (value) => Number(Number(value).toFixed(6)).toString();
 const gerberCoord = (value) => String(Math.round(value * 1_000_000)).padStart(10,"0");
 const pointEqual = (a,b) => Math.hypot(a.xMm-b[0],a.yMm-b[1]) <= 0.001;
+function segmentHitsRect(a,b,rect,padding=0){
+  const x0=rect.xMm-padding,y0=rect.yMm-padding,x1=rect.xMm+rect.widthMm+padding,y1=rect.yMm+rect.heightMm+padding;
+  const dx=b[0]-a[0],dy=b[1]-a[1],p=[-dx,dx,-dy,dy],q=[a[0]-x0,x1-a[0],a[1]-y0,y1-a[1]];
+  let t0=0,t1=1;
+  for(let i=0;i<4;i++){if(p[i]===0){if(q[i]<0)return false;continue;}const t=q[i]/p[i];if(p[i]<0)t0=Math.max(t0,t);else t1=Math.min(t1,t);if(t0>t1)return false;}
+  return true;
+}
 
 export function validatePcbFabrication(project) {
   const errors = [];
@@ -26,8 +33,9 @@ export function validatePcbFabrication(project) {
     if (!components.has(pad.instanceId) || !partIds.has(pad.instanceId)) errors.push(`Pad ${pad.reference ?? key} has no listed PCB component.`);
     if (padKeys.has(key)) errors.push(`Pad ${pad.reference ?? key} is duplicated.`);
     padKeys.add(key);
+    const electricalEndpoint=pad.bridgeEndpoint??key;
     if (pad.netId==="NC") { if ([...knownNets.values()].some((endpoints)=>endpoints.has(key))) errors.push(`No-connect pad ${pad.reference ?? key} is attached to a project net.`); }
-    else if (!knownNets.get(pad.netId)?.has(key)) errors.push(`Pad ${pad.reference ?? key} is not attached to declared net ${pad.netId}.`);
+    else if (!knownNets.get(pad.netId)?.has(electricalEndpoint)) errors.push(`Pad ${pad.reference ?? key} is not attached to declared net ${pad.netId}.`);
     if (![pad.xMm,pad.yMm].every(Number.isFinite) || pad.xMm < 0 || pad.yMm < 0 || pad.xMm > board.widthMm || pad.yMm > board.heightMm) errors.push(`Pad ${pad.reference ?? key} is outside the board outline.`);
     if (pad.technology === "through-hole" && (!Number.isFinite(pad.drillMm) || pad.drillMm <= 0 || pad.drillMm >= pad.diameterMm)) errors.push(`Through-hole pad ${pad.reference ?? key} needs a valid drill diameter.`);
     if (pad.technology === "smd" && (![pad.widthMm,pad.heightMm].every(Number.isFinite) || pad.widthMm <= 0 || pad.heightMm <= 0)) errors.push(`SMD pad ${pad.reference ?? key} needs positive width and height.`);
@@ -73,8 +81,25 @@ export function validatePcbFabrication(project) {
       if(!covered) errors.push(`Pad ${pad.reference}.${pad.number} on ${net.id} is not reached by its copper route.`);
     }
   }
+  const declaredHeaderPads=(pcb.headerMap??[]).flatMap((group)=>group.pins.map((pin)=>({...pin,group:group.id})));
+  for(const declared of declaredHeaderPads){
+    const match=pads.find((pad)=>pad.headerGroup===declared.group&&String(pad.number)===String(declared.number));
+    if(!match||Math.hypot(match.xMm-declared.xMm,match.yMm-declared.yMm)>0.001||match.headerFunction!==declared.function)errors.push(`Header map ${declared.group} pin ${declared.number} does not match its physical pad.`);
+  }
+  for(const pad of pads.filter((item)=>item.headerGroup)){
+    if(!declaredHeaderPads.some((declared)=>declared.group===pad.headerGroup&&String(declared.number)===String(pad.number)))errors.push(`Physical header pad ${pad.headerGroup}.${pad.number} is absent from the declared header map.`);
+  }
+  for(const keepout of pcb.keepouts??[]){
+    if(![keepout.xMm,keepout.yMm,keepout.widthMm,keepout.heightMm].every(Number.isFinite)||keepout.widthMm<=0||keepout.heightMm<=0){errors.push(`Keep-out ${keepout.id??"unnamed"} has invalid dimensions.`);continue;}
+    for(const pad of pads){
+      const radius=pad.technology==="through-hole"?pad.diameterMm/2:0;
+      const left=pad.technology==="smd"?pad.widthMm/2:radius,top=pad.technology==="smd"?pad.heightMm/2:radius;
+      if(pad.xMm+left>=keepout.xMm&&pad.xMm-left<=keepout.xMm+keepout.widthMm&&pad.yMm+top>=keepout.yMm&&pad.yMm-top<=keepout.yMm+keepout.heightMm)errors.push(`Pad ${pad.reference}.${pad.number} overlaps keep-out ${keepout.id??"unnamed"}.`);
+    }
+    for(const route of routes)for(let i=1;i<(route.pointsMm??[]).length;i++)if(segmentHitsRect(route.pointsMm[i-1],route.pointsMm[i],keepout,route.widthMm/2)){errors.push(`Route ${route.netId} intersects keep-out ${keepout.id??"unnamed"}.`);break;}
+  }
   if (!routes.length) errors.push("At least one routed copper net is required.");
-  return { status:errors.length ? "failed" : "passed", errors, warnings, checks:["board bounds","single copper layer","declared net-to-pad mapping","native/PCB netlist equivalence","connected routed endpoints","no unrouted physical nets","all physical pads appear on copper paths","inter-net pad clearance","through-hole drill dimensions"] };
+  return { status:errors.length ? "failed" : "passed", errors, warnings, checks:["board bounds","single copper layer","declared net-to-pad mapping","native/PCB netlist equivalence","connected routed endpoints","no unrouted physical nets","all physical pads appear on copper paths","inter-net pad clearance","through-hole drill dimensions","declared header map","declared mechanical keep-outs"] };
 }
 
 function gerberFile(pcb, { outline=false }={}) {

@@ -5114,6 +5114,19 @@
           "hardwareManufacturingQualified": false
         }
       }
+    },
+    {
+      "id": "124-arduino-shield",
+      "title": "Arduino Uno R3 shield",
+      "status": "in-review",
+      "objective": "Map the Uno R3 shield header functions for power, A0 and D9 to the Arduino PWM LED dimmer, include stackable header pads, sensors and LEDs, and check header fit map, component/route keep-outs and bounded single-sided PCB rules.",
+      "acceptanceTest": "tests/core.test.mjs: Arduino shield header pins match the declared Uno R3 map, routes avoid keep-outs, native/PCB nets match and exports match snapshots",
+      "testId": "core-arduino-shield",
+      "projectFile": "examples/124-arduino-shield.adigun.json",
+      "readmeFile": "examples/124-arduino-shield/README.md",
+      "safetyNote": "Educational Uno R3 shield template. Header coordinates and mating clearances are not manufacturer-qualified; verify official CAD files, exact board revision, stackable headers, component heights and electrical limits before assembly.",
+      "scope": "catalogue",
+      "catalogueIndex": 124
     }
   ]
 }

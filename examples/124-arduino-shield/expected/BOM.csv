@@ -1,0 +1,6 @@
+"Designator","Quantity","Value","Footprint","Technology","Status"
+"D1","1","Vf 2 V","LED_0805_2012Metric_SMD","smd","Generic footprint; verify selected real part"
+"Q1","1","Vth 2.0 V","SOT-23-3_SMD","smd","Generic footprint; verify selected real part"
+"R1","1","330 Ω","R_0805_2012Metric_SMD","smd","Generic footprint; verify selected real part"
+"RV1","1","Position 50%; Resolution 10 bit","Potentiometer_3Pin_P2.54mm_PTH","through-hole","Generic footprint; verify selected real part"
+"U1","1","Program PWM dimmer; ADC A0; PWM D9; Frequency 490","Arduino_Uno_R3_Shield_Stackable_Header_Set_P2.54mm","through-hole","Generic footprint; verify selected real part"

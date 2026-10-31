@@ -1158,7 +1158,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 133);
+  assert.equal(getExampleCoverage(registry).total, 134);
   assert.equal(getExampleCoverage(registry).released, 123);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 77);
@@ -3286,6 +3286,28 @@ test("catalogue hot-swap limits capacitor inrush and trips an overload", async (
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="GATE").endpoints=["controller:GATE"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue Uno shield matches its header map and clears mechanical keep-outs", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/124-arduino-shield.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  assert.ok(drc.checks.includes("declared header map"));
+  assert.ok(drc.checks.includes("declared mechanical keep-outs"));
+  const headerPads=project.pcbFabrication.pads.filter(pad=>pad.headerGroup);
+  assert.equal(headerPads.length,32);
+  assert.deepEqual([...new Set(project.pcbFabrication.headerMap.flatMap(group=>group.pins.map(pin=>pin.function)).filter(pin=>pin!=="NC"))].includes("D9"),true);
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  for(const [name,content] of Object.entries(generated.files)){
+    const expected=await readFile(new URL("../examples/124-arduino-shield/expected/"+name,import.meta.url),"utf8");
+    assert.equal(content,expected,name);
+  }
+  const colliding=structuredClone(project);
+  colliding.pcbFabrication.pads.find(pad=>pad.reference==="R1").xMm=8;
+  assert.equal(validatePcbFabrication(colliding).status,"failed");
 });
 
 test("catalogue op-amp filter PCB preserves native netlist and matches fabrication snapshots", async () => {
