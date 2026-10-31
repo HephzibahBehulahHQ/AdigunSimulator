@@ -2,7 +2,7 @@
 
 This is the authoritative scope catalogue for the 200 required examples. A row specifies a project, expected behaviour and acceptance criterion; it is **not** evidence that the project has been implemented or passed.
 
-The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has forty-eight released analytical catalogue examples (rows 1–48) and ten supplemental studies; 152 catalogue entries remain planned until their release requirements are met. Catalogue row 44, “SR latch,” is implemented as a generic cross-coupled NOR model with active-high set/reset, explicit prior-state retention in hold mode, and blocking of simultaneous set/reset. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 22, “555 monostable,” estimates one ideal 1.1RC pulse per pressed trigger.
+The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has forty-nine released analytical catalogue examples (rows 1–49) and ten supplemental studies; 151 catalogue entries remain planned until their release requirements are met. Catalogue row 44, “SR latch,” is implemented as a generic cross-coupled NOR model with active-high set/reset, explicit prior-state retention in hold mode, and blocking of simultaneous set/reset. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 22, “555 monostable,” estimates one ideal 1.1RC pulse per pressed trigger.
 
 ## 12. Catalogue of 200 individually specified, testable example projects
 
@@ -58,7 +58,7 @@ For every example, deliver a native project file, readme, schematic, breadboard 
 | 46 | JK toggle divider | Ideal positive-edge JK FF, J/K inputs, clock, active-low clear | With J=K=1, Q toggles at each rising edge after clear initializes the state; test edge count and the ideal 1:2 output-to-clock frequency ratio. |
 | 47 | Four-bit binary counter | Ideal modulo-16 counter, clock, active-low reset, four LED outputs | Counts rising edges from 0 through 15 and wraps to 0; test all 16 transitions, asynchronous reset and bit-frequency ratios. |
 | 48 | BCD counter display | Ideal decade counter/decoder and seven current-limited LED segments | Displays the correct A–G segment vector for digits 0–9, wraps to zero, and resets asynchronously; test each digit vector and wrap. |
-| 49 | Traffic-light FSM | gates/FFs, LEDs, clock | Legal light sequence repeats; test no conflicting green state. |
+| 49 | Traffic-light FSM | Ideal six-phase state machine, clock, six current-limited lamps | NS/EW green/yellow/all-red phases repeat, one per rising edge; test every lamp vector and ensure opposing green outputs are never simultaneously active. |
 | 50 | Debounced digital input | button, RC/Schmitt trigger | One logical edge per press; test bounce waveform. |
 | 51 | Shift-register LED chaser | serial shift register, clock, LEDs | Single bit moves per clock; test state sequence. |
 | 52 | Multiplexer selector | 4:1 mux, switches, LED | Output equals selected input; test all select vectors. |
