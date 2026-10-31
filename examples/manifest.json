@@ -19,6 +19,18 @@
       "catalogueIndex": 1
     },
     {
+      "id": "002-two-led-polarity-indicator",
+      "title": "Two-LED polarity indicator",
+      "status": "in-review",
+      "objective": "Use red and green LEDs in opposite orientations, each with a 330 Ω series resistor, to indicate the polarity of a signed 5 V DC source.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue anti-parallel LEDs change with source polarity",
+      "testId": "core-two-led-polarity-indicator",
+      "projectFile": "examples/002-two-led-polarity-indicator.adigun.json",
+      "safetyNote": "Ideal educational model using generic LEDs with nominal 2.0 V and 2.1 V forward drops. It omits reverse breakdown, tolerance, thermal behavior, ratings, and physical hardware validation.",
+      "scope": "catalogue",
+      "catalogueIndex": 2
+    },
+    {
       "id": "002-dc-voltage-divider",
       "title": "Unloaded DC voltage divider",
       "status": "released",
