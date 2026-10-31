@@ -416,6 +416,9 @@ export function runSupportedAnalysis(project) {
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
   }
+  if (source.length === 1 && photoresistors.length === 1 && comparators.length === 1 && led.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 7) {
+    return analyseLdrNightLight(project, { source: source[0], ldr: photoresistors[0], comparator: comparators[0], led: led[0], resistors: resistor, ground: ground[0], validation });
+  }
   if (solarCells.length === 1 && batteries.length === 1 && photoresistors.length === 1 && schottkyDiodes.length === 1 && mosfets.length === 1 && led.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 9) {
     return analyseSolarGardenLight(project, { solar: solarCells[0], battery: batteries[0], ldr: photoresistors[0], diode: schottkyDiodes[0], mosfet: mosfets[0], led: led[0], resistors: resistor, ground: ground[0], validation });
   }
@@ -1002,6 +1005,66 @@ function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground
     engine: "Analytical supercapacitor RC power-interruption response",
     message: "Assumed the supercapacitor has charged through an ideal isolation diode, then disconnected the input supply at time zero and calculated its ideal RC discharge. ESR, leakage, capacitance/voltage tolerance, diode reverse leakage, load dynamics, recharge time, temperature, component ratings, and general SPICE are not modeled.",
     result: { kind: "supercap-hold-up", sourceVoltage, diodeVf, chargeVoltage: sourceVoltage - diodeVf, capacitance, initialVoltage, minimumVoltage, ratedVoltage, loadResistance, timeConstantS, holdUpTimeS, initialCurrentA, initialLoadPowerW, initialStoredEnergyJ, samples },
+    validation
+  };
+}
+
+function analyseLdrNightLight(project, { source, ldr, comparator, led, resistors, ground, validation }) {
+  const supplyVoltage = voltageValue(source.value);
+  const ldrFields = String(ldr.value).match(/Rbright\s*([^;]+)\s*;\s*Rdark\s*([^;]+)\s*;\s*light\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*%/i);
+  const brightResistance = ldrFields ? resistanceValue(ldrFields[1]) : Number.NaN;
+  const darkResistance = ldrFields ? resistanceValue(ldrFields[2]) : Number.NaN;
+  const illuminationPercent = ldrFields ? Number(ldrFields[3]) : Number.NaN;
+  const referenceMatch = String(comparator.value).match(/^\s*Vref\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*$/i);
+  const referenceVoltage = referenceMatch ? Number(referenceMatch[1]) : Number.NaN;
+  const ledVf = forwardVoltage(led.value);
+  if (![supplyVoltage, brightResistance, darkResistance, illuminationPercent, referenceVoltage, ledVf].every(Number.isFinite)
+    || supplyVoltage <= 0 || brightResistance <= 0 || darkResistance < brightResistance || illuminationPercent < 0 || illuminationPercent > 100
+    || referenceVoltage < 0 || referenceVoltage > supplyVoltage || ledVf <= 0) {
+    return { state: "blocked", message: "The LDR night-light model needs positive supply and sensor values, illumination from 0% to 100%, and a comparator reference within the supply range.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const sourcePlus = n(source, "+"), sourceMinus = n(source, "-");
+  const ldrTop = n(ldr, "1"), ldrBottom = n(ldr, "2");
+  const compVcc = n(comparator, "VCC"), compGround = n(comparator, "GND");
+  const compSense = n(comparator, "SENSE"), compOutput = n(comparator, "OUT");
+  const ledAnode = n(led, "A"), ledCathode = n(led, "K");
+  const groundNet = n(ground, "0");
+  const dividerResistor = resistors.find(part => {
+    const a=n(part,"1"),b=n(part,"2");
+    return (a===ldrBottom && b===groundNet)||(b===ldrBottom && a===groundNet);
+  });
+  const ledResistor = resistors.find(part => part !== dividerResistor && (() => {
+    const a=n(part,"1"),b=n(part,"2");
+    return (a===compOutput && b===ledAnode)||(b===compOutput && a===ledAnode);
+  })());
+  if (!sourcePlus || sourcePlus === sourceMinus || ldrTop !== sourcePlus || compVcc !== sourcePlus
+    || !ldrBottom || ldrBottom !== compSense || !groundNet || sourceMinus !== groundNet || compGround !== groundNet
+    || !dividerResistor || !ledResistor || !compOutput || ledCathode !== groundNet) {
+    return { state: "blocked", message: "Connect the LDR and fixed resistor as a divider to comparator SENSE; power the comparator from the source, and connect its output through the LED resistor and LED to ground.", validation };
+  }
+  const dividerResistance = resistanceValue(dividerResistor.value);
+  const ledResistance = resistanceValue(ledResistor.value);
+  if (![dividerResistance,ledResistance].every(Number.isFinite)||dividerResistance<=0||ledResistance<=0) {
+    return { state: "blocked", message: "The LDR divider and LED series resistors must be positive numeric values.", validation };
+  }
+  const ldrResistanceAt = percent => brightResistance*(darkResistance/brightResistance)**(1-percent/100);
+  const evaluate = percent => {
+    const ldrResistance=ldrResistanceAt(percent);
+    const senseVoltage=supplyVoltage*dividerResistance/(ldrResistance+dividerResistance);
+    const ledOn=senseVoltage<=referenceVoltage;
+    const ledCurrentA=ledOn?Math.max(0,(supplyVoltage-ledVf)/ledResistance):0;
+    return {illuminationPercent:percent,ldrResistance,senseVoltage,ledOn,ledCurrentA};
+  };
+  const samples=[0,50,100].map(evaluate);
+  const current=evaluate(illuminationPercent);
+  return {
+    state:"complete",
+    engine:"Analytical LDR comparator night-light estimate",
+    message:"Uses a logarithmic resistance interpolation between entered bright and dark endpoints and an ideal comparator threshold. It omits comparator offset/hysteresis, LDR spectral response, tolerances, transient behavior, and hardware qualification.",
+    result:{kind:"ldr-night-light",supplyVoltage,brightResistance,darkResistance,illuminationPercent,referenceVoltage,dividerResistance,ledResistance,ldrResistance:current.ldrResistance,senseVoltage:current.senseVoltage,ledOn:current.ledOn,ledCurrentA:current.ledCurrentA,samples},
     validation
   };
 }

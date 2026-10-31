@@ -921,6 +921,16 @@
         }
       },
       "scope": "supplemental"
+    },
+    {
+      "id": "020-ldr-night-light",
+      "title": "LDR comparator night light",
+      "status": "in-review",
+      "objective": "Use a 5 V supply, 10 kΩ/1 MΩ light-dependent resistor endpoints, a 10 kΩ divider, a 0.2 V ideal comparator threshold, and a red LED; verify LED on in darkness and off in bright light.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue LDR night light switches on in darkness and off in bright light and rejects out-of-range threshold and wiring",
+      "testId": "core-ldr-night-light",
+      "projectFile": "examples/020-ldr-night-light.adigun.json",
+      "safetyNote": "Generic logarithmic LDR interpolation and ideal comparator model only. It omits comparator offset/hysteresis, LDR spectrum and tolerance, transient behavior, component ratings, and hardware qualification."
     }
   ]
 }

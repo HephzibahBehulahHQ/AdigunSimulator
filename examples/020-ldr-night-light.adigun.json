@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-020-ldr-night-light",
+  "metadata": {
+    "name": "LDR Night Light",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          45,
+          70
+        ],
+        "schematic": [
+          45,
+          70
+        ],
+        "pcb": [
+          45,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "ldr-1",
+      "libraryId": "passive.ldr",
+      "reference": "R_LDR",
+      "value": "Rbright 10 kΩ; Rdark 1 MΩ; light 0%",
+      "position": {
+        "breadboard": [
+          145,
+          70
+        ],
+        "schematic": [
+          145,
+          70
+        ],
+        "pcb": [
+          145,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "divider-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          245,
+          70
+        ],
+        "schematic": [
+          245,
+          70
+        ],
+        "pcb": [
+          245,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "comparator-1",
+      "libraryId": "active.comparator-ideal",
+      "reference": "U1",
+      "value": "Vref 0.2 V",
+      "position": {
+        "breadboard": [
+          345,
+          70
+        ],
+        "schematic": [
+          345,
+          70
+        ],
+        "pcb": [
+          345,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "led-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "RLED",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          445,
+          70
+        ],
+        "schematic": [
+          445,
+          70
+        ],
+        "pcb": [
+          445,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          535,
+          70
+        ],
+        "schematic": [
+          535,
+          70
+        ],
+        "pcb": [
+          535,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          535,
+          170
+        ],
+        "schematic": [
+          535,
+          170
+        ],
+        "pcb": [
+          535,
+          170
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "ldr-1:1",
+        "comparator-1:VCC"
+      ]
+    },
+    {
+      "id": "SENSE",
+      "endpoints": [
+        "ldr-1:2",
+        "divider-resistor-1:1",
+        "comparator-1:SENSE"
+      ]
+    },
+    {
+      "id": "OUT",
+      "endpoints": [
+        "comparator-1:OUT",
+        "led-resistor-1:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "led-resistor-1:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source-1:-",
+        "divider-resistor-1:2",
+        "comparator-1:GND",
+        "led-1:K",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}
