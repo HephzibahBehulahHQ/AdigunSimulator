@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-105-bms-cell-monitor",
+  "metadata": {
+    "name": "Three-Cell BMS Threshold Monitor",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          20,
+          50
+        ],
+        "schematic": [
+          20,
+          50
+        ],
+        "pcb": [
+          20,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.bms-cell-stack-fixture",
+      "reference": "CELL1",
+      "value": "Cell1 3.70 V; Cell2 3.72 V; Cell3 3.71 V; Mode 3S",
+      "position": {
+        "breadboard": [
+          130,
+          50
+        ],
+        "schematic": [
+          130,
+          50
+        ],
+        "pcb": [
+          130,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "monitor",
+      "libraryId": "active.bms-cell-monitor-ideal",
+      "reference": "U1",
+      "value": "Mode 3S; OV 4.20 V; UV 3.00 V; BalanceDelta 0.03 V; MaxCell 4.35 V",
+      "position": {
+        "breadboard": [
+          330,
+          50
+        ],
+        "schematic": [
+          330,
+          50
+        ],
+        "pcb": [
+          330,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.bms-cell-report",
+      "reference": "SCOPE1",
+      "value": "Cell monitor report",
+      "position": {
+        "breadboard": [
+          520,
+          50
+        ],
+        "schematic": [
+          520,
+          50
+        ],
+        "pcb": [
+          520,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "fixture:VCC",
+        "monitor:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "fixture:GND",
+        "monitor:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "CELL1",
+      "endpoints": [
+        "fixture:C1",
+        "monitor:C1"
+      ]
+    },
+    {
+      "id": "CELL2",
+      "endpoints": [
+        "fixture:C2",
+        "monitor:C2"
+      ]
+    },
+    {
+      "id": "CELL3",
+      "endpoints": [
+        "fixture:C3",
+        "monitor:C3"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "monitor:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}
