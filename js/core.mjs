@@ -202,6 +202,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.usb-c-pd-request-fixture", category: "Inputs", type: "USB-C PD source capability and request fixture", prefix: "USBC", pins: ["CC1", "CC2", "VCC", "GND"], defaultValue: "PDOs 5 V@1.5 A,9 V@2 A,12 V@1.5 A; Request 12 V; MaxVoltage 12 V; MaxCurrent 2 A; MaxPower 18 W; Fault none; Mode source-fixture", simulation: "fixture-usbc-pd-source", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.usb-c-pd-source-controller-ideal", category: "Active", type: "Ideal USB-C PD source policy controller", prefix: "U", pins: ["CC1", "CC2", "VBUS_OUT", "STATUS", "VCC", "GND"], defaultValue: "OCP 125%; Fallback 5 V; Mode source-policy", simulation: "analytical-usbc-pd-source", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.usb-c-source-report", category: "Output", type: "USB-C source profile and overcurrent report", prefix: "SCOPE", pins: ["VBUS", "STATUS", "VCC", "GND"], defaultValue: "USB-C source report", simulation: "analytical-usbc-pd-source", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.poe-pd-source-fixture", category: "Inputs", type: "PoE alternative-feed source fixture", prefix: "POE", pins: ["A1", "A2", "B1", "B2", "VCC", "GND"], defaultValue: "Voltage 48 V; Current 350 mA; ActiveFeed A; Polarity forward; Fault none; Mode poe-feed-fixture", simulation: "fixture-poe-pd", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.poe-input-bridge-ideal", category: "Active", type: "Ideal polarity-correcting PoE input bridge", prefix: "BR", pins: ["A1", "A2", "B1", "B2", "VOUT", "RETURN", "VCC", "GND"], defaultValue: "Mode full-wave; ForwardDrop 0.6 V", simulation: "analytical-poe-pd", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.poe-pd-dcdc-ideal", category: "Active", type: "Ideal PoE powered-device DC/DC policy", prefix: "U", pins: ["VIN", "RETURN", "VOUT", "VOUT_RETURN", "STATUS", "VCC", "GND"], defaultValue: "UVLO 37 V; MaxInput 57 V; Output 12 V; MaxPower 12 W; Efficiency 90%; Mode ideal-buck", simulation: "analytical-poe-pd", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.poe-pd-report", category: "Output", type: "PoE PD rectifier and DC/DC report", prefix: "SCOPE", pins: ["STATUS", "VOUT", "VOUT_RETURN", "VCC", "GND"], defaultValue: "PoE powered-device input report", simulation: "analytical-poe-pd", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -714,6 +718,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const usbPdSourceFixtures = project.components.filter((item) => item.libraryId === "input.usb-c-pd-request-fixture");
   const usbPdSourceControllers = project.components.filter((item) => item.libraryId === "active.usb-c-pd-source-controller-ideal");
   const usbPdSourceReports = project.components.filter((item) => item.libraryId === "output.usb-c-source-report");
+  const poeFixtures = project.components.filter((item) => item.libraryId === "input.poe-pd-source-fixture");
+  const poeBridges = project.components.filter((item) => item.libraryId === "active.poe-input-bridge-ideal");
+  const poeConverters = project.components.filter((item) => item.libraryId === "active.poe-pd-dcdc-ideal");
+  const poeReports = project.components.filter((item) => item.libraryId === "output.poe-pd-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -961,6 +969,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (usbPdSourceFixtures.length===1&&usbPdSourceControllers.length===1&&usbPdSourceReports.length===1&&source.length===1&&resistor.length===1&&ground.length===1&&project.components.length===6) {
     return analyseUsbCPdSource(project,{source:source[0],fixture:usbPdSourceFixtures[0],controller:usbPdSourceControllers[0],report:usbPdSourceReports[0],load:resistor[0],ground:ground[0],validation});
+  }
+  if (poeFixtures.length===1&&poeBridges.length===1&&poeConverters.length===1&&poeReports.length===1&&source.length===1&&resistor.length===1&&ground.length===1&&project.components.length===7) {
+    return analysePoePdInput(project,{source:source[0],fixture:poeFixtures[0],bridge:poeBridges[0],converter:poeConverters[0],report:poeReports[0],load:resistor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3278,6 +3289,39 @@ function analyseUsbCPdSource(project,{source,fixture,controller,report,load,grou
   else if(demandedCurrentA>selected.currentLimitA){outputVoltageV=selected.currentLimitA*loadOhm;loadCurrentA=selected.currentLimitA;state="current-limited";reason="Source limits load current; output voltage is estimated to collapse across the resistive load.";}
   const loadPowerW=outputVoltageV*loadCurrentA;
   return {state:"complete",engine:"Bounded USB-C source PDO advertisement and overcurrent policy estimator",message:"Filters fixed PDOs by source voltage/current/power limits, falls back to 5 V when needed, and estimates current limiting or overcurrent shutdown for a resistive load. USB-PD signaling, cable/e-marker behavior, timing, thermal protection, and standards compliance are not modeled or certified.",result:{kind:"usb-c-pd-source",advertisedProfiles,requestedVoltageV:requestV,selectedVoltageV:selected.voltageV,negotiationState:state,sourceState:outputEnabled?"enabled":"overcurrent-shutdown",outputEnabled,outputVoltageV,loadResistanceOhm:loadOhm,demandedCurrentA,loadCurrentA,loadPowerW,selectedCurrentLimitA:selected.currentLimitA,ocpTripPercent,ocpTripCurrentA,sourceMaxVoltageV:maxVoltageV,sourceMaxCurrentA:maxCurrentA,sourceMaxPowerW:maxPowerW,fault,protocolSignalingModeled:false,usbPdComplianceCertified:false},validation};
+}
+function analysePoePdInput(project,{source,fixture,bridge,converter,report,load,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const f=fields(fixture.value),b=fields(bridge.value),c=fields(converter.value);
+  const inputVoltageV=voltageValue(field(f,"Voltage")??""),sourceCurrentA=currentValue(field(f,"Current")??"");
+  const bridgeDropV=voltageValue(field(b,"ForwardDrop")??""),feed=field(f,"ActiveFeed"),polarity=field(f,"Polarity"),fault=field(f,"Fault");
+  const uvloV=voltageValue(field(c,"UVLO")??""),maxInputV=voltageValue(field(c,"MaxInput")??""),outputSetV=voltageValue(field(c,"Output")??"");
+  const maxOutputW=Number((field(c,"MaxPower")??"").replace(/\s*W$/i,"")),efficiencyPercent=Number((field(c,"Efficiency")??"").replace("%",""));
+  const loadOhm=resistanceValue(load.value),gnd=n(ground,"0"),vcc=n(source,"+");
+  const powered=n(source,"-")===gnd&&n(fixture,"VCC")===vcc&&n(bridge,"VCC")===vcc&&n(converter,"VCC")===vcc&&n(report,"VCC")===vcc
+    &&n(fixture,"GND")===gnd&&n(bridge,"GND")===gnd&&n(converter,"GND")===gnd&&n(report,"GND")===gnd;
+  const feedWired=["A1","A2","B1","B2"].every(pin=>n(fixture,pin)===n(bridge,pin));
+  const rectifiedPath=n(bridge,"VOUT")===n(converter,"VIN")&&n(bridge,"RETURN")===n(converter,"RETURN");
+  const outputPath=n(converter,"VOUT")===n(report,"VOUT")&&n(converter,"VOUT_RETURN")===n(report,"VOUT_RETURN")&&n(converter,"VOUT")===n(load,"1")&&n(converter,"VOUT_RETURN")===n(load,"2");
+  const statusPath=n(converter,"STATUS")===n(report,"STATUS");
+  const required=[gnd,vcc,...["A1","A2","B1","B2"].flatMap(pin=>[n(fixture,pin),n(bridge,pin)]),n(bridge,"VOUT"),n(converter,"VIN"),n(bridge,"RETURN"),n(converter,"RETURN"),n(converter,"VOUT"),n(report,"VOUT"),n(load,"1"),n(converter,"VOUT_RETURN"),n(load,"2"),n(converter,"STATUS"),n(report,"STATUS")];
+  if(required.some(x=>typeof x!=="string"||!x)||!powered||!feedWired||!rectifiedPath||!outputPath||!statusPath
+    ||field(f,"Mode")!=="poe-feed-fixture"||field(b,"Mode")!=="full-wave"||field(c,"Mode")!=="ideal-buck"
+    ||!["A","B"].includes(feed)||!["forward","reverse"].includes(polarity)||fault!=="none"
+    ||![inputVoltageV,sourceCurrentA,bridgeDropV,uvloV,maxInputV,outputSetV,maxOutputW,efficiencyPercent,loadOhm].every(Number.isFinite)
+    ||inputVoltageV<36||inputVoltageV>57||sourceCurrentA<=0||sourceCurrentA>1||bridgeDropV<0||bridgeDropV>2
+    ||uvloV<30||maxInputV>60||uvloV>=maxInputV||outputSetV<3.3||outputSetV>24||maxOutputW<=0||maxOutputW>60
+    ||efficiencyPercent<70||efficiencyPercent>99||loadOhm<1||loadOhm>1000){
+    return {state:"blocked",message:"Wire both alternative feed pairs through the polarity bridge, DC/DC stage, report, and isolated load return; use bounded PoE input and converter limits.",validation};
+  }
+  const rectifiedInputV=inputVoltageV-2*bridgeDropV,loadCurrentA=outputSetV/loadOhm,loadPowerW=outputSetV*loadCurrentA;
+  const requiredInputPowerW=loadPowerW/(efficiencyPercent/100),availableInputPowerW=rectifiedInputV*sourceCurrentA;
+  const availableOutputPowerW=Math.min(maxOutputW,availableInputPowerW*(efficiencyPercent/100));
+  const dcDcEnabled=rectifiedInputV>=uvloV&&rectifiedInputV<=maxInputV&&loadPowerW<=availableOutputPowerW;
+  if(!dcDcEnabled)return {state:"complete",engine:"Bounded PoE polarity bridge and DC/DC availability estimator",message:"Alternative feed polarity is rectified before the configured DC/DC input check. The requested load exceeds the modeled input, UVLO, voltage, or converter power envelope; output is disabled. This is not a compliant or physical PoE design.",result:{kind:"poe-pd-input",activeFeed:feed,inputPolarity:polarity,inputVoltageV,rectifiedInputVoltageV:rectifiedInputV,bridgeForwardDropV:bridgeDropV,converterEnabled:false,outputVoltageV:0,loadCurrentA:0,loadPowerW:0,requiredInputPowerW,availableInputPowerW,availableOutputPowerW,uvloV,maxInputV,maxOutputPowerW:maxOutputW,alternativeFeedPolarityCorrected:true,ieeePoEComplianceCertified:false},validation};
+  return {state:"complete",engine:"Bounded PoE polarity bridge and DC/DC load estimator",message:"Models alternative feed selection, polarity correction by a full-wave bridge, and a bounded DC/DC input/output power estimate. It does not implement PoE detection/classification, negotiation, isolation design, protection, thermal limits, IEEE compliance, or hardware safety.",result:{kind:"poe-pd-input",activeFeed:feed,inputPolarity:polarity,inputVoltageV,rectifiedInputVoltageV:rectifiedInputV,bridgeForwardDropV:bridgeDropV,converterEnabled:true,outputVoltageV:outputSetV,loadCurrentA,loadPowerW,requiredInputPowerW,availableInputPowerW,availableOutputPowerW,dcDcEfficiencyPercent:efficiencyPercent,uvloV,maxInputV,maxOutputPowerW:maxOutputW,alternativeFeedPolarityCorrected:true,ieeePoEComplianceCertified:false},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);

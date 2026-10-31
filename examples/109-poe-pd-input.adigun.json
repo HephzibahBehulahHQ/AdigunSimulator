@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-109-poe-pd-input",
+  "metadata": {
+    "name": "PoE Powered-Device Input Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "control-source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          30,
+          50
+        ],
+        "schematic": [
+          30,
+          50
+        ],
+        "pcb": [
+          30,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "poe-fixture",
+      "libraryId": "input.poe-pd-source-fixture",
+      "reference": "POE1",
+      "value": "Voltage 48 V; Current 350 mA; ActiveFeed A; Polarity forward; Fault none; Mode poe-feed-fixture",
+      "position": {
+        "breadboard": [
+          120,
+          50
+        ],
+        "schematic": [
+          110,
+          50
+        ],
+        "pcb": [
+          110,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "bridge",
+      "libraryId": "active.poe-input-bridge-ideal",
+      "reference": "BR1",
+      "value": "Mode full-wave; ForwardDrop 0.6 V",
+      "position": {
+        "breadboard": [
+          245,
+          50
+        ],
+        "schematic": [
+          240,
+          50
+        ],
+        "pcb": [
+          240,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "converter",
+      "libraryId": "active.poe-pd-dcdc-ideal",
+      "reference": "U1",
+      "value": "UVLO 37 V; MaxInput 57 V; Output 12 V; MaxPower 12 W; Efficiency 90%; Mode ideal-buck",
+      "position": {
+        "breadboard": [
+          370,
+          50
+        ],
+        "schematic": [
+          370,
+          50
+        ],
+        "pcb": [
+          370,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "24 Ω",
+      "position": {
+        "breadboard": [
+          475,
+          50
+        ],
+        "schematic": [
+          475,
+          50
+        ],
+        "pcb": [
+          475,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.poe-pd-report",
+      "reference": "SCOPE1",
+      "value": "PoE powered-device report",
+      "position": {
+        "breadboard": [
+          550,
+          50
+        ],
+        "schematic": [
+          550,
+          50
+        ],
+        "pcb": [
+          550,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "control-source:+",
+        "poe-fixture:VCC",
+        "bridge:VCC",
+        "converter:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "control-source:-",
+        "poe-fixture:GND",
+        "bridge:GND",
+        "converter:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "FEED_A1",
+      "endpoints": [
+        "poe-fixture:A1",
+        "bridge:A1"
+      ]
+    },
+    {
+      "id": "FEED_A2",
+      "endpoints": [
+        "poe-fixture:A2",
+        "bridge:A2"
+      ]
+    },
+    {
+      "id": "FEED_B1",
+      "endpoints": [
+        "poe-fixture:B1",
+        "bridge:B1"
+      ]
+    },
+    {
+      "id": "FEED_B2",
+      "endpoints": [
+        "poe-fixture:B2",
+        "bridge:B2"
+      ]
+    },
+    {
+      "id": "RECT_POS",
+      "endpoints": [
+        "bridge:VOUT",
+        "converter:VIN"
+      ]
+    },
+    {
+      "id": "RECT_RETURN",
+      "endpoints": [
+        "bridge:RETURN",
+        "converter:RETURN"
+      ]
+    },
+    {
+      "id": "OUT_POS",
+      "endpoints": [
+        "converter:VOUT",
+        "report:VOUT",
+        "load:1"
+      ]
+    },
+    {
+      "id": "OUT_RETURN",
+      "endpoints": [
+        "converter:VOUT_RETURN",
+        "report:VOUT_RETURN",
+        "load:2"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "converter:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}
