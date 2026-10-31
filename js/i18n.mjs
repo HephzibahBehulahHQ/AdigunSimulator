@@ -1128,3 +1128,8 @@ Object.assign(TRANSLATIONS.en, {exampleReleaseCandidateE2E:"Release candidate en
 Object.assign(TRANSLATIONS.de, {exampleReleaseCandidateE2E:"End-to-End-Prüfung des Release-Kandidaten"});
 Object.assign(TRANSLATIONS.yo, {exampleReleaseCandidateE2E:"Ìdánwò release candidate láti ìbẹ̀rẹ̀ dé òpin"});
 Object.assign(TRANSLATIONS.pcm, {exampleReleaseCandidateE2E:"Release candidate end-to-end"});
+
+Object.assign(TRANSLATIONS.en, {morePlannedExamples:"All 200 catalogue projects are released; ten supplemental studies are also available."});
+Object.assign(TRANSLATIONS.de, {morePlannedExamples:"Alle 200 Katalogprojekte sind veröffentlicht; zusätzlich sind zehn ergänzende Studien verfügbar."});
+Object.assign(TRANSLATIONS.yo, {morePlannedExamples:"A ti tú gbogbo iṣẹ́ kátàlọ́ọ̀gù 200 síta; àfikún ìwádìí mẹ́wàá tún wà."});
+Object.assign(TRANSLATIONS.pcm, {morePlannedExamples:"All 200 catalogue projects don release; ten extra studies dey available too."});
