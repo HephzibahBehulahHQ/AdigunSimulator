@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-119-reverse-polarity",
+  "metadata": {
+    "name": "MOSFET Reverse-Polarity Input Protection",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          40,
+          50
+        ],
+        "schematic": [
+          40,
+          50
+        ],
+        "pcb": [
+          40,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "protector",
+      "libraryId": "active.reverse-polarity-mosfet-ideal",
+      "reference": "Q1",
+      "value": "ForwardDrop 0.4 V; MaxVoltage 24 V; MaxCurrent 1 A; Mode reverse-block",
+      "position": {
+        "breadboard": [
+          170,
+          50
+        ],
+        "schematic": [
+          170,
+          50
+        ],
+        "pcb": [
+          170,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RL1",
+      "value": "100 Ω",
+      "position": {
+        "breadboard": [
+          320,
+          50
+        ],
+        "schematic": [
+          320,
+          50
+        ],
+        "pcb": [
+          320,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.reverse-polarity-report",
+      "reference": "SCOPE1",
+      "value": "Reverse-polarity protection report",
+      "position": {
+        "breadboard": [
+          450,
+          50
+        ],
+        "schematic": [
+          450,
+          50
+        ],
+        "pcb": [
+          450,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          160
+        ],
+        "schematic": [
+          40,
+          160
+        ],
+        "pcb": [
+          40,
+          160
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "INPUT",
+      "endpoints": [
+        "source:+",
+        "protector:IN"
+      ]
+    },
+    {
+      "id": "RETURN",
+      "endpoints": [
+        "source:-",
+        "protector:RETURN",
+        "load:2",
+        "protector:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "protector:OUT",
+        "load:1",
+        "report:VOUT"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "protector:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}
