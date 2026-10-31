@@ -40,11 +40,18 @@ export function validatePcbFabrication(project) {
   }
   const clearance = Number(board.minimumClearanceMm);
   if (!Number.isFinite(clearance) || clearance <= 0) errors.push("Minimum copper clearance must be a positive millimetre value.");
-  const padRadius = (pad) => pad.technology === "through-hole" ? pad.diameterMm/2 : Math.hypot(pad.widthMm/2,pad.heightMm/2);
+  const padGap=(a,b)=>{
+    const dx=Math.abs(a.xMm-b.xMm),dy=Math.abs(a.yMm-b.yMm);
+    if(a.technology==="through-hole"&&b.technology==="through-hole")return Math.hypot(dx,dy)-(a.diameterMm+b.diameterMm)/2;
+    if(a.technology==="smd"&&b.technology==="smd")return Math.hypot(Math.max(0,dx-(a.widthMm+b.widthMm)/2),Math.max(0,dy-(a.heightMm+b.heightMm)/2));
+    const circle=a.technology==="through-hole"?a:b,rect=a.technology==="smd"?a:b;
+    const nearestX=Math.max(0,dx-rect.widthMm/2),nearestY=Math.max(0,dy-rect.heightMm/2);
+    return Math.hypot(nearestX,nearestY)-circle.diameterMm/2;
+  };
   for (let i=0;i<pads.length;i++) for (let j=i+1;j<pads.length;j++) {
     const a=pads[i],b=pads[j];
     if (a.netId===b.netId) continue;
-    const spacing=Math.hypot(a.xMm-b.xMm,a.yMm-b.yMm)-padRadius(a)-padRadius(b);
+    const spacing=padGap(a,b);
     if (spacing + 1e-9 < clearance) errors.push(`Copper pads ${a.reference}.${a.number} and ${b.reference}.${b.number} violate ${round(clearance)} mm clearance.`);
   }
   for (const route of routes) {
