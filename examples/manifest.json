@@ -1166,14 +1166,30 @@
     {
       "id": "028-schmitt-trigger",
       "title": "Comparator Schmitt trigger",
-      "status": "in-review",
+      "status": "released",
       "objective": "Calculate separate 2.5 V falling and 3.0 V rising thresholds and verify state retention inside the hysteresis band.",
       "acceptanceTest": "tests/core.test.mjs: catalogue Schmitt trigger has distinct thresholds and retains state inside the hysteresis band",
       "testId": "core-schmitt-trigger",
       "projectFile": "examples/028-schmitt-trigger.adigun.json",
       "safetyNote": "Ideal static educational comparator model only. It omits propagation delay, output saturation, noise, offset, component tolerances, and device-specific behavior.",
       "scope": "catalogue",
-      "catalogueIndex": 28
+      "catalogueIndex": 28,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41170103403",
+        "headRevision": "74c8a12469e801f2a9e24d7f213174695d2b2080",
+        "engine": "Ideal Schmitt-trigger hysteresis estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-schmitt-trigger-v1",
+        "expectedResult": {
+          "supplyVoltage": 5,
+          "referenceVoltage": 2.5,
+          "fallingThresholdV": 2.5,
+          "risingThresholdV": 3,
+          "hysteresisV": 0.5
+        }
+      }
     }
   ]
 }
