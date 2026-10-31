@@ -5,7 +5,7 @@ export const UI_KEYS = Object.freeze([
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
-  "active", "inputs", "instruments", "connectors", "selectComponent", "noPartSelected", "libraryHelp",
+  "active", "inputs", "instruments", "connectors", "protection", "selectComponent", "noPartSelected", "libraryHelp",
   "addToProject", "breadboard", "schematic", "pcb", "select", "pan", "zoomOut", "zoomIn", "snap",
   "grid", "simulationOutput", "errors", "warnings", "component", "project", "simulation", "type",
   "reference", "value", "libraryStatus", "applyProperties", "projectName", "locale", "applyProject",
@@ -108,3 +108,8 @@ Object.assign(TRANSLATIONS.en, { exampleZenerShuntRegulator: "Zener shunt regula
 Object.assign(TRANSLATIONS.de, { exampleZenerShuntRegulator: "Zener-Shuntregler", morePlannedExamples: "Siebzehn der 200 Katalogprojekte sind veröffentlicht; zehn ergänzende Studien sind ebenfalls verfügbar. Die übrigen Katalogprojekte sind geplant und noch nicht ladbar.", availableAnalysis: "Verfügbar sind PWM-LED-Mittelstrom, Unterspannungsüberwachung, Netzteil-Ripple/Dropout, USB-PTC-Warnung, Solar-Tag/Nacht, Superkondensator-Überbrückung, passiver RC-Klangregler, simulierte Gleichrichtung, Siebelko-Ripple und idealisierte Zener-Shunt-Regelung." });
 Object.assign(TRANSLATIONS.yo, { exampleZenerShuntRegulator: "Àwòṣe Zener shunt regulator", morePlannedExamples: "A ti tú iṣẹ́ kátàlọ́ọ̀gù mẹ́tàdínlógún nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí.", availableAnalysis: "Àwọn àwòṣe ìṣàn PWM LED, ìṣọ́ batiri, ripple/dropout, ìkìlọ̀ USB PTC, oòrùn lọ́sàn/lálẹ́, supercapacitor, ìṣàkóso ohùn RC, bridge rectifier, ripple capacitor, àti Zener shunt regulation wà." });
 Object.assign(TRANSLATIONS.pcm, { exampleZenerShuntRegulator: "Zener shunt regulator", morePlannedExamples: "Seventeen out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load.", availableAnalysis: "PWM LED average current, low-battery monitoring, supply ripple/dropout, USB PTC warning, solar day/night, supercapacitor hold-up, passive RC tone control, sampled bridge rectification, reservoir-capacitor ripple, and ideal Zener shunt-regulator estimates dey." });
+
+Object.assign(TRANSLATIONS.en, { protection: "Protection" });
+Object.assign(TRANSLATIONS.de, { protection: "Schutz" });
+Object.assign(TRANSLATIONS.yo, { protection: "Ìdábòbò" });
+Object.assign(TRANSLATIONS.pcm, { protection: "Protection" });
