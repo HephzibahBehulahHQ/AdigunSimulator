@@ -1535,14 +1535,33 @@
     {
       "id": "040-wien-bridge-oscillator",
       "title": "Diode-limited Wien bridge oscillator",
-      "status": "in-review",
+      "status": "released",
       "objective": "Build a symmetric 10 kΩ/10 nF Wien RC bridge around a non-inverting op-amp gain stage and anti-parallel Schottky limiter diodes; test resonance frequency, loop-gain start-up condition, and bounded estimated amplitude.",
       "acceptanceTest": "tests/core.test.mjs: catalogue Wien bridge oscillator starts above unity loop gain and limits amplitude; blocks a mismatched bridge and same-direction limiter diodes",
       "testId": "core-wien-bridge-oscillator",
       "projectFile": "examples/040-wien-bridge-oscillator.adigun.json",
       "safetyNote": "Analytical start-up and diode-threshold estimate, not nonlinear time-domain SPICE. The estimated amplitude is an approximate limiter threshold. Noise/start-up time, waveform distortion, op-amp bandwidth/slew, diode curves, loading, tolerances, and physical part ratings are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 40
+      "catalogueIndex": 40,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41172677446",
+        "headRevision": "c08d36049518a5656a75ef4a7a55a611b502b80e",
+        "engine": "Wien bridge start-up and diode-limited amplitude estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-wien-bridge-oscillator-v1",
+        "expectedResult": {
+          "frequencyHz": 1591.5494309189535,
+          "bridgeAttenuation": 0.3333333333333333,
+          "amplifierGain": 3.2,
+          "loopGain": 1.0666666666666667,
+          "oscillationStarts": true,
+          "estimatedSteadyAmplitudeV": 0.43636363636363634,
+          "limiterDiodeDropV": 0.3,
+          "outputWithinSupplyRails": true
+        }
+      }
     }
   ]
 }
