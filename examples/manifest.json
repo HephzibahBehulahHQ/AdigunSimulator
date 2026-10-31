@@ -5240,6 +5240,19 @@
           "hardwareManufacturingQualified": false
         }
       }
+    },
+    {
+      "id": "127-relay-module-pcb",
+      "title": "Low-voltage relay module PCB",
+      "status": "in-review",
+      "objective": "Build a 5 V G5V-1 relay module using an NPN low-side driver, 1N4007 flyback diode, control header and isolated COM/NC/NO terminal block; apply separate control, coil and contact net classes, preserve a no-copper isolation barrier, and test coil/load isolation annotations.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue relay module tests driver, relay pin map, contact isolation classes, BOM, placement and export",
+      "testId": "core-relay-module-pcb",
+      "projectFile": "examples/127-relay-module-pcb.adigun.json",
+      "readmeFile": "examples/127-relay-module-pcb/README.md",
+      "safetyNote": "Educational low-voltage relay-board template. G5V-1 manufacturer isolation and contact ratings do not certify this PCB. Restrict example use to low-voltage DC resistive loads at or below 24 V and 1 A; never use the board as a mains design.",
+      "scope": "catalogue",
+      "catalogueIndex": 127
     }
   ]
 }

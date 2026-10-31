@@ -1,0 +1,7 @@
+"Designator","Value","Footprint","Technology","X_mm","Y_mm","Rotation_deg"
+"D1","1N4007; 1 A; 1000 V; axial","DO-41_axial_generic","through-hole","17.000","18.000","0"
+"J1","5 V, GND, IN","ScrewTerminal_1x03_P3.5mm_template","through-hole","5.000","11.000","0"
+"J2","COM, NC, NO; low-voltage load only","ScrewTerminal_1x03_P5.08mm_template","through-hole","45.000","12.000","0"
+"K1","5 V; 167 Ω; 1 A at 24 VDC resistive","G5V-1_5-pad_educational_template","through-hole","24.200","11.000","0"
+"Q1","β 100; VBE 0.7 V; VCEsat 0.2 V","TO-92_generic","through-hole","14.540","25.000","0"
+"R1","1 kΩ","R_0603_generic","smd","10.200","19.000","0"

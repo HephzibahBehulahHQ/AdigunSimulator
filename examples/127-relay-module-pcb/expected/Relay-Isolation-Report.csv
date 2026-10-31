@@ -1,0 +1,2 @@
+"Domain A","Domain B","Minimum clearance mm","Relay dielectric withstand VAC","Contact voltage limit VDC","Contact current limit A","Annotation"
+"COIL","CONTACT","3.2","1000","24","1","K1's coil and SPDT contacts are separate domains; board barrier has no copper. Educational low-voltage relay module only; not mains rated or safety certified."

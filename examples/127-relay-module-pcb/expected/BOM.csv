@@ -1,0 +1,7 @@
+"Designator","Quantity","Value","Footprint","Technology","Status"
+"D1","1","1N4007; 1 A; 1000 V; axial","DO-41_axial_generic","through-hole","Generic footprint; verify selected real part"
+"J1","1","5 V, GND, IN","ScrewTerminal_1x03_P3.5mm_template","through-hole","Generic footprint; verify selected real part"
+"J2","1","COM, NC, NO; low-voltage load only","ScrewTerminal_1x03_P5.08mm_template","through-hole","Generic footprint; verify selected real part"
+"K1","1","5 V; 167 Ω; 1 A at 24 VDC resistive","G5V-1_5-pad_educational_template","through-hole","Generic footprint; verify selected real part"
+"Q1","1","β 100; VBE 0.7 V; VCEsat 0.2 V","TO-92_generic","through-hole","Generic footprint; verify selected real part"
+"R1","1","1 kΩ","R_0603_generic","smd","Generic footprint; verify selected real part"
