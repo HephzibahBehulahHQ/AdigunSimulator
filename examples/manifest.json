@@ -6558,6 +6558,19 @@
           "safetyRated": false
         }
       }
+    },
+    {
+      "id": "168-door-interlock-concept",
+      "title": "Door interlock concept",
+      "status": "in-review",
+      "objective": "Verify that an open guard disables and latches off the logical load and that closure/reset alone cannot restart it.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue door interlock latches load off on guard opening",
+      "testId": "core-door-interlock-concept",
+      "projectFile": "examples/168-door-interlock-concept.adigun.json",
+      "readmeFile": "examples/168-door-interlock-concept/README.md",
+      "safetyNote": "Educational logic concept only. Not a safety-rated guard interlock; no guard locking, fault diagnostics, wiring, risk assessment, or machine-safety compliance is modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }

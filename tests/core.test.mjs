@@ -34,6 +34,7 @@ import { runConveyorCounter } from "../js/conveyor-counter.mjs";
 import { runStarDeltaStarter } from "../js/star-delta-starter.mjs";
 import { runForwardReverseInterlock } from "../js/forward-reverse-interlock.mjs";
 import { runEmergencyStopConcept } from "../js/emergency-stop-concept.mjs";
+import { runDoorInterlockConcept } from "../js/door-interlock-concept.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1466,7 +1467,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 177);
+  assert.equal(getExampleCoverage(registry).total, 178);
   assert.equal(getExampleCoverage(registry).released, 167);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 33);
@@ -4321,4 +4322,14 @@ test("catalogue E-stop latch rejects reset while tripped and needs separate rest
   assert.equal(result.result.frames[2].resetRejected,true);assert.equal(result.result.frames[4].latched,false);
   assert.equal(result.result.unsafeResetRejected,true);assert.equal(result.result.restartRequiresNewStart,true);
   const invalid=structuredClone(project);invalid.emergencyStopConcept.events[0].action="auto-restart";assert.equal(runEmergencyStopConcept(invalid).state,"blocked");
+});
+
+test("catalogue door interlock latches load off on guard opening", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/168-door-interlock-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runDoorInterlockConcept(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"door-interlock-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.loadEnabled),[true,false,false,false,false,true,false]);
+  assert.equal(result.result.frames[2].resetRejected,true);assert.equal(result.result.loadAlwaysDisabledWhenOpen,true);
+  assert.equal(result.result.resetRejectedWhenOpen,true);
+  const invalid=structuredClone(project);invalid.doorInterlock.events[0].action="bypass";assert.equal(runDoorInterlockConcept(invalid).state,"blocked");
 });

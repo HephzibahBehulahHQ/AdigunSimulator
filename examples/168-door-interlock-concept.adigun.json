@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "example-168-door-interlock-concept",
+  "metadata": {
+    "name": "Example 168 — Door Guard Interlock Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "doorInterlock": {
+    "kind": "guard-latched-interlock-concept",
+    "initialGuardClosed": true,
+    "events": [
+      {
+        "action": "start"
+      },
+      {
+        "action": "guard-open"
+      },
+      {
+        "action": "reset"
+      },
+      {
+        "action": "guard-close"
+      },
+      {
+        "action": "reset"
+      },
+      {
+        "action": "start"
+      },
+      {
+        "action": "stop"
+      }
+    ]
+  }
+}
