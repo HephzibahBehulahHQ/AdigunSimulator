@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 120);
+  assert.equal(getExampleCoverage(registry).total, 121);
   assert.equal(getExampleCoverage(registry).released, 110);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 90);
@@ -3044,5 +3044,27 @@ test("catalogue constant-current LED driver regulates across load range and repo
   assert.equal(runSupportedAnalysis(updateComponent(project,"sense",{value:"0.1 Ω"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="LED_POS").endpoints=["driver:LED+"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue MOSFET half-bridge enforces dead time and prevents gate overlap", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/111-mosfet-half-bridge.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",JSON.stringify(result.validation?.errors??result));
+  assert.equal(result.result.kind,"mosfet-half-bridge");
+  assert.ok(Math.abs(result.result.periodS-10e-6)<1e-15);
+  assert.equal(result.result.deadTimeS,0.5e-6);
+  assert.equal(result.result.shootThrough,false);
+  assert.equal(result.result.gateSequence.length,4);
+  assert.ok(Math.abs(result.result.deadTimeFraction-0.1)<1e-12);
+  assert.ok(result.result.gateSequence.every(state=>!(state.highGateOn&&state.lowGateOn)));
+
+  const overlap=runSupportedAnalysis(updateComponent(project,"pwm",{value:"Period 10 us; HighDuty 46%; LowDuty 46%; DeadTime 0.5 us; Mode complementary"}));
+  assert.equal(overlap.state,"blocked");
+  const insufficientDead=runSupportedAnalysis(updateComponent(project,"pwm",{value:"Period 10 us; HighDuty 45%; LowDuty 45%; DeadTime 0.1 us; Mode complementary"}));
+  assert.equal(insufficientDead.state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"1 Ω"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="GATE_L").endpoints=["driver:GL"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });

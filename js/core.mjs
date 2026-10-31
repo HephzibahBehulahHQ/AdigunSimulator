@@ -209,6 +209,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.led-string-fixture", category: "Inputs", type: "LED string voltage and open-load fixture", prefix: "LED", pins: ["LED+", "LED-", "VCC", "GND"], defaultValue: "Vf 9 V; Open no; Mode led-string", simulation: "fixture-cc-led-string", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.led-cc-driver-ideal", category: "Active", type: "Ideal constant-current LED driver", prefix: "U", pins: ["VIN", "LED+", "LED-", "SENSE", "STATUS", "VCC", "GND"], defaultValue: "SenseReference 0.35 V; MaxCurrent 1 A; MaxInput 24 V; MaxPower 12 W; Compliance 1 V; Efficiency 90%; Mode constant-current", simulation: "analytical-cc-led-driver", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.led-cc-report", category: "Output", type: "LED current regulation and fault report", prefix: "SCOPE", pins: ["STATUS", "VCC", "GND"], defaultValue: "Constant-current LED driver report", simulation: "analytical-cc-led-driver", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.half-bridge-pwm-fixture", category: "Inputs", type: "Complementary PWM and dead-time fixture", prefix: "PWM", pins: ["GH_CMD", "GL_CMD", "VCC", "GND"], defaultValue: "Period 10 us; HighDuty 45%; LowDuty 45%; DeadTime 0.5 us; Mode complementary", simulation: "fixture-half-bridge-pwm", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.half-bridge-gate-driver-ideal", category: "Active", type: "Ideal complementary half-bridge gate driver", prefix: "U", pins: ["PWMH", "PWML", "GH", "GL", "STATUS", "VCC", "GND"], defaultValue: "MinDeadTime 0.5 us; GateHigh 10 V; Mode half-bridge", simulation: "analytical-half-bridge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.mosfet-half-bridge-ideal", category: "Active", type: "Ideal high-side and low-side MOSFET half-bridge", prefix: "Q", pins: ["VIN", "GH", "GL", "SW", "VCC", "GND"], defaultValue: "RdsOn 0.08 Ω; MaxVoltage 30 V; MaxCurrent 5 A; Mode half-bridge", simulation: "analytical-half-bridge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.half-bridge-report", category: "Output", type: "Half-bridge gate timing and overlap report", prefix: "SCOPE", pins: ["SW", "STATUS", "VCC", "GND"], defaultValue: "Half-bridge timing report", simulation: "analytical-half-bridge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -728,6 +732,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const ledStringFixtures = project.components.filter((item) => item.libraryId === "input.led-string-fixture");
   const ccLedDrivers = project.components.filter((item) => item.libraryId === "active.led-cc-driver-ideal");
   const ccLedReports = project.components.filter((item) => item.libraryId === "output.led-cc-report");
+  const halfBridgeFixtures = project.components.filter((item) => item.libraryId === "input.half-bridge-pwm-fixture");
+  const halfBridgeDrivers = project.components.filter((item) => item.libraryId === "active.half-bridge-gate-driver-ideal");
+  const halfBridgeSwitches = project.components.filter((item) => item.libraryId === "active.mosfet-half-bridge-ideal");
+  const halfBridgeReports = project.components.filter((item) => item.libraryId === "output.half-bridge-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -981,6 +989,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (ledStringFixtures.length===1&&ccLedDrivers.length===1&&ccLedReports.length===1&&source.length===1&&resistor.length===1&&ground.length===1&&project.components.length===6) {
     return analyseConstantCurrentLedDriver(project,{source:source[0],fixture:ledStringFixtures[0],driver:ccLedDrivers[0],report:ccLedReports[0],sense:resistor[0],ground:ground[0],validation});
+  }
+  if (halfBridgeFixtures.length===1&&halfBridgeDrivers.length===1&&halfBridgeSwitches.length===1&&halfBridgeReports.length===1&&source.length===1&&resistor.length===1&&ground.length===1&&project.components.length===7) {
+    return analyseMosfetHalfBridge(project,{source:source[0],fixture:halfBridgeFixtures[0],driver:halfBridgeDrivers[0],bridge:halfBridgeSwitches[0],report:halfBridgeReports[0],load:resistor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3367,6 +3378,45 @@ function analyseConstantCurrentLedDriver(project,{source,fixture,driver,report,s
   const inputPowerW=currentA>0?(ledPowerW+sensePowerW)/(efficiencyPercent/100):0;
   const inputCurrentA=inputPowerW/supplyV,driverLossW=Math.max(0,inputPowerW-ledPowerW-sensePowerW);
   return {state:"complete",engine:"Bounded constant-current LED compliance and load estimator",message:"Models sense-reference current regulation across a configured LED voltage range, supply headroom, load-open warning, and idealized power estimates. It does not model switching ripple, control-loop stability, thermal behavior, component tolerances, protection circuitry, or hardware safety.",result:{kind:"constant-current-led-driver",regulationState,warning,supplyVoltageV:supplyV,ledForwardVoltageV:vf,requestedCurrentA:setCurrentA,ledCurrentA:currentA,senseResistanceOhm:senseOhm,senseVoltageV,headroomV,complianceVoltageV:complianceV,ledPowerW,sensePowerW,inputPowerW,inputCurrentA,driverLossW,efficiencyAssumptionPercent:efficiencyPercent,openLed:isOpen},validation};
+}
+function analyseMosfetHalfBridge(project,{source,fixture,driver,bridge,report,load,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const seconds=value=>{const text=String(value).trim().toLowerCase();if(text.endsWith(" ns"))return Number(text.slice(0,-3))*1e-9;if(text.endsWith(" us"))return Number(text.slice(0,-3))*1e-6;if(text.endsWith(" ms"))return Number(text.slice(0,-3))*1e-3;if(text.endsWith(" s"))return Number(text.slice(0,-2));return Number.NaN;};
+  const percent=value=>Number(String(value).replace("%",""));
+  const f=fields(fixture.value),d=fields(driver.value),q=fields(bridge.value);
+  const periodS=seconds(field(f,"Period")),highDuty=percent(field(f,"HighDuty")),lowDuty=percent(field(f,"LowDuty")),deadTimeS=seconds(field(f,"DeadTime"));
+  const minimumDeadTimeS=seconds(field(d,"MinDeadTime")),gateHighV=voltageValue(field(d,"GateHigh")??"");
+  const rdsOn=resistanceValue(field(q,"RdsOn")??""),maxVoltageV=voltageValue(field(q,"MaxVoltage")??""),maxCurrentA=currentValue(field(q,"MaxCurrent")??"");
+  const busVoltageV=voltageValue(source.value),loadOhm=resistanceValue(load.value),gnd=n(ground,"0"),vcc=n(source,"+");
+  const powered=n(source,"-")===gnd&&n(fixture,"VCC")===vcc&&n(driver,"VCC")===vcc&&n(bridge,"VCC")===vcc&&n(report,"VCC")===vcc
+    &&n(fixture,"GND")===gnd&&n(driver,"GND")===gnd&&n(bridge,"GND")===gnd&&n(report,"GND")===gnd;
+  const commandPaths=n(fixture,"GH_CMD")===n(driver,"PWMH")&&n(fixture,"GL_CMD")===n(driver,"PWML");
+  const gatePaths=n(driver,"GH")===n(bridge,"GH")&&n(driver,"GL")===n(bridge,"GL"),busPath=n(source,"+")===n(bridge,"VIN");
+  const switchPath=n(bridge,"SW")===n(report,"SW")&&n(bridge,"SW")===n(load,"1")&&n(load,"2")===gnd,statusPath=n(driver,"STATUS")===n(report,"STATUS");
+  const required=[gnd,vcc,n(fixture,"GH_CMD"),n(driver,"PWMH"),n(fixture,"GL_CMD"),n(driver,"PWML"),n(driver,"GH"),n(bridge,"GH"),n(driver,"GL"),n(bridge,"GL"),n(bridge,"VIN"),n(bridge,"SW"),n(report,"SW"),n(load,"1"),n(load,"2"),n(driver,"STATUS"),n(report,"STATUS")];
+  if(required.some(x=>typeof x!=="string"||!x)||!powered||!commandPaths||!gatePaths||!busPath||!switchPath||!statusPath
+    ||field(f,"Mode")!=="complementary"||field(d,"Mode")!=="half-bridge"||field(q,"Mode")!=="half-bridge"
+    ||![periodS,highDuty,lowDuty,deadTimeS,minimumDeadTimeS,gateHighV,rdsOn,maxVoltageV,maxCurrentA,busVoltageV,loadOhm].every(Number.isFinite)
+    ||periodS<1e-6||periodS>0.1||highDuty<=0||highDuty>49||lowDuty<=0||lowDuty>49||deadTimeS<minimumDeadTimeS||minimumDeadTimeS<=0
+    ||gateHighV<5||gateHighV>15||rdsOn<=0||rdsOn>1||maxVoltageV<=0||maxVoltageV>100||maxCurrentA<=0||maxCurrentA>50
+    ||busVoltageV<=0||busVoltageV>maxVoltageV||loadOhm<=0||loadOhm>1000){
+    return {state:"blocked",message:"Wire both complementary gate paths and the half-bridge load; use supported period, duty, gate voltage, device ratings, and minimum dead time.",validation};
+  }
+  const highTimeS=periodS*highDuty/100,lowTimeS=periodS*lowDuty/100,deadFractionS=2*deadTimeS;
+  const overlapS=highTimeS+lowTimeS+deadFractionS-periodS;
+  if(overlapS>1e-12)return {state:"blocked",message:"Complementary gate commands overlap after accounting for dead time; reduce duty or increase period.",validation};
+  const onCurrentA=busVoltageV/(loadOhm+rdsOn);
+  if(onCurrentA>maxCurrentA)return {state:"blocked",message:"Resistive load current exceeds the configured MOSFET current rating.",validation};
+  const deadFraction=deadFractionS/periodS;
+  const gateSequence=[
+    {phase:"high-side on",durationS:highTimeS,highGateOn:true,lowGateOn:false},
+    {phase:"dead time",durationS:deadTimeS,highGateOn:false,lowGateOn:false},
+    {phase:"low-side on",durationS:lowTimeS,highGateOn:false,lowGateOn:true},
+    {phase:"dead time",durationS:deadTimeS,highGateOn:false,lowGateOn:false}
+  ];
+  return {state:"complete",engine:"Complementary half-bridge timing and resistive-load estimator",message:"Checks complementary gate timing and minimum dead time, then estimates high-side resistive-load conduction. Switching transitions, reverse recovery, inductive freewheel, gate charge, parasitics, thermal behavior, and hardware safety are not modeled.",result:{kind:"mosfet-half-bridge",periodS,highDutyPercent:highDuty,lowDutyPercent:lowDuty,highTimeS,lowTimeS,deadTimeS,minimumDeadTimeS,deadTimeFraction:deadFraction,gateSequence,shootThrough:false,highSideOnCurrentA:onCurrentA,highSideAverageCurrentA:onCurrentA*highDuty/100,loadResistanceOhm:loadOhm,busVoltageV,mosfetRdsOnOhm:rdsOn,gateHighVoltageV:gateHighV},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);

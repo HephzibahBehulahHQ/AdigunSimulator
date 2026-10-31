@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-111-mosfet-half-bridge",
+  "metadata": {
+    "name": "MOSFET Half-Bridge with Dead Time",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "bus",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          30,
+          50
+        ],
+        "schematic": [
+          30,
+          50
+        ],
+        "pcb": [
+          30,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "pwm",
+      "libraryId": "input.half-bridge-pwm-fixture",
+      "reference": "PWM1",
+      "value": "Period 10 us; HighDuty 45%; LowDuty 45%; DeadTime 0.5 us; Mode complementary",
+      "position": {
+        "breadboard": [
+          115,
+          50
+        ],
+        "schematic": [
+          110,
+          50
+        ],
+        "pcb": [
+          110,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "driver",
+      "libraryId": "active.half-bridge-gate-driver-ideal",
+      "reference": "U1",
+      "value": "MinDeadTime 0.5 us; GateHigh 10 V; Mode half-bridge",
+      "position": {
+        "breadboard": [
+          235,
+          50
+        ],
+        "schematic": [
+          235,
+          50
+        ],
+        "pcb": [
+          235,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "bridge",
+      "libraryId": "active.mosfet-half-bridge-ideal",
+      "reference": "Q1",
+      "value": "RdsOn 0.08 Ω; MaxVoltage 30 V; MaxCurrent 5 A; Mode half-bridge",
+      "position": {
+        "breadboard": [
+          365,
+          50
+        ],
+        "schematic": [
+          365,
+          50
+        ],
+        "pcb": [
+          365,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "8 Ω",
+      "position": {
+        "breadboard": [
+          465,
+          50
+        ],
+        "schematic": [
+          465,
+          50
+        ],
+        "pcb": [
+          465,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.half-bridge-report",
+      "reference": "SCOPE1",
+      "value": "Half-bridge gate timing report",
+      "position": {
+        "breadboard": [
+          550,
+          50
+        ],
+        "schematic": [
+          550,
+          50
+        ],
+        "pcb": [
+          550,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "bus:+",
+        "bridge:VIN",
+        "driver:VCC",
+        "bridge:VCC",
+        "pwm:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "bus:-",
+        "driver:GND",
+        "bridge:GND",
+        "pwm:GND",
+        "report:GND",
+        "load:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "PWMH",
+      "endpoints": [
+        "pwm:GH_CMD",
+        "driver:PWMH"
+      ]
+    },
+    {
+      "id": "PWML",
+      "endpoints": [
+        "pwm:GL_CMD",
+        "driver:PWML"
+      ]
+    },
+    {
+      "id": "GATE_H",
+      "endpoints": [
+        "driver:GH",
+        "bridge:GH"
+      ]
+    },
+    {
+      "id": "GATE_L",
+      "endpoints": [
+        "driver:GL",
+        "bridge:GL"
+      ]
+    },
+    {
+      "id": "SW",
+      "endpoints": [
+        "bridge:SW",
+        "report:SW",
+        "load:1"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "driver:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}
