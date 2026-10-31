@@ -376,7 +376,7 @@ export function runSupportedAnalysis(project) {
     && project.components.every((item) => ["power.dc-source", "power.dc-current-source", "passive.resistor", "ground.signal"].includes(item.libraryId))) {
     return analyseMultiSourceResistiveNetwork(project, { sources: source, currentSources: currentSource, resistors: resistor, ground: ground[0], validation });
   }
-  return { state: "unsupported", message: "This foundation supports only the documented analytical DC circuits, single-pole RC/RL step responses, and first-order RC/RL low-pass or RC high-pass frequency responses. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
+  return { state: "unsupported", message: "This foundation supports only documented analytical DC circuits, linear resistor networks with ideal voltage/current sources, single-pole RC/RL step responses, and first-order RC/RL low-pass or RC high-pass frequency responses. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
 }
 
 function analyseRlStep(project, { source, resistor, inductor, ground, validation }) {
