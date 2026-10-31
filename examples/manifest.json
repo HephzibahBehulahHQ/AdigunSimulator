@@ -7548,6 +7548,19 @@
           "privacy": "No external AI service or web lookup."
         }
       }
+    },
+    {
+      "id": "196-bot-floating-node-repair-preview",
+      "title": "Adigun BOT floating-node repair preview",
+      "status": "in-review",
+      "objective": "Diagnose a capacitor-isolated DC floating node and build a separately validated 1 MΩ bleed-path preview; require explicit confirmation and reject stale previews before any project mutation.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue BOT repair preview validates a separate candidate, leaves project unchanged on cancel, requires confirmation, and rejects stale changes",
+      "testId": "core-bot-floating-node-repair-preview",
+      "projectFile": "examples/196-bot-floating-node-repair-preview.adigun.json",
+      "readmeFile": "examples/196-bot-floating-node-repair-preview/README.md",
+      "safetyNote": "The 1 MΩ bleed value is an illustrative candidate only; check signal loading and circuit intent. Preview does not silently edit or certify a physical design.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }

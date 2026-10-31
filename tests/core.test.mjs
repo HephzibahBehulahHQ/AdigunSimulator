@@ -62,6 +62,7 @@ import { calculateOpAmpGain, runOpAmpGainCalculator } from "../js/op-amp-gain-ca
 import { calculatePcbTraceWidth, runPcbTraceWidthAdvisor } from "../js/pcb-trace-width-advisor.mjs";
 import { buildBomReport, exportBomCsv, runBomExportPlaceholder } from "../js/bom-report.mjs";
 import { explainComponent, runBotComponentExplainer } from "../js/bot-component-explainer.mjs";
+import { applyBotFloatingNodeRepairPreview, buildBotFloatingNodeRepairPreview, runBotFloatingNodeRepair } from "../js/bot-floating-node-repair.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1494,7 +1495,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 205);
+  assert.equal(getExampleCoverage(registry).total, 206);
   assert.equal(getExampleCoverage(registry).released, 195);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 5);
@@ -4632,4 +4633,15 @@ test("catalogue Adigun BOT component explainer cites source fields and discloses
   assert.match(result.message,/no external AI or web lookup/i);
   assert.equal(explainComponent(project,"missing-reference").ok,false);
   const unsupported=structuredClone(project);unsupported.components[1].libraryId="unverified.part";assert.equal(explainComponent(unsupported,"R1").ok,false);
+});
+test("catalogue BOT floating-node repair preview validates separately and requires confirmation", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/196-bot-floating-node-repair-preview.adigun.json",import.meta.url)));
+  const before=JSON.stringify(project);const result=runBotFloatingNodeRepair(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"bot-floating-node-repair-preview");assert.equal(result.result.validationValid,true);assert.equal(result.result.applied,false);
+  assert.equal(JSON.stringify(project),before);assert.equal(result.preview.candidate.components.length,project.components.length+1);
+  assert.equal(result.preview.proposal.value,"1 MΩ");assert.equal(result.preview.proposal.from,"FLOATING");assert.equal(result.preview.proposal.to,"GND");
+  assert.equal(applyBotFloatingNodeRepairPreview(project,result.preview,{confirmed:false}).applied,false);assert.equal(JSON.stringify(project),before);
+  const accepted=applyBotFloatingNodeRepairPreview(project,result.preview,{confirmed:true});assert.equal(accepted.applied,true);assert.equal(accepted.project.components.length,project.components.length+1);
+  const changed=structuredClone(project);changed.metadata.name+=" edited";const stale=applyBotFloatingNodeRepairPreview(changed,result.preview,{confirmed:true});assert.equal(stale.applied,false);assert.equal(stale.project,changed);
+  assert.equal(validateProject(accepted.project).valid,true);
 });
