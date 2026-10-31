@@ -1485,7 +1485,7 @@ function analyseUartTransmitter(project,{source,transmitter,resistor,led,ground,
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),supplyNet=n(transmitter,"VCC"),sourceVoltage=n(source,"+")===supplyNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
   const txNet=n(transmitter,"TX"),ledPath=(n(resistor,"1")===txNet&&n(resistor,"2")===n(led,"A"))||(n(resistor,"2")===txNet&&n(resistor,"1")===n(led,"A"));
-  const config=String(transmitter.value),byteMatch=config.match(/\\bByte\\s+(0x[0-9a-f]+|\\d+)/i),baudMatch=config.match(/\\bBaud\\s+(\\d+(?:\\.\\d+)?)/i);
+  const config=String(transmitter.value),byteMatch=config.match(/\bByte\s+(0x[0-9a-f]+|\d+)/i),baudMatch=config.match(/\bBaud\s+(\d+(?:\.\d+)?)/i);
   const byteText=byteMatch?.[1],byteValue=byteText?(byteText.toLowerCase().startsWith("0x")?parseInt(byteText.slice(2),16):Number(byteText)):Number.NaN,baud=baudMatch?Number(baudMatch[1]):Number.NaN;
   const resistance=resistanceValue(resistor.value),forwardV=forwardVoltage(led.value);
   if(!Number.isFinite(sourceVoltage)||sourceVoltage<=0||n(transmitter,"GND")!==groundNet||n(led,"K")!==groundNet||!ledPath||!Number.isInteger(byteValue)||byteValue<0||byteValue>255||!Number.isFinite(baud)||baud<300||baud>1000000||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(forwardV)||forwardV<=0){
