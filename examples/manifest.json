@@ -6970,7 +6970,7 @@
     {
       "id": "181-breadboard-schematic-sync",
       "title": "Breadboard-to-schematic sync",
-      "status": "in-review",
+      "status": "released",
       "objective": "Apply a valid LED wiring change through the shared breadboard project graph and verify the schematic structural projection preserves identical component instance IDs, net IDs, and endpoints.",
       "acceptanceTest": "tests/core.test.mjs: catalogue breadboard wiring synchronizes component and net identities into schematic projection",
       "testId": "core-breadboard-schematic-sync",
@@ -6978,7 +6978,25 @@
       "readmeFile": "examples/181-breadboard-schematic-sync/README.md",
       "safetyNote": "Structural sync check only. It verifies shared graph identity and does not validate physical breadboard wiring, electrical operation, or geometric placement.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 181,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41213280173",
+        "headRevision": "78d523f45b18a7b3748cccf788538bb244488fc5",
+        "engine": "Shared canonical component/net graph projection",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "breadboard-schematic-structural-sync-v1",
+        "expectedResult": {
+          "kind": "breadboard-schematic-structural-sync",
+          "componentCount": 4,
+          "netCount": 3,
+          "structurallyEqual": true,
+          "componentIdsPreserved": true,
+          "layoutSync": false
+        }
+      }
     }
   ]
 }
