@@ -323,6 +323,16 @@ export function createLedCurrentLimiterProject({ name = "LED Current Limiter", s
       { id: "LED_A", endpoints: ["resistor-1:2", "led-1:A"] },
       { id: "GND", endpoints: ["led-1:K", "source-1:-", "ground-1:0"] }
     ],
+    breadboard: {
+      model: "generic-400-30",
+      pinHoles: {
+        "source-1:+": "TP2", "source-1:-": "BM2",
+        "resistor-1:1": "A5", "resistor-1:2": "A10",
+        "led-1:A": "C10", "led-1:K": "A15",
+        "ground-1:0": "BM10"
+      },
+      jumpers: [{ from: "TP2", to: "A5" }, { from: "A15", to: "BM15" }]
+    },
     history: []
   };
 }

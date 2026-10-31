@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { findLibraryPart } from "../js/core.mjs";
+import { createProject, findLibraryPart, parseProject, serializeProject } from "../js/core.mjs";
 import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHoleIds, breadboardHolePoint, normalizeBreadboardHole, validateBreadboardTopology } from "../js/breadboard-topology.mjs";
 
 const getPartPins = libraryId => findLibraryPart(libraryId)?.pins ?? [];
@@ -59,4 +59,13 @@ test("checked-in STM32 PWM fixture carries real-hole placements and validates wi
   assert.equal(result.state, "complete");
   assert.equal(result.nets.length, 4);
   assert.equal(JSON.stringify(project.nets), before);
+});
+
+test("default starter includes persistent physical breadboard mapping", () => {
+  const project = createProject();
+  const parsed = parseProject(serializeProject(project));
+  const result = validateBreadboardTopology(parsed, {getPartPins});
+  assert.equal(result.state, "complete");
+  assert.equal(result.mappedPinCount, 7);
+  assert.deepEqual(parsed.breadboard, project.breadboard);
 });
