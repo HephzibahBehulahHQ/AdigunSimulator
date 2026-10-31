@@ -1566,14 +1566,50 @@
     {
       "id": "041-and-gate-truth-table",
       "title": "Two-input AND gate truth table",
-      "status": "in-review",
+      "status": "released",
       "objective": "Exercise an ideal five-volt two-input AND gate for all four static input vectors and drive a red LED through 330 Ω; test the truth table, threshold, and output current.",
       "acceptanceTest": "tests/core.test.mjs: catalogue AND gate matches all input vectors and drives a current-limited LED; blocks out-of-range input and broken LED wiring",
       "testId": "core-and-gate-truth-table",
       "projectFile": "examples/041-and-gate-truth-table.adigun.json",
       "safetyNote": "Generic ideal static AND-gate model, not a manufacturer-specific 74xx device. It uses a 50% supply threshold and ideal rail-to-rail output. It omits propagation delay, output drive limits, input leakage, real logic-family thresholds, switching noise, and part ratings.",
       "scope": "catalogue",
-      "catalogueIndex": 41
+      "catalogueIndex": 41,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41172827850",
+        "headRevision": "9f8339d513eac6dfcad29f452aa5f338242675d3",
+        "engine": "Ideal static two-input AND truth-table estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-and-gate-truth-table-v1",
+        "expectedResult": {
+          "supplyVoltage": 5,
+          "logicThresholdV": 2.5,
+          "truthTable": [
+            {
+              "a": 0,
+              "b": 0,
+              "y": 0
+            },
+            {
+              "a": 0,
+              "b": 5,
+              "y": 0
+            },
+            {
+              "a": 5,
+              "b": 0,
+              "y": 0
+            },
+            {
+              "a": 5,
+              "b": 5,
+              "y": 5
+            }
+          ],
+          "ledCurrentWhenHighA": 0.00909090909090909
+        }
+      }
     }
   ]
 }
