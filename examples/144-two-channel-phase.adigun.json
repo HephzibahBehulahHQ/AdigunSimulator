@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-144-two-channel-phase",
+  "metadata": {
+    "name": "Two-channel 90 degree phase measurement",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          60,
+          80
+        ],
+        "schematic": [
+          60,
+          80
+        ],
+        "pcb": [
+          60,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "pwm-1",
+      "libraryId": "power.pwm-source",
+      "reference": "PWM1",
+      "value": "1 kHz, 50%, 5 V",
+      "position": {
+        "breadboard": [
+          150,
+          80
+        ],
+        "schematic": [
+          150,
+          80
+        ],
+        "pcb": [
+          150,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "mosfet-1",
+      "libraryId": "active.nmos-switch",
+      "reference": "Q1",
+      "value": "Vth 2.0 V",
+      "position": {
+        "breadboard": [
+          240,
+          80
+        ],
+        "schematic": [
+          240,
+          80
+        ],
+        "pcb": [
+          240,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          330,
+          80
+        ],
+        "schematic": [
+          330,
+          80
+        ],
+        "pcb": [
+          330,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          420,
+          80
+        ],
+        "schematic": [
+          420,
+          80
+        ],
+        "pcb": [
+          420,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          510,
+          80
+        ],
+        "schematic": [
+          510,
+          80
+        ],
+        "pcb": [
+          510,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "resistor-1:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "resistor-1:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "LED_K",
+      "endpoints": [
+        "led-1:K",
+        "mosfet-1:D"
+      ]
+    },
+    {
+      "id": "GATE",
+      "endpoints": [
+        "pwm-1:+",
+        "mosfet-1:G"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source-1:-",
+        "pwm-1:-",
+        "mosfet-1:S",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": [],
+  "phaseScope": {
+    "channelA": {
+      "frequencyHz": 1000,
+      "amplitudeV": 1,
+      "offsetV": 0,
+      "phaseDeg": 0
+    },
+    "channelB": {
+      "frequencyHz": 1000,
+      "amplitudeV": 1,
+      "offsetV": 0,
+      "phaseDeg": 90
+    },
+    "timeRangeCycles": 2,
+    "sampleCount": 201
+  }
+}
