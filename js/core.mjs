@@ -73,6 +73,13 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.led-bargraph-10seg-ideal", category: "Output", type: "Ideal 10-segment LED bargraph behavior sink", prefix: "LED", pins: ["IN0", "IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "IN9", "VCC", "GND"], defaultValue: "Segments 10; Mode bar", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.ir-nec-frame", category: "Inputs", type: "Ideal NEC-like optical timing fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000", simulation: "fixture-ir-nec-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "sensor.ir-receiver-ideal", category: "Sensors", type: "Ideal 38 kHz IR demodulator behavior model", prefix: "IR", pins: ["SIG", "VCC", "GND", "OUT"], defaultValue: "CarrierHz 38000; Output demodulated active-low", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.rs485-poll-fixture", category: "Inputs", type: "Ideal addressed RS-485 poll fixture", prefix: "POLL", pins: ["OUT", "GND"], defaultValue: "Address 0x02; Baud 9600", simulation: "fixture-rs485-poll", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.rs485-master-ideal", category: "Active", type: "Generic RS-485 master MCU behavior model", prefix: "U", pins: ["POLL", "TX", "RX", "DE", "RE", "VCC", "GND"], defaultValue: "Role master; PollAddress 0x02; Baud 9600; DriverPolicy master-then-addressed", simulation: "analytical-rs485-poll", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.rs485-sensor-node-ideal", category: "Active", type: "Generic addressed RS-485 sensor-node behavior model", prefix: "U", pins: ["SENSOR", "TX", "RX", "DE", "RE", "VCC", "GND"], defaultValue: "Address 0x01; Baud 9600; EnablePolicy addressed-only", simulation: "analytical-rs485-poll", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.rs485-transceiver-ideal", category: "Active", type: "Ideal half-duplex RS-485 transceiver model", prefix: "XCVR", pins: ["DI", "RO", "DE", "RE", "A", "B", "VCC", "GND"], defaultValue: "Role sensor-1; BusMode half-duplex; Baud 9600", simulation: "analytical-rs485-poll", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.rs485-termination", category: "Passive", type: "RS-485 bus-end termination resistor", prefix: "RT", pins: ["1", "2"], defaultValue: "120 Ω", simulation: "analytical-rs485-poll", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "sensor.rs485-temperature-ideal", category: "Sensors", type: "Ideal RS-485 node temperature value source", prefix: "S", pins: ["DATA", "VCC", "GND"], defaultValue: "TemperatureC 21.5", simulation: "analytical-rs485-poll", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.rs485-poll-display", category: "Output", type: "Ideal addressed-poll response status sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Address and sensor response", simulation: "analytical-rs485-poll", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.can-frame-fixture", category: "Inputs", type: "Ideal CAN frame fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Identifier 0x123; DLC 2; Data DE AD; Bitrate 500000", simulation: "fixture-can-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.can-node-ideal", category: "Active", type: "Generic CAN MCU behavior model", prefix: "U", pins: ["FRAME", "TX", "RX", "VCC", "GND"], defaultValue: "Role transmit; FilterId 0x123", simulation: "analytical-can-node-pair", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.can-transceiver-ideal", category: "Active", type: "Ideal CAN transceiver model", prefix: "XCVR", pins: ["TXD", "RXD", "CANH", "CANL", "VCC", "GND"], defaultValue: "Mode normal", simulation: "analytical-can-node-pair", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -481,6 +488,13 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const canTransceivers = project.components.filter((item) => item.libraryId === "active.can-transceiver-ideal");
   const canTerminations = project.components.filter((item) => item.libraryId === "passive.can-termination");
   const canDisplays = project.components.filter((item) => item.libraryId === "output.can-frame-display");
+  const rs485Polls = project.components.filter((item) => item.libraryId === "input.rs485-poll-fixture");
+  const rs485Masters = project.components.filter((item) => item.libraryId === "active.rs485-master-ideal");
+  const rs485Nodes = project.components.filter((item) => item.libraryId === "active.rs485-sensor-node-ideal");
+  const rs485Transceivers = project.components.filter((item) => item.libraryId === "active.rs485-transceiver-ideal");
+  const rs485Terminations = project.components.filter((item) => item.libraryId === "passive.rs485-termination");
+  const rs485Sensors = project.components.filter((item) => item.libraryId === "sensor.rs485-temperature-ideal");
+  const rs485Displays = project.components.filter((item) => item.libraryId === "output.rs485-poll-display");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -551,6 +565,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (picControllers.length === 1 && adcPotentiometers.length === 1 && ledBargraphs.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePicAdcBargraph(project, { source: source[0], potentiometer: adcPotentiometers[0], pic: picControllers[0], bargraph: ledBargraphs[0], ground: ground[0], validation });
+  }
+  if (rs485Polls.length === 1 && rs485Masters.length === 1 && rs485Nodes.length === 2 && rs485Transceivers.length === 3 && rs485Terminations.length === 2 && rs485Sensors.length === 2 && rs485Displays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 14) {
+    return analyseRs485PollNetwork(project, { source: source[0], poll: rs485Polls[0], master: rs485Masters[0], nodes: rs485Nodes, transceivers: rs485Transceivers, terminations: rs485Terminations, sensors: rs485Sensors, display: rs485Displays[0], ground: ground[0], validation });
   }
   if (canFrames.length === 1 && canNodes.length === 2 && canTransceivers.length === 2 && canTerminations.length === 2 && canDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 10) {
     return analyseCanNodePair(project, { source: source[0], frame: canFrames[0], nodes: canNodes, transceivers: canTransceivers, terminations: canTerminations, display: canDisplays[0], ground: ground[0], validation });
@@ -1635,6 +1652,34 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const adcCount=Math.round(position*1023/100),illuminatedSegments=Math.min(10,Math.floor(adcCount*10/1023));
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
+}
+function analyseRs485PollNetwork(project,{source,poll,master,nodes,transceivers,terminations,sensors,display,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const addressValue=value=>/^0x[0-9a-f]{1,2}$/i.test(value??"")?Number.parseInt(value,16):Number.NaN;
+  const masterFields=fields(master.value),pollFields=fields(poll.value),pollAddress=addressValue(field(masterFields,"PollAddress")),fixtureAddress=addressValue(field(pollFields,"Address")),baud=Number(field(masterFields,"Baud"));
+  const nodeRecords=nodes.map(node=>{const nodeFields=fields(node.value),address=addressValue(field(nodeFields,"Address")),nodeBaud=Number(field(nodeFields,"Baud")),sensor=sensors.find(item=>n(node,"SENSOR")===n(item,"DATA")),xcvr=transceivers.find(item=>n(node,"TX")===n(item,"DI")&&n(node,"RX")===n(item,"RO"));return{node,address,nodeBaud,sensor,xcvr,fields:nodeFields};});
+  const masterXcvr=transceivers.find(item=>n(master,"TX")===n(item,"DI")&&n(master,"RX")===n(item,"RO"));
+  const nodeAddresses=nodeRecords.map(item=>item.address),uniqueAddresses=new Set(nodeAddresses);
+  const target=nodeRecords.find(item=>item.address===pollAddress),allParts=[master,...nodes,...transceivers,...sensors,display];
+  const groundNet=n(ground,"0"),vccNet=n(master,"VCC"),sourceVoltage=voltageValue(source.value);
+  const powered=n(source,"+")===vccNet&&n(source,"-")===groundNet&&allParts.every(part=>n(part,"VCC")===vccNet&&n(part,"GND")===groundNet)&&n(poll,"GND")===groundNet;
+  const busANets=transceivers.map(item=>n(item,"A")),busBNets=transceivers.map(item=>n(item,"B"));
+  const busConnected=busANets[0]&&busANets.every(net=>net===busANets[0])&&busBNets[0]&&busBNets.every(net=>net===busBNets[0])&&busANets[0]!==busBNets[0];
+  const terminationsConnected=busConnected&&terminations.every(item=>{const a=n(item,"1"),b=n(item,"2");return(a===busANets[0]&&b===busBNets[0])||(b===busANets[0]&&a===busBNets[0]);});
+  const terminationValues=terminations.map(item=>resistanceValue(item.value)),busTerminationOhm=terminationValues.every(value=>Number.isFinite(value)&&value>0)?1/terminationValues.reduce((sum,value)=>sum+1/value,0):Number.NaN;
+  const masterWiring=masterXcvr&&n(poll,"OUT")===n(master,"POLL")&&n(master,"TX")===n(masterXcvr,"DI")&&n(masterXcvr,"RO")===n(master,"RX")&&n(master,"DE")===n(masterXcvr,"DE")&&n(master,"RE")===n(masterXcvr,"RE");
+  const nodesWired=nodeRecords.every(item=>item.sensor&&item.xcvr&&n(item.node,"TX")===n(item.xcvr,"DI")&&n(item.xcvr,"RO")===n(item.node,"RX")&&n(item.node,"DE")===n(item.xcvr,"DE")&&n(item.node,"RE")===n(item.xcvr,"RE"));
+  const transceiverSettings=transceivers.every(item=>{const f=fields(item.value);return field(f,"BusMode")==="half-duplex"&&Number(field(f,"Baud"))===baud;});
+  const driversAddressed=masterFields.includes("DriverPolicy master-then-addressed")&&nodeRecords.every(item=>field(item.fields,"EnablePolicy")==="addressed-only");
+  const sensorValues=nodeRecords.map(item=>Number(field(fields(item.sensor?.value),"TemperatureC")));
+  const responseWired=target&&n(target.node,"RX")===n(display,"DATA");
+  if(!Number.isFinite(sourceVoltage)||sourceVoltage<=0||!powered||!masterWiring||!nodesWired||!busConnected||!terminationsConnected||!transceiverSettings||!driversAddressed||!Number.isInteger(pollAddress)||fixtureAddress!==pollAddress||!Number.isInteger(baud)||baud<1200||baud>1000000||nodeRecords.length!==2||nodeRecords.some(item=>!Number.isInteger(item.address)||item.address<1||item.address>247||item.nodeBaud!==baud)||uniqueAddresses.size!==2||!target||!target.sensor||!Number.isFinite(sensorValues[nodeRecords.indexOf(target)])||!responseWired||!Number.isFinite(busTerminationOhm)||busTerminationOhm<55||busTerminationOhm>65){
+    return {state:"blocked",message:"Power the master, both addressed sensor nodes, transceivers, and display; wire the poll, TX/RX and driver-enable controls; connect every transceiver to the same A/B pair; use unique 1–247 node addresses, matching baud rates, a poll for one existing node, and two 120 Ω bus-end terminators.",validation};
+  }
+  const temperatureC=sensorValues[nodeRecords.indexOf(target)],address="0x"+pollAddress.toString(16).padStart(2,"0").toUpperCase(),displayText="Address "+address+" → "+temperatureC.toFixed(1)+" °C; other node silent";
+  return {state:"complete",engine:"Ideal addressed half-duplex RS-485 polling model",message:"Schedules one master request followed by only the uniquely addressed sensor node's response and checks the combined end termination. This deterministic logical model does not implement Modbus framing, MCU firmware, UART sampling, bias-network idle levels, transceiver enable delays, cable effects, or physical-layer faults.",result:{kind:"rs485-addressed-poll",baud,pollAddress:address,respondingAddress:address,temperatureC,respondingNodes:1,silentNodes:1,simultaneousDrivers:0,collisionAvoidance:"unique addresses; master then addressed node",terminationResistorsOhm:terminationValues,busTerminationOhm,displayText,firmwareExecuted:false},validation};
 }
 function analyseCanNodePair(project,{source,frame,nodes,transceivers,terminations,display,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);

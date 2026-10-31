@@ -1,0 +1,453 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-075-rs485-sensor-network",
+  "metadata": {
+    "name": "Addressed RS-485 Temperature Sensor Network",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          30,
+          55
+        ],
+        "schematic": [
+          30,
+          55
+        ],
+        "pcb": [
+          30,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "poll",
+      "libraryId": "input.rs485-poll-fixture",
+      "reference": "POLL1",
+      "value": "Address 0x02; Baud 9600",
+      "position": {
+        "breadboard": [
+          95,
+          55
+        ],
+        "schematic": [
+          95,
+          55
+        ],
+        "pcb": [
+          95,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "master",
+      "libraryId": "active.rs485-master-ideal",
+      "reference": "U1",
+      "value": "Role master; PollAddress 0x02; Baud 9600; DriverPolicy master-then-addressed",
+      "position": {
+        "breadboard": [
+          165,
+          55
+        ],
+        "schematic": [
+          165,
+          55
+        ],
+        "pcb": [
+          165,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "master-xcvr",
+      "libraryId": "active.rs485-transceiver-ideal",
+      "reference": "XCVR1",
+      "value": "Role master; BusMode half-duplex; Baud 9600",
+      "position": {
+        "breadboard": [
+          255,
+          55
+        ],
+        "schematic": [
+          255,
+          55
+        ],
+        "pcb": [
+          255,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "node-1",
+      "libraryId": "active.rs485-sensor-node-ideal",
+      "reference": "U2",
+      "value": "Address 0x01; Baud 9600; EnablePolicy addressed-only",
+      "position": {
+        "breadboard": [
+          350,
+          50
+        ],
+        "schematic": [
+          350,
+          50
+        ],
+        "pcb": [
+          350,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "xcvr-1",
+      "libraryId": "active.rs485-transceiver-ideal",
+      "reference": "XCVR2",
+      "value": "Role sensor-1; BusMode half-duplex; Baud 9600",
+      "position": {
+        "breadboard": [
+          445,
+          50
+        ],
+        "schematic": [
+          445,
+          50
+        ],
+        "pcb": [
+          445,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "sensor-1",
+      "libraryId": "sensor.rs485-temperature-ideal",
+      "reference": "S1",
+      "value": "TemperatureC 21.5",
+      "position": {
+        "breadboard": [
+          535,
+          50
+        ],
+        "schematic": [
+          535,
+          50
+        ],
+        "pcb": [
+          535,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "node-2",
+      "libraryId": "active.rs485-sensor-node-ideal",
+      "reference": "U3",
+      "value": "Address 0x02; Baud 9600; EnablePolicy addressed-only",
+      "position": {
+        "breadboard": [
+          350,
+          135
+        ],
+        "schematic": [
+          350,
+          135
+        ],
+        "pcb": [
+          350,
+          135
+        ]
+      }
+    },
+    {
+      "instanceId": "xcvr-2",
+      "libraryId": "active.rs485-transceiver-ideal",
+      "reference": "XCVR3",
+      "value": "Role sensor-2; BusMode half-duplex; Baud 9600",
+      "position": {
+        "breadboard": [
+          445,
+          135
+        ],
+        "schematic": [
+          445,
+          135
+        ],
+        "pcb": [
+          445,
+          135
+        ]
+      }
+    },
+    {
+      "instanceId": "sensor-2",
+      "libraryId": "sensor.rs485-temperature-ideal",
+      "reference": "S2",
+      "value": "TemperatureC 24.6",
+      "position": {
+        "breadboard": [
+          535,
+          135
+        ],
+        "schematic": [
+          535,
+          135
+        ],
+        "pcb": [
+          535,
+          135
+        ]
+      }
+    },
+    {
+      "instanceId": "term-1",
+      "libraryId": "passive.rs485-termination",
+      "reference": "RT1",
+      "value": "120 Ω",
+      "position": {
+        "breadboard": [
+          255,
+          225
+        ],
+        "schematic": [
+          255,
+          225
+        ],
+        "pcb": [
+          255,
+          225
+        ]
+      }
+    },
+    {
+      "instanceId": "term-2",
+      "libraryId": "passive.rs485-termination",
+      "reference": "RT2",
+      "value": "120 Ω",
+      "position": {
+        "breadboard": [
+          480,
+          225
+        ],
+        "schematic": [
+          480,
+          225
+        ],
+        "pcb": [
+          480,
+          225
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "output.rs485-poll-display",
+      "reference": "DISP1",
+      "value": "Addressed poll response",
+      "position": {
+        "breadboard": [
+          575,
+          160
+        ],
+        "schematic": [
+          575,
+          160
+        ],
+        "pcb": [
+          575,
+          160
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          250
+        ],
+        "schematic": [
+          605,
+          250
+        ],
+        "pcb": [
+          605,
+          250
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "master:VCC",
+        "node-1:VCC",
+        "node-2:VCC",
+        "master-xcvr:VCC",
+        "xcvr-1:VCC",
+        "xcvr-2:VCC",
+        "sensor-1:VCC",
+        "sensor-2:VCC",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "poll:GND",
+        "master:GND",
+        "node-1:GND",
+        "node-2:GND",
+        "master-xcvr:GND",
+        "xcvr-1:GND",
+        "xcvr-2:GND",
+        "sensor-1:GND",
+        "sensor-2:GND",
+        "display:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "POLL",
+      "endpoints": [
+        "poll:OUT",
+        "master:POLL"
+      ]
+    },
+    {
+      "id": "M_TX",
+      "endpoints": [
+        "master:TX",
+        "master-xcvr:DI"
+      ]
+    },
+    {
+      "id": "M_RX",
+      "endpoints": [
+        "master-xcvr:RO",
+        "master:RX"
+      ]
+    },
+    {
+      "id": "M_DE",
+      "endpoints": [
+        "master:DE",
+        "master-xcvr:DE"
+      ]
+    },
+    {
+      "id": "M_RE",
+      "endpoints": [
+        "master:RE",
+        "master-xcvr:RE"
+      ]
+    },
+    {
+      "id": "N1_SENSOR",
+      "endpoints": [
+        "node-1:SENSOR",
+        "sensor-1:DATA"
+      ]
+    },
+    {
+      "id": "N1_TX",
+      "endpoints": [
+        "node-1:TX",
+        "xcvr-1:DI"
+      ]
+    },
+    {
+      "id": "N1_RX",
+      "endpoints": [
+        "xcvr-1:RO",
+        "node-1:RX"
+      ]
+    },
+    {
+      "id": "N1_DE",
+      "endpoints": [
+        "node-1:DE",
+        "xcvr-1:DE"
+      ]
+    },
+    {
+      "id": "N1_RE",
+      "endpoints": [
+        "node-1:RE",
+        "xcvr-1:RE"
+      ]
+    },
+    {
+      "id": "N2_SENSOR",
+      "endpoints": [
+        "node-2:SENSOR",
+        "sensor-2:DATA"
+      ]
+    },
+    {
+      "id": "N2_TX",
+      "endpoints": [
+        "node-2:TX",
+        "xcvr-2:DI"
+      ]
+    },
+    {
+      "id": "N2_RX",
+      "endpoints": [
+        "xcvr-2:RO",
+        "node-2:RX",
+        "display:DATA"
+      ]
+    },
+    {
+      "id": "N2_DE",
+      "endpoints": [
+        "node-2:DE",
+        "xcvr-2:DE"
+      ]
+    },
+    {
+      "id": "N2_RE",
+      "endpoints": [
+        "node-2:RE",
+        "xcvr-2:RE"
+      ]
+    },
+    {
+      "id": "RS485_A",
+      "endpoints": [
+        "master-xcvr:A",
+        "xcvr-1:A",
+        "xcvr-2:A",
+        "term-1:1",
+        "term-2:1"
+      ]
+    },
+    {
+      "id": "RS485_B",
+      "endpoints": [
+        "master-xcvr:B",
+        "xcvr-1:B",
+        "xcvr-2:B",
+        "term-1:2",
+        "term-2:2"
+      ]
+    }
+  ],
+  "history": []
+}
