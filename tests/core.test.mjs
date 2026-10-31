@@ -2853,7 +2853,7 @@ test("catalogue three-cell BMS flags voltage faults and balance requests without
   const result=runSupportedAnalysis(project);
   assert.equal(result.state,"complete",result.message);
   assert.equal(result.result.kind,"bms-cell-monitor");
-  assert.equal(result.result.stackVoltageV,11.13);
+  assert.ok(Math.abs(result.result.stackVoltageV-11.13)<1e-12);
   assert.equal(result.result.faultState,"normal");
   assert.deepEqual(result.result.cellsToBalance,[]);
   assert.equal(result.result.balancingActuated,false);
