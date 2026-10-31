@@ -210,3 +210,68 @@ export function breadboardPackagePlacement(component, project) {
     leadSpanPixels: span
   };
 }
+
+export function deriveBreadboardSchematicNets(project, { getPartPins, model = BREADBOARD_MODEL } = {}) {
+  if (!project?.breadboard?.pinHoles) {
+    return { state: "incomplete", message: "Assign physical breadboard holes before synchronizing the schematic netlist.", errors: [], warnings: [{ code: "BREADBOARD_MAPPING_MISSING" }], nets: [], changed: false, mergedNetIds: [], splitNetIds: [] };
+  }
+  const report = validateBreadboardTopology(project, { getPartPins, model });
+  const errors = report.errors.filter((issue) => issue.code !== "BREADBOARD_SHORT");
+  if (errors.length) return { state: "blocked", message: "Resolve invalid component pin or jumper placements before synchronizing.", errors, warnings: report.warnings, nets: [], changed: false, mergedNetIds: [], splitNetIds: [] };
+  const unmapped = report.warnings.filter((issue) => issue.code === "BREADBOARD_NET_UNMAPPED");
+  if (unmapped.length) return { state: "incomplete", message: "Place every pin currently used by a schematic net before synchronizing.", errors: [], warnings: unmapped, nets: [], changed: false, mergedNetIds: [], splitNetIds: [] };
+
+  const sets = makeDisjointSet();
+  const pinHoles = project.breadboard.pinHoles;
+  for (const hole of Object.values(pinHoles)) sets.root(breadboardConnectionGroup(hole, model));
+  for (const jumper of project.breadboard.jumpers ?? []) {
+    const from = normalizeBreadboardHole(jumper?.from), to = normalizeBreadboardHole(jumper?.to);
+    if (from && to) sets.union(breadboardConnectionGroup(from, model), breadboardConnectionGroup(to, model));
+  }
+
+  const endpointOrder = new Map();
+  let order = 0;
+  for (const component of project.components ?? []) {
+    const pins = getPartPins(component.libraryId) ?? [];
+    for (const pin of pins) endpointOrder.set(`${component.instanceId}:${pin}`, order++);
+  }
+  const grouped = new Map();
+  for (const endpoint of Object.keys(pinHoles)) {
+    const root = sets.root(breadboardConnectionGroup(pinHoles[endpoint], model));
+    if (!grouped.has(root)) grouped.set(root, []);
+    grouped.get(root).push(endpoint);
+  }
+  const oldNetByEndpoint = new Map();
+  for (const net of project.nets ?? []) for (const endpoint of net.endpoints ?? []) oldNetByEndpoint.set(endpoint, net.id);
+  const physicalGroups = [...grouped.values()].filter((endpoints) => endpoints.length > 1);
+  for (const endpoints of physicalGroups) endpoints.sort((a, b) => (endpointOrder.get(a) ?? Number.MAX_SAFE_INTEGER) - (endpointOrder.get(b) ?? Number.MAX_SAFE_INTEGER) || a.localeCompare(b));
+  physicalGroups.sort((a, b) => (endpointOrder.get(a[0]) ?? Number.MAX_SAFE_INTEGER) - (endpointOrder.get(b[0]) ?? Number.MAX_SAFE_INTEGER) || a[0].localeCompare(b[0]));
+
+  const usedIds = new Set(), splitCounts = new Map(), mergedNetIds = [];
+  const nets = physicalGroups.map((endpoints, index) => {
+    const oldIds = [...new Set(endpoints.map((endpoint) => oldNetByEndpoint.get(endpoint)).filter(Boolean))];
+    if (oldIds.length > 1) mergedNetIds.push(...oldIds.slice(1));
+    const seed = oldIds[0] ?? `BB_${index + 1}`;
+    const splitNumber = splitCounts.get(seed) ?? 0;
+    splitCounts.set(seed, splitNumber + 1);
+    const requested = splitNumber ? `${seed}_BB${splitNumber + 1}` : seed;
+    let id = requested, suffix = 2;
+    while (usedIds.has(id)) id = `${requested}_${suffix++}`;
+    usedIds.add(id);
+    return { id, endpoints };
+  });
+  const splitNetIds = [...splitCounts].filter(([, count]) => count > 1).map(([id]) => id);
+  const normalize = (items) => JSON.stringify((items ?? []).map((net) => ({ id: net.id, endpoints: [...(net.endpoints ?? [])].sort() })).sort((a, b) => a.id.localeCompare(b.id)));
+  const changed = normalize(project.nets) !== normalize(nets);
+  return {
+    state: "complete",
+    message: changed ? "Physical wiring differs from the schematic. Review the proposed shared netlist before applying it." : "Physical breadboard connectivity matches the shared schematic netlist.",
+    errors: [],
+    warnings: report.warnings.filter((issue) => issue.code !== "BREADBOARD_SHORT"),
+    nets,
+    changed,
+    mergedNetIds: [...new Set(mergedNetIds)],
+    splitNetIds,
+    physicalNetCount: nets.length
+  };
+}
