@@ -56,6 +56,7 @@ import { cancelPartSubstitutionPreview, createPartSubstitutionPreview, runPinInc
 import { convertEngineeringUnit, runUnitConversionCalculator } from "../js/unit-conversion-calculator.mjs";
 import { readResistorBands, runResistorColorCodeReader } from "../js/resistor-color-code.mjs";
 import { calculateLedSeriesResistor, runLedResistorCalculator } from "../js/led-resistor-calculator.mjs";
+import { calculateVoltageDivider, runVoltageDividerCalculator } from "../js/voltage-divider-calculator.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1488,7 +1489,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 199);
+  assert.equal(getExampleCoverage(registry).total, 200);
   assert.equal(getExampleCoverage(registry).released, 189);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 11);
@@ -4556,4 +4557,14 @@ test("catalogue LED resistor calculator rounds upward to E12 and warns on resist
   assert.equal(power.recommendedResistanceOhms,560);assert.ok(power.warnings.some(warning=>warning.code==="RESISTOR_POWER_EXCEEDED"));assert.equal(result.result.powerWarningCount,1);
   assert.equal(calculateLedSeriesResistor({supplyVoltageV:2,ledForwardVoltageV:2,targetCurrentmA:10,resistorPowerRatingW:0.125}).ok,false);
   const invalid=structuredClone(project);invalid.ledResistorCalculator.cases[0].targetCurrentmA=0;assert.equal(runLedResistorCalculator(invalid).state,"blocked");
+});
+test("catalogue voltage-divider calculator reports unloaded ratio and load-shift warning", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/190-voltage-divider-calculator.adigun.json",import.meta.url)));
+  const result=runVoltageDividerCalculator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"voltage-divider-cases");assert.equal(result.result.loadingWarningCount,1);
+  const [open,light,heavy]=result.result.results;assert.equal(open.unloadedOutputV,6);assert.equal(open.loadedOutputV,6);assert.equal(open.loadingChangePercent,0);
+  assert.ok(Math.abs(light.loadedOutputV-5.714285714285714)<1e-9);assert.ok(light.loadingChangePercent<5);
+  assert.equal(heavy.loadedOutputV,4);assert.ok(heavy.loadingChangePercent>30);assert.ok(heavy.warnings.some(warning=>warning.code==="DIVIDER_LOADING"));
+  assert.equal(calculateVoltageDivider({inputVoltageV:12,resistanceTopOhms:0,resistanceBottomOhms:10000}).ok,false);
+  assert.equal(calculateVoltageDivider({inputVoltageV:12,resistanceTopOhms:10000,resistanceBottomOhms:10000,loadResistanceOhms:0}).ok,false);
+  const invalid=structuredClone(project);invalid.voltageDividerCalculator.cases[0].inputVoltageV=0;assert.equal(runVoltageDividerCalculator(invalid).state,"blocked");
 });
