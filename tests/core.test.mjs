@@ -2602,7 +2602,7 @@ test("catalogue guitar JFET buffer has high input impedance and bounded AC respo
   assert.ok(result.result.responsePoints[2].gainRatio>0.95&&result.result.responsePoints[2].gainRatio<1);
   assert.ok(result.result.responsePoints.every(point=>point.outputPeakV<0.1));
   assert.equal(runSupportedAnalysis(updateComponent(project,"buffer",{value:"Mode source follower; Rin 10 kΩ; Rout 100 Ω; Gain 0.98; Cin 100 pF"})).state,"blocked");
-  assert.equal(runSupportedAnalysis(updateComponent(project,"capacitor",{value:"0 F"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"coupling-capacitor",{value:"0 F"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="BUFFER_OUT").endpoints=["buffer:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
