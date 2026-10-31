@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-008-usb-powered-led",
+  "metadata": {
+    "name": "USB-Powered LED with PTC Warning",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "usb-1",
+      "libraryId": "power.usb-source",
+      "reference": "USB1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          70,
+          80
+        ],
+        "schematic": [
+          70,
+          80
+        ],
+        "pcb": [
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "fuse-1",
+      "libraryId": "protection.ptc-polyfuse",
+      "reference": "F1",
+      "value": "Ihold 0.5 A; Rcold 0.1 Ω",
+      "position": {
+        "breadboard": [
+          180,
+          80
+        ],
+        "schematic": [
+          180,
+          80
+        ],
+        "pcb": [
+          180,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          290,
+          80
+        ],
+        "schematic": [
+          290,
+          80
+        ],
+        "pcb": [
+          290,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          400,
+          80
+        ],
+        "schematic": [
+          400,
+          80
+        ],
+        "pcb": [
+          400,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          510,
+          80
+        ],
+        "schematic": [
+          510,
+          80
+        ],
+        "pcb": [
+          510,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "USB_VBUS",
+      "endpoints": [
+        "usb-1:+",
+        "fuse-1:1"
+      ]
+    },
+    {
+      "id": "FUSED_5V",
+      "endpoints": [
+        "fuse-1:2",
+        "resistor-1:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "resistor-1:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "led-1:K",
+        "usb-1:-",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}

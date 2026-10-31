@@ -5,6 +5,7 @@ const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistanc
 
 export const STARTER_LIBRARY = Object.freeze([
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "power.usb-source", category: "Power & Ground", type: "USB 5 V supply model", prefix: "USB", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.pwm-source", category: "Inputs", type: "PWM control source", prefix: "PWM", pins: ["+", "-"], defaultValue: "1 kHz, 50%, 5 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.dc-current-source", category: "Power & Ground", type: "DC current source (positive current flows from − to +)", prefix: "I", pins: ["+", "-"], defaultValue: "1 mA", simulation: "mna-linear-dc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.ac-source", category: "Power & Ground", type: "AC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "1 V", simulation: "analytical-rc-low-pass", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -21,6 +22,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge/ideal-latching-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.comparator-ideal", category: "Active", type: "Ideal low-battery comparator model", prefix: "U", pins: ["VCC", "GND", "SENSE", "OUT"], defaultValue: "Vref 3.75 V", simulation: "analytical-battery-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
@@ -362,6 +364,8 @@ export function runSupportedAnalysis(project) {
   const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
   const bridges = project.components.filter((item) => item.libraryId === "diode.bridge-ideal");
   const regulators = project.components.filter((item) => item.libraryId === "active.regulator-7805-ideal");
+  const usbSources = project.components.filter((item) => item.libraryId === "power.usb-source");
+  const ptcFuses = project.components.filter((item) => item.libraryId === "protection.ptc-polyfuse");
   const currentSource = project.components.filter((item) => item.libraryId === "power.dc-current-source");
   const acSource = project.components.filter((item) => item.libraryId === "power.ac-source");
   const resistor = project.components.filter((item) => item.libraryId === "passive.resistor");
@@ -372,6 +376,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (usbSources.length === 1 && ptcFuses.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseUsbLedPtc(project, { source: usbSources[0], fuse: ptcFuses[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+  }
   if (acSource.length === 1 && transformers.length === 1 && bridges.length === 1 && regulators.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analyseLinearSupply(project, { source: acSource[0], transformer: transformers[0], bridge: bridges[0], capacitor: capacitor[0], regulator: regulators[0], load: resistor[0], ground: ground[0], validation });
   }
@@ -552,6 +559,52 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
     engine: "Analytical ideal low-battery comparator and divider",
     message: "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
     result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
+    validation
+  };
+}
+
+function analyseUsbLedPtc(project, { source, fuse, resistor, led, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const ledVf = forwardVoltage(led.value);
+  const resistance = resistanceValue(resistor.value);
+  const fuseMatch = String(fuse.value).match(/Ihold\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*A[\s\S]*Rcold\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*Ω/i);
+  const holdCurrentA = fuseMatch ? Number(fuseMatch[1]) : Number.NaN;
+  const coldResistance = fuseMatch ? Number(fuseMatch[2]) : Number.NaN;
+  if (![sourceVoltage, ledVf, resistance, holdCurrentA, coldResistance].every(Number.isFinite)
+    || sourceVoltage <= 0 || ledVf <= 0 || resistance <= 0 || holdCurrentA <= 0 || coldResistance < 0) {
+    return { state: "blocked", message: "The USB LED model requires positive supply, LED, resistor, and PTC hold-current values; cold resistance cannot be negative.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const supplyNet = n(source, "+"), sourceReturn = n(source, "-");
+  const fuseInput = n(fuse, "1"), fuseOutput = n(fuse, "2");
+  const resistorInput = n(resistor, "1"), resistorOutput = n(resistor, "2");
+  const ledAnode = n(led, "A"), ledCathode = n(led, "K"), groundNet = n(ground, "0");
+  if (!supplyNet || supplyNet === groundNet || sourceReturn !== groundNet || fuseInput !== supplyNet
+    || !fuseOutput || fuseOutput === supplyNet || resistorInput !== fuseOutput
+    || !resistorOutput || resistorOutput !== ledAnode || ledCathode !== groundNet) {
+    return { state: "blocked", message: "Wire USB positive through the PTC, LED resistor, and LED to ground, with USB negative and signal ground on the same return.", validation };
+  }
+  const totalSeriesResistance = resistance + coldResistance;
+  const currentA = Math.max(0, (sourceVoltage - ledVf) / totalSeriesResistance);
+  const fuseVoltageDrop = currentA * coldResistance;
+  const resistorPowerW = currentA ** 2 * resistance;
+  const fusePowerW = currentA ** 2 * coldResistance;
+  const ledPowerW = currentA * ledVf;
+  const sourcePowerW = sourceVoltage * currentA;
+  const powerBalanceW = sourcePowerW - resistorPowerW - fusePowerW - ledPowerW;
+  const holdCurrentExceeded = currentA > holdCurrentA;
+  if (![currentA, fuseVoltageDrop, resistorPowerW, fusePowerW, ledPowerW, sourcePowerW, powerBalanceW].every(Number.isFinite)) {
+    return { state: "blocked", message: "The USB LED result exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical USB LED and cold-state PTC estimate",
+    message: holdCurrentExceeded
+      ? "The calculated cold-state current exceeds the configured PTC hold current. This flags an overload risk only; PTC heating, trip time, resistance rise, reset behavior, and USB port response are not simulated."
+      : "Calculated a low-voltage USB LED branch using the configured PTC cold resistance. PTC heating, trip time, resistance rise, reset behavior, USB port behavior, component tolerance, thermal effects, device ratings, and general SPICE are not simulated.",
+    result: { kind: "usb-led-ptc", sourceVoltage, ledVf, resistance, holdCurrentA, coldResistance, currentA, fuseVoltageDrop, holdCurrentExceeded, overloadWarning: holdCurrentExceeded, fuseTripPredicted: false, resistorPowerW, fusePowerW, ledPowerW, sourcePowerW, powerBalanceW },
     validation
   };
 }
