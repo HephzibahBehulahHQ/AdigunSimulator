@@ -196,6 +196,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.solar-iv-curve-fixture", category: "Inputs", type: "Solar I-V curve fixture", prefix: "PV", pins: ["PV+", "PV-", "VCC", "GND"], defaultValue: "Voc 10 V; Isc 1 A; Vmp 8 V; Imp 0.9 A; Irradiance 100%; Mode piecewise-linear", simulation: "fixture-solar-iv", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.solar-mpp-sweep-ideal", category: "Active", type: "Ideal static solar maximum-power sweep", prefix: "U", pins: ["PV+", "PV-", "VCC", "GND", "REPORT"], defaultValue: "Mode sweep; Samples 20; Efficiency 95%; MaxVoc 24 V; MaxCurrent 5 A", simulation: "analytical-solar-mpp", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.solar-mpp-report", category: "Output", type: "Solar curve sweep and MPP report", prefix: "SCOPE", pins: ["REPORT", "VCC", "GND"], defaultValue: "Maximum-power report", simulation: "analytical-solar-mpp", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.usb-c-pd-source-fixture", category: "Inputs", type: "USB-C PD source profile fixture", prefix: "USBC", pins: ["VBUS", "CC1", "CC2", "VCC", "GND"], defaultValue: "Profiles 5,9,12 V; Requested 12 V; Fault none; Mode pd-source", simulation: "fixture-usbc-pd", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.usb-c-pd-sink-policy-ideal", category: "Active", type: "Ideal USB-C sink profile policy", prefix: "U", pins: ["VBUS_IN", "CC1", "CC2", "VBUS_OUT", "STATUS", "VCC", "GND"], defaultValue: "Preferred 12 V; MaxVoltage 20 V; MaxCurrent 1.5 A; Fallback 5 V; Mode sink-policy", simulation: "analytical-usbc-pd-sink", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.usb-c-pd-contract-report", category: "Output", type: "USB-C PD contract and load report", prefix: "SCOPE", pins: ["VBUS", "STATUS", "VCC", "GND"], defaultValue: "USB-C sink contract report", simulation: "analytical-usbc-pd-sink", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -702,6 +705,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const solarCurveFixtures = project.components.filter((item) => item.libraryId === "input.solar-iv-curve-fixture");
   const solarMppControllers = project.components.filter((item) => item.libraryId === "active.solar-mpp-sweep-ideal");
   const solarMppReports = project.components.filter((item) => item.libraryId === "output.solar-mpp-report");
+  const usbPdFixtures = project.components.filter((item) => item.libraryId === "input.usb-c-pd-source-fixture");
+  const usbPdSinks = project.components.filter((item) => item.libraryId === "active.usb-c-pd-sink-policy-ideal");
+  const usbPdReports = project.components.filter((item) => item.libraryId === "output.usb-c-pd-contract-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -943,6 +949,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (solarCurveFixtures.length === 1 && solarMppControllers.length === 1 && solarMppReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSolarMppSweep(project, { source: source[0], fixture: solarCurveFixtures[0], controller: solarMppControllers[0], report: solarMppReports[0], ground: ground[0], validation });
+  }
+  if (usbPdFixtures.length===1&&usbPdSinks.length===1&&usbPdReports.length===1&&source.length===1&&resistor.length===1&&ground.length===1&&project.components.length===6) {
+    return analyseUsbCPdSink(project,{source:source[0],fixture:usbPdFixtures[0],sink:usbPdSinks[0],report:usbPdReports[0],load:resistor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3195,6 +3204,34 @@ function analyseSolarMppSweep(project,{source,fixture,controller,report,ground,v
   const maximumPoint=sweepPoints.reduce((best,point)=>point.powerW>best.powerW?point:best,sweepPoints[0]);
   const idealConfiguredPowerW=vmpV*scaledImpA,conversionOutputPowerW=maximumPoint.powerW*(efficiencyPercent/100);
   return {state:"complete",engine:"Piecewise-linear solar I-V sweep and sampled maximum-power estimate",message:"Sweeps a synthetic piecewise-linear I-V curve and reports the highest sampled power point with an explicit conversion-efficiency assumption. This is not a perturb-and-observe tracker, a dynamic converter, an irradiance-dependent Voc model, or a hardware MPPT simulation.",result:{kind:"solar-mpp-sweep",openCircuitVoltageV:vocV,shortCircuitCurrentA:scaledIscA,configuredMppVoltageV:vmpV,configuredMppCurrentA:scaledImpA,configuredMppPowerW:idealConfiguredPowerW,irradiancePercent,sampleCount:samples+1,sweepStepV:stepV,sweepPoints,maximumPowerPoint:maximumPoint,conversionOutputPowerW,assumedEfficiencyPercent:efficiencyPercent,trackingAlgorithmModeled:false,converterHardwareModeled:false},validation};
+}
+function analyseUsbCPdSink(project,{source,fixture,sink,report,load,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const sf=fields(fixture.value),policy=fields(sink.value),profiles=(field(sf,"Profiles")??"").replace(/\s*V$/,"").split(",").map(x=>Number(x.trim()));
+  const requested=voltageValue(field(sf,"Requested")??""),preferred=voltageValue(field(policy,"Preferred")??""),maxV=voltageValue(field(policy,"MaxVoltage")??"");
+  const maxA=currentValue(field(policy,"MaxCurrent")??""),fallback=voltageValue(field(policy,"Fallback")??""),loadOhm=engineeringValue(load.value,"Ω");
+  const gnd=n(ground,"0"),vcc=n(source,"+");
+  const powered=n(source,"-")===gnd&&n(fixture,"VCC")===vcc&&n(sink,"VCC")===vcc&&n(report,"VCC")===vcc&&n(fixture,"GND")===gnd&&n(sink,"GND")===gnd&&n(report,"GND")===gnd;
+  const cc=["CC1","CC2"].every(pin=>n(fixture,pin)===n(sink,pin)),inPath=n(fixture,"VBUS")===n(sink,"VBUS_IN");
+  const outPath=n(sink,"VBUS_OUT")===n(report,"VBUS")&&n(sink,"VBUS_OUT")===n(load,"1"),status=n(sink,"STATUS")===n(report,"STATUS"),returnPath=n(load,"2")===gnd;
+  const fault=field(sf,"Fault"),validProfiles=profiles.length>0&&profiles.length<=5&&profiles[0]===5&&new Set(profiles).size===profiles.length&&profiles.every((v,i)=>[5,9,12,15,20].includes(v)&&(i===0||v>profiles[i-1]));
+  const required=[gnd,vcc,n(fixture,"VBUS"),n(sink,"VBUS_IN"),n(sink,"VBUS_OUT"),n(report,"VBUS"),n(fixture,"CC1"),n(sink,"CC1"),n(fixture,"CC2"),n(sink,"CC2"),n(sink,"STATUS"),n(report,"STATUS"),n(load,"1"),n(load,"2")];
+  if(required.some(x=>typeof x!=="string"||!x)||!powered||!cc||!inPath||!outPath||!status||!returnPath||!validProfiles
+    ||field(sf,"Mode")!=="pd-source"||field(policy,"Mode")!=="sink-policy"||!["none","cc-open"].includes(fault)||!Number.isFinite(voltageValue(source.value))||voltageValue(source.value)<2.7||voltageValue(source.value)>5.5
+    ||![requested,preferred,maxV,fallback].every(Number.isFinite)||maxV<5||maxV>20||!Number.isFinite(maxA)||maxA<=0||maxA>5||fallback!==5||!Number.isFinite(loadOhm)||loadOhm<1||loadOhm>1000){
+    return {state:"blocked",message:"Connect both CC lines, VBUS paths, report, and load return; use supported USB-C fixed profiles, 5 V fallback, and bounded sink/load ratings.",validation};
+  }
+  if(!profiles.includes(5))return {state:"blocked",message:"The source must provide the mandatory 5 V default profile.",validation};
+  let selected=5,state="fallback-5v",reason="Preferred profile is unavailable; remain at the 5 V default.";
+  if(fault==="cc-open"){state="default-5v";reason="CC-open fault prevents a PD contract; report 5 V default only.";}
+  else if(profiles.includes(requested)&&requested===preferred&&preferred<=maxV){selected=preferred;state=selected===5?"default-5v":"contract";reason=selected===5?"5 V default selected.":"Requested profile accepted by sink policy.";}
+  const current=selected/loadOhm;
+  if(current>maxA&&selected!==5){selected=5;state="fallback-5v";reason="Current limit requires fallback to 5 V.";}
+  const loadCurrent=selected/loadOhm;
+  if(loadCurrent>maxA)return {state:"blocked",message:"The load exceeds the sink current limit even at 5 V.",validation};
+  return {state:"complete",engine:"Bounded USB-C fixed-PDO sink policy and load estimator",message:"Models fixed-profile selection, 5 V fallback, sink limits, and resistive load. USB-PD signaling, cable/e-marker behavior, timing, protection circuitry, and standards compliance are not modeled or certified.",result:{kind:"usb-c-pd-sink",negotiationState:state,reason,availableProfilesV:profiles,requestedVoltageV:requested,preferredVoltageV:preferred,selectedVoltageV:selected,loadResistanceOhm:loadOhm,loadCurrentA:loadCurrent,loadPowerW:selected*loadCurrent,maxSinkCurrentA:maxA,maxSinkVoltageV:maxV,fault,default5VAvailable:true,protocolSignalingModeled:false,usbPdComplianceCertified:false},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
