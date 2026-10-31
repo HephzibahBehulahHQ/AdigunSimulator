@@ -226,6 +226,67 @@
       }
     },
     {
+      "id": "006-battery-discharge-monitor",
+      "title": "9 V battery discharge monitor",
+      "status": "released",
+      "objective": "Compare a divided 9 V battery signal with an ideal 3.75 V reference and assert a current-limited LED alarm below a 7.5 V battery threshold; test a ±0.1 V crossing.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue battery discharge monitor asserts across the divider threshold and blocks invalid threshold and wiring",
+      "testId": "core-battery-discharge-monitor",
+      "projectFile": "examples/006-battery-discharge-monitor.adigun.json",
+      "safetyNote": "Ideal educational comparator and battery-divider model only. It does not model a physical comparator, hysteresis, input offset/bias, propagation, output limits, battery chemistry, tolerance, thermal effects, or hardware safety.",
+      "scope": "catalogue",
+      "catalogueIndex": 6,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41153365413",
+        "headRevision": "aa643cee7e748903f46f703fb1d14d0b21a9392c",
+        "engine": "Analytical ideal low-battery comparator and divider",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-battery-monitor-v1",
+        "libraryLock": "adigun-simulator@d4bd6c2cd6272f5aa64587b20122043a043d8062",
+        "expectedResult": {
+          "nominal9V": {
+            "batteryVoltage": 9,
+            "senseVoltage": 4.5,
+            "tripVoltage": 3.75,
+            "tripBatteryVoltage": 7.5,
+            "lowBattery": false,
+            "ledOn": false,
+            "dividerCurrentA": 0.00045,
+            "sourceCurrentA": 0.00045,
+            "sourcePowerW": 0.00405,
+            "powerBalanceW": 0
+          },
+          "aboveThreshold7_6V": {
+            "batteryVoltage": 7.6,
+            "senseVoltage": 3.8,
+            "tripVoltage": 3.75,
+            "tripBatteryVoltage": 7.5,
+            "lowBattery": false,
+            "ledOn": false,
+            "dividerCurrentA": 0.00038
+          },
+          "belowThreshold7_4V": {
+            "batteryVoltage": 7.4,
+            "senseVoltage": 3.7,
+            "tripVoltage": 3.75,
+            "tripBatteryVoltage": 7.5,
+            "lowBattery": true,
+            "ledOn": true,
+            "ledCurrentA": 0.0054,
+            "dividerCurrentA": 0.00037,
+            "sourceCurrentA": 0.00577,
+            "dividerPowerW": 0.002738,
+            "ledResistorPowerW": 0.02916,
+            "ledPowerW": 0.0108,
+            "sourcePowerW": 0.042698,
+            "powerBalanceW": 0
+          }
+        }
+      }
+    },
+    {
       "id": "003-led-current-limiter-9v",
       "title": "9 V LED current limiter",
       "status": "released",
@@ -462,16 +523,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "006-battery-discharge-monitor",
-      "title": "9 V battery discharge monitor",
-      "status": "in-review",
-      "objective": "Compare a divided 9 V battery signal with an ideal 3.75 V reference and assert a current-limited LED alarm below a 7.5 V battery threshold; test a ±0.1 V crossing.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue battery discharge monitor asserts across the divider threshold and blocks invalid threshold and wiring",
-      "testId": "core-battery-discharge-monitor",
-      "projectFile": "examples/006-battery-discharge-monitor.adigun.json",
-      "safetyNote": "Ideal educational comparator and battery-divider model only. It does not model a physical comparator, hysteresis, input offset/bias, propagation, output limits, battery chemistry, tolerance, thermal effects, or hardware safety."
     }
   ]
 }
