@@ -5760,14 +5760,33 @@
     {
       "id": "142-dc-ammeter-use",
       "title": "DC ammeter use",
-      "status": "in-review",
+      "status": "released",
       "objective": "Measure DC divider current using an explicitly series-placed ammeter with burden resistance, report amperes and milliampere display, and detect parallel/misplaced terminals.",
       "acceptanceTest": "tests/core.test.mjs: catalogue DC ammeter measures series current with burden and rejects parallel placement",
       "testId": "core-dc-ammeter-use",
       "projectFile": "examples/142-dc-ammeter-use.adigun.json",
       "readmeFile": "examples/142-dc-ammeter-use/README.md",
       "safetyNote": "This analytical model covers a bounded resistive DC divider and selected burden resistance only. It does not model meter fuse ratings, current ranges, transient current, lead protection, accuracy, or safe live-work procedure.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 142,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41204816030",
+        "headRevision": "f5e56e4aa0f3ed903dc7236de6159e77fddb46bc",
+        "engine": "Bounded DC series ammeter with burden resistance",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "dc-ammeter-burden-v1",
+        "expectedResult": {
+          "kind": "dc-ammeter",
+          "referenceCurrentA": 0.003,
+          "measuredCurrentA": 0.0029999,
+          "unit": "A",
+          "burdenResistanceOhms": 0.1,
+          "seriesPlacementVerified": true,
+          "misplacementBlocked": true
+        }
+      }
     }
   ]
 }
