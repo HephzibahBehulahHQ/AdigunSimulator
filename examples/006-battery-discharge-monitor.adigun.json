@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-006-battery-discharge-monitor",
+  "metadata": {
+    "name": "9 V Battery Discharge Monitor",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "battery-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          55,
+          80
+        ],
+        "schematic": [
+          55,
+          80
+        ],
+        "pcb": [
+          55,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "upper-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          135,
+          80
+        ],
+        "schematic": [
+          135,
+          80
+        ],
+        "pcb": [
+          135,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "lower-1",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          215,
+          80
+        ],
+        "schematic": [
+          215,
+          80
+        ],
+        "pcb": [
+          215,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "comparator-1",
+      "libraryId": "active.comparator-ideal",
+      "reference": "U1",
+      "value": "Vref 3.75 V",
+      "position": {
+        "breadboard": [
+          295,
+          80
+        ],
+        "schematic": [
+          295,
+          80
+        ],
+        "pcb": [
+          295,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "series-1",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          375,
+          80
+        ],
+        "schematic": [
+          375,
+          80
+        ],
+        "pcb": [
+          375,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          455,
+          80
+        ],
+        "schematic": [
+          455,
+          80
+        ],
+        "pcb": [
+          455,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          535,
+          80
+        ],
+        "schematic": [
+          535,
+          80
+        ],
+        "pcb": [
+          535,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VBAT",
+      "endpoints": [
+        "battery-1:+",
+        "upper-1:1",
+        "comparator-1:VCC"
+      ]
+    },
+    {
+      "id": "SENSE",
+      "endpoints": [
+        "upper-1:2",
+        "lower-1:1",
+        "comparator-1:SENSE"
+      ]
+    },
+    {
+      "id": "ALARM",
+      "endpoints": [
+        "comparator-1:OUT",
+        "series-1:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "series-1:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "battery-1:-",
+        "lower-1:2",
+        "comparator-1:GND",
+        "led-1:K",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}
