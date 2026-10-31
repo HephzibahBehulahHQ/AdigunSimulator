@@ -53,6 +53,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.uart-rx-ideal", category: "Active", type: "Ideal UART 8N1 receiver (frame decoder)", prefix: "U", pins: ["RX", "VALID", "VCC", "GND"], defaultValue: "8N1 frame decoder", simulation: "analytical-uart-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.i2c-read-transaction", category: "Inputs", type: "Ideal I²C read transaction fixture", prefix: "BUS", pins: ["SDA", "SCL", "GND"], defaultValue: "Address 0x48; Register 0x00; Baud 100000; ACK yes", simulation: "fixture-i2c-read", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.i2c-sensor-ideal", category: "Active", type: "Ideal I²C register sensor (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x48; Register 0x00=0x2A", simulation: "analytical-i2c-register-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -419,6 +421,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const uartFrameSources = project.components.filter((item) => item.libraryId === "input.uart-frame-source");
   const i2cFixtures = project.components.filter((item) => item.libraryId === "input.i2c-read-transaction");
   const i2cSensors = project.components.filter((item) => item.libraryId === "active.i2c-sensor-ideal");
+  const spiFixtures = project.components.filter((item) => item.libraryId === "input.spi-transfer-source");
+  const spiDisplays = project.components.filter((item) => item.libraryId === "active.spi-display-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -483,6 +487,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (spiFixtures.length === 1 && spiDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 4) {
+    return analyseSpiDisplayTransfer(project, { source: source[0], fixture: spiFixtures[0], display: spiDisplays[0], ground: ground[0], validation });
   }
   if (i2cFixtures.length === 1 && i2cSensors.length === 1 && source.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 6) {
     return analyseI2cRegisterRead(project, { source: source[0], fixture: i2cFixtures[0], sensor: i2cSensors[0], resistors: resistor, ground: ground[0], validation });
@@ -1494,6 +1501,21 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseSpiDisplayTransfer(project,{source,fixture,display,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(fixture.value).split(";").map(v=>v.trim());
+  const field=label=>fields.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
+  const modeText=field("Mode"),byteText=field("Byte"),baudText=field("Baud"),csText=field("CS");
+  const mode=modeText===undefined?Number.NaN:Number(modeText),baud=baudText===undefined?Number.NaN:Number(baudText);
+  const byte=byteText?.toLowerCase().startsWith("0x")?Number.parseInt(byteText.slice(2),16):Number(byteText);
+  const groundNet=n(ground,"0"),vccNet=n(display,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const connected=["SCK","MOSI","CS"].every(pin=>n(fixture,pin)&&n(fixture,pin)===n(display,pin));
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(fixture,"GND")!==groundNet||n(display,"GND")!==groundNet||!connected||mode!==0||!Number.isInteger(byte)||byte<0||byte>255||!Number.isFinite(baud)||baud<1000||baud>10000000||csText?.toLowerCase()!=="active"){
+    return {state:"blocked",message:"Connect the fixture and display SCK/MOSI/CS lines, share ground, power the display, and configure SPI mode 0, an 8-bit byte, 1 kHz–10 MHz clock, and active chip select.",validation};
+  }
+  const bits=Array.from({length:8},(_,index)=>Boolean(byte&(1<<(7-index))));
+  return {state:"complete",engine:"Ideal SPI mode-0 byte transfer",message:"Transfers one byte MSB-first with clock idle low and sampling on rising edges while chip select is active. This transaction-level digital model omits edge timing, setup/hold margins, bus loading, multi-byte commands, and physical display rendering.",result:{kind:"spi-display-byte",mode,clockPolarity:0,clockPhase:0,sampleEdge:"rising",bitOrder:"MSB-first",bits,receivedByte:byte,receivedHex:"0x"+byte.toString(16).padStart(2,"0").toUpperCase(),baud,transferDurationSeconds:8/baud,chipSelect:"active"},validation};
+}
 function analyseI2cRegisterRead(project,{source,fixture,sensor,resistors,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
