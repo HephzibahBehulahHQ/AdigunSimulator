@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 79);
+  assert.equal(getExampleCoverage(registry).total, 80);
   assert.equal(getExampleCoverage(registry).released, 69);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 131);
@@ -2055,5 +2055,21 @@ test("catalogue Pico voltmeter estimates calibrated divider input at three point
   assert.equal(runSupportedAnalysis(updateComponent(project,"vin",{value:"14 V"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(n=>n.id==="ADC_MID").endpoints=["upper:2","lower:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue STM32 timer PWM computes frequency, duty, and LED load estimate",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/070-stm32-timer-pwm.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.frequencyHz,1000);
+  assert.equal(result.result.dutyCycle,0.499);
+  assert.ok(Math.abs(result.result.averageLedCurrentA-(1.3/330*0.499))<1e-12);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timer",{value:"ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 1000"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timer",{value:"ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 499"})).result.frequencyHz,1000);
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="PWM_LED").endpoints=["timer:TIM1_CH1"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
