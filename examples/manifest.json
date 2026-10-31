@@ -4998,6 +4998,19 @@
           "hardwareSafetyQualified": false
         }
       }
+    },
+    {
+      "id": "121-single-sided-led-pcb",
+      "title": "Single-sided LED PCB",
+      "status": "in-review",
+      "objective": "Create a single-sided LED board with mixed through-hole/SMD footprints; run electrical and bounded PCB checks, then export deterministic Gerber, drill and BOM files and compare them with checked-in expected outputs.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue LED PCB validates electrical topology, passes bounded DRC, and byte-matches Gerber/drill/BOM snapshots",
+      "testId": "core-single-sided-led-pcb",
+      "projectFile": "examples/121-single-sided-led-pcb.adigun.json",
+      "readmeFile": "examples/121-single-sided-led-pcb/README.md",
+      "safetyNote": "Single-layer educational manufacturing preview. Generated files pass only the listed bounded internal checks; verify selected real parts, clearances, tolerances, materials and manufacturer rules before production.",
+      "scope": "catalogue",
+      "catalogueIndex": 121
     }
   ]
 }

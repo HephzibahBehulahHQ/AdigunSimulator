@@ -1,0 +1,4 @@
+"Designator","Quantity","Value","Footprint","Technology","Status"
+"D1","1","Vf 2.0 V","LED_0805_2012Metric_SMD","smd","Generic footprint; verify selected real part"
+"J1","1","5 V","TerminalBlock_1x02_P5.00mm_PTH","through-hole","Generic footprint; verify selected real part"
+"R1","1","330 Ω","R_0805_2012Metric_SMD","smd","Generic footprint; verify selected real part"

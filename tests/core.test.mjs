@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { addComponent, connectPins, createEmptyProject, createProject, createVoltageDividerProject, disconnectPin, getViewReconciliationIssues, moveComponent, parseProject, removeComponent, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
 import { getLedgerCoverage, getLibraryCoverage, validateComponentTypes, validatePartsManifest, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
+import { exportPcbFabrication, validatePcbFabrication } from "../js/pcb-export.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
@@ -1157,7 +1158,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 130);
+  assert.equal(getExampleCoverage(registry).total, 131);
   assert.equal(getExampleCoverage(registry).released, 120);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 80);
@@ -3285,6 +3286,27 @@ test("catalogue hot-swap limits capacitor inrush and trips an overload", async (
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="GATE").endpoints=["controller:GATE"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue single-sided LED PCB passes bounded DRC and matches fabrication snapshots", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/121-single-sided-led-pcb.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  assert.deepEqual(drc.errors,[]);
+  assert.ok(drc.checks.includes("single copper layer"));
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  assert.deepEqual(Object.keys(generated.files).sort(),["BOM.csv","board-Edge_Cuts.gbr","board-F_Cu.gbr","board-PTH.drl"]);
+  for(const [name,content] of Object.entries(generated.files)){
+    const expected=await readFile(new URL("../examples/121-single-sided-led-pcb/expected/"+name,import.meta.url),"utf8");
+    assert.equal(content,expected,name);
+  }
+  const broken=structuredClone(project);
+  broken.pcbFabrication.routes[1].netId="GND";
+  assert.equal(validatePcbFabrication(broken).status,"failed");
+  assert.equal(exportPcbFabrication(broken).status,"blocked");
 });
 
 test("catalogue surge input clamps a transient and reports fuse warning/trip", async () => {
