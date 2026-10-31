@@ -48,6 +48,7 @@ import { runAccessStrikeLock } from "../js/access-strike-lock.mjs";
 import { runWarehouseBeacon } from "../js/warehouse-beacon.mjs";
 import { runMachineFaultAnnunciator } from "../js/machine-fault-annunciator.mjs";
 import { runBreadboardSchematicSync } from "../js/breadboard-schematic-sync.mjs";
+import { runSchematicPcbSync } from "../js/schematic-pcb-sync.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1480,7 +1481,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 191);
+  assert.equal(getExampleCoverage(registry).total, 192);
   assert.equal(getExampleCoverage(registry).released, 181);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 19);
@@ -4471,4 +4472,14 @@ test("catalogue breadboard wiring synchronizes component and net identities into
   assert.equal(result.result.structurallyEqual,true);assert.deepEqual(result.result.componentIds,componentIds);
   assert.ok(result.result.netIds.includes("N1"));assert.ok(result.result.netIds.includes("VCC"));assert.ok(result.result.netIds.includes("GND"));
   assert.deepEqual(result.result.breadboard,result.result.schematic);
+});
+
+test("catalogue schematic-to-PCB projection preserves every 555 net endpoint in an illustrative pad map", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/182-schematic-pcb-sync.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"complete");
+  const result=runSchematicPcbSync(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"schematic-pcb-netlist-pad-sync");
+  assert.equal(result.result.mappingStatus,"illustrative-unverified");assert.equal(result.result.componentCount,9);assert.equal(result.result.netCount,7);
+  assert.equal(result.result.sourceEndpointCount,result.result.padEndpointCount);assert.equal(result.result.netlistPreserved,true);
+  const missing=structuredClone(project);missing.schematicPcbSync.padMap.pop();assert.equal(runSchematicPcbSync(missing).state,"blocked");
+  const duplicate=structuredClone(project);duplicate.schematicPcbSync.padMap[1].pad="1";assert.equal(runSchematicPcbSync(duplicate).state,"blocked");
 });

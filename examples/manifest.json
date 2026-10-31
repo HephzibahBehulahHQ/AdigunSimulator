@@ -6997,6 +6997,19 @@
           "layoutSync": false
         }
       }
+    },
+    {
+      "id": "182-schematic-pcb-sync",
+      "title": "Schematic-to-PCB sync",
+      "status": "in-review",
+      "objective": "Transfer every endpoint of the 555 schematic netlist through an explicit one-to-one pad reference map without losing component, net, pin, or endpoint identity.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue schematic-to-PCB projection preserves every 555 net endpoint in an illustrative pad map",
+      "testId": "core-schematic-pcb-sync",
+      "projectFile": "examples/182-schematic-pcb-sync.adigun.json",
+      "readmeFile": "examples/182-schematic-pcb-sync/README.md",
+      "safetyNote": "Structural net-to-pad-reference audit only. The starter NE555 has no verified PCB footprint; the fixture's pad mapping is illustrative and unverified, with no physical geometry, DRC, manufacturing approval, or production footprint claim.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
