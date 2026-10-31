@@ -6313,6 +6313,19 @@
           ]
         }
       }
+    },
+    {
+      "id": "160-reproducible-run-lockfile",
+      "title": "Reproducible run lockfile",
+      "status": "in-review",
+      "objective": "Lock the supported RC project component identities/values, analysis mode, engine version, and expected model selection; detect project drift before relying on repeatability.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue run lockfile selects the same RC model and detects project drift",
+      "testId": "core-reproducible-run-lockfile",
+      "projectFile": "examples/160-reproducible-run-lockfile.adigun.json",
+      "readmeFile": "examples/160-reproducible-run-lockfile/README.md",
+      "lockfileFile": "examples/160-reproducible-run-lockfile/simulation.lock.json",
+      "safetyNote": "The run lock pins application model selection and listed project inputs only. It is not a signed supply-chain attestation, cryptographic identity guarantee, or statement of physical component authenticity.",
+      "scope": "catalogue"
     }
   ]
 }
