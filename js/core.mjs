@@ -32,6 +32,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.comparator-ideal", category: "Active", type: "Ideal low-battery comparator model", prefix: "U", pins: ["VCC", "GND", "SENSE", "OUT"], defaultValue: "Vref 3.75 V", simulation: "analytical-battery-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.comparator-dual-ideal", category: "Active", type: "Ideal dual-input comparator with indicator", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal comparator", simulation: "analytical-comparator-threshold", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.schmitt-trigger-ideal", category: "Active", type: "Ideal Schmitt trigger with positive feedback", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal Schmitt trigger", simulation: "analytical-schmitt-trigger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-and-ideal", category: "Active", type: "Ideal two-input AND gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-window-comparator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -374,6 +375,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
   const dualComparators = project.components.filter((item) => item.libraryId === "active.comparator-dual-ideal");
   const schmittTriggers = project.components.filter((item) => item.libraryId === "active.schmitt-trigger-ideal");
+  const andGates = project.components.filter((item) => item.libraryId === "active.logic-and-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -424,6 +426,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (dualComparators.length === 2 && andGates.length === 1 && source.length === 2 && resistor.length === 4 && led.length === 1 && ground.length === 1 && project.components.length === 11) {
+    return analyseWindowComparator(project, { sources: source, comparators: dualComparators, gate: andGates[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
   if (schmittTriggers.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 1 && ground.length === 1 && project.components.length === 10) {
     return analyseSchmittTrigger(project, { sources: source, comparator: schmittTriggers[0], resistors: resistor, led: led[0], ground: ground[0], previousState, validation });
@@ -1034,6 +1039,39 @@ function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground
     result: { kind: "supercap-hold-up", sourceVoltage, diodeVf, chargeVoltage: sourceVoltage - diodeVf, capacitance, initialVoltage, minimumVoltage, ratedVoltage, loadResistance, timeConstantS, holdUpTimeS, initialCurrentA, initialLoadPowerW, initialStoredEnergyJ, samples },
     validation
   };
+}
+
+function analyseWindowComparator(project,{sources,comparators,gate,resistors,led,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0");
+  const supply=sources.find(part=>n(part,"-")===groundNet&&n(part,"+")!==groundNet);
+  const signal=sources.find(part=>part!==supply&&n(part,"-")===groundNet);
+  if(!supply||!signal||n(led,"K")!==groundNet||n(gate,"VCC")!==n(supply,"+")||n(gate,"GND")!==groundNet){
+    return {state:"blocked",message:"Connect the dual comparators, AND gate, signal, supply, and LED to their ground and supply references.",validation};
+  }
+  const inputNet=n(signal,"+"),lower=comparators.find(item=>n(item,"IN+")===inputNet),upper=comparators.find(item=>n(item,"IN-")===inputNet);
+  if(!lower||!upper||lower===upper||n(lower,"VCC")!==n(supply,"+")||n(upper,"VCC")!==n(supply,"+")||n(lower,"GND")!==groundNet||n(upper,"GND")!==groundNet){
+    return {state:"blocked",message:"Wire one comparator for input-above-lower-limit and the other for input-below-upper-limit.",validation};
+  }
+  const lowNet=n(lower,"IN-"),highNet=n(upper,"IN+"),supplyNet=n(supply,"+");
+  const top=resistors.find(r=>(n(r,"1")===supplyNet&&n(r,"2")===highNet)||(n(r,"2")===supplyNet&&n(r,"1")===highNet));
+  const bottom=resistors.find(r=>r!==top&&((n(r,"1")===lowNet&&n(r,"2")===groundNet)||(n(r,"2")===lowNet&&n(r,"1")===groundNet)));
+  const middle=resistors.find(r=>r!==top&&r!==bottom&&((n(r,"1")===highNet&&n(r,"2")===lowNet)||(n(r,"2")===highNet&&n(r,"1")===lowNet)));
+  const outputNet=n(gate,"Y"),load=resistors.find(r=>r!==top&&r!==bottom&&r!==middle&&((n(r,"1")===outputNet&&n(r,"2")===n(led,"A"))||(n(r,"2")===outputNet&&n(r,"1")===n(led,"A"))));
+  if(!top||!middle||!bottom||!load||n(gate,"A")!==n(lower,"OUT")||n(gate,"B")!==n(upper,"OUT")){
+    return {state:"blocked",message:"The window detector needs a three-resistor reference ladder, both comparator outputs into the AND gate, and a load LED.",validation};
+  }
+  const rTop=resistanceValue(top.value),rMiddle=resistanceValue(middle.value),rBottom=resistanceValue(bottom.value),rLoad=resistanceValue(load.value);
+  const supplyVoltage=voltageValue(supply.value),inputVoltage=voltageValue(signal.value),vf=forwardVoltage(led.value);
+  if(![rTop,rMiddle,rBottom,rLoad,supplyVoltage,inputVoltage,vf].every(Number.isFinite)||[rTop,rMiddle,rBottom,rLoad].some(v=>v<=0)||supplyVoltage<=0||inputVoltage<0||inputVoltage>supplyVoltage||vf<=0){
+    return {state:"blocked",message:"Use positive divider/load resistances and keep the signal within the modeled supply range.",validation};
+  }
+  const totalResistance=rTop+rMiddle+rBottom,lowerThresholdV=supplyVoltage*rBottom/totalResistance,upperThresholdV=supplyVoltage*(rMiddle+rBottom)/totalResistance;
+  const aboveLower=inputVoltage>lowerThresholdV,belowUpper=inputVoltage<upperThresholdV,windowActive=aboveLower&&belowUpper;
+  const ledCurrentA=windowActive?Math.max(0,(supplyVoltage-vf)/rLoad):0;
+  return {state:"complete",engine:"Ideal dual-comparator window detector",message:"Calculates lower/upper divider thresholds, both ideal comparator outputs, and their AND-gated window indicator. It omits comparator delay, tolerance, offset, noise, loading, and gate propagation.",result:{kind:"window-comparator",supplyVoltage,inputVoltage,lowerThresholdV,upperThresholdV,lowerComparatorHigh:aboveLower,upperComparatorHigh:belowUpper,windowActive,ledOn:windowActive,ledCurrentA},validation};
 }
 
 function analyseSchmittTrigger(project,{sources,comparator,resistors,led,ground,previousState,validation}){
