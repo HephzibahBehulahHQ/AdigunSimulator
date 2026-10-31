@@ -5077,6 +5077,19 @@
           "hardwareManufacturingQualified": false
         }
       }
+    },
+    {
+      "id": "123-opamp-filter-pcb",
+      "title": "Op-amp filter PCB",
+      "status": "in-review",
+      "objective": "Map the first-order active low-pass circuit to SOIC and header footprints on a single-sided PCB, preserve the native netlist, run bounded PCB checks, and compare deterministic manufacturing outputs.",
+      "acceptanceTest": "tests/core.test.mjs: op-amp filter PCB has equivalent native/PCB nets, complete routed pad mapping, and byte-matching export snapshots",
+      "testId": "core-opamp-filter-pcb",
+      "projectFile": "examples/123-opamp-filter-pcb.adigun.json",
+      "readmeFile": "examples/123-opamp-filter-pcb/README.md",
+      "safetyNote": "Generic ideal-op-amp educational design and footprint preview only. Verify the chosen op-amp pinout, rails, real packages, clearances, stability, loading and manufacturer rules before construction.",
+      "scope": "catalogue",
+      "catalogueIndex": 123
     }
   ]
 }
