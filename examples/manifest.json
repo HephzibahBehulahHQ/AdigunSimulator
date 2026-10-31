@@ -5637,14 +5637,35 @@
     {
       "id": "138-net-class-rule-demo",
       "title": "Power and signal net-class rule demo",
-      "status": "in-review",
+      "status": "released",
       "objective": "Assign explicit POWER and SIGNAL net classes, enforce route-width and cross-class clearance limits, and emit a review report.",
       "acceptanceTest": "tests/core.test.mjs: catalogue net-class rule demo reports power and signal limits and detects width and clearance violations",
       "testId": "core-net-class-rule-demo",
       "projectFile": "examples/138-net-class-rule-demo.adigun.json",
       "readmeFile": "examples/138-net-class-rule-demo/README.md",
       "safetyNote": "The checker evaluates declared route widths and centerline spacing in this educational single-layer model. It is not a production DRC engine and does not qualify a board for manufacture.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 138,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41203896165",
+        "headRevision": "ce3d654121f18d96ee6ffe75cf6e749be721b2e2",
+        "engine": "Declared PCB net-class width and clearance checker",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "pcb-net-class-review-v1",
+        "expectedResult": {
+          "kind": "net-class-rule-review",
+          "classes": [
+            "POWER",
+            "SIGNAL"
+          ],
+          "routeWidthChecked": true,
+          "crossClassClearanceChecked": true,
+          "deliberateViolationsDetected": true,
+          "manufacturingQualified": false
+        }
+      }
     }
   ]
 }
