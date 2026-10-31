@@ -436,6 +436,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (dualComparators.length === 1 && source.length === 2 && resistor.length === 3 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseComparatorThreshold(project, { sources: source, comparator: dualComparators[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
+  if (opAmps.length === 1 && source.length === 3 && acSource.length === 0 && resistor.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseReferenceBuffer(project, { sources: source, opAmp: opAmps[0], load: resistor[0], ground: ground[0], validation });
+  }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && ((resistor.length === 2 && project.components.length === 7) || (resistor.length === 0 && project.components.length === 5)) && ground.length === 1) {
     return analyseOpAmpAmplifier(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, ground: ground[0], validation });
   }
@@ -1131,6 +1134,27 @@ function analyseComparatorThreshold(project,{sources,comparator,resistors,led,gr
   }
   const thresholdVoltage=supplyVoltage*rLower/(rUpper+rLower),outputHigh=inputVoltage>thresholdVoltage,ledCurrentA=outputHigh?Math.max(0,(supplyVoltage-vf)/rLed):0;
   return {state:"complete",engine:"Ideal dual-input comparator threshold analysis",message:"Compares the input against a resistor-divider threshold and reports an ideal logic state and LED current. It omits propagation delay, hysteresis, offset, input bias, output saturation, noise, loading, and device-specific limits.",result:{kind:"comparator-threshold",supplyVoltage,inputVoltage,thresholdVoltage,outputHigh,outputState:outputHigh?"high":"low",ledOn:outputHigh,ledCurrentA},validation};
+}
+
+function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0");
+  const positiveRail=sources.find(part=>n(part,"-")===groundNet&&n(part,"+")===n(opAmp,"VCC"));
+  const negativeRail=sources.find(part=>part!==positiveRail&&n(part,"+")===groundNet&&n(part,"-")===n(opAmp,"VEE"));
+  const reference=sources.find(part=>part!==positiveRail&&part!==negativeRail&&n(part,"-")===groundNet&&n(part,"+")===n(opAmp,"+"));
+  const outputNet=n(opAmp,"OUT"),invertingNet=n(opAmp,"-");
+  const feedbackConnected=outputNet===invertingNet;
+  const loadConnected=(n(load,"1")===outputNet&&n(load,"2")===groundNet)||(n(load,"2")===outputNet&&n(load,"1")===groundNet);
+  const positiveVoltage=positiveRail?voltageValue(positiveRail.value):Number.NaN,negativeVoltage=negativeRail?voltageValue(negativeRail.value):Number.NaN;
+  const referenceVoltage=reference?voltageValue(reference.value):Number.NaN,loadResistance=resistanceValue(load.value);
+  if(!positiveRail||!negativeRail||!reference||!feedbackConnected||!loadConnected||n(opAmp,"VEE")===n(opAmp,"VCC")
+    ||![positiveVoltage,negativeVoltage,referenceVoltage,loadResistance].every(Number.isFinite)||positiveVoltage<=0||negativeVoltage<=0||referenceVoltage<=0||referenceVoltage>=positiveVoltage||loadResistance<=0){
+    return {state:"blocked",message:"Connect valid dual rails, a grounded reference source, direct output feedback, and a positive output load to ground.",validation};
+  }
+  const loadCurrentA=referenceVoltage/loadResistance;
+  return {state:"complete",engine:"Ideal reference-voltage follower load estimate",message:"Buffers a fixed reference voltage and reports the ideal resistive load current. It assumes zero output impedance and unlimited output current, and omits accuracy drift, noise, bandwidth, stability, thermal effects, and device-specific limits.",result:{kind:"reference-buffer",referenceVoltage,outputVoltage:referenceVoltage,gainVPerV:1,loadResistanceOhm:loadResistance,loadCurrentA,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage},validation};
 }
 
 function analyseOpAmpAmplifier(project,{sources,input,opAmp,resistors,ground,validation}){
