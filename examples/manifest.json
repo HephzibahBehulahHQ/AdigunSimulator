@@ -1331,6 +1331,18 @@
           "switchOn": true
         }
       }
+    },
+    {
+      "id": "034-pmos-high-side-switch",
+      "title": "P-channel MOSFET high-side switch",
+      "status": "in-review",
+      "objective": "Switch a 120 Ω load from a 12 V supply with a P-MOS source-referenced gate network; test enabled/disabled load voltage and gate-source limits.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue P-MOS high-side switch drives load and blocks gate-source overvoltage",
+      "testId": "core-pmos-high-side-switch",
+      "projectFile": "examples/034-pmos-high-side-switch.adigun.json",
+      "safetyNote": "Generic ideal P-MOS model uses a 2 V threshold, 0.1 Ω on-resistance, and ±20 V gate-source bound. It omits switching, thermal, transient, and manufacturer-specific behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 34
     }
   ]
 }
