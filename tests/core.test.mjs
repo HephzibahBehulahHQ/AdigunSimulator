@@ -3052,7 +3052,7 @@ test("catalogue MOSFET half-bridge enforces dead time and prevents gate overlap"
   const result=runSupportedAnalysis(project);
   assert.equal(result.state,"complete",JSON.stringify(result.validation?.errors??result));
   assert.equal(result.result.kind,"mosfet-half-bridge");
-  assert.equal(result.result.periodS,10e-6);
+  assert.ok(Math.abs(result.result.periodS-10e-6)<1e-15);
   assert.equal(result.result.deadTimeS,0.5e-6);
   assert.equal(result.result.shootThrough,false);
   assert.equal(result.result.gateSequence.length,4);
