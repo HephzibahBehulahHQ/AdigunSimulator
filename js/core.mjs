@@ -40,6 +40,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.ne556", category: "Active", type: "556 dual timer (ideal astable channels)", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"], defaultValue: "NE556-class", simulation: "analytical-556-dual-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.opamp-ideal", category: "Active", type: "Ideal op-amp (non-inverting midband model)", prefix: "U", pins: ["VCC", "VEE", "+", "-", "OUT"], defaultValue: "Ideal op-amp, dual supply", simulation: "analytical-opamp-noninverting", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.electret-mic-generic", category: "Sensors", type: "Electret microphone (generic bias and small-signal model)", prefix: "MIC", pins: ["VCC", "OUT", "GND"], defaultValue: "Imic 0.5 mA; Vsig 10 mV; f 1 kHz; Rs 2.2 kΩ", simulation: "analytical-electret-audio-preamp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.audio-amp-generic", category: "Active", type: "Generic low-voltage class-AB audio amplifier (LM386-class estimate)", prefix: "U", pins: ["VCC", "GND", "IN", "OUT"], defaultValue: "Av 20; Swing 2 V; Q 4 mA; f 1 kHz", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.speaker-r-l-generic", category: "Output", type: "Generic speaker electrical R-L model", prefix: "SP", pins: ["+", "-"], defaultValue: "R 8 Ω; L 0.5 mH", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.npn-small-signal", category: "Active", type: "NPN transistor (ideal common-emitter small-signal)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "β 100; VBE 0.7 V; VCEsat 0.2 V", simulation: "analytical-npn-common-emitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
@@ -382,6 +384,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
+  const audioAmplifiers = project.components.filter((item) => item.libraryId === "active.audio-amp-generic");
+  const speakers = project.components.filter((item) => item.libraryId === "passive.speaker-r-l-generic");
   const electretMics = project.components.filter((item) => item.libraryId === "sensor.electret-mic-generic");
   const npnTransistors = project.components.filter((item) => item.libraryId === "active.npn-small-signal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
@@ -462,6 +466,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (opAmps.length === 1 && source.length === 3 && acSource.length === 0 && resistor.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseReferenceBuffer(project, { sources: source, opAmp: opAmps[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (audioAmplifiers.length === 1 && speakers.length === 1 && source.length === 1 && acSource.length === 1 && capacitor.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseAudioPowerAmplifier(project, { source: source[0], input: acSource[0], amplifier: audioAmplifiers[0], coupling: capacitor[0], speaker: speakers[0], ground: ground[0], validation });
   }
   if (opAmps.length === 1 && electretMics.length === 1 && source.length === 1 && resistor.length === 6 && capacitor.length === 2 && ground.length === 1 && project.components.length === 12) {
     return analyseElectretAudioPreamp(project, { source: source[0], microphone: electretMics[0], opAmp: opAmps[0], resistors: resistor, capacitors: capacitor, ground: ground[0], validation });
@@ -1377,6 +1384,52 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
   }
   const loadCurrentA=referenceVoltage/loadResistance;
   return {state:"complete",engine:"Ideal reference-voltage follower load estimate",message:"Buffers a fixed reference voltage and reports the ideal resistive load current. It assumes zero output impedance and unlimited output current, and omits accuracy drift, noise, bandwidth, stability, thermal effects, and device-specific limits.",result:{kind:"reference-buffer",referenceVoltage,outputVoltage:referenceVoltage,gainVPerV:1,loadResistanceOhm:loadResistance,loadCurrentA,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage},validation};
+}
+
+function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,speaker,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(source,"+"),outputNet=n(amplifier,"OUT");
+  const fields=String(amplifier.value).match(/Av\s*([^;]+)\s*;\s*Swing\s*([^;]+)\s*;\s*Q\s*([^;]+)\s*;\s*f\s*(.+)/i);
+  const speakerFields=String(speaker.value).match(/R\s*([^;]+)\s*;\s*L\s*(.+)/i);
+  const gain=fields?Number(fields[1]):Number.NaN,swing=fields?voltageValue(fields[2]):Number.NaN;
+  const quiescentCurrent=fields?currentValue(fields[3]):Number.NaN,frequencyHz=fields?frequencyValue(fields[4]):Number.NaN;
+  const inputAmplitudeV=voltageValue(input.value),supplyVoltage=voltageValue(source.value);
+  const couplingCapacitance=capacitanceValue(coupling.value);
+  const speakerResistance=speakerFields?resistanceValue(speakerFields[1]):Number.NaN;
+  const speakerInductance=speakerFields?inductanceValue(speakerFields[2]):Number.NaN;
+  const amplifierWired=n(source,"-")===groundNet&&n(amplifier,"VCC")===vccNet&&n(amplifier,"GND")===groundNet
+    &&n(input,"+")===n(amplifier,"IN")&&n(input,"-")===groundNet;
+  const outputWired=(n(coupling,"1")===outputNet&&n(coupling,"2")===n(speaker,"+"))
+    ||(n(coupling,"2")===outputNet&&n(coupling,"1")===n(speaker,"+"));
+  if(!amplifierWired||!outputWired||n(speaker,"-")!==groundNet
+    ||![gain,swing,quiescentCurrent,frequencyHz,inputAmplitudeV,supplyVoltage,couplingCapacitance,speakerResistance,speakerInductance].every(Number.isFinite)
+    ||gain<=0||swing<=0||quiescentCurrent<0||frequencyHz<=0||inputAmplitudeV<=0||supplyVoltage<=0||couplingCapacitance<=0||speakerResistance<=0||speakerInductance<0){
+    return {state:"blocked",message:"Wire a low-voltage audio amplifier, AC input, output coupling capacitor, and positive R-L speaker load to a common ground.",validation};
+  }
+  const biasVoltageV=supplyVoltage/2;
+  if(biasVoltageV-swing<0||biasVoltageV+swing>supplyVoltage){
+    return {state:"blocked",message:"The configured amplifier output swing exceeds its single-supply range.",validation};
+  }
+  const requestedOutputAmplitudeV=inputAmplitudeV*gain;
+  const clipped=requestedOutputAmplitudeV>swing;
+  const amplifierOutputAmplitudeV=Math.min(requestedOutputAmplitudeV,swing);
+  const omega=2*Math.PI*frequencyHz,xSpeaker=omega*speakerInductance,xCoupling=1/(omega*couplingCapacitance);
+  const speakerImpedanceOhm=Math.sqrt(speakerResistance*speakerResistance+xSpeaker*xSpeaker);
+  const totalImpedanceOhm=Math.sqrt(speakerResistance*speakerResistance+(xSpeaker-xCoupling)*(xSpeaker-xCoupling));
+  const couplingGain=speakerImpedanceOhm/totalImpedanceOhm;
+  const speakerVoltagePeakV=amplifierOutputAmplitudeV*couplingGain;
+  const speakerVoltageRmsV=speakerVoltagePeakV/Math.SQRT2;
+  const speakerCurrentRmsA=speakerVoltageRmsV/speakerImpedanceOhm;
+  const speakerRealPowerW=speakerCurrentRmsA*speakerCurrentRmsA*speakerResistance;
+  const frequencyResponse=[20,1000,20000].map(f=>{
+    const w=2*Math.PI*f,xl=w*speakerInductance,xc=1/(w*couplingCapacitance);
+    const zSpeaker=Math.sqrt(speakerResistance*speakerResistance+xl*xl);
+    const zTotal=Math.sqrt(speakerResistance*speakerResistance+(xl-xc)*(xl-xc));
+    return {frequencyHz:f,gain:zSpeaker/zTotal};
+  });
+  return {state:"complete",engine:"Generic low-voltage class-AB amplifier and R-L speaker estimate",message:"Models configurable voltage gain and output swing, a single-supply midpoint bias, a series output coupling capacitor, and a nominal speaker R-L load. It reports a sinusoidal fundamental and real load power only. It does not calculate THD, compression, slew, output-stage current limiting, mechanical sound, thermal behavior, or manufacturer-specific LM386 performance.",result:{kind:"audio-power-amplifier",supplyVoltage,inputAmplitudeV,frequencyHz,gainVPerV:gain,requestedOutputAmplitudeV,amplifierOutputAmplitudeV,clipped,clippingWarning:clipped?"Input exceeds the configured output swing; distortion is not modeled.":null,outputBiasVoltageV:biasVoltageV,quiescentCurrentA:quiescentCurrent,speakerResistanceOhm:speakerResistance,speakerInductanceH:speakerInductance,couplingCapacitanceF:couplingCapacitance,couplingGain,speakerImpedanceOhm,speakerVoltagePeakV,speakerVoltageRmsV,speakerCurrentRmsA,speakerRealPowerW,frequencyResponse},validation};
 }
 
 function analyseElectretAudioPreamp(project,{source,microphone,opAmp,resistors,capacitors,ground,validation}){
