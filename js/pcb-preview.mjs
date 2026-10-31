@@ -1,6 +1,6 @@
 const esc=(v)=>String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
 const n=(v)=>Number(v).toFixed(3);
-function emptySvg(label){return `<svg class="pcb-preview-svg" viewBox="0 0 680 300" preserveAspectRatio="none" aria-label="PCB preview without mapped footprints"><rect class="pcb-board-outline" x="34" y="38" width="612" height="224" rx="16"/><text class="pcb-empty-note" x="340" y="154">${esc(label)}</text></svg>`;}
+function emptySvg(label){return `<svg class="pcb-preview-svg" viewBox="0 0 680 300" preserveAspectRatio="none" role="img" aria-label="${esc(label)}"><rect class="pcb-board-outline" x="34" y="38" width="612" height="224" rx="16"/><text class="pcb-empty-note" x="340" y="154">${esc(label)}</text></svg>`;}
 export function renderPcbPreviewSvg(project, emptyLabel="Footprint and route data unavailable."){
  const pcb=project?.pcbFabrication, board=pcb?.board;
  if(!board||!Number.isFinite(board.widthMm)||!Number.isFinite(board.heightMm)||board.widthMm<=0||board.heightMm<=0||!Array.isArray(pcb.pads)||!Array.isArray(pcb.parts)||!Array.isArray(pcb.routes))return emptySvg(emptyLabel);
