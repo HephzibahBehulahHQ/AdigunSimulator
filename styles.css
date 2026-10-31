@@ -226,3 +226,10 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
   .result-metric-grid { grid-template-columns: 1fr 1fr; }
   .result-dashboard-heading { align-items: flex-start; flex-direction: column; }
 }
+.breadboard-package { pointer-events:none; }
+.package-leads { fill:none; stroke:#b48a4b; stroke-width:2.1; stroke-linecap:round; }
+.resistor-body { fill:#d7a45d; stroke:#70502d; stroke-width:1.4; filter:drop-shadow(0 1px 1px rgb(0 0 0 / 35%)); }
+.resistor-band { fill:none; stroke:#4d3020; stroke-width:3; }
+.led-body { fill:#ee514d; stroke:#fbe5e4; stroke-width:2; filter:drop-shadow(0 0 5px rgb(239 74 70 / 65%)); }
+.led-lens { fill:none; stroke:#ffc1bb; stroke-width:2; stroke-linecap:round; opacity:.9; }
+.breadboard-controls .package-note { color:var(--muted); font-size:.68rem; line-height:1.4; }

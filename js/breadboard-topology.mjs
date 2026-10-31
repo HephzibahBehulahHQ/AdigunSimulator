@@ -2,7 +2,10 @@ export const BREADBOARD_MODEL = Object.freeze({
   id: "generic-400-30",
   columns: 30,
   terminalRows: Object.freeze(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]),
-  railSegmentLength: 15
+  railSegmentLength: 15,
+  terminalHoleCount: 300,
+  railHoleCount: 120,
+  holeCount: 420
 });
 
 export function breadboardHoleIds() {
@@ -157,4 +160,34 @@ export function validateBreadboardTopology(project, { getPartPins, model = BREAD
 
   const state = errors.length ? "blocked" : warnings.length || netReports.some(net => !net.connected) ? "incomplete" : "complete";
   return { state, errors, warnings, nets: netReports, mappedPinCount: pinHoles.size, jumperCount: jumpers.length };
+}
+
+export const BREADBOARD_GENERIC_PACKAGE_GEOMETRY = Object.freeze({
+  "passive.resistor": Object.freeze({ kind: "axial-resistor", pins: Object.freeze(["1", "2"]), bodyLengthMm: 6.3, bodyWidthMm: 2.3, exactManufacturerFootprint: false }),
+  "diode.led-red": Object.freeze({ kind: "through-hole-led-5mm", pins: Object.freeze(["A", "K"]), bodyDiameterMm: 5, nominalLeadPitchMm: 2.54, exactManufacturerFootprint: false })
+});
+
+export function breadboardPackagePlacement(component, project) {
+  const packageModel = BREADBOARD_GENERIC_PACKAGE_GEOMETRY[component?.libraryId];
+  if (!packageModel || !project?.breadboard?.pinHoles) return null;
+  const pinPoints = packageModel.pins.map((pin) => {
+    const hole = normalizeBreadboardHole(project.breadboard.pinHoles[`${component.instanceId}:${pin}`]);
+    return hole ? { pin, hole, ...breadboardHolePoint(hole) } : null;
+  });
+  if (pinPoints.some((point) => !point)) return null;
+  const [first, second] = pinPoints;
+  const dx = second.x - first.x, dy = second.y - first.y;
+  const span = Math.hypot(dx, dy);
+  if (span < 1) return null;
+  return {
+    kind: packageModel.kind,
+    exactManufacturerFootprint: packageModel.exactManufacturerFootprint,
+    bodyLengthMm: packageModel.bodyLengthMm,
+    bodyWidthMm: packageModel.bodyWidthMm,
+    bodyDiameterMm: packageModel.bodyDiameterMm,
+    pinPoints,
+    center: { x: (first.x + second.x) / 2, y: (first.y + second.y) / 2 },
+    angleDegrees: Math.atan2(dy, dx) * 180 / Math.PI,
+    leadSpanPixels: span
+  };
 }

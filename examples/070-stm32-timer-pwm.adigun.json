@@ -153,7 +153,7 @@
       "resistor:1": "C15",
       "resistor:2": "A20",
       "led:A": "E20",
-      "led:K": "A25",
+      "led:K": "E21",
       "ground:0": "BM10"
     },
     "jumpers": [
@@ -166,7 +166,7 @@
         "to": "BM10"
       },
       {
-        "from": "A25",
+        "from": "E21",
         "to": "BM15"
       }
     ]

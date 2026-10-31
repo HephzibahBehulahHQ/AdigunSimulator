@@ -16,7 +16,7 @@ import {
   validateProject
 } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
-import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
+import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
@@ -229,21 +229,52 @@ function netSvg(project, view, unavailable = new Set()) {
 }
 
 
-function breadboardBoardSvg() {
+function breadboardBoardSvg(project) {
   const holes = breadboardHoleIds().map((id) => {
     const { x, y } = breadboardHolePoint(id);
     const rail = /^(TP|TM|BP|BM)/.test(id);
     return `<circle class="board-hole ${rail ? "rail-hole" : ""}" cx="${x}" cy="${y}" r="${rail ? 3.1 : 2.1}"/>`;
   }).join("");
-  return `<svg class="breadboard-art" viewBox="0 0 680 300" preserveAspectRatio="none" role="img" aria-label="Generic 400-point breadboard, thirty columns, ten terminal rows and four split rails">
+  return `<svg class="breadboard-art" viewBox="0 0 680 300" preserveAspectRatio="none" role="img" aria-label="Generic thirty-column breadboard with 300 terminal holes, 120 rail holes and four split rails">
     <rect class="board-plate" x="34" y="38" width="612" height="224" rx="13"/>
     <path class="board-trench" d="M48 151 H632"/>
     <path class="board-rail-positive" d="M54 54 H330 M350 54 H626 M54 232 H330 M350 232 H626"/>
     <path class="board-rail-negative" d="M54 68 H330 M350 68 H626 M54 246 H330 M350 246 H626"/>
     <path class="board-rail-break" d="M340 49 V73 M340 227 V251"/>
     <g class="board-hole-field">${holes}</g>
+    ${breadboardPackageSvg(project)}
     <g class="board-markings"><text x="39" y="58">+</text><text x="39" y="72">−</text><text x="39" y="236">+</text><text x="39" y="250">−</text><text x="340" y="158">CENTER TRENCH</text></g>
   </svg>`;
+}
+
+
+function breadboardPackageSvg(project) {
+  return project.components.map((component) => {
+    const placement = breadboardPackagePlacement(component, project);
+    if (!placement) return "";
+    const halfSpan = placement.leadSpanPixels / 2;
+    const transform = `translate(${placement.center.x} ${placement.center.y}) rotate(${placement.angleDegrees})`;
+    if (placement.kind === "axial-resistor") {
+      const scale = (572 / 29) / 2.54;
+      const bodyHalf = Math.min(placement.bodyLengthMm * scale / 2, halfSpan * .8);
+      const bodyWidth = placement.bodyWidthMm * scale;
+      return `<g class="breadboard-package resistor-package" transform="${transform}" aria-label="${escape(component.reference)} generic through-hole axial resistor">
+        <path class="package-leads" d="M${-halfSpan} 0 H${-bodyHalf} M${bodyHalf} 0 H${halfSpan}"/>
+        <rect class="resistor-body" x="${-bodyHalf}" y="${-bodyWidth / 2}" width="${bodyHalf * 2}" height="${bodyWidth}" rx="4"/>
+        <path class="resistor-band" d="M-13 -7 V7 M-4 -7 V7 M5 -7 V7 M13 -7 V7"/>
+      </g>`;
+    }
+    if (placement.kind === "through-hole-led-5mm") {
+      const scale = (572 / 29) / 2.54;
+      const radius = placement.bodyDiameterMm * scale / 2;
+      return `<g class="breadboard-package led-package" transform="${transform}" aria-label="${escape(component.reference)} generic 5 millimeter through-hole LED">
+        <path class="package-leads" d="M${-halfSpan} 0 H0 M0 0 H${halfSpan}"/>
+        <circle class="led-body" cx="0" cy="0" r="${radius}"/>
+        <path class="led-lens" d="M-9 -9 Q0 -22 9 -9 M0 -15 V15"/>
+      </g>`;
+    }
+    return "";
+  }).join("");
 }
 
 function breadboardWireSvg(project) {
@@ -334,7 +365,7 @@ function renderCanvas() {
   const parts = isBreadboard && hasPhysicalMap
     ? breadboardPinMarkers(state.project)
     : projection.components.map((component) => componentVisual(component, state.activeView)).join("");
-  const surface = isBreadboard ? breadboardBoardSvg() : "";
+  const surface = isBreadboard ? breadboardBoardSvg(state.project) : "";
   const wires = isBreadboard
     ? breadboardWireSvg(state.project)
     : netSvg(state.project, state.activeView, unavailable);

@@ -328,10 +328,10 @@ export function createLedCurrentLimiterProject({ name = "LED Current Limiter", s
       pinHoles: {
         "source-1:+": "TP2", "source-1:-": "BM2",
         "resistor-1:1": "A5", "resistor-1:2": "A10",
-        "led-1:A": "C10", "led-1:K": "A15",
+        "led-1:A": "C10", "led-1:K": "C11",
         "ground-1:0": "BM10"
       },
-      jumpers: [{ from: "TP2", to: "A5" }, { from: "A15", to: "BM15" }]
+      jumpers: [{ from: "TP2", to: "A5" }, { from: "C11", to: "BM15" }]
     },
     history: []
   };
