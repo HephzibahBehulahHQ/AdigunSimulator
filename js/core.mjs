@@ -69,6 +69,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.telemetry-payload-sink", category: "Output", type: "Offline telemetry payload viewer", prefix: "OUT", pins: ["DATA", "GND"], defaultValue: "JSON payload", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.rp2040-pico-ideal", category: "Active", type: "Ideal RP2040 Pico ADC/display controller (behavior model)", prefix: "U", pins: ["ADC0", "TX", "VCC", "GND"], defaultValue: "ADC 12 bit; Reference 3.3 V; Calibrate divider", simulation: "analytical-pico-voltmeter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.stm32-timer-ideal", category: "Active", type: "Ideal STM32 timer PWM controller (behavior model)", prefix: "U", pins: ["TIM1_CH1", "VCC", "GND"], defaultValue: "ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 499", simulation: "analytical-stm32-timer-pwm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.pic-adc-bargraph-ideal", category: "Active", type: "Generic PIC 10-bit ADC and bargraph behavior model", prefix: "U", pins: ["AN0", "BAR0", "BAR1", "BAR2", "BAR3", "BAR4", "BAR5", "BAR6", "BAR7", "BAR8", "BAR9", "VDD", "VSS"], defaultValue: "Program ADC bargraph; ADC AN0; Resolution 10 bit; Channels 10", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.led-bargraph-10seg-ideal", category: "Output", type: "Ideal 10-segment LED bargraph behavior sink", prefix: "LED", pins: ["IN0", "IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "IN9", "VCC", "GND"], defaultValue: "Segments 10; Mode bar", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -453,6 +455,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const payloadSinks = project.components.filter((item) => item.libraryId === "output.telemetry-payload-sink");
   const picoControllers = project.components.filter((item) => item.libraryId === "active.rp2040-pico-ideal");
   const stm32Controllers = project.components.filter((item) => item.libraryId === "active.stm32-timer-ideal");
+  const picControllers = project.components.filter((item) => item.libraryId === "active.pic-adc-bargraph-ideal");
+  const ledBargraphs = project.components.filter((item) => item.libraryId === "output.led-bargraph-10seg-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -520,6 +524,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (stm32Controllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseStm32TimerPwm(project, { source: source[0], controller: stm32Controllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+  }
+  if (picControllers.length === 1 && adcPotentiometers.length === 1 && ledBargraphs.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analysePicAdcBargraph(project, { source: source[0], potentiometer: adcPotentiometers[0], pic: picControllers[0], bargraph: ledBargraphs[0], ground: ground[0], validation });
   }
   if (picoControllers.length === 1 && source.length === 2 && resistor.length === 2 && oledSinks.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analysePicoVoltmeter(project, { sources: source, pico: picoControllers[0], resistors: resistor, oled: oledSinks[0], ground: ground[0], validation });
@@ -1578,6 +1585,23 @@ function analyseStm32TimerPwm(project,{source,controller,resistor,led,ground,val
   if(!Number.isFinite(frequencyHz)||frequencyHz<1||frequencyHz>1000000)return {state:"blocked",message:"The configured timer period is outside the supported 1 Hz–1 MHz PWM range.",validation};
   const peakCurrentA=Math.max(0,(supplyVoltage-vf)/resistance),averageCurrentA=peakCurrentA*dutyCycle;
   return {state:"complete",engine:"Ideal STM32 timer PWM/load estimate",message:"Computes edge-aligned timer frequency and duty from clock, prescaler, auto-reload, and compare registers, then estimates current through an ideal LED load. Firmware, timer clock-tree setup, GPIO drive limits, switching transients, and LED nonlinear behavior are omitted.",result:{kind:"stm32-timer-pwm",clockHz,prescaler,autoReload,compare,frequencyHz,dutyCycle,peakLedCurrentA:peakCurrentA,averageLedCurrentA:averageCurrentA,firmwareExecuted:false},validation};
+}
+function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(pic.value).split(";").map(v=>v.trim()),potFields=String(potentiometer.value).split(";").map(v=>v.trim());
+  const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
+  const positionText=field(potFields,"Position")?.replace(/%$/,""),position=Number(positionText);
+  const groundNet=n(ground,"0"),vddNet=n(pic,"VDD"),supplyVoltage=n(source,"+")===vddNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const potPowered=n(potentiometer,"VCC")===vddNet&&n(potentiometer,"GND")===groundNet;
+  const bargraphPowered=n(bargraph,"VCC")===vddNet&&n(bargraph,"GND")===groundNet;
+  const outputsConnected=Array.from({length:10},(_,index)=>n(pic,"BAR"+index)&&n(pic,"BAR"+index)===n(bargraph,"IN"+index)).every(Boolean);
+  const bargraphFields=String(bargraph.value).split(";").map(v=>v.trim());
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(pic,"VSS")!==groundNet||!potPowered||!bargraphPowered||n(potentiometer,"OUT")!==n(pic,"AN0")||!outputsConnected||field(fields,"Program")?.toLowerCase()!=="adc bargraph"||field(fields,"ADC")!=="AN0"||field(fields,"Resolution")!=="10 bit"||field(fields,"Channels")!=="10"||field(potFields,"Resolution")!=="10 bit"||field(bargraphFields,"Segments")!=="10"||!Number.isFinite(position)||position<0||position>100){
+    return {state:"blocked",message:"Wire the powered potentiometer wiper to AN0, connect all ten PIC behavior outputs to the matching bargraph inputs, share VDD/VSS, and configure a 10-bit, ten-segment ADC bargraph.",validation};
+  }
+  const adcCount=Math.round(position*1023/100),illuminatedSegments=Math.min(10,Math.floor(adcCount*10/1023));
+  const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
+  return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
 function analysePicoVoltmeter(project,{sources,pico,resistors,oled,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
