@@ -678,9 +678,9 @@ function analyseBridgeRectifier(project, { source, bridge, load, ground, validat
 function analyseNtcTemperatureDivider(project, { source, ntc, resistor, ground, validation }) {
   const supplyVoltage = voltageValue(source.value);
   const fields = String(ntc.value).split(";").map(field => field.trim());
-  const r25Text = fields[0]?.match(/^R25\\s*(.+)$/i)?.[1];
-  const betaText = fields[1]?.match(/^B\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*K$/i)?.[1];
-  const temperatureText = fields[2]?.match(/^temp\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*°C$/i)?.[1];
+  const r25Text = fields[0]?.match(/^R25\s*(.+)$/i)?.[1];
+  const betaText = fields[1]?.match(/^B\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*K$/i)?.[1];
+  const temperatureText = fields[2]?.match(/^temp\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*°C$/i)?.[1];
   const r25Ohm = r25Text ? resistanceValue(r25Text) : Number.NaN;
   const betaK = betaText ? Number(betaText) : Number.NaN;
   const temperatureC = temperatureText ? Number(temperatureText) : Number.NaN;
