@@ -2683,3 +2683,22 @@ test("catalogue RGB LED controller maps colour vectors to safe PWM channel curre
   broken.nets.find(net=>net.id==="GREEN_OUT").endpoints=["controller:G_PWM"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue OLED status panel formats sensor values and handles missing sensors", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/098-oled-status-panel.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"oled-status-panel");
+  assert.equal(result.result.displayState,"ready");
+  assert.deepEqual(result.result.displayLines,["T:23.5C RH:48%","P:1013hPa READY"]);
+  assert.deepEqual(result.result.overflowLines,[]);
+  const missing=runSupportedAnalysis(updateComponent(project,"sensors",{value:"TemperatureC 23.5; PressureHpa 1013; Present T,P"}));
+  assert.equal(missing.state,"complete");
+  assert.equal(missing.result.displayState,"sensor-missing");
+  assert.deepEqual(missing.result.missingSensors,["Humidity"]);
+  assert.deepEqual(missing.result.displayLines,["SENSOR MISSING","Missing: Humidity"]);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"sensors",{value:"TemperatureC 100; HumidityPct 48; PressureHpa 1013; Present T,H,P"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="HUMIDITY").endpoints=["sensors:H"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
