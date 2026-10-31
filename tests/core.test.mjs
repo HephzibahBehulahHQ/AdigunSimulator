@@ -3295,7 +3295,7 @@ test("catalogue reverse-polarity MOSFET protector passes forward input and block
   assert.equal(forward.result.inputPolarity,"forward");
   assert.equal(forward.result.protectedOn,true);
   assert.equal(forward.result.outputVoltageV,11.6);
-  assert.equal(forward.result.loadCurrentA,0.116);
+  assert.ok(Math.abs(forward.result.loadCurrentA-0.116)<1e-12);
   assert.equal(forward.result.reverseBlocked,false);
 
   const reverse=runSupportedAnalysis(updateComponent(project,"source",{value:"-12 V"}));
