@@ -168,6 +168,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.digital-volume-audio-source", category: "Inputs", type: "Digital volume-control audio fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "AmplitudeV 0.5; FrequencyHz 1000; SourceResistance 1 kΩ", simulation: "fixture-digital-volume", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.digital-pot-volume-control-ideal", category: "Active", type: "Ideal digital potentiometer volume control", prefix: "U", pins: ["A", "W", "B", "VCC", "GND"], defaultValue: "Law linear; Rtotal 10 kΩ; Steps 11; Command 5; Rwiper 100 Ω", simulation: "analytical-digital-volume", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.audio-volume-report", category: "Output", type: "Digital volume gain and audio report", prefix: "SCOPE", pins: ["IN", "VCC", "GND"], defaultValue: "Volume report", simulation: "analytical-digital-volume", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.rgb-colour-command", category: "Inputs", type: "RGB PWM colour command fixture", prefix: "CMD", pins: ["CONFIG", "GND"], defaultValue: "R 255; G 128; B 0; Frequency 1000 Hz", simulation: "fixture-rgb-pwm", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.rgb-pwm-controller-ideal", category: "Active", type: "Ideal three-channel 8-bit RGB PWM controller", prefix: "U", pins: ["CONFIG", "R_PWM", "G_PWM", "B_PWM", "VCC", "GND"], defaultValue: "Mode active-high PWM; Resolution 8 bit", simulation: "analytical-rgb-pwm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.rgb-led-common-cathode", category: "Output", type: "Common-cathode RGB LED ideal model", prefix: "LED", pins: ["R", "G", "B", "K"], defaultValue: "VfRed 2.0 V; VfGreen 3.0 V; VfBlue 3.0 V", simulation: "analytical-rgb-pwm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.rgb-pwm-report", category: "Output", type: "RGB PWM current and colour report", prefix: "SCOPE", pins: ["R_SENSE", "G_SENSE", "B_SENSE", "VCC", "GND"], defaultValue: "RGB channel report", simulation: "analytical-rgb-pwm", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.audio-amp-generic", category: "Active", type: "Generic low-voltage class-AB audio amplifier (LM386-class estimate)", prefix: "U", pins: ["VCC", "GND", "IN", "OUT"], defaultValue: "Av 20; Swing 2 V; Q 4 mA; f 1 kHz", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.speaker-r-l-generic", category: "Output", type: "Generic speaker electrical R-L model", prefix: "SP", pins: ["+", "-"], defaultValue: "R 8 Ω; L 0.5 mH", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.npn-small-signal", category: "Active", type: "NPN transistor (ideal common-emitter small-signal)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "β 100; VBE 0.7 V; VCEsat 0.2 V", simulation: "analytical-npn-common-emitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -643,6 +647,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const digitalVolumeInputs = project.components.filter((item) => item.libraryId === "input.digital-volume-audio-source");
   const digitalVolumePots = project.components.filter((item) => item.libraryId === "active.digital-pot-volume-control-ideal");
   const audioVolumeReports = project.components.filter((item) => item.libraryId === "output.audio-volume-report");
+  const rgbColourCommands = project.components.filter((item) => item.libraryId === "input.rgb-colour-command");
+  const rgbPwmControllers = project.components.filter((item) => item.libraryId === "active.rgb-pwm-controller-ideal");
+  const rgbLeds = project.components.filter((item) => item.libraryId === "output.rgb-led-common-cathode");
+  const rgbReports = project.components.filter((item) => item.libraryId === "output.rgb-pwm-report");
   const npnTransistors = project.components.filter((item) => item.libraryId === "active.npn-small-signal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
@@ -878,6 +886,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
+  }
+  if (rgbColourCommands.length === 1 && rgbPwmControllers.length === 1 && rgbLeds.length === 1 && rgbReports.length === 1 && source.length === 1 && resistor.length === 3 && ground.length === 1 && project.components.length === 9) {
+    return analyseRgbPwm(project, { source: source[0], command: rgbColourCommands[0], controller: rgbPwmControllers[0], led: rgbLeds[0], report: rgbReports[0], resistors: resistor, ground: ground[0], validation });
   }
   if (digitalVolumeInputs.length === 1 && digitalVolumePots.length === 1 && audioVolumeReports.length === 1 && source.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseDigitalVolume(project, { source: source[0], fixture: digitalVolumeInputs[0], pot: digitalVolumePots[0], report: audioVolumeReports[0], load: resistor[0], ground: ground[0], validation });
@@ -3075,6 +3086,28 @@ function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,spe
   return {state:"complete",engine:"Generic low-voltage class-AB amplifier and R-L speaker estimate",message:"Models configurable voltage gain and output swing, a single-supply midpoint bias, a series output coupling capacitor, and a nominal speaker R-L load. It reports a sinusoidal fundamental and real load power only. It does not calculate THD, compression, slew, output-stage current limiting, mechanical sound, thermal behavior, or manufacturer-specific LM386 performance.",result:{kind:"audio-power-amplifier",supplyVoltage,inputAmplitudeV,frequencyHz,gainVPerV:gain,requestedOutputAmplitudeV,amplifierOutputAmplitudeV,clipped,clippingWarning:clipped?"Input exceeds the configured output swing; distortion is not modeled.":null,outputBiasVoltageV:biasVoltageV,quiescentCurrentA:quiescentCurrent,speakerResistanceOhm:speakerResistance,speakerInductanceH:speakerInductance,couplingCapacitanceF:couplingCapacitance,couplingGain,speakerImpedanceOhm,speakerVoltagePeakV,speakerVoltageRmsV,speakerCurrentRmsA,speakerRealPowerW,frequencyResponse},validation};
 }
 
+function analyseRgbPwm(project,{source,command,controller,led,report,resistors,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const config=fields(command.value),control=fields(controller.value),ledFields=fields(led.value),codes=["R","G","B"].map(label=>Number(field(config,label)));
+  const frequencyHz=frequencyValue(field(config,"Frequency")??""),supplyVoltage=voltageValue(source.value),groundNet=n(ground,"0"),vccNet=n(source,"+");
+  const pins={R:["R_PWM","R_SENSE","R"],G:["G_PWM","G_SENSE","G"],B:["B_PWM","B_SENSE","B"]};
+  const channelData=Object.fromEntries(["R","G","B"].map((color,index)=>{
+    const [pwmPin,sensePin,ledPin]=pins[color],pwmNet=n(controller,pwmPin),ledNet=n(led,ledPin),resistor=resistors.find(part=>(n(part,"1")===pwmNet&&n(part,"2")===ledNet)||(n(part,"2")===pwmNet&&n(part,"1")===ledNet)),ohms=resistor?resistanceValue(resistor.value):Number.NaN;
+    const vf=voltageValue(field(ledFields,color==="R"?"VfRed":color==="G"?"VfGreen":"VfBlue")??"");
+    const seriesPath=resistor&&((n(resistor,"1")===pwmNet&&n(resistor,"2")===ledNet)||(n(resistor,"2")===pwmNet&&n(resistor,"1")===ledNet));
+    return [color,{code:codes[index],dutyCyclePercent:codes[index]/255*100,seriesResistanceOhm:ohms,forwardVoltageV:vf,peakCurrentMa:(supplyVoltage-vf)/ohms*1000,averageCurrentMa:(supplyVoltage-vf)/ohms*1000*codes[index]/255,pwmNet,ledNet,reportNet:n(report,sensePin),seriesPath}];
+  }));
+  const topology=n(command,"CONFIG")===n(controller,"CONFIG")&&["R","G","B"].every(color=>channelData[color].seriesPath&&channelData[color].ledNet===channelData[color].reportNet);
+  const powered=n(source,"-")===groundNet&&n(controller,"VCC")===vccNet&&n(report,"VCC")===vccNet&&n(controller,"GND")===groundNet&&n(report,"GND")===groundNet&&n(command,"GND")===groundNet&&n(led,"K")===groundNet;
+  const required=[groundNet,vccNet,n(command,"CONFIG"),n(command,"GND"),n(controller,"CONFIG"),n(controller,"VCC"),n(controller,"GND"),n(led,"K"),n(report,"VCC"),n(report,"GND"),...["R","G","B"].flatMap(color=>[channelData[color].pwmNet,channelData[color].ledNet,channelData[color].reportNet])];
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<3||supplyVoltage>5.5||!powered||!topology||required.some(net=>typeof net!=="string"||!net)||field(control,"Mode")!=="active-high PWM"||field(control,"Resolution")!=="8 bit"||!Number.isFinite(frequencyHz)||frequencyHz<100||frequencyHz>50000||codes.some(code=>!Number.isInteger(code)||code<0||code>255)||["R","G","B"].some(color=>!Number.isFinite(channelData[color].seriesResistanceOhm)||channelData[color].seriesResistanceOhm<100||channelData[color].seriesResistanceOhm>10000||!Number.isFinite(channelData[color].forwardVoltageV)||channelData[color].forwardVoltageV<=0||channelData[color].forwardVoltageV>=supplyVoltage||channelData[color].peakCurrentMa>20)){
+    return {state:"blocked",message:"Wire each active-high PWM output through its 100 Ω–10 kΩ resistor to the matching RGB LED pin, connect its common cathode and grounds, and use valid 8-bit commands, frequency, LED drops, and supply.",validation};
+  }
+  const totalAverageCurrentMa=channelData.R.averageCurrentMa+channelData.G.averageCurrentMa+channelData.B.averageCurrentMa,cssColor="rgb("+codes.join(", ")+")";
+  return {state:"complete",engine:"Ideal three-channel RGB PWM and LED-current estimate",message:"Maps each 8-bit channel code to PWM duty and estimates channel peak/average current using configured LED forward drops and series resistors. Optical output, LED bin variation, colour calibration/gamma, switching edge behavior, MCU timer limits, heat, firmware, and physical behavior are not modeled.",result:{kind:"rgb-pwm-controller",frequencyHz,resolutionBits:8,channelCodes:{R:codes[0],G:codes[1],B:codes[2]},channels:{R:channelData.R,G:channelData.G,B:channelData.B},cssColor,totalAverageCurrentMa,peakChannelCurrentLimitMa:20,monotonicDutyMapping:true,firmwareExecuted:false},validation};
+}
 function analyseDigitalVolume(project,{source,fixture,pot,report,load,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
