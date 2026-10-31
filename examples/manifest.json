@@ -7030,6 +7030,19 @@
           "mappingStatus": "illustrative-unverified"
         }
       }
+    },
+    {
+      "id": "183-three-view-led-project",
+      "title": "Three-view LED project",
+      "status": "in-review",
+      "objective": "Edit the LED series resistor once and verify the shared component and net graph remains consistent across breadboard, schematic, and PCB projections, while unsupported PCB mappings remain reconciliation items and serialized undo/redo restore exact project snapshots.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue three-view LED edit shares component identity and restores undo/redo snapshots",
+      "testId": "core-three-view-led-sync-history",
+      "projectFile": "examples/183-three-view-led-project.adigun.json",
+      "readmeFile": "examples/183-three-view-led-project/README.md",
+      "safetyNote": "Structural editor-state check only. Breadboard and schematic mappings are generic; the starter LED project has no PCB mappings and must remain in reconciliation with no invented placement. DRC/manufacturing are not validated.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
