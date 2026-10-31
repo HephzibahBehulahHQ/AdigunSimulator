@@ -5701,14 +5701,31 @@
     {
       "id": "140-pcb-schematic-reconciliation",
       "title": "PCB to schematic reconciliation",
-      "status": "in-review",
+      "status": "released",
       "objective": "Surface deliberate PCB footprint and net changes as reconciliation items that require a recorded choice while preserving the source project unchanged.",
       "acceptanceTest": "tests/core.test.mjs: catalogue PCB-schematic reconciliation surfaces footprint and net conflicts without silently editing source",
       "testId": "core-pcb-schematic-reconciliation",
       "projectFile": "examples/140-pcb-schematic-reconciliation.adigun.json",
       "readmeFile": "examples/140-pcb-schematic-reconciliation/README.md",
       "safetyNote": "The checker reports source/PCB conflicts and records choice labels without applying them. Unresolved conflicts block the manufacturing export pack; a recorded choice still requires a separately reviewed project edit and fresh validation.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 140,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41204360285",
+        "headRevision": "988862d75786dec39aaf02e85d41ba004dd11a22",
+        "engine": "PCB-to-schematic reconciliation review",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "pcb-schematic-reconciliation-v1",
+        "expectedResult": {
+          "kind": "pcb-schematic-conflict-review",
+          "conflicts": 2,
+          "explicitChoicesRequired": true,
+          "sourceProjectSilentlyChanged": false,
+          "unresolvedExportBlocked": true
+        }
+      }
     }
   ]
 }
