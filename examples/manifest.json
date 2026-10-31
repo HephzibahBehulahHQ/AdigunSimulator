@@ -1662,14 +1662,50 @@
     {
       "id": "043-xor-parity-checker",
       "title": "Two-input XOR odd-parity checker",
-      "status": "in-review",
+      "status": "released",
       "objective": "Use a generic ideal five-volt XOR gate to assert a current-limited LED when exactly one of two inputs is high; test all four combinations.",
       "acceptanceTest": "tests/core.test.mjs: catalogue XOR parity checker asserts for odd parity only",
       "testId": "core-xor-parity-checker",
       "projectFile": "examples/043-xor-parity-checker.adigun.json",
       "safetyNote": "Generic ideal static XOR logic model, not a manufacturer-specific device. It uses a 50% supply threshold and ideal rail-to-rail output; propagation delay, output drive limits, input leakage, real logic-family thresholds, switching noise, and part ratings are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 43
+      "catalogueIndex": 43,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41173159888",
+        "headRevision": "1363d115062a80f51f10a63e737aeace16c12c81",
+        "engine": "Ideal static two-input XOR truth-table estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-xor-parity-checker-v1",
+        "expectedResult": {
+          "supplyVoltage": 5,
+          "logicThresholdV": 2.5,
+          "truthTable": [
+            {
+              "a": 0,
+              "b": 0,
+              "y": 0
+            },
+            {
+              "a": 0,
+              "b": 5,
+              "y": 5
+            },
+            {
+              "a": 5,
+              "b": 0,
+              "y": 5
+            },
+            {
+              "a": 5,
+              "b": 5,
+              "y": 0
+            }
+          ],
+          "oddParityIndicator": true
+        }
+      }
     }
   ]
 }
