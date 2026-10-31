@@ -5283,6 +5283,17 @@
           "hardwareManufacturingQualified": false
         }
       }
+    },
+    {
+      "id": "128-audio-amplifier-pcb",
+      "title": "Low-voltage LM386 audio amplifier PCB",
+      "status": "in-review",
+      "objective": "Review LM386 audio-input, gain, bypass, supply-decoupling, speaker-output and Zobel wiring; verify PCB grounding/routing checklist, bounded DRC, BOM and placement exports.",
+      "acceptanceTest": "tests/core.test.mjs: LM386 audio amplifier PCB validates topology, grounding review, DRC, BOM, placement and export snapshots",
+      "testId": "core-audio-amplifier-pcb",
+      "projectFile": "examples/128-audio-amplifier-pcb.adigun.json",
+      "safetyNote": "Educational 9 V topology and PCB template only. Audio gain, clipping, THD, thermal behavior, speaker power, EMC, production tolerances, and manufacturing safety are not simulated or qualified. Verify the selected parts, footprints and layout before fabrication.",
+      "scope": "catalogue"
     }
   ]
 }
