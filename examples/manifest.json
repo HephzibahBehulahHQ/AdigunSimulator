@@ -6471,7 +6471,7 @@
     {
       "id": "165-star-delta-starter-concept",
       "title": "Star-delta starter concept",
-      "status": "in-review",
+      "status": "released",
       "objective": "Exercise timed star, both-off transition, and delta states while proving the logical contactor outputs never overlap.",
       "acceptanceTest": "tests/core.test.mjs: catalogue star-delta starter moves through exclusive outputs and transition dead time",
       "testId": "core-star-delta-starter-concept",
@@ -6479,7 +6479,25 @@
       "readmeFile": "examples/165-star-delta-starter-concept/README.md",
       "safetyNote": "Logical control concept only. No contactor ratings, coil/arc behavior, motor current/torque, wiring, overload, electrical interlock hardware, transient behavior, or machine-safety validation is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 165,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41210324220",
+        "headRevision": "35bd4659f03ac055b6a0140f2e258923280ee49d",
+        "engine": "Deterministic star/dead-time/delta state model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "star-delta-transition-concept-v1",
+        "expectedResult": {
+          "kind": "star-delta-transition-sequence",
+          "frameCount": 8,
+          "starTimeMs": 1000,
+          "deadTimeMs": 100,
+          "noOverlap": true,
+          "physicalMotorModel": false
+        }
+      }
     }
   ]
 }
