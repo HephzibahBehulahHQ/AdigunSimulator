@@ -2567,3 +2567,24 @@ test("catalogue electret microphone meter follows calibrated sine amplitudes", a
   broken.nets.find(net=>net.id==="PREAMP_OUT").endpoints=["preamp:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue audio tone generator measures a coherent 1 kHz sine spectrum", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/092-audio-tone-generator.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"audio-tone-spectrum");
+  assert.equal(result.result.sampleCount,480);
+  assert.equal(result.result.positiveZeroCrossings,10);
+  assert.equal(result.result.negativeZeroCrossings,10);
+  assert.equal(result.result.measuredFrequencyHz,1000);
+  assert.ok(Math.abs(result.result.fundamentalAmplitudeV-1)<1e-12);
+  assert.ok(result.result.secondHarmonicAmplitudeV<1e-12);
+  assert.ok(result.result.thdPercent<1e-9);
+  assert.ok(Math.abs(result.result.minimumSampleV-1.5)<1e-12);
+  assert.ok(Math.abs(result.result.maximumSampleV-3.5)<1e-12);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Waveform sine; Frequency 10000 Hz; Amplitude 1 V; Offset 2.5 V; SampleRate 48000 Hz; Duration 10 ms"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Waveform sine; Frequency 1000 Hz; Amplitude 3 V; Offset 2.5 V; SampleRate 48000 Hz; Duration 10 ms"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TONE_OUT").endpoints=["generator:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
