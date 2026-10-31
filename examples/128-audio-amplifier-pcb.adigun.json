@@ -1,0 +1,1093 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-128-audio-amplifier-pcb",
+  "metadata": {
+    "name": "LM386 Audio Amplifier PCB",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          60,
+          35
+        ],
+        "schematic": [
+          60,
+          35
+        ],
+        "pcb": [
+          60,
+          35
+        ]
+      }
+    },
+    {
+      "instanceId": "audio-source",
+      "libraryId": "power.ac-source",
+      "reference": "V2",
+      "value": "0.1 V; 1 kHz",
+      "position": {
+        "breadboard": [
+          60,
+          80
+        ],
+        "schematic": [
+          60,
+          80
+        ],
+        "pcb": [
+          60,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "amp",
+      "libraryId": "active.lm386-classab",
+      "reference": "U1",
+      "value": "TI LM386N-1; 9 V supply; gain capacitor fitted",
+      "position": {
+        "breadboard": [
+          300,
+          100
+        ],
+        "schematic": [
+          300,
+          100
+        ],
+        "pcb": [
+          300,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "j-in",
+      "libraryId": "connector.audio-input-2",
+      "reference": "J1",
+      "value": "Audio signal, GND",
+      "position": {
+        "breadboard": [
+          120,
+          100
+        ],
+        "schematic": [
+          120,
+          100
+        ],
+        "pcb": [
+          120,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "j-spk",
+      "libraryId": "connector.speaker-terminal-2",
+      "reference": "J2",
+      "value": "Speaker +, GND; 8 Ω nominal",
+      "position": {
+        "breadboard": [
+          515,
+          140
+        ],
+        "schematic": [
+          515,
+          140
+        ],
+        "pcb": [
+          515,
+          140
+        ]
+      }
+    },
+    {
+      "instanceId": "c-bulk",
+      "libraryId": "passive.electrolytic-capacitor",
+      "reference": "C1",
+      "value": "100 µF; 16 V",
+      "position": {
+        "breadboard": [
+          400,
+          45
+        ],
+        "schematic": [
+          400,
+          45
+        ],
+        "pcb": [
+          400,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "c-hf",
+      "libraryId": "passive.capacitor",
+      "reference": "C2",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          380,
+          75
+        ],
+        "schematic": [
+          380,
+          75
+        ],
+        "pcb": [
+          380,
+          75
+        ]
+      }
+    },
+    {
+      "instanceId": "c-in",
+      "libraryId": "passive.electrolytic-capacitor",
+      "reference": "C3",
+      "value": "10 µF; 16 V input coupling",
+      "position": {
+        "breadboard": [
+          200,
+          150
+        ],
+        "schematic": [
+          200,
+          150
+        ],
+        "pcb": [
+          200,
+          150
+        ]
+      }
+    },
+    {
+      "instanceId": "c-gain",
+      "libraryId": "passive.electrolytic-capacitor",
+      "reference": "C4",
+      "value": "10 µF; 16 V gain setting",
+      "position": {
+        "breadboard": [
+          330,
+          55
+        ],
+        "schematic": [
+          330,
+          55
+        ],
+        "pcb": [
+          330,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "c-bypass",
+      "libraryId": "passive.electrolytic-capacitor",
+      "reference": "C5",
+      "value": "10 µF; 16 V bypass",
+      "position": {
+        "breadboard": [
+          400,
+          120
+        ],
+        "schematic": [
+          400,
+          120
+        ],
+        "pcb": [
+          400,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "c-out",
+      "libraryId": "passive.electrolytic-capacitor",
+      "reference": "C6",
+      "value": "220 µF; 16 V output coupling",
+      "position": {
+        "breadboard": [
+          410,
+          175
+        ],
+        "schematic": [
+          410,
+          175
+        ],
+        "pcb": [
+          410,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "zobel-r",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 Ω",
+      "position": {
+        "breadboard": [
+          450,
+          220
+        ],
+        "schematic": [
+          450,
+          220
+        ],
+        "pcb": [
+          450,
+          220
+        ]
+      }
+    },
+    {
+      "instanceId": "zobel-c",
+      "libraryId": "passive.capacitor",
+      "reference": "C7",
+      "value": "47 nF",
+      "position": {
+        "breadboard": [
+          500,
+          220
+        ],
+        "schematic": [
+          500,
+          220
+        ],
+        "pcb": [
+          500,
+          220
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          65,
+          250
+        ],
+        "schematic": [
+          65,
+          250
+        ],
+        "pcb": [
+          65,
+          250
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "amp:VS",
+        "c-bulk:+",
+        "c-hf:2"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "audio-source:-",
+        "amp:GND",
+        "amp:MINUS_INPUT",
+        "c-bulk:-",
+        "c-bypass:-",
+        "zobel-c:2",
+        "j-in:GND",
+        "j-spk:SPK-",
+        "ground:0",
+        "c-hf:1"
+      ]
+    },
+    {
+      "id": "AUDIO_IN",
+      "endpoints": [
+        "audio-source:+",
+        "j-in:IN",
+        "c-in:-"
+      ]
+    },
+    {
+      "id": "AMP_IN",
+      "endpoints": [
+        "c-in:+",
+        "amp:PLUS_INPUT"
+      ]
+    },
+    {
+      "id": "GAIN1",
+      "endpoints": [
+        "amp:GAIN1",
+        "c-gain:+"
+      ]
+    },
+    {
+      "id": "GAIN2",
+      "endpoints": [
+        "amp:GAIN2",
+        "c-gain:-"
+      ]
+    },
+    {
+      "id": "BYPASS",
+      "endpoints": [
+        "amp:BYPASS",
+        "c-bypass:+"
+      ]
+    },
+    {
+      "id": "AMP_OUT",
+      "endpoints": [
+        "amp:VOUT",
+        "c-out:+",
+        "zobel-r:1"
+      ]
+    },
+    {
+      "id": "SPK_POS",
+      "endpoints": [
+        "c-out:-",
+        "j-spk:SPK+"
+      ]
+    },
+    {
+      "id": "ZOBEL",
+      "endpoints": [
+        "zobel-r:2",
+        "zobel-c:1"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 54,
+      "heightMm": 32,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.2
+    },
+    "parts": [
+      {
+        "instanceId": "amp",
+        "reference": "U1",
+        "footprint": "LM386N-1_8-pin_PDIP_template",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "j-in",
+        "reference": "J1",
+        "footprint": "HDR_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "j-spk",
+        "reference": "J2",
+        "footprint": "ScrewTerminal_1x02_P5.08mm_template",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "c-bulk",
+        "reference": "C1",
+        "footprint": "C_radial_P2.54mm_generic",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "c-hf",
+        "reference": "C2",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "c-in",
+        "reference": "C3",
+        "footprint": "C_radial_P2.54mm_generic",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "c-gain",
+        "reference": "C4",
+        "footprint": "C_radial_P2.54mm_generic",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "c-bypass",
+        "reference": "C5",
+        "footprint": "C_radial_P2.54mm_generic",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "c-out",
+        "reference": "C6",
+        "footprint": "C_radial_P2.54mm_generic",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "zobel-r",
+        "reference": "R1",
+        "footprint": "R_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "zobel-c",
+        "reference": "C7",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "j-in",
+        "reference": "J1",
+        "pin": "IN",
+        "number": "1",
+        "netId": "AUDIO_IN",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 5,
+        "yMm": 12
+      },
+      {
+        "instanceId": "j-in",
+        "reference": "J1",
+        "pin": "GND",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 5,
+        "yMm": 16
+      },
+      {
+        "instanceId": "j-spk",
+        "reference": "J2",
+        "pin": "SPK+",
+        "number": "1",
+        "netId": "SPK_POS",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 17
+      },
+      {
+        "instanceId": "j-spk",
+        "reference": "J2",
+        "pin": "SPK-",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 22
+      },
+      {
+        "instanceId": "amp",
+        "reference": "U1",
+        "pin": "GAIN1",
+        "number": "1",
+        "netId": "GAIN1",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 20,
+        "yMm": 8
+      },
+      {
+        "instanceId": "amp",
+        "reference": "U1",
+        "pin": "MINUS_INPUT",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 20,
+        "yMm": 10.54
+      },
+      {
+        "instanceId": "amp",
+        "reference": "U1",
+        "pin": "PLUS_INPUT",
+        "number": "3",
+        "netId": "AMP_IN",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 20,
+        "yMm": 13.08
+      },
+      {
+        "instanceId": "amp",
+        "reference": "U1",
+        "pin": "GND",
+        "number": "4",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 20,
+        "yMm": 15.62
+      },
+      {
+        "instanceId": "amp",
+        "reference": "U1",
+        "pin": "VOUT",
+        "number": "5",
+        "netId": "AMP_OUT",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 27.62,
+        "yMm": 15.62
+      },
+      {
+        "instanceId": "amp",
+        "reference": "U1",
+        "pin": "VS",
+        "number": "6",
+        "netId": "VCC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 27.62,
+        "yMm": 13.08
+      },
+      {
+        "instanceId": "amp",
+        "reference": "U1",
+        "pin": "BYPASS",
+        "number": "7",
+        "netId": "BYPASS",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 27.62,
+        "yMm": 10.54
+      },
+      {
+        "instanceId": "amp",
+        "reference": "U1",
+        "pin": "GAIN2",
+        "number": "8",
+        "netId": "GAIN2",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 27.62,
+        "yMm": 8
+      },
+      {
+        "instanceId": "c-bulk",
+        "reference": "C1",
+        "pin": "+",
+        "number": "1",
+        "netId": "VCC",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 0.8,
+        "xMm": 32,
+        "yMm": 4
+      },
+      {
+        "instanceId": "c-bulk",
+        "reference": "C1",
+        "pin": "-",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 0.8,
+        "xMm": 34.54,
+        "yMm": 4
+      },
+      {
+        "instanceId": "c-hf",
+        "reference": "C2",
+        "pin": "1",
+        "number": "1",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.8,
+        "heightMm": 0.6,
+        "xMm": 24,
+        "yMm": 14
+      },
+      {
+        "instanceId": "c-hf",
+        "reference": "C2",
+        "pin": "2",
+        "number": "2",
+        "netId": "VCC",
+        "technology": "smd",
+        "widthMm": 0.8,
+        "heightMm": 0.6,
+        "xMm": 26.4,
+        "yMm": 14
+      },
+      {
+        "instanceId": "c-in",
+        "reference": "C3",
+        "pin": "-",
+        "number": "1",
+        "netId": "AUDIO_IN",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 12,
+        "yMm": 13
+      },
+      {
+        "instanceId": "c-in",
+        "reference": "C3",
+        "pin": "+",
+        "number": "2",
+        "netId": "AMP_IN",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 14.54,
+        "yMm": 13
+      },
+      {
+        "instanceId": "c-gain",
+        "reference": "C4",
+        "pin": "+",
+        "number": "1",
+        "netId": "GAIN1",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 22,
+        "yMm": 5
+      },
+      {
+        "instanceId": "c-gain",
+        "reference": "C4",
+        "pin": "-",
+        "number": "2",
+        "netId": "GAIN2",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 24.54,
+        "yMm": 5
+      },
+      {
+        "instanceId": "c-bypass",
+        "reference": "C5",
+        "pin": "+",
+        "number": "1",
+        "netId": "BYPASS",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 31,
+        "yMm": 10
+      },
+      {
+        "instanceId": "c-bypass",
+        "reference": "C5",
+        "pin": "-",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 33.54,
+        "yMm": 10
+      },
+      {
+        "instanceId": "c-out",
+        "reference": "C6",
+        "pin": "+",
+        "number": "1",
+        "netId": "AMP_OUT",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 0.8,
+        "xMm": 34,
+        "yMm": 17
+      },
+      {
+        "instanceId": "c-out",
+        "reference": "C6",
+        "pin": "-",
+        "number": "2",
+        "netId": "SPK_POS",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 0.8,
+        "xMm": 36.54,
+        "yMm": 17
+      },
+      {
+        "instanceId": "zobel-r",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "AMP_OUT",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 38,
+        "yMm": 22
+      },
+      {
+        "instanceId": "zobel-r",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "ZOBEL",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 40.4,
+        "yMm": 22
+      },
+      {
+        "instanceId": "zobel-c",
+        "reference": "C7",
+        "pin": "1",
+        "number": "1",
+        "netId": "ZOBEL",
+        "technology": "smd",
+        "widthMm": 0.8,
+        "heightMm": 0.6,
+        "xMm": 38,
+        "yMm": 25
+      },
+      {
+        "instanceId": "zobel-c",
+        "reference": "C7",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.8,
+        "heightMm": 0.6,
+        "xMm": 40.4,
+        "yMm": 25
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "netClassId": "SUPPLY",
+        "layer": "F.Cu",
+        "widthMm": 0.5,
+        "pointsMm": [
+          [
+            27.62,
+            13.08
+          ],
+          [
+            32,
+            4
+          ],
+          [
+            26.4,
+            14
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "SUPPLY",
+        "layer": "F.Cu",
+        "widthMm": 0.5,
+        "pointsMm": [
+          [
+            5,
+            16
+          ],
+          [
+            24,
+            18
+          ],
+          [
+            48,
+            22
+          ],
+          [
+            20,
+            10.54
+          ],
+          [
+            20,
+            15.62
+          ],
+          [
+            34.54,
+            4
+          ],
+          [
+            24,
+            14
+          ],
+          [
+            33.54,
+            10
+          ],
+          [
+            40.4,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "AUDIO_IN",
+        "netClassId": "INPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.2,
+        "pointsMm": [
+          [
+            5,
+            12
+          ],
+          [
+            12,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "AMP_IN",
+        "netClassId": "INPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.2,
+        "pointsMm": [
+          [
+            20,
+            13.08
+          ],
+          [
+            14.54,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "GAIN1",
+        "netClassId": "GAIN",
+        "layer": "F.Cu",
+        "widthMm": 0.2,
+        "pointsMm": [
+          [
+            20,
+            8
+          ],
+          [
+            22,
+            5
+          ]
+        ]
+      },
+      {
+        "netId": "GAIN2",
+        "netClassId": "GAIN",
+        "layer": "F.Cu",
+        "widthMm": 0.2,
+        "pointsMm": [
+          [
+            27.62,
+            8
+          ],
+          [
+            24.54,
+            5
+          ]
+        ]
+      },
+      {
+        "netId": "BYPASS",
+        "netClassId": "BYPASS",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            27.62,
+            10.54
+          ],
+          [
+            31,
+            10
+          ]
+        ]
+      },
+      {
+        "netId": "AMP_OUT",
+        "netClassId": "OUTPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.7,
+        "pointsMm": [
+          [
+            27.62,
+            15.62
+          ],
+          [
+            34,
+            17
+          ],
+          [
+            38,
+            22
+          ]
+        ]
+      },
+      {
+        "netId": "SPK_POS",
+        "netClassId": "OUTPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.7,
+        "pointsMm": [
+          [
+            48,
+            17
+          ],
+          [
+            36.54,
+            17
+          ]
+        ]
+      },
+      {
+        "netId": "ZOBEL",
+        "netClassId": "ZOBEL",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            40.4,
+            22
+          ],
+          [
+            38,
+            25
+          ]
+        ]
+      }
+    ],
+    "keepouts": [],
+    "netClasses": [
+      {
+        "id": "SUPPLY",
+        "netIds": [
+          "VCC",
+          "GND"
+        ],
+        "clearanceMm": 0.25,
+        "traceWidthMm": 0.5
+      },
+      {
+        "id": "INPUT",
+        "netIds": [
+          "AUDIO_IN",
+          "AMP_IN"
+        ],
+        "clearanceMm": 0.25,
+        "traceWidthMm": 0.2
+      },
+      {
+        "id": "GAIN",
+        "netIds": [
+          "GAIN1",
+          "GAIN2"
+        ],
+        "clearanceMm": 0.2,
+        "traceWidthMm": 0.2
+      },
+      {
+        "id": "BYPASS",
+        "netIds": [
+          "BYPASS"
+        ],
+        "clearanceMm": 0.25,
+        "traceWidthMm": 0.25
+      },
+      {
+        "id": "OUTPUT",
+        "netIds": [
+          "AMP_OUT",
+          "SPK_POS"
+        ],
+        "clearanceMm": 0.4,
+        "traceWidthMm": 0.7
+      },
+      {
+        "id": "ZOBEL",
+        "netIds": [
+          "ZOBEL"
+        ],
+        "clearanceMm": 0.25,
+        "traceWidthMm": 0.3
+      }
+    ],
+    "netClassRules": [
+      {
+        "classA": "INPUT",
+        "classB": "OUTPUT",
+        "clearanceMm": 1
+      },
+      {
+        "classA": "SUPPLY",
+        "classB": "OUTPUT",
+        "clearanceMm": 0.5
+      }
+    ],
+    "groundRoutingReview": {
+      "starPointMm": [
+        24,
+        18
+      ],
+      "checklist": [
+        {
+          "id": "supply-decoupling",
+          "label": "100 nF supply bypass close to U1 VS and the ground reference",
+          "status": "pass"
+        },
+        {
+          "id": "audio-return",
+          "label": "Audio input return references the amplifier ground net",
+          "status": "pass"
+        },
+        {
+          "id": "speaker-return",
+          "label": "Speaker return is kept on the declared ground return net",
+          "status": "pass"
+        },
+        {
+          "id": "zobel-return",
+          "label": "Output Zobel network returns to the amplifier ground net",
+          "status": "pass"
+        },
+        {
+          "id": "class-routing",
+          "label": "Input, supply, gain and speaker-output routes follow declared net classes",
+          "status": "pass"
+        }
+      ]
+    }
+  }
+}
