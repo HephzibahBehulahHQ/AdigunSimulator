@@ -5118,7 +5118,7 @@
     {
       "id": "124-arduino-shield",
       "title": "Arduino Uno R3 shield",
-      "status": "in-review",
+      "status": "released",
       "objective": "Map the Uno R3 shield header functions for power, A0 and D9 to the Arduino PWM LED dimmer, include stackable header pads, sensors and LEDs, and check header fit map, component/route keep-outs and bounded single-sided PCB rules.",
       "acceptanceTest": "tests/core.test.mjs: Arduino shield header pins match the declared Uno R3 map, routes avoid keep-outs, native/PCB nets match and exports match snapshots",
       "testId": "core-arduino-shield",
@@ -5126,7 +5126,37 @@
       "readmeFile": "examples/124-arduino-shield/README.md",
       "safetyNote": "Educational Uno R3 shield template. Header coordinates and mating clearances are not manufacturer-qualified; verify official CAD files, exact board revision, stackable headers, component heights and electrical limits before assembly.",
       "scope": "catalogue",
-      "catalogueIndex": 124
+      "catalogueIndex": 124,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41194663342",
+        "headRevision": "d806cb565a7ab16dcfe7801106c0566aae39db4b",
+        "engine": "Uno-class PWM dimmer model and bounded shield PCB exporter",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "uno-r3-shield-pwm-dimmer-header-map-v1",
+        "expectedResult": {
+          "kind": "mcu-pwm-dimmer",
+          "positionPercent": 50,
+          "adcResolutionBits": 10,
+          "adcCount": 512,
+          "dutyCycle": 0.5004887585532747,
+          "pwmFrequencyHz": 490,
+          "peakLedCurrentA": 0.00909090909090909,
+          "averageLedCurrentA": 0.004549897805029769,
+          "mosfetConducts": true,
+          "pcbDrcStatus": "passed",
+          "headerPads": 32,
+          "netlistEquivalent": true,
+          "artifacts": [
+            "board-F_Cu.gbr",
+            "board-Edge_Cuts.gbr",
+            "board-PTH.drl",
+            "BOM.csv"
+          ],
+          "physicalFitCertified": false
+        }
+      }
     }
   ]
 }
