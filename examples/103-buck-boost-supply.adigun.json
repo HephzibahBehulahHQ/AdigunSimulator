@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-103-buckboost-supply",
+  "metadata": {
+    "name": "Non-Inverting Buck-Boost Supply Operating Point",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          25,
+          50
+        ],
+        "schematic": [
+          25,
+          50
+        ],
+        "pcb": [
+          25,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.buckboost-target-fixture",
+      "reference": "CFG1",
+      "value": "Target 9 V; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz",
+      "position": {
+        "breadboard": [
+          120,
+          40
+        ],
+        "schematic": [
+          120,
+          40
+        ],
+        "pcb": [
+          120,
+          40
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.buckboost-four-switch-average",
+      "reference": "U1",
+      "value": "Mode non-inverting four-switch; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz",
+      "position": {
+        "breadboard": [
+          300,
+          50
+        ],
+        "schematic": [
+          300,
+          50
+        ],
+        "pcb": [
+          300,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "inductor",
+      "libraryId": "passive.inductor",
+      "reference": "L1",
+      "value": "100 µH",
+      "position": {
+        "breadboard": [
+          420,
+          80
+        ],
+        "schematic": [
+          420,
+          80
+        ],
+        "pcb": [
+          420,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 µF",
+      "position": {
+        "breadboard": [
+          530,
+          140
+        ],
+        "schematic": [
+          530,
+          140
+        ],
+        "pcb": [
+          530,
+          140
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RLOAD",
+      "value": "18 Ω",
+      "position": {
+        "breadboard": [
+          570,
+          70
+        ],
+        "schematic": [
+          570,
+          70
+        ],
+        "pcb": [
+          570,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.buckboost-converter-report",
+      "reference": "SCOPE1",
+      "value": "Average CCM report",
+      "position": {
+        "breadboard": [
+          620,
+          50
+        ],
+        "schematic": [
+          620,
+          50
+        ],
+        "pcb": [
+          620,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VIN",
+      "endpoints": [
+        "source:+",
+        "controller:VIN",
+        "fixture:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "fixture:GND",
+        "controller:GND",
+        "capacitor:2",
+        "load:2",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "SET",
+      "endpoints": [
+        "fixture:SET",
+        "controller:SET"
+      ]
+    },
+    {
+      "id": "ENERGY_PATH",
+      "endpoints": [
+        "controller:L1",
+        "inductor:1"
+      ]
+    },
+    {
+      "id": "INDUCTOR_OUT",
+      "endpoints": [
+        "inductor:2",
+        "controller:L2",
+        "capacitor:1",
+        "load:1",
+        "report:VOUT"
+      ]
+    }
+  ],
+  "history": []
+}

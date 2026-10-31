@@ -2793,3 +2793,30 @@ test("catalogue boost converter steps up in CCM and blocks duty, DCM, and wiring
   broken.nets.find(net=>net.id==="VOUT").endpoints=["diode:K","capacitor:1","load:1","controller:VOUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue four-switch buck-boost selects buck, boost, and crossover operation", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/103-buck-boost-supply.adigun.json",import.meta.url)));
+  const nominal=runSupportedAnalysis(project);
+  assert.equal(nominal.state,"complete",nominal.message);
+  assert.equal(nominal.result.kind,"buckboost-converter");
+  assert.equal(nominal.result.mode,"buck");
+  assert.equal(nominal.result.outputVoltageV,9);
+  assert.equal(nominal.result.dutyCyclePercent,75);
+  assert.ok(Math.abs(nominal.result.powerBalanceW)<1e-12);
+  const boost=runSupportedAnalysis(updateComponent(project,"source",{value:"5 V"}));
+  assert.equal(boost.state,"complete",boost.message);
+  assert.equal(boost.result.mode,"boost");
+  assert.ok(boost.result.outputVoltageV>boost.result.inputVoltageV);
+  assert.ok(boost.result.dutyCyclePercent>0&&boost.result.dutyCyclePercent<100);
+  const crossover=runSupportedAnalysis(updateComponent(project,"source",{value:"9 V"}));
+  assert.equal(crossover.state,"complete",crossover.message);
+  assert.equal(crossover.result.mode,"crossover");
+  assert.equal(crossover.result.dutyCyclePercent,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"2 Ω"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Target 0.2 V; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Target 9 V; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz"})).state,"complete");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Target 9 V; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz"})).state,"complete");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="ENERGY_PATH").endpoints=["controller:L1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});

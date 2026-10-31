@@ -184,6 +184,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.boost-operating-point-fixture", category: "Inputs", type: "Boost converter operating-point fixture", prefix: "CFG", pins: ["CTRL", "VCC", "GND"], defaultValue: "Duty 50%; Frequency 100 kHz; MaxDuty 85%; MaxInput 60 V", simulation: "fixture-boost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.boost-average-controller", category: "Active", type: "Ideal asynchronous boost average-model controller", prefix: "U", pins: ["VIN", "SW", "CTRL", "VOUT", "GND"], defaultValue: "Mode asynchronous; MaxDuty 85%; MaxInput 60 V", simulation: "analytical-boost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.boost-converter-report", category: "Output", type: "Boost converter CCM operating-point report", prefix: "SCOPE", pins: ["VOUT", "GND"], defaultValue: "Average CCM report", simulation: "analytical-boost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.buckboost-target-fixture", category: "Inputs", type: "Non-inverting buck-boost target and load fixture", prefix: "CFG", pins: ["SET", "VCC", "GND"], defaultValue: "Target 9 V; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz", simulation: "fixture-buckboost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.buckboost-four-switch-average", category: "Active", type: "Ideal four-switch non-inverting buck-boost average controller", prefix: "U", pins: ["VIN", "SET", "L1", "L2", "GND"], defaultValue: "Mode non-inverting four-switch; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz", simulation: "analytical-buckboost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.buckboost-converter-report", category: "Output", type: "Buck-boost CCM operating-point report", prefix: "SCOPE", pins: ["VOUT", "GND"], defaultValue: "Average CCM report", simulation: "analytical-buckboost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -678,6 +681,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const boostFixtures = project.components.filter((item) => item.libraryId === "input.boost-operating-point-fixture");
   const boostControllers = project.components.filter((item) => item.libraryId === "active.boost-average-controller");
   const boostReports = project.components.filter((item) => item.libraryId === "output.boost-converter-report");
+  const buckboostFixtures = project.components.filter((item) => item.libraryId === "input.buckboost-target-fixture");
+  const buckboostControllers = project.components.filter((item) => item.libraryId === "active.buckboost-four-switch-average");
+  const buckboostReports = project.components.filter((item) => item.libraryId === "output.buckboost-converter-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -916,6 +922,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
+  }
+  if (buckboostFixtures.length === 1 && buckboostControllers.length === 1 && buckboostReports.length === 1 && source.length === 1 && inductor.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 8) {
+    return analyseBuckBoostConverter(project, { source: source[0], fixture: buckboostFixtures[0], controller: buckboostControllers[0], inductor: inductor[0], capacitor: capacitor[0], load: resistor[0], report: buckboostReports[0], ground: ground[0], validation });
   }
   if (boostFixtures.length === 1 && boostControllers.length === 1 && boostReports.length === 1 && source.length === 1 && inductor.length === 1 && schottkyDiodes.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseBoostConverter(project, { source: source[0], fixture: boostFixtures[0], controller: boostControllers[0], inductor: inductor[0], diode: schottkyDiodes[0], capacitor: capacitor[0], load: resistor[0], report: boostReports[0], ground: ground[0], validation });
@@ -3131,6 +3140,41 @@ function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,spe
   return {state:"complete",engine:"Generic low-voltage class-AB amplifier and R-L speaker estimate",message:"Models configurable voltage gain and output swing, a single-supply midpoint bias, a series output coupling capacitor, and a nominal speaker R-L load. It reports a sinusoidal fundamental and real load power only. It does not calculate THD, compression, slew, output-stage current limiting, mechanical sound, thermal behavior, or manufacturer-specific LM386 performance.",result:{kind:"audio-power-amplifier",supplyVoltage,inputAmplitudeV,frequencyHz,gainVPerV:gain,requestedOutputAmplitudeV,amplifierOutputAmplitudeV,clipped,clippingWarning:clipped?"Input exceeds the configured output swing; distortion is not modeled.":null,outputBiasVoltageV:biasVoltageV,quiescentCurrentA:quiescentCurrent,speakerResistanceOhm:speakerResistance,speakerInductanceH:speakerInductance,couplingCapacitanceF:couplingCapacitance,couplingGain,speakerImpedanceOhm,speakerVoltagePeakV,speakerVoltageRmsV,speakerCurrentRmsA,speakerRealPowerW,frequencyResponse},validation};
 }
 
+function analyseBuckBoostConverter(project,{source,fixture,controller,inductor,capacitor,load,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const config=fields(fixture.value),control=fields(controller.value);
+  const targetV=voltageValue(field(config,"Target")??""),vin=voltageValue(source.value),maxInputV=voltageValue(field(config,"MaxInput")??"");
+  const controllerMaxInput=voltageValue(field(control,"MaxInput")??""),maxCurrent=currentValue(field(config,"MaxCurrent")??"");
+  const controllerMaxCurrent=currentValue(field(control,"MaxCurrent")??""),efficiencyPercent=Number((field(config,"Efficiency")??"").replace("%",""));
+  const controllerEfficiency=Number((field(control,"Efficiency")??"").replace("%","")),frequencyHz=frequencyValue(field(config,"Frequency")??"");
+  const controllerFrequency=frequencyValue(field(control,"Frequency")??""),l=inductanceValue(inductor.value),c=capacitanceValue(capacitor.value),r=resistanceValue(load.value);
+  const groundNet=n(ground,"0"),vinNet=n(source,"+"),inductorIn=n(inductor,"1"),inductorOut=n(inductor,"2");
+  const powered=n(source,"-")===groundNet&&n(controller,"VIN")===vinNet&&n(fixture,"VCC")===vinNet&&n(controller,"GND")===groundNet&&n(fixture,"GND")===groundNet&&n(capacitor,"2")===groundNet&&n(load,"2")===groundNet&&n(report,"GND")===groundNet;
+  const controlPath=n(fixture,"SET")===n(controller,"SET");
+  const energyPath=n(controller,"L1")===inductorIn&&n(controller,"L2")===inductorOut;
+  const outputPath=inductorOut===n(capacitor,"1")&&inductorOut===n(load,"1")&&inductorOut===n(report,"VOUT");
+  const required=[groundNet,vinNet,n(fixture,"SET"),n(fixture,"VCC"),n(fixture,"GND"),n(controller,"SET"),n(controller,"L1"),n(controller,"L2"),n(capacitor,"1"),n(load,"1"),n(report,"VOUT")];
+  if(required.some(net=>typeof net!=="string"||!net)||!powered||!controlPath||!energyPath||!outputPath
+    ||field(control,"Mode")!=="non-inverting four-switch"||!Number.isFinite(vin)||vin<=0||vin>24||!Number.isFinite(targetV)||targetV<0.5||targetV>24
+    ||!Number.isFinite(maxInputV)||maxInputV<=0||maxInputV>24||vin>maxInputV||controllerMaxInput!==maxInputV
+    ||!Number.isFinite(maxCurrent)||maxCurrent<=0||maxCurrent>10||controllerMaxCurrent!==maxCurrent
+    ||!Number.isFinite(efficiencyPercent)||efficiencyPercent<80||efficiencyPercent>99.9||controllerEfficiency!==efficiencyPercent
+    ||!Number.isFinite(frequencyHz)||frequencyHz<10000||frequencyHz>2000000||controllerFrequency!==frequencyHz
+    ||!Number.isFinite(l)||l<1e-6||l>10||!Number.isFinite(c)||c<1e-6||c>10||!Number.isFinite(r)||r<0.1||r>1000000){
+    return {state:"blocked",message:"Check the wired four-switch energy path, matching controller and fixture limits, 0.5–24 V target, 10 kHz–2 MHz frequency, L/C, load, and 80–99.9% efficiency assumptions.",validation};
+  }
+  const mode=targetV<vin?"buck":targetV>vin?"boost":"crossover",duty=mode==="buck"?targetV/vin:mode==="boost"?1-vin/targetV:0;
+  const outputVoltageV=targetV,loadCurrentA=outputVoltageV/r,outputPowerW=outputVoltageV*loadCurrentA,inputPowerW=outputPowerW/(efficiencyPercent/100),inputCurrentA=inputPowerW/vin;
+  if(loadCurrentA>maxCurrent)return {state:"blocked",message:"The requested output load current exceeds the configured current limit.",validation};
+  const inductorRipplePpA=mode==="buck"?(vin-outputVoltageV)*duty/(l*frequencyHz):mode==="boost"?vin*duty/(l*frequencyHz):0;
+  const inductorAverageA=mode==="boost"?inputCurrentA:loadCurrentA;
+  if(inductorRipplePpA>0&&inductorAverageA<=inductorRipplePpA/2)return {state:"blocked",message:"The operating point is outside the continuous-conduction scope of this average model.",validation};
+  const outputRipplePpV=mode==="boost"?loadCurrentA*duty/(c*frequencyHz):inductorRipplePpA/(8*c*frequencyHz);
+  const converterLossW=inputPowerW-outputPowerW;
+  return {state:"complete",engine:"Ideal four-switch non-inverting buck-boost steady-state CCM estimate",message:"Selects buck, boost or crossover mode from a requested output target, computes ideal duty and inductor/output ripple, and applies a configurable efficiency assumption. It does not model four MOSFET switching waveforms, controller dynamics, dead time, inductor saturation, capacitor ESR, thermal effects, tolerances, or hardware.",result:{kind:"buckboost-converter",mode,inputVoltageV:vin,outputTargetV:targetV,outputVoltageV,dutyCyclePercent:duty*100,switchingFrequencyHz:frequencyHz,inductanceH:l,capacitanceF:c,loadResistanceOhm:r,loadCurrentA,inputCurrentA,inductorAverageA,inductorRipplePpA,outputRipplePpV,conductionMode:"CCM",inputPowerW,outputPowerW,converterLossW,assumedEfficiencyPercent:efficiencyPercent,powerBalanceW:inputPowerW-outputPowerW-converterLossW,controllerWaveformsModeled:false},validation};
+}
 function analyseBoostConverter(project,{source,fixture,controller,inductor,diode,capacitor,load,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
