@@ -6722,7 +6722,7 @@
     {
       "id": "173-automatic-night-light",
       "title": "Automatic night light",
-      "status": "in-review",
+      "status": "released",
       "objective": "Switch an LED command below a synthetic lux threshold and verify day/night samples, including exact threshold behavior.",
       "acceptanceTest": "tests/core.test.mjs: catalogue night light switches the LED below its lux threshold",
       "testId": "core-automatic-night-light",
@@ -6730,7 +6730,24 @@
       "readmeFile": "examples/173-automatic-night-light/README.md",
       "safetyNote": "Synthetic illuminance and Boolean LED command only; no LDR model, comparator circuit, photometry, placement, or real lighting performance is represented.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 173,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41211731604",
+        "headRevision": "5ec6b5589f691190ebf624cef07f78fb20c2265e",
+        "engine": "Deterministic lux-threshold switch",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "automatic-night-light-threshold-v1",
+        "expectedResult": {
+          "kind": "night-light-lux-threshold",
+          "thresholdLux": 20,
+          "sampleCount": 6,
+          "ledOnSamples": 4,
+          "ldrCircuitModel": false
+        }
+      }
     }
   ]
 }
