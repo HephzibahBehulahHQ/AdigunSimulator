@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-032-emitter-follower",
+  "metadata": {
+    "name": "NPN Emitter Follower",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "input",
+      "libraryId": "power.dc-source",
+      "reference": "VIN",
+      "value": "2.5 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "q1",
+      "libraryId": "active.npn-small-signal",
+      "reference": "Q1",
+      "value": "β 100; VBE 0.7 V; VCEsat 0.2 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RL",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "q1:C"
+      ]
+    },
+    {
+      "id": "INPUT",
+      "endpoints": [
+        "input:+",
+        "q1:B"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "q1:E",
+        "load:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "input:-",
+        "load:2",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": []
+}
