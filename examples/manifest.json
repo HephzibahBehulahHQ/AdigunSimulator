@@ -7001,7 +7001,7 @@
     {
       "id": "182-schematic-pcb-sync",
       "title": "Schematic-to-PCB sync",
-      "status": "in-review",
+      "status": "released",
       "objective": "Transfer every endpoint of the 555 schematic netlist through an explicit one-to-one pad reference map without losing component, net, pin, or endpoint identity.",
       "acceptanceTest": "tests/core.test.mjs: catalogue schematic-to-PCB projection preserves every 555 net endpoint in an illustrative pad map",
       "testId": "core-schematic-pcb-sync",
@@ -7009,7 +7009,27 @@
       "readmeFile": "examples/182-schematic-pcb-sync/README.md",
       "safetyNote": "Structural net-to-pad-reference audit only. The starter NE555 has no verified PCB footprint; the fixture's pad mapping is illustrative and unverified, with no physical geometry, DRC, manufacturing approval, or production footprint claim.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 182,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41213587539",
+        "headRevision": "e4b6d9747822c2e88fe22b48d1a1077b56354d76",
+        "engine": "Schematic netlist projected through explicit illustrative pad map",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "schematic-pcb-netlist-pad-sync-v1",
+        "expectedResult": {
+          "kind": "schematic-pcb-netlist-pad-sync",
+          "componentCount": 9,
+          "netCount": 7,
+          "mappedPinCount": 23,
+          "sourceEndpointCount": 23,
+          "padEndpointCount": 23,
+          "netlistPreserved": true,
+          "mappingStatus": "illustrative-unverified"
+        }
+      }
     }
   ]
 }
