@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-066-arduino-servo-control",
+  "metadata": {
+    "name": "Uno-Class Potentiometer Servo Sweep",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          45,
+          60
+        ],
+        "schematic": [
+          45,
+          60
+        ],
+        "pcb": [
+          45,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.mcu-uno-ideal",
+      "reference": "U1",
+      "value": "Program Servo control; ADC A0; Servo D9",
+      "position": {
+        "breadboard": [
+          160,
+          60
+        ],
+        "schematic": [
+          160,
+          60
+        ],
+        "pcb": [
+          160,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "pot",
+      "libraryId": "input.potentiometer-adc-ideal",
+      "reference": "RV1",
+      "value": "Position 50%; Resolution 10 bit",
+      "position": {
+        "breadboard": [
+          280,
+          60
+        ],
+        "schematic": [
+          280,
+          60
+        ],
+        "pcb": [
+          280,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "servo",
+      "libraryId": "output.servo-angle-ideal",
+      "reference": "SERVO1",
+      "value": "MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz",
+      "position": {
+        "breadboard": [
+          410,
+          60
+        ],
+        "schematic": [
+          410,
+          60
+        ],
+        "pcb": [
+          410,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          530,
+          60
+        ],
+        "schematic": [
+          530,
+          60
+        ],
+        "pcb": [
+          530,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mcu:VCC",
+        "pot:VCC",
+        "servo:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "mcu:GND",
+        "pot:GND",
+        "servo:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "POT_OUT",
+      "endpoints": [
+        "pot:OUT",
+        "mcu:A0"
+      ]
+    },
+    {
+      "id": "SERVO_PWM",
+      "endpoints": [
+        "mcu:D9",
+        "servo:PWM"
+      ]
+    }
+  ],
+  "history": []
+}
