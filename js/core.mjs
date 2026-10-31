@@ -11,6 +11,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "passive.resistor", category: "Passive", type: "Resistor", prefix: "R", pins: ["1", "2"], defaultValue: "330 Ω", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.capacitor", category: "Passive", type: "Capacitor", prefix: "C", pins: ["1", "2"], defaultValue: "100 µF", simulation: "analytical-rc-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.inductor", category: "Passive", type: "Inductor", prefix: "L", pins: ["1", "2"], defaultValue: "100 mH", simulation: "analytical-rl-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.transformer-ideal", category: "Passive", type: "Ideal transformer ratio model", prefix: "T", pins: ["PRI1", "PRI2", "SEC1", "SEC2"], defaultValue: "230:12", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "diode.bridge-ideal", category: "Active", type: "Ideal bridge rectifier (fixed diode drop)", prefix: "BR", pins: ["AC1", "AC2", "POS", "NEG"], defaultValue: "0.7 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.nmos-switch", category: "Active", type: "N-channel MOSFET (ideal PWM switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-green", category: "Active", type: "Green LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.1 V", simulation: "analytical-polarity-indicator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -18,6 +20,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge/ideal-latching-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.comparator-ideal", category: "Active", type: "Ideal low-battery comparator model", prefix: "U", pins: ["VCC", "GND", "SENSE", "OUT"], defaultValue: "Vref 3.75 V", simulation: "analytical-battery-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
@@ -356,6 +359,9 @@ export function runSupportedAnalysis(project) {
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
+  const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
+  const bridges = project.components.filter((item) => item.libraryId === "diode.bridge-ideal");
+  const regulators = project.components.filter((item) => item.libraryId === "active.regulator-7805-ideal");
   const currentSource = project.components.filter((item) => item.libraryId === "power.dc-current-source");
   const acSource = project.components.filter((item) => item.libraryId === "power.ac-source");
   const resistor = project.components.filter((item) => item.libraryId === "passive.resistor");
@@ -366,6 +372,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (acSource.length === 1 && transformers.length === 1 && bridges.length === 1 && regulators.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseLinearSupply(project, { source: acSource[0], transformer: transformers[0], bridge: bridges[0], capacitor: capacitor[0], regulator: regulators[0], load: resistor[0], ground: ground[0], validation });
+  }
   if (source.length === 1 && resistor.length === 3 && led.length === 1 && comparators.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analyseBatteryDischargeMonitor(project, { source: source[0], resistors: resistor, led: led[0], comparator: comparators[0], ground: ground[0], validation });
   }
@@ -543,6 +552,78 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
     engine: "Analytical ideal low-battery comparator and divider",
     message: "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
     result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
+    validation
+  };
+}
+
+function analyseLinearSupply(project, { source, transformer, bridge, capacitor, regulator, load, ground, validation }) {
+  const acFields = String(source.value).split(",").map(field => field.trim());
+  const acMatch = acFields.length === 2 ? acFields[0].match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*RMS$/i) : null;
+  const primaryRmsVoltage = acMatch ? Number(acMatch[1]) : Number.NaN;
+  const lineFrequencyHz = acFields.length === 2 ? frequencyValue(acFields[1]) : Number.NaN;
+  const ratioMatch = String(transformer.value).match(/^\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*:\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*$/);
+  const primaryTurns = ratioMatch ? Number(ratioMatch[1]) : Number.NaN;
+  const secondaryTurns = ratioMatch ? Number(ratioMatch[2]) : Number.NaN;
+  const diodeDrop = voltageValue(bridge.value);
+  const capacitance = capacitanceValue(capacitor.value);
+  const loadResistance = resistanceValue(load.value);
+  const regulatorFields = [...String(regulator.value).matchAll(/(?:Vout|dropout)\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V/gi)].map(match => Number(match[1]));
+  const outputSetpointV = regulatorFields.length === 2 ? regulatorFields[0] : Number.NaN;
+  const dropoutVoltage = regulatorFields.length === 2 ? regulatorFields[1] : Number.NaN;
+  if (![primaryRmsVoltage, lineFrequencyHz, primaryTurns, secondaryTurns, diodeDrop, capacitance, loadResistance, outputSetpointV, dropoutVoltage].every(Number.isFinite)
+    || primaryRmsVoltage <= 0 || lineFrequencyHz <= 0 || primaryTurns <= 0 || secondaryTurns <= 0
+    || diodeDrop <= 0 || capacitance <= 0 || loadResistance <= 0 || outputSetpointV <= 0 || dropoutVoltage < 0) {
+    return { state: "blocked", message: "The supply model requires positive AC RMS voltage, line frequency, transformer turns, diode drop, capacitance, load resistance and regulator setpoint; dropout cannot be negative.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const primary1 = n(transformer, "PRI1"), primary2 = n(transformer, "PRI2");
+  const secondary1 = n(transformer, "SEC1"), secondary2 = n(transformer, "SEC2");
+  const sourcePositive = n(source, "+"), sourceNegative = n(source, "-");
+  const bridgeAC1 = n(bridge, "AC1"), bridgeAC2 = n(bridge, "AC2");
+  const bridgePositive = n(bridge, "POS"), bridgeNegative = n(bridge, "NEG");
+  const capacitorPositive = n(capacitor, "1"), capacitorNegative = n(capacitor, "2");
+  const regulatorInput = n(regulator, "IN"), regulatorOutput = n(regulator, "OUT"), regulatorGround = n(regulator, "GND");
+  const loadInput = n(load, "1"), loadReturn = n(load, "2"), groundNet = n(ground, "0");
+  if (!sourcePositive || sourcePositive !== primary1 || sourceNegative !== primary2
+    || !secondary1 || secondary1 !== bridgeAC1 || !secondary2 || secondary2 !== bridgeAC2
+    || !bridgePositive || bridgePositive === bridgeNegative || capacitorPositive !== bridgePositive
+    || regulatorInput !== bridgePositive || !groundNet || bridgeNegative !== groundNet
+    || capacitorNegative !== groundNet || regulatorGround !== groundNet || loadReturn !== groundNet
+    || !regulatorOutput || regulatorOutput === groundNet || loadInput !== regulatorOutput) {
+    return { state: "blocked", message: "Wire the AC source to transformer primary, transformer secondary to bridge AC pins, bridge DC rails across the capacitor and regulator input, and regulator output through the load to shared DC ground.", validation };
+  }
+  const transformerRatio = secondaryTurns / primaryTurns;
+  const secondaryRmsVoltage = primaryRmsVoltage * transformerRatio;
+  const rectifiedPeakVoltage = secondaryRmsVoltage * Math.SQRT2 - 2 * diodeDrop;
+  const rectifiedFrequencyHz = 2 * lineFrequencyHz;
+  const rippleFactor = 1 / (rectifiedFrequencyHz * capacitance * loadResistance);
+  if (![transformerRatio, secondaryRmsVoltage, rectifiedPeakVoltage, rectifiedFrequencyHz, rippleFactor].every(Number.isFinite)
+    || secondaryRmsVoltage <= 0 || rectifiedPeakVoltage <= 0 || rectifiedFrequencyHz <= 0 || rippleFactor < 0) {
+    return { state: "blocked", message: "The transformer, rectifier, and capacitor values produce an unsupported or non-positive secondary supply.", validation };
+  }
+  const dropoutLimitedVoltage = Math.max(0, (rectifiedPeakVoltage - dropoutVoltage) / (1 + rippleFactor));
+  const regulated = rectifiedPeakVoltage - rippleFactor * outputSetpointV >= outputSetpointV + dropoutVoltage;
+  const outputVoltage = regulated ? outputSetpointV : Math.min(outputSetpointV, dropoutLimitedVoltage);
+  const loadCurrentA = outputVoltage / loadResistance;
+  const rippleVoltagePP = loadCurrentA / (rectifiedFrequencyHz * capacitance);
+  const minimumRectifiedVoltage = rectifiedPeakVoltage - rippleVoltagePP;
+  const averageRectifiedVoltage = rectifiedPeakVoltage - rippleVoltagePP / 2;
+  const regulatorDissipationW = Math.max(0, (averageRectifiedVoltage - outputVoltage) * loadCurrentA);
+  const bridgeDissipationW = 2 * diodeDrop * loadCurrentA;
+  const loadPowerW = outputVoltage * loadCurrentA;
+  const estimatedSecondaryInputPowerW = (averageRectifiedVoltage + 2 * diodeDrop) * loadCurrentA;
+  const powerBalanceW = estimatedSecondaryInputPowerW - loadPowerW - regulatorDissipationW - bridgeDissipationW;
+  const dropoutMarginV = minimumRectifiedVoltage - outputSetpointV - dropoutVoltage;
+  if (![outputVoltage, loadCurrentA, rippleVoltagePP, minimumRectifiedVoltage, averageRectifiedVoltage, regulatorDissipationW, bridgeDissipationW, loadPowerW, estimatedSecondaryInputPowerW, powerBalanceW, dropoutMarginV].every(Number.isFinite)) {
+    return { state: "blocked", message: "The supply estimate exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical transformer, bridge, reservoir-capacitor, and linear-regulator envelope",
+    message: "Calculated a steady-state full-wave rectified reservoir ripple estimate and ideal regulator dropout envelope. The transformer, bridge, capacitor recharge pulses, regulator control loop, line/load transients, component tolerances, heat-sink design, mains isolation/safety, device ratings, and general SPICE are not simulated; the source value is primary RMS voltage.",
+    result: { kind: "linear-regulated-supply", primaryRmsVoltage, lineFrequencyHz, primaryTurns, secondaryTurns, transformerRatio, secondaryRmsVoltage, rectifiedPeakVoltage, rectifiedFrequencyHz, diodeDropEach: diodeDrop, capacitance, loadResistance, outputSetpointV, dropoutVoltage, regulated, outputVoltage, loadCurrentA, rippleVoltagePP, minimumRectifiedVoltage, averageRectifiedVoltage, dropoutMarginV, regulatorDissipationW, bridgeDissipationW, loadPowerW, estimatedSecondaryInputPowerW, powerBalanceW },
     validation
   };
 }
