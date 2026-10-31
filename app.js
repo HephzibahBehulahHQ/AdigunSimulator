@@ -667,7 +667,7 @@ function handleAction(action) {
   if (action === "undo") undo();
   if (action === "redo") redo();
   if (action === "run-simulation") runAnalysis();
-  if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 170 released and tested catalogue examples, bounded analytical models, and a single-sided PCB export preview for projects that include fabrication data. Its checks do not replace manufacturer validation; the application is not a general SPICE engine.");
+  if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 171 released and tested catalogue examples, bounded analytical models, and a single-sided PCB export preview for projects that include fabrication data. Its checks do not replace manufacturer validation; the application is not a general SPICE engine.");
 }
 
 document.addEventListener("click", (event) => {
