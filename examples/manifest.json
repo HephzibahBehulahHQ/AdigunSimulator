@@ -842,6 +842,51 @@
       }
     },
     {
+      "id": "080-low-power-sleep-wake",
+      "title": "Low-power sleep and interrupt wake",
+      "status": "released",
+      "objective": "Estimate a generic MCU's time-weighted supply current while sleeping between rising-edge interrupts, ignore falling edges, and report the wake-driven LED load.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue low-power MCU sleeps between rising-edge interrupts and estimates supply current",
+      "testId": "core-low-power-sleep-wake",
+      "projectFile": "examples/080-low-power-sleep-wake.adigun.json",
+      "safetyNote": "Ideal deterministic educational estimate only. The 8 µA sleep and 5 mA run currents are user-configured assumptions, not verified MCU specifications. It omits firmware, device-specific leakage, wake latency, oscillator startup, GPIO limits, regulator losses, component tolerances, and physical hardware validation.",
+      "scope": "catalogue",
+      "catalogueIndex": 80,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41181889479",
+        "headRevision": "059b3b0dd82319df964d4c98b433de2d761fc721",
+        "engine": "Ideal MCU sleep/wake duty and LED load estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-mcu-sleep-wake-duty-v1",
+        "expectedResult": {
+          "supplyVoltage": 3.3,
+          "durationMs": 500,
+          "runCurrentUa": 5000,
+          "sleepCurrentUa": 8,
+          "wakeDurationMs": 20,
+          "wakeMode": "rising",
+          "wakeCount": 2,
+          "ignoredEdges": [
+            {
+              "timeMs": 130,
+              "edge": "falling"
+            }
+          ],
+          "awakeTimeMs": 40,
+          "sleepTimeMs": 460,
+          "ledPeakCurrentMa": 1.3,
+          "averageMcuCurrentUa": 407.36,
+          "averageLedCurrentUa": 104,
+          "averageSupplyCurrentUa": 511.36,
+          "energyMj": 0.843744,
+          "firmwareExecuted": false,
+          "physicalSleepCurrent": "not verified"
+        }
+      }
+    },
+    {
       "id": "002-dc-voltage-divider",
       "title": "Unloaded DC voltage divider",
       "status": "released",
