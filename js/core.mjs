@@ -159,6 +159,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.guitar-pickup-frequency-sweep", category: "Inputs", type: "Guitar pickup AC frequency sweep fixture", prefix: "PICKUP", pins: ["OUT", "GND"], defaultValue: "FrequenciesHz 20,80,1000,5000,20000; AmplitudeV 0.1; SourceResistance 6.8 kΩ; LoadResistance 100 kΩ", simulation: "fixture-guitar-buffer-sweep", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.guitar-jfet-buffer-ideal", category: "Active", type: "Ideal high-input-impedance JFET buffer model", prefix: "Q", pins: ["IN", "OUT", "VCC", "GND"], defaultValue: "Mode source follower; Rin 1 MΩ; Rout 100 Ω; Gain 0.98; Cin 100 pF", simulation: "analytical-guitar-buffer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.guitar-buffer-response", category: "Output", type: "Guitar buffer AC-response report", prefix: "SCOPE", pins: ["IN", "VCC", "GND"], defaultValue: "Buffer response", simulation: "analytical-guitar-buffer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.audio-mixer-two-source", category: "Inputs", type: "Two-source audio mixer fixture", prefix: "SIG", pins: ["IN1", "IN2", "GND"], defaultValue: "V1 1 V; V2 2 V", simulation: "fixture-audio-mixer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.audio-summing-buffer-ideal", category: "Active", type: "Ideal unity buffer for passive resistive mixer", prefix: "U", pins: ["IN", "OUT", "VCC", "GND"], defaultValue: "Mode unity buffer; Gain 1", simulation: "analytical-audio-mixer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.audio-mixer-report", category: "Output", type: "Weighted audio mixer sum report", prefix: "SCOPE", pins: ["IN", "VCC", "GND"], defaultValue: "Mixer report", simulation: "analytical-audio-mixer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.audio-amp-generic", category: "Active", type: "Generic low-voltage class-AB audio amplifier (LM386-class estimate)", prefix: "U", pins: ["VCC", "GND", "IN", "OUT"], defaultValue: "Av 20; Swing 2 V; Q 4 mA; f 1 kHz", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.speaker-r-l-generic", category: "Output", type: "Generic speaker electrical R-L model", prefix: "SP", pins: ["+", "-"], defaultValue: "R 8 Ω; L 0.5 mH", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.npn-small-signal", category: "Active", type: "NPN transistor (ideal common-emitter small-signal)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "β 100; VBE 0.7 V; VCEsat 0.2 V", simulation: "analytical-npn-common-emitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -625,6 +628,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const guitarPickupSweeps = project.components.filter((item) => item.libraryId === "input.guitar-pickup-frequency-sweep");
   const guitarBuffers = project.components.filter((item) => item.libraryId === "active.guitar-jfet-buffer-ideal");
   const guitarBufferReports = project.components.filter((item) => item.libraryId === "output.guitar-buffer-response");
+  const audioMixerFixtures = project.components.filter((item) => item.libraryId === "input.audio-mixer-two-source");
+  const audioMixerBuffers = project.components.filter((item) => item.libraryId === "active.audio-summing-buffer-ideal");
+  const audioMixerReports = project.components.filter((item) => item.libraryId === "output.audio-mixer-report");
   const npnTransistors = project.components.filter((item) => item.libraryId === "active.npn-small-signal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
@@ -860,6 +866,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
+  }
+  if (audioMixerFixtures.length === 1 && audioMixerBuffers.length === 1 && audioMixerReports.length === 1 && source.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 7) {
+    return analyseAudioMixer(project, { source: source[0], fixture: audioMixerFixtures[0], buffer: audioMixerBuffers[0], report: audioMixerReports[0], resistors: resistor, ground: ground[0], validation });
   }
   if (guitarPickupSweeps.length === 1 && guitarBuffers.length === 1 && guitarBufferReports.length === 1 && source.length === 1 && resistor.length === 2 && capacitor.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseGuitarBuffer(project, { source: source[0], fixture: guitarPickupSweeps[0], buffer: guitarBuffers[0], report: guitarBufferReports[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
@@ -3048,6 +3057,24 @@ function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,spe
   return {state:"complete",engine:"Generic low-voltage class-AB amplifier and R-L speaker estimate",message:"Models configurable voltage gain and output swing, a single-supply midpoint bias, a series output coupling capacitor, and a nominal speaker R-L load. It reports a sinusoidal fundamental and real load power only. It does not calculate THD, compression, slew, output-stage current limiting, mechanical sound, thermal behavior, or manufacturer-specific LM386 performance.",result:{kind:"audio-power-amplifier",supplyVoltage,inputAmplitudeV,frequencyHz,gainVPerV:gain,requestedOutputAmplitudeV,amplifierOutputAmplitudeV,clipped,clippingWarning:clipped?"Input exceeds the configured output swing; distortion is not modeled.":null,outputBiasVoltageV:biasVoltageV,quiescentCurrentA:quiescentCurrent,speakerResistanceOhm:speakerResistance,speakerInductanceH:speakerInductance,couplingCapacitanceF:couplingCapacitance,couplingGain,speakerImpedanceOhm,speakerVoltagePeakV,speakerVoltageRmsV,speakerCurrentRmsA,speakerRealPowerW,frequencyResponse},validation};
 }
 
+function analyseAudioMixer(project,{source,fixture,buffer,report,resistors,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const fixtureFields=fields(fixture.value),bufferFields=fields(buffer.value),v1=voltageValue(field(fixtureFields,"V1")??""),v2=voltageValue(field(fixtureFields,"V2")??"");
+  const input1Resistor=resistors.find(part=>n(part,"1")===n(fixture,"IN1")||n(part,"2")===n(fixture,"IN1")),input2Resistor=resistors.find(part=>part!==input1Resistor&&(n(part,"1")===n(fixture,"IN2")||n(part,"2")===n(fixture,"IN2")));
+  const r1=input1Resistor?resistanceValue(input1Resistor.value):Number.NaN,r2=input2Resistor?resistanceValue(input2Resistor.value):Number.NaN,gain=Number(field(bufferFields,"Gain")),supplyVoltage=voltageValue(source.value),groundNet=n(ground,"0"),vccNet=n(source,"+");
+  const sumNet=n(buffer,"IN"),sumWired=(n(input1Resistor,"1")===sumNet||n(input1Resistor,"2")===sumNet)&&(n(input2Resistor,"1")===sumNet||n(input2Resistor,"2")===sumNet);
+  const branchWired=(n(input1Resistor,"1")===n(fixture,"IN1")||n(input1Resistor,"2")===n(fixture,"IN1"))&&(n(input2Resistor,"1")===n(fixture,"IN2")||n(input2Resistor,"2")===n(fixture,"IN2"));
+  const outputWired=n(buffer,"OUT")===n(report,"IN"),powered=n(source,"-")===groundNet&&n(buffer,"VCC")===vccNet&&n(report,"VCC")===vccNet&&n(buffer,"GND")===groundNet&&n(report,"GND")===groundNet&&n(fixture,"GND")===groundNet;
+  const required=[groundNet,vccNet,n(fixture,"IN1"),n(fixture,"IN2"),n(fixture,"GND"),n(buffer,"IN"),n(buffer,"OUT"),n(buffer,"VCC"),n(buffer,"GND"),n(report,"IN"),n(report,"VCC"),n(report,"GND"),n(input1Resistor,"1"),n(input1Resistor,"2"),n(input2Resistor,"1"),n(input2Resistor,"2")];
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<3||supplyVoltage>12||!powered||!outputWired||!sumWired||!branchWired||required.some(net=>typeof net!=="string"||!net)||!Number.isFinite(v1)||v1<0||v1>5.5||!Number.isFinite(v2)||v2<0||v2>5.5||!Number.isFinite(r1)||r1<1000||r1>100000||!Number.isFinite(r2)||r2<1000||r2>100000||!Number.isFinite(gain)||gain<0.95||gain>1.05||field(bufferFields,"Mode")!=="unity buffer"){
+    return {state:"blocked",message:"Connect both source branches through bounded summing resistors to the shared buffer input and report; use non-negative source levels, resistors from 1–100 kΩ, a unity buffer, and valid supply wiring.",validation};
+  }
+  const conductance1=1/r1,conductance2=1/r2,weight1=conductance1/(conductance1+conductance2),weight2=conductance2/(conductance1+conductance2),sumNodeV=(v1*conductance1+v2*conductance2)/(conductance1+conductance2),outputV=sumNodeV*gain,clipped=outputV<0.2||outputV>supplyVoltage-0.2;
+  if(clipped)return {state:"blocked",message:"The weighted mixer output exceeds the ideal buffer's 0.2 V rail headroom; lower the source levels or adjust the supply.",validation};
+  return {state:"complete",engine:"Two-source resistive weighted mixer and ideal unity buffer",message:"Computes the loaded summing-node voltage from two explicit source voltages and series resistors, then applies an ideal unity buffer. This is a passive weighted average, not an inverting active summing amplifier; source output impedance, noise, frequency response, op-amp limits, and physical behavior are not modeled.",result:{kind:"audio-summing-mixer",input1V:v1,input2V:v2,resistor1Ohm:r1,resistor2Ohm:r2,weight1,weight2,sumNodeV,outputV,clipped:false,sourceCombinationsTested:3,firmwareExecuted:false},validation};
+}
 function analyseGuitarBuffer(project,{source,fixture,buffer,report,resistors,capacitor,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
