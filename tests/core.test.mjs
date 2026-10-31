@@ -4114,7 +4114,8 @@ test("catalogue floating-node diagnosis identifies the object to inspect", async
 
 test("catalogue short-circuit fixture blocks before simulation with no fabricated current", async () => {
   const project=JSON.parse(await readFile(new URL("../examples/154-short-circuit-diagnosis.adigun.json",import.meta.url)));
-  assert.equal(validateProject(project).valid,true);
+  const validation=validateProject(project);assert.equal(validation.valid,false);
+  assert.ok(validation.errors.some(error=>error.rule==="SOURCE_SHORT"));
   const result=diagnoseSupplyShort(project);
   assert.equal(result.state,"blocked");assert.equal(result.result,null);
   assert.equal(result.diagnostics.analysisAttempted,false);
