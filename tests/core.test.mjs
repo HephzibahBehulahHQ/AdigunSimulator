@@ -544,6 +544,33 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue USB LED estimates normal current and flags a PTC hold-current overload", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/008-usb-powered-led.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const normal = runSupportedAnalysis(project);
+  assert.equal(normal.state, "complete");
+  assert.equal(normal.result.kind, "usb-led-ptc");
+  assert.equal(normal.result.holdCurrentExceeded, false);
+  assert.equal(normal.result.overloadWarning, false);
+  assert.equal(normal.result.fuseTripPredicted, false);
+  assert.ok(Math.abs(normal.result.currentA - 3 / 330.1) < 1e-12);
+  assert.ok(Math.abs(normal.result.powerBalanceW) < 1e-12);
+
+  const overload = runSupportedAnalysis(updateComponent(project, "resistor-1", { value: "1 Ω" }));
+  assert.equal(overload.state, "complete");
+  assert.equal(overload.result.holdCurrentExceeded, true);
+  assert.equal(overload.result.overloadWarning, true);
+  assert.equal(overload.result.fuseTripPredicted, false);
+  assert.match(overload.message, /exceeds the configured PTC hold current/);
+  assert.ok(Math.abs(overload.result.powerBalanceW) < 1e-12);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "fuse-1", { value: "invalid" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "FUSED_5V").endpoints = ["fuse-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue 5 V linear supply estimates ripple and regulator dropout", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/007-linear-regulated-supply.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -666,7 +693,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 20);
+  assert.equal(getExampleCoverage(registry).total, 21);
   assert.equal(getExampleCoverage(registry).released, 10);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 190);
