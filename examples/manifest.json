@@ -7212,7 +7212,7 @@
     {
       "id": "187-unit-conversion-calculator",
       "title": "Unit conversion calculator",
-      "status": "in-review",
+      "status": "released",
       "objective": "Convert resistance, power, and length values between SI prefixes using dimension checks and deterministic significant-digit rounding.",
       "acceptanceTest": "tests/core.test.mjs: catalogue SI unit converter returns resistor, power, length, and rounded results",
       "testId": "core-si-unit-conversion-calculator",
@@ -7220,7 +7220,34 @@
       "readmeFile": "examples/187-unit-conversion-calculator/README.md",
       "safetyNote": "Pure unit conversion only. It does not calculate circuit behavior or validate component ratings.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 187,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41215083847",
+        "headRevision": "ab5e22d0d698479f28d77b46490dd4e7b4a00088",
+        "engine": "Deterministic SI prefix conversion",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "si-unit-conversion-cases-v1",
+        "expectedResult": {
+          "kind": "si-unit-conversion-cases",
+          "caseCount": 4,
+          "convertedValues": [
+            4700,
+            0.25,
+            0.125,
+            1.23457
+          ],
+          "dimensions": [
+            "resistance",
+            "power",
+            "length",
+            "resistance"
+          ],
+          "roundingSignificantDigits": 6
+        }
+      }
     }
   ]
 }
