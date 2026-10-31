@@ -544,6 +544,30 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue Zener shunt regulator clamps within power and reports overload", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/017-zener-shunt-regulator.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const nominal = runSupportedAnalysis(project);
+  assert.equal(nominal.state, "complete");
+  assert.equal(nominal.result.kind, "zener-shunt-regulator");
+  assert.equal(nominal.result.outputVoltage, 5.1);
+  assert.ok(nominal.result.zenerCurrentA > 0);
+  assert.ok(nominal.result.zenerPowerW < nominal.result.maxZenerPowerW);
+  assert.deepEqual(nominal.warnings, []);
+
+  const overloaded = updateComponent(project, "source-1", { value: "12 V" });
+  const highCurrent = updateComponent(overloaded, "series-resistor-1", { value: "10 Ω" });
+  const overloadResult = runSupportedAnalysis(highCurrent);
+  assert.equal(overloadResult.state, "complete");
+  assert.ok(overloadResult.warnings.length > 0);
+  assert.ok(overloadResult.result.zenerPowerW > overloadResult.result.maxZenerPowerW);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "zener-1", { value: "5.1 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find(net => net.id === "VOUT").endpoints = ["series-resistor-1:2", "load-resistor-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue smoothing capacitor reduces bridge ripple after startup", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/016-smoothing-capacitor.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
