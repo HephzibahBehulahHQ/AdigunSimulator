@@ -5465,6 +5465,18 @@
           "artifact": "QFN-Footprint-Review.csv"
         }
       }
+    },
+    {
+      "id": "133-bga-escape-concept",
+      "title": "BGA escape concept — capability disclosure",
+      "status": "in-review",
+      "objective": "Validate an illustrative 4 × 4 BGA ball map and report precisely that escape routing, via feasibility and manufacturability are not assessed.",
+      "acceptanceTest": "tests/core.test.mjs: BGA escape concept clearly discloses unsupported routing and manufacturing claims",
+      "testId": "core-bga-escape-concept",
+      "projectFile": "examples/133-bga-escape-concept.adigun.json",
+      "readmeFile": "examples/133-bga-escape-concept/README.md",
+      "safetyNote": "Illustrative grid only. Pitch and land size are assumptions; the app has no BGA escape router, stack-up/fabrication-rule solver or manufacturing qualification.",
+      "scope": "catalogue"
     }
   ]
 }

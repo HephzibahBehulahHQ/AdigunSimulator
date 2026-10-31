@@ -11,6 +11,7 @@ import { createPowerLayoutReport, reviewBuckPowerLayout } from "../js/buck-conve
 import { createLayerStackupReport, reviewFourLayerMcuBoard } from "../js/mcu-board-plan.mjs";
 import { createDifferentialPairReport, reviewDifferentialPair } from "../js/differential-pair-review.mjs";
 import { createQfnFootprintReport, reviewQfnFootprint } from "../js/qfn-footprint-review.mjs";
+import { createBgaEscapeReport, reviewBgaEscapeConcept } from "../js/bga-escape-review.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
@@ -1340,6 +1341,36 @@ test("QFN footprint validation checks pad map, land pattern, stencil apertures a
   assert.equal(reviewQfnFootprint(shortCourt).status,"failed");
 });
 
+test("BGA escape concept clearly discloses unsupported routing and manufacturing claims", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/133-bga-escape-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete");
+  assert.equal(analysis.result.kind,"bga-escape-concept");
+  assert.equal(analysis.result.escapeRoutingPerformed,false);
+  assert.equal(analysis.result.viaEscapeVerified,false);
+  assert.equal(analysis.result.manufacturability,"not-assessed");
+  assert.equal(analysis.result.fabricationQualified,false);
+  const review=reviewBgaEscapeConcept(project);
+  assert.equal(review.status,"passed");
+  assert.equal(review.nominalLandGapMm,0.45);
+  assert.match(review.disclaimer,/does not route BGA escapes or vias/);
+  const expected=await readFile(new URL("../examples/133-bga-escape-concept/expected/BGA-Escape-Capability-Report.csv",import.meta.url),"utf8");
+  assert.equal(createBgaEscapeReport(project),expected);
+  const missingBall=structuredClone(project);
+  missingBall.pcbFabrication.pads=missingBall.pcbFabrication.pads.filter(p=>p.number!=="D4");
+  assert.equal(reviewBgaEscapeConcept(missingBall).status,"failed");
+  const falseRouter=structuredClone(project);
+  falseRouter.pcbFabrication.bgaEscapePlan.escapeRouting.available=true;
+  assert.equal(reviewBgaEscapeConcept(falseRouter).status,"failed");
+  const falseManufacturing=structuredClone(project);
+  falseManufacturing.pcbFabrication.bgaEscapePlan.claimsManufacturable=true;
+  assert.equal(reviewBgaEscapeConcept(falseManufacturing).status,"failed");
+  const assertedRoute=structuredClone(project);
+  assertedRoute.pcbFabrication.routes.push({netId:"A1",layer:"B.Cu",widthMm:0.1,pointsMm:[[8.8,8.8],[8.8,9.2]]});
+  assert.equal(reviewBgaEscapeConcept(assertedRoute).status,"failed");
+});
+
 test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
@@ -1348,7 +1379,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 142);
+  assert.equal(getExampleCoverage(registry).total, 143);
   assert.equal(getExampleCoverage(registry).released, 132);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 68);

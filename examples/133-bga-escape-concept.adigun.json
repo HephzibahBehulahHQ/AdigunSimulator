@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-133-bga-escape-concept",
+  "metadata": {
+    "name": "BGA Escape Concept — Capability Disclosure",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "bga",
+      "libraryId": "package.generic-bga-4x4-concept",
+      "reference": "U1",
+      "value": "Conceptual 4 × 4 grid; no manufacturer part number",
+      "position": {
+        "breadboard": [
+          320,
+          130
+        ],
+        "schematic": [
+          320,
+          130
+        ],
+        "pcb": [
+          320,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 20,
+      "heightMm": 20,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.15
+    },
+    "parts": [
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "footprint": "CONCEPT_BGA_4X4_0P8",
+        "technology": "smd"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "A1",
+        "number": "A1",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 8.8,
+        "yMm": 8.8
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "A2",
+        "number": "A2",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 9.6,
+        "yMm": 8.8
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "A3",
+        "number": "A3",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 10.4,
+        "yMm": 8.8
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "A4",
+        "number": "A4",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 11.2,
+        "yMm": 8.8
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "B1",
+        "number": "B1",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 8.8,
+        "yMm": 9.6
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "B2",
+        "number": "B2",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 9.6,
+        "yMm": 9.6
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "B3",
+        "number": "B3",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 10.4,
+        "yMm": 9.6
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "B4",
+        "number": "B4",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 11.2,
+        "yMm": 9.6
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "C1",
+        "number": "C1",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 8.8,
+        "yMm": 10.4
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "C2",
+        "number": "C2",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 9.6,
+        "yMm": 10.4
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "C3",
+        "number": "C3",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 10.4,
+        "yMm": 10.4
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "C4",
+        "number": "C4",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 11.2,
+        "yMm": 10.4
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "D1",
+        "number": "D1",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 8.8,
+        "yMm": 11.2
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "D2",
+        "number": "D2",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 9.6,
+        "yMm": 11.2
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "D3",
+        "number": "D3",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 10.4,
+        "yMm": 11.2
+      },
+      {
+        "instanceId": "bga",
+        "reference": "U1",
+        "pin": "D4",
+        "number": "D4",
+        "netId": "UNASSIGNED",
+        "technology": "smd",
+        "widthMm": 0.35,
+        "heightMm": 0.35,
+        "xMm": 11.2,
+        "yMm": 11.2
+      }
+    ],
+    "routes": [],
+    "keepouts": [],
+    "bgaEscapePlan": {
+      "instanceId": "bga",
+      "rows": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "columns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "ballMap": [
+        {
+          "ball": "A1",
+          "xMm": 8.8,
+          "yMm": 8.8
+        },
+        {
+          "ball": "A2",
+          "xMm": 9.6,
+          "yMm": 8.8
+        },
+        {
+          "ball": "A3",
+          "xMm": 10.4,
+          "yMm": 8.8
+        },
+        {
+          "ball": "A4",
+          "xMm": 11.2,
+          "yMm": 8.8
+        },
+        {
+          "ball": "B1",
+          "xMm": 8.8,
+          "yMm": 9.6
+        },
+        {
+          "ball": "B2",
+          "xMm": 9.6,
+          "yMm": 9.6
+        },
+        {
+          "ball": "B3",
+          "xMm": 10.4,
+          "yMm": 9.6
+        },
+        {
+          "ball": "B4",
+          "xMm": 11.2,
+          "yMm": 9.6
+        },
+        {
+          "ball": "C1",
+          "xMm": 8.8,
+          "yMm": 10.4
+        },
+        {
+          "ball": "C2",
+          "xMm": 9.6,
+          "yMm": 10.4
+        },
+        {
+          "ball": "C3",
+          "xMm": 10.4,
+          "yMm": 10.4
+        },
+        {
+          "ball": "C4",
+          "xMm": 11.2,
+          "yMm": 10.4
+        },
+        {
+          "ball": "D1",
+          "xMm": 8.8,
+          "yMm": 11.2
+        },
+        {
+          "ball": "D2",
+          "xMm": 9.6,
+          "yMm": 11.2
+        },
+        {
+          "ball": "D3",
+          "xMm": 10.4,
+          "yMm": 11.2
+        },
+        {
+          "ball": "D4",
+          "xMm": 11.2,
+          "yMm": 11.2
+        }
+      ],
+      "pitchMm": 0.8,
+      "landDiameterMm": 0.35,
+      "layerCount": 2,
+      "escapeRouting": {
+        "available": false,
+        "performed": false
+      },
+      "escapeVias": [],
+      "fabricationQualified": false,
+      "claimsManufacturable": false
+    }
+  }
+}

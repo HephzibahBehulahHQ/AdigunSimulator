@@ -1,3 +1,4 @@
+import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
 import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
 export const SCHEMA_VERSION = 1;
 export const DESIGN_VIEWS = Object.freeze(["breadboard", "schematic", "pcb"]);
@@ -274,6 +275,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.tusb1106-usb-fs-phy", category: "Active", type: "TI TUSB1106 USB Full-Speed transceiver", prefix: "U", pins: ["VPU","SOFTCON","OE","RCV","VP","VM","SUSPND","GND","VCCIO","SPEED","D-","D+","VPO","VMO","VREG","VCC5"], defaultValue: "TUSB1106RGTR; USB Full-Speed; RGT 16-pin pin map", simulation: "bounded-differential-pcb-rules", status: "TI manufacturer pin map; generic PCB footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.usb-phy-logic-10", category: "Connectors", type: "10-pin USB PHY logic header", prefix: "J", pins: ["VCCIO","GND","VPO","VMO","VP","VM","RCV","OE","SUSPND","SPEED"], defaultValue: "VCCIO, GND, VPO, VMO, RCV, OE, SUSPND, SPEED", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "active.tps62130-qfn16", category: "Active", type: "TI TPS62130 16-pin VQFN with exposed thermal pad", prefix: "U", pins: ["SW_1","SW_2","SW_3","PG","FB","AGND","FSW","DEF","SS_TR","AVIN","PVIN_1","PVIN_2","EN","VOS","PGND_1","PGND_2","EP"], defaultValue: "TPS62130RGTR; RGT0016C; adjustable 3 A buck converter", simulation: "bounded-qfn-footprint-review", status: "TI pin map and package drawing; footprint and stencil proposal", views: { breadboard: false, schematic: true, pcb: true } },
+  { id: "package.generic-bga-4x4-concept", category: "Active", type: "Conceptual 4 × 4 ball-grid array package", prefix: "U", pins: ["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"], defaultValue: "Concept only; 0.80 mm pitch and 0.35 mm land are declared assumptions", simulation: "bounded-bga-escape-capability-review", status: "conceptual geometry; not a manufacturer-specific package", views: { breadboard: false, schematic: true, pcb: true } },
 ]);
 
 function clone(value) {
@@ -605,6 +607,14 @@ function engineeringValue(value, expectedUnit) {
 export function runSupportedAnalysis(project, { previousState } = {}) {
   const validation = validateProject(project);
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
+
+  const bgaPart=project.components.find((item)=>item.libraryId==="package.generic-bga-4x4-concept");
+  if(bgaPart){
+    const review=reviewBgaEscapeConcept(project);
+    if(review.status!=="passed")return {state:"blocked",engine:"Bounded BGA escape capability disclosure checker",message:"The BGA concept metadata is inconsistent or claims unsupported routing/manufacturability.",validation,bgaReview:review};
+    return {state:"complete",engine:"Bounded BGA escape capability disclosure checker",message:"Verified only the declared 4 × 4 concept grid and package occupancy metadata. No escape routes, vias, layer transitions, fabrication rules or manufacturability were analyzed.",validation,result:{kind:"bga-escape-concept",ballCount:16,pitchMm:0.8,geometricLandGapMm:0.45,escapeRoutingPerformed:false,viaEscapeVerified:false,manufacturability:"not-assessed",fabricationQualified:false,claimsManufacturable:false}};
+  }
+
 
   const qfnPart=project.components.find((item)=>item.libraryId==="active.tps62130-qfn16");
   if(qfnPart){
