@@ -35,6 +35,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.schmitt-trigger-ideal", category: "Active", type: "Ideal Schmitt trigger with positive feedback", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal Schmitt trigger", simulation: "analytical-schmitt-trigger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-and-ideal", category: "Active", type: "Ideal two-input AND gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-window-comparator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-or-ideal", category: "Active", type: "Ideal two-input OR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-or-gate-truth-table", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-xor-ideal", category: "Active", type: "Ideal two-input XOR parity gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-xor-parity-checker", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -383,6 +384,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const schmittTriggers = project.components.filter((item) => item.libraryId === "active.schmitt-trigger-ideal");
   const andGates = project.components.filter((item) => item.libraryId === "active.logic-and-ideal");
   const orGates = project.components.filter((item) => item.libraryId === "active.logic-or-ideal");
+  const xorGates = project.components.filter((item) => item.libraryId === "active.logic-xor-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -447,6 +449,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (xorGates.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseLogicGateTruthTable(project, { sources: source, gate: xorGates[0], resistor: resistor[0], led: led[0], ground: ground[0], validation, logic: "xor" });
   }
   if (orGates.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analyseLogicGateTruthTable(project, { sources: source, gate: orGates[0], resistor: resistor[0], led: led[0], ground: ground[0], validation, logic: "or" });
@@ -1415,10 +1420,10 @@ function analyseLogicGateTruthTable(project,{sources,gate,resistor,led,ground,va
   if(!supply||!inputA||!inputB||n(gate,"GND")!==groundNet||n(led,"K")!==groundNet||!resistorWired
     ||![supplyVoltage,inputAVoltage,inputBVoltage,r,vf].every(Number.isFinite)
     ||supplyVoltage<=0||inputAVoltage<0||inputBVoltage<0||inputAVoltage>supplyVoltage||inputBVoltage>supplyVoltage||r<=0||vf<=0){
-    return {state:"blocked",message:"Wire a two-input AND gate, three grounded low-voltage sources, and a current-limited LED output path.",validation};
+    return {state:"blocked",message:`Wire a two-input ${logic.toUpperCase()} gate, three grounded low-voltage sources, and a current-limited LED output path.`,validation};
   }
   const inputAHigh=inputAVoltage>=logicThresholdV,inputBHigh=inputBVoltage>=logicThresholdV;
-  const outputHigh=logic==="or"?inputAHigh||inputBHigh:inputAHigh&&inputBHigh,outputVoltage=outputHigh?supplyVoltage:0;
+  const outputHigh=logic==="or"?inputAHigh||inputBHigh:logic==="xor"?inputAHigh!==inputBHigh:inputAHigh&&inputBHigh,outputVoltage=outputHigh?supplyVoltage:0;
   const ledCurrentA=outputHigh?Math.max(0,(outputVoltage-vf)/r):0;
   return {state:"complete",engine:`Ideal static two-input ${logic.toUpperCase()} truth-table estimate`,message:"Uses a 50% supply-voltage threshold and an ideal rail-to-rail logic output. LED current is estimated with a fixed forward voltage and resistor; propagation delay, output-current limit, input leakage, logic-family thresholds, and manufacturer-specific behavior are omitted.",result:{kind:`${logic}-gate-truth-table`,supplyVoltage,logicThresholdV,inputAVoltage,inputBVoltage,inputAHigh,inputBHigh,outputHigh,outputVoltage,ledOn:ledCurrentA>0,ledCurrentA},validation};
 }

@@ -1658,6 +1658,18 @@
           "ledCurrentWhenHighA": 0.00909090909090909
         }
       }
+    },
+    {
+      "id": "043-xor-parity-checker",
+      "title": "Two-input XOR odd-parity checker",
+      "status": "in-review",
+      "objective": "Use a generic ideal five-volt XOR gate to assert a current-limited LED when exactly one of two inputs is high; test all four combinations.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue XOR parity checker asserts for odd parity only",
+      "testId": "core-xor-parity-checker",
+      "projectFile": "examples/043-xor-parity-checker.adigun.json",
+      "safetyNote": "Generic ideal static XOR logic model, not a manufacturer-specific device. It uses a 50% supply threshold and ideal rail-to-rail output; propagation delay, output drive limits, input leakage, real logic-family thresholds, switching noise, and part ratings are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 43
     }
   ]
 }

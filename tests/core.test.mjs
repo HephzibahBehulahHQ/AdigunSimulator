@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 52);
+  assert.equal(getExampleCoverage(registry).total, 53);
   assert.equal(getExampleCoverage(registry).released, 42);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 158);
@@ -1377,4 +1377,21 @@ test("catalogue OR gate matches all input vectors and drives the LED for either 
   }
   const invalid = updateComponent(project, "input-b", { value: "6 V" });
   assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+});
+
+test("catalogue XOR parity checker asserts for odd parity only", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/043-xor-parity-checker.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-xor-ideal"), true);
+  const vectors = [[0, 0, false], [0, 5, true], [5, 0, true], [5, 5, false]];
+  for (const [a, b, expected] of vectors) {
+    let vector = updateComponent(project, "input-a", { value: `${a} V` });
+    vector = updateComponent(vector, "input-b", { value: `${b} V` });
+    const result = runSupportedAnalysis(vector);
+    assert.equal(result.state, "complete");
+    assert.equal(result.result.kind, "xor-gate-truth-table");
+    assert.equal(result.result.outputHigh, expected);
+    assert.equal(result.result.ledOn, expected);
+    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 330 : 0);
+  }
 });
