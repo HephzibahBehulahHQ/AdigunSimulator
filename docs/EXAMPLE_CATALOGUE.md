@@ -107,7 +107,7 @@ For every example, deliver a native project file, readme, schematic, breadboard 
 | 95 | PWM audio DAC RC filter concept | PWM source fixture, series resistor, capacitor, finite load, report | Test duty-tracking average, calculated steady-state ripple, frequency/ripple trend, duty/frequency bounds and broken RC-node wiring. Switching edges and component non-idealities are excluded. |
 | 96 | Digital potentiometer audio volume control | bounded sine fixture, loaded linear digital pot, output report | Verify all 11 command steps are monotonic under source/wiper/load resistance, plus invalid commands and disconnected output. No specific IC protocol or audio taper is modeled. |
 | 97 | RGB LED PWM colour controller | 8-bit command fixture, ideal PWM outputs, common-cathode RGB LED, three current-limit resistors | Test orange/white/red colour vectors, exact PWM duties, per-channel average current, 20 mA peak limits and broken channel wiring. Optical/gamma calibration is excluded. |
-| 98 | OLED status panel | MCU, OLED, sensors | Values update and bounds are handled; test missing-sensor message. |
+| 98 | OLED sensor status panel | three sensor fixtures, ideal MCU formatter, 16×2 OLED sink | Test formatted values, all required ranges, explicit missing-sensor guidance, line bounds and broken data wiring. Sensor precision, bus timing, OLED commands and firmware are not modeled. |
 | 99 | E-paper display updater | MCU, e-paper model | Partial/full refresh request meets state sequence; test power-state handling. |
 | 100 | Seven-segment clock | RTC, MCU, display | Time increments and rollover works; test 23:59:59. |
 | 101 | Buck converter baseline | switch, diode/synchronous model, L/C, controller | Output regulates at setpoint; test line/load steps. |

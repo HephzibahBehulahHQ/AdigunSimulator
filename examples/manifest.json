@@ -4008,6 +4008,43 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "098-oled-status-panel",
+      "title": "OLED sensor status panel",
+      "status": "released",
+      "objective": "Format bounded temperature, humidity, and pressure fixture values into a 16×2 status display and show a clear missing-sensor message when any required channel is absent.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue OLED status panel formats sensor values and handles missing sensors",
+      "testId": "core-oled-status-panel",
+      "projectFile": "examples/098-oled-status-panel.adigun.json",
+      "safetyNote": "Ideal sensor-fixture and status-formatting model only. Sensor accuracy, I²C timing, OLED controller commands, display rendering, firmware execution, and hardware behavior are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 98,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41186275332",
+        "headRevision": "b681dd60d14b88be6781b0f30be54824e483243c",
+        "engine": "Ideal MCU OLED status formatting and sensor-range check",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-16x2-oled-sensor-status-v1",
+        "expectedResult": {
+          "kind": "oled-status-panel",
+          "displayColumns": 16,
+          "displayRows": 2,
+          "displayLines": [
+            "T:23.5C RH:48%",
+            "P:1013hPa READY"
+          ],
+          "displayState": "ready",
+          "missingSensors": [],
+          "overflowLines": [],
+          "temperatureC": 23.5,
+          "humidityPct": 48,
+          "pressureHpa": 1013,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
