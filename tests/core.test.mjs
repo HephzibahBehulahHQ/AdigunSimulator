@@ -3068,3 +3068,39 @@ test("catalogue MOSFET half-bridge enforces dead time and prevents gate overlap"
   broken.nets.find(net=>net.id==="GATE_L").endpoints=["driver:GL"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue IGBT inverter leg respects gate logic and fault interlock", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/112-igbt-inverter-leg.adigun.json",import.meta.url)));
+  const nominal=runSupportedAnalysis(project);
+  assert.equal(nominal.state,"complete",JSON.stringify(nominal.validation?.errors??nominal));
+  assert.equal(nominal.result.kind,"igbt-inverter-leg");
+  assert.equal(nominal.result.switchingState,"high-side-on");
+  assert.equal(nominal.result.highGateOn,true);
+  assert.equal(nominal.result.lowGateOn,false);
+  assert.equal(nominal.result.outputVoltageV,22.2);
+  assert.ok(Math.abs(nominal.result.loadCurrentA-1.85)<1e-12);
+  assert.equal(nominal.result.shootThrough,false);
+  const low=runSupportedAnalysis(updateComponent(project,"pwm",{value:"HighCommand off; LowCommand on; Fault none; Mode igbt-leg"}));
+  assert.equal(low.state,"complete");
+  assert.equal(low.result.switchingState,"low-side-on");
+  assert.equal(low.result.outputVoltageV,0);
+  assert.equal(low.result.loadCurrentA,0);
+  const conflict=runSupportedAnalysis(updateComponent(project,"pwm",{value:"HighCommand on; LowCommand on; Fault none; Mode igbt-leg"}));
+  assert.equal(conflict.state,"complete");
+  assert.equal(conflict.result.switchingState,"command-conflict");
+  assert.equal(conflict.result.highGateOn,false);
+  assert.equal(conflict.result.lowGateOn,false);
+  assert.equal(conflict.result.interlockActive,true);
+  for (const fault of ["desat","overcurrent"]) {
+    const tripped=runSupportedAnalysis(updateComponent(project,"pwm",{value:"HighCommand on; LowCommand off; Fault "+fault+"; Mode igbt-leg"}));
+    assert.equal(tripped.state,"complete");
+    assert.equal(tripped.result.switchingState,"fault-interlocked");
+    assert.equal(tripped.result.highGateOn,false);
+    assert.equal(tripped.result.lowGateOn,false);
+    assert.equal(tripped.result.loadCurrentA,0);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"leg",{value:"VceSat 1.8 V; MaxVoltage 20 V; MaxCurrent 20 A; Mode igbt-leg"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="GATE_L").endpoints=["driver:L_OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
