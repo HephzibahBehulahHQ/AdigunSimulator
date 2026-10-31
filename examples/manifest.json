@@ -4576,6 +4576,19 @@
           "openLed": false
         }
       }
+    },
+    {
+      "id": "111-mosfet-half-bridge",
+      "title": "MOSFET half-bridge",
+      "status": "planned",
+      "objective": "Model complementary high/low MOSFET gate timing with minimum dead time, reject overlap, and estimate the resistive load during high-side conduction.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue MOSFET half-bridge enforces dead time and prevents gate overlap",
+      "testId": "core-mosfet-half-bridge",
+      "projectFile": "examples/111-mosfet-half-bridge.adigun.json",
+      "readmeFile": "examples/111-mosfet-half-bridge/README.md",
+      "safetyNote": "Ideal timing and resistive-load estimator; it is not a switching-transient, thermal, SOA, or hardware-safety simulation.",
+      "scope": "catalogue",
+      "catalogueIndex": 111
     }
   ]
 }
