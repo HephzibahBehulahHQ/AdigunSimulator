@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-035-npn-relay-driver",
+  "metadata": {
+    "name": "Generic NPN Relay-Coil Driver",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          55,
+          55
+        ],
+        "schematic": [
+          55,
+          55
+        ],
+        "pcb": [
+          55,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "control",
+      "libraryId": "power.dc-source",
+      "reference": "VIN",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          165,
+          55
+        ],
+        "schematic": [
+          165,
+          55
+        ],
+        "pcb": [
+          165,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "npn",
+      "libraryId": "active.npn-small-signal",
+      "reference": "Q1",
+      "value": "β 100; VBE 0.7 V; VCEsat 0.2 V",
+      "position": {
+        "breadboard": [
+          275,
+          55
+        ],
+        "schematic": [
+          275,
+          55
+        ],
+        "pcb": [
+          275,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "base-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RB",
+      "value": "220 Ω",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "coil-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RCOIL",
+      "value": "24 Ω",
+      "position": {
+        "breadboard": [
+          495,
+          55
+        ],
+        "schematic": [
+          495,
+          55
+        ],
+        "pcb": [
+          495,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "coil-inductor",
+      "libraryId": "passive.inductor",
+      "reference": "LCOIL",
+      "value": "100 mH",
+      "position": {
+        "breadboard": [
+          55,
+          145
+        ],
+        "schematic": [
+          55,
+          145
+        ],
+        "pcb": [
+          55,
+          145
+        ]
+      }
+    },
+    {
+      "instanceId": "flyback",
+      "libraryId": "diode.schottky",
+      "reference": "D1",
+      "value": "Vf 0.3 V",
+      "position": {
+        "breadboard": [
+          165,
+          145
+        ],
+        "schematic": [
+          165,
+          145
+        ],
+        "pcb": [
+          165,
+          145
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          275,
+          145
+        ],
+        "schematic": [
+          275,
+          145
+        ],
+        "pcb": [
+          275,
+          145
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "coil-resistor:1",
+        "flyback:K"
+      ]
+    },
+    {
+      "id": "CONTROL",
+      "endpoints": [
+        "control:+",
+        "base-resistor:1"
+      ]
+    },
+    {
+      "id": "BASE",
+      "endpoints": [
+        "base-resistor:2",
+        "npn:B"
+      ]
+    },
+    {
+      "id": "COIL_MID",
+      "endpoints": [
+        "coil-resistor:2",
+        "coil-inductor:1"
+      ]
+    },
+    {
+      "id": "COLLECTOR",
+      "endpoints": [
+        "coil-inductor:2",
+        "npn:C",
+        "flyback:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "control:-",
+        "npn:E",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": []
+}

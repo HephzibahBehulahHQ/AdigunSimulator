@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 44);
+  assert.equal(getExampleCoverage(registry).total, 45);
   assert.equal(getExampleCoverage(registry).released, 34);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 166);
@@ -1152,3 +1152,42 @@ test("all supported UI locales contain every declared interface key", () => {
   assert.equal(translate("unsupported-locale", "newProject"), "New Project");
 });
 
+test("catalogue NPN relay driver estimates coil pull-in and flyback release current", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/035-npn-relay-driver.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const on = runSupportedAnalysis(project);
+  assert.equal(on.state, "complete");
+  assert.equal(on.result.kind, "npn-relay-driver");
+  assert.equal(on.result.transistorSaturated, true);
+  assert.equal(on.result.relayEnergizedEstimate, true);
+  assert.ok(Math.abs(on.result.baseCurrentA - (5 - 0.7) / 220) < 1e-12);
+  assert.ok(Math.abs(on.result.coilCurrentA - (12 - 0.2) / 24) < 1e-12);
+  assert.ok(Math.abs(on.result.collectorVoltageV - 0.2) < 1e-12);
+  assert.ok(Math.abs(on.result.coilStoredEnergyJ - 0.5 * 0.1 * on.result.coilCurrentA ** 2) < 1e-12);
+  assert.equal(on.result.turnOffDecay.length, 3);
+  assert.ok(Math.abs(on.result.turnOffDecay[0].currentA - on.result.coilCurrentA) < 1e-12);
+  assert.ok(on.result.turnOffDecay[1].currentA > 0);
+  assert.ok(on.result.turnOffDecay[2].currentA < on.result.turnOffDecay[1].currentA);
+  assert.equal(on.result.flybackClampVoltageV, 12.3);
+
+  const offProject = updateComponent(project, "control", { value: "0 V" });
+  const off = runSupportedAnalysis(offProject);
+  assert.equal(off.state, "complete");
+  assert.equal(off.result.transistorConducting, false);
+  assert.equal(off.result.coilCurrentA, 0);
+  assert.equal(off.result.relayEnergizedEstimate, false);
+
+  const weakDrive = runSupportedAnalysis(updateComponent(project, "control", { value: "1 V" }));
+  assert.equal(weakDrive.state, "complete");
+  assert.equal(weakDrive.result.transistorSaturated, false);
+  assert.ok(Math.abs(weakDrive.result.coilCurrentA - 100 * (1 - 0.7) / 220) < 1e-12);
+  assert.equal(weakDrive.result.relayEnergizedEstimate, false);
+
+  const reversedDiode = structuredClone(project);
+  reversedDiode.nets.find((net) => net.id === "VCC").endpoints = ["supply:+", "coil-resistor:1", "flyback:A"];
+  reversedDiode.nets.find((net) => net.id === "COLLECTOR").endpoints = ["coil-inductor:2", "npn:C", "flyback:K"];
+  assert.equal(runSupportedAnalysis(reversedDiode).state, "blocked");
+
+  const excessiveBaseDrive = updateComponent(project, "base-resistor", { value: "10 Ω" });
+  assert.equal(runSupportedAnalysis(excessiveBaseDrive).state, "blocked");
+});
