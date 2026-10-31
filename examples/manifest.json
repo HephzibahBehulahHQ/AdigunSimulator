@@ -5913,14 +5913,36 @@
     {
       "id": "147-rc-bode-plot",
       "title": "Bode plot of RC filter",
-      "status": "in-review",
+      "status": "released",
       "objective": "Plot the ideal first-order RC low-pass magnitude in dB and phase in degrees over a logarithmic frequency range, with a tested -3.01 dB/-45 degree cutoff marker.",
       "acceptanceTest": "tests/core.test.mjs: catalogue RC Bode plot labels units and places the exact cutoff marker",
       "testId": "core-rc-bode-plot",
       "projectFile": "examples/147-rc-bode-plot.adigun.json",
       "readmeFile": "examples/147-rc-bode-plot/README.md",
       "safetyNote": "The model assumes an unloaded ideal first-order RC network with nominal values. Source impedance, tolerances, parasitics and instrument loading are not included.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 147,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41205714014",
+        "headRevision": "acca1c9cd043fedf5f14fa03afff98626cb796df",
+        "engine": "Bounded first-order RC low-pass frequency response",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "rc-bode-first-order-v1",
+        "expectedResult": {
+          "kind": "rc-bode-plot",
+          "cutoffHz": 1.5915494309,
+          "cutoffMagnitudeDb": -3.0102999566,
+          "cutoffPhaseDeg": -45,
+          "pointCount": 41,
+          "plotUnits": [
+            "Hz",
+            "dB",
+            "deg"
+          ]
+        }
+      }
     }
   ]
 }
