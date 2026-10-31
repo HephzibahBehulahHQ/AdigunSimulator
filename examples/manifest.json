@@ -5633,6 +5633,18 @@
           "manufacturingQualified": false
         }
       }
+    },
+    {
+      "id": "138-net-class-rule-demo",
+      "title": "Power and signal net-class rule demo",
+      "status": "in-review",
+      "objective": "Assign explicit POWER and SIGNAL net classes, enforce route-width and cross-class clearance limits, and emit a review report.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue net-class rule demo reports power and signal limits and detects width and clearance violations",
+      "testId": "core-net-class-rule-demo",
+      "projectFile": "examples/138-net-class-rule-demo.adigun.json",
+      "readmeFile": "examples/138-net-class-rule-demo/README.md",
+      "safetyNote": "The checker evaluates declared route widths and centerline spacing in this educational single-layer model. It is not a production DRC engine and does not qualify a board for manufacture.",
+      "scope": "catalogue"
     }
   ]
 }

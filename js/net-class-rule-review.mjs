@@ -1,0 +1,17 @@
+const csv=(v)=>'"'+String(v??"").replaceAll('"','""')+'"';
+const distance=(p,a,b)=>{const dx=b[0]-a[0],dy=b[1]-a[1],den=dx*dx+dy*dy,t=den?Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/den)):0;return Math.hypot(p[0]-(a[0]+t*dx),p[1]-(a[1]+t*dy));};
+const orient=(a,b,c)=>(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
+function segmentDistance(a,b,c,d){const o1=orient(a,b,c),o2=orient(a,b,d),o3=orient(c,d,a),o4=orient(c,d,b),on=(p,q,r)=>Math.abs(orient(p,q,r))<1e-9&&r[0]>=Math.min(p[0],q[0])-1e-9&&r[0]<=Math.max(p[0],q[0])+1e-9&&r[1]>=Math.min(p[1],q[1])-1e-9&&r[1]<=Math.max(p[1],q[1])+1e-9;const intersects=(o1*o2<0&&o3*o4<0)||on(a,b,c)||on(a,b,d)||on(c,d,a)||on(c,d,b);if(intersects)return 0;return Math.min(distance(a,c,d),distance(b,c,d),distance(c,a,b),distance(d,a,b));}
+const q=(n)=>Number(n.toFixed(3));
+export function reviewNetClassRules(project){
+  const pcb=project?.pcbFabrication,classes=pcb?.netClasses,rules=pcb?.netClassRules,routes=pcb?.routes;
+  const errors=[],rows=[["Check","Subject","Measured_mm","Required_mm","Status"]],classByNet=new Map(),classByName=new Map();
+  if(!Array.isArray(classes)||!Array.isArray(rules)||!Array.isArray(routes))return {status:"blocked",errors:["Net classes, clearance rules and routes are required."],rows,report:rows.map(r=>r.map(csv).join(",")).join("\r\n")+"\r\n"};
+  for(const c of classes){if(!c?.name||classByName.has(c.name)||!Array.isArray(c.netIds)||!Number.isFinite(c.minimumWidthMm)||c.minimumWidthMm<=0){errors.push("Net class definitions need unique names, nets and a positive minimum width.");continue;}classByName.set(c.name,c);for(const id of c.netIds){if(classByNet.has(id))errors.push("Net "+id+" is assigned to more than one class.");else classByNet.set(id,c);}}
+  const sortedRoutes=[...routes].sort((a,b)=>a.netId.localeCompare(b.netId));
+  for(const route of sortedRoutes){const c=classByNet.get(route.netId);if(!c){errors.push("Route net "+route.netId+" has no net class.");continue;}const pass=Number.isFinite(route.widthMm)&&route.widthMm+1e-9>=c.minimumWidthMm;rows.push(["route-width",route.netId+" ("+c.name+")",q(route.widthMm),q(c.minimumWidthMm),pass?"PASS":"FAIL"]);if(!pass)errors.push("Route "+route.netId+" width is below its "+c.name+" minimum.");}
+  for(const rule of rules){const a=classByName.get(rule.classA),b=classByName.get(rule.classB);if(!a||!b||!Number.isFinite(rule.minimumClearanceMm)||rule.minimumClearanceMm<0){errors.push("Net-class clearance rules must reference known classes and a nonnegative clearance.");continue;}const pairs=[];for(const ra of sortedRoutes.filter(r=>classByNet.get(r.netId)?.name===a.name))for(const rb of sortedRoutes.filter(r=>classByNet.get(r.netId)?.name===b.name)){if(ra.layer!==rb.layer)continue;for(let i=1;i<ra.pointsMm.length;i++)for(let j=1;j<rb.pointsMm.length;j++)pairs.push(segmentDistance(ra.pointsMm[i-1],ra.pointsMm[i],rb.pointsMm[j-1],rb.pointsMm[j])-(ra.widthMm+rb.widthMm)/2);}
+    const measured=pairs.length?Math.min(...pairs):Infinity,pass=measured+1e-9>=rule.minimumClearanceMm;rows.push(["class-clearance",a.name+"/"+b.name,pairs.length?q(measured):"n/a",q(rule.minimumClearanceMm),pass?"PASS":"FAIL"]);if(!pass)errors.push("Route clearance between "+a.name+" and "+b.name+" is below the class rule.");}
+  const report=rows.map(row=>row.map(csv).join(",")).join("\r\n")+"\r\n";
+  return {status:errors.length?"failed":"passed",errors,rows,report};
+}
