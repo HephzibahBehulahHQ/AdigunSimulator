@@ -2,6 +2,7 @@ export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
   "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu",
+  "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
   "active", "inputs", "instruments", "connectors", "selectComponent", "noPartSelected", "libraryHelp",
@@ -59,4 +60,11 @@ Object.assign(TRANSLATIONS.pcm, { availableAnalysis: "Analysis wey dey: LED curr
 export function translate(locale, key) {
   return TRANSLATIONS[locale]?.[key] ?? TRANSLATIONS.en[key] ?? key;
 }
-
+Object.assign(TRANSLATIONS.en, { corporateLogoAlt: "Official Hephzibah Behulah corporate logo", corporateWebsite: "Corporate website", documentation: "Documentation", support: "Support", personalProfile: "(personal profile)", allRightsReserved: "All rights reserved." });
+Object.assign(TRANSLATIONS.de, { corporateLogoAlt: "Offizielles Unternehmenslogo von Hephzibah Behulah", corporateWebsite: "Unternehmenswebsite", documentation: "Dokumentation", support: "Support", personalProfile: "(persönliches Profil)", allRightsReserved: "Alle Rechte vorbehalten." });
+Object.assign(TRANSLATIONS.yo, { corporateLogoAlt: "Àmì àjọ Hephzibah Behulah tó jẹ́ ti òfin", corporateWebsite: "Ojúlé àjọ", documentation: "Ìwé ìtọ́sọ́nà", support: "Ìrànlọ́wọ́", personalProfile: "(àkọọ́lẹ̀ ẹni kọọkan)", allRightsReserved: "Gbogbo ẹ̀tọ́ wà ní ìpamọ́." });
+Object.assign(TRANSLATIONS.pcm, { corporateLogoAlt: "Official Hephzibah Behulah company logo", corporateWebsite: "Company website", documentation: "Documentation", support: "Support", personalProfile: "(personal profile)", allRightsReserved: "All rights reserved." });
+Object.assign(TRANSLATIONS.en, { officialLinks: "Official company links", linkedinPersonalProfile: "LinkedIn personal profile", productTagline: "Design · Analyze · Prototype" });
+Object.assign(TRANSLATIONS.de, { officialLinks: "Offizielle Unternehmenslinks", linkedinPersonalProfile: "Persönliches LinkedIn-Profil", productTagline: "Entwerfen · Analysieren · Prototypisieren" });
+Object.assign(TRANSLATIONS.yo, { officialLinks: "Àwọn ìjápọ̀ àjọ tó jẹ́ ti òfin", linkedinPersonalProfile: "Àkọọ́lẹ̀ LinkedIn ẹni kọọkan", productTagline: "Ṣe àwòrán · Ṣe àyẹ̀wò · Ṣe àpẹẹrẹ" });
+Object.assign(TRANSLATIONS.pcm, { officialLinks: "Official company links", linkedinPersonalProfile: "LinkedIn personal profile", productTagline: "Design · Analyze · Prototype" });
