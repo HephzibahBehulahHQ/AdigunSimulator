@@ -1,0 +1,617 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-055-alu-add-subtract",
+  "metadata": {
+    "name": "Four-Bit ALU Add and Subtract",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "VCC",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          35
+        ],
+        "schematic": [
+          40,
+          35
+        ],
+        "pcb": [
+          40,
+          35
+        ]
+      }
+    },
+    {
+      "instanceId": "a0",
+      "libraryId": "power.dc-source",
+      "reference": "A0",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          135,
+          35
+        ],
+        "schematic": [
+          135,
+          35
+        ],
+        "pcb": [
+          135,
+          35
+        ]
+      }
+    },
+    {
+      "instanceId": "a1",
+      "libraryId": "power.dc-source",
+      "reference": "A1",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          230,
+          35
+        ],
+        "schematic": [
+          230,
+          35
+        ],
+        "pcb": [
+          230,
+          35
+        ]
+      }
+    },
+    {
+      "instanceId": "a2",
+      "libraryId": "power.dc-source",
+      "reference": "A2",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          325,
+          35
+        ],
+        "schematic": [
+          325,
+          35
+        ],
+        "pcb": [
+          325,
+          35
+        ]
+      }
+    },
+    {
+      "instanceId": "a3",
+      "libraryId": "power.dc-source",
+      "reference": "A3",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          420,
+          35
+        ],
+        "schematic": [
+          420,
+          35
+        ],
+        "pcb": [
+          420,
+          35
+        ]
+      }
+    },
+    {
+      "instanceId": "b0",
+      "libraryId": "power.dc-source",
+      "reference": "B0",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          515,
+          35
+        ],
+        "schematic": [
+          515,
+          35
+        ],
+        "pcb": [
+          515,
+          35
+        ]
+      }
+    },
+    {
+      "instanceId": "b1",
+      "libraryId": "power.dc-source",
+      "reference": "B1",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          100
+        ],
+        "schematic": [
+          40,
+          100
+        ],
+        "pcb": [
+          40,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "b2",
+      "libraryId": "power.dc-source",
+      "reference": "B2",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          135,
+          100
+        ],
+        "schematic": [
+          135,
+          100
+        ],
+        "pcb": [
+          135,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "b3",
+      "libraryId": "power.dc-source",
+      "reference": "B3",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          230,
+          100
+        ],
+        "schematic": [
+          230,
+          100
+        ],
+        "pcb": [
+          230,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "subtract",
+      "libraryId": "power.dc-source",
+      "reference": "SUB",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          325,
+          100
+        ],
+        "schematic": [
+          325,
+          100
+        ],
+        "pcb": [
+          325,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "alu",
+      "libraryId": "active.logic-alu4-ideal",
+      "reference": "U1",
+      "value": "Four-bit add/subtract",
+      "position": {
+        "breadboard": [
+          420,
+          100
+        ],
+        "schematic": [
+          420,
+          100
+        ],
+        "pcb": [
+          420,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "r0",
+      "libraryId": "passive.resistor",
+      "reference": "R0",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          515,
+          100
+        ],
+        "schematic": [
+          515,
+          100
+        ],
+        "pcb": [
+          515,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "r1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          40,
+          165
+        ],
+        "schematic": [
+          40,
+          165
+        ],
+        "pcb": [
+          40,
+          165
+        ]
+      }
+    },
+    {
+      "instanceId": "r2",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          135,
+          165
+        ],
+        "schematic": [
+          135,
+          165
+        ],
+        "pcb": [
+          135,
+          165
+        ]
+      }
+    },
+    {
+      "instanceId": "r3",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          230,
+          165
+        ],
+        "schematic": [
+          230,
+          165
+        ],
+        "pcb": [
+          230,
+          165
+        ]
+      }
+    },
+    {
+      "instanceId": "r4",
+      "libraryId": "passive.resistor",
+      "reference": "R4",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          325,
+          165
+        ],
+        "schematic": [
+          325,
+          165
+        ],
+        "pcb": [
+          325,
+          165
+        ]
+      }
+    },
+    {
+      "instanceId": "led0",
+      "libraryId": "diode.led-red",
+      "reference": "D0",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          420,
+          165
+        ],
+        "schematic": [
+          420,
+          165
+        ],
+        "pcb": [
+          420,
+          165
+        ]
+      }
+    },
+    {
+      "instanceId": "led1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          515,
+          165
+        ],
+        "schematic": [
+          515,
+          165
+        ],
+        "pcb": [
+          515,
+          165
+        ]
+      }
+    },
+    {
+      "instanceId": "led2",
+      "libraryId": "diode.led-red",
+      "reference": "D2",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          40,
+          230
+        ],
+        "schematic": [
+          40,
+          230
+        ],
+        "pcb": [
+          40,
+          230
+        ]
+      }
+    },
+    {
+      "instanceId": "led3",
+      "libraryId": "diode.led-red",
+      "reference": "D3",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          135,
+          230
+        ],
+        "schematic": [
+          135,
+          230
+        ],
+        "pcb": [
+          135,
+          230
+        ]
+      }
+    },
+    {
+      "instanceId": "led4",
+      "libraryId": "diode.led-red",
+      "reference": "D4",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          230,
+          230
+        ],
+        "schematic": [
+          230,
+          230
+        ],
+        "pcb": [
+          230,
+          230
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          325,
+          230
+        ],
+        "schematic": [
+          325,
+          230
+        ],
+        "pcb": [
+          325,
+          230
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "alu:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "alu:GND",
+        "ground:0",
+        "a0:-",
+        "a1:-",
+        "a2:-",
+        "a3:-",
+        "b0:-",
+        "b1:-",
+        "b2:-",
+        "b3:-",
+        "subtract:-",
+        "led0:K",
+        "led1:K",
+        "led2:K",
+        "led3:K",
+        "led4:K"
+      ]
+    },
+    {
+      "id": "A0",
+      "endpoints": [
+        "a0:+",
+        "alu:A0"
+      ]
+    },
+    {
+      "id": "B0",
+      "endpoints": [
+        "b0:+",
+        "alu:B0"
+      ]
+    },
+    {
+      "id": "A1",
+      "endpoints": [
+        "a1:+",
+        "alu:A1"
+      ]
+    },
+    {
+      "id": "B1",
+      "endpoints": [
+        "b1:+",
+        "alu:B1"
+      ]
+    },
+    {
+      "id": "A2",
+      "endpoints": [
+        "a2:+",
+        "alu:A2"
+      ]
+    },
+    {
+      "id": "B2",
+      "endpoints": [
+        "b2:+",
+        "alu:B2"
+      ]
+    },
+    {
+      "id": "A3",
+      "endpoints": [
+        "a3:+",
+        "alu:A3"
+      ]
+    },
+    {
+      "id": "B3",
+      "endpoints": [
+        "b3:+",
+        "alu:B3"
+      ]
+    },
+    {
+      "id": "SUB",
+      "endpoints": [
+        "subtract:+",
+        "alu:SUB"
+      ]
+    },
+    {
+      "id": "SUM0",
+      "endpoints": [
+        "alu:SUM0",
+        "r0:1"
+      ]
+    },
+    {
+      "id": "LED_SUM0",
+      "endpoints": [
+        "r0:2",
+        "led0:A"
+      ]
+    },
+    {
+      "id": "SUM1",
+      "endpoints": [
+        "alu:SUM1",
+        "r1:1"
+      ]
+    },
+    {
+      "id": "LED_SUM1",
+      "endpoints": [
+        "r1:2",
+        "led1:A"
+      ]
+    },
+    {
+      "id": "SUM2",
+      "endpoints": [
+        "alu:SUM2",
+        "r2:1"
+      ]
+    },
+    {
+      "id": "LED_SUM2",
+      "endpoints": [
+        "r2:2",
+        "led2:A"
+      ]
+    },
+    {
+      "id": "SUM3",
+      "endpoints": [
+        "alu:SUM3",
+        "r3:1"
+      ]
+    },
+    {
+      "id": "LED_SUM3",
+      "endpoints": [
+        "r3:2",
+        "led3:A"
+      ]
+    },
+    {
+      "id": "CARRY",
+      "endpoints": [
+        "alu:CARRY",
+        "r4:1"
+      ]
+    },
+    {
+      "id": "LED_CARRY",
+      "endpoints": [
+        "r4:2",
+        "led4:A"
+      ]
+    }
+  ],
+  "history": []
+}
