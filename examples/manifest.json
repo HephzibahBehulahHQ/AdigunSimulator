@@ -7291,7 +7291,7 @@
     {
       "id": "189-led-resistor-calculator",
       "title": "LED resistor calculator",
-      "status": "in-review",
+      "status": "released",
       "objective": "Compute an ideal LED series resistance from supply voltage, forward voltage, and target current; recommend the next E12 value above the minimum and warn when estimated resistor dissipation leaves insufficient rating margin.",
       "acceptanceTest": "tests/core.test.mjs: catalogue LED resistor calculator rounds upward to E12 and warns on resistor power",
       "testId": "core-led-series-resistor-calculator",
@@ -7299,7 +7299,37 @@
       "readmeFile": "examples/189-led-resistor-calculator/README.md",
       "safetyNote": "Ideal DC calculation only. Verify LED datasheet limits, source tolerance, resistor tolerance, temperature, and power derating before hardware use.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 189,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41215489435",
+        "headRevision": "5509f4696ed957b2d881055c084c87044c0c7a60",
+        "engine": "Ohm-law resistor sizing with upward E12 recommendation",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "led-series-resistor-cases-v1",
+        "expectedResult": {
+          "kind": "led-series-resistor-cases",
+          "caseCount": 3,
+          "powerWarningCount": 1,
+          "recommendedResistancesOhms": [
+            150,
+            150,
+            560
+          ],
+          "estimatedCurrentsmA": [
+            8.67,
+            13.33,
+            17.86
+          ],
+          "powerWarnings": [
+            false,
+            false,
+            true
+          ]
+        }
+      }
     }
   ]
 }
