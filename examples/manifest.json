@@ -6684,7 +6684,7 @@
     {
       "id": "172-pwm-fan-controller",
       "title": "PWM fan controller",
-      "status": "in-review",
+      "status": "released",
       "objective": "Map a synthetic temperature sweep to a monotonic PWM duty curve using piecewise-linear interpolation and endpoint clamping.",
       "acceptanceTest": "tests/core.test.mjs: catalogue PWM fan controller interpolates curve knots and clamps endpoints",
       "testId": "core-pwm-fan-controller",
@@ -6692,7 +6692,32 @@
       "readmeFile": "examples/172-pwm-fan-controller/README.md",
       "safetyNote": "Setpoint mapping only; no NTC behavior, firmware, timer quantization, driver, fan, airflow, thermal feedback, or cooling performance is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 172,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41211554153",
+        "headRevision": "a6308d17a436c801bfd27ceeab0a8c3852c3ab2f",
+        "engine": "Deterministic piecewise-linear PWM duty mapping",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "pwm-fan-temperature-duty-curve-v1",
+        "expectedResult": {
+          "kind": "pwm-fan-duty-curve",
+          "knotCount": 3,
+          "sampleCount": 7,
+          "dutyPercentBySample": [
+            0,
+            0,
+            20,
+            40,
+            70,
+            100,
+            100
+          ],
+          "physicalFanModel": false
+        }
+      }
     }
   ]
 }
