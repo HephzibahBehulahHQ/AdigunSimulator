@@ -2557,6 +2557,18 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "062-arduino-button-debounce",
+      "title": "Uno-class debounced button toggle",
+      "status": "in-review",
+      "objective": "Reject short digital bounce sequences and toggle the D13 output only after each three-sample stable press.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Arduino button debounce rejects bounce and toggles once per stable press",
+      "testId": "core-arduino-button-debounce",
+      "projectFile": "examples/062-arduino-button-debounce.adigun.json",
+      "safetyNote": "Configured sampled digital behavior only; it does not execute Arduino C++ or model switch contacts, analog RC behavior, CPU scheduling, or electrical noise.",
+      "scope": "catalogue",
+      "catalogueIndex": 62
     }
   ]
 }
