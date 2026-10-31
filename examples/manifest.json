@@ -3559,6 +3559,39 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "086-ir-remote-actions",
+      "title": "NEC-like IR remote action decoder",
+      "status": "released",
+      "objective": "Validate a NEC-like IR frame and map a decoded command byte to an explicit supported action label, leaving unrecognized valid keys unmapped.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue IR remote maps valid NEC-like keys to actions and rejects invalid pulses",
+      "testId": "core-ir-remote-action",
+      "projectFile": "examples/086-ir-remote-actions.adigun.json",
+      "safetyNote": "Ideal timing and command-map model only. It displays an action label and does not control an appliance. Optical propagation, carrier waveform, receiver AGC, MCU firmware, and physical timing margins are not modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 86,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41183322664",
+        "headRevision": "8ccb43568196025b66c5acd686bf3db55e7c33d8",
+        "engine": "Ideal NEC-like IR remote action dispatcher",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-nec-like-ir-action-map-v1",
+        "expectedResult": {
+          "protocol": "NEC-like",
+          "rawCode": "0x00FFA25D",
+          "address": "0x00",
+          "command": "0xA2",
+          "action": "TOGGLE_LIGHT",
+          "mapped": true,
+          "bitCount": 32,
+          "frameDurationUs": 67980,
+          "actionExecuted": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
