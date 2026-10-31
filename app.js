@@ -17,6 +17,7 @@ import {
 } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
+import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
@@ -218,16 +219,34 @@ function netClass(netId) {
 
 function netSvg(project, view, unavailable = new Set()) {
   const componentsById = new Map(project.components.map((component) => [component.instanceId, component]));
+  const endpointPoint = (endpoint) => {
+    const [instanceId, ...pinParts] = String(endpoint).split(":");
+    const component = componentsById.get(instanceId);
+    if (!component || unavailable.has(instanceId)) return null;
+    if (view !== "schematic") return componentCenter(component, view);
+    const part = findLibraryPart(component.libraryId);
+    return part ? schematicPinPoint(component, part.pins, pinParts.join(":")) : null;
+  };
   const paths = project.nets.flatMap((net) => {
-    const points = net.endpoints
-      .map((entry) => componentsById.get(String(entry).split(":")[0]))
-      .filter((component) => component && !unavailable.has(component.instanceId))
-      .map((component) => componentCenter(component, view));
+    const points = net.endpoints.map((endpoint) => ({ endpoint, point: endpointPoint(endpoint) })).filter((item) => item.point);
     if (points.length < 2) return [];
-    const origin = points[0];
-    return points.slice(1).map((point) => `<path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""}" d="M${origin.x} ${origin.y} L${point.x} ${origin.y} L${point.x} ${point.y}" data-net="${escape(net.id)}"/>`);
+    const origin = points[0].point;
+    const path = points.slice(1).map(({ point }) => {
+      const bendX = Math.round((origin.x + point.x) / 2);
+      return `M${origin.x} ${origin.y} H${bendX} V${point.y} H${point.x}`;
+    }).join(" ");
+    return [`<path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""}" d="${path}" data-net="${escape(net.id)}"/>`];
   }).join("");
-  return `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true">${paths}</svg>`;
+  const terminals = view === "schematic" ? project.nets.flatMap((net) => net.endpoints.map((endpoint) => {
+    const point = endpointPoint(endpoint);
+    if (!point) return "";
+    const pin = endpoint.slice(endpoint.indexOf(":") + 1);
+    const side = point.side;
+    const labelX = point.x + (side === "left" ? -4 : 4);
+    const anchor = side === "left" ? "end" : "start";
+    return `<g class="schematic-pin-terminal ${netClass(net.id)}" data-endpoint="${escape(endpoint)}"><circle cx="${point.x}" cy="${point.y}" r="2.4"/><text x="${labelX}" y="${point.y - 4}" text-anchor="${anchor}">${escape(pin)}</text></g>`;
+  }).join("")) : "";
+  return `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true">${paths}${terminals}</svg>`;
 }
 
 
