@@ -270,6 +270,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "connector.buck-output-2", category: "Connectors", type: "2-pin buck converter output terminal", prefix: "J", pins: ["VOUT","GND"], defaultValue: "5 V DC output; 2-position terminal", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "active.stm32g031k8-lqfp32", category: "Active", type: "ST STM32G031K8T6 Cortex-M0+ MCU LQFP32", prefix: "U", pins: ["PB9","PC14","PC15","VDD_VDDA","VSS_VSSA","NRST","PA0","PA1","PA2","PA3","PA4","PA5","PA6","PA7","PB0","PB1","PB2","PA8","PA9","PC6","PA10","PA11","PA12","PA13_SWDIO","PA14_SWDCLK","PA15","PB3","PB4","PB5","PB6","PB7","PB8"], defaultValue: "STM32G031K8T6; LQFP32; 1.7–3.6 V; datasheet pin map", simulation: "bounded-mcu-board-plan", status: "ST manufacturer device/pin map; generic PCB footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.swd-header-4", category: "Connectors", type: "4-pin SWD programming header", prefix: "J", pins: ["VDD","GND","SWDIO","SWCLK"], defaultValue: "2.54 mm SWD header", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
+  { id: "active.tusb1106-usb-fs-phy", category: "Active", type: "TI TUSB1106 USB Full-Speed transceiver", prefix: "U", pins: ["VPU","SOFTCON","OE","RCV","VP","VM","SUSPND","GND","VCCIO","SPEED","D-","D+","VPO","VMO","VREG","VCC5"], defaultValue: "TUSB1106RGTR; USB Full-Speed; RGT 16-pin pin map", simulation: "bounded-differential-pcb-rules", status: "TI manufacturer pin map; generic PCB footprint template", views: { breadboard: false, schematic: true, pcb: true } },
+  { id: "connector.usb-phy-logic-8", category: "Connectors", type: "8-pin USB PHY logic header", prefix: "J", pins: ["VCCIO","GND","VPO","VMO","RCV","OE","SUSPND","SPEED"], defaultValue: "VCCIO, GND, VPO, VMO, RCV, OE, SUSPND, SPEED", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
 ]);
 
 function clone(value) {
@@ -647,6 +649,18 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
     const pinMap=project.pcbFabrication?.pads?.filter((pad)=>pad.instanceId===mcu.instanceId).length===32&&["PB9","PC14","PC15","VDD_VDDA","VSS_VSSA","NRST","PA0","PA1","PA2","PA3","PA4","PA5","PA6","PA7","PB0","PB1","PB2","PA8","PA9","PC6","PA10","PA11","PA12","PA13_SWDIO","PA14_SWDCLK","PA15","PB3","PB4","PB5","PB6","PB7","PB8"].every((pin,index)=>project.pcbFabrication.pads.some((pad)=>pad.instanceId===mcu.instanceId&&pad.pin===pin&&String(pad.number)===String(index+1)));
     if(!supply||voltageValue(supply.value)!==3.3||!pinMap||required.some(([n,c,p])=>!has(n,c,p)))return {state:"blocked",message:"Check STM32G031 LQFP32 pin map, VDD/VSS decoupling and SWD header connections.",validation};
     return {state:"complete",engine:"STM32 four-layer board-plan checker",message:"Verified the manufacturer LQFP32 pin map, required supply/ground pins, local decouplers and SWD connector. Firmware, MCU execution, signal integrity, power integrity, manufacturing DRC and electrical performance are not simulated.",validation,result:{kind:"stm32-four-layer-board-plan",device:"STM32G031K8T6",package:"LQFP32",supplyPinsPresent:true,all32PadsMapped:true,stackupLayers:project.pcbFabrication?.stackup?.length??0,firmwareSimulation:false,manufacturingQualified:false}};
+  }
+
+
+  const phy=project.components.find((x)=>x.libraryId==="active.tusb1106-usb-fs-phy");
+  if(phy){
+    const usb=project.components.find((x)=>x.libraryId==="connector.usb-c-receptacle"),pull=project.components.find((x)=>x.reference==="R3"),cc1=project.components.find((x)=>x.reference==="R1"),cc2=project.components.find((x)=>x.reference==="R2");
+    const has=(n,c,p)=>Boolean(c&&project.nets.find((x)=>x.id===n)?.endpoints.includes(c.instanceId+":"+p));
+    const pinmap=["VPU","SOFTCON","OE","RCV","VP","VM","SUSPND","GND","VCCIO","SPEED","D-","D+","VPO","VMO","VREG","VCC5"].every((pin,i)=>project.pcbFabrication?.pads?.some((pad)=>pad.instanceId===phy.instanceId&&pad.pin===pin&&String(pad.number)===String(i+1)));
+    const usbMap=Boolean(usb&&project.pcbFabrication?.connectorPinMap?.length===0);
+    const ok=pinmap&&has("USB_DP",usb,"A6")&&has("USB_DP",usb,"B6")&&has("USB_DM",usb,"A7")&&has("USB_DM",usb,"B7")&&has("USB_DP",phy,"D+")&&has("USB_DM",phy,"D-")&&has("CC1",usb,"A5")&&has("GND",cc1,"2")&&has("CC2",usb,"B5")&&has("GND",cc2,"2")&&String(cc1?.value).startsWith("5.1 k")&&String(cc2?.value).startsWith("5.1 k")&&has("USB_DP",pull,"2")&&has("VPU",pull,"1")&&project.pcbFabrication?.differentialPairs?.length===1;
+    if(!ok)return {state:"blocked",message:"Check TUSB1106 pin mapping, USB-C D+/D−/CC nets, pair-rule declaration, and 3.3 V pull-up.",validation};
+    return {state:"complete",engine:"Bounded USB Full-Speed differential-rule checker",message:"Verified declared D+/D− mapping and pair constraints. The target differential impedance is metadata only; no field solver, USB eye, jitter, protocol or electrical-compliance simulation is performed.",validation,result:{kind:"usb-full-speed-differential-pair-plan",transceiver:"TUSB1106RGTR",pairRuleDeclared:true,impedanceSolver:false,usbProtocolSimulation:false,manufacturingQualified:false}};
   }
 
   const usbC = project.components.find((item) => item.libraryId === "connector.usb-c-receptacle");
