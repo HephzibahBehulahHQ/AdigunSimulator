@@ -428,6 +428,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (acSource.length === 1 && toneControls.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePassiveToneControl(project, { source: acSource[0], control: toneControls[0], capacitor: capacitor[0], load: resistor[0], ground: ground[0], validation });
   }
+  if (source.length === 5 && pmosSwitches.length === 2 && mosfets.length === 2 && resistor.length === 1 && inductor.length === 1 && ground.length === 1 && project.components.length === 12) {
+    return analyseHBridgeMotor(project, { sources: source, pmosSwitches, nmosSwitches: mosfets, motorResistance: resistor[0], motorInductor: inductor[0], ground: ground[0], validation });
+  }
   if (source.length === 2 && pmosSwitches.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 6) {
     return analysePmosHighSideSwitch(project, { sources: source, mosfet: pmosSwitches[0], resistors: resistor, ground: ground[0], validation });
   }
@@ -1006,6 +1009,68 @@ function analysePassiveToneControl(project, { source, control, capacitor, load, 
     result: { kind: "passive-tone-control", inputAmplitudeV, maximumResistance, positionPercent, seriesResistance, capacitance, loadResistance, cutoffHz, response },
     validation
   };
+}
+
+function analyseHBridgeMotor(project,{sources,pmosSwitches,nmosSwitches,motorResistance,motorInductor,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0");
+  const leftHigh=pmosSwitches.find(q=>n(q,"D")===n(nmosSwitches[0],"D"));
+  const rightHigh=pmosSwitches.find(q=>q!==leftHigh);
+  const leftLow=nmosSwitches.find(q=>leftHigh&&n(q,"D")===n(leftHigh,"D"));
+  const rightLow=nmosSwitches.find(q=>q!==leftLow);
+  const supply=leftHigh&&rightHigh?sources.find(v=>n(v,"-")===groundNet&&n(v,"+")===n(leftHigh,"S")&&n(v,"+")===n(rightHigh,"S")):undefined;
+  const driveFor=(part)=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===n(part,"G"));
+  const driveLH=leftHigh?driveFor(leftHigh):undefined,driveRH=rightHigh?driveFor(rightHigh):undefined;
+  const driveLL=leftLow?driveFor(leftLow):undefined,driveRL=rightLow?driveFor(rightLow):undefined;
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN;
+  const driveV=[driveLH,driveLL,driveRH,driveRL].map(v=>v?voltageValue(v.value):Number.NaN);
+  const [gateLeftHighV,gateLeftLowV,gateRightHighV,gateRightLowV]=driveV;
+  const vsgLeft=supplyVoltage-gateLeftHighV,vsgRight=supplyVoltage-gateRightHighV;
+  const vgsLeft=gateLeftLowV,vgsRight=gateRightLowV,vth=2,rdsOn=0.1,vgsMax=20;
+  const leftNode=leftHigh?n(leftHigh,"D"):undefined,rightNode=rightHigh?n(rightHigh,"D"):undefined;
+  const resistorWired=(n(motorResistance,"1")===leftNode&&n(motorResistance,"2")===n(motorInductor,"1"))
+    ||(n(motorResistance,"2")===leftNode&&n(motorResistance,"1")===n(motorInductor,"1"));
+  const inductorWired=(n(motorInductor,"1")===n(motorResistance,"1")||n(motorInductor,"1")===n(motorResistance,"2"))
+    &&(n(motorInductor,"2")===rightNode||n(motorInductor,"1")===rightNode);
+  const rMotor=resistanceValue(motorResistance.value),lMotor=inductanceValue(motorInductor.value);
+  if(!supply||!leftHigh||!rightHigh||!leftLow||!rightLow||!driveLH||!driveLL||!driveRH||!driveRL
+    ||n(leftHigh,"S")!==n(rightHigh,"S")||n(leftLow,"S")!==groundNet||n(rightLow,"S")!==groundNet
+    ||!resistorWired||!inductorWired||![supplyVoltage,...driveV,rMotor,lMotor].every(Number.isFinite)
+    ||supplyVoltage<=0||rMotor<=0||lMotor<=0
+    ||driveV.some(v=>v<0||v>supplyVoltage)
+    ||Math.abs(vsgLeft)>vgsMax||Math.abs(vsgRight)>vgsMax
+    ||gateLeftLowV>5.5||gateRightLowV>5.5){
+    return {state:"blocked",message:"Wire both P-MOS sources to the positive rail, both N-MOS sources to ground, four bounded gate drives, and the series motor R-L load.",validation};
+  }
+  const leftHighOn=vsgLeft>=vth,rightHighOn=vsgRight>=vth,leftLowOn=vgsLeft>=vth,rightLowOn=vgsRight>=vth;
+  if((leftHighOn&&leftLowOn)||(rightHighOn&&rightLowOn)){
+    return {state:"blocked",message:"Shoot-through interlock: never enable the high-side and low-side switch on the same bridge leg at once.",validation};
+  }
+  let direction="coast",motorCurrentA=0,leftOutputVoltageV=Number.NaN,rightOutputVoltageV=Number.NaN;
+  const forward=leftHighOn&&rightLowOn&&!rightHighOn&&!leftLowOn;
+  const reverse=rightHighOn&&leftLowOn&&!leftHighOn&&!rightLowOn;
+  const lowSideBrake=leftLowOn&&rightLowOn&&!leftHighOn&&!rightHighOn;
+  const highSideBrake=leftHighOn&&rightHighOn&&!leftLowOn&&!rightLowOn;
+  if(!forward&&!reverse&&!lowSideBrake&&!highSideBrake&&![leftHighOn,leftLowOn,rightHighOn,rightLowOn].every(v=>!v)){
+    return {state:"blocked",message:"Select a valid forward, reverse, coast, or same-rail brake switching vector.",validation};
+  }
+  const motorCurrentMagnitudeA=Math.max(0,(supplyVoltage-2*rdsOn)/rMotor);
+  if(forward){
+    direction="forward";motorCurrentA=motorCurrentMagnitudeA;
+    leftOutputVoltageV=supplyVoltage-motorCurrentA*rdsOn;rightOutputVoltageV=motorCurrentA*rdsOn;
+  }else if(reverse){
+    direction="reverse";motorCurrentA=-motorCurrentMagnitudeA;
+    leftOutputVoltageV=motorCurrentMagnitudeA*rdsOn;rightOutputVoltageV=supplyVoltage-motorCurrentMagnitudeA*rdsOn;
+  }else if(lowSideBrake||highSideBrake){
+    direction="brake";leftOutputVoltageV=lowSideBrake?motorCurrentMagnitudeA*rdsOn:supplyVoltage-motorCurrentMagnitudeA*rdsOn;
+    rightOutputVoltageV=leftOutputVoltageV;
+  }
+  const motorVoltageV=leftOutputVoltageV-rightOutputVoltageV;
+  const motorPowerW=Math.abs(motorCurrentA*motorVoltageV);
+  const motorStoredEnergyJ=0.5*lMotor*motorCurrentA*motorCurrentA;
+  return {state:"complete",engine:"Ideal four-switch H-bridge DC motor electrical estimate",message:"Models four ideal MOSFET switches, 0.1 Ω on-resistance per conducting switch, and a motor as a series resistance/inductance. It checks same-leg shoot-through and gate-source bounds. It omits motor back EMF, torque/speed, switching dead time and edges, body-diode commutation, transient current decay, thermal behavior, and device-specific ratings; reverse direction is a static vector and not a safe hot-reversal guarantee.",result:{kind:"hbridge-dc-motor",supplyVoltage,gateVoltageV:{leftHigh:gateLeftHighV,leftLow:gateLeftLowV,rightHigh:gateRightHighV,rightLow:gateRightLowV},switchState:{leftHighOn,leftLowOn,rightHighOn,rightLowOn},direction,motorResistanceOhm:rMotor,motorInductanceH:lMotor,motorCurrentA,motorVoltageV,leftOutputVoltageV,rightOutputVoltageV,motorPowerW,motorStoredEnergyJ,switchOnResistanceOhm:rdsOn,shootThrough:false},validation};
 }
 
 function analysePmosHighSideSwitch(project,{sources,mosfet,resistors,ground,validation}){
