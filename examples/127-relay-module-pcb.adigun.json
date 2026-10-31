@@ -1,0 +1,710 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-127-relay-module",
+  "metadata": {
+    "name": "Low-voltage Relay Module PCB",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          60,
+          45
+        ],
+        "schematic": [
+          60,
+          45
+        ],
+        "pcb": [
+          60,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "relay",
+      "libraryId": "relay.omron-g5v1-dc5",
+      "reference": "K1",
+      "value": "5 V; 167 Ω; 1 A at 24 VDC resistive",
+      "position": {
+        "breadboard": [
+          300,
+          65
+        ],
+        "schematic": [
+          300,
+          65
+        ],
+        "pcb": [
+          300,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "transistor",
+      "libraryId": "active.npn-small-signal",
+      "reference": "Q1",
+      "value": "β 100; VBE 0.7 V; VCEsat 0.2 V",
+      "position": {
+        "breadboard": [
+          345,
+          190
+        ],
+        "schematic": [
+          345,
+          190
+        ],
+        "pcb": [
+          345,
+          190
+        ]
+      }
+    },
+    {
+      "instanceId": "diode",
+      "libraryId": "diode.rectifier-1n4007",
+      "reference": "D1",
+      "value": "1N4007; 1 A; 1000 V; axial",
+      "position": {
+        "breadboard": [
+          255,
+          175
+        ],
+        "schematic": [
+          255,
+          175
+        ],
+        "pcb": [
+          255,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "base-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          185,
+          225
+        ],
+        "schematic": [
+          185,
+          225
+        ],
+        "pcb": [
+          185,
+          225
+        ]
+      }
+    },
+    {
+      "instanceId": "control-header",
+      "libraryId": "connector.screw-terminal-3",
+      "reference": "J1",
+      "value": "5 V, GND, IN",
+      "position": {
+        "breadboard": [
+          120,
+          90
+        ],
+        "schematic": [
+          120,
+          90
+        ],
+        "pcb": [
+          120,
+          90
+        ]
+      }
+    },
+    {
+      "instanceId": "load-terminal",
+      "libraryId": "connector.screw-terminal-3",
+      "reference": "J2",
+      "value": "COM, NC, NO; low-voltage load only",
+      "position": {
+        "breadboard": [
+          500,
+          95
+        ],
+        "schematic": [
+          500,
+          95
+        ],
+        "pcb": [
+          500,
+          95
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          65,
+          240
+        ],
+        "schematic": [
+          65,
+          240
+        ],
+        "pcb": [
+          65,
+          240
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "control-header:1",
+        "relay:COIL1",
+        "diode:K"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "control-header:2",
+        "transistor:E",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "IN",
+      "endpoints": [
+        "control-header:3",
+        "base-resistor:1"
+      ]
+    },
+    {
+      "id": "BASE",
+      "endpoints": [
+        "base-resistor:2",
+        "transistor:B"
+      ]
+    },
+    {
+      "id": "COIL",
+      "endpoints": [
+        "relay:COIL2",
+        "transistor:C",
+        "diode:A"
+      ]
+    },
+    {
+      "id": "LOAD_COM",
+      "endpoints": [
+        "relay:COM",
+        "load-terminal:1"
+      ]
+    },
+    {
+      "id": "LOAD_NC",
+      "endpoints": [
+        "relay:NC",
+        "load-terminal:2"
+      ]
+    },
+    {
+      "id": "LOAD_NO",
+      "endpoints": [
+        "relay:NO",
+        "load-terminal:3"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 50,
+      "heightMm": 32,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.2
+    },
+    "parts": [
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "footprint": "G5V-1_5-pad_educational_template",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "transistor",
+        "reference": "Q1",
+        "footprint": "TO-92_generic",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "diode",
+        "reference": "D1",
+        "footprint": "DO-41_axial_generic",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "base-resistor",
+        "reference": "R1",
+        "footprint": "R_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "control-header",
+        "reference": "J1",
+        "footprint": "ScrewTerminal_1x03_P3.5mm_template",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "load-terminal",
+        "reference": "J2",
+        "footprint": "ScrewTerminal_1x03_P5.08mm_template",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "control-header",
+        "reference": "J1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 1,
+        "xMm": 5,
+        "yMm": 7
+      },
+      {
+        "instanceId": "control-header",
+        "reference": "J1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 1,
+        "xMm": 5,
+        "yMm": 11
+      },
+      {
+        "instanceId": "control-header",
+        "reference": "J1",
+        "pin": "3",
+        "number": "3",
+        "netId": "IN",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 1,
+        "xMm": 5,
+        "yMm": 15
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "pin": "COIL1",
+        "number": "P1",
+        "netId": "VCC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 17,
+        "yMm": 7
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "pin": "COIL2",
+        "number": "P2",
+        "netId": "COIL",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 17,
+        "yMm": 12
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "pin": "COM",
+        "number": "P3",
+        "netId": "LOAD_COM",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 29,
+        "yMm": 7
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "pin": "NC",
+        "number": "P4",
+        "netId": "LOAD_NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 29,
+        "yMm": 12
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "pin": "NO",
+        "number": "P5",
+        "netId": "LOAD_NO",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 29,
+        "yMm": 17
+      },
+      {
+        "instanceId": "load-terminal",
+        "reference": "J2",
+        "pin": "1",
+        "number": "1",
+        "netId": "LOAD_COM",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 1,
+        "xMm": 45,
+        "yMm": 7
+      },
+      {
+        "instanceId": "load-terminal",
+        "reference": "J2",
+        "pin": "2",
+        "number": "2",
+        "netId": "LOAD_NC",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 1,
+        "xMm": 45,
+        "yMm": 12
+      },
+      {
+        "instanceId": "load-terminal",
+        "reference": "J2",
+        "pin": "3",
+        "number": "3",
+        "netId": "LOAD_NO",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 1,
+        "xMm": 45,
+        "yMm": 17
+      },
+      {
+        "instanceId": "transistor",
+        "reference": "Q1",
+        "pin": "B",
+        "number": "1",
+        "netId": "BASE",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 12,
+        "yMm": 25
+      },
+      {
+        "instanceId": "transistor",
+        "reference": "Q1",
+        "pin": "C",
+        "number": "2",
+        "netId": "COIL",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 14.54,
+        "yMm": 25
+      },
+      {
+        "instanceId": "transistor",
+        "reference": "Q1",
+        "pin": "E",
+        "number": "3",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 17.08,
+        "yMm": 25
+      },
+      {
+        "instanceId": "diode",
+        "reference": "D1",
+        "pin": "K",
+        "number": "1",
+        "netId": "VCC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 17,
+        "yMm": 20
+      },
+      {
+        "instanceId": "diode",
+        "reference": "D1",
+        "pin": "A",
+        "number": "2",
+        "netId": "COIL",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 17,
+        "yMm": 16
+      },
+      {
+        "instanceId": "base-resistor",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "IN",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 9,
+        "yMm": 19
+      },
+      {
+        "instanceId": "base-resistor",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "BASE",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 11.4,
+        "yMm": 19
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "netClassId": "CONTROL",
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "pointsMm": [
+          [
+            5,
+            7
+          ],
+          [
+            17,
+            7
+          ],
+          [
+            17,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "CONTROL",
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "pointsMm": [
+          [
+            5,
+            11
+          ],
+          [
+            17.08,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "IN",
+        "netClassId": "CONTROL",
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "pointsMm": [
+          [
+            5,
+            15
+          ],
+          [
+            9,
+            19
+          ]
+        ]
+      },
+      {
+        "netId": "BASE",
+        "netClassId": "CONTROL",
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "pointsMm": [
+          [
+            12,
+            25
+          ],
+          [
+            11.4,
+            19
+          ]
+        ]
+      },
+      {
+        "netId": "COIL",
+        "netClassId": "COIL",
+        "layer": "F.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            17,
+            12
+          ],
+          [
+            14.54,
+            25
+          ],
+          [
+            17,
+            16
+          ]
+        ]
+      },
+      {
+        "netId": "LOAD_COM",
+        "netClassId": "CONTACT",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            29,
+            7
+          ],
+          [
+            45,
+            7
+          ]
+        ]
+      },
+      {
+        "netId": "LOAD_NC",
+        "netClassId": "CONTACT",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            29,
+            12
+          ],
+          [
+            45,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "LOAD_NO",
+        "netClassId": "CONTACT",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            29,
+            17
+          ],
+          [
+            45,
+            17
+          ]
+        ]
+      }
+    ],
+    "keepouts": [
+      {
+        "id": "coil-contact-no-copper-barrier",
+        "xMm": 22.5,
+        "yMm": 4,
+        "widthMm": 4.5,
+        "heightMm": 24
+      }
+    ],
+    "netClasses": [
+      {
+        "id": "CONTROL",
+        "netIds": [
+          "VCC",
+          "GND",
+          "IN",
+          "BASE"
+        ],
+        "clearanceMm": 0.25,
+        "traceWidthMm": 0.35
+      },
+      {
+        "id": "COIL",
+        "netIds": [
+          "COIL"
+        ],
+        "clearanceMm": 0.3,
+        "traceWidthMm": 0.45
+      },
+      {
+        "id": "CONTACT",
+        "netIds": [
+          "LOAD_COM",
+          "LOAD_NC",
+          "LOAD_NO"
+        ],
+        "clearanceMm": 0.5,
+        "traceWidthMm": 0.75
+      }
+    ],
+    "netClassRules": [
+      {
+        "classA": "CONTROL",
+        "classB": "COIL",
+        "clearanceMm": 0.2
+      },
+      {
+        "classA": "CONTROL",
+        "classB": "CONTACT",
+        "clearanceMm": 3.2
+      },
+      {
+        "classA": "COIL",
+        "classB": "CONTACT",
+        "clearanceMm": 3.2
+      }
+    ],
+    "isolationAnnotations": [
+      {
+        "id": "relay-coil-to-contact-isolation",
+        "classA": "COIL",
+        "classB": "CONTACT",
+        "clearanceMm": 3.2,
+        "relayDielectricWithstandVAC": 1000,
+        "contactVoltageLimitVdc": 24,
+        "contactCurrentLimitA": 1,
+        "note": "K1's coil and SPDT contacts are separate domains; board barrier has no copper. Educational low-voltage relay module only; not mains rated or safety certified."
+      }
+    ]
+  }
+}
