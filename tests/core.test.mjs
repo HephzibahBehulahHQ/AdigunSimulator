@@ -1440,7 +1440,13 @@ test("released examples carry a native project, acceptance test, safety scope, a
   assert.equal(validateExampleRegistry(registry).valid, true);
   for (const item of registry.examples.filter((example) => example.status === "released")) {
     const example = JSON.parse(await readFile(new URL(`../${item.projectFile}`, import.meta.url)));
-    assert.equal(validateProject(example).valid, true, item.id);
+    const validation = validateProject(example);
+    if (item.expectedValidation === "invalid") {
+      assert.equal(validation.valid, false, item.id);
+      assert.ok(validation.errors.some(error => error.rule === "SOURCE_SHORT"), item.id);
+      continue;
+    }
+    assert.equal(validation.valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
   assert.equal(getExampleCoverage(registry).total, 164);
