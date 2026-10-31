@@ -131,7 +131,13 @@ h1 span { color: var(--cyan); }
 .schematic .schematic-pin-terminal circle { fill: #cfe8ff; stroke: #0b1220; stroke-width: 1; }
 .schematic .schematic-pin-terminal.net-power circle { fill: #ed514f; }
 .schematic .schematic-pin-terminal.net-ground circle { fill: #94a3b8; }
-.schematic .schematic-pin-terminal text { fill: #d8e8f5; font: 600 8px system-ui, sans-serif; paint-order: stroke; stroke: #0b1220; stroke-width: 2px; stroke-linejoin: round; }.pcb { background: #06251c; }.pcb .canvas-label { color: #cfffe6; }.pcb::before { content: "PCB mapping preview"; position: absolute; z-index: 0; inset: 13% 5%; border: 2px solid #48d799; border-radius: .8rem; color: #5de1a4; display: grid; place-items: end center; padding-bottom: 1rem; font-size: .75rem; font-weight: 700; }
+.schematic .schematic-pin-terminal text { fill: #d8e8f5; font: 600 8px system-ui, sans-serif; paint-order: stroke; stroke: #0b1220; stroke-width: 2px; stroke-linejoin: round; }
+.schematic-wire-layer { pointer-events:none; }
+.schematic-pin-hit { fill:transparent; stroke:transparent; pointer-events:none; }
+.design-canvas.schematic.is-wire-mode .schematic-wire-layer .schematic-pin-target { pointer-events:all; cursor:crosshair; }
+.design-canvas.schematic.is-wire-mode .schematic-pin-hit { pointer-events:all; }
+.schematic-pin-target.is-wire-origin .schematic-pin-dot { fill:#f5c84b; stroke:#fff3c4; stroke-width:1; }
+#schematic-wire-status { color:var(--cyan); font-size:.72rem; }.pcb { background: #06251c; }.pcb .canvas-label { color: #cfffe6; }.pcb::before { content: "PCB mapping preview"; position: absolute; z-index: 0; inset: 13% 5%; border: 2px solid #48d799; border-radius: .8rem; color: #5de1a4; display: grid; place-items: end center; padding-bottom: 1rem; font-size: .75rem; font-weight: 700; }
 .placed-component { position: absolute; z-index: 2; left: var(--x); top: var(--y); display: grid; justify-items: center; gap: .16rem; min-width: 3.7rem; padding: .18rem .35rem; transform: scale(var(--canvas-scale, 1)); transform-origin: center; border: 1px solid transparent; border-radius: .35rem; color: var(--ivory); background: transparent; text-shadow: 0 1px 2px #000; }
 .placed-component:hover, .placed-component.is-selected { z-index: 3; border-color: var(--gold); background: rgb(212 175 55 / 14%); }
 .part-reference { color: var(--ivory); font-weight: 800; font-size: .7rem; }.part-body { display: grid; place-items: center; min-width: 2.6rem; min-height: 1.5rem; padding: .1rem .3rem; border: 1px solid #d7bd78; border-radius: .3rem; background: #283a4e; color: var(--gold); font-size: 1rem; font-weight: 800; }.part-value { max-width: 5.5rem; overflow: hidden; color: var(--muted); font-size: .62rem; text-overflow: ellipsis; white-space: nowrap; }
