@@ -1,0 +1,366 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-053-decoder-controlled-leds",
+  "metadata": {
+    "name": "Two-to-Four Decoder LEDs",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          45
+        ],
+        "schematic": [
+          40,
+          45
+        ],
+        "pcb": [
+          40,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "address-0",
+      "libraryId": "power.dc-source",
+      "reference": "A0",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          45
+        ],
+        "schematic": [
+          155,
+          45
+        ],
+        "pcb": [
+          155,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "address-1",
+      "libraryId": "power.dc-source",
+      "reference": "A1",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          45
+        ],
+        "schematic": [
+          270,
+          45
+        ],
+        "pcb": [
+          270,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "decoder",
+      "libraryId": "active.logic-decoder-2to4-ideal",
+      "reference": "U1",
+      "value": "Ideal active-high 2:4 decoder",
+      "position": {
+        "breadboard": [
+          385,
+          45
+        ],
+        "schematic": [
+          385,
+          45
+        ],
+        "pcb": [
+          385,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "r0",
+      "libraryId": "passive.resistor",
+      "reference": "R0",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          500,
+          45
+        ],
+        "schematic": [
+          500,
+          45
+        ],
+        "pcb": [
+          500,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "r1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          40,
+          110
+        ],
+        "schematic": [
+          40,
+          110
+        ],
+        "pcb": [
+          40,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "r2",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          155,
+          110
+        ],
+        "schematic": [
+          155,
+          110
+        ],
+        "pcb": [
+          155,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "r3",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          270,
+          110
+        ],
+        "schematic": [
+          270,
+          110
+        ],
+        "pcb": [
+          270,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "led0",
+      "libraryId": "diode.led-red",
+      "reference": "D0",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          385,
+          110
+        ],
+        "schematic": [
+          385,
+          110
+        ],
+        "pcb": [
+          385,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "led1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          500,
+          110
+        ],
+        "schematic": [
+          500,
+          110
+        ],
+        "pcb": [
+          500,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "led2",
+      "libraryId": "diode.led-red",
+      "reference": "D2",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          40,
+          175
+        ],
+        "schematic": [
+          40,
+          175
+        ],
+        "pcb": [
+          40,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "led3",
+      "libraryId": "diode.led-red",
+      "reference": "D3",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          155,
+          175
+        ],
+        "schematic": [
+          155,
+          175
+        ],
+        "pcb": [
+          155,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          175
+        ],
+        "schematic": [
+          270,
+          175
+        ],
+        "pcb": [
+          270,
+          175
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "decoder:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "address-0:-",
+        "address-1:-",
+        "decoder:GND",
+        "ground:0",
+        "led0:K",
+        "led1:K",
+        "led2:K",
+        "led3:K"
+      ]
+    },
+    {
+      "id": "A0",
+      "endpoints": [
+        "address-0:+",
+        "decoder:A0"
+      ]
+    },
+    {
+      "id": "A1",
+      "endpoints": [
+        "address-1:+",
+        "decoder:A1"
+      ]
+    },
+    {
+      "id": "Y0",
+      "endpoints": [
+        "decoder:Y0",
+        "r0:1"
+      ]
+    },
+    {
+      "id": "LED0",
+      "endpoints": [
+        "r0:2",
+        "led0:A"
+      ]
+    },
+    {
+      "id": "Y1",
+      "endpoints": [
+        "decoder:Y1",
+        "r1:1"
+      ]
+    },
+    {
+      "id": "LED1",
+      "endpoints": [
+        "r1:2",
+        "led1:A"
+      ]
+    },
+    {
+      "id": "Y2",
+      "endpoints": [
+        "decoder:Y2",
+        "r2:1"
+      ]
+    },
+    {
+      "id": "LED2",
+      "endpoints": [
+        "r2:2",
+        "led2:A"
+      ]
+    },
+    {
+      "id": "Y3",
+      "endpoints": [
+        "decoder:Y3",
+        "r3:1"
+      ]
+    },
+    {
+      "id": "LED3",
+      "endpoints": [
+        "r3:2",
+        "led3:A"
+      ]
+    }
+  ],
+  "history": []
+}
