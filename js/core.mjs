@@ -1484,7 +1484,7 @@ function analysePriorityEncoder(project,{sources,encoder,resistors,leds,ground,v
   });
   if(!supply||inputSources.some(v=>!v)||n(encoder,"GND")!==groundNet||outputs.some(o=>!o.net||!o.resistor||!o.led||!Number.isFinite(o.resistance)||!Number.isFinite(o.vf)||o.resistance<=0||o.vf<=0)
     ||![supplyVoltage,...inputVoltages].every(Number.isFinite)||supplyVoltage<=0||inputVoltages.some(v=>v<0||v>supplyVoltage)){
-    return {state:"blocked",message:`Wire four valid 0–VCC priority inputs and outputs. ${JSON.stringify({supply:Boolean(supply),inputs:inputSources.map(Boolean),sourceNets:sources.map(v=>[v.instanceId,n(v,"+"),n(v,"-")]),dataNets:[0,1,2,3].map(i=>n(encoder,`D${i}`)),ground:n(encoder,"GND")===groundNet,outputs:outputs.map(o=>[Boolean(o.net),Boolean(o.resistor),Boolean(o.led),o.resistance,o.vf]),values:[supplyVoltage,...inputVoltages]})}`,validation};
+    return {state:"blocked",message:"Wire four valid 0–VCC priority inputs, the ideal encoder, code/valid outputs, LED resistors, and supply/ground rails.",validation};
   }
   const inputs=inputVoltages.map(v=>v>=thresholdV),highestIndex=inputs.lastIndexOf(true),valid=highestIndex>=0,code=valid?highestIndex:0,codeBits=[Boolean(code&1),Boolean(code&2)],outputBits=[...codeBits,valid];
   const outputCurrents=outputs.map((o,i)=>outputBits[i]?Math.max(0,(supplyVoltage-o.vf)/o.resistance):0);
