@@ -1860,14 +1860,61 @@
     {
       "id": "047-four-bit-binary-counter",
       "title": "Four-bit binary counter",
-      "status": "in-review",
+      "status": "released",
       "objective": "Count modulo-16 rising clock edges into a four-bit output, initialize with active-low reset, and expose bit outputs with current-limited LEDs.",
       "acceptanceTest": "tests/core.test.mjs: catalogue four-bit counter counts rising edges through 15 and wraps to zero",
       "testId": "core-four-bit-binary-counter",
       "projectFile": "examples/047-four-bit-binary-counter.adigun.json",
       "safetyNote": "Generic ideal modulo-16 counter state model. It omits clock waveform quality, propagation delay, setup/hold timing, metastability, output loading beyond LED resistors, and device-specific behavior.",
       "scope": "catalogue",
-      "catalogueIndex": 47
+      "catalogueIndex": 47,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41173932421",
+        "headRevision": "3b0ef7c0047a92e84c7e92106b216d99d42832ec",
+        "engine": "Ideal modulo-16 four-bit rising-edge counter",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-four-bit-counter-v1",
+        "expectedResult": {
+          "reset": {
+            "count": 0,
+            "bits": [
+              false,
+              false,
+              false,
+              false
+            ]
+          },
+          "countSequence": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            0
+          ],
+          "risingEdges": 16,
+          "fallingEdgesDoNotCount": true,
+          "bitFrequencyRatios": [
+            0.5,
+            0.25,
+            0.125,
+            0.0625
+          ],
+          "invalidClockAboveSupply": "blocked"
+        }
+      }
     }
   ]
 }
