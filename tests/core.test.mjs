@@ -461,6 +461,36 @@ test("a verified record cannot bypass checksum, mapping, model, and human-review
   assert.ok(errors.some((error) => error.code === "VERIFIED_EVIDENCE"));
 });
 
+test("catalogue anti-parallel LEDs change with source polarity", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/002-two-led-polarity-indicator.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const positive = runSupportedAnalysis(project);
+  assert.equal(positive.state, "complete");
+  assert.equal(positive.result.kind, "led-polarity-indicator");
+  assert.equal(positive.result.redLedOn, true);
+  assert.equal(positive.result.greenLedOn, false);
+  assert.ok(Math.abs(positive.result.redCurrentA - (5 - 2) / 330) < 1e-12);
+  assert.equal(positive.result.greenCurrentA, 0);
+  assert.ok(Math.abs(positive.result.powerBalanceW) < 1e-12);
+
+  const reversed = updateComponent(project, "source-1", { value: "-5 V" });
+  const negative = runSupportedAnalysis(reversed);
+  assert.equal(negative.state, "complete");
+  assert.equal(negative.result.redLedOn, false);
+  assert.equal(negative.result.greenLedOn, true);
+  assert.equal(negative.result.redCurrentA, 0);
+  assert.ok(Math.abs(negative.result.greenCurrentA - (5 - 2.1) / 330) < 1e-12);
+  assert.ok(Math.abs(negative.result.powerBalanceW) < 1e-12);
+
+  const zero = runSupportedAnalysis(updateComponent(project, "source-1", { value: "0 V" }));
+  assert.equal(zero.state, "complete");
+  assert.equal(zero.result.redLedOn, false);
+  assert.equal(zero.result.greenLedOn, false);
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "GREEN_K").endpoints = ["led-green:K"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue pushbutton LED stays off until pressed and includes its pull-down", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/003-pushbutton-led.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -533,7 +563,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 15);
+  assert.equal(getExampleCoverage(registry).total, 16);
   assert.equal(getExampleCoverage(registry).released, 5);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 195);
