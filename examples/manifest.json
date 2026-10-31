@@ -7334,7 +7334,7 @@
     {
       "id": "190-voltage-divider-calculator",
       "title": "Voltage-divider calculator",
-      "status": "in-review",
+      "status": "released",
       "objective": "Calculate unloaded divider output and Thevenin resistance, then estimate loaded output and warn when load-induced output change exceeds a configurable threshold.",
       "acceptanceTest": "tests/core.test.mjs: catalogue voltage-divider calculator reports unloaded ratio and load-shift warning",
       "testId": "core-voltage-divider-calculator",
@@ -7342,7 +7342,37 @@
       "readmeFile": "examples/190-voltage-divider-calculator/README.md",
       "safetyNote": "Ideal DC resistor model only. Source impedance, resistor tolerance, temperature, power dissipation, and downstream input behavior are not qualified.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 190,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41215695087",
+        "headRevision": "b0c85cd0dc10421327c0e54ca19ac994ac308cb2",
+        "engine": "Ideal resistive divider with Thevenin/load estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "voltage-divider-loading-cases-v1",
+        "expectedResult": {
+          "kind": "voltage-divider-cases",
+          "caseCount": 3,
+          "loadingWarningCount": 1,
+          "unloadedOutputsV": [
+            6,
+            6,
+            6
+          ],
+          "loadedOutputsV": [
+            6,
+            5.7142857143,
+            4
+          ],
+          "loadingChangesPercent": [
+            0,
+            4.7619047619,
+            33.3333333333
+          ]
+        }
+      }
     }
   ]
 }
