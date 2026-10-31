@@ -6879,7 +6879,7 @@
     {
       "id": "178-access-control-strike-lock",
       "title": "Access-control strike lock",
-      "status": "in-review",
+      "status": "released",
       "objective": "Grant a brief strike command only to mock allowlisted credential IDs, deny unknown IDs without extending unlock time, and emit mock audit events.",
       "acceptanceTest": "tests/core.test.mjs: catalogue access strike mock grants allowlisted IDs briefly and audits denials",
       "testId": "core-access-control-strike-lock",
@@ -6887,7 +6887,26 @@
       "readmeFile": "examples/178-access-control-strike-lock/README.md",
       "safetyNote": "Mock access-control logic only. No secure RFID, reader, physical lock, egress, cryptography, secure audit retention, or real security assurance is included.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 178,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41212639687",
+        "headRevision": "b41a7b302b40b0dff7f93f231f7d53709b3163cc",
+        "engine": "Deterministic mock credential allowlist",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "mock-access-strike-allowlist-v1",
+        "expectedResult": {
+          "kind": "access-strike-allowlist-sequence",
+          "eventCount": 5,
+          "grantCount": 2,
+          "denyCount": 3,
+          "unlockDurationMs": 3000,
+          "mockAuditEvents": 5,
+          "realRfidModel": false
+        }
+      }
     }
   ]
 }
