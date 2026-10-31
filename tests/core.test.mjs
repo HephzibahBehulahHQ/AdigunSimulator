@@ -1993,7 +1993,7 @@ test("catalogue Arduino servo maps potentiometer endpoints to pulse and angle",a
   for(const [position,angle] of [[0,0],[50,90.08797653958944],[100,180]]){
     const result=runSupportedAnalysis(updateComponent(project,"pot",{value:`Position ${position}%; Resolution 10 bit`}));
     assert.equal(result.state,"complete",result.message);
-    assert.equal(result.result.angleDegrees,angle);
+    assert.ok(Math.abs(result.result.angleDegrees-angle)<1e-10);
     assert.equal(result.result.firmwareExecuted,false);
   }
   assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Position 101%; Resolution 10 bit"})).state,"blocked");
