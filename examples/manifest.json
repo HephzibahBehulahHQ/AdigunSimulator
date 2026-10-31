@@ -4177,6 +4177,49 @@
           "controllerHardwareModeled": false
         }
       }
+    },
+    {
+      "id": "102-boost-converter-baseline",
+      "title": "Boost converter baseline",
+      "status": "released",
+      "objective": "Estimate an asynchronous boost converter operating point from a 5 V source at 50% duty, 100 kHz, 100 µH, 100 µF and 100 Ω; test step-up output, ripple, CCM bounds, duty limit, load response and broken topology.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue boost converter steps up in CCM and blocks duty, DCM, and wiring faults",
+      "testId": "core-boost-converter-baseline",
+      "projectFile": "examples/102-boost-converter-baseline.adigun.json",
+      "safetyNote": "Bounded steady-state asynchronous CCM estimate only. It excludes switching transients, controller-loop stability, inductor saturation/core loss, capacitor ESR, MOSFET loss, thermal effects, tolerances, component ratings, and hardware validation.",
+      "scope": "catalogue",
+      "catalogueIndex": 102,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41187198444",
+        "headRevision": "ef6109cebae5a0b3ecd7ca931eb5a2d2e6c5a7e2",
+        "engine": "Asynchronous boost CCM average and triangular-ripple estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-asynchronous-boost-ccm-v1",
+        "expectedResult": {
+          "kind": "boost-converter",
+          "inputVoltageV": 5,
+          "dutyCyclePercent": 50,
+          "switchingFrequencyHz": 100000,
+          "diodeForwardVoltageV": 0.5,
+          "inductanceH": 0.0001,
+          "capacitanceF": 0.0001,
+          "loadResistanceOhm": 100,
+          "outputVoltageV": 9.5,
+          "loadCurrentA": 0.095,
+          "inputCurrentA": 0.19,
+          "inductorRipplePpA": 0.25,
+          "outputRipplePpV": 0.00475,
+          "conductionMode": "CCM",
+          "inputPowerW": 0.95,
+          "outputPowerW": 0.9025,
+          "diodeLossW": 0.0475,
+          "estimatedEfficiencyPercent": 95,
+          "powerBalanceW": 0,
+          "controllerHardwareModeled": false
+        }
+      }
     }
   ]
 }
