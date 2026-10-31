@@ -5535,14 +5535,34 @@
     {
       "id": "135-mcu-test-point-coverage",
       "title": "STM32 MCU board test-point coverage",
-      "status": "in-review",
+      "status": "released",
       "objective": "Map VDD33, GND, NRST, SWDIO and SWCLK to accessible top-side test pads and produce a net-coverage report.",
       "acceptanceTest": "tests/core.test.mjs: STM32 board coverage report maps required nets to accessible top-side test points",
       "testId": "core-mcu-test-point-coverage",
       "projectFile": "examples/135-mcu-test-point-coverage.adigun.json",
       "readmeFile": "examples/135-mcu-test-point-coverage/README.md",
       "safetyNote": "Test pads are assigned to native nets and checked for declared layout clearance. The four-layer plan contains no route geometry, so physical continuity, fixture access after assembly and manufacturing qualification are not verified.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 135,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41202992034",
+        "headRevision": "d9ae6364bf372fad24813ccc855170cfcd6c9926",
+        "engine": "STM32 board topology and declared test-point coverage checker",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "stm32g031-test-point-coverage-v1",
+        "expectedResult": {
+          "kind": "stm32-board-test-point-coverage",
+          "device": "STM32G031K8T6",
+          "requiredNets": 5,
+          "coveredNets": 5,
+          "coveragePercent": 100,
+          "physicalContinuityVerified": false,
+          "manufacturingQualified": false,
+          "artifact": "Test-Point-Coverage.csv"
+        }
+      }
     }
   ]
 }
