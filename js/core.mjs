@@ -56,7 +56,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.i2c-eeprom-ideal", category: "Active", type: "Ideal I²C EEPROM byte memory (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x50; Memory 0x10=0x00", simulation: "analytical-i2c-eeprom-write-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
-  { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["D2", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.potentiometer-adc-ideal", category: "Inputs", type: "Ideal potentiometer-to-ADC fixture", prefix: "RV", pins: ["VCC", "OUT", "GND"], defaultValue: "Position 50%; Resolution 10 bit", simulation: "fixture-potentiometer-adc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -429,6 +430,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const spiDisplays = project.components.filter((item) => item.libraryId === "active.spi-display-ideal");
   const mcuControllers = project.components.filter((item) => item.libraryId === "active.mcu-uno-ideal");
   const digitalSampleFixtures = project.components.filter((item) => item.libraryId === "input.digital-sample-sequence");
+  const adcPotentiometers = project.components.filter((item) => item.libraryId === "input.potentiometer-adc-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -493,6 +495,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (adcPotentiometers.length === 1 && mcuControllers.length === 1 && mosfets.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseMcuPwmDimmer(project, { source: source[0], mcu: mcuControllers[0], potentiometer: adcPotentiometers[0], mosfet: mosfets[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
   if (digitalSampleFixtures.length === 1 && mcuControllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseMcuButtonDebounce(project, { source: source[0], fixture: digitalSampleFixtures[0], mcu: mcuControllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
@@ -1516,6 +1521,23 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseMcuPwmDimmer(project,{source,mcu,potentiometer,mosfet,resistor,led,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(mcu.value).split(";").map(v=>v.trim()),potFields=String(potentiometer.value).split(";").map(v=>v.trim());
+  const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
+  const positionText=field(potFields,"Position")?.replace(/%$/,""),position=Number(positionText),frequency=Number(field(fields,"Frequency"));
+  const adcCount=Number.isFinite(position)?Math.round(position*1023/100):Number.NaN,duty=adcCount/1023;
+  const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const outputConnected=n(mcu,"D9")===n(mosfet,"G");
+  const sourceAndPot= n(source,"+")===n(potentiometer,"VCC")&&n(source,"-")===n(potentiometer,"GND");
+  const loadPath=n(source,"+")===n(resistor,"1")&&n(resistor,"2")===n(led,"A")&&n(led,"K")===n(mosfet,"D")&&n(mosfet,"S")===groundNet;
+  const resistance=resistanceValue(resistor.value),vf=forwardVoltage(led.value),threshold=voltageValue(mosfet.value);
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!sourceAndPot||n(mcu,"GND")!==groundNet||n(potentiometer,"OUT")!==n(mcu,"A0")||!outputConnected||!loadPath||field(fields,"Program")?.toLowerCase()!=="pwm dimmer"||field(fields,"ADC")!=="A0"||field(fields,"PWM")!=="D9"||!Number.isFinite(frequency)||frequency<1||frequency>100000||!Number.isFinite(position)||position<0||position>100||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(vf)||vf<=0||!Number.isFinite(threshold)||threshold<=0){
+    return {state:"blocked",message:"Configure a 0–100% potentiometer, 10-bit ADC on A0, PWM output D9, 1–100000 Hz frequency, and wire an ideal low-side MOSFET with a current-limited LED load.",validation};
+  }
+  const peakCurrentA=supplyVoltage>threshold?Math.max(0,(supplyVoltage-vf)/resistance):0,averageCurrentA=peakCurrentA*duty;
+  return {state:"complete",engine:"Ideal Uno-class ADC-to-PWM MOSFET dimmer",message:"Maps a potentiometer position to a rounded 10-bit ADC count, computes ideal PWM duty, and estimates low-side MOSFET LED average current. Arduino C++ execution, ADC noise/quantization beyond rounding, MOSFET switching loss, thermal behavior, and LED nonlinear dynamics are omitted.",result:{kind:"mcu-pwm-dimmer",positionPercent:position,adcResolutionBits:10,adcCount,dutyCycle:duty,pwmFrequencyHz:frequency,peakLedCurrentA:peakCurrentA,averageLedCurrentA:averageCurrentA,mosfetGateThresholdV:threshold,mosfetConducts:peakCurrentA>0,firmwareExecuted:false},validation};
+}
 function analyseMcuButtonDebounce(project,{source,fixture,mcu,resistor,led,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(mcu.value).split(";").map(v=>v.trim()),sampleFields=String(fixture.value).split(";").map(v=>v.trim());

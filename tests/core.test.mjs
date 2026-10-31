@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 72);
+  assert.equal(getExampleCoverage(registry).total, 73);
   assert.equal(getExampleCoverage(registry).released, 62);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 138);
@@ -1932,5 +1932,23 @@ test("catalogue Arduino button debounce rejects bounce and toggles once per stab
   assert.equal(runSupportedAnalysis(updateComponent(project,"mcu",{value:"Program Button debounce; Input D2; Output D13; Mode Toggle; Stable 21"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(n=>n.id==="BUTTON").endpoints=["button:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Arduino PWM dimmer maps potentiometer ADC to MOSFET LED average current",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/063-arduino-pwm-dimmer.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  for(const [position,count,duty] of [[0,0,0],[50,512,512/1023],[100,1023,1]]){
+    const configured=updateComponent(project,"pot",{value:`Position ${position}%; Resolution 10 bit`});
+    const result=runSupportedAnalysis(configured);
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.adcCount,count);
+    assert.equal(result.result.dutyCycle,duty);
+    assert.equal(result.result.firmwareExecuted,false);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Position 101%; Resolution 10 bit"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="PWM").endpoints=["mcu:D9"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });

@@ -2586,6 +2586,18 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "063-arduino-pwm-dimmer",
+      "title": "Uno-class potentiometer PWM dimmer",
+      "status": "in-review",
+      "objective": "Map a potentiometer position to a rounded 10-bit A0 ADC count and D9 PWM duty, then estimate current through a low-side MOSFET and protected LED.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Arduino PWM dimmer maps potentiometer ADC to MOSFET LED average current",
+      "testId": "core-arduino-pwm-dimmer",
+      "projectFile": "examples/063-arduino-pwm-dimmer.adigun.json",
+      "safetyNote": "Ideal ADC/PWM behavior and MOSFET load estimate; Arduino C++ is not executed. ADC noise, MOSFET switching/thermal losses, and analog potentiometer tolerances are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 63
     }
   ]
 }
