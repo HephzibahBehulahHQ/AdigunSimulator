@@ -2,7 +2,7 @@
 
 This is the authoritative scope catalogue for the 200 required examples. A row specifies a project, expected behaviour and acceptance criterion; it is **not** evidence that the project has been implemented or passed.
 
-The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has eight released low-voltage analytical catalogue examples (rows 1–5 and 11–13) and ten supplemental studies; 192 catalogue entries remain planned until their release requirements are met. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 14, “Passive tone control,” remains planned.
+The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has nine released low-voltage analytical catalogue examples (rows 1–6 and 11–13) and ten supplemental studies; 191 catalogue entries remain planned until their release requirements are met. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 14, “Passive tone control,” remains planned.
 
 ## 12. Catalogue of 200 individually specified, testable example projects
 
