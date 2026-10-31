@@ -1015,12 +1015,37 @@
     {
       "id": "023-556-dual-timer",
       "title": "556 dual timer",
-      "status": "in-review",
+      "status": "released",
       "objective": "Model both NE556 astable channels from independent RA/RB/timing-capacitor networks; verify each frequency separately and ensure changing channel B's capacitor leaves channel A unchanged.",
       "acceptanceTest": "tests/core.test.mjs: catalogue 556 dual timer reports independent astable frequencies, rejects zero timing capacitance, and blocks crossed channel topology",
       "testId": "core-556-dual-astable",
       "projectFile": "examples/023-556-dual-timer.adigun.json",
-      "safetyNote": "Ideal analytical timer equations only. The generic model omits chip-specific tolerances, output saturation, startup, crosstalk, ratings, and hardware qualification."
+      "safetyNote": "Ideal analytical timer equations only. The generic model omits chip-specific tolerances, output saturation, startup, crosstalk, ratings, and hardware qualification.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41169003725",
+        "headRevision": "c18a28af4bc8a240884f18287e795f958f2e7535",
+        "engine": "Analytical independent NE556 astable timing estimates",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-ne556-dual-astable-v1",
+        "expectedResult": {
+          "channelA": {
+            "frequencyHz": 4.809043771043771,
+            "dutyCycle": 0.6666666666666666,
+            "highTimeS": 1.386,
+            "lowTimeS": 0.693
+          },
+          "channelB": {
+            "frequencyHz": 48.09043771043771,
+            "dutyCycle": 0.6666666666666666,
+            "highTimeS": 0.1386,
+            "lowTimeS": 0.0693
+          }
+        }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 23
     }
   ]
 }
