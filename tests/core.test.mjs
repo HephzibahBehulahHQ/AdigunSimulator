@@ -544,6 +544,23 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue comparator threshold switches on rising input and off below threshold",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/027-comparator-threshold.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const below=runSupportedAnalysis(project);
+  assert.equal(below.state,"complete");
+  assert.equal(below.result.kind,"comparator-threshold");
+  assert.equal(below.result.thresholdVoltage,2.5);
+  assert.equal(below.result.outputState,"low");
+  assert.equal(below.result.ledOn,false);
+  const above=runSupportedAnalysis(updateComponent(project,"signal",{value:"2.6 V"}));
+  assert.equal(above.result.outputState,"high");
+  assert.equal(above.result.ledOn,true);
+  assert.ok(above.result.ledCurrentA>0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"2.4 V"})).result.ledOn,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"6 V"})).state,"blocked");
+});
+
 test("catalogue op-amp voltage follower tracks input amplitude and blocks rail overdrive",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/026-opamp-voltage-follower.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -987,7 +1004,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 36);
+  assert.equal(getExampleCoverage(registry).total, 37);
   assert.equal(getExampleCoverage(registry).released, 26);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 174);

@@ -30,6 +30,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge/ideal-latching-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.comparator-ideal", category: "Active", type: "Ideal low-battery comparator model", prefix: "U", pins: ["VCC", "GND", "SENSE", "OUT"], defaultValue: "Vref 3.75 V", simulation: "analytical-battery-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.comparator-dual-ideal", category: "Active", type: "Ideal dual-input comparator with indicator", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal comparator", simulation: "analytical-comparator-threshold", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -370,6 +371,7 @@ export function runSupportedAnalysis(project) {
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
+  const dualComparators = project.components.filter((item) => item.libraryId === "active.comparator-dual-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -420,6 +422,9 @@ export function runSupportedAnalysis(project) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (dualComparators.length === 1 && source.length === 2 && resistor.length === 3 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
+    return analyseComparatorThreshold(project, { sources: source, comparator: dualComparators[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && ((resistor.length === 2 && project.components.length === 7) || (resistor.length === 0 && project.components.length === 5)) && ground.length === 1) {
     return analyseOpAmpAmplifier(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, ground: ground[0], validation });
@@ -1024,6 +1029,30 @@ function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground
     result: { kind: "supercap-hold-up", sourceVoltage, diodeVf, chargeVoltage: sourceVoltage - diodeVf, capacitance, initialVoltage, minimumVoltage, ratedVoltage, loadResistance, timeConstantS, holdUpTimeS, initialCurrentA, initialLoadPowerW, initialStoredEnergyJ, samples },
     validation
   };
+}
+
+function analyseComparatorThreshold(project,{sources,comparator,resistors,led,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0");
+  const supply=sources.find(part=>n(part,"-")===groundNet&&n(part,"+")!==groundNet);
+  const signal=sources.find(part=>part!==supply&&n(part,"-")===groundNet);
+  if(!supply||!signal||n(comparator,"VCC")!==n(supply,"+")||n(comparator,"GND")!==groundNet
+    ||n(comparator,"IN+")!==n(signal,"+")||n(signal,"-")!==groundNet||n(led,"K")!==groundNet){
+    return {state:"blocked",message:"Connect comparator supply and signal references to ground, the signal to IN+, and the indicator cathode to ground.",validation};
+  }
+  const thresholdNet=n(comparator,"IN-"),outputNet=n(comparator,"OUT"),supplyNet=n(supply,"+");
+  const upper=resistors.find(part=>(n(part,"1")===supplyNet&&n(part,"2")===thresholdNet)||(n(part,"2")===supplyNet&&n(part,"1")===thresholdNet));
+  const lower=resistors.find(part=>part!==upper&&((n(part,"1")===thresholdNet&&n(part,"2")===groundNet)||(n(part,"2")===thresholdNet&&n(part,"1")===groundNet)));
+  const ledResistor=resistors.find(part=>part!==upper&&part!==lower&&((n(part,"1")===outputNet&&n(part,"2")===n(led,"A"))||(n(part,"2")===outputNet&&n(part,"1")===n(led,"A"))));
+  const rUpper=upper?resistanceValue(upper.value):Number.NaN,rLower=lower?resistanceValue(lower.value):Number.NaN,rLed=ledResistor?resistanceValue(ledResistor.value):Number.NaN;
+  const supplyVoltage=voltageValue(supply.value),inputVoltage=voltageValue(signal.value),vf=forwardVoltage(led.value);
+  if(!upper||!lower||!ledResistor||![rUpper,rLower,rLed,supplyVoltage,inputVoltage,vf].every(Number.isFinite)||rUpper<=0||rLower<=0||rLed<=0||supplyVoltage<=0||inputVoltage<0||inputVoltage>supplyVoltage||vf<=0){
+    return {state:"blocked",message:"The threshold circuit needs a valid divider, positive resistances, and a signal within its supply range.",validation};
+  }
+  const thresholdVoltage=supplyVoltage*rLower/(rUpper+rLower),outputHigh=inputVoltage>thresholdVoltage,ledCurrentA=outputHigh?Math.max(0,(supplyVoltage-vf)/rLed):0;
+  return {state:"complete",engine:"Ideal dual-input comparator threshold analysis",message:"Compares the input against a resistor-divider threshold and reports an ideal logic state and LED current. It omits propagation delay, hysteresis, offset, input bias, output saturation, noise, loading, and device-specific limits.",result:{kind:"comparator-threshold",supplyVoltage,inputVoltage,thresholdVoltage,outputHigh,outputState:outputHigh?"high":"low",ledOn:outputHigh,ledCurrentA},validation};
 }
 
 function analyseOpAmpAmplifier(project,{sources,input,opAmp,resistors,ground,validation}){
