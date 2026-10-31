@@ -3709,6 +3709,50 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "090-usb-uart-console",
+      "title": "USB-UART console known byte stream",
+      "status": "released",
+      "objective": "Frame bounded transmit and receive byte streams using configurable baud, data width, parity and stop bits; show expected hex, printable text and ideal wire-time estimates in a local console model.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue USB-UART console frames a known bidirectional byte stream",
+      "testId": "core-usb-uart-console",
+      "projectFile": "examples/090-usb-uart-console.adigun.json",
+      "safetyNote": "Local UART framing and byte-stream mock only. USB enumeration and packet transport, host contact, electrical line levels, clock error, oversampling, buffering, drivers, firmware, and physical bridge behavior are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 90,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41184629990",
+        "headRevision": "2d4a14c7451bb14e374e0e2413bc986d565a5a98",
+        "engine": "Local USB-UART serial framing and console mock",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "local-usb-uart-byte-stream-v1",
+        "expectedResult": {
+          "kind": "usb-uart-console",
+          "baud": 9600,
+          "dataBits": 8,
+          "parity": "none",
+          "stopBits": 1,
+          "frameBits": 10,
+          "txHex": [
+            "0x48",
+            "0x69"
+          ],
+          "rxHex": [
+            "0x4F",
+            "0x4B"
+          ],
+          "txAscii": "Hi",
+          "rxAscii": "OK",
+          "txDurationSeconds": 0.0020833333333333333,
+          "rxDurationSeconds": 0.0020833333333333333,
+          "usbEnumerated": false,
+          "hostContacted": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
