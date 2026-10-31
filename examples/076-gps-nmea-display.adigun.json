@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-076-gps-nmea-display",
+  "metadata": {
+    "name": "GPS NMEA RMC Coordinate Display",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          35,
+          60
+        ],
+        "schematic": [
+          35,
+          60
+        ],
+        "pcb": [
+          35,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "gnss",
+      "libraryId": "sensor.gnss-nmea-ideal",
+      "reference": "GPS1",
+      "value": "Sentence $GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A",
+      "position": {
+        "breadboard": [
+          175,
+          60
+        ],
+        "schematic": [
+          175,
+          60
+        ],
+        "pcb": [
+          175,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "parser",
+      "libraryId": "active.gnss-nmea-parser-ideal",
+      "reference": "U1",
+      "value": "SentenceType RMC",
+      "position": {
+        "breadboard": [
+          330,
+          60
+        ],
+        "schematic": [
+          330,
+          60
+        ],
+        "pcb": [
+          330,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "output.gnss-position-display",
+      "reference": "DISP1",
+      "value": "Latitude and longitude",
+      "position": {
+        "breadboard": [
+          485,
+          60
+        ],
+        "schematic": [
+          485,
+          60
+        ],
+        "pcb": [
+          485,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          600,
+          230
+        ],
+        "schematic": [
+          600,
+          230
+        ],
+        "pcb": [
+          600,
+          230
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "gnss:VCC",
+        "parser:VCC",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "gnss:GND",
+        "parser:GND",
+        "display:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "UART_RX",
+      "endpoints": [
+        "gnss:TX",
+        "parser:RX"
+      ]
+    },
+    {
+      "id": "DISPLAY",
+      "endpoints": [
+        "parser:DISPLAY",
+        "display:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
