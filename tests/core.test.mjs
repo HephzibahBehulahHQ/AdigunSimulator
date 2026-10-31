@@ -1437,7 +1437,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 157);
+  assert.equal(getExampleCoverage(registry).total, 158);
   assert.equal(getExampleCoverage(registry).released, 147);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 53);
@@ -4001,4 +4001,25 @@ test("catalogue RC Bode plot labels units and places the exact cutoff marker", a
   assert.ok(Math.abs(marker.phaseDeg+45)<1e-9);
   const wrongTopology=JSON.parse(JSON.stringify(project));wrongTopology.nets.find(net=>net.id==="FILTER_OUT").endpoints=wrongTopology.nets.find(net=>net.id==="FILTER_OUT").endpoints.filter(endpoint=>endpoint!=="capacitor-1:1");
   assert.equal(analyzeRcBode(wrongTopology).state,"blocked");
+});
+
+test("catalogue RLC pulse response shows ringing and warns when timestep undersamples it", async () => {
+  const {analyzeRlcStep}=await import("../js/rlc-transient.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/148-rlc-transient-response.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const result=analyzeRlcStep(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"rlc-step-response");
+  assert.equal(result.result.regime,"underdamped");
+  assert.ok(result.result.ringingVisible);
+  assert.ok(result.result.peakVoltageV>result.result.sourceVoltage);
+  assert.equal(result.warnings.length,0);
+  assert.ok(result.result.sampleCount>500);
+  const coarse=JSON.parse(JSON.stringify(project));coarse.rlcTransient.timeStepS=0.001;
+  const warned=analyzeRlcStep(coarse);
+  assert.equal(warned.state,"complete");
+  assert.ok(warned.warnings.some(warning=>warning.code==="TIMESTEP_RESOLUTION"));
+  const broken=JSON.parse(JSON.stringify(project));broken.nets.find(net=>net.id==="L_C").endpoints=broken.nets.find(net=>net.id==="L_C").endpoints.filter(endpoint=>endpoint!=="capacitor-1:1");
+  assert.equal(analyzeRlcStep(broken).state,"blocked");
 });
