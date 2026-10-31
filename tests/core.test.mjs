@@ -1437,7 +1437,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 151);
+  assert.equal(getExampleCoverage(registry).total, 152);
   assert.equal(getExampleCoverage(registry).released, 141);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 59);
@@ -3886,4 +3886,23 @@ test("catalogue DC voltmeter measures divider voltage with units, input loading 
   assert.ok(analyzeDcVoltmeter(reversed).result.measuredVoltageV<0);
   const misplaced=JSON.parse(JSON.stringify(project));misplaced.instrument.positiveNet="VOUT";misplaced.instrument.negativeNet="VOUT";
   assert.equal(analyzeDcVoltmeter(misplaced).state,"blocked");
+});
+
+test("catalogue DC ammeter measures series current with burden and rejects parallel placement", async () => {
+  const {analyzeDcAmmeter}=await import("../js/dc-ammeter-analysis.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/142-dc-ammeter-use.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const reading=analyzeDcAmmeter(project);
+  assert.equal(reading.state,"complete");
+  assert.equal(reading.result.kind,"dc-ammeter");
+  assert.equal(reading.result.unit,"A");
+  assert.ok(Math.abs(reading.result.displayMilliAmps-3)<0.001);
+  assert.equal(reading.result.seriesPlacementVerified,true);
+  assert.equal(reading.result.burdenResistanceOhms,0.1);
+  assert.ok(reading.result.burdenVoltageV>0);
+  const misplaced=JSON.parse(JSON.stringify(project));misplaced.instrument.terminals=["resistor-top-1:1","resistor-top-1:2"];
+  assert.equal(analyzeDcAmmeter(misplaced).state,"blocked");
+  const reversed=JSON.parse(JSON.stringify(project));reversed.instrument.terminals.reverse();
+  assert.ok(analyzeDcAmmeter(reversed).result.measuredCurrentA<0);
 });
