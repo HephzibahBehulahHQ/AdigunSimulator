@@ -684,6 +684,58 @@
       "catalogueIndex": 13
     },
     {
+      "id": "014-passive-tone-control",
+      "title": "Single-pole passive treble-cut control",
+      "status": "released",
+      "objective": "Calculate a loaded 100 Hz, 1 kHz, and 10 kHz response for an audio source, adjustable series rheostat, shunt capacitor, and load; test that increased control resistance attenuates treble more than bass.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue passive tone control reduces treble as the rheostat increases and blocks out-of-range position and wiring",
+      "testId": "core-passive-tone-control",
+      "projectFile": "examples/014-passive-tone-control.adigun.json",
+      "safetyNote": "Small-signal ideal educational model only. It implements a single-pole treble-cut network, not a multi-band equalizer or audio power amplifier. Component tolerances, wiper noise, power limits, and hardware safety are not modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 14,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41154851881",
+        "headRevision": "87ee804f6b622e37f2444eeee8243a9d168b3240",
+        "engine": "Analytical loaded single-pole passive treble-cut response",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "passive-tone-cut-loaded-rc-v1",
+        "libraryLock": "adigun-simulator@f550d6fc3dfdd0ac5fd073f54386aa4238accde4",
+        "expectedResult": {
+          "defaultPosition50Percent": {
+            "cutoffHz": 477.46482927568604,
+            "response": [
+              {
+                "frequencyHz": 100,
+                "gain": 0.6525091286378826,
+                "phaseRad": -0.20645531758085955
+              },
+              {
+                "frequencyHz": 1000,
+                "gain": 0.287247182748001,
+                "phaseRad": -1.1253388328842984
+              },
+              {
+                "frequencyHz": 10000,
+                "gain": 0.03179476756097162,
+                "phaseRad": -1.523086077295077
+              }
+            ]
+          },
+          "position0Percent": {
+            "controlResistanceOhm": 0,
+            "highFrequencyGain": 1
+          },
+          "position100Percent": {
+            "controlResistanceOhm": 10000,
+            "highFrequencyGain": 0.015907437547469306
+          }
+        }
+      }
+    },
+    {
       "id": "supplemental-rl-low-pass",
       "title": "Supplemental RL low-pass frequency response",
       "status": "released",
@@ -709,16 +761,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "014-passive-tone-control",
-      "title": "Single-pole passive treble-cut control",
-      "status": "in-review",
-      "objective": "Calculate a loaded 100 Hz, 1 kHz, and 10 kHz response for an audio source, adjustable series rheostat, shunt capacitor, and load; test that increased control resistance attenuates treble more than bass.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue passive tone control reduces treble as the rheostat increases and blocks out-of-range position and wiring",
-      "testId": "core-passive-tone-control",
-      "projectFile": "examples/014-passive-tone-control.adigun.json",
-      "safetyNote": "Small-signal ideal educational model only. It implements a single-pole treble-cut network, not a multi-band equalizer or audio power amplifier. Component tolerances, wiper noise, power limits, and hardware safety are not modeled."
     }
   ]
 }
