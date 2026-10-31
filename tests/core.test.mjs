@@ -89,6 +89,34 @@ test("single-pole RC step response reports time constant and analytic samples", 
   assert.equal(runSupportedAnalysis(overflow).state, "blocked");
 });
 
+test("SPDT RC example calculates charging and discharging at one time constant", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/011-rc-charge-discharge.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const charge = runSupportedAnalysis(project);
+  assert.equal(charge.state, "complete");
+  assert.equal(charge.result.kind, "rc-charge-discharge");
+  assert.equal(charge.result.mode, "charge");
+  assert.ok(Math.abs(charge.result.timeConstantS - 0.1) < 1e-12);
+  assert.ok(Math.abs(charge.result.samples[1].capacitorVoltage / 5 - (1 - Math.exp(-1))) < 1e-12);
+  assert.ok(Math.abs(charge.result.samples[1].capacitorVoltage / 5 - 0.6321205588) < 1e-10);
+
+  const dischargeProject = updateComponent(project, "switch-1", { value: "Discharge (B)" });
+  const discharge = runSupportedAnalysis(dischargeProject);
+  assert.equal(discharge.state, "complete");
+  assert.equal(discharge.result.mode, "discharge");
+  assert.ok(Math.abs(discharge.result.samples[1].capacitorVoltage / 5 - Math.exp(-1)) < 1e-12);
+  assert.ok(Math.abs(discharge.result.samples[1].capacitorVoltage / 5 - 0.3678794412) < 1e-10);
+
+  const wrongPosition = updateComponent(project, "switch-1", { value: "Center" });
+  assert.equal(runSupportedAnalysis(wrongPosition).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "SW_COM").endpoints = ["switch-1:COM"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+  const underflow = updateComponent(project, "capacitor-1", { value: "1e-300 F" });
+  const tinyResistance = updateComponent(underflow, "resistor-1", { value: "1e-300 Ω" });
+  assert.equal(runSupportedAnalysis(tinyResistance).state, "blocked");
+});
+
 test("single-pole RL step response reports current rise and inductor voltage", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/006-rl-step-response.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
