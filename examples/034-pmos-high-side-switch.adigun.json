@@ -134,14 +134,12 @@
       "id": "VCC",
       "endpoints": [
         "supply:+",
-        "pmos:S",
-        "gate-resistor:1"
+        "pmos:S"
       ]
     },
     {
       "id": "GATE",
       "endpoints": [
-        "gate-drive:+",
         "gate-resistor:2",
         "pmos:G"
       ]
@@ -160,6 +158,13 @@
         "gate-drive:-",
         "load:2",
         "ground:0"
+      ]
+    },
+    {
+      "id": "CONTROL",
+      "endpoints": [
+        "gate-drive:+",
+        "gate-resistor:1"
       ]
     }
   ],
