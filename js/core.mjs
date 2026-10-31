@@ -233,6 +233,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.electronic-load-step-fixture", category: "Inputs", type: "Programmable electronic-load current-step fixture", prefix: "CMD", pins: ["CMD", "GND"], defaultValue: "Setpoints 100 mA, 500 mA, 1 A; Tolerance 1%; MaxDutVoltage 15 V; MaxCurrent 1.2 A; MaxPower 15 W; Mode current-steps", simulation: "fixture-electronic-load", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.electronic-load-opamp-ideal", category: "Active", type: "Ideal op-amp current-regulation controller", prefix: "U", pins: ["IN+", "IN-", "OUT", "STATUS", "VCC", "GND"], defaultValue: "Mode ideal-current-loop", simulation: "analytical-electronic-load", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.electronic-load-report", category: "Output", type: "Electronic-load current-step and dissipation report", prefix: "SCOPE", pins: ["DUT", "SENSE", "STATUS", "GND"], defaultValue: "Electronic-load report", simulation: "analytical-electronic-load", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.hotswap-fixture", category: "Inputs", type: "Hot-swap enable and fault fixture", prefix: "CMD", pins: ["ENABLE", "FAULT", "GND"], defaultValue: "Enabled yes; Fault none; RampTime 20 ms; CurrentLimit 0.5 A; OverloadLimit 1.5 A; MaxOutputPower 50 W; Mode hot-swap", simulation: "fixture-hotswap", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.hotswap-controller-ideal", category: "Active", type: "Ideal hot-swap controller with current limit", prefix: "U", pins: ["VIN", "ENABLE", "FAULT_IN", "SENSE", "GATE", "STATUS", "GND"], defaultValue: "Mode inrush-overload", simulation: "analytical-hotswap", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.hotswap-series-fet-ideal", category: "Active", type: "Ideal hot-swap series MOSFET", prefix: "Q", pins: ["VIN", "GATE", "VOUT", "SENSE", "STATUS", "GND"], defaultValue: "RdsOn 0.05 Ω; MaxVoltage 40 V; MaxCurrent 5 A; Mode hot-swap", simulation: "analytical-hotswap", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.hotswap-report", category: "Output", type: "Hot-swap inrush and overload report", prefix: "SCOPE", pins: ["VOUT", "INRUSH", "STATUS", "GND"], defaultValue: "Hot-swap protection report", simulation: "analytical-hotswap", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -776,6 +780,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const electronicLoadFixtures = project.components.filter((item) => item.libraryId === "input.electronic-load-step-fixture");
   const electronicLoadControllers = project.components.filter((item) => item.libraryId === "active.electronic-load-opamp-ideal");
   const electronicLoadReports = project.components.filter((item) => item.libraryId === "output.electronic-load-report");
+  const hotSwapFixtures = project.components.filter((item) => item.libraryId === "input.hotswap-fixture");
+  const hotSwapControllers = project.components.filter((item) => item.libraryId === "active.hotswap-controller-ideal");
+  const hotSwapFets = project.components.filter((item) => item.libraryId === "active.hotswap-series-fet-ideal");
+  const hotSwapReports = project.components.filter((item) => item.libraryId === "output.hotswap-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -1050,6 +1058,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length===1&&electronicLoadFixtures.length===1&&electronicLoadControllers.length===1&&mosfets.length===1&&electronicLoadReports.length===1&&resistor.length===1&&ground.length===1&&project.components.length===7) {
     return analyseElectronicLoad(project,{source:source[0],fixture:electronicLoadFixtures[0],controller:electronicLoadControllers[0],mosfet:mosfets[0],report:electronicLoadReports[0],shunt:resistor[0],ground:ground[0],validation});
+  }
+  if (source.length===1&&hotSwapFixtures.length===1&&hotSwapControllers.length===1&&hotSwapFets.length===1&&hotSwapReports.length===1&&resistor.length===1&&capacitor.length===1&&ground.length===1&&project.components.length===7) {
+    return analyseHotSwap(project,{source:source[0],fixture:hotSwapFixtures[0],controller:hotSwapControllers[0],fet:hotSwapFets[0],report:hotSwapReports[0],load:resistor[0],capacitor:capacitor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3689,6 +3700,46 @@ function analyseElectronicLoad(project,{source,fixture,controller,mosfet,report,
   return {state:"complete",engine:"Ideal op-amp/MOSFET electronic-load step estimator",
     message:"Calculates ideal steady-state current steps for an op-amp-controlled MOSFET and shunt, with configured tolerance, input-power, and MOSFET dissipation limits. Loop stability, transient slew/overshoot, MOSFET safe operating area, thermal behavior, and hardware safety are not modeled.",
     result:{kind:"electronic-load",supplyVoltageV:supplyV,maxDutVoltageV,maxCurrentA,maxPowerW,shuntResistanceOhm:shuntOhm,tolerancePercent,steps,allStepsWithinTolerance:steps.every(step=>step.withinTolerance),transientResponseModeled:false,hardwareSafetyQualified:false},validation};
+}
+function analyseHotSwap(project,{source,fixture,controller,fet,report,load,capacitor,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const f=fields(fixture.value),q=fields(fet.value),enabled=field(f,"Enabled"),fault=field(f,"Fault");
+  const rampText=String(field(f,"RampTime")??"").match(/^([\d.]+)\s*(ms|s)$/i);
+  const rampTimeS=rampText?Number(rampText[1])*(rampText[2].toLowerCase()==="ms"?1e-3:1):Number.NaN;
+  const currentLimitA=currentValue(field(f,"CurrentLimit")??""),overloadLimitA=currentValue(field(f,"OverloadLimit")??"");
+  const maxOutputPowerW=Number(String(field(f,"MaxOutputPower")??"").replace(/\s*W$/i,""));
+  const rdsOn=resistanceValue(field(q,"RdsOn")??""),maxVoltageV=voltageValue(field(q,"MaxVoltage")??""),maxCurrentA=currentValue(field(q,"MaxCurrent")??"");
+  const busVoltageV=voltageValue(source.value),loadOhm=resistanceValue(load.value),capacitanceF=capacitanceValue(capacitor.value),gnd=n(ground,"0");
+  const inputPath=n(source,"+")===n(controller,"VIN")&&n(source,"+")===n(fet,"VIN");
+  const controlPath=n(fixture,"ENABLE")===n(controller,"ENABLE")&&n(fixture,"FAULT")===n(controller,"FAULT_IN");
+  const gatePath=n(controller,"GATE")===n(fet,"GATE"),sensePath=n(controller,"SENSE")===n(fet,"SENSE");
+  const outputPath=n(fet,"VOUT")===n(report,"VOUT")&&n(fet,"VOUT")===n(load,"1")&&n(fet,"VOUT")===n(capacitor,"1");
+  const groundPath=n(source,"-")===gnd&&n(fixture,"GND")===gnd&&n(controller,"GND")===gnd&&n(fet,"GND")===gnd&&n(load,"2")===gnd&&n(capacitor,"2")===gnd&&n(report,"GND")===gnd;
+  const statusPath=n(controller,"STATUS")===n(fet,"STATUS")&&n(controller,"STATUS")===n(report,"STATUS");
+  const inrushPath=n(controller,"SENSE")===n(report,"INRUSH");
+  const required=[gnd,n(source,"+"),n(controller,"VIN"),n(fet,"VIN"),n(fixture,"ENABLE"),n(controller,"ENABLE"),n(fixture,"FAULT"),n(controller,"FAULT_IN"),n(controller,"GATE"),n(fet,"GATE"),n(controller,"SENSE"),n(fet,"SENSE"),n(fet,"VOUT"),n(report,"VOUT"),n(load,"1"),n(load,"2"),n(capacitor,"1"),n(capacitor,"2"),n(controller,"STATUS"),n(fet,"STATUS"),n(report,"STATUS"),n(report,"INRUSH")];
+  if(required.some(x=>typeof x!=="string"||!x)||!inputPath||!controlPath||!gatePath||!sensePath||!outputPath||!groundPath||!statusPath||!inrushPath
+    ||field(f,"Mode")!=="hot-swap"||field(q,"Mode")!=="hot-swap"||field(fields(controller.value),"Mode")!=="inrush-overload"||!["yes","no"].includes(enabled)||!["none","overload"].includes(fault)
+    ||![rampTimeS,currentLimitA,overloadLimitA,maxOutputPowerW,rdsOn,maxVoltageV,maxCurrentA,busVoltageV,loadOhm,capacitanceF].every(Number.isFinite)
+    ||rampTimeS<=0||rampTimeS>1||currentLimitA<=0||currentLimitA>50||overloadLimitA<=0||overloadLimitA>50||maxOutputPowerW<=0||maxOutputPowerW>1000
+    ||rdsOn<0||rdsOn>1||maxVoltageV<busVoltageV||maxVoltageV>400||maxCurrentA<=0||maxCurrentA>100||busVoltageV<=0||busVoltageV>maxVoltageV||loadOhm<=0||loadOhm>10000||capacitanceF<=0||capacitanceF>1){
+    return {state:"blocked",message:"Wire the input source, hot-swap controller, series MOSFET, load capacitor and resistor; use supported current, ramp, voltage and power limits.",validation};
+  }
+  const rawInrushCurrentA=capacitanceF*busVoltageV/rampTimeS;
+  const inrushCurrentA=Math.min(rawInrushCurrentA,currentLimitA),inrushLimited=rawInrushCurrentA>currentLimitA;
+  const estimatedChargeTimeS=capacitanceF*busVoltageV/inrushCurrentA;
+  const steadyLoadCurrentA=busVoltageV/(loadOhm+rdsOn),overloadTrip=fault==="overload"||steadyLoadCurrentA>overloadLimitA;
+  const outputEnabled=enabled==="yes"&&!overloadTrip;
+  const outputVoltageV=outputEnabled?busVoltageV-steadyLoadCurrentA*rdsOn:0;
+  const loadCurrentA=outputEnabled?outputVoltageV/loadOhm:0;
+  const mosfetPowerW=outputEnabled?steadyLoadCurrentA*steadyLoadCurrentA*rdsOn:0;
+  const safeOperatingPowerW=outputEnabled?busVoltageV*steadyLoadCurrentA:0;
+  if(steadyLoadCurrentA>maxCurrentA||safeOperatingPowerW>maxOutputPowerW)return {state:"blocked",message:"Steady load exceeds configured MOSFET current or input-power limits.",validation};
+  return {state:"complete",engine:"Bounded hot-swap inrush and overload estimator",
+    message:"Estimates capacitive inrush from C·V/t, clamps it to the configured current limit, and checks steady resistive-load current against the overload threshold. Startup dynamics, SOA, thermal behavior, controller timing, short-circuit response, and hardware safety are not modeled.",
+    result:{kind:"hotswap-protection",enabled:enabled==="yes",fault,outputEnabled,overloadTrip,busVoltageV,outputVoltageV,loadResistanceOhm:loadOhm,loadCurrentA,steadyLoadCurrentA,loadPowerW:outputVoltageV*loadCurrentA,capacitanceF,rampTimeS,rawInrushCurrentA,inrushCurrentA,currentLimitA,inrushLimited,estimatedChargeTimeS,overloadLimitA,mosfetPowerW,estimatedSwitchInputPowerW:safeOperatingPowerW,hardwareSafetyQualified:false},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
