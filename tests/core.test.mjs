@@ -544,6 +544,21 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue inverting op-amp reports negative gain and phase reversal",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/025-opamp-inverting.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"opamp-inverting");
+  assert.equal(result.result.gainVPerV,-2);
+  assert.equal(result.result.outputAmplitudeV,0.2);
+  assert.equal(result.result.phaseShiftDeg,-180);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"rin",{value:"0 Ω"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["opamp:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
 test("catalogue non-inverting op-amp reports midband gain and rejects clipping or broken feedback",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/024-opamp-noninverting.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -955,7 +970,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 34);
+  assert.equal(getExampleCoverage(registry).total, 35);
   assert.equal(getExampleCoverage(registry).released, 24);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 176);

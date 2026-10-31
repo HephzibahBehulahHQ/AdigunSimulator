@@ -1075,6 +1075,18 @@
           "negativeSupplyV": -12
         }
       }
+    },
+    {
+      "id": "025-opamp-inverting",
+      "title": "Op-amp inverting amplifier",
+      "status": "in-review",
+      "objective": "Model inverting midband voltage gain as -Rf/Rin and verify the output magnitude and 180-degree phase reversal.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue inverting op-amp reports negative gain and phase reversal; rejects invalid input resistance and broken feedback",
+      "testId": "core-opamp-inverting",
+      "projectFile": "examples/025-opamp-inverting.adigun.json",
+      "safetyNote": "Ideal educational midband model only. It omits frequency response, slew rate, input/output limits, offset, noise, loading and device-specific behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 25
     }
   ]
 }
