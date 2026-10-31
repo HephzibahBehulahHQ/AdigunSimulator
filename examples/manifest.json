@@ -4449,6 +4449,19 @@
           "usbPdComplianceCertified": false
         }
       }
+    },
+    {
+      "id": "108-usb-c-source-concept",
+      "title": "USB-C source profile concept",
+      "status": "planned",
+      "objective": "Filter advertised USB-C fixed PDOs against source voltage/current/power limits, select a valid requested profile or fall back to 5 V, and model load current limiting and overcurrent shutdown.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue USB-C source filters PDOs and models fallback, current limit, and OCP shutdown",
+      "testId": "core-usb-c-source",
+      "projectFile": "examples/108-usb-c-source-concept.adigun.json",
+      "readmeFile": "examples/108-usb-c-source-concept/README.md",
+      "safetyNote": "Educational source policy estimator only; no USB-PD signaling, thermal protection, compliance certification, or hardware qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 108
     }
   ]
 }
