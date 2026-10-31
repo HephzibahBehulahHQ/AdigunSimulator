@@ -461,6 +461,35 @@ test("a verified record cannot bypass checksum, mapping, model, and human-review
   assert.ok(errors.some((error) => error.code === "VERIFIED_EVIDENCE"));
 });
 
+test("catalogue pushbutton LED stays off until pressed and includes its pull-down", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/003-pushbutton-led.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+
+  const open = runSupportedAnalysis(project);
+  assert.equal(open.state, "complete");
+  assert.equal(open.result.kind, "pushbutton-led");
+  assert.equal(open.result.switchState, "normally-open");
+  assert.equal(open.result.ledOn, false);
+  assert.equal(open.result.ledCurrentA, 0);
+  assert.equal(open.result.sourceCurrentA, 0);
+
+  const pressedProject = updateComponent(project, "switch-1", { value: "Pressed" });
+  const pressed = runSupportedAnalysis(pressedProject);
+  assert.equal(pressed.state, "complete");
+  assert.equal(pressed.result.switchState, "pressed");
+  assert.equal(pressed.result.ledOn, true);
+  assert.ok(Math.abs(pressed.result.ledCurrentA - (5 - 2) / 330) < 1e-12);
+  assert.ok(Math.abs(pressed.result.pullDownCurrentA - 5 / 10000) < 1e-12);
+  assert.ok(Math.abs(pressed.result.powerBalanceW) < 1e-12);
+
+  const invalidState = updateComponent(project, "switch-1", { value: "Half pressed" });
+  assert.equal(runSupportedAnalysis(invalidState).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "VCC").endpoints = ["source-1:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("12 V LED limiter example calculates the documented current", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/007-led-current-limiter-12v.adigun.json", import.meta.url)));
   const result = runSupportedAnalysis(project);
@@ -504,7 +533,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 14);
+  assert.equal(getExampleCoverage(registry).total, 15);
   assert.equal(getExampleCoverage(registry).released, 4);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 196);
