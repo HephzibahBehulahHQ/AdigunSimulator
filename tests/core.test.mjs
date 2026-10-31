@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 48);
+  assert.equal(getExampleCoverage(registry).total, 49);
   assert.equal(getExampleCoverage(registry).released, 38);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 162);
@@ -1286,4 +1286,26 @@ test("catalogue class-AB audio amplifier reports speaker power and clipping warn
   const brokenOutput = structuredClone(project);
   brokenOutput.nets.find((net) => net.id === "SPEAKER_PLUS").endpoints = ["speaker:+"];
   assert.equal(runSupportedAnalysis(brokenOutput).state, "blocked");
+});
+
+test("catalogue active low-pass filter matches its designed cutoff and gain", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/039-active-low-pass.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "active-low-pass");
+  assert.ok(Math.abs(result.result.cutoffHz - 1 / (2 * Math.PI * 10000 * 10e-9)) < 1e-12);
+  assert.equal(result.result.passbandGain, 2);
+  const [below, cutoff, above] = result.result.response;
+  assert.ok(Math.abs(below.gain - (2 / Math.sqrt(1.01))) < 1e-12);
+  assert.ok(Math.abs(cutoff.gain - 2 / Math.sqrt(2)) < 1e-12);
+  assert.ok(Math.abs(above.gain - (2 / Math.sqrt(101))) < 1e-12);
+  assert.ok(below.gain > cutoff.gain && cutoff.gain > above.gain);
+  assert.equal(result.result.maximumOutputAmplitudeV, 2);
+
+  const overload = runSupportedAnalysis(updateComponent(project, "input", { value: "10 V" }));
+  assert.equal(overload.state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "FILTERED_INPUT").endpoints = ["input-resistor:2", "opamp:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
