@@ -3339,7 +3339,7 @@ function analyseConstantCurrentLedDriver(project,{source,fixture,driver,report,s
   const f=fields(fixture.value),c=fields(driver.value),vf=voltageValue(field(f,"Vf")??"");
   const isOpen=field(f,"Open")==="yes",senseReferenceV=voltageValue(field(c,"SenseReference")??"");
   const maxCurrentA=currentValue(field(c,"MaxCurrent")??""),maxInputV=voltageValue(field(c,"MaxInput")??"");
-  const maxPowerW=Number((field(c,"MaxPower")??"").replace(/\\s*W$/i,"")),complianceV=voltageValue(field(c,"Compliance")??"");
+  const maxPowerW=Number((field(c,"MaxPower")??"").replace(/\s*W$/i,"")),complianceV=voltageValue(field(c,"Compliance")??"");
   const efficiencyPercent=Number((field(c,"Efficiency")??"").replace("%","")),senseOhm=resistanceValue(sense.value);
   const supplyV=voltageValue(source.value),gnd=n(ground,"0"),vcc=n(source,"+");
   const powered=n(source,"-")===gnd&&n(driver,"VIN")===vcc&&n(driver,"VCC")===vcc&&n(fixture,"VCC")===vcc&&n(report,"VCC")===vcc
