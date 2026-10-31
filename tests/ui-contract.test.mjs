@@ -44,13 +44,15 @@ test("the approved corporate logo, official links, and current-year footer are p
   assert.match(app, /yearLabel\.textContent = String\(new Date\(\)\.getFullYear\(\)\)/);
 });
 
-test("enabled project commands are implemented while unreleased tools remain disabled", async () => {
+test("application menus expose working workspace commands and design views", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   const actions = [...new Set(values(html, /data-action="([^"]+)"/g))];
   for (const action of actions) assert.match(app, new RegExp(`action === "${action}"`));
-  for (const command of ["Simulation", "PCB", "Tools"]) {
-    assert.match(html, new RegExp(`<button[^>]*disabled-command[^>]*disabled[^>]*>${command}</button>`));
+  for (const menu of ["fileMenu", "editMenu", "simulationMenu", "pcbMenu", "toolsMenu", "helpMenu"]) {
+    assert.match(html, new RegExp(`<details[^>]*><summary data-i18n="${menu}"`));
   }
+  for (const view of ["breadboard", "schematic", "pcb"]) assert.match(html, new RegExp(`data-view="${view}"`));
+  assert.match(app, /activateView\(viewButton\.dataset\.view\)/);
 });
 
 test("diagnostics tabs have an accessible target and a stateful handler", async () => {

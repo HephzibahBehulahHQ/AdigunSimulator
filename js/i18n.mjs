@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -419,3 +419,8 @@ Object.assign(TRANSLATIONS.en, { exampleAvrIrReceiver: "AVR NEC-like infrared re
 Object.assign(TRANSLATIONS.de, { exampleAvrIrReceiver: "AVR-NEC-ähnlicher Infrarotempfänger", morePlannedExamples: "Zweiundsiebzig der 200 Katalogprojekte sind veröffentlicht; zehn ergänzende Studien sind ebenfalls verfügbar. Die übrigen Katalogprojekte sind geplant und noch nicht ladbar." });
 Object.assign(TRANSLATIONS.yo, { exampleAvrIrReceiver: "Olùgbà IR AVR NEC-like", morePlannedExamples: "Àwọn iṣẹ́ kátàlọ́ọ̀gù 72 nínú 200 ti jáde; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí." });
 Object.assign(TRANSLATIONS.pcm, { exampleAvrIrReceiver: "AVR NEC-like infrared receiver", morePlannedExamples: "Seventy-two out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load." });
+
+Object.assign(TRANSLATIONS.en, { fileMenu: "File", editMenu: "Edit", helpMenu: "Help", implementationStatus: "Implementation status", exampleSelector: "Example", examplePickerHelp: "Choose a released example from the toolbar.", workspaceNotes: "Notes", modelNotes: "Results use bounded ideal models. Firmware, physical device limits, and manufacturing checks are only included where explicitly stated." });
+Object.assign(TRANSLATIONS.de, { fileMenu: "Datei", editMenu: "Bearbeiten", helpMenu: "Hilfe", implementationStatus: "Umsetzungsstatus", exampleSelector: "Beispiel", examplePickerHelp: "Wählen Sie ein veröffentlichtes Beispiel in der Werkzeugleiste.", workspaceNotes: "Hinweise", modelNotes: "Ergebnisse beruhen auf begrenzten idealen Modellen. Firmware, physische Bauteilgrenzen und Fertigungsprüfungen sind nur enthalten, wenn ausdrücklich angegeben." });
+Object.assign(TRANSLATIONS.yo, { fileMenu: "Faili", editMenu: "Ṣàtúnṣe", helpMenu: "Ìrànlọ́wọ́", implementationStatus: "Ipò ìmúṣẹ", exampleSelector: "Àpẹẹrẹ", examplePickerHelp: "Yan àpẹẹrẹ tí a ti tú síta nínú ọpa iṣẹ́.", workspaceNotes: "Àwọn àkọsílẹ̀", modelNotes: "Àwọn àbájáde dá lórí àwọn àwòṣe ideal tó ní ààlà. Firmware, ààlà ẹ̀yà gidi àti àyẹ̀wò iṣelọpọ wà níbi tí a ti sọ ní kedere." });
+Object.assign(TRANSLATIONS.pcm, { fileMenu: "File", editMenu: "Edit", helpMenu: "Help", implementationStatus: "Wetin don dey work", exampleSelector: "Example", examplePickerHelp: "Choose example wey don release from toolbar.", workspaceNotes: "Notes", modelNotes: "Results use ideal models wey get clear limits. Firmware, real part limits and manufacturing checks dey only where dem talk am clearly." });

@@ -28,6 +28,8 @@ const initialProject = loadProject();
 const state = {
   project: initialProject.project,
   recoveredDraft: initialProject.recovered,
+  lastAnalysis: null,
+  userInteracted: false,
   recoveryActive: initialProject.recovered,
   selectedLibraryId: null,
   activeCategory: "All",
@@ -54,11 +56,11 @@ const t = (key) => translate(state.project.metadata.locale, key);
 function loadProject() {
   try {
     const recovery = readRecoveryDraft(localStorage, RECOVERY_KEY);
-    if (recovery) return { project: recovery.project, recovered: true };
+    if (recovery) return { project: recovery.project, recovered: true, fresh: false };
     const stored = localStorage.getItem(STORAGE_KEY);
-    return { project: stored ? parseProject(stored) : createProject(), recovered: false };
+    return { project: stored ? parseProject(stored) : createProject(), recovered: false, fresh: !stored };
   } catch {
-    return { project: createProject(), recovered: false };
+    return { project: createProject(), recovered: false, fresh: false };
   }
 }
 
@@ -72,6 +74,7 @@ function saveLocal() {
 }
 
 function captureHistory() {
+  state.lastAnalysis = null;
   state.history.push(serializeProject(state.project));
   if (state.history.length > 30) state.history.shift();
   state.future = [];
@@ -79,6 +82,7 @@ function captureHistory() {
 }
 
 function replaceProject(project, { dirty = true } = {}) {
+  state.lastAnalysis = null;
   state.project = project;
   state.selectedInstanceId = project.components[0]?.instanceId ?? null;
   state.dirty = dirty;
@@ -164,6 +168,9 @@ function netSvg(project, view, unavailable = new Set()) {
 function renderCanvas() {
   const canvas = $("#design-canvas");
   canvas.className = `design-canvas ${state.activeView} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
+  const canvasArea = document.querySelector(".canvas-area");
+  canvasArea.classList.toggle("has-overview", state.activeView === "breadboard");
+  document.querySelectorAll("[data-mini-view]").forEach((panel) => { panel.hidden = panel.dataset.miniView !== "schematic" || state.activeView !== "breadboard"; });
   canvas.setAttribute("aria-label", `${state.activeView} representation. Select a component to inspect it.`);
   const issues = getViewReconciliationIssues(state.project, state.activeView);
   const unavailable = new Set(issues.map((issue) => issue.instanceId));
@@ -186,9 +193,10 @@ function renderInspector() {
   $("#property-reference").value = component?.reference ?? "";
   $("#property-value").value = component?.value ?? "";
   $("#property-status").value = part?.status ?? "Unresolved library part";
-  $("#component-form").classList.toggle("hidden", state.activeInspector !== "component");
+  $("#component-form").classList.toggle("hidden", state.activeInspector === "project");
   $("#project-form").classList.toggle("hidden", state.activeInspector !== "project");
-  $("#simulation-form").classList.toggle("hidden", state.activeInspector !== "simulation");
+  $("#simulation-form").classList.remove("hidden");
+  $("#workspace-notes").textContent = state.lastAnalysis?.message ?? "Choose a supported example to see its tested model limits.";
   $("#project-name").value = state.project.metadata.name;
   $("#project-locale").value = state.project.metadata.locale;
   $("#component-form button").disabled = !component;
@@ -221,11 +229,44 @@ function renderValidation() {
   renderOutput(validation);
 }
 
+function renderResultDashboard(analysis) {
+  if (!analysis || analysis.state !== "complete") return "";
+  const result = analysis.result ?? {};
+  const metrics = [];
+  let waveform = "";
+  if (result.kind === "stm32-timer-pwm") {
+    const frequencyText = result.frequencyHz >= 1000 ? (result.frequencyHz / 1000).toFixed(2) + " kHz" : result.frequencyHz.toFixed(2) + " Hz";
+    metrics.push(["PWM frequency", frequencyText], ["Duty cycle", (result.dutyCycle * 100).toFixed(1) + " %"], ["LED current while on", (result.peakLedCurrentA * 1000).toFixed(2) + " mA"], ["Estimated average LED current", (result.averageLedCurrentA * 1000).toFixed(2) + " mA"]);
+    const duty = Math.max(0, Math.min(1, result.dutyCycle));
+    const pulse = 106 * duty;
+    let path = "M 24 84";
+    for (let cycle = 0; cycle < 4; cycle += 1) {
+      const x = 24 + cycle * 112;
+      path += " M " + x + " 84 V 24 H " + (x + pulse) + " V 84";
+    }
+    waveform = `<figure class="result-waveform"><figcaption>Ideal PWM output · ${escape(frequencyText)} · ${(duty * 100).toFixed(1)}% duty</figcaption><svg viewBox="0 0 480 108" role="img" aria-label="Ideal PWM output waveform"><path class="wave-axis" d="M20 84 H468 M24 18 V88"></path><path class="wave-trace" d="${path}"></path><text x="24" y="103">0</text><text x="414" y="103">Time (ms)</text></svg></figure>`;
+  } else {
+    for (const [key, value] of Object.entries(result)) {
+      if (key === "kind" || key === "firmwareExecuted" || value === null || typeof value === "object") continue;
+      const label = key.replace(/([A-Z])/g, " $1").replace(/^./, (letter) => letter.toUpperCase());
+      const display = typeof value === "number" ? (Math.abs(value) >= 1000 ? value.toLocaleString() : Number(value.toPrecision(5))).toString() : String(value);
+      metrics.push([label, display]);
+      if (metrics.length >= 8) break;
+    }
+  }
+  const cards = metrics.map(([label, value]) => `<article class="result-metric"><span>${escape(label)}</span><strong>${escape(value)}</strong></article>`).join("");
+  return `<div class="result-dashboard-heading"><strong><span class="result-status-dot"></span>Simulation completed</strong><small>${escape(analysis.engine)}</small></div><div class="result-dashboard-body"><div class="result-metric-grid">${cards}</div>${waveform}</div><p class="result-limit">${escape(analysis.message)}</p>`;
+}
 function renderOutput(validation = state.lastValidation ?? validateProject(state.project)) {
   const isLog = state.activeOutput === "output";
+  const showDashboard = isLog && state.lastAnalysis?.state === "complete";
   const issues = state.activeOutput === "errors" ? validation.errors : validation.warnings;
-  $$(".output-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.output === state.activeOutput));
-  $("#output-log").classList.toggle("hidden", !isLog);
+  $(".output-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.output === state.activeOutput));
+  const dashboard = $("#result-dashboard");
+  dashboard.classList.toggle("hidden", !showDashboard);
+  dashboard.innerHTML = showDashboard ? renderResultDashboard(state.lastAnalysis) : "";
+  $("#workspace-notes").textContent = state.lastAnalysis?.message ?? "Choose a supported example to see its tested model limits.";
+  $("#output-log").classList.toggle("hidden", !isLog || showDashboard);
   $("#issue-list").classList.toggle("hidden", isLog);
   if (!isLog) {
     $("#issue-list").textContent = issues.length
@@ -281,6 +322,7 @@ function validateAndReport() {
 function runAnalysis() {
   validateAndReport();
   const result = runSupportedAnalysis(state.project);
+  state.lastAnalysis = result;
   if (result.state === "complete") {
     const { kind } = result.result;
     log(`[ANALYSIS] ${result.engine}`);
@@ -308,6 +350,7 @@ function runAnalysis() {
     }
     log(`[LIMIT] ${result.message}`);
   } else log(`[${result.state.toUpperCase()}] ${result.message}`);
+  renderOutput();
 }
 
 function exportProject() {
@@ -347,11 +390,15 @@ function handleAction(action) {
   if (action === "validate") validateAndReport();
   if (action === "undo") undo();
   if (action === "redo") redo();
+  if (action === "run-simulation") runAnalysis();
+  if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 72 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine.");
 }
 
 document.addEventListener("click", (event) => {
+  state.userInteracted = true;
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (action) handleAction(action);
+  if (event.target.closest(".app-menu-popover")) event.target.closest("details").open = false;
   const libraryButton = event.target.closest("[data-library-id]");
   if (libraryButton) { state.selectedLibraryId = libraryButton.dataset.libraryId; renderLibrary(); }
   const categoryButton = event.target.closest("[data-category]");
@@ -562,13 +609,16 @@ $("#load-example").addEventListener("click", async () => {
     state.lastValidation = null;
     state.activeOutput = "output";
     replaceProject(project, { dirty: false });
+    state.lastAnalysis = analysis;
+    state.selectedInstanceId = project.components.find((item) => item.libraryId === "passive.resistor")?.instanceId ?? project.components[0]?.instanceId ?? null;
+    render();
     log(`[EXAMPLE] Loaded and validated ${project.metadata.name}.`);
   } catch (error) {
     showDialog("Example unavailable", error instanceof Error ? error.message : "The selected example could not be loaded.");
   }
 });
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
-$("#help-button").addEventListener("click", () => showDialog("Implementation status", "Implemented: local project document, starter library, shared identity and net layouts, local save/import/export, validation, four UI locales, twenty-two released catalogue examples plus ten supplemental studies, bounded DC analysis for LED, voltage-divider, red/green LED polarity indicator, pushbutton LED with pull-down, latching SPDT LED switch, and linear resistor networks with ideal voltage and current sources, first-order RC and RL responses, selectable RC charge/discharge, RC low-pass and high-pass frequency response, supplemental RL low-pass response, and ideal PWM LED average-current, low-battery comparator, and linear-supply ripple/dropout and USB LED PTC warning, and solar garden-light day/night and supercapacitor hold-up and passive RC tone-control sampled full-wave bridge-rectifier reservoir-capacitor ripple, and ideal Zener shunt-regulator single-pulse TVS clamp NTC Beta-law temperature-divider LDR comparator night-light and ideal NE555 astable and monostable timing analyses. Not implemented: a 1,000 verified-part catalogue, general SPICE, nonlinear or digital simulation, real PCB routing/DRC/manufacturing, cloud accounts, or an AI service."));
+$("#help-button").addEventListener("click", () => showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 72 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine."));
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
 $("#import-file").addEventListener("change", async (event) => {
@@ -589,4 +639,25 @@ $("#import-file").addEventListener("change", async (event) => {
 
 render();
 if (state.recoveredDraft) log("[RECOVERY] Restored the latest unsaved project saved in this browser.");
+if (initialProject.fresh) {
+  const starterPath = "examples/070-stm32-timer-pwm.adigun.json";
+  $("#example-picker").value = starterPath;
+  fetch(starterPath, { headers: { Accept: "application/json" } })
+    .then((response) => { if (!response.ok) throw new Error("Starter example unavailable."); return response.text(); })
+    .then((documentText) => {
+      if (state.userInteracted || state.dirty || localStorage.getItem(STORAGE_KEY) || state.project.id !== initialProject.project.id) return;
+      const project = parseProject(documentText);
+      const analysis = runSupportedAnalysis(project);
+      if (analysis.state !== "complete") return;
+      replaceProject(project, { dirty: false });
+      state.selectedInstanceId = "resistor";
+      state.activeView = "breadboard";
+      state.activeInspector = "component";
+      state.lastAnalysis = analysis;
+      $("#example-picker").value = starterPath;
+      render();
+      log("[STARTER] Loaded the tested STM32 timer PWM sample.");
+    })
+    .catch(() => {});
+}
 

@@ -28,112 +28,42 @@
     </header>
 
     <nav class="command-bar" aria-label="Application commands">
-      <div class="menu-buttons">
-        <button type="button" class="menu-button" data-action="new-project">⌑ <span data-i18n="newProject">New Project</span></button>
-        <button type="button" class="menu-button" data-action="import-project">⇧ <span data-i18n="import">Import</span></button>
-        <button type="button" class="menu-button" data-action="validate">✓ <span data-i18n="validate">Validate</span></button>
-        <button type="button" class="menu-button" data-action="undo">↶ <span data-i18n="undo">Undo</span></button>
-        <button type="button" class="menu-button" data-action="redo">↷ <span data-i18n="redo">Redo</span></button>
-        <button type="button" class="menu-button disabled-command" disabled title="Planned after the circuit core is expanded" data-i18n="simulationMenu">Simulation</button>
-        <button type="button" class="menu-button disabled-command" disabled title="Planned after the PCB workflow is implemented" data-i18n="pcbMenu">PCB</button>
-        <button type="button" class="menu-button disabled-command" disabled title="Planned tools are not represented as working" data-i18n="toolsMenu">Tools</button>
+      <div class="menu-buttons" aria-label="Application menus">
+        <details class="app-menu"><summary data-i18n="fileMenu">File</summary><div class="app-menu-popover">
+          <button type="button" data-action="new-project" data-i18n="newProject">New Project</button>
+          <button type="button" data-action="import-project" data-i18n="open">Open</button>
+          <button type="button" data-action="save" data-i18n="save">Save</button>
+          <button type="button" data-action="export" data-i18n="export">Export</button>
+        </div></details>
+        <details class="app-menu"><summary data-i18n="editMenu">Edit</summary><div class="app-menu-popover">
+          <button type="button" data-action="undo" data-i18n="undo">Undo</button>
+          <button type="button" data-action="redo" data-i18n="redo">Redo</button>
+        </div></details>
+        <details class="app-menu"><summary data-i18n="simulationMenu">Simulation</summary><div class="app-menu-popover">
+          <button type="button" data-action="run-simulation" data-i18n="runCalculation">Run calculation</button>
+          <button type="button" data-action="validate" data-i18n="validate">Validate</button>
+        </div></details>
+        <details class="app-menu"><summary data-i18n="pcbMenu">PCB</summary><div class="app-menu-popover">
+          <button type="button" data-view="breadboard" data-i18n="breadboard">Breadboard View</button>
+          <button type="button" data-view="schematic" data-i18n="schematic">Schematic View</button>
+          <button type="button" data-view="pcb" data-i18n="pcb">PCB View</button>
+        </div></details>
+        <details class="app-menu"><summary data-i18n="toolsMenu">Tools</summary><div class="app-menu-popover">
+          <button type="button" data-action="validate" data-i18n="runValidation">Run validation</button>
+          <button type="button" data-inspector="simulation" data-i18n="simulationControl">Simulation Control</button>
+          <button type="button" data-inspector="project" data-i18n="project">Project</button>
+        </div></details>
+        <details class="app-menu"><summary data-i18n="helpMenu">Help</summary><div class="app-menu-popover">
+          <button type="button" data-action="help" data-i18n="implementationStatus">Implementation status</button>
+        </div></details>
       </div>
       <div class="project-actions">
-        <button id="new-project" class="gold-button" type="button" data-action="new-project" data-i18n="newProject">New Project</button>
-        <button id="open-project" class="secondary-button" type="button" data-action="import-project" data-i18n="open">Open</button>
-        <button id="save-project" class="secondary-button" type="button" data-action="save" data-i18n="save">Save</button>
-        <button id="export-project" class="secondary-button" type="button" data-action="export" data-i18n="export">Export</button>
-      </div>
-    </nav>
-
-    <main id="workspace" class="workspace">
-      <aside class="library-panel panel" aria-label="Components library">
-        <div class="panel-heading"><h2 data-i18n="components">Components</h2><button class="panel-close" type="button" aria-label="Collapse component library" data-i18n-aria="collapseLibrary" data-collapse="library-panel">×</button></div>
-        <label class="search-box"><span aria-hidden="true">⌕</span><input id="component-search" type="search" placeholder="Search starter library…" data-i18n-placeholder="searchLibrary" /></label>
-        <div id="library-status" class="library-note" data-i18n="libraryNotice">Starter generic library — not the verified 1,000-part catalogue.</div>
-        <div id="category-filters" class="category-filters" role="group" aria-label="Component categories" data-i18n-aria="componentCategories">
-          <button type="button" class="category-filter active" data-category="All" data-i18n="allComponents">All Components</button>
-          <button type="button" class="category-filter" data-category="Power & Ground" data-i18n="powerGround">Power &amp; Ground</button>
-          <button type="button" class="category-filter" data-category="Passive" data-i18n="passive">Passive</button>
-          <button type="button" class="category-filter" data-category="Active" data-i18n="active">Active</button>
-          <button type="button" class="category-filter" data-category="Inputs" data-i18n="inputs">Inputs</button>
-          <button type="button" class="category-filter" data-category="Instruments" data-i18n="instruments">Instruments</button>
-          <button type="button" class="category-filter" data-category="Connectors" data-i18n="connectors">Connectors</button>
-          <button type="button" class="category-filter" data-category="Protection" data-i18n="protection">Protection</button>
-          <button type="button" class="category-filter" data-category="Sensors" data-i18n="sensors">Sensors</button>
-        </div>
-        <ul id="component-list" class="component-list" aria-label="Starter components"></ul>
-        <section class="selected-library-part" aria-live="polite">
-          <p id="selected-part-type">Select a component</p>
-          <strong id="selected-part-name">No part selected</strong>
-          <span id="selected-part-detail">Search the available starter library.</span>
-          <button id="add-component" class="outline-button" type="button" disabled data-i18n="addToProject">Add to project</button>
-        </section>
-      </aside>
-
-      <section class="canvas-area" aria-label="Circuit design workspace">
-        <div class="view-tabs" role="tablist" aria-label="Circuit representations">
-          <button class="view-tab active" role="tab" aria-selected="true" data-view="breadboard">▦ <span data-i18n="breadboard">Breadboard View</span></button>
-          <button class="view-tab" role="tab" aria-selected="false" data-view="schematic">⌘ <span data-i18n="schematic">Schematic View</span></button>
-          <button class="view-tab" role="tab" aria-selected="false" data-view="pcb">▣ <span data-i18n="pcb">PCB View</span></button>
-          <span class="save-state" id="save-state" aria-live="polite">Unsaved changes</span>
-        </div>
-        <div class="canvas-toolbar" aria-label="Canvas toolbar">
-          <button type="button" class="toolbar-button active" data-tool="select" aria-pressed="true">↖ <span data-i18n="select">Select</span></button>
-          <button type="button" class="toolbar-button" data-tool="pan" aria-pressed="false">✥ <span data-i18n="pan">Pan</span></button>
-          <button type="button" class="toolbar-button" data-tool="zoom-out">− <span data-i18n="zoomOut">Zoom out</span></button>
-          <strong id="zoom-level">100%</strong>
-          <button type="button" class="toolbar-button" data-tool="zoom-in">+ <span data-i18n="zoomIn">Zoom in</span></button>
-          <label><input id="snap-toggle" type="checkbox" checked /> <span data-i18n="snap">Snap</span></label>
-          <label><input id="grid-toggle" type="checkbox" checked /> <span data-i18n="grid">Grid</span></label>
-          <span class="toolbar-spacer"></span>
-          <button type="button" class="toolbar-button" data-action="undo">↶ <span>Undo</span></button>
-          <button type="button" class="toolbar-button" data-action="redo">↷ <span>Redo</span></button>
-        </div>
-        <div id="design-canvas" class="design-canvas grid-enabled" tabindex="0" aria-label="Breadboard representation. Select a component to inspect it."></div>
-        <div class="overview-row" aria-label="Synchronized view overview">
-          <section class="mini-view"><div class="mini-heading"><strong data-i18n="schematic">Schematic View</strong><button type="button" data-view="schematic" aria-label="Maximize schematic view" data-i18n-aria="maximizeSchematic">↗</button></div><div id="schematic-mini" class="mini-canvas"></div></section>
-          <section class="mini-view"><div class="mini-heading"><strong data-i18n="pcb">PCB View</strong><button type="button" data-view="pcb" aria-label="Maximize PCB view" data-i18n-aria="maximizePcb">↗</button></div><div id="pcb-mini" class="mini-canvas"></div></section>
-        </div>
-        <section class="output-panel panel" aria-label="Diagnostics and analysis output">
-          <div class="output-tabs"><button class="output-tab active" type="button" data-output="output" data-i18n="simulationOutput">Simulation Output</button><button class="output-tab" type="button" data-output="errors"><span data-i18n="errors">Errors</span> (<span id="error-count">0</span>)</button><button class="output-tab" type="button" data-output="warnings"><span data-i18n="warnings">Warnings</span> (<span id="warning-count">0</span>)</button></div>
-          <pre id="output-log" tabindex="0">[READY] Local project created. Run is available for the documented analytical DC topologies only.</pre>
-          <pre id="issue-list" class="hidden" tabindex="0" aria-live="polite"></pre>
-        </section>
-      </section>
-
-      <aside class="inspector-panel panel" aria-label="Properties and simulation controls">
-        <div class="panel-heading"><h2 data-i18n="properties">Properties</h2><button class="panel-close" type="button" aria-label="Collapse properties" data-i18n-aria="collapseProperties" data-collapse="inspector-panel">×</button></div>
-        <div class="inspector-tabs" role="tablist"><button class="inspector-tab active" type="button" data-inspector="component" data-i18n="component">Component</button><button class="inspector-tab" type="button" data-inspector="project" data-i18n="project">Project</button><button class="inspector-tab" type="button" data-inspector="simulation" data-i18n="simulation">Simulation</button></div>
-        <form id="component-form" class="property-form">
-          <label><span data-i18n="type">Type</span> <input id="property-type" readonly /></label>
-          <label><span data-i18n="reference">Reference</span> <input id="property-reference" required /></label>
-          <label><span data-i18n="value">Value</span> <input id="property-value" required /></label>
-          <label><span data-i18n="libraryStatus">Library status</span> <input id="property-status" readonly /></label>
-          <button class="outline-button" type="submit" data-i18n="applyProperties">Apply properties</button>
-          <button id="remove-component" class="secondary-button" type="button" data-i18n="removeComponent" disabled>Remove component</button>
-        </form>
-        <form id="project-form" class="property-form hidden">
-          <label><span data-i18n="projectName">Project name</span> <input id="project-name" required /></label>
-          <label><span data-i18n="locale">Locale</span> <input id="project-locale" readonly /></label>
-          <button class="outline-button" type="submit" data-i18n="applyProject">Apply project settings</button>
-        </form>
-        <section id="simulation-form" class="simulation-control hidden">
-          <h3 data-i18n="simulationControl">Simulation Control</h3>
-          <p data-i18n="availableAnalysis">Available analyses: LED current limiter and unloaded two-resistor voltage divider.</p>
-          <button id="run-simulation" class="run-button" type="button">▶ <span data-i18n="runCalculation">Run calculation</span></button>
-          <button id="stop-simulation" class="secondary-button" type="button" disabled>■ <span data-i18n="stopSimulation">Stop</span></button>
-          <p class="limit-note" data-i18n="simulationLimit">General SPICE, digital and mixed-signal engines are not implemented yet.</p>
-        </section>
-        <section class="simulation-control">
-          <h3 data-i18n="validation">Validation</h3>
-          <button id="run-validation" class="outline-button" type="button" data-i18n="runValidation">Run validation</button>
-          <p id="validation-summary" class="limit-note">Run validation to inspect project issues.</p>
-        </section>
-        <section class="simulation-control example-control">
-          <h3 data-i18n="releasedExamples">Released examples</h3>
-          <label for="example-picker" data-i18n="loadTestedStarter">Load a tested starter project</label>
-          <select id="example-picker">
+        <button class="gold-button" type="button" data-action="new-project" data-i18n="newProject">New Project</button>
+        <button class="secondary-button" type="button" data-action="import-project" data-i18n="open">Open</button>
+        <button class="secondary-button" type="button" data-action="save" data-i18n="save">Save</button>
+        <button class="secondary-button" type="button" data-action="validate" data-i18n="validate">Validate</button>
+        <button class="run-button toolbar-run" type="button" data-action="run-simulation" data-i18n="runCalculation">Run</button>
+        <label class="example-top-control"><span data-i18n="exampleSelector">Example</span><select id="example-picker">
             <option value="examples/001-led-current-limiter.adigun.json">LED current limiter</option>
             <option value="examples/002-two-led-polarity-indicator.adigun.json">Two-LED polarity indicator</option>
             <option value="examples/002-dc-voltage-divider.adigun.json">DC voltage divider</option>
@@ -216,8 +146,98 @@
             <option value="examples/071-pic-adc-bargraph.adigun.json" data-i18n="examplePicAdcBargraph">PIC-class ADC LED bargraph</option>
             <option value="examples/072-avr-ir-receiver.adigun.json" data-i18n="exampleAvrIrReceiver">AVR NEC-like IR receiver</option>
 <option value="examples/supplemental-rl-low-pass.adigun.json">Supplemental: RL low-pass filter</option>
-          </select>
-          <button id="load-example" class="outline-button" type="button" data-i18n="loadSelectedExample">Load selected example</button>
+          </select></label>
+        <button id="load-example" class="secondary-button load-example-top" type="button" data-i18n="loadSelectedExample">Load example</button>
+        </div>
+    </nav>
+    <main id="workspace" class="workspace">
+      <aside class="library-panel panel" aria-label="Components library">
+        <div class="panel-heading"><h2 data-i18n="components">Components</h2><button class="panel-close" type="button" aria-label="Collapse component library" data-i18n-aria="collapseLibrary" data-collapse="library-panel">×</button></div>
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="component-search" type="search" placeholder="Search starter library…" data-i18n-placeholder="searchLibrary" /></label>
+        <div id="library-status" class="library-note" data-i18n="libraryNotice">Starter generic library — not the verified 1,000-part catalogue.</div>
+        <div id="category-filters" class="category-filters" role="group" aria-label="Component categories" data-i18n-aria="componentCategories">
+          <button type="button" class="category-filter active" data-category="All" data-i18n="allComponents">All Components</button>
+          <button type="button" class="category-filter" data-category="Power & Ground" data-i18n="powerGround">Power &amp; Ground</button>
+          <button type="button" class="category-filter" data-category="Passive" data-i18n="passive">Passive</button>
+          <button type="button" class="category-filter" data-category="Active" data-i18n="active">Active</button>
+          <button type="button" class="category-filter" data-category="Inputs" data-i18n="inputs">Inputs</button>
+          <button type="button" class="category-filter" data-category="Instruments" data-i18n="instruments">Instruments</button>
+          <button type="button" class="category-filter" data-category="Connectors" data-i18n="connectors">Connectors</button>
+          <button type="button" class="category-filter" data-category="Protection" data-i18n="protection">Protection</button>
+          <button type="button" class="category-filter" data-category="Sensors" data-i18n="sensors">Sensors</button>
+        </div>
+        <ul id="component-list" class="component-list" aria-label="Starter components"></ul>
+        <section class="selected-library-part" aria-live="polite">
+          <p id="selected-part-type">Select a component</p>
+          <strong id="selected-part-name">No part selected</strong>
+          <span id="selected-part-detail">Search the available starter library.</span>
+          <button id="add-component" class="outline-button" type="button" disabled data-i18n="addToProject">Add to project</button>
+        </section>
+      </aside>
+
+      <section class="canvas-area" aria-label="Circuit design workspace">
+        <div class="view-tabs" role="tablist" aria-label="Circuit representations">
+          <button class="view-tab active" role="tab" aria-selected="true" data-view="breadboard">▦ <span data-i18n="breadboard">Breadboard View</span></button>
+          <button class="view-tab" role="tab" aria-selected="false" data-view="schematic">⌘ <span data-i18n="schematic">Schematic View</span></button>
+          <button class="view-tab" role="tab" aria-selected="false" data-view="pcb">▣ <span data-i18n="pcb">PCB View</span></button>
+          <span class="save-state" id="save-state" aria-live="polite">Unsaved changes</span>
+        </div>
+        <div class="canvas-toolbar" aria-label="Canvas toolbar">
+          <button type="button" class="toolbar-button active" data-tool="select" aria-pressed="true">↖ <span data-i18n="select">Select</span></button>
+          <button type="button" class="toolbar-button" data-tool="pan" aria-pressed="false">✥ <span data-i18n="pan">Pan</span></button>
+          <button type="button" class="toolbar-button" data-tool="zoom-out">− <span data-i18n="zoomOut">Zoom out</span></button>
+          <strong id="zoom-level">100%</strong>
+          <button type="button" class="toolbar-button" data-tool="zoom-in">+ <span data-i18n="zoomIn">Zoom in</span></button>
+          <label><input id="snap-toggle" type="checkbox" checked /> <span data-i18n="snap">Snap</span></label>
+          <label><input id="grid-toggle" type="checkbox" checked /> <span data-i18n="grid">Grid</span></label>
+          <span class="toolbar-spacer"></span>
+          <button type="button" class="toolbar-button" data-action="undo">↶ <span>Undo</span></button>
+          <button type="button" class="toolbar-button" data-action="redo">↷ <span>Redo</span></button>
+        </div>
+        <div id="design-canvas" class="design-canvas grid-enabled" tabindex="0" aria-label="Breadboard representation. Select a component to inspect it."></div>
+        <div class="overview-row" aria-label="Synchronized view overview">
+          <section class="mini-view" data-mini-view="schematic"><div class="mini-heading"><strong data-i18n="schematic">Schematic View</strong><button type="button" data-view="schematic" aria-label="Maximize schematic view" data-i18n-aria="maximizeSchematic">↗</button></div><div id="schematic-mini" class="mini-canvas"></div></section>
+          <section class="mini-view" data-mini-view="pcb"><div class="mini-heading"><strong data-i18n="pcb">PCB View</strong><button type="button" data-view="pcb" aria-label="Maximize PCB view" data-i18n-aria="maximizePcb">↗</button></div><div id="pcb-mini" class="mini-canvas"></div></section>
+        </div>
+        <section class="output-panel panel" aria-label="Diagnostics and analysis output">
+          <div class="output-tabs"><button class="output-tab active" type="button" data-output="output" data-i18n="simulationOutput">Simulation Output</button><button class="output-tab" type="button" data-output="errors"><span data-i18n="errors">Errors</span> (<span id="error-count">0</span>)</button><button class="output-tab" type="button" data-output="warnings"><span data-i18n="warnings">Warnings</span> (<span id="warning-count">0</span>)</button></div>
+          <div id="result-dashboard" class="result-dashboard hidden" aria-live="polite"></div>
+          <pre id="output-log" tabindex="0">[READY] Local project created. Run is available for the documented analytical DC topologies only.</pre>
+          <pre id="issue-list" class="hidden" tabindex="0" aria-live="polite"></pre>
+        </section>
+      </section>
+
+      <aside class="inspector-panel panel" aria-label="Properties and simulation controls">
+        <div class="panel-heading"><h2 data-i18n="properties">Properties</h2><button class="panel-close" type="button" aria-label="Collapse properties" data-i18n-aria="collapseProperties" data-collapse="inspector-panel">×</button></div>
+        <div class="inspector-tabs" role="tablist"><button class="inspector-tab active" type="button" data-inspector="component" data-i18n="component">Component</button><button class="inspector-tab" type="button" data-inspector="project" data-i18n="project">Project</button><button class="inspector-tab" type="button" data-inspector="simulation" data-i18n="simulation">Simulation</button></div>
+        <form id="component-form" class="property-form">
+          <label><span data-i18n="type">Type</span> <input id="property-type" readonly /></label>
+          <label><span data-i18n="reference">Reference</span> <input id="property-reference" required /></label>
+          <label><span data-i18n="value">Value</span> <input id="property-value" required /></label>
+          <label><span data-i18n="libraryStatus">Library status</span> <input id="property-status" readonly /></label>
+          <button class="outline-button" type="submit" data-i18n="applyProperties">Apply properties</button>
+          <button id="remove-component" class="secondary-button" type="button" data-i18n="removeComponent" disabled>Remove component</button>
+        </form>
+        <form id="project-form" class="property-form hidden">
+          <label><span data-i18n="projectName">Project name</span> <input id="project-name" required /></label>
+          <label><span data-i18n="locale">Locale</span> <input id="project-locale" readonly /></label>
+          <button class="outline-button" type="submit" data-i18n="applyProject">Apply project settings</button>
+        </form>
+        <section id="simulation-form" class="simulation-control hidden">
+          <h3 data-i18n="simulationControl">Simulation Control</h3>
+          <p data-i18n="availableAnalysis">Available analyses: LED current limiter and unloaded two-resistor voltage divider.</p>
+          <button id="run-simulation" class="run-button" type="button">▶ <span data-i18n="runCalculation">Run calculation</span></button>
+          <button id="stop-simulation" class="secondary-button" type="button" disabled>■ <span data-i18n="stopSimulation">Stop</span></button>
+          <p class="limit-note" data-i18n="simulationLimit">General SPICE, digital and mixed-signal engines are not implemented yet.</p>
+        </section>
+        <section class="simulation-control">
+          <h3 data-i18n="validation">Validation</h3>
+          <button id="run-validation" class="outline-button" type="button" data-i18n="runValidation">Run validation</button>
+          <p id="validation-summary" class="limit-note">Run validation to inspect project issues.</p>
+        </section>
+        <section class="simulation-control workspace-notes">
+          <h3 data-i18n="workspaceNotes">Notes</h3>
+          <p id="workspace-notes" data-i18n="modelNotes">Results use bounded ideal models. Firmware, physical device limits, and manufacturing checks are only included where explicitly stated.</p>
           <p class="limit-note" data-i18n="morePlannedExamples">Seventy-two of the 200 catalogue projects are released; ten supplemental studies are also available. The remaining catalogue projects are planned and cannot be loaded yet.</p>
         </section>
         <section class="simulation-control connection-control">

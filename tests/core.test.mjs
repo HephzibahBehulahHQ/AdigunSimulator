@@ -2108,3 +2108,18 @@ test("catalogue AVR IR receiver decodes NEC-like timing and flags invalid frames
   broken.nets.find(net=>net.id==="IR_RX").endpoints=["receiver:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("workspace matches the approved simulator layout references",async()=>{
+  const html=await readFile(new URL("../index.html",import.meta.url),"utf8");
+  const app=await readFile(new URL("../app.js",import.meta.url),"utf8");
+  const styles=await readFile(new URL("../styles.css",import.meta.url),"utf8");
+  assert.match(html,/<details class="app-menu"/);
+  assert.match(html,/id="example-picker"/);
+  assert.match(html,/data-view="pcb"/);
+  assert.match(html,/id="result-dashboard"/);
+  assert.match(html,/data-mini-view="schematic"/);
+  assert.match(app,/function renderResultDashboard/);
+  assert.match(app,/examples\/070-stm32-timer-pwm\.adigun\.json/);
+  assert.match(styles,/canvas-area\.has-overview/);
+  assert.match(styles,/PCB placement preview/);
+});
