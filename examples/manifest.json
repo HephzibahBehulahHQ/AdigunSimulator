@@ -6847,7 +6847,7 @@
     {
       "id": "177-fire-alarm-zone-concept",
       "title": "Fire-alarm zone concept",
-      "status": "in-review",
+      "status": "released",
       "objective": "Classify synthetic zone states as normal, alarm, open-circuit trouble, or short-circuit trouble, with alarm and fault outputs distinct.",
       "acceptanceTest": "tests/core.test.mjs: catalogue fire-alarm zone keeps alarm distinct from open/short trouble inputs",
       "testId": "core-fire-alarm-zone-concept",
@@ -6855,7 +6855,26 @@
       "readmeFile": "examples/177-fire-alarm-zone-concept/README.md",
       "safetyNote": "Educational input classifier only. No detector, supervised-circuit design, notification system, backup supply, fire-code compliance, evacuation response, or life-safety certification is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 177,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41212470778",
+        "headRevision": "88086628e3a98a6c68b109a5aed2c2a5b164a772",
+        "engine": "Deterministic zone alarm/fault classifier",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "fire-alarm-zone-classifier-v1",
+        "expectedResult": {
+          "kind": "fire-alarm-zone-sequence",
+          "sampleCount": 5,
+          "alarmSamples": 1,
+          "troubleSamples": 2,
+          "openFaults": 1,
+          "shortFaults": 1,
+          "safetyCertified": false
+        }
+      }
     }
   ]
 }
