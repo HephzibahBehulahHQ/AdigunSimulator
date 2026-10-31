@@ -544,6 +544,28 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue bridge rectifier generates full-wave output at twice line frequency", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/015-bridge-rectifier.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "bridge-rectifier-waveform");
+  assert.equal(result.result.inputFrequencyHz, 50);
+  assert.equal(result.result.rectifiedFrequencyHz, 100);
+  assert.equal(result.result.rippleFrequencyHz, 100);
+  assert.ok(Math.abs(result.result.peakOutputVoltage - (12 * Math.SQRT2 - 1.4)) < 1e-12);
+  assert.equal(result.result.waveform[0].outputVoltage, 0);
+  assert.ok(result.result.waveform.some(point => point.outputVoltage > 0));
+  assert.ok(result.result.averageOutputVoltage > 0);
+  assert.ok(Math.abs(result.result.powerBalanceW) < 1e-12);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "source-1", { value: "12 V RMS, 0 Hz" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "AC2").endpoints = ["source-1:-"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue passive tone control reduces treble as the rheostat increases", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/014-passive-tone-control.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -765,7 +787,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 24);
+  assert.equal(getExampleCoverage(registry).total, 25);
   assert.equal(getExampleCoverage(registry).released, 14);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 186);

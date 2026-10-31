@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-015-bridge-rectifier",
+  "metadata": {
+    "name": "Full-Wave Bridge Rectifier",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.ac-source",
+      "reference": "VAC1",
+      "value": "12 V RMS, 50 Hz",
+      "position": {
+        "breadboard": [
+          65,
+          80
+        ],
+        "schematic": [
+          65,
+          80
+        ],
+        "pcb": [
+          65,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "bridge-1",
+      "libraryId": "diode.bridge-ideal",
+      "reference": "BR1",
+      "value": "0.7 V",
+      "position": {
+        "breadboard": [
+          185,
+          80
+        ],
+        "schematic": [
+          185,
+          80
+        ],
+        "pcb": [
+          185,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "load-1",
+      "libraryId": "passive.resistor",
+      "reference": "RLOAD",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          305,
+          80
+        ],
+        "schematic": [
+          305,
+          80
+        ],
+        "pcb": [
+          305,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          425,
+          80
+        ],
+        "schematic": [
+          425,
+          80
+        ],
+        "pcb": [
+          425,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "AC1",
+      "endpoints": [
+        "source-1:+",
+        "bridge-1:AC1"
+      ]
+    },
+    {
+      "id": "AC2",
+      "endpoints": [
+        "source-1:-",
+        "bridge-1:AC2"
+      ]
+    },
+    {
+      "id": "RECT_POS",
+      "endpoints": [
+        "bridge-1:POS",
+        "load-1:1"
+      ]
+    },
+    {
+      "id": "RECT_NEG",
+      "endpoints": [
+        "bridge-1:NEG",
+        "load-1:2",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}
