@@ -2663,3 +2663,23 @@ test("catalogue digital volume control follows monotonic command steps under loa
   broken.nets.find(net=>net.id==="VOLUME_OUT").endpoints=["pot:W"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue RGB LED controller maps colour vectors to safe PWM channel currents", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/097-rgb-led-controller.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"rgb-pwm-controller");
+  assert.deepEqual(result.result.channelCodes,{R:255,G:128,B:0});
+  assert.equal(result.result.channels.R.dutyCyclePercent,100);
+  assert.equal(result.result.channels.B.averageCurrentMa,0);
+  assert.ok(result.result.channels.R.averageCurrentMa>13&&result.result.channels.R.averageCurrentMa<14);
+  assert.ok(result.result.channels.G.averageCurrentMa>4.5&&result.result.channels.G.averageCurrentMa<4.7);
+  assert.equal(result.result.cssColor,"rgb(255, 128, 0)");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"command",{value:"R 255; G 255; B 255; Frequency 1000 Hz"})).result.cssColor,"rgb(255, 255, 255)");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"command",{value:"R 255; G 0; B 0; Frequency 1000 Hz"})).result.totalAverageCurrentMa,result.result.channels.R.averageCurrentMa);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"command",{value:"R 256; G 0; B 0; Frequency 1000 Hz"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"r-red",{value:"100 Ω"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="GREEN_OUT").endpoints=["controller:G_PWM"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
