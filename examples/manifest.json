@@ -7690,7 +7690,7 @@
     {
       "id": "200-release-candidate-e2e",
       "title": "Release candidate end-to-end",
-      "status": "in-review",
+      "status": "released",
       "objective": "Exercise build, import, edit, simulation, project ERC, PCB DRC, export, schematic-to-PCB sync and grounded BOT evidence across examples 001, 122, 182 and 195.",
       "acceptanceTest": "tests/core.test.mjs: catalogue release candidate passes the complete four-project end-to-end workflow and keeps BOT explanation read-only",
       "testId": "core-release-candidate-e2e",
@@ -7698,7 +7698,34 @@
       "readmeFile": "examples/200-release-candidate-e2e/README.md",
       "safetyNote": "Example 122's PCB export is educational and not manufacturing approval. The BOT uses local fields only. CI does not deploy or certify hardware.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 200,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41219906680",
+        "headRevision": "14368f6e7ccc243451db823bb95bfe1fe433b694",
+        "engine": "Four-project release-candidate end-to-end acceptance workflow",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "release-candidate-e2e-v1",
+        "expectedResult": {
+          "kind": "release-candidate-e2e",
+          "fixtureCount": 4,
+          "checks": {
+            "build": true,
+            "import": true,
+            "edit": true,
+            "simulation": true,
+            "erc": true,
+            "drc": true,
+            "export": true,
+            "schematicPcbSync": true,
+            "botPreview": true
+          },
+          "pcbDrc": "passed",
+          "botMutation": false
+        }
+      }
     }
   ]
 }
