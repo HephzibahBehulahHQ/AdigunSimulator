@@ -356,7 +356,11 @@ export function runSupportedAnalysis(project) {
   }
   if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRcStep(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
   if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && switches.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 5) return analyseRcSwitchedResponse(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], switchPart: switches[0], ground: ground[0], validation });
-  if (acSource.length === 1 && source.length === 0 && resistor.length === 1 && capacitor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRcLowPass(project, { source: acSource[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
+  if (acSource.length === 1 && source.length === 0 && resistor.length === 1 && capacitor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) {
+    const highPass = analyseRcHighPass(project, { source: acSource[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
+    if (highPass) return highPass;
+    return analyseRcLowPass(project, { source: acSource[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
+  }
   if (source.length === 1 && resistor.length === 1 && inductor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRlStep(project, { source: source[0], resistor: resistor[0], inductor: inductor[0], ground: ground[0], validation });
   if (source.length === 1 && resistor.length > 0 && resistor.length === project.components.length - source.length - ground.length && ground.length >= 1) {
     return analyseResistiveNetwork(project, { source: source[0], resistors: resistor, ground: ground[0], validation });
@@ -388,6 +392,35 @@ function analyseRlStep(project, { source, resistor, inductor, ground, validation
     return { timeS, currentA, inductorVoltage, resistorPowerW: currentA ** 2 * resistance };
   });
   return { state: "complete", engine: "Analytical first-order RL step response", message: "Solved an ideal single-pole RL response to a DC step from zero initial inductor current. Parasitics, source impedance, tolerances, saturation, nonlinear effects, and general SPICE are not included.", result: { kind: "rl-step-response", sourceVoltage, resistance, inductance, timeConstantS, samples }, validation };
+}
+
+function analyseRcHighPass(project, { source, resistor, capacitor, ground, validation }) {
+  const sourceAmplitude = voltageValue(source.value);
+  const resistance = resistanceValue(resistor.value);
+  const capacitance = capacitanceValue(capacitor.value);
+  if (![sourceAmplitude, resistance, capacitance].every(Number.isFinite) || sourceAmplitude <= 0 || resistance <= 0 || capacitance <= 0) return null;
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const sourcePositive = netByEndpoint.get(endpoint(source, "+"));
+  const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
+  const capacitorInput = netByEndpoint.get(endpoint(capacitor, "1"));
+  const capacitorOutput = netByEndpoint.get(endpoint(capacitor, "2"));
+  const resistorInput = netByEndpoint.get(endpoint(resistor, "1"));
+  const resistorReturn = netByEndpoint.get(endpoint(resistor, "2"));
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  if (!sourcePositive || sourcePositive !== capacitorInput || !capacitorOutput || capacitorOutput !== resistorInput || !groundNet || groundNet !== resistorReturn || groundNet !== sourceNegative || sourcePositive === groundNet) return null;
+  const timeConstantS = resistance * capacitance;
+  const cutoffHz = 1 / (2 * Math.PI * timeConstantS);
+  if (!Number.isFinite(timeConstantS) || timeConstantS <= 0 || !Number.isFinite(cutoffHz) || cutoffHz <= 0) return { state: "blocked", message: "The RC cutoff is outside the numerically supported range; adjust the resistance or capacitance.", validation };
+  const samples = [0.1, 1, 10].map((cutoffMultiple) => {
+    const frequencyHz = cutoffHz * cutoffMultiple;
+    if (!Number.isFinite(frequencyHz) || frequencyHz <= 0) return null;
+    const ratio = frequencyHz / cutoffHz;
+    const gain = ratio / Math.hypot(1, ratio);
+    return { frequencyHz, cutoffMultiple, gain, phaseRad: Math.PI / 2 - Math.atan(ratio), inputAmplitudeV: sourceAmplitude, outputAmplitudeV: sourceAmplitude * gain };
+  });
+  if (samples.some((sample) => !sample)) return { state: "blocked", message: "The RC sweep frequencies exceed the numerically supported range.", validation };
+  return { state: "complete", engine: "Analytical first-order RC high-pass frequency response", message: "Calculated the ideal sinusoidal steady-state response of a first-order RC high-pass filter at 0.1×, 1×, and 10× cutoff. This is a frequency-domain model, not a time-domain or general SPICE simulation.", result: { kind: "rc-high-pass", sourceAmplitude, resistance, capacitance, timeConstantS, cutoffHz, samples }, validation };
 }
 
 function analyseRcLowPass(project, { source, resistor, capacitor, ground, validation }) {
