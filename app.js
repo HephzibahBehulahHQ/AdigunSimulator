@@ -252,20 +252,20 @@ function breadboardPackageSvg(project) {
   return project.components.map((component) => {
     const placement = breadboardPackagePlacement(component, project);
     if (!placement) return "";
+    const scale = (572 / 29) / 2.54;
     const halfSpan = placement.leadSpanPixels / 2;
     const transform = `translate(${placement.center.x} ${placement.center.y}) rotate(${placement.angleDegrees})`;
-    if (placement.kind === "axial-resistor") {
-      const scale = (572 / 29) / 2.54;
+    if (placement.kind === "axial-resistor" || placement.kind === "axial-diode") {
       const bodyHalf = Math.min(placement.bodyLengthMm * scale / 2, halfSpan * .8);
       const bodyWidth = placement.bodyWidthMm * scale;
-      return `<g class="breadboard-package resistor-package" transform="${transform}" aria-label="${escape(component.reference)} generic through-hole axial resistor">
+      const diode = placement.kind === "axial-diode";
+      return `<g class="breadboard-package ${diode ? "axial-diode-package" : "resistor-package"}" transform="${transform}" aria-label="${escape(component.reference)} generic axial ${diode ? "diode" : "resistor"} package">
         <path class="package-leads" d="M${-halfSpan} 0 H${-bodyHalf} M${bodyHalf} 0 H${halfSpan}"/>
-        <rect class="resistor-body" x="${-bodyHalf}" y="${-bodyWidth / 2}" width="${bodyHalf * 2}" height="${bodyWidth}" rx="4"/>
-        <path class="resistor-band" d="M-13 -7 V7 M-4 -7 V7 M5 -7 V7 M13 -7 V7"/>
+        <rect class="${diode ? "axial-diode-body" : "resistor-body"}" x="${-bodyHalf}" y="${-bodyWidth / 2}" width="${bodyHalf * 2}" height="${bodyWidth}" rx="${diode ? 5 : 4}"/>
+        ${diode ? `<path class="diode-cathode-band" d="M${bodyHalf - 7} ${-bodyWidth / 2} V${bodyWidth / 2}"/>` : `<path class="resistor-band" d="M-13 -7 V7 M-4 -7 V7 M5 -7 V7 M13 -7 V7"/>`}
       </g>`;
     }
     if (placement.kind === "through-hole-led-5mm") {
-      const scale = (572 / 29) / 2.54;
       const radius = placement.bodyDiameterMm * scale / 2;
       return `<g class="breadboard-package led-package" transform="${transform}" aria-label="${escape(component.reference)} generic 5 millimeter through-hole LED">
         <path class="package-leads" d="M${-halfSpan} 0 H0 M0 0 H${halfSpan}"/>
@@ -273,10 +273,36 @@ function breadboardPackageSvg(project) {
         <path class="led-lens" d="M-9 -9 Q0 -22 9 -9 M0 -15 V15"/>
       </g>`;
     }
+    if (placement.kind === "radial-capacitor") {
+      const radius = placement.bodyDiameterMm * scale / 2;
+      const leads = placement.pinPoints.map((point) => {
+        const dx = placement.bodyCenter.x - point.x, dy = placement.bodyCenter.y - point.y;
+        const length = Math.hypot(dx, dy), endX = placement.bodyCenter.x - dx / length * radius * .82, endY = placement.bodyCenter.y - dy / length * radius * .82;
+        return `M${point.x} ${point.y} L${endX} ${endY}`;
+      }).join(" ");
+      return `<g class="breadboard-package capacitor-package" aria-label="${escape(component.reference)} generic radial capacitor">
+        <path class="package-leads" d="${leads}"/>
+        <ellipse class="capacitor-body" cx="${placement.bodyCenter.x}" cy="${placement.bodyCenter.y}" rx="${radius}" ry="${radius * .78}"/>
+        <path class="capacitor-top" d="M${placement.bodyCenter.x-radius*.65} ${placement.bodyCenter.y} H${placement.bodyCenter.x+radius*.65}"/>
+      </g>`;
+    }
+    if (placement.kind === "to92-transistor") {
+      const cos = Math.cos(placement.angleDegrees * Math.PI / 180), sin = Math.sin(placement.angleDegrees * Math.PI / 180);
+      const localPins = placement.pinPoints.map((point) => {
+        const dx = point.x - placement.bodyCenter.x, dy = point.y - placement.bodyCenter.y;
+        return { x: dx * cos + dy * sin, y: -dx * sin + dy * cos };
+      });
+      const halfWidth = placement.bodyWidthMm * scale / 2, halfHeight = placement.bodyHeightMm * scale / 2;
+      const leads = localPins.map((point) => `M${point.x} ${point.y} L${point.x} ${halfHeight}`).join(" ");
+      return `<g class="breadboard-package transistor-package" transform="translate(${placement.bodyCenter.x} ${placement.bodyCenter.y}) rotate(${placement.angleDegrees})" aria-label="${escape(component.reference)} generic TO-92 body for an ideal NPN behavior model">
+        <path class="package-leads" d="${leads}"/>
+        <path class="to92-body" d="M${-halfWidth} ${halfHeight} V0 A${halfWidth} ${halfHeight} 0 0 1 ${halfWidth} 0 V${halfHeight} Z"/>
+        <path class="to92-face" d="M${-halfWidth*.7} ${halfHeight-4} H${halfWidth*.7}"/>
+      </g>`;
+    }
     return "";
   }).join("");
 }
-
 function breadboardWireSvg(project) {
   const config = project.breadboard;
   if (!config || !Array.isArray(config.jumpers)) return "";
