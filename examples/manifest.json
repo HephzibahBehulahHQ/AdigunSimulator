@@ -6182,7 +6182,8 @@
           "state": "blocked",
           "signalGroundPresent": false
         }
-      }
+      },
+      "expectedAnalysis": "unsupported"
     }
   ]
 }

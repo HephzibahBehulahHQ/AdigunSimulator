@@ -1448,6 +1448,10 @@ test("released examples carry a native project, acceptance test, safety scope, a
       continue;
     }
     assert.equal(validation.valid, true, item.id);
+    if (item.expectedAnalysis === "unsupported") {
+      assert.equal(runSupportedAnalysis(example).state, "unsupported", item.id);
+      continue;
+    }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
   assert.equal(getExampleCoverage(registry).total, 165);
