@@ -6623,7 +6623,7 @@
     {
       "id": "170-water-leak-alarm",
       "title": "Water leak alarm",
-      "status": "in-review",
+      "status": "released",
       "objective": "Raise a logical alarm under wet sensor stimulus, clear it when dry, and test repeated wet episodes and dry recovery.",
       "acceptanceTest": "tests/core.test.mjs: catalogue water leak alarm triggers on wet input and recovers on dry input",
       "testId": "core-water-leak-alarm",
@@ -6631,7 +6631,24 @@
       "readmeFile": "examples/170-water-leak-alarm/README.md",
       "safetyNote": "Synthetic Boolean demonstration only. No water sensor, probe, mains isolation, alarm hardware, ingress rating, property protection, or reliability claim is included.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 170,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41211218507",
+        "headRevision": "7169abd1177360e4c9d6050521cd1f3e351d6afa",
+        "engine": "Deterministic wet/dry alarm logic",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "water-leak-alarm-concept-v1",
+        "expectedResult": {
+          "kind": "water-leak-alarm-sequence",
+          "sampleCount": 7,
+          "alarmEpisodes": 2,
+          "dryRecoveryObserved": true,
+          "sensorCircuitModel": false
+        }
+      }
     }
   ]
 }
