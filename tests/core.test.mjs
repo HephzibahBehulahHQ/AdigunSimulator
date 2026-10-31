@@ -38,6 +38,7 @@ import { runDoorInterlockConcept } from "../js/door-interlock-concept.mjs";
 import { runTemperatureAlarm } from "../js/temperature-alarm.mjs";
 import { runWaterLeakAlarm } from "../js/water-leak-alarm.mjs";
 import { runFanThermostat } from "../js/fan-thermostat.mjs";
+import { runPwmFanController } from "../js/pwm-fan-controller.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1470,7 +1471,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 181);
+  assert.equal(getExampleCoverage(registry).total, 182);
   assert.equal(getExampleCoverage(registry).released, 171);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 29);
@@ -4364,4 +4365,13 @@ test("catalogue fan thermostat switches at hysteresis thresholds and retains sta
   assert.equal(result.result.fanOnSamples,3);
   const invalid=structuredClone(project);invalid.fanThermostat.fanOffC=31;assert.equal(runFanThermostat(invalid).state,"blocked");
   const invalidSample=structuredClone(project);invalidSample.fanThermostat.samples[0]=151;assert.equal(runFanThermostat(invalidSample).state,"blocked");
+});
+
+test("catalogue PWM fan controller interpolates curve knots and clamps endpoints", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/172-pwm-fan-controller.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runPwmFanController(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"pwm-fan-duty-curve");
+  assert.deepEqual(result.result.frames.map(frame=>frame.dutyPercent),[0,0,20,40,70,100,100]);
+  const invalid=structuredClone(project);invalid.pwmFanController.curve[1].tempC=19;assert.equal(runPwmFanController(invalid).state,"blocked");
+  const invalidDuty=structuredClone(project);invalidDuty.pwmFanController.curve[1].dutyPercent=101;assert.equal(runPwmFanController(invalidDuty).state,"blocked");
 });

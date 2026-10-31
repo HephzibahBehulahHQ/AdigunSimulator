@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "example-172-pwm-fan-controller",
+  "metadata": {
+    "name": "Example 172 — PWM Fan Temperature Curve",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "pwmFanController": {
+    "kind": "temperature-duty-curve",
+    "curve": [
+      {
+        "tempC": 20,
+        "dutyPercent": 0
+      },
+      {
+        "tempC": 30,
+        "dutyPercent": 40
+      },
+      {
+        "tempC": 50,
+        "dutyPercent": 100
+      }
+    ],
+    "temperatureSamples": [
+      15,
+      20,
+      25,
+      30,
+      40,
+      50,
+      60
+    ]
+  }
+}
