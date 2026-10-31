@@ -29,6 +29,7 @@ import { analyzeRcBode } from "./js/rc-bode-analysis.mjs";
 import { analyzeRlcStep } from "./js/rlc-transient.mjs";
 import { runParameterSweep } from "./js/parameter-sweep.mjs";
 import { runMonteCarloTolerance } from "./js/monte-carlo-tolerance.mjs";
+import { analyzeThermalWarningBoundary } from "./js/thermal-warning-boundary.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -246,7 +247,10 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "monte-carlo-tolerance") {
+  if (result.kind === "thermal-warning-boundary") {
+    metrics.push(`<div class="result-metric"><span>${result.reference} dissipation</span><strong>${(result.resistorDissipationW*1000).toFixed(1)} mW</strong></div>`,`<div class="result-metric"><span>Entered rating / derated limit</span><strong>${result.ratedPowerW} W / ${(result.deratedLimitW*1000).toFixed(1)} mW</strong></div>`,`<div class="result-metric"><span>Suggested minimum rating</span><strong>≥ ${result.recommendedMinimumRatingW.toFixed(2)} W</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Electrical loading advisory · thermal model unavailable</figcaption><p class="model-limit">Temperature rise and thermal safety are not calculated. Verify datasheet ratings and real operating conditions.</p></figure>`;
+  } else if (result.kind === "monte-carlo-tolerance") {
     const bins=result.histogram, max=Math.max(...bins.map(bin=>bin.count),1), bars=bins.map((bin,index)=>{const x=32+index*41,y=96-(bin.count/max)*68,w=26,h=96-y;return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2"></rect>`;}).join("");
     waveform=`<figure class="result-waveform"><figcaption>Seeded current distribution · ${result.sampleCount} trials · R tolerance ±${result.tolerancePct}%</figcaption><svg viewBox="0 0 480 118" role="img" aria-label="Histogram of simulated LED current values"><path class="wave-axis" d="M28 18 V98 H458"></path><g class="histogram-bars">${bars}</g><text x="30" y="114">${(result.minimum*1000).toFixed(2)} mA</text><text x="400" y="114">${(result.maximum*1000).toFixed(2)} mA</text></svg></figure>`;
     metrics.push(`<div class="result-metric"><span>Mean current</span><strong>${(result.mean*1000).toFixed(3)} mA</strong></div>`,`<div class="result-metric"><span>Std. deviation</span><strong>${(result.standardDeviation*1000).toFixed(3)} mA</strong></div>`,`<div class="result-metric"><span>Median current</span><strong>${(result.median*1000).toFixed(3)} mA</strong></div>`);
@@ -464,7 +468,7 @@ function validateAndReport() {
 
 function runAnalysis() {
   validateAndReport();
-  const result = state.project.monteCarloTolerance ? runMonteCarloTolerance(state.project) : state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
+  const result = state.project.thermalBoundary ? analyzeThermalWarningBoundary(state.project) : state.project.monteCarloTolerance ? runMonteCarloTolerance(state.project) : state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
   state.lastAnalysis = result;
   if (result.state === "complete") {
     const { kind } = result.result;
@@ -479,6 +483,7 @@ function runAnalysis() {
     if(kind==="rlc-step-response"){log(`[TRANSIENT] ${result.result.regime} RLC response; peak ${result.result.peakVoltageV.toFixed(3)} V; ${result.warnings.length} timestep warning(s).`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
     if(kind==="parameter-sweep"){log(`[SWEEP] ${result.result.sampleCount} resistance points for ${result.result.parameterReference}; current falls from ${(result.result.points[0].currentA*1000).toFixed(3)} mA to ${(result.result.points.at(-1).currentA*1000).toFixed(3)} mA.`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
     if(kind==="monte-carlo-tolerance"){log(`[MONTE CARLO] ${result.result.sampleCount} seeded trials; mean ${(result.result.mean*1000).toFixed(3)} mA, range ${(result.result.minimum*1000).toFixed(3)}–${(result.result.maximum*1000).toFixed(3)} mA.`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
+    if(kind==="thermal-warning-boundary"){log(`[THERMAL ADVISORY] ${result.result.reference} electrical dissipation ${(result.result.resistorDissipationW*1000).toFixed(1)} mW; derated entered limit ${(result.result.deratedLimitW*1000).toFixed(1)} mW.`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
     if (kind === "led-current-limiter") {
       const { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn } = result.result;
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Ω`);
