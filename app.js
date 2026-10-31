@@ -235,7 +235,7 @@ function breadboardBoardSvg(project) {
   const holes = breadboardHoleIds().map((id) => {
     const { x, y } = breadboardHolePoint(id);
     const rail = /^(TP|TM|BP|BM)/.test(id);
-    return `<g class="board-hole-target" data-breadboard-hole="${id}" role="button" aria-label="Place selected component pin at ${id}" tabindex="0"><circle class="board-hole-hit" cx="${x}" cy="${y}" r="7"/><circle class="board-hole ${rail ? "rail-hole" : ""}" cx="${x}" cy="${y}" r="${rail ? 3.1 : 2.1}"/></g>`;
+    return `<g class="board-hole-target" data-breadboard-hole="${id}" role="button" aria-label="Place selected component pin at ${id}" tabindex="-1"><circle class="board-hole-hit" cx="${x}" cy="${y}" r="7"/><circle class="board-hole ${rail ? "rail-hole" : ""}" cx="${x}" cy="${y}" r="${rail ? 3.1 : 2.1}"/></g>`;
   }).join("");
   return `<svg class="breadboard-art" viewBox="0 0 680 300" preserveAspectRatio="none" role="img" aria-label="Generic thirty-column breadboard with 300 terminal holes, 120 rail holes and four split rails">
     <rect class="board-plate" x="34" y="38" width="612" height="224" rx="13"/>
@@ -1059,6 +1059,7 @@ function handleAction(action) {
     activateView("breadboard");
     state.breadboardPlacementMode = true;
     render();
+    requestAnimationFrame(() => $("#design-canvas [data-breadboard-hole]")?.focus());
   }
 
   if (action === "breadboard-sync-review") {
@@ -1138,11 +1139,22 @@ document.addEventListener("keydown", (event) => {
     return;
   }
   const holeTarget = event.target.closest?.("[data-breadboard-hole]");
-  if (holeTarget && state.breadboardPlacementMode && (event.key === "Enter" || event.key === " ")) {
-    event.preventDefault();
-    const placed = assignBreadboardPin($("#breadboard-pin").value, holeTarget.dataset.breadboardHole);
-    if (placed) { state.breadboardPlacementMode = false; render(); }
-    return;
+  if (holeTarget && state.breadboardPlacementMode) {
+    const holeIds = breadboardHoleIds();
+    const index = holeIds.indexOf(holeTarget.dataset.breadboardHole);
+    if (["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(event.key)) {
+      event.preventDefault();
+      const direction = ["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : -1;
+      const nextHole = holeIds[(index + direction + holeIds.length) % holeIds.length];
+      $(`#design-canvas [data-breadboard-hole="${nextHole}"]`)?.focus();
+      return;
+    }
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      const placed = assignBreadboardPin($("#breadboard-pin").value, holeTarget.dataset.breadboardHole);
+      if (placed) { state.breadboardPlacementMode = false; render(); }
+      return;
+    }
   }
   const target = event.target;
   const editingText = target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
