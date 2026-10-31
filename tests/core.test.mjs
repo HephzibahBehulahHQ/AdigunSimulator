@@ -198,6 +198,45 @@ test("single-pole RL step response reports current rise and inductor voltage", a
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("multiple DC voltage sources solve by modified nodal analysis and enforce power balance", () => {
+  const project = createEmptyProject();
+  const positions = {
+    "source-1": { breadboard: [80, 80], schematic: [80, 80], pcb: [80, 80] },
+    "source-2": { breadboard: [240, 80], schematic: [240, 80], pcb: [240, 80] },
+    "resistor-1": { breadboard: [400, 80], schematic: [400, 80], pcb: [400, 80] },
+    "ground-1": { breadboard: [560, 80], schematic: [560, 80], pcb: [560, 80] }
+  };
+  project.components = [
+    { instanceId: "source-1", libraryId: "power.dc-source", reference: "V1", value: "5 V", position: positions["source-1"] },
+    { instanceId: "source-2", libraryId: "power.dc-source", reference: "V2", value: "3 V", position: positions["source-2"] },
+    { instanceId: "resistor-1", libraryId: "passive.resistor", reference: "R1", value: "1 kΩ", position: positions["resistor-1"] },
+    { instanceId: "ground-1", libraryId: "ground.signal", reference: "GND", value: "0 V", position: positions["ground-1"] }
+  ];
+  project.nets = [
+    { id: "GND", endpoints: ["source-1:-", "resistor-1:2", "ground-1:0"] },
+    { id: "MID", endpoints: ["source-1:+", "source-2:-"] },
+    { id: "VOUT", endpoints: ["source-2:+", "resistor-1:1"] }
+  ];
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "multi-source-resistive-network");
+  assert.ok(Math.abs(result.result.nodeVoltages.MID - 5) < 1e-12);
+  assert.ok(Math.abs(result.result.nodeVoltages.VOUT - 8) < 1e-12);
+  assert.ok(Math.abs(result.result.resistors[0].currentA - 0.008) < 1e-12);
+  assert.ok(Math.abs(result.result.sources[0].deliveredCurrentA - 0.008) < 1e-12);
+  assert.ok(Math.abs(result.result.sources[1].deliveredCurrentA - 0.008) < 1e-12);
+  assert.ok(Math.abs(result.result.powerBalanceW) < 1e-12);
+
+  const contradictory = structuredClone(project);
+  contradictory.nets = [
+    { id: "VOUT", endpoints: ["source-1:+", "source-2:+", "resistor-1:1"] },
+    { id: "GND", endpoints: ["source-1:-", "source-2:-", "resistor-1:2", "ground-1:0"] }
+  ];
+  contradictory.components.find((item) => item.instanceId === "source-2").value = "3 V";
+  assert.equal(runSupportedAnalysis(contradictory).state, "blocked");
+});
+
 test("linear DC nodal analysis blocks a floating resistor island", () => {
   const project = createVoltageDividerProject();
   project.nets = [

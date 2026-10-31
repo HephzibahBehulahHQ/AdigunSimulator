@@ -366,6 +366,10 @@ export function runSupportedAnalysis(project) {
   if (source.length === 1 && resistor.length > 0 && resistor.length === project.components.length - source.length - ground.length && ground.length >= 1) {
     return analyseResistiveNetwork(project, { source: source[0], resistors: resistor, ground: ground[0], validation });
   }
+  if (source.length > 1 && resistor.length > 0 && ground.length === 1
+    && project.components.every((item) => ["power.dc-source", "passive.resistor", "ground.signal"].includes(item.libraryId))) {
+    return analyseMultiSourceResistiveNetwork(project, { sources: source, resistors: resistor, ground: ground[0], validation });
+  }
   return { state: "unsupported", message: "This foundation supports only the documented analytical DC circuits, single-pole RC/RL step responses, and first-order RC/RL low-pass or RC high-pass frequency responses. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
 }
 
@@ -597,6 +601,105 @@ function analyseResistiveNetwork(project, { source, resistors, ground, validatio
     engine: "Linear DC resistive nodal analysis",
     message: "Solved the documented linear DC resistor network with one ideal voltage source. No reactive, nonlinear, thermal, transient, or general SPICE model is included.",
     result: { kind: "resistive-network", sourceVoltage, sourceCurrentA, sourcePowerW: sourceVoltage * sourceCurrentA, nodeVoltages, resistors: resistorResults },
+    validation
+  };
+}
+
+
+function analyseMultiSourceResistiveNetwork(project, { sources, resistors, ground, validation }) {
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  if (!groundNet) return { state: "blocked", message: "Connect the signal-ground pin to a named project net before solving.", validation };
+
+  const sourceBranches = sources.map((source) => {
+    const voltage = voltageValue(source.value);
+    const positiveNet = netByEndpoint.get(endpoint(source, "+"));
+    const negativeNet = netByEndpoint.get(endpoint(source, "-"));
+    return { reference: source.reference, voltage, positiveNet, negativeNet };
+  });
+  for (const source of sourceBranches) {
+    if (!Number.isFinite(source.voltage)) return { state: "blocked", message: `${source.reference} needs a numeric DC voltage.`, validation };
+    if (!source.positiveNet || !source.negativeNet) return { state: "blocked", message: `${source.reference} must connect both terminals to named project nets.`, validation };
+    if (source.positiveNet === source.negativeNet) return { state: "blocked", message: `${source.reference} is shorted because both terminals share ${source.positiveNet}.`, validation };
+  }
+
+  const resistorBranches = [];
+  for (const resistor of resistors) {
+    const resistance = resistanceValue(resistor.value);
+    const nodeA = netByEndpoint.get(endpoint(resistor, "1"));
+    const nodeB = netByEndpoint.get(endpoint(resistor, "2"));
+    if (!Number.isFinite(resistance) || resistance <= 0) return { state: "blocked", message: `${resistor.reference} needs a numeric positive resistance.`, validation };
+    if (!nodeA || !nodeB) return { state: "blocked", message: `${resistor.reference} must connect both terminals to named project nets.`, validation };
+    if (nodeA === nodeB) return { state: "blocked", message: `${resistor.reference} is shorted by connecting both terminals to ${nodeA}.`, validation };
+    resistorBranches.push({ reference: resistor.reference, nodeA, nodeB, resistance });
+  }
+
+  const connectedNets = new Set([groundNet]);
+  for (const branch of sourceBranches) { connectedNets.add(branch.positiveNet); connectedNets.add(branch.negativeNet); }
+  for (const branch of resistorBranches) { connectedNets.add(branch.nodeA); connectedNets.add(branch.nodeB); }
+  const nodes = [...connectedNets].filter((node) => node !== groundNet).sort();
+  const nodeIndex = new Map(nodes.map((node, index) => [node, index]));
+  const nodeCount = nodes.length;
+  const matrixSize = nodeCount + sourceBranches.length;
+  const matrix = Array.from({ length: matrixSize }, () => Array(matrixSize).fill(0));
+  const rhs = Array(matrixSize).fill(0);
+  const addConductance = (row, column, value) => {
+    if (row !== undefined && column !== undefined) matrix[row][column] += value;
+  };
+
+  for (const branch of resistorBranches) {
+    const conductance = 1 / branch.resistance;
+    const a = branch.nodeA === groundNet ? undefined : nodeIndex.get(branch.nodeA);
+    const b = branch.nodeB === groundNet ? undefined : nodeIndex.get(branch.nodeB);
+    addConductance(a, a, conductance);
+    addConductance(b, b, conductance);
+    addConductance(a, b, -conductance);
+    addConductance(b, a, -conductance);
+  }
+
+  sourceBranches.forEach((branch, sourceOffset) => {
+    const currentIndex = nodeCount + sourceOffset;
+    const positive = branch.positiveNet === groundNet ? undefined : nodeIndex.get(branch.positiveNet);
+    const negative = branch.negativeNet === groundNet ? undefined : nodeIndex.get(branch.negativeNet);
+    addConductance(positive, currentIndex, 1);
+    addConductance(currentIndex, positive, 1);
+    addConductance(negative, currentIndex, -1);
+    addConductance(currentIndex, negative, -1);
+    rhs[currentIndex] = branch.voltage;
+  });
+
+  const solved = solveLinearSystem(matrix, rhs);
+  if (!solved || solved.some((value) => !Number.isFinite(value))) {
+    return { state: "blocked", message: "The multiple-source resistor network is floating, disconnected, contradictory, or numerically singular.", validation };
+  }
+
+  const nodeVoltages = Object.fromEntries([[groundNet, 0], ...nodes.map((node, index) => [node, solved[index]])]);
+  const resistorResults = resistorBranches.map((branch) => {
+    const voltage = nodeVoltages[branch.nodeA] - nodeVoltages[branch.nodeB];
+    const currentA = voltage / branch.resistance;
+    return { reference: branch.reference, voltage, currentA, powerW: currentA ** 2 * branch.resistance };
+  });
+  const sourceResults = sourceBranches.map((branch, index) => {
+    const currentA = solved[nodeCount + index];
+    return {
+      reference: branch.reference,
+      voltage: branch.voltage,
+      currentA,
+      deliveredCurrentA: -currentA,
+      powerDeliveredW: -branch.voltage * currentA
+    };
+  });
+  const resistorPowerW = resistorResults.reduce((sum, item) => sum + item.powerW, 0);
+  const sourcePowerW = sourceResults.reduce((sum, item) => sum + item.powerDeliveredW, 0);
+  if (![resistorPowerW, sourcePowerW].every(Number.isFinite)) {
+    return { state: "blocked", message: "The multiple-source network produced a non-finite power result.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Multiple-source linear DC modified nodal analysis",
+    message: "Solved an ideal linear DC network containing multiple independent voltage sources and resistors. Source output resistance, reactive elements, nonlinear devices, thermal effects, and general SPICE are not included.",
+    result: { kind: "multi-source-resistive-network", nodeVoltages, sources: sourceResults, resistors: resistorResults, sourcePowerW, resistorPowerW, powerBalanceW: sourcePowerW - resistorPowerW },
     validation
   };
 }
