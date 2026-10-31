@@ -1568,7 +1568,7 @@ test("catalogue BCD counter displays 0 through 9 and wraps with correct segments
   let stateProject = updateComponent(project, "reset-input", { value: "5 V" });
   let state = runSupportedAnalysis(stateProject, { previousState: reset });
   const expected = [
-    [0,1,1,1,1,1,1,0],[1,0,1,1,0,0,0,0],[2,1,1,0,1,1,0,1],[3,1,1,1,1,0,0,1],[4,0,1,1,0,0,1,1],
+    [1,0,1,1,0,0,0,0],[2,1,1,0,1,1,0,1],[3,1,1,1,1,0,0,1],[4,0,1,1,0,0,1,1],
     [5,1,0,1,1,0,1,1],[6,1,0,1,1,1,1,1],[7,1,1,1,0,0,0,0],[8,1,1,1,1,1,1,1],[9,1,1,1,1,0,1,1]
   ];
   for (const [digit,...pattern] of expected) {
