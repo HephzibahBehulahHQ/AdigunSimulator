@@ -2240,14 +2240,59 @@
     {
       "id": "053-decoder-controlled-leds",
       "title": "Two-to-four decoder-controlled LEDs",
-      "status": "in-review",
+      "status": "released",
       "objective": "Decode every two-bit address into exactly one active-high output and light only the corresponding current-limited LED.",
       "acceptanceTest": "tests/core.test.mjs: catalogue two-to-four decoder asserts exactly one matching output",
       "testId": "core-decoder-controlled-leds",
       "projectFile": "examples/053-decoder-controlled-leds.adigun.json",
       "safetyNote": "Generic ideal static active-high decoder. It omits propagation delay, output drive limits, leakage, noise, enable inputs, and device-specific logic thresholds.",
       "scope": "catalogue",
-      "catalogueIndex": 53
+      "catalogueIndex": 53,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41174755037",
+        "headRevision": "f6abe51553a3812cd2b74b66a243b8209b5cf711",
+        "engine": "Ideal active-high two-to-four decoder",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-2to4-decoder-v1",
+        "expectedResult": {
+          "addresses": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "outputVectors": [
+            [
+              true,
+              false,
+              false,
+              false
+            ],
+            [
+              false,
+              true,
+              false,
+              false
+            ],
+            [
+              false,
+              false,
+              true,
+              false
+            ],
+            [
+              false,
+              false,
+              false,
+              true
+            ]
+          ],
+          "oneHotEachAddress": true,
+          "invalidVoltage": "blocked"
+        }
+      }
     }
   ]
 }

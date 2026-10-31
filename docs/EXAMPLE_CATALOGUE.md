@@ -2,7 +2,7 @@
 
 This is the authoritative scope catalogue for the 200 required examples. A row specifies a project, expected behaviour and acceptance criterion; it is **not** evidence that the project has been implemented or passed.
 
-The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has fifty-two released analytical catalogue examples (rows 1–52) and ten supplemental studies; 148 catalogue entries remain planned until their release requirements are met. Catalogue row 44, “SR latch,” is implemented as a generic cross-coupled NOR model with active-high set/reset, explicit prior-state retention in hold mode, and blocking of simultaneous set/reset. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 22, “555 monostable,” estimates one ideal 1.1RC pulse per pressed trigger.
+The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has fifty-three released analytical catalogue examples (rows 1–53) and ten supplemental studies; 147 catalogue entries remain planned until their release requirements are met. Catalogue row 44, “SR latch,” is implemented as a generic cross-coupled NOR model with active-high set/reset, explicit prior-state retention in hold mode, and blocking of simultaneous set/reset. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 22, “555 monostable,” estimates one ideal 1.1RC pulse per pressed trigger.
 
 ## 12. Catalogue of 200 individually specified, testable example projects
 
@@ -62,7 +62,7 @@ For every example, deliver a native project file, readme, schematic, breadboard 
 | 50 | Debounced digital input | Ideal three-sample digital stability filter, raw input, sample clock | Rejects brief alternating samples and accepts a new state only after three matching rising-edge samples; test bounce rejection and stable press. This is a digital sampled model, not analog RC/Schmitt behavior. |
 | 51 | Shift-register LED chaser | Ideal four-bit one-hot ring register, clock, active-low reset, four LEDs | Single high bit rotates Q0→Q1→Q2→Q3→Q0 on rising edges; test one-hot state and full sequence. |
 | 52 | Multiplexer selector | Ideal 4:1 mux, four data sources, two select switches, current-limited LED | Output matches the input selected by S1:S0 for all 16 data words and four select states; test all 64 combinations. |
-| 53 | Decoder-controlled LEDs | 2:4 decoder, switches | Exactly one output active; test all addresses. |
+| 53 | Decoder-controlled LEDs | Ideal active-high 2:4 decoder, two address inputs, four current-limited LEDs | Exactly one matching output is active for addresses 00–11; test all four one-hot vectors. |
 | 54 | Priority encoder | encoder, switches | Highest-priority asserted input encodes; test multiple inputs. |
 | 55 | ALU add/subtract | adders, XOR controls | Correct sum/difference and carry; test vector suite. |
 | 56 | UART transmitter model | MCU/digital source, UART monitor | Frame start/data/stop timing correct; test decoded bytes. |
