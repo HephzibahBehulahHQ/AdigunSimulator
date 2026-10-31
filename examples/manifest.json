@@ -4612,6 +4612,19 @@
           "highSideAverageCurrentA": 0.6683168316831684
         }
       }
+    },
+    {
+      "id": "112-igbt-inverter-leg",
+      "title": "IGBT inverter leg",
+      "status": "in-review",
+      "objective": "Check high/low gate logic, mutual exclusion, fault interlock shutdown, and resistive-load switching state for an ideal IGBT pair.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue IGBT inverter leg respects gate logic and fault interlock",
+      "testId": "core-igbt-inverter-leg",
+      "projectFile": "examples/112-igbt-inverter-leg.adigun.json",
+      "readmeFile": "examples/112-igbt-inverter-leg/README.md",
+      "safetyNote": "Ideal logic and resistive-load estimator only; no switching transient, inductive current, isolation, thermal, protection, or hardware safety qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 112
     }
   ]
 }
