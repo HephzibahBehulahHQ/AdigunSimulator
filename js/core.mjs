@@ -71,6 +71,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.stm32-timer-ideal", category: "Active", type: "Ideal STM32 timer PWM controller (behavior model)", prefix: "U", pins: ["TIM1_CH1", "VCC", "GND"], defaultValue: "ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 499", simulation: "analytical-stm32-timer-pwm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.pic-adc-bargraph-ideal", category: "Active", type: "Generic PIC 10-bit ADC and bargraph behavior model", prefix: "U", pins: ["AN0", "BAR0", "BAR1", "BAR2", "BAR3", "BAR4", "BAR5", "BAR6", "BAR7", "BAR8", "BAR9", "VDD", "VSS"], defaultValue: "Program ADC bargraph; ADC AN0; Resolution 10 bit; Channels 10", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.led-bargraph-10seg-ideal", category: "Output", type: "Ideal 10-segment LED bargraph behavior sink", prefix: "LED", pins: ["IN0", "IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "IN9", "VCC", "GND"], defaultValue: "Segments 10; Mode bar", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.ir-nec-frame", category: "Inputs", type: "Ideal NEC-like optical timing fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000", simulation: "fixture-ir-nec-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "sensor.ir-receiver-ideal", category: "Sensors", type: "Ideal 38 kHz IR demodulator behavior model", prefix: "IR", pins: ["SIG", "VCC", "GND", "OUT"], defaultValue: "CarrierHz 38000; Output demodulated active-low", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.avr-ir-decoder-ideal", category: "Active", type: "Generic AVR NEC-like decoder behavior model", prefix: "U", pins: ["INT0", "TX", "VCC", "GND"], defaultValue: "Program Decode NEC-like; Input INT0; Output TX; Tolerance 20%", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.ir-code-display-ideal", category: "Output", type: "Ideal IR address/command text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Address and command bytes", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -457,6 +461,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const stm32Controllers = project.components.filter((item) => item.libraryId === "active.stm32-timer-ideal");
   const picControllers = project.components.filter((item) => item.libraryId === "active.pic-adc-bargraph-ideal");
   const ledBargraphs = project.components.filter((item) => item.libraryId === "output.led-bargraph-10seg-ideal");
+  const irFrames = project.components.filter((item) => item.libraryId === "input.ir-nec-frame");
+  const irReceivers = project.components.filter((item) => item.libraryId === "sensor.ir-receiver-ideal");
+  const avrIrDecoders = project.components.filter((item) => item.libraryId === "active.avr-ir-decoder-ideal");
+  const irCodeDisplays = project.components.filter((item) => item.libraryId === "output.ir-code-display-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -527,6 +535,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (picControllers.length === 1 && adcPotentiometers.length === 1 && ledBargraphs.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePicAdcBargraph(project, { source: source[0], potentiometer: adcPotentiometers[0], pic: picControllers[0], bargraph: ledBargraphs[0], ground: ground[0], validation });
+  }
+  if (irFrames.length === 1 && irReceivers.length === 1 && avrIrDecoders.length === 1 && irCodeDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseAvrIrReceiver(project, { source: source[0], frame: irFrames[0], receiver: irReceivers[0], avr: avrIrDecoders[0], display: irCodeDisplays[0], ground: ground[0], validation });
   }
   if (picoControllers.length === 1 && source.length === 2 && resistor.length === 2 && oledSinks.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analysePicoVoltmeter(project, { sources: source, pico: picoControllers[0], resistors: resistor, oled: oledSinks[0], ground: ground[0], validation });
@@ -1602,6 +1613,30 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const adcCount=Math.round(position*1023/100),illuminatedSegments=Math.min(10,Math.floor(adcCount*10/1023));
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
+}
+function analyseAvrIrReceiver(project,{source,frame,receiver,avr,display,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),frameFields=String(frame.value).split(";").map(v=>v.trim()),receiverFields=String(receiver.value).split(";").map(v=>v.trim()),avrFields=String(avr.value).split(";").map(v=>v.trim());
+  const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
+  const numberField=(list,label,suffix)=>Number(field(list,label)?.replace(new RegExp(suffix+"$","i"),""));
+  const bytesText=field(frameFields,"Bytes")??"",bytes=bytesText.split(/\s+/).filter(Boolean).map(v=>/^[0-9a-f]{2}$/i.test(v)?parseInt(v,16):Number.NaN);
+  const toleranceText=field(avrFields,"Tolerance")?.replace(/%$/,""),tolerance=Number(toleranceText);
+  const timing={leaderMark:numberField(frameFields,"LeaderMarkUs","us"),leaderSpace:numberField(frameFields,"LeaderSpaceUs","us"),bitMark:numberField(frameFields,"BitMarkUs","us"),zeroSpace:numberField(frameFields,"ZeroSpaceUs","us"),oneSpace:numberField(frameFields,"OneSpaceUs","us"),stopMark:numberField(frameFields,"StopMarkUs","us"),carrierHz:numberField(frameFields,"CarrierHz","Hz")};
+  const within=(actual,nominal)=>Number.isFinite(actual)&&actual>0&&Math.abs(actual-nominal)<=nominal*tolerance/100;
+  const groundNet=n(ground,"0"),vccNet=n(avr,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const powered=n(receiver,"VCC")===vccNet&&n(receiver,"GND")===groundNet&&n(avr,"GND")===groundNet&&n(display,"VCC")===vccNet&&n(display,"GND")===groundNet&&n(frame,"GND")===groundNet;
+  const signalPath=n(frame,"OUT")===n(receiver,"SIG")&&n(receiver,"OUT")===n(avr,"INT0")&&n(avr,"TX")===n(display,"DATA");
+  const timingValid=within(timing.leaderMark,9000)&&within(timing.leaderSpace,4500)&&within(timing.bitMark,560)&&within(timing.zeroSpace,560)&&within(timing.oneSpace,1690)&&within(timing.stopMark,560)&&within(timing.carrierHz,38000);
+  const complementValid=bytes.length===4&&bytes.every(v=>Number.isInteger(v)&&v>=0&&v<=255)&&((bytes[0]^bytes[1])===255)&&((bytes[2]^bytes[3])===255);
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!powered||!signalPath||field(avrFields,"Program")!=="Decode NEC-like"||field(avrFields,"Input")!=="INT0"||field(avrFields,"Output")!=="TX"||field(receiverFields,"Output")!=="demodulated active-low"||numberField(receiverFields,"CarrierHz","Hz")!==38000||!Number.isFinite(tolerance)||tolerance<1||tolerance>30||!timingValid||!complementValid){
+    return {state:"blocked",message:"Connect the ideal IR receiver between the NEC-like frame fixture and AVR decoder, power all devices, verify the decoder/display wiring, and provide a four-byte complementary NEC-like frame with timing within tolerance.",validation};
+  }
+  const bits=bytes.flatMap(byte=>Array.from({length:8},(_,bit)=>(byte>>bit)&1));
+  const ones=bits.reduce((sum,bit)=>sum+bit,0),zeros=bits.length-ones;
+  const frameDurationUs=timing.leaderMark+timing.leaderSpace+bits.length*timing.bitMark+ones*timing.oneSpace+zeros*timing.zeroSpace+timing.stopMark;
+  const rawCode=bytes.map(v=>v.toString(16).padStart(2,"0")).join("").toUpperCase(),address=bytes[0],command=bytes[2];
+  const displayText="Address 0x"+address.toString(16).padStart(2,"0").toUpperCase()+"  Command 0x"+command.toString(16).padStart(2,"0").toUpperCase();
+  return {state:"complete",engine:"Ideal AVR NEC-like infrared frame decoder",message:"Checks an ideal 38 kHz demodulated frame, timing tolerances, LSB-first byte order, and byte complements. Carrier waveform, optical range, ambient light, receiver AGC, AVR firmware, and physical timing margins are not modeled.",result:{kind:"avr-ir-receiver",protocol:"NEC-like",rawCode:"0x"+rawCode,address:"0x"+bytes[0].toString(16).padStart(2,"0").toUpperCase(),command:"0x"+bytes[2].toString(16).padStart(2,"0").toUpperCase(),bitOrder:"LSB-first within each byte",bitCount:bits.length,oneBits:ones,zeroBits:zeros,carrierHz:timing.carrierHz,tolerancePercent:tolerance,frameDurationUs,displayText,firmwareExecuted:false},validation};
 }
 function analysePicoVoltmeter(project,{sources,pico,resistors,oled,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
