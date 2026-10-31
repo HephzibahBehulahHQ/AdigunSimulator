@@ -6435,6 +6435,19 @@
           "physicalPumpModel": false
         }
       }
+    },
+    {
+      "id": "164-plc-conveyor-counter",
+      "title": "PLC conveyor counter",
+      "status": "in-review",
+      "objective": "Count synthetic photoeye rising edges and stop the logical conveyor at a target; verify repeated high samples do not double-count and later events cannot restart the stopped output.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue conveyor counter counts rising photoeye edges and stops at target",
+      "testId": "core-plc-conveyor-counter",
+      "projectFile": "examples/164-plc-conveyor-counter.adigun.json",
+      "readmeFile": "examples/164-plc-conveyor-counter/README.md",
+      "safetyNote": "Logic-only concept. No conveyor inertia, stopping distance, motor-drive behavior, jam detection, guarding, physical sensor, PLC timing, or machine-safety validation is modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
