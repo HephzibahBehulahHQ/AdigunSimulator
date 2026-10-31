@@ -47,6 +47,7 @@ import { runFireAlarmZone } from "../js/fire-alarm-zone.mjs";
 import { runAccessStrikeLock } from "../js/access-strike-lock.mjs";
 import { runWarehouseBeacon } from "../js/warehouse-beacon.mjs";
 import { runMachineFaultAnnunciator } from "../js/machine-fault-annunciator.mjs";
+import { runBreadboardSchematicSync } from "../js/breadboard-schematic-sync.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1479,7 +1480,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 190);
+  assert.equal(getExampleCoverage(registry).total, 191);
   assert.equal(getExampleCoverage(registry).released, 180);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 20);
@@ -4457,4 +4458,17 @@ test("catalogue fault annunciator clears only after acknowledgement and inactive
   assert.deepEqual(result.result.frames.map(frame=>frame.buzzerOn),[true,false,false,true,true,false]);
   assert.equal(result.result.frames[4].faultLampOn,true);assert.equal(result.result.frames[5].healthyLampOn,true);
   const invalid=structuredClone(project);invalid.machineFaultAnnunciator.events[0].activeFaults=["bad id"];assert.equal(runMachineFaultAnnunciator(invalid).state,"blocked");
+});
+
+test("catalogue breadboard wiring synchronizes component and net identities into schematic projection", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/181-breadboard-schematic-sync.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const componentIds=project.components.map(item=>item.instanceId).sort();
+  const breadboardEdit=disconnectPin(project,"resistor-1:2");
+  const wired=connectPins(breadboardEdit,"resistor-1:2","led-1:A");
+  assert.equal(validateProject(wired).valid,true);
+  const result=runBreadboardSchematicSync(wired);assert.equal(result.state,"complete");assert.equal(result.result.kind,"breadboard-schematic-structural-sync");
+  assert.equal(result.result.structurallyEqual,true);assert.deepEqual(result.result.componentIds,componentIds);
+  assert.ok(result.result.netIds.includes("N1"));assert.ok(result.result.netIds.includes("VCC"));assert.ok(result.result.netIds.includes("GND"));
+  assert.deepEqual(result.result.breadboard,result.result.schematic);
 });
