@@ -4694,6 +4694,19 @@
           "mainsSafetyQualified": false
         }
       }
+    },
+    {
+      "id": "114-ssr-ac-switch",
+      "title": "SSR AC load switch",
+      "status": "in-review",
+      "objective": "Model optically isolated AC load control, commanded on/off state, SSR on-state voltage drop, and configured off-state leakage current.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue SSR follows isolated control and models off leakage",
+      "testId": "core-ssr-ac-switch",
+      "projectFile": "examples/114-ssr-ac-switch.adigun.json",
+      "readmeFile": "examples/114-ssr-ac-switch/README.md",
+      "safetyNote": "Educational AC load estimator only. Isolation is a modeled behavior, not a physical safety qualification; no mains wiring, surge, thermal, snubber, or compliance approval.",
+      "scope": "catalogue",
+      "catalogueIndex": 114
     }
   ]
 }

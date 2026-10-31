@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 123);
+  assert.equal(getExampleCoverage(registry).total, 124);
   assert.equal(getExampleCoverage(registry).released, 113);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 87);
@@ -3138,5 +3138,38 @@ test("catalogue TRIAC dimmer changes RMS output with phase angle and requires ze
   assert.equal(runSupportedAnalysis(updateComponent(project,"driver",{value:"MaxFrequency 55 Hz; MaxCurrent 2 A; Mode zero-cross-optotriac"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="FIRE").endpoints=["driver:FIRE"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue SSR follows isolated control and models off leakage", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/114-ssr-ac-switch.adigun.json",import.meta.url)));
+  const off=runSupportedAnalysis(project);
+  assert.equal(off.state,"complete",JSON.stringify(off.validation?.errors??off));
+  assert.equal(off.result.kind,"ssr-ac-switch");
+  assert.equal(off.result.conducting,false);
+  assert.equal(off.result.loadState,"off-with-leakage");
+  assert.equal(off.result.offLeakageCurrentA,0.002);
+  assert.equal(off.result.loadVoltageRmsV,2);
+  assert.equal(off.result.loadPowerW,0.004);
+  assert.equal(off.result.physicalIsolationQualified,false);
+
+  const on=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Control on; Fault none; Mode ssr-control"}));
+  assert.equal(on.state,"complete");
+  assert.equal(on.result.conducting,true);
+  assert.equal(on.result.loadVoltageRmsV,118.5);
+  assert.equal(on.result.offLeakageCurrentA,0);
+  assert.ok(on.result.loadCurrentRmsA>0);
+
+  const stuckOpen=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Control on; Fault stuck-open; Mode ssr-control"}));
+  assert.equal(stuckOpen.state,"complete");
+  assert.equal(stuckOpen.result.conducting,false);
+  assert.equal(stuckOpen.result.offLeakageCurrentA,0.002);
+
+  const stuckOn=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Control off; Fault stuck-on; Mode ssr-control"}));
+  assert.equal(stuckOn.state,"complete");
+  assert.equal(stuckOn.result.conducting,true);
+
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="CONTROL").endpoints=["fixture:CONTROL"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });

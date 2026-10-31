@@ -220,6 +220,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.optotriac-phase-driver-ideal", category: "Active", type: "Ideal zero-cross synchronized optotriac driver", prefix: "U", pins: ["AC_L", "AC_N", "ANGLE", "ENABLE", "FAULT", "FIRE", "STATUS"], defaultValue: "MaxFrequency 65 Hz; MaxCurrent 2 A; Mode zero-cross-optotriac", simulation: "analytical-triac-dimmer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.triac-dimmer-ideal", category: "Active", type: "Ideal phase-angle triac and resistive lamp", prefix: "Q", pins: ["AC_L", "AC_N", "GATE", "LAMP"], defaultValue: "OnDrop 1.5 V; Mode phase-angle", simulation: "analytical-triac-dimmer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.triac-dimmer-report", category: "Output", type: "AC dimmer RMS load and zero-cross report", prefix: "SCOPE", pins: ["LAMP", "STATUS"], defaultValue: "AC dimmer results", simulation: "analytical-triac-dimmer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.ssr-control-fixture", category: "Inputs", type: "AC solid-state relay control fixture", prefix: "CMD", pins: ["CONTROL", "FAULT", "GND"], defaultValue: "Control on; Fault none; Mode ssr-control", simulation: "fixture-ssr-ac", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.ssr-ac-switch-ideal", category: "Active", type: "Ideal isolated AC solid-state relay model", prefix: "K", pins: ["AC_L", "AC_N", "CONTROL", "LOAD"], defaultValue: "Isolation yes; OnDrop 1.5 V; LeakageCurrent 2 mA; MaxCurrent 2 A; Mode ssr", simulation: "analytical-ssr-ac", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.ssr-ac-report", category: "Output", type: "AC SSR load and off-leakage report", prefix: "SCOPE", pins: ["LOAD", "STATUS", "GND"], defaultValue: "SSR AC load report", simulation: "analytical-ssr-ac", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -750,6 +753,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const triacDrivers = project.components.filter((item) => item.libraryId === "active.optotriac-phase-driver-ideal");
   const triacDimmers = project.components.filter((item) => item.libraryId === "active.triac-dimmer-ideal");
   const triacReports = project.components.filter((item) => item.libraryId === "output.triac-dimmer-report");
+  const ssrFixtures = project.components.filter((item) => item.libraryId === "input.ssr-control-fixture");
+  const ssrSwitches = project.components.filter((item) => item.libraryId === "active.ssr-ac-switch-ideal");
+  const ssrReports = project.components.filter((item) => item.libraryId === "output.ssr-ac-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -1012,6 +1018,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (acSource.length===1&&triacFixtures.length===1&&triacDrivers.length===1&&triacDimmers.length===1&&triacReports.length===1&&resistor.length===1&&ground.length===1&&project.components.length===7) {
     return analyseTriacAcDimmer(project,{source:acSource[0],fixture:triacFixtures[0],driver:triacDrivers[0],triac:triacDimmers[0],report:triacReports[0],load:resistor[0],ground:ground[0],validation});
+  }
+  if (acSource.length===1&&ssrFixtures.length===1&&ssrSwitches.length===1&&ssrReports.length===1&&resistor.length===1&&ground.length===1&&project.components.length===6) {
+    return analyseSsrAcSwitch(project,{source:acSource[0],fixture:ssrFixtures[0],ssr:ssrSwitches[0],report:ssrReports[0],load:resistor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3509,6 +3518,36 @@ function analyseTriacAcDimmer(project,{source,fixture,driver,triac,report,load,g
   return {state:"complete",engine:"Bounded phase-angle AC dimmer RMS estimator",
     message:"Estimates a resistive lamp's RMS voltage/current from a symmetric triac phase angle and checks a zero-cross synchronization/fault interlock. It does not model AC switching waveforms, latching/holding current, optocoupler isolation, snubbers, EMI, thermal behavior, mains clearances, or hardware safety.",
     result:{kind:"triac-ac-dimmer",sourceRmsVoltageV:sourceRmsV,frequencyHz,phaseAngleDeg,zeroCrossLocked:syncLocked,fault,enabled,firingEnabled,protectionTrip,rmsFactor,lampVoltageRmsV,lampCurrentRmsA,lampPowerW:lampVoltageRmsV*lampCurrentRmsA,loadResistanceOhm:loadOhm,triacOnDropV:onDropV,zeroCrossSynchronizationModeled:true,isolationModeled:false,mainsSafetyQualified:false},validation};
+}
+function analyseSsrAcSwitch(project,{source,fixture,ssr,report,load,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const f=fields(fixture.value),q=fields(ssr.value),ac=String(source.value).match(/^\s*([\d.]+)\s*V\s*RMS\s*,\s*([\d.]+)\s*Hz\s*$/i);
+  const sourceRmsV=ac?Number(ac[1]):Number.NaN,frequencyHz=ac?Number(ac[2]):Number.NaN;
+  const control=field(f,"Control"),fault=field(f,"Fault"),isolation=field(q,"Isolation");
+  const onDropV=voltageValue(field(q,"OnDrop")??""),leakageCurrentA=currentValue(field(q,"LeakageCurrent")??""),maxCurrentA=currentValue(field(q,"MaxCurrent")??"");
+  const loadOhm=resistanceValue(load.value),live=n(source,"+"),neutral=n(source,"-"),gnd=n(ground,"0");
+  const sourcePath=live===n(ssr,"AC_L")&&neutral===n(ssr,"AC_N");
+  const controlPath=n(fixture,"CONTROL")===n(ssr,"CONTROL");
+  const loadPath=n(ssr,"LOAD")===n(load,"1")&&n(load,"2")===neutral&&n(report,"LOAD")===n(ssr,"LOAD");
+  const statusPath=n(fixture,"FAULT")===n(report,"STATUS"),groundPath=n(fixture,"GND")===gnd&&n(report,"GND")===gnd;
+  const required=[live,neutral,gnd,n(fixture,"CONTROL"),n(fixture,"FAULT"),n(ssr,"CONTROL"),n(ssr,"LOAD"),n(load,"1"),n(load,"2"),n(report,"STATUS")];
+  if(required.some(x=>typeof x!=="string"||!x)||!sourcePath||!controlPath||!loadPath||!statusPath||!groundPath
+    ||field(f,"Mode")!=="ssr-control"||field(q,"Mode")!=="ssr"||!["on","off"].includes(control)||!["none","stuck-open","stuck-on"].includes(fault)||isolation!=="yes"
+    ||![sourceRmsV,frequencyHz,onDropV,leakageCurrentA,maxCurrentA,loadOhm].every(Number.isFinite)
+    ||sourceRmsV<12||sourceRmsV>240||frequencyHz<40||frequencyHz>65||onDropV<0||onDropV>3||leakageCurrentA<0||leakageCurrentA>0.1||maxCurrentA<=0||maxCurrentA>10||loadOhm<=0||loadOhm>10000){
+    return {state:"blocked",message:"Wire the AC source, isolated control, SSR, resistive load, neutral, status and ground; use supported ratings and off-leakage values.",validation};
+  }
+  let conducting=control==="on";
+  if(fault==="stuck-open")conducting=false;
+  if(fault==="stuck-on")conducting=true;
+  let loadVoltageRmsV=conducting?Math.max(0,sourceRmsV-onDropV):Math.min(sourceRmsV,leakageCurrentA*loadOhm);
+  let loadCurrentRmsA=conducting?loadVoltageRmsV/loadOhm:Math.min(leakageCurrentA,sourceRmsV/loadOhm);
+  if(conducting&&loadCurrentRmsA>maxCurrentA)return {state:"blocked",message:"Load current exceeds the configured SSR current limit.",validation};
+  return {state:"complete",engine:"Bounded AC solid-state relay and off-leakage estimator",
+    message:"Models an isolated control state, resistive AC load, SSR on-state drop, and configured off-state leakage current. AC waveform switching, isolation construction, surge behavior, thermal performance, snubbers, mains clearances, and hardware safety are not modeled.",
+    result:{kind:"ssr-ac-switch",control,fault,conducting,loadState:conducting?"on":"off-with-leakage",isolationModeled:true,physicalIsolationQualified:false,sourceRmsVoltageV:sourceRmsV,frequencyHz,loadVoltageRmsV,loadCurrentRmsA,loadPowerW:loadVoltageRmsV*loadCurrentRmsA,offLeakageCurrentA:conducting?0:loadCurrentRmsA,configuredLeakageCurrentA:leakageCurrentA,loadResistanceOhm:loadOhm,maxCurrentA,mainsSafetyQualified:false},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);

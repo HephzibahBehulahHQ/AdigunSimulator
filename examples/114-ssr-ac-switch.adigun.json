@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-114-ssr-ac-switch",
+  "metadata": {
+    "name": "Isolated AC Solid-State Relay with Off Leakage",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "ac-source",
+      "libraryId": "power.ac-source",
+      "reference": "V1",
+      "value": "120 V RMS, 60 Hz",
+      "position": {
+        "breadboard": [
+          45,
+          50
+        ],
+        "schematic": [
+          45,
+          50
+        ],
+        "pcb": [
+          45,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.ssr-control-fixture",
+      "reference": "CMD1",
+      "value": "Control off; Fault none; Mode ssr-control",
+      "position": {
+        "breadboard": [
+          140,
+          50
+        ],
+        "schematic": [
+          140,
+          50
+        ],
+        "pcb": [
+          140,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ssr",
+      "libraryId": "active.ssr-ac-switch-ideal",
+      "reference": "SSR1",
+      "value": "Isolation yes; OnDrop 1.5 V; LeakageCurrent 2 mA; MaxCurrent 2 A; Mode ssr",
+      "position": {
+        "breadboard": [
+          260,
+          50
+        ],
+        "schematic": [
+          260,
+          50
+        ],
+        "pcb": [
+          260,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RL1",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          390,
+          50
+        ],
+        "schematic": [
+          390,
+          50
+        ],
+        "pcb": [
+          390,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.ssr-ac-report",
+      "reference": "SCOPE1",
+      "value": "SSR load/off-leakage report",
+      "position": {
+        "breadboard": [
+          500,
+          50
+        ],
+        "schematic": [
+          500,
+          50
+        ],
+        "pcb": [
+          500,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          45,
+          160
+        ],
+        "schematic": [
+          45,
+          160
+        ],
+        "pcb": [
+          45,
+          160
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "AC_LIVE",
+      "endpoints": [
+        "ac-source:+",
+        "ssr:AC_L"
+      ]
+    },
+    {
+      "id": "AC_NEUTRAL",
+      "endpoints": [
+        "ac-source:-",
+        "ssr:AC_N",
+        "load:2"
+      ]
+    },
+    {
+      "id": "CONTROL",
+      "endpoints": [
+        "fixture:CONTROL",
+        "ssr:CONTROL"
+      ]
+    },
+    {
+      "id": "LOAD",
+      "endpoints": [
+        "ssr:LOAD",
+        "load:1",
+        "report:LOAD"
+      ]
+    },
+    {
+      "id": "FAULT_STATUS",
+      "endpoints": [
+        "fixture:FAULT",
+        "report:STATUS"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "fixture:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": []
+}
