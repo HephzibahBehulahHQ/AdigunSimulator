@@ -1,0 +1,8 @@
+const validSamples=(samples)=>Array.isArray(samples)&&samples.length>=1&&samples.length<=300&&samples.every(value=>Number.isFinite(value)&&value>=-40&&value<=150);
+export function runFanThermostat(project) {
+  const cfg=project?.fanThermostat;
+  if(cfg?.kind!=="temperature-hysteresis"||!Number.isFinite(cfg.fanOffC)||!Number.isFinite(cfg.fanOnC)||cfg.fanOffC< -40||cfg.fanOnC>150||cfg.fanOffC>=cfg.fanOnC||!validSamples(cfg.samples)||typeof cfg.initialFanOn!=="boolean")
+    return {state:"blocked",engine:"Fan thermostat hysteresis concept",message:"Provide ordered on/off thresholds and 1–300 synthetic temperatures between −40 and 150 °C.",errors:[{code:"FAN_THERMOSTAT_CONFIGURATION",message:"Temperature thresholds or samples are invalid."}],warnings:[],result:null};
+  let fanOn=cfg.initialFanOn;const frames=cfg.samples.map((tempC,index)=>{const before=fanOn;if(tempC>=cfg.fanOnC)fanOn=true;else if(tempC<=cfg.fanOffC)fanOn=false;return {step:index+1,tempC,fanOn,transition:before===fanOn?"held":fanOn?"started":"stopped"};});
+  return {state:"complete",engine:"Deterministic fan thermostat hysteresis model",message:"The fan command switches on at the upper threshold, off at the lower threshold, and holds state within the band.",errors:[],warnings:[{code:"FAN_THERMOSTAT_CONCEPT_ONLY",message:"Synthetic temperature values and Boolean fan command only; no NTC curve, sensor tolerance, thermal mass, fan dynamics, power switching, or cooling performance is modeled."}],result:{kind:"fan-thermostat-hysteresis",fanOnC:cfg.fanOnC,fanOffC:cfg.fanOffC,sampleCount:frames.length,fanOnSamples:frames.filter(frame=>frame.fanOn).length,frames}};
+}
