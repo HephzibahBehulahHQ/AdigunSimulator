@@ -1709,7 +1709,7 @@ function analyseLowPowerSleepWake(project,{source,fixture,controller,resistor,le
   const fixtureFields=fields(fixture.value),controllerFields=fields(controller.value);
   const durationMs=Number((field(fixtureFields,"DurationMs")??"").replace(/ms$/i,""));
   const eventText=field(fixtureFields,"Events")??"";
-  const events=eventText.split(",").map(token=>{const match=token.trim().match(/^(\\d+):(rising|falling)$/i);return match?{timeMs:Number(match[1]),edge:match[2].toLowerCase()}:null;});
+  const events=eventText.split(",").map(token=>{const match=token.trim().match(/^(\d+):(rising|falling)$/i);return match?{timeMs:Number(match[1]),edge:match[2].toLowerCase()}:null;});
   const runCurrentUa=Number(field(controllerFields,"RunCurrentUa")),sleepCurrentUa=Number(field(controllerFields,"SleepCurrentUa"));
   const wakeDurationMs=Number((field(controllerFields,"WakeDurationMs")??"").replace(/ms$/i,"")),wakeMode=field(controllerFields,"WakeMode");
   const groundNet=n(ground,"0"),vccNet=n(controller,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
