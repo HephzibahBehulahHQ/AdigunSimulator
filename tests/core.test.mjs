@@ -262,6 +262,20 @@ test("ideal DC current source drives a resistor and balances power", () => {
   assert.ok(Math.abs(result.result.currentSources[0].outputCurrentA - 0.001) < 1e-12);
   assert.ok(Math.abs(result.result.powerBalanceW) < 1e-12);
 
+  const mixed = structuredClone(project);
+  mixed.components.push({
+    instanceId: "voltage-1", libraryId: "power.dc-source", reference: "V1", value: "5 V",
+    position: { breadboard: [120, 180], schematic: [120, 180], pcb: [120, 180] }
+  });
+  mixed.nets[0].endpoints.push("voltage-1:+");
+  mixed.nets[1].endpoints.push("voltage-1:-");
+  const mixedResult = runSupportedAnalysis(mixed);
+  assert.equal(mixedResult.state, "complete");
+  assert.ok(Math.abs(mixedResult.result.nodeVoltages.LOAD - 5) < 1e-12);
+  assert.ok(Math.abs(mixedResult.result.sources[0].deliveredCurrentA - 0.004) < 1e-12);
+  assert.ok(Math.abs(mixedResult.result.currentSources[0].powerDeliveredW - 0.005) < 1e-12);
+  assert.ok(Math.abs(mixedResult.result.powerBalanceW) < 1e-12);
+
   const malformed = structuredClone(project);
   malformed.components[0].value = "1 mV";
   assert.equal(runSupportedAnalysis(malformed).state, "blocked");
