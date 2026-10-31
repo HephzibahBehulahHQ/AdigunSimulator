@@ -1762,14 +1762,55 @@
     {
       "id": "045-d-flip-flop-register",
       "title": "Positive-edge D flip-flop register",
-      "status": "in-review",
+      "status": "released",
       "objective": "Sample a digital data switch on each rising clock edge and retain Q through a falling edge and while the clock level remains high or low.",
       "acceptanceTest": "tests/core.test.mjs: catalogue D flip-flop samples data only on rising edges and annotates timing limits",
       "testId": "core-d-flip-flop-register",
       "projectFile": "examples/045-d-flip-flop-register.adigun.json",
       "safetyNote": "Generic ideal positive-edge static model. Setup/hold timing, metastability, propagation delay, asynchronous preset/clear behavior, output loading beyond the LED resistor, and device-specific limits are not modeled.",
       "scope": "catalogue",
-      "catalogueIndex": 45
+      "catalogueIndex": 45,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41173640571",
+        "headRevision": "2909d11f97aab3cc1754dad6cdd60bf37b293f80",
+        "engine": "Ideal positive-edge D flip-flop state transition",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-d-flip-flop-v1",
+        "expectedResult": {
+          "initialClockLow": {
+            "clockHigh": false,
+            "risingEdge": false,
+            "q": null
+          },
+          "risingEdgeWithDHigh": {
+            "dataHigh": true,
+            "risingEdge": true,
+            "sampled": true,
+            "q": true,
+            "qBar": false,
+            "ledCurrentA": 0.00909090909090909
+          },
+          "dataChangesWhileClockHigh": {
+            "risingEdge": false,
+            "q": true
+          },
+          "fallingEdge": {
+            "risingEdge": false,
+            "q": true
+          },
+          "nextRisingEdgeWithDLow": {
+            "dataHigh": false,
+            "risingEdge": true,
+            "sampled": true,
+            "q": false,
+            "qBar": true,
+            "ledCurrentA": 0
+          },
+          "clockHighWithoutPriorLow": "blocked"
+        }
+      }
     }
   ]
 }
