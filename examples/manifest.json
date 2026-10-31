@@ -5432,6 +5432,18 @@
           "artifact": "Differential-Pair-Constraint-Report.csv"
         }
       }
+    },
+    {
+      "id": "132-qfn-footprint-validation",
+      "title": "QFN footprint validation — exposed thermal pad",
+      "status": "in-review",
+      "objective": "Validate the TI TPS62130RGTR RGT0016C 16-lead VQFN footprint, pad map, segmented stencil proposal and courtyard using bounded geometric checks.",
+      "acceptanceTest": "tests/core.test.mjs: QFN footprint validation checks pad map, land pattern, stencil apertures and courtyard",
+      "testId": "core-qfn-footprint-validation",
+      "projectFile": "examples/132-qfn-footprint-validation.adigun.json",
+      "readmeFile": "examples/132-qfn-footprint-validation/README.md",
+      "safetyNote": "Package drawing and pin map are identified from TI documentation. Stencil openings and courtyard are declared project proposals; no paste-transfer, assembly, thermal, manufacturing DRC or production qualification is performed.",
+      "scope": "catalogue"
     }
   ]
 }
