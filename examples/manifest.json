@@ -5851,14 +5851,32 @@
     {
       "id": "145-logic-analyzer-capture",
       "title": "Logic analyser capture",
-      "status": "in-review",
+      "status": "released",
       "objective": "Sample a labelled four-bit digital counter sequence, decode its count states and lock a selected channel edge with timing metadata.",
       "acceptanceTest": "tests/core.test.mjs: catalogue logic analyser captures labelled counter states and locks configured edge",
       "testId": "core-logic-analyzer-capture",
       "projectFile": "examples/145-logic-analyzer-capture.adigun.json",
       "readmeFile": "examples/145-logic-analyzer-capture/README.md",
       "safetyNote": "This bounded digital model samples synchronous ideal states. It does not model asynchronous metastability, input thresholds, glitches, channel skew, analog noise or physical logic-analyser ratings.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 145,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41205349467",
+        "headRevision": "949bb7f44a2ae8313a7269f2a88735faf9188ea9",
+        "engine": "Bounded synchronous digital counter and logic capture",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "synchronous-counter-logic-capture-v1",
+        "expectedResult": {
+          "kind": "logic-analyzer-capture",
+          "decodedSequence": "0..15",
+          "triggerChannel": "Q1",
+          "triggerEdge": "rising",
+          "triggerSampleIndex": 2,
+          "channelCount": 4
+        }
+      }
     }
   ]
 }
