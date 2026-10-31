@@ -2760,6 +2760,18 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "068-esp32-telemetry-mock",
+      "title": "ESP32 temperature telemetry payload mock",
+      "status": "in-review",
+      "objective": "Quantize a configured temperature sensor sample into an ideal 12-bit ADC result and form a deterministic JSON telemetry payload for offline inspection.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue ESP32 telemetry mock forms JSON locally without network transmission",
+      "testId": "core-esp32-telemetry-mock",
+      "projectFile": "examples/068-esp32-telemetry-mock.adigun.json",
+      "safetyNote": "Offline payload-formatting mock; no Wi-Fi, network, authentication, Internet transfer, ESP32 firmware, ADC nonlinearity, or sensor accuracy is modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 68
     }
   ]
 }
