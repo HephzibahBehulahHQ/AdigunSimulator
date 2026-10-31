@@ -7447,6 +7447,19 @@
           ]
         }
       }
+    },
+    {
+      "id": "193-pcb-trace-width-advisor",
+      "title": "PCB trace-width assistant",
+      "status": "in-review",
+      "objective": "Estimate trace width from current, copper thickness, temperature rise, and external/internal layer selection using a clearly limited legacy empirical equation.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue PCB trace-width advisor provides scoped external/internal estimates and rejects invalid inputs",
+      "testId": "core-pcb-trace-width-advisor",
+      "projectFile": "examples/193-pcb-trace-width-advisor.adigun.json",
+      "readmeFile": "examples/193-pcb-trace-width-advisor/README.md",
+      "safetyNote": "Legacy IPC-2221 empirical estimate only. It is not IPC-2152 analysis, standards compliance, DRC, thermal sign-off, or manufacturing approval; validate the board-specific construction and safety requirements.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }

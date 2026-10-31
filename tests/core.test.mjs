@@ -59,6 +59,7 @@ import { calculateLedSeriesResistor, runLedResistorCalculator } from "../js/led-
 import { calculateVoltageDivider, runVoltageDividerCalculator } from "../js/voltage-divider-calculator.mjs";
 import { calculateRcTiming, runRcTimingCalculator } from "../js/rc-timing-calculator.mjs";
 import { calculateOpAmpGain, runOpAmpGainCalculator } from "../js/op-amp-gain-calculator.mjs";
+import { calculatePcbTraceWidth, runPcbTraceWidthAdvisor } from "../js/pcb-trace-width-advisor.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1491,7 +1492,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 202);
+  assert.equal(getExampleCoverage(registry).total, 203);
   assert.equal(getExampleCoverage(registry).released, 192);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 8);
@@ -4588,4 +4589,13 @@ test("catalogue op-amp gain calculator covers both topologies and rejects zero o
   assert.equal(calculateOpAmpGain({configuration:"non-inverting",feedbackResistanceOhms:-1,groundResistanceOhms:10000}).ok,false);
   assert.equal(calculateOpAmpGain({configuration:"buffer",feedbackResistanceOhms:10000,groundResistanceOhms:10000}).ok,false);
   const invalid=structuredClone(project);invalid.opAmpGainCalculator.cases[0].feedbackResistanceOhms=0;assert.equal(runOpAmpGainCalculator(invalid).state,"blocked");
+});
+test("catalogue PCB trace-width advisor provides scoped external/internal estimates and rejects invalid inputs", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/193-pcb-trace-width-advisor.adigun.json",import.meta.url)));
+  const result=runPcbTraceWidthAdvisor(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"pcb-trace-width-advisory");assert.match(result.result.standardLimitation,/IPC-2152/);
+  const [external,internal]=result.result.results;assert.ok(Math.abs(external.widthMm-0.7814374629)<1e-9);assert.ok(Math.abs(internal.widthMm-2.0328625490)<1e-9);assert.ok(internal.widthMm>external.widthMm);
+  assert.equal(calculatePcbTraceWidth({currentA:0,copperThicknessUm:35,temperatureRiseC:10,layerType:"external"}).ok,false);
+  assert.equal(calculatePcbTraceWidth({currentA:1,copperThicknessUm:-1,temperatureRiseC:10,layerType:"external"}).ok,false);
+  assert.equal(calculatePcbTraceWidth({currentA:1,copperThicknessUm:35,temperatureRiseC:10,layerType:"unknown"}).ok,false);
+  const invalid=structuredClone(project);invalid.pcbTraceWidthAdvisor.cases[0].temperatureRiseC=0;assert.equal(runPcbTraceWidthAdvisor(invalid).state,"blocked");
 });
