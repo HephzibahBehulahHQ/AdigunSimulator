@@ -558,7 +558,7 @@ test("catalogue non-inverting op-amp reports midband gain and rejects clipping o
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="OUTPUT").endpoints=["opamp:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
-  const clipped=updateComponent(project,"rf",{value:"1 MΩ"});
+  const clipped=updateComponent(project,"rf",{value:"2 MΩ"});
   assert.equal(runSupportedAnalysis(clipped).state,"blocked");
 });
 
