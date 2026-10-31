@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -625,3 +625,11 @@ Object.assign(TRANSLATIONS.de, {"morePlannedExamples":"112 der 200 Katalogprojek
 Object.assign(TRANSLATIONS.yo, {"morePlannedExamples":"A ti tú iṣẹ́ kátàlọ́ọ̀gù 112 nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí."});
 
 Object.assign(TRANSLATIONS.pcm, {"morePlannedExamples":"112 out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load."});
+
+Object.assign(TRANSLATIONS.en, {exampleTriacAcDimmer:"TRIAC AC dimmer concept"});
+
+Object.assign(TRANSLATIONS.de, {exampleTriacAcDimmer:"TRIAC-Wechselstromdimmer-Konzept"});
+
+Object.assign(TRANSLATIONS.yo, {exampleTriacAcDimmer:"Àwòṣe dimmer AC TRIAC"});
+
+Object.assign(TRANSLATIONS.pcm, {exampleTriacAcDimmer:"TRIAC AC dimmer concept"});

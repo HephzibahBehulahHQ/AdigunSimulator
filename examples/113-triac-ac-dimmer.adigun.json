@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-113-triac-ac-dimmer",
+  "metadata": {
+    "name": "TRIAC AC Dimmer with Zero-Cross Interlock",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "ac-source",
+      "libraryId": "power.ac-source",
+      "reference": "V1",
+      "value": "120 V RMS, 60 Hz",
+      "position": {
+        "breadboard": [
+          45,
+          50
+        ],
+        "schematic": [
+          45,
+          50
+        ],
+        "pcb": [
+          45,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.triac-phase-fixture",
+      "reference": "CMD1",
+      "value": "PhaseAngle 90 deg; Enable yes; Fault none; Mode phase-angle",
+      "position": {
+        "breadboard": [
+          140,
+          50
+        ],
+        "schematic": [
+          140,
+          50
+        ],
+        "pcb": [
+          140,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "driver",
+      "libraryId": "active.optotriac-phase-driver-ideal",
+      "reference": "U1",
+      "value": "MaxFrequency 65 Hz; MaxCurrent 2 A; Mode zero-cross-optotriac",
+      "position": {
+        "breadboard": [
+          245,
+          50
+        ],
+        "schematic": [
+          245,
+          50
+        ],
+        "pcb": [
+          245,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "triac",
+      "libraryId": "active.triac-dimmer-ideal",
+      "reference": "Q1",
+      "value": "OnDrop 1.5 V; Mode phase-angle",
+      "position": {
+        "breadboard": [
+          350,
+          50
+        ],
+        "schematic": [
+          350,
+          50
+        ],
+        "pcb": [
+          350,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "lamp",
+      "libraryId": "passive.resistor",
+      "reference": "RL1",
+      "value": "240 Ω",
+      "position": {
+        "breadboard": [
+          460,
+          50
+        ],
+        "schematic": [
+          460,
+          50
+        ],
+        "pcb": [
+          460,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.triac-dimmer-report",
+      "reference": "SCOPE1",
+      "value": "AC dimmer RMS and synchronization report",
+      "position": {
+        "breadboard": [
+          555,
+          50
+        ],
+        "schematic": [
+          555,
+          50
+        ],
+        "pcb": [
+          555,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          45,
+          160
+        ],
+        "schematic": [
+          45,
+          160
+        ],
+        "pcb": [
+          45,
+          160
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "AC_LIVE",
+      "endpoints": [
+        "ac-source:+",
+        "driver:AC_L",
+        "triac:AC_L"
+      ]
+    },
+    {
+      "id": "AC_NEUTRAL",
+      "endpoints": [
+        "ac-source:-",
+        "driver:AC_N",
+        "triac:AC_N",
+        "lamp:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "PHASE",
+      "endpoints": [
+        "fixture:ANGLE",
+        "driver:ANGLE"
+      ]
+    },
+    {
+      "id": "ENABLE",
+      "endpoints": [
+        "fixture:ENABLE",
+        "driver:ENABLE"
+      ]
+    },
+    {
+      "id": "FAULT",
+      "endpoints": [
+        "fixture:FAULT",
+        "driver:FAULT"
+      ]
+    },
+    {
+      "id": "FIRE",
+      "endpoints": [
+        "driver:FIRE",
+        "triac:GATE"
+      ]
+    },
+    {
+      "id": "LAMP",
+      "endpoints": [
+        "triac:LAMP",
+        "lamp:1",
+        "report:LAMP"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "driver:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}

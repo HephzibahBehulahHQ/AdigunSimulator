@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 122);
+  assert.equal(getExampleCoverage(registry).total, 123);
   assert.equal(getExampleCoverage(registry).released, 112);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 88);
@@ -3102,5 +3102,41 @@ test("catalogue IGBT inverter leg respects gate logic and fault interlock", asyn
   assert.equal(runSupportedAnalysis(updateComponent(project,"bridge",{value:"VceSat 1.8 V; MaxVoltage 20 V; MaxCurrent 20 A; Mode igbt-leg"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="GATE_L").endpoints=["driver:L_OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue TRIAC dimmer changes RMS output with phase angle and requires zero-cross sync", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/113-triac-ac-dimmer.adigun.json",import.meta.url)));
+  const nominal=runSupportedAnalysis(project);
+  assert.equal(nominal.state,"complete",JSON.stringify(nominal.validation?.errors??nominal));
+  assert.equal(nominal.result.kind,"triac-ac-dimmer");
+  assert.equal(nominal.result.zeroCrossLocked,true);
+  assert.equal(nominal.result.firingEnabled,true);
+  assert.ok(Math.abs(nominal.result.rmsFactor-Math.SQRT1_2)<1e-12);
+  assert.ok(nominal.result.lampVoltageRmsV>0);
+  assert.ok(nominal.result.lampCurrentRmsA>0);
+
+  const full=runSupportedAnalysis(updateComponent(project,"fixture",{value:"PhaseAngle 0 deg; Enable yes; Fault none; Mode phase-angle"}));
+  const later=runSupportedAnalysis(updateComponent(project,"fixture",{value:"PhaseAngle 120 deg; Enable yes; Fault none; Mode phase-angle"}));
+  assert.equal(full.state,"complete");
+  assert.equal(later.state,"complete");
+  assert.equal(full.result.rmsFactor,1);
+  assert.ok(later.result.rmsFactor<nominal.result.rmsFactor);
+  assert.ok(later.result.lampVoltageRmsV<nominal.result.lampVoltageRmsV);
+
+  const syncLoss=runSupportedAnalysis(updateComponent(project,"fixture",{value:"PhaseAngle 90 deg; Enable yes; Fault sync-loss; Mode phase-angle"}));
+  assert.equal(syncLoss.state,"complete");
+  assert.equal(syncLoss.result.zeroCrossLocked,false);
+  assert.equal(syncLoss.result.firingEnabled,false);
+  assert.equal(syncLoss.result.lampVoltageRmsV,0);
+  assert.equal(syncLoss.result.lampCurrentRmsA,0);
+
+  const disabled=runSupportedAnalysis(updateComponent(project,"fixture",{value:"PhaseAngle 45 deg; Enable no; Fault none; Mode phase-angle"}));
+  assert.equal(disabled.state,"complete");
+  assert.equal(disabled.result.firingEnabled,false);
+  assert.equal(disabled.result.lampVoltageRmsV,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"driver",{value:"MaxFrequency 55 Hz; MaxCurrent 2 A; Mode zero-cross-optotriac"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="FIRE").endpoints=["driver:FIRE"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
