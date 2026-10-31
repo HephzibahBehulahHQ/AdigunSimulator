@@ -1543,7 +1543,7 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 function analyseMcuServoControl(project,{source,mcu,potentiometer,servo,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),servoFields=String(servo.value).split(";").map(v=>v.trim()),potFields=String(potentiometer.value).split(";").map(v=>v.trim());
-  const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim(),number=value=>Number(String(value??"").split(/\\s+/)[0]);
+  const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim(),number=value=>Number(String(value??"").split(/\s+/)[0]);
   const position=number(field(potFields,"Position")?.replace(/%$/,"")),adcCount=Number.isFinite(position)?Math.round(position*1023/100):Number.NaN;
   const minPulse=number(field(servoFields,"MinPulse")),maxPulse=number(field(servoFields,"MaxPulse")),minAngle=number(field(servoFields,"MinAngle")),maxAngle=number(field(servoFields,"MaxAngle")),frequency=number(field(servoFields,"Frequency"));
   const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
