@@ -38,6 +38,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne556", category: "Active", type: "556 dual timer (ideal astable channels)", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"], defaultValue: "NE556-class", simulation: "analytical-556-dual-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.opamp-ideal", category: "Active", type: "Ideal op-amp (non-inverting midband model)", prefix: "U", pins: ["VCC", "VEE", "+", "-", "OUT"], defaultValue: "Ideal op-amp, dual supply", simulation: "analytical-opamp-noninverting", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.npn-small-signal", category: "Active", type: "NPN transistor (ideal common-emitter small-signal)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "β 100; VBE 0.7 V; VCEsat 0.2 V", simulation: "analytical-npn-common-emitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
 ]);
@@ -379,6 +380,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
+  const npnTransistors = project.components.filter((item) => item.libraryId === "active.npn-small-signal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
   const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
@@ -435,6 +437,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (dualComparators.length === 1 && source.length === 2 && resistor.length === 3 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseComparatorThreshold(project, { sources: source, comparator: dualComparators[0], resistors: resistor, led: led[0], ground: ground[0], validation });
+  }
+  if (npnTransistors.length === 1 && source.length === 1 && acSource.length === 1 && resistor.length === 5 && capacitor.length === 2 && ground.length === 1 && project.components.length === 11) {
+    return analyseNpnCommonEmitter(project, { source: source[0], input: acSource[0], transistor: npnTransistors[0], resistors: resistor, capacitors: capacitor, ground: ground[0], validation });
   }
   if (opAmps.length === 1 && source.length === 3 && acSource.length === 0 && resistor.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseReferenceBuffer(project, { sources: source, opAmp: opAmps[0], load: resistor[0], ground: ground[0], validation });
@@ -1134,6 +1139,45 @@ function analyseComparatorThreshold(project,{sources,comparator,resistors,led,gr
   }
   const thresholdVoltage=supplyVoltage*rLower/(rUpper+rLower),outputHigh=inputVoltage>thresholdVoltage,ledCurrentA=outputHigh?Math.max(0,(supplyVoltage-vf)/rLed):0;
   return {state:"complete",engine:"Ideal dual-input comparator threshold analysis",message:"Compares the input against a resistor-divider threshold and reports an ideal logic state and LED current. It omits propagation delay, hysteresis, offset, input bias, output saturation, noise, loading, and device-specific limits.",result:{kind:"comparator-threshold",supplyVoltage,inputVoltage,thresholdVoltage,outputHigh,outputState:outputHigh?"high":"low",ledOn:outputHigh,ledCurrentA},validation};
+}
+
+function analyseNpnCommonEmitter(project,{source,input,transistor,resistors,capacitors,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),supplyNet=n(source,"+"),baseNet=n(transistor,"B"),collectorNet=n(transistor,"C"),emitterNet=n(transistor,"E"),inputNet=n(input,"+");
+  if(n(source,"-")!==groundNet||n(input,"-")!==groundNet||!supplyNet||!baseNet||!collectorNet||!emitterNet){
+    return {state:"blocked",message:"Connect the DC supply and AC input references to ground and wire the NPN base, collector, and emitter.",validation};
+  }
+  const biasTop=resistors.find(r=>(n(r,"1")===supplyNet&&n(r,"2")===baseNet)||(n(r,"2")===supplyNet&&n(r,"1")===baseNet));
+  const biasBottom=resistors.find(r=>r!==biasTop&&((n(r,"1")===baseNet&&n(r,"2")===groundNet)||(n(r,"2")===baseNet&&n(r,"1")===groundNet)));
+  const collectorRes=resistors.find(r=>r!==biasTop&&r!==biasBottom&&((n(r,"1")===supplyNet&&n(r,"2")===collectorNet)||(n(r,"2")===supplyNet&&n(r,"1")===collectorNet)));
+  const emitterRes=resistors.find(r=>r!==biasTop&&r!==biasBottom&&r!==collectorRes&&((n(r,"1")===emitterNet&&n(r,"2")===groundNet)||(n(r,"2")===emitterNet&&n(r,"1")===groundNet)));
+  const remaining=resistors.find(r=>r!==biasTop&&r!==biasBottom&&r!==collectorRes&&r!==emitterRes);
+  const inputCap=capacitors.find(cap=>n(cap,"1")===inputNet||n(cap,"2")===inputNet);
+  const inputCapOther=inputCap?(n(inputCap,"1")===inputNet?n(inputCap,"2"):n(inputCap,"1")):null;
+  const outputCap=capacitors.find(cap=>cap!==inputCap&&((n(cap,"1")===collectorNet)||(n(cap,"2")===collectorNet)));
+  const outputNode=outputCap?(n(outputCap,"1")===collectorNet?n(outputCap,"2"):n(outputCap,"1")):null;
+  const load=remaining&&((n(remaining,"1")===outputNode&&n(remaining,"2")===groundNet)||(n(remaining,"2")===outputNode&&n(remaining,"1")===groundNet))?remaining:null;
+  if(!biasTop||!biasBottom||!collectorRes||!emitterRes||!inputCap||!outputCap||!load||inputCapOther!==baseNet){
+    return {state:"blocked",message:"Wire the base divider, collector/emitter resistors, input coupling capacitor, collector coupling capacitor, and grounded load.",validation};
+  }
+  const rTop=resistanceValue(biasTop.value),rBottom=resistanceValue(biasBottom.value),rCollector=resistanceValue(collectorRes.value),rEmitter=resistanceValue(emitterRes.value),rLoad=resistanceValue(load.value);
+  const cInput=capacitanceValue(inputCap.value),cOutput=capacitanceValue(outputCap.value),supplyVoltage=voltageValue(source.value),inputAmplitudeV=voltageValue(input.value),beta=100,vbe=0.7,vceSat=0.2,thermalVoltage=0.02585;
+  if(![rTop,rBottom,rCollector,rEmitter,rLoad,cInput,cOutput,supplyVoltage,inputAmplitudeV].every(Number.isFinite)||[rTop,rBottom,rCollector,rEmitter,rLoad,cInput,cOutput,supplyVoltage,inputAmplitudeV].some(v=>v<=0)){
+    return {state:"blocked",message:"The transistor model requires positive supply, input, resistance, and coupling-capacitance values.",validation};
+  }
+  const vThevenin=supplyVoltage*rBottom/(rTop+rBottom),rThevenin=1/(1/rTop+1/rBottom);
+  const baseCurrentA=(vThevenin-vbe)/(rThevenin+(beta+1)*rEmitter);
+  if(baseCurrentA<=0)return {state:"blocked",message:"The divider does not forward-bias the NPN transistor.",validation};
+  const collectorCurrentA=beta*baseCurrentA,emitterCurrentA=(beta+1)*baseCurrentA,baseVoltageV=vThevenin-baseCurrentA*rThevenin,emitterVoltageV=emitterCurrentA*rEmitter,collectorVoltageV=supplyVoltage-collectorCurrentA*rCollector,vceV=collectorVoltageV-emitterVoltageV;
+  if(vceV<=vceSat)return {state:"blocked",message:"The calculated bias point is at or beyond saturation; this small-signal model cannot continue.",validation};
+  const effectiveCollectorLoadOhm=1/(1/rCollector+1/rLoad),gmS=collectorCurrentA/thermalVoltage,rPiOhm=beta/gmS;
+  const gainVPerV=-(gmS*effectiveCollectorLoadOhm*rPiOhm)/(rPiOhm+(beta+1)*rEmitter),outputAmplitudeV=Math.abs(gainVPerV)*inputAmplitudeV;
+  const maximumPeakV=Math.min(collectorVoltageV-(emitterVoltageV+vceSat),supplyVoltage-collectorVoltageV);
+  if(outputAmplitudeV>=maximumPeakV)return {state:"blocked",message:"The small-signal output reaches the calculated collector headroom; reduce the input before analyzing.",validation};
+  const frequencyHz=1000,sineTrace=Array.from({length:9},(_,i)=>{const timeS=i/(frequencyHz*8),inputV=inputAmplitudeV*Math.sin(2*Math.PI*i/8),outputV=gainVPerV*inputV;return {timeS,inputV,outputV,collectorVoltageV:collectorVoltageV+outputV};});
+  return {state:"complete",engine:"Ideal NPN common-emitter bias and midband small-signal estimate",message:"Solves a fixed-β, fixed-VBE divider-biased operating point and an ideal midband sine trace with coupling capacitors treated as AC shorts. It omits transistor curves, Early effect, capacitance corners, distortion, temperature, tolerance, and device-specific behavior.",result:{kind:"npn-common-emitter",beta,vbeV:vbe,baseVoltageV,emitterVoltageV,collectorVoltageV,collectorCurrentA,emitterCurrentA,vceV,gainVPerV,inputAmplitudeV,outputAmplitudeV,frequencyHz,maximumPeakV,sineTrace},validation};
 }
 
 function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
