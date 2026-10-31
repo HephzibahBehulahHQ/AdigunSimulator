@@ -671,11 +671,11 @@ function analyseBridgeRectifier(project, { source, bridge, load, ground, validat
 }
 
 function analyseTvsPulseClamp(project, { source, resistors, tvs, ground, validation }) {
-  const sourceMatch = String(source.value).match(/^\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*idle\\s*;\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*pulse\\s*,\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*ms\\s*$/i);
+  const sourceMatch = String(source.value).match(/^\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*idle\s*;\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*pulse\s*,\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*ms\s*$/i);
   const idleVoltage = sourceMatch ? Number(sourceMatch[1]) : Number.NaN;
   const pulseVoltage = sourceMatch ? Number(sourceMatch[2]) : Number.NaN;
   const pulseWidthS = sourceMatch ? Number(sourceMatch[3]) / 1000 : Number.NaN;
-  const tvsMatch = String(tvs.value).match(/^\\s*Vclamp\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*;\\s*Pmax\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*W\\s*;\\s*Emax\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*J\\s*$/i);
+  const tvsMatch = String(tvs.value).match(/^\s*Vclamp\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*;\s*Pmax\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*W\s*;\s*Emax\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*J\s*$/i);
   const clampVoltage = tvsMatch ? Number(tvsMatch[1]) : Number.NaN;
   const maxPulsePowerW = tvsMatch ? Number(tvsMatch[2]) : Number.NaN;
   const maxPulseEnergyJ = tvsMatch ? Number(tvsMatch[3]) : Number.NaN;
