@@ -4879,6 +4879,19 @@
           "hardwareSafetyQualified": false
         }
       }
+    },
+    {
+      "id": "118-hotswap-protection",
+      "title": "Hot-swap input protection",
+      "status": "in-review",
+      "objective": "Estimate capacitive inrush for a configured startup ramp, apply a current limit, and trip the series-FET output when steady load current exceeds an overload threshold.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue hot-swap limits capacitor inrush and trips an overload",
+      "testId": "core-hotswap-protection",
+      "projectFile": "examples/118-hotswap-protection.adigun.json",
+      "readmeFile": "examples/118-hotswap-protection/README.md",
+      "safetyNote": "Ideal inrush and steady-load estimator only; no controller timing, MOSFET SOA, thermal, short-circuit, or hardware safety qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 118
     }
   ]
 }
