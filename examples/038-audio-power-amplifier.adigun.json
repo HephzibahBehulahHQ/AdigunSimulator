@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-038-audio-power-amp",
+  "metadata": {
+    "name": "Low-Voltage Audio Power Amplifier and Speaker Load",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "input",
+      "libraryId": "power.ac-source",
+      "reference": "VIN",
+      "value": "80 mV",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "amplifier",
+      "libraryId": "active.audio-amp-generic",
+      "reference": "U1",
+      "value": "Av 20; Swing 2 V; Q 4 mA; f 1 kHz",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "coupling",
+      "libraryId": "passive.capacitor",
+      "reference": "COUT",
+      "value": "220 µF",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "speaker",
+      "libraryId": "passive.speaker-r-l-generic",
+      "reference": "SP1",
+      "value": "R 8 Ω; L 0.5 mH",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "amplifier:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "input:-",
+        "amplifier:GND",
+        "speaker:-",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "AUDIO_IN",
+      "endpoints": [
+        "input:+",
+        "amplifier:IN"
+      ]
+    },
+    {
+      "id": "AMP_OUT",
+      "endpoints": [
+        "amplifier:OUT",
+        "coupling:1"
+      ]
+    },
+    {
+      "id": "SPEAKER_PLUS",
+      "endpoints": [
+        "coupling:2",
+        "speaker:+"
+      ]
+    }
+  ],
+  "history": []
+}
