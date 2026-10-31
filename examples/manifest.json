@@ -6215,6 +6215,18 @@
           "result": null
         }
       }
+    },
+    {
+      "id": "157-net-probe-cross-probe",
+      "title": "Net-probe cross-probe",
+      "status": "in-review",
+      "objective": "Select one project net and synchronize its exact net ID across breadboard, schematic, and PCB displays without implying that cross-view highlighting performs routing.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue net cross-probe preserves the same net ID across all design views",
+      "testId": "core-net-probe-cross-probe",
+      "projectFile": "examples/157-net-probe-cross-probe.adigun.json",
+      "readmeFile": "examples/157-net-probe-cross-probe/README.md",
+      "safetyNote": "Cross-probe shares logical net identity and selection only. It does not create or verify PCB traces, electrical connectivity changes, or manufacturing-ready routing.",
+      "scope": "catalogue"
     }
   ]
 }
