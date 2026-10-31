@@ -7330,6 +7330,19 @@
           ]
         }
       }
+    },
+    {
+      "id": "190-voltage-divider-calculator",
+      "title": "Voltage-divider calculator",
+      "status": "in-review",
+      "objective": "Calculate unloaded divider output and Thevenin resistance, then estimate loaded output and warn when load-induced output change exceeds a configurable threshold.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue voltage-divider calculator reports unloaded ratio and load-shift warning",
+      "testId": "core-voltage-divider-calculator",
+      "projectFile": "examples/190-voltage-divider-calculator.adigun.json",
+      "readmeFile": "examples/190-voltage-divider-calculator/README.md",
+      "safetyNote": "Ideal DC resistor model only. Source impedance, resistor tolerance, temperature, power dissipation, and downstream input behavior are not qualified.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
