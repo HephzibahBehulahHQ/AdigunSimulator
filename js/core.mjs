@@ -1718,7 +1718,7 @@ function analyseBleBeaconConfig(project,{source,settings,encoder,advertiser,repo
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
   const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
   const settingFields=fields(settings.value),encoderFields=fields(encoder.value),advertiserFields=fields(advertiser.value);
-  const name=field(settingFields,"Name")??"",flagsText=field(settingFields,"Flags")??"",serviceUuid=field(settingFields,"ServiceUuid")??"",txPowerDbm=Number(field(settingFields,"TxPowerDbm"));
+  const name=field(settingFields,"Name")??"",flagsText=field(settingFields,"Flags")??"",serviceUuid=(field(settingFields,"ServiceUuid")??"").replace(/^0x/i,""),txPowerDbm=Number(field(settingFields,"TxPowerDbm"));
   const flags=Number.parseInt(flagsText.replace(/^0x/i,""),16),nameBytes=Array.from(new TextEncoder().encode(name));
   const groundNet=n(ground,"0"),vccNet=n(encoder,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
   const dataPaths=n(settings,"DATA")===n(encoder,"CONFIG")&&n(encoder,"TX")===n(advertiser,"RX")&&n(encoder,"REPORT")===n(report,"DATA");
