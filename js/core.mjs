@@ -223,6 +223,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.ssr-control-fixture", category: "Inputs", type: "AC solid-state relay control fixture", prefix: "CMD", pins: ["CONTROL", "FAULT", "GND"], defaultValue: "Control on; Fault none; Mode ssr-control", simulation: "fixture-ssr-ac", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.ssr-ac-switch-ideal", category: "Active", type: "Ideal isolated AC solid-state relay model", prefix: "K", pins: ["AC_L", "AC_N", "CONTROL", "LOAD"], defaultValue: "Isolation yes; OnDrop 1.5 V; LeakageCurrent 2 mA; MaxCurrent 2 A; Mode ssr", simulation: "analytical-ssr-ac", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.ssr-ac-report", category: "Output", type: "AC SSR load and off-leakage report", prefix: "SCOPE", pins: ["LOAD", "STATUS", "GND"], defaultValue: "SSR AC load report", simulation: "analytical-ssr-ac", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.ups-mains-fixture", category: "Inputs", type: "UPS mains state and battery fixture", prefix: "CMD", pins: ["MAINS", "GND"], defaultValue: "Mains yes; BatteryVoltage 12 V; Capacity 2 Ah; SOC 80%; MinSOC 20%; HoldUp 10 min; Mode ups-fixture", simulation: "fixture-ups-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.ups-charger-transfer-ideal", category: "Active", type: "Ideal UPS charger and mains-state controller", prefix: "U", pins: ["VIN", "BAT", "OUT", "MAINS", "STATUS", "GND"], defaultValue: "Efficiency 90%; MaxChargeCurrent 1 A; Mode ups-charger", simulation: "analytical-ups-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "protection.ups-ideal-diode", category: "Protection", type: "Ideal-diode UPS source selector", prefix: "D", pins: ["MAIN_IN", "BAT_IN", "OUT", "STATUS", "GND"], defaultValue: "ForwardDrop 0 V; Mode ideal-or", simulation: "analytical-ups-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.ups-transfer-report", category: "Output", type: "UPS transfer and hold-up report", prefix: "SCOPE", pins: ["OUT", "CHARGER_STATUS", "DIODE_STATUS", "GND"], defaultValue: "UPS hold-up report", simulation: "analytical-ups-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -756,6 +760,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const ssrFixtures = project.components.filter((item) => item.libraryId === "input.ssr-control-fixture");
   const ssrSwitches = project.components.filter((item) => item.libraryId === "active.ssr-ac-switch-ideal");
   const ssrReports = project.components.filter((item) => item.libraryId === "output.ssr-ac-report");
+  const upsFixtures = project.components.filter((item) => item.libraryId === "input.ups-mains-fixture");
+  const upsChargers = project.components.filter((item) => item.libraryId === "active.ups-charger-transfer-ideal");
+  const upsDiodes = project.components.filter((item) => item.libraryId === "protection.ups-ideal-diode");
+  const upsReports = project.components.filter((item) => item.libraryId === "output.ups-transfer-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -1021,6 +1029,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (acSource.length===1&&ssrFixtures.length===1&&ssrSwitches.length===1&&ssrReports.length===1&&resistor.length===1&&ground.length===1&&project.components.length===6) {
     return analyseSsrAcSwitch(project,{source:acSource[0],fixture:ssrFixtures[0],ssr:ssrSwitches[0],report:ssrReports[0],load:resistor[0],ground:ground[0],validation});
+  }
+  if (source.length===1&&upsFixtures.length===1&&upsChargers.length===1&&upsDiodes.length===1&&upsReports.length===1&&batteries.length===1&&resistor.length===1&&ground.length===1&&project.components.length===8) {
+    return analyseUpsTransfer(project,{source:source[0],fixture:upsFixtures[0],charger:upsChargers[0],diode:upsDiodes[0],battery:batteries[0],report:upsReports[0],load:resistor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3548,6 +3559,50 @@ function analyseSsrAcSwitch(project,{source,fixture,ssr,report,load,ground,valid
   return {state:"complete",engine:"Bounded AC solid-state relay and off-leakage estimator",
     message:"Models an isolated control state, resistive AC load, SSR on-state drop, and configured off-state leakage current. AC waveform switching, isolation construction, surge behavior, thermal performance, snubbers, mains clearances, and hardware safety are not modeled.",
     result:{kind:"ssr-ac-switch",control,fault,conducting,loadState:conducting?"on":"off-with-leakage",isolationModeled:true,physicalIsolationQualified:false,sourceRmsVoltageV:sourceRmsV,frequencyHz,loadVoltageRmsV,loadCurrentRmsA,loadPowerW:loadVoltageRmsV*loadCurrentRmsA,offLeakageCurrentA:conducting?0:loadCurrentRmsA,configuredLeakageCurrentA:leakageCurrentA,loadResistanceOhm:loadOhm,maxCurrentA,mainsSafetyQualified:false},validation};
+}
+function analyseUpsTransfer(project,{source,fixture,charger,diode,battery,report,load,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const f=fields(fixture.value),c=fields(charger.value),d=fields(diode.value);
+  const mains=field(f,"Mains"),batteryV=voltageValue(field(f,"BatteryVoltage")??"");
+  const capacityAh=Number(String(field(f,"Capacity")??"").replace(/\s*Ah$/i,""));
+  const socPercent=Number(String(field(f,"SOC")??"").replace("%","")),minimumSocPercent=Number(String(field(f,"MinSOC")??"").replace("%",""));
+  const holdUpMin=Number(String(field(f,"HoldUp")??"").replace(/\s*min$/i,""));
+  const sourceV=voltageValue(source.value),efficiencyPercent=Number(String(field(c,"Efficiency")??"").replace("%",""));
+  const maxChargeA=currentValue(field(c,"MaxChargeCurrent")??""),diodeDropV=voltageValue(field(d,"ForwardDrop")??"");
+  const loadOhm=resistanceValue(load.value),gnd=n(ground,"0");
+  const groundPath=n(source,"-")===gnd&&n(battery,"-")===gnd&&n(fixture,"GND")===gnd&&n(charger,"GND")===gnd&&n(diode,"GND")===gnd&&n(report,"GND")===gnd&&n(load,"2")===gnd;
+  const mainsPath=n(source,"+")===n(charger,"VIN")&&n(fixture,"MAINS")===n(charger,"MAINS");
+  const batteryPath=n(charger,"BAT")===n(battery,"+")&&n(battery,"+")===n(diode,"BAT_IN");
+  const mainPath=n(charger,"OUT")===n(diode,"MAIN_IN");
+  const outputPath=n(diode,"OUT")===n(report,"OUT")&&n(diode,"OUT")===n(load,"1");
+  const chargerStatus=n(charger,"STATUS")===n(report,"CHARGER_STATUS"),diodeStatus=n(diode,"STATUS")===n(report,"DIODE_STATUS");
+  const required=[gnd,n(source,"+"),n(charger,"VIN"),n(fixture,"MAINS"),n(charger,"MAINS"),n(charger,"BAT"),n(battery,"+"),n(diode,"BAT_IN"),n(charger,"OUT"),n(diode,"MAIN_IN"),n(diode,"OUT"),n(report,"OUT"),n(load,"1"),n(load,"2"),n(charger,"STATUS"),n(report,"CHARGER_STATUS"),n(diode,"STATUS"),n(report,"DIODE_STATUS")];
+  if(required.some(x=>typeof x!=="string"||!x)||!groundPath||!mainsPath||!batteryPath||!mainPath||!outputPath||!chargerStatus||!diodeStatus
+    ||field(f,"Mode")!=="ups-fixture"||field(c,"Mode")!=="ups-charger"||field(d,"Mode")!=="ideal-or"||!["yes","no"].includes(mains)
+    ||![batteryV,capacityAh,socPercent,minimumSocPercent,holdUpMin,sourceV,efficiencyPercent,maxChargeA,diodeDropV,loadOhm].every(Number.isFinite)
+    ||batteryV<6||batteryV>60||capacityAh<=0||capacityAh>1000||socPercent<0||socPercent>100||minimumSocPercent<0||minimumSocPercent>=socPercent
+    ||holdUpMin<=0||holdUpMin>1440||sourceV<batteryV+1||sourceV>100||efficiencyPercent<70||efficiencyPercent>99
+    ||maxChargeA<=0||maxChargeA>20||diodeDropV<0||diodeDropV>1||loadOhm<=0||loadOhm>10000){
+    return {state:"blocked",message:"Wire the charger, battery, ideal-diode selector and load; use supported battery, charge, reserve, and hold-up values.",validation};
+  }
+  const loadPowerDemandW=batteryV*batteryV/loadOhm;
+  const mainsAvailable=mains==="yes";
+  const sourceSelected=mainsAvailable?"mains":(socPercent>minimumSocPercent?"battery":"none");
+  const outputEnabled=sourceSelected!=="none";
+  const outputVoltageV=outputEnabled?Math.max(0,batteryV-diodeDropV):0;
+  const loadCurrentA=outputEnabled?outputVoltageV/loadOhm:0;
+  const deliveredPowerW=outputVoltageV*loadCurrentA;
+  const availableBatteryEnergyWh=capacityAh*batteryV*(socPercent-minimumSocPercent)/100;
+  const estimatedHoldUpMin=loadPowerDemandW>0?availableBatteryEnergyWh/loadPowerDemandW*60:0;
+  const holdUpSatisfied=mainsAvailable||estimatedHoldUpMin>=holdUpMin;
+  const batteryDischargeCurrentA=mainsAvailable?0:loadCurrentA;
+  const batteryChargeCurrentA=mainsAvailable?Math.min(maxChargeA,capacityAh*(100-socPercent)/100):0;
+  const batteryDischarged=mainsAvailable?false:outputEnabled;
+  return {state:"complete",engine:"Bounded UPS source-transfer and hold-up estimator",
+    message:"Models mains-priority source selection, ideal-diode transfer, configured battery reserve/energy, charger-current limit, and a resistive output load. Transfer timing, battery chemistry, charger control loops, cell protection, inrush, thermal behavior, and hardware safety are not modeled.",
+    result:{kind:"ups-transfer",mainsAvailable,sourceSelected,outputEnabled,outputVoltageV,loadCurrentA,loadPowerW:deliveredPowerW,batteryVoltageV:batteryV,batteryCapacityAh:capacityAh,stateOfChargePercent:socPercent,minimumReservePercent:minimumSocPercent,loadResistanceOhm:loadOhm,loadPowerDemandW,availableBatteryEnergyWh,estimatedHoldUpMin,requiredHoldUpMin:holdUpMin,holdUpSatisfied,batteryChargeCurrentA,batteryDischargeCurrentA,batteryDischarged,chargerEfficiencyPercent:efficiencyPercent,idealDiodeForwardDropV:diodeDropV,transferInterruptionModeled:false,hardwareSafetyQualified:false},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
