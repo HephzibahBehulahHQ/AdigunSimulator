@@ -6188,7 +6188,7 @@
     {
       "id": "156-model-unavailable-diagnosis",
       "title": "Model-unavailable diagnosis",
-      "status": "in-review",
+      "status": "released",
       "objective": "Display a schematic-only component whose requested vendor macromodel is absent, mark it unavailable, and block analysis without substituting a fake behavioral model.",
       "acceptanceTest": "tests/core.test.mjs: catalogue unavailable-model fixture is schematic-only and never simulates a fake model",
       "testId": "core-model-unavailable-diagnosis",
@@ -6196,7 +6196,25 @@
       "readmeFile": "examples/156-model-unavailable-diagnosis/README.md",
       "safetyNote": "The generic schematic symbol is not a validated TL081C device model. No analog result is produced; install and verify an appropriate manufacturer model before relying on simulation.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 156,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41208042192",
+        "headRevision": "ba0c3efe8df641a413c3c08327c5106e4fbbde1d",
+        "engine": "Component model availability check",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "schematic-only-unavailable-model-v1",
+        "expectedResult": {
+          "kind": "component-model-status",
+          "reference": "U1",
+          "status": "unavailable",
+          "displayMode": "schematic-only",
+          "analysisAttempted": false,
+          "result": null
+        }
+      }
     }
   ]
 }
