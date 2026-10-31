@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "id": "example-189-led-resistor-calculator",
+  "metadata": {
+    "name": "Example 189 — LED Series-Resistor Calculator",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          60,
+          142
+        ],
+        "schematic": [
+          95,
+          128
+        ],
+        "pcb": [
+          92,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          255,
+          142
+        ],
+        "schematic": [
+          260,
+          128
+        ],
+        "pcb": [
+          244,
+          128
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          455,
+          142
+        ],
+        "schematic": [
+          452,
+          128
+        ],
+        "pcb": [
+          408,
+          142
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          565,
+          192
+        ],
+        "schematic": [
+          564,
+          190
+        ],
+        "pcb": [
+          506,
+          192
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "resistor-1:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "resistor-1:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "led-1:K",
+        "source-1:-",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": [],
+  "breadboardSchematicSync": {
+    "kind": "shared-topology-sync",
+    "sourceView": "breadboard"
+  },
+  "ledResistorCalculator": {
+    "kind": "led-series-resistor-cases",
+    "cases": [
+      {
+        "id": "3v3-red-led",
+        "supplyVoltageV": 3.3,
+        "ledForwardVoltageV": 2,
+        "targetCurrentmA": 10,
+        "resistorPowerRatingW": 0.125,
+        "ledMaxCurrentmA": 20
+      },
+      {
+        "id": "5v-blue-led",
+        "supplyVoltageV": 5,
+        "ledForwardVoltageV": 3,
+        "targetCurrentmA": 15,
+        "resistorPowerRatingW": 0.125,
+        "ledMaxCurrentmA": 20
+      },
+      {
+        "id": "12v-resistor-power-warning",
+        "supplyVoltageV": 12,
+        "ledForwardVoltageV": 2,
+        "targetCurrentmA": 20,
+        "resistorPowerRatingW": 0.125,
+        "ledMaxCurrentmA": 20
+      }
+    ]
+  }
+}

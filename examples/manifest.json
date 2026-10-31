@@ -7287,6 +7287,19 @@
           ]
         }
       }
+    },
+    {
+      "id": "189-led-resistor-calculator",
+      "title": "LED resistor calculator",
+      "status": "in-review",
+      "objective": "Compute an ideal LED series resistance from supply voltage, forward voltage, and target current; recommend the next E12 value above the minimum and warn when estimated resistor dissipation leaves insufficient rating margin.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue LED resistor calculator rounds upward to E12 and warns on resistor power",
+      "testId": "core-led-series-resistor-calculator",
+      "projectFile": "examples/189-led-resistor-calculator.adigun.json",
+      "readmeFile": "examples/189-led-resistor-calculator/README.md",
+      "safetyNote": "Ideal DC calculation only. Verify LED datasheet limits, source tolerance, resistor tolerance, temperature, and power derating before hardware use.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
