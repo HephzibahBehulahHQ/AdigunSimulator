@@ -1539,7 +1539,7 @@ function analyseMcuUltrasonicRanger(project,{source,mcu,sensor,oled,ground,valid
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
-  const echoUs=Number(field(sensorFields,"Echo")?.split(/\\s+/)[0]),minimumMm=Number(field(sensorFields,"Minimum")?.split(/\\s+/)[0]),maximumMm=Number(field(sensorFields,"Maximum")?.split(/\\s+/)[0]);
+  const echoUs=Number(field(sensorFields,"Echo")?.split(/\s+/)[0]),minimumMm=Number(field(sensorFields,"Minimum")?.split(/\s+/)[0]),maximumMm=Number(field(sensorFields,"Maximum")?.split(/\s+/)[0]);
   const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
   const wired=n(mcu,"D9")===n(sensor,"TRIG")&&n(sensor,"ECHO")===n(mcu,"D8")&&n(mcu,"D7")===n(oled,"DATA");
   if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(mcu,"GND")!==groundNet||n(sensor,"VCC")!==vccNet||n(sensor,"GND")!==groundNet||n(oled,"VCC")!==vccNet||n(oled,"GND")!==groundNet||!wired||field(mcuFields,"Program")?.toLowerCase()!=="ultrasonic ranger"||field(mcuFields,"Trigger")!=="D9"||field(mcuFields,"Echo")!=="D8"||field(mcuFields,"Display")!=="D7"||!Number.isFinite(echoUs)||echoUs<=0||echoUs>25000||!Number.isFinite(minimumMm)||!Number.isFinite(maximumMm)||minimumMm<=0||maximumMm<=minimumMm){
