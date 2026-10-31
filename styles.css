@@ -233,3 +233,11 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .led-body { fill:#ee514d; stroke:#fbe5e4; stroke-width:2; filter:drop-shadow(0 0 5px rgb(239 74 70 / 65%)); }
 .led-lens { fill:none; stroke:#ffc1bb; stroke-width:2; stroke-linecap:round; opacity:.9; }
 .breadboard-controls .package-note { color:var(--muted); font-size:.68rem; line-height:1.4; }
+
+.axial-diode-body { fill:#343943; stroke:#111820; stroke-width:1.5; filter:drop-shadow(0 1px 1px rgb(0 0 0 / 35%)); }
+.diode-cathode-band { stroke:#e6e9ee; stroke-width:3; }
+.capacitor-body { fill:#28739d; stroke:#172b3a; stroke-width:1.8; filter:drop-shadow(0 2px 2px rgb(0 0 0 / 35%)); }
+.capacitor-top { fill:none; stroke:#b8e8f5; stroke-width:1.7; opacity:.75; }
+.transistor-package .package-leads { stroke:#a5aeb5; stroke-width:2.4; }
+.to92-body { fill:#222830; stroke:#080c11; stroke-width:1.7; filter:drop-shadow(0 2px 2px rgb(0 0 0 / 40%)); }
+.to92-face { fill:none; stroke:#515965; stroke-width:1.2; }

@@ -164,7 +164,11 @@ export function validateBreadboardTopology(project, { getPartPins, model = BREAD
 
 export const BREADBOARD_GENERIC_PACKAGE_GEOMETRY = Object.freeze({
   "passive.resistor": Object.freeze({ kind: "axial-resistor", pins: Object.freeze(["1", "2"]), bodyLengthMm: 6.3, bodyWidthMm: 2.3, exactManufacturerFootprint: false }),
-  "diode.led-red": Object.freeze({ kind: "through-hole-led-5mm", pins: Object.freeze(["A", "K"]), bodyDiameterMm: 5, nominalLeadPitchMm: 2.54, exactManufacturerFootprint: false })
+  "diode.led-red": Object.freeze({ kind: "through-hole-led-5mm", pins: Object.freeze(["A", "K"]), bodyDiameterMm: 5, nominalLeadPitchMm: 2.54, exactManufacturerFootprint: false }),
+  "passive.capacitor": Object.freeze({ kind: "radial-capacitor", pins: Object.freeze(["1", "2"]), bodyDiameterMm: 5, bodyHeightMm: 7, exactManufacturerFootprint: false }),
+  "passive.supercapacitor": Object.freeze({ kind: "radial-capacitor", pins: Object.freeze(["+", "-"]), bodyDiameterMm: 8, bodyHeightMm: 10, exactManufacturerFootprint: false }),
+  "diode.rectifier-1n4007": Object.freeze({ kind: "axial-diode", pins: Object.freeze(["A", "K"]), bodyLengthMm: 5.2, bodyWidthMm: 2.7, exactManufacturerFootprint: false }),
+  "active.npn-small-signal": Object.freeze({ kind: "to92-transistor", pins: Object.freeze(["B", "C", "E"]), bodyWidthMm: 4.5, bodyHeightMm: 5, exactManufacturerFootprint: false })
 });
 
 export function breadboardPackagePlacement(component, project) {
@@ -174,20 +178,35 @@ export function breadboardPackagePlacement(component, project) {
     const hole = normalizeBreadboardHole(project.breadboard.pinHoles[`${component.instanceId}:${pin}`]);
     return hole ? { pin, hole, ...breadboardHolePoint(hole) } : null;
   });
-  if (pinPoints.some((point) => !point)) return null;
-  const [first, second] = pinPoints;
-  const dx = second.x - first.x, dy = second.y - first.y;
+  if (pinPoints.some((point) => !point) || new Set(pinPoints.map((point) => point.hole)).size !== pinPoints.length) return null;
+  const first = pinPoints[0], last = pinPoints[pinPoints.length - 1];
+  const dx = last.x - first.x, dy = last.y - first.y;
   const span = Math.hypot(dx, dy);
   if (span < 1) return null;
+  const center = {
+    x: pinPoints.reduce((sum, point) => sum + point.x, 0) / pinPoints.length,
+    y: pinPoints.reduce((sum, point) => sum + point.y, 0) / pinPoints.length
+  };
+  const angleDegrees = Math.atan2(dy, dx) * 180 / Math.PI;
+  const scale = (572 / 29) / 2.54;
+  const offset = packageModel.kind === "to92-transistor"
+    ? packageModel.bodyHeightMm * scale / 2 + 4
+    : packageModel.bodyDiameterMm * scale / 2 + 4;
+  const normal = { x: dy / span, y: -dx / span };
+  const bodyCenter = ["radial-capacitor", "to92-transistor"].includes(packageModel.kind)
+    ? { x: center.x + normal.x * offset, y: center.y + normal.y * offset }
+    : center;
   return {
     kind: packageModel.kind,
     exactManufacturerFootprint: packageModel.exactManufacturerFootprint,
     bodyLengthMm: packageModel.bodyLengthMm,
     bodyWidthMm: packageModel.bodyWidthMm,
     bodyDiameterMm: packageModel.bodyDiameterMm,
+    bodyHeightMm: packageModel.bodyHeightMm,
     pinPoints,
-    center: { x: (first.x + second.x) / 2, y: (first.y + second.y) / 2 },
-    angleDegrees: Math.atan2(dy, dx) * 180 / Math.PI,
+    center,
+    bodyCenter,
+    angleDegrees,
     leadSpanPixels: span
   };
 }

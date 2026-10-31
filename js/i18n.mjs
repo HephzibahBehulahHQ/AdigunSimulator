@@ -1143,3 +1143,11 @@ Object.assign(TRANSLATIONS.en, {"breadboardPackageNote":"Body drawings are gener
 Object.assign(TRANSLATIONS.de, {"breadboardPackageNote":"Die Gehäusezeichnungen sind generische bedrahtete Widerstands- und 5-mm-LED-Formen; es wird kein herstellerspezifisches Gehäuse behauptet."});
 Object.assign(TRANSLATIONS.yo, {"breadboardPackageNote":"Àwòrán body jẹ́ generic fún resistor àti LED 5 mm; kì í ṣe package olupese kan pàtó."});
 Object.assign(TRANSLATIONS.pcm, {"breadboardPackageNote":"The body drawings na generic resistor and 5 mm LED shape; e no claim any manufacturer package."});
+
+Object.assign(TRANSLATIONS.en, {breadboardPackageNote:"Generic resistor, capacitor, axial diode, LED, and TO-92 body drawings are illustrative, not manufacturer-specific footprints."});
+
+Object.assign(TRANSLATIONS.de, {breadboardPackageNote:"Generische Gehäuseformen für Widerstand, Kondensator, axiale Diode, LED und TO-92 sind illustrative Darstellungen, keine herstellerspezifischen Footprints."});
+
+Object.assign(TRANSLATIONS.yo, {breadboardPackageNote:"Àwòrán generic fún resistor, capacitor, axial diode, LED àti TO-92 jẹ́ àpẹẹrẹ; kì í ṣe footprint olupese pàtó."});
+
+Object.assign(TRANSLATIONS.pcm, {breadboardPackageNote:"The resistor, capacitor, axial diode, LED and TO-92 drawings na generic example; dem no be manufacturer-specific footprint."});

@@ -84,3 +84,22 @@ test("generic through-hole resistor and LED bodies fit their mapped pin-hole spa
   assert.equal(led.exactManufacturerFootprint, false);
   assert.ok(Math.abs(led.leadSpanPixels - (572 / 29)) < 0.01);
 });
+
+test("generic radial capacitor, axial rectifier, and TO-92 transistor placements require all distinct mapped pins", () => {
+  const place = (libraryId, pins, holes) => {
+    const component = {instanceId:"part-1",libraryId};
+    const project = {breadboard:{model:"generic-400-30",pinHoles:Object.fromEntries(pins.map((pin,index)=>[`part-1:${pin}`,holes[index]]))}};
+    return breadboardPackagePlacement(component,project);
+  };
+  const capacitor = place("passive.capacitor",["1","2"],["C10","C11"]);
+  assert.equal(capacitor.kind,"radial-capacitor");
+  assert.notDeepEqual(capacitor.bodyCenter,capacitor.center);
+  const diode = place("diode.rectifier-1n4007",["A","K"],["C12","C17"]);
+  assert.equal(diode.kind,"axial-diode");
+  assert.equal(diode.exactManufacturerFootprint,false);
+  const transistor = place("active.npn-small-signal",["B","C","E"],["C20","C21","C22"]);
+  assert.equal(transistor.kind,"to92-transistor");
+  assert.equal(transistor.pinPoints.length,3);
+  assert.equal(transistor.exactManufacturerFootprint,false);
+  assert.equal(place("active.npn-small-signal",["B","C","E"],["C20","C21","C21"]),null);
+});
