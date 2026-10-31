@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-069-pico-adc-voltmeter",
+  "metadata": {
+    "name": "Pico ADC Divider Voltmeter with OLED",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "vin",
+      "libraryId": "power.dc-source",
+      "reference": "VIN",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          35,
+          55
+        ],
+        "schematic": [
+          35,
+          55
+        ],
+        "pcb": [
+          35,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "logic",
+      "libraryId": "power.dc-source",
+      "reference": "VLOGIC",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          110,
+          55
+        ],
+        "schematic": [
+          110,
+          55
+        ],
+        "pcb": [
+          110,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "pico",
+      "libraryId": "active.rp2040-pico-ideal",
+      "reference": "U1",
+      "value": "ADC 12 bit; Reference 3.3 V; Calibrate divider",
+      "position": {
+        "breadboard": [
+          205,
+          55
+        ],
+        "schematic": [
+          205,
+          55
+        ],
+        "pcb": [
+          205,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "upper",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "30 kΩ",
+      "position": {
+        "breadboard": [
+          300,
+          55
+        ],
+        "schematic": [
+          300,
+          55
+        ],
+        "pcb": [
+          300,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "lower",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          365,
+          55
+        ],
+        "schematic": [
+          365,
+          55
+        ],
+        "pcb": [
+          365,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "oled",
+      "libraryId": "output.oled-text-sink-ideal",
+      "reference": "OLED1",
+      "value": "Voltage result",
+      "position": {
+        "breadboard": [
+          440,
+          55
+        ],
+        "schematic": [
+          440,
+          55
+        ],
+        "pcb": [
+          440,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          540,
+          55
+        ],
+        "schematic": [
+          540,
+          55
+        ],
+        "pcb": [
+          540,
+          55
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VIN_HI",
+      "endpoints": [
+        "vin:+",
+        "upper:1"
+      ]
+    },
+    {
+      "id": "ADC_MID",
+      "endpoints": [
+        "upper:2",
+        "lower:1",
+        "pico:ADC0"
+      ]
+    },
+    {
+      "id": "VCC",
+      "endpoints": [
+        "logic:+",
+        "pico:VCC",
+        "oled:VCC"
+      ]
+    },
+    {
+      "id": "GROUND",
+      "endpoints": [
+        "vin:-",
+        "logic:-",
+        "pico:GND",
+        "lower:2",
+        "oled:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "OLED_DATA",
+      "endpoints": [
+        "pico:TX",
+        "oled:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
