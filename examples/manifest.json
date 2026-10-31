@@ -175,6 +175,32 @@
           "dischargeVoltageAtTauV": 1.839397206
         }
       }
+    },
+    {
+      "id": "012-rc-low-pass",
+      "title": "RC low-pass frequency response",
+      "status": "released",
+      "objective": "Calculate the ideal sinusoidal steady-state response of a 1 kΩ / 100 µF RC low-pass filter at 0.1×, 1×, and 10× cutoff and verify 1/√2 gain at cutoff.",
+      "acceptanceTest": "tests/core.test.mjs: RC low-pass response uses the calculated cutoff and attenuates above it",
+      "testId": "core-rc-low-pass",
+      "projectFile": "examples/012-rc-low-pass.adigun.json",
+      "safetyNote": "Ideal educational frequency-domain model only. Generic components have no verified physical ratings, tolerances, parasitics, exact manufacturer BOM, hole-level breadboard mapping, or PCB footprints. It is not hardware or manufacturing guidance.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41149323903",
+        "headRevision": "2645c511af038c3e5d47e1c92d9906fc659f43c7",
+        "engine": "Analytical first-order RC low-pass frequency response",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-rc-lowpass-v1",
+        "libraryLock": "generic-starter-library@7eda197bde19fa6d2ad6e241cc8174e0c03dc350",
+        "expectedResult": {
+          "cutoffHz": 1.5915494309189535,
+          "gainAt0_1Cutoff": 0.9950371902,
+          "gainAtCutoff": 0.7071067812,
+          "gainAt10Cutoff": 0.099503719
+        }
+      }
     }
   ]
 }
