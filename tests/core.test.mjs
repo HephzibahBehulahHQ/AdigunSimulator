@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 74);
+  assert.equal(getExampleCoverage(registry).total, 75);
   assert.equal(getExampleCoverage(registry).released, 64);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 136);
@@ -1967,5 +1967,22 @@ test("catalogue Arduino temperature monitor converts sensor samples for an LCD r
   assert.equal(runSupportedAnalysis(updateComponent(project,"sensor",{value:"Temperature 130 C; Scale 10 mV/C; Offset 0 mV"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(n=>n.id==="SENSOR_OUT").endpoints=["sensor:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue ultrasonic ranger converts echo time and reports measurement boundaries",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/065-arduino-ultrasonic-ranger.adigun.json",import.meta.url)));
+  for(const [echoUs,expectedValid] of [[117,true],[5882,true],[23323,true],[25000,false]]){
+    const configured=updateComponent(project,"sensor",{value:`Echo ${echoUs} us; Minimum 20 mm; Maximum 4000 mm`});
+    const result=runSupportedAnalysis(configured);
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.measurementValid,expectedValid);
+    if(expectedValid)assert.match(result.result.displayText,/cm$/);
+    else assert.equal(result.result.displayText,"Out of range");
+    assert.equal(result.result.firmwareExecuted,false);
+  }
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="ECHO").endpoints=["sensor:ECHO"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
