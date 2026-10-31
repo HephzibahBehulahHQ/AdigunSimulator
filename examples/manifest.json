@@ -2293,6 +2293,18 @@
           "invalidVoltage": "blocked"
         }
       }
+    },
+    {
+      "id": "054-priority-encoder",
+      "title": "Four-input priority encoder",
+      "status": "in-review",
+      "objective": "Encode the highest-numbered active input into a two-bit output, expose a valid signal for no active inputs, and verify precedence for simultaneous assertions.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue priority encoder reports the highest asserted input",
+      "testId": "core-priority-encoder",
+      "projectFile": "examples/054-priority-encoder.adigun.json",
+      "safetyNote": "Generic ideal static four-input priority encoder with D3 highest. It omits propagation delay, input loading, noise, and specific device behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 54
     }
   ]
 }
