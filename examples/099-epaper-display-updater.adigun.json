@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-099-epaper-display-updater",
+  "metadata": {
+    "name": "E-paper Partial Refresh and Power-State Model",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          30,
+          50
+        ],
+        "schematic": [
+          30,
+          50
+        ],
+        "pcb": [
+          30,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "request",
+      "libraryId": "input.epaper-update-request",
+      "reference": "REQ1",
+      "value": "Refresh partial; ChangedTiles 1; TotalTiles 100; BusyMs 800; TimeoutMs 1200; PowerState sleep; PanelPower on; PartialsSinceFull 1",
+      "position": {
+        "breadboard": [
+          120,
+          50
+        ],
+        "schematic": [
+          120,
+          50
+        ],
+        "pcb": [
+          120,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.epaper-update-controller-ideal",
+      "reference": "U1",
+      "value": "Mode e-paper; PartialLimit 0.20; GhostRefreshLimit 4; MaxBusyMs 2000",
+      "position": {
+        "breadboard": [
+          300,
+          50
+        ],
+        "schematic": [
+          300,
+          50
+        ],
+        "pcb": [
+          300,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.epaper-panel-report",
+      "reference": "EPD1",
+      "value": "Panel 200x200; Partial yes",
+      "position": {
+        "breadboard": [
+          470,
+          50
+        ],
+        "schematic": [
+          470,
+          50
+        ],
+        "pcb": [
+          470,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "request:VCC",
+        "controller:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "request:GND",
+        "controller:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "REQUEST",
+      "endpoints": [
+        "request:CONFIG",
+        "controller:REQ"
+      ]
+    },
+    {
+      "id": "PANEL_DATA",
+      "endpoints": [
+        "controller:DATA",
+        "report:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
