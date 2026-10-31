@@ -18,6 +18,9 @@ import {
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 
+const yearLabel = document.querySelector("#copyright-year");
+if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
+
 const STORAGE_KEY = "adigun-simulator.project.v1";
 const RECOVERY_KEY = "adigun-simulator.recovery.v1";
 const initialProject = loadProject();
