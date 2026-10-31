@@ -20,6 +20,27 @@ test("the interface references only declared translation keys and exposes four l
   assert.deepEqual(values(languageSelect, /<option value="([^"]+)">/g), UI_LOCALES);
 });
 
+test("the approved corporate logo, official links, and current-year footer are present", async () => {
+  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  const logo = await readFile(new URL("../assets/brand/hephzibah-behulah-official.jpg", import.meta.url));
+  assert.deepEqual([...logo.subarray(0, 3)], [0xff, 0xd8, 0xff]);
+  assert.match(html, /src="assets\/brand\/hephzibah-behulah-official\.jpg"/);
+  assert.match(html, /alt="[^"]+" data-i18n-alt="corporateLogoAlt"/);
+  assert.doesNotMatch(html, /class="logo-mark"/);
+  for (const url of [
+    "https://hephzibahbehulah.com/",
+    "https://github.com/HephzibahBehulahHQ/AdigunSimulator",
+    "https://github.com/HephzibahBehulahHQ/AdigunSimulator/issues",
+    "https://www.facebook.com/Hephzibahbehulah/",
+    "https://x.com/HephzibaBehulah",
+    "https://www.instagram.com/hephzibahbehulah",
+    "https://www.tiktok.com/@hephzibahbhehulah",
+    "https://www.linkedin.com/in/isaacoluwoleadigun/"
+  ]) assert.ok(html.includes(`href="${url}"`), `missing approved footer link: ${url}`);
+  assert.match(html, /id="copyright-year"/);
+  assert.match(app, /yearLabel\.textContent = String\(new Date\(\)\.getFullYear\(\)\)/);
+});
+
 test("enabled project commands are implemented while unreleased tools remain disabled", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   const actions = [...new Set(values(html, /data-action="([^"]+)"/g))];
