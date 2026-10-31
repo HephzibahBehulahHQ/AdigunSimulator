@@ -1165,7 +1165,7 @@ Object.assign(TRANSLATIONS.de, { breadboardClickPlace: "Loch anklicken, um den a
 Object.assign(TRANSLATIONS.yo, { breadboardClickPlace: "Tẹ iho láti gbe pin tí a yan sí", breadboardSelectPinFirst: "Yan pin component kí o tó yan iho." });
 Object.assign(TRANSLATIONS.pcm, { breadboardClickPlace: "Click hole to place the pin wey you select", breadboardSelectPinFirst: "Select component pin before you choose hole." });
 
-Object.assign(TRANSLATIONS.en, { breadboardPlacementActive: "Placement mode active — choose a hole; press Escape to cancel." });
-Object.assign(TRANSLATIONS.de, { breadboardPlacementActive: "Platzierungsmodus aktiv — Loch wählen; mit Escape abbrechen." });
-Object.assign(TRANSLATIONS.yo, { breadboardPlacementActive: "Placement mode ti ṣiṣẹ — yan iho; tẹ Escape láti fagilé." });
-Object.assign(TRANSLATIONS.pcm, { breadboardPlacementActive: "Placement mode dey on — choose hole; press Escape to cancel." });
+Object.assign(TRANSLATIONS.en, { breadboardPlacementActive: "Placement mode active — use arrow keys and Enter, or click a hole; Escape cancels." });
+Object.assign(TRANSLATIONS.de, { breadboardPlacementActive: "Platzierungsmodus aktiv — mit Pfeiltasten und Enter navigieren oder Loch anklicken; Escape bricht ab." });
+Object.assign(TRANSLATIONS.yo, { breadboardPlacementActive: "Placement mode ti ṣiṣẹ — lo àwọn arrow key àti Enter tàbí tẹ iho; Escape láti fagilé." });
+Object.assign(TRANSLATIONS.pcm, { breadboardPlacementActive: "Placement mode dey on — use arrow keys and Enter, or click hole; Escape go cancel." });

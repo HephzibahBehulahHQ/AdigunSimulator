@@ -29,6 +29,9 @@ test("breadboard click placement keeps the accessible manual hole-entry workflow
   assert.match(app, /state\.breadboardPlacementMode && state\.activeView === "breadboard"/);
   assert.match(app, /assignBreadboardPin\(\$\("#breadboard-pin"\)\.value, holeTarget\.dataset\.breadboardHole\)/);
   assert.match(app, /event\.key === "Escape" && state\.breadboardPlacementMode/);
+  assert.match(app, /tabindex="-1"/);
+  assert.match(app, /\["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"\]/);
+  assert.match(app, /requestAnimationFrame\(\(\) => \$\("#design-canvas \[data-breadboard-hole\]"\)\?\.focus\(\)\)/);
 });
 
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
