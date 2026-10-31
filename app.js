@@ -38,6 +38,7 @@ import { reportUnavailableModel } from "./js/model-unavailable-diagnosis.mjs";
 import { runNetCrossProbe } from "./js/net-cross-probe.mjs";
 import { validateComponentProperty } from "./js/component-property-audit.mjs";
 import { createSimulationReport } from "./js/simulation-report.mjs";
+import { verifySimulationLockfile } from "./js/simulation-lockfile.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -524,6 +525,12 @@ function runAnalysis() {
   renderOutput();
 }
 
+async function verifyRunLockfile() {
+  const path=state.project.reproducibilityLockFile;
+  if(!path){showDialog("Run lock unavailable","This project does not reference a run lockfile.");return;}
+  try{const response=await fetch(path,{headers:{Accept:"application/json"}});if(!response.ok)throw new Error(`The run lock request returned ${response.status}.`);const lock=JSON.parse(await response.text());const report=verifySimulationLockfile(state.project,lock);if(report.matched){log(`[LOCK] Verified ${lock.modelSelection.modelVersion} with the locked component library and values.`);showDialog("Run lock verified",`${lock.modelSelection.modelVersion} matches the checked-in component, setting, and model lock.`);}else{const message=report.errors[0]?.message??"The run lock did not match.";log(`[LOCK] Mismatch: ${message}`);showDialog("Run lock mismatch",message);}}catch(error){showDialog("Run lock unavailable",error instanceof Error?error.message:"The lockfile could not be checked.");}
+}
+
 function exportSimulationReport() {
   if(state.lastAnalysis?.state!=="complete"){showDialog("Report unavailable","Run a supported analysis successfully before exporting its report.");return;}
   const report=createSimulationReport(state.project,state.lastAnalysis);
@@ -587,6 +594,7 @@ function handleAction(action) {
   if (action === "import-project") $("#import-file").click();
   if (action === "save") saveLocal();
   if (action === "export") exportProject();
+  if (action === "verify-run-lock") verifyRunLockfile();
   if (action === "pcb-drc") runPcbChecks();
   if (action === "pcb-export") exportPcbFiles();
   if (action === "validate") validateAndReport();

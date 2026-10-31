@@ -26,6 +26,7 @@ import { reportUnavailableModel } from "../js/model-unavailable-diagnosis.mjs";
 import { runNetCrossProbe } from "../js/net-cross-probe.mjs";
 import { validateComponentProperty } from "../js/component-property-audit.mjs";
 import { createSimulationReport } from "../js/simulation-report.mjs";
+import { createSimulationLockfile, verifySimulationLockfile } from "../js/simulation-lockfile.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1458,7 +1459,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 169);
+  assert.equal(getExampleCoverage(registry).total, 170);
   assert.equal(getExampleCoverage(registry).released, 159);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 41);
@@ -4214,4 +4215,19 @@ test("catalogue simulation report exports reproducible RC settings, model versio
   assert.ok(report.project.components.some(component=>component.reference==="R1"&&component.value==="1 kΩ"));
   const html=await readFile(new URL("../index.html",import.meta.url),"utf8");
   assert.match(html,/id="export-simulation-report"/);
+});
+
+test("catalogue run lockfile selects the same RC model and detects project drift", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/160-reproducible-run-lockfile.adigun.json",import.meta.url)));
+  const manifest=JSON.parse(await readFile(new URL("../examples/manifest.json",import.meta.url)));
+  const entry=manifest.examples.find(example=>example.id==="160-reproducible-run-lockfile");
+  assert.equal(entry.lockfileFile,"examples/160-reproducible-run-lockfile/simulation.lock.json");
+  const lock=JSON.parse(await readFile(new URL("../examples/160-reproducible-run-lockfile/simulation.lock.json",import.meta.url)));
+  assert.deepEqual(createSimulationLockfile(project),lock);
+  const verified=verifySimulationLockfile(project,lock);
+  assert.equal(verified.matched,true);assert.equal(verified.actual.modelSelection.modelVersion,"first-order-rc-step-v1");
+  const drift=JSON.parse(JSON.stringify(project));drift.components.find(component=>component.reference==="R1").value="1.1 kΩ";
+  assert.equal(verifySimulationLockfile(drift,lock).matched,false);
+  assert.equal(verifySimulationLockfile(drift,lock).errors[0].code,"RUN_LOCK_MISMATCH");
+  const html=await readFile(new URL("../index.html",import.meta.url),"utf8");assert.match(html,/data-action="verify-run-lock"/);
 });
