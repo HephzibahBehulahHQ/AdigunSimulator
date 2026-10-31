@@ -2946,6 +2946,43 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "073-mcu-watchdog",
+      "title": "Microcontroller watchdog reset recovery",
+      "status": "released",
+      "objective": "Evaluate a deterministic MCU watchdog service sequence and place the controller in a safe reset state after a missed service.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue MCU watchdog resets to a safe state after an induced service stall",
+      "testId": "core-mcu-watchdog",
+      "projectFile": "examples/073-mcu-watchdog.adigun.json",
+      "safetyNote": "Ideal logical timing model only. No MCU firmware, device-specific watchdog clock tolerance, reset circuitry, interrupt latency, or hardware behavior is modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 73,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41180050577",
+        "headRevision": "b13e5d5856085b0e773f86e1b108f4a4634c03aa",
+        "engine": "Ideal MCU watchdog service-sequence model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-mcu-watchdog-sequence-v1",
+        "expectedResult": {
+          "timeoutMs": 100,
+          "runDurationMs": 300,
+          "serviceTimesMs": [
+            0,
+            40,
+            80,
+            230
+          ],
+          "servicesAccepted": 3,
+          "resetCount": 1,
+          "resetAtMs": 180,
+          "controllerState": "safe-reset",
+          "heartbeatHigh": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
