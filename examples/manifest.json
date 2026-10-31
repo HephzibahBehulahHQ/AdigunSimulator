@@ -6012,14 +6012,32 @@
     {
       "id": "150-monte-carlo-tolerance-plan",
       "title": "Monte Carlo resistor tolerance plan",
-      "status": "in-review",
+      "status": "released",
       "objective": "Run a seeded distribution of LED current values using a stated ±5% resistor tolerance and report repeatable descriptive statistics and bins.",
       "acceptanceTest": "tests/core.test.mjs: catalogue Monte Carlo tolerance study is seeded, reproducible, and bounded",
       "testId": "core-monte-carlo-tolerance",
       "projectFile": "examples/150-monte-carlo-tolerance-plan.adigun.json",
       "readmeFile": "examples/150-monte-carlo-tolerance-plan/README.md",
       "safetyNote": "This is a deterministic educational sampling of ideal DC LED current with a uniform resistor tolerance. It is not a statistical production-yield, thermal, aging, capacitor-tolerance or safety analysis.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 150,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41206597156",
+        "headRevision": "4dbd4ba03984d6bc6cea7a4f69ec96e24b1199a7",
+        "engine": "Seeded analytical resistor-tolerance Monte Carlo",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "led-resistor-tolerance-mc-v1",
+        "expectedResult": {
+          "kind": "monte-carlo-tolerance",
+          "seed": 20261031,
+          "sampleCount": 1000,
+          "tolerancePct": 5,
+          "reproducible": true,
+          "histogramBinCount": 10
+        }
+      }
     }
   ]
 }
