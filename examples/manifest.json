@@ -5081,7 +5081,7 @@
     {
       "id": "123-opamp-filter-pcb",
       "title": "Op-amp filter PCB",
-      "status": "in-review",
+      "status": "released",
       "objective": "Map the first-order active low-pass circuit to SOIC and header footprints on a single-sided PCB, preserve the native netlist, run bounded PCB checks, and compare deterministic manufacturing outputs.",
       "acceptanceTest": "tests/core.test.mjs: op-amp filter PCB has equivalent native/PCB nets, complete routed pad mapping, and byte-matching export snapshots",
       "testId": "core-opamp-filter-pcb",
@@ -5089,7 +5089,31 @@
       "readmeFile": "examples/123-opamp-filter-pcb/README.md",
       "safetyNote": "Generic ideal-op-amp educational design and footprint preview only. Verify the chosen op-amp pinout, rails, real packages, clearances, stability, loading and manufacturer rules before construction.",
       "scope": "catalogue",
-      "catalogueIndex": 123
+      "catalogueIndex": 123,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41194306396",
+        "headRevision": "7fdaf8bd2a0d58efa49050177c6bb6c80c09a752",
+        "engine": "First-order active low-pass and netlist-matched PCB export",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "active-low-pass-soic-header-fcu-v1",
+        "expectedResult": {
+          "kind": "active-low-pass",
+          "inputAmplitudeV": 1,
+          "cutoffHz": 1591.5494309189535,
+          "passbandGain": 2,
+          "pcbDrcStatus": "passed",
+          "netlistEquivalent": true,
+          "artifacts": [
+            "board-F_Cu.gbr",
+            "board-Edge_Cuts.gbr",
+            "board-PTH.drl",
+            "BOM.csv"
+          ],
+          "hardwareManufacturingQualified": false
+        }
+      }
     }
   ]
 }
