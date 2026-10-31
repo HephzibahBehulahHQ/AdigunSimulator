@@ -3794,6 +3794,44 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "092-audio-tone-generator",
+      "title": "Audio tone generator and spectrum check",
+      "status": "released",
+      "objective": "Generate a bounded coherent sampled sine tone, estimate its fundamental and second harmonic with a discrete Fourier calculation, and verify measured frequency from zero-crossing count.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue audio tone generator measures a coherent 1 kHz sine spectrum",
+      "testId": "core-audio-tone-spectrum",
+      "projectFile": "examples/092-audio-tone-generator.adigun.json",
+      "safetyNote": "Ideal digital tone and DFT estimate only. Oscillator startup and stability, amplifier distortion, speaker and acoustic response, analog anti-alias filters, firmware, and hardware behavior are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 92,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41185184995",
+        "headRevision": "7b9558ca06486362b047f4ae340e9854ebd8b951",
+        "engine": "Ideal sampled audio tone and DFT estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "coherent-sampled-sine-spectrum-v1",
+        "expectedResult": {
+          "kind": "audio-tone-spectrum",
+          "waveform": "sine",
+          "frequencyHz": 1000,
+          "amplitudePeakV": 1,
+          "offsetV": 2.5,
+          "sampleRateHz": 48000,
+          "sampleCount": 480,
+          "durationSeconds": 0.01,
+          "positiveZeroCrossings": 10,
+          "negativeZeroCrossings": 10,
+          "totalZeroCrossings": 20,
+          "measuredFrequencyHz": 1000,
+          "fundamentalAmplitudeV": 1,
+          "secondHarmonicBelowV": 1e-12,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
