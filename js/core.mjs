@@ -3528,7 +3528,7 @@ function analyseSsrAcSwitch(project,{source,fixture,ssr,report,load,ground,valid
   const control=field(f,"Control"),fault=field(f,"Fault"),isolation=field(q,"Isolation");
   const onDropV=voltageValue(field(q,"OnDrop")??""),leakageCurrentA=currentValue(field(q,"LeakageCurrent")??""),maxCurrentA=currentValue(field(q,"MaxCurrent")??"");
   const loadOhm=resistanceValue(load.value),live=n(source,"+"),neutral=n(source,"-"),gnd=n(ground,"0");
-  const sourcePath=live===n(ssr,"AC_L")&&neutral===n(ssr,"AC_N")&&neutral===gnd;
+  const sourcePath=live===n(ssr,"AC_L")&&neutral===n(ssr,"AC_N");
   const controlPath=n(fixture,"CONTROL")===n(ssr,"CONTROL");
   const loadPath=n(ssr,"LOAD")===n(load,"1")&&n(load,"2")===neutral&&n(report,"LOAD")===n(ssr,"LOAD");
   const statusPath=n(fixture,"FAULT")===n(report,"STATUS"),groundPath=n(fixture,"GND")===gnd&&n(report,"GND")===gnd;
