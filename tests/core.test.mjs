@@ -544,6 +544,23 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue window comparator lights only between the two divider thresholds",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/029-window-comparator.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const middle=runSupportedAnalysis(project);
+  assert.equal(middle.state,"complete");
+  assert.equal(middle.result.kind,"window-comparator");
+  assert.ok(Math.abs(middle.result.lowerThresholdV-5/3)<1e-12);
+  assert.ok(Math.abs(middle.result.upperThresholdV-10/3)<1e-12);
+  assert.equal(middle.result.windowActive,true);
+  assert.equal(middle.result.ledOn,true);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"1 V"})).result.windowActive,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"4 V"})).result.windowActive,false);
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="LOWER_OK").endpoints=["lower:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
 test("catalogue Schmitt trigger has distinct thresholds and retains state inside the hysteresis band",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/028-schmitt-trigger.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -1023,7 +1040,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 38);
+  assert.equal(getExampleCoverage(registry).total, 39);
   assert.equal(getExampleCoverage(registry).released, 28);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 172);

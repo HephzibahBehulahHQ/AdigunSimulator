@@ -1190,6 +1190,18 @@
           "hysteresisV": 0.5
         }
       }
+    },
+    {
+      "id": "029-window-comparator",
+      "title": "Dual-comparator window indicator",
+      "status": "in-review",
+      "objective": "Generate 5 V divider limits at 1.667 V and 3.333 V and light an LED only for input values within the window.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue window comparator lights only between the two divider thresholds",
+      "testId": "core-window-comparator",
+      "projectFile": "examples/029-window-comparator.adigun.json",
+      "safetyNote": "Ideal educational comparator and logic-gate model only. It omits propagation delay, threshold tolerances, offset, noise, loading, and component-specific behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 29
     }
   ]
 }
