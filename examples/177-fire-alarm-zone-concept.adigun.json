@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "example-177-fire-alarm-zone-concept",
+  "metadata": {
+    "name": "Example 177 — Fire Alarm Zone Monitor Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "fireAlarmZone": {
+    "kind": "zone-alarm-fault-monitor",
+    "samples": [
+      {
+        "zoneId": "Z1",
+        "condition": "normal"
+      },
+      {
+        "zoneId": "Z1",
+        "condition": "alarm"
+      },
+      {
+        "zoneId": "Z1",
+        "condition": "open"
+      },
+      {
+        "zoneId": "Z1",
+        "condition": "short"
+      },
+      {
+        "zoneId": "Z1",
+        "condition": "normal"
+      }
+    ]
+  }
+}

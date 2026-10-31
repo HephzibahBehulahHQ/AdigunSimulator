@@ -43,6 +43,7 @@ import { runAutomaticNightLight } from "../js/automatic-night-light.mjs";
 import { runSmartIrrigation } from "../js/smart-irrigation.mjs";
 import { runGarageDoorConcept } from "../js/garage-door-concept.mjs";
 import { runElevatorCallQueue } from "../js/elevator-call-queue.mjs";
+import { runFireAlarmZone } from "../js/fire-alarm-zone.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1475,7 +1476,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 186);
+  assert.equal(getExampleCoverage(registry).total, 187);
   assert.equal(getExampleCoverage(registry).released, 176);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 24);
@@ -4415,4 +4416,13 @@ test("catalogue elevator scheduler preserves FIFO calls and ignores duplicate pe
   assert.deepEqual(result.result.frames.map(frame=>frame.queue),[[3],[3,2],[3,2],[2],[],[]]);
   assert.deepEqual(result.result.dispatchedTargets,[3,2]);assert.equal(result.result.duplicateCallsIgnored,1);
   const invalid=structuredClone(project);invalid.elevatorCallQueue.events[0].floor=6;assert.equal(runElevatorCallQueue(invalid).state,"blocked");
+});
+
+test("catalogue fire-alarm zone keeps alarm distinct from open/short trouble inputs", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/177-fire-alarm-zone-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runFireAlarmZone(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"fire-alarm-zone-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>[frame.fireAlarm,frame.troubleType]),[[false,null],[true,null],[false,"open-circuit"],[false,"short-circuit"],[false,null]]);
+  assert.equal(result.result.alarmSamples,1);assert.equal(result.result.openFaults,1);assert.equal(result.result.shortFaults,1);
+  const invalid=structuredClone(project);invalid.fireAlarmZone.samples[0].condition="unknown";assert.equal(runFireAlarmZone(invalid).state,"blocked");
 });
