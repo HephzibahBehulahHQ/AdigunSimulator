@@ -1,0 +1,11 @@
+const COLORS=["red","yellow","green"];
+export function runTrafficLightSequence(project) {
+  const config=project?.trafficLight,phases=config?.phases;
+  if(config?.kind!=="timed-intersection-fsm"||!Array.isArray(phases)||phases.length<3||phases.length>12||!Number.isInteger(config.cycleCount)||config.cycleCount<1||config.cycleCount>20||phases.some(phase=>!Number.isInteger(phase?.durationS)||phase.durationS<1||phase.durationS>600||!COLORS.includes(phase.northSouth)||!COLORS.includes(phase.eastWest)||(phase.northSouth==="green"&&phase.eastWest==="green")))
+    return {state:"blocked",engine:"Timed traffic-light FSM concept",message:"Provide 3–12 valid timed phases and 1–20 cycles; opposing approaches may never be green together.",errors:[{code:"TRAFFIC_SEQUENCE_CONFIGURATION",message:"Check phase colors and durations; each phase must prevent conflicting green indications."}],warnings:[],result:null};
+  const phasesRun=[],states=[];let timeS=0;
+  for(let cycle=1;cycle<=config.cycleCount;cycle+=1)for(const phase of phases){const row={cycle,name:phase.name,northSouth:phase.northSouth,eastWest:phase.eastWest,startTimeS:timeS,durationS:phase.durationS,endTimeS:timeS+phase.durationS};phasesRun.push(row);for(let second=0;second<phase.durationS;second+=1)states.push({timeS:timeS+second,cycle,phase:phase.name,northSouth:phase.northSouth,eastWest:phase.eastWest});timeS=row.endTimeS;}
+  const conflict=states.some(state=>state.northSouth==="green"&&state.eastWest==="green");
+  if(conflict)return {state:"blocked",engine:"Timed traffic-light FSM concept",message:"Conflicting green outputs were detected.",errors:[{code:"TRAFFIC_CONFLICTING_GREEN",message:"Never command opposing traffic approaches green simultaneously."}],warnings:[],result:null};
+  return {state:"complete",engine:"Deterministic timed traffic-light FSM",message:"Repeats a bounded logical phase sequence with no opposing green state.",errors:[],warnings:[{code:"TRAFFIC_LIGHT_CONCEPT_ONLY",message:"No physical controller, pedestrian timing, detector actuation, clearance engineering, local code review, or intersection safety validation is modeled."}],result:{kind:"traffic-light-fsm-sequence",cycleCount:config.cycleCount,phaseCount:phasesRun.length,totalDurationS:timeS,phases:phasesRun,states,opposingGreenConflict:false}};
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "example-162-plc-traffic-light",
+  "metadata": {
+    "name": "Example 162 — PLC Traffic-Light Sequence",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "trafficLight": {
+    "kind": "timed-intersection-fsm",
+    "cycleCount": 2,
+    "phases": [
+      {
+        "name": "All red — startup",
+        "northSouth": "red",
+        "eastWest": "red",
+        "durationS": 2
+      },
+      {
+        "name": "North–South green",
+        "northSouth": "green",
+        "eastWest": "red",
+        "durationS": 20
+      },
+      {
+        "name": "North–South yellow",
+        "northSouth": "yellow",
+        "eastWest": "red",
+        "durationS": 3
+      },
+      {
+        "name": "All red — transfer",
+        "northSouth": "red",
+        "eastWest": "red",
+        "durationS": 1
+      },
+      {
+        "name": "East–West green",
+        "northSouth": "red",
+        "eastWest": "green",
+        "durationS": 20
+      },
+      {
+        "name": "East–West yellow",
+        "northSouth": "red",
+        "eastWest": "yellow",
+        "durationS": 3
+      },
+      {
+        "name": "All red — cycle boundary",
+        "northSouth": "red",
+        "eastWest": "red",
+        "durationS": 1
+      }
+    ]
+  }
+}
