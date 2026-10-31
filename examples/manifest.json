@@ -3626,6 +3626,53 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "088-rfid-inventory",
+      "title": "RFID inventory and slot collision fixture",
+      "status": "released",
+      "objective": "Enumerate a bounded set of idealized RFID UID fixtures using an explicit deterministic UID-to-slot hash, then report duplicate UIDs and slot collisions for a repeatable inventory exercise.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue RFID inventory fixture counts duplicate UIDs and slot collisions",
+      "testId": "core-rfid-inventory",
+      "projectFile": "examples/088-rfid-inventory.adigun.json",
+      "safetyNote": "Deterministic educational UID-to-slot fixture only. It is not an RFID air-interface implementation. Anti-collision protocol timing, RF coupling, modulation, reader certification, secure authentication, firmware, and hardware behavior are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 88,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41184259116",
+        "headRevision": "cca49f5f93fb61637f81ff9e85639cd265e4a974",
+        "engine": "Deterministic RFID UID-to-slot inventory fixture",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "deterministic-rfid-uid-slot-inventory-v1",
+        "expectedResult": {
+          "kind": "rfid-inventory",
+          "bandMHz": 13.56,
+          "slotCount": 4,
+          "tagCount": 5,
+          "uniqueUidCount": 4,
+          "duplicateUidCount": 1,
+          "occupiedSlots": 3,
+          "collisionSlotCount": 1,
+          "collisions": [
+            {
+              "slot": 3,
+              "uids": [
+                "04A1B2C3",
+                "DEADBEEF"
+              ],
+              "tagCount": 3
+            }
+          ],
+          "inventoryComplete": false,
+          "slotAssignmentModel": "last UID byte modulo slot count",
+          "rfTransmitted": false,
+          "antiCollisionProtocolModeled": false,
+          "authenticationModeled": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
