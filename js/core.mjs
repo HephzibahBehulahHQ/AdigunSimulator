@@ -3717,7 +3717,7 @@ function analyseHotSwap(project,{source,fixture,controller,fet,report,load,capac
   const gatePath=n(controller,"GATE")===n(fet,"GATE"),sensePath=n(controller,"SENSE")===n(fet,"SENSE");
   const outputPath=n(fet,"VOUT")===n(report,"VOUT")&&n(fet,"VOUT")===n(load,"1")&&n(fet,"VOUT")===n(capacitor,"1");
   const groundPath=n(source,"-")===gnd&&n(fixture,"GND")===gnd&&n(controller,"GND")===gnd&&n(fet,"GND")===gnd&&n(load,"2")===gnd&&n(capacitor,"2")===gnd&&n(report,"GND")===gnd;
-  const statusPath=n(controller,"STATUS")===n(fet,"STATUS")&&n(controller,"STATUS")===n(report,"STATUS");
+  const statusPath=n(controller,"STATUS")===n(report,"STATUS");
   const inrushPath=n(controller,"SENSE")===n(report,"INRUSH");
   const required=[gnd,n(source,"+"),n(controller,"VIN"),n(fet,"VIN"),n(fixture,"ENABLE"),n(controller,"ENABLE"),n(fixture,"FAULT"),n(controller,"FAULT_IN"),n(controller,"GATE"),n(fet,"GATE"),n(controller,"SENSE"),n(fet,"SENSE"),n(fet,"VOUT"),n(report,"VOUT"),n(load,"1"),n(load,"2"),n(capacitor,"1"),n(capacitor,"2"),n(controller,"STATUS"),n(report,"STATUS"),n(report,"INRUSH")];
   if(required.some(x=>typeof x!=="string"||!x)||!inputPath||!controlPath||!gatePath||!sensePath||!outputPath||!groundPath||!statusPath||!inrushPath
