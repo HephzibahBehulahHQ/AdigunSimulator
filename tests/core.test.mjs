@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { addComponent, connectPins, createEmptyProject, createProject, createVoltageDividerProject, disconnectPin, getViewReconciliationIssues, moveComponent, parseProject, removeComponent, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
-import { getLedgerCoverage, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
+import { getLedgerCoverage, getLibraryCoverage, validateComponentTypes, validatePartsManifest, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
@@ -415,28 +415,53 @@ test("layout positions must be numeric, safe, and within canvas bounds", () => {
   assert.ok(validateProject(outside).errors.some((issue) => issue.rule === "LAYOUT_BOUNDS"));
 });
 
-test("part ledger records authoritative candidate sources without counting candidates as verified", async () => {
+test("part ledger preserves candidate status until complete real-part evidence is reviewed", async () => {
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url)));
-  assert.equal(validatePartLedger(ledger).valid, true);
+  const taxonomy = JSON.parse(await readFile(new URL("../library/component-types.json", import.meta.url)));
+  const manifest = JSON.parse(await readFile(new URL("../library/parts-manifest.json", import.meta.url)));
+  const coverageFile = JSON.parse(await readFile(new URL("../library/parts-coverage.json", import.meta.url)));
+  assert.equal(validateComponentTypes(taxonomy).valid, true);
+  assert.equal(validatePartLedger(ledger, taxonomy).valid, true);
+  assert.equal(validatePartsManifest(manifest, taxonomy, ledger).valid, true);
   const coverage = getLedgerCoverage(ledger);
   assert.equal(coverage.total, 4);
   assert.equal(coverage.verified, 0);
   assert.equal(coverage.remaining, 1000);
+  assert.deepEqual(getLibraryCoverage(ledger, taxonomy), coverageFile);
+  assert.equal(coverageFile.taxonomy.totalTypes, 565);
+  assert.equal(coverageFile.taxonomy.categories.length, 15);
 });
 
-test("verified parts require valid checksums, aligned unique pin maps, reviewer, and dates", () => {
+test("verified parts require complete datasheet, package, pin, model, license, safety, and translation evidence", () => {
   const record = {
     id: "fixture.part",
     manufacturer: "Fixture Manufacturer",
     manufacturerPartNumber: "FIXTURE-2",
     category: "Test",
-    type: "two-pin fixture",
+    type: "small-signal diode",
+    typeCode: "C01",
     lifecycle: "active",
     verificationStatus: "verified",
     package: "DIP-2",
+    packageEvidence: { sourceUrl: "https://manufacturer.example/package" },
+    ratings: [{ name: "reverse voltage", maximum: 100, unit: "V" }],
     symbolPinMap: { "1": "Anode", "2": "Cathode" },
     footprintPadMap: { "1": "pad-1", "2": "pad-2" },
+    pinElectricalTypes: { "1": "passive", "2": "passive" },
+    symbolAsset: { sourceUrl: "https://manufacturer.example/symbol", sha256: "b".repeat(64), licenseId: "CC0-1.0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/" },
+    footprintAsset: { sourceUrl: "https://manufacturer.example/footprint", sha256: "c".repeat(64), licenseId: "CC0-1.0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/" },
     modelStatus: "not-modelled",
+    simulationModel: { status: "not-modelled", reason: "No validated model is supplied for this example record." },
+    breadboard: { compatible: true, adapter: "Direct DIP-2 placement", operatingLimits: ["Observe rated reverse voltage."] },
+    warnings: [],
+    alternates: [],
+    translations: {
+      en: { name: "Fixture diode", description: "Two-pin test part." },
+      de: { name: "Testdiode", description: "Zweipoliges Testbauteil." },
+      yo: { name: "Díóòdì ìdánwò", description: "Ẹ̀yà ìdánwò ẹsẹ̀ méjì." },
+      pcm: { name: "Test diode", description: "Two-pin test part." }
+    },
+    lifecycleEvidence: { sourceUrl: "https://manufacturer.example/lifecycle" },
     lastReviewedAt: "2026-10-31",
     reviewedBy: "Fixture Reviewer",
     datasheet: {
@@ -453,12 +478,16 @@ test("verified parts require valid checksums, aligned unique pin maps, reviewer,
   assert.ok(validatePartRecord({ ...record, lastReviewedAt: "2026-02-31" }).some((issue) => issue.code === "REVIEW_DATE"));
   assert.ok(validatePartRecord({ ...record, reviewedBy: "TBD" }).some((issue) => issue.code === "REVIEWER_IDENTITY"));
   assert.ok(validatePartRecord({ ...record, symbolPinMap: { "1": null, "2": "Cathode" } }).some((issue) => issue.code === "SYMBOL_PIN_MAP"));
+  assert.ok(validatePartRecord({ ...record, symbolAsset: { ...record.symbolAsset, licenseId: "" } }).some((issue) => issue.code === "SYMBOL_ASSET_EVIDENCE"));
+  assert.ok(validatePartRecord({ ...record, translations: { en: record.translations.en } }).some((issue) => issue.code === "TRANSLATIONS"));
+  assert.ok(validatePartRecord({ ...record, ratings: [{ name: "voltage", maximum: 5 }] }).some((issue) => issue.code === "RATINGS_UNITS"));
 });
 
 test("a verified record cannot bypass checksum, mapping, model, and human-review evidence", () => {
   const errors = validatePartRecord({ id: "unsafe.example", manufacturer: "Example", manufacturerPartNumber: "X1", category: "Test", type: "test", lifecycle: "active", verificationStatus: "verified", datasheet: { title: "Source", url: "https://example.invalid", accessedAt: "2026-10-30" } });
   assert.ok(errors.some((error) => error.code === "DATASHEET_CHECKSUM"));
   assert.ok(errors.some((error) => error.code === "VERIFIED_EVIDENCE"));
+  assert.ok(errors.some((error) => error.code === "MODEL_PROVENANCE"));
 });
 
 test("catalogue latching SPDT switch selects a defined LED state", async () => {
