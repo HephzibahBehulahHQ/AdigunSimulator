@@ -7483,6 +7483,19 @@
           "standardLimitation": "Advisory only; not IPC-2152 analysis, compliance, DRC, or manufacturing approval."
         }
       }
+    },
+    {
+      "id": "194-bom-export-cost-placeholder",
+      "title": "BOM export and costing placeholder",
+      "status": "in-review",
+      "objective": "Group project components into a CSV-ready BOM using verified project and component-library fields; keep price and total cost unavailable unless a dated source is recorded.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue BOM export groups verified fields, safely quotes CSV, preserves sourced price evidence, and leaves missing costs blank",
+      "testId": "core-bom-export-cost-placeholder",
+      "projectFile": "examples/194-bom-export-cost-placeholder.adigun.json",
+      "readmeFile": "examples/194-bom-export-cost-placeholder/README.md",
+      "safetyNote": "BOM and sourced-price placeholder only. It is not a supplier quote, purchasing commitment, stock check, or procurement authorization.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
