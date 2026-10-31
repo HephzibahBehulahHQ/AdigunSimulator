@@ -78,6 +78,7 @@ import { applyBotFloatingNodeRepairPreview, runBotFloatingNodeRepair } from "./j
 import { applyBotCircuitProposal, runBotCircuitProposal } from "./js/bot-circuit-proposal.mjs";
 import { runFourLanguageUiSweep } from "./js/locale-ui-sweep.mjs";
 import { runOfflineRecoveryScenario } from "./js/offline-recovery-scenario.mjs";
+import { runReleaseCandidateE2E } from "./js/release-candidate-e2e.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -296,7 +297,11 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "offline-recovery-scenario") {
+  if (result.kind === "release-candidate-e2e") {
+    metrics.push(["Fixtures",String(result.fixtureCount)],["PCB DRC",result.pcbDrc],["BOT project edit",result.botMutation?"Changed":"Read-only"],["Passed gates",String(Object.values(result.checks).filter(Boolean).length)]);
+    const rows=Object.entries(result.checks).map(([name,passed])=>'<tr><td>'+escape(name)+'</td><td>'+(passed?"PASS":"FAIL")+'</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Release candidate · build through export</figcaption><table class="result-table"><thead><tr><th>Gate</th><th>Result</th></tr></thead><tbody>'+rows+'</tbody></table><p>BOT cites local project/library fields; PCB export is illustrative, not manufacturing approval.</p></figure>';
+  } else if (result.kind === "offline-recovery-scenario") {
     metrics.push(["Draft restored",result.draftSaved?"Yes":"No"],["Storage fallback",result.storageFallbackAvailable?"Native export valid":"Unavailable"],["Recovered edit",result.editedValue],["Silent loss",result.silentLoss?"Detected":"None"]);
     waveform='<figure class="result-waveform"><figcaption>Local offline recovery · simulated storage interruption</figcaption><p>Unsaved edit restored from a versioned draft. When browser storage is unavailable, use <strong>File → Export</strong> before closing.</p><p>CI uses an in-memory storage mock; real browser quota and crash behavior are outside this test.</p></figure>';
   } else if (result.kind === "four-language-ui-sweep") {
@@ -669,6 +674,21 @@ function validateAndReport() {
 }
 
 function runAnalysis() {
+  if(state.project.releaseCandidateE2E){
+    validateAndReport();
+    state.lastAnalysis={state:"running",engine:"Release-candidate end-to-end suite",message:"Loading checked-in acceptance fixtures.",result:null};
+    renderOutput();
+    runReleaseCandidateE2E(state.project).then(result=>{
+      state.lastAnalysis=result;
+      if(result.state==="complete")log("[E2E] All release-candidate gates passed.");
+      else log("[E2E] "+(result.errors?.[0]?.message??result.message));
+      renderOutput();
+    }).catch(error=>{
+      state.lastAnalysis={state:"blocked",engine:"Release-candidate end-to-end suite",message:error instanceof Error?error.message:"The workflow failed.",errors:[],warnings:[],result:null};
+      renderOutput();
+    });
+    return;
+  }
   validateAndReport();
   const result = state.project.offlineRecoveryScenario ? runOfflineRecoveryScenario(state.project) : state.project.localeUiSweep ? runFourLanguageUiSweep(state.project) : state.project.botCircuitProposal ? runBotCircuitProposal(state.project) : state.project.botRepairPreview ? runBotFloatingNodeRepair(state.project) : state.project.botExplainComponent ? runBotComponentExplainer(state.project) : state.project.bomExportPlaceholder ? runBomExportPlaceholder(state.project) : state.project.pcbTraceWidthAdvisor ? runPcbTraceWidthAdvisor(state.project) : state.project.opAmpGainCalculator ? runOpAmpGainCalculator(state.project) : state.project.rcTimingCalculator ? runRcTimingCalculator(state.project) : state.project.voltageDividerCalculator ? runVoltageDividerCalculator(state.project) : state.project.ledResistorCalculator ? runLedResistorCalculator(state.project) : state.project.resistorColorCodeReader ? runResistorColorCodeReader(state.project) : state.project.unitConversionCalculator ? runUnitConversionCalculator(state.project) : state.project.substitutionPreview ? runPinIncompatibleSubstitution(state.project) : state.project.missingFootprintWorkflow ? runMissingFootprintWorkflow(state.project) : state.project.unsupportedBreadboardPackage ? runUnsupportedBreadboardPackage(state.project) : state.project.threeViewLedHistory ? runThreeViewLedHistory(state.project) : state.project.schematicPcbSync ? runSchematicPcbSync(state.project) : state.project.breadboardSchematicSync ? runBreadboardSchematicSync(state.project) : state.project.machineFaultAnnunciator ? runMachineFaultAnnunciator(state.project) : state.project.warehouseBeacon ? runWarehouseBeacon(state.project) : state.project.accessStrikeLock ? runAccessStrikeLock(state.project) : state.project.fireAlarmZone ? runFireAlarmZone(state.project) : state.project.elevatorCallQueue ? runElevatorCallQueue(state.project) : state.project.garageDoorConcept ? runGarageDoorConcept(state.project) : state.project.smartIrrigation ? runSmartIrrigation(state.project) : state.project.automaticNightLight ? runAutomaticNightLight(state.project) : state.project.pwmFanController ? runPwmFanController(state.project) : state.project.fanThermostat ? runFanThermostat(state.project) : state.project.waterLeakAlarm ? runWaterLeakAlarm(state.project) : state.project.temperatureAlarm ? runTemperatureAlarm(state.project) : state.project.doorInterlock ? runDoorInterlockConcept(state.project) : state.project.emergencyStopConcept ? runEmergencyStopConcept(state.project) : state.project.forwardReverseMotor ? runForwardReverseInterlock(state.project) : state.project.starDeltaStarter ? runStarDeltaStarter(state.project) : state.project.conveyorCounter ? runConveyorCounter(state.project) : state.project.tankLevelController ? runTankLevelController(state.project) : state.project.trafficLight ? runTrafficLightSequence(state.project) : state.project.plcMotorSequence ? runPlcStartStopSequence(state.project) : state.project.crossProbe ? runNetCrossProbe(state.project) : state.project.modelAvailabilityFixture ? reportUnavailableModel(state.project) : state.project.missingGroundFixture ? diagnoseMissingGround(state.project) : state.project.shortCircuitFixture ? diagnoseSupplyShort(state.project) : state.project.floatingNodeDiagnosis ? diagnoseFloatingNode(state.project) : state.project.convergenceStudy ? analyzeConvergenceStudy(state.project) : state.project.thermalBoundary ? analyzeThermalWarningBoundary(state.project) : state.project.monteCarloTolerance ? runMonteCarloTolerance(state.project) : state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
   state.lastAnalysis = result;
