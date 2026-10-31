@@ -412,7 +412,7 @@ function analysePwmLedAverage(project, { source, resistor, led, pwmSource, mosfe
   const thresholdVoltage = voltageValue(mosfet.value);
   const pwmFields = String(pwmSource.value).split(",").map((field) => field.trim());
   const frequencyHz = pwmFields.length === 3 ? frequencyValue(pwmFields[0]) : Number.NaN;
-  const dutyMatch = pwmFields.length === 3 ? pwmFields[1].match(/^([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))%$/) : null;
+  const dutyMatch = pwmFields.length === 3 ? pwmFields[1].match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))%$/) : null;
   const requestedDutyPercent = dutyMatch ? Number(dutyMatch[1]) : Number.NaN;
   const gateHighVoltage = pwmFields.length === 3 ? voltageValue(pwmFields[2]) : Number.NaN;
   if (![sourceVoltage, ledVf, resistance, thresholdVoltage, frequencyHz, requestedDutyPercent, gateHighVoltage].every(Number.isFinite)
