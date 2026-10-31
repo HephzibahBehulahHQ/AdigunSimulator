@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-045-d-flip-flop-register",
+  "metadata": {
+    "name": "Positive-Edge D Flip-Flop Register",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "data-input",
+      "libraryId": "power.dc-source",
+      "reference": "D",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "clock-input",
+      "libraryId": "power.dc-source",
+      "reference": "CLK",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "dff",
+      "libraryId": "active.logic-dff-ideal",
+      "reference": "U1",
+      "value": "Ideal positive-edge D flip-flop",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "q-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RQ",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "q-led",
+      "libraryId": "diode.led-red",
+      "reference": "DQ",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "dff:VCC",
+        "dff:PRE",
+        "dff:CLR"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "data-input:-",
+        "clock-input:-",
+        "dff:GND",
+        "q-led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "DATA",
+      "endpoints": [
+        "data-input:+",
+        "dff:D"
+      ]
+    },
+    {
+      "id": "CLOCK",
+      "endpoints": [
+        "clock-input:+",
+        "dff:CLK"
+      ]
+    },
+    {
+      "id": "Q",
+      "endpoints": [
+        "dff:Q",
+        "q-resistor:1"
+      ]
+    },
+    {
+      "id": "Q_LED",
+      "endpoints": [
+        "q-resistor:2",
+        "q-led:A"
+      ]
+    }
+  ],
+  "history": []
+}

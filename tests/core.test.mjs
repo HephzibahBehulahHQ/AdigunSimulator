@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 54);
+  assert.equal(getExampleCoverage(registry).total, 55);
   assert.equal(getExampleCoverage(registry).released, 44);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 156);
@@ -1431,3 +1431,49 @@ test("catalogue NOR SR latch sets, resets, holds state, and blocks forbidden inp
   assert.equal(runSupportedAnalysis(forbidden).state, "blocked");
   assert.equal(runSupportedAnalysis(holdProject).state, "blocked");
 });
+
+test("catalogue D flip-flop samples data only on rising edges and annotates timing limits", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/045-d-flip-flop-register.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-dff-ideal"), true);
+
+  const initial = runSupportedAnalysis(project);
+  assert.equal(initial.state, "complete");
+  assert.equal(initial.result.kind, "d-flip-flop");
+  assert.equal(initial.result.q, null);
+  assert.equal(initial.result.mode, "low-level hold");
+  assert.match(initial.result.timingAnnotation, /not simulated/);
+
+  let rising = updateComponent(project, "data-input", { value: "5 V" });
+  rising = updateComponent(rising, "clock-input", { value: "5 V" });
+  const sampledOne = runSupportedAnalysis(rising, { previousState: initial });
+  assert.equal(sampledOne.state, "complete");
+  assert.equal(sampledOne.result.risingEdge, true);
+  assert.equal(sampledOne.result.sampled, true);
+  assert.equal(sampledOne.result.q, true);
+  assert.ok(Math.abs(sampledOne.result.ledCurrentA - (5 - 2) / 330) < 1e-12);
+
+  let highLevel = updateComponent(rising, "data-input", { value: "0 V" });
+  const heldHigh = runSupportedAnalysis(highLevel, { previousState: sampledOne });
+  assert.equal(heldHigh.result.risingEdge, false);
+  assert.equal(heldHigh.result.q, true);
+
+  let falling = updateComponent(highLevel, "clock-input", { value: "0 V" });
+  const afterFalling = runSupportedAnalysis(falling, { previousState: heldHigh });
+  assert.equal(afterFalling.result.risingEdge, false);
+  assert.equal(afterFalling.result.q, true);
+
+  let secondRising = updateComponent(falling, "clock-input", { value: "5 V" });
+  const sampledZero = runSupportedAnalysis(secondRising, { previousState: afterFalling });
+  assert.equal(sampledZero.result.risingEdge, true);
+  assert.equal(sampledZero.result.q, false);
+  assert.equal(sampledZero.result.qBar, true);
+  assert.equal(sampledZero.result.ledCurrentA, 0);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "5 V" })).state, "blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project, "data-input", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "DATA").endpoints = ["data-input:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
