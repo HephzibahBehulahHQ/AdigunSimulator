@@ -5881,14 +5881,34 @@
     {
       "id": "146-frequency-counter",
       "title": "Frequency counter",
-      "status": "in-review",
+      "status": "released",
       "objective": "Measure oscillator frequency from elapsed time over complete periods and report measured period, count and frequency units; check multiple known frequencies.",
       "acceptanceTest": "tests/core.test.mjs: catalogue frequency counter measures periods accurately at multiple frequencies",
       "testId": "core-frequency-counter",
       "projectFile": "examples/146-frequency-counter.adigun.json",
       "readmeFile": "examples/146-frequency-counter/README.md",
       "safetyNote": "The model uses ideal declared periods and reciprocal timing. It does not model oscillator tolerance, jitter, timebase calibration, gate quantization, noise, or hardware counter limits.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 146,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41205524615",
+        "headRevision": "6d31e2e7a2d690992460fdfe20bae00b905a2767",
+        "engine": "Bounded reciprocal-period frequency counter",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "reciprocal-period-counter-v1",
+        "expectedResult": {
+          "kind": "frequency-counter",
+          "referenceHz": [
+            50,
+            1000,
+            10000
+          ],
+          "frequencyErrorHz": 0,
+          "periodBased": true
+        }
+      }
     }
   ]
 }
