@@ -32,6 +32,7 @@ import { runTrafficLightSequence } from "../js/traffic-light-sequence.mjs";
 import { runTankLevelController } from "../js/tank-level-controller.mjs";
 import { runConveyorCounter } from "../js/conveyor-counter.mjs";
 import { runStarDeltaStarter } from "../js/star-delta-starter.mjs";
+import { runForwardReverseInterlock } from "../js/forward-reverse-interlock.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1464,7 +1465,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 175);
+  assert.equal(getExampleCoverage(registry).total, 176);
   assert.equal(getExampleCoverage(registry).released, 165);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 35);
@@ -4298,4 +4299,15 @@ test("catalogue star-delta starter moves through exclusive outputs and transitio
   assert.equal(result.result.noOverlap,true);assert.ok(result.result.frames.every(frame=>!(frame.starEnergized&&frame.deltaEnergized)));
   const invalid=structuredClone(project);invalid.starDeltaStarter.deadTimeMs=0;assert.equal(runStarDeltaStarter(invalid).state,"blocked");
   const unordered=structuredClone(project);unordered.starDeltaStarter.events[2].atMs=10;assert.equal(runStarDeltaStarter(unordered).state,"blocked");
+});
+
+test("catalogue forward/reverse logic rejects an opposite-direction request until stopped", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/166-forward-reverse-motor-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runForwardReverseInterlock(project);assert.equal(result.state,"complete");
+  assert.deepEqual(result.result.frames.map(frame=>frame.direction),["forward","forward","forward","stopped","reverse","reverse","stopped"]);
+  assert.deepEqual(result.result.frames.map(frame=>frame.conflictRejected),[false,false,true,false,false,true,false]);
+  assert.equal(result.result.conflictRequestsRejected,2);assert.equal(result.result.noOverlap,true);
+  assert.ok(result.result.frames.every(frame=>!(frame.forwardEnergized&&frame.reverseEnergized)));
+  const invalid=structuredClone(project);invalid.forwardReverseMotor.events[0].request="both";assert.equal(runForwardReverseInterlock(invalid).state,"blocked");
 });
