@@ -3089,6 +3089,37 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "077-rfid-access-reader",
+      "title": "RFID UID allowlist lock demonstration",
+      "status": "released",
+      "objective": "Compare an ideal RFID UID against an explicit allowlist, grant a simulated lock output for a match, and deny unknown tags.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue RFID reader grants allowlisted UID and denies unknown tags",
+      "testId": "core-rfid-access-reader",
+      "projectFile": "examples/077-rfid-access-reader.adigun.json",
+      "safetyNote": "UID-only identification is cloneable and is not cryptographic authentication or a security-grade access-control design. RF coupling, anti-collision, credentials, firmware, and physical lock behavior are not modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 77,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41181196082",
+        "headRevision": "15111f56bd8000ef356b63787063417f8b479f4a",
+        "engine": "Ideal RFID UID allowlist behavior model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-rfid-uid-allowlist-v1",
+        "expectedResult": {
+          "allowedUid": "04A1B2C3",
+          "allowlistedDecision": "granted",
+          "allowlistedLockOutput": 1,
+          "unknownUid": "DEADBEEF",
+          "unknownDecision": "denied",
+          "unknownLockOutput": 0,
+          "authentication": "UID only; not secure",
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
