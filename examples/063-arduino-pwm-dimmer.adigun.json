@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-063-arduino-pwm-dimmer",
+  "metadata": {
+    "name": "Uno-Class Potentiometer PWM LED Dimmer",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.mcu-uno-ideal",
+      "reference": "U1",
+      "value": "Program PWM dimmer; ADC A0; PWM D9; Frequency 490",
+      "position": {
+        "breadboard": [
+          130,
+          55
+        ],
+        "schematic": [
+          130,
+          55
+        ],
+        "pcb": [
+          130,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "pot",
+      "libraryId": "input.potentiometer-adc-ideal",
+      "reference": "RV1",
+      "value": "Position 50%; Resolution 10 bit",
+      "position": {
+        "breadboard": [
+          230,
+          55
+        ],
+        "schematic": [
+          230,
+          55
+        ],
+        "pcb": [
+          230,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "mosfet",
+      "libraryId": "active.nmos-switch",
+      "reference": "Q1",
+      "value": "Vth 2.0 V",
+      "position": {
+        "breadboard": [
+          325,
+          55
+        ],
+        "schematic": [
+          325,
+          55
+        ],
+        "pcb": [
+          325,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          410,
+          55
+        ],
+        "schematic": [
+          410,
+          55
+        ],
+        "pcb": [
+          410,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          480,
+          55
+        ],
+        "schematic": [
+          480,
+          55
+        ],
+        "pcb": [
+          480,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          550,
+          55
+        ],
+        "schematic": [
+          550,
+          55
+        ],
+        "pcb": [
+          550,
+          55
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mcu:VCC",
+        "pot:VCC",
+        "resistor:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "mcu:GND",
+        "pot:GND",
+        "mosfet:S",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "ADC",
+      "endpoints": [
+        "pot:OUT",
+        "mcu:A0"
+      ]
+    },
+    {
+      "id": "PWM",
+      "endpoints": [
+        "mcu:D9",
+        "mosfet:G"
+      ]
+    },
+    {
+      "id": "LED_RES",
+      "endpoints": [
+        "resistor:2",
+        "led:A"
+      ]
+    },
+    {
+      "id": "LED_MOSFET",
+      "endpoints": [
+        "led:K",
+        "mosfet:D"
+      ]
+    }
+  ],
+  "history": []
+}
