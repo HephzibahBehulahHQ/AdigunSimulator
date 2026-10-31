@@ -61,6 +61,9 @@ test("diagnostics tabs have an accessible target and a stateful handler", async 
   assert.match(html, /id="issue-list"/);
   assert.match(app, /state\.activeOutput = outputTab\.dataset\.output/);
   assert.match(app, /function renderOutput/);
+  assert.match(html, /data-action="pcb-drc"/);
+  assert.match(html, /data-action="pcb-export"/);
+  assert.match(app, /function exportPcbFiles/);
 });
 
 test("released example picker points only to tested registry projects", async () => {
