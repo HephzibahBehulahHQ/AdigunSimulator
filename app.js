@@ -18,6 +18,7 @@ import {
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
+import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
@@ -203,7 +204,9 @@ function componentVisual(component, view) {
   const x = component.position?.[view]?.[0] ?? 120;
   const y = component.position?.[view]?.[1] ?? 120;
   const className = component.libraryId.replaceAll(".", "-");
-  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span><span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span><span class="part-value">${escape(component.value)}</span></button>`;
+  const symbol = view === "schematic" ? renderSchematicSymbol(part) : null;
+  const body = symbol ?? `<span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span>`;
+  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value">${escape(component.value)}</span></button>`;
 }
 
 function componentCenter(component, view) {
