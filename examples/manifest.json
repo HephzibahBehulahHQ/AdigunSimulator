@@ -1495,14 +1495,42 @@
     {
       "id": "039-active-low-pass",
       "title": "First-order active low-pass filter",
-      "status": "in-review",
+      "status": "released",
       "objective": "Combine a 10 kΩ input resistor and 10 nF shunt capacitor with a non-inverting op-amp stage of gain 2 on ±9 V rails; test calculated cutoff, below/at/above-cutoff response, and output rail limits.",
       "acceptanceTest": "tests/core.test.mjs: catalogue active low-pass filter matches its designed cutoff and gain and blocks overrange input and disconnected RC wiring",
       "testId": "core-active-low-pass",
       "projectFile": "examples/039-active-low-pass.adigun.json",
       "safetyNote": "Ideal first-order RC and op-amp estimate. It omits op-amp finite bandwidth/slew/noise, capacitor/resistor tolerance and parasitics, loading, and manufacturer-specific behavior.",
       "scope": "catalogue",
-      "catalogueIndex": 39
+      "catalogueIndex": 39,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41172495332",
+        "headRevision": "fd03f4ba0996d8d587b080860a522dd5eced8b29",
+        "engine": "First-order RC active low-pass and ideal non-inverting gain estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-active-low-pass-v1",
+        "expectedResult": {
+          "cutoffHz": 1591.5494309189535,
+          "passbandGain": 2,
+          "response": [
+            {
+              "frequencyHz": 159.15494309189535,
+              "gain": 1.9900743804199783
+            },
+            {
+              "frequencyHz": 1591.5494309189535,
+              "gain": 1.414213562373095
+            },
+            {
+              "frequencyHz": 15915.494309189535,
+              "gain": 0.19900743804199783
+            }
+          ],
+          "maximumOutputAmplitudeV": 2
+        }
+      }
     }
   ]
 }
