@@ -7,6 +7,7 @@ import { getExampleCoverage, validateExampleRegistry } from "../js/example-regis
 import { exportPcbFabrication, validatePcbFabrication } from "../js/pcb-export.mjs";
 import { createPcbPlacementReport } from "../js/pcb-placement-report.mjs";
 import { createGroundingChecklistReport, reviewAudioAmplifierPcb } from "../js/audio-pcb-review.mjs";
+import { createPowerLayoutReport, reviewBuckPowerLayout } from "../js/buck-converter-review.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
@@ -1197,6 +1198,53 @@ test("LM386 audio amplifier PCB validates topology, grounding review, DRC, BOM, 
   assert.equal(reviewAudioAmplifierPcb(narrowRoute).status, "failed");
 });
 
+
+test("LM2596 buck converter PCB validates topology, high-current layout review, DRC and exports", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/129-buck-converter-pcb.adigun.json", import.meta.url)));
+  const validation = validateProject(project);
+  assert.equal(validation.valid, true);
+  assert.deepEqual(validation.warnings, []);
+  const analysis = runSupportedAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.equal(analysis.result.kind, "lm2596-buck-converter-topology");
+  assert.equal(analysis.result.manufacturerPinMapValid, true);
+  assert.equal(analysis.result.switchingSimulation, false);
+  assert.match(analysis.message, /not simulated/);
+
+  const review = reviewBuckPowerLayout(project);
+  assert.equal(review.status, "passed");
+  assert.ok(review.checks.every((item) => item.status === "pass"));
+  assert.match(review.disclaimer, /does not establish output regulation, ripple/);
+  assert.equal(validatePcbFabrication(project).status, "passed");
+  const exported = exportPcbFabrication(project);
+  assert.equal(exported.status, "passed");
+  const snapshots = {
+    ...exported.files,
+    "Placement.csv": createPcbPlacementReport(project),
+    "Power-Layout-Review.csv": createPowerLayoutReport(project)
+  };
+  for (const [name, actual] of Object.entries(snapshots)) {
+    const expected = await readFile(new URL("../examples/129-buck-converter-pcb/expected/" + name, import.meta.url), "utf8");
+    assert.equal(actual, expected, name);
+  }
+  assert.match(snapshots["BOM.csv"], /"U1","1","LM2596T-5.0/);
+  assert.match(snapshots["BOM.csv"], /"D1","1","onsemi 1N5822G/);
+  assert.match(snapshots["Power-Layout-Review.csv"], /high-current-widths","pass/);
+
+  const reversedDiode = JSON.parse(JSON.stringify(project));
+  reversedDiode.nets.find((net) => net.id === "SW").endpoints = reversedDiode.nets.find((net) => net.id === "SW").endpoints.filter((pin) => pin !== "catch-diode:K").concat("catch-diode:A");
+  reversedDiode.nets.find((net) => net.id === "GND").endpoints = reversedDiode.nets.find((net) => net.id === "GND").endpoints.filter((pin) => pin !== "catch-diode:A").concat("catch-diode:K");
+  assert.equal(runSupportedAnalysis(reversedDiode).state, "blocked");
+  assert.equal(validatePcbFabrication(reversedDiode).status, "failed");
+
+  const narrowTrace = JSON.parse(JSON.stringify(project));
+  narrowTrace.pcbFabrication.routes.find((route) => route.netId === "VOUT").widthMm = 0.4;
+  assert.equal(reviewBuckPowerLayout(narrowTrace).status, "failed");
+  const failedChecklist = JSON.parse(JSON.stringify(project));
+  failedChecklist.pcbFabrication.powerLayoutReview.checklist[0].status = "review";
+  assert.equal(reviewBuckPowerLayout(failedChecklist).status, "failed");
+});
+
 test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
@@ -1205,7 +1253,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 138);
+  assert.equal(getExampleCoverage(registry).total, 139);
   assert.equal(getExampleCoverage(registry).released, 128);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 72);
