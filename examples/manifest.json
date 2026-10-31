@@ -3120,6 +3120,34 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "078-nfc-uid-display",
+      "title": "NFC UID safe display",
+      "status": "released",
+      "objective": "Display a readable NFC tag UID through an ideal reader and controller, and block output when the tag read reports an error.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue NFC example displays a successful UID read and blocks read errors",
+      "testId": "core-nfc-uid-display",
+      "projectFile": "examples/078-nfc-uid-display.adigun.json",
+      "safetyNote": "A UID is an identifier, not proof of identity or a secret credential. RF coupling, anti-collision, secure card authentication, firmware, and physical NFC behavior are not modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 78,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41181366699",
+        "headRevision": "7f72db0ea8e9ab6fd5636a19dd2f6a99924041dd",
+        "engine": "Ideal NFC UID read-and-display model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-nfc-uid-display-v1",
+        "expectedResult": {
+          "uid": "04A1B2C3",
+          "readStatus": "ok",
+          "displayText": "Tag UID: 04A1B2C3",
+          "uidIsAuthentication": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
