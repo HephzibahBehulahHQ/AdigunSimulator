@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-022-555-monostable",
+  "metadata": {
+    "name": "555 Monostable LED Pulse",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          30,
+          70
+        ],
+        "schematic": [
+          30,
+          70
+        ],
+        "pcb": [
+          30,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "timer-1",
+      "libraryId": "active.ne555",
+      "reference": "U1",
+      "value": "NE555 monostable ideal model",
+      "position": {
+        "breadboard": [
+          130,
+          70
+        ],
+        "schematic": [
+          130,
+          70
+        ],
+        "pcb": [
+          130,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "timing-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "100 kΩ",
+      "position": {
+        "breadboard": [
+          230,
+          70
+        ],
+        "schematic": [
+          230,
+          70
+        ],
+        "pcb": [
+          230,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "timing-capacitor-1",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "10 µF",
+      "position": {
+        "breadboard": [
+          330,
+          70
+        ],
+        "schematic": [
+          330,
+          70
+        ],
+        "pcb": [
+          330,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "pullup-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          430,
+          70
+        ],
+        "schematic": [
+          430,
+          70
+        ],
+        "pcb": [
+          430,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "trigger-1",
+      "libraryId": "input.pushbutton",
+      "reference": "SW1",
+      "value": "Normally open",
+      "position": {
+        "breadboard": [
+          530,
+          70
+        ],
+        "schematic": [
+          530,
+          70
+        ],
+        "pcb": [
+          530,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "led-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "RLED",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          130,
+          170
+        ],
+        "schematic": [
+          130,
+          170
+        ],
+        "pcb": [
+          130,
+          170
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          230,
+          170
+        ],
+        "schematic": [
+          230,
+          170
+        ],
+        "pcb": [
+          230,
+          170
+        ]
+      }
+    },
+    {
+      "instanceId": "control-capacitor-1",
+      "libraryId": "passive.capacitor",
+      "reference": "CCTRL",
+      "value": "10 nF",
+      "position": {
+        "breadboard": [
+          330,
+          170
+        ],
+        "schematic": [
+          330,
+          170
+        ],
+        "pcb": [
+          330,
+          170
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          530,
+          170
+        ],
+        "schematic": [
+          530,
+          170
+        ],
+        "pcb": [
+          530,
+          170
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "timer-1:8",
+        "timer-1:4",
+        "timing-resistor-1:1",
+        "pullup-resistor-1:1"
+      ]
+    },
+    {
+      "id": "TIMING",
+      "endpoints": [
+        "timer-1:6",
+        "timer-1:7",
+        "timing-resistor-1:2",
+        "timing-capacitor-1:1"
+      ]
+    },
+    {
+      "id": "TRIGGER",
+      "endpoints": [
+        "timer-1:2",
+        "pullup-resistor-1:2",
+        "trigger-1:1"
+      ]
+    },
+    {
+      "id": "OUT",
+      "endpoints": [
+        "timer-1:3",
+        "led-resistor-1:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "led-resistor-1:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "CONTROL",
+      "endpoints": [
+        "timer-1:5",
+        "control-capacitor-1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source-1:-",
+        "timer-1:1",
+        "timing-capacitor-1:2",
+        "trigger-1:2",
+        "led-1:K",
+        "control-capacitor-1:2",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}
