@@ -6937,6 +6937,19 @@
           "physicalSensorModel": false
         }
       }
+    },
+    {
+      "id": "180-machine-fault-annunciator",
+      "title": "Machine fault annunciator",
+      "status": "in-review",
+      "objective": "Latch fault indications until the source fault is clear and an acknowledgement is received; test acknowledgement both before and after fault clearance.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue fault annunciator clears only after acknowledgement and inactive input",
+      "testId": "core-machine-fault-annunciator",
+      "projectFile": "examples/180-machine-fault-annunciator.adigun.json",
+      "readmeFile": "examples/180-machine-fault-annunciator/README.md",
+      "safetyNote": "Educational logic only. No physical alarm hardware, priority design, audible level, safety function, machine interlock, reliability, or compliance claim is included.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
