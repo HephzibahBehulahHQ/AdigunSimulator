@@ -5666,6 +5666,18 @@
           "manufacturingQualified": false
         }
       }
+    },
+    {
+      "id": "139-copper-zone-demo",
+      "title": "Ground copper-zone refill demo",
+      "status": "in-review",
+      "objective": "Preview a bounded GND copper fill with explicit foreign-net pad/route clearances and four-spoke thermal-relief intent; report permitted pad candidates and refill estimates.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue copper-zone demo refills only permitted-net cells and blocks invalid clearance",
+      "testId": "core-copper-zone-demo",
+      "projectFile": "examples/139-copper-zone-demo.adigun.json",
+      "readmeFile": "examples/139-copper-zone-demo/README.md",
+      "safetyNote": "The rectangular grid fill is an educational area preview with conservative clearance exclusions. It does not create production copper geometry, prove connectivity or thermal relief, or replace zone refill and manufacturing DRC.",
+      "scope": "catalogue"
     }
   ]
 }
