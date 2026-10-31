@@ -64,53 +64,6 @@
       }
     },
     {
-      "id": "015-bridge-rectifier",
-      "title": "Full-wave bridge rectifier",
-      "status": "released",
-      "objective": "Generate a sampled 12 V RMS, 50 Hz bridge output across a resistive load, including two conducting diode drops; verify the output repeats at twice the input frequency and has no smoothing capacitor.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue bridge rectifier generates full-wave output at twice line frequency and blocks invalid frequency and wiring",
-      "testId": "core-bridge-rectifier",
-      "projectFile": "examples/015-bridge-rectifier.adigun.json",
-      "safetyNote": "Ideal low-voltage waveform model only. It has fixed diode drops and no transformer, smoothing capacitor, reverse recovery, source impedance, thermal, rating, mains safety, or hardware qualification.",
-      "scope": "catalogue",
-      "catalogueIndex": 15,
-      "verification": {
-        "status": "passed",
-        "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41155142214",
-        "headRevision": "7feefefa5b7f7bb3124392fde5c76607b3d8c23e",
-        "engine": "Analytical sampled full-wave bridge rectifier",
-        "engineVersion": "adigun-simulator@0.1.0",
-        "modelVersion": "bridge-rectifier-full-wave-v1",
-        "libraryLock": "adigun-simulator@bb808a0a93539d45b927382d33902916680b2662",
-        "expectedResult": {
-          "inputFrequencyHz": 50,
-          "rectifiedFrequencyHz": 100,
-          "rippleFrequencyHz": 100,
-          "inputRmsVoltage": 12,
-          "peakOutputVoltage": 15.57056274847714,
-          "diodeDropPerConductingDiode": 0.7,
-          "smoothingCapacitor": false
-        }
-      }
-    },
-    {
-      "id": "002-dc-voltage-divider",
-      "title": "Unloaded DC voltage divider",
-      "status": "released",
-      "objective": "Calculate unloaded output voltage, branch current, and total power for a 9 V, 1 kΩ / 2 kΩ divider.",
-      "acceptanceTest": "tests/core.test.mjs: a documented voltage divider produces bounded DC values",
-      "testId": "core-dc-voltage-divider",
-      "projectFile": "examples/002-dc-voltage-divider.adigun.json",
-      "safetyNote": "Educational low-voltage unloaded model only. A connected load changes the result; do not use it for a physical-product, thermal, mains, or regulatory safety approval.",
-      "verification": {
-        "status": "passed",
-        "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
-      },
-      "scope": "supplemental"
-    },
-    {
       "id": "003-pushbutton-led",
       "title": "5 V pushbutton LED with pull-down",
       "status": "released",
@@ -504,134 +457,6 @@
       }
     },
     {
-      "id": "003-led-current-limiter-9v",
-      "title": "9 V LED current limiter",
-      "status": "released",
-      "objective": "Calculate current and resistor dissipation for a 9 V source, 470 Ω resistor, and red LED.",
-      "acceptanceTest": "tests/core.test.mjs: released examples carry a native project, acceptance test, safety scope, and supported result",
-      "testId": "core-led-current-limiter-9v",
-      "projectFile": "examples/003-led-current-limiter-9v.adigun.json",
-      "safetyNote": "Educational low-voltage model only. Confirm actual LED limits, resistor wattage, supply tolerance, and heat before building hardware.",
-      "verification": {
-        "status": "passed",
-        "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
-      },
-      "scope": "supplemental"
-    },
-    {
-      "id": "004-parallel-resistor-load",
-      "title": "5 V parallel resistor load",
-      "status": "released",
-      "objective": "Solve a 5 V source feeding a 1 kΩ series resistor and two 1 kΩ parallel load resistors; report midpoint voltage and source current.",
-      "acceptanceTest": "tests/core.test.mjs: parallel resistor load example has a reproducible DC operating point",
-      "testId": "core-parallel-resistor-load",
-      "projectFile": "examples/004-parallel-resistor-load.adigun.json",
-      "safetyNote": "Educational low-voltage ideal DC model only. Check real resistor power ratings, supply tolerance, heat, and wiring before hardware use.",
-      "verification": {
-        "status": "passed",
-        "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146042966"
-      },
-      "scope": "supplemental"
-    },
-    {
-      "id": "005-rc-step-response",
-      "title": "First-order RC step response",
-      "status": "released",
-      "objective": "Calculate the ideal 5 V step response of a 1 kΩ resistor charging a 100 µF capacitor from zero initial voltage; report time constant and sampled voltage/current.",
-      "acceptanceTest": "tests/core.test.mjs: single-pole RC step response reports time constant and analytic samples",
-      "testId": "core-rc-step-response",
-      "projectFile": "examples/005-rc-step-response.adigun.json",
-      "safetyNote": "Educational ideal low-voltage transient model only. It omits parasitics, source impedance, tolerances, leakage, dielectric effects, and component ratings; verify real parts before hardware use.",
-      "verification": {
-        "status": "passed",
-        "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146807195"
-      },
-      "scope": "supplemental"
-    },
-    {
-      "id": "006-rl-step-response",
-      "title": "First-order RL step response",
-      "status": "released",
-      "objective": "Calculate the ideal 5 V step response of a 100 Ω resistor and 100 mH inductor from zero initial current; report time constant and sampled current/voltage.",
-      "acceptanceTest": "tests/core.test.mjs: single-pole RL step response reports current rise and inductor voltage",
-      "testId": "core-rl-step-response",
-      "projectFile": "examples/006-rl-step-response.adigun.json",
-      "safetyNote": "Educational ideal low-voltage transient model only. It omits parasitics, source impedance, tolerances, magnetic saturation, thermal effects, and component ratings; verify real parts before hardware use.",
-      "verification": {
-        "status": "passed",
-        "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147338342"
-      },
-      "scope": "supplemental"
-    },
-    {
-      "id": "007-led-current-limiter-12v",
-      "title": "12 V LED current limiter",
-      "status": "released",
-      "objective": "Calculate ideal LED current and resistor dissipation for a 12 V source, 2.2 kΩ resistor, and 2.0 V red LED.",
-      "acceptanceTest": "tests/core.test.mjs: 12 V LED limiter example calculates the documented current",
-      "testId": "core-led-current-limiter-12v",
-      "projectFile": "examples/007-led-current-limiter-12v.adigun.json",
-      "safetyNote": "Educational ideal low-voltage model only. Confirm the actual LED forward voltage/current rating, resistor wattage, supply tolerance and heat before hardware use.",
-      "verification": {
-        "status": "passed",
-        "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
-      },
-      "scope": "supplemental"
-    },
-    {
-      "id": "008-led-current-limiter-3v3",
-      "title": "3.3 V LED current limiter",
-      "status": "released",
-      "objective": "Calculate ideal LED current and resistor dissipation for a 3.3 V source, 150 Ω resistor, and 2.0 V red LED.",
-      "acceptanceTest": "tests/core.test.mjs: 3.3 V LED limiter example calculates the documented current",
-      "testId": "core-led-current-limiter-3v3",
-      "projectFile": "examples/008-led-current-limiter-3v3.adigun.json",
-      "safetyNote": "Educational ideal low-voltage model only. Actual LED forward voltage and supply tolerance change current; verify resistor rating, heat and LED limits before building.",
-      "verification": {
-        "status": "passed",
-        "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
-      },
-      "scope": "supplemental"
-    },
-    {
-      "id": "009-dc-voltage-divider-3k-1k",
-      "title": "9 V divider 3 kΩ / 1 kΩ",
-      "status": "released",
-      "objective": "Calculate the unloaded output voltage and current for a 9 V source and 3 kΩ / 1 kΩ divider.",
-      "acceptanceTest": "tests/core.test.mjs: 3 kΩ / 1 kΩ divider example calculates output voltage",
-      "testId": "core-dc-voltage-divider-3k-1k",
-      "projectFile": "examples/009-dc-voltage-divider-3k-1k.adigun.json",
-      "safetyNote": "Educational low-voltage unloaded model only. A connected load changes the output; do not use as product or regulatory design approval.",
-      "verification": {
-        "status": "passed",
-        "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
-      },
-      "scope": "supplemental"
-    },
-    {
-      "id": "010-parallel-load-12v",
-      "title": "12 V parallel resistor load",
-      "status": "released",
-      "objective": "Solve a 12 V source, 1 kΩ series resistor, and 2 kΩ / 3 kΩ parallel loads; report midpoint voltage and source current.",
-      "acceptanceTest": "tests/core.test.mjs: 12 V parallel load example solves its midpoint and source current",
-      "testId": "core-parallel-load-12v",
-      "projectFile": "examples/010-parallel-load-12v.adigun.json",
-      "safetyNote": "Educational ideal low-voltage DC model only. Check real resistor power ratings, heat, supply tolerance and wiring before hardware use.",
-      "verification": {
-        "status": "passed",
-        "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
-      },
-      "scope": "supplemental"
-    },
-    {
       "id": "011-rc-charge-discharge",
       "title": "RC charge and discharge",
       "status": "released",
@@ -765,6 +590,181 @@
           }
         }
       }
+    },
+    {
+      "id": "015-bridge-rectifier",
+      "title": "Full-wave bridge rectifier",
+      "status": "released",
+      "objective": "Generate a sampled 12 V RMS, 50 Hz bridge output across a resistive load, including two conducting diode drops; verify the output repeats at twice the input frequency and has no smoothing capacitor.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue bridge rectifier generates full-wave output at twice line frequency and blocks invalid frequency and wiring",
+      "testId": "core-bridge-rectifier",
+      "projectFile": "examples/015-bridge-rectifier.adigun.json",
+      "safetyNote": "Ideal low-voltage waveform model only. It has fixed diode drops and no transformer, smoothing capacitor, reverse recovery, source impedance, thermal, rating, mains safety, or hardware qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 15,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41155142214",
+        "headRevision": "7feefefa5b7f7bb3124392fde5c76607b3d8c23e",
+        "engine": "Analytical sampled full-wave bridge rectifier",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "bridge-rectifier-full-wave-v1",
+        "libraryLock": "adigun-simulator@bb808a0a93539d45b927382d33902916680b2662",
+        "expectedResult": {
+          "inputFrequencyHz": 50,
+          "rectifiedFrequencyHz": 100,
+          "rippleFrequencyHz": 100,
+          "inputRmsVoltage": 12,
+          "peakOutputVoltage": 15.57056274847714,
+          "diodeDropPerConductingDiode": 0.7,
+          "smoothingCapacitor": false
+        }
+      }
+    },
+    {
+      "id": "002-dc-voltage-divider",
+      "title": "Unloaded DC voltage divider",
+      "status": "released",
+      "objective": "Calculate unloaded output voltage, branch current, and total power for a 9 V, 1 kΩ / 2 kΩ divider.",
+      "acceptanceTest": "tests/core.test.mjs: a documented voltage divider produces bounded DC values",
+      "testId": "core-dc-voltage-divider",
+      "projectFile": "examples/002-dc-voltage-divider.adigun.json",
+      "safetyNote": "Educational low-voltage unloaded model only. A connected load changes the result; do not use it for a physical-product, thermal, mains, or regulatory safety approval.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
+      },
+      "scope": "supplemental"
+    },
+    {
+      "id": "003-led-current-limiter-9v",
+      "title": "9 V LED current limiter",
+      "status": "released",
+      "objective": "Calculate current and resistor dissipation for a 9 V source, 470 Ω resistor, and red LED.",
+      "acceptanceTest": "tests/core.test.mjs: released examples carry a native project, acceptance test, safety scope, and supported result",
+      "testId": "core-led-current-limiter-9v",
+      "projectFile": "examples/003-led-current-limiter-9v.adigun.json",
+      "safetyNote": "Educational low-voltage model only. Confirm actual LED limits, resistor wattage, supply tolerance, and heat before building hardware.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
+      },
+      "scope": "supplemental"
+    },
+    {
+      "id": "004-parallel-resistor-load",
+      "title": "5 V parallel resistor load",
+      "status": "released",
+      "objective": "Solve a 5 V source feeding a 1 kΩ series resistor and two 1 kΩ parallel load resistors; report midpoint voltage and source current.",
+      "acceptanceTest": "tests/core.test.mjs: parallel resistor load example has a reproducible DC operating point",
+      "testId": "core-parallel-resistor-load",
+      "projectFile": "examples/004-parallel-resistor-load.adigun.json",
+      "safetyNote": "Educational low-voltage ideal DC model only. Check real resistor power ratings, supply tolerance, heat, and wiring before hardware use.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146042966"
+      },
+      "scope": "supplemental"
+    },
+    {
+      "id": "005-rc-step-response",
+      "title": "First-order RC step response",
+      "status": "released",
+      "objective": "Calculate the ideal 5 V step response of a 1 kΩ resistor charging a 100 µF capacitor from zero initial voltage; report time constant and sampled voltage/current.",
+      "acceptanceTest": "tests/core.test.mjs: single-pole RC step response reports time constant and analytic samples",
+      "testId": "core-rc-step-response",
+      "projectFile": "examples/005-rc-step-response.adigun.json",
+      "safetyNote": "Educational ideal low-voltage transient model only. It omits parasitics, source impedance, tolerances, leakage, dielectric effects, and component ratings; verify real parts before hardware use.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146807195"
+      },
+      "scope": "supplemental"
+    },
+    {
+      "id": "006-rl-step-response",
+      "title": "First-order RL step response",
+      "status": "released",
+      "objective": "Calculate the ideal 5 V step response of a 100 Ω resistor and 100 mH inductor from zero initial current; report time constant and sampled current/voltage.",
+      "acceptanceTest": "tests/core.test.mjs: single-pole RL step response reports current rise and inductor voltage",
+      "testId": "core-rl-step-response",
+      "projectFile": "examples/006-rl-step-response.adigun.json",
+      "safetyNote": "Educational ideal low-voltage transient model only. It omits parasitics, source impedance, tolerances, magnetic saturation, thermal effects, and component ratings; verify real parts before hardware use.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147338342"
+      },
+      "scope": "supplemental"
+    },
+    {
+      "id": "007-led-current-limiter-12v",
+      "title": "12 V LED current limiter",
+      "status": "released",
+      "objective": "Calculate ideal LED current and resistor dissipation for a 12 V source, 2.2 kΩ resistor, and 2.0 V red LED.",
+      "acceptanceTest": "tests/core.test.mjs: 12 V LED limiter example calculates the documented current",
+      "testId": "core-led-current-limiter-12v",
+      "projectFile": "examples/007-led-current-limiter-12v.adigun.json",
+      "safetyNote": "Educational ideal low-voltage model only. Confirm the actual LED forward voltage/current rating, resistor wattage, supply tolerance and heat before hardware use.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
+      },
+      "scope": "supplemental"
+    },
+    {
+      "id": "008-led-current-limiter-3v3",
+      "title": "3.3 V LED current limiter",
+      "status": "released",
+      "objective": "Calculate ideal LED current and resistor dissipation for a 3.3 V source, 150 Ω resistor, and 2.0 V red LED.",
+      "acceptanceTest": "tests/core.test.mjs: 3.3 V LED limiter example calculates the documented current",
+      "testId": "core-led-current-limiter-3v3",
+      "projectFile": "examples/008-led-current-limiter-3v3.adigun.json",
+      "safetyNote": "Educational ideal low-voltage model only. Actual LED forward voltage and supply tolerance change current; verify resistor rating, heat and LED limits before building.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
+      },
+      "scope": "supplemental"
+    },
+    {
+      "id": "009-dc-voltage-divider-3k-1k",
+      "title": "9 V divider 3 kΩ / 1 kΩ",
+      "status": "released",
+      "objective": "Calculate the unloaded output voltage and current for a 9 V source and 3 kΩ / 1 kΩ divider.",
+      "acceptanceTest": "tests/core.test.mjs: 3 kΩ / 1 kΩ divider example calculates output voltage",
+      "testId": "core-dc-voltage-divider-3k-1k",
+      "projectFile": "examples/009-dc-voltage-divider-3k-1k.adigun.json",
+      "safetyNote": "Educational low-voltage unloaded model only. A connected load changes the output; do not use as product or regulatory design approval.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
+      },
+      "scope": "supplemental"
+    },
+    {
+      "id": "010-parallel-load-12v",
+      "title": "12 V parallel resistor load",
+      "status": "released",
+      "objective": "Solve a 12 V source, 1 kΩ series resistor, and 2 kΩ / 3 kΩ parallel loads; report midpoint voltage and source current.",
+      "acceptanceTest": "tests/core.test.mjs: 12 V parallel load example solves its midpoint and source current",
+      "testId": "core-parallel-load-12v",
+      "projectFile": "examples/010-parallel-load-12v.adigun.json",
+      "safetyNote": "Educational ideal low-voltage DC model only. Check real resistor power ratings, heat, supply tolerance and wiring before hardware use.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
+      },
+      "scope": "supplemental"
     },
     {
       "id": "supplemental-rl-low-pass",
