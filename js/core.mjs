@@ -259,7 +259,11 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "passive.speaker-r-l-generic", category: "Output", type: "Generic speaker electrical R-L model", prefix: "SP", pins: ["+", "-"], defaultValue: "R 8 Ω; L 0.5 mH", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.npn-small-signal", category: "Active", type: "NPN transistor (ideal common-emitter small-signal)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "β 100; VBE 0.7 V; VCEsat 0.2 V", simulation: "analytical-npn-common-emitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
-  { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
+  { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.lm386-classab", category: "Active", type: "TI LM386 low-voltage Class-AB amplifier", prefix: "U", pins: ["GAIN1","MINUS_INPUT","PLUS_INPUT","GND","VOUT","VS","BYPASS","GAIN2"], defaultValue: "LM386N-1; 4–12 V class; pin map per TI datasheet", simulation: "bounded-audio-pcb-topology", status: "manufacturer pin map; generic footprint template", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "passive.electrolytic-capacitor", category: "Passive", type: "Polarized electrolytic capacitor", prefix: "C", pins: ["+","-"], defaultValue: "10 µF; 16 V", simulation: "schematic/PCB only", status: "generic polarity-aware model", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "connector.audio-input-2", category: "Connectors", type: "2-pin audio input header", prefix: "J", pins: ["IN","GND"], defaultValue: "Audio input and ground", simulation: "schematic/PCB only", status: "generic", views: { breadboard: false, schematic: true, pcb: true } },
+  { id: "connector.speaker-terminal-2", category: "Connectors", type: "2-pin speaker terminal", prefix: "J", pins: ["SPK+","SPK-"], defaultValue: "Speaker positive and ground return", simulation: "schematic/PCB only", status: "generic", views: { breadboard: false, schematic: true, pcb: true } },
 ]);
 
 function clone(value) {
@@ -591,6 +595,31 @@ function engineeringValue(value, expectedUnit) {
 export function runSupportedAnalysis(project, { previousState } = {}) {
   const validation = validateProject(project);
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
+
+
+  const lm386=project.components.find((item)=>item.libraryId==="active.lm386-classab");
+  if(lm386){
+    const dc=project.components.find((item)=>item.libraryId==="power.dc-source");
+    const audio=project.components.find((item)=>item.libraryId==="power.ac-source");
+    const input=project.components.find((item)=>item.libraryId==="connector.audio-input-2");
+    const speaker=project.components.find((item)=>item.libraryId==="connector.speaker-terminal-2");
+    const has=(netId,component,pin)=>Boolean(component&&project.nets.find(net=>net.id===netId)?.endpoints.includes(component.instanceId+":"+pin));
+    const required=[
+      ["VCC",dc,"+"],["VCC",lm386,"VS"],["VCC",project.components.find(x=>x.reference==="C1"),"+"],["VCC",project.components.find(x=>x.reference==="C2"),"2"],
+      ["GND",dc,"-"],["GND",audio,"-"],["GND",lm386,"GND"],["GND",lm386,"MINUS_INPUT"],["GND",project.components.find(x=>x.reference==="C1"),"-"],["GND",project.components.find(x=>x.reference==="C2"),"1"],["GND",project.components.find(x=>x.reference==="C5"),"-"],["GND",project.components.find(x=>x.reference==="C7"),"2"],["GND",input,"GND"],["GND",speaker,"SPK-"],
+      ["AUDIO_IN",audio,"+"],["AUDIO_IN",input,"IN"],["AUDIO_IN",project.components.find(x=>x.reference==="C3"),"-"],
+      ["AMP_IN",project.components.find(x=>x.reference==="C3"),"+"],["AMP_IN",lm386,"PLUS_INPUT"],
+      ["GAIN1",lm386,"GAIN1"],["GAIN1",project.components.find(x=>x.reference==="C4"),"+"],["GAIN2",lm386,"GAIN2"],["GAIN2",project.components.find(x=>x.reference==="C4"),"-"],
+      ["BYPASS",lm386,"BYPASS"],["BYPASS",project.components.find(x=>x.reference==="C5"),"+"],
+      ["AMP_OUT",lm386,"VOUT"],["AMP_OUT",project.components.find(x=>x.reference==="C6"),"+"],["AMP_OUT",project.components.find(x=>x.reference==="R1"),"1"],
+      ["SPK_POS",project.components.find(x=>x.reference==="C6"),"-"],["SPK_POS",speaker,"SPK+"],
+      ["ZOBEL",project.components.find(x=>x.reference==="R1"),"2"],["ZOBEL",project.components.find(x=>x.reference==="C7"),"1"]
+    ];
+    const pads=project.pcbFabrication?.pads??[];
+    const pinMapValid=["GAIN1","MINUS_INPUT","PLUS_INPUT","GND","VOUT","VS","BYPASS","GAIN2"].every((pin,index)=>pads.some(pad=>pad.instanceId===lm386.instanceId&&pad.pin===pin&&String(pad.number)===String(index+1)));
+    if(!input||!speaker||!pinMapValid||required.some(([net,component,pin])=>!has(net,component,pin)))return {state:"blocked",message:"Check the LM386 pin map, polarized coupling capacitors, bypass and speaker output wiring.",validation};
+    return {state:"complete",engine:"LM386 audio-amplifier topology checker",message:"Verified the manufacturer pin map and declared coupling, gain, bypass, decoupling, speaker and Zobel connections. Audio gain, clipping, THD, thermal performance, speaker power and listening behavior are not simulated.",validation,result:{kind:"lm386-audio-amplifier-topology",device:"LM386N-1",supplyVoltageV:9,manufacturerPinMapValid:true,groundNetConnected:true,speakerTerminalMapped:true,speakerLoadSimulation:false,hardwareManufacturingQualified:false}};
+  }
 
   const usbC = project.components.find((item) => item.libraryId === "connector.usb-c-receptacle");
   if (usbC) {

@@ -5,6 +5,8 @@ import { addComponent, connectPins, createEmptyProject, createProject, createVol
 import { getLedgerCoverage, getLibraryCoverage, validateComponentTypes, validatePartsManifest, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "../js/pcb-export.mjs";
+import { createPcbPlacementReport } from "../js/pcb-placement-report.mjs";
+import { createGroundingChecklistReport, reviewAudioAmplifierPcb } from "../js/audio-pcb-review.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
@@ -1150,6 +1152,51 @@ test("12 V parallel load example solves its midpoint and source current", async 
   assert.ok(Math.abs(result.result.sourceCurrentA - (12 / 2200)) < 1e-12);
 });
 
+
+test("LM386 audio amplifier PCB validates topology, grounding review, DRC, BOM, placement and export snapshots", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/128-audio-amplifier-pcb.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const analysis = runSupportedAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.equal(analysis.result.kind, "lm386-audio-amplifier-topology");
+  assert.equal(analysis.result.manufacturerPinMapValid, true);
+  assert.equal(analysis.result.speakerLoadSimulation, false);
+  assert.match(analysis.message, /not simulated/);
+
+  const review = reviewAudioAmplifierPcb(project);
+  assert.equal(review.status, "passed");
+  assert.ok(review.checks.every((item) => item.status === "pass"));
+  assert.match(review.disclaimer, /no waveform, gain, clipping, THD/);
+  assert.equal(validatePcbFabrication(project).status, "passed");
+  const exported = exportPcbFabrication(project);
+  assert.equal(exported.status, "passed");
+  const snapshots = {
+    ...exported.files,
+    "Placement.csv": createPcbPlacementReport(project),
+    "Grounding-Routing-Review.csv": createGroundingChecklistReport(project)
+  };
+  for (const [name, actual] of Object.entries(snapshots)) {
+    const expected = await readFile(new URL("../examples/128-audio-amplifier-pcb/expected/" + name, import.meta.url), "utf8");
+    assert.equal(actual, expected, name);
+  }
+  assert.match(snapshots["BOM.csv"], /"U1","1","TI LM386N-1/);
+  assert.match(snapshots["Placement.csv"], /"J2","Speaker/);
+  assert.match(snapshots["Grounding-Routing-Review.csv"], /star-point","pass/);
+
+  const wrongBypass = structuredClone(project);
+  wrongBypass.nets.find((net) => net.id === "VCC").endpoints.push("c-hf:1");
+  wrongBypass.nets.find((net) => net.id === "GND").endpoints = wrongBypass.nets.find((net) => net.id === "GND").endpoints.filter((pin) => pin !== "c-hf:1");
+  assert.equal(runSupportedAnalysis(wrongBypass).state, "blocked");
+  assert.equal(validatePcbFabrication(wrongBypass).status, "failed");
+
+  const failedReview = structuredClone(project);
+  failedReview.pcbFabrication.groundRoutingReview.checklist[0].status = "review";
+  assert.equal(reviewAudioAmplifierPcb(failedReview).status, "failed");
+  const narrowRoute = structuredClone(project);
+  narrowRoute.pcbFabrication.routes.find((route) => route.netId === "AMP_OUT").widthMm = 0.2;
+  assert.equal(reviewAudioAmplifierPcb(narrowRoute).status, "failed");
+});
+
 test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
@@ -1158,7 +1205,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 137);
+  assert.equal(getExampleCoverage(registry).total, 138);
   assert.equal(getExampleCoverage(registry).released, 127);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 73);
