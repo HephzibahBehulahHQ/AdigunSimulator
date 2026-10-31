@@ -56,13 +56,15 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.i2c-eeprom-ideal", category: "Active", type: "Ideal I²C EEPROM byte memory (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x50; Memory 0x10=0x00", simulation: "analytical-i2c-eeprom-write-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
-  { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D7", "D8", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D3", "D7", "D8", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.potentiometer-adc-ideal", category: "Inputs", type: "Ideal potentiometer-to-ADC fixture", prefix: "RV", pins: ["VCC", "OUT", "GND"], defaultValue: "Position 50%; Resolution 10 bit", simulation: "fixture-potentiometer-adc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.temperature-analog-ideal", category: "Sensors", type: "Ideal linear analog temperature sensor model", prefix: "TS", pins: ["VCC", "OUT", "GND"], defaultValue: "Temperature 25 C; Scale 10 mV/C; Offset 0 mV", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.lcd-text-sink-ideal", category: "Output", type: "Ideal single-line LCD text sink (behavior model)", prefix: "LCD", pins: ["DATA", "VCC", "GND"], defaultValue: "16-character text row", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.ultrasonic-echo-ideal", category: "Sensors", type: "Ideal ultrasonic echo-time sensor model", prefix: "US", pins: ["TRIG", "ECHO", "VCC", "GND"], defaultValue: "Echo 5882 us; Minimum 20 mm; Maximum 4000 mm", simulation: "analytical-ultrasonic-range", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.oled-text-sink-ideal", category: "Output", type: "Ideal OLED text sink (behavior model)", prefix: "OLED", pins: ["DATA", "VCC", "GND"], defaultValue: "Distance result", simulation: "analytical-ultrasonic-range", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.servo-angle-ideal", category: "Output", type: "Ideal hobby-servo position model", prefix: "SERVO", pins: ["PWM", "VCC", "GND"], defaultValue: "MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz", simulation: "analytical-servo-position", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.stepper-driver-ideal", category: "Active", type: "Ideal dual-H-bridge stepper driver (logic model)", prefix: "U", pins: ["STEP", "DIR", "VCC", "GND", "A1", "A2", "B1", "B2"], defaultValue: "Full-step dual-phase drive", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.stepper-motor-ideal", category: "Output", type: "Ideal bipolar stepper motor (position model)", prefix: "M", pins: ["A1", "A2", "B1", "B2"], defaultValue: "StepsPerRevolution 200; StepAngle 1.8 deg", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -441,6 +443,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const ultrasonicSensors = project.components.filter((item) => item.libraryId === "sensor.ultrasonic-echo-ideal");
   const oledSinks = project.components.filter((item) => item.libraryId === "output.oled-text-sink-ideal");
   const servoModels = project.components.filter((item) => item.libraryId === "output.servo-angle-ideal");
+  const stepperDrivers = project.components.filter((item) => item.libraryId === "active.stepper-driver-ideal");
+  const stepperMotors = project.components.filter((item) => item.libraryId === "output.stepper-motor-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -505,6 +509,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (stepperDrivers.length === 1 && stepperMotors.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseMcuStepper(project, { source: source[0], mcu: mcuControllers[0], driver: stepperDrivers[0], motor: stepperMotors[0], ground: ground[0], validation });
   }
   if (servoModels.length === 1 && adcPotentiometers.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuServoControl(project, { source: source[0], mcu: mcuControllers[0], potentiometer: adcPotentiometers[0], servo: servoModels[0], ground: ground[0], validation });
@@ -1540,6 +1547,22 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseMcuStepper(project,{source,mcu,driver,motor,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),motorFields=String(motor.value).split(";").map(v=>v.trim());
+  const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim(),numeric=value=>Number(String(value??"").split(" ")[0]);
+  const steps=numeric(field(mcuFields,"Steps")),stepRate=numeric(field(mcuFields,"StepRate")),direction=field(mcuFields,"Direction")?.toUpperCase();
+  const stepsPerRevolution=numeric(field(motorFields,"StepsPerRevolution")),stepAngle=numeric(field(motorFields,"StepAngle"));
+  const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const wired=n(mcu,"D3")===n(driver,"STEP")&&n(mcu,"D2")===n(driver,"DIR")&&n(driver,"VCC")===vccNet&&n(driver,"GND")===groundNet&&n(mcu,"GND")===groundNet&&["A1","A2","B1","B2"].every(pin=>n(driver,pin)===n(motor,pin));
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!wired||field(mcuFields,"Program")?.toLowerCase()!=="stepper"||field(mcuFields,"Step")!=="D3"||field(mcuFields,"DirectionPin")!=="D2"||!Number.isInteger(steps)||steps<1||steps>100000||!Number.isFinite(stepRate)||stepRate<1||stepRate>10000||!["CW","CCW"].includes(direction)||!Number.isFinite(stepsPerRevolution)||stepsPerRevolution<1||!Number.isFinite(stepAngle)||stepAngle<=0){
+    return {state:"blocked",message:"Configure D3 STEP, D2 DIR, a positive step count/rate, CW or CCW direction, and connect the dual-H-bridge outputs to all four motor coil terminals.",validation};
+  }
+  const signedSteps=direction==="CW"?steps:-steps,angularTravelDegrees=signedSteps*stepAngle,finalPositionDegrees=((angularTravelDegrees%360)+360)%360;
+  const phaseTable=[[true,false,false,true],[true,false,true,false],[false,true,true,false],[false,true,false,true]];
+  const phaseSequence=Array.from({length:Math.min(steps,8)},(_,index)=>({step:index+1,phaseIndex:((signedSteps>0?index:4-index)%4+4)%4,coils:phaseTable[((signedSteps>0?index:4-index)%4+4)%4]}));
+  return {state:"complete",engine:"Ideal Uno-class bipolar stepper sequence and position model",message:"Applies a full-step phase sequence and calculates ideal angular travel from configured steps and step angle. Arduino firmware, acceleration, missed steps, torque/load, coil current/thermal behavior, resonance, and mechanical end stops are omitted.",result:{kind:"mcu-stepper-position",direction,steps,signedSteps,stepRateHz:stepRate,stepsPerRevolution,stepAngleDegrees:stepAngle,angularTravelDegrees,finalPositionDegrees,motionDurationSeconds:steps/stepRate,phaseSequence,firmwareExecuted:false},validation};
+}
 function analyseMcuServoControl(project,{source,mcu,potentiometer,servo,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),servoFields=String(servo.value).split(";").map(v=>v.trim()),potFields=String(potentiometer.value).split(";").map(v=>v.trim());
