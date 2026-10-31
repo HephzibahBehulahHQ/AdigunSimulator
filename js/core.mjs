@@ -190,6 +190,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.liion-cell-fixture", category: "Inputs", type: "Li-ion cell state and temperature fixture", prefix: "BAT", pins: ["CELL", "VCC", "GND"], defaultValue: "CellState present; CellV 3.50 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV", simulation: "fixture-liion-charge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.liion-cccv-charger-ideal", category: "Active", type: "Ideal Li-ion constant-current/constant-voltage charger model", prefix: "U", pins: ["VIN", "BAT", "EN", "STATUS", "GND"], defaultValue: "Chemistry Li-ion; Mode CC/CV; SetVoltage 4.20 V; MaxCharge 500 mA; Termination 50 mA; TempLow 0 C; TempHigh 45 C; Efficiency 90%", simulation: "analytical-liion-charge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.liion-charge-report", category: "Output", type: "Li-ion charger phase and limit report", prefix: "SCOPE", pins: ["BAT", "STATUS", "GND"], defaultValue: "Charge phase report", simulation: "analytical-liion-charge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.bms-cell-stack-fixture", category: "Inputs", type: "Three-cell BMS voltage fixture", prefix: "CELL", pins: ["C1", "C2", "C3", "VCC", "GND"], defaultValue: "Cell1 3.70 V; Cell2 3.72 V; Cell3 3.71 V; Mode 3S", simulation: "fixture-bms-3s", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.bms-cell-monitor-ideal", category: "Active", type: "Ideal three-cell over/under-voltage monitor", prefix: "U", pins: ["C1", "C2", "C3", "STATUS", "VCC", "GND"], defaultValue: "Mode 3S; OV 4.20 V; UV 3.00 V; BalanceDelta 0.03 V; MaxCell 4.35 V", simulation: "analytical-bms-3s", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.bms-cell-report", category: "Output", type: "BMS cell voltage and balance request report", prefix: "SCOPE", pins: ["STATUS", "VCC", "GND"], defaultValue: "Cell monitor report", simulation: "analytical-bms-3s", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -690,6 +693,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const liionCellFixtures = project.components.filter((item) => item.libraryId === "input.liion-cell-fixture");
   const liionChargers = project.components.filter((item) => item.libraryId === "active.liion-cccv-charger-ideal");
   const liionChargeReports = project.components.filter((item) => item.libraryId === "output.liion-charge-report");
+  const bmsCellFixtures = project.components.filter((item) => item.libraryId === "input.bms-cell-stack-fixture");
+  const bmsCellMonitors = project.components.filter((item) => item.libraryId === "active.bms-cell-monitor-ideal");
+  const bmsCellReports = project.components.filter((item) => item.libraryId === "output.bms-cell-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -928,6 +934,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
+  }
+  if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
   }
   if (liionCellFixtures.length === 1 && liionChargers.length === 1 && liionChargeReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseLiionCharge(project, { source: source[0], cell: liionCellFixtures[0], charger: liionChargers[0], report: liionChargeReports[0], ground: ground[0], validation });
@@ -3149,6 +3158,30 @@ function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,spe
   return {state:"complete",engine:"Generic low-voltage class-AB amplifier and R-L speaker estimate",message:"Models configurable voltage gain and output swing, a single-supply midpoint bias, a series output coupling capacitor, and a nominal speaker R-L load. It reports a sinusoidal fundamental and real load power only. It does not calculate THD, compression, slew, output-stage current limiting, mechanical sound, thermal behavior, or manufacturer-specific LM386 performance.",result:{kind:"audio-power-amplifier",supplyVoltage,inputAmplitudeV,frequencyHz,gainVPerV:gain,requestedOutputAmplitudeV,amplifierOutputAmplitudeV,clipped,clippingWarning:clipped?"Input exceeds the configured output swing; distortion is not modeled.":null,outputBiasVoltageV:biasVoltageV,quiescentCurrentA:quiescentCurrent,speakerResistanceOhm:speakerResistance,speakerInductanceH:speakerInductance,couplingCapacitanceF:couplingCapacitance,couplingGain,speakerImpedanceOhm,speakerVoltagePeakV,speakerVoltageRmsV,speakerCurrentRmsA,speakerRealPowerW,frequencyResponse},validation};
 }
 
+function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const fixtureFields=fields(fixture.value),settings=fields(monitor.value),values=[1,2,3].map(i=>voltageValue(field(fixtureFields,"Cell"+i)??""));
+  const overVoltageV=voltageValue(field(settings,"OV")??""),underVoltageV=voltageValue(field(settings,"UV")??"");
+  const balanceDeltaV=voltageValue(field(settings,"BalanceDelta")??""),maxCellV=voltageValue(field(settings,"MaxCell")??"");
+  const groundNet=n(ground,"0"),vccNet=n(source,"+"),cellsConnected=[1,2,3].every(i=>n(fixture,"C"+i)===n(monitor,"C"+i));
+  const powered=n(source,"-")===groundNet&&n(fixture,"VCC")===vccNet&&n(monitor,"VCC")===vccNet&&n(report,"VCC")===vccNet&&n(fixture,"GND")===groundNet&&n(monitor,"GND")===groundNet&&n(report,"GND")===groundNet;
+  const statusPath=n(monitor,"STATUS")===n(report,"STATUS");
+  const required=[groundNet,vccNet,...[1,2,3].flatMap(i=>[n(fixture,"C"+i),n(monitor,"C"+i)]),n(fixture,"VCC"),n(monitor,"VCC"),n(report,"VCC"),n(fixture,"GND"),n(monitor,"GND"),n(report,"GND"),n(monitor,"STATUS"),n(report,"STATUS")];
+  if(required.some(net=>typeof net!=="string"||!net)||!powered||!cellsConnected||!statusPath||field(fixtureFields,"Mode")!=="3S"||field(settings,"Mode")!=="3S"
+    ||!values.every(v=>Number.isFinite(v)&&v>=2&&v<=4.35)||!Number.isFinite(overVoltageV)||overVoltageV<3.5||overVoltageV>4.3
+    ||!Number.isFinite(underVoltageV)||underVoltageV<2.5||underVoltageV>3.5||underVoltageV>=overVoltageV
+    ||!Number.isFinite(balanceDeltaV)||balanceDeltaV<0.005||balanceDeltaV>0.2||!Number.isFinite(maxCellV)||maxCellV<overVoltageV||maxCellV>4.35){
+    return {state:"blocked",message:"Wire all three cell taps and common monitor power; use supported 3S thresholds, balance delta, and cell-voltage inputs.",validation};
+  }
+  const minimumCellV=Math.min(...values),maximumCellV=Math.max(...values);
+  const cellReports=values.map((voltageV,index)=>({cell:index+1,voltageV,overVoltage:voltageV>overVoltageV,underVoltage:voltageV<underVoltageV,balanceRequested:voltageV-minimumCellV>balanceDeltaV&&voltageV>underVoltageV}));
+  const overVoltageCells=cellReports.filter(item=>item.overVoltage).map(item=>item.cell),underVoltageCells=cellReports.filter(item=>item.underVoltage).map(item=>item.cell);
+  const cellsToBalance=cellReports.filter(item=>item.balanceRequested).map(item=>item.cell);
+  const faultState=overVoltageCells.length&&underVoltageCells.length?"over-and-under-voltage":overVoltageCells.length?"over-voltage":underVoltageCells.length?"under-voltage":"normal";
+  return {state:"complete",engine:"Ideal three-cell BMS threshold and passive-balance request estimate",message:"Compares three fixture voltages to configured over/under-voltage thresholds and flags high cells that exceed the balance delta. It does not open a contactor, switch a balancing resistor, estimate cell state of charge, model cell chemistry, measure accuracy, response timing, thermal behavior, or certify a BMS.",result:{kind:"bms-cell-monitor",chemistryModel:"not modeled",cellCount:3,cellReports,minimumCellV,maximumCellV,stackVoltageV:values.reduce((sum,value)=>sum+value,0),overVoltageThresholdV:overVoltageV,underVoltageThresholdV:underVoltageV,balanceDeltaV,faultState,overVoltageCells,underVoltageCells,cellsToBalance,balancingActuated:false,protectionActuated:false},validation};
+}
 function analyseLiionCharge(project,{source,cell,charger,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
