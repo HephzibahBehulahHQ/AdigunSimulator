@@ -6532,7 +6532,7 @@
     {
       "id": "167-emergency-stop-safety-concept",
       "title": "Emergency-stop safety concept",
-      "status": "in-review",
+      "status": "released",
       "objective": "Demonstrate a latched stop state that rejects reset while the trip input is active and requires a separate start action after reset.",
       "acceptanceTest": "tests/core.test.mjs: catalogue E-stop latch rejects reset while tripped and needs separate restart",
       "testId": "core-emergency-stop-safety-concept",
@@ -6540,7 +6540,24 @@
       "readmeFile": "examples/167-emergency-stop-safety-concept/README.md",
       "safetyNote": "Educational logic example only; not an emergency-stop circuit, safety relay, validated safety function, risk assessment, performance-level design, or machine-safety certification. Never use for real safety implementation.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 167,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41210690361",
+        "headRevision": "8892cd9a61855186c4f5a47b138d61f64679454c",
+        "engine": "Deterministic emergency-stop latch concept",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "emergency-stop-latch-concept-v1",
+        "expectedResult": {
+          "kind": "emergency-stop-latched-sequence",
+          "frameCount": 7,
+          "unsafeResetRejected": true,
+          "restartRequiresNewStart": true,
+          "safetyRated": false
+        }
+      }
     }
   ]
 }
