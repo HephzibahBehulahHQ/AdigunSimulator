@@ -2,13 +2,16 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { createProject, findLibraryPart, parseProject, serializeProject } from "../js/core.mjs";
-import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHoleIds, breadboardHolePoint, normalizeBreadboardHole, validateBreadboardTopology } from "../js/breadboard-topology.mjs";
+import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, normalizeBreadboardHole, validateBreadboardTopology } from "../js/breadboard-topology.mjs";
 
 const getPartPins = libraryId => findLibraryPart(libraryId)?.pins ?? [];
 const readExample = async file => JSON.parse(await readFile(new URL("../examples/" + file, import.meta.url)));
 
-test("generic 400-point board models terminal strips, center trench, split rails, and hole coordinates", () => {
+test("generic thirty-column board models 300 terminal holes, 120 rail holes, split rails, and coordinates", () => {
   assert.equal(BREADBOARD_MODEL.columns, 30);
+  assert.equal(BREADBOARD_MODEL.terminalHoleCount, 300);
+  assert.equal(BREADBOARD_MODEL.railHoleCount, 120);
+  assert.equal(BREADBOARD_MODEL.holeCount, 420);
   assert.equal(breadboardHoleIds().length, 420);
   assert.equal(new Set(breadboardHoleIds()).size, 420);
   assert.equal(breadboardConnectionGroup("A5"), breadboardConnectionGroup("E5"));
@@ -68,4 +71,16 @@ test("default starter includes persistent physical breadboard mapping", () => {
   assert.equal(result.state, "complete");
   assert.equal(result.mappedPinCount, 7);
   assert.deepEqual(parsed.breadboard, project.breadboard);
+});
+
+test("generic through-hole resistor and LED bodies fit their mapped pin-hole spacing", async () => {
+  const project = await readExample("001-led-current-limiter.adigun.json");
+  const resistor = breadboardPackagePlacement(project.components.find((component) => component.libraryId === "passive.resistor"), project);
+  const led = breadboardPackagePlacement(project.components.find((component) => component.libraryId === "diode.led-red"), project);
+  assert.equal(resistor.kind, "axial-resistor");
+  assert.equal(resistor.exactManufacturerFootprint, false);
+  assert.equal(Math.round(resistor.leadSpanPixels / (572 / 29)), 5);
+  assert.equal(led.kind, "through-hole-led-5mm");
+  assert.equal(led.exactManufacturerFootprint, false);
+  assert.ok(Math.abs(led.leadSpanPixels - (572 / 29)) < 0.01);
 });
