@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleFourLayerMcuPlan", "exampleUsbDifferentialPair", "exampleQfnFootprintValidation", "exampleBgaEscapeConcept", "examplePanelMountController", "exampleMcuTestPointCoverage", "exampleManufacturingExportPack", "exampleAssemblyVariantBoard", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleFourLayerMcuPlan", "exampleUsbDifferentialPair", "exampleQfnFootprintValidation", "exampleBgaEscapeConcept", "examplePanelMountController", "exampleMcuTestPointCoverage", "exampleManufacturingExportPack", "exampleAssemblyVariantBoard", "exampleNetClassRuleDemo", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -808,3 +808,8 @@ Object.assign(TRANSLATIONS.en, {exampleAssemblyVariantBoard:"LED assembly varian
 Object.assign(TRANSLATIONS.de, {exampleAssemblyVariantBoard:"LED-Baugruppe mit Bestückungsvarianten"});
 Object.assign(TRANSLATIONS.yo, {exampleAssemblyVariantBoard:"Pátákì LED pẹ̀lú oríṣìíríṣìí assembly"});
 Object.assign(TRANSLATIONS.pcm, {exampleAssemblyVariantBoard:"LED board with different assembly options"});
+
+Object.assign(TRANSLATIONS.en, {exampleNetClassRuleDemo:"Power and signal net-class rule demo"});
+Object.assign(TRANSLATIONS.de, {exampleNetClassRuleDemo:"Netzklassenregeln für Leistung und Signal"});
+Object.assign(TRANSLATIONS.yo, {exampleNetClassRuleDemo:"Àpẹẹrẹ net-class fún power àti signal"});
+Object.assign(TRANSLATIONS.pcm, {exampleNetClassRuleDemo:"Power and signal net-class rule demo"});
