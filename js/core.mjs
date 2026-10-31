@@ -1778,8 +1778,8 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
 function analyseFmFrontEnd(project,{source,sweep,antenna,tuner,amplifier,report,ground,validation}){
-  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(endpoint(item.split(":")[0],item.split(":")[1]),net.id);
-  const n=(part,pin)=>nets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(`${part.instanceId}:${pin}`),fields=value=>String(value).split(";").map(item=>item.trim());
   const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
   const sweepFields=fields(sweep.value),antennaFields=fields(antenna.value),tunerFields=fields(tuner.value),ampFields=fields(amplifier.value);
   const frequencies=(field(sweepFields,"FrequenciesMHz")??"").split(",").map(value=>Number(value.trim())),amplitudeV=Number(field(sweepFields,"AmplitudeV"));
