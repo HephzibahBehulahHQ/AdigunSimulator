@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "example-161-plc-start-stop-motor-concept",
+  "metadata": {
+    "name": "Example 161 — PLC Start/Stop Motor Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "plcMotorSequence": {
+    "kind": "seal-in-motor-control",
+    "initialSealIn": false,
+    "frames": [
+      {
+        "startPressed": false,
+        "stopHealthy": true,
+        "emergencyStopHealthy": true,
+        "overloadHealthy": true
+      },
+      {
+        "startPressed": true,
+        "stopHealthy": true,
+        "emergencyStopHealthy": true,
+        "overloadHealthy": true
+      },
+      {
+        "startPressed": false,
+        "stopHealthy": true,
+        "emergencyStopHealthy": true,
+        "overloadHealthy": true
+      },
+      {
+        "startPressed": false,
+        "stopHealthy": false,
+        "emergencyStopHealthy": true,
+        "overloadHealthy": true
+      },
+      {
+        "startPressed": true,
+        "stopHealthy": true,
+        "emergencyStopHealthy": true,
+        "overloadHealthy": true
+      },
+      {
+        "startPressed": false,
+        "stopHealthy": true,
+        "emergencyStopHealthy": false,
+        "overloadHealthy": true
+      }
+    ]
+  }
+}

@@ -39,6 +39,7 @@ import { runNetCrossProbe } from "./js/net-cross-probe.mjs";
 import { validateComponentProperty } from "./js/component-property-audit.mjs";
 import { createSimulationReport } from "./js/simulation-report.mjs";
 import { verifySimulationLockfile } from "./js/simulation-lockfile.mjs";
+import { runPlcStartStopSequence } from "./js/plc-start-stop-sequence.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -256,7 +257,11 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "thermal-warning-boundary") {
+  if (result.kind === "plc-start-stop-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.startPressed?"Pressed":"Released"}</td><td>${frame.stopHealthy?"Closed":"Open"}</td><td>${frame.emergencyStopHealthy?"Healthy":"TRIPPED"}</td><td>${frame.contactorEnergized?"ON":"OFF"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Control steps</span><strong>${result.sampleCount}</strong></div>`,`<div class="result-metric"><span>Seal-in retained</span><strong>${result.sealInRetained?"Yes":"No"}</strong></div>`,`<div class="result-metric"><span>E-stop opens output</span><strong>${result.emergencyStopDropsOutput?"Yes":"No"}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>PLC start/stop motor control · Boolean concept sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Start</th><th>Stop</th><th>E-stop</th><th>Contactor</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "thermal-warning-boundary") {
     metrics.push(`<div class="result-metric"><span>${result.reference} dissipation</span><strong>${(result.resistorDissipationW*1000).toFixed(1)} mW</strong></div>`,`<div class="result-metric"><span>Entered rating / derated limit</span><strong>${result.ratedPowerW} W / ${(result.deratedLimitW*1000).toFixed(1)} mW</strong></div>`,`<div class="result-metric"><span>Suggested minimum rating</span><strong>≥ ${result.recommendedMinimumRatingW.toFixed(2)} W</strong></div>`);
     waveform=`<figure class="result-waveform"><figcaption>Electrical loading advisory · thermal model unavailable</figcaption><p class="model-limit">Temperature rise and thermal safety are not calculated. Verify datasheet ratings and real operating conditions.</p></figure>`;
   } else if (result.kind === "monte-carlo-tolerance") {
@@ -478,11 +483,12 @@ function validateAndReport() {
 
 function runAnalysis() {
   validateAndReport();
-  const result = state.project.crossProbe ? runNetCrossProbe(state.project) : state.project.modelAvailabilityFixture ? reportUnavailableModel(state.project) : state.project.missingGroundFixture ? diagnoseMissingGround(state.project) : state.project.shortCircuitFixture ? diagnoseSupplyShort(state.project) : state.project.floatingNodeDiagnosis ? diagnoseFloatingNode(state.project) : state.project.convergenceStudy ? analyzeConvergenceStudy(state.project) : state.project.thermalBoundary ? analyzeThermalWarningBoundary(state.project) : state.project.monteCarloTolerance ? runMonteCarloTolerance(state.project) : state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
+  const result = state.project.plcMotorSequence ? runPlcStartStopSequence(state.project) : state.project.crossProbe ? runNetCrossProbe(state.project) : state.project.modelAvailabilityFixture ? reportUnavailableModel(state.project) : state.project.missingGroundFixture ? diagnoseMissingGround(state.project) : state.project.shortCircuitFixture ? diagnoseSupplyShort(state.project) : state.project.floatingNodeDiagnosis ? diagnoseFloatingNode(state.project) : state.project.convergenceStudy ? analyzeConvergenceStudy(state.project) : state.project.thermalBoundary ? analyzeThermalWarningBoundary(state.project) : state.project.monteCarloTolerance ? runMonteCarloTolerance(state.project) : state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
   state.lastAnalysis = result;
   if (result.state === "complete") {
     const { kind } = result.result;
     log(`[ANALYSIS] ${result.engine}`);
+    if(kind==="plc-start-stop-sequence")log(`[PLC CONCEPT] ${result.result.sampleCount} control steps; seal-in retained: ${result.result.sealInRetained}; e-stop dropped output: ${result.result.emergencyStopDropsOutput}.`);
     if(kind==="net-cross-probe")log(`[CROSS-PROBE] Selected net ${result.result.netId} across ${result.result.views.join(", ")} using the shared project net ID.`);
     if(kind==="dc-voltmeter")log(`[METER] ${result.result.measuredVoltageV.toFixed(4)} ${result.result.unit} from ${result.result.positiveLeadNet} to ${result.result.negativeLeadNet} (${result.result.polarity} polarity).`);
     if(kind==="dc-ammeter")log(`[METER] ${(result.result.displayMilliAmps).toFixed(4)} mA (${result.result.polarity} polarity; burden ${result.result.burdenVoltageV.toFixed(4)} V).`);
