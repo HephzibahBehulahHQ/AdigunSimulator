@@ -259,7 +259,11 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "tank-level-hysteresis") {\n    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.levelPct}%</td><td>${frame.pumpOn?"ON":"OFF"}</td><td>${escape(frame.transition)}</td></tr>`).join("");\n    metrics.push(`<div class="result-metric"><span>Low threshold</span><strong>${result.lowLevelPct}%</strong></div>`,`<div class="result-metric"><span>High threshold</span><strong>${result.highLevelPct}%</strong></div>`,`<div class="result-metric"><span>Pump-on samples</span><strong>${result.pumpOnSamples}/${result.sampleCount}</strong></div>`);\n    waveform=`<figure class="result-waveform"><figcaption>Tank-level hysteresis · synthetic PLC state sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Level</th><th>Pump command</th><th>State</th></tr></thead><tbody>${rows}</tbody></table></figure>`;\n  } else if (result.kind === "traffic-light-fsm-sequence") {
+  if (result.kind === "tank-level-hysteresis") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.levelPct}%</td><td>${frame.pumpOn?"ON":"OFF"}</td><td>${escape(frame.transition)}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Low threshold</span><strong>${result.lowLevelPct}%</strong></div>`,`<div class="result-metric"><span>High threshold</span><strong>${result.highLevelPct}%</strong></div>`,`<div class="result-metric"><span>Pump-on samples</span><strong>${result.pumpOnSamples}/${result.sampleCount}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Tank-level hysteresis · synthetic PLC state sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Level</th><th>Pump command</th><th>State</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "traffic-light-fsm-sequence") {
     const rows=result.phases.map(phase=>`<tr><td>${phase.cycle}</td><td>${escape(phase.name)}</td><td>${phase.northSouth.toUpperCase()}</td><td>${phase.eastWest.toUpperCase()}</td><td>${phase.startTimeS}–${phase.endTimeS} s</td></tr>`).join("");
     metrics.push(`<div class="result-metric"><span>Cycles</span><strong>${result.cycleCount}</strong></div>`,`<div class="result-metric"><span>Total sequence</span><strong>${result.totalDurationS} s</strong></div>`,`<div class="result-metric"><span>Opposing green</span><strong>No</strong></div>`);
     waveform=`<figure class="result-waveform"><figcaption>Timed traffic-light FSM · state table</figcaption><table class="result-table"><thead><tr><th>Cycle</th><th>Phase</th><th>North–South</th><th>East–West</th><th>Time</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
@@ -438,7 +442,8 @@ function renderOutput(validation = state.lastValidation ?? validateProject(state
   $("#issue-list").classList.toggle("hidden", isLog);
   if (!isLog) {
     $("#issue-list").textContent = issues.length
-      ? issues.map((issue) => `[${issue.rule}] ${issue.message}`).join("\n")
+      ? issues.map((issue) => `[${issue.rule}] ${issue.message}`).join("
+")
       : `[${state.activeOutput.toUpperCase()}] None.`;
   }
 }
@@ -469,7 +474,8 @@ function render() {
 
 function log(message) {
   const output = $("#output-log");
-  output.textContent = `${output.textContent.trim()}\n${message}`.trim();
+  output.textContent = `${output.textContent.trim()}
+${message}`.trim();
   output.scrollTop = output.scrollHeight;
 }
 
@@ -565,14 +571,19 @@ function exportProject() {
 
 function runPcbChecks() {
   const report=validatePcbFabrication(state.project);
-  const summary=report.status==="passed"?"Bounded PCB checks passed.":report.errors.join("\n");
-  showDialog("PCB fabrication checks",summary+"\\n\\nChecks: "+report.checks.join(", ")+"\\nThese checks are educational and do not replace manufacturer validation.");
+  const summary=report.status==="passed"?"Bounded PCB checks passed.":report.errors.join("
+");
+  showDialog("PCB fabrication checks",summary+"\
+\
+Checks: "+report.checks.join(", ")+"\
+These checks are educational and do not replace manufacturer validation.");
   log(`[PCB DRC] ${report.status.toUpperCase()} — ${report.errors.length} issue(s).`);
 }
 function exportPcbFiles() {
   const result=createManufacturingExportPack(state.project);
   if(result.status!=="passed"){
-    showDialog("PCB export blocked",(result.errors??result.drc?.errors??[]).join("\\n"));
+    showDialog("PCB export blocked",(result.errors??result.drc?.errors??[]).join("\
+"));
     log("[PCB EXPORT] Blocked until the bounded checks pass.");
     return;
   }
@@ -752,7 +763,8 @@ $("#component-form").addEventListener("submit", (event) => {
   const component = selectedComponent();
   if (!component) return;
   const propertyCheck=validateComponentProperty(component,$("#property-value").value);
-  if(!propertyCheck.valid){showDialog("Property not applied",propertyCheck.errors.map(error=>error.message).join("\\n"));log(`[PROPERTY] ${component.reference} edit blocked: ${propertyCheck.errors[0].code}.`);return;}
+  if(!propertyCheck.valid){showDialog("Property not applied",propertyCheck.errors.map(error=>error.message).join("\
+"));log(`[PROPERTY] ${component.reference} edit blocked: ${propertyCheck.errors[0].code}.`);return;}
   captureHistory();
   state.project = updateComponent(state.project, component.instanceId, { reference: $("#property-reference").value.trim(), value: $("#property-value").value.trim() });
   state.dirty = true;

@@ -933,4 +933,8 @@ Object.assign(TRANSLATIONS.en, {examplePlcTrafficLight:"PLC traffic light"});
 Object.assign(TRANSLATIONS.de, {examplePlcTrafficLight:"SPS-Ampelsteuerung"});
 Object.assign(TRANSLATIONS.yo, {examplePlcTrafficLight:"PLC traffic light"});
 Object.assign(TRANSLATIONS.pcm, {examplePlcTrafficLight:"PLC traffic light"});
-\nObject.assign(TRANSLATIONS.en, {examplePlcTankLevelController:"PLC tank-level controller"});\nObject.assign(TRANSLATIONS.de, {examplePlcTankLevelController:"SPS-Tankfüllstandsregelung"});\nObject.assign(TRANSLATIONS.yo, {examplePlcTankLevelController:"PLC tank level controller"});\nObject.assign(TRANSLATIONS.pcm, {examplePlcTankLevelController:"PLC tank level controller"});\n
+
+Object.assign(TRANSLATIONS.en, {examplePlcTankLevelController:"PLC tank-level controller"});
+Object.assign(TRANSLATIONS.de, {examplePlcTankLevelController:"SPS-Tankfüllstandsregelung"});
+Object.assign(TRANSLATIONS.yo, {examplePlcTankLevelController:"PLC tank level controller"});
+Object.assign(TRANSLATIONS.pcm, {examplePlcTankLevelController:"PLC tank level controller"});

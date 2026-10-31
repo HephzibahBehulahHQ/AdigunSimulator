@@ -28,7 +28,8 @@ import { validateComponentProperty } from "../js/component-property-audit.mjs";
 import { createSimulationReport } from "../js/simulation-report.mjs";
 import { createSimulationLockfile, verifySimulationLockfile } from "../js/simulation-lockfile.mjs";
 import { runPlcStartStopSequence } from "../js/plc-start-stop-sequence.mjs";
-import { runTrafficLightSequence } from "../js/traffic-light-sequence.mjs";\nimport { runTankLevelController } from "../js/tank-level-controller.mjs";
+import { runTrafficLightSequence } from "../js/traffic-light-sequence.mjs";
+import { runTankLevelController } from "../js/tank-level-controller.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -3746,7 +3747,8 @@ test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs,
   assert.equal(project.components.find(part=>part.reference==="R2").value.startsWith("5.1 kΩ"),true);
   assert.deepEqual(STARTER_LIBRARY.find(part=>part.id==="connector.usb-c-receptacle").pins,["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"]);
   const report=createUsbCPinReport(project);
-  assert.equal(report.split("\r\n").length,19);
+  assert.equal(report.split("\r
+").length,19);
   assert.ok(report.includes('"J1","A5","CC1","CC1"'));
   assert.ok(report.includes('"J1","B5","CC2","CC2"'));
   assert.ok(report.includes('"J1","A6","D+","USB_DP"'));
@@ -3860,7 +3862,8 @@ test("catalogue manufacturing export pack contains bounded fabrication files, a 
   const manifest=JSON.parse(pack.files["Export-Manifest.json"]);
   assert.equal(manifest.projectId,project.id);
   assert.equal(manifest.checks["BOM.csv"],createHash("sha256").update(pack.files["BOM.csv"]).digest("hex"));
-  const rows=pack.files["SHA256SUMS.txt"].trim().split("\n");
+  const rows=pack.files["SHA256SUMS.txt"].trim().split("
+");
   assert.equal(rows.length,Object.keys(pack.files).length-1);
   for(const row of rows){const [,expected,name]=row.match(/^([a-f0-9]{64})  (.+)$/)??[];assert.ok(name,row);assert.equal(createHash("sha256").update(pack.files[name]).digest("hex"),expected,name);}
   assert.equal(pack.checksums["Export-Manifest.json"],createHash("sha256").update(pack.files["Export-Manifest.json"]).digest("hex"));
