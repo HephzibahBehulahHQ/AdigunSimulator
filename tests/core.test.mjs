@@ -110,7 +110,8 @@ test("RL low-pass response uses the calculated cutoff and attenuates above it", 
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
   const invalid = updateComponent(project, "inductor-1", { value: "0 H" });
   assert.equal(runSupportedAnalysis(invalid).state, "blocked");
-  const extreme = updateComponent(project, "inductor-1", { value: "1e300 H" });
+  const tinyResistance = updateComponent(project, "resistor-1", { value: "1e-300 Ω" });
+  const extreme = updateComponent(tinyResistance, "inductor-1", { value: "1e300 H" });
   assert.equal(runSupportedAnalysis(extreme).state, "blocked");
 });
 
