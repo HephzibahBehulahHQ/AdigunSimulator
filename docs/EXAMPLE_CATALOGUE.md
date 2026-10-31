@@ -2,7 +2,7 @@
 
 This is the authoritative scope catalogue for the 200 required examples. A row specifies a project, expected behaviour and acceptance criterion; it is **not** evidence that the project has been implemented or passed.
 
-The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has forty-four released analytical catalogue examples (rows 1–44) and ten supplemental studies; 156 catalogue entries remain planned until their release requirements are met. Catalogue row 44, “SR latch,” is implemented as a generic cross-coupled NOR model with active-high set/reset, explicit prior-state retention in hold mode, and blocking of simultaneous set/reset. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 22, “555 monostable,” estimates one ideal 1.1RC pulse per pressed trigger.
+The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has forty-five released analytical catalogue examples (rows 1–45) and ten supplemental studies; 155 catalogue entries remain planned until their release requirements are met. Catalogue row 44, “SR latch,” is implemented as a generic cross-coupled NOR model with active-high set/reset, explicit prior-state retention in hold mode, and blocking of simultaneous set/reset. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 22, “555 monostable,” estimates one ideal 1.1RC pulse per pressed trigger.
 
 ## 12. Catalogue of 200 individually specified, testable example projects
 
@@ -54,7 +54,7 @@ For every example, deliver a native project file, readme, schematic, breadboard 
 | 42 | OR gate truth table | 74xx OR, switches, LEDs | All four cases match truth table; automated vector test. |
 | 43 | XOR parity checker | XOR gates, switches, LED | LED flags odd parity; test all input combinations. |
 | 44 | SR latch | NOR/NAND latch, switches | Set/reset/hold behavior is correct; test prohibited input warning. |
-| 45 | D flip-flop register | D FF, clock, data switches | Q samples D at active clock; test setup/hold annotations. |
+| 45 | D flip-flop register | Ideal positive-edge D FF, clock and data switches | Q samples D only on a rising edge and retains state between edges; timing annotations disclose that setup/hold, metastability and propagation are not modeled. Test rising, falling and steady-clock cases. |
 | 46 | JK toggle divider | JK FF, clock source | Q frequency is half clock in toggle mode; test edge count. |
 | 47 | Four-bit binary counter | counter IC, clock, LEDs | Counts 0–15 then wraps; test 16 clock vectors. |
 | 48 | BCD counter display | decade counter, 7-seg decoder | Display cycles 0–9; test reset/wrap. |
