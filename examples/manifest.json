@@ -4045,6 +4045,45 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "099-epaper-display-updater",
+      "title": "E-paper display updater",
+      "status": "released",
+      "objective": "Choose a partial or full e-paper refresh from changed-tile fraction, panel power state, busy timeout, and partial-refresh ghosting limit; report the refresh state sequence and estimated completion time.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue e-paper updater follows partial/full state sequences and power rules",
+      "testId": "core-epaper-display-updater",
+      "projectFile": "examples/099-epaper-display-updater.adigun.json",
+      "safetyNote": "Ideal refresh-state estimator only. It does not drive an e-paper panel, execute MCU firmware, model image quality, temperature-dependent waveform timing, ghosting physics, voltage rails, or hardware safety.",
+      "scope": "catalogue",
+      "catalogueIndex": 99,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41186427236",
+        "headRevision": "f5209213ca64cb8e117d6610e9e997ba5299a749",
+        "engine": "Analytical e-paper refresh planner with power, changed-area, ghosting, and busy-timeout guards",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-epaper-refresh-sequencer-v1",
+        "expectedResult": {
+          "kind": "epaper-refresh",
+          "refreshType": "partial",
+          "changedFraction": 0.01,
+          "wakeOccurred": true,
+          "stateSequence": [
+            "WAKE",
+            "LOAD_PARTIAL_DIFF",
+            "PARTIAL_REFRESH",
+            "WAIT_BUSY",
+            "UPDATE_COMPLETE",
+            "RETURN_TO_SLEEP"
+          ],
+          "estimatedDurationMs": 875,
+          "partialsSinceFullAfter": 2,
+          "firmwareExecuted": false,
+          "panelDriven": false
+        }
+      }
     }
   ]
 }
