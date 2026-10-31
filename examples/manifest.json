@@ -2801,14 +2801,39 @@
     {
       "id": "069-pico-adc-voltmeter",
       "title": "Pico ADC divider voltmeter with OLED",
-      "status": "in-review",
+      "status": "released",
       "objective": "Estimate an input voltage from a calibrated two-resistor divider and 12-bit Pico ADC reading; display calibrated values across the supported range.",
       "acceptanceTest": "tests/core.test.mjs: catalogue Pico voltmeter estimates calibrated divider input at three points",
       "testId": "core-pico-adc-voltmeter",
       "projectFile": "examples/069-pico-adc-voltmeter.adigun.json",
       "safetyNote": "Ideal ADC/divider model; blocks divider outputs over 3.3 V. ADC nonlinearity, leakage, resistor tolerance, physical overvoltage protection, and Pico firmware are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 69
+      "catalogueIndex": 69,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41177993277",
+        "headRevision": "e96dd06cb88bffa217ca0230784a3e7e87559081",
+        "engine": "Ideal Pico 12-bit ADC divider voltmeter",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-pico-adc-divider-voltmeter-v1",
+        "expectedResult": {
+          "inputVoltageSamplesV": [
+            6,
+            12,
+            13
+          ],
+          "dividerRatio": "1/4",
+          "dividerResistorsOhm": [
+            30000,
+            10000
+          ],
+          "adcReferenceV": 3.3,
+          "adcResolutionBits": 12,
+          "aboveReference": "blocked",
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
