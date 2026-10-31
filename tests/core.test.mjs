@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 63);
+  assert.equal(getExampleCoverage(registry).total, 64);
   assert.equal(getExampleCoverage(registry).released, 53);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 147);
@@ -1734,5 +1734,29 @@ test("catalogue two-to-four decoder asserts exactly one matching output", async 
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "Y3").endpoints = ["decoder:Y3"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue priority encoder reports the highest asserted input", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/054-priority-encoder.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-priority-encoder-4to2-ideal"), true);
+  const vectors = [
+    [0,0,0,0,false,0,-1],[1,0,0,0,true,0,0],[0,1,0,0,true,1,1],[0,0,1,0,true,2,2],[0,0,0,1,true,3,3],
+    [1,0,1,0,true,2,2],[0,1,0,1,true,3,3],[1,1,1,1,true,3,3]
+  ];
+  for (const [d0,d1,d2,d3,valid,code,highest] of vectors) {
+    let vector=project;
+    for(const [index,value] of [d0,d1,d2,d3].entries())vector=updateComponent(vector,`input-${index}`,{value:value?"5 V":"0 V"});
+    const result=runSupportedAnalysis(vector);
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.valid,valid);
+    assert.equal(result.result.code,code);
+    assert.equal(result.result.highestIndex,highest);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"input-3",{value:"6 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="D3").endpoints=["input-3:+"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 
