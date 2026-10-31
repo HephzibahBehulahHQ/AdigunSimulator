@@ -1524,9 +1524,10 @@ function analyseMcuBlink(project,{source,mcu,resistor,led,ground,validation}){
     return {state:"blocked",message:"Configure the ideal Uno-class GPIO behavior for D13 Blink with positive high/low/runtime milliseconds (maximum 60 s), and wire D13 through a current-limiting resistor and LED to ground.",validation};
   }
   const periodMs=highMs+lowMs,ledCurrentA=Math.max(0,(supplyVoltage-vf)/resistance),trace=[];
-  for(let timeMs=0;timeMs<runtimeMs;timeMs+=Math.min(periodMs,runtimeMs-timeMs)){
-    const high=(timeMs%periodMs)<highMs,intervalMs=Math.min(high?highMs-(timeMs%periodMs):periodMs-(timeMs%periodMs),runtimeMs-timeMs);
+  for(let timeMs=0;timeMs<runtimeMs;){
+    const phaseMs=timeMs%periodMs,high=phaseMs<highMs,intervalMs=Math.min(high?highMs-phaseMs:periodMs-phaseMs,runtimeMs-timeMs);
     trace.push({timeMs,intervalMs,gpioHigh:high,ledOn:high&&ledCurrentA>0.0005});
+    timeMs+=intervalMs;
   }
   return {state:"complete",engine:"Ideal Uno-class GPIO blink sequence",message:"Emits a deterministic digital D13 high/low trace and estimates the LED current when high. This does not execute Arduino C++ firmware or model CPU timing, GPIO output resistance, PWM, interrupts, or board-specific electrical limits.",result:{kind:"mcu-blink",program:"blink",pin:"D13",highMs,lowMs,periodMs,frequencyHz:1000/periodMs,runtimeMs,ledCurrentA,trace,firmwareExecuted:false},validation};
 }
