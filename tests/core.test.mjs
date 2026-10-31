@@ -19,6 +19,7 @@ import { runParameterSweep } from "../js/parameter-sweep.mjs";
 import { runMonteCarloTolerance } from "../js/monte-carlo-tolerance.mjs";
 import { analyzeThermalWarningBoundary } from "../js/thermal-warning-boundary.mjs";
 import { analyzeConvergenceStudy } from "../js/convergence-study.mjs";
+import { diagnoseFloatingNode } from "../js/floating-node-diagnosis.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1441,7 +1442,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 162);
+  assert.equal(getExampleCoverage(registry).total, 163);
   assert.equal(getExampleCoverage(registry).released, 152);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 48);
@@ -4094,4 +4095,18 @@ test("catalogue convergence study returns actionable limits without fabricating 
   const invalid=JSON.parse(JSON.stringify(project));invalid.convergenceStudy.fixture="unknown";
   assert.equal(analyzeConvergenceStudy(invalid).state,"blocked");
   assert.equal(analyzeConvergenceStudy(invalid).errors[0].code,"CONVERGENCE_FIXTURE_UNKNOWN");
+});
+
+test("catalogue floating-node diagnosis identifies the object to inspect", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/153-floating-node-diagnosis.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=diagnoseFloatingNode(project);
+  assert.equal(result.state,"blocked");
+  assert.equal(result.result,null);
+  assert.equal(result.errors[0].code,"FLOATING_DC_NODE");
+  assert.equal(result.diagnostics.netId,"FLOATING");
+  assert.deepEqual(result.diagnostics.jumpTarget,{instanceId:"capacitor-floating",netId:"FLOATING"});
+  assert.ok(result.diagnostics.suggestions.some(item=>/bias or bleed resistor/.test(item)));
+  const missing=JSON.parse(JSON.stringify(project));missing.nets=missing.nets.filter(net=>net.id!=="FLOATING");
+  assert.equal(diagnoseFloatingNode(missing).errors[0].code,"FLOATING_NODE_TARGET_MISSING");
 });
