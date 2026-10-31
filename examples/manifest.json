@@ -5201,7 +5201,7 @@
     {
       "id": "126-bme280-breakout",
       "title": "BME280 I²C sensor breakout",
-      "status": "in-review",
+      "status": "released",
       "objective": "Build a BME280 environmental sensor breakout around a TLV70033 3.3 V regulator, local bypass capacitors and 4.7 kΩ I²C pull-ups; verify the manufacturer pin map, native/ERC subset, bounded DRC, BOM and placement export.",
       "acceptanceTest": "tests/core.test.mjs: catalogue BME280 sensor breakout checks native/ERC subset, sensor wiring, BOM, placement, DRC and exports",
       "testId": "core-bme280-breakout",
@@ -5209,7 +5209,37 @@
       "readmeFile": "examples/126-bme280-breakout/README.md",
       "safetyNote": "Educational BME280 and TLV70033 breakout template. Manufacturer pin functions and electrical ranges are recorded; package land patterns, regulator thermal limits, I²C timing, sensor conversion and manufacturing compliance require separate review.",
       "scope": "catalogue",
-      "catalogueIndex": 126
+      "catalogueIndex": 126,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41195724658",
+        "headRevision": "13ee648f67be1eed49d240cb5904f29507979c50",
+        "engine": "BME280 sensor breakout topology checker and bounded PCB checks",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "bme280-i2c-tlv70033-breakout-fcu-v1",
+        "expectedResult": {
+          "kind": "bme280-i2c-sensor-breakout",
+          "inputVoltageV": 5,
+          "regulatedVoltageV": 3.3,
+          "i2cAddress": "0x76",
+          "sdaPullupOhms": 4700,
+          "sclPullupOhms": 4700,
+          "sensorPinMapValid": true,
+          "pcbDrcStatus": "passed",
+          "bom": "BOM.csv",
+          "placementReport": "Placement.csv",
+          "artifacts": [
+            "BOM.csv",
+            "Placement.csv",
+            "board-F_Cu.gbr",
+            "board-Edge_Cuts.gbr",
+            "board-PTH.drl"
+          ],
+          "sensorConversionsModeled": false,
+          "hardwareManufacturingQualified": false
+        }
+      }
     }
   ]
 }
