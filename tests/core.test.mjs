@@ -1749,7 +1749,7 @@ test("catalogue priority encoder reports the highest asserted input", async () =
     let vector=project;
     for(const [index,value] of [d0,d1,d2,d3].entries())vector=updateComponent(vector,`input-${index}`,{value:value?"5 V":"0 V"});
     const result=runSupportedAnalysis(vector);
-    assert.equal(result.state,"complete");
+    assert.equal(result.state,"complete",result.message);
     assert.equal(result.result.valid,valid);
     assert.equal(result.result.code,code);
     assert.equal(result.result.highestIndex,highest);
