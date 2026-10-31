@@ -1437,7 +1437,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 156);
+  assert.equal(getExampleCoverage(registry).total, 157);
   assert.equal(getExampleCoverage(registry).released, 146);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 54);
@@ -3981,4 +3981,24 @@ test("catalogue frequency counter measures periods accurately at multiple freque
   }
   const invalid=JSON.parse(JSON.stringify(project));invalid.oscillator.periodMs=0;
   assert.equal(measureFrequency(invalid).state,"blocked");
+});
+
+test("catalogue RC Bode plot labels units and places the exact cutoff marker", async () => {
+  const {analyzeRcBode}=await import("../js/rc-bode-analysis.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/147-rc-bode-plot.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const plot=analyzeRcBode(project);
+  assert.equal(plot.state,"complete");
+  assert.equal(plot.result.kind,"rc-bode-plot");
+  assert.equal(plot.result.frequencyUnit,"Hz");
+  assert.equal(plot.result.magnitudeUnit,"dB");
+  assert.equal(plot.result.phaseUnit,"deg");
+  assert.equal(plot.result.pointCount,41);
+  const marker=plot.result.points[plot.result.cutoffIndex];
+  assert.equal(marker.frequencyHz,plot.result.cutoffHz);
+  assert.ok(Math.abs(marker.magnitudeDb+3.01029995664)<1e-9);
+  assert.ok(Math.abs(marker.phaseDeg+45)<1e-9);
+  const wrongTopology=JSON.parse(JSON.stringify(project));wrongTopology.nets.find(net=>net.id==="FILTER_OUT").endpoints=wrongTopology.nets.find(net=>net.id==="FILTER_OUT").endpoints.filter(endpoint=>endpoint!=="capacitor-1:1");
+  assert.equal(analyzeRcBode(wrongTopology).state,"blocked");
 });

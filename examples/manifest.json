@@ -5909,6 +5909,18 @@
           "periodBased": true
         }
       }
+    },
+    {
+      "id": "147-rc-bode-plot",
+      "title": "Bode plot of RC filter",
+      "status": "in-review",
+      "objective": "Plot the ideal first-order RC low-pass magnitude in dB and phase in degrees over a logarithmic frequency range, with a tested -3.01 dB/-45 degree cutoff marker.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue RC Bode plot labels units and places the exact cutoff marker",
+      "testId": "core-rc-bode-plot",
+      "projectFile": "examples/147-rc-bode-plot.adigun.json",
+      "readmeFile": "examples/147-rc-bode-plot/README.md",
+      "safetyNote": "The model assumes an unloaded ideal first-order RC network with nominal values. Source impedance, tolerances, parasitics and instrument loading are not included.",
+      "scope": "catalogue"
     }
   ]
 }
