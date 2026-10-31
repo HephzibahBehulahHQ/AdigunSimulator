@@ -25,6 +25,7 @@ import { diagnoseMissingGround } from "../js/missing-ground-diagnosis.mjs";
 import { reportUnavailableModel } from "../js/model-unavailable-diagnosis.mjs";
 import { runNetCrossProbe } from "../js/net-cross-probe.mjs";
 import { validateComponentProperty } from "../js/component-property-audit.mjs";
+import { createSimulationReport } from "../js/simulation-report.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1457,7 +1458,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 168);
+  assert.equal(getExampleCoverage(registry).total, 169);
   assert.equal(getExampleCoverage(registry).released, 158);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 42);
@@ -4196,4 +4197,21 @@ test("catalogue component property audit accepts valid resistor edits and reject
   assert.ok(submit.indexOf("validateComponentProperty")<submit.indexOf("captureHistory()"));
   assert.ok(submit.indexOf("captureHistory()")<submit.indexOf("updateComponent("));
   assert.match(app,/function undo\(/);assert.match(app,/function redo\(/);
+});
+
+test("catalogue simulation report exports reproducible RC settings, model version, results, and warnings", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/005-rc-step-response.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete");
+  const report=createSimulationReport(project,analysis,{generatedAt:"2026-10-31T00:00:00.000Z"});
+  assert.equal(report.schema,"adigun-simulation-report/1");
+  assert.equal(report.simulation.settings.analysisKind,"rc-step-response");
+  assert.equal(report.simulation.modelVersion,"first-order-rc-step-v1");
+  assert.ok(report.simulation.settings.sampleCount>0);
+  assert.equal(report.result.kind,"rc-step-response");
+  assert.deepEqual(report.warnings,analysis.warnings??[]);
+  assert.ok(report.project.components.some(component=>component.reference==="R1"&&component.value==="1 kΩ"));
+  const html=await readFile(new URL("../index.html",import.meta.url),"utf8");
+  assert.match(html,/id="export-simulation-report"/);
 });
