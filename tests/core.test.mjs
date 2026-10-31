@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 64);
+  assert.equal(getExampleCoverage(registry).total, 65);
   assert.equal(getExampleCoverage(registry).released, 54);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 146);
@@ -1760,3 +1760,29 @@ test("catalogue priority encoder reports the highest asserted input", async () =
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 
+test("catalogue four-bit ALU matches exhaustive unsigned add/subtract vectors", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/055-alu-add-subtract.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-alu4-ideal"), true);
+  let vectors = 0;
+  for (let a = 0; a < 16; a++) for (let b = 0; b < 16; b++) for (const subtract of [false, true]) {
+    let vector = project;
+    for (let bit = 0; bit < 4; bit++) {
+      vector = updateComponent(vector, `a${bit}`, { value: a & (1 << bit) ? "5 V" : "0 V" });
+      vector = updateComponent(vector, `b${bit}`, { value: b & (1 << bit) ? "5 V" : "0 V" });
+    }
+    vector = updateComponent(vector, "subtract", { value: subtract ? "5 V" : "0 V" });
+    const result = runSupportedAnalysis(vector);
+    assert.equal(result.state, "complete", result.message);
+    const expectedFull = subtract ? a + ((b ^ 15) + 1) : a + b;
+    assert.equal(result.result.sum, expectedFull & 15, `a=${a}, b=${b}, subtract=${subtract}`);
+    assert.equal(result.result.carryOut, Boolean(expectedFull & 16), `carry a=${a}, b=${b}, subtract=${subtract}`);
+    assert.equal(result.result.borrow, subtract && a < b);
+    vectors++;
+  }
+  assert.equal(vectors, 512);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "a0", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "B3").endpoints = ["b3:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
