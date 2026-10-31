@@ -5404,14 +5404,34 @@
     {
       "id": "131-usb-differential-pair-demo",
       "title": "USB Full-Speed differential pair demo",
-      "status": "in-review",
+      "status": "released",
       "objective": "Verify USB-C D+/D− pin mapping to a TI TUSB1106 transceiver and produce a bounded width, gap, declared length-skew and reference-plane report.",
       "acceptanceTest": "tests/core.test.mjs: USB differential pair demo verifies transceiver topology, bounded pair constraints and report snapshot",
       "testId": "core-usb-differential-pair-demo",
       "projectFile": "examples/131-usb-differential-pair-demo.adigun.json",
       "readmeFile": "examples/131-usb-differential-pair-demo/README.md",
       "safetyNote": "Four-layer USB pair-rule metadata only. The 90 Ω target and declared trace lengths are not field-solver results or measured geometry; USB protocol, eye, jitter, EMC, fabrication DRC and manufacturing qualification are not simulated.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 131,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41198588595",
+        "headRevision": "c8fa8e92b8f52b8f5cd5cdd5e2876a586dea74ce",
+        "engine": "Bounded USB Full-Speed topology and differential-pair metadata rule checker",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "tusb1106-usb-fs-pair-rule-v1",
+        "expectedResult": {
+          "kind": "usb-full-speed-differential-pair-plan",
+          "transceiver": "TUSB1106RGTR",
+          "pairRuleDeclared": true,
+          "declaredImpedanceTargetOhms": 90,
+          "impedanceSolver": false,
+          "usbProtocolSimulation": false,
+          "manufacturingQualified": false,
+          "artifact": "Differential-Pair-Constraint-Report.csv"
+        }
+      }
     }
   ]
 }
