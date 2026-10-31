@@ -544,6 +544,22 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue reference buffer holds its ideal output across a load sweep",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/030-reference-buffer.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  for(const [loadOhm,expectedCurrent] of [[100000,0.000025],[10000,0.00025],[1000,0.0025]]){
+    const result=runSupportedAnalysis(updateComponent(project,"load",{value:`${loadOhm} Ω`}));
+    assert.equal(result.state,"complete");
+    assert.equal(result.result.kind,"reference-buffer");
+    assert.equal(result.result.outputVoltage,2.5);
+    assert.equal(result.result.loadCurrentA,expectedCurrent);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"0 Ω"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["opamp:OUT","load:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
 test("catalogue window comparator lights only between the two divider thresholds",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/029-window-comparator.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -1040,7 +1056,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 39);
+  assert.equal(getExampleCoverage(registry).total, 40);
   assert.equal(getExampleCoverage(registry).released, 29);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 171);

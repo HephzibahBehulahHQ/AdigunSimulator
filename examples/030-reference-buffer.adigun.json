@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-030-reference-buffer",
+  "metadata": {
+    "name": "Precision Reference Buffer",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "vplus",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "vminus",
+      "libraryId": "power.dc-source",
+      "reference": "V2",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "reference",
+      "libraryId": "power.dc-source",
+      "reference": "VREF",
+      "value": "2.5 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "opamp",
+      "libraryId": "active.opamp-ideal",
+      "reference": "U1",
+      "value": "Ideal op-amp, ±12 V supplies",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RLOAD",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VPLUS",
+      "endpoints": [
+        "vplus:+",
+        "opamp:VCC"
+      ]
+    },
+    {
+      "id": "VMINUS",
+      "endpoints": [
+        "vminus:-",
+        "opamp:VEE"
+      ]
+    },
+    {
+      "id": "REFERENCE",
+      "endpoints": [
+        "reference:+",
+        "opamp:+"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "opamp:OUT",
+        "opamp:-",
+        "load:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "vplus:-",
+        "vminus:+",
+        "reference:-",
+        "load:2",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": []
+}

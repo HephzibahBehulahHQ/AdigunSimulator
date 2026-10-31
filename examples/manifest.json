@@ -1221,6 +1221,18 @@
           "ledOn": true
         }
       }
+    },
+    {
+      "id": "030-reference-buffer",
+      "title": "Precision reference buffer",
+      "status": "in-review",
+      "objective": "Buffer a 2.5 V reference with an ideal op amp and verify the output remains 2.5 V while load current changes over a 1 kΩ to 100 kΩ sweep.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue reference buffer holds its ideal output across a load sweep",
+      "testId": "core-reference-buffer",
+      "projectFile": "examples/030-reference-buffer.adigun.json",
+      "safetyNote": "Ideal educational model assumes unlimited output current and zero output impedance. It omits reference accuracy, drift, noise, bandwidth, stability, thermal effects, and device-specific limits.",
+      "scope": "catalogue",
+      "catalogueIndex": 30
     }
   ]
 }
