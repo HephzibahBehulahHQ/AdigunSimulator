@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 67);
+  assert.equal(getExampleCoverage(registry).total, 68);
   assert.equal(getExampleCoverage(registry).released, 57);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 143);
@@ -1837,3 +1837,31 @@ test("catalogue UART receiver decodes valid frames and flags start/stop errors",
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 
+
+
+test("catalogue I2C register sensor acknowledges and returns configured data", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/058-i2c-sensor-read.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part)=>part.id==="input.i2c-read-transaction"),true);
+  assert.equal(STARTER_LIBRARY.some((part)=>part.id==="active.i2c-sensor-ideal"),true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.addressMatch,true);
+  assert.equal(result.result.sensorAck,true);
+  assert.equal(result.result.receivedByte,0x2A);
+  assert.equal(result.result.receivedHex,"0x2A");
+  assert.equal(result.result.masterFinalNack,true);
+  const nack=runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x49; Register 0x00; Baud 100000; ACK yes"}));
+  assert.equal(nack.state,"complete");
+  assert.equal(nack.result.sensorAck,false);
+  assert.equal(nack.result.receivedByte,null);
+  const absent=runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x48; Register 0x01; Baud 100000; ACK yes"}));
+  assert.equal(absent.result.sensorAck,true);
+  assert.equal(absent.result.registerMatch,false);
+  assert.equal(absent.result.receivedByte,null);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x48; Register 0x00; Baud 100000; ACK no"})).result.sensorAck,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x48; Register 0x00; Baud 1000; ACK yes"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SDA").endpoints=["transaction:SDA","sensor:SDA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
