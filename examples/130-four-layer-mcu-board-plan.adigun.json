@@ -825,7 +825,7 @@
     "keepouts": [],
     "stackupRules": {
       "continuousGroundPlane": "In1.Cu",
-      "doNotSplitReturnUnder": "clock,SWD,or other fast signal routes",
+      "doNotSplitReturnUnder": "Do not split return paths under clock, SWD, or other fast signal routes.",
       "avoidLayerTransitions": "Add nearby GND stitching vias wherever fast signals change signal layers",
       "powerPlane": "In2.Cu VDD33 distribution; preserve uninterrupted ground return on In1.Cu"
     }
