@@ -2245,3 +2245,19 @@ test("catalogue RFID reader grants allowlisted UID and denies unknown tags",asyn
   broken.nets.find(net=>net.id==="UID_DATA").endpoints=["reader:DATA"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+
+test("catalogue NFC example displays a successful UID read and blocks read errors",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/078-nfc-uid-display.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"nfc-uid-display");
+  assert.equal(result.result.uid,"04A1B2C3");
+  assert.equal(result.result.displayText,"Tag UID: 04A1B2C3");
+  assert.equal(result.result.uidIsAuthentication,false);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"tag",{value:"UID 04A1B2C3; ReadStatus error"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="READER_DATA").endpoints=["reader:DATA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
