@@ -4820,7 +4820,7 @@
     {
       "id": "117-electronic-load",
       "title": "Electronic load",
-      "status": "in-review",
+      "status": "released",
       "objective": "Estimate commanded current steps for an ideal op-amp/MOSFET/shunt electronic load and check current accuracy, DUT input power, and MOSFET dissipation limits.",
       "acceptanceTest": "tests/core.test.mjs: catalogue electronic load draws commanded current steps within configured tolerance",
       "testId": "core-electronic-load",
@@ -4828,7 +4828,57 @@
       "readmeFile": "examples/117-electronic-load/README.md",
       "safetyNote": "Ideal steady-state electronic-load estimator only. It does not model loop stability, transient current steps, MOSFET safe operating area, thermal performance, or hardware safety.",
       "scope": "catalogue",
-      "catalogueIndex": 117
+      "catalogueIndex": 117,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41192044167",
+        "headRevision": "1a030441aed75722280b5ce4559d670fcbdd64e6",
+        "engine": "Ideal op-amp/MOSFET electronic-load step estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-electronic-load-current-steps-v1",
+        "expectedResult": {
+          "kind": "electronic-load",
+          "supplyVoltageV": 12,
+          "shuntResistanceOhm": 0.1,
+          "tolerancePercent": 1,
+          "steps": [
+            {
+              "step": 1,
+              "requestedCurrentA": 0.1,
+              "measuredCurrentA": 0.1,
+              "errorPercent": 0,
+              "shuntVoltageV": 0.01,
+              "mosfetPowerW": 1.199,
+              "totalInputPowerW": 1.2,
+              "withinTolerance": true
+            },
+            {
+              "step": 2,
+              "requestedCurrentA": 0.5,
+              "measuredCurrentA": 0.5,
+              "errorPercent": 0,
+              "shuntVoltageV": 0.05,
+              "mosfetPowerW": 5.975,
+              "totalInputPowerW": 6,
+              "withinTolerance": true
+            },
+            {
+              "step": 3,
+              "requestedCurrentA": 1,
+              "measuredCurrentA": 1,
+              "errorPercent": 0,
+              "shuntVoltageV": 0.1,
+              "mosfetPowerW": 11.9,
+              "totalInputPowerW": 12,
+              "withinTolerance": true
+            }
+          ],
+          "allStepsWithinTolerance": true,
+          "transientResponseModeled": false,
+          "hardwareSafetyQualified": false
+        }
+      }
     }
   ]
 }
