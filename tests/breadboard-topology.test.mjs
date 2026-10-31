@@ -36,7 +36,7 @@ test("starter LED project has a physically connected hole and jumper mapping for
 
 test("breadboard topology catches a physical short between separate schematic nets", async () => {
   const project = await readExample("001-led-current-limiter.adigun.json");
-  project.breadboard.jumpers[1] = {from:"A15",to:"TP15"};
+  project.breadboard.jumpers[1] = {from:"C11",to:"TP15"};
   const result = validateBreadboardTopology(project, {getPartPins});
   assert.equal(result.state, "blocked");
   assert.ok(result.errors.some(issue => issue.code === "BREADBOARD_SHORT"));
