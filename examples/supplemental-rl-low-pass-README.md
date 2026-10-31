@@ -1,4 +1,4 @@
-# Example 014 — RL low-pass frequency response
+# Supplemental example — RL low-pass frequency response
 
 ## Purpose
 

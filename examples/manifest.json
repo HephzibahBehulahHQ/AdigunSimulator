@@ -14,7 +14,9 @@
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 1
     },
     {
       "id": "002-dc-voltage-divider",
@@ -29,7 +31,9 @@
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 2
     },
     {
       "id": "003-led-current-limiter-9v",
@@ -44,7 +48,9 @@
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 3
     },
     {
       "id": "004-parallel-resistor-load",
@@ -59,7 +65,9 @@
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146042966"
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 4
     },
     {
       "id": "005-rc-step-response",
@@ -74,7 +82,9 @@
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41146807195"
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 5
     },
     {
       "id": "006-rl-step-response",
@@ -89,7 +99,9 @@
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147338342"
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 6
     },
     {
       "id": "007-led-current-limiter-12v",
@@ -104,7 +116,9 @@
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 7
     },
     {
       "id": "008-led-current-limiter-3v3",
@@ -119,7 +133,9 @@
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 8
     },
     {
       "id": "009-dc-voltage-divider-3k-1k",
@@ -134,7 +150,9 @@
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 9
     },
     {
       "id": "010-parallel-load-12v",
@@ -149,7 +167,9 @@
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 10
     },
     {
       "id": "011-rc-charge-discharge",
@@ -174,7 +194,9 @@
           "chargeVoltageAtTauV": 3.160602794,
           "dischargeVoltageAtTauV": 1.839397206
         }
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 11
     },
     {
       "id": "012-rc-low-pass",
@@ -200,7 +222,9 @@
           "gainAtCutoff": 0.7071067812,
           "gainAt10Cutoff": 0.099503719
         }
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 12
     },
     {
       "id": "013-rc-high-pass",
@@ -226,16 +250,18 @@
           "gainAtCutoff": 0.7071067812,
           "gainAt10Cutoff": 0.9950371902
         }
-      }
+      },
+      "scope": "catalogue",
+      "catalogueIndex": 13
     },
     {
-      "id": "014-rl-low-pass",
-      "title": "RL low-pass frequency response",
+      "id": "supplemental-rl-low-pass",
+      "title": "Supplemental RL low-pass frequency response",
       "status": "released",
       "objective": "Calculate the ideal sinusoidal steady-state response of a 1 kΩ / 100 mH RL low-pass filter at 0.1×, 1×, and 10× cutoff.",
       "acceptanceTest": "tests/core.test.mjs: RL low-pass response uses the calculated cutoff and attenuates above it",
       "testId": "core-rl-low-pass",
-      "projectFile": "examples/014-rl-low-pass.adigun.json",
+      "projectFile": "examples/supplemental-rl-low-pass.adigun.json",
       "safetyNote": "Ideal educational frequency-domain model only. Generic components have no verified physical ratings, tolerances, parasitics, exact manufacturer BOM, hole-level breadboard mapping, or PCB footprints. It is not hardware or manufacturing guidance.",
       "verification": {
         "status": "passed",
@@ -252,7 +278,8 @@
           "gainAtCutoff": 0.7071067812,
           "gainAt10Cutoff": 0.099503719
         }
-      }
+      },
+      "scope": "supplemental"
     }
   ]
 }

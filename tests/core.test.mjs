@@ -92,7 +92,7 @@ test("RC high-pass response attenuates below cutoff and passes above it", async 
 });
 
 test("RL low-pass response uses the calculated cutoff and attenuates above it", async () => {
-  const project = JSON.parse(await readFile(new URL("../examples/014-rl-low-pass.adigun.json", import.meta.url)));
+  const project = JSON.parse(await readFile(new URL("../examples/supplemental-rl-low-pass.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
   const result = runSupportedAnalysis(project);
   assert.equal(result.state, "complete");
@@ -390,8 +390,15 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).released, 14);
-  assert.equal(getExampleCoverage(registry).remaining, 186);
+  assert.equal(getExampleCoverage(registry).total, 14);
+  assert.equal(getExampleCoverage(registry).released, 13);
+  assert.equal(getExampleCoverage(registry).supplemental, 1);
+  assert.equal(getExampleCoverage(registry).remaining, 187);
+  const catalogue = registry.examples.filter((item) => item.status === "released" && item.scope === "catalogue");
+  assert.deepEqual(catalogue.map((item) => item.catalogueIndex), Array.from({ length: 13 }, (_, index) => index + 1));
+  const supplemental = registry.examples.filter((item) => item.status === "released" && item.scope === "supplemental");
+  assert.equal(supplemental.length, 1);
+  assert.equal(supplemental[0].catalogueIndex, undefined);
 });
 
 test("released example status cannot be asserted without passing CI evidence", () => {
