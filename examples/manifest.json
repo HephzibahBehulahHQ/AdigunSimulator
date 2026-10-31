@@ -21,14 +21,47 @@
     {
       "id": "002-two-led-polarity-indicator",
       "title": "Two-LED polarity indicator",
-      "status": "in-review",
+      "status": "released",
       "objective": "Use red and green LEDs in opposite orientations, each with a 330 Ω series resistor, to indicate the polarity of a signed 5 V DC source.",
       "acceptanceTest": "tests/core.test.mjs: catalogue anti-parallel LEDs change with source polarity",
       "testId": "core-two-led-polarity-indicator",
       "projectFile": "examples/002-two-led-polarity-indicator.adigun.json",
       "safetyNote": "Ideal educational model using generic LEDs with nominal 2.0 V and 2.1 V forward drops. It omits reverse breakdown, tolerance, thermal behavior, ratings, and physical hardware validation.",
       "scope": "catalogue",
-      "catalogueIndex": 2
+      "catalogueIndex": 2,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41152385551",
+        "headRevision": "fccc69b3a7d5eddb4b502f11af325149bba2475c",
+        "engine": "Analytical anti-parallel LED polarity indicator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-led-polarity-v1",
+        "libraryLock": "adigun-simulator@b643a616e91563cb083ca2e25ba155fc86a5a1b6",
+        "expectedResult": {
+          "positive5V": {
+            "polarity": "positive",
+            "redLedOn": true,
+            "greenLedOn": false,
+            "redCurrentA": 0.00909090909090909,
+            "greenCurrentA": 0
+          },
+          "negative5V": {
+            "polarity": "negative",
+            "redLedOn": false,
+            "greenLedOn": true,
+            "redCurrentA": 0,
+            "greenCurrentA": 0.008787878787878787
+          },
+          "zeroV": {
+            "polarity": "zero",
+            "redLedOn": false,
+            "greenLedOn": false,
+            "redCurrentA": 0,
+            "greenCurrentA": 0
+          }
+        }
+      }
     },
     {
       "id": "002-dc-voltage-divider",
