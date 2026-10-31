@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 121);
+  assert.equal(getExampleCoverage(registry).total, 122);
   assert.equal(getExampleCoverage(registry).released, 111);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 89);
@@ -3099,7 +3099,7 @@ test("catalogue IGBT inverter leg respects gate logic and fault interlock", asyn
     assert.equal(tripped.result.lowGateOn,false);
     assert.equal(tripped.result.loadCurrentA,0);
   }
-  assert.equal(runSupportedAnalysis(updateComponent(project,"leg",{value:"VceSat 1.8 V; MaxVoltage 20 V; MaxCurrent 20 A; Mode igbt-leg"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"bridge",{value:"VceSat 1.8 V; MaxVoltage 20 V; MaxCurrent 20 A; Mode igbt-leg"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="GATE_L").endpoints=["driver:L_OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
