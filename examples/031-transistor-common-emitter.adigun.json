@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-031-transistor-common-emitter",
+  "metadata": {
+    "name": "NPN Common-Emitter Amplifier",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "signal",
+      "libraryId": "power.ac-source",
+      "reference": "VIN",
+      "value": "0.01 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "q1",
+      "libraryId": "active.npn-small-signal",
+      "reference": "Q1",
+      "value": "β 100; VBE 0.7 V; VCEsat 0.2 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rbias-top",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "100 kΩ",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rbias-bottom",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "18 kΩ",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rc",
+      "libraryId": "passive.resistor",
+      "reference": "RC",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "re",
+      "libraryId": "passive.resistor",
+      "reference": "RE",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "rload",
+      "libraryId": "passive.resistor",
+      "reference": "RL",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          270,
+          130
+        ],
+        "schematic": [
+          270,
+          130
+        ],
+        "pcb": [
+          270,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "cin",
+      "libraryId": "passive.capacitor",
+      "reference": "CIN",
+      "value": "10 µF",
+      "position": {
+        "breadboard": [
+          385,
+          130
+        ],
+        "schematic": [
+          385,
+          130
+        ],
+        "pcb": [
+          385,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "cout",
+      "libraryId": "passive.capacitor",
+      "reference": "COUT",
+      "value": "10 µF",
+      "position": {
+        "breadboard": [
+          500,
+          130
+        ],
+        "schematic": [
+          500,
+          130
+        ],
+        "pcb": [
+          500,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          205
+        ],
+        "schematic": [
+          40,
+          205
+        ],
+        "pcb": [
+          40,
+          205
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "rbias-top:1",
+        "rc:1"
+      ]
+    },
+    {
+      "id": "BASE",
+      "endpoints": [
+        "rbias-top:2",
+        "rbias-bottom:1",
+        "q1:B",
+        "cin:2"
+      ]
+    },
+    {
+      "id": "INPUT_AC",
+      "endpoints": [
+        "signal:+",
+        "cin:1"
+      ]
+    },
+    {
+      "id": "COLLECTOR",
+      "endpoints": [
+        "rc:2",
+        "q1:C",
+        "cout:1"
+      ]
+    },
+    {
+      "id": "EMITTER",
+      "endpoints": [
+        "q1:E",
+        "re:1"
+      ]
+    },
+    {
+      "id": "OUTPUT_AC",
+      "endpoints": [
+        "cout:2",
+        "rload:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "signal:-",
+        "rbias-bottom:2",
+        "re:2",
+        "rload:2",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": []
+}
