@@ -1225,14 +1225,30 @@
     {
       "id": "030-reference-buffer",
       "title": "Precision reference buffer",
-      "status": "in-review",
+      "status": "released",
       "objective": "Buffer a 2.5 V reference with an ideal op amp and verify the output remains 2.5 V while load current changes over a 1 kΩ to 100 kΩ sweep.",
       "acceptanceTest": "tests/core.test.mjs: catalogue reference buffer holds its ideal output across a load sweep",
       "testId": "core-reference-buffer",
       "projectFile": "examples/030-reference-buffer.adigun.json",
       "safetyNote": "Ideal educational model assumes unlimited output current and zero output impedance. It omits reference accuracy, drift, noise, bandwidth, stability, thermal effects, and device-specific limits.",
       "scope": "catalogue",
-      "catalogueIndex": 30
+      "catalogueIndex": 30,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41170435953",
+        "headRevision": "79d2b8249b9647b3923f95d596a3c313822b5cbe",
+        "engine": "Ideal reference-voltage follower load estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-reference-buffer-v1",
+        "expectedResult": {
+          "referenceVoltage": 2.5,
+          "outputVoltage": 2.5,
+          "gainVPerV": 1,
+          "loadResistanceOhm": 10000,
+          "loadCurrentA": 0.00025
+        }
+      }
     }
   ]
 }
