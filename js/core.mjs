@@ -3192,7 +3192,7 @@ function analyseSolarMppSweep(project,{source,fixture,controller,report,ground,v
   const curve=fields(fixture.value),settings=fields(controller.value);
   const vocV=voltageValue(field(curve,"Voc")??""),iscA=currentValue(field(curve,"Isc")??""),vmpV=voltageValue(field(curve,"Vmp")??""),impA=currentValue(field(curve,"Imp")??"");
   const irradiancePercent=Number((field(curve,"Irradiance")??"").replace("%","")),samples=Number(field(settings,"Samples"));
-  const efficiencyPercent=Number((field(settings,"Efficiency")??"").replace("%","")),maxVocV=voltageValue(field(settings,"MaxVoc")??""),maxCurrentA=currentValue(field(settings,"MaxCurrent")??"");
+  const maxCurrentA=currentValue(field(settings,"MaxCurrent")??""),maxPowerW=Number((field(settings,"MaxPower")??"").replace(/\s*W$/i,""));
   const sourceVoltage=voltageValue(source.value),groundNet=n(ground,"0"),vccNet=n(source,"+");
   const powered=n(source,"-")===groundNet&&n(fixture,"VCC")===vccNet&&n(controller,"VCC")===vccNet&&n(report,"VCC")===vccNet&&n(fixture,"GND")===groundNet&&n(controller,"GND")===groundNet&&n(report,"GND")===groundNet;
   const pvPath=n(fixture,"PV+")===n(controller,"PV+")&&n(fixture,"PV-")===n(controller,"PV-"),reportPath=n(controller,"REPORT")===n(report,"REPORT");
