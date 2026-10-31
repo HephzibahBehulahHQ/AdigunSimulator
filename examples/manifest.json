@@ -2663,14 +2663,31 @@
     {
       "id": "065-arduino-ultrasonic-ranger",
       "title": "Uno-class ultrasonic ranger and OLED result",
-      "status": "in-review",
+      "status": "released",
       "objective": "Convert supplied round-trip echo times into distances using 343 m/s sound speed and display valid in-range results or an out-of-range status.",
       "acceptanceTest": "tests/core.test.mjs: catalogue ultrasonic ranger converts echo time and reports measurement boundaries",
       "testId": "core-arduino-ultrasonic-ranger",
       "projectFile": "examples/065-arduino-ultrasonic-ranger.adigun.json",
       "safetyNote": "Ideal time-of-flight arithmetic and text sink; no Arduino C++ execution, trigger waveform, transducer physics, sound-speed temperature correction, reflections, or physical display behavior.",
       "scope": "catalogue",
-      "catalogueIndex": 65
+      "catalogueIndex": 65,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41177254361",
+        "headRevision": "f72efb67f3a58e208c8cf919989059ec3da35b4c",
+        "engine": "Ideal Uno-class ultrasonic time-of-flight estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-ultrasonic-echo-range-v1",
+        "expectedResult": {
+          "soundSpeedMPerS": 343,
+          "minimumEchoUs": 117,
+          "nominalEchoUs": 5882,
+          "maximumEchoUs": 23323,
+          "outOfRangeEchoUs": 25000,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
