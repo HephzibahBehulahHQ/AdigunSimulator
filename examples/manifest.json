@@ -5287,13 +5287,41 @@
     {
       "id": "128-audio-amplifier-pcb",
       "title": "Low-voltage LM386 audio amplifier PCB",
-      "status": "in-review",
+      "status": "released",
       "objective": "Review LM386 audio-input, gain, bypass, supply-decoupling, speaker-output and Zobel wiring; verify PCB grounding/routing checklist, bounded DRC, BOM and placement exports.",
       "acceptanceTest": "tests/core.test.mjs: LM386 audio amplifier PCB validates topology, grounding review, DRC, BOM, placement and export snapshots",
       "testId": "core-audio-amplifier-pcb",
       "projectFile": "examples/128-audio-amplifier-pcb.adigun.json",
       "safetyNote": "Educational 9 V topology and PCB template only. Audio gain, clipping, THD, thermal behavior, speaker power, EMC, production tolerances, and manufacturing safety are not simulated or qualified. Verify the selected parts, footprints and layout before fabrication.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 128,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41197388281",
+        "headRevision": "32210eca457e9cc9bcba279256f60f8858c5ca88",
+        "engine": "Bounded LM386 topology checker, PCB DRC, grounding/routing checklist, and reproducible exports",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "lm386-classab-low-voltage-pcb-v1",
+        "expectedResult": {
+          "kind": "lm386-audio-amplifier-topology",
+          "device": "LM386N-1",
+          "supplyVoltageV": 9,
+          "manufacturerPinMapValid": true,
+          "groundRoutingReview": "passed",
+          "pcbDrc": "passed",
+          "artifacts": [
+            "BOM.csv",
+            "Placement.csv",
+            "Grounding-Routing-Review.csv",
+            "board-F_Cu.gbr",
+            "board-Edge_Cuts.gbr",
+            "board-PTH.drl"
+          ],
+          "audioGainSimulation": false,
+          "hardwareManufacturingQualified": false
+        }
+      }
     }
   ]
 }
