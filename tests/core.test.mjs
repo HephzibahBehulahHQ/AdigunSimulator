@@ -2507,3 +2507,25 @@ test("catalogue RFID inventory fixture counts duplicate UIDs and slot collisions
   broken.nets.find(net=>net.id==="RFID_DATA").endpoints=["reader:DATA"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue I²C level shifter translates open-drain lows bidirectionally", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/089-i2c-level-shifter.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"i2c-level-shifter");
+  assert.equal(result.result.lowRailV,3.3);
+  assert.equal(result.result.highRailV,5);
+  assert.equal(result.result.transitionCount,4);
+  assert.equal(result.result.lowSideDriveTransitions,2);
+  assert.equal(result.result.highSideDriveTransitions,2);
+  assert.equal(result.result.peakCombinedPullupSinkCurrentMa,3.3/4700*1000+5/4700*1000);
+  assert.equal(result.result.lowSideOvervoltage,false);
+  assert.equal(result.result.highSideOvervoltage,false);
+  assert.equal(result.result.bidirectionalTransitionsVerified,true);
+  assert.deepEqual(result.result.transitionTable.map(item=>[item.sdaLowVoltageV,item.sdaHighVoltageV,item.sclLowVoltageV,item.sclHighVoltageV]),[[3.3,5,0,0],[0,0,3.3,5],[3.3,5,0,0],[0,0,3.3,5]]);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"source-high",{value:"6 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"r-pull-sda-low",{value:"200 kΩ"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SDA_HIGH").endpoints=["shifter:SDA_H","report:SDA_H"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
