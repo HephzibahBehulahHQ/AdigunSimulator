@@ -1390,25 +1390,26 @@ function analyseElectretAudioPreamp(project,{source,microphone,opAmp,resistors,c
   const inputAmplitudeV=micFields?voltageValue(micFields[2]):Number.NaN;
   const frequencyHz=micFields?frequencyValue(micFields[3]):Number.NaN;
   const micSourceResistance=micFields?resistanceValue(micFields[4]):Number.NaN;
-  const biasDividerTop=resistors.find(r=>(n(r,"1")===vccNet&&n(r,"2")===n(resistors.find(x=>n(x,"1")===n(opAmp,"+")||n(x,"2")===n(opAmp,"+"))||{},"1"))||(n(r,"2")===vccNet));
-  const referenceNet=[...new Set(resistors.flatMap(r=>[n(r,"1"),n(r,"2")]))].find(net=>net!==vccNet&&net!==groundNet&&resistors.filter(r=>n(r,"1")===net||n(r,"2")===net).length===3);
-  const micBiasResistor=resistors.find(r=>r!==biasDividerTop&&((n(r,"1")===vccNet&&n(r,"2")===micOutNet)||(n(r,"2")===vccNet&&n(r,"1")===micOutNet)));
   const inputNet=n(opAmp,"+"),invertingNet=n(opAmp,"-"),outputNet=n(opAmp,"OUT");
-  const coupling=capacitors.find(c=>(n(c,"1")===micOutNet&&n(c,"2")===inputNet)||(n(c,"2")===micOutNet&&n(c,"1")===inputNet));
-  const decoupling=capacitors.find(c=>c!==coupling&&((n(c,"1")===vccNet&&n(c,"2")===groundNet)||(n(c,"2")===vccNet&&n(c,"1")===groundNet)));
-  const inputBias=resistors.find(r=>r!==biasDividerTop&&r!==micBiasResistor&&((n(r,"1")===inputNet&&n(r,"2")===referenceNet)||(n(r,"2")===inputNet&&n(r,"1")===referenceNet)));
-  const dividerBottom=resistors.find(r=>r!==biasDividerTop&&r!==micBiasResistor&&r!==inputBias&&referenceNet&&((n(r,"1")===referenceNet&&n(r,"2")===groundNet)||(n(r,"2")===referenceNet&&n(r,"1")===groundNet)));
+  const referenceNet=[...new Set(netByEndpoint.values())].find(net=>net!==vccNet&&net!==groundNet
+    &&resistors.filter(r=>n(r,"1")===net||n(r,"2")===net).length===4
+    &&resistors.some(r=>(n(r,"1")===vccNet&&n(r,"2")===net)||(n(r,"2")===vccNet&&n(r,"1")===net))
+    &&resistors.some(r=>(n(r,"1")===groundNet&&n(r,"2")===net)||(n(r,"2")===groundNet&&n(r,"1")===net)));
+  const dividerTop=resistors.find(r=>(n(r,"1")===vccNet&&n(r,"2")===referenceNet)||(n(r,"2")===vccNet&&n(r,"1")===referenceNet));
+  const dividerBottom=resistors.find(r=>r!==dividerTop&&((n(r,"1")===referenceNet&&n(r,"2")===groundNet)||(n(r,"2")===referenceNet&&n(r,"1")===groundNet)));
+  const micBiasResistor=resistors.find(r=>(n(r,"1")===vccNet&&n(r,"2")===micOutNet)||(n(r,"2")===vccNet&&n(r,"1")===micOutNet));
+  const inputBias=resistors.find(r=>(n(r,"1")===inputNet&&n(r,"2")===referenceNet)||(n(r,"2")===inputNet&&n(r,"1")===referenceNet));
   const feedback=resistors.find(r=>(n(r,"1")===outputNet&&n(r,"2")===invertingNet)||(n(r,"2")===outputNet&&n(r,"1")===invertingNet));
-  const gainLeg=resistors.find(r=>r!==feedback&&r!==biasDividerTop&&r!==micBiasResistor&&r!==inputBias&&r!==dividerBottom&&referenceNet&&((n(r,"1")===invertingNet&&n(r,"2")===referenceNet)||(n(r,"2")===invertingNet&&n(r,"1")===referenceNet)));
+  const gainLeg=resistors.find(r=>r!==feedback&&((n(r,"1")===invertingNet&&n(r,"2")===referenceNet)||(n(r,"2")===invertingNet&&n(r,"1")===referenceNet)));
   const rMicBias=micBiasResistor?resistanceValue(micBiasResistor.value):Number.NaN;
-  const rTop=biasDividerTop?resistanceValue(biasDividerTop.value):Number.NaN;
+  const rTop=dividerTop?resistanceValue(dividerTop.value):Number.NaN;
   const rBottom=dividerBottom?resistanceValue(dividerBottom.value):Number.NaN;
   const rInput=inputBias?resistanceValue(inputBias.value):Number.NaN;
   const rFeedback=feedback?resistanceValue(feedback.value):Number.NaN;
   const rGain=gainLeg?resistanceValue(gainLeg.value):Number.NaN;
   const cCoupling=coupling?capacitanceValue(coupling.value):Number.NaN;
   const positiveConnected=n(opAmp,"VCC")===vccNet&&n(opAmp,"VEE")===groundNet;
-  const referenceWired=referenceNet&&resistors.some(r=>n(r,"1")===vccNet&&n(r,"2")===referenceNet)&&resistors.some(r=>n(r,"1")===referenceNet&&n(r,"2")===groundNet);
+  const referenceWired=referenceNet&&dividerTop&&dividerBottom;
   const feedbackWired=feedback&&gainLeg&&((n(feedback,"1")===outputNet&&n(feedback,"2")===invertingNet)||(n(feedback,"2")===outputNet&&n(feedback,"1")===invertingNet))&&((n(gainLeg,"1")===invertingNet&&n(gainLeg,"2")===referenceNet)||(n(gainLeg,"2")===invertingNet&&n(gainLeg,"1")===referenceNet));
   if(n(source,"-")!==groundNet||n(microphone,"VCC")!==vccNet||n(microphone,"GND")!==groundNet||!positiveConnected||!referenceWired||!feedbackWired
     ||!micBiasResistor||!coupling||!decoupling||!inputBias||![supplyVoltage,micCurrent,inputAmplitudeV,frequencyHz,micSourceResistance,rMicBias,rTop,rBottom,rInput,rFeedback,rGain,cCoupling].every(Number.isFinite)
