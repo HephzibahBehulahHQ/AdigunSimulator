@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "example-187-unit-conversion-calculator",
+  "metadata": {
+    "name": "Example 187 — Unit Conversion Calculator",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "unitConversionCalculator": {
+    "kind": "si-conversion-cases",
+    "cases": [
+      {
+        "id": "resistor-kiloohms-to-ohms",
+        "category": "resistance",
+        "value": 4.7,
+        "fromUnit": "kΩ",
+        "toUnit": "Ω"
+      },
+      {
+        "id": "power-milliwatts-to-watts",
+        "category": "power",
+        "value": 250,
+        "fromUnit": "mW",
+        "toUnit": "W"
+      },
+      {
+        "id": "length-millimetres-to-metres",
+        "category": "length",
+        "value": 125,
+        "fromUnit": "mm",
+        "toUnit": "m"
+      },
+      {
+        "id": "significant-digit-rounding",
+        "category": "resistance",
+        "value": 1.23456789,
+        "fromUnit": "Ω",
+        "toUnit": "Ω",
+        "precision": 6
+      }
+    ]
+  }
+}

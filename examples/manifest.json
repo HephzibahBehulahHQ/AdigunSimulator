@@ -7208,6 +7208,19 @@
           ]
         }
       }
+    },
+    {
+      "id": "187-unit-conversion-calculator",
+      "title": "Unit conversion calculator",
+      "status": "in-review",
+      "objective": "Convert resistance, power, and length values between SI prefixes using dimension checks and deterministic significant-digit rounding.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue SI unit converter returns resistor, power, length, and rounded results",
+      "testId": "core-si-unit-conversion-calculator",
+      "projectFile": "examples/187-unit-conversion-calculator.adigun.json",
+      "readmeFile": "examples/187-unit-conversion-calculator/README.md",
+      "safetyNote": "Pure unit conversion only. It does not calculate circuit behavior or validate component ratings.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
