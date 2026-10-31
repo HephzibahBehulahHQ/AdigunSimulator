@@ -61,6 +61,7 @@ import { calculateRcTiming, runRcTimingCalculator } from "../js/rc-timing-calcul
 import { calculateOpAmpGain, runOpAmpGainCalculator } from "../js/op-amp-gain-calculator.mjs";
 import { calculatePcbTraceWidth, runPcbTraceWidthAdvisor } from "../js/pcb-trace-width-advisor.mjs";
 import { buildBomReport, exportBomCsv, runBomExportPlaceholder } from "../js/bom-report.mjs";
+import { explainComponent, runBotComponentExplainer } from "../js/bot-component-explainer.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1493,7 +1494,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 204);
+  assert.equal(getExampleCoverage(registry).total, 205);
   assert.equal(getExampleCoverage(registry).released, 194);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 6);
@@ -4617,4 +4618,18 @@ test("catalogue BOM export groups verified fields and leaves unsourced cost blan
   const priced=structuredClone(project);priced.components[1].verifiedPrice={unitCost:0.12,currency:"EUR",source:"https://example.com/parts/resistor",asOf:"2026-10-30"};
   const pricedReport=buildBomReport(priced);assert.equal(pricedReport.rows.find(row=>row.libraryId==="passive.resistor").extendedCost,0.12);assert.equal(pricedReport.totalCost,null);
   const invalid=structuredClone(project);invalid.components[0].libraryId="unknown.part";assert.equal(runBomExportPlaceholder(invalid).state,"blocked");
+});
+test("catalogue Adigun BOT component explainer cites source fields and discloses unknowns", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/195-bot-explain-component.adigun.json",import.meta.url)));
+  const result=runBotComponentExplainer(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"bot-grounded-component-explanation");assert.equal(result.result.reference,"R1");
+  assert.ok(result.result.known.some(item=>item.field==="Configured value"&&item.value==="330 Ω"&&item.source==="Native project"));
+  assert.ok(result.result.known.some(item=>item.field==="Library description"&&item.source==="Checked-in component library"));
+  assert.match(result.result.answer,/Sources: Native project and Checked-in component library/);
+  assert.ok(result.result.unknown.some(item=>/Manufacturer is not recorded/.test(item)));
+  assert.ok(result.result.unknown.some(item=>item.includes("Manufacturer part number (MPN) is not recorded.")));
+  assert.ok(result.result.unknown.some(item=>/datasheet link is not recorded/.test(item)));
+  assert.match(result.message,/no external AI or web lookup/i);
+  assert.equal(explainComponent(project,"missing-reference").ok,false);
+  const unsupported=structuredClone(project);unsupported.components[1].libraryId="unverified.part";assert.equal(explainComponent(unsupported,"R1").ok,false);
 });
