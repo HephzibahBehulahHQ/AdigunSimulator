@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "example-011-rc-charge-discharge",
+  "metadata": {
+    "name": "5 V RC Charge and Discharge",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    { "instanceId": "source-1", "libraryId": "power.dc-source", "reference": "V1", "value": "5 V", "position": { "breadboard": [60, 142], "schematic": [95, 128], "pcb": [92, 130] } },
+    { "instanceId": "switch-1", "libraryId": "input.spdt-switch", "reference": "SW1", "value": "Charge (A)", "position": { "breadboard": [190, 80], "schematic": [190, 80], "pcb": [190, 80] } },
+    { "instanceId": "resistor-1", "libraryId": "passive.resistor", "reference": "R1", "value": "1 kΩ", "position": { "breadboard": [330, 142], "schematic": [330, 128], "pcb": [330, 128] } },
+    { "instanceId": "capacitor-1", "libraryId": "passive.capacitor", "reference": "C1", "value": "100 µF", "position": { "breadboard": [465, 142], "schematic": [465, 128], "pcb": [465, 128] } },
+    { "instanceId": "ground-1", "libraryId": "ground.signal", "reference": "GND", "value": "0 V", "position": { "breadboard": [570, 220], "schematic": [570, 220], "pcb": [520, 220] } }
+  ],
+  "nets": [
+    { "id": "VCC", "endpoints": ["source-1:+", "switch-1:A"] },
+    { "id": "GND", "endpoints": ["source-1:-", "switch-1:B", "capacitor-1:2", "ground-1:0"] },
+    { "id": "SW_COM", "endpoints": ["switch-1:COM", "resistor-1:1"] },
+    { "id": "RC_NODE", "endpoints": ["resistor-1:2", "capacitor-1:1"] }
+  ],
+  "history": []
+}
