@@ -73,6 +73,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.led-bargraph-10seg-ideal", category: "Output", type: "Ideal 10-segment LED bargraph behavior sink", prefix: "LED", pins: ["IN0", "IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "IN9", "VCC", "GND"], defaultValue: "Segments 10; Mode bar", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.ir-nec-frame", category: "Inputs", type: "Ideal NEC-like optical timing fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000", simulation: "fixture-ir-nec-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "sensor.ir-receiver-ideal", category: "Sensors", type: "Ideal 38 kHz IR demodulator behavior model", prefix: "IR", pins: ["SIG", "VCC", "GND", "OUT"], defaultValue: "CarrierHz 38000; Output demodulated active-low", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "sensor.gnss-nmea-ideal", category: "Sensors", type: "Ideal GNSS NMEA sentence fixture", prefix: "GPS", pins: ["TX", "VCC", "GND"], defaultValue: "Sentence $GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A", simulation: "fixture-gnss-nmea", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.gnss-nmea-parser-ideal", category: "Active", type: "Ideal RMC sentence parser behavior model", prefix: "U", pins: ["RX", "DISPLAY", "VCC", "GND"], defaultValue: "SentenceType RMC", simulation: "analytical-gnss-rmc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.gnss-position-display", category: "Output", type: "Ideal GNSS position text display sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Latitude and longitude", simulation: "analytical-gnss-rmc", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.rs485-poll-fixture", category: "Inputs", type: "Ideal addressed RS-485 poll fixture", prefix: "POLL", pins: ["OUT", "GND"], defaultValue: "Address 0x02; Baud 9600", simulation: "fixture-rs485-poll", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.rs485-master-ideal", category: "Active", type: "Generic RS-485 master MCU behavior model", prefix: "U", pins: ["POLL", "TX", "RX", "DE", "RE", "VCC", "GND"], defaultValue: "Role master; PollAddress 0x02; Baud 9600; DriverPolicy master-then-addressed", simulation: "analytical-rs485-poll", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.rs485-sensor-node-ideal", category: "Active", type: "Generic addressed RS-485 sensor-node behavior model", prefix: "U", pins: ["SENSOR", "TX", "RX", "DE", "RE", "VCC", "GND"], defaultValue: "Address 0x01; Baud 9600; EnablePolicy addressed-only", simulation: "analytical-rs485-poll", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -495,6 +498,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const rs485Terminations = project.components.filter((item) => item.libraryId === "passive.rs485-termination");
   const rs485Sensors = project.components.filter((item) => item.libraryId === "sensor.rs485-temperature-ideal");
   const rs485Displays = project.components.filter((item) => item.libraryId === "output.rs485-poll-display");
+  const gnssFixtures = project.components.filter((item) => item.libraryId === "sensor.gnss-nmea-ideal");
+  const gnssParsers = project.components.filter((item) => item.libraryId === "active.gnss-nmea-parser-ideal");
+  const gnssDisplays = project.components.filter((item) => item.libraryId === "output.gnss-position-display");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -565,6 +571,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (picControllers.length === 1 && adcPotentiometers.length === 1 && ledBargraphs.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePicAdcBargraph(project, { source: source[0], potentiometer: adcPotentiometers[0], pic: picControllers[0], bargraph: ledBargraphs[0], ground: ground[0], validation });
+  }
+  if (gnssFixtures.length === 1 && gnssParsers.length === 1 && gnssDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseGnssRmc(project, { source: source[0], gnss: gnssFixtures[0], parser: gnssParsers[0], display: gnssDisplays[0], ground: ground[0], validation });
   }
   if (rs485Polls.length === 1 && rs485Masters.length === 1 && rs485Nodes.length === 2 && rs485Transceivers.length === 3 && rs485Terminations.length === 2 && rs485Sensors.length === 2 && rs485Displays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 14) {
     return analyseRs485PollNetwork(project, { source: source[0], poll: rs485Polls[0], master: rs485Masters[0], nodes: rs485Nodes, transceivers: rs485Transceivers, terminations: rs485Terminations, sensors: rs485Sensors, display: rs485Displays[0], ground: ground[0], validation });
@@ -1652,6 +1661,30 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const adcCount=Math.round(position*1023/100),illuminatedSegments=Math.min(10,Math.floor(adcCount*10/1023));
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
+}
+function analyseGnssRmc(project,{source,gnss,parser,display,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const supplyVoltage=voltageValue(source.value),sentence=field(fields(gnss.value),"Sentence")??"",match=sentence.match(/^\$(GPRMC|GNRMC),([^*]+)\*([0-9A-F]{2})$/i);
+  const body=match?.[2]??"",check=match?.[3]??"",parts=(match?.[1]+" "+body).split(" "),dataFields=body.split(",");
+  let calculated=0;for(const character of body)calculated^=character.charCodeAt(0);
+  const checksumValid=Boolean(match)&&calculated===Number.parseInt(check,16),fixValid=dataFields[2]==="A";
+  const parseCoordinate=(raw,hemisphere,degreeDigits,maximum)=>{
+    if(!new RegExp("^\\d{"+degreeDigits+"}\\d{2}\\.\\d+$").test(raw??"")||!["N","S","E","W"].includes(hemisphere??""))return Number.NaN;
+    const packed=Number(raw),degrees=Math.floor(packed/100),minutes=packed-degrees*100;
+    if(!Number.isFinite(packed)||minutes<0||minutes>=60||degrees>maximum||(degrees===maximum&&minutes>0))return Number.NaN;
+    const magnitude=degrees+minutes/60;return hemisphere==="S"||hemisphere==="W"?-magnitude:magnitude;
+  };
+  const latitude=parseCoordinate(dataFields[3],dataFields[4],2,90),longitude=parseCoordinate(dataFields[5],dataFields[6],3,180);
+  const speedKnots=Number(dataFields[7]),timeValid=/^\\d{6}(?:\\.\\d+)?$/.test(dataFields[1]??""),dateValid=/^\\d{6}$/.test(dataFields[9]??"");
+  const powered=n(source,"+")===n(parser,"VCC")&&n(source,"-")===n(ground,"0")&&n(gnss,"VCC")===n(parser,"VCC")&&n(display,"VCC")===n(parser,"VCC")&&n(gnss,"GND")===n(ground,"0")&&n(parser,"GND")===n(ground,"0")&&n(display,"GND")===n(ground,"0");
+  const signalPath=n(gnss,"TX")===n(parser,"RX")&&n(parser,"DISPLAY")===n(display,"DATA");
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!powered||!signalPath||field(fields(parser.value),"SentenceType")!=="RMC"||!checksumValid||!fixValid||!timeValid||!dateValid||!Number.isFinite(latitude)||!Number.isFinite(longitude)||!Number.isFinite(speedKnots)||speedKnots<0){
+    return {state:"blocked",message:"Power the GNSS fixture, parser, and display; connect the GNSS TX to parser RX and parser DISPLAY to the text sink; provide a checksum-valid GPRMC/GNRMC sentence with an active fix and valid coordinates.",validation};
+  }
+  const displayText=latitude.toFixed(5)+", "+longitude.toFixed(5);
+  return {state:"complete",engine:"Ideal NMEA RMC sentence parser model",message:"Verifies an RMC sentence checksum and active-fix flag, converts its latitude/longitude fields to signed decimal degrees, and sends the result to a text sink. It does not model GNSS reception, UART framing, satellite geometry, MCU firmware, or position accuracy.",result:{kind:"gnss-rmc",sentenceType:dataFields[0]??match[1],checksum:check.toUpperCase(),checksumValid,fixStatus:"active",utcTime:dataFields[1],latitude,longitude,speedKnots,displayText,firmwareExecuted:false},validation};
 }
 function analyseRs485PollNetwork(project,{source,poll,master,nodes,transceivers,terminations,sensors,display,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
