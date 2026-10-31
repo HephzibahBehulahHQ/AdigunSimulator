@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 58);
+  assert.equal(getExampleCoverage(registry).total, 59);
   assert.equal(getExampleCoverage(registry).released, 48);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 152);
@@ -1588,6 +1588,44 @@ test("catalogue BCD counter displays 0 through 9 and wraps with correct segments
   assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "6 V" })).state, "blocked");
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "SEG_G").endpoints = ["display:SEG_G"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue traffic-light FSM cycles safe six-phase states without opposing green", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/049-traffic-light-fsm.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-traffic-fsm-ideal"), true);
+  const expected = [
+    [false,false,true,true,false,false],
+    [false,true,false,true,false,false],
+    [true,false,false,true,false,false],
+    [true,false,false,false,false,true],
+    [true,false,false,false,true,false],
+    [true,false,false,true,false,false]
+  ];
+  let state = runSupportedAnalysis(project);
+  assert.equal(state.state, "complete");
+  assert.equal(state.result.phase, 0);
+  assert.deepEqual(state.result.lamps, expected[0]);
+  let stateProject = updateComponent(project, "reset-input", { value: "5 V" });
+  state = runSupportedAnalysis(stateProject, { previousState: state });
+  for (let step = 1; step <= 6; step++) {
+    stateProject = updateComponent(stateProject, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    const phase = step % 6;
+    assert.equal(state.result.phase, phase);
+    assert.deepEqual(state.result.lamps, expected[phase]);
+    assert.equal(state.result.conflictingGreen, false);
+    stateProject = updateComponent(stateProject, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    assert.equal(state.result.phase, phase);
+    assert.equal(state.result.risingEdge, false);
+  }
+  const invalid = updateComponent(project, "clock-input", { value: "6 V" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "LAMP_EW_G").endpoints = ["fsm:EW_G"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
