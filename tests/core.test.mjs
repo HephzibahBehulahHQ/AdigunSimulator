@@ -2174,3 +2174,26 @@ test("catalogue CAN node pair transfers a matching frame and verifies 60 ohm end
   broken.nets.find(net=>net.id==="CAN_H").endpoints=["tx-xcvr:CANH","term-a:1","term-b:1"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+
+test("catalogue RS-485 polling returns only the addressed sensor and prevents collisions",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/075-rs485-sensor-network.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"rs485-addressed-poll");
+  assert.equal(result.result.pollAddress,"0x02");
+  assert.equal(result.result.respondingAddress,"0x02");
+  assert.equal(result.result.temperatureC,24.6);
+  assert.equal(result.result.respondingNodes,1);
+  assert.equal(result.result.silentNodes,1);
+  assert.equal(result.result.simultaneousDrivers,0);
+  assert.equal(result.result.busTerminationOhm,60);
+  assert.match(result.result.displayText,/other node silent/);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"node-1",{value:"Address 0x02; Baud 9600; EnablePolicy addressed-only"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"term-2",{value:"240 Ω"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"poll",{value:"Address 0x03; Baud 9600"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="RS485_A").endpoints=["master-xcvr:A","xcvr-1:A","term-1:1","term-2:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
