@@ -193,6 +193,99 @@
         }
       ],
       "notes": "TI lists this exact order code as active in TO-220 with a fixed 5 V output. Full pin mapping, licensed symbol/footprint assets, model evidence, datasheet checksum, and independent human review remain incomplete; not counted as verified."
+    },
+    {
+      "id": "nexperia.bss138bk",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BSS138BK",
+      "category": "Transistors",
+      "type": "N-channel enhancement MOSFET",
+      "typeCode": "D05",
+      "lifecycle": "production",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "BSS138BK 60 V, 360 mA N-channel Trench MOSFET data sheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BSS138BK.pdf",
+        "accessedAt": "2026-10-31"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.nexperia.com/product/BSS138BK",
+          "kind": "manufacturer-product-page"
+        },
+        {
+          "url": "https://assets.nexperia.com/documents/data-sheet/BSS138BK.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "SOT23-3 (TO-236AB)",
+        "pinCount": 3,
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BSS138BK.pdf"
+      },
+      "ratings": [
+        {
+          "name": "drain-source voltage",
+          "maximum": 60,
+          "unit": "V"
+        },
+        {
+          "name": "continuous drain current",
+          "maximum": 0.36,
+          "unit": "A"
+        }
+      ],
+      "notes": "Nexperia lists the exact BSS138BK as a production N-channel enhancement-mode MOSFET in SOT23. Pin maps, licensed symbol/footprint assets, model evidence, datasheet checksum, and independent human review remain incomplete; not counted as verified."
+    },
+    {
+      "id": "microchip.mcp6002-i-p",
+      "manufacturer": "Microchip Technology",
+      "manufacturerPartNumber": "MCP6002-I/P",
+      "category": "Active components",
+      "type": "general-purpose dual op amp",
+      "typeCode": "E01",
+      "lifecycle": "in production",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "MCP6001/R/U/2/4, 1 MHz, Low-Power Op Amp data sheet",
+        "url": "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf",
+        "accessedAt": "2026-10-31"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.microchip.com/en-us/product/MCP6002",
+          "kind": "manufacturer-product-page"
+        },
+        {
+          "url": "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-8",
+        "pinCount": 8,
+        "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf"
+      },
+      "ratings": [
+        {
+          "name": "operating supply voltage",
+          "minimum": 1.8,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "gain bandwidth product",
+          "value": 1,
+          "unit": "MHz"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "notes": "Microchip lists the exact MCP6002-I/P as an in-production 8-pin PDIP dual op amp. Pin maps, licensed symbol/footprint assets, model evidence, datasheet checksum, and independent human review remain incomplete; not counted as verified."
     }
   ]
 }

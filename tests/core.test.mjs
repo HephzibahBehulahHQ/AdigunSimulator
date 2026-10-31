@@ -486,23 +486,23 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(validatePartLedger(ledger, taxonomy).valid, true);
   assert.equal(validatePartsManifest(manifest, taxonomy, ledger).valid, true);
   const coverage = getLedgerCoverage(ledger);
-  assert.equal(coverage.total, 7);
+  assert.equal(coverage.total, 9);
   assert.equal(coverage.verified, 0);
-  assert.equal(coverage.byStatus.candidate, 7);
+  assert.equal(coverage.byStatus.candidate, 9);
   assert.equal(coverage.remaining, 1000);
   assert.deepEqual(getLibraryCoverage(ledger, taxonomy), coverageFile);
   assert.equal(coverageFile.taxonomy.totalTypes, 565);
   assert.equal(coverageFile.taxonomy.categories.length, 15);
-  assert.equal(coverageFile.ledger.total, 7);
+  assert.equal(coverageFile.ledger.total, 9);
   assert.equal(coverageFile.ledger.verified, 0);
-  assert.equal(coverageFile.ledger.byStatus.candidate, 7);
+  assert.equal(coverageFile.ledger.byStatus.candidate, 9);
   const readiness = getPartVerificationReadiness(ledger.records[0]);
   assert.equal(readiness.currentStatus, "candidate");
   assert.equal(readiness.verified, false);
   assert.equal(readiness.readyForHumanReview, false);
   assert.equal(readiness.requiresHumanReview, true);
   assert.ok(readiness.missingEvidenceCodes.includes("DATASHEET_CHECKSUM"));
-  assert.equal(coverageFile.reviewQueue.length, 7);
+  assert.equal(coverageFile.reviewQueue.length, 9);
   assert.ok(coverageFile.reviewQueue.every(item => !item.readyForHumanReview));
 });
 
