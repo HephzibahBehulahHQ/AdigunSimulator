@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 55);
+  assert.equal(getExampleCoverage(registry).total, 56);
   assert.equal(getExampleCoverage(registry).released, 45);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 155);
@@ -1474,6 +1474,50 @@ test("catalogue D flip-flop samples data only on rising edges and annotates timi
   assert.equal(runSupportedAnalysis(updateComponent(project, "data-input", { value: "6 V" })).state, "blocked");
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "DATA").endpoints = ["data-input:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue JK toggle divider toggles on each rising edge and clears asynchronously", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/046-jk-toggle-divider.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-jk-ideal"), true);
+
+  const cleared = runSupportedAnalysis(project);
+  assert.equal(cleared.state, "complete");
+  assert.equal(cleared.result.kind, "jk-toggle-divider");
+  assert.equal(cleared.result.mode, "asynchronous clear");
+  assert.equal(cleared.result.q, false);
+
+  let released = updateComponent(project, "clear-input", { value: "5 V" });
+  const lowClock = runSupportedAnalysis(released, { previousState: cleared });
+  assert.equal(lowClock.result.mode, "low-level hold");
+  assert.equal(lowClock.result.q, false);
+
+  let firstEdge = updateComponent(released, "clock-input", { value: "5 V" });
+  const first = runSupportedAnalysis(firstEdge, { previousState: lowClock });
+  assert.equal(first.result.risingEdge, true);
+  assert.equal(first.result.mode, "toggle");
+  assert.equal(first.result.q, true);
+  assert.equal(first.result.risingEdgeCount, 1);
+  assert.equal(first.result.outputToClockFrequencyRatio, 0.5);
+
+  let fallingProject = updateComponent(firstEdge, "clock-input", { value: "0 V" });
+  const falling = runSupportedAnalysis(fallingProject, { previousState: first });
+  assert.equal(falling.result.risingEdge, false);
+  assert.equal(falling.result.q, true);
+  let secondEdge = updateComponent(fallingProject, "clock-input", { value: "5 V" });
+  const second = runSupportedAnalysis(secondEdge, { previousState: falling });
+  assert.equal(second.result.q, false);
+  assert.equal(second.result.risingEdgeCount, 2);
+
+  const clearedAgain = runSupportedAnalysis(updateComponent(secondEdge, "clear-input", { value: "0 V" }), { previousState: second });
+  assert.equal(clearedAgain.result.q, false);
+  assert.equal(clearedAgain.result.mode, "asynchronous clear");
+  assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "6 V" })).state, "blocked");
+
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "J").endpoints = ["j-input:+"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
