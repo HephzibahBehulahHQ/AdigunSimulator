@@ -187,6 +187,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.buckboost-target-fixture", category: "Inputs", type: "Non-inverting buck-boost target and load fixture", prefix: "CFG", pins: ["SET", "VCC", "GND"], defaultValue: "Target 9 V; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz", simulation: "fixture-buckboost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.buckboost-four-switch-average", category: "Active", type: "Ideal four-switch non-inverting buck-boost average controller", prefix: "U", pins: ["VIN", "SET", "L1", "L2", "GND"], defaultValue: "Mode non-inverting four-switch; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz", simulation: "analytical-buckboost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.buckboost-converter-report", category: "Output", type: "Buck-boost CCM operating-point report", prefix: "SCOPE", pins: ["VOUT", "GND"], defaultValue: "Average CCM report", simulation: "analytical-buckboost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.liion-cell-fixture", category: "Inputs", type: "Li-ion cell state and temperature fixture", prefix: "BAT", pins: ["CELL", "VCC", "GND"], defaultValue: "CellState present; CellV 3.50 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV", simulation: "fixture-liion-charge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.liion-cccv-charger-ideal", category: "Active", type: "Ideal Li-ion constant-current/constant-voltage charger model", prefix: "U", pins: ["VIN", "BAT", "EN", "STATUS", "GND"], defaultValue: "Chemistry Li-ion; Mode CC/CV; SetVoltage 4.20 V; MaxCharge 500 mA; Termination 50 mA; TempLow 0 C; TempHigh 45 C; Efficiency 90%", simulation: "analytical-liion-charge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.liion-charge-report", category: "Output", type: "Li-ion charger phase and limit report", prefix: "SCOPE", pins: ["BAT", "STATUS", "GND"], defaultValue: "Charge phase report", simulation: "analytical-liion-charge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -684,6 +687,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const buckboostFixtures = project.components.filter((item) => item.libraryId === "input.buckboost-target-fixture");
   const buckboostControllers = project.components.filter((item) => item.libraryId === "active.buckboost-four-switch-average");
   const buckboostReports = project.components.filter((item) => item.libraryId === "output.buckboost-converter-report");
+  const liionCellFixtures = project.components.filter((item) => item.libraryId === "input.liion-cell-fixture");
+  const liionChargers = project.components.filter((item) => item.libraryId === "active.liion-cccv-charger-ideal");
+  const liionChargeReports = project.components.filter((item) => item.libraryId === "output.liion-charge-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -922,6 +928,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
+  }
+  if (liionCellFixtures.length === 1 && liionChargers.length === 1 && liionChargeReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseLiionCharge(project, { source: source[0], cell: liionCellFixtures[0], charger: liionChargers[0], report: liionChargeReports[0], ground: ground[0], validation });
   }
   if (buckboostFixtures.length === 1 && buckboostControllers.length === 1 && buckboostReports.length === 1 && source.length === 1 && inductor.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseBuckBoostConverter(project, { source: source[0], fixture: buckboostFixtures[0], controller: buckboostControllers[0], inductor: inductor[0], capacitor: capacitor[0], load: resistor[0], report: buckboostReports[0], ground: ground[0], validation });
@@ -3140,6 +3149,42 @@ function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,spe
   return {state:"complete",engine:"Generic low-voltage class-AB amplifier and R-L speaker estimate",message:"Models configurable voltage gain and output swing, a single-supply midpoint bias, a series output coupling capacitor, and a nominal speaker R-L load. It reports a sinusoidal fundamental and real load power only. It does not calculate THD, compression, slew, output-stage current limiting, mechanical sound, thermal behavior, or manufacturer-specific LM386 performance.",result:{kind:"audio-power-amplifier",supplyVoltage,inputAmplitudeV,frequencyHz,gainVPerV:gain,requestedOutputAmplitudeV,amplifierOutputAmplitudeV,clipped,clippingWarning:clipped?"Input exceeds the configured output swing; distortion is not modeled.":null,outputBiasVoltageV:biasVoltageV,quiescentCurrentA:quiescentCurrent,speakerResistanceOhm:speakerResistance,speakerInductanceH:speakerInductance,couplingCapacitanceF:couplingCapacitance,couplingGain,speakerImpedanceOhm,speakerVoltagePeakV,speakerVoltageRmsV,speakerCurrentRmsA,speakerRealPowerW,frequencyResponse},validation};
 }
 
+function analyseLiionCharge(project,{source,cell,charger,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const fixture=fields(cell.value),control=fields(charger.value),state=(field(fixture,"CellState")??"").toLowerCase();
+  const inputVoltageV=voltageValue(source.value),cellVoltageV=voltageValue(field(fixture,"CellV")??""),setVoltageV=voltageValue(field(fixture,"SetVoltage")??"");
+  const maxChargeCurrentA=currentValue(field(fixture,"ChargeCurrent")??""),terminationCurrentA=currentValue(field(fixture,"TerminationCurrent")??"");
+  const controllerSetVoltage=voltageValue(field(control,"SetVoltage")??""),controllerMaxCharge=currentValue(field(control,"MaxCharge")??""),controllerTermination=currentValue(field(control,"Termination")??"");
+  const temperatureC=Number((field(fixture,"TemperatureC")??"").replace(/\s*C$/i,"")),tempLowC=Number((field(control,"TempLow")??"").replace(/\s*C$/i,"")),tempHighC=Number((field(control,"TempHigh")??"").replace(/\s*C$/i,""));
+  const efficiencyPercent=Number((field(fixture,"Efficiency")??"").replace("%","")),controllerEfficiency=Number((field(control,"Efficiency")??"").replace("%",""));
+  const groundNet=n(ground,"0"),vinNet=n(source,"+"),cellNet=n(cell,"CELL");
+  const powered=n(source,"-")===groundNet&&n(charger,"VIN")===vinNet&&n(cell,"VCC")===vinNet&&n(cell,"GND")===groundNet&&n(charger,"GND")===groundNet&&n(report,"GND")===groundNet;
+  const batteryPath=cellNet===n(charger,"BAT")&&cellNet===n(report,"BAT"),statusPath=n(charger,"STATUS")===n(report,"STATUS");
+  const required=[groundNet,vinNet,cellNet,n(cell,"VCC"),n(cell,"GND"),n(charger,"VIN"),n(charger,"BAT"),n(charger,"STATUS"),n(charger,"GND"),n(report,"BAT"),n(report,"STATUS"),n(report,"GND")];
+  if(required.some(net=>typeof net!=="string"||!net)||!powered||!batteryPath||!statusPath||n(charger,"EN")===undefined
+    ||field(control,"Chemistry")!=="Li-ion"||field(control,"Mode")!=="CC/CV"||field(fixture,"Mode")!=="CC/CV"
+    ||!Number.isFinite(inputVoltageV)||inputVoltageV<4.5||inputVoltageV>12||!Number.isFinite(setVoltageV)||setVoltageV<4||setVoltageV>4.3
+    ||!Number.isFinite(cellVoltageV)||cellVoltageV<0||cellVoltageV>4.35||!Number.isFinite(maxChargeCurrentA)||maxChargeCurrentA<=0||maxChargeCurrentA>2
+    ||!Number.isFinite(terminationCurrentA)||terminationCurrentA<=0||terminationCurrentA>=maxChargeCurrentA
+    ||!Number.isFinite(temperatureC)||!Number.isFinite(tempLowC)||!Number.isFinite(tempHighC)||tempLowC< -10||tempHighC>60||tempLowC>=tempHighC
+    ||!Number.isFinite(efficiencyPercent)||efficiencyPercent<80||efficiencyPercent>99||controllerSetVoltage!==setVoltageV||controllerMaxCharge!==maxChargeCurrentA
+    ||controllerTermination!==terminationCurrentA||controllerEfficiency!==efficiencyPercent){
+    return {state:"blocked",message:"Check the connected Li-ion cell, 4.5–12 V input, matching CC/CV voltage/current/efficiency settings, and valid temperature limits.",validation};
+  }
+  if(temperatureC<tempLowC||temperatureC>tempHighC)return {state:"blocked",message:"Cell temperature is outside the configured charging window; charging is inhibited.",validation};
+  if(inputVoltageV<setVoltageV+0.3)return {state:"blocked",message:"Input voltage does not provide the configured headroom above the charge-voltage target.",validation};
+  if(state==="absent")return {state:"complete",engine:"Ideal Li-ion CC/CV phase and limit estimator",message:"No cell is present; charging remains disabled. This is a bounded charger-state estimate, not a safety-qualified charger design.",result:{kind:"liion-charge",cellPresent:false,phase:"no-cell",inputVoltageV,cellVoltageV,chargeCurrentA:0,batteryPowerW:0,inputCurrentA:0,temperatureC,chargingEnabled:false,hardwareModeled:false},validation};
+  if(state!=="present")return {state:"blocked",message:"CellState must be present or absent.",validation};
+  if(cellVoltageV>setVoltageV)return {state:"blocked",message:"Cell voltage exceeds the configured constant-voltage target; charging is inhibited.",validation};
+  let phase,chargeCurrentA;
+  if(cellVoltageV<=setVoltageV-0.1){phase="CC";chargeCurrentA=maxChargeCurrentA;}
+  else {phase="CV";chargeCurrentA=Math.max(0,maxChargeCurrentA*(setVoltageV-cellVoltageV)/0.1);}
+  if(phase==="CV"&&chargeCurrentA<=terminationCurrentA+1e-12){phase="terminated";chargeCurrentA=0;}
+  const batteryPowerW=cellVoltageV*chargeCurrentA,inputPowerW=batteryPowerW/(efficiencyPercent/100),inputCurrentA=inputVoltageV>0?inputPowerW/inputVoltageV:0,chargerLossW=inputPowerW-batteryPowerW;
+  return {state:"complete",engine:"Ideal Li-ion CC/CV phase and limit estimator",message:"Classifies constant-current and constant-voltage charging with a linear taper near the setpoint, configured termination current, and a temperature window. It does not model a charger IC, cell chemistry variation, electrochemical state of charge, balancing, fault transients, thermal control, safety certification, firmware, or hardware.",result:{kind:"liion-charge",cellPresent:true,phase,inputVoltageV,cellVoltageV,setVoltageV,chargeCurrentA,terminationCurrentA,temperatureC,temperatureWindowC:[tempLowC,tempHighC],batteryPowerW,inputCurrentA,inputPowerW,chargerLossW,assumedEfficiencyPercent:efficiencyPercent,chargingEnabled:chargeCurrentA>0,hardwareModeled:false},validation};
+}
 function analyseBuckBoostConverter(project,{source,fixture,controller,inductor,capacitor,load,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
