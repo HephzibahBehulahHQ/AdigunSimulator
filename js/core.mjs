@@ -49,6 +49,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-priority-encoder-4to2-ideal", category: "Active", type: "Ideal four-input priority encoder", prefix: "U", pins: ["D0", "D1", "D2", "D3", "CODE0", "CODE1", "VALID", "VCC", "GND"], defaultValue: "D3 has highest priority; valid output", simulation: "analytical-priority-encoder", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-alu4-ideal", category: "Active", type: "Ideal four-bit add/subtract ALU", prefix: "U", pins: ["A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3", "SUB", "SUM0", "SUM1", "SUM2", "SUM3", "CARRY", "VCC", "GND"], defaultValue: "Four-bit two's-complement add/subtract", simulation: "analytical-alu4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.uart-tx-ideal", category: "Active", type: "Ideal UART transmitter (8N1 frame model)", prefix: "U", pins: ["TX", "VCC", "GND"], defaultValue: "Byte 0xA5; Baud 9600", simulation: "analytical-uart-transmitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.uart-frame-source", category: "Inputs", type: "Ideal UART serial-frame source (digital fixture)", prefix: "SIG", pins: ["TX", "GND"], defaultValue: "Bits 0,1,0,1,0,0,1,0,1,1; Baud 9600", simulation: "fixture-uart-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.uart-rx-ideal", category: "Active", type: "Ideal UART 8N1 receiver (frame decoder)", prefix: "U", pins: ["RX", "VALID", "VCC", "GND"], defaultValue: "8N1 frame decoder", simulation: "analytical-uart-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -411,6 +413,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const priorityEncoders = project.components.filter((item) => item.libraryId === "active.logic-priority-encoder-4to2-ideal");
   const alu4s = project.components.filter((item) => item.libraryId === "active.logic-alu4-ideal");
   const uartTransmitters = project.components.filter((item) => item.libraryId === "active.uart-tx-ideal");
+  const uartReceivers = project.components.filter((item) => item.libraryId === "active.uart-rx-ideal");
+  const uartFrameSources = project.components.filter((item) => item.libraryId === "input.uart-frame-source");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -475,6 +479,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (uartReceivers.length === 1 && uartFrameSources.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseUartReceiver(project, { source: source[0], frameSource: uartFrameSources[0], receiver: uartReceivers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
   if (uartTransmitters.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseUartTransmitter(project, { source: source[0], transmitter: uartTransmitters[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
@@ -1480,6 +1487,21 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseUartReceiver(project,{source,frameSource,receiver,resistor,led,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(receiver,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const rxNet=n(receiver,"RX"),txNet=n(frameSource,"TX"),validNet=n(receiver,"VALID"),outputPath=(n(resistor,"1")===validNet&&n(resistor,"2")===n(led,"A"))||(n(resistor,"2")===validNet&&n(resistor,"1")===n(led,"A"));
+  const frameConfig=String(frameSource.value),fields=frameConfig.split(";"),bitsField=fields.find(v=>v.trim().startsWith("Bits ")),baudField=fields.find(v=>v.trim().startsWith("Baud "));
+  const frameBits=bitsField?bitsField.trim().slice(5).split(",").map(v=>Number(v.trim())):[],baud=baudField?Number(baudField.trim().slice(5)):Number.NaN;
+  const resistance=resistanceValue(resistor.value),forwardV=forwardVoltage(led.value);
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(receiver,"GND")!==groundNet||n(frameSource,"GND")!==groundNet||rxNet!==txNet||!outputPath||n(led,"K")!==groundNet||frameBits.length!==10||frameBits.some(v=>v!==0&&v!==1)||!Number.isFinite(baud)||baud<300||baud>1000000||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(forwardV)||forwardV<=0){
+    return {state:"blocked",message:"Connect a ten-bit 8N1 UART frame source to RX, set baud from 300 to 1,000,000, and wire powered receiver and valid-frame LED.",validation};
+  }
+  const startBit=frameBits[0],dataBits=frameBits.slice(1,9),stopBit=frameBits[9],byte=dataBits.reduce((value,bit,index)=>value|(bit<<index),0),framingError=startBit!==0||stopBit!==1,valid=!framingError;
+  const frameDurationSeconds=10/baud,validCurrentA=valid?Math.max(0,(supplyVoltage-forwardV)/resistance):0;
+  return {state:"complete",engine:"Ideal UART 8N1 frame decoder",message:framingError?"Frame received with a start or stop-bit framing error; data byte is not marked valid.":"Decodes the supplied 8N1 frame LSB-first. Analog waveform sampling, oversampling, jitter, noise, parity, and physical transceiver behavior are not modeled.",result:{kind:"uart-receiver-8n1",baud,frameBits,startBit,dataBits,stopBit,byte,byteHex:`0x${byte.toString(16).padStart(2,"0").toUpperCase()}`,frameFormat:"8N1",framingError,valid,frameDurationSeconds,validIndicatorCurrentA:validCurrentA},validation};
+}
 function analyseUartTransmitter(project,{source,transmitter,resistor,led,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
