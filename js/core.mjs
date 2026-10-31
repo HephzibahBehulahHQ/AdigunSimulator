@@ -610,7 +610,7 @@ function analysePassiveToneControl(project, { source, control, capacitor, load, 
   }
   const seriesResistance = maximumResistance * positionPercent / 100;
   const parallelResistance = seriesResistance === 0 ? 0 : (seriesResistance * loadResistance) / (seriesResistance + loadResistance);
-  const cutoffHz = parallelResistance === 0 ? Number.POSITIVE_INFINITY : 1 / (2 * Math.PI * capacitance * parallelResistance);
+  const cutoffHz = parallelResistance === 0 ? null : 1 / (2 * Math.PI * capacitance * parallelResistance);
   const frequenciesHz = [100, 1000, 10000];
   const response = frequenciesHz.map(frequencyHz => {
     const reactance = 1 / (2 * Math.PI * frequencyHz * capacitance);
