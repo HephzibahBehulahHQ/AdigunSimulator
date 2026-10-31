@@ -1056,7 +1056,7 @@ function analyseHBridgeMotor(project,{sources,pmosSwitches,nmosSwitches,motorRes
   if(!forward&&!reverse&&!lowSideBrake&&!highSideBrake&&![leftHighOn,leftLowOn,rightHighOn,rightLowOn].every(v=>!v)){
     return {state:"blocked",message:"Select a valid forward, reverse, coast, or same-rail brake switching vector.",validation};
   }
-  const motorCurrentMagnitudeA=Math.max(0,(supplyVoltage-2*rdsOn)/rMotor);
+  const motorCurrentMagnitudeA=Math.max(0,supplyVoltage/(rMotor+2*rdsOn));
   if(forward){
     direction="forward";motorCurrentA=motorCurrentMagnitudeA;
     leftOutputVoltageV=supplyVoltage-motorCurrentA*rdsOn;rightOutputVoltageV=motorCurrentA*rdsOn;
@@ -1064,7 +1064,7 @@ function analyseHBridgeMotor(project,{sources,pmosSwitches,nmosSwitches,motorRes
     direction="reverse";motorCurrentA=-motorCurrentMagnitudeA;
     leftOutputVoltageV=motorCurrentMagnitudeA*rdsOn;rightOutputVoltageV=supplyVoltage-motorCurrentMagnitudeA*rdsOn;
   }else if(lowSideBrake||highSideBrake){
-    direction="brake";leftOutputVoltageV=lowSideBrake?motorCurrentMagnitudeA*rdsOn:supplyVoltage-motorCurrentMagnitudeA*rdsOn;
+    direction="brake";leftOutputVoltageV=lowSideBrake?0:supplyVoltage;
     rightOutputVoltageV=leftOutputVoltageV;
   }
   const motorVoltageV=leftOutputVoltageV-rightOutputVoltageV;
