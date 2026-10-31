@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-027-comparator-threshold",
+  "metadata": {
+    "name": "Comparator Threshold Indicator",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "signal",
+      "libraryId": "power.dc-source",
+      "reference": "VIN",
+      "value": "2.4 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "comparator",
+      "libraryId": "active.comparator-dual-ideal",
+      "reference": "U1",
+      "value": "Ideal dual-input comparator",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rtop",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rbottom",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rled",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          130
+        ],
+        "schematic": [
+          270,
+          130
+        ],
+        "pcb": [
+          270,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "comparator:VCC",
+        "rtop:1"
+      ]
+    },
+    {
+      "id": "THRESHOLD",
+      "endpoints": [
+        "rtop:2",
+        "rbottom:1",
+        "comparator:IN-"
+      ]
+    },
+    {
+      "id": "SIGNAL",
+      "endpoints": [
+        "signal:+",
+        "comparator:IN+"
+      ]
+    },
+    {
+      "id": "CMP_OUT",
+      "endpoints": [
+        "comparator:OUT",
+        "rled:1"
+      ]
+    },
+    {
+      "id": "LED",
+      "endpoints": [
+        "rled:2",
+        "led:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "signal:-",
+        "comparator:GND",
+        "rbottom:2",
+        "led:K",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": []
+}
