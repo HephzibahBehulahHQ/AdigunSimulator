@@ -6439,7 +6439,7 @@
     {
       "id": "164-plc-conveyor-counter",
       "title": "PLC conveyor counter",
-      "status": "in-review",
+      "status": "released",
       "objective": "Count synthetic photoeye rising edges and stop the logical conveyor at a target; verify repeated high samples do not double-count and later events cannot restart the stopped output.",
       "acceptanceTest": "tests/core.test.mjs: catalogue conveyor counter counts rising photoeye edges and stops at target",
       "testId": "core-plc-conveyor-counter",
@@ -6447,7 +6447,26 @@
       "readmeFile": "examples/164-plc-conveyor-counter/README.md",
       "safetyNote": "Logic-only concept. No conveyor inertia, stopping distance, motor-drive behavior, jam detection, guarding, physical sensor, PLC timing, or machine-safety validation is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 164,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41210148549",
+        "headRevision": "c7dc7beab9c26bc02985aaacb8bcad01f0ec5318",
+        "engine": "Deterministic PLC photoeye edge counter",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "conveyor-edge-counter-concept-v1",
+        "expectedResult": {
+          "kind": "conveyor-edge-counter",
+          "eventCount": 10,
+          "finalCount": 3,
+          "targetCount": 3,
+          "stoppedAtEvent": 7,
+          "motorStopped": true,
+          "physicalMotorModel": false
+        }
+      }
     }
   ]
 }
