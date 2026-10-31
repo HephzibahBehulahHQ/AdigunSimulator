@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30",
+  "updatedAt": "2026-10-31",
   "records": [
     {
       "id": "ti.lm555p",
@@ -15,7 +15,8 @@
         "url": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
         "accessedAt": "2026-10-30"
       },
-      "notes": "Authoritative candidate source recorded. Pin, footprint, model, checksum and reviewer evidence are not yet complete."
+      "notes": "Authoritative candidate source recorded. Pin, footprint, model, checksum and reviewer evidence are not yet complete.",
+      "typeCode": "E45"
     },
     {
       "id": "st.lm358dt",
@@ -30,7 +31,8 @@
         "url": "https://www.st.com/en/amplifiers-and-comparators/lm358.html",
         "accessedAt": "2026-10-30"
       },
-      "notes": "Authoritative candidate source recorded. It is not counted as verified until package/pin/footprint/model evidence is complete."
+      "notes": "Authoritative candidate source recorded. It is not counted as verified until package/pin/footprint/model evidence is complete.",
+      "typeCode": "E01"
     },
     {
       "id": "microchip.atmega328p-pu",
@@ -45,7 +47,8 @@
         "url": "https://www.microchip.com/en-us/product/ATMEGA328P",
         "accessedAt": "2026-10-30"
       },
-      "notes": "Candidate only. The official source identifies the family as not recommended for new designs; no lifecycle claim is hidden."
+      "notes": "Candidate only. The official source identifies the family as not recommended for new designs; no lifecycle claim is hidden.",
+      "typeCode": "G01"
     },
     {
       "id": "nexperia.1n4148",
@@ -60,8 +63,8 @@
         "url": "https://www.nexperia.com/product/1N4448",
         "accessedAt": "2026-10-30"
       },
-      "notes": "Candidate only. The official product family page must be supplemented by an exact orderable-part datasheet before verification."
+      "notes": "Candidate only. The official product family page must be supplemented by an exact orderable-part datasheet before verification.",
+      "typeCode": "C01"
     }
   ]
 }
-
