@@ -20,6 +20,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "passive.potentiometer", category: "Passive", type: "Potentiometer (two-terminal rheostat model)", prefix: "RP", pins: ["1", "2"], defaultValue: "Rmax 10 kΩ; position 50%", simulation: "analytical-passive-tone-control", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.bridge-ideal", category: "Active", type: "Ideal bridge rectifier (fixed diode drop)", prefix: "BR", pins: ["AC1", "AC2", "POS", "NEG"], defaultValue: "0.7 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.zener-ideal", category: "Active", type: "Zener diode (ideal shunt-clamp model)", prefix: "DZ", pins: ["K", "A"], defaultValue: "Vz 5.1 V; Pmax 0.5 W", simulation: "analytical-zener-shunt", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "protection.tvs-ideal", category: "Protection", type: "TVS diode (ideal transient-clamp estimate)", prefix: "D", pins: ["K", "A"], defaultValue: "Vclamp 18 V; Pmax 12 W; Emax 0.01 J", simulation: "analytical-tvs-pulse", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.schottky", category: "Active", type: "Schottky diode (fixed-drop estimate)", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 0.3 V", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.nmos-switch", category: "Active", type: "N-channel MOSFET (ideal PWM switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -371,6 +372,7 @@ export function runSupportedAnalysis(project) {
   const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
   const bridges = project.components.filter((item) => item.libraryId === "diode.bridge-ideal");
   const zeners = project.components.filter((item) => item.libraryId === "diode.zener-ideal");
+  const tvsDiodes = project.components.filter((item) => item.libraryId === "protection.tvs-ideal");
 
   const regulators = project.components.filter((item) => item.libraryId === "active.regulator-7805-ideal");
   const usbSources = project.components.filter((item) => item.libraryId === "power.usb-source");
@@ -391,6 +393,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (source.length === 1 && tvsDiodes.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 5) {
+    return analyseTvsPulseClamp(project, { source: source[0], resistors: resistor, tvs: tvsDiodes[0], ground: ground[0], validation });
+  }
   if (source.length === 1 && zeners.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 5) {
     return analyseZenerShuntRegulator(project, { source: source[0], resistors: resistor, zener: zeners[0], ground: ground[0], validation });
   }
@@ -661,6 +666,59 @@ function analyseBridgeRectifier(project, { source, bridge, load, ground, validat
     engine: "Analytical full-wave bridge waveform with fixed diode drops",
     message: "Generated a sampled full-wave rectified load waveform with two conducting diode drops. No smoothing capacitor is present. Diode switching, reverse recovery, source impedance, transformer behavior, component tolerance, thermal effects, ratings, and general SPICE are not modeled.",
     result: { kind: "bridge-rectifier-waveform", sourceRmsVoltage, inputFrequencyHz, peakInputVoltage, diodeDropEach: diodeDrop, peakOutputVoltage, rectifiedFrequencyHz, rippleFrequencyHz: rectifiedFrequencyHz, loadResistance, averageOutputVoltage, rmsOutputVoltage, averageLoadCurrentA, averageLoadPowerW, estimatedSourcePowerW, bridgeDissipationW, powerBalanceW, waveform },
+    validation
+  };
+}
+
+function analyseTvsPulseClamp(project, { source, resistors, tvs, ground, validation }) {
+  const sourceMatch = String(source.value).match(/^\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*idle\\s*;\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*pulse\\s*,\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*ms\\s*$/i);
+  const idleVoltage = sourceMatch ? Number(sourceMatch[1]) : Number.NaN;
+  const pulseVoltage = sourceMatch ? Number(sourceMatch[2]) : Number.NaN;
+  const pulseWidthS = sourceMatch ? Number(sourceMatch[3]) / 1000 : Number.NaN;
+  const tvsMatch = String(tvs.value).match(/^\\s*Vclamp\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*;\\s*Pmax\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*W\\s*;\\s*Emax\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*J\\s*$/i);
+  const clampVoltage = tvsMatch ? Number(tvsMatch[1]) : Number.NaN;
+  const maxPulsePowerW = tvsMatch ? Number(tvsMatch[2]) : Number.NaN;
+  const maxPulseEnergyJ = tvsMatch ? Number(tvsMatch[3]) : Number.NaN;
+  const seriesResistor = resistors.find(item => /R1/.test(item.reference));
+  const loadResistor = resistors.find(item => item !== seriesResistor);
+  const seriesResistance = seriesResistor ? resistanceValue(seriesResistor.value) : Number.NaN;
+  const loadResistance = loadResistor ? resistanceValue(loadResistor.value) : Number.NaN;
+  if (![idleVoltage, pulseVoltage, pulseWidthS, clampVoltage, maxPulsePowerW, maxPulseEnergyJ, seriesResistance, loadResistance].every(Number.isFinite)
+    || idleVoltage < 0 || pulseVoltage <= idleVoltage || pulseWidthS <= 0 || clampVoltage <= 0 || maxPulsePowerW <= 0 || maxPulseEnergyJ <= 0 || seriesResistance <= 0 || loadResistance <= 0) {
+    return { state: "blocked", message: "The TVS pulse estimate needs non-negative idle voltage, a higher pulse voltage, positive pulse width, clamp, limits, and resistor values.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const sourcePositive = n(source, "+"), sourceNegative = n(source, "-");
+  const seriesInput = n(seriesResistor, "1"), seriesOutput = n(seriesResistor, "2");
+  const loadInput = n(loadResistor, "1"), loadOutput = n(loadResistor, "2");
+  const tvsCathode = n(tvs, "K"), tvsAnode = n(tvs, "A"), groundNet = n(ground, "0");
+  if (!sourcePositive || sourcePositive === sourceNegative || sourcePositive !== seriesInput
+    || !seriesOutput || seriesOutput !== loadInput || seriesOutput !== tvsCathode
+    || !groundNet || sourceNegative !== groundNet || loadOutput !== groundNet || tvsAnode !== groundNet) {
+    return { state: "blocked", message: "Connect the source through its series resistance to the output; place the load and TVS in parallel from output to ground, with the TVS cathode at the output.", validation };
+  }
+  const idleUnclampedV = idleVoltage * loadResistance / (seriesResistance + loadResistance);
+  const pulseUnclampedV = pulseVoltage * loadResistance / (seriesResistance + loadResistance);
+  const idleOutputVoltage = idleUnclampedV;
+  const pulseClamped = pulseUnclampedV > clampVoltage;
+  const pulseOutputVoltage = pulseClamped ? clampVoltage : pulseUnclampedV;
+  const pulseSeriesCurrentA = pulseClamped ? (pulseVoltage - clampVoltage) / seriesResistance : pulseVoltage / (seriesResistance + loadResistance);
+  const pulseLoadCurrentA = pulseOutputVoltage / loadResistance;
+  const tvsCurrentA = Math.max(0, pulseSeriesCurrentA - pulseLoadCurrentA);
+  const tvsPowerW = pulseClamped ? clampVoltage * tvsCurrentA : 0;
+  const pulseEnergyJ = tvsPowerW * pulseWidthS;
+  const warnings = [];
+  if (!pulseClamped) warnings.push("The configured pulse stays below the ideal TVS clamp threshold.");
+  if (tvsPowerW > maxPulsePowerW) warnings.push("The estimated TVS pulse power exceeds the entered limit.");
+  if (pulseEnergyJ > maxPulseEnergyJ) warnings.push("The estimated TVS pulse energy exceeds the entered limit.");
+  return {
+    state: "complete",
+    engine: "Analytical ideal TVS pulse-clamp estimate",
+    message: "Models one rectangular low-voltage pulse through a resistive source impedance. It does not model rise time, parasitic inductance, dynamic clamp impedance, thermal transients, repetition rate, or hardware qualification.",
+    warnings,
+    result: { kind: "tvs-pulse-clamp", idleVoltage, pulseVoltage, pulseWidthS, clampVoltage, seriesResistance, loadResistance, idleOutputVoltage, pulseUnclampedVoltage: pulseUnclampedV, pulseOutputVoltage, pulseClamped, pulseSeriesCurrentA, pulseLoadCurrentA, tvsCurrentA, tvsPowerW, pulseEnergyJ, maxPulsePowerW, maxPulseEnergyJ },
     validation
   };
 }
