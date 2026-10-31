@@ -53,6 +53,7 @@ import { runThreeViewLedHistory } from "../js/three-view-led-history.mjs";
 import { projectComponentsForView, runUnsupportedBreadboardPackage } from "../js/view-projection.mjs";
 import { runMissingFootprintWorkflow } from "../js/pcb-update-resolution.mjs";
 import { cancelPartSubstitutionPreview, createPartSubstitutionPreview, runPinIncompatibleSubstitution } from "../js/pin-substitution-preview.mjs";
+import { convertEngineeringUnit, runUnitConversionCalculator } from "../js/unit-conversion-calculator.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1485,7 +1486,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 196);
+  assert.equal(getExampleCoverage(registry).total, 197);
   assert.equal(getExampleCoverage(registry).released, 186);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 14);
@@ -4526,4 +4527,13 @@ test("catalogue pin-incompatible substitution is previewed, blocked, and cancele
   const canceled=cancelPartSubstitutionPreview(preview);assert.equal(canceled.cancelled,true);assert.equal(serializeProject(canceled.project),before);assert.equal(serializeProject(project),before);
   const result=runPinIncompatibleSubstitution(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"pin-incompatible-substitution-preview");assert.equal(result.result.substitutionBlocked,true);assert.equal(result.result.previewCancelled,true);assert.equal(result.result.projectUnchanged,true);
   assert.equal(result.result.originalLibraryId,"active.ne555");assert.equal(result.result.candidateLibraryId,"active.lm386-classab");assert.equal(result.result.unmappedUsedPins.length,8);
+});
+test("catalogue SI unit converter returns resistor, power, length, and rounded results", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/187-unit-conversion-calculator.adigun.json",import.meta.url)));
+  const result=runUnitConversionCalculator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"si-unit-conversion-cases");
+  assert.deepEqual(result.result.results.map(item=>item.convertedValue),[4700,0.25,0.125,1.23457]);
+  assert.deepEqual(result.result.results.map(item=>item.dimension),["resistance","power","length","resistance"]);
+  assert.deepEqual(convertEngineeringUnit(2.2,"kΩ","Ω"),{ok:true,value:2200,dimension:"resistance",fromUnit:"kΩ",toUnit:"Ω",precision:6});
+  assert.equal(convertEngineeringUnit(1,"kΩ","mW").ok,false);assert.equal(convertEngineeringUnit(Infinity,"mm","m").ok,false);assert.equal(convertEngineeringUnit(1,"m","m",13).ok,false);
+  const invalid=structuredClone(project);invalid.unitConversionCalculator.cases[0].fromUnit="mW";assert.equal(runUnitConversionCalculator(invalid).state,"blocked");
 });
