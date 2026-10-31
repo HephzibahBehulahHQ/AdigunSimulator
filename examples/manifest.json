@@ -6809,6 +6809,19 @@
           "physicalDoorModel": false
         }
       }
+    },
+    {
+      "id": "176-elevator-call-queue",
+      "title": "Elevator call logic concept",
+      "status": "in-review",
+      "objective": "Apply a deterministic FIFO scheduler to floor-call events, coalesce duplicate pending calls, and verify the scenario queue table.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue elevator scheduler preserves FIFO calls and ignores duplicate pending floor",
+      "testId": "core-elevator-call-queue",
+      "projectFile": "examples/176-elevator-call-queue.adigun.json",
+      "readmeFile": "examples/176-elevator-call-queue/README.md",
+      "safetyNote": "Queue scheduling concept only. No elevator movement, doors, sensors, drive, load handling, safety interlocks, emergency systems, or code compliance is modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }

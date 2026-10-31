@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "example-176-elevator-call-queue",
+  "metadata": {
+    "name": "Example 176 — Elevator Call Queue Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "elevatorCallQueue": {
+    "kind": "fifo-floor-call-scheduler",
+    "floorCount": 5,
+    "events": [
+      {
+        "action": "call",
+        "floor": 3
+      },
+      {
+        "action": "call",
+        "floor": 2
+      },
+      {
+        "action": "call",
+        "floor": 3
+      },
+      {
+        "action": "dispatch"
+      },
+      {
+        "action": "dispatch"
+      },
+      {
+        "action": "dispatch"
+      }
+    ]
+  }
+}
