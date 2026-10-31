@@ -667,7 +667,7 @@ function analyseBridgeRectifier(project, { source, bridge, load, ground, validat
 
 function analyseZenerShuntRegulator(project, { source, resistors, zener, ground, validation }) {
   const sourceVoltage = voltageValue(source.value);
-  const zenerMatch = String(zener.value).match(/^\\s*Vz\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*;\\s*Pmax\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*W\\s*$/i);
+  const zenerMatch = String(zener.value).match(/^\s*Vz\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*;\s*Pmax\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*W\s*$/i);
   const zenerVoltage = zenerMatch ? Number(zenerMatch[1]) : Number.NaN;
   const maxZenerPowerW = zenerMatch ? Number(zenerMatch[2]) : Number.NaN;
   const seriesResistor = resistors.find(item => /series/i.test(item.reference)) ?? resistors.find(item => /R1/.test(item.reference));
