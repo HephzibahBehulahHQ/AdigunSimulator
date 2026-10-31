@@ -1,0 +1,7 @@
+"Check","Observed","Status"
+"Board outline dimensions","60 x 40 mm","pass"
+"Four M3-clearance mounting holes, edge margin and linked copper keepouts","4 × Ø5.0; drill Ø3.2 mm","pass"
+"Top-edge panel/connector cutout and linked copper-clearance keepout","20 x 3 mm at top edge","pass"
+"Electrical PCB design-rule check including linked mechanical keepouts","passed","pass"
+"Mechanical Gerber/drill export","Not implemented","not-supported"
+"Manufacturing qualified","No","not-qualified"

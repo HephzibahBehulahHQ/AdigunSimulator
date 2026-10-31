@@ -12,6 +12,7 @@ import { createLayerStackupReport, reviewFourLayerMcuBoard } from "../js/mcu-boa
 import { createDifferentialPairReport, reviewDifferentialPair } from "../js/differential-pair-review.mjs";
 import { createQfnFootprintReport, reviewQfnFootprint } from "../js/qfn-footprint-review.mjs";
 import { createBgaEscapeReport, reviewBgaEscapeConcept } from "../js/bga-escape-review.mjs";
+import { createPanelMountMechanicalReport, reviewPanelMountMechanicals } from "../js/panel-mount-mechanical-review.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
@@ -1371,6 +1372,33 @@ test("BGA escape concept clearly discloses unsupported routing and manufacturing
   assert.equal(reviewBgaEscapeConcept(assertedRoute).status,"failed");
 });
 
+test("panel-mount controller reviews hole/cutout dimensions and PCB clearances", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/134-panel-mount-controller.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(validatePcbFabrication(project).status,"passed");
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete");
+  assert.equal(analysis.result.kind,"panel-mount-controller-mechanical-plan");
+  assert.equal(analysis.result.mountingHoleCount,4);
+  assert.equal(analysis.result.edgeCutoutCount,1);
+  assert.equal(analysis.result.mechanicalFeatureExported,false);
+  const review=reviewPanelMountMechanicals(project);
+  assert.equal(review.status,"passed");
+  assert.equal(review.checks.find(c=>c.id==="drc").status,"pass");
+  const expected=await readFile(new URL("../examples/134-panel-mount-controller/expected/Panel-Mount-Mechanical-Review.csv",import.meta.url),"utf8");
+  assert.equal(createPanelMountMechanicalReport(project),expected);
+  const outside=structuredClone(project);
+  outside.pcbFabrication.mechanicalFeatures.find(f=>f.id==="MH1").xMm=1;
+  assert.equal(reviewPanelMountMechanicals(outside).status,"failed");
+  const missingSlotKeepout=structuredClone(project);
+  missingSlotKeepout.pcbFabrication.keepouts=missingSlotKeepout.pcbFabrication.keepouts.filter(k=>k.id!=="KO-CUT1");
+  assert.equal(reviewPanelMountMechanicals(missingSlotKeepout).status,"failed");
+  const blockedRoute=structuredClone(project);
+  blockedRoute.pcbFabrication.routes.find(r=>r.netId==="GND").pointsMm=[[34,22.5],[55.5,35.5],[12,27],[12,20]];
+  assert.equal(validatePcbFabrication(blockedRoute).status,"failed");
+  assert.equal(reviewPanelMountMechanicals(blockedRoute).status,"failed");
+});
+
 test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
@@ -1379,7 +1407,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 143);
+  assert.equal(getExampleCoverage(registry).total, 144);
   assert.equal(getExampleCoverage(registry).released, 133);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 67);

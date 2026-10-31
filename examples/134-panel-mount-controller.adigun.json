@@ -1,0 +1,421 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-134-panel-mount-controller",
+  "metadata": {
+    "name": "Panel-Mount Status Controller — Mechanical Plan",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          80,
+          90
+        ],
+        "schematic": [
+          80,
+          90
+        ],
+        "pcb": [
+          80,
+          90
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "control.panel-mount-controller-concept",
+      "reference": "U1",
+      "value": "Status controller concept; no internal logic model",
+      "position": {
+        "breadboard": [
+          200,
+          90
+        ],
+        "schematic": [
+          200,
+          90
+        ],
+        "pcb": [
+          200,
+          90
+        ]
+      }
+    },
+    {
+      "instanceId": "terminal",
+      "libraryId": "connector.screw-terminal-3",
+      "reference": "J1",
+      "value": "Panel supply; pins 1=VIN, 2=GND",
+      "position": {
+        "breadboard": [
+          320,
+          90
+        ],
+        "schematic": [
+          320,
+          90
+        ],
+        "pcb": [
+          320,
+          90
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          400,
+          100
+        ],
+        "schematic": [
+          400,
+          100
+        ],
+        "pcb": [
+          400,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "2.0 V red LED",
+      "position": {
+        "breadboard": [
+          480,
+          100
+        ],
+        "schematic": [
+          480,
+          100
+        ],
+        "pcb": [
+          480,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          90
+        ],
+        "schematic": [
+          560,
+          90
+        ],
+        "pcb": [
+          560,
+          90
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VIN",
+      "endpoints": [
+        "source:+",
+        "terminal:1",
+        "controller:VIN",
+        "resistor:1"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "controller:STATUS",
+        "resistor:2",
+        "led:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "terminal:2",
+        "controller:GND",
+        "led:K",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 60,
+      "heightMm": 40,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.2
+    },
+    "parts": [
+      {
+        "instanceId": "terminal",
+        "reference": "J1",
+        "footprint": "ScrewTerminal_1x03_Generic",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "footprint": "R_0805_Generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "footprint": "LED_0805_Generic",
+        "technology": "smd"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "terminal",
+        "reference": "J1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VIN",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 0.9,
+        "xMm": 9,
+        "yMm": 20
+      },
+      {
+        "instanceId": "terminal",
+        "reference": "J1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 0.9,
+        "xMm": 12,
+        "yMm": 20
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VIN",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.6,
+        "xMm": 20,
+        "yMm": 20
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "STATUS",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.6,
+        "xMm": 20,
+        "yMm": 22.5
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "netId": "STATUS",
+        "technology": "smd",
+        "widthMm": 1.4,
+        "heightMm": 0.8,
+        "xMm": 31,
+        "yMm": 22.5
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1.4,
+        "heightMm": 0.8,
+        "xMm": 34,
+        "yMm": 22.5
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VIN",
+        "layer": "F.Cu",
+        "widthMm": 0.5,
+        "pointsMm": [
+          [
+            9,
+            20
+          ],
+          [
+            20,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "STATUS",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            20,
+            22.5
+          ],
+          [
+            31,
+            22.5
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.5,
+        "pointsMm": [
+          [
+            34,
+            22.5
+          ],
+          [
+            34,
+            27
+          ],
+          [
+            12,
+            27
+          ],
+          [
+            12,
+            20
+          ]
+        ]
+      }
+    ],
+    "keepouts": [
+      {
+        "id": "KO-MH1",
+        "mechanicalFeatureId": "MH1",
+        "xMm": 1.5,
+        "yMm": 1.5,
+        "widthMm": 6,
+        "heightMm": 6
+      },
+      {
+        "id": "KO-MH2",
+        "mechanicalFeatureId": "MH2",
+        "xMm": 52.5,
+        "yMm": 1.5,
+        "widthMm": 6,
+        "heightMm": 6
+      },
+      {
+        "id": "KO-MH3",
+        "mechanicalFeatureId": "MH3",
+        "xMm": 1.5,
+        "yMm": 32.5,
+        "widthMm": 6,
+        "heightMm": 6
+      },
+      {
+        "id": "KO-MH4",
+        "mechanicalFeatureId": "MH4",
+        "xMm": 52.5,
+        "yMm": 32.5,
+        "widthMm": 6,
+        "heightMm": 6
+      },
+      {
+        "id": "KO-CUT1",
+        "mechanicalFeatureId": "CUT1",
+        "xMm": 19.5,
+        "yMm": 0,
+        "widthMm": 21,
+        "heightMm": 3.5
+      }
+    ],
+    "mechanicalFeatures": [
+      {
+        "id": "MH1",
+        "type": "mounting-hole",
+        "xMm": 4.5,
+        "yMm": 4.5,
+        "drillMm": 3.2,
+        "diameterMm": 5,
+        "requiredEdgeClearanceMm": 2,
+        "copperClearanceMm": 0.5,
+        "keepoutId": "KO-MH1"
+      },
+      {
+        "id": "MH2",
+        "type": "mounting-hole",
+        "xMm": 55.5,
+        "yMm": 4.5,
+        "drillMm": 3.2,
+        "diameterMm": 5,
+        "requiredEdgeClearanceMm": 2,
+        "copperClearanceMm": 0.5,
+        "keepoutId": "KO-MH2"
+      },
+      {
+        "id": "MH3",
+        "type": "mounting-hole",
+        "xMm": 4.5,
+        "yMm": 35.5,
+        "drillMm": 3.2,
+        "diameterMm": 5,
+        "requiredEdgeClearanceMm": 2,
+        "copperClearanceMm": 0.5,
+        "keepoutId": "KO-MH3"
+      },
+      {
+        "id": "MH4",
+        "type": "mounting-hole",
+        "xMm": 55.5,
+        "yMm": 35.5,
+        "drillMm": 3.2,
+        "diameterMm": 5,
+        "requiredEdgeClearanceMm": 2,
+        "copperClearanceMm": 0.5,
+        "keepoutId": "KO-MH4"
+      },
+      {
+        "id": "CUT1",
+        "type": "edge-cutout",
+        "openingSide": "top",
+        "xMm": 20,
+        "yMm": 0,
+        "widthMm": 20,
+        "heightMm": 3,
+        "requiredEdgeClearanceMm": 0.5,
+        "keepoutId": "KO-CUT1"
+      }
+    ]
+  }
+}
