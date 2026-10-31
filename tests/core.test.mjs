@@ -2139,7 +2139,7 @@ test("catalogue MCU watchdog resets to a safe state after an induced service sta
   assert.equal(valid.result.displayText,"WATCHDOG RESET @ 180 ms");
   assert.equal(valid.result.firmwareExecuted,false);
 
-  const healthy=updateComponent(project,"fixture",{value:"ServiceTimesMs 0,40,80,120,160,200; RunDurationMs 300"});
+  const healthy=updateComponent(project,"fixture",{value:"ServiceTimesMs 0,40,80,120,160,200,240; RunDurationMs 300"});
   const healthyResult=runSupportedAnalysis(healthy);
   assert.equal(healthyResult.state,"complete",healthyResult.message);
   assert.equal(healthyResult.result.resetCount,0);
