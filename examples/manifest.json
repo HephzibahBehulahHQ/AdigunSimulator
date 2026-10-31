@@ -7155,6 +7155,19 @@
           "unverifiedFootprintsAssigned": false
         }
       }
+    },
+    {
+      "id": "186-pin-incompatible-substitution",
+      "title": "Pin-incompatible substitution",
+      "status": "in-review",
+      "objective": "Preview replacing the eight-pin NE555 with a superficially similar eight-pin LM386 and prove that incompatible named pin roles block substitution; cancel must preserve the original project exactly.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue pin-incompatible substitution is previewed, blocked, and canceled without changing original",
+      "testId": "core-pin-incompatible-substitution-preview",
+      "projectFile": "examples/186-pin-incompatible-substitution.adigun.json",
+      "readmeFile": "examples/186-pin-incompatible-substitution/README.md",
+      "safetyNote": "Equal pin count is not equivalence. The preview is blocked by incompatible pin names and no electrical or package interchangeability is claimed; cancel leaves the original NE555 project unchanged.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
