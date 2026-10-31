@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-040-wien-bridge-oscillator",
+  "metadata": {
+    "name": "Diode-Limited Wien Bridge Oscillator",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "positive-rail",
+      "libraryId": "power.dc-source",
+      "reference": "VCC",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "negative-rail",
+      "libraryId": "power.dc-source",
+      "reference": "VEE",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "opamp",
+      "libraryId": "active.opamp-ideal",
+      "reference": "U1",
+      "value": "Ideal op-amp ±9 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "series-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "shunt-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "feedback",
+      "libraryId": "passive.resistor",
+      "reference": "RF",
+      "value": "22 kΩ",
+      "position": {
+        "breadboard": [
+          40,
+          120
+        ],
+        "schematic": [
+          40,
+          120
+        ],
+        "pcb": [
+          40,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "gain-leg",
+      "libraryId": "passive.resistor",
+      "reference": "RG",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          155,
+          120
+        ],
+        "schematic": [
+          155,
+          120
+        ],
+        "pcb": [
+          155,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "series-capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "10 nF",
+      "position": {
+        "breadboard": [
+          270,
+          120
+        ],
+        "schematic": [
+          270,
+          120
+        ],
+        "pcb": [
+          270,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "shunt-capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "C2",
+      "value": "10 nF",
+      "position": {
+        "breadboard": [
+          385,
+          120
+        ],
+        "schematic": [
+          385,
+          120
+        ],
+        "pcb": [
+          385,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "limiter-1",
+      "libraryId": "diode.schottky",
+      "reference": "D1",
+      "value": "Vf 0.3 V",
+      "position": {
+        "breadboard": [
+          500,
+          120
+        ],
+        "schematic": [
+          500,
+          120
+        ],
+        "pcb": [
+          500,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "limiter-2",
+      "libraryId": "diode.schottky",
+      "reference": "D2",
+      "value": "Vf 0.3 V",
+      "position": {
+        "breadboard": [
+          40,
+          185
+        ],
+        "schematic": [
+          40,
+          185
+        ],
+        "pcb": [
+          40,
+          185
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          185
+        ],
+        "schematic": [
+          155,
+          185
+        ],
+        "pcb": [
+          155,
+          185
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "positive-rail:+",
+        "opamp:VCC"
+      ]
+    },
+    {
+      "id": "VEE",
+      "endpoints": [
+        "negative-rail:-",
+        "opamp:VEE"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "positive-rail:-",
+        "negative-rail:+",
+        "gain-leg:2",
+        "shunt-resistor:2",
+        "shunt-capacitor:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "opamp:OUT",
+        "series-capacitor:1",
+        "feedback:1",
+        "limiter-1:A",
+        "limiter-2:K"
+      ]
+    },
+    {
+      "id": "SERIES_MID",
+      "endpoints": [
+        "series-capacitor:2",
+        "series-resistor:1"
+      ]
+    },
+    {
+      "id": "NONINVERTING",
+      "endpoints": [
+        "series-resistor:2",
+        "shunt-resistor:1",
+        "shunt-capacitor:1",
+        "opamp:+"
+      ]
+    },
+    {
+      "id": "INVERTING",
+      "endpoints": [
+        "opamp:-",
+        "feedback:2",
+        "gain-leg:1",
+        "limiter-1:K",
+        "limiter-2:A"
+      ]
+    }
+  ],
+  "history": []
+}
