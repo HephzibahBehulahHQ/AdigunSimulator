@@ -366,7 +366,7 @@ export function runSupportedAnalysis(project) {
   if (source.length === 1 && resistor.length > 0 && resistor.length === project.components.length - source.length - ground.length && ground.length >= 1) {
     return analyseResistiveNetwork(project, { source: source[0], resistors: resistor, ground: ground[0], validation });
   }
-  return { state: "unsupported", message: "This foundation supports only the documented analytical DC circuits and single-pole RC/RL step responses. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
+  return { state: "unsupported", message: "This foundation supports only the documented analytical DC circuits, single-pole RC/RL step responses, and first-order RC/RL low-pass or RC high-pass frequency responses. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
 }
 
 function analyseRlStep(project, { source, resistor, inductor, ground, validation }) {
