@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-081-ble-beacon-configuration",
+  "metadata": {
+    "name": "BLE Beacon Advertising Data Configuration",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          38,
+          56
+        ],
+        "schematic": [
+          38,
+          56
+        ],
+        "pcb": [
+          38,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "settings",
+      "libraryId": "input.ble-advertising-settings",
+      "reference": "CFG1",
+      "value": "Name Adigun; Flags 0x06; ServiceUuid 0x180D; TxPowerDbm -4",
+      "position": {
+        "breadboard": [
+          125,
+          56
+        ],
+        "schematic": [
+          125,
+          56
+        ],
+        "pcb": [
+          125,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "encoder",
+      "libraryId": "active.ble-advertising-encoder-ideal",
+      "reference": "U1",
+      "value": "Protocol legacy; MaximumBytes 31",
+      "position": {
+        "breadboard": [
+          260,
+          56
+        ],
+        "schematic": [
+          260,
+          56
+        ],
+        "pcb": [
+          260,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "advertiser",
+      "libraryId": "active.ble-advertiser-ideal",
+      "reference": "BLE1",
+      "value": "Mode legacy; MaximumBytes 31",
+      "position": {
+        "breadboard": [
+          410,
+          56
+        ],
+        "schematic": [
+          410,
+          56
+        ],
+        "pcb": [
+          410,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.ble-advertising-report",
+      "reference": "DISP1",
+      "value": "Encoded advertising data",
+      "position": {
+        "breadboard": [
+          530,
+          56
+        ],
+        "schematic": [
+          530,
+          56
+        ],
+        "pcb": [
+          530,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          245
+        ],
+        "schematic": [
+          605,
+          245
+        ],
+        "pcb": [
+          605,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "encoder:VCC",
+        "advertiser:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "settings:GND",
+        "encoder:GND",
+        "advertiser:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "CONFIG",
+      "endpoints": [
+        "settings:DATA",
+        "encoder:CONFIG"
+      ]
+    },
+    {
+      "id": "RADIO_DATA",
+      "endpoints": [
+        "encoder:TX",
+        "advertiser:RX"
+      ]
+    },
+    {
+      "id": "REPORT",
+      "endpoints": [
+        "encoder:REPORT",
+        "report:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
