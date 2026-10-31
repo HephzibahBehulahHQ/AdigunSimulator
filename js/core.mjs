@@ -68,6 +68,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.esp32-telemetry-ideal", category: "Active", type: "Ideal ESP32-class sensor telemetry formatter", prefix: "U", pins: ["ADC", "TX", "VCC", "GND"], defaultValue: "Device esp32-node-01; Sequence 1; Transport offline-mock", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.telemetry-payload-sink", category: "Output", type: "Offline telemetry payload viewer", prefix: "OUT", pins: ["DATA", "GND"], defaultValue: "JSON payload", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.rp2040-pico-ideal", category: "Active", type: "Ideal RP2040 Pico ADC/display controller (behavior model)", prefix: "U", pins: ["ADC0", "TX", "VCC", "GND"], defaultValue: "ADC 12 bit; Reference 3.3 V; Calibrate divider", simulation: "analytical-pico-voltmeter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.stm32-timer-ideal", category: "Active", type: "Ideal STM32 timer PWM controller (behavior model)", prefix: "U", pins: ["TIM1_CH1", "VCC", "GND"], defaultValue: "ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 499", simulation: "analytical-stm32-timer-pwm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -451,6 +452,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const esp32Formatters = project.components.filter((item) => item.libraryId === "active.esp32-telemetry-ideal");
   const payloadSinks = project.components.filter((item) => item.libraryId === "output.telemetry-payload-sink");
   const picoControllers = project.components.filter((item) => item.libraryId === "active.rp2040-pico-ideal");
+  const stm32Controllers = project.components.filter((item) => item.libraryId === "active.stm32-timer-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -515,6 +517,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (stm32Controllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseStm32TimerPwm(project, { source: source[0], controller: stm32Controllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
   if (picoControllers.length === 1 && source.length === 2 && resistor.length === 2 && oledSinks.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analysePicoVoltmeter(project, { sources: source, pico: picoControllers[0], resistors: resistor, oled: oledSinks[0], ground: ground[0], validation });
@@ -1559,6 +1564,21 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseStm32TimerPwm(project,{source,controller,resistor,led,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(controller.value).split(";").map(v=>v.trim());
+  const field=label=>fields.find(v=>v.startsWith(label+" "))?.slice(label.length).trim(),clockHz=Number(field("ClockHz")),prescaler=Number(field("Prescaler")),autoReload=Number(field("AutoReload")),compare=Number(field("Compare"));
+  const groundNet=n(ground,"0"),vccNet=n(controller,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const loadPath=(n(controller,"TIM1_CH1")===n(resistor,"1")&&n(resistor,"2")===n(led,"A")||n(controller,"TIM1_CH1")===n(resistor,"2")&&n(resistor,"1")===n(led,"A"))&&n(led,"K")===groundNet&&n(controller,"GND")===groundNet;
+  const resistance=resistanceValue(resistor.value),vf=forwardVoltage(led.value);
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!loadPath||![clockHz,prescaler,autoReload,compare,resistance,vf].every(Number.isFinite)||!Number.isInteger(prescaler)||prescaler<0||prescaler>65535||!Number.isInteger(autoReload)||autoReload<1||autoReload>65535||!Number.isInteger(compare)||compare<0||compare>autoReload||clockHz<1000000||clockHz>200000000||resistance<=0||vf<=0){
+    return {state:"blocked",message:"Configure valid STM32 timer clock, prescaler, auto-reload and compare counts, and wire TIM1_CH1 through a positive series resistor and LED to ground.",validation};
+  }
+  const frequencyHz=clockHz/((prescaler+1)*(autoReload+1)),dutyCycle=compare/(autoReload+1);
+  if(!Number.isFinite(frequencyHz)||frequencyHz<1||frequencyHz>1000000)return {state:"blocked",message:"The configured timer period is outside the supported 1 Hz–1 MHz PWM range.",validation};
+  const peakCurrentA=Math.max(0,(supplyVoltage-vf)/resistance),averageCurrentA=peakCurrentA*dutyCycle;
+  return {state:"complete",engine:"Ideal STM32 timer PWM/load estimate",message:"Computes edge-aligned timer frequency and duty from clock, prescaler, auto-reload, and compare registers, then estimates current through an ideal LED load. Firmware, timer clock-tree setup, GPIO drive limits, switching transients, and LED nonlinear behavior are omitted.",result:{kind:"stm32-timer-pwm",clockHz,prescaler,autoReload,compare,frequencyHz,dutyCycle,peakLedCurrentA:peakCurrentA,averageLedCurrentA:averageCurrentA,firmwareExecuted:false},validation};
+}
 function analysePicoVoltmeter(project,{sources,pico,resistors,oled,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),groundNet=n(ground,"0"),vccNet=n(pico,"VCC");
