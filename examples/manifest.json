@@ -5469,14 +5469,36 @@
     {
       "id": "133-bga-escape-concept",
       "title": "BGA escape concept — capability disclosure",
-      "status": "in-review",
+      "status": "released",
       "objective": "Validate an illustrative 4 × 4 BGA ball map and report precisely that escape routing, via feasibility and manufacturability are not assessed.",
       "acceptanceTest": "tests/core.test.mjs: BGA escape concept clearly discloses unsupported routing and manufacturing claims",
       "testId": "core-bga-escape-concept",
       "projectFile": "examples/133-bga-escape-concept.adigun.json",
       "readmeFile": "examples/133-bga-escape-concept/README.md",
       "safetyNote": "Illustrative grid only. Pitch and land size are assumptions; the app has no BGA escape router, stack-up/fabrication-rule solver or manufacturing qualification.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 133,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41200879005",
+        "headRevision": "1de8b2b9b5213408d1e5611f16dad89d04396d0f",
+        "engine": "Bounded BGA occupancy and capability-disclosure checker",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "generic-bga-4x4-capability-v1",
+        "expectedResult": {
+          "kind": "bga-escape-concept",
+          "ballCount": 16,
+          "pitchMm": 0.8,
+          "geometricLandGapMm": 0.45,
+          "escapeRoutingPerformed": false,
+          "viaEscapeVerified": false,
+          "manufacturability": "not-assessed",
+          "fabricationQualified": false,
+          "claimsManufacturable": false,
+          "artifact": "BGA-Escape-Capability-Report.csv"
+        }
+      }
     }
   ]
 }
