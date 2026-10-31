@@ -6125,6 +6125,18 @@
           "automaticDesignEdit": false
         }
       }
+    },
+    {
+      "id": "154-short-circuit-diagnosis",
+      "title": "Short-circuit diagnosis",
+      "status": "in-review",
+      "objective": "Detect a DC source positive and return terminal joined on the same net and block before simulation with an actionable wiring warning.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue short-circuit fixture blocks before simulation with no fabricated current",
+      "testId": "core-short-circuit-diagnosis",
+      "projectFile": "examples/154-short-circuit-diagnosis.adigun.json",
+      "readmeFile": "examples/154-short-circuit-diagnosis/README.md",
+      "safetyNote": "This preflight detects a direct same-net source short only. It is not a full short-circuit, fault-current, overcurrent-protection, or hardware safety analysis; never energize a physical circuit based only on this check.",
+      "scope": "catalogue"
     }
   ]
 }

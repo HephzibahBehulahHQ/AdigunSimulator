@@ -20,6 +20,7 @@ import { runMonteCarloTolerance } from "../js/monte-carlo-tolerance.mjs";
 import { analyzeThermalWarningBoundary } from "../js/thermal-warning-boundary.mjs";
 import { analyzeConvergenceStudy } from "../js/convergence-study.mjs";
 import { diagnoseFloatingNode } from "../js/floating-node-diagnosis.mjs";
+import { diagnoseSupplyShort } from "../js/short-circuit-diagnosis.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1442,7 +1443,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 163);
+  assert.equal(getExampleCoverage(registry).total, 164);
   assert.equal(getExampleCoverage(registry).released, 153);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 47);
@@ -4109,4 +4110,18 @@ test("catalogue floating-node diagnosis identifies the object to inspect", async
   assert.ok(result.diagnostics.suggestions.some(item=>/bias or bleed resistor/.test(item)));
   const missing=JSON.parse(JSON.stringify(project));missing.nets=missing.nets.filter(net=>net.id!=="FLOATING");
   assert.equal(diagnoseFloatingNode(missing).errors[0].code,"FLOATING_NODE_TARGET_MISSING");
+});
+
+test("catalogue short-circuit fixture blocks before simulation with no fabricated current", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/154-short-circuit-diagnosis.adigun.json",import.meta.url)));
+  const validation=validateProject(project);assert.equal(validation.valid,false);
+  assert.ok(validation.errors.some(error=>error.rule==="SOURCE_SHORT"));
+  const result=diagnoseSupplyShort(project);
+  assert.equal(result.state,"blocked");assert.equal(result.result,null);
+  assert.equal(result.diagnostics.analysisAttempted,false);
+  assert.equal(result.errors[0].code,"SUPPLY_SHORT_CIRCUIT");
+  assert.equal(result.diagnostics.netId,"SHORT");
+  assert.ok(result.diagnostics.suggestions.some(item=>/before energizing/.test(item)));
+  const safe=JSON.parse(JSON.stringify(project));safe.nets[0].endpoints=["source-1:+"];
+  assert.equal(diagnoseSupplyShort(safe).result.directSupplyShort,false);
 });
