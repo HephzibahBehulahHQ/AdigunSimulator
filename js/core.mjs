@@ -67,6 +67,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.stepper-motor-ideal", category: "Output", type: "Ideal bipolar stepper motor (position model)", prefix: "M", pins: ["A1", "A2", "B1", "B2"], defaultValue: "StepsPerRevolution 200; StepAngle 1.8 deg", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.esp32-telemetry-ideal", category: "Active", type: "Ideal ESP32-class sensor telemetry formatter", prefix: "U", pins: ["ADC", "TX", "VCC", "GND"], defaultValue: "Device esp32-node-01; Sequence 1; Transport offline-mock", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.telemetry-payload-sink", category: "Output", type: "Offline telemetry payload viewer", prefix: "OUT", pins: ["DATA", "GND"], defaultValue: "JSON payload", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.rp2040-pico-ideal", category: "Active", type: "Ideal RP2040 Pico ADC/display controller (behavior model)", prefix: "U", pins: ["ADC0", "TX", "VCC", "GND"], defaultValue: "ADC 12 bit; Reference 3.3 V; Calibrate divider", simulation: "analytical-pico-voltmeter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -449,6 +450,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const stepperMotors = project.components.filter((item) => item.libraryId === "output.stepper-motor-ideal");
   const esp32Formatters = project.components.filter((item) => item.libraryId === "active.esp32-telemetry-ideal");
   const payloadSinks = project.components.filter((item) => item.libraryId === "output.telemetry-payload-sink");
+  const picoControllers = project.components.filter((item) => item.libraryId === "active.rp2040-pico-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -513,6 +515,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (picoControllers.length === 1 && source.length === 2 && resistor.length === 2 && oledSinks.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analysePicoVoltmeter(project, { sources: source, pico: picoControllers[0], resistors: resistor, oled: oledSinks[0], ground: ground[0], validation });
   }
   if (esp32Formatters.length === 1 && payloadSinks.length === 1 && temperatureSensors.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseEsp32Telemetry(project, { source: source[0], esp32: esp32Formatters[0], sensor: temperatureSensors[0], sink: payloadSinks[0], ground: ground[0], validation });
@@ -1554,6 +1559,27 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analysePicoVoltmeter(project,{sources,pico,resistors,oled,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),groundNet=n(ground,"0"),vccNet=n(pico,"VCC");
+  const logicSource=sources.find(s=>n(s,"+")===vccNet&&n(s,"-")===groundNet),senseSource=sources.find(s=>s!==logicSource&&n(s,"-")===groundNet);
+  const inputVoltage=senseSource?voltageValue(senseSource.value):Number.NaN,referenceVoltage=logicSource?voltageValue(logicSource.value):Number.NaN;
+  const divider=resistors.flatMap(top=>resistors.filter(bottom=>bottom!==top).map(bottom=>{
+    const midpoint=n(top,"1")===n(bottom,"1")||n(top,"1")===n(bottom,"2")?n(top,"1"):n(top,"2")===n(bottom,"1")||n(top,"2")===n(bottom,"2")?n(top,"2"):undefined;
+    const topOther=n(top,"1")===midpoint?n(top,"2"):n(top,"1"),bottomOther=n(bottom,"1")===midpoint?n(bottom,"2"):n(bottom,"1");
+    return {top,bottom,midpoint,topOther,bottomOther,valid:midpoint&&topOther===n(senseSource,"+")&&bottomOther===groundNet};
+  })).find(item=>item.valid);
+  if(!logicSource||!senseSource||!Number.isFinite(inputVoltage)||inputVoltage<=0||!Number.isFinite(referenceVoltage)||referenceVoltage<=0||!divider||n(pico,"GND")!==groundNet||n(oled,"VCC")!==vccNet||n(oled,"GND")!==groundNet||n(pico,"TX")!==n(oled,"DATA")||n(pico,"ADC0")!==divider.midpoint){
+    return {state:"blocked",message:"Wire separate sensed-input and 3.3 V logic supplies, connect a two-resistor divider midpoint to ADC0, ground the lower resistor, and connect the OLED text output.",validation};
+  }
+  const upperResistance=resistanceValue(divider.top.value),lowerResistance=resistanceValue(divider.bottom.value);
+  if(!Number.isFinite(upperResistance)||!Number.isFinite(lowerResistance)||upperResistance<=0||lowerResistance<=0)return {state:"blocked",message:"Both divider resistors must have positive numeric values.",validation};
+  const dividerVoltage=inputVoltage*lowerResistance/(upperResistance+lowerResistance);
+  if(!Number.isFinite(dividerVoltage)||dividerVoltage<0||dividerVoltage>referenceVoltage)return {state:"blocked",message:"The divider output exceeds the configured ADC reference; this ideal model blocks the measurement and does not estimate physical input protection.",validation};
+  const adcCount=Math.round(dividerVoltage/referenceVoltage*4095),measuredDividerVoltage=adcCount/4095*referenceVoltage,estimatedInputVoltage=measuredDividerVoltage*(upperResistance+lowerResistance)/lowerResistance;
+  const displayText="Vin "+estimatedInputVoltage.toFixed(2)+" V";
+  return {state:"complete",engine:"Ideal Pico 12-bit ADC divider voltmeter",message:"Quantizes a protected divider voltage with an ideal 12-bit ADC and applies the known divider ratio for an OLED reading. ADC nonlinearity, input leakage, resistor tolerance, calibration error, and C++ firmware are omitted.",result:{kind:"pico-adc-voltmeter",inputVoltageV:inputVoltage,dividerVoltageV:dividerVoltage,adcReferenceV:referenceVoltage,adcResolutionBits:12,adcCount,measuredDividerVoltageV:measuredDividerVoltage,upperResistanceOhm:upperResistance,lowerResistanceOhm:lowerResistance,estimatedInputVoltageV:estimatedInputVoltage,displayText,firmwareExecuted:false},validation};
+}
 function analyseEsp32Telemetry(project,{source,esp32,sensor,sink,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(esp32.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
