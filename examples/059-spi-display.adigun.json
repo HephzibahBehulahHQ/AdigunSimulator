@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-059-spi-display",
+  "metadata": {
+    "name": "SPI Mode-0 Display Byte Transfer",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          45,
+          65
+        ],
+        "schematic": [
+          45,
+          65
+        ],
+        "pcb": [
+          45,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "transfer",
+      "libraryId": "input.spi-transfer-source",
+      "reference": "BUS1",
+      "value": "Mode 0; Byte 0xA5; Baud 1000000; CS active",
+      "position": {
+        "breadboard": [
+          180,
+          65
+        ],
+        "schematic": [
+          180,
+          65
+        ],
+        "pcb": [
+          180,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "active.spi-display-ideal",
+      "reference": "U1",
+      "value": "Mode 0 display",
+      "position": {
+        "breadboard": [
+          330,
+          65
+        ],
+        "schematic": [
+          330,
+          65
+        ],
+        "pcb": [
+          330,
+          65
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          500,
+          65
+        ],
+        "schematic": [
+          500,
+          65
+        ],
+        "pcb": [
+          500,
+          65
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "transfer:GND",
+        "display:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "SCK",
+      "endpoints": [
+        "transfer:SCK",
+        "display:SCK"
+      ]
+    },
+    {
+      "id": "MOSI",
+      "endpoints": [
+        "transfer:MOSI",
+        "display:MOSI"
+      ]
+    },
+    {
+      "id": "CS",
+      "endpoints": [
+        "transfer:CS",
+        "display:CS"
+      ]
+    }
+  ],
+  "history": []
+}
