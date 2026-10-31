@@ -6346,7 +6346,7 @@
     {
       "id": "161-plc-start-stop-motor-concept",
       "title": "PLC start/stop motor concept",
-      "status": "in-review",
+      "status": "released",
       "objective": "Run a deterministic start/stop seal-in sequence with a relay contactor output and motor command; verify latching, stop interruption, and emergency-stop interruption.",
       "acceptanceTest": "tests/core.test.mjs: catalogue PLC motor seal-in holds on start and drops on stop or emergency stop",
       "testId": "core-plc-start-stop-motor-concept",
@@ -6354,7 +6354,25 @@
       "readmeFile": "examples/161-plc-start-stop-motor-concept/README.md",
       "safetyNote": "Logic-only concept. No real PLC scan timing, contactor electrical behavior, motor dynamics, safety-rated E-stop circuit, overload device, or machine-safety compliance is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 161,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41209177176",
+        "headRevision": "f4dec7fbbdc1eca2b14af88dd122e25ceaf957a3",
+        "engine": "Deterministic PLC start/stop seal-in logic concept",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "plc-seal-in-logic-concept-v1",
+        "expectedResult": {
+          "kind": "plc-start-stop-sequence",
+          "steps": 6,
+          "retainsAfterStartRelease": true,
+          "stopDropsOutput": true,
+          "emergencyStopDropsOutput": true,
+          "physicalSafetyModel": false
+        }
+      }
     }
   ]
 }
