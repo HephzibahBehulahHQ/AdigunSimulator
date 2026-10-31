@@ -716,6 +716,42 @@
       }
     },
     {
+      "id": "019-ntc-temperature-divider",
+      "title": "NTC temperature divider",
+      "status": "released",
+      "objective": "Use an NTC thermistor with R25 10 kΩ and Beta 3950 K above a 10 kΩ fixed resistor on a 5 V supply; verify resistance decreases and output increases at 0, 25, and 60 °C.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue NTC divider resistance and output vary monotonically from 0 to 60 C and rejects absolute-zero and wiring errors",
+      "testId": "core-ntc-temperature-divider",
+      "projectFile": "examples/019-ntc-temperature-divider.adigun.json",
+      "safetyNote": "Generic Beta-law educational model only. It is not a verified thermistor part model and omits tolerance, self-heating, thermal lag, calibration, and hardware qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 19,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41168327016",
+        "headRevision": "badf14df01483402b2eb95ae23dcc5094d4d217b",
+        "engine": "Analytical NTC Beta-law voltage-divider estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ntc-beta-divider-v1",
+        "libraryLock": "adigun-simulator@a16a8c64508b355f9682915ec45a08f2a2682b0d",
+        "expectedResult": {
+          "supplyVoltage": 5,
+          "referenceResistanceAt25C": 10000,
+          "betaK": 3950,
+          "fixedResistance": 10000,
+          "sweepCelsius": [
+            0,
+            25,
+            60
+          ],
+          "resistanceDecreasesWithTemperature": true,
+          "outputIncreasesWithTemperature": true,
+          "outputAt25C": 2.5
+        }
+      }
+    },
+    {
       "id": "002-dc-voltage-divider",
       "title": "Unloaded DC voltage divider",
       "status": "released",
@@ -885,16 +921,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "019-ntc-temperature-divider",
-      "title": "NTC temperature divider",
-      "status": "in-review",
-      "objective": "Use an NTC thermistor with R25 10 kΩ and Beta 3950 K above a 10 kΩ fixed resistor on a 5 V supply; verify resistance decreases and output increases at 0, 25, and 60 °C.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue NTC divider resistance and output vary monotonically from 0 to 60 C and rejects absolute-zero and wiring errors",
-      "testId": "core-ntc-temperature-divider",
-      "projectFile": "examples/019-ntc-temperature-divider.adigun.json",
-      "safetyNote": "Generic Beta-law educational model only. It is not a verified thermistor part model and omits tolerance, self-heating, thermal lag, calibration, and hardware qualification."
     }
   ]
 }
