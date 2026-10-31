@@ -213,6 +213,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.half-bridge-gate-driver-ideal", category: "Active", type: "Ideal complementary half-bridge gate driver", prefix: "U", pins: ["PWMH", "PWML", "GH", "GL", "STATUS", "VCC", "GND"], defaultValue: "MinDeadTime 0.5 us; GateHigh 10 V; Mode half-bridge", simulation: "analytical-half-bridge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.mosfet-half-bridge-ideal", category: "Active", type: "Ideal high-side and low-side MOSFET half-bridge", prefix: "Q", pins: ["VIN", "GH", "GL", "SW", "VCC", "GND"], defaultValue: "RdsOn 0.08 Ω; MaxVoltage 30 V; MaxCurrent 5 A; Mode half-bridge", simulation: "analytical-half-bridge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.half-bridge-report", category: "Output", type: "Half-bridge gate timing and overlap report", prefix: "SCOPE", pins: ["SW", "STATUS", "VCC", "GND"], defaultValue: "Half-bridge timing report", simulation: "analytical-half-bridge", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.igbt-leg-command-fixture", category: "Inputs", type: "IGBT inverter-leg command and fault fixture", prefix: "CMD", pins: ["H_CMD", "L_CMD", "FAULT", "VCC", "GND"], defaultValue: "HighCommand on; LowCommand off; Fault none; Mode igbt-leg", simulation: "fixture-igbt-leg", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.igbt-leg-driver-ideal", category: "Active", type: "Ideal IGBT gate driver with fault interlock", prefix: "U", pins: ["H_IN", "L_IN", "FAULT_IN", "H_OUT", "L_OUT", "STATUS", "VCC", "GND"], defaultValue: "Interlock yes; GateHigh 15 V; Mode fault-interlock", simulation: "analytical-igbt-leg", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.igbt-inverter-leg-ideal", category: "Active", type: "Ideal high-side and low-side IGBT inverter leg", prefix: "Q", pins: ["VIN", "GH", "GL", "SW", "VCC", "GND"], defaultValue: "VceSat 1.8 V; MaxVoltage 600 V; MaxCurrent 20 A; Mode igbt-leg", simulation: "analytical-igbt-leg", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -736,6 +739,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const halfBridgeDrivers = project.components.filter((item) => item.libraryId === "active.half-bridge-gate-driver-ideal");
   const halfBridgeSwitches = project.components.filter((item) => item.libraryId === "active.mosfet-half-bridge-ideal");
   const halfBridgeReports = project.components.filter((item) => item.libraryId === "output.half-bridge-report");
+  const igbtFixtures = project.components.filter((item) => item.libraryId === "input.igbt-leg-command-fixture");
+  const igbtDrivers = project.components.filter((item) => item.libraryId === "active.igbt-leg-driver-ideal");
+  const igbtLegs = project.components.filter((item) => item.libraryId === "active.igbt-inverter-leg-ideal");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -992,6 +998,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (halfBridgeFixtures.length===1&&halfBridgeDrivers.length===1&&halfBridgeSwitches.length===1&&halfBridgeReports.length===1&&source.length===1&&resistor.length===1&&ground.length===1&&project.components.length===7) {
     return analyseMosfetHalfBridge(project,{source:source[0],fixture:halfBridgeFixtures[0],driver:halfBridgeDrivers[0],bridge:halfBridgeSwitches[0],report:halfBridgeReports[0],load:resistor[0],ground:ground[0],validation});
+  }
+  if (igbtFixtures.length===1&&igbtDrivers.length===1&&igbtLegs.length===1&&halfBridgeReports.length===1&&source.length===1&&resistor.length===1&&ground.length===1&&project.components.length===7) {
+    return analyseIgbtInverterLeg(project,{source:source[0],fixture:igbtFixtures[0],driver:igbtDrivers[0],leg:igbtLegs[0],report:halfBridgeReports[0],load:resistor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3417,6 +3426,42 @@ function analyseMosfetHalfBridge(project,{source,fixture,driver,bridge,report,lo
     {phase:"dead time",durationS:deadTimeS,highGateOn:false,lowGateOn:false}
   ];
   return {state:"complete",engine:"Complementary half-bridge timing and resistive-load estimator",message:"Checks complementary gate timing and minimum dead time, then estimates high-side resistive-load conduction. Switching transitions, reverse recovery, inductive freewheel, gate charge, parasitics, thermal behavior, and hardware safety are not modeled.",result:{kind:"mosfet-half-bridge",periodS,highDutyPercent:highDuty,lowDutyPercent:lowDuty,highTimeS,lowTimeS,deadTimeS,minimumDeadTimeS,deadTimeFraction:deadFraction,gateSequence,shootThrough:false,highSideOnCurrentA:onCurrentA,highSideAverageCurrentA:onCurrentA*highDuty/100,loadResistanceOhm:loadOhm,busVoltageV,mosfetRdsOnOhm:rdsOn,gateHighVoltageV:gateHighV},validation};
+}
+function analyseIgbtInverterLeg(project,{source,fixture,driver,leg,report,load,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const f=fields(fixture.value),d=fields(driver.value),q=fields(leg.value);
+  const highCommand=field(f,"HighCommand"),lowCommand=field(f,"LowCommand"),fault=field(f,"Fault");
+  const gateHighV=voltageValue(field(d,"GateHigh")??""),vceSatV=voltageValue(field(q,"VceSat")??"");
+  const maxVoltageV=voltageValue(field(q,"MaxVoltage")??""),maxCurrentA=currentValue(field(q,"MaxCurrent")??"");
+  const busVoltageV=voltageValue(source.value),loadOhm=resistanceValue(load.value),gnd=n(ground,"0"),vcc=n(source,"+");
+  const powered=n(source,"-")===gnd&&n(fixture,"VCC")===vcc&&n(driver,"VCC")===vcc&&n(leg,"VCC")===vcc&&n(report,"VCC")===vcc
+    &&n(fixture,"GND")===gnd&&n(driver,"GND")===gnd&&n(leg,"GND")===gnd&&n(report,"GND")===gnd;
+  const commandPaths=n(fixture,"H_CMD")===n(driver,"H_IN")&&n(fixture,"L_CMD")===n(driver,"L_IN")&&n(fixture,"FAULT")===n(driver,"FAULT_IN");
+  const gatePaths=n(driver,"H_OUT")===n(leg,"GH")&&n(driver,"L_OUT")===n(leg,"GL");
+  const busPath=n(source,"+")===n(leg,"VIN");
+  const switchPath=n(leg,"SW")===n(report,"SW")&&n(leg,"SW")===n(load,"1")&&n(load,"2")===gnd;
+  const statusPath=n(driver,"STATUS")===n(report,"STATUS");
+  const required=[gnd,vcc,...["H_CMD","L_CMD","FAULT"].flatMap(pin=>[n(fixture,pin),n(driver,pin==="H_CMD"?"H_IN":pin==="L_CMD"?"L_IN":"FAULT_IN")]),n(driver,"H_OUT"),n(leg,"GH"),n(driver,"L_OUT"),n(leg,"GL"),n(leg,"VIN"),n(leg,"SW"),n(report,"SW"),n(load,"1"),n(load,"2")];
+  if(required.some(x=>typeof x!=="string"||!x)||!powered||!commandPaths||!gatePaths||!busPath||!switchPath||!statusPath
+    ||field(f,"Mode")!=="igbt-leg"||field(d,"Mode")!=="fault-interlock"||field(q,"Mode")!=="igbt-leg"
+    ||!["on","off"].includes(highCommand)||!["on","off"].includes(lowCommand)||!["none","desat","overcurrent"].includes(fault)
+    ||field(d,"Interlock")!=="yes"||![gateHighV,vceSatV,maxVoltageV,maxCurrentA,busVoltageV,loadOhm].every(Number.isFinite)
+    ||gateHighV<10||gateHighV>20||vceSatV<=0||vceSatV>5||maxVoltageV<=0||maxVoltageV>1200||maxCurrentA<=0||maxCurrentA>200
+    ||busVoltageV<=0||busVoltageV>maxVoltageV||loadOhm<=0||loadOhm>1000){
+    return {state:"blocked",message:"Wire both IGBT gate paths, bus, load, status and fault signal; use supported gate voltage and device ratings.",validation};
+  }
+  const commandConflict=highCommand==="on"&&lowCommand==="on",faultActive=fault!=="none";
+  const interlockActive=commandConflict||faultActive;
+  const highGateOn=!interlockActive&&highCommand==="on",lowGateOn=!interlockActive&&lowCommand==="on";
+  const switchingState=faultActive?"fault-interlocked":commandConflict?"command-conflict":highGateOn?"high-side-on":lowGateOn?"low-side-on":"both-off";
+  const outputVoltageV=highGateOn?Math.max(0,busVoltageV-vceSatV):0;
+  const loadCurrentA=outputVoltageV/loadOhm;
+  if(loadCurrentA>maxCurrentA)return {state:"blocked",message:"Resistive load current exceeds the configured IGBT current rating.",validation};
+  return {state:"complete",engine:"Bounded IGBT inverter-leg logic and resistive-load estimator",
+    message:"Checks high/low gate commands, mutual-exclusion interlock and injected fault shutdown, then estimates a resistive load during high-side conduction. Switching transients, inductive load current, diode recovery, thermal behavior, isolation, protection hardware, and safety qualification are not modeled.",
+    result:{kind:"igbt-inverter-leg",switchingState,highCommand,lowCommand,highGateOn,lowGateOn,commandConflict,fault,faultActive,interlockActive,gateHighVoltageV:gateHighV,busVoltageV,vceSaturationVoltageV:vceSatV,outputVoltageV,loadResistanceOhm:loadOhm,loadCurrentA,loadPowerW:outputVoltageV*loadCurrentA,deviceMaximumVoltageV:maxVoltageV,deviceMaximumCurrentA:maxCurrentA,shootThrough:false,hardwareSafetyQualified:false},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
