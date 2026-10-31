@@ -2149,6 +2149,18 @@
           "invalidVoltage": "blocked"
         }
       }
+    },
+    {
+      "id": "051-shift-register-led-chaser",
+      "title": "Four-bit shift-register LED chaser",
+      "status": "in-review",
+      "objective": "Initialize a one-hot Q0 state and move it through Q1, Q2, Q3, then back to Q0 on successive rising clock edges; assert exactly one LED is active.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue four-bit ring shift register moves one LED per rising edge",
+      "testId": "core-shift-register-led-chaser",
+      "projectFile": "examples/051-shift-register-led-chaser.adigun.json",
+      "safetyNote": "Generic ideal discrete ring shift-register model. It omits part-specific timing, clock quality, power-up state, propagation delay, setup/hold, and metastability.",
+      "scope": "catalogue",
+      "catalogueIndex": 51
     }
   ]
 }
