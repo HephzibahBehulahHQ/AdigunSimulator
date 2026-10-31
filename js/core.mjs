@@ -1070,7 +1070,7 @@ function analyseOpAmpAmplifier(project,{sources,input,opAmp,resistors,ground,val
   if(outputAmplitudeV>=Math.min(positiveVoltage,negativeVoltage)){
     return {state:"blocked",message:"The ideal output amplitude reaches a supply rail; this model does not calculate clipping.",validation};
   }
-  return {state:"complete",engine:"Ideal op-amp closed-loop midband gain estimate",message:"Calculates the ideal closed-loop inverting or non-inverting gain at midband. It omits bandwidth, slew rate, input/output limits, offset, noise, loading, common-mode range, and device-specific behavior.",result:{kind:inverting?"opamp-inverting":"opamp-noninverting",configuration:mode,gainVPerV,inputAmplitudeV,outputAmplitudeV,phaseShiftDeg,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage,inputResistanceOhm:inputResistance,feedbackResistanceOhm,frequencyResponse:"ideal midband gain only"},validation};
+  return {state:"complete",engine:"Ideal op-amp closed-loop midband gain estimate",message:"Calculates the ideal closed-loop inverting or non-inverting gain at midband. It omits bandwidth, slew rate, input/output limits, offset, noise, loading, common-mode range, and device-specific behavior.",result:{kind:inverting?"opamp-inverting":"opamp-noninverting",configuration:mode,gainVPerV,inputAmplitudeV,outputAmplitudeV,phaseShiftDeg,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage,inputResistanceOhm:inputResistance,feedbackResistanceOhm:feedbackResistance,frequencyResponse:"ideal midband gain only"},validation};
 }
 
 function analyseNe556DualAstable(project,{source,timer,resistors,capacitors,leds,ground,validation}){
