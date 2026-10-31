@@ -4956,7 +4956,7 @@
     {
       "id": "120-surge-protection",
       "title": "Surge-protected input",
-      "status": "in-review",
+      "status": "released",
       "objective": "Estimate a source-resistance-limited surge pulse, TVS clamp energy, fuse I²t warning/trip, and RC-filtered output transient.",
       "acceptanceTest": "tests/core.test.mjs: catalogue surge input clamps a transient and reports fuse warning/trip",
       "testId": "core-surge-protected-input",
@@ -4964,7 +4964,40 @@
       "readmeFile": "examples/120-surge-protection/README.md",
       "safetyNote": "Single-pulse educational estimator only; no standardized surge compliance, MOV lifetime, fuse time-current behavior, thermal, or hardware safety qualification.",
       "scope": "catalogue",
-      "catalogueIndex": 120
+      "catalogueIndex": 120,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41193449869",
+        "headRevision": "5d13b72c7f0ccad0542a49fa8048356fec518029",
+        "engine": "Single-pulse TVS, fuse I²t and RC-filter estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-surge-input-tvs-fuse-rc-v1",
+        "expectedResult": {
+          "kind": "surge-protected-input",
+          "busVoltageV": 12,
+          "pulsePeakVoltageV": 60,
+          "pulseWidthS": 0.001,
+          "sourceResistanceOhm": 10,
+          "surgeCurrentA": 3.6,
+          "clampVoltageV": 24,
+          "clampActive": true,
+          "absorbedEnergyJ": 0.0864,
+          "tvsMaximumEnergyJ": 1,
+          "tvsWithinEnergyLimit": true,
+          "fuseI2tDemand": 0.01296,
+          "fuseI2tLimit": 0.02,
+          "fuseTripped": false,
+          "fuseWarning": true,
+          "filterResistanceOhm": 10,
+          "filterCapacitanceF": 0.0001,
+          "filterTimeConstantS": 0.001,
+          "outputVoltageV": 10.909090909090908,
+          "outputLoadCurrentA": 0.12,
+          "outputEnabled": true,
+          "hardwareSafetyQualified": false
+        }
+      }
     }
   ]
 }
