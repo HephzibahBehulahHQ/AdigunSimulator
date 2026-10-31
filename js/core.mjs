@@ -52,6 +52,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.uart-frame-source", category: "Inputs", type: "Ideal UART serial-frame source (digital fixture)", prefix: "SIG", pins: ["TX", "GND"], defaultValue: "Bits 0,1,0,1,0,0,1,0,1,1; Baud 9600", simulation: "fixture-uart-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.uart-rx-ideal", category: "Active", type: "Ideal UART 8N1 receiver (frame decoder)", prefix: "U", pins: ["RX", "VALID", "VCC", "GND"], defaultValue: "8N1 frame decoder", simulation: "analytical-uart-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.i2c-read-transaction", category: "Inputs", type: "Ideal I²C read transaction fixture", prefix: "BUS", pins: ["SDA", "SCL", "GND"], defaultValue: "Address 0x48; Register 0x00; Baud 100000; ACK yes", simulation: "fixture-i2c-read", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.i2c-level-shifter-transition-fixture", category: "Inputs", type: "I²C open-drain transition fixture", prefix: "BUS", pins: ["SDA", "SCL", "GND"], defaultValue: "SDA Drive low-side; SDA States H,L,H,L; SCL Drive high-side; SCL States L,H,L,H", simulation: "fixture-i2c-level-shift", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.i2c-bidirectional-level-shifter-ideal", category: "Active", type: "Ideal bidirectional MOSFET I²C level-shifter model", prefix: "Q", pins: ["SDA_L", "SCL_L", "SDA_H", "SCL_H", "VREF_L", "VREF_H", "GND"], defaultValue: "Mode open-drain bidirectional", simulation: "analytical-i2c-level-shift", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.i2c-level-shifter-report", category: "Output", type: "I²C level-shifter transition report", prefix: "DISP", pins: ["SDA_L", "SCL_L", "SDA_H", "SCL_H", "VREF_L", "VREF_H", "GND"], defaultValue: "I²C transition report", simulation: "analytical-i2c-level-shift", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.i2c-sensor-ideal", category: "Active", type: "Ideal I²C register sensor (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x48; Register 0x00=0x2A", simulation: "analytical-i2c-register-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.i2c-eeprom-ideal", category: "Active", type: "Ideal I²C EEPROM byte memory (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x50; Memory 0x10=0x00", simulation: "analytical-i2c-eeprom-write-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -503,6 +506,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const uartReceivers = project.components.filter((item) => item.libraryId === "active.uart-rx-ideal");
   const uartFrameSources = project.components.filter((item) => item.libraryId === "input.uart-frame-source");
   const i2cFixtures = project.components.filter((item) => item.libraryId === "input.i2c-read-transaction");
+  const i2cLevelFixtures = project.components.filter((item) => item.libraryId === "input.i2c-level-shifter-transition-fixture");
+  const i2cLevelShifters = project.components.filter((item) => item.libraryId === "active.i2c-bidirectional-level-shifter-ideal");
+  const i2cLevelReports = project.components.filter((item) => item.libraryId === "output.i2c-level-shifter-report");
   const i2cSensors = project.components.filter((item) => item.libraryId === "active.i2c-sensor-ideal");
   const i2cEeproms = project.components.filter((item) => item.libraryId === "active.i2c-eeprom-ideal");
   const spiFixtures = project.components.filter((item) => item.libraryId === "input.spi-transfer-source");
@@ -740,6 +746,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (spiFixtures.length === 1 && spiDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 4) {
     return analyseSpiDisplayTransfer(project, { source: source[0], fixture: spiFixtures[0], display: spiDisplays[0], ground: ground[0], validation });
+  }
+  if (i2cLevelFixtures.length === 1 && i2cLevelShifters.length === 1 && i2cLevelReports.length === 1 && source.length === 2 && resistor.length === 4 && ground.length === 1 && project.components.length === 10) {
+    return analyseI2cLevelShifter(project, { sources: source, fixture: i2cLevelFixtures[0], shifter: i2cLevelShifters[0], report: i2cLevelReports[0], resistors: resistor, ground: ground[0], validation });
   }
   if (i2cFixtures.length === 1 && i2cEeproms.length === 1 && source.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 6) {
     return analyseI2cEepromWriteRead(project, { source: source[0], fixture: i2cFixtures[0], eeprom: i2cEeproms[0], resistors: resistor, ground: ground[0], validation });
@@ -2377,6 +2386,30 @@ function analyseSpiDisplayTransfer(project,{source,fixture,display,ground,valida
   }
   const bits=Array.from({length:8},(_,index)=>Boolean(byte&(1<<(7-index))));
   return {state:"complete",engine:"Ideal SPI mode-0 byte transfer",message:"Transfers one byte MSB-first with clock idle low and sampling on rising edges while chip select is active. This transaction-level digital model omits edge timing, setup/hold margins, bus loading, multi-byte commands, and physical display rendering.",result:{kind:"spi-display-byte",mode,clockPolarity:0,clockPhase:0,sampleEdge:"rising",bitOrder:"MSB-first",bits,receivedByte:byte,receivedHex:"0x"+byte.toString(16).padStart(2,"0").toUpperCase(),baud,transferDurationSeconds:8/baud,chipSelect:"active"},validation};
+}
+function analyseI2cLevelShifter(project,{sources,fixture,shifter,report,resistors,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const rails=sources.map(source=>({source,voltage:voltageValue(source.value)})).sort((a,b)=>a.voltage-b.voltage),low=rails[0],high=rails[1];
+  const lowNet=n(low.source,"+"),highNet=n(high.source,"+"),groundNet=n(ground,"0");
+  const values=fields(fixture.value),sdaDrive=field(values,"SDA Drive"),sclDrive=field(values,"SCL Drive");
+  const states=(name)=>{const value=field(values,name+" States");return value?value.split(",").map(token=>token.trim().toUpperCase()):[];};
+  const sdaStates=states("SDA"),sclStates=states("SCL"),validStates=array=>array.length>=2&&array.length<=64&&array.every(state=>state==="H"||state==="L");
+  const rValues=resistors.map(part=>({part,ohms:resistanceValue(part.value)}));
+  const resistorFor=(line,railNet)=>rValues.find(({part})=>[n(part,"1"),n(part,"2")].includes(line)&&[n(part,"1"),n(part,"2")].includes(railNet));
+  const expected=[["SDA_L",lowNet],["SCL_L",lowNet],["SDA_H",highNet],["SCL_H",highNet]].map(([pin,railNet])=>resistorFor(n(shifter,pin),railNet));
+  const topology= n(fixture,"SDA")===n(shifter,"SDA_L")&&n(fixture,"SCL")===n(shifter,"SCL_L")&&n(shifter,"SDA_L")===n(report,"SDA_L")&&n(shifter,"SCL_L")===n(report,"SCL_L")&&n(shifter,"SDA_H")===n(report,"SDA_H")&&n(shifter,"SCL_H")===n(report,"SCL_H");
+  const powered=n(low.source,"-")===groundNet&&n(high.source,"-")===groundNet&&n(shifter,"VREF_L")===lowNet&&n(shifter,"VREF_H")===highNet&&n(report,"VREF_L")===lowNet&&n(report,"VREF_H")===highNet&&n(shifter,"GND")===groundNet&&n(report,"GND")===groundNet&&n(fixture,"GND")===groundNet;
+  const required=[lowNet,highNet,groundNet,n(fixture,"SDA"),n(fixture,"SCL"),n(fixture,"GND"),n(shifter,"SDA_L"),n(shifter,"SCL_L"),n(shifter,"SDA_H"),n(shifter,"SCL_H"),n(report,"SDA_L"),n(report,"SCL_L"),n(report,"SDA_H"),n(report,"SCL_H"),...expected.map(item=>item&&"connected")];
+  const validPullups=expected.every(item=>item&&Number.isFinite(item.ohms)&&item.ohms>=1000&&item.ohms<=100000);
+  if(!Number.isFinite(low.voltage)||!Number.isFinite(high.voltage)||low.voltage<1.8||low.voltage>3.6||high.voltage<=low.voltage||high.voltage>5.5||!powered||!topology||required.some(net=>!net)||!validPullups||resistors.some(item=>!Number.isFinite(resistanceValue(item.value)))||field(fields(shifter.value),"Mode")!=="open-drain bidirectional"||!["low-side","high-side"].includes(sdaDrive)||!["low-side","high-side"].includes(sclDrive)||!validStates(sdaStates)||!validStates(sclStates)||sdaStates.length!==sclStates.length){
+    return {state:"blocked",message:"Use separate 1.8–3.6 V and higher 3.3–5.5 V rails, common ground, four 1–100 kΩ pull-ups to their local rails, complete SDA/SCL connections, and matching open-drain transition sequences.",validation};
+  }
+  const transitionTable=sdaStates.map((sda,index)=>{const scl=sclStates[index];return {index:index+1,sda,scl,sdaLowVoltageV:sda==="L"?0:low.voltage,sdaHighVoltageV:sda==="L"?0:high.voltage,sclLowVoltageV:scl==="L"?0:low.voltage,sclHighVoltageV:scl==="L"?0:high.voltage,driveDirection:[sda==="L"?sdaDrive:null,scl==="L"?sclDrive:null].filter(Boolean)};});
+  const currentFor=(line)=>{const lowPull=expected[["SDA_L","SCL_L"].indexOf(line)],highPull=expected[["SDA_H","SCL_H"].indexOf(line)+2];return low.voltage/lowPull.ohms+high.voltage/highPull.ohms;};
+  const lowCurrentMa=Math.max(currentFor("SDA_L"),currentFor("SCL_L"))*1000;
+  return {state:"complete",engine:"Ideal bidirectional open-drain I²C level-shifter model",message:"Applies an ideal bidirectional open-drain translation between two voltage domains using explicit external pull-up resistors. It checks connectivity, rail ordering, line logic, and estimated static sink current. MOSFET threshold/body-diode behavior, edge timing, bus capacitance, pull-up tolerance, rise time, device limits, firmware, and physical hardware are not modeled.",result:{kind:"i2c-level-shifter",lowRailV:low.voltage,highRailV:high.voltage,lowPullupOhm:Math.round((expected[0].ohms+expected[1].ohms)/2),highPullupOhm:Math.round((expected[2].ohms+expected[3].ohms)/2),transitionCount:transitionTable.length,lowSideDriveTransitions:transitionTable.filter(item=>item.driveDirection.includes("low-side")).length,highSideDriveTransitions:transitionTable.filter(item=>item.driveDirection.includes("high-side")).length,peakCombinedPullupSinkCurrentMa:lowCurrentMa,lowSideOvervoltage:false,highSideOvervoltage:false,bidirectionalTransitionsVerified:transitionTable.some(item=>item.driveDirection.includes("low-side"))&&transitionTable.some(item=>item.driveDirection.includes("high-side")),transitionTable,firmwareExecuted:false},validation};
 }
 function analyseI2cEepromWriteRead(project,{source,fixture,eeprom,resistors,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
