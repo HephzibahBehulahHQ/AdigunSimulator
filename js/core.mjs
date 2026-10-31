@@ -39,6 +39,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-nor-ideal", category: "Active", type: "Ideal two-input NOR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-nor-sr-latch", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-dff-ideal", category: "Active", type: "Ideal positive-edge D flip-flop (static logic)", prefix: "U", pins: ["D", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge D flip-flop", simulation: "analytical-d-flip-flop", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-jk-ideal", category: "Active", type: "Ideal positive-edge JK flip-flop (static logic)", prefix: "U", pins: ["J", "K", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge JK flip-flop", simulation: "analytical-jk-toggle-divider", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-counter-4bit-ideal", category: "Active", type: "Ideal 4-bit binary counter (static state)", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Ideal modulo-16 rising-edge counter", simulation: "analytical-4bit-counter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -391,6 +392,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const norGates = project.components.filter((item) => item.libraryId === "active.logic-nor-ideal");
   const dFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-dff-ideal");
   const jkFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-jk-ideal");
+  const fourBitCounters = project.components.filter((item) => item.libraryId === "active.logic-counter-4bit-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -455,6 +457,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (fourBitCounters.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && project.components.length === 13) {
+    return analyseFourBitCounter(project, { sources: source, counter: fourBitCounters[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
   }
   if (jkFlipFlops.length === 1 && source.length === 5 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseJkFlipFlop(project, { sources: source, flipFlop: jkFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], previousState, validation });
@@ -1421,6 +1426,51 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 }
 
 
+
+
+function analyseFourBitCounter(project,{sources,counter,resistors,leds,ground,previousState,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(counter,"VCC");
+  const supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  const clockNet=n(counter,"CLK"),resetNet=n(counter,"RESET_N");
+  const clockSource=sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===clockNet);
+  const resetSource=sources.find(v=>v!==supply&&v!==clockSource&&n(v,"-")===groundNet&&n(v,"+")===resetNet);
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN;
+  const clockVoltage=clockSource?voltageValue(clockSource.value):Number.NaN;
+  const resetVoltage=resetSource?voltageValue(resetSource.value):Number.NaN;
+  const thresholdV=supplyVoltage/2;
+  const outputPaths=[0,1,2,3].map(bit=>{
+    const pin=`Q${bit}`,outputNet=n(counter,pin);
+    const resistor=resistors.find(r=>(n(r,"1")===outputNet||n(r,"2")===outputNet));
+    const led=resistor&&leds.find(x=>((n(resistor,"1")===outputNet&&n(resistor,"2")===n(x,"A"))||(n(resistor,"2")===outputNet&&n(resistor,"1")===n(x,"A")))&&n(x,"K")===groundNet);
+    const currentR=resistor?resistanceValue(resistor.value):Number.NaN,forwardV=led?forwardVoltage(led.value):Number.NaN;
+    return {pin,outputNet,resistor,led,currentR,forwardV};
+  });
+  if(!supply||!clockSource||!resetSource||n(counter,"GND")!==groundNet
+    ||outputPaths.some(p=>!p.outputNet||!p.resistor||!p.led||!Number.isFinite(p.currentR)||!Number.isFinite(p.forwardV)||p.currentR<=0||p.forwardV<=0)
+    ||![supplyVoltage,clockVoltage,resetVoltage].every(Number.isFinite)||supplyVoltage<=0
+    ||[clockVoltage,resetVoltage].some(v=>v<0||v>supplyVoltage)){
+    return {state:"blocked",message:"Wire the ideal four-bit counter, clock, active-low reset, four current-limited bit indicators, and supply/ground rails.",validation};
+  }
+  const clockHigh=clockVoltage>=thresholdV,resetActive=resetVoltage<thresholdV;
+  const previous=previousState?.result,previousClockHigh=previous?.clockHigh;
+  const risingEdge=previousClockHigh===false&&clockHigh;
+  if(!resetActive&&clockHigh&&typeof previousClockHigh!=="boolean"){
+    return {state:"blocked",message:"Start with the clock low, then apply a rising edge so the simulator can identify each count transition.",validation};
+  }
+  if(risingEdge&&!resetActive&&!Number.isInteger(previous?.count)){
+    return {state:"blocked",message:"Initialize the counter with active-low reset before applying clock edges.",validation};
+  }
+  let count,mode;
+  if(resetActive){count=0;mode="asynchronous reset";}
+  else if(risingEdge){count=(previous.count+1)&15;mode="count";}
+  else{count=Number.isInteger(previous?.count)?previous.count:null;mode=clockHigh?"high-level hold":"low-level hold";}
+  const bits=count===null?null:[0,1,2,3].map(bit=>Boolean(count&(1<<bit)));
+  const outputCurrents=bits?outputPaths.map((p,bit)=>bits[bit]?Math.max(0,(supplyVoltage-p.forwardV)/p.currentR):0):[0,0,0,0];
+  return {state:"complete",engine:"Ideal modulo-16 four-bit rising-edge counter",message:"Counts one binary step on each rising clock edge, wraps after 15, and resets asynchronously when RESET_N is low. Clock waveform details, propagation delay, metastability, setup/hold timing, and device-specific behavior are not modeled.",result:{kind:"four-bit-binary-counter",supplyVoltage,logicThresholdV:thresholdV,clockVoltage,resetVoltage,clockHigh,resetActive,risingEdge,count,bits,outputCurrents,risingEdgeCount:(previous?.risingEdgeCount||0)+(risingEdge?1:0),bitFrequencyRatios:[0.5,0.25,0.125,0.0625],mode,timingAnnotation:"Clock timing violations and metastability are not simulated."},validation};
+}
 
 function analyseJkFlipFlop(project,{sources,flipFlop,resistor,led,ground,previousState,validation}){
   const netByEndpoint=new Map();
