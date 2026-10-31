@@ -1428,14 +1428,36 @@
     {
       "id": "037-electret-audio-preamp",
       "title": "Electret microphone single-supply audio preamp",
-      "status": "in-review",
+      "status": "released",
       "objective": "Bias a generic electret microphone from 5 V, AC-couple its 10 mV 1 kHz signal into a midpoint-biased non-inverting op-amp preamplifier, and test microphone bias, gain, high-pass response, and output headroom.",
       "acceptanceTest": "tests/core.test.mjs: catalogue electret audio preamp calculates mic bias, midband gain, and coupling response; blocks overbias and rail clipping",
       "testId": "core-electret-audio-preamp",
       "projectFile": "examples/037-electret-audio-preamp.adigun.json",
       "safetyNote": "Generic microphone and ideal op-amp analytical estimate. The mic uses a specified 0.5 mA bias current, 10 mV signal amplitude, and 2.2 kΩ source resistance; the op-amp is ideal and single-supply. No specific manufacturer part is implied. Noise, sensitivity spread, frequency-dependent microphone behavior, op-amp bandwidth/slew/input limits, output load, distortion, thermal effects, and physical validation are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 37
+      "catalogueIndex": 37,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41172104277",
+        "headRevision": "62c961e9e13ded9bfc48420a3cb2ca102ef1a1c8",
+        "engine": "Generic electret microphone and single-supply op-amp preamplifier estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-electret-audio-preamp-v1",
+        "expectedResult": {
+          "supplyVoltage": 5,
+          "microphoneBiasCurrentA": 0.0005,
+          "microphoneBiasVoltageV": 3.9,
+          "referenceVoltageV": 2.5,
+          "gainVPerV": 100,
+          "highPassCutoffHz": 0.9253194365807869,
+          "signalFrequencyHz": 1000,
+          "outputAmplitudeV": 0.9999995718922451,
+          "outputMinimumV": 1.5000004281077548,
+          "outputMaximumV": 3.4999995718922454,
+          "outputWithinSupplyRails": true
+        }
+      }
     }
   ]
 }
