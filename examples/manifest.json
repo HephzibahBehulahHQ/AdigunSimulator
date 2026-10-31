@@ -6911,7 +6911,7 @@
     {
       "id": "179-warehouse-beacon-concept",
       "title": "Warehouse beacon concept",
-      "status": "in-review",
+      "status": "released",
       "objective": "Map synthetic vacant, occupied, and sensor-fault states to distinct beacon outputs and verify output transitions.",
       "acceptanceTest": "tests/core.test.mjs: catalogue warehouse beacon maps occupancy and fault transitions to distinct outputs",
       "testId": "core-warehouse-beacon-concept",
@@ -6919,7 +6919,24 @@
       "readmeFile": "examples/179-warehouse-beacon-concept/README.md",
       "safetyNote": "Synthetic state-to-indicator mapping only. No sensor, beacon visibility/sound performance, installation, machine interface, or industrial safety function is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 179,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41212819949",
+        "headRevision": "69337b8fc40e73a3f1f0ba6909fea0f4e5ff18d6",
+        "engine": "Deterministic occupancy-to-beacon mapping",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "warehouse-beacon-state-map-v1",
+        "expectedResult": {
+          "kind": "warehouse-beacon-state-sequence",
+          "sampleCount": 4,
+          "transitionCount": 3,
+          "oneStatusPerFrame": true,
+          "physicalSensorModel": false
+        }
+      }
     }
   ]
 }
