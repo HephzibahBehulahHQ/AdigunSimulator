@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-077-rfid-access-reader",
+  "metadata": {
+    "name": "RFID UID Allowlist Lock Demonstration",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          35,
+          60
+        ],
+        "schematic": [
+          35,
+          60
+        ],
+        "pcb": [
+          35,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "tag",
+      "libraryId": "input.rfid-uid-fixture",
+      "reference": "TAG1",
+      "value": "UID 04A1B2C3",
+      "position": {
+        "breadboard": [
+          145,
+          60
+        ],
+        "schematic": [
+          145,
+          60
+        ],
+        "pcb": [
+          145,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "reader",
+      "libraryId": "active.rfid-uid-reader-ideal",
+      "reference": "RFID1",
+      "value": "Mode UID-only; Band 13.56 MHz",
+      "position": {
+        "breadboard": [
+          270,
+          60
+        ],
+        "schematic": [
+          270,
+          60
+        ],
+        "pcb": [
+          270,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.rfid-access-controller-ideal",
+      "reference": "U1",
+      "value": "Allowlist 04A1B2C3,11223344; UnlockState 1; DenyState 0",
+      "position": {
+        "breadboard": [
+          410,
+          60
+        ],
+        "schematic": [
+          410,
+          60
+        ],
+        "pcb": [
+          410,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "indicator",
+      "libraryId": "output.lock-state-indicator-ideal",
+      "reference": "LOCK1",
+      "value": "Simulated lock state",
+      "position": {
+        "breadboard": [
+          540,
+          60
+        ],
+        "schematic": [
+          540,
+          60
+        ],
+        "pcb": [
+          540,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          230
+        ],
+        "schematic": [
+          605,
+          230
+        ],
+        "pcb": [
+          605,
+          230
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "reader:VCC",
+        "controller:VCC",
+        "indicator:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "tag:GND",
+        "reader:GND",
+        "controller:GND",
+        "indicator:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "TAG_UID",
+      "endpoints": [
+        "tag:UID",
+        "reader:TAG"
+      ]
+    },
+    {
+      "id": "UID_DATA",
+      "endpoints": [
+        "reader:DATA",
+        "controller:TAG"
+      ]
+    },
+    {
+      "id": "LOCK_STATE",
+      "endpoints": [
+        "controller:LOCK",
+        "indicator:CTRL"
+      ]
+    }
+  ],
+  "history": []
+}
