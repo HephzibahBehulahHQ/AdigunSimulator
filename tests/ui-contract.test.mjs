@@ -28,7 +28,7 @@ test("breadboard click placement keeps the accessible manual hole-entry workflow
   assert.match(app, /data-breadboard-hole=/);
   assert.match(app, /state\.breadboardPlacementMode && state\.activeView === "breadboard"/);
   assert.match(app, /assignBreadboardPin\(\$\("#breadboard-pin"\)\.value, holeTarget\.dataset\.breadboardHole\)/);
-  assert.match(app, /event\.key === "Escape" && state\.breadboardPlacementMode/);
+  assert.match(app, /event\.key === "Escape" && \(state\.breadboardPlacementMode \|\| state\.schematicWireMode\)/);
   assert.match(app, /tabindex="-1"/);
   assert.match(app, /\["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"\]/);
   assert.match(app, /requestAnimationFrame\(\(\) => \$\("#design-canvas \[data-breadboard-hole\]"\)\?\.focus\(\)\)/);
@@ -49,6 +49,15 @@ test("schematic view uses explicit generic symbols and pin labels", async () => 
   assert.match(app, /renderSchematicSymbol\(part\)/);
   assert.match(app, /view === "schematic"/);
   assert.match(symbols, /class="schematic-symbol/);
+});
+
+test("schematic wire tool connects named pins through the shared project net model", async () => {
+  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  assert.match(html, /data-action="schematic-wire-mode"/);
+  assert.match(html, /id="schematic-wire-status"/);
+  assert.match(app, /data-schematic-endpoint=/);
+  assert.match(app, /schematicPinTarget && state\.schematicWireMode && state\.activeView === "schematic"/);
+  assert.match(app, /connectPins\(state\.project, state\.schematicWireStart, endpoint\)/);
 });
 
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
