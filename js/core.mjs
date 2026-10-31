@@ -10,7 +10,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "passive.inductor", category: "Passive", type: "Inductor", prefix: "L", pins: ["1", "2"], defaultValue: "100 mH", simulation: "analytical-rl-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "ground.signal", category: "Power & Ground", type: "Signal ground", prefix: "GND", pins: ["0"], defaultValue: "0 V", simulation: "reference", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
-  { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },\n  { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
@@ -340,7 +340,7 @@ export function runSupportedAnalysis(project) {
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const resistor = project.components.filter((item) => item.libraryId === "passive.resistor");
   const capacitor = project.components.filter((item) => item.libraryId === "passive.capacitor");
-  const inductor = project.components.filter((item) => item.libraryId === "passive.inductor");
+  const inductor = project.components.filter((item) => item.libraryId === "passive.inductor");\n  const switches = project.components.filter((item) => item.libraryId === "input.spdt-switch");
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
   if (source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length >= 1) {
@@ -350,7 +350,7 @@ export function runSupportedAnalysis(project) {
     const divider = findVoltageDivider(project, source[0], resistor, ground[0]);
     if (divider) return analyseVoltageDivider(project, { source: source[0], ground: ground[0], validation, ...divider });
   }
-  if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRcStep(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
+  if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRcStep(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });\n  if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && switches.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 5) return analyseRcSwitchedResponse(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], switchPart: switches[0], ground: ground[0], validation });
   if (source.length === 1 && resistor.length === 1 && inductor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRlStep(project, { source: source[0], resistor: resistor[0], inductor: inductor[0], ground: ground[0], validation });
   if (source.length === 1 && resistor.length > 0 && resistor.length === project.components.length - source.length - ground.length && ground.length >= 1) {
     return analyseResistiveNetwork(project, { source: source[0], resistors: resistor, ground: ground[0], validation });
@@ -374,7 +374,7 @@ function analyseRlStep(project, { source, resistor, inductor, ground, validation
   const groundNet = netByEndpoint.get(endpoint(ground, "0"));
   if (!sourcePositive || sourcePositive !== resistorInput || !resistorOutput || resistorOutput !== inductorInput || !groundNet || groundNet !== inductorReturn || groundNet !== sourceNegative || sourcePositive === groundNet) return { state: "blocked", message: "The RL step model requires source positive → resistor → inductor → ground, with source negative on the same ground reference.", validation };
   const timeConstantS = inductance / resistance;
-  if (!Number.isFinite(timeConstantS) || timeConstantS > Number.MAX_VALUE / 5) return { state: "blocked", message: "The RL time constant is outside the numerically supported range; reduce the inductance or increase the resistance.", validation };
+  if (!Number.isFinite(timeConstantS) || timeConstantS <= 0 || timeConstantS > Number.MAX_VALUE / 5) return { state: "blocked", message: "The RL time constant is outside the numerically supported range; adjust the inductance or resistance.", validation };
   const samples = [0, 1, 3, 5].map((multiples) => {
     const timeS = multiples * timeConstantS;
     const currentA = (sourceVoltage / resistance) * (1 - Math.exp(-multiples));
@@ -400,7 +400,7 @@ function analyseRcStep(project, { source, resistor, capacitor, ground, validatio
   const groundNet = netByEndpoint.get(endpoint(ground, "0"));
   if (!sourcePositive || sourcePositive !== resistorInput || !resistorOutput || resistorOutput !== capacitorInput || !groundNet || groundNet !== capacitorReturn || groundNet !== sourceNegative || sourcePositive === groundNet) return { state: "blocked", message: "The RC step model requires source positive → resistor → capacitor → ground, with source negative on the same ground reference.", validation };
   const timeConstantS = resistance * capacitance;
-  if (!Number.isFinite(timeConstantS) || timeConstantS > Number.MAX_VALUE / 5) return { state: "blocked", message: "The RC time constant is outside the numerically supported range; reduce the resistance or capacitance.", validation };
+  if (!Number.isFinite(timeConstantS) || timeConstantS <= 0 || timeConstantS > Number.MAX_VALUE / 5) return { state: "blocked", message: "The RC time constant is outside the numerically supported range; reduce the resistance or capacitance.", validation };
   const samples = [0, 1, 3, 5].map((multiples) => {
     const timeS = multiples * timeConstantS;
     const capacitorVoltage = sourceVoltage * (1 - Math.exp(-multiples));
@@ -408,6 +408,38 @@ function analyseRcStep(project, { source, resistor, capacitor, ground, validatio
     return { timeS, capacitorVoltage, currentA, resistorPowerW: currentA ** 2 * resistance };
   });
   return { state: "complete", engine: "Analytical first-order RC step response", message: "Solved an ideal single-pole RC response to a DC step from zero initial capacitor voltage. Parasitics, source impedance, tolerances, nonlinear effects, and general SPICE are not included.", result: { kind: "rc-step-response", sourceVoltage, resistance, capacitance, timeConstantS, samples }, validation };
+}
+
+function analyseRcSwitchedResponse(project, { source, resistor, capacitor, switchPart, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const resistance = resistanceValue(resistor.value);
+  const capacitance = capacitanceValue(capacitor.value);
+  const mode = switchPart.value === "Charge (A)" ? "charge" : switchPart.value === "Discharge (B)" ? "discharge" : null;
+  if (![sourceVoltage, resistance, capacitance].every(Number.isFinite) || sourceVoltage <= 0 || resistance <= 0 || capacitance <= 0) return { state: "blocked", message: "The switched RC model requires positive numeric source voltage, resistance, and capacitance values.", validation };
+  if (!mode) return { state: "blocked", message: "Set the SPDT switch value to Charge (A) or Discharge (B).", validation };
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const sourcePositive = netByEndpoint.get(endpoint(source, "+"));
+  const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
+  const resistorInput = netByEndpoint.get(endpoint(resistor, "1"));
+  const resistorOutput = netByEndpoint.get(endpoint(resistor, "2"));
+  const capacitorInput = netByEndpoint.get(endpoint(capacitor, "1"));
+  const capacitorReturn = netByEndpoint.get(endpoint(capacitor, "2"));
+  const switchCommon = netByEndpoint.get(endpoint(switchPart, "COM"));
+  const switchCharge = netByEndpoint.get(endpoint(switchPart, "A"));
+  const switchDischarge = netByEndpoint.get(endpoint(switchPart, "B"));
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  if (!sourcePositive || sourcePositive === groundNet || sourceNegative !== groundNet || switchCharge !== sourcePositive || switchDischarge !== groundNet || switchCommon !== resistorInput || !resistorOutput || resistorOutput !== capacitorInput || capacitorReturn !== groundNet) return { state: "blocked", message: "The switched RC model requires source positive on switch A, ground on switch B and capacitor return, switch COM → resistor → capacitor, and source negative on ground.", validation };
+  const timeConstantS = resistance * capacitance;
+  if (!Number.isFinite(timeConstantS) || timeConstantS <= 0 || timeConstantS > Number.MAX_VALUE / 5) return { state: "blocked", message: "The RC time constant is outside the numerically supported range; adjust the resistance or capacitance.", validation };
+  const samples = [0, 1, 3, 5].map((multiples) => {
+    const timeS = multiples * timeConstantS;
+    const exponential = Math.exp(-multiples);
+    const capacitorVoltage = mode === "charge" ? sourceVoltage * (1 - exponential) : sourceVoltage * exponential;
+    const currentA = (sourceVoltage / resistance) * exponential;
+    return { timeS, capacitorVoltage, currentA, resistorPowerW: currentA ** 2 * resistance };
+  });
+  return { state: "complete", engine: "Analytical first-order switched RC response", message: "Solved an ideal first-order RC charge or discharge through the selected SPDT path. The discharge assumes the capacitor was previously charged to the source voltage. Parasitics, switch resistance, tolerances, nonlinear effects, and general SPICE are not included.", result: { kind: "rc-charge-discharge", mode, sourceVoltage, resistance, capacitance, timeConstantS, samples }, validation };
 }
 
 function analyseResistiveNetwork(project, { source, resistors, ground, validation }) {
