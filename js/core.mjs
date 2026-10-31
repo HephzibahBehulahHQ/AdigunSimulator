@@ -1052,8 +1052,8 @@ function analyseNpnRelayDriver(project,{sources,transistor,diode,resistors,coil,
   const groundNet=n(ground,"0"),collectorNet=n(transistor,"C"),baseNet=n(transistor,"B"),emitterNet=n(transistor,"E");
   const supply=sources.find(part=>n(part,"-")===groundNet&&n(part,"+")!==groundNet);
   const control=sources.find(part=>part!==supply&&n(part,"-")===groundNet&&n(part,"+")!==groundNet);
-  const coilResistance=resistors.find(r=>r!==resistors.find(x=>(n(x,"1")===n(control,"+")&&n(x,"2")===baseNet)||(n(x,"2")===n(control,"+")&&n(x,"1")===baseNet)));
-  const baseResistor=resistors.find(r=>r!==coilResistance);
+  const baseResistor=control?resistors.find(r=>(n(r,"1")===n(control,"+")&&n(r,"2")===baseNet)||(n(r,"2")===n(control,"+")&&n(r,"1")===baseNet)):undefined;
+  const coilResistance=supply?resistors.find(r=>r!==baseResistor&&((n(r,"1")===n(supply,"+")&&n(r,"2")!==n(supply,"+"))||(n(r,"2")===n(supply,"+")&&n(r,"1")!==n(supply,"+")))):undefined;
   const coilMid=coilResistance?([n(coilResistance,"1"),n(coilResistance,"2")].find(net=>net!==n(supply,"+"))):undefined;
   const baseResistorWired=baseResistor&&control&&((n(baseResistor,"1")===n(control,"+")&&n(baseResistor,"2")===baseNet)||(n(baseResistor,"2")===n(control,"+")&&n(baseResistor,"1")===baseNet));
   const coilResistanceWired=coilResistance&&supply&&((n(coilResistance,"1")===n(supply,"+")&&n(coilResistance,"2")===coilMid)||(n(coilResistance,"2")===n(supply,"+")&&n(coilResistance,"1")===coilMid));
