@@ -544,6 +544,28 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue NMOS low-side driver switches coil and clamps turn-off with a flyback diode",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/033-nmos-low-side-switch.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const on=runSupportedAnalysis(project);
+  assert.equal(on.state,"complete");
+  assert.equal(on.result.kind,"nmos-low-side-switch");
+  assert.equal(on.result.switchOn,true);
+  assert.ok(on.result.loadCurrentA>0.49);
+  assert.ok(on.result.drainSourceVoltageV<0.1);
+  assert.ok(on.result.coilStoredEnergyJ>0);
+  const off=runSupportedAnalysis(updateComponent(project,"gate-drive",{value:"0 V"}));
+  assert.equal(off.result.switchOn,false);
+  assert.equal(off.result.loadCurrentA,0);
+  assert.equal(off.result.drainSourceVoltageV,12);
+  assert.equal(off.result.flybackClampVoltageV,12.3);
+  assert.ok(off.result.turnOffDecay[0].currentA>off.result.turnOffDecay[1].currentA);
+  assert.ok(off.result.turnOffDecay[1].currentA>off.result.turnOffDecay[2].currentA);
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="VCC").endpoints=["supply:+","coil-r:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
 test("catalogue NPN emitter follower tracks a DC sweep one VBE below input",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/032-emitter-follower.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -1089,7 +1111,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 42);
+  assert.equal(getExampleCoverage(registry).total, 43);
   assert.equal(getExampleCoverage(registry).released, 32);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 168);
