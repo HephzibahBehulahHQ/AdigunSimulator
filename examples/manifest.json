@@ -3022,6 +3022,41 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "075-rs485-sensor-network",
+      "title": "Addressed RS-485 sensor network",
+      "status": "released",
+      "objective": "Poll a selected sensor node over an ideal half-duplex RS-485 bus and confirm other nodes remain silent without driver collisions.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue RS-485 polling returns only the addressed sensor and prevents collisions",
+      "testId": "core-rs485-addressed-poll",
+      "projectFile": "examples/075-rs485-sensor-network.adigun.json",
+      "safetyNote": "Deterministic logical model only. It is not a Modbus implementation and omits firmware, UART sampling, bias-network idle levels, transceiver enable delays, cable effects, and physical-layer faults.",
+      "scope": "catalogue",
+      "catalogueIndex": 75,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41180619051",
+        "headRevision": "ea691d9df3891223b58afa93a7a8409a32e981ae",
+        "engine": "Ideal addressed half-duplex RS-485 polling model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-rs485-addressed-poll-v1",
+        "expectedResult": {
+          "pollAddress": "0x02",
+          "respondingAddress": "0x02",
+          "temperatureC": 24.6,
+          "respondingNodes": 1,
+          "silentNodes": 1,
+          "simultaneousDrivers": 0,
+          "terminationResistorsOhm": [
+            120,
+            120
+          ],
+          "busTerminationOhm": 60,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
