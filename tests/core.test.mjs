@@ -1214,7 +1214,7 @@ test("LM2596 buck converter PCB validates topology, high-current layout review, 
   const review = reviewBuckPowerLayout(project);
   assert.equal(review.status, "passed");
   assert.ok(review.checks.every((item) => item.status === "pass"));
-  assert.match(review.disclaimer, /does not establish output regulation, ripple/);
+  assert.match(review.disclaimer, /do not establish output regulation, ripple/);
   assert.equal(validatePcbFabrication(project).status, "passed");
   const exported = exportPcbFabrication(project);
   assert.equal(exported.status, "passed");
