@@ -1710,14 +1710,54 @@
     {
       "id": "044-sr-latch-nor",
       "title": "Cross-coupled NOR SR latch",
-      "status": "in-review",
+      "status": "released",
       "objective": "Build a two-NOR active-high SR latch with Q/Q̅ LED indicators; verify set, reset, state retention in the hold condition, and rejection of simultaneous set and reset.",
       "acceptanceTest": "tests/core.test.mjs: catalogue NOR SR latch sets, resets, holds state, and blocks forbidden inputs",
       "testId": "core-sr-latch-nor",
       "projectFile": "examples/044-sr-latch-nor.adigun.json",
       "safetyNote": "Generic ideal static NOR latch. State retention is passed explicitly between analyses. It omits gate propagation delay, metastability, switch bounce, output loading beyond the LED resistor, and manufacturer-specific behavior.",
       "scope": "catalogue",
-      "catalogueIndex": 44
+      "catalogueIndex": 44,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41173369419",
+        "headRevision": "9f6cf42a51dff538efd9f0770f1b4a1e5c2e9c83",
+        "engine": "Cross-coupled NOR SR latch with memory",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-nor-sr-latch-v1",
+        "expectedResult": {
+          "set": {
+            "mode": "set",
+            "q": true,
+            "qBar": false,
+            "qVoltage": 5,
+            "qBarVoltage": 0,
+            "qLedCurrentA": 0.00909090909090909,
+            "qBarLedCurrentA": 0
+          },
+          "reset": {
+            "mode": "reset",
+            "q": false,
+            "qBar": true,
+            "qVoltage": 0,
+            "qBarVoltage": 5,
+            "qLedCurrentA": 0,
+            "qBarLedCurrentA": 0.00909090909090909
+          },
+          "holdAfterSet": {
+            "mode": "hold",
+            "q": true,
+            "qBar": false
+          },
+          "holdAfterReset": {
+            "mode": "hold",
+            "q": false,
+            "qBar": true
+          },
+          "simultaneousSetAndReset": "blocked"
+        }
+      }
     }
   ]
 }
