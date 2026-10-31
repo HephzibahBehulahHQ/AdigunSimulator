@@ -6008,6 +6008,18 @@
           "currentDecreasesWithResistance": true
         }
       }
+    },
+    {
+      "id": "150-monte-carlo-tolerance-plan",
+      "title": "Monte Carlo resistor tolerance plan",
+      "status": "in-review",
+      "objective": "Run a seeded distribution of LED current values using a stated ±5% resistor tolerance and report repeatable descriptive statistics and bins.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Monte Carlo tolerance study is seeded, reproducible, and bounded",
+      "testId": "core-monte-carlo-tolerance",
+      "projectFile": "examples/150-monte-carlo-tolerance-plan.adigun.json",
+      "readmeFile": "examples/150-monte-carlo-tolerance-plan/README.md",
+      "safetyNote": "This is a deterministic educational sampling of ideal DC LED current with a uniform resistor tolerance. It is not a statistical production-yield, thermal, aging, capacitor-tolerance or safety analysis.",
+      "scope": "catalogue"
     }
   ]
 }

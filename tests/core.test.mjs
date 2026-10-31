@@ -16,6 +16,7 @@ import { createPanelMountMechanicalReport, reviewPanelMountMechanicals } from ".
 import { createTestPointCoverageReport, reviewTestPointCoverage } from "../js/test-point-coverage.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 import { runParameterSweep } from "../js/parameter-sweep.mjs";
+import { runMonteCarloTolerance } from "../js/monte-carlo-tolerance.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1438,7 +1439,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 159);
+  assert.equal(getExampleCoverage(registry).total, 160);
   assert.equal(getExampleCoverage(registry).released, 149);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 51);
@@ -4043,4 +4044,18 @@ test("catalogue parameter sweep analyzes three resistor values and reports the e
   assert.equal(runParameterSweep(duplicate).state,"blocked");
   const tooFew=JSON.parse(JSON.stringify(project));tooFew.parameterSweep.values=[220,330];
   assert.equal(runParameterSweep(tooFew).state,"blocked");
+});
+
+test("catalogue Monte Carlo tolerance study is seeded, reproducible, and bounded", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/150-monte-carlo-tolerance-plan.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const first=runMonteCarloTolerance(project), repeat=runMonteCarloTolerance(project);
+  assert.equal(first.state,"complete");assert.deepEqual(first,repeat);
+  assert.equal(first.result.sampleCount,1000);assert.equal(first.result.seed,20261031);
+  assert.equal(first.result.histogram.reduce((sum,bin)=>sum+bin.count,0),1000);
+  assert.ok(first.result.minimum>=3/(330*1.05));assert.ok(first.result.maximum<=3/(330*0.95));
+  assert.ok(first.result.minimum<first.result.mean);assert.ok(first.result.mean<first.result.maximum);
+  const invalid=JSON.parse(JSON.stringify(project));invalid.monteCarloTolerance.seed=0;
+  assert.equal(runMonteCarloTolerance(invalid).state,"blocked");
 });
