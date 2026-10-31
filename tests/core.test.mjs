@@ -424,6 +424,37 @@ test("part ledger records authoritative candidate sources without counting candi
   assert.equal(coverage.remaining, 1000);
 });
 
+test("verified parts require valid checksums, aligned unique pin maps, reviewer, and dates", () => {
+  const record = {
+    id: "fixture.part",
+    manufacturer: "Fixture Manufacturer",
+    manufacturerPartNumber: "FIXTURE-2",
+    category: "Test",
+    type: "two-pin fixture",
+    lifecycle: "active",
+    verificationStatus: "verified",
+    package: "DIP-2",
+    symbolPinMap: { "1": "Anode", "2": "Cathode" },
+    footprintPadMap: { "1": "pad-1", "2": "pad-2" },
+    modelStatus: "not-modelled",
+    lastReviewedAt: "2026-10-31",
+    reviewedBy: "Fixture Reviewer",
+    datasheet: {
+      title: "Fixture datasheet",
+      url: "https://manufacturer.example/datasheet.pdf",
+      accessedAt: "2026-10-31",
+      sha256: "a".repeat(64)
+    }
+  };
+  assert.deepEqual(validatePartRecord(record), []);
+  assert.ok(validatePartRecord({ ...record, datasheet: { ...record.datasheet, sha256: "not-a-checksum" } }).some((issue) => issue.code === "DATASHEET_CHECKSUM"));
+  assert.ok(validatePartRecord({ ...record, footprintPadMap: { "1": "pad-1", "3": "pad-2" } }).some((issue) => issue.code === "PIN_MAP_ALIGNMENT"));
+  assert.ok(validatePartRecord({ ...record, footprintPadMap: { "1": "pad-1", "2": "pad-1" } }).some((issue) => issue.code === "PIN_MAP_ALIGNMENT"));
+  assert.ok(validatePartRecord({ ...record, lastReviewedAt: "2026-02-31" }).some((issue) => issue.code === "REVIEW_DATE"));
+  assert.ok(validatePartRecord({ ...record, reviewedBy: "TBD" }).some((issue) => issue.code === "REVIEWER_IDENTITY"));
+  assert.ok(validatePartRecord({ ...record, symbolPinMap: { "1": null, "2": "Cathode" } }).some((issue) => issue.code === "SYMBOL_PIN_MAP"));
+});
+
 test("a verified record cannot bypass checksum, mapping, model, and human-review evidence", () => {
   const errors = validatePartRecord({ id: "unsafe.example", manufacturer: "Example", manufacturerPartNumber: "X1", category: "Test", type: "test", lifecycle: "active", verificationStatus: "verified", datasheet: { title: "Source", url: "https://example.invalid", accessedAt: "2026-10-30" } });
   assert.ok(errors.some((error) => error.code === "DATASHEET_CHECKSUM"));
