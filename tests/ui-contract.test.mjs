@@ -34,6 +34,13 @@ test("breadboard click placement keeps the accessible manual hole-entry workflow
   assert.match(app, /requestAnimationFrame\(\(\) => \$\("#design-canvas \[data-breadboard-hole\]"\)\?\.focus\(\)\)/);
 });
 
+test("schematic connectivity resolves wires to named pin anchors", async () => {
+  const app = await readFile(appFile, "utf8");
+  assert.match(app, /schematicPinPoint\(component, part\.pins, pinParts\.join\(":"\)\)/);
+  assert.match(app, /class="schematic-pin-terminal/);
+  assert.doesNotMatch(app, /\.map\(\(component\) => componentCenter\(component, view\)\)/);
+});
+
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   const logo = await readFile(new URL("../assets/brand/hephzibah-behulah-official.jpg", import.meta.url));
