@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-014-passive-tone-control",
+  "metadata": {
+    "name": "Single-Pole Passive Treble Cut Control",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.ac-source",
+      "reference": "VAC1",
+      "value": "1 V",
+      "position": {
+        "breadboard": [
+          65,
+          80
+        ],
+        "schematic": [
+          65,
+          80
+        ],
+        "pcb": [
+          65,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "pot-1",
+      "libraryId": "passive.potentiometer",
+      "reference": "RP1",
+      "value": "Rmax 10 kΩ; position 50%",
+      "position": {
+        "breadboard": [
+          175,
+          80
+        ],
+        "schematic": [
+          175,
+          80
+        ],
+        "pcb": [
+          175,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "cap-1",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          285,
+          80
+        ],
+        "schematic": [
+          285,
+          80
+        ],
+        "pcb": [
+          285,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "load-1",
+      "libraryId": "passive.resistor",
+      "reference": "RLOAD",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          395,
+          80
+        ],
+        "schematic": [
+          395,
+          80
+        ],
+        "pcb": [
+          395,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          505,
+          80
+        ],
+        "schematic": [
+          505,
+          80
+        ],
+        "pcb": [
+          505,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "INPUT",
+      "endpoints": [
+        "source-1:+",
+        "pot-1:1"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "pot-1:2",
+        "cap-1:1",
+        "load-1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source-1:-",
+        "cap-1:2",
+        "load-1:2",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}
