@@ -4738,7 +4738,7 @@
     {
       "id": "115-ups-transfer",
       "title": "Battery-powered UPS",
-      "status": "in-review",
+      "status": "released",
       "objective": "Model mains-priority charging, ideal-diode transfer to a battery after mains loss, and whether the configured reserve can support the load for the requested hold-up window.",
       "acceptanceTest": "tests/core.test.mjs: catalogue UPS maintains output on mains loss within battery hold-up window",
       "testId": "core-ups-transfer",
@@ -4746,7 +4746,42 @@
       "readmeFile": "examples/115-ups-transfer/README.md",
       "safetyNote": "Ideal low-voltage energy estimator only. It is not a charger, battery-management, transfer-time, backup-runtime guarantee, mains wiring, or hardware safety qualification.",
       "scope": "catalogue",
-      "catalogueIndex": 115
+      "catalogueIndex": 115,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41191639289",
+        "headRevision": "b50edda9b45fced4404db3eabd2f915859c9161b",
+        "engine": "Bounded UPS source-transfer and hold-up estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-ups-mains-loss-hold-up-v1",
+        "expectedResult": {
+          "kind": "ups-transfer",
+          "mainsAvailable": true,
+          "sourceSelected": "mains",
+          "outputEnabled": true,
+          "outputVoltageV": 12,
+          "loadCurrentA": 0.5,
+          "loadPowerW": 6,
+          "batteryVoltageV": 12,
+          "batteryCapacityAh": 2,
+          "stateOfChargePercent": 80,
+          "minimumReservePercent": 20,
+          "loadResistanceOhm": 24,
+          "loadPowerDemandW": 6,
+          "availableBatteryEnergyWh": 14.4,
+          "estimatedHoldUpMin": 144,
+          "requiredHoldUpMin": 10,
+          "holdUpSatisfied": true,
+          "batteryChargeCurrentA": 0.4,
+          "batteryDischargeCurrentA": 0,
+          "batteryDischarged": false,
+          "chargerEfficiencyPercent": 90,
+          "idealDiodeForwardDropV": 0,
+          "transferInterruptionModeled": false,
+          "hardwareSafetyQualified": false
+        }
+      }
     }
   ]
 }
