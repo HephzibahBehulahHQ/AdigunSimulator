@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleFourLayerMcuPlan", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleFourLayerMcuPlan", "exampleUsbDifferentialPair", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -774,3 +774,7 @@ Object.assign(TRANSLATIONS.en, {exampleFourLayerMcuPlan:"Four-layer STM32 MCU bo
 Object.assign(TRANSLATIONS.de, {exampleFourLayerMcuPlan:"Vierlagiger STM32-MCU-Platinenplan"});
 Object.assign(TRANSLATIONS.yo, {exampleFourLayerMcuPlan:"Eto pátákì MCU STM32 pẹ̀lú fẹ́lẹ̀ mẹ́rin"});
 Object.assign(TRANSLATIONS.pcm, {exampleFourLayerMcuPlan:"Four-layer STM32 MCU board plan"});
+Object.assign(TRANSLATIONS.en, {exampleUsbDifferentialPair:"USB Full-Speed differential pair demo"});
+Object.assign(TRANSLATIONS.de, {exampleUsbDifferentialPair:"USB-Full-Speed-Differentialpaar-Demo"});
+Object.assign(TRANSLATIONS.yo, {exampleUsbDifferentialPair:"Àpẹẹrẹ USB Full-Speed differential pair"});
+Object.assign(TRANSLATIONS.pcm, {exampleUsbDifferentialPair:"USB Full-Speed differential pair demo"});
