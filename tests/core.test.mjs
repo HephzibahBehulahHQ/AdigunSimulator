@@ -544,6 +544,26 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue supercapacitor hold-up follows an exponential discharge curve", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/010-supercapacitor-hold-up.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "supercap-hold-up");
+  assert.equal(result.result.timeConstantS, 100);
+  assert.ok(Math.abs(result.result.holdUpTimeS - 100 * Math.log(4.7 / 3)) < 1e-12);
+  assert.equal(result.result.samples[0].voltage, 4.7);
+  assert.ok(Math.abs(result.result.samples[3].voltage - 3) < 1e-12);
+  assert.ok(result.result.samples[1].voltage > result.result.samples[2].voltage);
+  assert.equal(result.result.initialStoredEnergyJ, 0.5 * 4.7 ** 2);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "cap-1", { value: "C 1 F; Vstart 4.7 V; Vmin 3 V; Vmax 4 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "CAP_LOAD").endpoints = ["diode-1:K"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue solar garden light charges in daylight and lights at night", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/009-solar-garden-light.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -723,7 +743,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 22);
+  assert.equal(getExampleCoverage(registry).total, 23);
   assert.equal(getExampleCoverage(registry).released, 12);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 188);

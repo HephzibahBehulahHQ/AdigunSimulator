@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-010-supercapacitor-hold-up",
+  "metadata": {
+    "name": "5 V Supercapacitor Hold-Up Model",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          70,
+          80
+        ],
+        "schematic": [
+          70,
+          80
+        ],
+        "pcb": [
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "diode-1",
+      "libraryId": "diode.schottky",
+      "reference": "D1",
+      "value": "Vf 0.3 V",
+      "position": {
+        "breadboard": [
+          180,
+          80
+        ],
+        "schematic": [
+          180,
+          80
+        ],
+        "pcb": [
+          180,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "cap-1",
+      "libraryId": "passive.supercapacitor",
+      "reference": "C1",
+      "value": "C 1 F; Vstart 4.7 V; Vmin 3 V; Vmax 5 V",
+      "position": {
+        "breadboard": [
+          290,
+          80
+        ],
+        "schematic": [
+          290,
+          80
+        ],
+        "pcb": [
+          290,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "load-1",
+      "libraryId": "passive.resistor",
+      "reference": "RLOAD",
+      "value": "100 Ω",
+      "position": {
+        "breadboard": [
+          400,
+          80
+        ],
+        "schematic": [
+          400,
+          80
+        ],
+        "pcb": [
+          400,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          510,
+          80
+        ],
+        "schematic": [
+          510,
+          80
+        ],
+        "pcb": [
+          510,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "SUPPLY",
+      "endpoints": [
+        "source-1:+",
+        "diode-1:A"
+      ]
+    },
+    {
+      "id": "CAP_LOAD",
+      "endpoints": [
+        "diode-1:K",
+        "cap-1:+",
+        "load-1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source-1:-",
+        "cap-1:-",
+        "load-1:2",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}
