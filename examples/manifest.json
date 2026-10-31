@@ -64,6 +64,37 @@
       }
     },
     {
+      "id": "015-bridge-rectifier",
+      "title": "Full-wave bridge rectifier",
+      "status": "released",
+      "objective": "Generate a sampled 12 V RMS, 50 Hz bridge output across a resistive load, including two conducting diode drops; verify the output repeats at twice the input frequency and has no smoothing capacitor.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue bridge rectifier generates full-wave output at twice line frequency and blocks invalid frequency and wiring",
+      "testId": "core-bridge-rectifier",
+      "projectFile": "examples/015-bridge-rectifier.adigun.json",
+      "safetyNote": "Ideal low-voltage waveform model only. It has fixed diode drops and no transformer, smoothing capacitor, reverse recovery, source impedance, thermal, rating, mains safety, or hardware qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 15,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41155142214",
+        "headRevision": "7feefefa5b7f7bb3124392fde5c76607b3d8c23e",
+        "engine": "Analytical sampled full-wave bridge rectifier",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "bridge-rectifier-full-wave-v1",
+        "libraryLock": "adigun-simulator@bb808a0a93539d45b927382d33902916680b2662",
+        "expectedResult": {
+          "inputFrequencyHz": 50,
+          "rectifiedFrequencyHz": 100,
+          "rippleFrequencyHz": 100,
+          "inputRmsVoltage": 12,
+          "peakOutputVoltage": 15.57056274847714,
+          "diodeDropPerConductingDiode": 0.7,
+          "smoothingCapacitor": false
+        }
+      }
+    },
+    {
       "id": "002-dc-voltage-divider",
       "title": "Unloaded DC voltage divider",
       "status": "released",
@@ -761,16 +792,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "015-bridge-rectifier",
-      "title": "Full-wave bridge rectifier",
-      "status": "in-review",
-      "objective": "Generate a sampled 12 V RMS, 50 Hz bridge output across a resistive load, including two conducting diode drops; verify the output repeats at twice the input frequency and has no smoothing capacitor.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue bridge rectifier generates full-wave output at twice line frequency and blocks invalid frequency and wiring",
-      "testId": "core-bridge-rectifier",
-      "projectFile": "examples/015-bridge-rectifier.adigun.json",
-      "safetyNote": "Ideal low-voltage waveform model only. It has fixed diode drops and no transformer, smoothing capacitor, reverse recovery, source impedance, thermal, rating, mains safety, or hardware qualification."
     }
   ]
 }
