@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "id": "example-196-bot-floating-node-repair-preview",
+  "metadata": {
+    "name": "Example 196 — Adigun BOT Floating-Node Repair Preview",
+    "locale": "en",
+    "createdAt": "2026-10-30T00:00:00.000Z",
+    "updatedAt": "2026-10-30T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          60,
+          142
+        ],
+        "schematic": [
+          95,
+          128
+        ],
+        "pcb": [
+          92,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-top-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          250,
+          122
+        ],
+        "schematic": [
+          260,
+          112
+        ],
+        "pcb": [
+          244,
+          112
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-bottom-1",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "2 kΩ",
+      "position": {
+        "breadboard": [
+          425,
+          188
+        ],
+        "schematic": [
+          438,
+          188
+        ],
+        "pcb": [
+          418,
+          188
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          565,
+          222
+        ],
+        "schematic": [
+          564,
+          220
+        ],
+        "pcb": [
+          506,
+          222
+        ]
+      }
+    },
+    {
+      "instanceId": "capacitor-floating",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          530,
+          90
+        ],
+        "schematic": [
+          500,
+          80
+        ],
+        "pcb": [
+          490,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "resistor-top-1:1"
+      ]
+    },
+    {
+      "id": "VOUT",
+      "endpoints": [
+        "resistor-top-1:2",
+        "resistor-bottom-1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "resistor-bottom-1:2",
+        "source-1:-",
+        "ground-1:0",
+        "capacitor-floating:2"
+      ]
+    },
+    {
+      "id": "FLOATING",
+      "endpoints": [
+        "capacitor-floating:1"
+      ]
+    }
+  ],
+  "history": [],
+  "floatingNodeDiagnosis": {
+    "netId": "FLOATING",
+    "reference": "C1"
+  },
+  "botRepairPreview": {
+    "kind": "floating-node-bleed-preview",
+    "netId": "FLOATING",
+    "reference": "C1"
+  }
+}
