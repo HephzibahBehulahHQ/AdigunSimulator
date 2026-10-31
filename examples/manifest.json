@@ -6038,6 +6038,18 @@
           "histogramBinCount": 10
         }
       }
+    },
+    {
+      "id": "151-thermal-warning-boundary",
+      "title": "Thermal warning boundary",
+      "status": "in-review",
+      "objective": "Calculate electrical power in a loaded voltage-divider resistor and show a rating warning while stating plainly that junction or body temperature and thermal certification are not modeled.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue thermal boundary reports dissipation without claiming a thermal model",
+      "testId": "core-thermal-warning-boundary",
+      "projectFile": "examples/151-thermal-warning-boundary.adigun.json",
+      "readmeFile": "examples/151-thermal-warning-boundary/README.md",
+      "safetyNote": "Electrical dissipation is an ideal calculation. No temperature, heatsink, enclosure, ambient derating, thermal runaway, reliability, or safety certification is provided; verify the exact component datasheet and real operating conditions.",
+      "scope": "catalogue"
     }
   ]
 }

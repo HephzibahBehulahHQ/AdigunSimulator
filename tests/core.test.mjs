@@ -17,6 +17,7 @@ import { createTestPointCoverageReport, reviewTestPointCoverage } from "../js/te
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 import { runParameterSweep } from "../js/parameter-sweep.mjs";
 import { runMonteCarloTolerance } from "../js/monte-carlo-tolerance.mjs";
+import { analyzeThermalWarningBoundary } from "../js/thermal-warning-boundary.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1439,7 +1440,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 160);
+  assert.equal(getExampleCoverage(registry).total, 161);
   assert.equal(getExampleCoverage(registry).released, 150);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 50);
@@ -4058,4 +4059,21 @@ test("catalogue Monte Carlo tolerance study is seeded, reproducible, and bounded
   assert.ok(first.result.minimum<first.result.mean);assert.ok(first.result.mean<first.result.maximum);
   const invalid=JSON.parse(JSON.stringify(project));invalid.monteCarloTolerance.seed=0;
   assert.equal(runMonteCarloTolerance(invalid).state,"blocked");
+});
+
+test("catalogue thermal boundary reports dissipation without claiming a thermal model", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/151-thermal-warning-boundary.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const result=analyzeThermalWarningBoundary(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"thermal-warning-boundary");
+  assert.ok(Math.abs(result.result.resistorDissipationW-1.190082644628099)<1e-12);
+  assert.equal(result.result.ratingConcern,true);
+  assert.equal(result.result.thermalModel,"not-modeled");
+  assert.equal(result.result.temperatureRiseC,null);
+  assert.ok(result.warnings.some(warning=>warning.code==="THERMAL_MODEL_NOT_MODELED"));
+  assert.ok(result.warnings.some(warning=>warning.code==="POWER_RATING_EXCEEDED"));
+  const invalid=JSON.parse(JSON.stringify(project));invalid.thermalBoundary.ratedPowerW=0;
+  assert.equal(analyzeThermalWarningBoundary(invalid).state,"blocked");
 });
