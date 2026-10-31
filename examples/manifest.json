@@ -2659,6 +2659,18 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "065-arduino-ultrasonic-ranger",
+      "title": "Uno-class ultrasonic ranger and OLED result",
+      "status": "in-review",
+      "objective": "Convert supplied round-trip echo times into distances using 343 m/s sound speed and display valid in-range results or an out-of-range status.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue ultrasonic ranger converts echo time and reports measurement boundaries",
+      "testId": "core-arduino-ultrasonic-ranger",
+      "projectFile": "examples/065-arduino-ultrasonic-ranger.adigun.json",
+      "safetyNote": "Ideal time-of-flight arithmetic and text sink; no Arduino C++ execution, trigger waveform, transducer physics, sound-speed temperature correction, reflections, or physical display behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 65
     }
   ]
 }
