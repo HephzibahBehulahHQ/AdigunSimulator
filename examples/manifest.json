@@ -5322,6 +5322,18 @@
           "hardwareManufacturingQualified": false
         }
       }
+    },
+    {
+      "id": "129-buck-converter-pcb",
+      "title": "12 V to 5 V buck converter PCB",
+      "status": "in-review",
+      "objective": "Check an LM2596 fixed-output buck topology with catch diode, inductor, input/output capacitors, feedback sense, high-current net classes, bounded DRC, BOM and placement exports.",
+      "acceptanceTest": "tests/core.test.mjs: LM2596 buck converter verifies topology, layout review, DRC and export snapshots",
+      "testId": "core-buck-converter-pcb",
+      "projectFile": "examples/129-buck-converter-pcb.adigun.json",
+      "readmeFile": "examples/129-buck-converter-pcb/README.md",
+      "safetyNote": "Educational 12 V to 5 V single-layer template with a declared 1 A layout-review envelope only. Switching behavior, ripple, efficiency, current limit, inductor saturation, thermal performance, EMC and manufacturing safety are not simulated or qualified. Verify the purchased parts and layout before fabrication.",
+      "scope": "catalogue"
     }
   ]
 }
