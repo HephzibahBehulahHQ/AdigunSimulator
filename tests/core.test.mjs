@@ -2871,3 +2871,24 @@ test("catalogue three-cell BMS flags voltage faults and balance requests without
   broken.nets.find(net=>net.id==="CELL2").endpoints=["fixture:C2"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue solar MPP sweep finds maximum sample and scales current with irradiance", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/106-solar-mppt-concept.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"solar-mpp-sweep");
+  assert.equal(result.result.sampleCount,21);
+  assert.equal(result.result.maximumPowerPoint.voltageV,8);
+  assert.equal(result.result.maximumPowerPoint.currentA,0.9);
+  assert.equal(result.result.maximumPowerPoint.powerW,7.2);
+  assert.equal(result.result.trackingAlgorithmModeled,false);
+  const lowLight=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Voc 10 V; Isc 1 A; Vmp 8 V; Imp 0.9 A; Irradiance 30%; Mode piecewise-linear"}));
+  assert.equal(lowLight.state,"complete");
+  assert.equal(lowLight.result.maximumPowerPoint.currentA,0.27);
+  assert.equal(lowLight.result.maximumPowerPoint.powerW,2.16);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Voc 10 V; Isc 1 A; Vmp 10 V; Imp 0.9 A; Irradiance 100%; Mode piecewise-linear"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"controller",{value:"Mode sweep; Samples 2; Efficiency 95%; MaxVoc 24 V; MaxCurrent 5 A"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="PV_POS").endpoints=["fixture:PV+"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
