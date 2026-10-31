@@ -15,6 +15,7 @@ import { createBgaEscapeReport, reviewBgaEscapeConcept } from "../js/bga-escape-
 import { createPanelMountMechanicalReport, reviewPanelMountMechanicals } from "../js/panel-mount-mechanical-review.mjs";
 import { createTestPointCoverageReport, reviewTestPointCoverage } from "../js/test-point-coverage.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
+import { runParameterSweep } from "../js/parameter-sweep.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1437,7 +1438,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 158);
+  assert.equal(getExampleCoverage(registry).total, 159);
   assert.equal(getExampleCoverage(registry).released, 148);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 52);
@@ -4022,4 +4023,24 @@ test("catalogue RLC pulse response shows ringing and warns when timestep undersa
   assert.ok(warned.warnings.some(warning=>warning.code==="TIMESTEP_RESOLUTION"));
   const broken=JSON.parse(JSON.stringify(project));broken.nets.find(net=>net.id==="L_C").endpoints=broken.nets.find(net=>net.id==="L_C").endpoints.filter(endpoint=>endpoint!=="capacitor-1:1");
   assert.equal(analyzeRlcStep(broken).state,"blocked");
+});
+
+test("catalogue parameter sweep analyzes three resistor values and reports the expected current trend", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/149-parameter-sweep.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const result=runParameterSweep(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"parameter-sweep");
+  assert.equal(result.result.sampleCount,3);
+  assert.deepEqual(result.result.points.map(point=>point.resistanceOhms),[220,330,470]);
+  assert.ok(Math.abs(result.result.points[0].currentA-(3/220))<1e-12);
+  assert.ok(Math.abs(result.result.points[1].currentA-(3/330))<1e-12);
+  assert.ok(Math.abs(result.result.points[2].currentA-(3/470))<1e-12);
+  assert.ok(result.result.points[0].currentA>result.result.points[1].currentA);
+  assert.ok(result.result.points[1].currentA>result.result.points[2].currentA);
+  const duplicate=JSON.parse(JSON.stringify(project));duplicate.parameterSweep.values=[220,330,330];
+  assert.equal(runParameterSweep(duplicate).state,"blocked");
+  const tooFew=JSON.parse(JSON.stringify(project));tooFew.parameterSweep.values=[220,330];
+  assert.equal(runParameterSweep(tooFew).state,"blocked");
 });

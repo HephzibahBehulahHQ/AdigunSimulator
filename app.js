@@ -27,6 +27,7 @@ import { captureLogicAnalyzer } from "./js/logic-analyzer-capture.mjs";
 import { measureFrequency } from "./js/frequency-counter.mjs";
 import { analyzeRcBode } from "./js/rc-bode-analysis.mjs";
 import { analyzeRlcStep } from "./js/rlc-transient.mjs";
+import { runParameterSweep } from "./js/parameter-sweep.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -244,7 +245,11 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "rlc-step-response") {
+  if (result.kind === "parameter-sweep") {
+    const points=result.points, max=Math.max(...points.map(point=>point.currentA),1e-12), path=points.map((point,index)=>{const x=32+(416*index)/(points.length-1),y=94-(point.currentA/max)*68;return (index?"L ":"M ")+x.toFixed(1)+" "+y.toFixed(1);}).join(" ");
+    waveform=`<figure class="result-waveform"><figcaption>LED current vs. ${escape(result.parameterReference)} resistance · ${points.length} tested values</figcaption><svg viewBox="0 0 480 118" role="img" aria-label="LED current decreases as series resistance increases"><path class="wave-axis" d="M28 18 V98 H458"></path><path class="wave-trace" d="${path}"></path><text x="30" y="114">${points[0].resistanceOhms} Ω</text><text x="400" y="114">${points.at(-1).resistanceOhms} Ω</text></svg></figure>`;
+    for(const point of points)metrics.push(`<div class="result-metric"><span>${point.resistanceOhms} Ω</span><strong>${(point.currentA*1000).toFixed(3)} mA</strong></div>`);
+  } else if (result.kind === "rlc-step-response") {
     const samples=result.samples, max=Math.max(...samples.map(point=>point.capacitorVoltageV),result.sourceVoltage), path=samples.map((point,index)=>{const x=24+(432*index)/(samples.length-1),y=86-(point.capacitorVoltageV/max)*62;return (index?"L ":"M ")+x.toFixed(1)+" "+y.toFixed(1);}).join(" ");
     waveform=`<figure class="result-waveform"><figcaption>Series RLC pulse response · ${result.regime} · ${result.dampedFrequencyHz.toFixed(2)} Hz</figcaption><svg viewBox="0 0 480 108" role="img" aria-label="RLC capacitor voltage transient showing damping and ringing"><path class="wave-axis" d="M20 86 H468 M24 16 V90"></path><path class="wave-trace" d="${path}"></path><text x="24" y="104">0 s</text><text x="405" y="104">${result.durationS.toPrecision(3)} s</text></svg></figure>`;
   } else if (result.kind === "rc-bode-plot") {
@@ -454,7 +459,7 @@ function validateAndReport() {
 
 function runAnalysis() {
   validateAndReport();
-  const result = state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
+  const result = state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
   state.lastAnalysis = result;
   if (result.state === "complete") {
     const { kind } = result.result;
@@ -467,6 +472,7 @@ function runAnalysis() {
     if(kind==="frequency-counter")log(`[COUNTER] ${result.result.measuredFrequencyHz.toFixed(6)} ${result.result.unit}; period ${result.result.measuredPeriodMs.toFixed(6)} ms over ${result.result.cyclesMeasured} cycles.`);
     if(kind==="rc-bode-plot")log(`[BODE] Cutoff ${result.result.cutoffHz.toFixed(3)} Hz; at cutoff ${result.result.cutoffMagnitudeDb.toFixed(3)} dB and ${result.result.cutoffPhaseDeg.toFixed(2)} deg.`);
     if(kind==="rlc-step-response"){log(`[TRANSIENT] ${result.result.regime} RLC response; peak ${result.result.peakVoltageV.toFixed(3)} V; ${result.warnings.length} timestep warning(s).`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
+    if(kind==="parameter-sweep"){log(`[SWEEP] ${result.result.sampleCount} resistance points for ${result.result.parameterReference}; current falls from ${(result.result.points[0].currentA*1000).toFixed(3)} mA to ${(result.result.points.at(-1).currentA*1000).toFixed(3)} mA.`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
     if (kind === "led-current-limiter") {
       const { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn } = result.result;
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Ω`);

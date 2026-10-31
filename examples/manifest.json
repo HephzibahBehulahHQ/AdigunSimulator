@@ -5972,6 +5972,18 @@
           "coarseTimestepWarningCode": "TIMESTEP_RESOLUTION"
         }
       }
+    },
+    {
+      "id": "149-parameter-sweep",
+      "title": "LED current parameter sweep",
+      "status": "in-review",
+      "objective": "Compare LED current and resistor dissipation at three explicit series-resistor values by rerunning the supported analytical circuit model for each trial.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue parameter sweep analyzes 220 Ω, 330 Ω and 470 Ω trials and verifies current values and direction",
+      "testId": "core-parameter-sweep",
+      "projectFile": "examples/149-parameter-sweep.adigun.json",
+      "readmeFile": "examples/149-parameter-sweep/README.md",
+      "safetyNote": "An ideal DC model is used. Component tolerance, temperature, transient effects and manufacturer operating limits are not modeled.",
+      "scope": "catalogue"
     }
   ]
 }
