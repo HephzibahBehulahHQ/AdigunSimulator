@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-058-i2c-sensor-read",
+  "metadata": {
+    "name": "I²C Temperature Sensor Register Read",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          42,
+          56
+        ],
+        "schematic": [
+          42,
+          56
+        ],
+        "pcb": [
+          42,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "transaction",
+      "libraryId": "input.i2c-read-transaction",
+      "reference": "BUS1",
+      "value": "Address 0x48; Register 0x00; Baud 100000; ACK yes",
+      "position": {
+        "breadboard": [
+          132,
+          56
+        ],
+        "schematic": [
+          132,
+          56
+        ],
+        "pcb": [
+          132,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "sensor",
+      "libraryId": "active.i2c-sensor-ideal",
+      "reference": "U1",
+      "value": "Address 0x48; Register 0x00=0x2A",
+      "position": {
+        "breadboard": [
+          230,
+          56
+        ],
+        "schematic": [
+          230,
+          56
+        ],
+        "pcb": [
+          230,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "pullup-sda",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          330,
+          56
+        ],
+        "schematic": [
+          330,
+          56
+        ],
+        "pcb": [
+          330,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "pullup-scl",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          420,
+          56
+        ],
+        "schematic": [
+          420,
+          56
+        ],
+        "pcb": [
+          420,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          520,
+          56
+        ],
+        "schematic": [
+          520,
+          56
+        ],
+        "pcb": [
+          520,
+          56
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "sensor:VCC",
+        "pullup-sda:1",
+        "pullup-scl:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "transaction:GND",
+        "sensor:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "SDA",
+      "endpoints": [
+        "transaction:SDA",
+        "sensor:SDA",
+        "pullup-sda:2"
+      ]
+    },
+    {
+      "id": "SCL",
+      "endpoints": [
+        "transaction:SCL",
+        "sensor:SCL",
+        "pullup-scl:2"
+      ]
+    }
+  ],
+  "history": []
+}
