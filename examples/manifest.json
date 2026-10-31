@@ -2631,14 +2631,34 @@
     {
       "id": "064-arduino-temperature-monitor",
       "title": "Uno-class temperature monitor with LCD output",
-      "status": "in-review",
+      "status": "released",
       "objective": "Convert three in-range linear analog temperature sensor samples through a 10-bit ADC and format the measured temperature for a one-line LCD output.",
       "acceptanceTest": "tests/core.test.mjs: catalogue Arduino temperature monitor converts sensor samples for an LCD result",
       "testId": "core-arduino-temperature-monitor",
       "projectFile": "examples/064-arduino-temperature-monitor.adigun.json",
       "safetyNote": "Ideal linear sensor, ADC quantization, and LCD text-sink model only; firmware, sensor self-heating, analog noise, display bus timing, and physical sensor accuracy are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 64
+      "catalogueIndex": 64,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41177077186",
+        "headRevision": "821a3b4a1f0e4b6d14ca82f565caf5b39227dc23",
+        "engine": "Ideal Uno-class linear temperature monitor",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-uno-temperature-monitor-v1",
+        "expectedResult": {
+          "sensorSamplesC": [
+            0,
+            25,
+            100
+          ],
+          "adcResolutionBits": 10,
+          "displayToleranceC": 0.5,
+          "displayOutput": "one-line °C text",
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
