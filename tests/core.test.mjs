@@ -57,6 +57,7 @@ import { convertEngineeringUnit, runUnitConversionCalculator } from "../js/unit-
 import { readResistorBands, runResistorColorCodeReader } from "../js/resistor-color-code.mjs";
 import { calculateLedSeriesResistor, runLedResistorCalculator } from "../js/led-resistor-calculator.mjs";
 import { calculateVoltageDivider, runVoltageDividerCalculator } from "../js/voltage-divider-calculator.mjs";
+import { calculateRcTiming, runRcTimingCalculator } from "../js/rc-timing-calculator.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1489,7 +1490,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 200);
+  assert.equal(getExampleCoverage(registry).total, 201);
   assert.equal(getExampleCoverage(registry).released, 190);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 10);
@@ -4567,4 +4568,14 @@ test("catalogue voltage-divider calculator reports unloaded ratio and load-shift
   assert.equal(calculateVoltageDivider({inputVoltageV:12,resistanceTopOhms:0,resistanceBottomOhms:10000}).ok,false);
   assert.equal(calculateVoltageDivider({inputVoltageV:12,resistanceTopOhms:10000,resistanceBottomOhms:10000,loadResistanceOhms:0}).ok,false);
   const invalid=structuredClone(project);invalid.voltageDividerCalculator.cases[0].inputVoltageV=0;assert.equal(runVoltageDividerCalculator(invalid).state,"blocked");
+});
+test("catalogue RC timing calculator handles decimal resistance and capacitance prefixes", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/191-rc-timing-calculator.adigun.json",import.meta.url)));
+  const result=runRcTimingCalculator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"rc-timing-cases");
+  const [a,b,c]=result.result.results;assert.ok(Math.abs(a.timeConstantSeconds-0.001)<1e-12);assert.ok(Math.abs(a.cutoffFrequencyHz-159.1549430919)<1e-8);
+  assert.ok(Math.abs(b.timeConstantSeconds-0.047)<1e-12);assert.ok(Math.abs(b.cutoffFrequencyHz-3.3862753849)<1e-8);
+  assert.ok(Math.abs(c.timeConstantSeconds-2.2e-6)<1e-15);assert.ok(Math.abs(c.cutoffFrequencyHz-72343.1559509)<1e-5);
+  assert.equal(calculateRcTiming({resistanceValue:0,resistanceUnit:"kΩ",capacitanceValue:1,capacitanceUnit:"µF"}).ok,false);
+  assert.equal(calculateRcTiming({resistanceValue:1,resistanceUnit:"kΩ",capacitanceValue:1,capacitanceUnit:"mΩ"}).ok,false);
+  const invalid=structuredClone(project);invalid.rcTimingCalculator.cases[0].capacitanceValue=-1;assert.equal(runRcTimingCalculator(invalid).state,"blocked");
 });
