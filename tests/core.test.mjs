@@ -544,6 +544,25 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue Schmitt trigger has distinct thresholds and retains state inside the hysteresis band",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/028-schmitt-trigger.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const below=runSupportedAnalysis(project);
+  assert.equal(below.state,"complete");
+  assert.equal(below.result.kind,"schmitt-trigger");
+  assert.equal(below.result.fallingThresholdV,2.5);
+  assert.equal(below.result.risingThresholdV,3);
+  assert.equal(below.result.hysteresisV,0.5);
+  assert.equal(below.result.outputState,"low");
+  const above=runSupportedAnalysis(updateComponent(project,"signal",{value:"3.1 V"}));
+  assert.equal(above.result.outputState,"high");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"2.7 V"}),{previousState:"low"}).result.outputState,"low");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"2.7 V"}),{previousState:"high"}).result.outputState,"high");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUT").endpoints=["schmitt:OUT","rled:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
 test("catalogue comparator threshold switches on rising input and off below threshold",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/027-comparator-threshold.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -1004,7 +1023,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 37);
+  assert.equal(getExampleCoverage(registry).total, 38);
   assert.equal(getExampleCoverage(registry).released, 27);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 173);

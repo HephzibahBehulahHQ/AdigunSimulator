@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-028-schmitt-trigger",
+  "metadata": {
+    "name": "Schmitt Trigger Hysteresis",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "signal",
+      "libraryId": "power.dc-source",
+      "reference": "VIN",
+      "value": "2.4 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "reference",
+      "libraryId": "power.dc-source",
+      "reference": "VREF",
+      "value": "2.5 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "schmitt",
+      "libraryId": "active.schmitt-trigger-ideal",
+      "reference": "U1",
+      "value": "Ideal Schmitt trigger",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rin",
+      "libraryId": "passive.resistor",
+      "reference": "RIN",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "feedback",
+      "libraryId": "passive.resistor",
+      "reference": "RF",
+      "value": "100 kΩ",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "groundleg",
+      "libraryId": "passive.resistor",
+      "reference": "RG",
+      "value": "100 kΩ",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "rled",
+      "libraryId": "passive.resistor",
+      "reference": "RLED",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          270,
+          130
+        ],
+        "schematic": [
+          270,
+          130
+        ],
+        "pcb": [
+          270,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          385,
+          130
+        ],
+        "schematic": [
+          385,
+          130
+        ],
+        "pcb": [
+          385,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          500,
+          130
+        ],
+        "schematic": [
+          500,
+          130
+        ],
+        "pcb": [
+          500,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "schmitt:VCC"
+      ]
+    },
+    {
+      "id": "INPUT",
+      "endpoints": [
+        "signal:+",
+        "rin:1"
+      ]
+    },
+    {
+      "id": "SENSE_PLUS",
+      "endpoints": [
+        "rin:2",
+        "feedback:1",
+        "groundleg:1",
+        "schmitt:IN+"
+      ]
+    },
+    {
+      "id": "REFERENCE",
+      "endpoints": [
+        "reference:+",
+        "schmitt:IN-"
+      ]
+    },
+    {
+      "id": "OUT",
+      "endpoints": [
+        "schmitt:OUT",
+        "feedback:2",
+        "rled:1"
+      ]
+    },
+    {
+      "id": "LED",
+      "endpoints": [
+        "rled:2",
+        "led:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "signal:-",
+        "reference:-",
+        "schmitt:GND",
+        "groundleg:2",
+        "led:K",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": []
+}

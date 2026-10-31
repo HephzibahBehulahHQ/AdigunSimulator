@@ -31,6 +31,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge/ideal-latching-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.comparator-ideal", category: "Active", type: "Ideal low-battery comparator model", prefix: "U", pins: ["VCC", "GND", "SENSE", "OUT"], defaultValue: "Vref 3.75 V", simulation: "analytical-battery-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.comparator-dual-ideal", category: "Active", type: "Ideal dual-input comparator with indicator", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal comparator", simulation: "analytical-comparator-threshold", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.schmitt-trigger-ideal", category: "Active", type: "Ideal Schmitt trigger with positive feedback", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal Schmitt trigger", simulation: "analytical-schmitt-trigger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -366,12 +367,13 @@ function engineeringValue(value, expectedUnit) {
   return Number.isFinite(parsed) ? parsed : Number.NaN;
 }
 
-export function runSupportedAnalysis(project) {
+export function runSupportedAnalysis(project, { previousState } = {}) {
   const validation = validateProject(project);
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
   const dualComparators = project.components.filter((item) => item.libraryId === "active.comparator-dual-ideal");
+  const schmittTriggers = project.components.filter((item) => item.libraryId === "active.schmitt-trigger-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -422,6 +424,9 @@ export function runSupportedAnalysis(project) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (schmittTriggers.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 1 && ground.length === 1 && project.components.length === 10) {
+    return analyseSchmittTrigger(project, { sources: source, comparator: schmittTriggers[0], resistors: resistor, led: led[0], ground: ground[0], previousState, validation });
   }
   if (dualComparators.length === 1 && source.length === 2 && resistor.length === 3 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseComparatorThreshold(project, { sources: source, comparator: dualComparators[0], resistors: resistor, led: led[0], ground: ground[0], validation });
@@ -1029,6 +1034,41 @@ function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground
     result: { kind: "supercap-hold-up", sourceVoltage, diodeVf, chargeVoltage: sourceVoltage - diodeVf, capacitance, initialVoltage, minimumVoltage, ratedVoltage, loadResistance, timeConstantS, holdUpTimeS, initialCurrentA, initialLoadPowerW, initialStoredEnergyJ, samples },
     validation
   };
+}
+
+function analyseSchmittTrigger(project,{sources,comparator,resistors,led,ground,previousState,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),outputNet=n(comparator,"OUT"),senseNet=n(comparator,"IN+"),referenceNet=n(comparator,"IN-");
+  const supply=sources.find(part=>n(part,"-")===groundNet&&n(part,"+")===n(comparator,"VCC"));
+  const reference=sources.find(part=>part!==supply&&n(part,"-")===groundNet&&n(part,"+")===referenceNet);
+  const signal=sources.find(part=>part!==supply&&part!==reference&&n(part,"-")===groundNet);
+  if(!supply||!reference||!signal||n(comparator,"GND")!==groundNet||n(led,"K")!==groundNet){
+    return {state:"blocked",message:"Connect the Schmitt trigger supply, input, fixed reference, and LED return to their required nets.",validation};
+  }
+  const signalNet=n(signal,"+");
+  const inputResistor=resistors.find(part=>(n(part,"1")===signalNet&&n(part,"2")===senseNet)||(n(part,"2")===signalNet&&n(part,"1")===senseNet));
+  const feedbackResistor=resistors.find(part=>part!==inputResistor&&((n(part,"1")===outputNet&&n(part,"2")===senseNet)||(n(part,"2")===outputNet&&n(part,"1")===senseNet)));
+  const groundResistor=resistors.find(part=>part!==inputResistor&&part!==feedbackResistor&&((n(part,"1")===senseNet&&n(part,"2")===groundNet)||(n(part,"2")===senseNet&&n(part,"1")===groundNet)));
+  const ledResistor=resistors.find(part=>part!==inputResistor&&part!==feedbackResistor&&part!==groundResistor&&((n(part,"1")===outputNet&&n(part,"2")===n(led,"A"))||(n(part,"2")===outputNet&&n(part,"1")===n(led,"A"))));
+  const rin=inputResistor?resistanceValue(inputResistor.value):Number.NaN,rf=feedbackResistor?resistanceValue(feedbackResistor.value):Number.NaN,rg=groundResistor?resistanceValue(groundResistor.value):Number.NaN,rled=ledResistor?resistanceValue(ledResistor.value):Number.NaN;
+  const supplyVoltage=voltageValue(supply.value),inputVoltage=voltageValue(signal.value),referenceVoltage=voltageValue(reference.value),vf=forwardVoltage(led.value);
+  if(!inputResistor||!feedbackResistor||!groundResistor||!ledResistor||![rin,rf,rg,rled,supplyVoltage,inputVoltage,referenceVoltage,vf].every(Number.isFinite)||[rin,rf,rg,rled].some(value=>value<=0)||supplyVoltage<=0||inputVoltage<0||inputVoltage>supplyVoltage||referenceVoltage<=0||referenceVoltage>=supplyVoltage||vf<=0){
+    return {state:"blocked",message:"The Schmitt circuit needs positive resistors and valid input, reference, supply, and LED values.",validation};
+  }
+  const gIn=1/rin,gFeedback=1/rf,gGround=1/rg,sum=gIn+gFeedback+gGround;
+  const risingThresholdV=(referenceVoltage*sum)/gIn,fallingThresholdV=(referenceVoltage*sum-supplyVoltage*gFeedback)/gIn;
+  if(!(fallingThresholdV>0&&risingThresholdV>fallingThresholdV&&risingThresholdV<supplyVoltage)){
+    return {state:"blocked",message:"The selected feedback network does not produce two valid thresholds inside the supply range.",validation};
+  }
+  let outputHigh=null;
+  if(inputVoltage>=risingThresholdV)outputHigh=true;
+  else if(inputVoltage<=fallingThresholdV)outputHigh=false;
+  else if(previousState==="high")outputHigh=true;
+  else if(previousState==="low")outputHigh=false;
+  const ledOn=outputHigh===true,ledCurrentA=ledOn?Math.max(0,(supplyVoltage-vf)/rled):0;
+  return {state:"complete",engine:"Ideal Schmitt-trigger hysteresis estimate",message:"Calculates rising and falling thresholds from the input, positive-feedback, and ground resistors. Within the hysteresis band, previousState is required to determine the retained output. It omits delay, analog saturation, noise, offset, and device-specific behavior.",result:{kind:"schmitt-trigger",supplyVoltage,inputVoltage,referenceVoltage,risingThresholdV,fallingThresholdV,hysteresisV:risingThresholdV-fallingThresholdV,outputHigh,outputState:outputHigh===null?"memory-dependent":outputHigh?"high":"low",ledOn,ledCurrentA},validation};
 }
 
 function analyseComparatorThreshold(project,{sources,comparator,resistors,led,ground,validation}){
