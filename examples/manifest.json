@@ -2337,14 +2337,34 @@
     {
       "id": "055-alu-add-subtract",
       "title": "Four-bit ALU add/subtract",
-      "status": "in-review",
+      "status": "released",
       "objective": "Compute unsigned four-bit addition or two's-complement subtraction, display the result and carry/no-borrow flag, and test all 512 operand/operation combinations.",
       "acceptanceTest": "tests/core.test.mjs: catalogue four-bit ALU matches exhaustive unsigned add/subtract vectors",
       "testId": "core-alu-add-subtract",
       "projectFile": "examples/055-alu-add-subtract.adigun.json",
       "safetyNote": "Generic ideal combinational arithmetic model. Signed overflow, propagation delay, logic hazards, real gates, and device-specific electrical limits are not modeled.",
       "scope": "catalogue",
-      "catalogueIndex": 55
+      "catalogueIndex": 55,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41175277951",
+        "headRevision": "b1308918ce21a9e7f91ae7010fd9e80b59ccb051",
+        "engine": "Ideal four-bit combinational add/subtract ALU",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-four-bit-alu-add-subtract-v1",
+        "expectedResult": {
+          "operandBits": 4,
+          "operationModes": [
+            "add",
+            "subtract"
+          ],
+          "exhaustiveVectors": 512,
+          "carryInAdd": "unsigned carry out",
+          "carryInSubtract": "no-borrow indicator",
+          "signedOverflow": "not modeled"
+        }
+      }
     }
   ]
 }
