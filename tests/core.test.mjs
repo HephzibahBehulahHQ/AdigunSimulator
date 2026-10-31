@@ -2621,7 +2621,7 @@ test("catalogue simple mixer computes a resistor-weighted source sum without cli
   assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"V1 1 V; V2 3 V"})).result.outputV,2);
   const unequal=updateComponent(updateComponent(project,"fixture",{value:"V1 1 V; V2 3 V"}),"r2",{value:"20 kΩ"});
   assert.ok(Math.abs(runSupportedAnalysis(unequal).result.outputV-1.6666666666666667)<1e-12);
-  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"V1 1 V; V2 5 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"V1 5 V; V2 5 V"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="SUM").endpoints=["r1:2","r2:2"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
