@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "example-164-plc-conveyor-counter",
+  "metadata": {
+    "name": "Example 164 — PLC Conveyor Counter",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "conveyorCounter": {
+    "kind": "rising-edge-target-counter",
+    "targetCount": 3,
+    "photoeyeEvents": [
+      false,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false
+    ]
+  }
+}

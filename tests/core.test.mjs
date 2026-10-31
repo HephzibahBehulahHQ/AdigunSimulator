@@ -30,6 +30,7 @@ import { createSimulationLockfile, verifySimulationLockfile } from "../js/simula
 import { runPlcStartStopSequence } from "../js/plc-start-stop-sequence.mjs";
 import { runTrafficLightSequence } from "../js/traffic-light-sequence.mjs";
 import { runTankLevelController } from "../js/tank-level-controller.mjs";
+import { runConveyorCounter } from "../js/conveyor-counter.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1462,7 +1463,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 173);
+  assert.equal(getExampleCoverage(registry).total, 174);
   assert.equal(getExampleCoverage(registry).released, 163);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 37);
@@ -4274,4 +4275,16 @@ test("catalogue tank controller applies low/high hysteresis across synthetic lev
   assert.equal(runTankLevelController(invalid).state,"blocked");
   const outOfRange=structuredClone(project);outOfRange.tankLevelController.levelSamples[0]=101;
   assert.equal(runTankLevelController(outOfRange).state,"blocked");
+});
+
+test("catalogue conveyor counter counts rising photoeye edges and stops at target", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/164-plc-conveyor-counter.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runConveyorCounter(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"conveyor-edge-counter");
+  assert.equal(result.result.finalCount,3);assert.equal(result.result.stoppedAtEvent,7);assert.equal(result.result.motorStopped,true);
+  assert.deepEqual(result.result.frames.map(frame=>frame.count),[0,1,1,1,2,2,3,3,3,3]);
+  assert.deepEqual(result.result.frames.map(frame=>frame.risingEdge),[false,true,false,false,true,false,true,false,false,false]);
+  assert.deepEqual(result.result.frames.map(frame=>frame.motorRunning),[true,true,true,true,true,true,false,false,false,false]);
+  const invalid=structuredClone(project);invalid.conveyorCounter.targetCount=0;assert.equal(runConveyorCounter(invalid).state,"blocked");
+  const invalidSignal=structuredClone(project);invalidSignal.conveyorCounter.photoeyeEvents[0]=1;assert.equal(runConveyorCounter(invalidSignal).state,"blocked");
 });

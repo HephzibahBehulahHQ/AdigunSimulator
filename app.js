@@ -42,6 +42,7 @@ import { verifySimulationLockfile } from "./js/simulation-lockfile.mjs";
 import { runPlcStartStopSequence } from "./js/plc-start-stop-sequence.mjs";
 import { runTrafficLightSequence } from "./js/traffic-light-sequence.mjs";
 import { runTankLevelController } from "./js/tank-level-controller.mjs";
+import { runConveyorCounter } from "./js/conveyor-counter.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -259,7 +260,11 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "tank-level-hysteresis") {
+  if (result.kind === "conveyor-edge-counter") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.photoeye?"Blocked":"Clear"}</td><td>${frame.risingEdge?"Yes":"No"}</td><td>${frame.count}</td><td>${frame.motorRunning?"RUN":"STOP"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Target</span><strong>${result.targetCount}</strong></div>`,`<div class="result-metric"><span>Count</span><strong>${result.finalCount}</strong></div>`,`<div class="result-metric"><span>Stop event</span><strong>${result.stoppedAtEvent??"Not reached"}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Conveyor target counter · synthetic photoeye sequence</figcaption><table class="result-table"><thead><tr><th>Event</th><th>Photoeye</th><th>Rising edge</th><th>Count</th><th>Motor command</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "tank-level-hysteresis") {
     const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.levelPct}%</td><td>${frame.pumpOn?"ON":"OFF"}</td><td>${escape(frame.transition)}</td></tr>`).join("");
     metrics.push(`<div class="result-metric"><span>Low threshold</span><strong>${result.lowLevelPct}%</strong></div>`,`<div class="result-metric"><span>High threshold</span><strong>${result.highLevelPct}%</strong></div>`,`<div class="result-metric"><span>Pump-on samples</span><strong>${result.pumpOnSamples}/${result.sampleCount}</strong></div>`);
     waveform=`<figure class="result-waveform"><figcaption>Tank-level hysteresis · synthetic PLC state sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Level</th><th>Pump command</th><th>State</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
@@ -493,11 +498,12 @@ function validateAndReport() {
 
 function runAnalysis() {
   validateAndReport();
-  const result = state.project.tankLevelController ? runTankLevelController(state.project) : state.project.trafficLight ? runTrafficLightSequence(state.project) : state.project.plcMotorSequence ? runPlcStartStopSequence(state.project) : state.project.crossProbe ? runNetCrossProbe(state.project) : state.project.modelAvailabilityFixture ? reportUnavailableModel(state.project) : state.project.missingGroundFixture ? diagnoseMissingGround(state.project) : state.project.shortCircuitFixture ? diagnoseSupplyShort(state.project) : state.project.floatingNodeDiagnosis ? diagnoseFloatingNode(state.project) : state.project.convergenceStudy ? analyzeConvergenceStudy(state.project) : state.project.thermalBoundary ? analyzeThermalWarningBoundary(state.project) : state.project.monteCarloTolerance ? runMonteCarloTolerance(state.project) : state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
+  const result = state.project.conveyorCounter ? runConveyorCounter(state.project) : state.project.tankLevelController ? runTankLevelController(state.project) : state.project.trafficLight ? runTrafficLightSequence(state.project) : state.project.plcMotorSequence ? runPlcStartStopSequence(state.project) : state.project.crossProbe ? runNetCrossProbe(state.project) : state.project.modelAvailabilityFixture ? reportUnavailableModel(state.project) : state.project.missingGroundFixture ? diagnoseMissingGround(state.project) : state.project.shortCircuitFixture ? diagnoseSupplyShort(state.project) : state.project.floatingNodeDiagnosis ? diagnoseFloatingNode(state.project) : state.project.convergenceStudy ? analyzeConvergenceStudy(state.project) : state.project.thermalBoundary ? analyzeThermalWarningBoundary(state.project) : state.project.monteCarloTolerance ? runMonteCarloTolerance(state.project) : state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
   state.lastAnalysis = result;
   if (result.state === "complete") {
     const { kind } = result.result;
     log(`[ANALYSIS] ${result.engine}`);
+    if(kind==="conveyor-edge-counter")log(`[CONVEYOR PLC CONCEPT] Count ${result.result.finalCount}/${result.result.targetCount}; logical motor ${result.result.motorStopped?"stopped":"running"} at event ${result.result.stoppedAtEvent??"not reached"}.`);
     if(kind==="tank-level-hysteresis")log(`[TANK PLC CONCEPT] ${result.result.sampleCount} synthetic level samples; pump on ${result.result.pumpOnSamples} sample(s), thresholds ${result.result.lowLevelPct}%/${result.result.highLevelPct}%.`);
     if(kind==="traffic-light-fsm-sequence")log(`[TRAFFIC FSM] ${result.result.cycleCount} cycle(s), ${result.result.totalDurationS} s, ${result.result.opposingGreenConflict?"CONFLICT":"no opposing green conflict"}.`);
     if(kind==="plc-start-stop-sequence")log(`[PLC CONCEPT] ${result.result.sampleCount} control steps; seal-in retained: ${result.result.sealInRetained}; e-stop dropped output: ${result.result.emergencyStopDropsOutput}.`);
