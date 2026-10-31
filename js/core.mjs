@@ -1500,11 +1500,11 @@ function analyseI2cRegisterRead(project,{source,fixture,sensor,resistors,ground,
   const groundNet=n(ground,"0"),vccNet=n(sensor,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
   const fixtureGround=n(fixture,"GND"),sdaNet=n(fixture,"SDA"),sclNet=n(fixture,"SCL");
   const config=String(fixture.value),sensorConfig=String(sensor.value);
-  const hex=(text,label)=>{const match=text.match(new RegExp("\\\\b"+label+"\\\\s+(0x[0-9a-f]+|\\\\d+)","i"));return match?parseInt(match[1],match[1].toLowerCase().startsWith("0x")?16:10):Number.NaN;};
+  const hex=(text,label)=>{const match=text.match(new RegExp("\\b"+label+"\\s+(0x[0-9a-f]+|\\d+)","i"));return match?parseInt(match[1],match[1].toLowerCase().startsWith("0x")?16:10):Number.NaN;};
   const address=hex(config,"Address"),register=hex(config,"Register"),sensorAddress=hex(sensorConfig,"Address");
-  const baudMatch=config.match(/\\bBaud\\s+(\\d+(?:\\.\\d+)?)/i),baud=baudMatch?Number(baudMatch[1]):Number.NaN;
-  const ackMatch=config.match(/\\bACK\\s+(yes|no)\\b/i),sensorResponds=ackMatch?.[1].toLowerCase()==="yes";
-  const mapMatch=sensorConfig.match(/\\bRegister\\s+(0x[0-9a-f]+|\\d+)\\s*=\\s*(0x[0-9a-f]+|\\d+)/i);
+  const baudMatch=config.match(/\bBaud\s+(\d+(?:\.\d+)?)/i),baud=baudMatch?Number(baudMatch[1]):Number.NaN;
+  const ackMatch=config.match(/\bACK\s+(yes|no)\b/i),sensorResponds=ackMatch?.[1].toLowerCase()==="yes";
+  const mapMatch=sensorConfig.match(/\bRegister\s+(0x[0-9a-f]+|\d+)\s*=\s*(0x[0-9a-f]+|\d+)/i);
   const mappedRegister=mapMatch?parseInt(mapMatch[1],mapMatch[1].toLowerCase().startsWith("0x")?16:10):Number.NaN;
   const dataByte=mapMatch?parseInt(mapMatch[2],mapMatch[2].toLowerCase().startsWith("0x")?16:10):Number.NaN;
   const resistanceValues=resistors.map(item=>resistanceValue(item.value));
