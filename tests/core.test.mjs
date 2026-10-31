@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 127);
+  assert.equal(getExampleCoverage(registry).total, 128);
   assert.equal(getExampleCoverage(registry).released, 117);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 83);
@@ -3256,5 +3256,33 @@ test("catalogue electronic load draws commanded current steps within configured 
   assert.equal(overVoltage.state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="GATE").endpoints=["controller:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue hot-swap limits capacitor inrush and trips an overload", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/118-hotswap-protection.adigun.json",import.meta.url)));
+  const nominal=runSupportedAnalysis(project);
+  assert.equal(nominal.state,"complete",JSON.stringify(nominal.validation?.errors??nominal));
+  assert.equal(nominal.result.kind,"hotswap-protection");
+  assert.equal(nominal.result.outputEnabled,true);
+  assert.equal(nominal.result.inrushLimited,true);
+  assert.ok(Math.abs(nominal.result.rawInrushCurrentA-0.564)<1e-12);
+  assert.equal(nominal.result.inrushCurrentA,0.5);
+  assert.ok(Math.abs(nominal.result.estimatedChargeTimeS-0.02256)<1e-12);
+  assert.equal(nominal.result.overloadTrip,false);
+  assert.ok(nominal.result.loadCurrentA<1.1);
+
+  const overload=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Enabled yes; Fault none; RampTime 20 ms; CurrentLimit 0.5 A; OverloadLimit 0.8 A; MaxOutputPower 50 W; Mode hot-swap"}));
+  assert.equal(overload.state,"complete");
+  assert.equal(overload.result.overloadTrip,true);
+  assert.equal(overload.result.outputEnabled,false);
+  assert.equal(overload.result.outputVoltageV,0);
+
+  const disabled=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Enabled no; Fault none; RampTime 20 ms; CurrentLimit 0.5 A; OverloadLimit 1.5 A; MaxOutputPower 50 W; Mode hot-swap"}));
+  assert.equal(disabled.state,"complete");
+  assert.equal(disabled.result.outputEnabled,false);
+
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="GATE").endpoints=["controller:GATE"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });

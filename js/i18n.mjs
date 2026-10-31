@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -705,3 +705,11 @@ Object.assign(TRANSLATIONS.de, {morePlannedExamples:"117 der 200 Katalogprojekte
 Object.assign(TRANSLATIONS.yo, {morePlannedExamples:"A ti tú iṣẹ́ kátàlọ́ọ̀gù 117 nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí."});
 
 Object.assign(TRANSLATIONS.pcm, {morePlannedExamples:"117 out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load."});
+
+Object.assign(TRANSLATIONS.en, {exampleHotSwapProtection:"Hot-swap input protection"});
+
+Object.assign(TRANSLATIONS.de, {exampleHotSwapProtection:"Hot-Swap-Eingangsschutz"});
+
+Object.assign(TRANSLATIONS.yo, {exampleHotSwapProtection:"Ààbò hot-swap ìwọlé"});
+
+Object.assign(TRANSLATIONS.pcm, {exampleHotSwapProtection:"Hot-swap input protection"});
