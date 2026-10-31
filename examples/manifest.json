@@ -5567,14 +5567,40 @@
     {
       "id": "136-manufacturing-export-pack",
       "title": "Single-sided PCB manufacturing export pack",
-      "status": "in-review",
+      "status": "released",
       "objective": "Generate a bounded single-sided PCB handoff pack with Gerber copper and outline, Excellon drill, BOM, placement, a printable assembly overview, a file manifest and SHA-256 checksums.",
       "acceptanceTest": "tests/core.test.mjs: catalogue manufacturing export pack contains bounded fabrication files, a printable overview and verifiable SHA-256 checksums",
       "testId": "core-manufacturing-export-pack",
       "projectFile": "examples/136-manufacturing-export-pack.adigun.json",
       "readmeFile": "examples/136-manufacturing-export-pack/README.md",
       "safetyNote": "The pack is generated only after the current bounded single-layer checks pass. Files are educational handoff artifacts and are not a general-purpose fabrication exporter, manufacturing approval, or assembly qualification.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 136,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41203444782",
+        "headRevision": "cd35dbde296a89b79fe27fddca844a2f5172745c",
+        "engine": "Bounded single-layer educational PCB handoff pack generator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "single-layer-manufacturing-export-pack-v1",
+        "expectedResult": {
+          "kind": "pcb-manufacturing-export-pack",
+          "project": "Single-sided LED manufacturing export pack",
+          "files": [
+            "board-F_Cu.gbr",
+            "board-Edge_Cuts.gbr",
+            "board-PTH.drl",
+            "BOM.csv",
+            "Placement.csv",
+            "Assembly-Overview.pdf",
+            "Export-Manifest.json",
+            "SHA256SUMS.txt"
+          ],
+          "sha256Verified": true,
+          "manufacturingQualified": false
+        }
+      }
     }
   ]
 }
