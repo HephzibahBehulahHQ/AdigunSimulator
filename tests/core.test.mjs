@@ -394,6 +394,11 @@ test("released examples carry a native project, acceptance test, safety scope, a
   assert.equal(getExampleCoverage(registry).released, 13);
   assert.equal(getExampleCoverage(registry).supplemental, 1);
   assert.equal(getExampleCoverage(registry).remaining, 187);
+  const catalogue = registry.examples.filter((item) => item.status === "released" && item.scope === "catalogue");
+  assert.deepEqual(catalogue.map((item) => item.catalogueIndex), Array.from({ length: 13 }, (_, index) => index + 1));
+  const supplemental = registry.examples.filter((item) => item.status === "released" && item.scope === "supplemental");
+  assert.equal(supplemental.length, 1);
+  assert.equal(supplemental[0].catalogueIndex, undefined);
 });
 
 test("released example status cannot be asserted without passing CI evidence", () => {
