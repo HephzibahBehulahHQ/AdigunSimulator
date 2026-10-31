@@ -4883,7 +4883,7 @@
     {
       "id": "118-hotswap-protection",
       "title": "Hot-swap input protection",
-      "status": "in-review",
+      "status": "released",
       "objective": "Estimate capacitive inrush for a configured startup ramp, apply a current limit, and trip the series-FET output when steady load current exceeds an overload threshold.",
       "acceptanceTest": "tests/core.test.mjs: catalogue hot-swap limits capacitor inrush and trips an overload",
       "testId": "core-hotswap-protection",
@@ -4891,7 +4891,33 @@
       "readmeFile": "examples/118-hotswap-protection/README.md",
       "safetyNote": "Ideal inrush and steady-load estimator only; no controller timing, MOSFET SOA, thermal, short-circuit, or hardware safety qualification.",
       "scope": "catalogue",
-      "catalogueIndex": 118
+      "catalogueIndex": 118,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41192324078",
+        "headRevision": "d0b8debaa340d882c2aa1c6a950af12e94069428",
+        "engine": "Bounded hot-swap inrush and overload estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-hotswap-inrush-overload-v1",
+        "expectedResult": {
+          "kind": "hotswap-protection",
+          "enabled": true,
+          "fault": "none",
+          "outputEnabled": true,
+          "overloadTrip": false,
+          "busVoltageV": 24,
+          "capacitanceF": 0.00047,
+          "rampTimeS": 0.02,
+          "rawInrushCurrentA": 0.564,
+          "inrushCurrentA": 0.5,
+          "currentLimitA": 0.5,
+          "inrushLimited": true,
+          "estimatedChargeTimeS": 0.02256,
+          "overloadLimitA": 1.5,
+          "hardwareSafetyQualified": false
+        }
+      }
     }
   ]
 }
