@@ -178,6 +178,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.epaper-update-request", category: "Inputs", type: "E-paper frame and refresh request fixture", prefix: "REQ", pins: ["CONFIG", "VCC", "GND"], defaultValue: "Refresh partial; ChangedTiles 1; TotalTiles 100; BusyMs 800; TimeoutMs 1200; PowerState sleep; PanelPower on; PartialsSinceFull 1", simulation: "fixture-epaper-refresh", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.epaper-update-controller-ideal", category: "Active", type: "Ideal e-paper refresh state controller", prefix: "U", pins: ["REQ", "DATA", "VCC", "GND"], defaultValue: "Mode e-paper; PartialLimit 0.20; GhostRefreshLimit 4; MaxBusyMs 2000", simulation: "analytical-epaper-refresh", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.epaper-panel-report", category: "Output", type: "E-paper panel refresh state report", prefix: "EPD", pins: ["DATA", "VCC", "GND"], defaultValue: "Refresh state report", simulation: "analytical-epaper-refresh", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.buck-operating-point-fixture", category: "Inputs", type: "Buck converter operating-point fixture", prefix: "CFG", pins: ["CTRL", "VCC", "GND"], defaultValue: "Duty 50%; Frequency 100 kHz; MaxDuty 85%; MaxInput 60 V", simulation: "fixture-buck-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.buck-average-controller", category: "Active", type: "Ideal asynchronous buck average-model controller", prefix: "U", pins: ["VIN", "SW", "CTRL", "VOUT", "GND"], defaultValue: "Mode asynchronous; MaxDuty 85%; MaxInput 60 V", simulation: "analytical-buck-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.buck-converter-report", category: "Output", type: "Buck converter CCM operating-point report", prefix: "SCOPE", pins: ["VOUT", "GND"], defaultValue: "Average CCM report", simulation: "analytical-buck-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -666,6 +669,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const epaperRequests = project.components.filter((item) => item.libraryId === "input.epaper-update-request");
   const epaperControllers = project.components.filter((item) => item.libraryId === "active.epaper-update-controller-ideal");
   const epaperReports = project.components.filter((item) => item.libraryId === "output.epaper-panel-report");
+  const buckFixtures = project.components.filter((item) => item.libraryId === "input.buck-operating-point-fixture");
+  const buckControllers = project.components.filter((item) => item.libraryId === "active.buck-average-controller");
+  const buckReports = project.components.filter((item) => item.libraryId === "output.buck-converter-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -904,6 +910,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
+  }
+  if (buckFixtures.length === 1 && buckControllers.length === 1 && buckReports.length === 1 && source.length === 1 && inductor.length === 1 && schottkyDiodes.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 9) {
+    return analyseBuckConverter(project, { source: source[0], fixture: buckFixtures[0], controller: buckControllers[0], inductor: inductor[0], diode: schottkyDiodes[0], capacitor: capacitor[0], load: resistor[0], report: buckReports[0], ground: ground[0], validation });
   }
   if (epaperRequests.length === 1 && epaperControllers.length === 1 && epaperReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseEpaperRefresh(project, { source: source[0], request: epaperRequests[0], controller: epaperControllers[0], report: epaperReports[0], ground: ground[0], validation });
@@ -3113,6 +3122,36 @@ function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,spe
   return {state:"complete",engine:"Generic low-voltage class-AB amplifier and R-L speaker estimate",message:"Models configurable voltage gain and output swing, a single-supply midpoint bias, a series output coupling capacitor, and a nominal speaker R-L load. It reports a sinusoidal fundamental and real load power only. It does not calculate THD, compression, slew, output-stage current limiting, mechanical sound, thermal behavior, or manufacturer-specific LM386 performance.",result:{kind:"audio-power-amplifier",supplyVoltage,inputAmplitudeV,frequencyHz,gainVPerV:gain,requestedOutputAmplitudeV,amplifierOutputAmplitudeV,clipped,clippingWarning:clipped?"Input exceeds the configured output swing; distortion is not modeled.":null,outputBiasVoltageV:biasVoltageV,quiescentCurrentA:quiescentCurrent,speakerResistanceOhm:speakerResistance,speakerInductanceH:speakerInductance,couplingCapacitanceF:couplingCapacitance,couplingGain,speakerImpedanceOhm,speakerVoltagePeakV,speakerVoltageRmsV,speakerCurrentRmsA,speakerRealPowerW,frequencyResponse},validation};
 }
 
+function analyseBuckConverter(project,{source,fixture,controller,inductor,diode,capacitor,load,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const config=fields(fixture.value),control=fields(controller.value);
+  const dutyPercent=Number((field(config,"Duty")??"").replace("%","")),frequencyHz=frequencyValue(field(config,"Frequency")??"");
+  const maxDuty=Number((field(config,"MaxDuty")??"").replace("%","")),controllerMaxDuty=Number((field(control,"MaxDuty")??"").replace("%",""));
+  const maxInput=voltageValue(field(config,"MaxInput")??""),controllerMaxInput=voltageValue(field(control,"MaxInput")??"");
+  const vin=voltageValue(source.value),vf=forwardVoltage(diode.value),l=inductanceValue(inductor.value),c=capacitanceValue(capacitor.value),r=resistanceValue(load.value),duty=dutyPercent/100;
+  const groundNet=n(ground,"0"),vinNet=n(source,"+"),switchNet=n(controller,"SW"),outputNet=n(inductor,"2");
+  const powered=n(source,"-")===groundNet&&n(controller,"VIN")===vinNet&&n(fixture,"VCC")===vinNet&&n(controller,"GND")===groundNet&&n(fixture,"GND")===groundNet&&n(diode,"A")===groundNet&&n(capacitor,"2")===groundNet&&n(load,"2")===groundNet&&n(report,"GND")===groundNet;
+  const switchPath=n(controller,"SW")===switchNet&&n(inductor,"1")===switchNet&&n(diode,"K")===switchNet;
+  const outputPath=n(inductor,"2")===n(capacitor,"1")&&n(inductor,"2")===n(load,"1")&&n(inductor,"2")===n(controller,"VOUT")&&n(inductor,"2")===n(report,"VOUT");
+  const controlPath=n(fixture,"CTRL")===n(controller,"CTRL");
+  const required=[groundNet,vinNet,switchNet,outputNet,n(fixture,"CTRL"),n(fixture,"VCC"),n(fixture,"GND"),n(controller,"CTRL"),n(controller,"VOUT"),n(diode,"K"),n(capacitor,"1"),n(load,"1"),n(report,"VOUT")];
+  if(required.some(net=>typeof net!=="string"||!net)||!powered||!switchPath||!outputPath||!controlPath
+    ||field(control,"Mode")!=="asynchronous"||!Number.isFinite(vin)||vin<=0||vin>60||vin>maxInput||!Number.isFinite(maxInput)||maxInput<=0||maxInput>60
+    ||!Number.isFinite(dutyPercent)||dutyPercent<5||dutyPercent>85||!Number.isFinite(maxDuty)||maxDuty<5||maxDuty>85||dutyPercent>=maxDuty
+    ||controllerMaxDuty!==maxDuty||controllerMaxInput!==maxInput||!Number.isFinite(frequencyHz)||frequencyHz<1000||frequencyHz>2000000
+    ||!Number.isFinite(vf)||vf<0.1||vf>1.5||!Number.isFinite(l)||l<1e-6||l>10||!Number.isFinite(c)||c<1e-6||c>10||!Number.isFinite(r)||r<0.1||r>1000000){
+    return {state:"blocked",message:"Check the connected asynchronous buck power path, supported 5–85% duty, input, frequency, diode drop, L/C and load limits; the requested duty must remain below the configured maximum.",validation};
+  }
+  const outputVoltageV=duty*vin-(1-duty)*vf;
+  if(outputVoltageV<=0||outputVoltageV>=vin)return {state:"blocked",message:"The configured operating point does not produce a positive buck output below the input rail.",validation};
+  const loadCurrentA=outputVoltageV/r,inductorRipplePpA=(vin-outputVoltageV)*duty/(l*frequencyHz);
+  if(loadCurrentA<=inductorRipplePpA/2)return {state:"blocked",message:"This operating point is in discontinuous-conduction mode; this example only reports the stated continuous-conduction average model.",validation};
+  const outputRipplePpV=inductorRipplePpA/(8*frequencyHz*c),inputCurrentA=duty*loadCurrentA;
+  const outputPowerW=outputVoltageV*loadCurrentA,inputPowerW=vin*inputCurrentA,diodeLossW=(1-duty)*vf*loadCurrentA;
+  return {state:"complete",engine:"Asynchronous buck CCM average and triangular-ripple estimate",message:"Uses the steady-state volt-second balance for an asynchronous buck, a CCM inductor-current ripple estimate, and an ideal-capacitor ripple estimate. It excludes switching transients, controller-loop stability, inductor saturation/core loss, capacitor ESR, MOSFET loss, thermal effects, component tolerances, and hardware validation.",result:{kind:"buck-converter",inputVoltageV:vin,dutyCyclePercent:dutyPercent,switchingFrequencyHz:frequencyHz,diodeForwardVoltageV:vf,inductanceH:l,capacitanceF:c,loadResistanceOhm:r,outputVoltageV,loadCurrentA,inductorRipplePpA,outputRipplePpV,conductionMode:"CCM",inputCurrentA,inputPowerW,outputPowerW,diodeLossW,estimatedEfficiencyPercent:outputPowerW/inputPowerW*100,powerBalanceW:inputPowerW-outputPowerW-diodeLossW,controllerHardwareModeled:false},validation};
+}
 function analyseEpaperRefresh(project,{source,request,controller,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());

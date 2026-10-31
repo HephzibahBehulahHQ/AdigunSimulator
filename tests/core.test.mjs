@@ -2742,3 +2742,29 @@ test("catalogue seven-segment clock handles midnight rollover and invalid fixtur
   broken.nets.find(net=>net.id==="SEGMENTS").endpoints=["clock:SEG"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue buck converter reports bounded CCM average and ripple estimates", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/101-buck-converter-baseline.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"buck-converter");
+  assert.equal(result.result.inputVoltageV,12);
+  assert.equal(result.result.outputVoltageV,5.75);
+  assert.ok(Math.abs(result.result.loadCurrentA-5.75/24)<1e-12);
+  assert.ok(result.result.inductorRipplePpA>0);
+  assert.ok(result.result.outputRipplePpV>0);
+  assert.equal(result.result.conductionMode,"CCM");
+  assert.ok(Math.abs(result.result.powerBalanceW)<1e-12);
+  assert.ok(result.result.estimatedEfficiencyPercent>90&&result.result.estimatedEfficiencyPercent<100);
+  const line=runSupportedAnalysis(updateComponent(project,"source",{value:"14 V"}));
+  assert.equal(line.state,"complete");
+  assert.ok(line.result.outputVoltageV>result.result.outputVoltageV);
+  const load=runSupportedAnalysis(updateComponent(project,"load",{value:"12 Ω"}));
+  assert.equal(load.state,"complete");
+  assert.ok(load.result.loadCurrentA>result.result.loadCurrentA);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Duty 90%; Frequency 100 kHz; MaxDuty 85%; MaxInput 60 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"240 Ω"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SWITCH").endpoints=["controller:SW","inductor:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
