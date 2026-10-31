@@ -1,0 +1,4 @@
+"Check","Status","Detail"
+"pair-rule-missing","fail","Differential pair rule is missing."
+"Measured skew (declared mm)","undefined","Calculated from the declared positive/negative trace-length inputs."
+"Scope","informational","undefined"
