@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleFourLayerMcuPlan", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -770,3 +770,7 @@ Object.assign(TRANSLATIONS.en, {exampleBuckConverterPcb:"12 V to 5 V buck conver
 Object.assign(TRANSLATIONS.de, {exampleBuckConverterPcb:"12-V-zu-5-V-Abwärtswandlerplatine"});
 Object.assign(TRANSLATIONS.yo, {exampleBuckConverterPcb:"Pátákì buck 12 V sí 5 V"});
 Object.assign(TRANSLATIONS.pcm, {exampleBuckConverterPcb:"12 V to 5 V buck converter PCB"});
+Object.assign(TRANSLATIONS.en, {exampleFourLayerMcuPlan:"Four-layer STM32 MCU board plan"});
+Object.assign(TRANSLATIONS.de, {exampleFourLayerMcuPlan:"Vierlagiger STM32-MCU-Platinenplan"});
+Object.assign(TRANSLATIONS.yo, {exampleFourLayerMcuPlan:"Eto pátákì MCU STM32 pẹ̀lú fẹ́lẹ̀ mẹ́rin"});
+Object.assign(TRANSLATIONS.pcm, {exampleFourLayerMcuPlan:"Four-layer STM32 MCU board plan"});
