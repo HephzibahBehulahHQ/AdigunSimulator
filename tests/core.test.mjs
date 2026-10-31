@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 126);
+  assert.equal(getExampleCoverage(registry).total, 127);
   assert.equal(getExampleCoverage(registry).released, 116);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 84);
@@ -3232,5 +3232,29 @@ test("catalogue inverter reports target RMS and selected frequency through its L
   assert.equal(wrongFrequency.state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="OUTPUT").endpoints=["inductor:2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue electronic load draws commanded current steps within configured tolerance", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/117-electronic-load.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",JSON.stringify(result.validation?.errors??result));
+  assert.equal(result.result.kind,"electronic-load");
+  assert.equal(result.result.steps.length,3);
+  assert.deepEqual(result.result.steps.map(step=>step.requestedCurrentA),[0.1,0.5,1]);
+  assert.deepEqual(result.result.steps.map(step=>step.measuredCurrentA),[0.1,0.5,1]);
+  assert.ok(result.result.steps.every(step=>step.withinTolerance));
+  assert.equal(result.result.allStepsWithinTolerance,true);
+  assert.ok(Math.abs(result.result.steps[2].mosfetPowerW-11.9)<1e-12);
+  assert.equal(result.result.transientResponseModeled,false);
+
+  const moreSteps=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Setpoints 200 mA, 800 mA; Tolerance 1%; MaxDutVoltage 15 V; MaxCurrent 1.2 A; MaxPower 15 W; Mode current-steps"}));
+  assert.equal(moreSteps.state,"complete");
+  assert.deepEqual(moreSteps.result.steps.map(step=>step.measuredCurrentA),[0.2,0.8]);
+
+  const overVoltage=runSupportedAnalysis(updateComponent(project,"source",{value:"20 V"}));
+  assert.equal(overVoltage.state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="GATE").endpoints=["controller:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });

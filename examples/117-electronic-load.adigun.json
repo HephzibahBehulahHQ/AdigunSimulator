@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-117-electronic-load",
+  "metadata": {
+    "name": "Programmable Electronic Load Current Steps",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          40,
+          50
+        ],
+        "schematic": [
+          40,
+          50
+        ],
+        "pcb": [
+          40,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.electronic-load-step-fixture",
+      "reference": "CMD1",
+      "value": "Setpoints 100 mA, 500 mA, 1 A; Tolerance 1%; MaxDutVoltage 15 V; MaxCurrent 1.2 A; MaxPower 15 W; Mode current-steps",
+      "position": {
+        "breadboard": [
+          130,
+          50
+        ],
+        "schematic": [
+          130,
+          50
+        ],
+        "pcb": [
+          130,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.electronic-load-opamp-ideal",
+      "reference": "U1",
+      "value": "Ideal current-loop controller",
+      "position": {
+        "breadboard": [
+          235,
+          50
+        ],
+        "schematic": [
+          235,
+          50
+        ],
+        "pcb": [
+          235,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "mosfet",
+      "libraryId": "active.nmos-switch",
+      "reference": "Q1",
+      "value": "Vth 2.0 V",
+      "position": {
+        "breadboard": [
+          345,
+          50
+        ],
+        "schematic": [
+          345,
+          50
+        ],
+        "pcb": [
+          345,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "shunt",
+      "libraryId": "passive.resistor",
+      "reference": "RS1",
+      "value": "0.1 Ω",
+      "position": {
+        "breadboard": [
+          430,
+          50
+        ],
+        "schematic": [
+          430,
+          50
+        ],
+        "pcb": [
+          430,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.electronic-load-report",
+      "reference": "SCOPE1",
+      "value": "Current step and dissipation report",
+      "position": {
+        "breadboard": [
+          530,
+          50
+        ],
+        "schematic": [
+          530,
+          50
+        ],
+        "pcb": [
+          530,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          160
+        ],
+        "schematic": [
+          40,
+          160
+        ],
+        "pcb": [
+          40,
+          160
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "DUT_POS",
+      "endpoints": [
+        "source:+",
+        "mosfet:D",
+        "report:DUT",
+        "controller:VCC"
+      ]
+    },
+    {
+      "id": "GROUND",
+      "endpoints": [
+        "source:-",
+        "shunt:2",
+        "fixture:GND",
+        "controller:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "COMMAND",
+      "endpoints": [
+        "fixture:CMD",
+        "controller:IN+"
+      ]
+    },
+    {
+      "id": "SENSE",
+      "endpoints": [
+        "mosfet:S",
+        "shunt:1",
+        "controller:IN-",
+        "report:SENSE"
+      ]
+    },
+    {
+      "id": "GATE",
+      "endpoints": [
+        "controller:OUT",
+        "mosfet:G"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "controller:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}

@@ -4816,6 +4816,19 @@
           "hardwareSafetyQualified": false
         }
       }
+    },
+    {
+      "id": "117-electronic-load",
+      "title": "Electronic load",
+      "status": "in-review",
+      "objective": "Estimate commanded current steps for an ideal op-amp/MOSFET/shunt electronic load and check current accuracy, DUT input power, and MOSFET dissipation limits.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue electronic load draws commanded current steps within configured tolerance",
+      "testId": "core-electronic-load",
+      "projectFile": "examples/117-electronic-load.adigun.json",
+      "readmeFile": "examples/117-electronic-load/README.md",
+      "safetyNote": "Ideal steady-state electronic-load estimator only. It does not model loop stability, transient current steps, MOSFET safe operating area, thermal performance, or hardware safety.",
+      "scope": "catalogue",
+      "catalogueIndex": 117
     }
   ]
 }
