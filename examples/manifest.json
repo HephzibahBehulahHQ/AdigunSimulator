@@ -335,6 +335,56 @@
       }
     },
     {
+      "id": "008-usb-powered-led",
+      "title": "USB-powered LED with PTC overload warning",
+      "status": "released",
+      "objective": "Estimate the current and power of a 5 V USB LED branch including the configured cold-state PTC resistance, and flag when estimated current exceeds its 0.5 A hold rating; test normal and overload paths.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue USB LED estimates normal current and flags a PTC hold-current overload while blocking invalid ratings and wiring",
+      "testId": "core-usb-powered-led-ptc",
+      "projectFile": "examples/008-usb-powered-led.adigun.json",
+      "safetyNote": "Educational cold-state estimate only. Exceeding hold current is an overload warning, not a predicted fuse trip. PTC thermal/time behavior, reset, USB host protection, tolerance, thermal effects, ratings, and hardware safety are not modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 8,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41154023579",
+        "headRevision": "5dcb001542adce8cb0de6a8e613fecfa25ce196c",
+        "engine": "Analytical USB LED and cold-state PTC estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "usb-led-ptc-cold-v1",
+        "libraryLock": "adigun-simulator@d036860b3601a0458466157ec5effc9f25863391",
+        "expectedResult": {
+          "normal5V": {
+            "sourceVoltage": 5,
+            "ledVf": 2,
+            "seriesResistance": 330,
+            "ptcHoldCurrentA": 0.5,
+            "ptcColdResistance": 0.1,
+            "currentA": 0.009088155104513784,
+            "holdCurrentExceeded": false,
+            "overloadWarning": false,
+            "fuseTripPredicted": false,
+            "resistorPowerW": 0.027256205857220984,
+            "fusePowerW": 0.000008259456320369994,
+            "ledPowerW": 0.018176310209027567,
+            "sourcePowerW": 0.04544077552256892,
+            "powerBalanceW": 0
+          },
+          "overloadR1Ohm": {
+            "sourceVoltage": 5,
+            "ledVf": 2,
+            "seriesResistance": 1,
+            "ptcHoldCurrentA": 0.5,
+            "currentA": 2.727272727272727,
+            "holdCurrentExceeded": true,
+            "overloadWarning": true,
+            "fuseTripPredicted": false
+          }
+        }
+      }
+    },
+    {
       "id": "003-led-current-limiter-9v",
       "title": "9 V LED current limiter",
       "status": "released",
@@ -571,16 +621,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "008-usb-powered-led",
-      "title": "USB-powered LED with PTC overload warning",
-      "status": "in-review",
-      "objective": "Estimate the current and power of a 5 V USB LED branch including the configured cold-state PTC resistance, and flag when estimated current exceeds its 0.5 A hold rating; test normal and overload paths.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue USB LED estimates normal current and flags a PTC hold-current overload while blocking invalid ratings and wiring",
-      "testId": "core-usb-powered-led-ptc",
-      "projectFile": "examples/008-usb-powered-led.adigun.json",
-      "safetyNote": "Educational cold-state estimate only. Exceeding hold current is an overload warning, not a predicted fuse trip. PTC thermal/time behavior, reset, USB host protection, tolerance, thermal effects, ratings, and hardware safety are not modeled."
     }
   ]
 }
