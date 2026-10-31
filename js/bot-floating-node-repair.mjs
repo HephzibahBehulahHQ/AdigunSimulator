@@ -29,7 +29,7 @@ export function buildBotFloatingNodeRepairPreview(project) {
     if(!validation.valid)return {ok:false,error:"The proposed repair failed project validation.",validation};
     return {
       ok:true,baseFingerprint,candidate,validation,
-      proposal:{reference:resistor.reference,libraryId:resistor.libraryId,value:resistor.value,from:config.netId,to:"GND"},
+      proposal:{reference:resistor.reference,libraryId:resistor.libraryId,value:candidate.components.find(item=>item.instanceId===resistor.instanceId).value,from:config.netId,to:"GND"},
       diagnosis:{reference:target.reference,netId:config.netId,issue:diagnosis.errors[0].message},
       warning:"Illustrative 1 MΩ bleed-path proposal only. Check signal loading, intended circuit function, resistor ratings, and the real design before applying."
     };
