@@ -544,6 +544,24 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue non-inverting op-amp reports midband gain and rejects clipping or broken feedback",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/024-opamp-noninverting.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"opamp-noninverting");
+  assert.equal(result.result.gainVPerV,2);
+  assert.equal(result.result.inputAmplitudeV,0.1);
+  assert.equal(result.result.outputAmplitudeV,0.2);
+  assert.equal(result.result.phaseShiftDeg,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"rf",{value:"0 Ω"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["opamp:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+  const clipped=updateComponent(project,"rf",{value:"1 MΩ"});
+  assert.equal(runSupportedAnalysis(clipped).state,"blocked");
+});
+
 test("catalogue 556 dual timer reports independent astable frequencies",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/023-556-dual-timer.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
