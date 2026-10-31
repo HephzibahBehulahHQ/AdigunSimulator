@@ -27,6 +27,7 @@ import { runNetCrossProbe } from "../js/net-cross-probe.mjs";
 import { validateComponentProperty } from "../js/component-property-audit.mjs";
 import { createSimulationReport } from "../js/simulation-report.mjs";
 import { createSimulationLockfile, verifySimulationLockfile } from "../js/simulation-lockfile.mjs";
+import { runPlcStartStopSequence } from "../js/plc-start-stop-sequence.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1459,7 +1460,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 170);
+  assert.equal(getExampleCoverage(registry).total, 171);
   assert.equal(getExampleCoverage(registry).released, 160);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 40);
@@ -4230,4 +4231,20 @@ test("catalogue run lockfile selects the same RC model and detects project drift
   assert.equal(verifySimulationLockfile(drift,lock).matched,false);
   assert.equal(verifySimulationLockfile(drift,lock).errors[0].code,"RUN_LOCK_MISMATCH");
   const html=await readFile(new URL("../index.html",import.meta.url),"utf8");assert.match(html,/data-action="verify-run-lock"/);
+});
+
+test("catalogue PLC motor seal-in holds on start and drops on stop or emergency stop", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/161-plc-start-stop-motor-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runPlcStartStopSequence(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"plc-start-stop-sequence");
+  assert.equal(result.result.frames[0].contactorEnergized,false);
+  assert.equal(result.result.frames[1].contactorEnergized,true);
+  assert.equal(result.result.frames[2].contactorEnergized,true);
+  assert.equal(result.result.frames[3].contactorEnergized,false);
+  assert.equal(result.result.frames[5].contactorEnergized,false);
+  assert.equal(result.result.sealInRetained,true);assert.equal(result.result.emergencyStopDropsOutput,true);
+  const invalid=JSON.parse(JSON.stringify(project));invalid.plcMotorSequence.frames[0].startPressed="false";
+  assert.equal(runPlcStartStopSequence(invalid).state,"blocked");
 });

@@ -1,0 +1,9 @@
+const BOOL_FIELDS=["startPressed","stopHealthy","emergencyStopHealthy","overloadHealthy"];
+export function runPlcStartStopSequence(project) {
+  const sequence=project?.plcMotorSequence,frames=sequence?.frames;
+  if(sequence?.kind!=="seal-in-motor-control"||!Array.isArray(frames)||frames.length<1||frames.length>100||frames.some(frame=>BOOL_FIELDS.some(key=>typeof frame?.[key]!=="boolean")))
+    return {state:"blocked",engine:"PLC seal-in logic concept",message:"Provide 1–100 control frames with explicit Boolean start, stop, emergency-stop, and overload states.",errors:[{code:"PLC_SEQUENCE_INPUT",message:"Every control input must be explicitly true or false."}],warnings:[],result:null};
+  let sealIn=sequence.initialSealIn===true;
+  const samples=frames.map((frame,index)=>{const previous=sealIn;sealIn=(frame.startPressed||sealIn)&&frame.stopHealthy&&frame.emergencyStopHealthy&&frame.overloadHealthy;return {step:index+1,...frame,sealIn,contactorEnergized:sealIn,motorCommand:sealIn,transition:previous===sealIn?"steady":sealIn?"energized":"dropped"};});
+  return {state:"complete",engine:"Deterministic PLC start/stop seal-in logic concept",message:"Evaluates a Boolean seal-in sequence; no physical PLC, relay coil, motor electrical, or certified safety model is included.",errors:[],warnings:[{code:"PLC_LOGIC_CONCEPT_ONLY",message:"This is a logic concept. Emergency-stop and overload signals are software inputs here; use appropriately rated hardwired safety systems and validate the real installation."},{code:"MOTOR_MODEL_NOT_INCLUDED",message:"Motor current, torque, starting behavior, contactor ratings, and mechanical load are not simulated."}],result:{kind:"plc-start-stop-sequence",sampleCount:samples.length,frames:samples,sealInRetained:samples.some((frame,index)=>index>0&&frame.sealIn&&!frame.startPressed),emergencyStopDropsOutput:samples.some(frame=>!frame.emergencyStopHealthy&&!frame.contactorEnergized)}};
+}
