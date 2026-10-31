@@ -1,0 +1,8 @@
+"Required Net","Test Point","Pad Diameter (mm)","Access Layer","Side","Coverage"
+"VDD33","TP1","1.5","F.Cu","top","mapped"
+"GND","TP2","1.5","F.Cu","top","mapped"
+"NRST","TP3","1.5","F.Cu","top","mapped"
+"SWDIO","TP4","1.5","F.Cu","top","mapped"
+"SWCLK","TP5","1.5","F.Cu","top","mapped"
+"Electrical continuity","Not verified","","","","not-tested"
+"Manufacturing qualified","No","","","","not-qualified"

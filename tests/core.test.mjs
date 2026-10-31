@@ -13,6 +13,7 @@ import { createDifferentialPairReport, reviewDifferentialPair } from "../js/diff
 import { createQfnFootprintReport, reviewQfnFootprint } from "../js/qfn-footprint-review.mjs";
 import { createBgaEscapeReport, reviewBgaEscapeConcept } from "../js/bga-escape-review.mjs";
 import { createPanelMountMechanicalReport, reviewPanelMountMechanicals } from "../js/panel-mount-mechanical-review.mjs";
+import { createTestPointCoverageReport, reviewTestPointCoverage } from "../js/test-point-coverage.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
@@ -1399,6 +1400,35 @@ test("panel-mount controller reviews hole/cutout dimensions and PCB clearances",
   assert.equal(reviewPanelMountMechanicals(blockedRoute).status,"failed");
 });
 
+test("STM32 board coverage report maps required nets to accessible top-side test points", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/135-mcu-test-point-coverage.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete");
+  assert.equal(analysis.result.kind,"stm32-board-test-point-coverage");
+  assert.equal(analysis.result.requiredNets,5);
+  assert.equal(analysis.result.coveredNets,5);
+  assert.equal(analysis.result.physicalContinuityVerified,false);
+  const review=reviewTestPointCoverage(project);
+  assert.equal(review.status,"passed");
+  assert.equal(review.coveragePercent,undefined);
+  const expected=await readFile(new URL("../examples/135-mcu-test-point-coverage/expected/Test-Point-Coverage.csv",import.meta.url),"utf8");
+  assert.equal(createTestPointCoverageReport(project),expected);
+  const missing=structuredClone(project);
+  missing.pcbFabrication.testPoints=missing.pcbFabrication.testPoints.filter(tp=>tp.netId!=="NRST");
+  assert.equal(reviewTestPointCoverage(missing).status,"failed");
+  const wrongLayer=structuredClone(project);
+  wrongLayer.pcbFabrication.testPoints[0].accessLayer="B.Cu";
+  assert.equal(reviewTestPointCoverage(wrongLayer).status,"failed");
+  const obstructed=structuredClone(project);
+  const tp=obstructed.pcbFabrication.testPoints[0],pad=obstructed.pcbFabrication.pads.find(p=>p.reference===tp.reference);
+  tp.xMm=pad.xMm=28.8;tp.yMm=pad.yMm=19.2;
+  assert.equal(reviewTestPointCoverage(obstructed).status,"failed");
+  const disconnected=structuredClone(project);
+  disconnected.nets.find(n=>n.id==="NRST").endpoints=disconnected.nets.find(n=>n.id==="NRST").endpoints.filter(e=>e!=="tp3:1");
+  assert.equal(reviewTestPointCoverage(disconnected).status,"failed");
+});
+
 test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
@@ -1407,7 +1437,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 144);
+  assert.equal(getExampleCoverage(registry).total, 145);
   assert.equal(getExampleCoverage(registry).released, 134);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 66);

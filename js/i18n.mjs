@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleFourLayerMcuPlan", "exampleUsbDifferentialPair", "exampleQfnFootprintValidation", "exampleBgaEscapeConcept", "examplePanelMountController", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleFourLayerMcuPlan", "exampleUsbDifferentialPair", "exampleQfnFootprintValidation", "exampleBgaEscapeConcept", "examplePanelMountController", "exampleMcuTestPointCoverage", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -793,3 +793,8 @@ Object.assign(TRANSLATIONS.en, {examplePanelMountController:"Panel-mount control
 Object.assign(TRANSLATIONS.de, {examplePanelMountController:"Mechanikplan für Panel-Steuerung"});
 Object.assign(TRANSLATIONS.yo, {examplePanelMountController:"Ètò ẹrọ fún controller panel"});
 Object.assign(TRANSLATIONS.pcm, {examplePanelMountController:"Panel controller mechanical plan"});
+
+Object.assign(TRANSLATIONS.en, {exampleMcuTestPointCoverage:"STM32 MCU board test-point coverage"});
+Object.assign(TRANSLATIONS.de, {exampleMcuTestPointCoverage:"Testpunktabdeckung der STM32-MCU-Platine"});
+Object.assign(TRANSLATIONS.yo, {exampleMcuTestPointCoverage:"Àwọn test point fún board STM32"});
+Object.assign(TRANSLATIONS.pcm, {exampleMcuTestPointCoverage:"STM32 board test-point coverage"});
