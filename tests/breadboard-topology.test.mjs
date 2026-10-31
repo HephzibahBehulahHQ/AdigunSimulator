@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { createProject, findLibraryPart, parseProject, serializeProject } from "../js/core.mjs";
+import { runBreadboardSchematicSync } from "../js/breadboard-schematic-sync.mjs";
 import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "../js/breadboard-topology.mjs";
 
 const getPartPins = libraryId => findLibraryPart(libraryId)?.pins ?? [];
@@ -110,7 +111,7 @@ test("physical-to-schematic netlist synchronization derives merged nets without 
   const exact = deriveBreadboardSchematicNets(project, {getPartPins});
   assert.equal(exact.state,"complete");
   assert.equal(exact.changed,false);
-  project.breadboard.jumpers[1] = {from:"C11",to:"TP15"};
+  project.breadboard.jumpers.push({from:"C11",to:"TP15"});
   const preview = deriveBreadboardSchematicNets(project, {getPartPins});
   assert.equal(preview.state,"complete");
   assert.equal(preview.changed,true);
