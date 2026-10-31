@@ -3298,7 +3298,7 @@ function analysePoePdInput(project,{source,fixture,bridge,converter,report,load,
   const inputVoltageV=voltageValue(field(f,"Voltage")??""),sourceCurrentA=currentValue(field(f,"Current")??"");
   const bridgeDropV=voltageValue(field(b,"ForwardDrop")??""),feed=field(f,"ActiveFeed"),polarity=field(f,"Polarity"),fault=field(f,"Fault");
   const uvloV=voltageValue(field(c,"UVLO")??""),maxInputV=voltageValue(field(c,"MaxInput")??""),outputSetV=voltageValue(field(c,"Output")??"");
-  const maxOutputW=Number((field(c,"MaxPower")??"").replace(/\\s*W$/i,"")),efficiencyPercent=Number((field(c,"Efficiency")??"").replace("%",""));
+  const maxOutputW=Number((field(c,"MaxPower")??"").replace(/\s*W$/i,"")),efficiencyPercent=Number((field(c,"Efficiency")??"").replace("%",""));
   const loadOhm=resistanceValue(load.value),gnd=n(ground,"0"),vcc=n(source,"+");
   const powered=n(source,"-")===gnd&&n(fixture,"VCC")===vcc&&n(bridge,"VCC")===vcc&&n(converter,"VCC")===vcc&&n(report,"VCC")===vcc
     &&n(fixture,"GND")===gnd&&n(bridge,"GND")===gnd&&n(converter,"GND")===gnd&&n(report,"GND")===gnd;
