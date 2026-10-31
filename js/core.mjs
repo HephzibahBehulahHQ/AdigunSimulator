@@ -43,6 +43,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-bcd-display-ideal", category: "Active", type: "Ideal BCD decade counter and seven-segment decoder", prefix: "U", pins: ["CLK", "RESET_N", "SEG_A", "SEG_B", "SEG_C", "SEG_D", "SEG_E", "SEG_F", "SEG_G", "VCC", "GND"], defaultValue: "Ideal BCD decade counter; common-cathode segments", simulation: "analytical-bcd-counter-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-traffic-fsm-ideal", category: "Active", type: "Ideal six-phase traffic-light state machine", prefix: "U", pins: ["CLK", "RESET_N", "NS_R", "NS_Y", "NS_G", "EW_R", "EW_Y", "EW_G", "VCC", "GND"], defaultValue: "Six-phase traffic-light FSM", simulation: "analytical-traffic-light-fsm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-debounce-ideal", category: "Active", type: "Ideal N-sample digital debounce filter", prefix: "U", pins: ["INPUT", "CLK", "RESET_N", "Q", "VCC", "GND"], defaultValue: "Stable samples 3", simulation: "analytical-digital-debounce", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-ring-shift-4bit-ideal", category: "Active", type: "Ideal four-bit ring shift register", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Four-bit one-hot ring; reset Q0", simulation: "analytical-shift-register-chaser", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -399,6 +400,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const bcdDisplays = project.components.filter((item) => item.libraryId === "active.logic-bcd-display-ideal");
   const trafficFsms = project.components.filter((item) => item.libraryId === "active.logic-traffic-fsm-ideal");
   const debounceFilters = project.components.filter((item) => item.libraryId === "active.logic-debounce-ideal");
+  const ringShiftRegisters = project.components.filter((item) => item.libraryId === "active.logic-ring-shift-4bit-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -463,6 +465,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (ringShiftRegisters.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && project.components.length === 13) {
+    return analyseRingShiftChaser(project, { sources: source, register: ringShiftRegisters[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
   }
   if (debounceFilters.length === 1 && source.length === 4 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseDigitalDebounce(project, { sources: source, filter: debounceFilters[0], resistor: resistor[0], led: led[0], ground: ground[0], previousState, validation });
@@ -1445,6 +1450,32 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+
+
+function analyseRingShiftChaser(project,{sources,register,resistors,leds,ground,previousState,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(register,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  const clockNet=n(register,"CLK"),resetNet=n(register,"RESET_N");
+  const clockSource=sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===clockNet);
+  const resetSource=sources.find(v=>v!==supply&&v!==clockSource&&n(v,"-")===groundNet&&n(v,"+")===resetNet);
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,clockVoltage=clockSource?voltageValue(clockSource.value):Number.NaN,resetVoltage=resetSource?voltageValue(resetSource.value):Number.NaN,thresholdV=supplyVoltage/2;
+  const paths=[0,1,2,3].map(bit=>{
+    const outputNet=n(register,`Q${bit}`),resistor=resistors.find(r=>n(r,"1")===outputNet||n(r,"2")===outputNet);
+    const led=resistor&&leds.find(x=>((n(resistor,"1")===outputNet&&n(resistor,"2")===n(x,"A"))||(n(resistor,"2")===outputNet&&n(resistor,"1")===n(x,"A")))&&n(x,"K")===groundNet);
+    return {outputNet,resistor,led,resistance:resistor?resistanceValue(resistor.value):Number.NaN,vf:led?forwardVoltage(led.value):Number.NaN};
+  });
+  if(!supply||!clockSource||!resetSource||n(register,"GND")!==groundNet||paths.some(p=>!p.outputNet||!p.resistor||!p.led||!Number.isFinite(p.resistance)||!Number.isFinite(p.vf)||p.resistance<=0||p.vf<=0)
+    ||![supplyVoltage,clockVoltage,resetVoltage].every(Number.isFinite)||supplyVoltage<=0||[clockVoltage,resetVoltage].some(v=>v<0||v>supplyVoltage)){
+    return {state:"blocked",message:"Wire the ideal four-bit ring shift register, clock, active-low reset, four current-limited LEDs, and supply/ground rails.",validation};
+  }
+  const clockHigh=clockVoltage>=thresholdV,resetActive=resetVoltage<thresholdV,previous=previousState?.result,previousClockHigh=previous?.clockHigh,risingEdge=previousClockHigh===false&&clockHigh;
+  if(!resetActive&&clockHigh&&typeof previousClockHigh!=="boolean")return {state:"blocked",message:"Start with the clock low, then advance the ring register on rising edges.",validation};
+  if(risingEdge&&!resetActive&&!Array.isArray(previous?.bits))return {state:"blocked",message:"Initialize the ring register with active-low reset before shifting.",validation};
+  const bits=resetActive?[true,false,false,false]:risingEdge?[previous.bits[3],previous.bits[0],previous.bits[1],previous.bits[2]]:Array.isArray(previous?.bits)?previous.bits:null;
+  const outputCurrents=bits?paths.map((p,i)=>bits[i]?Math.max(0,(supplyVoltage-p.vf)/p.resistance):0):[0,0,0,0];
+  return {state:"complete",engine:"Ideal four-bit one-hot ring shift register",message:"Rotates a one-hot state by one output per rising clock edge and asynchronously initializes Q0. This is a discrete ring-state model, not a manufacturer-specific shift-register timing or power model.",result:{kind:"shift-register-led-chaser",supplyVoltage,logicThresholdV:thresholdV,clockVoltage,resetVoltage,clockHigh,resetActive,risingEdge,bits,activeLedIndex:bits?bits.indexOf(true):-1,outputCurrents,risingEdgeCount:(previous?.risingEdgeCount||0)+(risingEdge?1:0),oneHot:bits?bits.filter(Boolean).length===1:null,mode:resetActive?"asynchronous reset":risingEdge?"shift":clockHigh?"high-level hold":"low-level hold"},validation};
+}
 
 function analyseDigitalDebounce(project,{sources,filter,resistor,led,ground,previousState,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
