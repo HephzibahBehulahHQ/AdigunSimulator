@@ -4414,7 +4414,7 @@
     {
       "id": "107-usb-c-sink-concept",
       "title": "USB-C sink profile concept",
-      "status": "draft",
+      "status": "planned",
       "objective": "Select a supported USB-C fixed profile within sink voltage/current limits, estimate a resistive load, and use 5 V fallback when the preferred contract is unavailable.",
       "acceptanceTest": "tests/core.test.mjs: catalogue USB-C sink selects requested profile, falls back to 5 V, and blocks invalid paths",
       "testId": "core-usb-c-sink",
