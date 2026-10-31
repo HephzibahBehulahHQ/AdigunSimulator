@@ -544,6 +544,31 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue 5 V linear supply estimates ripple and regulator dropout", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/007-linear-regulated-supply.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const nominal = runSupportedAnalysis(project);
+  assert.equal(nominal.state, "complete");
+  assert.equal(nominal.result.kind, "linear-regulated-supply");
+  assert.equal(nominal.result.secondaryRmsVoltage, 12);
+  assert.equal(nominal.result.rectifiedFrequencyHz, 100);
+  assert.equal(nominal.result.regulated, true);
+  assert.equal(nominal.result.outputVoltage, 5);
+  assert.ok(Math.abs(nominal.result.rippleVoltagePP - 0.5) < 1e-12);
+  assert.ok(nominal.result.dropoutMarginV > 0);
+  assert.ok(Math.abs(nominal.result.powerBalanceW) < 1e-12);
+  const lowLine = runSupportedAnalysis(updateComponent(project, "source-1", { value: "120 V RMS, 50 Hz" }));
+  assert.equal(lowLine.state, "complete");
+  assert.equal(lowLine.result.regulated, false);
+  assert.ok(lowLine.result.outputVoltage > 4.9 && lowLine.result.outputVoltage < 5);
+  assert.ok(Math.abs(lowLine.result.minimumRectifiedVoltage - lowLine.result.outputVoltage - 2) < 1e-12);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "source-1", { value: "230 V RMS, 0 Hz" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "DC_RAW").endpoints = ["bridge-1:POS"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue battery discharge monitor asserts across the divider threshold", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/006-battery-discharge-monitor.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -641,7 +666,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 19);
+  assert.equal(getExampleCoverage(registry).total, 20);
   assert.equal(getExampleCoverage(registry).released, 9);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 191);
