@@ -2297,14 +2297,42 @@
     {
       "id": "054-priority-encoder",
       "title": "Four-input priority encoder",
-      "status": "in-review",
+      "status": "released",
       "objective": "Encode the highest-numbered active input into a two-bit output, expose a valid signal for no active inputs, and verify precedence for simultaneous assertions.",
       "acceptanceTest": "tests/core.test.mjs: catalogue priority encoder reports the highest asserted input",
       "testId": "core-priority-encoder",
       "projectFile": "examples/054-priority-encoder.adigun.json",
       "safetyNote": "Generic ideal static four-input priority encoder with D3 highest. It omits propagation delay, input loading, noise, and specific device behavior.",
       "scope": "catalogue",
-      "catalogueIndex": 54
+      "catalogueIndex": 54,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41175118038",
+        "headRevision": "ce781f2b1b16d5a253d6932d7259a3cf82a37423",
+        "engine": "Ideal four-input priority encoder",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-four-input-priority-encoder-v1",
+        "expectedResult": {
+          "noActiveInput": {
+            "valid": false,
+            "code": 0
+          },
+          "singleInputs": {
+            "D0": 0,
+            "D1": 1,
+            "D2": 2,
+            "D3": 3
+          },
+          "multipleInputs": {
+            "D0AndD2": 2,
+            "D1AndD3": 3,
+            "allInputs": 3
+          },
+          "highestPriority": "D3",
+          "invalidInput": "blocked"
+        }
+      }
     }
   ]
 }
