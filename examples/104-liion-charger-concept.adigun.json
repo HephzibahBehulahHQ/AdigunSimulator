@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-104-liion-charger",
+  "metadata": {
+    "name": "Li-ion CC/CV Charger Phase Model",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          20,
+          50
+        ],
+        "schematic": [
+          20,
+          50
+        ],
+        "pcb": [
+          20,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "cell",
+      "libraryId": "input.liion-cell-fixture",
+      "reference": "BAT1",
+      "value": "CellState present; CellV 3.50 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV",
+      "position": {
+        "breadboard": [
+          120,
+          50
+        ],
+        "schematic": [
+          120,
+          50
+        ],
+        "pcb": [
+          120,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "charger",
+      "libraryId": "active.liion-cccv-charger-ideal",
+      "reference": "U1",
+      "value": "Chemistry Li-ion; Mode CC/CV; SetVoltage 4.20 V; MaxCharge 500 mA; Termination 50 mA; TempLow 0 C; TempHigh 45 C; Efficiency 90%",
+      "position": {
+        "breadboard": [
+          320,
+          50
+        ],
+        "schematic": [
+          320,
+          50
+        ],
+        "pcb": [
+          320,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.liion-charge-report",
+      "reference": "SCOPE1",
+      "value": "Charge phase report",
+      "position": {
+        "breadboard": [
+          500,
+          50
+        ],
+        "schematic": [
+          500,
+          50
+        ],
+        "pcb": [
+          500,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VIN",
+      "endpoints": [
+        "source:+",
+        "charger:VIN",
+        "cell:VCC",
+        "charger:EN"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "cell:GND",
+        "charger:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "BATTERY",
+      "endpoints": [
+        "cell:CELL",
+        "charger:BAT",
+        "report:BAT"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "charger:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}

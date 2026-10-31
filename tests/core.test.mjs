@@ -2820,3 +2820,30 @@ test("catalogue four-switch buck-boost selects buck, boost, and crossover operat
   broken.nets.find(net=>net.id==="ENERGY_PATH").endpoints=["controller:L1"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue Li-ion charger estimates CC, CV taper, termination, and safety inhibits", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/104-liion-charger-concept.adigun.json",import.meta.url)));
+  const cc=runSupportedAnalysis(project);
+  assert.equal(cc.state,"complete",cc.message);
+  assert.equal(cc.result.kind,"liion-charge");
+  assert.equal(cc.result.phase,"CC");
+  assert.equal(cc.result.chargeCurrentA,0.5);
+  assert.equal(cc.result.inputVoltageV,5);
+  assert.equal(cc.result.hardwareModeled,false);
+  const cv=runSupportedAnalysis(updateComponent(project,"cell",{value:"CellState present; CellV 4.15 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV"}));
+  assert.equal(cv.state,"complete",cv.message);
+  assert.equal(cv.result.phase,"CV");
+  assert.ok(Math.abs(cv.result.chargeCurrentA-0.25)<1e-12);
+  const terminated=runSupportedAnalysis(updateComponent(project,"cell",{value:"CellState present; CellV 4.19 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV"}));
+  assert.equal(terminated.result.phase,"terminated");
+  assert.equal(terminated.result.chargeCurrentA,0);
+  const absent=runSupportedAnalysis(updateComponent(project,"cell",{value:"CellState absent; CellV 0 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV"}));
+  assert.equal(absent.state,"complete");
+  assert.equal(absent.result.phase,"no-cell");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"cell",{value:"CellState present; CellV 4.25 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"cell",{value:"CellState present; CellV 3.50 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 50; Efficiency 90%; Mode CC/CV"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"source",{value:"4.4 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="STATUS").endpoints=["charger:STATUS"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
