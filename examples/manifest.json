@@ -5943,6 +5943,18 @@
           ]
         }
       }
+    },
+    {
+      "id": "148-rlc-transient-response",
+      "title": "Transient pulse response",
+      "status": "in-review",
+      "objective": "Model a series RLC step response, show damped ringing and report a timestep-resolution warning when sample spacing is too coarse.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue RLC pulse response shows ringing and warns when timestep undersamples it",
+      "testId": "core-rlc-transient-response",
+      "projectFile": "examples/148-rlc-transient-response.adigun.json",
+      "readmeFile": "examples/148-rlc-transient-response/README.md",
+      "safetyNote": "This closed-form ideal RLC model uses nominal values and a declared series topology. It is not a general transient/SPICE engine; parasitics, tolerances, source resistance and nonlinear component behavior are omitted.",
+      "scope": "catalogue"
     }
   ]
 }
