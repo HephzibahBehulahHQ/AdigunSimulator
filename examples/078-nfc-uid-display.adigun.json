@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-078-nfc-uid-display",
+  "metadata": {
+    "name": "NFC UID Safe Display",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          35,
+          60
+        ],
+        "schematic": [
+          35,
+          60
+        ],
+        "pcb": [
+          35,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "tag",
+      "libraryId": "sensor.nfc-tag-ideal",
+      "reference": "TAG1",
+      "value": "UID 04A1B2C3; ReadStatus ok",
+      "position": {
+        "breadboard": [
+          150,
+          60
+        ],
+        "schematic": [
+          150,
+          60
+        ],
+        "pcb": [
+          150,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "reader",
+      "libraryId": "active.nfc-reader-ideal",
+      "reference": "NFC1",
+      "value": "Mode UID-only; Band 13.56 MHz",
+      "position": {
+        "breadboard": [
+          280,
+          60
+        ],
+        "schematic": [
+          280,
+          60
+        ],
+        "pcb": [
+          280,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.nfc-display-controller-ideal",
+      "reference": "U1",
+      "value": "Program Display UID; Mode UID-display-only",
+      "position": {
+        "breadboard": [
+          425,
+          60
+        ],
+        "schematic": [
+          425,
+          60
+        ],
+        "pcb": [
+          425,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "output.nfc-uid-display",
+      "reference": "OLED1",
+      "value": "UID only",
+      "position": {
+        "breadboard": [
+          555,
+          60
+        ],
+        "schematic": [
+          555,
+          60
+        ],
+        "pcb": [
+          555,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          230
+        ],
+        "schematic": [
+          605,
+          230
+        ],
+        "pcb": [
+          605,
+          230
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "reader:VCC",
+        "controller:VCC",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "tag:GND",
+        "reader:GND",
+        "controller:GND",
+        "display:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "TAG_UID",
+      "endpoints": [
+        "tag:UID",
+        "reader:TAG"
+      ]
+    },
+    {
+      "id": "READER_DATA",
+      "endpoints": [
+        "reader:DATA",
+        "controller:RX"
+      ]
+    },
+    {
+      "id": "DISPLAY",
+      "endpoints": [
+        "controller:DISPLAY",
+        "display:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
