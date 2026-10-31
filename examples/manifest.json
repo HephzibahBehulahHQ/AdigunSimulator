@@ -229,13 +229,13 @@
       }
     },
     {
-      "id": "014-rl-low-pass",
-      "title": "RL low-pass frequency response",
+      "id": "supplemental-rl-low-pass",
+      "title": "Supplemental RL low-pass frequency response",
       "status": "released",
       "objective": "Calculate the ideal sinusoidal steady-state response of a 1 kΩ / 100 mH RL low-pass filter at 0.1×, 1×, and 10× cutoff.",
       "acceptanceTest": "tests/core.test.mjs: RL low-pass response uses the calculated cutoff and attenuates above it",
       "testId": "core-rl-low-pass",
-      "projectFile": "examples/014-rl-low-pass.adigun.json",
+      "projectFile": "examples/supplemental-rl-low-pass.adigun.json",
       "safetyNote": "Ideal educational frequency-domain model only. Generic components have no verified physical ratings, tolerances, parasitics, exact manufacturer BOM, hole-level breadboard mapping, or PCB footprints. It is not hardware or manufacturing guidance.",
       "verification": {
         "status": "passed",
@@ -252,7 +252,8 @@
           "gainAtCutoff": 0.7071067812,
           "gainAt10Cutoff": 0.099503719
         }
-      }
+      },
+      "scope": "supplemental"
     }
   ]
 }
