@@ -2365,6 +2365,18 @@
           "signedOverflow": "not modeled"
         }
       }
+    },
+    {
+      "id": "056-uart-transmitter",
+      "title": "UART transmitter 8N1 frame model",
+      "status": "in-review",
+      "objective": "Serialize a configured byte as one low start bit, eight LSB-first data bits, and one high stop bit at the selected baud rate; test byte, frame duration, and format.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue UART transmitter emits valid 8N1 frames LSB-first",
+      "testId": "core-uart-transmitter",
+      "projectFile": "examples/056-uart-transmitter.adigun.json",
+      "safetyNote": "Ideal frame-level digital model. Analog edge shape, jitter, parity, oversampling, line loading, and physical transceiver behavior are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 56
     }
   ]
 }
