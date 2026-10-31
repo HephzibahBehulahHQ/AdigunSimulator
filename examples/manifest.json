@@ -1308,14 +1308,29 @@
     {
       "id": "033-nmos-low-side-switch",
       "title": "NMOS low-side inductive-load driver",
-      "status": "in-review",
+      "status": "released",
       "objective": "Drive a 24 Ω, 100 mH coil from 12 V with a 5 V gate signal; test off/on VDS, current, flyback clamp, and turn-off decay.",
       "acceptanceTest": "tests/core.test.mjs: catalogue NMOS low-side driver switches coil and clamps turn-off with a flyback diode",
       "testId": "core-nmos-low-side-switch",
       "projectFile": "examples/033-nmos-low-side-switch.adigun.json",
       "safetyNote": "Idealized 2 V threshold, 0.1 Ω MOSFET switch, and constant-drop diode model only. It omits switching edges, capacitance, recovery, avalanche, thermal effects, and component ratings.",
       "scope": "catalogue",
-      "catalogueIndex": 33
+      "catalogueIndex": 33,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41170976771",
+        "headRevision": "910e3b4e535443608a107aa296a2eba830a1bac5",
+        "engine": "Ideal low-side MOSFET and flyback-coil estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-nmos-low-side-coil-v1",
+        "expectedResult": {
+          "supplyVoltage": 12,
+          "gateVoltage": 5,
+          "gateThresholdV": 2,
+          "switchOn": true
+        }
+      }
     }
   ]
 }
