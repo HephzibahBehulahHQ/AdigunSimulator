@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-065-arduino-ultrasonic-ranger",
+  "metadata": {
+    "name": "Uno-Class Ultrasonic Ranger and OLED Result",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          45,
+          60
+        ],
+        "schematic": [
+          45,
+          60
+        ],
+        "pcb": [
+          45,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.mcu-uno-ideal",
+      "reference": "U1",
+      "value": "Program Ultrasonic ranger; Trigger D9; Echo D8; Display D7",
+      "position": {
+        "breadboard": [
+          165,
+          60
+        ],
+        "schematic": [
+          165,
+          60
+        ],
+        "pcb": [
+          165,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "sensor",
+      "libraryId": "sensor.ultrasonic-echo-ideal",
+      "reference": "US1",
+      "value": "Echo 5882 us; Minimum 20 mm; Maximum 4000 mm",
+      "position": {
+        "breadboard": [
+          290,
+          60
+        ],
+        "schematic": [
+          290,
+          60
+        ],
+        "pcb": [
+          290,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "oled",
+      "libraryId": "output.oled-text-sink-ideal",
+      "reference": "OLED1",
+      "value": "Distance result",
+      "position": {
+        "breadboard": [
+          430,
+          60
+        ],
+        "schematic": [
+          430,
+          60
+        ],
+        "pcb": [
+          430,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          540,
+          60
+        ],
+        "schematic": [
+          540,
+          60
+        ],
+        "pcb": [
+          540,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mcu:VCC",
+        "sensor:VCC",
+        "oled:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "mcu:GND",
+        "sensor:GND",
+        "oled:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "TRIG",
+      "endpoints": [
+        "mcu:D9",
+        "sensor:TRIG"
+      ]
+    },
+    {
+      "id": "ECHO",
+      "endpoints": [
+        "sensor:ECHO",
+        "mcu:D8"
+      ]
+    },
+    {
+      "id": "OLED_DATA",
+      "endpoints": [
+        "mcu:D7",
+        "oled:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
