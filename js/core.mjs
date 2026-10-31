@@ -172,6 +172,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.rgb-pwm-controller-ideal", category: "Active", type: "Ideal three-channel 8-bit RGB PWM controller", prefix: "U", pins: ["CONFIG", "R_PWM", "G_PWM", "B_PWM", "VCC", "GND"], defaultValue: "Mode active-high PWM; Resolution 8 bit", simulation: "analytical-rgb-pwm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.rgb-led-common-cathode", category: "Output", type: "Common-cathode RGB LED ideal model", prefix: "LED", pins: ["R", "G", "B", "K"], defaultValue: "VfRed 2.0 V; VfGreen 3.0 V; VfBlue 3.0 V", simulation: "analytical-rgb-pwm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.rgb-pwm-report", category: "Output", type: "RGB PWM current and colour report", prefix: "SCOPE", pins: ["R_SENSE", "G_SENSE", "B_SENSE", "VCC", "GND"], defaultValue: "RGB channel report", simulation: "analytical-rgb-pwm", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.status-sensor-fixture", category: "Inputs", type: "Temperature, humidity, and pressure sensor fixture", prefix: "SNS", pins: ["T", "H", "P", "VCC", "GND"], defaultValue: "TemperatureC 23.5; HumidityPct 48; PressureHpa 1013; Present T,H,P", simulation: "fixture-status-sensors", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.oled-status-controller-ideal", category: "Active", type: "Ideal MCU status-panel formatter", prefix: "U", pins: ["T", "H", "P", "DATA", "VCC", "GND"], defaultValue: "Program status; Required T,H,P; Columns 16; Rows 2", simulation: "analytical-oled-status", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.oled-status-panel", category: "Output", type: "16 by 2 OLED status text panel", prefix: "OLED", pins: ["DATA", "VCC", "GND"], defaultValue: "Columns 16; Rows 2", simulation: "analytical-oled-status", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.audio-amp-generic", category: "Active", type: "Generic low-voltage class-AB audio amplifier (LM386-class estimate)", prefix: "U", pins: ["VCC", "GND", "IN", "OUT"], defaultValue: "Av 20; Swing 2 V; Q 4 mA; f 1 kHz", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.speaker-r-l-generic", category: "Output", type: "Generic speaker electrical R-L model", prefix: "SP", pins: ["+", "-"], defaultValue: "R 8 Ω; L 0.5 mH", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.npn-small-signal", category: "Active", type: "NPN transistor (ideal common-emitter small-signal)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "β 100; VBE 0.7 V; VCEsat 0.2 V", simulation: "analytical-npn-common-emitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -651,6 +654,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const rgbPwmControllers = project.components.filter((item) => item.libraryId === "active.rgb-pwm-controller-ideal");
   const rgbLeds = project.components.filter((item) => item.libraryId === "output.rgb-led-common-cathode");
   const rgbReports = project.components.filter((item) => item.libraryId === "output.rgb-pwm-report");
+  const statusSensorFixtures = project.components.filter((item) => item.libraryId === "input.status-sensor-fixture");
+  const oledStatusControllers = project.components.filter((item) => item.libraryId === "active.oled-status-controller-ideal");
+  const oledStatusPanels = project.components.filter((item) => item.libraryId === "output.oled-status-panel");
   const npnTransistors = project.components.filter((item) => item.libraryId === "active.npn-small-signal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
@@ -886,6 +892,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
+  }
+  if (statusSensorFixtures.length === 1 && oledStatusControllers.length === 1 && oledStatusPanels.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseOledStatusPanel(project, { source: source[0], sensors: statusSensorFixtures[0], controller: oledStatusControllers[0], panel: oledStatusPanels[0], ground: ground[0], validation });
   }
   if (rgbColourCommands.length === 1 && rgbPwmControllers.length === 1 && rgbLeds.length === 1 && rgbReports.length === 1 && source.length === 1 && resistor.length === 3 && ground.length === 1 && project.components.length === 9) {
     return analyseRgbPwm(project, { source: source[0], command: rgbColourCommands[0], controller: rgbPwmControllers[0], led: rgbLeds[0], report: rgbReports[0], resistors: resistor, ground: ground[0], validation });
@@ -3086,6 +3095,28 @@ function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,spe
   return {state:"complete",engine:"Generic low-voltage class-AB amplifier and R-L speaker estimate",message:"Models configurable voltage gain and output swing, a single-supply midpoint bias, a series output coupling capacitor, and a nominal speaker R-L load. It reports a sinusoidal fundamental and real load power only. It does not calculate THD, compression, slew, output-stage current limiting, mechanical sound, thermal behavior, or manufacturer-specific LM386 performance.",result:{kind:"audio-power-amplifier",supplyVoltage,inputAmplitudeV,frequencyHz,gainVPerV:gain,requestedOutputAmplitudeV,amplifierOutputAmplitudeV,clipped,clippingWarning:clipped?"Input exceeds the configured output swing; distortion is not modeled.":null,outputBiasVoltageV:biasVoltageV,quiescentCurrentA:quiescentCurrent,speakerResistanceOhm:speakerResistance,speakerInductanceH:speakerInductance,couplingCapacitanceF:couplingCapacitance,couplingGain,speakerImpedanceOhm,speakerVoltagePeakV,speakerVoltageRmsV,speakerCurrentRmsA,speakerRealPowerW,frequencyResponse},validation};
 }
 
+function analyseOledStatusPanel(project,{source,sensors,controller,panel,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const sensorFields=fields(sensors.value),controllerFields=fields(controller.value),panelFields=fields(panel.value),present=(field(sensorFields,"Present")??"").split(",").map(value=>value.trim());
+  const temperature=Number(field(sensorFields,"TemperatureC")),humidity=Number(field(sensorFields,"HumidityPct")),pressure=Number(field(sensorFields,"PressureHpa"));
+  const missingSensors=[["T","Temperature"],["H","Humidity"],["P","Pressure"]].filter(([code])=>!present.includes(code)).map(([,label])=>label);
+  const supplyVoltage=voltageValue(source.value),groundNet=n(ground,"0"),vccNet=n(source,"+");
+  const signalPath=n(sensors,"T")===n(controller,"T")&&n(sensors,"H")===n(controller,"H")&&n(sensors,"P")===n(controller,"P")&&n(controller,"DATA")===n(panel,"DATA");
+  const powered=n(source,"-")===groundNet&&n(sensors,"VCC")===vccNet&&n(controller,"VCC")===vccNet&&n(panel,"VCC")===vccNet&&n(sensors,"GND")===groundNet&&n(controller,"GND")===groundNet&&n(panel,"GND")===groundNet;
+  const required=[groundNet,vccNet,n(sensors,"T"),n(sensors,"H"),n(sensors,"P"),n(sensors,"VCC"),n(sensors,"GND"),n(controller,"T"),n(controller,"H"),n(controller,"P"),n(controller,"DATA"),n(controller,"VCC"),n(controller,"GND"),n(panel,"DATA"),n(panel,"VCC"),n(panel,"GND")];
+  const columns=Number(field(panelFields,"Columns")),rows=Number(field(panelFields,"Rows")),requiredSet=(field(controllerFields,"Required")??"").split(",").map(value=>value.trim()).sort().join(",");
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<2.7||supplyVoltage>5.5||!powered||!signalPath||required.some(net=>typeof net!=="string"||!net)||field(controllerFields,"Program")!=="status"||requiredSet!=="H,P,T"||field(controllerFields,"Columns")!=="16"||field(controllerFields,"Rows")!=="2"||columns!==16||rows!==2){
+    return {state:"blocked",message:"Power the sensor fixture, status controller and OLED panel; connect temperature, humidity, pressure, shared data and common ground; configure the supported 16×2 status format.",validation};
+  }
+  if((present.includes("T")&&(!Number.isFinite(temperature)||temperature< -40||temperature>85))||(present.includes("H")&&(!Number.isFinite(humidity)||humidity<0||humidity>100))||(present.includes("P")&&(!Number.isFinite(pressure)||pressure<300||pressure>1200))){
+    return {state:"blocked",message:"A present sensor value is outside its supported temperature, humidity, or pressure range.",validation};
+  }
+  const displayLines=missingSensors.length?["SENSOR MISSING","Missing: "+missingSensors.join(",")]:["T:"+temperature.toFixed(1)+"C RH:"+humidity.toFixed(0)+"%","P:"+pressure.toFixed(0)+"hPa READY"];
+  const overflowLines=displayLines.filter(line=>line.length>columns),displayState=missingSensors.length?"sensor-missing":"ready";
+  return {state:"complete",engine:"Ideal MCU OLED status formatting and sensor-range check",message:"Formats three bounded sensor fixtures into a two-line status panel and substitutes an explicit missing-sensor notice when data is absent. Sensor accuracy, I²C timing, OLED controller commands, display rendering, firmware execution, and hardware behavior are not modeled.",result:{kind:"oled-status-panel",displayColumns:columns,displayRows:rows,displayLines,displayState,missingSensors,overflowLines,temperatureC:present.includes("T")?temperature:null,humidityPct:present.includes("H")?humidity:null,pressureHpa:present.includes("P")?pressure:null,firmwareExecuted:false},validation};
+}
 function analyseRgbPwm(project,{source,command,controller,led,report,resistors,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
