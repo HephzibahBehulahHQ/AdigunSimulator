@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -752,3 +752,8 @@ Object.assign(TRANSLATIONS.en, {exampleUsbCBreakout:"USB-C USB 2.0 breakout"});
 Object.assign(TRANSLATIONS.de, {exampleUsbCBreakout:"USB-C-USB-2.0-Breakout"});
 Object.assign(TRANSLATIONS.yo, {exampleUsbCBreakout:"USB-C USB 2.0 breakout"});
 Object.assign(TRANSLATIONS.pcm, {exampleUsbCBreakout:"USB-C USB 2.0 breakout"});
+
+Object.assign(TRANSLATIONS.en, {exampleBme280Breakout:"BME280 I²C sensor breakout"});
+Object.assign(TRANSLATIONS.de, {exampleBme280Breakout:"BME280-I²C-Sensor-Breakout"});
+Object.assign(TRANSLATIONS.yo, {exampleBme280Breakout:"BME280 I²C sensor breakout"});
+Object.assign(TRANSLATIONS.pcm, {exampleBme280Breakout:"BME280 I²C sensor breakout"});
