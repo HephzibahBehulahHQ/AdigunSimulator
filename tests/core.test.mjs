@@ -42,6 +42,7 @@ import { runPwmFanController } from "../js/pwm-fan-controller.mjs";
 import { runAutomaticNightLight } from "../js/automatic-night-light.mjs";
 import { runSmartIrrigation } from "../js/smart-irrigation.mjs";
 import { runGarageDoorConcept } from "../js/garage-door-concept.mjs";
+import { runElevatorCallQueue } from "../js/elevator-call-queue.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1474,7 +1475,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 185);
+  assert.equal(getExampleCoverage(registry).total, 186);
   assert.equal(getExampleCoverage(registry).released, 175);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 25);
@@ -4405,4 +4406,13 @@ test("catalogue garage door limit switches stop motion and reject opposite-direc
   assert.equal(result.result.frames[3].conflictRejected,true);assert.equal(result.result.conflictingRequestsRejected,1);
   assert.equal(result.result.noDriveOverlap,true);
   const invalid=structuredClone(project);invalid.garageDoorConcept.events[0].action="reverse";assert.equal(runGarageDoorConcept(invalid).state,"blocked");
+});
+
+test("catalogue elevator scheduler preserves FIFO calls and ignores duplicate pending floor", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/176-elevator-call-queue.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runElevatorCallQueue(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"elevator-fifo-call-queue");
+  assert.deepEqual(result.result.frames.map(frame=>frame.queue),[[3],[3,2],[3,2],[2],[],[]]);
+  assert.deepEqual(result.result.dispatchedTargets,[3,2]);assert.equal(result.result.duplicateCallsIgnored,1);
+  const invalid=structuredClone(project);invalid.elevatorCallQueue.events[0].floor=6;assert.equal(runElevatorCallQueue(invalid).state,"blocked");
 });
