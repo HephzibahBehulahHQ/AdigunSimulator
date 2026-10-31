@@ -1,0 +1,2372 @@
+{
+  "schemaVersion": 1,
+  "source": "Master specification section 11",
+  "totalTypes": 565,
+  "categories": [
+    {
+      "code": "A",
+      "name": "Sources, power, and grounds",
+      "declaredCount": 35,
+      "types": [
+        {
+          "code": "A01",
+          "name": "ideal DC voltage source"
+        },
+        {
+          "code": "A02",
+          "name": "AC voltage source"
+        },
+        {
+          "code": "A03",
+          "name": "pulse source"
+        },
+        {
+          "code": "A04",
+          "name": "sine source"
+        },
+        {
+          "code": "A05",
+          "name": "arbitrary waveform source"
+        },
+        {
+          "code": "A06",
+          "name": "DC current source"
+        },
+        {
+          "code": "A07",
+          "name": "single battery cell"
+        },
+        {
+          "code": "A08",
+          "name": "battery pack"
+        },
+        {
+          "code": "A09",
+          "name": "bench power supply"
+        },
+        {
+          "code": "A10",
+          "name": "solar cell"
+        },
+        {
+          "code": "A11",
+          "name": "wind-generator source"
+        },
+        {
+          "code": "A12",
+          "name": "fuel-cell source"
+        },
+        {
+          "code": "A13",
+          "name": "single-phase mains source"
+        },
+        {
+          "code": "A14",
+          "name": "three-phase mains source"
+        },
+        {
+          "code": "A15",
+          "name": "protective earth"
+        },
+        {
+          "code": "A16",
+          "name": "chassis ground"
+        },
+        {
+          "code": "A17",
+          "name": "signal ground"
+        },
+        {
+          "code": "A18",
+          "name": "analog ground"
+        },
+        {
+          "code": "A19",
+          "name": "digital ground"
+        },
+        {
+          "code": "A20",
+          "name": "virtual ground"
+        },
+        {
+          "code": "A21",
+          "name": "power port"
+        },
+        {
+          "code": "A22",
+          "name": "voltage reference"
+        },
+        {
+          "code": "A23",
+          "name": "linear regulator"
+        },
+        {
+          "code": "A24",
+          "name": "LDO regulator"
+        },
+        {
+          "code": "A25",
+          "name": "buck regulator"
+        },
+        {
+          "code": "A26",
+          "name": "boost regulator"
+        },
+        {
+          "code": "A27",
+          "name": "buck-boost regulator"
+        },
+        {
+          "code": "A28",
+          "name": "flyback converter"
+        },
+        {
+          "code": "A29",
+          "name": "charge pump"
+        },
+        {
+          "code": "A30",
+          "name": "isolated DC/DC module"
+        },
+        {
+          "code": "A31",
+          "name": "AC/DC power module"
+        },
+        {
+          "code": "A32",
+          "name": "USB power input"
+        },
+        {
+          "code": "A33",
+          "name": "PoE powered-device module"
+        },
+        {
+          "code": "A34",
+          "name": "battery charger IC/module"
+        },
+        {
+          "code": "A35",
+          "name": "supercapacitor power module."
+        }
+      ]
+    },
+    {
+      "code": "B",
+      "name": "Passive, magnetic, timing, and filter parts",
+      "declaredCount": 70,
+      "types": [
+        {
+          "code": "B01",
+          "name": "fixed carbon-film resistor"
+        },
+        {
+          "code": "B02",
+          "name": "fixed metal-film resistor"
+        },
+        {
+          "code": "B03",
+          "name": "thick-film SMD resistor"
+        },
+        {
+          "code": "B04",
+          "name": "precision resistor"
+        },
+        {
+          "code": "B05",
+          "name": "power resistor"
+        },
+        {
+          "code": "B06",
+          "name": "fusible resistor"
+        },
+        {
+          "code": "B07",
+          "name": "current-sense shunt"
+        },
+        {
+          "code": "B08",
+          "name": "Kelvin current-sense resistor"
+        },
+        {
+          "code": "B09",
+          "name": "isolated resistor array"
+        },
+        {
+          "code": "B10",
+          "name": "bussed resistor network"
+        },
+        {
+          "code": "B11",
+          "name": "fixed potentiometer"
+        },
+        {
+          "code": "B12",
+          "name": "rotary potentiometer"
+        },
+        {
+          "code": "B13",
+          "name": "multi-turn trimmer"
+        },
+        {
+          "code": "B14",
+          "name": "rheostat"
+        },
+        {
+          "code": "B15",
+          "name": "NTC thermistor"
+        },
+        {
+          "code": "B16",
+          "name": "PTC thermistor"
+        },
+        {
+          "code": "B17",
+          "name": "LDR/photoresistor"
+        },
+        {
+          "code": "B18",
+          "name": "MOV varistor"
+        },
+        {
+          "code": "B19",
+          "name": "ceramic capacitor"
+        },
+        {
+          "code": "B20",
+          "name": "electrolytic capacitor"
+        },
+        {
+          "code": "B21",
+          "name": "tantalum capacitor"
+        },
+        {
+          "code": "B22",
+          "name": "film capacitor"
+        },
+        {
+          "code": "B23",
+          "name": "mica capacitor"
+        },
+        {
+          "code": "B24",
+          "name": "variable capacitor"
+        },
+        {
+          "code": "B25",
+          "name": "trimmer capacitor"
+        },
+        {
+          "code": "B26",
+          "name": "feedthrough capacitor"
+        },
+        {
+          "code": "B27",
+          "name": "safety X capacitor"
+        },
+        {
+          "code": "B28",
+          "name": "safety Y capacitor"
+        },
+        {
+          "code": "B29",
+          "name": "motor-run capacitor"
+        },
+        {
+          "code": "B30",
+          "name": "motor-start capacitor"
+        },
+        {
+          "code": "B31",
+          "name": "capacitor bank"
+        },
+        {
+          "code": "B32",
+          "name": "supercapacitor"
+        },
+        {
+          "code": "B33",
+          "name": "air-core inductor"
+        },
+        {
+          "code": "B34",
+          "name": "ferrite inductor"
+        },
+        {
+          "code": "B35",
+          "name": "RF inductor"
+        },
+        {
+          "code": "B36",
+          "name": "power inductor"
+        },
+        {
+          "code": "B37",
+          "name": "variable inductor"
+        },
+        {
+          "code": "B38",
+          "name": "choke"
+        },
+        {
+          "code": "B39",
+          "name": "common-mode choke"
+        },
+        {
+          "code": "B40",
+          "name": "ferrite bead"
+        },
+        {
+          "code": "B41",
+          "name": "saturable reactor"
+        },
+        {
+          "code": "B42",
+          "name": "audio transformer"
+        },
+        {
+          "code": "B43",
+          "name": "RF transformer"
+        },
+        {
+          "code": "B44",
+          "name": "pulse transformer"
+        },
+        {
+          "code": "B45",
+          "name": "gate-drive transformer"
+        },
+        {
+          "code": "B46",
+          "name": "isolation transformer"
+        },
+        {
+          "code": "B47",
+          "name": "power transformer"
+        },
+        {
+          "code": "B48",
+          "name": "three-phase transformer"
+        },
+        {
+          "code": "B49",
+          "name": "autotransformer"
+        },
+        {
+          "code": "B50",
+          "name": "current transformer"
+        },
+        {
+          "code": "B51",
+          "name": "toroidal transformer"
+        },
+        {
+          "code": "B52",
+          "name": "impedance-matching transformer"
+        },
+        {
+          "code": "B53",
+          "name": "balun"
+        },
+        {
+          "code": "B54",
+          "name": "crystal resonator"
+        },
+        {
+          "code": "B55",
+          "name": "ceramic resonator"
+        },
+        {
+          "code": "B56",
+          "name": "MEMS oscillator"
+        },
+        {
+          "code": "B57",
+          "name": "RC network"
+        },
+        {
+          "code": "B58",
+          "name": "RLC network"
+        },
+        {
+          "code": "B59",
+          "name": "pi attenuator"
+        },
+        {
+          "code": "B60",
+          "name": "T attenuator"
+        },
+        {
+          "code": "B61",
+          "name": "LC low-pass filter"
+        },
+        {
+          "code": "B62",
+          "name": "LC high-pass filter"
+        },
+        {
+          "code": "B63",
+          "name": "LC band-pass filter"
+        },
+        {
+          "code": "B64",
+          "name": "LC band-stop filter"
+        },
+        {
+          "code": "B65",
+          "name": "EMI power-line filter"
+        },
+        {
+          "code": "B66",
+          "name": "feedthrough EMI filter"
+        },
+        {
+          "code": "B67",
+          "name": "delay line"
+        },
+        {
+          "code": "B68",
+          "name": "piezo resonator"
+        },
+        {
+          "code": "B69",
+          "name": "piezoelectric disc"
+        },
+        {
+          "code": "B70",
+          "name": "ferrite core."
+        }
+      ]
+    },
+    {
+      "code": "C",
+      "name": "Diodes, emitters, detectors, and opto-isolators",
+      "declaredCount": 38,
+      "types": [
+        {
+          "code": "C01",
+          "name": "small-signal diode"
+        },
+        {
+          "code": "C02",
+          "name": "general rectifier diode"
+        },
+        {
+          "code": "C03",
+          "name": "Schottky diode"
+        },
+        {
+          "code": "C04",
+          "name": "fast-recovery diode"
+        },
+        {
+          "code": "C05",
+          "name": "ultrafast diode"
+        },
+        {
+          "code": "C06",
+          "name": "Zener diode"
+        },
+        {
+          "code": "C07",
+          "name": "unidirectional TVS diode"
+        },
+        {
+          "code": "C08",
+          "name": "bidirectional TVS diode"
+        },
+        {
+          "code": "C09",
+          "name": "bridge rectifier"
+        },
+        {
+          "code": "C10",
+          "name": "PIN diode"
+        },
+        {
+          "code": "C11",
+          "name": "varactor diode"
+        },
+        {
+          "code": "C12",
+          "name": "tunnel diode"
+        },
+        {
+          "code": "C13",
+          "name": "step-recovery diode"
+        },
+        {
+          "code": "C14",
+          "name": "constant-current diode"
+        },
+        {
+          "code": "C15",
+          "name": "germanium diode"
+        },
+        {
+          "code": "C16",
+          "name": "red LED"
+        },
+        {
+          "code": "C17",
+          "name": "green LED"
+        },
+        {
+          "code": "C18",
+          "name": "blue LED"
+        },
+        {
+          "code": "C19",
+          "name": "white LED"
+        },
+        {
+          "code": "C20",
+          "name": "yellow/amber LED"
+        },
+        {
+          "code": "C21",
+          "name": "infrared LED"
+        },
+        {
+          "code": "C22",
+          "name": "ultraviolet LED"
+        },
+        {
+          "code": "C23",
+          "name": "RGB LED"
+        },
+        {
+          "code": "C24",
+          "name": "addressable RGB LED"
+        },
+        {
+          "code": "C25",
+          "name": "laser diode"
+        },
+        {
+          "code": "C26",
+          "name": "photodiode"
+        },
+        {
+          "code": "C27",
+          "name": "avalanche photodiode"
+        },
+        {
+          "code": "C28",
+          "name": "phototransistor"
+        },
+        {
+          "code": "C29",
+          "name": "photodarlington"
+        },
+        {
+          "code": "C30",
+          "name": "phototriac optocoupler"
+        },
+        {
+          "code": "C31",
+          "name": "phototransistor optocoupler"
+        },
+        {
+          "code": "C32",
+          "name": "logic-gate optocoupler"
+        },
+        {
+          "code": "C33",
+          "name": "high-speed optocoupler"
+        },
+        {
+          "code": "C34",
+          "name": "linear optocoupler"
+        },
+        {
+          "code": "C35",
+          "name": "opto-MOS relay"
+        },
+        {
+          "code": "C36",
+          "name": "isolation amplifier"
+        },
+        {
+          "code": "C37",
+          "name": "reflective IR sensor"
+        },
+        {
+          "code": "C38",
+          "name": "slotted optical interrupter."
+        }
+      ]
+    },
+    {
+      "code": "D",
+      "name": "Transistors and discrete switching devices",
+      "declaredCount": 35,
+      "types": [
+        {
+          "code": "D01",
+          "name": "NPN BJT"
+        },
+        {
+          "code": "D02",
+          "name": "PNP BJT"
+        },
+        {
+          "code": "D03",
+          "name": "NPN Darlington"
+        },
+        {
+          "code": "D04",
+          "name": "PNP Darlington"
+        },
+        {
+          "code": "D05",
+          "name": "N-channel enhancement MOSFET"
+        },
+        {
+          "code": "D06",
+          "name": "P-channel enhancement MOSFET"
+        },
+        {
+          "code": "D07",
+          "name": "N-channel depletion MOSFET"
+        },
+        {
+          "code": "D08",
+          "name": "P-channel depletion MOSFET"
+        },
+        {
+          "code": "D09",
+          "name": "small-signal JFET N-channel"
+        },
+        {
+          "code": "D10",
+          "name": "small-signal JFET P-channel"
+        },
+        {
+          "code": "D11",
+          "name": "dual-gate MOSFET"
+        },
+        {
+          "code": "D12",
+          "name": "IGBT"
+        },
+        {
+          "code": "D13",
+          "name": "IGBT module"
+        },
+        {
+          "code": "D14",
+          "name": "NPN RF transistor"
+        },
+        {
+          "code": "D15",
+          "name": "PNP RF transistor"
+        },
+        {
+          "code": "D16",
+          "name": "RF MOSFET"
+        },
+        {
+          "code": "D17",
+          "name": "UJT"
+        },
+        {
+          "code": "D18",
+          "name": "programmable UJT"
+        },
+        {
+          "code": "D19",
+          "name": "DIAC"
+        },
+        {
+          "code": "D20",
+          "name": "TRIAC"
+        },
+        {
+          "code": "D21",
+          "name": "SCR/thyristor"
+        },
+        {
+          "code": "D22",
+          "name": "GTO thyristor"
+        },
+        {
+          "code": "D23",
+          "name": "MOSFET driver transistor array"
+        },
+        {
+          "code": "D24",
+          "name": "digital transistor NPN"
+        },
+        {
+          "code": "D25",
+          "name": "digital transistor PNP"
+        },
+        {
+          "code": "D26",
+          "name": "complementary transistor pair"
+        },
+        {
+          "code": "D27",
+          "name": "matched BJT pair"
+        },
+        {
+          "code": "D28",
+          "name": "transistor array"
+        },
+        {
+          "code": "D29",
+          "name": "photodarlington power switch"
+        },
+        {
+          "code": "D30",
+          "name": "avalanche-rated MOSFET"
+        },
+        {
+          "code": "D31",
+          "name": "logic-level MOSFET"
+        },
+        {
+          "code": "D32",
+          "name": "power BJT"
+        },
+        {
+          "code": "D33",
+          "name": "high-side smart switch"
+        },
+        {
+          "code": "D34",
+          "name": "low-side smart switch"
+        },
+        {
+          "code": "D35",
+          "name": "solid-state load switch."
+        }
+      ]
+    },
+    {
+      "code": "E",
+      "name": "Analog, timing, and interface ICs",
+      "declaredCount": 47,
+      "types": [
+        {
+          "code": "E01",
+          "name": "general-purpose op amp"
+        },
+        {
+          "code": "E02",
+          "name": "precision op amp"
+        },
+        {
+          "code": "E03",
+          "name": "rail-to-rail op amp"
+        },
+        {
+          "code": "E04",
+          "name": "instrumentation amplifier"
+        },
+        {
+          "code": "E05",
+          "name": "programmable-gain amplifier"
+        },
+        {
+          "code": "E06",
+          "name": "transimpedance amplifier"
+        },
+        {
+          "code": "E07",
+          "name": "current-sense amplifier"
+        },
+        {
+          "code": "E08",
+          "name": "isolation amplifier"
+        },
+        {
+          "code": "E09",
+          "name": "voltage comparator"
+        },
+        {
+          "code": "E10",
+          "name": "window comparator"
+        },
+        {
+          "code": "E11",
+          "name": "analog switch"
+        },
+        {
+          "code": "E12",
+          "name": "analog multiplexer"
+        },
+        {
+          "code": "E13",
+          "name": "analog demultiplexer"
+        },
+        {
+          "code": "E14",
+          "name": "sample-and-hold"
+        },
+        {
+          "code": "E15",
+          "name": "DAC"
+        },
+        {
+          "code": "E16",
+          "name": "SAR ADC"
+        },
+        {
+          "code": "E17",
+          "name": "delta-sigma ADC"
+        },
+        {
+          "code": "E18",
+          "name": "ADC driver"
+        },
+        {
+          "code": "E19",
+          "name": "precision voltage reference"
+        },
+        {
+          "code": "E20",
+          "name": "band-gap reference"
+        },
+        {
+          "code": "E21",
+          "name": "linear regulator IC"
+        },
+        {
+          "code": "E22",
+          "name": "LDO controller"
+        },
+        {
+          "code": "E23",
+          "name": "buck controller"
+        },
+        {
+          "code": "E24",
+          "name": "boost controller"
+        },
+        {
+          "code": "E25",
+          "name": "buck-boost controller"
+        },
+        {
+          "code": "E26",
+          "name": "flyback controller"
+        },
+        {
+          "code": "E27",
+          "name": "LED constant-current driver"
+        },
+        {
+          "code": "E28",
+          "name": "battery-management IC"
+        },
+        {
+          "code": "E29",
+          "name": "battery fuel-gauge IC"
+        },
+        {
+          "code": "E30",
+          "name": "ideal-diode controller"
+        },
+        {
+          "code": "E31",
+          "name": "load-switch controller"
+        },
+        {
+          "code": "E32",
+          "name": "hot-swap controller"
+        },
+        {
+          "code": "E33",
+          "name": "motor-driver IC"
+        },
+        {
+          "code": "E34",
+          "name": "H-bridge driver"
+        },
+        {
+          "code": "E35",
+          "name": "gate-driver IC"
+        },
+        {
+          "code": "E36",
+          "name": "isolated gate driver"
+        },
+        {
+          "code": "E37",
+          "name": "audio power amplifier"
+        },
+        {
+          "code": "E38",
+          "name": "audio preamplifier"
+        },
+        {
+          "code": "E39",
+          "name": "microphone preamplifier"
+        },
+        {
+          "code": "E40",
+          "name": "audio codec"
+        },
+        {
+          "code": "E41",
+          "name": "active-filter IC"
+        },
+        {
+          "code": "E42",
+          "name": "PLL IC"
+        },
+        {
+          "code": "E43",
+          "name": "VCO IC"
+        },
+        {
+          "code": "E44",
+          "name": "frequency synthesizer"
+        },
+        {
+          "code": "E45",
+          "name": "555 timer"
+        },
+        {
+          "code": "E46",
+          "name": "556 dual timer"
+        },
+        {
+          "code": "E47",
+          "name": "watchdog timer."
+        }
+      ]
+    },
+    {
+      "code": "F",
+      "name": "Digital logic and memory",
+      "declaredCount": 67,
+      "types": [
+        {
+          "code": "F01",
+          "name": "NOT gate"
+        },
+        {
+          "code": "F02",
+          "name": "buffer"
+        },
+        {
+          "code": "F03",
+          "name": "tri-state buffer"
+        },
+        {
+          "code": "F04",
+          "name": "AND gate"
+        },
+        {
+          "code": "F05",
+          "name": "NAND gate"
+        },
+        {
+          "code": "F06",
+          "name": "OR gate"
+        },
+        {
+          "code": "F07",
+          "name": "NOR gate"
+        },
+        {
+          "code": "F08",
+          "name": "XOR gate"
+        },
+        {
+          "code": "F09",
+          "name": "XNOR gate"
+        },
+        {
+          "code": "F10",
+          "name": "Schmitt inverter"
+        },
+        {
+          "code": "F11",
+          "name": "Schmitt buffer"
+        },
+        {
+          "code": "F12",
+          "name": "open-drain buffer"
+        },
+        {
+          "code": "F13",
+          "name": "bus transceiver"
+        },
+        {
+          "code": "F14",
+          "name": "bus switch"
+        },
+        {
+          "code": "F15",
+          "name": "level translator"
+        },
+        {
+          "code": "F16",
+          "name": "serialiser"
+        },
+        {
+          "code": "F17",
+          "name": "deserialiser"
+        },
+        {
+          "code": "F18",
+          "name": "multiplexer"
+        },
+        {
+          "code": "F19",
+          "name": "demultiplexer"
+        },
+        {
+          "code": "F20",
+          "name": "priority encoder"
+        },
+        {
+          "code": "F21",
+          "name": "decoder"
+        },
+        {
+          "code": "F22",
+          "name": "BCD-to-seven-segment decoder"
+        },
+        {
+          "code": "F23",
+          "name": "seven-segment driver"
+        },
+        {
+          "code": "F24",
+          "name": "magnitude comparator"
+        },
+        {
+          "code": "F25",
+          "name": "parity generator/checker"
+        },
+        {
+          "code": "F26",
+          "name": "half adder"
+        },
+        {
+          "code": "F27",
+          "name": "full adder"
+        },
+        {
+          "code": "F28",
+          "name": "ALU"
+        },
+        {
+          "code": "F29",
+          "name": "D latch"
+        },
+        {
+          "code": "F30",
+          "name": "SR latch"
+        },
+        {
+          "code": "F31",
+          "name": "JK flip-flop"
+        },
+        {
+          "code": "F32",
+          "name": "D flip-flop"
+        },
+        {
+          "code": "F33",
+          "name": "T flip-flop"
+        },
+        {
+          "code": "F34",
+          "name": "shift register SISO"
+        },
+        {
+          "code": "F35",
+          "name": "shift register SIPO"
+        },
+        {
+          "code": "F36",
+          "name": "shift register PISO"
+        },
+        {
+          "code": "F37",
+          "name": "shift register PIPO"
+        },
+        {
+          "code": "F38",
+          "name": "binary ripple counter"
+        },
+        {
+          "code": "F39",
+          "name": "synchronous binary counter"
+        },
+        {
+          "code": "F40",
+          "name": "up/down counter"
+        },
+        {
+          "code": "F41",
+          "name": "decade counter"
+        },
+        {
+          "code": "F42",
+          "name": "ring counter"
+        },
+        {
+          "code": "F43",
+          "name": "Johnson counter"
+        },
+        {
+          "code": "F44",
+          "name": "programmable timer"
+        },
+        {
+          "code": "F45",
+          "name": "real-time clock"
+        },
+        {
+          "code": "F46",
+          "name": "clock generator"
+        },
+        {
+          "code": "F47",
+          "name": "clock buffer"
+        },
+        {
+          "code": "F48",
+          "name": "clock multiplexer"
+        },
+        {
+          "code": "F49",
+          "name": "monostable multivibrator"
+        },
+        {
+          "code": "F50",
+          "name": "bistable multivibrator"
+        },
+        {
+          "code": "F51",
+          "name": "FIFO"
+        },
+        {
+          "code": "F52",
+          "name": "asynchronous FIFO"
+        },
+        {
+          "code": "F53",
+          "name": "EEPROM"
+        },
+        {
+          "code": "F54",
+          "name": "serial EEPROM"
+        },
+        {
+          "code": "F55",
+          "name": "NOR flash"
+        },
+        {
+          "code": "F56",
+          "name": "NAND flash"
+        },
+        {
+          "code": "F57",
+          "name": "SRAM"
+        },
+        {
+          "code": "F58",
+          "name": "DRAM"
+        },
+        {
+          "code": "F59",
+          "name": "FRAM"
+        },
+        {
+          "code": "F60",
+          "name": "CPLD"
+        },
+        {
+          "code": "F61",
+          "name": "FPGA"
+        },
+        {
+          "code": "F62",
+          "name": "configuration PROM"
+        },
+        {
+          "code": "F63",
+          "name": "JTAG boundary-scan device"
+        },
+        {
+          "code": "F64",
+          "name": "digital isolator"
+        },
+        {
+          "code": "F65",
+          "name": "I²C isolator"
+        },
+        {
+          "code": "F66",
+          "name": "SPI isolator"
+        },
+        {
+          "code": "F67",
+          "name": "USB isolator."
+        }
+      ]
+    },
+    {
+      "code": "G",
+      "name": "Programmable controllers and computing",
+      "declaredCount": 31,
+      "types": [
+        {
+          "code": "G01",
+          "name": "8-bit microcontroller"
+        },
+        {
+          "code": "G02",
+          "name": "16-bit microcontroller"
+        },
+        {
+          "code": "G03",
+          "name": "32-bit ARM microcontroller"
+        },
+        {
+          "code": "G04",
+          "name": "RISC-V microcontroller"
+        },
+        {
+          "code": "G05",
+          "name": "AVR microcontroller"
+        },
+        {
+          "code": "G06",
+          "name": "PIC microcontroller"
+        },
+        {
+          "code": "G07",
+          "name": "ESP32-class Wi-Fi MCU"
+        },
+        {
+          "code": "G08",
+          "name": "STM32-class MCU"
+        },
+        {
+          "code": "G09",
+          "name": "Arduino Uno-class module"
+        },
+        {
+          "code": "G10",
+          "name": "Arduino Nano-class module"
+        },
+        {
+          "code": "G11",
+          "name": "Arduino Mega-class module"
+        },
+        {
+          "code": "G12",
+          "name": "Raspberry Pi Pico-class module"
+        },
+        {
+          "code": "G13",
+          "name": "single-board Linux computer"
+        },
+        {
+          "code": "G14",
+          "name": "system-on-module"
+        },
+        {
+          "code": "G15",
+          "name": "generic compact PLC"
+        },
+        {
+          "code": "G16",
+          "name": "generic modular PLC CPU"
+        },
+        {
+          "code": "G17",
+          "name": "PLC digital-input module"
+        },
+        {
+          "code": "G18",
+          "name": "PLC digital-output module"
+        },
+        {
+          "code": "G19",
+          "name": "PLC analog-input module"
+        },
+        {
+          "code": "G20",
+          "name": "PLC analog-output module"
+        },
+        {
+          "code": "G21",
+          "name": "PLC relay-output module"
+        },
+        {
+          "code": "G22",
+          "name": "PLC communication module"
+        },
+        {
+          "code": "G23",
+          "name": "remote I/O coupler"
+        },
+        {
+          "code": "G24",
+          "name": "industrial HMI"
+        },
+        {
+          "code": "G25",
+          "name": "programmable relay"
+        },
+        {
+          "code": "G26",
+          "name": "CAN controller"
+        },
+        {
+          "code": "G27",
+          "name": "USB-to-UART bridge"
+        },
+        {
+          "code": "G28",
+          "name": "JTAG/SWD debugger"
+        },
+        {
+          "code": "G29",
+          "name": "ISP programmer header/module"
+        },
+        {
+          "code": "G30",
+          "name": "embedded Linux gateway"
+        },
+        {
+          "code": "G31",
+          "name": "real-time co-processor."
+        }
+      ]
+    },
+    {
+      "code": "H",
+      "name": "Sensors and measurement transducers",
+      "declaredCount": 44,
+      "types": [
+        {
+          "code": "H01",
+          "name": "NTC temperature sensor"
+        },
+        {
+          "code": "H02",
+          "name": "RTD sensor"
+        },
+        {
+          "code": "H03",
+          "name": "thermocouple"
+        },
+        {
+          "code": "H04",
+          "name": "digital temperature sensor"
+        },
+        {
+          "code": "H05",
+          "name": "humidity sensor"
+        },
+        {
+          "code": "H06",
+          "name": "barometric-pressure sensor"
+        },
+        {
+          "code": "H07",
+          "name": "differential-pressure sensor"
+        },
+        {
+          "code": "H08",
+          "name": "vacuum sensor"
+        },
+        {
+          "code": "H09",
+          "name": "load cell"
+        },
+        {
+          "code": "H10",
+          "name": "strain gauge"
+        },
+        {
+          "code": "H11",
+          "name": "force-sensitive resistor"
+        },
+        {
+          "code": "H12",
+          "name": "piezo vibration sensor"
+        },
+        {
+          "code": "H13",
+          "name": "accelerometer"
+        },
+        {
+          "code": "H14",
+          "name": "gyroscope"
+        },
+        {
+          "code": "H15",
+          "name": "IMU"
+        },
+        {
+          "code": "H16",
+          "name": "magnetometer"
+        },
+        {
+          "code": "H17",
+          "name": "Hall-effect switch"
+        },
+        {
+          "code": "H18",
+          "name": "linear Hall sensor"
+        },
+        {
+          "code": "H19",
+          "name": "reed switch"
+        },
+        {
+          "code": "H20",
+          "name": "inductive proximity sensor"
+        },
+        {
+          "code": "H21",
+          "name": "capacitive proximity sensor"
+        },
+        {
+          "code": "H22",
+          "name": "photoelectric diffuse sensor"
+        },
+        {
+          "code": "H23",
+          "name": "photoelectric through-beam sensor"
+        },
+        {
+          "code": "H24",
+          "name": "ultrasonic distance sensor"
+        },
+        {
+          "code": "H25",
+          "name": "ToF distance sensor"
+        },
+        {
+          "code": "H26",
+          "name": "PIR motion sensor"
+        },
+        {
+          "code": "H27",
+          "name": "microwave motion sensor"
+        },
+        {
+          "code": "H28",
+          "name": "ambient-light sensor"
+        },
+        {
+          "code": "H29",
+          "name": "colour sensor"
+        },
+        {
+          "code": "H30",
+          "name": "UV sensor"
+        },
+        {
+          "code": "H31",
+          "name": "flame sensor"
+        },
+        {
+          "code": "H32",
+          "name": "smoke sensor"
+        },
+        {
+          "code": "H33",
+          "name": "gas sensor"
+        },
+        {
+          "code": "H34",
+          "name": "CO₂ sensor"
+        },
+        {
+          "code": "H35",
+          "name": "pH sensor interface"
+        },
+        {
+          "code": "H36",
+          "name": "conductivity sensor interface"
+        },
+        {
+          "code": "H37",
+          "name": "soil-moisture sensor"
+        },
+        {
+          "code": "H38",
+          "name": "rain sensor"
+        },
+        {
+          "code": "H39",
+          "name": "water-level sensor"
+        },
+        {
+          "code": "H40",
+          "name": "flow sensor"
+        },
+        {
+          "code": "H41",
+          "name": "rotary encoder"
+        },
+        {
+          "code": "H42",
+          "name": "linear position sensor"
+        },
+        {
+          "code": "H43",
+          "name": "GPS/GNSS receiver"
+        },
+        {
+          "code": "H44",
+          "name": "current transducer."
+        }
+      ]
+    },
+    {
+      "code": "I",
+      "name": "Displays, indicators, audio, and user input",
+      "declaredCount": 24,
+      "types": [
+        {
+          "code": "I01",
+          "name": "single LED indicator"
+        },
+        {
+          "code": "I02",
+          "name": "LED bargraph"
+        },
+        {
+          "code": "I03",
+          "name": "seven-segment digit"
+        },
+        {
+          "code": "I04",
+          "name": "four-digit seven-segment module"
+        },
+        {
+          "code": "I05",
+          "name": "fourteen-segment display"
+        },
+        {
+          "code": "I06",
+          "name": "dot-matrix LED display"
+        },
+        {
+          "code": "I07",
+          "name": "character LCD"
+        },
+        {
+          "code": "I08",
+          "name": "graphic LCD"
+        },
+        {
+          "code": "I09",
+          "name": "monochrome OLED"
+        },
+        {
+          "code": "I10",
+          "name": "colour OLED"
+        },
+        {
+          "code": "I11",
+          "name": "TFT LCD"
+        },
+        {
+          "code": "I12",
+          "name": "e-paper display"
+        },
+        {
+          "code": "I13",
+          "name": "VFD display"
+        },
+        {
+          "code": "I14",
+          "name": "RGB LED strip"
+        },
+        {
+          "code": "I15",
+          "name": "piezo buzzer"
+        },
+        {
+          "code": "I16",
+          "name": "magnetic buzzer"
+        },
+        {
+          "code": "I17",
+          "name": "speaker"
+        },
+        {
+          "code": "I18",
+          "name": "electret microphone"
+        },
+        {
+          "code": "I19",
+          "name": "MEMS microphone"
+        },
+        {
+          "code": "I20",
+          "name": "tactile pushbutton"
+        },
+        {
+          "code": "I21",
+          "name": "momentary switch"
+        },
+        {
+          "code": "I22",
+          "name": "latching pushbutton"
+        },
+        {
+          "code": "I23",
+          "name": "rotary encoder with switch"
+        },
+        {
+          "code": "I24",
+          "name": "membrane keypad."
+        }
+      ]
+    },
+    {
+      "code": "J",
+      "name": "Connectors, cables, and interconnects",
+      "declaredCount": 32,
+      "types": [
+        {
+          "code": "J01",
+          "name": "single-pin header"
+        },
+        {
+          "code": "J02",
+          "name": "male pin header"
+        },
+        {
+          "code": "J03",
+          "name": "female socket header"
+        },
+        {
+          "code": "J04",
+          "name": "IDC box header"
+        },
+        {
+          "code": "J05",
+          "name": "ribbon-cable connector"
+        },
+        {
+          "code": "J06",
+          "name": "screw terminal block"
+        },
+        {
+          "code": "J07",
+          "name": "pluggable terminal block"
+        },
+        {
+          "code": "J08",
+          "name": "spring-cage terminal"
+        },
+        {
+          "code": "J09",
+          "name": "barrier terminal strip"
+        },
+        {
+          "code": "J10",
+          "name": "banana jack"
+        },
+        {
+          "code": "J11",
+          "name": "binding post"
+        },
+        {
+          "code": "J12",
+          "name": "barrel power jack"
+        },
+        {
+          "code": "J13",
+          "name": "USB Type-A"
+        },
+        {
+          "code": "J14",
+          "name": "USB Type-B"
+        },
+        {
+          "code": "J15",
+          "name": "Micro-USB"
+        },
+        {
+          "code": "J16",
+          "name": "USB-C receptacle"
+        },
+        {
+          "code": "J17",
+          "name": "HDMI connector"
+        },
+        {
+          "code": "J18",
+          "name": "DisplayPort connector"
+        },
+        {
+          "code": "J19",
+          "name": "RJ45 Ethernet jack"
+        },
+        {
+          "code": "J20",
+          "name": "RJ11/RJ12 jack"
+        },
+        {
+          "code": "J21",
+          "name": "DB9 connector"
+        },
+        {
+          "code": "J22",
+          "name": "DB25 connector"
+        },
+        {
+          "code": "J23",
+          "name": "D-sub high-density connector"
+        },
+        {
+          "code": "J24",
+          "name": "BNC connector"
+        },
+        {
+          "code": "J25",
+          "name": "SMA connector"
+        },
+        {
+          "code": "J26",
+          "name": "RP-SMA connector"
+        },
+        {
+          "code": "J27",
+          "name": "MMCX connector"
+        },
+        {
+          "code": "J28",
+          "name": "U.FL connector"
+        },
+        {
+          "code": "J29",
+          "name": "JST connector"
+        },
+        {
+          "code": "J30",
+          "name": "Molex KK connector"
+        },
+        {
+          "code": "J31",
+          "name": "edge-card connector"
+        },
+        {
+          "code": "J32",
+          "name": "test-point loop."
+        }
+      ]
+    },
+    {
+      "code": "K",
+      "name": "Electromechanical, protection, and industrial parts",
+      "declaredCount": 42,
+      "types": [
+        {
+          "code": "K01",
+          "name": "SPST switch"
+        },
+        {
+          "code": "K02",
+          "name": "SPDT switch"
+        },
+        {
+          "code": "K03",
+          "name": "DPDT switch"
+        },
+        {
+          "code": "K04",
+          "name": "rotary selector switch"
+        },
+        {
+          "code": "K05",
+          "name": "DIP switch"
+        },
+        {
+          "code": "K06",
+          "name": "slide switch"
+        },
+        {
+          "code": "K07",
+          "name": "reed relay"
+        },
+        {
+          "code": "K08",
+          "name": "signal relay"
+        },
+        {
+          "code": "K09",
+          "name": "power relay"
+        },
+        {
+          "code": "K10",
+          "name": "latching relay"
+        },
+        {
+          "code": "K11",
+          "name": "solid-state relay"
+        },
+        {
+          "code": "K12",
+          "name": "time-delay relay"
+        },
+        {
+          "code": "K13",
+          "name": "contactor"
+        },
+        {
+          "code": "K14",
+          "name": "auxiliary contact block"
+        },
+        {
+          "code": "K15",
+          "name": "thermal overload relay"
+        },
+        {
+          "code": "K16",
+          "name": "motor-protection breaker"
+        },
+        {
+          "code": "K17",
+          "name": "fuse"
+        },
+        {
+          "code": "K18",
+          "name": "resettable PTC fuse"
+        },
+        {
+          "code": "K19",
+          "name": "miniature circuit breaker"
+        },
+        {
+          "code": "K20",
+          "name": "residual-current device"
+        },
+        {
+          "code": "K21",
+          "name": "surge protection device"
+        },
+        {
+          "code": "K22",
+          "name": "disconnect switch"
+        },
+        {
+          "code": "K23",
+          "name": "emergency-stop switch"
+        },
+        {
+          "code": "K24",
+          "name": "key switch"
+        },
+        {
+          "code": "K25",
+          "name": "limit switch"
+        },
+        {
+          "code": "K26",
+          "name": "foot switch"
+        },
+        {
+          "code": "K27",
+          "name": "joystick switch"
+        },
+        {
+          "code": "K28",
+          "name": "solenoid valve coil"
+        },
+        {
+          "code": "K29",
+          "name": "pneumatic valve"
+        },
+        {
+          "code": "K30",
+          "name": "DC motor"
+        },
+        {
+          "code": "K31",
+          "name": "brushed DC gearmotor"
+        },
+        {
+          "code": "K32",
+          "name": "stepper motor"
+        },
+        {
+          "code": "K33",
+          "name": "servo motor"
+        },
+        {
+          "code": "K34",
+          "name": "single-phase induction motor"
+        },
+        {
+          "code": "K35",
+          "name": "three-phase induction motor"
+        },
+        {
+          "code": "K36",
+          "name": "BLDC motor"
+        },
+        {
+          "code": "K37",
+          "name": "fan"
+        },
+        {
+          "code": "K38",
+          "name": "pump"
+        },
+        {
+          "code": "K39",
+          "name": "heater"
+        },
+        {
+          "code": "K40",
+          "name": "thermal fuse"
+        },
+        {
+          "code": "K41",
+          "name": "panel pilot lamp"
+        },
+        {
+          "code": "K42",
+          "name": "safety relay."
+        }
+      ]
+    },
+    {
+      "code": "L",
+      "name": "RF, wireless, and communication parts",
+      "declaredCount": 20,
+      "types": [
+        {
+          "code": "L01",
+          "name": "AM receiver module"
+        },
+        {
+          "code": "L02",
+          "name": "FM receiver module"
+        },
+        {
+          "code": "L03",
+          "name": "BLE module"
+        },
+        {
+          "code": "L04",
+          "name": "Wi-Fi module"
+        },
+        {
+          "code": "L05",
+          "name": "Zigbee module"
+        },
+        {
+          "code": "L06",
+          "name": "LoRa module"
+        },
+        {
+          "code": "L07",
+          "name": "GSM/LTE modem"
+        },
+        {
+          "code": "L08",
+          "name": "GNSS antenna"
+        },
+        {
+          "code": "L09",
+          "name": "ceramic antenna"
+        },
+        {
+          "code": "L10",
+          "name": "PCB trace antenna"
+        },
+        {
+          "code": "L11",
+          "name": "whip antenna"
+        },
+        {
+          "code": "L12",
+          "name": "RFID reader"
+        },
+        {
+          "code": "L13",
+          "name": "NFC module"
+        },
+        {
+          "code": "L14",
+          "name": "infrared receiver"
+        },
+        {
+          "code": "L15",
+          "name": "RS-232 transceiver"
+        },
+        {
+          "code": "L16",
+          "name": "RS-485 transceiver"
+        },
+        {
+          "code": "L17",
+          "name": "CAN transceiver"
+        },
+        {
+          "code": "L18",
+          "name": "LIN transceiver"
+        },
+        {
+          "code": "L19",
+          "name": "Ethernet PHY"
+        },
+        {
+          "code": "L20",
+          "name": "isolated Ethernet module."
+        }
+      ]
+    },
+    {
+      "code": "M",
+      "name": "Power electronics and conversion assemblies",
+      "declaredCount": 25,
+      "types": [
+        {
+          "code": "M01",
+          "name": "single-phase diode bridge module"
+        },
+        {
+          "code": "M02",
+          "name": "three-phase diode bridge"
+        },
+        {
+          "code": "M03",
+          "name": "half-bridge IGBT module"
+        },
+        {
+          "code": "M04",
+          "name": "full-bridge IGBT module"
+        },
+        {
+          "code": "M05",
+          "name": "MOSFET half-bridge module"
+        },
+        {
+          "code": "M06",
+          "name": "intelligent power module"
+        },
+        {
+          "code": "M07",
+          "name": "AC solid-state switch"
+        },
+        {
+          "code": "M08",
+          "name": "TRIAC dimmer module"
+        },
+        {
+          "code": "M09",
+          "name": "SSR output module"
+        },
+        {
+          "code": "M10",
+          "name": "AC motor inverter drive"
+        },
+        {
+          "code": "M11",
+          "name": "BLDC controller"
+        },
+        {
+          "code": "M12",
+          "name": "stepper-driver module"
+        },
+        {
+          "code": "M13",
+          "name": "servo-drive module"
+        },
+        {
+          "code": "M14",
+          "name": "USB PD sink controller"
+        },
+        {
+          "code": "M15",
+          "name": "USB PD source controller"
+        },
+        {
+          "code": "M16",
+          "name": "wireless charging receiver"
+        },
+        {
+          "code": "M17",
+          "name": "wireless charging transmitter"
+        },
+        {
+          "code": "M18",
+          "name": "solar charge controller"
+        },
+        {
+          "code": "M19",
+          "name": "MPPT controller"
+        },
+        {
+          "code": "M20",
+          "name": "BMS protection board"
+        },
+        {
+          "code": "M21",
+          "name": "active balancing board"
+        },
+        {
+          "code": "M22",
+          "name": "UPS module"
+        },
+        {
+          "code": "M23",
+          "name": "inverter module"
+        },
+        {
+          "code": "M24",
+          "name": "isolated gate-drive power supply"
+        },
+        {
+          "code": "M25",
+          "name": "programmable electronic load."
+        }
+      ]
+    },
+    {
+      "code": "N",
+      "name": "PCB, mechanical, test, and fabrication resources",
+      "declaredCount": 30,
+      "types": [
+        {
+          "code": "N01",
+          "name": "FR-4 board outline"
+        },
+        {
+          "code": "N02",
+          "name": "flex PCB outline"
+        },
+        {
+          "code": "N03",
+          "name": "rigid-flex region"
+        },
+        {
+          "code": "N04",
+          "name": "mounting hole"
+        },
+        {
+          "code": "N05",
+          "name": "plated mounting hole"
+        },
+        {
+          "code": "N06",
+          "name": "NPTH mounting hole"
+        },
+        {
+          "code": "N07",
+          "name": "fiducial"
+        },
+        {
+          "code": "N08",
+          "name": "tooling hole"
+        },
+        {
+          "code": "N09",
+          "name": "castellated pad"
+        },
+        {
+          "code": "N10",
+          "name": "edge-plated pad"
+        },
+        {
+          "code": "N11",
+          "name": "solder jumper"
+        },
+        {
+          "code": "N12",
+          "name": "solder bridge pad"
+        },
+        {
+          "code": "N13",
+          "name": "thermal relief"
+        },
+        {
+          "code": "N14",
+          "name": "copper pour"
+        },
+        {
+          "code": "N15",
+          "name": "keep-out area"
+        },
+        {
+          "code": "N16",
+          "name": "board cut-out"
+        },
+        {
+          "code": "N17",
+          "name": "slot"
+        },
+        {
+          "code": "N18",
+          "name": "panel tab"
+        },
+        {
+          "code": "N19",
+          "name": "V-score marker"
+        },
+        {
+          "code": "N20",
+          "name": "test pad"
+        },
+        {
+          "code": "N21",
+          "name": "pogo-pin test point"
+        },
+        {
+          "code": "N22",
+          "name": "Kelvin test point"
+        },
+        {
+          "code": "N23",
+          "name": "jumper wire link"
+        },
+        {
+          "code": "N24",
+          "name": "zero-ohm link"
+        },
+        {
+          "code": "N25",
+          "name": "heatsink"
+        },
+        {
+          "code": "N26",
+          "name": "thermal pad"
+        },
+        {
+          "code": "N27",
+          "name": "standoff"
+        },
+        {
+          "code": "N28",
+          "name": "enclosure reference"
+        },
+        {
+          "code": "N29",
+          "name": "QR/serial marking"
+        },
+        {
+          "code": "N30",
+          "name": "calibration label."
+        }
+      ]
+    },
+    {
+      "code": "O",
+      "name": "Packages, thermal, and protection accessories",
+      "declaredCount": 25,
+      "types": [
+        {
+          "code": "O01",
+          "name": "axial through-hole package"
+        },
+        {
+          "code": "O02",
+          "name": "radial through-hole package"
+        },
+        {
+          "code": "O03",
+          "name": "DIP package"
+        },
+        {
+          "code": "O04",
+          "name": "SIP package"
+        },
+        {
+          "code": "O05",
+          "name": "TO-92 package"
+        },
+        {
+          "code": "O06",
+          "name": "TO-220 package"
+        },
+        {
+          "code": "O07",
+          "name": "TO-247 package"
+        },
+        {
+          "code": "O08",
+          "name": "SOT-23 package"
+        },
+        {
+          "code": "O09",
+          "name": "SOT-223 package"
+        },
+        {
+          "code": "O10",
+          "name": "SOIC package"
+        },
+        {
+          "code": "O11",
+          "name": "TSSOP package"
+        },
+        {
+          "code": "O12",
+          "name": "QFN package"
+        },
+        {
+          "code": "O13",
+          "name": "QFP package"
+        },
+        {
+          "code": "O14",
+          "name": "BGA package"
+        },
+        {
+          "code": "O15",
+          "name": "LGA package"
+        },
+        {
+          "code": "O16",
+          "name": "DPAK package"
+        },
+        {
+          "code": "O17",
+          "name": "D²PAK package"
+        },
+        {
+          "code": "O18",
+          "name": "0201 passive footprint"
+        },
+        {
+          "code": "O19",
+          "name": "0402 passive footprint"
+        },
+        {
+          "code": "O20",
+          "name": "0603 passive footprint"
+        },
+        {
+          "code": "O21",
+          "name": "0805 passive footprint"
+        },
+        {
+          "code": "O22",
+          "name": "1206 passive footprint"
+        },
+        {
+          "code": "O23",
+          "name": "heat spreader"
+        },
+        {
+          "code": "O24",
+          "name": "thermal interface pad"
+        },
+        {
+          "code": "O25",
+          "name": "conformal-coating keep-out."
+        }
+      ]
+    }
+  ]
+}
