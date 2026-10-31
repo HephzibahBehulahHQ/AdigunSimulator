@@ -5,12 +5,14 @@ const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistanc
 
 export const STARTER_LIBRARY = Object.freeze([
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "power.pwm-source", category: "Inputs", type: "PWM control source", prefix: "PWM", pins: ["+", "-"], defaultValue: "1 kHz, 50%, 5 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.dc-current-source", category: "Power & Ground", type: "DC current source (positive current flows from − to +)", prefix: "I", pins: ["+", "-"], defaultValue: "1 mA", simulation: "mna-linear-dc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.ac-source", category: "Power & Ground", type: "AC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "1 V", simulation: "analytical-rc-low-pass", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.resistor", category: "Passive", type: "Resistor", prefix: "R", pins: ["1", "2"], defaultValue: "330 Ω", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.capacitor", category: "Passive", type: "Capacitor", prefix: "C", pins: ["1", "2"], defaultValue: "100 µF", simulation: "analytical-rc-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.inductor", category: "Passive", type: "Inductor", prefix: "L", pins: ["1", "2"], defaultValue: "100 mH", simulation: "analytical-rl-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.nmos-switch", category: "Active", type: "N-channel MOSFET (ideal PWM switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-green", category: "Active", type: "Green LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.1 V", simulation: "analytical-polarity-indicator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "ground.signal", category: "Power & Ground", type: "Signal ground", prefix: "GND", pins: ["0"], defaultValue: "0 V", simulation: "reference", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -325,17 +327,21 @@ function currentValue(value) {
   return engineeringValue(value, "A");
 }
 
+function frequencyValue(value) {
+  return engineeringValue(value, "Hz");
+}
+
 function forwardVoltage(value) {
   return engineeringValue(value, "V");
 }
 
 function engineeringValue(value, expectedUnit) {
-  const match = String(value).trim().match(/^(?:[A-Za-z]+\s+)?([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*([pnumkKMGµμ]?)(?:\s*(Ω|ohms?|[VvFfHhAa]))?$/);
+  const match = String(value).trim().match(/^(?:[A-Za-z]+\s+)?([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*([pnumkKMGµμ]?)(?:\s*(Ω|ohms?|[VvFfHhAa]|[Hh][Zz]))?$/);
   if (!match) return Number.NaN;
   const unit = match[3];
   if (unit) {
     const isOhm = unit === "Ω" || /^ohms?$/i.test(unit);
-    if ((expectedUnit === "Ω" && !isOhm) || (expectedUnit === "V" && !/^[Vv]$/.test(unit)) || (expectedUnit === "F" && !/^[Ff]$/.test(unit)) || (expectedUnit === "H" && !/^[Hh]$/.test(unit)) || (expectedUnit === "A" && !/^[Aa]$/.test(unit))) return Number.NaN;
+    if ((expectedUnit === "Ω" && !isOhm) || (expectedUnit === "V" && !/^[Vv]$/.test(unit)) || (expectedUnit === "F" && !/^[Ff]$/.test(unit)) || (expectedUnit === "H" && !/^[Hh]$/.test(unit)) || (expectedUnit === "A" && !/^[Aa]$/.test(unit)) || (expectedUnit === "Hz" && !/^[Hh][Zz]$/.test(unit))) return Number.NaN;
   }
   const multipliers = { p: 1e-12, n: 1e-9, u: 1e-6, "µ": 1e-6, "μ": 1e-6, m: 1e-3, k: 1e3, K: 1e3, M: 1e6, G: 1e9, "": 1 };
   const parsed = Number(match[1]) * multipliers[match[2]];
@@ -346,6 +352,8 @@ export function runSupportedAnalysis(project) {
   const validation = validateProject(project);
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
+  const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
+  const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
   const currentSource = project.components.filter((item) => item.libraryId === "power.dc-current-source");
   const acSource = project.components.filter((item) => item.libraryId === "power.ac-source");
   const resistor = project.components.filter((item) => item.libraryId === "passive.resistor");
@@ -356,6 +364,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (source.length === 1 && resistor.length === 1 && led.length === 1 && pwmSources.length === 1 && mosfets.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analysePwmLedAverage(project, { source: source[0], resistor: resistor[0], led: led[0], pwmSource: pwmSources[0], mosfet: mosfets[0], ground: ground[0], validation });
+  }
   if (currentSource.length > 0 && !project.components.every((item) => ["power.dc-source", "power.dc-current-source", "passive.resistor", "ground.signal"].includes(item.libraryId))) {
     return { state: "unsupported", message: "This DC current-source model supports resistor networks with ideal voltage/current sources only; reactive or nonlinear parts are not solved by this analysis.", validation };
   }
@@ -392,6 +403,78 @@ export function runSupportedAnalysis(project) {
     return analyseMultiSourceResistiveNetwork(project, { sources: source, currentSources: currentSource, resistors: resistor, ground: ground[0], validation });
   }
   return { state: "unsupported", message: "This foundation supports only documented analytical DC circuits, linear resistor networks with ideal voltage/current sources, single-pole RC/RL step responses, and first-order RC/RL low-pass or RC high-pass frequency responses. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
+}
+
+function analysePwmLedAverage(project, { source, resistor, led, pwmSource, mosfet, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const ledVf = forwardVoltage(led.value);
+  const resistance = resistanceValue(resistor.value);
+  const thresholdVoltage = voltageValue(mosfet.value);
+  const pwmFields = String(pwmSource.value).split(",").map((field) => field.trim());
+  const frequencyHz = pwmFields.length === 3 ? frequencyValue(pwmFields[0]) : Number.NaN;
+  const dutyMatch = pwmFields.length === 3 ? pwmFields[1].match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))%$/) : null;
+  const requestedDutyPercent = dutyMatch ? Number(dutyMatch[1]) : Number.NaN;
+  const gateHighVoltage = pwmFields.length === 3 ? voltageValue(pwmFields[2]) : Number.NaN;
+  if (![sourceVoltage, ledVf, resistance, thresholdVoltage, frequencyHz, requestedDutyPercent, gateHighVoltage].every(Number.isFinite)
+    || sourceVoltage <= 0 || ledVf <= 0 || resistance <= 0 || thresholdVoltage < 0 || frequencyHz <= 0
+    || requestedDutyPercent < 0 || requestedDutyPercent > 100 || gateHighVoltage < 0) {
+    return { state: "blocked", message: "The PWM LED model requires positive supply, LED, resistor, threshold and frequency values, plus duty from 0% to 100% and non-negative gate voltage.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const sourcePositive = netByEndpoint.get(endpoint(source, "+"));
+  const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  const resistorInput = netByEndpoint.get(endpoint(resistor, "1"));
+  const resistorOutput = netByEndpoint.get(endpoint(resistor, "2"));
+  const ledAnode = netByEndpoint.get(endpoint(led, "A"));
+  const ledCathode = netByEndpoint.get(endpoint(led, "K"));
+  const mosfetDrain = netByEndpoint.get(endpoint(mosfet, "D"));
+  const mosfetSource = netByEndpoint.get(endpoint(mosfet, "S"));
+  const mosfetGate = netByEndpoint.get(endpoint(mosfet, "G"));
+  const pwmPositive = netByEndpoint.get(endpoint(pwmSource, "+"));
+  const pwmNegative = netByEndpoint.get(endpoint(pwmSource, "-"));
+  if (!sourcePositive || sourcePositive === groundNet || sourcePositive !== resistorInput || !resistorOutput
+    || resistorOutput !== ledAnode || !ledCathode || ledCathode !== mosfetDrain || !mosfetSource
+    || mosfetSource !== groundNet || sourceNegative !== groundNet || pwmNegative !== groundNet
+    || !mosfetGate || pwmPositive !== mosfetGate) {
+    return { state: "blocked", message: "Wire source positive through the resistor and LED to MOSFET drain, MOSFET source to shared ground, and PWM positive to gate with PWM negative on ground.", validation };
+  }
+
+  const gateEnabled = gateHighVoltage > thresholdVoltage;
+  const effectiveDutyFraction = gateEnabled ? requestedDutyPercent / 100 : 0;
+  const onCurrentA = Math.max(0, (sourceVoltage - ledVf) / resistance);
+  const averageCurrentA = effectiveDutyFraction * onCurrentA;
+  const resistorPowerW = effectiveDutyFraction * onCurrentA ** 2 * resistance;
+  const ledPowerW = effectiveDutyFraction * onCurrentA * ledVf;
+  const sourcePowerW = effectiveDutyFraction * sourceVoltage * onCurrentA;
+  if (![onCurrentA, averageCurrentA, resistorPowerW, ledPowerW, sourcePowerW].every(Number.isFinite)) {
+    return { state: "blocked", message: "The PWM LED result exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical PWM LED average-current model",
+    message: "Calculated average current for an ideal low-side MOSFET PWM LED switch. This model does not simulate a waveform, switching transients, MOSFET on-resistance, gate charge, current ripple, thermal behavior, device ratings, or general SPICE.",
+    result: {
+      kind: "pwm-led-average",
+      sourceVoltage,
+      ledVf,
+      resistance,
+      frequencyHz,
+      requestedDutyPercent,
+      effectiveDutyFraction,
+      gateHighVoltage,
+      thresholdVoltage,
+      mosfetConducting: gateEnabled,
+      onCurrentA,
+      averageCurrentA,
+      resistorPowerW,
+      ledPowerW,
+      sourcePowerW,
+      powerBalanceW: sourcePowerW - resistorPowerW - ledPowerW
+    },
+    validation
+  };
 }
 
 function analyseRlStep(project, { source, resistor, inductor, ground, validation }) {
