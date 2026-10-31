@@ -5,6 +5,7 @@ const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistanc
 
 export const STARTER_LIBRARY = Object.freeze([
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "power.dc-current-source", category: "Power & Ground", type: "DC current source (positive current flows from − to +)", prefix: "I", pins: ["+", "-"], defaultValue: "1 mA", simulation: "mna-linear-dc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.ac-source", category: "Power & Ground", type: "AC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "1 V", simulation: "analytical-rc-low-pass", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.resistor", category: "Passive", type: "Resistor", prefix: "R", pins: ["1", "2"], defaultValue: "330 Ω", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.capacitor", category: "Passive", type: "Capacitor", prefix: "C", pins: ["1", "2"], defaultValue: "100 µF", simulation: "analytical-rc-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -319,17 +320,21 @@ function inductanceValue(value) {
   return engineeringValue(value, "H");
 }
 
+function currentValue(value) {
+  return engineeringValue(value, "A");
+}
+
 function forwardVoltage(value) {
   return engineeringValue(value, "V");
 }
 
 function engineeringValue(value, expectedUnit) {
-  const match = String(value).trim().match(/^(?:[A-Za-z]+\s+)?([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*([pnumkKMGµμ]?)(?:\s*(Ω|ohms?|[VvFfHh]))?$/);
+  const match = String(value).trim().match(/^(?:[A-Za-z]+\s+)?([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*([pnumkKMGµμ]?)(?:\s*(Ω|ohms?|[VvFfHhAa]))?$/);
   if (!match) return Number.NaN;
   const unit = match[3];
   if (unit) {
     const isOhm = unit === "Ω" || /^ohms?$/i.test(unit);
-    if ((expectedUnit === "Ω" && !isOhm) || (expectedUnit === "V" && !/^[Vv]$/.test(unit)) || (expectedUnit === "F" && !/^[Ff]$/.test(unit)) || (expectedUnit === "H" && !/^[Hh]$/.test(unit))) return Number.NaN;
+    if ((expectedUnit === "Ω" && !isOhm) || (expectedUnit === "V" && !/^[Vv]$/.test(unit)) || (expectedUnit === "F" && !/^[Ff]$/.test(unit)) || (expectedUnit === "H" && !/^[Hh]$/.test(unit)) || (expectedUnit === "A" && !/^[Aa]$/.test(unit))) return Number.NaN;
   }
   const multipliers = { p: 1e-12, n: 1e-9, u: 1e-6, "µ": 1e-6, "μ": 1e-6, m: 1e-3, k: 1e3, K: 1e3, M: 1e6, G: 1e9, "": 1 };
   const parsed = Number(match[1]) * multipliers[match[2]];
@@ -340,6 +345,7 @@ export function runSupportedAnalysis(project) {
   const validation = validateProject(project);
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
+  const currentSource = project.components.filter((item) => item.libraryId === "power.dc-current-source");
   const acSource = project.components.filter((item) => item.libraryId === "power.ac-source");
   const resistor = project.components.filter((item) => item.libraryId === "passive.resistor");
   const capacitor = project.components.filter((item) => item.libraryId === "passive.capacitor");
@@ -347,6 +353,9 @@ export function runSupportedAnalysis(project) {
   const switches = project.components.filter((item) => item.libraryId === "input.spdt-switch");
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (currentSource.length > 0 && !project.components.every((item) => ["power.dc-source", "power.dc-current-source", "passive.resistor", "ground.signal"].includes(item.libraryId))) {
+    return { state: "unsupported", message: "This DC current-source model supports resistor networks with ideal voltage/current sources only; reactive or nonlinear parts are not solved by this analysis.", validation };
+  }
   if (source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length >= 1) {
     return analyseLedCurrentLimiter(project, { source: source[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
@@ -366,11 +375,11 @@ export function runSupportedAnalysis(project) {
   if (source.length === 1 && resistor.length > 0 && resistor.length === project.components.length - source.length - ground.length && ground.length >= 1) {
     return analyseResistiveNetwork(project, { source: source[0], resistors: resistor, ground: ground[0], validation });
   }
-  if (source.length > 1 && resistor.length > 0 && ground.length === 1
-    && project.components.every((item) => ["power.dc-source", "passive.resistor", "ground.signal"].includes(item.libraryId))) {
-    return analyseMultiSourceResistiveNetwork(project, { sources: source, resistors: resistor, ground: ground[0], validation });
+  if ((source.length > 1 || currentSource.length > 0) && resistor.length > 0 && ground.length === 1
+    && project.components.every((item) => ["power.dc-source", "power.dc-current-source", "passive.resistor", "ground.signal"].includes(item.libraryId))) {
+    return analyseMultiSourceResistiveNetwork(project, { sources: source, currentSources: currentSource, resistors: resistor, ground: ground[0], validation });
   }
-  return { state: "unsupported", message: "This foundation supports only the documented analytical DC circuits, single-pole RC/RL step responses, and first-order RC/RL low-pass or RC high-pass frequency responses. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
+  return { state: "unsupported", message: "This foundation supports only documented analytical DC circuits, linear resistor networks with ideal voltage/current sources, single-pole RC/RL step responses, and first-order RC/RL low-pass or RC high-pass frequency responses. General SPICE, nonlinear, digital, and mixed-signal simulation is not implemented.", validation };
 }
 
 function analyseRlStep(project, { source, resistor, inductor, ground, validation }) {
@@ -606,7 +615,7 @@ function analyseResistiveNetwork(project, { source, resistors, ground, validatio
 }
 
 
-function analyseMultiSourceResistiveNetwork(project, { sources, resistors, ground, validation }) {
+function analyseMultiSourceResistiveNetwork(project, { sources, currentSources, resistors, ground, validation }) {
   const netByEndpoint = new Map();
   for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
   const groundNet = netByEndpoint.get(endpoint(ground, "0"));
@@ -624,6 +633,18 @@ function analyseMultiSourceResistiveNetwork(project, { sources, resistors, groun
     if (source.positiveNet === source.negativeNet) return { state: "blocked", message: `${source.reference} is shorted because both terminals share ${source.positiveNet}.`, validation };
   }
 
+  const currentBranches = currentSources.map((source) => ({
+    reference: source.reference,
+    current: currentValue(source.value),
+    positiveNet: netByEndpoint.get(endpoint(source, "+")),
+    negativeNet: netByEndpoint.get(endpoint(source, "-"))
+  }));
+  for (const source of currentBranches) {
+    if (!Number.isFinite(source.current)) return { state: "blocked", message: `${source.reference} needs a numeric DC current in amperes.`, validation };
+    if (!source.positiveNet || !source.negativeNet) return { state: "blocked", message: `${source.reference} must connect both terminals to named project nets.`, validation };
+    if (source.positiveNet === source.negativeNet) return { state: "blocked", message: `${source.reference} is shorted because both terminals share ${source.positiveNet}.`, validation };
+  }
+
   const resistorBranches = [];
   for (const resistor of resistors) {
     const resistance = resistanceValue(resistor.value);
@@ -637,6 +658,7 @@ function analyseMultiSourceResistiveNetwork(project, { sources, resistors, groun
 
   const connectedNets = new Set([groundNet]);
   for (const branch of sourceBranches) { connectedNets.add(branch.positiveNet); connectedNets.add(branch.negativeNet); }
+  for (const branch of currentBranches) { connectedNets.add(branch.positiveNet); connectedNets.add(branch.negativeNet); }
   for (const branch of resistorBranches) { connectedNets.add(branch.nodeA); connectedNets.add(branch.nodeB); }
   const nodes = [...connectedNets].filter((node) => node !== groundNet).sort();
   const nodeIndex = new Map(nodes.map((node, index) => [node, index]));
@@ -656,6 +678,14 @@ function analyseMultiSourceResistiveNetwork(project, { sources, resistors, groun
     addConductance(b, b, conductance);
     addConductance(a, b, -conductance);
     addConductance(b, a, -conductance);
+  }
+
+  for (const branch of currentBranches) {
+    const positive = branch.positiveNet === groundNet ? undefined : nodeIndex.get(branch.positiveNet);
+    const negative = branch.negativeNet === groundNet ? undefined : nodeIndex.get(branch.negativeNet);
+    // Positive current is defined as flowing from the negative pin into the positive pin.
+    if (positive !== undefined) rhs[positive] += branch.current;
+    if (negative !== undefined) rhs[negative] -= branch.current;
   }
 
   sourceBranches.forEach((branch, sourceOffset) => {
@@ -690,16 +720,22 @@ function analyseMultiSourceResistiveNetwork(project, { sources, resistors, groun
       powerDeliveredW: -branch.voltage * currentA
     };
   });
+  const currentSourceResults = currentBranches.map((branch) => {
+    const voltage = nodeVoltages[branch.positiveNet] - nodeVoltages[branch.negativeNet];
+    return { reference: branch.reference, voltage, outputCurrentA: branch.current, powerDeliveredW: voltage * branch.current };
+  });
   const resistorPowerW = resistorResults.reduce((sum, item) => sum + item.powerW, 0);
-  const sourcePowerW = sourceResults.reduce((sum, item) => sum + item.powerDeliveredW, 0);
+  const voltageSourcePowerW = sourceResults.reduce((sum, item) => sum + item.powerDeliveredW, 0);
+  const currentSourcePowerW = currentSourceResults.reduce((sum, item) => sum + item.powerDeliveredW, 0);
+  const sourcePowerW = voltageSourcePowerW + currentSourcePowerW;
   if (![resistorPowerW, sourcePowerW].every(Number.isFinite)) {
     return { state: "blocked", message: "The multiple-source network produced a non-finite power result.", validation };
   }
   return {
     state: "complete",
-    engine: "Multiple-source linear DC modified nodal analysis",
-    message: "Solved an ideal linear DC network containing multiple independent voltage sources and resistors. Source output resistance, reactive elements, nonlinear devices, thermal effects, and general SPICE are not included.",
-    result: { kind: "multi-source-resistive-network", nodeVoltages, sources: sourceResults, resistors: resistorResults, sourcePowerW, resistorPowerW, powerBalanceW: sourcePowerW - resistorPowerW },
+    engine: "Linear DC modified nodal analysis",
+    message: "Solved an ideal linear DC network containing independent voltage and current sources and resistors. Current source positive current flows from its negative pin to its positive pin. Source output resistance, reactive elements, nonlinear devices, thermal effects, and general SPICE are not included.",
+    result: { kind: currentBranches.length ? "linear-dc-mna-network" : "multi-source-resistive-network", nodeVoltages, sources: sourceResults, currentSources: currentSourceResults, resistors: resistorResults, sourcePowerW, voltageSourcePowerW, currentSourcePowerW, resistorPowerW, powerBalanceW: sourcePowerW - resistorPowerW },
     validation
   };
 }

@@ -237,6 +237,50 @@ test("multiple DC voltage sources solve by modified nodal analysis and enforce p
   assert.equal(runSupportedAnalysis(contradictory).state, "blocked");
 });
 
+test("ideal DC current source drives a resistor and balances power", () => {
+  const project = createEmptyProject();
+  const positions = {
+    "current-1": { breadboard: [120, 80], schematic: [120, 80], pcb: [120, 80] },
+    "resistor-1": { breadboard: [320, 80], schematic: [320, 80], pcb: [320, 80] },
+    "ground-1": { breadboard: [520, 80], schematic: [520, 80], pcb: [520, 80] }
+  };
+  project.components = [
+    { instanceId: "current-1", libraryId: "power.dc-current-source", reference: "I1", value: "1 mA", position: positions["current-1"] },
+    { instanceId: "resistor-1", libraryId: "passive.resistor", reference: "R1", value: "1 kΩ", position: positions["resistor-1"] },
+    { instanceId: "ground-1", libraryId: "ground.signal", reference: "GND", value: "0 V", position: positions["ground-1"] }
+  ];
+  project.nets = [
+    { id: "LOAD", endpoints: ["current-1:+", "resistor-1:1"] },
+    { id: "GND", endpoints: ["current-1:-", "resistor-1:2", "ground-1:0"] }
+  ];
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "linear-dc-mna-network");
+  assert.ok(Math.abs(result.result.nodeVoltages.LOAD - 1) < 1e-12);
+  assert.ok(Math.abs(result.result.resistors[0].currentA - 0.001) < 1e-12);
+  assert.ok(Math.abs(result.result.currentSources[0].outputCurrentA - 0.001) < 1e-12);
+  assert.ok(Math.abs(result.result.powerBalanceW) < 1e-12);
+
+  const mixed = structuredClone(project);
+  mixed.components.push({
+    instanceId: "voltage-1", libraryId: "power.dc-source", reference: "V1", value: "5 V",
+    position: { breadboard: [120, 180], schematic: [120, 180], pcb: [120, 180] }
+  });
+  mixed.nets[0].endpoints.push("voltage-1:+");
+  mixed.nets[1].endpoints.push("voltage-1:-");
+  const mixedResult = runSupportedAnalysis(mixed);
+  assert.equal(mixedResult.state, "complete");
+  assert.ok(Math.abs(mixedResult.result.nodeVoltages.LOAD - 5) < 1e-12);
+  assert.ok(Math.abs(mixedResult.result.sources[0].deliveredCurrentA - 0.004) < 1e-12);
+  assert.ok(Math.abs(mixedResult.result.currentSources[0].powerDeliveredW - 0.005) < 1e-12);
+  assert.ok(Math.abs(mixedResult.result.powerBalanceW) < 1e-12);
+
+  const malformed = structuredClone(project);
+  malformed.components[0].value = "1 mV";
+  assert.equal(runSupportedAnalysis(malformed).state, "blocked");
+});
+
 test("linear DC nodal analysis blocks a floating resistor island", () => {
   const project = createVoltageDividerProject();
   project.nets = [
