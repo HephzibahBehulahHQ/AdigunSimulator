@@ -40,6 +40,7 @@ import { runWaterLeakAlarm } from "../js/water-leak-alarm.mjs";
 import { runFanThermostat } from "../js/fan-thermostat.mjs";
 import { runPwmFanController } from "../js/pwm-fan-controller.mjs";
 import { runAutomaticNightLight } from "../js/automatic-night-light.mjs";
+import { runSmartIrrigation } from "../js/smart-irrigation.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1472,7 +1473,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 183);
+  assert.equal(getExampleCoverage(registry).total, 184);
   assert.equal(getExampleCoverage(registry).released, 173);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 27);
@@ -4384,4 +4385,13 @@ test("catalogue night light switches the LED below its lux threshold", async () 
   assert.deepEqual(result.result.frames.map(frame=>frame.ledOn),[true,true,true,false,false,true]);
   assert.equal(result.result.ledOnSamples,4);
   const invalid=structuredClone(project);invalid.automaticNightLight.luxSamples[0]=-1;assert.equal(runAutomaticNightLight(invalid).state,"blocked");
+});
+
+test("catalogue irrigation waters only when dry and permitted and fails off on sensor fault", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/174-smart-irrigation-model.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runSmartIrrigation(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"smart-irrigation-decision-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.watering),[true,false,false,false,false,true]);
+  assert.equal(result.result.faultsFailOff,true);assert.equal(result.result.sensorFaults,1);
+  const invalid=structuredClone(project);invalid.smartIrrigation.samples[3].sensorFault=false;assert.equal(runSmartIrrigation(invalid).state,"blocked");
 });
