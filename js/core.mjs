@@ -77,6 +77,11 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.data-logger-controller-ideal", category: "Active", type: "Ideal EEPROM data logger controller behavior model", prefix: "U", pins: ["SENSOR", "SDA", "SCL", "DISPLAY", "VCC", "GND"], defaultValue: "SamplePeriodMs 100; Mode circular logger", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.eeprom-ring-buffer-ideal", category: "Active", type: "Ideal EEPROM circular ring-buffer model", prefix: "MEM", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Capacity 3; WriteCycleMs 5; Mode circular", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.data-log-display", category: "Output", type: "Ideal EEPROM replay text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Newest retained samples", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.fm-frequency-sweep", category: "Inputs", type: "Ideal FM front-end frequency sweep", prefix: "SIG", pins: ["RF", "GND"], defaultValue: "FrequenciesMHz 88,94,98,100,102,106,108; AmplitudeV 0.01; Mode small-signal sweep", simulation: "fixture-fm-frequency-sweep", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "passive.fm-antenna-ideal", category: "Passive", type: "Ideal FM antenna coupling placeholder", prefix: "ANT", pins: ["INPUT", "OUTPUT", "GND"], defaultValue: "Mode ideal; CenterMHz 100", simulation: "analytical-fm-front-end", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "passive.fm-tuning-network-ideal", category: "Passive", type: "Ideal FM tuned band-pass response model", prefix: "LC", pins: ["RF_IN", "RF_OUT", "GND"], defaultValue: "Mode bandpass; CenterMHz 100; Q 8", simulation: "analytical-fm-front-end", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.fm-audio-gain-ideal", category: "Active", type: "Ideal FM audio gain block (no demodulator)", prefix: "U", pins: ["INPUT", "OUTPUT", "VCC", "GND"], defaultValue: "Mode linear; GainDb 12", simulation: "analytical-fm-front-end", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.fm-response-report", category: "Output", type: "Ideal FM response plot sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Frequency response", simulation: "analytical-fm-front-end", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.ir-remote-action-decoder", category: "Active", type: "Ideal NEC-like remote action mapping model", prefix: "U", pins: ["INT0", "ACTION", "VCC", "GND"], defaultValue: "Program Decode NEC-like and dispatch; Input INT0; Output ACTION; Tolerance 20%; Map A2=TOGGLE_LIGHT,B2=VOLUME_UP", simulation: "analytical-ir-remote-action", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.ir-action-display", category: "Output", type: "Ideal infrared action display sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Selected remote action", simulation: "analytical-ir-remote-action", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.ethernet-sensor-config", category: "Inputs", type: "Ideal Ethernet sensor/configuration fixture", prefix: "SIG", pins: ["DATA", "GND"], defaultValue: "LinkTransitions down>negotiating>up; Configuration configured; DeviceId 1; TemperatureC 24.6; Sequence 42", simulation: "fixture-ethernet-sensor-config", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -545,6 +550,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const nfcReaders = project.components.filter((item) => item.libraryId === "active.nfc-reader-ideal");
   const nfcControllers = project.components.filter((item) => item.libraryId === "active.nfc-display-controller-ideal");
   const nfcDisplays = project.components.filter((item) => item.libraryId === "output.nfc-uid-display");
+  const fmSweeps = project.components.filter((item) => item.libraryId === "input.fm-frequency-sweep");
+  const fmAntennas = project.components.filter((item) => item.libraryId === "passive.fm-antenna-ideal");
+  const fmTuners = project.components.filter((item) => item.libraryId === "passive.fm-tuning-network-ideal");
+  const fmAmplifiers = project.components.filter((item) => item.libraryId === "active.fm-audio-gain-ideal");
+  const fmReports = project.components.filter((item) => item.libraryId === "output.fm-response-report");
   const irActionDecoders = project.components.filter((item) => item.libraryId === "active.ir-remote-action-decoder");
   const irActionDisplays = project.components.filter((item) => item.libraryId === "output.ir-action-display");
   const ethernetConfigs = project.components.filter((item) => item.libraryId === "input.ethernet-sensor-config");
@@ -646,6 +656,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (dataLogFixtures.length === 1 && dataLogControllers.length === 1 && ringEeproms.length === 1 && dataLogDisplays.length === 1 && resistor.length === 2 && source.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseEepromRingLogger(project, { source: source[0], fixture: dataLogFixtures[0], controller: dataLogControllers[0], eeprom: ringEeproms[0], display: dataLogDisplays[0], pullups: resistor, ground: ground[0], validation });
+  }
+  if (fmSweeps.length === 1 && fmAntennas.length === 1 && fmTuners.length === 1 && fmAmplifiers.length === 1 && fmReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseFmFrontEnd(project, { source: source[0], sweep: fmSweeps[0], antenna: fmAntennas[0], tuner: fmTuners[0], amplifier: fmAmplifiers[0], report: fmReports[0], ground: ground[0], validation });
   }
   if (irFrames.length === 1 && irReceivers.length === 1 && irActionDecoders.length === 1 && irActionDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseIrRemoteActions(project, { source: source[0], frame: irFrames[0], receiver: irReceivers[0], decoder: irActionDecoders[0], display: irActionDisplays[0], ground: ground[0], validation });
@@ -1764,6 +1777,29 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
+function analyseFmFrontEnd(project,{source,sweep,antenna,tuner,amplifier,report,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(`${part.instanceId}:${pin}`),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const sweepFields=fields(sweep.value),antennaFields=fields(antenna.value),tunerFields=fields(tuner.value),ampFields=fields(amplifier.value);
+  const frequencies=(field(sweepFields,"FrequenciesMHz")??"").split(",").map(value=>Number(value.trim())),amplitudeV=Number(field(sweepFields,"AmplitudeV"));
+  const antennaCenter=Number((field(antennaFields,"CenterMHz")??"").replace(/MHz$/i,"")),centerMHz=Number((field(tunerFields,"CenterMHz")??"").replace(/MHz$/i,"")),q=Number(field(tunerFields,"Q")),gainDb=Number((field(ampFields,"GainDb")??"").replace(/dB$/i,""));
+  const groundNet=n(ground,"0"),vccNet=n(amplifier,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const pathNets=[n(sweep,"RF"),n(antenna,"INPUT"),n(antenna,"OUTPUT"),n(tuner,"RF_IN"),n(tuner,"RF_OUT"),n(amplifier,"INPUT"),n(amplifier,"OUTPUT"),n(report,"DATA")];
+  const paths=pathNets.every(net=>typeof net==="string"&&net.length>0)&&pathNets[0]===pathNets[1]&&pathNets[2]===pathNets[3]&&pathNets[4]===pathNets[5]&&pathNets[6]===pathNets[7];
+  const grounded=[sweep,antenna,tuner,amplifier,report].every(part=>n(part,"GND")===groundNet),powered=n(amplifier,"GND")===groundNet&&n(report,"GND")===groundNet&&n(report,"VCC")===vccNet;
+  const sweepValid=frequencies.length>=3&&frequencies.length<=128&&frequencies.every((frequency,index)=>Number.isFinite(frequency)&&frequency>=88&&frequency<=108&&(!index||frequency>frequencies[index-1]));
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<3||supplyVoltage>5.5||!paths||!grounded||!powered||field(sweepFields,"Mode")!=="small-signal sweep"||field(antennaFields,"Mode")!=="ideal"||field(tunerFields,"Mode")!=="bandpass"||field(ampFields,"Mode")!=="linear"||!sweepValid||!Number.isFinite(amplitudeV)||amplitudeV<=0||amplitudeV>1||!Number.isFinite(centerMHz)||centerMHz<88||centerMHz>108||antennaCenter!==centerMHz||!Number.isFinite(q)||q<0.1||q>200||!Number.isFinite(gainDb)||gainDb< -40||gainDb>40){
+    return {state:"blocked",message:"Wire the small-signal sweep through the ideal antenna placeholder and tuned band-pass block to the gain/report path. Use increasing frequencies from 88–108 MHz, a matching tuned center, positive Q, and bounded gain.",validation};
+  }
+  const linearGain=Math.pow(10,gainDb/20),responsePoints=frequencies.map(frequencyMHz=>{
+    const ratio=frequencyMHz/centerMHz,detuning=q*(ratio-1/ratio),filterMagnitude=1/Math.sqrt(1+detuning*detuning),totalGainDb=20*Math.log10(filterMagnitude)+gainDb;
+    return {frequencyMHz,filterMagnitude,totalGainDb,outputAmplitudeV:amplitudeV*filterMagnitude*linearGain};
+  });
+  const peak=responsePoints.reduce((best,item)=>item.totalGainDb>best.totalGainDb?item:best,responsePoints[0]);
+  return {state:"complete",engine:"Small-signal ideal FM tuned response estimate",message:"Sweeps a bounded 88–108 MHz frequency list through an ideal resonant band-pass response and linear gain block. It is a response concept only: no antenna impedance/coupling, FM modulation/demodulation, local oscillator, IF chain, noise, real RF signal, regional band plan, or hardware behavior is modeled.",result:{kind:"fm-front-end-response",centerFrequencyMHz:centerMHz,q,gainDb,inputAmplitudeV:amplitudeV,responsePoints,peakFrequencyMHz:peak.frequencyMHz,peakResponseDb:peak.totalGainDb,peakOutputAmplitudeV:peak.outputAmplitudeV,rfTransmitted:false,demodulationModeled:false,firmwareExecuted:false},validation};
+}
+
 function analyseIrRemoteActions(project,{source,frame,receiver,decoder,display,ground,validation}){
   const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
   const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());

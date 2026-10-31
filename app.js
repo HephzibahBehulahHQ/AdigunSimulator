@@ -238,6 +238,18 @@ function renderResultDashboard(analysis) {
     metrics.push(["Sample interval", result.samplePeriodMs + " ms"], ["Buffer capacity", String(result.capacity)], ["Samples recorded", String(result.recordedSamples)], ["Overwritten records", String(result.overwrittenRecords)], ["Buffer wrapped", result.bufferWrapped ? "Yes" : "No"], ["Replay values", result.replayValues.join(", ") + " °C"]);
   } else if (result.kind === "low-power-sleep-wake") {
     metrics.push(["Run duration", result.durationMs + " ms"], ["MCU sleep current", result.sleepCurrentUa + " µA"], ["MCU run current", result.runCurrentUa + " µA"], ["Wake events", String(result.wakeCount)], ["Awake / asleep", result.awakeTimeMs + " / " + result.sleepTimeMs + " ms"], ["Estimated average supply current", result.averageSupplyCurrentUa.toFixed(2) + " µA"], ["Estimated energy", result.energyMj.toFixed(3) + " mJ"], ["LED load while awake", result.ledPeakCurrentMa.toFixed(2) + " mA"]);
+  } else if (result.kind === "fm-front-end-response") {
+    metrics.push(["Tuned center", result.centerFrequencyMHz.toFixed(2) + " MHz"], ["Resonator Q", String(result.q)], ["Gain block", result.gainDb.toFixed(1) + " dB"], ["Peak sample", result.peakFrequencyMHz.toFixed(2) + " MHz"], ["Peak total gain", result.peakResponseDb.toFixed(2) + " dB"], ["Peak output amplitude", result.peakOutputAmplitudeV.toFixed(4) + " V"], ["RF transmission", result.rfTransmitted ? "Yes" : "No"], ["FM demodulation", result.demodulationModeled ? "Modeled" : "Not modeled"]);
+    const points = result.responsePoints;
+    const min = Math.min(...points.map((point) => point.totalGainDb));
+    const max = Math.max(...points.map((point) => point.totalGainDb));
+    const span = Math.max(0.001, max - min);
+    const path = points.map((point, index) => {
+      const x = 24 + (432 * index) / Math.max(1, points.length - 1);
+      const y = 84 - ((point.totalGainDb - min) / span) * 62;
+      return (index ? "L " : "M ") + x.toFixed(1) + " " + y.toFixed(1);
+    }).join(" ");
+    waveform = `<figure class="result-waveform"><figcaption>Ideal tuned response · peak ${result.peakFrequencyMHz.toFixed(2)} MHz</figcaption><svg viewBox="0 0 480 108" role="img" aria-label="Ideal FM front-end gain versus frequency"><path class="wave-axis" d="M20 84 H468 M24 18 V88"></path><path class="wave-trace" d="${path}"></path><text x="24" y="103">${points[0].frequencyMHz.toFixed(0)} MHz</text><text x="402" y="103">${points.at(-1).frequencyMHz.toFixed(0)} MHz</text></svg></figure>`;
   } else if (result.kind === "ir-remote-action") {
     metrics.push(["Protocol", result.protocol], ["Decoded frame", result.rawCode], ["Address", result.address], ["Command", result.command], ["Selected action", result.action], ["Action mapping entries", String(result.mapEntries)], ["Frame duration", result.frameDurationUs + " µs"], ["Action executed", result.actionExecuted ? "Yes" : "No (display only)"]);
   } else if (result.kind === "ethernet-sensor-frame") {

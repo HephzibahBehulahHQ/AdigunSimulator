@@ -2467,3 +2467,22 @@ test("catalogue IR remote maps valid NEC-like keys to actions and rejects invali
   broken.nets.find(net=>net.id==="DEMODULATED").endpoints=["receiver:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue FM front-end response peaks at its tuned center frequency", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/087-fm-front-end-response.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"fm-front-end-response");
+  assert.equal(result.result.centerFrequencyMHz,100);
+  assert.equal(result.result.peakFrequencyMHz,100);
+  assert.ok(Math.abs(result.result.peakResponseDb-12)<1e-9);
+  assert.ok(result.result.responsePoints.find(point=>point.frequencyMHz===88).totalGainDb<result.result.peakResponseDb);
+  assert.ok(result.result.responsePoints.find(point=>point.frequencyMHz===108).totalGainDb<result.result.peakResponseDb);
+  assert.equal(result.result.rfTransmitted,false);
+  assert.equal(result.result.demodulationModeled,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"sweep",{value:"FrequenciesMHz 80,94,98,100,102,106,108; AmplitudeV 0.01; Mode small-signal sweep"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"tuner",{value:"Mode bandpass; CenterMHz 100; Q 0"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TUNED_RF").endpoints=["tuner:RF_OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});

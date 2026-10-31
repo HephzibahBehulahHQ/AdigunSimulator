@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-087-fm-front-end",
+  "metadata": {
+    "name": "FM Radio Front-End Response Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          38,
+          56
+        ],
+        "schematic": [
+          38,
+          56
+        ],
+        "pcb": [
+          38,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "sweep",
+      "libraryId": "input.fm-frequency-sweep",
+      "reference": "SIG1",
+      "value": "FrequenciesMHz 88,94,98,100,102,106,108; AmplitudeV 0.01; Mode small-signal sweep",
+      "position": {
+        "breadboard": [
+          125,
+          56
+        ],
+        "schematic": [
+          125,
+          56
+        ],
+        "pcb": [
+          125,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "antenna",
+      "libraryId": "passive.fm-antenna-ideal",
+      "reference": "ANT1",
+      "value": "Mode ideal; CenterMHz 100",
+      "position": {
+        "breadboard": [
+          250,
+          56
+        ],
+        "schematic": [
+          250,
+          56
+        ],
+        "pcb": [
+          250,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "tuner",
+      "libraryId": "passive.fm-tuning-network-ideal",
+      "reference": "LC1",
+      "value": "Mode bandpass; CenterMHz 100; Q 8",
+      "position": {
+        "breadboard": [
+          370,
+          56
+        ],
+        "schematic": [
+          370,
+          56
+        ],
+        "pcb": [
+          370,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "amplifier",
+      "libraryId": "active.fm-audio-gain-ideal",
+      "reference": "U1",
+      "value": "Mode linear; GainDb 12",
+      "position": {
+        "breadboard": [
+          480,
+          56
+        ],
+        "schematic": [
+          480,
+          56
+        ],
+        "pcb": [
+          480,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.fm-response-report",
+      "reference": "DISP1",
+      "value": "Frequency response",
+      "position": {
+        "breadboard": [
+          570,
+          56
+        ],
+        "schematic": [
+          570,
+          56
+        ],
+        "pcb": [
+          570,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          245
+        ],
+        "schematic": [
+          605,
+          245
+        ],
+        "pcb": [
+          605,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "amplifier:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "sweep:GND",
+        "antenna:GND",
+        "tuner:GND",
+        "amplifier:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "RF_INPUT",
+      "endpoints": [
+        "sweep:RF",
+        "antenna:INPUT"
+      ]
+    },
+    {
+      "id": "ANTENNA_OUTPUT",
+      "endpoints": [
+        "antenna:OUTPUT",
+        "tuner:RF_IN"
+      ]
+    },
+    {
+      "id": "TUNED_RF",
+      "endpoints": [
+        "tuner:RF_OUT",
+        "amplifier:INPUT"
+      ]
+    },
+    {
+      "id": "GAIN_OUTPUT",
+      "endpoints": [
+        "amplifier:OUTPUT",
+        "report:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
