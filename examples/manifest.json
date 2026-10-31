@@ -6813,7 +6813,7 @@
     {
       "id": "176-elevator-call-queue",
       "title": "Elevator call logic concept",
-      "status": "in-review",
+      "status": "released",
       "objective": "Apply a deterministic FIFO scheduler to floor-call events, coalesce duplicate pending calls, and verify the scenario queue table.",
       "acceptanceTest": "tests/core.test.mjs: catalogue elevator scheduler preserves FIFO calls and ignores duplicate pending floor",
       "testId": "core-elevator-call-queue",
@@ -6821,7 +6821,28 @@
       "readmeFile": "examples/176-elevator-call-queue/README.md",
       "safetyNote": "Queue scheduling concept only. No elevator movement, doors, sensors, drive, load handling, safety interlocks, emergency systems, or code compliance is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 176,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41212298630",
+        "headRevision": "e5a1294b417f6f7b898cfec7079553dede56741c",
+        "engine": "Deterministic FIFO elevator call scheduler",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "elevator-fifo-queue-concept-v1",
+        "expectedResult": {
+          "kind": "elevator-fifo-call-queue",
+          "floorCount": 5,
+          "eventCount": 6,
+          "duplicateCallsIgnored": 1,
+          "dispatchedTargets": [
+            3,
+            2
+          ],
+          "physicalElevatorModel": false
+        }
+      }
     }
   ]
 }
