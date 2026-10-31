@@ -730,13 +730,13 @@ Object.assign(TRANSLATIONS.yo, {exampleReversePolarity:"Ààbò polarity tí kò
 
 Object.assign(TRANSLATIONS.pcm, {exampleReversePolarity:"Reverse-polarity protection",exampleSurgeProtectedInput:"Surge-protected input"});
 
-Object.assign(TRANSLATIONS.en, {morePlannedExamples:"121 of the 200 catalogue projects are released; ten supplemental studies are also available. The remaining catalogue projects are planned and cannot be loaded yet."});
+Object.assign(TRANSLATIONS.en, {morePlannedExamples:"122 of the 200 catalogue projects are released; ten supplemental studies are also available. The remaining catalogue projects are planned and cannot be loaded yet."});
 
-Object.assign(TRANSLATIONS.de, {morePlannedExamples:"121 der 200 Katalogprojekte sind veröffentlicht; zehn ergänzende Studien sind ebenfalls verfügbar. Die übrigen Katalogprojekte sind geplant und noch nicht ladbar."});
+Object.assign(TRANSLATIONS.de, {morePlannedExamples:"122 der 200 Katalogprojekte sind veröffentlicht; zehn ergänzende Studien sind ebenfalls verfügbar. Die übrigen Katalogprojekte sind geplant und noch nicht ladbar."});
 
-Object.assign(TRANSLATIONS.yo, {morePlannedExamples:"A ti tú iṣẹ́ kátàlọ́ọ̀gù 121 nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí."});
+Object.assign(TRANSLATIONS.yo, {morePlannedExamples:"A ti tú iṣẹ́ kátàlọ́ọ̀gù 122 nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí."});
 
-Object.assign(TRANSLATIONS.pcm, {morePlannedExamples:"121 out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load."});
+Object.assign(TRANSLATIONS.pcm, {morePlannedExamples:"122 out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load."});
 
 Object.assign(TRANSLATIONS.en, {runPcbChecks:"Run PCB checks",exportPcbFiles:"Export Gerber / drill / BOM"});
 Object.assign(TRANSLATIONS.de, {runPcbChecks:"PCB prüfen",exportPcbFiles:"Gerber / Bohrdaten / Stückliste exportieren"});
