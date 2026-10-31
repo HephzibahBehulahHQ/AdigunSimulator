@@ -66,7 +66,7 @@ For every example, deliver a native project file, readme, schematic, breadboard 
 | 54 | Priority encoder | Ideal four-input encoder, four switches, two code outputs and valid indicator | The highest asserted input wins (D3 highest); all-low gives valid=0. Test single and simultaneous inputs. |
 | 55 | ALU add/subtract | Ideal four-bit add/subtract model, A/B inputs, SUB selector | Produces the low four result bits and carry/no-borrow flag; exhaustively test all 512 operand and operation combinations. |
 | 56 | UART transmitter model | Ideal configurable UART 8N1 frame source | Emits low start, eight LSB-first data bits, and high stop at the selected baud rate; test byte decoding and frame duration. Analog signal integrity is out of scope. |
-| 57 | UART receiver model | serial source, MCU/digital logic | Valid frame decodes, framing error flags; test valid/invalid frames. |
+| 57 | UART receiver and framing-error detector | Ideal ten-bit 8N1 frame source, powered receiver, valid-frame LED | Decode the eight data bits LSB-first and assert valid only for low start/high stop bits; test valid 0xA5, bad start, bad stop, invalid frame length, and broken RX wiring. Digital frame-level model; waveform sampling, oversampling, jitter, and physical transceiver behavior are omitted. |
 | 58 | I²C sensor bus | MCU model, I²C sensor, pull-ups | Address/read transaction succeeds; test ACK/NACK. |
 | 59 | SPI display bus | MCU model, SPI display | Bytes reach display model in mode 0; test timing/CS sequence. |
 | 60 | EEPROM data logger logic | MCU model, serial EEPROM | Write/read preserves sample data; test power-cycle persistence model. |
