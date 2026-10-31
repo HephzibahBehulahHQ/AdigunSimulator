@@ -2866,14 +2866,55 @@
     {
       "id": "071-pic-adc-bargraph",
       "title": "PIC-class ADC LED bargraph",
-      "status": "in-review",
+      "status": "released",
       "objective": "Map a 0–100% potentiometer input through an ideal 10-bit PIC-class ADC and illuminate the corresponding count on a ten-segment LED bargraph.",
       "acceptanceTest": "tests/core.test.mjs: catalogue PIC ADC bargraph maps 10-bit readings to LED count",
       "testId": "core-pic-adc-bargraph",
       "projectFile": "examples/071-pic-adc-bargraph.adigun.json",
       "safetyNote": "Logical ADC and display behavior model only. PIC firmware, analog input noise, LED current limiting, device-specific pin assignment, and physical bargraph ratings are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 71
+      "catalogueIndex": 71,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41178728021",
+        "headRevision": "65835bd4ff3b5de3555a08fb504916d7512c063e",
+        "engine": "Ideal PIC-class 10-bit ADC bargraph model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-pic-adc-bargraph-v1",
+        "expectedResult": {
+          "adcResolutionBits": 10,
+          "positions": [
+            {
+              "positionPercent": 0,
+              "adcCount": 0,
+              "illuminatedSegments": 0
+            },
+            {
+              "positionPercent": 25,
+              "adcCount": 256,
+              "illuminatedSegments": 2
+            },
+            {
+              "positionPercent": 50,
+              "adcCount": 512,
+              "illuminatedSegments": 5
+            },
+            {
+              "positionPercent": 75,
+              "adcCount": 767,
+              "illuminatedSegments": 7
+            },
+            {
+              "positionPercent": 100,
+              "adcCount": 1023,
+              "illuminatedSegments": 10
+            }
+          ],
+          "firmwareExecuted": false,
+          "physicalLedCurrent": "not modeled"
+        }
+      }
     }
   ]
 }
