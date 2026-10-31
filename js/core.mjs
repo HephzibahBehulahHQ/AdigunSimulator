@@ -4,6 +4,9 @@ const UI_LOCALES_FOR_PROJECT = Object.freeze(["en", "de", "yo", "pcm"]);
 const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistance: 34 });
 
 export const STARTER_LIBRARY = Object.freeze([
+  { id: "sensor.bme280-i2c", category: "Sensors", type: "Bosch BME280 8-pad I²C environmental sensor", prefix: "U", pins: ["GND1","CSB","SDA","SCL","SDO","VDDIO","GND2","VDD"], defaultValue: "BME280; 0x76; VDD 1.71–3.6 V; VDDIO 1.2–3.6 V", simulation: "bounded-breakout-topology", status: "manufacturer pin map; generic footprint template", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "power.tlv70033", category: "Power & Ground", type: "TI TLV70033 3.3 V LDO (DDC)", prefix: "U", pins: ["IN","GND","EN","NC","OUT"], defaultValue: "TLV70033DDC; VIN 5 V; VOUT 3.3 V", simulation: "bounded-breakout-topology", status: "manufacturer identified", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "connector.i2c-header-4", category: "Connectors", type: "4-pin I²C sensor header", prefix: "J", pins: ["VIN","GND","SDA","SCL"], defaultValue: "VIN, GND, SDA, SCL; 2.54 mm", simulation: "schematic/PCB only", status: "generic", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.usb-c-receptacle", category: "Connectors", type: "USB-C receptacle (USB 2.0, 16 contacts)", prefix: "J", pins: ["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"], defaultValue: "GCT USB4105; 5.1 kΩ Rd on CC1 and CC2", simulation: null, status: "manufacturer identified; footprint template", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.breakout-header-4", category: "Connectors", type: "4-pin breakout header", prefix: "J", pins: ["1","2","3","4"], defaultValue: "VBUS, GND, D+, D-", simulation: null, status: "generic", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -634,6 +637,32 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
       }
     };
   }
+
+  const bme280 = project.components.find((item) => item.libraryId === "sensor.bme280-i2c");
+  if (bme280) {
+    const ldo = project.components.find((item) => item.libraryId === "power.tlv70033");
+    const header = project.components.find((item) => item.libraryId === "connector.i2c-header-4");
+    const endpointOn = (netId, component, pin) => Boolean(component && project.nets.find((net) => net.id === netId)?.endpoints.includes(`${component.instanceId}:${pin}`));
+    const byReference = (reference) => project.components.find((item) => item.reference === reference);
+    const resistance = (reference) => { const item=byReference(reference); return item ? resistanceValue(item.value) : Number.NaN; };
+    const capacitance = (reference) => { const item=byReference(reference); return item ? capacitanceValue(item.value) : Number.NaN; };
+    const sensorPhysicalMap = ["GND1","CSB","SDA","SCL","SDO","VDDIO","GND2","VDD"].every((pin,index) => project.pcbFabrication?.pads?.some((pad) => pad.instanceId===bme280.instanceId && pad.pin===pin && String(pad.number)===String(index+1)));
+    const topologyValid = Boolean(ldo && header && sensorPhysicalMap
+      && endpointOn("VIN",header,"VIN") && endpointOn("VIN",ldo,"IN") && endpointOn("VIN",ldo,"EN")
+      && endpointOn("GND",header,"GND") && endpointOn("GND",ldo,"GND")
+      && endpointOn("VDD_3V3",ldo,"OUT") && endpointOn("VDD_3V3",bme280,"VDD") && endpointOn("VDD_3V3",bme280,"VDDIO") && endpointOn("VDD_3V3",bme280,"CSB")
+      && endpointOn("GND",bme280,"GND1") && endpointOn("GND",bme280,"GND2") && endpointOn("GND",bme280,"SDO")
+      && endpointOn("SDA",header,"SDA") && endpointOn("SDA",bme280,"SDA") && endpointOn("SDA",byReference("R1"),"2") && endpointOn("VDD_3V3",byReference("R1"),"1") && resistance("R1")===4700
+      && endpointOn("SCL",header,"SCL") && endpointOn("SCL",bme280,"SCL") && endpointOn("SCL",byReference("R2"),"2") && endpointOn("VDD_3V3",byReference("R2"),"1") && resistance("R2")===4700
+      && endpointOn("VIN",byReference("C1"),"1") && endpointOn("GND",byReference("C1"),"2") && Math.abs(capacitance("C1")-1e-6)<1e-15
+      && endpointOn("VDD_3V3",byReference("C2"),"1") && endpointOn("GND",byReference("C2"),"2") && Math.abs(capacitance("C2")-1e-6)<1e-15
+      && endpointOn("VDD_3V3",byReference("C3"),"1") && endpointOn("GND",byReference("C3"),"2") && Math.abs(capacitance("C3")-100e-9)<1e-15
+      && endpointOn("VDD_3V3",byReference("C4"),"1") && endpointOn("GND",byReference("C4"),"2") && Math.abs(capacitance("C4")-100e-9)<1e-15
+      && project.pcbFabrication?.pads?.some((pad)=>pad.instanceId===ldo?.instanceId&&pad.pin==="NC"&&pad.netId==="NC"));
+    if(!topologyValid)return {state:"blocked",message:"Check the BME280 pin map, 3.3 V regulator, I²C pull-ups, bypass capacitors, and header wiring.",validation};
+    return {state:"complete",engine:"BME280 breakout topology checker",message:"Verified the declared BME280 I²C wiring, TLV70033 supply network, pull-ups and bypass capacitors. Sensor conversion, I²C transactions, regulator thermal behavior and production compliance are not simulated.",validation,result:{kind:"bme280-i2c-sensor-breakout",sensor:"BME280",inputVoltageV:5,regulatedVoltageV:3.3,i2cAddress:"0x76",sdaPullupOhms:4700,sclPullupOhms:4700,sensorPinMapValid:true,topologyValid:true,sensorConversionsModeled:false,hardwareManufacturingQualified:false}};
+  }
+
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
   const dualComparators = project.components.filter((item) => item.libraryId === "active.comparator-dual-ideal");
