@@ -150,6 +150,31 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41147643416"
       }
+    },
+    {
+      "id": "011-rc-charge-discharge",
+      "title": "RC charge and discharge",
+      "status": "released",
+      "objective": "Calculate the ideal 5 V, 1 kΩ, 100 µF response with an SPDT switch selecting charge or discharge; report the 0.1 s time constant and voltage at one time constant.",
+      "acceptanceTest": "tests/core.test.mjs: SPDT RC example calculates charging and discharging at one time constant",
+      "testId": "core-rc-charge-discharge",
+      "projectFile": "examples/011-rc-charge-discharge.adigun.json",
+      "safetyNote": "Ideal low-voltage educational model only. Generic components, switch resistance, tolerances, leakage, ratings, physical breadboard layout, and PCB footprints are not verified. Discharge assumes a previously charged capacitor at the source voltage.",
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41148910995",
+        "headRevision": "ee15047a495d36566f2e3d181e11e57533f0b3ff",
+        "engine": "Analytical first-order switched RC response",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-spdt-rc-v1",
+        "libraryLock": "generic-starter-library@92a149081befe168840ff9dd326c8d242b088321",
+        "expectedResult": {
+          "timeConstantS": 0.1,
+          "chargeVoltageAtTauV": 3.160602794,
+          "dischargeVoltageAtTauV": 1.839397206
+        }
+      }
     }
   ]
 }
