@@ -4007,7 +4007,7 @@ test("catalogue RLC pulse response shows ringing and warns when timestep undersa
   const {analyzeRlcStep}=await import("../js/rlc-transient.mjs");
   const project=JSON.parse(await readFile(new URL("../examples/148-rlc-transient-response.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
-  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const supported=runSupportedAnalysis(project);assert.equal(supported.state,"complete");assert.equal(supported.result.kind,"rlc-step-response");
   const result=analyzeRlcStep(project);
   assert.equal(result.state,"complete");
   assert.equal(result.result.kind,"rlc-step-response");

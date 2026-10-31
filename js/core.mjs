@@ -1415,6 +1415,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
     if (highPass) return highPass;
     return analyseRcLowPass(project, { source: acSource[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
   }
+  if (source.length === 1 && resistor.length === 1 && inductor.length === 1 && capacitor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 5) return analyseRlcStep(project, { source: source[0], resistor: resistor[0], inductor: inductor[0], capacitor: capacitor[0], ground: ground[0], validation });
   if (source.length === 1 && resistor.length === 1 && inductor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRlStep(project, { source: source[0], resistor: resistor[0], inductor: inductor[0], ground: ground[0], validation });
   if (source.length === 1 && resistor.length > 0 && resistor.length === project.components.length - source.length - ground.length && ground.length >= 1) {
     return analyseResistiveNetwork(project, { source: source[0], resistors: resistor, ground: ground[0], validation });
@@ -4922,6 +4923,19 @@ function analyseLinearSupply(project, { source, transformer, bridge, capacitor, 
     result: { kind: "linear-regulated-supply", primaryRmsVoltage, lineFrequencyHz, primaryTurns, secondaryTurns, transformerRatio, secondaryRmsVoltage, rectifiedPeakVoltage, rectifiedFrequencyHz, diodeDropEach: diodeDrop, capacitance, loadResistance, outputSetpointV, dropoutVoltage, regulated, outputVoltage, loadCurrentA, rippleVoltagePP, minimumRectifiedVoltage, averageRectifiedVoltage, dropoutMarginV, regulatorDissipationW, bridgeDissipationW, loadPowerW, estimatedSecondaryInputPowerW, powerBalanceW },
     validation
   };
+}
+
+function analyseRlcStep(project,{source,resistor,inductor,capacitor,ground,validation}){
+  const sourceVoltage=voltageValue(source.value),resistance=resistanceValue(resistor.value),inductance=inductanceValue(inductor.value),capacitance=capacitanceValue(capacitor.value);
+  if(![sourceVoltage,resistance,inductance,capacitance].every(Number.isFinite)||sourceVoltage<=0||resistance<=0||inductance<=0||capacitance<=0)return {state:"blocked",message:"The RLC step model requires positive source, resistance, inductance and capacitance values.",validation};
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const sourcePositive=netByEndpoint.get(endpoint(source,"+")),sourceNegative=netByEndpoint.get(endpoint(source,"-")),rIn=netByEndpoint.get(endpoint(resistor,"1")),rOut=netByEndpoint.get(endpoint(resistor,"2")),lIn=netByEndpoint.get(endpoint(inductor,"1")),lOut=netByEndpoint.get(endpoint(inductor,"2")),cIn=netByEndpoint.get(endpoint(capacitor,"1")),cOut=netByEndpoint.get(endpoint(capacitor,"2")),groundNet=netByEndpoint.get(endpoint(ground,"0"));
+  if(!sourcePositive||sourcePositive!==rIn||!rOut||rOut!==lIn||!lOut||lOut!==cIn||!groundNet||groundNet!==cOut||groundNet!==sourceNegative||sourcePositive===groundNet)return {state:"blocked",message:"The RLC step model requires source → resistor → inductor → capacitor → shared return topology.",validation};
+  const alpha=resistance/(2*inductance),omega0=1/Math.sqrt(inductance*capacitance),zeta=alpha/omega0,under=alpha<omega0*(1-1e-9),critical=Math.abs(alpha-omega0)<=omega0*1e-9,omegaD=under?Math.sqrt(omega0*omega0-alpha*alpha):0,duration=Number(project.rlcTransient?.durationS??0.02),dt=Number(project.rlcTransient?.timeStepS??duration/500),count=Math.ceil(duration/dt)+1;
+  if(!Number.isFinite(duration)||!Number.isFinite(dt)||duration<=0||dt<=0||count>10001)return {state:"blocked",message:"The RLC response time window or sample count is outside supported bounds.",validation};
+  const samples=Array.from({length:count},(_,i)=>{const timeS=Math.min(duration,i*dt);let y;if(under)y=1-Math.exp(-alpha*timeS)*(Math.cos(omegaD*timeS)+(alpha/omegaD)*Math.sin(omegaD*timeS));else if(critical)y=1-Math.exp(-alpha*timeS)*(1+alpha*timeS);else{const root=Math.sqrt(alpha*alpha-omega0*omega0),s1=-alpha+root,s2=-alpha-root;y=1-(s2*Math.exp(s1*timeS)-s1*Math.exp(s2*timeS))/(s2-s1);}return {timeS,capacitorVoltageV:sourceVoltage*y};});
+  const max= Math.max(...samples.map(point=>point.capacitorVoltageV)),recommended=under?2*Math.PI/omegaD/20:1/omega0/20,warnings=dt>recommended?[{code:"TIMESTEP_RESOLUTION",message:"The timestep is too coarse to resolve the RLC transient reliably."}]:[];
+  return {state:"complete",engine:"Analytical second-order series RLC step response",message:"Calculated a nominal ideal RLC step response. Parasitics, component tolerances, source resistance and general SPICE are not modeled.",warnings,result:{kind:"rlc-step-response",sourceVoltage,resistance,inductance,capacitance,dampingRatio:zeta,regime:under?"underdamped":critical?"critical":"overdamped",dampedFrequencyHz:under?omegaD/(2*Math.PI):0,peakVoltageV:max,overshootV:Math.max(0,max-sourceVoltage),ringingVisible:under&&max>sourceVoltage,samples}};
 }
 
 function analyseRlStep(project, { source, resistor, inductor, ground, validation }) {
