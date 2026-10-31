@@ -1123,6 +1123,10 @@ $("#remove-component").addEventListener("click", () => {
   if (!component) return;
   captureHistory();
   state.project = removeComponent(state.project, component.instanceId);
+  if (state.project.breadboard?.pinHoles) {
+    const endpointPrefix = `${component.instanceId}:`;
+    state.project = { ...state.project, breadboard: { ...state.project.breadboard, pinHoles: Object.fromEntries(Object.entries(state.project.breadboard.pinHoles).filter(([endpoint]) => !endpoint.startsWith(endpointPrefix))) } };
+  }
   state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
   state.dirty = true;
   state.recoveryActive = true;
