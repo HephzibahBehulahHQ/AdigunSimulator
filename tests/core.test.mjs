@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 60);
+  assert.equal(getExampleCoverage(registry).total, 61);
   assert.equal(getExampleCoverage(registry).released, 50);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 150);
@@ -1664,5 +1664,32 @@ test("catalogue digital debouncer rejects short bounce and accepts stable sample
   assert.equal(runSupportedAnalysis(updateComponent(project, "raw-input", { value: "6 V" })).state, "blocked");
   const invalidCount = updateComponent(project, "debounce", { value: "Stable samples 1" });
   assert.equal(runSupportedAnalysis(invalidCount).state, "blocked");
+});
+
+
+test("catalogue four-bit ring shift register moves one LED per rising edge", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/051-shift-register-led-chaser.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-ring-shift-4bit-ideal"), true);
+  const reset = runSupportedAnalysis(project);
+  assert.equal(reset.state, "complete");
+  assert.deepEqual(reset.result.bits, [true,false,false,false]);
+  const expected = [[false,true,false,false],[false,false,true,false],[false,false,false,true],[true,false,false,false]];
+  let p = updateComponent(project, "reset-input", { value: "5 V" });
+  let state = runSupportedAnalysis(p, { previousState: reset });
+  for (const bits of expected) {
+    p = updateComponent(p, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+    assert.equal(state.state, "complete");
+    assert.deepEqual(state.result.bits, bits);
+    assert.equal(state.result.oneHot, true);
+    assert.equal(state.result.activeLedIndex, bits.indexOf(true));
+    p = updateComponent(p, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "LED3").endpoints = ["led3:A"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
