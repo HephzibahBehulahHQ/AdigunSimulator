@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-102-boost-converter",
+  "metadata": {
+    "name": "Asynchronous Boost Converter CCM Estimate",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          20,
+          50
+        ],
+        "schematic": [
+          20,
+          50
+        ],
+        "pcb": [
+          20,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.boost-operating-point-fixture",
+      "reference": "CFG1",
+      "value": "Duty 50%; Frequency 100 kHz; MaxDuty 85%; MaxInput 60 V",
+      "position": {
+        "breadboard": [
+          100,
+          40
+        ],
+        "schematic": [
+          100,
+          40
+        ],
+        "pcb": [
+          100,
+          40
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.boost-average-controller",
+      "reference": "U1",
+      "value": "Mode asynchronous; MaxDuty 85%; MaxInput 60 V",
+      "position": {
+        "breadboard": [
+          230,
+          50
+        ],
+        "schematic": [
+          230,
+          50
+        ],
+        "pcb": [
+          230,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "inductor",
+      "libraryId": "passive.inductor",
+      "reference": "L1",
+      "value": "100 µH",
+      "position": {
+        "breadboard": [
+          180,
+          100
+        ],
+        "schematic": [
+          180,
+          100
+        ],
+        "pcb": [
+          180,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "diode",
+      "libraryId": "diode.schottky",
+      "reference": "D1",
+      "value": "Vf 0.5 V",
+      "position": {
+        "breadboard": [
+          350,
+          100
+        ],
+        "schematic": [
+          350,
+          100
+        ],
+        "pcb": [
+          350,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 µF",
+      "position": {
+        "breadboard": [
+          480,
+          140
+        ],
+        "schematic": [
+          480,
+          140
+        ],
+        "pcb": [
+          480,
+          140
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RLOAD",
+      "value": "100 Ω",
+      "position": {
+        "breadboard": [
+          540,
+          70
+        ],
+        "schematic": [
+          540,
+          70
+        ],
+        "pcb": [
+          540,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.boost-converter-report",
+      "reference": "SCOPE1",
+      "value": "Average CCM report",
+      "position": {
+        "breadboard": [
+          620,
+          50
+        ],
+        "schematic": [
+          620,
+          50
+        ],
+        "pcb": [
+          620,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VIN",
+      "endpoints": [
+        "source:+",
+        "inductor:1",
+        "controller:VIN",
+        "fixture:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "fixture:GND",
+        "controller:GND",
+        "capacitor:2",
+        "load:2",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "CTRL",
+      "endpoints": [
+        "fixture:CTRL",
+        "controller:CTRL"
+      ]
+    },
+    {
+      "id": "SWITCH",
+      "endpoints": [
+        "inductor:2",
+        "controller:SW",
+        "diode:A"
+      ]
+    },
+    {
+      "id": "VOUT",
+      "endpoints": [
+        "diode:K",
+        "capacitor:1",
+        "load:1",
+        "controller:VOUT",
+        "report:VOUT"
+      ]
+    }
+  ],
+  "history": []
+}
