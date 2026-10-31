@@ -2436,14 +2436,32 @@
     {
       "id": "058-i2c-sensor-read",
       "title": "I²C sensor register read",
-      "status": "in-review",
+      "status": "released",
       "objective": "Model a bounded I²C single-register read using an ideal transaction fixture and register-mapped sensor; report address ACK/NACK, register match, and returned byte.",
       "acceptanceTest": "tests/core.test.mjs: catalogue I2C register sensor acknowledges and returns configured data",
       "testId": "core-i2c-sensor-read",
       "projectFile": "examples/058-i2c-sensor-read.adigun.json",
       "safetyNote": "Digital transaction-level model with ideal open-drain pull-up checking. Clock stretching, arbitration, analog rise time, bus capacitance, noise, and physical device timing are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 58
+      "catalogueIndex": 58,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41175904531",
+        "headRevision": "544d902f3d2da7ddbc6aac4f629c39ed09eee410",
+        "engine": "Ideal I²C register-read transaction model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-i2c-register-read-v1",
+        "expectedResult": {
+          "address": "0x48",
+          "register": "0x00",
+          "receivedByte": "0x2A",
+          "baud": 100000,
+          "addressNack": "complete with sensorAck=false and no data",
+          "absentRegister": "ACK with no returned data",
+          "pullUps": "one 4.7 kΩ resistor on each bus line"
+        }
+      }
     }
   ]
 }
