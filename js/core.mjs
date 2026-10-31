@@ -37,6 +37,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-or-ideal", category: "Active", type: "Ideal two-input OR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-or-gate-truth-table", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-xor-ideal", category: "Active", type: "Ideal two-input XOR parity gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-xor-parity-checker", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-nor-ideal", category: "Active", type: "Ideal two-input NOR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-nor-sr-latch", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-dff-ideal", category: "Active", type: "Ideal positive-edge D flip-flop (static logic)", prefix: "U", pins: ["D", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge D flip-flop", simulation: "analytical-d-flip-flop", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -387,6 +388,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const orGates = project.components.filter((item) => item.libraryId === "active.logic-or-ideal");
   const xorGates = project.components.filter((item) => item.libraryId === "active.logic-xor-ideal");
   const norGates = project.components.filter((item) => item.libraryId === "active.logic-nor-ideal");
+  const dFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-dff-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -451,6 +453,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (dFlipFlops.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseDFlipFlop(project, { source, flipFlop: dFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], previousState, validation });
   }
   if (norGates.length === 2 && source.length === 3 && resistor.length === 2 && led.length === 2 && ground.length === 1 && project.components.length === 10) {
     return analyseNorSrLatch(project, { sources: source, gates: norGates, resistors: resistor, leds: led, ground: ground[0], previousState, validation });
@@ -1408,6 +1413,44 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
   }
   const loadCurrentA=referenceVoltage/loadResistance;
   return {state:"complete",engine:"Ideal reference-voltage follower load estimate",message:"Buffers a fixed reference voltage and reports the ideal resistive load current. It assumes zero output impedance and unlimited output current, and omits accuracy drift, noise, bandwidth, stability, thermal effects, and device-specific limits.",result:{kind:"reference-buffer",referenceVoltage,outputVoltage:referenceVoltage,gainVPerV:1,loadResistanceOhm:loadResistance,loadCurrentA,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage},validation};
+}
+
+
+function analyseDFlipFlop(project,{sources,flipFlop,resistor,led,ground,previousState,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),supply=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")!==groundNet);
+  const dataNet=n(flipFlop,"D"),clockNet=n(flipFlop,"CLK"),qNet=n(flipFlop,"Q");
+  const dataSource=sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===dataNet);
+  const clockSource=sources.find(v=>v!==supply&&v!==dataSource&&n(v,"-")===groundNet&&n(v,"+")===clockNet);
+  const outputPath=(n(resistor,"1")===qNet&&n(resistor,"2")===n(led,"A"))||(n(resistor,"2")===qNet&&n(resistor,"1")===n(led,"A"));
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN;
+  const dataVoltage=dataSource?voltageValue(dataSource.value):Number.NaN;
+  const clockVoltage=clockSource?voltageValue(clockSource.value):Number.NaN;
+  const resistance=resistanceValue(resistor.value),forwardV=forwardVoltage(led.value),thresholdV=supplyVoltage/2;
+  if(!supply||!dataSource||!clockSource||!outputPath
+    ||n(flipFlop,"VCC")!==n(supply,"+")||n(flipFlop,"GND")!==groundNet
+    ||n(flipFlop,"PRE")!==n(supply,"+")||n(flipFlop,"CLR")!==n(supply,"+")
+    ||n(led,"K")!==groundNet
+    ||![supplyVoltage,dataVoltage,clockVoltage,resistance,forwardV].every(Number.isFinite)
+    ||supplyVoltage<=0||dataVoltage<0||dataVoltage>supplyVoltage||clockVoltage<0||clockVoltage>supplyVoltage
+    ||resistance<=0||forwardV<=0){
+    return {state:"blocked",message:"Wire the ideal positive-edge D flip-flop, inactive preset/clear pins, 0–VCC data and clock inputs, and a current-limited Q indicator.",validation};
+  }
+  const clockHigh=clockVoltage>=thresholdV,dataHigh=dataVoltage>=thresholdV;
+  const previous=previousState?.result;
+  const previousClockHigh=previous?.clockHigh;
+  const previousQ=previous?.q;
+  if(clockHigh&&typeof previousClockHigh!=="boolean"){
+    return {state:"blocked",message:"Start with the clock low, then apply a rising edge so the simulator can distinguish a clock transition.",validation};
+  }
+  const risingEdge=previousClockHigh===false&&clockHigh;
+  const q=risingEdge?dataHigh:(typeof previousQ==="boolean"?previousQ:null);
+  const qBar=typeof q==="boolean"?!q:null;
+  const qVoltage=q===true?supplyVoltage:0;
+  const ledCurrentA=q===true?Math.max(0,(qVoltage-forwardV)/resistance):0;
+  return {state:"complete",engine:"Ideal positive-edge D flip-flop state transition",message:"Samples D on a rising clock edge and retains Q between edges. Setup/hold timing, propagation delay, metastability, asynchronous control behavior, and device-specific limits are not modeled.",result:{kind:"d-flip-flop",supplyVoltage,logicThresholdV:thresholdV,dataVoltage,clockVoltage,dataHigh,clockHigh,risingEdge,sampled:risingEdge,q,qBar,qVoltage,ledCurrentA,mode:risingEdge?"sample":clockHigh?"high-level hold":"low-level hold",timingAnnotation:"Setup/hold violations and metastability are not simulated."},validation};
 }
 
 function analyseNorSrLatch(project,{sources,gates,resistors,leds,ground,previousState,validation}){
