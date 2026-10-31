@@ -22,6 +22,7 @@ For every example, deliver a native project file, readme, schematic, breadboard 
 | 10 | Supercapacitor hold-up | supply, diode, supercapacitor, load | Load voltage decays according to C/load; test hold-up duration range. |
 | 11 | RC charge/discharge | 5 V, R, C, switch | Capacitor follows exponential charge/discharge; test time at 63.2%. |
 | 12 | RC low-pass filter | sine source, R, C | Output amplitude drops above cutoff; test calculated cutoff ± tolerance. |
+| 13 | RC high-pass filter | sine source, C, R | Output amplitude rises above cutoff; test calculated cutoff ± tolerance. |
 | 13 | RC high-pass filter | sine source, R, C | Output attenuates below cutoff; test Bode points. |
 | 14 | Passive tone control | R/C network, audio source/load | Low/high response changes with control; test response plots. |
 | 15 | Bridge rectifier | AC source, bridge, load | Output is full-wave rectified; test ripple frequency is 2× input. |
