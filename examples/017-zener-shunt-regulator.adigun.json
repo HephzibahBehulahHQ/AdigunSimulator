@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-017-zener-shunt-regulator",
+  "metadata": {
+    "name": "Zener Shunt Regulator",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          65,
+          80
+        ],
+        "schematic": [
+          65,
+          80
+        ],
+        "pcb": [
+          65,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "series-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          185,
+          80
+        ],
+        "schematic": [
+          185,
+          80
+        ],
+        "pcb": [
+          185,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "load-resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "RLOAD",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          305,
+          80
+        ],
+        "schematic": [
+          305,
+          80
+        ],
+        "pcb": [
+          305,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "zener-1",
+      "libraryId": "diode.zener-ideal",
+      "reference": "DZ1",
+      "value": "Vz 5.1 V; Pmax 0.5 W",
+      "position": {
+        "breadboard": [
+          425,
+          80
+        ],
+        "schematic": [
+          425,
+          80
+        ],
+        "pcb": [
+          425,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          545,
+          80
+        ],
+        "schematic": [
+          545,
+          80
+        ],
+        "pcb": [
+          545,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VIN",
+      "endpoints": [
+        "source-1:+",
+        "series-resistor-1:1"
+      ]
+    },
+    {
+      "id": "VOUT",
+      "endpoints": [
+        "series-resistor-1:2",
+        "load-resistor-1:1",
+        "zener-1:K"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source-1:-",
+        "load-resistor-1:2",
+        "zener-1:A",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": []
+}
