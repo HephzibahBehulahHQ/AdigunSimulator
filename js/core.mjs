@@ -4,6 +4,9 @@ const UI_LOCALES_FOR_PROJECT = Object.freeze(["en", "de", "yo", "pcm"]);
 const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistance: 34 });
 
 export const STARTER_LIBRARY = Object.freeze([
+  { id: "relay.omron-g5v1-dc5", category: "Active", type: "Omron G5V-1 DC5 SPDT relay", prefix: "K", pins: ["COIL1","COIL2","COM","NC","NO"], defaultValue: "5 V; 167 Ω; 1 A at 24 VDC resistive", simulation: "bounded-relay-driver", status: "manufacturer identified; board footprint template", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "diode.rectifier-1n4007", category: "Active", type: "1N4007 axial rectifier diode", prefix: "D", pins: ["A","K"], defaultValue: "1 A; 1000 V; axial", simulation: "flyback protection", status: "manufacturer family identified", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "connector.screw-terminal-3", category: "Connectors", type: "3-position screw terminal block", prefix: "J", pins: ["1","2","3"], defaultValue: "Through-hole; generic footprint", simulation: "schematic/PCB only", status: "generic", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "sensor.bme280-i2c", category: "Sensors", type: "Bosch BME280 8-pad I²C environmental sensor", prefix: "U", pins: ["GND1","CSB","SDA","SCL","SDO","VDDIO","GND2","VDD"], defaultValue: "BME280; 0x76; VDD 1.71–3.6 V; VDDIO 1.2–3.6 V", simulation: "bounded-breakout-topology", status: "manufacturer pin map; generic footprint template", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "power.tlv70033", category: "Power & Ground", type: "TI TLV70033 3.3 V LDO (DDC)", prefix: "U", pins: ["IN","GND","EN","NC","OUT"], defaultValue: "TLV70033DDC; VIN 5 V; VOUT 3.3 V", simulation: "bounded-breakout-topology", status: "manufacturer identified", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.i2c-header-4", category: "Connectors", type: "4-pin I²C sensor header", prefix: "J", pins: ["VIN","GND","SDA","SCL"], defaultValue: "VIN, GND, SDA, SCL; 2.54 mm", simulation: "schematic/PCB only", status: "generic", views: { breadboard: true, schematic: true, pcb: true } },
@@ -661,6 +664,35 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
       && project.pcbFabrication?.pads?.some((pad)=>pad.instanceId===ldo?.instanceId&&pad.pin==="NC"&&pad.netId==="NC"));
     if(!topologyValid)return {state:"blocked",message:"Check the BME280 pin map, 3.3 V regulator, I²C pull-ups, bypass capacitors, and header wiring.",validation};
     return {state:"complete",engine:"BME280 breakout topology checker",message:"Verified the declared BME280 I²C wiring, TLV70033 supply network, pull-ups and bypass capacitors. Sensor conversion, I²C transactions, regulator thermal behavior and production compliance are not simulated.",validation,result:{kind:"bme280-i2c-sensor-breakout",sensor:"BME280",inputVoltageV:5,regulatedVoltageV:3.3,i2cAddress:"0x76",sdaPullupOhms:4700,sclPullupOhms:4700,sensorPinMapValid:true,topologyValid:true,sensorConversionsModeled:false,hardwareManufacturingQualified:false}};
+  }
+
+
+  const relayDevice=project.components.find((item)=>item.libraryId==="relay.omron-g5v1-dc5");
+  if(relayDevice){
+    const sourcePart=project.components.find((item)=>item.libraryId==="power.dc-source");
+    const transistor=project.components.find((item)=>item.libraryId==="active.npn-small-signal");
+    const diode=project.components.find((item)=>item.libraryId==="diode.rectifier-1n4007");
+    const resistor=project.components.find((item)=>item.reference==="R1");
+    const header=project.components.find((item)=>item.reference==="J1");
+    const terminal=project.components.find((item)=>item.reference==="J2");
+    const netHas=(netId,component,pin)=>Boolean(component&&project.nets.find((net)=>net.id===netId)?.endpoints.includes(`${component.instanceId}:${pin}`));
+    const supplyVoltage=sourcePart?voltageValue(sourcePart.value):Number.NaN;
+    const coilResistance=resistanceValue(String(relayDevice.value).split(";")[1]?.trim()??"");
+    const baseResistance=resistor?resistanceValue(resistor.value):Number.NaN;
+    const baseDrive=Boolean(sourcePart&&transistor&&diode&&resistor&&header&&terminal
+      &&netHas("VCC",sourcePart,"+")&&netHas("VCC",header,"1")&&netHas("VCC",relayDevice,"COIL1")&&netHas("VCC",diode,"K")
+      &&netHas("GND",sourcePart,"-")&&netHas("GND",header,"2")&&netHas("GND",transistor,"E")
+      &&netHas("IN",header,"3")&&netHas("IN",resistor,"1")&&netHas("BASE",resistor,"2")&&netHas("BASE",transistor,"B")
+      &&netHas("COIL",relayDevice,"COIL2")&&netHas("COIL",transistor,"C")&&netHas("COIL",diode,"A")
+      &&netHas("LOAD_COM",relayDevice,"COM")&&netHas("LOAD_COM",terminal,"1")
+      &&netHas("LOAD_NC",relayDevice,"NC")&&netHas("LOAD_NC",terminal,"2")
+      &&netHas("LOAD_NO",relayDevice,"NO")&&netHas("LOAD_NO",terminal,"3")
+      &&supplyVoltage===5&&coilResistance===167&&baseResistance===1000);
+    if(!baseDrive)return {state:"blocked",message:"Check the G5V-1 coil, transistor/diode driver, input header and isolated load terminal mapping.",validation};
+    const baseCurrentA=(supplyVoltage-0.7)/baseResistance;
+    const coilCurrentA=(supplyVoltage-0.2)/coilResistance;
+    if(![baseCurrentA,coilCurrentA].every(Number.isFinite)||baseCurrentA<coilCurrentA/10)return {state:"blocked",message:"The selected base drive does not meet the bounded saturated-switch estimate.",validation};
+    return {state:"complete",engine:"Bounded relay-driver estimate",message:"Estimates a 5 V relay coil through an ideal saturated NPN switch and verifies declared coil/contact wiring. It does not simulate contact bounce, load arcs, relay lifetime, insulation test or safety certification.",validation,result:{kind:"low-voltage-relay-driver",relayReference:relayDevice.reference,coilVoltageV:supplyVoltage,coilResistanceOhms:coilResistance,coilCurrentA,coilPowerW:coilCurrentA*coilCurrentA*coilResistance,baseResistorOhms:baseResistance,baseCurrentA,forcedCurrentGain:coilCurrentA/baseCurrentA,flybackDiodeMapped:true,coilLoadNetsSeparated:true,maxExampleContactLoad:"1 A at 24 VDC resistive",contactLoadSimulation:false}};
   }
 
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
