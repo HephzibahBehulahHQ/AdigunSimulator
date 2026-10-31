@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 71);
+  assert.equal(getExampleCoverage(registry).total, 72);
   assert.equal(getExampleCoverage(registry).released, 61);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 139);
@@ -1916,5 +1916,21 @@ test("catalogue Arduino blink produces a bounded D13 LED GPIO trace",async()=>{
   assert.equal(runSupportedAnalysis(updateComponent(project,"mcu",{value:"Program Blink; Pin D13; High 0 ms; Low 500 ms; Runtime 2000 ms"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="D13").endpoints=["mcu:D13"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Arduino button debounce rejects bounce and toggles once per stable press",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/062-arduino-button-debounce.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(result.result.toggleCount,2);
+  assert.deepEqual(result.result.trace.map(x=>x.acceptedTransition&&x.stableInput===1?x.sampleIndex:null).filter(x=>x!==null),[5,11]);
+  assert.equal(result.result.outputOn,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"mcu",{value:"Program Button debounce; Input D2; Output D13; Mode Toggle; Stable 21"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="BUTTON").endpoints=["button:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });

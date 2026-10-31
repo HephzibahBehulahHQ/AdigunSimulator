@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-062-arduino-button-debounce",
+  "metadata": {
+    "name": "Uno-Class Button Debounce and Toggle",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          42,
+          56
+        ],
+        "schematic": [
+          42,
+          56
+        ],
+        "pcb": [
+          42,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.mcu-uno-ideal",
+      "reference": "U1",
+      "value": "Program Button debounce; Input D2; Output D13; Mode Toggle; Stable 3",
+      "position": {
+        "breadboard": [
+          140,
+          56
+        ],
+        "schematic": [
+          140,
+          56
+        ],
+        "pcb": [
+          140,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "button",
+      "libraryId": "input.digital-sample-sequence",
+      "reference": "SIG1",
+      "value": "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz",
+      "position": {
+        "breadboard": [
+          250,
+          56
+        ],
+        "schematic": [
+          250,
+          56
+        ],
+        "pcb": [
+          250,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          350,
+          56
+        ],
+        "schematic": [
+          350,
+          56
+        ],
+        "pcb": [
+          350,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          430,
+          56
+        ],
+        "schematic": [
+          430,
+          56
+        ],
+        "pcb": [
+          430,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          520,
+          56
+        ],
+        "schematic": [
+          520,
+          56
+        ],
+        "pcb": [
+          520,
+          56
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mcu:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "mcu:GND",
+        "button:GND",
+        "led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "BUTTON",
+      "endpoints": [
+        "button:OUT",
+        "mcu:D2"
+      ]
+    },
+    {
+      "id": "D13",
+      "endpoints": [
+        "mcu:D13",
+        "resistor:1"
+      ]
+    },
+    {
+      "id": "LED",
+      "endpoints": [
+        "resistor:2",
+        "led:A"
+      ]
+    }
+  ],
+  "history": []
+}
