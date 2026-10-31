@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 68);
+  assert.equal(getExampleCoverage(registry).total, 69);
   assert.equal(getExampleCoverage(registry).released, 58);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 142);
@@ -1863,5 +1863,23 @@ test("catalogue I2C register sensor acknowledges and returns configured data", a
   assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x48; Register 0x00; Baud 1000; ACK yes"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="SDA").endpoints=["transaction:SDA","sensor:SDA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue SPI display receives mode-0 bytes MSB-first", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/059-spi-display.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.receivedByte,0xA5);
+  assert.deepEqual(result.result.bits,[true,false,true,false,false,true,false,true]);
+  assert.equal(result.result.sampleEdge,"rising");
+  assert.equal(result.result.transferDurationSeconds,8/1000000);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transfer",{value:"Mode 3; Byte 0xA5; Baud 1000000; CS active"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transfer",{value:"Mode 0; Byte 0x100; Baud 1000000; CS active"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transfer",{value:"Mode 0; Byte 0xA5; Baud 1000000; CS inactive"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="MOSI").endpoints=["transfer:MOSI"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
