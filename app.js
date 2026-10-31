@@ -496,7 +496,8 @@ function runAnalysis() {
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Ω`);
       log(`[RESULT] I=${(currentA * 1000).toFixed(3)} mA, Presistor=${(resistorPowerW * 1000).toFixed(3)} mW, LED ${ledOn ? "conducting" : "off"}.`);
     } else if (kind === "net-cross-probe") {
-      log(`[CROSS-PROBE] ${result.result.endpointCount} endpoint(s) on ${result.result.netId}; selection synchronized in all three views.`);\n    } else if (kind === "voltage-divider") {
+      log(`[CROSS-PROBE] ${result.result.endpointCount} endpoint(s) on ${result.result.netId}; selection synchronized in all three views.`);
+    } else if (kind === "voltage-divider") {
       const { sourceVoltage, upperResistance, lowerResistance, outputVoltage, currentA, totalPowerW } = result.result;
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Rupper=${upperResistance.toFixed(3)} Ω, Rlower=${lowerResistance.toFixed(3)} Ω`);
       log(`[RESULT] Vout=${outputVoltage.toFixed(3)} V, I=${(currentA * 1000).toFixed(3)} mA, Ptotal=${(totalPowerW * 1000).toFixed(3)} mW.`);
