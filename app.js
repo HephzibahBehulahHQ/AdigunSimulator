@@ -17,6 +17,7 @@ import {
 } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
+import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -479,6 +480,27 @@ function exportProject() {
   log("[EXPORTED] Native project JSON downloaded.");
 }
 
+function runPcbChecks() {
+  const report=validatePcbFabrication(state.project);
+  const summary=report.status==="passed"?"Bounded PCB checks passed.":report.errors.join("\\n");
+  showDialog("PCB fabrication checks",summary+"\\n\\nChecks: "+report.checks.join(", ")+"\\nThese checks are educational and do not replace manufacturer validation.");
+  log(`[PCB DRC] ${report.status.toUpperCase()} — ${report.errors.length} issue(s).`);
+}
+function exportPcbFiles() {
+  const result=exportPcbFabrication(state.project);
+  if(result.status!=="passed"){
+    showDialog("PCB export blocked",result.drc.errors.join("\\n"));
+    log("[PCB EXPORT] Blocked until the bounded checks pass.");
+    return;
+  }
+  const stem=state.project.metadata.name.replace(/[^a-z0-9]+/gi,"-").replace(/^-|-$/g,"").toLowerCase()||"adigun-pcb";
+  for(const [name,content] of Object.entries(result.files)){
+    const mime=name.endsWith(".csv")?"text/csv":"application/octet-stream";
+    const blob=new Blob([content],{type:mime}),url=URL.createObjectURL(blob),link=document.createElement("a");
+    link.href=url;link.download=`${stem}-${name}`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+  }
+  log("[PCB EXPORT] Downloaded F.Cu Gerber, board outline, Excellon drill, and BOM files.");
+}
 function activateView(view) {
   state.activeView = view;
   $$(".view-tab").forEach((tab) => { const active = tab.dataset.view === view; tab.classList.toggle("active", active); tab.setAttribute("aria-selected", String(active)); });
@@ -503,11 +525,13 @@ function handleAction(action) {
   if (action === "import-project") $("#import-file").click();
   if (action === "save") saveLocal();
   if (action === "export") exportProject();
+  if (action === "pcb-drc") runPcbChecks();
+  if (action === "pcb-export") exportPcbFiles();
   if (action === "validate") validateAndReport();
   if (action === "undo") undo();
   if (action === "redo") redo();
   if (action === "run-simulation") runAnalysis();
-  if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 98 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine.");
+  if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 120 released and tested catalogue examples, bounded analytical models, and a single-sided PCB export preview for projects that include fabrication data. Its checks do not replace manufacturer validation; the application is not a general SPICE engine.");
 }
 
 document.addEventListener("click", (event) => {
