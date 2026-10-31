@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-071-pic-adc-bargraph",
+  "metadata": {
+    "name": "PIC-Class ADC LED Bargraph",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          45,
+          60
+        ],
+        "schematic": [
+          45,
+          60
+        ],
+        "pcb": [
+          45,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "pot",
+      "libraryId": "input.potentiometer-adc-ideal",
+      "reference": "RV1",
+      "value": "Position 50%; Resolution 10 bit",
+      "position": {
+        "breadboard": [
+          160,
+          60
+        ],
+        "schematic": [
+          160,
+          60
+        ],
+        "pcb": [
+          160,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "pic",
+      "libraryId": "active.pic-adc-bargraph-ideal",
+      "reference": "U1",
+      "value": "Program ADC bargraph; ADC AN0; Resolution 10 bit; Channels 10",
+      "position": {
+        "breadboard": [
+          300,
+          60
+        ],
+        "schematic": [
+          300,
+          60
+        ],
+        "pcb": [
+          300,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "bargraph",
+      "libraryId": "output.led-bargraph-10seg-ideal",
+      "reference": "LED1",
+      "value": "Segments 10; Mode bar",
+      "position": {
+        "breadboard": [
+          450,
+          60
+        ],
+        "schematic": [
+          450,
+          60
+        ],
+        "pcb": [
+          450,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          570,
+          60
+        ],
+        "schematic": [
+          570,
+          60
+        ],
+        "pcb": [
+          570,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VDD",
+      "endpoints": [
+        "supply:+",
+        "pot:VCC",
+        "pic:VDD",
+        "bargraph:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "pot:GND",
+        "pic:VSS",
+        "bargraph:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "ADC_IN",
+      "endpoints": [
+        "pot:OUT",
+        "pic:AN0"
+      ]
+    },
+    {
+      "id": "BAR_0",
+      "endpoints": [
+        "pic:BAR0",
+        "bargraph:IN0"
+      ]
+    },
+    {
+      "id": "BAR_1",
+      "endpoints": [
+        "pic:BAR1",
+        "bargraph:IN1"
+      ]
+    },
+    {
+      "id": "BAR_2",
+      "endpoints": [
+        "pic:BAR2",
+        "bargraph:IN2"
+      ]
+    },
+    {
+      "id": "BAR_3",
+      "endpoints": [
+        "pic:BAR3",
+        "bargraph:IN3"
+      ]
+    },
+    {
+      "id": "BAR_4",
+      "endpoints": [
+        "pic:BAR4",
+        "bargraph:IN4"
+      ]
+    },
+    {
+      "id": "BAR_5",
+      "endpoints": [
+        "pic:BAR5",
+        "bargraph:IN5"
+      ]
+    },
+    {
+      "id": "BAR_6",
+      "endpoints": [
+        "pic:BAR6",
+        "bargraph:IN6"
+      ]
+    },
+    {
+      "id": "BAR_7",
+      "endpoints": [
+        "pic:BAR7",
+        "bargraph:IN7"
+      ]
+    },
+    {
+      "id": "BAR_8",
+      "endpoints": [
+        "pic:BAR8",
+        "bargraph:IN8"
+      ]
+    },
+    {
+      "id": "BAR_9",
+      "endpoints": [
+        "pic:BAR9",
+        "bargraph:IN9"
+      ]
+    }
+  ],
+  "history": []
+}
