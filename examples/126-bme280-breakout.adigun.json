@@ -1,0 +1,837 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-126-bme280-breakout",
+  "metadata": {
+    "name": "BME280 I²C Sensor Breakout",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "bme",
+      "libraryId": "sensor.bme280-i2c",
+      "reference": "U1",
+      "value": "Bosch BME280; I2C 0x76; 3.3 V",
+      "position": {
+        "breadboard": [
+          145,
+          55
+        ],
+        "schematic": [
+          145,
+          55
+        ],
+        "pcb": [
+          145,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ldo",
+      "libraryId": "power.tlv70033",
+      "reference": "U2",
+      "value": "TI TLV70033; VOUT 3.3 V; 5-pin DDC",
+      "position": {
+        "breadboard": [
+          285,
+          95
+        ],
+        "schematic": [
+          285,
+          95
+        ],
+        "pcb": [
+          285,
+          95
+        ]
+      }
+    },
+    {
+      "instanceId": "header",
+      "libraryId": "connector.i2c-header-4",
+      "reference": "J1",
+      "value": "VIN, GND, SDA, SCL",
+      "position": {
+        "breadboard": [
+          520,
+          115
+        ],
+        "schematic": [
+          520,
+          115
+        ],
+        "pcb": [
+          520,
+          115
+        ]
+      }
+    },
+    {
+      "instanceId": "cap1",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "1 µF",
+      "position": {
+        "breadboard": [
+          265,
+          55
+        ],
+        "schematic": [
+          265,
+          55
+        ],
+        "pcb": [
+          265,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "cap2",
+      "libraryId": "passive.capacitor",
+      "reference": "C2",
+      "value": "1 µF",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "cap3",
+      "libraryId": "passive.capacitor",
+      "reference": "C3",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          265,
+          165
+        ],
+        "schematic": [
+          265,
+          165
+        ],
+        "pcb": [
+          265,
+          165
+        ]
+      }
+    },
+    {
+      "instanceId": "cap4",
+      "libraryId": "passive.capacitor",
+      "reference": "C4",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          385,
+          165
+        ],
+        "schematic": [
+          385,
+          165
+        ],
+        "pcb": [
+          385,
+          165
+        ]
+      }
+    },
+    {
+      "instanceId": "pull1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          250,
+          225
+        ],
+        "schematic": [
+          250,
+          225
+        ],
+        "pcb": [
+          250,
+          225
+        ]
+      }
+    },
+    {
+      "instanceId": "pull2",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "4.7 kΩ",
+      "position": {
+        "breadboard": [
+          375,
+          225
+        ],
+        "schematic": [
+          375,
+          225
+        ],
+        "pcb": [
+          375,
+          225
+        ]
+      }
+    },
+    {
+      "instanceId": "gnd",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          65,
+          250
+        ],
+        "schematic": [
+          65,
+          250
+        ],
+        "pcb": [
+          65,
+          250
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VIN",
+      "endpoints": [
+        "header:VIN",
+        "ldo:IN",
+        "ldo:EN",
+        "cap1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "header:GND",
+        "ldo:GND",
+        "bme:GND1",
+        "bme:GND2",
+        "bme:SDO",
+        "cap1:2",
+        "cap2:2",
+        "cap3:2",
+        "cap4:2",
+        "gnd:0"
+      ]
+    },
+    {
+      "id": "VDD_3V3",
+      "endpoints": [
+        "ldo:OUT",
+        "bme:VDD",
+        "cap2:1",
+        "cap3:1",
+        "cap4:1",
+        "pull1:1",
+        "pull2:1",
+        "bme:VDDIO",
+        "bme:CSB"
+      ]
+    },
+    {
+      "id": "SDA",
+      "endpoints": [
+        "header:SDA",
+        "bme:SDA",
+        "pull1:2"
+      ]
+    },
+    {
+      "id": "SCL",
+      "endpoints": [
+        "header:SCL",
+        "bme:SCL",
+        "pull2:2"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 40,
+      "heightMm": 22,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.15
+    },
+    "parts": [
+      {
+        "instanceId": "bme",
+        "reference": "U1",
+        "footprint": "Bosch_BME280_LGA-2.5x2.5mm_template",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "ldo",
+        "reference": "U2",
+        "footprint": "TI_TLV70033DDC_SOT-23-5",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "header",
+        "reference": "J1",
+        "footprint": "HDR_1x04_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "cap1",
+        "reference": "C1",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "cap2",
+        "reference": "C2",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "cap3",
+        "reference": "C3",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "cap4",
+        "reference": "C4",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "pull1",
+        "reference": "R1",
+        "footprint": "R_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "pull2",
+        "reference": "R2",
+        "footprint": "R_0603_generic",
+        "technology": "smd"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "bme",
+        "reference": "U1",
+        "pin": "GND1",
+        "number": "1",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.28,
+        "heightMm": 0.55,
+        "xMm": 8,
+        "yMm": 7
+      },
+      {
+        "instanceId": "bme",
+        "reference": "U1",
+        "pin": "CSB",
+        "number": "2",
+        "netId": "VDD_3V3",
+        "technology": "smd",
+        "widthMm": 0.28,
+        "heightMm": 0.55,
+        "xMm": 8.5,
+        "yMm": 7
+      },
+      {
+        "instanceId": "bme",
+        "reference": "U1",
+        "pin": "SDA",
+        "number": "3",
+        "netId": "SDA",
+        "technology": "smd",
+        "widthMm": 0.28,
+        "heightMm": 0.55,
+        "xMm": 9,
+        "yMm": 7
+      },
+      {
+        "instanceId": "bme",
+        "reference": "U1",
+        "pin": "SCL",
+        "number": "4",
+        "netId": "SCL",
+        "technology": "smd",
+        "widthMm": 0.28,
+        "heightMm": 0.55,
+        "xMm": 9.5,
+        "yMm": 7
+      },
+      {
+        "instanceId": "bme",
+        "reference": "U1",
+        "pin": "SDO",
+        "number": "5",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.28,
+        "heightMm": 0.55,
+        "xMm": 9.5,
+        "yMm": 9
+      },
+      {
+        "instanceId": "bme",
+        "reference": "U1",
+        "pin": "VDDIO",
+        "number": "6",
+        "netId": "VDD_3V3",
+        "technology": "smd",
+        "widthMm": 0.28,
+        "heightMm": 0.55,
+        "xMm": 9,
+        "yMm": 9
+      },
+      {
+        "instanceId": "bme",
+        "reference": "U1",
+        "pin": "GND2",
+        "number": "7",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.28,
+        "heightMm": 0.55,
+        "xMm": 8.5,
+        "yMm": 9
+      },
+      {
+        "instanceId": "bme",
+        "reference": "U1",
+        "pin": "VDD",
+        "number": "8",
+        "netId": "VDD_3V3",
+        "technology": "smd",
+        "widthMm": 0.28,
+        "heightMm": 0.55,
+        "xMm": 8,
+        "yMm": 9
+      },
+      {
+        "instanceId": "ldo",
+        "reference": "U2",
+        "pin": "IN",
+        "number": "1",
+        "netId": "VIN",
+        "technology": "smd",
+        "widthMm": 0.75,
+        "heightMm": 0.9,
+        "xMm": 16,
+        "yMm": 7
+      },
+      {
+        "instanceId": "ldo",
+        "reference": "U2",
+        "pin": "GND",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.75,
+        "heightMm": 0.9,
+        "xMm": 16,
+        "yMm": 9
+      },
+      {
+        "instanceId": "ldo",
+        "reference": "U2",
+        "pin": "EN",
+        "number": "3",
+        "netId": "VIN",
+        "technology": "smd",
+        "widthMm": 0.75,
+        "heightMm": 0.9,
+        "xMm": 17,
+        "yMm": 10
+      },
+      {
+        "instanceId": "ldo",
+        "reference": "U2",
+        "pin": "NC",
+        "number": "4",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.75,
+        "heightMm": 0.9,
+        "xMm": 18,
+        "yMm": 9
+      },
+      {
+        "instanceId": "ldo",
+        "reference": "U2",
+        "pin": "OUT",
+        "number": "5",
+        "netId": "VDD_3V3",
+        "technology": "smd",
+        "widthMm": 0.75,
+        "heightMm": 0.9,
+        "xMm": 18,
+        "yMm": 7
+      },
+      {
+        "instanceId": "cap1",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VIN",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 24,
+        "yMm": 5
+      },
+      {
+        "instanceId": "cap1",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 26,
+        "yMm": 5
+      },
+      {
+        "instanceId": "cap2",
+        "reference": "C2",
+        "pin": "1",
+        "number": "1",
+        "netId": "VDD_3V3",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 24,
+        "yMm": 8
+      },
+      {
+        "instanceId": "cap2",
+        "reference": "C2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 26,
+        "yMm": 8
+      },
+      {
+        "instanceId": "cap3",
+        "reference": "C3",
+        "pin": "1",
+        "number": "1",
+        "netId": "VDD_3V3",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 24,
+        "yMm": 11
+      },
+      {
+        "instanceId": "cap3",
+        "reference": "C3",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 26,
+        "yMm": 11
+      },
+      {
+        "instanceId": "cap4",
+        "reference": "C4",
+        "pin": "1",
+        "number": "1",
+        "netId": "VDD_3V3",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 24,
+        "yMm": 14
+      },
+      {
+        "instanceId": "cap4",
+        "reference": "C4",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 26,
+        "yMm": 14
+      },
+      {
+        "instanceId": "pull1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VDD_3V3",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 29,
+        "yMm": 8
+      },
+      {
+        "instanceId": "pull1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "SDA",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 31,
+        "yMm": 8
+      },
+      {
+        "instanceId": "pull2",
+        "reference": "R2",
+        "pin": "1",
+        "number": "1",
+        "netId": "VDD_3V3",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 29,
+        "yMm": 12
+      },
+      {
+        "instanceId": "pull2",
+        "reference": "R2",
+        "pin": "2",
+        "number": "2",
+        "netId": "SCL",
+        "technology": "smd",
+        "widthMm": 0.7,
+        "heightMm": 0.8,
+        "xMm": 31,
+        "yMm": 12
+      },
+      {
+        "instanceId": "header",
+        "reference": "J1",
+        "pin": "VIN",
+        "number": "1",
+        "netId": "VIN",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 35,
+        "yMm": 4
+      },
+      {
+        "instanceId": "header",
+        "reference": "J1",
+        "pin": "GND",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 35,
+        "yMm": 8
+      },
+      {
+        "instanceId": "header",
+        "reference": "J1",
+        "pin": "SDA",
+        "number": "3",
+        "netId": "SDA",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 35,
+        "yMm": 12
+      },
+      {
+        "instanceId": "header",
+        "reference": "J1",
+        "pin": "SCL",
+        "number": "4",
+        "netId": "SCL",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 35,
+        "yMm": 16
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VIN",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            16,
+            7
+          ],
+          [
+            17,
+            10
+          ],
+          [
+            24,
+            5
+          ],
+          [
+            35,
+            4
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            8,
+            7
+          ],
+          [
+            9.5,
+            9
+          ],
+          [
+            8.5,
+            9
+          ],
+          [
+            16,
+            9
+          ],
+          [
+            26,
+            5
+          ],
+          [
+            26,
+            8
+          ],
+          [
+            26,
+            11
+          ],
+          [
+            26,
+            14
+          ],
+          [
+            35,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "VDD_3V3",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            8.5,
+            7
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            8,
+            9
+          ],
+          [
+            18,
+            7
+          ],
+          [
+            24,
+            8
+          ],
+          [
+            24,
+            11
+          ],
+          [
+            24,
+            14
+          ],
+          [
+            29,
+            8
+          ],
+          [
+            29,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "SDA",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            9,
+            7
+          ],
+          [
+            31,
+            8
+          ],
+          [
+            35,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "SCL",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            9.5,
+            7
+          ],
+          [
+            31,
+            12
+          ],
+          [
+            35,
+            16
+          ]
+        ]
+      }
+    ],
+    "keepouts": [],
+    "placementMap": {}
+  }
+}
