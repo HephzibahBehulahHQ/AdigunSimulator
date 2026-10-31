@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-083-gsm-alarm-notifier",
+  "metadata": {
+    "name": "GSM Alarm Notifier Mock",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          38,
+          56
+        ],
+        "schematic": [
+          38,
+          56
+        ],
+        "pcb": [
+          38,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "event",
+      "libraryId": "input.gsm-alarm-event",
+      "reference": "SIG1",
+      "value": "AlarmState active; Message TEMP_LIMIT_EXCEEDED; Responses OK|+CREG:0,1|OK|>; SendResult +CMGS:0|OK",
+      "position": {
+        "breadboard": [
+          125,
+          56
+        ],
+        "schematic": [
+          125,
+          56
+        ],
+        "pcb": [
+          125,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.gsm-alarm-controller-ideal",
+      "reference": "U1",
+      "value": "Mode sms-mock; Destination TEST_ONLY; CommandTimeoutMs 1000",
+      "position": {
+        "breadboard": [
+          260,
+          56
+        ],
+        "schematic": [
+          260,
+          56
+        ],
+        "pcb": [
+          260,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "modem",
+      "libraryId": "active.gsm-modem-at-mock",
+      "reference": "MODEM1",
+      "value": "Mode AT-mock; Registration registered",
+      "position": {
+        "breadboard": [
+          410,
+          56
+        ],
+        "schematic": [
+          410,
+          56
+        ],
+        "pcb": [
+          410,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.gsm-sms-report",
+      "reference": "DISP1",
+      "value": "Mocked modem transaction result",
+      "position": {
+        "breadboard": [
+          530,
+          56
+        ],
+        "schematic": [
+          530,
+          56
+        ],
+        "pcb": [
+          530,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          245
+        ],
+        "schematic": [
+          605,
+          245
+        ],
+        "pcb": [
+          605,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "controller:VCC",
+        "modem:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "event:GND",
+        "controller:GND",
+        "modem:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "ALARM",
+      "endpoints": [
+        "event:ALARM",
+        "controller:ALARM"
+      ]
+    },
+    {
+      "id": "UART_TX",
+      "endpoints": [
+        "controller:TX",
+        "modem:RX"
+      ]
+    },
+    {
+      "id": "UART_RX",
+      "endpoints": [
+        "modem:TX",
+        "controller:RX"
+      ]
+    },
+    {
+      "id": "REPORT",
+      "endpoints": [
+        "controller:REPORT",
+        "report:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
