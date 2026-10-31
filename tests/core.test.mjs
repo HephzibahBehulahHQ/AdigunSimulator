@@ -2434,7 +2434,7 @@ test("catalogue Ethernet sensor shows link transitions and builds a local mock f
   assert.equal(frame.result.frameLengthOctets,20);
   assert.equal(frame.result.packetTransmitted,false);
   assert.equal(frame.result.fcsIncluded,false);
-  const noLink=runSupportedAnalysis(updateComponent(project,"config",{value:"LinkTransitions down>negotiating>down; Configuration configured; DeviceId 1; TemperatureC 24.6; Sequence 42"}));
+  const noLink=runSupportedAnalysis(updateComponent(updateComponent(project,"config",{value:"LinkTransitions down>negotiating>down; Configuration configured; DeviceId 1; TemperatureC 24.6; Sequence 42"}),"phy",{value:"Mode mock; Link down"}));
   assert.equal(noLink.result.transactionState,"waiting-for-link");
   assert.deepEqual(noLink.result.frameBytes,[]);
   const unconfigured=runSupportedAnalysis(updateComponent(project,"config",{value:"LinkTransitions down>negotiating>up; Configuration unconfigured; DeviceId 1; TemperatureC 24.6; Sequence 42"}));
