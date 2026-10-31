@@ -1,0 +1,871 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-129-buck-converter-pcb",
+  "metadata": {
+    "name": "12 V to 5 V Buck Converter PCB",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "input",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          60,
+          80
+        ],
+        "schematic": [
+          60,
+          80
+        ],
+        "pcb": [
+          60,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "regulator",
+      "libraryId": "active.lm2596-fixed-5v",
+      "reference": "U1",
+      "value": "LM2596T-5.0/NOPB; fixed 5 V; 1 A PCB review envelope",
+      "position": {
+        "breadboard": [
+          280,
+          100
+        ],
+        "schematic": [
+          280,
+          100
+        ],
+        "pcb": [
+          280,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "input-header",
+      "libraryId": "connector.buck-input-2",
+      "reference": "J1",
+      "value": "12 V DC input",
+      "position": {
+        "breadboard": [
+          60,
+          130
+        ],
+        "schematic": [
+          60,
+          130
+        ],
+        "pcb": [
+          60,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "output-header",
+      "libraryId": "connector.buck-output-2",
+      "reference": "J2",
+      "value": "5 V output; 1 A declared layout limit",
+      "position": {
+        "breadboard": [
+          520,
+          130
+        ],
+        "schematic": [
+          520,
+          130
+        ],
+        "pcb": [
+          520,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "catch-diode",
+      "libraryId": "diode.schottky-1n5822g",
+      "reference": "D1",
+      "value": "onsemi 1N5822G; 3 A; 40 V",
+      "position": {
+        "breadboard": [
+          260,
+          155
+        ],
+        "schematic": [
+          260,
+          155
+        ],
+        "pcb": [
+          260,
+          155
+        ]
+      }
+    },
+    {
+      "instanceId": "inductor",
+      "libraryId": "passive.inductor",
+      "reference": "L1",
+      "value": "100 µH; select Isat ≥ 1.5 A; generic footprint",
+      "position": {
+        "breadboard": [
+          330,
+          155
+        ],
+        "schematic": [
+          330,
+          155
+        ],
+        "pcb": [
+          330,
+          155
+        ]
+      }
+    },
+    {
+      "instanceId": "input-bulk",
+      "libraryId": "passive.electrolytic-capacitor",
+      "reference": "C1",
+      "value": "470 µF; 35 V; generic part",
+      "position": {
+        "breadboard": [
+          120,
+          90
+        ],
+        "schematic": [
+          120,
+          90
+        ],
+        "pcb": [
+          120,
+          90
+        ]
+      }
+    },
+    {
+      "instanceId": "input-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C4",
+      "value": "100 nF; input bypass",
+      "position": {
+        "breadboard": [
+          160,
+          90
+        ],
+        "schematic": [
+          160,
+          90
+        ],
+        "pcb": [
+          160,
+          90
+        ]
+      }
+    },
+    {
+      "instanceId": "output-bulk",
+      "libraryId": "passive.electrolytic-capacitor",
+      "reference": "C2",
+      "value": "220 µF; 16 V; generic part",
+      "position": {
+        "breadboard": [
+          430,
+          120
+        ],
+        "schematic": [
+          430,
+          120
+        ],
+        "pcb": [
+          430,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "output-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C3",
+      "value": "100 nF; output bypass",
+      "position": {
+        "breadboard": [
+          470,
+          120
+        ],
+        "schematic": [
+          470,
+          120
+        ],
+        "pcb": [
+          470,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "100 Ω; generic low-power test load",
+      "position": {
+        "breadboard": [
+          490,
+          175
+        ],
+        "schematic": [
+          490,
+          175
+        ],
+        "pcb": [
+          490,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          100,
+          180
+        ],
+        "schematic": [
+          100,
+          180
+        ],
+        "pcb": [
+          100,
+          180
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VIN",
+      "endpoints": [
+        "input:+",
+        "regulator:VIN",
+        "input-bulk:+",
+        "input-bypass:1",
+        "input-header:VIN"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "input:-",
+        "regulator:GND",
+        "catch-diode:A",
+        "input-bulk:-",
+        "input-bypass:2",
+        "output-bulk:-",
+        "output-bypass:2",
+        "output-header:GND",
+        "load:2",
+        "ground:0",
+        "input-header:GND",
+        "regulator:ONOFF"
+      ]
+    },
+    {
+      "id": "SW",
+      "endpoints": [
+        "regulator:SW",
+        "catch-diode:K",
+        "inductor:1"
+      ]
+    },
+    {
+      "id": "VOUT",
+      "endpoints": [
+        "regulator:FB",
+        "inductor:2",
+        "output-bulk:+",
+        "output-bypass:1",
+        "output-header:VOUT",
+        "load:1"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 64,
+      "heightMm": 36,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.3
+    },
+    "parts": [
+      {
+        "instanceId": "regulator",
+        "reference": "U1",
+        "footprint": "LM2596T-5.0_TO-220-5_template",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "input-header",
+        "reference": "J1",
+        "footprint": "TerminalBlock_1x02_P5.08mm_template",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "output-header",
+        "reference": "J2",
+        "footprint": "TerminalBlock_1x02_P5.08mm_template",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "catch-diode",
+        "reference": "D1",
+        "footprint": "1N5822G_DO-201AD_axial_template",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "inductor",
+        "reference": "L1",
+        "footprint": "PowerInductor_100uH_generic_template",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "input-bulk",
+        "reference": "C1",
+        "footprint": "C_radial_P2.54mm_generic",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "input-bypass",
+        "reference": "C4",
+        "footprint": "C_1206_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "output-bulk",
+        "reference": "C2",
+        "footprint": "C_radial_P2.54mm_generic",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "output-bypass",
+        "reference": "C3",
+        "footprint": "C_1206_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "load",
+        "reference": "R1",
+        "footprint": "R_1206_generic",
+        "technology": "smd"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "input-header",
+        "reference": "J1",
+        "pin": "VIN",
+        "number": "1",
+        "netId": "VIN",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 5,
+        "yMm": 8
+      },
+      {
+        "instanceId": "input-header",
+        "reference": "J1",
+        "pin": "GND",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 5,
+        "yMm": 13
+      },
+      {
+        "instanceId": "output-header",
+        "reference": "J2",
+        "pin": "VOUT",
+        "number": "1",
+        "netId": "VOUT",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 57,
+        "yMm": 13
+      },
+      {
+        "instanceId": "output-header",
+        "reference": "J2",
+        "pin": "GND",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 57,
+        "yMm": 18
+      },
+      {
+        "instanceId": "regulator",
+        "reference": "U1",
+        "pin": "VIN",
+        "number": "1",
+        "netId": "VIN",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 24,
+        "yMm": 8
+      },
+      {
+        "instanceId": "regulator",
+        "reference": "U1",
+        "pin": "SW",
+        "number": "2",
+        "netId": "SW",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 26.54,
+        "yMm": 8
+      },
+      {
+        "instanceId": "regulator",
+        "reference": "U1",
+        "pin": "GND",
+        "number": "3",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 29.08,
+        "yMm": 8
+      },
+      {
+        "instanceId": "regulator",
+        "reference": "U1",
+        "pin": "FB",
+        "number": "4",
+        "netId": "VOUT",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 31.62,
+        "yMm": 8
+      },
+      {
+        "instanceId": "regulator",
+        "reference": "U1",
+        "pin": "ONOFF",
+        "number": "5",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 34.16,
+        "yMm": 8
+      },
+      {
+        "instanceId": "catch-diode",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 29.08,
+        "yMm": 14
+      },
+      {
+        "instanceId": "catch-diode",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "netId": "SW",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 26.54,
+        "yMm": 14
+      },
+      {
+        "instanceId": "inductor",
+        "reference": "L1",
+        "pin": "1",
+        "number": "1",
+        "netId": "SW",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 26.54,
+        "yMm": 20
+      },
+      {
+        "instanceId": "inductor",
+        "reference": "L1",
+        "pin": "2",
+        "number": "2",
+        "netId": "VOUT",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 36.54,
+        "yMm": 20
+      },
+      {
+        "instanceId": "input-bulk",
+        "reference": "C1",
+        "pin": "+",
+        "number": "1",
+        "netId": "VIN",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 10,
+        "yMm": 8
+      },
+      {
+        "instanceId": "input-bulk",
+        "reference": "C1",
+        "pin": "-",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 10,
+        "yMm": 13
+      },
+      {
+        "instanceId": "input-bypass",
+        "reference": "C4",
+        "pin": "1",
+        "number": "1",
+        "netId": "VIN",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8999999999999999,
+        "xMm": 17,
+        "yMm": 8
+      },
+      {
+        "instanceId": "input-bypass",
+        "reference": "C4",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8999999999999999,
+        "xMm": 17,
+        "yMm": 13
+      },
+      {
+        "instanceId": "output-bulk",
+        "reference": "C2",
+        "pin": "+",
+        "number": "1",
+        "netId": "VOUT",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 42,
+        "yMm": 13
+      },
+      {
+        "instanceId": "output-bulk",
+        "reference": "C2",
+        "pin": "-",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 42,
+        "yMm": 18
+      },
+      {
+        "instanceId": "output-bypass",
+        "reference": "C3",
+        "pin": "1",
+        "number": "1",
+        "netId": "VOUT",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8999999999999999,
+        "xMm": 47,
+        "yMm": 13
+      },
+      {
+        "instanceId": "output-bypass",
+        "reference": "C3",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8999999999999999,
+        "xMm": 47,
+        "yMm": 18
+      },
+      {
+        "instanceId": "load",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VOUT",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8999999999999999,
+        "xMm": 50,
+        "yMm": 24
+      },
+      {
+        "instanceId": "load",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8999999999999999,
+        "xMm": 52.54,
+        "yMm": 24
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VIN",
+        "netClassId": "POWER_IN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            5,
+            8
+          ],
+          [
+            10,
+            8
+          ],
+          [
+            17,
+            8
+          ],
+          [
+            24,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "SW",
+        "netClassId": "SWITCH_NODE",
+        "layer": "F.Cu",
+        "widthMm": 1,
+        "pointsMm": [
+          [
+            26.54,
+            8
+          ],
+          [
+            26.54,
+            14
+          ],
+          [
+            26.54,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "netClassId": "POWER_OUT",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            31.62,
+            8
+          ],
+          [
+            42,
+            13
+          ],
+          [
+            36.54,
+            20
+          ],
+          [
+            47,
+            13
+          ],
+          [
+            57,
+            13
+          ],
+          [
+            50,
+            24
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            5,
+            13
+          ],
+          [
+            10,
+            13
+          ],
+          [
+            17,
+            13
+          ],
+          [
+            24,
+            13
+          ],
+          [
+            29.08,
+            14
+          ],
+          [
+            29.08,
+            16
+          ],
+          [
+            34.16,
+            16
+          ],
+          [
+            34.16,
+            8
+          ],
+          [
+            29.08,
+            8
+          ],
+          [
+            32,
+            16
+          ],
+          [
+            39,
+            20
+          ],
+          [
+            42,
+            18
+          ],
+          [
+            47,
+            18
+          ],
+          [
+            57,
+            18
+          ],
+          [
+            52.54,
+            24
+          ]
+        ]
+      }
+    ],
+    "keepouts": [],
+    "netClasses": [
+      {
+        "id": "POWER_IN",
+        "netIds": [
+          "VIN"
+        ],
+        "clearanceMm": 0.5,
+        "traceWidthMm": 1.5
+      },
+      {
+        "id": "SWITCH_NODE",
+        "netIds": [
+          "SW"
+        ],
+        "clearanceMm": 0.5,
+        "traceWidthMm": 1
+      },
+      {
+        "id": "POWER_OUT",
+        "netIds": [
+          "VOUT"
+        ],
+        "clearanceMm": 0.5,
+        "traceWidthMm": 1.5
+      },
+      {
+        "id": "POWER_RETURN",
+        "netIds": [
+          "GND"
+        ],
+        "clearanceMm": 0.5,
+        "traceWidthMm": 1.5
+      }
+    ],
+    "netClassRules": [],
+    "powerLayoutReview": {
+      "declaredInputVoltageV": 12,
+      "declaredOutputVoltageV": 5,
+      "declaredLayoutCurrentLimitA": 1,
+      "checklist": [
+        {
+          "id": "input-bypass-loop",
+          "label": "Input bypass is placed near VIN/GND pins and switch current return",
+          "status": "pass"
+        },
+        {
+          "id": "catch-diode-loop",
+          "label": "Schottky catch diode is adjacent to SW and the power return",
+          "status": "pass"
+        },
+        {
+          "id": "switch-node-area",
+          "label": "Switch node copper is confined to U1, D1 and L1 connections",
+          "status": "pass"
+        },
+        {
+          "id": "inductor-output-path",
+          "label": "Inductor output reaches output capacitors and terminal using the declared high-current width",
+          "status": "pass"
+        },
+        {
+          "id": "feedback-sense",
+          "label": "Fixed-output feedback pad is connected to VOUT, not the switching node",
+          "status": "pass"
+        },
+        {
+          "id": "high-current-classes",
+          "label": "VIN, SW, VOUT and GND use their assigned wide-trace classes",
+          "status": "pass"
+        }
+      ]
+    }
+  }
+}
