@@ -1811,6 +1811,18 @@
           "clockHighWithoutPriorLow": "blocked"
         }
       }
+    },
+    {
+      "id": "046-jk-toggle-divider",
+      "title": "JK flip-flop toggle divider",
+      "status": "in-review",
+      "objective": "Use J=K=1 so Q toggles on each rising clock edge; assert asynchronous active-low clear initializes Q and the output frequency ratio is one half of the clock rate in ideal toggle mode.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue JK toggle divider toggles on each rising edge and clears asynchronously",
+      "testId": "core-jk-toggle-divider",
+      "projectFile": "examples/046-jk-toggle-divider.adigun.json",
+      "safetyNote": "Generic ideal positive-edge static model. Setup/hold timing, propagation delay, metastability, clock waveform quality, physical frequency behavior, and device-specific limits are not modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 46
     }
   ]
 }

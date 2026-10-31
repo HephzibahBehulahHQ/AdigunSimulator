@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-046-jk-toggle-divider",
+  "metadata": {
+    "name": "JK Flip-Flop Toggle Divider",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "j-input",
+      "libraryId": "power.dc-source",
+      "reference": "J",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "k-input",
+      "libraryId": "power.dc-source",
+      "reference": "K",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "clock-input",
+      "libraryId": "power.dc-source",
+      "reference": "CLK",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "clear-input",
+      "libraryId": "power.dc-source",
+      "reference": "CLR",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "jk-ff",
+      "libraryId": "active.logic-jk-ideal",
+      "reference": "U1",
+      "value": "Ideal positive-edge JK flip-flop",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "q-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RQ",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "q-led",
+      "libraryId": "diode.led-red",
+      "reference": "DQ",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          270,
+          130
+        ],
+        "schematic": [
+          270,
+          130
+        ],
+        "pcb": [
+          270,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "ground",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          385,
+          130
+        ],
+        "schematic": [
+          385,
+          130
+        ],
+        "pcb": [
+          385,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "jk-ff:VCC",
+        "jk-ff:PRE"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "j-input:-",
+        "k-input:-",
+        "clock-input:-",
+        "clear-input:-",
+        "jk-ff:GND",
+        "q-led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "J",
+      "endpoints": [
+        "j-input:+",
+        "jk-ff:J"
+      ]
+    },
+    {
+      "id": "K",
+      "endpoints": [
+        "k-input:+",
+        "jk-ff:K"
+      ]
+    },
+    {
+      "id": "CLOCK",
+      "endpoints": [
+        "clock-input:+",
+        "jk-ff:CLK"
+      ]
+    },
+    {
+      "id": "CLEAR",
+      "endpoints": [
+        "clear-input:+",
+        "jk-ff:CLR"
+      ]
+    },
+    {
+      "id": "Q",
+      "endpoints": [
+        "jk-ff:Q",
+        "q-resistor:1"
+      ]
+    },
+    {
+      "id": "Q_LED",
+      "endpoints": [
+        "q-resistor:2",
+        "q-led:A"
+      ]
+    }
+  ],
+  "history": []
+}
