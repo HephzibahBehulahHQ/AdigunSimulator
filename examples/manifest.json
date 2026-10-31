@@ -7112,7 +7112,7 @@
     {
       "id": "185-missing-footprint-workflow",
       "title": "Missing-footprint workflow",
-      "status": "in-review",
+      "status": "released",
       "objective": "Attempt a PCB update for a valid 555 schematic whose generic parts lack verified PCB view mappings; block the update, produce the required report with reviewed resolution options, and preserve the project unchanged.",
       "acceptanceTest": "tests/core.test.mjs: catalogue missing-footprint workflow blocks PCB update and returns required resolution report",
       "testId": "core-missing-footprint-resolution-report",
@@ -7120,7 +7120,41 @@
       "readmeFile": "examples/185-missing-footprint-workflow/README.md",
       "safetyNote": "The starter NE555 and generic parts have no verified PCB footprints. PCB update is blocked; no automatic substitution or unverified footprint assignment occurs.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 185,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41214519648",
+        "headRevision": "6359eff6743297aa4a472eeb46a55f7138a329e9",
+        "engine": "PCB view capability and footprint reconciliation",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "missing-footprint-resolution-report-v1",
+        "expectedResult": {
+          "kind": "missing-footprint-resolution-report",
+          "pcbUpdateBlocked": true,
+          "projectUnchanged": true,
+          "placedComponentCount": 0,
+          "missingFootprintCount": 9,
+          "requiredReport": {
+            "status": "required",
+            "targetView": "pcb",
+            "blockedReferences": [
+              "V1",
+              "U1",
+              "RA",
+              "RB",
+              "CT",
+              "CCTRL",
+              "RLED",
+              "D1",
+              "GND"
+            ]
+          },
+          "automaticSubstitution": false,
+          "unverifiedFootprintsAssigned": false
+        }
+      }
     }
   ]
 }
