@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-085-ethernet-sensor-node",
+  "metadata": {
+    "name": "Ethernet Sensor Node Frame Mock",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          38,
+          56
+        ],
+        "schematic": [
+          38,
+          56
+        ],
+        "pcb": [
+          38,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "config",
+      "libraryId": "input.ethernet-sensor-config",
+      "reference": "SIG1",
+      "value": "LinkTransitions down>negotiating>up; Configuration configured; DeviceId 1; TemperatureC 24.6; Sequence 42",
+      "position": {
+        "breadboard": [
+          125,
+          56
+        ],
+        "schematic": [
+          125,
+          56
+        ],
+        "pcb": [
+          125,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.ethernet-sensor-controller-ideal",
+      "reference": "U1",
+      "value": "Mode eth2-mock; SourceMac 02:00:00:00:00:01; DestinationMac 02:00:00:00:00:02; EtherType 0x88B5",
+      "position": {
+        "breadboard": [
+          260,
+          56
+        ],
+        "schematic": [
+          260,
+          56
+        ],
+        "pcb": [
+          260,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "phy",
+      "libraryId": "active.ethernet-phy-mock",
+      "reference": "PHY1",
+      "value": "Mode mock; Link up",
+      "position": {
+        "breadboard": [
+          410,
+          56
+        ],
+        "schematic": [
+          410,
+          56
+        ],
+        "pcb": [
+          410,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.ethernet-frame-report",
+      "reference": "DISP1",
+      "value": "Header and sensor payload",
+      "position": {
+        "breadboard": [
+          530,
+          56
+        ],
+        "schematic": [
+          530,
+          56
+        ],
+        "pcb": [
+          530,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          245
+        ],
+        "schematic": [
+          605,
+          245
+        ],
+        "pcb": [
+          605,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "controller:VCC",
+        "phy:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "config:GND",
+        "controller:GND",
+        "phy:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "SENSOR",
+      "endpoints": [
+        "config:DATA",
+        "controller:SENSOR"
+      ]
+    },
+    {
+      "id": "TX",
+      "endpoints": [
+        "controller:TX",
+        "phy:RX"
+      ]
+    },
+    {
+      "id": "LINK",
+      "endpoints": [
+        "controller:LINK",
+        "phy:LINK"
+      ]
+    },
+    {
+      "id": "REPORT",
+      "endpoints": [
+        "controller:REPORT",
+        "report:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
