@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 81);
+  assert.equal(getExampleCoverage(registry).total, 82);
   assert.equal(getExampleCoverage(registry).released, 71);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 129);
@@ -2087,5 +2087,24 @@ test("catalogue PIC ADC bargraph maps 10-bit readings to LED count",async()=>{
   assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Position 101%; Resolution 10 bit"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="BAR_9").endpoints=["pic:BAR9"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue AVR IR receiver decodes NEC-like timing and flags invalid frames",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/072-avr-ir-receiver.adigun.json",import.meta.url)));
+  const valid=runSupportedAnalysis(project);
+  assert.equal(valid.state,"complete",valid.message);
+  assert.equal(valid.result.rawCode,"0x00FFA25D");
+  assert.equal(valid.result.address,"0x00");
+  assert.equal(valid.result.command,"0xA2");
+  assert.equal(valid.result.bitOrder,"LSB-first within each byte");
+  assert.equal(valid.result.frameDurationUs,67980);
+  assert.equal(valid.result.firmwareExecuted,false);
+  const badTiming=updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 7000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000"});
+  assert.equal(runSupportedAnalysis(badTiming).state,"blocked");
+  const badComplement=updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 00 A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000"});
+  assert.equal(runSupportedAnalysis(badComplement).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="IR_RX").endpoints=["receiver:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
