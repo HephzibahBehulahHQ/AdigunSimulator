@@ -544,6 +544,24 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue common-emitter amplifier solves active bias and inverted sine trace",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/031-transistor-common-emitter.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"npn-common-emitter");
+  assert.ok(result.result.collectorCurrentA>0);
+  assert.ok(result.result.vceV>0.2);
+  assert.ok(result.result.collectorVoltageV>result.result.emitterVoltageV);
+  assert.ok(result.result.gainVPerV<0);
+  assert.ok(result.result.outputAmplitudeV>0);
+  assert.ok(result.result.maximumPeakV>result.result.outputAmplitudeV);
+  assert.equal(result.result.sineTrace.length,9);
+  assert.ok(result.result.sineTrace[2].inputV>0&&result.result.sineTrace[2].outputV<0);
+  assert.ok(result.result.sineTrace[6].inputV<0&&result.result.sineTrace[6].outputV>0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"3 V"})).state,"blocked");
+});
+
 test("catalogue reference buffer holds its ideal output across a load sweep",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/030-reference-buffer.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -1056,7 +1074,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 40);
+  assert.equal(getExampleCoverage(registry).total, 41);
   assert.equal(getExampleCoverage(registry).released, 30);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 170);
