@@ -806,7 +806,7 @@
           "raOhm": 10000,
           "rbOhm": 10000,
           "timingCapacitanceF": 0.0001,
-          "frequencyHz": 0.4803843074452188,
+          "frequencyHz": 0.481000481000481,
           "dutyCycle": 0.6666666666666666,
           "ledBlinking": true
         }
