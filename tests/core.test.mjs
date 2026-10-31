@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 78);
+  assert.equal(getExampleCoverage(registry).total, 79);
   assert.equal(getExampleCoverage(registry).released, 68);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 132);
@@ -2039,5 +2039,21 @@ test("catalogue ESP32 telemetry mock forms JSON locally without network transmis
   assert.equal(runSupportedAnalysis(updateComponent(project,"sensor",{value:"Temperature 130 C; Scale 10 mV/C; Offset 0 mV"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(n=>n.id==="TX").endpoints=["esp32:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Pico voltmeter estimates calibrated divider input at three points",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/069-pico-adc-voltmeter.adigun.json",import.meta.url)));
+  for(const voltage of [6,12,13]){
+    const result=runSupportedAnalysis(updateComponent(project,"vin",{value:`${voltage} V`}));
+    assert.equal(result.state,"complete",result.message);
+    assert.ok(Math.abs(result.result.estimatedInputVoltageV-voltage)<0.01);
+    assert.equal(result.result.adcResolutionBits,12);
+    assert.equal(result.result.firmwareExecuted,false);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"vin",{value:"14 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="ADC_MID").endpoints=["upper:2","lower:1"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
