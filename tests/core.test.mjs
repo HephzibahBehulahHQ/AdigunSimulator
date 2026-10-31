@@ -554,9 +554,9 @@ test("catalogue 556 dual timer reports independent astable frequencies",async()=
   assert.ok(Math.abs(result.result.channelB.frequencyHz-1/(0.693*(10000+2*10000)*0.00001))<1e-12);
   assert.notEqual(result.result.channelA.frequencyHz,result.result.channelB.frequencyHz);
   assert.ok(result.result.channelA.ledAverageCurrentA>0&&result.result.channelB.ledAverageCurrentA>0);
-  assert.equal(runSupportedAnalysis(updateComponent(project,"timing-capacitor-B",{value:"0 F"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"ct-B",{value:"0 F"})).state,"blocked");
   const broken=structuredClone(project);
-  broken.nets.find(net=>net.id==="B_TIMING").endpoints=["timer-1:12","timing-cap-B:1"];
+  broken.nets.find(net=>net.id==="B_TIMING").endpoints=["timer-1:12","ct-B:1"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 
