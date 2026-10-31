@@ -4627,7 +4627,7 @@ test("catalogue Adigun BOT component explainer cites source fields and discloses
   assert.ok(result.result.known.some(item=>item.field==="Library description"&&item.source==="Checked-in component library"));
   assert.match(result.result.answer,/Sources: Native project and Checked-in component library/);
   assert.ok(result.result.unknown.some(item=>/Manufacturer is not recorded/.test(item)));
-  assert.ok(result.result.unknown.some(item=>/MPN is not recorded/.test(item)));
+  assert.ok(result.result.unknown.some(item=>/Manufacturer part number \\(MPN\\) is not recorded/.test(item)));
   assert.ok(result.result.unknown.some(item=>/datasheet link is not recorded/.test(item)));
   assert.match(result.message,/no external AI or web lookup/i);
   assert.equal(explainComponent(project,"missing-reference").ok,false);
