@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-070-stm32-timer-pwm",
+  "metadata": {
+    "name": "STM32 Timer PWM LED Load",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          45,
+          60
+        ],
+        "schematic": [
+          45,
+          60
+        ],
+        "pcb": [
+          45,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "timer",
+      "libraryId": "active.stm32-timer-ideal",
+      "reference": "U1",
+      "value": "ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 499",
+      "position": {
+        "breadboard": [
+          175,
+          60
+        ],
+        "schematic": [
+          175,
+          60
+        ],
+        "pcb": [
+          175,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          310,
+          60
+        ],
+        "schematic": [
+          310,
+          60
+        ],
+        "pcb": [
+          310,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          425,
+          60
+        ],
+        "schematic": [
+          425,
+          60
+        ],
+        "pcb": [
+          425,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          535,
+          60
+        ],
+        "schematic": [
+          535,
+          60
+        ],
+        "pcb": [
+          535,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "timer:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "timer:GND",
+        "led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "PWM_LED",
+      "endpoints": [
+        "timer:TIM1_CH1",
+        "resistor:1"
+      ]
+    },
+    {
+      "id": "LED_SERIES",
+      "endpoints": [
+        "resistor:2",
+        "led:A"
+      ]
+    }
+  ],
+  "history": []
+}

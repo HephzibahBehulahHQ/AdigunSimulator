@@ -2834,6 +2834,18 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "070-stm32-timer-pwm",
+      "title": "STM32 timer PWM LED load",
+      "status": "in-review",
+      "objective": "Calculate edge-aligned PWM frequency and duty from timer clock, prescaler, auto-reload, and compare values, and estimate LED average current.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue STM32 timer PWM computes frequency, duty, and LED load estimate",
+      "testId": "core-stm32-timer-pwm",
+      "projectFile": "examples/070-stm32-timer-pwm.adigun.json",
+      "safetyNote": "Ideal timer-register and LED current estimate only; firmware, clock-tree setup, GPIO current limits, switching transients, and nonlinear LED behavior are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 70
     }
   ]
 }
