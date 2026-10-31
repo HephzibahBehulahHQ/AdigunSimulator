@@ -1610,6 +1610,18 @@
           "ledCurrentWhenHighA": 0.00909090909090909
         }
       }
+    },
+    {
+      "id": "042-or-gate-truth-table",
+      "title": "Two-input OR gate truth table",
+      "status": "in-review",
+      "objective": "Exercise a generic ideal five-volt two-input OR gate across all four static input vectors and drive a red LED through 330 Ω; test that either high input asserts the output.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue OR gate matches all input vectors and drives the LED for either high input",
+      "testId": "core-or-gate-truth-table",
+      "projectFile": "examples/042-or-gate-truth-table.adigun.json",
+      "safetyNote": "Generic ideal static OR-gate model, not a manufacturer-specific 74xx device. It uses a 50% supply threshold and ideal rail-to-rail output, and omits propagation delay, output drive limits, input leakage, logic-family thresholds, switching noise, and part ratings.",
+      "scope": "catalogue",
+      "catalogueIndex": 42
     }
   ]
 }

@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 51);
+  assert.equal(getExampleCoverage(registry).total, 52);
   assert.equal(getExampleCoverage(registry).released, 41);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 159);
@@ -1358,4 +1358,23 @@ test("catalogue AND gate matches all input vectors and drives a current-limited 
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "LED_A").endpoints = ["led:A"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue OR gate matches all input vectors and drives the LED for either high input", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/042-or-gate-truth-table.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-or-ideal"), true);
+  const vectors = [[0, 0, false], [0, 5, true], [5, 0, true], [5, 5, true]];
+  for (const [a, b, expected] of vectors) {
+    let vector = updateComponent(project, "input-a", { value: `${a} V` });
+    vector = updateComponent(vector, "input-b", { value: `${b} V` });
+    const result = runSupportedAnalysis(vector);
+    assert.equal(result.state, "complete");
+    assert.equal(result.result.kind, "or-gate-truth-table");
+    assert.equal(result.result.outputHigh, expected);
+    assert.equal(result.result.ledOn, expected);
+    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 330 : 0);
+  }
+  const invalid = updateComponent(project, "input-b", { value: "6 V" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
 });
