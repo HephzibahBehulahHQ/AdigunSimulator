@@ -230,6 +230,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.inverter-waveform-fixture", category: "Inputs", type: "Single-phase inverter PWM target fixture", prefix: "PWM", pins: ["PWM", "GND"], defaultValue: "Modulation 0.5; Fundamental 50 Hz; Carrier 10 kHz; TargetVrms 17 V; Tolerance 5%; Mode sine-pwm", simulation: "fixture-inverter-waveform", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.hbridge-inverter-ideal", category: "Active", type: "Ideal single-phase bipolar H-bridge inverter", prefix: "U", pins: ["DC+", "DC-", "PWM", "AC+", "AC-", "STATUS"], defaultValue: "MaxVoltage 100 V; MaxCurrent 5 A; DropPerArm 1 V; Mode bipolar-spwm", simulation: "analytical-inverter-waveform", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.inverter-filter-report", category: "Output", type: "Filtered inverter RMS and frequency report", prefix: "SCOPE", pins: ["OUT", "RETURN", "STATUS"], defaultValue: "Inverter waveform report", simulation: "analytical-inverter-waveform", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.electronic-load-step-fixture", category: "Inputs", type: "Programmable electronic-load current-step fixture", prefix: "CMD", pins: ["CMD", "GND"], defaultValue: "Setpoints 100 mA, 500 mA, 1 A; Tolerance 1%; MaxDutVoltage 15 V; MaxCurrent 1.2 A; MaxPower 15 W; Mode current-steps", simulation: "fixture-electronic-load", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.electronic-load-opamp-ideal", category: "Active", type: "Ideal op-amp current-regulation controller", prefix: "U", pins: ["IN+", "IN-", "OUT", "STATUS", "VCC", "GND"], defaultValue: "Mode ideal-current-loop", simulation: "analytical-electronic-load", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.electronic-load-report", category: "Output", type: "Electronic-load current-step and dissipation report", prefix: "SCOPE", pins: ["DUT", "SENSE", "STATUS", "GND"], defaultValue: "Electronic-load report", simulation: "analytical-electronic-load", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -770,6 +773,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const inverterFixtures = project.components.filter((item) => item.libraryId === "input.inverter-waveform-fixture");
   const inverterBridges = project.components.filter((item) => item.libraryId === "active.hbridge-inverter-ideal");
   const inverterReports = project.components.filter((item) => item.libraryId === "output.inverter-filter-report");
+  const electronicLoadFixtures = project.components.filter((item) => item.libraryId === "input.electronic-load-step-fixture");
+  const electronicLoadControllers = project.components.filter((item) => item.libraryId === "active.electronic-load-opamp-ideal");
+  const electronicLoadReports = project.components.filter((item) => item.libraryId === "output.electronic-load-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -1041,6 +1047,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length===1&&inverterFixtures.length===1&&inverterBridges.length===1&&inverterReports.length===1&&resistor.length===1&&inductor.length===1&&capacitor.length===1&&ground.length===1&&project.components.length===8) {
     return analyseInverterWaveform(project,{source:source[0],fixture:inverterFixtures[0],bridge:inverterBridges[0],report:inverterReports[0],load:resistor[0],inductor:inductor[0],capacitor:capacitor[0],ground:ground[0],validation});
+  }
+  if (source.length===1&&electronicLoadFixtures.length===1&&electronicLoadControllers.length===1&&mosfets.length===1&&electronicLoadReports.length===1&&resistor.length===1&&ground.length===1&&project.components.length===7) {
+    return analyseElectronicLoad(project,{source:source[0],fixture:electronicLoadFixtures[0],controller:electronicLoadControllers[0],mosfet:mosfets[0],report:electronicLoadReports[0],shunt:resistor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3646,6 +3655,40 @@ function analyseInverterWaveform(project,{source,fixture,bridge,report,load,indu
   return {state:"complete",engine:"Ideal SPWM fundamental and passive LC filter estimator",
     message:"Estimates the fundamental RMS output of an ideal bipolar sine-PWM H-bridge and applies a linear second-order LC load response at the selected frequency. PWM switching harmonics, semiconductor switching, dead time, control-loop behavior, filter damping outside the ideal resistive model, thermal behavior, and hardware safety are not modeled.",
     result:{kind:"inverter-waveform",busVoltageV,modulationIndex:modulation,carrierFrequencyHz:carrierHz,outputFrequencyHz:fundamentalHz,targetVrms,tolerancePercent,unfilteredFundamentalVrms,filterResonanceHz,filterGain,filteredOutputVrms,loadResistanceOhm:loadOhm,loadCurrentRmsA,loadPowerW,targetToleranceV:toleranceV,targetMet,hardwareWaveformModeled:false,hardwareSafetyQualified:false},validation};
+}
+function analyseElectronicLoad(project,{source,fixture,controller,mosfet,report,shunt,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const f=fields(fixture.value),supplyV=voltageValue(source.value),shuntOhm=resistanceValue(shunt.value);
+  const tolerancePercent=Number(String(field(f,"Tolerance")??"").replace("%","")),maxDutVoltageV=voltageValue(field(f,"MaxDutVoltage")??"");
+  const maxCurrentA=currentValue(field(f,"MaxCurrent")??""),maxPowerW=Number(String(field(f,"MaxPower")??"").replace(/\s*W$/i,""));
+  const setpointText=field(f,"Setpoints")??"",setpoints=setpointText.split(",").map(item=>currentValue(item.trim()));
+  const gnd=n(ground,"0"),supplyPath=n(source,"+")===n(mosfet,"D")&&n(source,"+")===n(report,"DUT")&&n(source,"-")===gnd;
+  const shuntPath=n(mosfet,"S")===n(shunt,"1")&&n(shunt,"2")===gnd;
+  const loopPath=n(fixture,"CMD")===n(controller,"IN+")&&n(shunt,"1")===n(controller,"IN-")&&n(controller,"OUT")===n(mosfet,"G");
+  const powered=n(controller,"VCC")===n(source,"+")&&n(controller,"GND")===gnd&&n(fixture,"GND")===gnd&&n(report,"GND")===gnd;
+  const statusPath=n(controller,"STATUS")===n(report,"STATUS"),sensePath=n(shunt,"1")===n(report,"SENSE");
+  const required=[gnd,n(source,"+"),n(source,"-"),n(mosfet,"D"),n(mosfet,"S"),n(mosfet,"G"),n(shunt,"1"),n(shunt,"2"),n(fixture,"CMD"),n(controller,"IN+"),n(controller,"IN-"),n(controller,"OUT"),n(report,"DUT"),n(report,"SENSE"),n(controller,"STATUS"),n(report,"STATUS")];
+  if(required.some(x=>typeof x!=="string"||!x)||!supplyPath||!shuntPath||!loopPath||!powered||!statusPath||!sensePath
+    ||field(f,"Mode")!=="current-steps"||![supplyV,shuntOhm,tolerancePercent,maxDutVoltageV,maxCurrentA,maxPowerW,...setpoints].every(Number.isFinite)
+    ||supplyV<=0||supplyV>maxDutVoltageV||maxDutVoltageV>100||shuntOhm<=0||shuntOhm>10||tolerancePercent<=0||tolerancePercent>10
+    ||maxCurrentA<=0||maxCurrentA>100||maxPowerW<=0||maxPowerW>1000||setpoints.length<2||setpoints.some(current=>current<=0||current>maxCurrentA)){
+    return {state:"blocked",message:"Wire the DUT source, op-amp feedback, MOSFET, shunt and report; use supported current steps and electrical limits.",validation};
+  }
+  const steps=setpoints.map((requestedCurrentA,index)=>{
+    const measuredCurrentA=requestedCurrentA;
+    const errorPercent=0;
+    const shuntVoltageV=measuredCurrentA*shuntOhm;
+    const mosfetPowerW=Math.max(0,(supplyV-shuntVoltageV)*measuredCurrentA);
+    const totalInputPowerW=supplyV*measuredCurrentA;
+    return {step:index+1,requestedCurrentA,measuredCurrentA,errorPercent,shuntVoltageV,mosfetPowerW,totalInputPowerW,withinTolerance:Math.abs(errorPercent)<=tolerancePercent};
+  });
+  if(steps.some(step=>step.totalInputPowerW>maxPowerW))return {state:"blocked",message:"A requested current step exceeds the configured DUT input-power limit.",validation};
+  if(steps.some(step=>step.mosfetPowerW>maxPowerW))return {state:"blocked",message:"A requested current step exceeds the configured MOSFET dissipation limit.",validation};
+  return {state:"complete",engine:"Ideal op-amp/MOSFET electronic-load step estimator",
+    message:"Calculates ideal steady-state current steps for an op-amp-controlled MOSFET and shunt, with configured tolerance, input-power, and MOSFET dissipation limits. Loop stability, transient slew/overshoot, MOSFET safe operating area, thermal behavior, and hardware safety are not modeled.",
+    result:{kind:"electronic-load",supplyVoltageV:supplyV,maxDutVoltageV,maxCurrentA,maxPowerW,shuntResistanceOhm:shuntOhm,tolerancePercent,steps,allStepsWithinTolerance:steps.every(step=>step.withinTolerance),transientResponseModeled:false,hardwareSafetyQualified:false},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
