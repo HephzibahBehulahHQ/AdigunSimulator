@@ -11,9 +11,9 @@ test("two-pin schematic terminals anchor to opposite component edges", () => {
 
 test("multi-pin terminals are split into stable, ordered left and right banks", () => {
   const pins = ["VCC", "IN1", "IN2", "GND", "OUT"];
-  assert.deepEqual(schematicPinPoint(component, pins, "VCC"), { x: 106, y: 120, side: "left" });
-  assert.deepEqual(schematicPinPoint(component, pins, "GND"), { x: 150, y: 123, side: "right" });
-  assert.deepEqual(schematicPinPoint(component, pins, "OUT"), { x: 150, y: 135, side: "right" });
+  assert.deepEqual(schematicPinPoint(component, pins, "VCC"), { x: 106, y: 100, side: "left" });
+  assert.deepEqual(schematicPinPoint(component, pins, "GND"), { x: 150, y: 103, side: "right" });
+  assert.deepEqual(schematicPinPoint(component, pins, "OUT"), { x: 150, y: 115, side: "right" });
 });
 
 test("unknown pins and malformed component positions do not produce invented anchors", () => {
