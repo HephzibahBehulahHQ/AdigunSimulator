@@ -4661,7 +4661,7 @@
     {
       "id": "113-triac-ac-dimmer",
       "title": "TRIAC AC dimmer concept",
-      "status": "in-review",
+      "status": "released",
       "objective": "Estimate how a symmetric phase angle changes RMS voltage/current in a resistive lamp model and check zero-cross synchronization and fault interlock behavior.",
       "acceptanceTest": "tests/core.test.mjs: catalogue TRIAC dimmer changes RMS output with phase angle and requires zero-cross sync",
       "testId": "core-triac-ac-dimmer",
@@ -4669,7 +4669,31 @@
       "readmeFile": "examples/113-triac-ac-dimmer/README.md",
       "safetyNote": "Educational RMS estimator only. AC mains is conceptual; no physical terminal mapping, switching waveform, isolation qualification, snubber design, thermal analysis, or hardware safety approval.",
       "scope": "catalogue",
-      "catalogueIndex": 113
+      "catalogueIndex": 113,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41191160063",
+        "headRevision": "889d5aecfc16f9818d7537ec7d44fb8504e69bed",
+        "engine": "Bounded phase-angle AC dimmer RMS estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "triac-phase-angle-resistive-rms-v1",
+        "expectedResult": {
+          "kind": "triac-ac-dimmer",
+          "sourceRmsVoltageV": 120,
+          "frequencyHz": 60,
+          "phaseAngleDeg": 90,
+          "zeroCrossLocked": true,
+          "fault": "none",
+          "enabled": true,
+          "firingEnabled": true,
+          "protectionTrip": false,
+          "rmsFactor": 0.7071067811865476,
+          "lampVoltageRmsV": 84.8528137423857,
+          "loadResistanceOhm": 240,
+          "mainsSafetyQualified": false
+        }
+      }
     }
   ]
 }
