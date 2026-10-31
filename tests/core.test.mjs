@@ -9,6 +9,7 @@ import { createPcbPlacementReport } from "../js/pcb-placement-report.mjs";
 import { createGroundingChecklistReport, reviewAudioAmplifierPcb } from "../js/audio-pcb-review.mjs";
 import { createPowerLayoutReport, reviewBuckPowerLayout } from "../js/buck-converter-review.mjs";
 import { createLayerStackupReport, reviewFourLayerMcuBoard } from "../js/mcu-board-plan.mjs";
+import { createDifferentialPairReport, reviewDifferentialPair } from "../js/differential-pair-review.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
@@ -1276,6 +1277,39 @@ test("STM32 four-layer board plan verifies all pads, required power pins, decoup
   assert.equal(reviewFourLayerMcuBoard(missingPad).status, "failed");
 });
 
+
+test("USB Full-Speed differential pair demo checks mapping, bounded constraints and report snapshot", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/131-usb-differential-pair-demo.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const analysis = runSupportedAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.equal(analysis.result.kind, "usb-full-speed-differential-pair-plan");
+  assert.equal(analysis.result.impedanceSolver, false);
+  assert.equal(analysis.result.usbProtocolSimulation, false);
+  assert.match(analysis.message, /no field solver/);
+
+  const review = reviewDifferentialPair(project);
+  assert.equal(review.status, "passed");
+  assert.ok(review.checks.every((item) => item.status === "pass"));
+  assert.ok(Math.abs(review.skewMm - 0.1) < 1e-9);
+  const report = createDifferentialPairReport(project);
+  const snapshot = await readFile(new URL("../examples/131-usb-differential-pair-demo/expected/Differential-Pair-Constraint-Report.csv", import.meta.url), "utf8");
+  assert.equal(report, snapshot);
+  assert.match(report, /target-impedance-disclosure","pass/);
+  assert.match(review.disclaimer, /does not run a field solver/);
+
+  const excessiveSkew = JSON.parse(JSON.stringify(project));
+  excessiveSkew.pcbFabrication.differentialPairs[0].negativeLengthMm = 25;
+  assert.equal(reviewDifferentialPair(excessiveSkew).status, "failed");
+  const invalidWidth = JSON.parse(JSON.stringify(project));
+  invalidWidth.pcbFabrication.differentialPairs[0].widthMm = 0.4;
+  assert.equal(reviewDifferentialPair(invalidWidth).status, "failed");
+  const brokenPair = JSON.parse(JSON.stringify(project));
+  brokenPair.nets.find((net) => net.id === "USB_DP").endpoints = brokenPair.nets.find((net) => net.id === "USB_DP").endpoints.filter((pin) => pin !== "phy:D+");
+  assert.equal(runSupportedAnalysis(brokenPair).state, "blocked");
+  assert.equal(reviewDifferentialPair(brokenPair).status, "failed");
+});
+
 test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
@@ -1284,7 +1318,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 140);
+  assert.equal(getExampleCoverage(registry).total, 141);
   assert.equal(getExampleCoverage(registry).released, 130);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 70);

@@ -1,0 +1,1190 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-131-usb-differential-pair",
+  "metadata": {
+    "name": "USB Full-Speed Differential Pair Demo",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "vbus",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V USB VBUS",
+      "position": {
+        "breadboard": [
+          60,
+          75
+        ],
+        "schematic": [
+          60,
+          75
+        ],
+        "pcb": [
+          60,
+          75
+        ]
+      }
+    },
+    {
+      "instanceId": "io-supply",
+      "libraryId": "power.dc-source",
+      "reference": "V2",
+      "value": "3.3 V host logic supply",
+      "position": {
+        "breadboard": [
+          80,
+          75
+        ],
+        "schematic": [
+          80,
+          75
+        ],
+        "pcb": [
+          80,
+          75
+        ]
+      }
+    },
+    {
+      "instanceId": "usb",
+      "libraryId": "connector.usb-c-receptacle",
+      "reference": "J1",
+      "value": "USB-C receptacle; USB 2.0 device; generic footprint",
+      "position": {
+        "breadboard": [
+          100,
+          100
+        ],
+        "schematic": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "phy",
+      "libraryId": "active.tusb1106-usb-fs-phy",
+      "reference": "U1",
+      "value": "TI TUSB1106; USB Full-Speed PHY; RGT template",
+      "position": {
+        "breadboard": [
+          300,
+          100
+        ],
+        "schematic": [
+          300,
+          100
+        ],
+        "pcb": [
+          300,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "logic",
+      "libraryId": "connector.usb-phy-logic-10",
+      "reference": "J2",
+      "value": "VCCIO, GND, VPO, VMO, VP, VM, RCV, OE, SUSPND, SPEED",
+      "position": {
+        "breadboard": [
+          500,
+          120
+        ],
+        "schematic": [
+          500,
+          120
+        ],
+        "pcb": [
+          500,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "cc1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "5.1 kΩ; USB-C CC1 Rd",
+      "position": {
+        "breadboard": [
+          140,
+          120
+        ],
+        "schematic": [
+          140,
+          120
+        ],
+        "pcb": [
+          140,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "cc2",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "5.1 kΩ; USB-C CC2 Rd",
+      "position": {
+        "breadboard": [
+          160,
+          120
+        ],
+        "schematic": [
+          160,
+          120
+        ],
+        "pcb": [
+          160,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "pullup",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "1.5 kΩ; USB Full-Speed D+ pull-up",
+      "position": {
+        "breadboard": [
+          250,
+          80
+        ],
+        "schematic": [
+          250,
+          80
+        ],
+        "pcb": [
+          250,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "reg-decouple",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF; VREG bypass",
+      "position": {
+        "breadboard": [
+          320,
+          80
+        ],
+        "schematic": [
+          320,
+          80
+        ],
+        "pcb": [
+          320,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "bus-decouple",
+      "libraryId": "passive.capacitor",
+      "reference": "C2",
+      "value": "100 nF; VCC5 bypass",
+      "position": {
+        "breadboard": [
+          340,
+          80
+        ],
+        "schematic": [
+          340,
+          80
+        ],
+        "pcb": [
+          340,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "io-decouple",
+      "libraryId": "passive.capacitor",
+      "reference": "C3",
+      "value": "100 nF; VCCIO bypass",
+      "position": {
+        "breadboard": [
+          360,
+          80
+        ],
+        "schematic": [
+          360,
+          80
+        ],
+        "pcb": [
+          360,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          100,
+          180
+        ],
+        "schematic": [
+          100,
+          180
+        ],
+        "pcb": [
+          100,
+          180
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VBUS",
+      "endpoints": [
+        "vbus:+",
+        "usb:A4",
+        "usb:A9",
+        "usb:B4",
+        "usb:B9",
+        "phy:VCC5",
+        "bus-decouple:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "vbus:-",
+        "io-supply:-",
+        "usb:A1",
+        "usb:A12",
+        "usb:B1",
+        "usb:B12",
+        "usb:SHIELD",
+        "phy:GND",
+        "cc1:2",
+        "cc2:2",
+        "reg-decouple:2",
+        "bus-decouple:2",
+        "io-decouple:2",
+        "logic:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "VCCIO",
+      "endpoints": [
+        "io-supply:+",
+        "phy:VCCIO",
+        "phy:SOFTCON",
+        "io-decouple:1",
+        "logic:VCCIO"
+      ]
+    },
+    {
+      "id": "VREG",
+      "endpoints": [
+        "phy:VREG",
+        "reg-decouple:1"
+      ]
+    },
+    {
+      "id": "VPU",
+      "endpoints": [
+        "phy:VPU",
+        "pullup:1"
+      ]
+    },
+    {
+      "id": "CC1",
+      "endpoints": [
+        "usb:A5",
+        "cc1:1"
+      ]
+    },
+    {
+      "id": "CC2",
+      "endpoints": [
+        "usb:B5",
+        "cc2:1"
+      ]
+    },
+    {
+      "id": "USB_DP",
+      "endpoints": [
+        "usb:A6",
+        "usb:B6",
+        "phy:D+",
+        "pullup:2"
+      ]
+    },
+    {
+      "id": "USB_DM",
+      "endpoints": [
+        "usb:A7",
+        "usb:B7",
+        "phy:D-"
+      ]
+    },
+    {
+      "id": "OE",
+      "endpoints": [
+        "phy:OE",
+        "logic:OE"
+      ]
+    },
+    {
+      "id": "RCV",
+      "endpoints": [
+        "phy:RCV",
+        "logic:RCV"
+      ]
+    },
+    {
+      "id": "VP",
+      "endpoints": [
+        "phy:VP",
+        "logic:VP"
+      ]
+    },
+    {
+      "id": "VM",
+      "endpoints": [
+        "phy:VM",
+        "logic:VM"
+      ]
+    },
+    {
+      "id": "SUSPND",
+      "endpoints": [
+        "phy:SUSPND",
+        "logic:SUSPND"
+      ]
+    },
+    {
+      "id": "SPEED",
+      "endpoints": [
+        "phy:SPEED",
+        "logic:SPEED"
+      ]
+    },
+    {
+      "id": "VPO",
+      "endpoints": [
+        "phy:VPO",
+        "logic:VPO"
+      ]
+    },
+    {
+      "id": "VMO",
+      "endpoints": [
+        "phy:VMO",
+        "logic:VMO"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 58,
+      "heightMm": 40,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "In1.Cu",
+        "In2.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.2
+    },
+    "parts": [
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "footprint": "USB_C_USB4105_template",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "footprint": "TUSB1106_RGT_16pin_template",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "footprint": "Header_1x10_P2.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "cc1",
+        "reference": "R1",
+        "footprint": "R_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "cc2",
+        "reference": "R2",
+        "footprint": "R_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "pullup",
+        "reference": "R3",
+        "footprint": "R_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "reg-decouple",
+        "reference": "C1",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "bus-decouple",
+        "reference": "C2",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "io-decouple",
+        "reference": "C3",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A1",
+        "number": "1",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 5,
+        "yMm": 16
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A4",
+        "number": "2",
+        "netId": "VBUS",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 5.75,
+        "yMm": 17.2
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A5",
+        "number": "3",
+        "netId": "CC1",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 6.5,
+        "yMm": 16
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A6",
+        "number": "4",
+        "netId": "USB_DP",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 7.25,
+        "yMm": 17.2
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A7",
+        "number": "5",
+        "netId": "USB_DM",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 8,
+        "yMm": 16
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A8",
+        "number": "6",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 8.75,
+        "yMm": 17.2
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A9",
+        "number": "7",
+        "netId": "VBUS",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 9.5,
+        "yMm": 16
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A12",
+        "number": "8",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 10.25,
+        "yMm": 17.2
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B1",
+        "number": "9",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 11,
+        "yMm": 16
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B4",
+        "number": "10",
+        "netId": "VBUS",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 11.75,
+        "yMm": 17.2
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B5",
+        "number": "11",
+        "netId": "CC2",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 12.5,
+        "yMm": 16
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B6",
+        "number": "12",
+        "netId": "USB_DP",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 13.25,
+        "yMm": 17.2
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B7",
+        "number": "13",
+        "netId": "USB_DM",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 14,
+        "yMm": 16
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B8",
+        "number": "14",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 14.75,
+        "yMm": 17.2
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B9",
+        "number": "15",
+        "netId": "VBUS",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 15.5,
+        "yMm": 16
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B12",
+        "number": "16",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 16.25,
+        "yMm": 17.2
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "SHIELD",
+        "number": "17",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 17,
+        "yMm": 16
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "VPU",
+        "number": "1",
+        "netId": "VPU",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 25,
+        "yMm": 18
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "SOFTCON",
+        "number": "2",
+        "netId": "VCCIO",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 25,
+        "yMm": 19.2
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "OE",
+        "number": "3",
+        "netId": "OE",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 25,
+        "yMm": 20.4
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "RCV",
+        "number": "4",
+        "netId": "RCV",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 25,
+        "yMm": 21.6
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "VP",
+        "number": "5",
+        "netId": "VP",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 30,
+        "yMm": 15
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "VM",
+        "number": "6",
+        "netId": "VM",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 31.2,
+        "yMm": 15
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "SUSPND",
+        "number": "7",
+        "netId": "SUSPND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 32.4,
+        "yMm": 15
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "GND",
+        "number": "8",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 33.6,
+        "yMm": 15
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "VCCIO",
+        "number": "9",
+        "netId": "VCCIO",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 35,
+        "yMm": 18
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "SPEED",
+        "number": "10",
+        "netId": "SPEED",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 35,
+        "yMm": 19.2
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "D-",
+        "number": "11",
+        "netId": "USB_DM",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 35,
+        "yMm": 20.4
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "D+",
+        "number": "12",
+        "netId": "USB_DP",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 35,
+        "yMm": 21.6
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "VPO",
+        "number": "13",
+        "netId": "VPO",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 30,
+        "yMm": 24
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "VMO",
+        "number": "14",
+        "netId": "VMO",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 31.2,
+        "yMm": 24
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "VREG",
+        "number": "15",
+        "netId": "VREG",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 32.4,
+        "yMm": 24
+      },
+      {
+        "instanceId": "phy",
+        "reference": "U1",
+        "pin": "VCC5",
+        "number": "16",
+        "netId": "VBUS",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 33.6,
+        "yMm": 24
+      },
+      {
+        "instanceId": "cc1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "CC1",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 15,
+        "yMm": 15
+      },
+      {
+        "instanceId": "cc1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 17,
+        "yMm": 15
+      },
+      {
+        "instanceId": "cc2",
+        "reference": "R2",
+        "pin": "1",
+        "number": "1",
+        "netId": "CC2",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 19,
+        "yMm": 15
+      },
+      {
+        "instanceId": "cc2",
+        "reference": "R2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 21,
+        "yMm": 15
+      },
+      {
+        "instanceId": "pullup",
+        "reference": "R3",
+        "pin": "1",
+        "number": "1",
+        "netId": "VPU",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 23,
+        "yMm": 15
+      },
+      {
+        "instanceId": "pullup",
+        "reference": "R3",
+        "pin": "2",
+        "number": "2",
+        "netId": "USB_DP",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 25,
+        "yMm": 15
+      },
+      {
+        "instanceId": "reg-decouple",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VREG",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 27,
+        "yMm": 15
+      },
+      {
+        "instanceId": "reg-decouple",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 28.5,
+        "yMm": 15
+      },
+      {
+        "instanceId": "bus-decouple",
+        "reference": "C2",
+        "pin": "1",
+        "number": "1",
+        "netId": "VBUS",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 31,
+        "yMm": 15
+      },
+      {
+        "instanceId": "bus-decouple",
+        "reference": "C2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 32.5,
+        "yMm": 15
+      },
+      {
+        "instanceId": "io-decouple",
+        "reference": "C3",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCCIO",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 35,
+        "yMm": 15
+      },
+      {
+        "instanceId": "io-decouple",
+        "reference": "C3",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.5,
+        "xMm": 36.5,
+        "yMm": 15
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "pin": "VCCIO",
+        "number": "1",
+        "netId": "VCCIO",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 15
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "pin": "GND",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 17
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "pin": "VPO",
+        "number": "3",
+        "netId": "VPO",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 19
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "pin": "VMO",
+        "number": "4",
+        "netId": "VMO",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 21
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "pin": "VP",
+        "number": "5",
+        "netId": "VP",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 23
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "pin": "VM",
+        "number": "6",
+        "netId": "VM",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 25
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "pin": "RCV",
+        "number": "7",
+        "netId": "RCV",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 27
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "pin": "OE",
+        "number": "8",
+        "netId": "OE",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 29
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "pin": "SUSPND",
+        "number": "9",
+        "netId": "SUSPND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 31
+      },
+      {
+        "instanceId": "logic",
+        "reference": "J2",
+        "pin": "SPEED",
+        "number": "10",
+        "netId": "SPEED",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 48,
+        "yMm": 33
+      }
+    ],
+    "routes": [],
+    "keepouts": [],
+    "stackup": [
+      {
+        "layer": "F.Cu",
+        "role": "USB connector and local routing",
+        "referenceLayer": "In1.Cu"
+      },
+      {
+        "layer": "In1.Cu",
+        "role": "Continuous ground reference",
+        "primaryNet": "GND"
+      },
+      {
+        "layer": "In2.Cu",
+        "role": "Power distribution and slow logic",
+        "powerNets": [
+          "VBUS",
+          "VCCIO"
+        ],
+        "returnReference": "In1.Cu"
+      },
+      {
+        "layer": "B.Cu",
+        "role": "Secondary logic",
+        "referenceLayer": "In1.Cu"
+      }
+    ],
+    "differentialPairs": [
+      {
+        "id": "USB_FS_DATA",
+        "positiveNet": "USB_DP",
+        "negativeNet": "USB_DM",
+        "targetDifferentialImpedanceOhms": 90,
+        "impedanceVerified": false,
+        "layer": "F.Cu",
+        "referencePlane": "In1.Cu",
+        "widthMm": 0.18,
+        "gapMm": 0.18,
+        "positiveLengthMm": 24,
+        "negativeLengthMm": 24.1,
+        "maxSkewMm": 0.25
+      }
+    ],
+    "pairRules": [
+      {
+        "id": "USB_FS_90R",
+        "pairId": "USB_FS_DATA",
+        "targetImpedanceOhms": 90,
+        "minWidthMm": 0.15,
+        "maxWidthMm": 0.22,
+        "minGapMm": 0.12,
+        "maxGapMm": 0.22,
+        "maxSkewMm": 0.25
+      }
+    ],
+    "stackupRules": {
+      "continuousGroundPlane": "In1.Cu",
+      "returnPath": "uninterrupted GND reference under the USB differential pair"
+    }
+  }
+}

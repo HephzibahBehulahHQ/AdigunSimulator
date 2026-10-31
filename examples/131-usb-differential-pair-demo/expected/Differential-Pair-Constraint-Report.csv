@@ -1,0 +1,8 @@
+"Check","Status","Detail"
+"usb-dp-dm-mapping","pass","USB-C D+/D− contacts map to the matching TUSB1106 transceiver pins."
+"pair-rule-width-gap","pass","Declared pair width and spacing fall within the example rule ranges."
+"pair-length-skew","pass","Declared positive/negative lengths meet the allowed pair skew."
+"same-layer-reference","pass","Pair is assigned to one signal layer above the declared continuous GND reference."
+"target-impedance-disclosure","pass","90 Ω is a declared design target; no impedance calculation is claimed."
+"Measured skew (declared mm)","0.10000000000000142","Calculated from the declared positive/negative trace-length inputs."
+"Scope","informational","This report verifies declared width, gap, layer, reference and length-match metadata only. It does not run a field solver, measure copper length, verify 90 Ω impedance, or test USB eye, jitter, protocol, EMC or fabrication performance."
