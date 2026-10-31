@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-118-hotswap-protection",
+  "metadata": {
+    "name": "Hot-Swap Input Inrush and Overload Protection",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "24 V",
+      "position": {
+        "breadboard": [
+          40,
+          50
+        ],
+        "schematic": [
+          40,
+          50
+        ],
+        "pcb": [
+          40,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.hotswap-fixture",
+      "reference": "CMD1",
+      "value": "Enabled yes; Fault none; RampTime 20 ms; CurrentLimit 0.5 A; OverloadLimit 1.5 A; MaxOutputPower 50 W; Mode hot-swap",
+      "position": {
+        "breadboard": [
+          135,
+          50
+        ],
+        "schematic": [
+          135,
+          50
+        ],
+        "pcb": [
+          135,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.hotswap-controller-ideal",
+      "reference": "U1",
+      "value": "Mode inrush-overload",
+      "position": {
+        "breadboard": [
+          245,
+          50
+        ],
+        "schematic": [
+          245,
+          50
+        ],
+        "pcb": [
+          245,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fet",
+      "libraryId": "active.hotswap-series-fet-ideal",
+      "reference": "Q1",
+      "value": "RdsOn 0.05 Ω; MaxVoltage 40 V; MaxCurrent 5 A; Mode hot-swap",
+      "position": {
+        "breadboard": [
+          355,
+          50
+        ],
+        "schematic": [
+          355,
+          50
+        ],
+        "pcb": [
+          355,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RL1",
+      "value": "24 Ω",
+      "position": {
+        "breadboard": [
+          455,
+          50
+        ],
+        "schematic": [
+          455,
+          50
+        ],
+        "pcb": [
+          455,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "470 µF",
+      "position": {
+        "breadboard": [
+          535,
+          50
+        ],
+        "schematic": [
+          535,
+          50
+        ],
+        "pcb": [
+          535,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.hotswap-report",
+      "reference": "SCOPE1",
+      "value": "Hot-swap inrush/overload report",
+      "position": {
+        "breadboard": [
+          600,
+          150
+        ],
+        "schematic": [
+          600,
+          150
+        ],
+        "pcb": [
+          600,
+          150
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          160
+        ],
+        "schematic": [
+          40,
+          160
+        ],
+        "pcb": [
+          40,
+          160
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "INPUT",
+      "endpoints": [
+        "source:+",
+        "controller:VIN",
+        "fet:VIN"
+      ]
+    },
+    {
+      "id": "GROUND",
+      "endpoints": [
+        "source:-",
+        "fixture:GND",
+        "controller:GND",
+        "fet:GND",
+        "load:2",
+        "capacitor:2",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "ENABLE",
+      "endpoints": [
+        "fixture:ENABLE",
+        "controller:ENABLE"
+      ]
+    },
+    {
+      "id": "FAULT",
+      "endpoints": [
+        "fixture:FAULT",
+        "controller:FAULT_IN"
+      ]
+    },
+    {
+      "id": "GATE",
+      "endpoints": [
+        "controller:GATE",
+        "fet:GATE"
+      ]
+    },
+    {
+      "id": "SENSE",
+      "endpoints": [
+        "controller:SENSE",
+        "fet:SENSE",
+        "report:INRUSH"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "fet:VOUT",
+        "load:1",
+        "capacitor:1",
+        "report:VOUT"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "controller:STATUS",
+        "fet:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}
