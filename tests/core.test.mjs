@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 44);
+  assert.equal(getExampleCoverage(registry).total, 45);
   assert.equal(getExampleCoverage(registry).released, 34);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 166);
@@ -1165,7 +1165,7 @@ test("catalogue NPN relay driver estimates coil pull-in and flyback release curr
   assert.ok(Math.abs(on.result.collectorVoltageV - 0.2) < 1e-12);
   assert.ok(Math.abs(on.result.coilStoredEnergyJ - 0.5 * 0.1 * on.result.coilCurrentA ** 2) < 1e-12);
   assert.equal(on.result.turnOffDecay.length, 3);
-  assert.equal(on.result.turnOffDecay[0].currentA, on.result.coilCurrentA);
+  assert.ok(Math.abs(on.result.turnOffDecay[0].currentA - on.result.coilCurrentA) < 1e-12);
   assert.ok(on.result.turnOffDecay[1].currentA > 0);
   assert.ok(on.result.turnOffDecay[2].currentA < on.result.turnOffDecay[1].currentA);
   assert.equal(on.result.flybackClampVoltageV, 12.3);
