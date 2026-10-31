@@ -13,7 +13,7 @@ function values(text, expression) {
 
 test("the interface references only declared translation keys and exposes four locales", async () => {
   const html = await readFile(indexFile, "utf8");
-  const keys = values(html, /data-i18n(?:-(?:placeholder|aria|title))?="([^"]+)"/g);
+  const keys = values(html, /data-i18n(?:-(?:placeholder|aria|title|alt))?="([^"]+)"/g);
   assert.ok(keys.length > 30);
   for (const key of keys) assert.ok(UI_KEYS.includes(key), `index.html references unknown translation key: ${key}`);
   const languageSelect = html.match(/<select id="language">([\s\S]*?)<\/select>/)?.[1] ?? "";
