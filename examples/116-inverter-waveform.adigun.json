@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-116-inverter-waveform",
+  "metadata": {
+    "name": "Single-Phase Inverter Filtered Waveform Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "bus",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "48 V",
+      "position": {
+        "breadboard": [
+          40,
+          50
+        ],
+        "schematic": [
+          40,
+          50
+        ],
+        "pcb": [
+          40,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.inverter-waveform-fixture",
+      "reference": "PWM1",
+      "value": "Modulation 0.5; Fundamental 50 Hz; Carrier 10 kHz; TargetVrms 17 V; Tolerance 5%; Mode sine-pwm",
+      "position": {
+        "breadboard": [
+          140,
+          50
+        ],
+        "schematic": [
+          140,
+          50
+        ],
+        "pcb": [
+          140,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "bridge",
+      "libraryId": "active.hbridge-inverter-ideal",
+      "reference": "U1",
+      "value": "MaxVoltage 100 V; MaxCurrent 5 A; DropPerArm 1 V; Mode bipolar-spwm",
+      "position": {
+        "breadboard": [
+          245,
+          50
+        ],
+        "schematic": [
+          245,
+          50
+        ],
+        "pcb": [
+          245,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "inductor",
+      "libraryId": "passive.inductor",
+      "reference": "L1",
+      "value": "10 mH",
+      "position": {
+        "breadboard": [
+          345,
+          50
+        ],
+        "schematic": [
+          345,
+          50
+        ],
+        "pcb": [
+          345,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "4.7 µF",
+      "position": {
+        "breadboard": [
+          425,
+          50
+        ],
+        "schematic": [
+          425,
+          50
+        ],
+        "pcb": [
+          425,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RL1",
+      "value": "100 Ω",
+      "position": {
+        "breadboard": [
+          500,
+          50
+        ],
+        "schematic": [
+          500,
+          50
+        ],
+        "pcb": [
+          500,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.inverter-filter-report",
+      "reference": "SCOPE1",
+      "value": "Filtered RMS/frequency report",
+      "position": {
+        "breadboard": [
+          590,
+          50
+        ],
+        "schematic": [
+          590,
+          50
+        ],
+        "pcb": [
+          590,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          160
+        ],
+        "schematic": [
+          40,
+          160
+        ],
+        "pcb": [
+          40,
+          160
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "DC_POS",
+      "endpoints": [
+        "bus:+",
+        "bridge:DC+"
+      ]
+    },
+    {
+      "id": "GROUND",
+      "endpoints": [
+        "bus:-",
+        "bridge:DC-",
+        "bridge:AC-",
+        "fixture:GND",
+        "capacitor:2",
+        "load:2",
+        "report:RETURN",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "PWM",
+      "endpoints": [
+        "fixture:PWM",
+        "bridge:PWM"
+      ]
+    },
+    {
+      "id": "AC_FILTER",
+      "endpoints": [
+        "bridge:AC+",
+        "inductor:1"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "inductor:2",
+        "capacitor:1",
+        "load:1",
+        "report:OUT"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "bridge:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}

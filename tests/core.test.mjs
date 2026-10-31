@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 125);
+  assert.equal(getExampleCoverage(registry).total, 126);
   assert.equal(getExampleCoverage(registry).released, 115);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 85);
@@ -3208,5 +3208,29 @@ test("catalogue UPS maintains output after mains loss within battery hold-up win
 
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="UPS_OUT").endpoints=["diode:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue inverter reports target RMS and selected frequency through its LC filter", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/116-inverter-waveform.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",JSON.stringify(result.validation?.errors??result));
+  assert.equal(result.result.kind,"inverter-waveform");
+  assert.equal(result.result.outputFrequencyHz,50);
+  assert.equal(result.result.carrierFrequencyHz,10000);
+  assert.ok(result.result.filteredOutputVrms>16);
+  assert.ok(result.result.filteredOutputVrms<17);
+  assert.equal(result.result.targetMet,true);
+  assert.equal(result.result.hardwareWaveformModeled,false);
+
+  const lower=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Modulation 0.3; Fundamental 50 Hz; Carrier 10 kHz; TargetVrms 17 V; Tolerance 5%; Mode sine-pwm"}));
+  assert.equal(lower.state,"complete");
+  assert.ok(lower.result.filteredOutputVrms<result.result.filteredOutputVrms);
+  assert.equal(lower.result.targetMet,false);
+
+  const wrongFrequency=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Modulation 0.5; Fundamental 50 Hz; Carrier 100 Hz; TargetVrms 17 V; Tolerance 5%; Mode sine-pwm"}));
+  assert.equal(wrongFrequency.state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["inductor:2"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });

@@ -227,6 +227,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.ups-charger-transfer-ideal", category: "Active", type: "Ideal UPS charger and mains-state controller", prefix: "U", pins: ["VIN", "BAT", "OUT", "MAINS", "STATUS", "GND"], defaultValue: "Efficiency 90%; MaxChargeCurrent 1 A; Mode ups-charger", simulation: "analytical-ups-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "protection.ups-ideal-diode", category: "Protection", type: "Ideal-diode UPS source selector", prefix: "D", pins: ["MAIN_IN", "BAT_IN", "OUT", "STATUS", "GND"], defaultValue: "ForwardDrop 0 V; Mode ideal-or", simulation: "analytical-ups-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.ups-transfer-report", category: "Output", type: "UPS transfer and hold-up report", prefix: "SCOPE", pins: ["OUT", "CHARGER_STATUS", "DIODE_STATUS", "GND"], defaultValue: "UPS hold-up report", simulation: "analytical-ups-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.inverter-waveform-fixture", category: "Inputs", type: "Single-phase inverter PWM target fixture", prefix: "PWM", pins: ["PWM", "GND"], defaultValue: "Modulation 0.5; Fundamental 50 Hz; Carrier 10 kHz; TargetVrms 17 V; Tolerance 5%; Mode sine-pwm", simulation: "fixture-inverter-waveform", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.hbridge-inverter-ideal", category: "Active", type: "Ideal single-phase bipolar H-bridge inverter", prefix: "U", pins: ["DC+", "DC-", "PWM", "AC+", "AC-", "STATUS"], defaultValue: "MaxVoltage 100 V; MaxCurrent 5 A; DropPerArm 1 V; Mode bipolar-spwm", simulation: "analytical-inverter-waveform", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.inverter-filter-report", category: "Output", type: "Filtered inverter RMS and frequency report", prefix: "SCOPE", pins: ["OUT", "RETURN", "STATUS"], defaultValue: "Inverter waveform report", simulation: "analytical-inverter-waveform", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -764,6 +767,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const upsChargers = project.components.filter((item) => item.libraryId === "active.ups-charger-transfer-ideal");
   const upsDiodes = project.components.filter((item) => item.libraryId === "protection.ups-ideal-diode");
   const upsReports = project.components.filter((item) => item.libraryId === "output.ups-transfer-report");
+  const inverterFixtures = project.components.filter((item) => item.libraryId === "input.inverter-waveform-fixture");
+  const inverterBridges = project.components.filter((item) => item.libraryId === "active.hbridge-inverter-ideal");
+  const inverterReports = project.components.filter((item) => item.libraryId === "output.inverter-filter-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -1032,6 +1038,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length===1&&upsFixtures.length===1&&upsChargers.length===1&&upsDiodes.length===1&&upsReports.length===1&&batteries.length===1&&resistor.length===1&&ground.length===1&&project.components.length===8) {
     return analyseUpsTransfer(project,{source:source[0],fixture:upsFixtures[0],charger:upsChargers[0],diode:upsDiodes[0],battery:batteries[0],report:upsReports[0],load:resistor[0],ground:ground[0],validation});
+  }
+  if (source.length===1&&inverterFixtures.length===1&&inverterBridges.length===1&&inverterReports.length===1&&resistor.length===1&&inductor.length===1&&capacitor.length===1&&ground.length===1&&project.components.length===8) {
+    return analyseInverterWaveform(project,{source:source[0],fixture:inverterFixtures[0],bridge:inverterBridges[0],report:inverterReports[0],load:resistor[0],inductor:inductor[0],capacitor:capacitor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3603,6 +3612,40 @@ function analyseUpsTransfer(project,{source,fixture,charger,diode,battery,report
   return {state:"complete",engine:"Bounded UPS source-transfer and hold-up estimator",
     message:"Models mains-priority source selection, ideal-diode transfer, configured battery reserve/energy, charger-current limit, and a resistive output load. Transfer timing, battery chemistry, charger control loops, cell protection, inrush, thermal behavior, and hardware safety are not modeled.",
     result:{kind:"ups-transfer",mainsAvailable,sourceSelected,outputEnabled,outputVoltageV,loadCurrentA,loadPowerW:deliveredPowerW,batteryVoltageV:batteryV,batteryCapacityAh:capacityAh,stateOfChargePercent:socPercent,minimumReservePercent:minimumSocPercent,loadResistanceOhm:loadOhm,loadPowerDemandW,availableBatteryEnergyWh,estimatedHoldUpMin,requiredHoldUpMin:holdUpMin,holdUpSatisfied,batteryChargeCurrentA,batteryDischargeCurrentA,batteryDischarged,chargerEfficiencyPercent:efficiencyPercent,idealDiodeForwardDropV:diodeDropV,transferInterruptionModeled:false,hardwareSafetyQualified:false},validation};
+}
+function analyseInverterWaveform(project,{source,fixture,bridge,report,load,inductor,capacitor,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const f=fields(fixture.value),b=fields(bridge.value),modulation=Number(field(f,"Modulation"));
+  const fundamentalHz=frequencyValue(field(f,"Fundamental")??""),carrierHz=frequencyValue(field(f,"Carrier")??"");
+  const targetVrms=voltageValue(field(f,"TargetVrms")??""),tolerancePercent=Number(String(field(f,"Tolerance")??"").replace("%",""));
+  const busVoltageV=voltageValue(source.value),maxVoltageV=voltageValue(field(b,"MaxVoltage")??""),maxCurrentA=currentValue(field(b,"MaxCurrent")??"");
+  const dropPerArmV=voltageValue(field(b,"DropPerArm")??""),loadOhm=resistanceValue(load.value),inductanceH=inductanceValue(inductor.value),capacitanceF=capacitanceValue(capacitor.value);
+  const gnd=n(ground,"0");
+  const busPath=n(source,"+")===n(bridge,"DC+")&&n(source,"-")===n(bridge,"DC-")&&n(source,"-")===gnd;
+  const pwmPath=n(fixture,"PWM")===n(bridge,"PWM")&&n(fixture,"GND")===gnd;
+  const bridgePath=n(bridge,"AC+")===n(inductor,"1")&&n(inductor,"2")===n(load,"1")&&n(inductor,"2")===n(capacitor,"1")&&n(inductor,"2")===n(report,"OUT");
+  const returnPath=n(bridge,"AC-")===n(capacitor,"2")&&n(capacitor,"2")===n(load,"2")&&n(load,"2")===n(report,"RETURN")&&n(load,"2")===gnd;
+  const statusPath=n(bridge,"STATUS")===n(report,"STATUS");
+  const required=[gnd,n(source,"+"),n(source,"-"),n(bridge,"DC+"),n(bridge,"DC-"),n(fixture,"PWM"),n(bridge,"PWM"),n(fixture,"GND"),n(bridge,"AC+"),n(inductor,"1"),n(inductor,"2"),n(capacitor,"1"),n(capacitor,"2"),n(load,"1"),n(load,"2"),n(report,"OUT"),n(report,"RETURN"),n(bridge,"STATUS"),n(report,"STATUS")];
+  if(required.some(x=>typeof x!=="string"||!x)||!busPath||!pwmPath||!bridgePath||!returnPath||!statusPath||field(f,"Mode")!=="sine-pwm"||field(b,"Mode")!=="bipolar-spwm"
+    ||![modulation,fundamentalHz,carrierHz,targetVrms,tolerancePercent,busVoltageV,maxVoltageV,maxCurrentA,dropPerArmV,loadOhm,inductanceH,capacitanceF].every(Number.isFinite)
+    ||modulation<=0||modulation>1||fundamentalHz<20||fundamentalHz>200||carrierHz<1000||carrierHz>200000||carrierHz<fundamentalHz*10
+    ||targetVrms<=0||targetVrms>120||tolerancePercent<=0||tolerancePercent>20||busVoltageV<=0||busVoltageV>maxVoltageV||maxVoltageV>400
+    ||maxCurrentA<=0||maxCurrentA>100||dropPerArmV<0||dropPerArmV>5||loadOhm<=0||loadOhm>10000||inductanceH<=0||capacitanceF<=0){
+    return {state:"blocked",message:"Wire the DC bus, H-bridge, PWM command, series inductor, shunt capacitor, load and report; use supported bus, frequency, modulation and filter values.",validation};
+  }
+  const unfilteredFundamentalVrms=modulation*Math.max(0,busVoltageV-2*dropPerArmV)/Math.SQRT2;
+  const omega=2*Math.PI*fundamentalHz,denReal=1-omega*omega*inductanceH*capacitanceF,denImag=omega*inductanceH/loadOhm;
+  const filterGain=1/Math.sqrt(denReal*denReal+denImag*denImag),filteredOutputVrms=unfilteredFundamentalVrms*filterGain;
+  const loadCurrentRmsA=filteredOutputVrms/loadOhm,loadPowerW=filteredOutputVrms*filteredOutputVrms/loadOhm;
+  const filterResonanceHz=1/(2*Math.PI*Math.sqrt(inductanceH*capacitanceF));
+  const toleranceV=targetVrms*tolerancePercent/100,targetMet=Math.abs(filteredOutputVrms-targetVrms)<=toleranceV;
+  if(loadCurrentRmsA>maxCurrentA)return {state:"blocked",message:"Filtered load current exceeds the configured H-bridge current limit.",validation};
+  return {state:"complete",engine:"Ideal SPWM fundamental and passive LC filter estimator",
+    message:"Estimates the fundamental RMS output of an ideal bipolar sine-PWM H-bridge and applies a linear second-order LC load response at the selected frequency. PWM switching harmonics, semiconductor switching, dead time, control-loop behavior, filter damping outside the ideal resistive model, thermal behavior, and hardware safety are not modeled.",
+    result:{kind:"inverter-waveform",busVoltageV,modulationIndex:modulation,carrierFrequencyHz:carrierHz,outputFrequencyHz:fundamentalHz,targetVrms,tolerancePercent,unfilteredFundamentalVrms,filterResonanceHz,filterGain,filteredOutputVrms,loadResistanceOhm:loadOhm,loadCurrentRmsA,loadPowerW,targetToleranceV:toleranceV,targetMet,hardwareWaveformModeled:false,hardwareSafetyQualified:false},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
