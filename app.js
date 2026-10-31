@@ -25,6 +25,7 @@ import { captureTriggeredPulse } from "./js/oscilloscope-trigger.mjs";
 import { measureTwoChannelPhase } from "./js/phase-measurement.mjs";
 import { captureLogicAnalyzer } from "./js/logic-analyzer-capture.mjs";
 import { measureFrequency } from "./js/frequency-counter.mjs";
+import { analyzeRcBode } from "./js/rc-bode-analysis.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -242,7 +243,11 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "eeprom-ring-logger") {
+  if (result.kind === "rc-bode-plot") {
+    const points=result.points, x=index=>30+(420*index)/(points.length-1), yMag=value=>22+Math.min(44,Math.max(0,-value/40*44)), yPhase=value=>75+(-value/90)*34;
+    const mag=points.map((point,index)=>(index?"L ":"M ")+x(index).toFixed(1)+" "+yMag(point.magnitudeDb).toFixed(1)).join(" "), phase=points.map((point,index)=>(index?"L ":"M ")+x(index).toFixed(1)+" "+yPhase(point.phaseDeg).toFixed(1)).join(" ");
+    waveform=`<figure class="result-waveform"><figcaption>RC low-pass Bode response · cutoff ${result.cutoffHz.toFixed(2)} Hz</figcaption><svg viewBox="0 0 480 124" role="img" aria-label="RC Bode plot with magnitude and phase versus logarithmic frequency"><path class="wave-axis" d="M28 20 V112 H458 M28 72 H458"></path><path d="${mag}" fill="none" stroke="#36d5f5" stroke-width="2"></path><path d="${phase}" fill="none" stroke="#ffb55d" stroke-width="2"></path><circle cx="${x(result.cutoffIndex).toFixed(1)}" cy="${yMag(result.cutoffMagnitudeDb).toFixed(1)}" r="4" fill="#ffffff"></circle><text x="30" y="12">Magnitude (dB)</text><text x="30" y="121">Frequency (log Hz)</text><text x="338" y="12" fill="#ffb55d">Phase (deg)</text><text x="${(x(result.cutoffIndex)+6).toFixed(1)}" y="35">fc</text></svg></figure>`;
+  } else if (result.kind === "eeprom-ring-logger") {
     metrics.push(["Sample interval", result.samplePeriodMs + " ms"], ["Buffer capacity", String(result.capacity)], ["Samples recorded", String(result.recordedSamples)], ["Overwritten records", String(result.overwrittenRecords)], ["Buffer wrapped", result.bufferWrapped ? "Yes" : "No"], ["Replay values", result.replayValues.join(", ") + " °C"]);
   } else if (result.kind === "low-power-sleep-wake") {
     metrics.push(["Run duration", result.durationMs + " ms"], ["MCU sleep current", result.sleepCurrentUa + " µA"], ["MCU run current", result.runCurrentUa + " µA"], ["Wake events", String(result.wakeCount)], ["Awake / asleep", result.awakeTimeMs + " / " + result.sleepTimeMs + " ms"], ["Estimated average supply current", result.averageSupplyCurrentUa.toFixed(2) + " µA"], ["Estimated energy", result.energyMj.toFixed(3) + " mJ"], ["LED load while awake", result.ledPeakCurrentMa.toFixed(2) + " mA"]);
@@ -445,7 +450,7 @@ function validateAndReport() {
 
 function runAnalysis() {
   validateAndReport();
-  const result = state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
+  const result = state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
   state.lastAnalysis = result;
   if (result.state === "complete") {
     const { kind } = result.result;
@@ -456,6 +461,7 @@ function runAnalysis() {
     if(kind==="two-channel-phase")log(`[SCOPE] Channel B phase offset ${result.result.phaseOffsetDeg.toFixed(2)} ${result.result.unit} at ${result.result.frequencyHz.toFixed(2)} Hz.`);
     if(kind==="logic-analyzer-capture")log(`[LOGIC] Trigger locked on ${result.result.triggerChannel} ${result.result.triggerEdge} edge at sample ${result.result.triggerSampleIndex}; channels ${result.result.channelLabels}.`);
     if(kind==="frequency-counter")log(`[COUNTER] ${result.result.measuredFrequencyHz.toFixed(6)} ${result.result.unit}; period ${result.result.measuredPeriodMs.toFixed(6)} ms over ${result.result.cyclesMeasured} cycles.`);
+    if(kind==="rc-bode-plot")log(`[BODE] Cutoff ${result.result.cutoffHz.toFixed(3)} Hz; at cutoff ${result.result.cutoffMagnitudeDb.toFixed(3)} dB and ${result.result.cutoffPhaseDeg.toFixed(2)} deg.`);
     if (kind === "led-current-limiter") {
       const { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn } = result.result;
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Ω`);
