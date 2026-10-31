@@ -53,8 +53,17 @@ export function validatePcbFabrication(project) {
     const endpoints = pads.filter((pad) => pad.netId===route.netId);
     if (!endpoints.some((pad) => pointEqual(pad,route.pointsMm[0])) || !endpoints.some((pad) => pointEqual(pad,route.pointsMm.at(-1)))) errors.push(`Route ${route.netId} must terminate on pads belonging to that net.`);
   }
+  const routedNets=new Set(routes.map((route)=>route.netId));
+  for(const net of project.nets ?? []){
+    const physicalPads=pads.filter((pad)=>pad.netId===net.id);
+    if(physicalPads.length>=2&&!routedNets.has(net.id)) errors.push(`Net ${net.id} has physical pads but no copper route.`);
+    for(const pad of physicalPads){
+      const covered=routes.some((route)=>route.netId===net.id&&route.pointsMm?.some((point)=>pointEqual(pad,point)));
+      if(!covered) errors.push(`Pad ${pad.reference}.${pad.number} on ${net.id} is not reached by its copper route.`);
+    }
+  }
   if (!routes.length) errors.push("At least one routed copper net is required.");
-  return { status:errors.length ? "failed" : "passed", errors, warnings, checks:["board bounds","single copper layer","declared net-to-pad mapping","connected routed endpoints","inter-net pad clearance","through-hole drill dimensions"] };
+  return { status:errors.length ? "failed" : "passed", errors, warnings, checks:["board bounds","single copper layer","declared net-to-pad mapping","connected routed endpoints","no unrouted physical nets","all physical pads appear on copper paths","inter-net pad clearance","through-hole drill dimensions"] };
 }
 
 function gerberFile(pcb, { outline=false }={}) {
