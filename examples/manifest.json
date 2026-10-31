@@ -6619,6 +6619,19 @@
           "sensorCircuitModel": false
         }
       }
+    },
+    {
+      "id": "170-water-leak-alarm",
+      "title": "Water leak alarm",
+      "status": "in-review",
+      "objective": "Raise a logical alarm under wet sensor stimulus, clear it when dry, and test repeated wet episodes and dry recovery.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue water leak alarm triggers on wet input and recovers on dry input",
+      "testId": "core-water-leak-alarm",
+      "projectFile": "examples/170-water-leak-alarm.adigun.json",
+      "readmeFile": "examples/170-water-leak-alarm/README.md",
+      "safetyNote": "Synthetic Boolean demonstration only. No water sensor, probe, mains isolation, alarm hardware, ingress rating, property protection, or reliability claim is included.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
