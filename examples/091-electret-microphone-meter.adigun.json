@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-091-electret-microphone-meter",
+  "metadata": {
+    "name": "Electret Microphone Audio Level Meter",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          35,
+          50
+        ],
+        "schematic": [
+          35,
+          50
+        ],
+        "pcb": [
+          35,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "microphone",
+      "libraryId": "sensor.electret-mic-generic",
+      "reference": "MIC1",
+      "value": "Imic 0.5 mA; Vsig 10 mV; f 1 kHz; Rs 2.2 kΩ",
+      "position": {
+        "breadboard": [
+          140,
+          50
+        ],
+        "schematic": [
+          140,
+          50
+        ],
+        "pcb": [
+          140,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "bias",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "2.2 kΩ",
+      "position": {
+        "breadboard": [
+          100,
+          120
+        ],
+        "schematic": [
+          100,
+          120
+        ],
+        "pcb": [
+          100,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "preamp",
+      "libraryId": "active.electret-envelope-preamp-ideal",
+      "reference": "U1",
+      "value": "Gain 20",
+      "position": {
+        "breadboard": [
+          285,
+          50
+        ],
+        "schematic": [
+          285,
+          50
+        ],
+        "pcb": [
+          285,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "rectifier",
+      "libraryId": "active.audio-envelope-rectifier-ideal",
+      "reference": "BR1",
+      "value": "Mode full-wave; DropV 0 V",
+      "position": {
+        "breadboard": [
+          410,
+          50
+        ],
+        "schematic": [
+          410,
+          50
+        ],
+        "pcb": [
+          410,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "bargraph",
+      "libraryId": "output.audio-level-ledbar-ideal",
+      "reference": "LED1",
+      "value": "Segments 10; ThresholdsV 0.02,0.04,0.06,0.08,0.10,0.12,0.14,0.16,0.18,0.20",
+      "position": {
+        "breadboard": [
+          520,
+          50
+        ],
+        "schematic": [
+          520,
+          50
+        ],
+        "pcb": [
+          520,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          580,
+          220
+        ],
+        "schematic": [
+          580,
+          220
+        ],
+        "pcb": [
+          580,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "bias:1",
+        "preamp:VCC",
+        "rectifier:VCC",
+        "bargraph:VCC"
+      ]
+    },
+    {
+      "id": "MIC_BIAS",
+      "endpoints": [
+        "bias:2",
+        "microphone:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "microphone:GND",
+        "preamp:GND",
+        "rectifier:GND",
+        "bargraph:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "MIC_SIGNAL",
+      "endpoints": [
+        "microphone:OUT",
+        "preamp:IN"
+      ]
+    },
+    {
+      "id": "PREAMP_OUT",
+      "endpoints": [
+        "preamp:OUT",
+        "rectifier:IN"
+      ]
+    },
+    {
+      "id": "RECTIFIED",
+      "endpoints": [
+        "rectifier:OUT",
+        "bargraph:IN"
+      ]
+    }
+  ],
+  "history": []
+}
