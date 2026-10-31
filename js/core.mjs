@@ -470,6 +470,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (audioAmplifiers.length === 1 && speakers.length === 1 && source.length === 1 && acSource.length === 1 && capacitor.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseAudioPowerAmplifier(project, { source: source[0], input: acSource[0], amplifier: audioAmplifiers[0], coupling: capacitor[0], speaker: speakers[0], ground: ground[0], validation });
   }
+  if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
+    return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
+  }
   if (opAmps.length === 1 && electretMics.length === 1 && source.length === 1 && resistor.length === 6 && capacitor.length === 2 && ground.length === 1 && project.components.length === 12) {
     return analyseElectretAudioPreamp(project, { source: source[0], microphone: electretMics[0], opAmp: opAmps[0], resistors: resistor, capacitors: capacitor, ground: ground[0], validation });
   }
@@ -1384,6 +1387,38 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
   }
   const loadCurrentA=referenceVoltage/loadResistance;
   return {state:"complete",engine:"Ideal reference-voltage follower load estimate",message:"Buffers a fixed reference voltage and reports the ideal resistive load current. It assumes zero output impedance and unlimited output current, and omits accuracy drift, noise, bandwidth, stability, thermal effects, and device-specific limits.",result:{kind:"reference-buffer",referenceVoltage,outputVoltage:referenceVoltage,gainVPerV:1,loadResistanceOhm:loadResistance,loadCurrentA,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage},validation};
+}
+
+function analyseActiveLowPass(project,{sources,input,opAmp,resistors,capacitor,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),positiveRail=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")!==groundNet);
+  const negativeRail=sources.find(v=>n(v,"+")===groundNet&&n(v,"-")!==groundNet);
+  const inputNet=n(input,"+"),nonInvertingNet=n(opAmp,"+"),invertingNet=n(opAmp,"-"),outputNet=n(opAmp,"OUT");
+  const inputResistor=resistors.find(r=>(n(r,"1")===inputNet&&n(r,"2")===nonInvertingNet)||(n(r,"2")===inputNet&&n(r,"1")===nonInvertingNet));
+  const capacitorWired=(n(capacitor,"1")===nonInvertingNet&&n(capacitor,"2")===groundNet)||(n(capacitor,"2")===nonInvertingNet&&n(capacitor,"1")===groundNet);
+  const feedback=resistors.find(r=>(n(r,"1")===outputNet&&n(r,"2")===invertingNet)||(n(r,"2")===outputNet&&n(r,"1")===invertingNet));
+  const gainLeg=resistors.find(r=>r!==inputResistor&&r!==feedback&&((n(r,"1")===invertingNet&&n(r,"2")===groundNet)||(n(r,"2")===invertingNet&&n(r,"1")===groundNet)));
+  const rInput=inputResistor?resistanceValue(inputResistor.value):Number.NaN,rFeedback=feedback?resistanceValue(feedback.value):Number.NaN;
+  const rGain=gainLeg?resistanceValue(gainLeg.value):Number.NaN,c=capacitanceValue(capacitor.value);
+  const inputAmplitudeV=voltageValue(input.value),positiveVoltage=positiveRail?voltageValue(positiveRail.value):Number.NaN,negativeVoltage=negativeRail?voltageValue(negativeRail.value):Number.NaN;
+  const wired=positiveRail&&negativeRail&&n(opAmp,"VCC")===n(positiveRail,"+")&&n(opAmp,"VEE")===n(negativeRail,"-")
+    &&n(input,"-")===groundNet&&inputResistor&&capacitorWired&&feedback&&gainLeg;
+  if(!wired||![rInput,rFeedback,rGain,c,inputAmplitudeV,positiveVoltage,negativeVoltage].every(Number.isFinite)
+    ||rInput<=0||rFeedback<=0||rGain<=0||c<=0||inputAmplitudeV<=0||positiveVoltage<=0||negativeVoltage<=0){
+    return {state:"blocked",message:"Wire a series input resistor, capacitor to ground, non-inverting op-amp, and negative-feedback resistor pair to valid dual rails.",validation};
+  }
+  const cutoffHz=1/(2*Math.PI*rInput*c),passbandGain=1+rFeedback/rGain;
+  const response=[cutoffHz/10,cutoffHz,cutoffHz*10].map(f=>{
+    const gain=passbandGain/Math.sqrt(1+(f/cutoffHz)*(f/cutoffHz));
+    return {frequencyHz:f,gain,outputAmplitudeV:inputAmplitudeV*gain};
+  });
+  const maximumOutputAmplitudeV=inputAmplitudeV*passbandGain;
+  if(maximumOutputAmplitudeV>=Math.min(positiveVoltage,negativeVoltage)){
+    return {state:"blocked",message:"The active low-pass passband amplitude reaches an op-amp supply rail; reduce input or gain.",validation};
+  }
+  return {state:"complete",engine:"First-order RC active low-pass and ideal non-inverting gain estimate",message:"Combines a first-order RC input low-pass with an ideal non-inverting op-amp gain. It omits op-amp bandwidth, slew rate, noise, output loading, parasitics, and device-specific limits.",result:{kind:"active-low-pass",inputAmplitudeV,inputResistanceOhm:rInput,capacitanceF:c,cutoffHz,passbandGain,feedbackResistanceOhm:rFeedback,gainResistanceOhm:rGain,response,maximumOutputAmplitudeV},validation};
 }
 
 function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,speaker,ground,validation}){

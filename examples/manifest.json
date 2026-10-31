@@ -1491,6 +1491,18 @@
           "speakerRealPowerW": 0.1466050975182603
         }
       }
+    },
+    {
+      "id": "039-active-low-pass",
+      "title": "First-order active low-pass filter",
+      "status": "in-review",
+      "objective": "Combine a 10 kΩ input resistor and 10 nF shunt capacitor with a non-inverting op-amp stage of gain 2 on ±9 V rails; test calculated cutoff, below/at/above-cutoff response, and output rail limits.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue active low-pass filter matches its designed cutoff and gain and blocks overrange input and disconnected RC wiring",
+      "testId": "core-active-low-pass",
+      "projectFile": "examples/039-active-low-pass.adigun.json",
+      "safetyNote": "Ideal first-order RC and op-amp estimate. It omits op-amp finite bandwidth/slew/noise, capacitor/resistor tolerance and parasitics, loading, and manufacturer-specific behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 39
     }
   ]
 }
