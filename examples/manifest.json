@@ -1162,6 +1162,18 @@
           "ledCurrentA": 0.00909090909090909
         }
       }
+    },
+    {
+      "id": "028-schmitt-trigger",
+      "title": "Comparator Schmitt trigger",
+      "status": "in-review",
+      "objective": "Calculate separate 2.5 V falling and 3.0 V rising thresholds and verify state retention inside the hysteresis band.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Schmitt trigger has distinct thresholds and retains state inside the hysteresis band",
+      "testId": "core-schmitt-trigger",
+      "projectFile": "examples/028-schmitt-trigger.adigun.json",
+      "safetyNote": "Ideal static educational comparator model only. It omits propagation delay, output saturation, noise, offset, component tolerances, and device-specific behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 28
     }
   ]
 }
