@@ -3968,6 +3968,46 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "097-rgb-led-controller",
+      "title": "RGB LED PWM colour controller",
+      "status": "released",
+      "objective": "Map requested 8-bit red, green, and blue codes to active-high PWM duties and estimate per-channel and total average current through explicit current-limiting resistors.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue RGB LED controller maps colour vectors to safe PWM channel currents",
+      "testId": "core-rgb-led-controller",
+      "projectFile": "examples/097-rgb-led-controller.adigun.json",
+      "safetyNote": "Ideal PWM duty and resistor-current estimate only. Optical output, LED bin variation, colour calibration/gamma, switching edge behavior, MCU timer limits, thermal behavior, firmware, and hardware are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 97,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41186115734",
+        "headRevision": "cb02530c5c4131c271c591f2e9a355f913756e56",
+        "engine": "Ideal three-channel RGB PWM and LED-current estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-common-cathode-rgb-8bit-pwm-v1",
+        "expectedResult": {
+          "kind": "rgb-pwm-controller",
+          "frequencyHz": 1000,
+          "resolutionBits": 8,
+          "channelCodes": {
+            "R": 255,
+            "G": 128,
+            "B": 0
+          },
+          "redDutyPercent": 100,
+          "greenDutyPercent": 50.19607843137255,
+          "blueDutyPercent": 0,
+          "redAverageCurrentMa": 13.636363636363637,
+          "greenAverageCurrentMa": 4.563,
+          "blueAverageCurrentMa": 0,
+          "cssColor": "rgb(255, 128, 0)",
+          "monotonicDutyMapping": true,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }

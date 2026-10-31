@@ -106,7 +106,7 @@ For every example, deliver a native project file, readme, schematic, breadboard 
 | 94 | Two-source weighted audio mixer | two level fixtures, explicit summing resistors, ideal unity buffer | Verify equal/unequal weighted output, several source combinations, headroom clipping block and open summing-node handling. This is a passive weighted average, not an inverting active mixer. |
 | 95 | PWM audio DAC RC filter concept | PWM source fixture, series resistor, capacitor, finite load, report | Test duty-tracking average, calculated steady-state ripple, frequency/ripple trend, duty/frequency bounds and broken RC-node wiring. Switching edges and component non-idealities are excluded. |
 | 96 | Digital potentiometer audio volume control | bounded sine fixture, loaded linear digital pot, output report | Verify all 11 command steps are monotonic under source/wiper/load resistance, plus invalid commands and disconnected output. No specific IC protocol or audio taper is modeled. |
-| 97 | Colour LED controller | RGB LED, MCU/PWM | Requested RGB values produce correct channel duty; test colour vectors. |
+| 97 | RGB LED PWM colour controller | 8-bit command fixture, ideal PWM outputs, common-cathode RGB LED, three current-limit resistors | Test orange/white/red colour vectors, exact PWM duties, per-channel average current, 20 mA peak limits and broken channel wiring. Optical/gamma calibration is excluded. |
 | 98 | OLED status panel | MCU, OLED, sensors | Values update and bounds are handled; test missing-sensor message. |
 | 99 | E-paper display updater | MCU, e-paper model | Partial/full refresh request meets state sequence; test power-state handling. |
 | 100 | Seven-segment clock | RTC, MCU, display | Time increments and rollover works; test 23:59:59. |
