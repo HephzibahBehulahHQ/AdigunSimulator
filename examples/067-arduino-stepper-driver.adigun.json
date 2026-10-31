@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-067-arduino-stepper-driver",
+  "metadata": {
+    "name": "Uno-Class Bipolar Stepper Driver Motion Model",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          58
+        ],
+        "schematic": [
+          40,
+          58
+        ],
+        "pcb": [
+          40,
+          58
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.mcu-uno-ideal",
+      "reference": "U1",
+      "value": "Program Stepper; Step D3; DirectionPin D2; Steps 200; Direction CW; StepRate 200",
+      "position": {
+        "breadboard": [
+          150,
+          58
+        ],
+        "schematic": [
+          150,
+          58
+        ],
+        "pcb": [
+          150,
+          58
+        ]
+      }
+    },
+    {
+      "instanceId": "driver",
+      "libraryId": "active.stepper-driver-ideal",
+      "reference": "U2",
+      "value": "Full-step dual-phase drive",
+      "position": {
+        "breadboard": [
+          280,
+          58
+        ],
+        "schematic": [
+          280,
+          58
+        ],
+        "pcb": [
+          280,
+          58
+        ]
+      }
+    },
+    {
+      "instanceId": "motor",
+      "libraryId": "output.stepper-motor-ideal",
+      "reference": "M1",
+      "value": "StepsPerRevolution 200; StepAngle 1.8 deg",
+      "position": {
+        "breadboard": [
+          420,
+          58
+        ],
+        "schematic": [
+          420,
+          58
+        ],
+        "pcb": [
+          420,
+          58
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          540,
+          58
+        ],
+        "schematic": [
+          540,
+          58
+        ],
+        "pcb": [
+          540,
+          58
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mcu:VCC",
+        "driver:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "mcu:GND",
+        "driver:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "STEP",
+      "endpoints": [
+        "mcu:D3",
+        "driver:STEP"
+      ]
+    },
+    {
+      "id": "DIR",
+      "endpoints": [
+        "mcu:D2",
+        "driver:DIR"
+      ]
+    },
+    {
+      "id": "MOTOR_A1",
+      "endpoints": [
+        "driver:A1",
+        "motor:A1"
+      ]
+    },
+    {
+      "id": "MOTOR_A2",
+      "endpoints": [
+        "driver:A2",
+        "motor:A2"
+      ]
+    },
+    {
+      "id": "MOTOR_B1",
+      "endpoints": [
+        "driver:B1",
+        "motor:B1"
+      ]
+    },
+    {
+      "id": "MOTOR_B2",
+      "endpoints": [
+        "driver:B2",
+        "motor:B2"
+      ]
+    }
+  ],
+  "history": []
+}
