@@ -1531,6 +1531,18 @@
           "maximumOutputAmplitudeV": 2
         }
       }
+    },
+    {
+      "id": "040-wien-bridge-oscillator",
+      "title": "Diode-limited Wien bridge oscillator",
+      "status": "in-review",
+      "objective": "Build a symmetric 10 kΩ/10 nF Wien RC bridge around a non-inverting op-amp gain stage and anti-parallel Schottky limiter diodes; test resonance frequency, loop-gain start-up condition, and bounded estimated amplitude.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Wien bridge oscillator starts above unity loop gain and limits amplitude; blocks a mismatched bridge and same-direction limiter diodes",
+      "testId": "core-wien-bridge-oscillator",
+      "projectFile": "examples/040-wien-bridge-oscillator.adigun.json",
+      "safetyNote": "Analytical start-up and diode-threshold estimate, not nonlinear time-domain SPICE. The estimated amplitude is an approximate limiter threshold. Noise/start-up time, waveform distortion, op-amp bandwidth/slew, diode curves, loading, tolerances, and physical part ratings are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 40
     }
   ]
 }
