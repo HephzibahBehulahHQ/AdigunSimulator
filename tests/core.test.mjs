@@ -2220,3 +2220,28 @@ test("catalogue GPS RMC example validates NMEA checksum and displays decimal coo
   broken.nets.find(net=>net.id==="UART_RX").endpoints=["gnss:TX"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+
+test("catalogue RFID reader grants allowlisted UID and denies unknown tags",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/077-rfid-access-reader.adigun.json",import.meta.url)));
+  const granted=runSupportedAnalysis(project);
+  assert.equal(granted.state,"complete",granted.message);
+  assert.equal(granted.result.kind,"rfid-access");
+  assert.equal(granted.result.uid,"04A1B2C3");
+  assert.equal(granted.result.allowed,true);
+  assert.equal(granted.result.accessState,"granted");
+  assert.equal(granted.result.lockOpen,true);
+  assert.equal(granted.result.lockOutput,1);
+  assert.equal(granted.result.authentication,"UID only; not secure");
+  assert.equal(granted.result.firmwareExecuted,false);
+  const unknown=runSupportedAnalysis(updateComponent(project,"tag",{value:"UID DEADBEEF"}));
+  assert.equal(unknown.state,"complete");
+  assert.equal(unknown.result.allowed,false);
+  assert.equal(unknown.result.accessState,"denied");
+  assert.equal(unknown.result.lockOpen,false);
+  assert.equal(unknown.result.lockOutput,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"controller",{value:"Allowlist invalid; UnlockState 1; DenyState 0"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="UID_DATA").endpoints=["reader:DATA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
