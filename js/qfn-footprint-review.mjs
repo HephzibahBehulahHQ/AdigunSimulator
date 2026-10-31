@@ -1,4 +1,5 @@
-const REQUIRED_PINS = Object.freeze(["SW","SW","SW","PG","FB","AGND","FSW","DEF","SS/TR","AVIN","PVIN","PVIN","EN","VOS","PGND","PGND","EP"]);
+const REQUIRED_PINS = Object.freeze(["SW_1","SW_2","SW_3","PG","FB","AGND","FSW","DEF","SS_TR","AVIN","PVIN_1","PVIN_2","EN","VOS","PGND_1","PGND_2","EP"]);
+const REQUIRED_DATASHEET_NAMES = Object.freeze(["SW","SW","SW","PG","FB","AGND","FSW","DEF","SS/TR","AVIN","PVIN","PVIN","EN","VOS","PGND","PGND","EP"]);
 const TOLERANCE = 0.011;
 const near=(a,b)=>Number.isFinite(a)&&Math.abs(a-b)<=TOLERANCE;
 const csv=(value)=>`"${String(value).replaceAll('"','""')}"`;
@@ -19,7 +20,7 @@ export function reviewQfnFootprint(project){
   const bodyClearance=body.xMm-court.xMm;
   const courtOk=[court.xMm,court.yMm,court.widthMm,court.heightMm].every(Number.isFinite)&&near(court.widthMm,3.8)&&near(court.heightMm,3.8)&&near(court.xMm,body.xMm-0.4)&&near(court.yMm,body.yMm-0.4);
   add(checks,"courtyard","Centered courtyard with at least 0.4 mm body margin",courtOk,`${court.widthMm??"?"} x ${court.heightMm??"?"} mm; margin ${Number.isFinite(bodyClearance)?bodyClearance.toFixed(3):"?"} mm`);
-  const pads=(pcb?.pads??[]).filter(pad=>pad.instanceId===part?.instanceId),mapOk=pads.length===17&&REQUIRED_PINS.every((pin,index)=>{const n=index+1,p=pads.find(item=>String(item.number)===String(n));return Boolean(p&&p.pin===pin&&p.reference==="U1");});
+  const pads=(pcb?.pads??[]).filter(pad=>pad.instanceId===part?.instanceId),mapOk=pads.length===17&&REQUIRED_PINS.every((pin,index)=>{const n=index+1,p=pads.find(item=>String(item.number)===String(n));return Boolean(p&&p.pin===pin&&p.datasheetPinName===REQUIRED_DATASHEET_NAMES[index]&&p.reference==="U1");});
   add(checks,"pad-map","Sixteen numbered leads plus exposed pad 17 map to TI pin names",mapOk,`${pads.length} pads`);
   const geometryOk=mapOk&&REQUIRED_PINS.every((_,index)=>{const n=index+1,p=pads.find(item=>String(item.number)===String(n)),[dx,dy]=expectedPosition(n),vertical=n<=4||n>=9&&n<=12;return near(p.xMm,5+dx)&&near(p.yMm,5+dy)&&near(p.widthMm,n===17?1.68:vertical?0.24:0.6)&&near(p.heightMm,n===17?1.68:vertical?0.6:0.24);});
   add(checks,"land-pattern","Pad positions, 0.50 mm pitch, 0.60 x 0.24 mm leads and 1.68 mm exposed pad",geometryOk,"RGT0016C land-pattern metadata");

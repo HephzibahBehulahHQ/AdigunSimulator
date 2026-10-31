@@ -60,7 +60,8 @@
         "widthMm": 0.24,
         "heightMm": 0.6,
         "xMm": 3.9,
-        "yMm": 4.25
+        "yMm": 4.25,
+        "datasheetPinName": "SW"
       },
       {
         "instanceId": "qfn",
@@ -72,7 +73,8 @@
         "widthMm": 0.24,
         "heightMm": 0.6,
         "xMm": 3.9,
-        "yMm": 4.75
+        "yMm": 4.75,
+        "datasheetPinName": "SW"
       },
       {
         "instanceId": "qfn",
@@ -84,7 +86,8 @@
         "widthMm": 0.24,
         "heightMm": 0.6,
         "xMm": 3.9,
-        "yMm": 5.25
+        "yMm": 5.25,
+        "datasheetPinName": "SW"
       },
       {
         "instanceId": "qfn",
@@ -96,7 +99,8 @@
         "widthMm": 0.24,
         "heightMm": 0.6,
         "xMm": 3.9,
-        "yMm": 5.75
+        "yMm": 5.75,
+        "datasheetPinName": "PG"
       },
       {
         "instanceId": "qfn",
@@ -108,7 +112,8 @@
         "widthMm": 0.6,
         "heightMm": 0.24,
         "xMm": 4.25,
-        "yMm": 6.1
+        "yMm": 6.1,
+        "datasheetPinName": "FB"
       },
       {
         "instanceId": "qfn",
@@ -120,7 +125,8 @@
         "widthMm": 0.6,
         "heightMm": 0.24,
         "xMm": 4.75,
-        "yMm": 6.1
+        "yMm": 6.1,
+        "datasheetPinName": "AGND"
       },
       {
         "instanceId": "qfn",
@@ -132,7 +138,8 @@
         "widthMm": 0.6,
         "heightMm": 0.24,
         "xMm": 5.25,
-        "yMm": 6.1
+        "yMm": 6.1,
+        "datasheetPinName": "FSW"
       },
       {
         "instanceId": "qfn",
@@ -144,7 +151,8 @@
         "widthMm": 0.6,
         "heightMm": 0.24,
         "xMm": 5.75,
-        "yMm": 6.1
+        "yMm": 6.1,
+        "datasheetPinName": "DEF"
       },
       {
         "instanceId": "qfn",
@@ -156,7 +164,8 @@
         "widthMm": 0.24,
         "heightMm": 0.6,
         "xMm": 6.1,
-        "yMm": 5.75
+        "yMm": 5.75,
+        "datasheetPinName": "SS/TR"
       },
       {
         "instanceId": "qfn",
@@ -168,7 +177,8 @@
         "widthMm": 0.24,
         "heightMm": 0.6,
         "xMm": 6.1,
-        "yMm": 5.25
+        "yMm": 5.25,
+        "datasheetPinName": "AVIN"
       },
       {
         "instanceId": "qfn",
@@ -180,7 +190,8 @@
         "widthMm": 0.24,
         "heightMm": 0.6,
         "xMm": 6.1,
-        "yMm": 4.75
+        "yMm": 4.75,
+        "datasheetPinName": "PVIN"
       },
       {
         "instanceId": "qfn",
@@ -192,7 +203,8 @@
         "widthMm": 0.24,
         "heightMm": 0.6,
         "xMm": 6.1,
-        "yMm": 4.25
+        "yMm": 4.25,
+        "datasheetPinName": "PVIN"
       },
       {
         "instanceId": "qfn",
@@ -204,7 +216,8 @@
         "widthMm": 0.6,
         "heightMm": 0.24,
         "xMm": 5.75,
-        "yMm": 3.9
+        "yMm": 3.9,
+        "datasheetPinName": "EN"
       },
       {
         "instanceId": "qfn",
@@ -216,7 +229,8 @@
         "widthMm": 0.6,
         "heightMm": 0.24,
         "xMm": 5.25,
-        "yMm": 3.9
+        "yMm": 3.9,
+        "datasheetPinName": "VOS"
       },
       {
         "instanceId": "qfn",
@@ -228,7 +242,8 @@
         "widthMm": 0.6,
         "heightMm": 0.24,
         "xMm": 4.75,
-        "yMm": 3.9
+        "yMm": 3.9,
+        "datasheetPinName": "PGND"
       },
       {
         "instanceId": "qfn",
@@ -240,7 +255,8 @@
         "widthMm": 0.6,
         "heightMm": 0.24,
         "xMm": 4.25,
-        "yMm": 3.9
+        "yMm": 3.9,
+        "datasheetPinName": "PGND"
       },
       {
         "instanceId": "qfn",
@@ -252,7 +268,8 @@
         "widthMm": 1.68,
         "heightMm": 1.68,
         "xMm": 5,
-        "yMm": 5
+        "yMm": 5,
+        "datasheetPinName": "EP"
       }
     ],
     "routes": [],
