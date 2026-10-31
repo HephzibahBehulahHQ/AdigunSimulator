@@ -1249,6 +1249,18 @@
           "loadCurrentA": 0.00025
         }
       }
+    },
+    {
+      "id": "031-transistor-common-emitter",
+      "title": "NPN common-emitter amplifier",
+      "status": "in-review",
+      "objective": "Solve an NPN divider-biased operating point and estimate an inverted 1 kHz small-signal output without exceeding collector headroom.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue common-emitter amplifier solves active bias and inverted sine trace",
+      "testId": "core-npn-common-emitter",
+      "projectFile": "examples/031-transistor-common-emitter.adigun.json",
+      "safetyNote": "Fixed-β, fixed-VBE educational midband estimate only. It omits device curves, Early effect, capacitor corner behavior, distortion, temperature, tolerance, and hardware qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 31
     }
   ]
 }
