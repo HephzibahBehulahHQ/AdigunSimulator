@@ -6783,7 +6783,7 @@
     {
       "id": "175-garage-door-concept",
       "title": "Garage-door concept",
-      "status": "in-review",
+      "status": "released",
       "objective": "Model open/close commands with synthetic end limits; stop motion at the reached limit and reject conflicting opposite-direction commands.",
       "acceptanceTest": "tests/core.test.mjs: catalogue garage door limit switches stop motion and reject opposite-direction commands",
       "testId": "core-garage-door-concept",
@@ -6791,7 +6791,24 @@
       "readmeFile": "examples/175-garage-door-concept/README.md",
       "safetyNote": "Synthetic logic sequence only. No door mechanics, motor, obstruction/photoeye sensing, force limiting, entrapment protection, field wiring, or safety certification is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 175,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41212121003",
+        "headRevision": "c7c56c084e43f3bea1114e609b507dcecd77f19d",
+        "engine": "Deterministic door limit and direction logic concept",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "garage-door-limit-sequence-v1",
+        "expectedResult": {
+          "kind": "garage-door-limit-sequence",
+          "frameCount": 7,
+          "conflictingRequestsRejected": 1,
+          "noDriveOverlap": true,
+          "physicalDoorModel": false
+        }
+      }
     }
   ]
 }
