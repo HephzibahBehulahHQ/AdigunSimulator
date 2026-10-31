@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 50);
+  assert.equal(getExampleCoverage(registry).total, 51);
   assert.equal(getExampleCoverage(registry).released, 40);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 160);
@@ -1335,4 +1335,27 @@ test("catalogue Wien bridge oscillator starts above unity loop gain and limits a
   sameDirectionDiodes.nets.find((net) => net.id === "OUTPUT").endpoints = ["opamp:OUT", "series-capacitor:1", "feedback:1", "limiter-1:A", "limiter-2:A"];
   sameDirectionDiodes.nets.find((net) => net.id === "INVERTING").endpoints = ["opamp:-", "feedback:2", "gain-leg:1", "limiter-1:K", "limiter-2:K"];
   assert.equal(runSupportedAnalysis(sameDirectionDiodes).state, "blocked");
+});
+
+test("catalogue AND gate matches all input vectors and drives a current-limited LED", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/041-and-gate-truth-table.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const vectors = [[0, 0, false], [0, 5, false], [5, 0, false], [5, 5, true]];
+  for (const [a, b, expected] of vectors) {
+    let vector = updateComponent(project, "input-a", { value: `${a} V` });
+    vector = updateComponent(vector, "input-b", { value: `${b} V` });
+    const result = runSupportedAnalysis(vector);
+    assert.equal(result.state, "complete");
+    assert.equal(result.result.outputHigh, expected);
+    assert.equal(result.result.ledOn, expected);
+    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 330 : 0);
+  }
+  let threshold = updateComponent(project, "input-a", { value: "2.5 V" });
+  threshold = updateComponent(threshold, "input-b", { value: "5 V" });
+  assert.equal(runSupportedAnalysis(threshold).result.outputHigh, true);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "input-a", { value: "6 V" })).state, "blocked");
+
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "LED_A").endpoints = ["led:A"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
