@@ -7616,6 +7616,19 @@
           "applied": false
         }
       }
+    },
+    {
+      "id": "198-four-language-ui-sweep",
+      "title": "Four-language UI sweep",
+      "status": "in-review",
+      "objective": "Audit English, German, Yorùbá and Nigerian Pidgin translation coverage, localized HTML key references, accessible names/alt text, and responsive overflow safeguards across representative viewport breakpoints.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue four-language UI sweep finds no missing keys, undeclared localized attributes, unnamed controls, or missing responsive overflow guards",
+      "testId": "core-four-language-ui-sweep",
+      "projectFile": "examples/198-four-language-ui-sweep.adigun.json",
+      "readmeFile": "examples/198-four-language-ui-sweep/README.md",
+      "safetyNote": "Static source audit only; it does not claim rendered browser pixel results, assistive-technology certification, or full accessibility conformance.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
