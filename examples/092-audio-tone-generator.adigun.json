@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-092-audio-tone-generator",
+  "metadata": {
+    "name": "1 kHz Audio Tone and Spectrum Check",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          35,
+          50
+        ],
+        "schematic": [
+          35,
+          50
+        ],
+        "pcb": [
+          35,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "settings",
+      "libraryId": "input.audio-tone-settings",
+      "reference": "SIG1",
+      "value": "Waveform sine; Frequency 1000 Hz; Amplitude 1 V; Offset 2.5 V; SampleRate 48000 Hz; Duration 10 ms",
+      "position": {
+        "breadboard": [
+          140,
+          50
+        ],
+        "schematic": [
+          140,
+          50
+        ],
+        "pcb": [
+          140,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "generator",
+      "libraryId": "active.audio-tone-generator-ideal",
+      "reference": "OSC1",
+      "value": "Mode ideal",
+      "position": {
+        "breadboard": [
+          300,
+          50
+        ],
+        "schematic": [
+          300,
+          50
+        ],
+        "pcb": [
+          300,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.audio-spectrum-report",
+      "reference": "SCOPE1",
+      "value": "Spectrum report",
+      "position": {
+        "breadboard": [
+          460,
+          50
+        ],
+        "schematic": [
+          460,
+          50
+        ],
+        "pcb": [
+          460,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          565,
+          220
+        ],
+        "schematic": [
+          565,
+          220
+        ],
+        "pcb": [
+          565,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "generator:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "settings:GND",
+        "generator:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "TONE_CONFIG",
+      "endpoints": [
+        "settings:CONFIG",
+        "generator:CONFIG"
+      ]
+    },
+    {
+      "id": "TONE_OUT",
+      "endpoints": [
+        "generator:OUT",
+        "report:IN"
+      ]
+    }
+  ],
+  "history": []
+}
