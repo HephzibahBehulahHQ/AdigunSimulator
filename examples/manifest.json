@@ -2236,6 +2236,18 @@
           "invalidSelectVoltage": "blocked"
         }
       }
+    },
+    {
+      "id": "053-decoder-controlled-leds",
+      "title": "Two-to-four decoder-controlled LEDs",
+      "status": "in-review",
+      "objective": "Decode every two-bit address into exactly one active-high output and light only the corresponding current-limited LED.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue two-to-four decoder asserts exactly one matching output",
+      "testId": "core-decoder-controlled-leds",
+      "projectFile": "examples/053-decoder-controlled-leds.adigun.json",
+      "safetyNote": "Generic ideal static active-high decoder. It omits propagation delay, output drive limits, leakage, noise, enable inputs, and device-specific logic thresholds.",
+      "scope": "catalogue",
+      "catalogueIndex": 53
     }
   ]
 }
