@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-043-xor-parity-checker",
+  "metadata": {
+    "name": "Two-Input XOR Parity Checker",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "input-a",
+      "libraryId": "power.dc-source",
+      "reference": "VA",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "input-b",
+      "libraryId": "power.dc-source",
+      "reference": "VB",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "gate",
+      "libraryId": "active.logic-xor-ideal",
+      "reference": "U1",
+      "value": "Ideal XOR parity logic; 5 V supply",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "output-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "gate:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "input-a:-",
+        "input-b:-",
+        "gate:GND",
+        "led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "A",
+      "endpoints": [
+        "input-a:+",
+        "gate:A"
+      ]
+    },
+    {
+      "id": "B",
+      "endpoints": [
+        "input-b:+",
+        "gate:B"
+      ]
+    },
+    {
+      "id": "Y",
+      "endpoints": [
+        "gate:Y",
+        "output-resistor:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "output-resistor:2",
+        "led:A"
+      ]
+    }
+  ],
+  "history": []
+}
