@@ -6100,14 +6100,31 @@
     {
       "id": "153-floating-node-diagnosis",
       "title": "Floating-node diagnosis",
-      "status": "in-review",
+      "status": "released",
       "objective": "Diagnose an analog node isolated from DC bias by a capacitor, report the floating net and jump target, and suggest checks without silently modifying the design.",
       "acceptanceTest": "tests/core.test.mjs: catalogue floating-node diagnosis identifies the object to inspect",
       "testId": "core-floating-node-diagnosis",
       "projectFile": "examples/153-floating-node-diagnosis.adigun.json",
       "readmeFile": "examples/153-floating-node-diagnosis/README.md",
       "safetyNote": "This is a bounded DC connectivity diagnosis for the declared capacitor-isolated fixture. It is not a general ERC, AC analysis, or SPICE operating-point solver; select any bias or bleed path based on circuit requirements.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 153,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41207122927",
+        "headRevision": "5c99ec4e8f0a6fd8ccad48b23a4d8eeef2e25d5a",
+        "engine": "Focused capacitor-isolated DC node diagnosis",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "floating-dc-node-diagnostic-v1",
+        "expectedResult": {
+          "kind": "floating-node-diagnosis",
+          "netId": "FLOATING",
+          "targetReference": "C1",
+          "jumpToTarget": true,
+          "automaticDesignEdit": false
+        }
+      }
     }
   ]
 }
