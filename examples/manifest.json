@@ -7487,7 +7487,7 @@
     {
       "id": "194-bom-export-cost-placeholder",
       "title": "BOM export and costing placeholder",
-      "status": "in-review",
+      "status": "released",
       "objective": "Group project components into a CSV-ready BOM using verified project and component-library fields; keep price and total cost unavailable unless a dated source is recorded.",
       "acceptanceTest": "tests/core.test.mjs: catalogue BOM export groups verified fields, safely quotes CSV, preserves sourced price evidence, and leaves missing costs blank",
       "testId": "core-bom-export-cost-placeholder",
@@ -7495,7 +7495,25 @@
       "readmeFile": "examples/194-bom-export-cost-placeholder/README.md",
       "safetyNote": "BOM and sourced-price placeholder only. It is not a supplier quote, purchasing commitment, stock check, or procurement authorization.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 194,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41216646164",
+        "headRevision": "58342deeb2ce97df4c1edddeff0566905caa5377",
+        "engine": "Verified-field BOM export with sourced-cost placeholder",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "bom-cost-placeholder-v1",
+        "expectedResult": {
+          "kind": "bom-cost-placeholder",
+          "rowCount": 4,
+          "itemCount": 4,
+          "totalCost": null,
+          "unitCostsAvailable": 0,
+          "pricePolicy": "Missing source price remains null and exports as a blank CSV field."
+        }
+      }
     }
   ]
 }
