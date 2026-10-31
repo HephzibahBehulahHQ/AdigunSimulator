@@ -462,7 +462,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
   }
-  if (trafficFsms.length === 1 && source.length === 3 && resistor.length === 6 && led.length === 6 && ground.length === 1 && project.components.length === 18) {
+  if (trafficFsms.length === 1 && source.length === 3 && resistor.length === 6 && led.length === 6 && ground.length === 1 && project.components.length === 17) {
     return analyseTrafficLightFsm(project, { sources: source, fsm: trafficFsms[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
   }
   if (bcdDisplays.length === 1 && source.length === 3 && resistor.length === 7 && led.length === 7 && ground.length === 1 && project.components.length === 19) {
