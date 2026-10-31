@@ -7655,6 +7655,19 @@
           "renderedPixelCheck": false
         }
       }
+    },
+    {
+      "id": "199-local-offline-recovery",
+      "title": "Local offline recovery",
+      "status": "in-review",
+      "objective": "Simulate an unsaved edit, recover it from a versioned local draft, and prove a validated native-project export preserves the edit when browser storage is unavailable.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue offline recovery restores the unsaved edit and preserves it in a valid export when storage writes throw",
+      "testId": "core-local-offline-recovery",
+      "projectFile": "examples/199-local-offline-recovery.adigun.json",
+      "readmeFile": "examples/199-local-offline-recovery/README.md",
+      "safetyNote": "The storage failure is mocked in CI; real browser quota, crashes, filesystem failures and eviction are not simulated. Export important project work when local draft storage is unavailable.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
