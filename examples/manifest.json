@@ -1137,14 +1137,31 @@
     {
       "id": "027-comparator-threshold",
       "title": "Comparator threshold indicator",
-      "status": "in-review",
+      "status": "released",
       "objective": "Use a 5 V dual-input comparator and a 10 kΩ/10 kΩ divider to switch an LED at a 2.5 V threshold; test rising and falling input states.",
       "acceptanceTest": "tests/core.test.mjs: catalogue comparator threshold switches on rising input and off below threshold",
       "testId": "core-comparator-threshold",
       "projectFile": "examples/027-comparator-threshold.adigun.json",
       "safetyNote": "Ideal educational comparator model only. It omits propagation delay, hysteresis, offset, input bias, output saturation, noise, loading, and device-specific limits.",
       "scope": "catalogue",
-      "catalogueIndex": 27
+      "catalogueIndex": 27,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41169915760",
+        "headRevision": "55aa007b6c28eaea0e19a15bfc66896e4f0d6ae0",
+        "engine": "Ideal dual-input comparator threshold analysis",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-comparator-threshold-v1",
+        "expectedResult": {
+          "supplyVoltage": 5,
+          "inputVoltage": 2.6,
+          "thresholdVoltage": 2.5,
+          "outputState": "high",
+          "ledOn": true,
+          "ledCurrentA": 0.00909090909090909
+        }
+      }
     }
   ]
 }
