@@ -4782,6 +4782,19 @@
           "hardwareSafetyQualified": false
         }
       }
+    },
+    {
+      "id": "116-inverter-waveform",
+      "title": "Inverter waveform concept",
+      "status": "in-review",
+      "objective": "Estimate the filtered fundamental RMS output of an ideal single-phase H-bridge from a DC bus and sine-PWM command, and verify the configured output-voltage tolerance and frequency.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue inverter reports target RMS and selected output frequency through LC filter",
+      "testId": "core-inverter-waveform",
+      "projectFile": "examples/116-inverter-waveform.adigun.json",
+      "readmeFile": "examples/116-inverter-waveform/README.md",
+      "safetyNote": "Ideal fundamental/LC estimator only; no PWM switching waveform, mains output, inverter hardware, isolation, thermal, or safety qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 116
     }
   ]
 }
