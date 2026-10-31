@@ -2360,3 +2360,33 @@ test("catalogue LoRa sensor encodes its payload and blocks sends over the config
   broken.nets.find(net=>net.id==="RADIO_DATA").endpoints=["controller:RADIO"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue GSM alarm notifier follows mocked AT steps and aborts on modem errors", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/083-gsm-alarm-notifier.adigun.json",import.meta.url)));
+  const success=runSupportedAnalysis(project);
+  assert.equal(success.state,"complete",success.message);
+  assert.equal(success.result.kind,"gsm-alarm-mock");
+  assert.deepEqual(success.result.commands,["AT","AT+CREG?","AT+CMGF=1",'AT+CMGS="TEST_ONLY"']);
+  assert.equal(success.result.commandsCompleted,4);
+  assert.equal(success.result.transactionState,"mock-modem-accepted");
+  assert.equal(success.result.messageBody,"TEMP_LIMIT_EXCEEDED");
+  assert.equal(success.result.modemAccepted,true);
+  assert.equal(success.result.deliveryConfirmed,false);
+  assert.equal(success.result.radioTransmitted,false);
+  const modemError=runSupportedAnalysis(updateComponent(project,"event",{value:"AlarmState active; Message TEMP_LIMIT_EXCEEDED; Responses OK|+CREG:0,1|ERROR|>; SendResult +CMGS:0|OK"}));
+  assert.equal(modemError.state,"complete");
+  assert.equal(modemError.result.transactionState,"aborted-modem-error");
+  assert.equal(modemError.result.failedCommand,"AT+CMGF=1");
+  assert.equal(modemError.result.messageBody,undefined);
+  assert.equal(modemError.result.radioTransmitted,false);
+  const sendError=runSupportedAnalysis(updateComponent(project,"event",{value:"AlarmState active; Message TEMP_LIMIT_EXCEEDED; Responses OK|+CREG:0,1|OK|>; SendResult ERROR|ERROR"}));
+  assert.equal(sendError.result.transactionState,"aborted-send-error");
+  const notRegistered=runSupportedAnalysis(updateComponent(project,"modem",{value:"Mode AT-mock; Registration searching"}));
+  assert.equal(notRegistered.result.transactionState,"aborted-not-registered");
+  const inactive=runSupportedAnalysis(updateComponent(project,"event",{value:"AlarmState inactive; Message TEMP_LIMIT_EXCEEDED; Responses OK|+CREG:0,1|OK|>; SendResult +CMGS:0|OK"}));
+  assert.equal(inactive.result.transactionState,"idle-no-alarm");
+  assert.equal(inactive.result.commands.length,0);
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="UART_TX").endpoints=["controller:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
