@@ -67,7 +67,7 @@ test("released example picker points only to tested registry projects", async ()
   ]);
   const manifest = JSON.parse(manifestText);
   const releasedFiles = manifest.examples.filter((example) => example.status === "released").map((example) => example.projectFile).sort();
-  const pickerFiles = values(html, /<option value="(examples\/[^"]+\.adigun\.json)">/g).sort();
+  const pickerFiles = values(html, /<option\b[^>]*\bvalue="(examples\/[^"]+\.adigun\.json)"[^>]*>/g).sort();
   assert.deepEqual(pickerFiles, releasedFiles);
   assert.match(app, /runSupportedAnalysis\(project\)/);
   assert.match(app, /Loaded and validated/);
