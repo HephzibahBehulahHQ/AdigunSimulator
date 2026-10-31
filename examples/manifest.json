@@ -4067,7 +4067,6 @@
         "modelVersion": "ideal-epaper-refresh-sequencer-v1",
         "expectedResult": {
           "kind": "epaper-refresh",
-          "refreshType": "partial",
           "changedFraction": 0.01,
           "wakeOccurred": true,
           "stateSequence": [
@@ -4081,7 +4080,58 @@
           "estimatedDurationMs": 875,
           "partialsSinceFullAfter": 2,
           "firmwareExecuted": false,
-          "panelDriven": false
+          "panelDriven": false,
+          "refreshMode": "partial",
+          "changedTiles": 1,
+          "totalTiles": 100,
+          "partialLimit": 0.2,
+          "partialsSinceFullBefore": 1,
+          "powerStateBefore": "sleep",
+          "panelPower": "on",
+          "busyTimeoutMs": 1200,
+          "refreshCompleted": true,
+          "powerStateAfter": "sleep"
+        }
+      }
+    },
+    {
+      "id": "100-seven-segment-clock",
+      "title": "Seven-segment clock",
+      "status": "released",
+      "objective": "Advance a validated 24-hour display from 23:59:58 by three rising-edge ticks, wrap across midnight, and format the resulting six digits as common-cathode segment vectors.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue seven-segment clock handles midnight rollover and invalid fixtures",
+      "testId": "core-seven-segment-clock",
+      "projectFile": "examples/100-seven-segment-clock.adigun.json",
+      "safetyNote": "Ideal deterministic clock and display formatter only. RTC accuracy, multiplex timing, segment current, driver circuitry, optical behavior, firmware, and hardware are not modeled or validated.",
+      "scope": "catalogue",
+      "catalogueIndex": 100,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41186702729",
+        "headRevision": "3f853d4e7f7dd8bf1e9b6af0522ec9645cfaa0c3",
+        "engine": "Ideal 24-hour clock tick and seven-segment formatter",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-seven-segment-clock-v1",
+        "expectedResult": {
+          "kind": "seven-segment-clock",
+          "initialTime": "23:59:58",
+          "ticks": 3,
+          "tickHz": 1,
+          "outputTime": "00:00:01",
+          "digitValues": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "midnightRollovers": 1,
+          "displayDigits": 6,
+          "displayType": "common-cathode",
+          "firmwareExecuted": false,
+          "displayDriven": false
         }
       }
     }
