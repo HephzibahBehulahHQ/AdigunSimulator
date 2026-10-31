@@ -109,7 +109,8 @@ const state = {
   future: [],
   dirty: initialProject.recovered,
   lastValidation: null,
-  breadboardSyncPreview: null
+  breadboardSyncPreview: null,
+  breadboardPlacementMode: false
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -234,7 +235,7 @@ function breadboardBoardSvg(project) {
   const holes = breadboardHoleIds().map((id) => {
     const { x, y } = breadboardHolePoint(id);
     const rail = /^(TP|TM|BP|BM)/.test(id);
-    return `<circle class="board-hole ${rail ? "rail-hole" : ""}" cx="${x}" cy="${y}" r="${rail ? 3.1 : 2.1}"/>`;
+    return `<g class="board-hole-target" data-breadboard-hole="${id}" role="button" aria-label="Place selected component pin at ${id}" tabindex="0"><circle class="board-hole-hit" cx="${x}" cy="${y}" r="7"/><circle class="board-hole ${rail ? "rail-hole" : ""}" cx="${x}" cy="${y}" r="${rail ? 3.1 : 2.1}"/></g>`;
   }).join("");
   return `<svg class="breadboard-art" viewBox="0 0 680 300" preserveAspectRatio="none" role="img" aria-label="Generic thirty-column breadboard with 300 terminal holes, 120 rail holes and four split rails">
     <rect class="board-plate" x="34" y="38" width="612" height="224" rx="13"/>
@@ -398,7 +399,7 @@ function commitBreadboardEdit(project, message) {
 
 function renderCanvas() {
   const canvas = $("#design-canvas");
-  canvas.className = `design-canvas ${state.activeView} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
+  canvas.className = `design-canvas ${state.activeView} ${state.breadboardPlacementMode ? "is-placement-mode" : ""} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
   const canvasArea = document.querySelector(".canvas-area");
   canvasArea.classList.toggle("has-overview", state.activeView === "breadboard");
   document.querySelectorAll("[data-mini-view]").forEach((panel) => { panel.hidden = panel.dataset.miniView !== "schematic" || state.activeView !== "breadboard"; });
@@ -1020,6 +1021,7 @@ function exportPcbFiles() {
 }
 function activateView(view) {
   state.activeView = view;
+  if (view !== "breadboard") state.breadboardPlacementMode = false;
   $$(".view-tab").forEach((tab) => { const active = tab.dataset.view === view; tab.classList.toggle("active", active); tab.setAttribute("aria-selected", String(active)); });
   renderCanvas();
 }
@@ -1050,6 +1052,14 @@ function handleAction(action) {
   if (action === "undo") undo();
   if (action === "redo") redo();
   if (action === "run-simulation") runAnalysis();
+  if (action === "breadboard-placement-mode") {
+    if (!$("#breadboard-pin").value) return showDialog(t("breadboardEditor"), t("breadboardSelectPinFirst"));
+    state.activeView = "breadboard";
+    state.breadboardPlacementMode = true;
+    activateView("breadboard");
+    state.breadboardPlacementMode = true;
+    render();
+  }
 
   if (action === "breadboard-sync-review") {
     const preview = deriveBreadboardSchematicNets(state.project, { getPartPins: (libraryId) => findLibraryPart(libraryId)?.pins ?? [] });
@@ -1084,6 +1094,12 @@ document.addEventListener("click", (event) => {
   state.userInteracted = true;
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (action) handleAction(action);
+  const holeTarget = event.target.closest("[data-breadboard-hole]");
+  if (holeTarget && state.breadboardPlacementMode && state.activeView === "breadboard") {
+    const placed = assignBreadboardPin($("#breadboard-pin").value, holeTarget.dataset.breadboardHole);
+    if (placed) { state.breadboardPlacementMode = false; render(); }
+    return;
+  }
   if (event.target.closest(".app-menu-popover")) event.target.closest("details").open = false;
   const libraryButton = event.target.closest("[data-library-id]");
   if (libraryButton) { state.selectedLibraryId = libraryButton.dataset.libraryId; renderLibrary(); }
@@ -1115,6 +1131,13 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  const holeTarget = event.target.closest?.("[data-breadboard-hole]");
+  if (holeTarget && state.breadboardPlacementMode && (event.key === "Enter" || event.key === " ")) {
+    event.preventDefault();
+    const placed = assignBreadboardPin($("#breadboard-pin").value, holeTarget.dataset.breadboardHole);
+    if (placed) { state.breadboardPlacementMode = false; render(); }
+    return;
+  }
   const target = event.target;
   const editingText = target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
   const modifier = event.ctrlKey || event.metaKey;
@@ -1254,19 +1277,22 @@ $("#connection-form").addEventListener("submit", (event) => {
   }
 });
 
-$("#breadboard-pin-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const endpoint = $("#breadboard-pin").value;
-  const hole = normalizeBreadboardHole($("#breadboard-hole").value);
-  if (!endpoint || !hole) return showDialog(t("breadboardEditor"), t("breadboardInvalidHole"));
+function assignBreadboardPin(endpoint, hole) {
+  const normalizedHole = normalizeBreadboardHole(hole);
+  if (!endpoint || !normalizedHole) return showDialog(t("breadboardEditor"), t("breadboardInvalidHole"));
   const [instanceId, ...pinParts] = endpoint.split(":");
   const pin = pinParts.join(":");
   const component = state.project.components.find((item) => item.instanceId === instanceId);
   if (!component || !findLibraryPart(component.libraryId)?.pins.includes(pin)) return showDialog(t("breadboardEditor"), t("breadboardUnknownPin"));
   const current = state.project.breadboard ?? { model: BREADBOARD_MODEL.id, pinHoles: {}, jumpers: [] };
-  const next = { ...state.project, breadboard: { ...current, model: BREADBOARD_MODEL.id, pinHoles: { ...(current.pinHoles ?? {}), [endpoint]: hole }, jumpers: current.jumpers ?? [] } };
-  $("#breadboard-hole").value = "";
-  commitBreadboardEdit(next, `[BREADBOARD] Placed ${endpoint} at ${hole}.`);
+  const next = { ...state.project, breadboard: { ...current, model: BREADBOARD_MODEL.id, pinHoles: { ...(current.pinHoles ?? {}), [endpoint]: normalizedHole }, jumpers: current.jumpers ?? [] } };
+  commitBreadboardEdit(next, `[BREADBOARD] Placed ${endpoint} at ${normalizedHole}.`);
+  return true;
+}
+
+$("#breadboard-pin-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (assignBreadboardPin($("#breadboard-pin").value, $("#breadboard-hole").value)) $("#breadboard-hole").value = "";
 });
 $("#breadboard-placement-list").addEventListener("click", (event) => {
   const button = event.target.closest("[data-bb-unassign]");

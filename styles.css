@@ -96,6 +96,11 @@ h1 span { color: var(--cyan); }
 .reconciliation-notice { position: absolute; z-index: 5; right: .7rem; top: .55rem; display: grid; gap: .18rem; max-width: min(25rem, 54%); padding: .45rem .55rem; border: 1px solid #c88f36; border-radius: .35rem; background: rgb(74 45 7 / 94%); color: #ffe4a8; font-size: .68rem; line-height: 1.35; }.reconciliation-notice span { color: #f7d990; }
 
 .breadboard-art { position:absolute; z-index:0; inset:0; width:100%; height:100%; pointer-events:none; }
+.board-hole-target { pointer-events:none; }
+.board-hole-hit { fill:transparent; stroke:transparent; pointer-events:none; }
+.design-canvas.is-placement-mode .board-hole-target { pointer-events:all; cursor:crosshair; }
+.design-canvas.is-placement-mode .board-hole-target:hover .board-hole-hit,
+.design-canvas.is-placement-mode .board-hole-target:focus .board-hole-hit { fill:rgb(40 200 232 / 35%); stroke:#28c8e8; stroke-width:1.3; }
 .board-plate { fill:#ddd4c1; stroke:#ad9a78; stroke-width:1.2; filter:drop-shadow(0 3px 7px rgb(0 0 0 / 35%)); }
 .board-trench { stroke:#aaa18f; stroke-width:9; opacity:.85; }
 .board-rail-positive,.board-rail-negative { fill:none; stroke-width:2.5; }
