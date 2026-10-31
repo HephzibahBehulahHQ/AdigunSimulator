@@ -112,7 +112,9 @@ const state = {
   dirty: initialProject.recovered,
   lastValidation: null,
   breadboardSyncPreview: null,
-  breadboardPlacementMode: false
+  breadboardPlacementMode: false,
+  schematicWireMode: false,
+  schematicWireStart: null
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -240,16 +242,22 @@ function netSvg(project, view, unavailable = new Set()) {
     }).join(" ");
     return [`<path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""}" d="${path}" data-net="${escape(net.id)}"/>`];
   }).join("");
-  const terminals = view === "schematic" ? project.nets.flatMap((net) => net.endpoints.map((endpoint) => {
-    const point = endpointPoint(endpoint);
-    if (!point) return "";
-    const pin = endpoint.slice(endpoint.indexOf(":") + 1);
-    const side = point.side;
-    const labelX = point.x + (side === "left" ? -4 : 4);
-    const anchor = side === "left" ? "end" : "start";
-    return `<g class="schematic-pin-terminal ${netClass(net.id)}" data-endpoint="${escape(endpoint)}"><circle cx="${point.x}" cy="${point.y}" r="2.4"/><text x="${labelX}" y="${point.y - 4}" text-anchor="${anchor}">${escape(pin)}</text></g>`;
-  }).join("")) : "";
-  return `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true">${paths}${terminals}</svg>`;
+  const terminals = view === "schematic" ? project.components.flatMap((component) => {
+    if (unavailable.has(component.instanceId)) return [];
+    const pins = findLibraryPart(component.libraryId)?.pins ?? [];
+    return pins.map((pin) => {
+      const endpoint = `${component.instanceId}:${pin}`;
+      const point = endpointPoint(endpoint);
+      if (!point) return "";
+      const net = project.nets.find((item) => item.endpoints.includes(endpoint));
+      const side = point.side;
+      const labelX = point.x + (side === "left" ? -4 : 4);
+      const anchor = side === "left" ? "end" : "start";
+      const origin = state.schematicWireStart === endpoint ? "is-wire-origin" : "";
+      return `<g class="schematic-pin-terminal schematic-pin-target ${net ? netClass(net.id) : "net-signal"} ${origin}" data-schematic-endpoint="${escape(endpoint)}" aria-label="${escape(endpoint)}"><circle class="schematic-pin-hit" cx="${point.x}" cy="${point.y}" r="8"/><circle class="schematic-pin-dot" cx="${point.x}" cy="${point.y}" r="2.4"/><text x="${labelX}" y="${point.y - 4}" text-anchor="${anchor}">${escape(pin)}</text></g>`;
+    });
+  }).join("") : "";
+  return `<svg class="wire-layer schematic-wire-layer" viewBox="0 0 680 300" aria-hidden="true">${paths}${terminals}</svg>`;
 }
 
 
@@ -422,7 +430,7 @@ function commitBreadboardEdit(project, message) {
 
 function renderCanvas() {
   const canvas = $("#design-canvas");
-  canvas.className = `design-canvas ${state.activeView} ${state.breadboardPlacementMode ? "is-placement-mode" : ""} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
+  canvas.className = `design-canvas ${state.activeView} ${state.breadboardPlacementMode ? "is-placement-mode" : ""} ${state.schematicWireMode ? "is-wire-mode" : ""} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
   const canvasArea = document.querySelector(".canvas-area");
   canvasArea.classList.toggle("has-overview", state.activeView === "breadboard");
   document.querySelectorAll("[data-mini-view]").forEach((panel) => { panel.hidden = panel.dataset.miniView !== "schematic" || state.activeView !== "breadboard"; });
@@ -442,6 +450,8 @@ function renderCanvas() {
   const reconciliationNotice = issues.length ? `<div class="reconciliation-notice"><strong>Reconciliation needed</strong>${issues.map((issue) => `<span>${escape(issue.reference)}: ${escape(issue.reason)}</span>`).join("")}</div>` : "";
   const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : "PCB mapping preview — routing/DRC not implemented.";
   canvas.innerHTML = `<div class="canvas-label">${label}</div>${reconciliationNotice}<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${surface}${wires}${parts}</div>`;
+  $("#schematic-wire-mode").setAttribute("aria-pressed", String(state.schematicWireMode));
+  $("#schematic-wire-status").textContent = !state.schematicWireMode ? "" : state.schematicWireStart ? t("schematicWireNext") : t("schematicWireStart");
   const miniSchematic = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "schematic").length).map((component) => componentVisual(component, "schematic")).join("");
   const miniPcb = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "pcb").length).map((component) => componentVisual(component, "pcb")).join("");
   $("#schematic-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "schematic", new Set(getViewReconciliationIssues(state.project, "schematic").map((issue) => issue.instanceId)))}${miniSchematic}</div>`;
@@ -1045,6 +1055,7 @@ function exportPcbFiles() {
 function activateView(view) {
   state.activeView = view;
   if (view !== "breadboard") state.breadboardPlacementMode = false;
+  if (view !== "schematic") { state.schematicWireMode = false; state.schematicWireStart = null; }
   $$(".view-tab").forEach((tab) => { const active = tab.dataset.view === view; tab.classList.toggle("active", active); tab.setAttribute("aria-selected", String(active)); });
   renderCanvas();
 }
@@ -1075,6 +1086,11 @@ function handleAction(action) {
   if (action === "undo") undo();
   if (action === "redo") redo();
   if (action === "run-simulation") runAnalysis();
+  if (action === "schematic-wire-mode") {
+    if (state.schematicWireMode) { state.schematicWireMode = false; state.schematicWireStart = null; }
+    else { activateView("schematic"); state.schematicWireMode = true; state.schematicWireStart = null; }
+    render();
+  }
   if (action === "breadboard-placement-mode") {
     if (state.breadboardPlacementMode) { state.breadboardPlacementMode = false; render(); return; }
     if (!$("#breadboard-pin").value) return showDialog(t("breadboardEditor"), t("breadboardSelectPinFirst"));
@@ -1117,6 +1133,27 @@ document.addEventListener("click", (event) => {
   state.userInteracted = true;
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (action) handleAction(action);
+  const schematicPinTarget = event.target.closest("[data-schematic-endpoint]");
+  if (schematicPinTarget && state.schematicWireMode && state.activeView === "schematic") {
+    const endpoint = schematicPinTarget.dataset.schematicEndpoint;
+    if (!state.schematicWireStart) { state.schematicWireStart = endpoint; renderCanvas(); return; }
+    if (state.schematicWireStart === endpoint) { state.schematicWireStart = null; renderCanvas(); return; }
+    try {
+      captureHistory();
+      state.project = connectPins(state.project, state.schematicWireStart, endpoint);
+      state.schematicWireMode = false;
+      state.schematicWireStart = null;
+      state.dirty = true;
+      state.recoveryActive = true;
+      state.lastValidation = null;
+      render();
+      validateAndReport();
+      log(`[SCHEMATIC] Connected ${endpoint} to the selected pin in the shared netlist.`);
+    } catch (error) {
+      showDialog(t("schematic"), error instanceof Error ? error.message : t("schematicWireFailed"));
+    }
+    return;
+  }
   const holeTarget = event.target.closest("[data-breadboard-hole]");
   if (holeTarget && state.breadboardPlacementMode && state.activeView === "breadboard") {
     const placed = assignBreadboardPin($("#breadboard-pin").value, holeTarget.dataset.breadboardHole);
@@ -1154,9 +1191,11 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && state.breadboardPlacementMode) {
+  if (event.key === "Escape" && (state.breadboardPlacementMode || state.schematicWireMode)) {
     event.preventDefault();
     state.breadboardPlacementMode = false;
+    state.schematicWireMode = false;
+    state.schematicWireStart = null;
     render();
     return;
   }
