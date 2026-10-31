@@ -544,6 +544,26 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue 555 monostable produces one pulse of approximately 1.1 RC", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/022-555-monostable.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const idle=runSupportedAnalysis(project);
+  assert.equal(idle.state,"complete");
+  assert.equal(idle.result.kind,"ne555-monostable");
+  assert.equal(idle.result.triggered,false);
+  assert.equal(idle.result.outputPulseCount,0);
+  const triggered=runSupportedAnalysis(updateComponent(project,"trigger-1",{value:"Pressed"}));
+  assert.equal(triggered.state,"complete");
+  assert.equal(triggered.result.triggered,true);
+  assert.equal(triggered.result.outputPulseCount,1);
+  assert.ok(Math.abs(triggered.result.pulseWidthS-1.1)<1e-12);
+  assert.ok(triggered.result.ledCurrentDuringPulseA>0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timing-capacitor-1",{value:"0 F"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TIMING").endpoints=["timer-1:6","timing-capacitor-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
 test("catalogue 555 astable blinker reports timing and duty from R/C values", async () => {
   const project=JSON.parse(await readFile(new URL("../examples/021-555-astable-blinker.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -901,7 +921,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 31);
+  assert.equal(getExampleCoverage(registry).total, 32);
   assert.equal(getExampleCoverage(registry).released, 21);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 179);
