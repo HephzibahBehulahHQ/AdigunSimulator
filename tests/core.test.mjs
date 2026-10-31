@@ -2702,3 +2702,24 @@ test("catalogue OLED status panel formats sensor values and handles missing sens
   broken.nets.find(net=>net.id==="HUMIDITY").endpoints=["sensors:H"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue e-paper updater follows partial/full state sequences and power rules", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/099-epaper-display-updater.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"epaper-refresh");
+  assert.deepEqual(result.result.stateSequence,["WAKE","LOAD_PARTIAL_DIFF","PARTIAL_REFRESH","WAIT_BUSY","UPDATE_COMPLETE","RETURN_TO_SLEEP"]);
+  assert.equal(result.result.wakeOccurred,true);
+  assert.equal(result.result.estimatedDurationMs,875);
+  assert.equal(result.result.partialsSinceFullAfter,2);
+  const full=runSupportedAnalysis(updateComponent(project,"request",{value:"Refresh full; ChangedTiles 80; TotalTiles 100; BusyMs 1200; TimeoutMs 1500; PowerState awake; PanelPower on; PartialsSinceFull 4"}));
+  assert.equal(full.state,"complete",full.message);
+  assert.equal(full.result.stateSequence[1],"LOAD_FULL_FRAME");
+  assert.equal(full.result.partialsSinceFullAfter,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"request",{value:"Refresh partial; ChangedTiles 1; TotalTiles 100; BusyMs 800; TimeoutMs 1200; PowerState awake; PanelPower off; PartialsSinceFull 0"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"request",{value:"Refresh partial; ChangedTiles 30; TotalTiles 100; BusyMs 800; TimeoutMs 1200; PowerState awake; PanelPower on; PartialsSinceFull 0"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"request",{value:"Refresh partial; ChangedTiles 1; TotalTiles 100; BusyMs 1300; TimeoutMs 1200; PowerState awake; PanelPower on; PartialsSinceFull 0"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="PANEL_DATA").endpoints=["controller:DATA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
