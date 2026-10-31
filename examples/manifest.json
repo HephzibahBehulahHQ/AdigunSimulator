@@ -4453,7 +4453,7 @@
     {
       "id": "108-usb-c-source-concept",
       "title": "USB-C source profile concept",
-      "status": "planned",
+      "status": "released",
       "objective": "Filter advertised USB-C fixed PDOs against source voltage/current/power limits, select a valid requested profile or fall back to 5 V, and model load current limiting and overcurrent shutdown.",
       "acceptanceTest": "tests/core.test.mjs: catalogue USB-C source filters PDOs and models fallback, current limit, and OCP shutdown",
       "testId": "core-usb-c-source",
@@ -4461,7 +4461,45 @@
       "readmeFile": "examples/108-usb-c-source-concept/README.md",
       "safetyNote": "Educational source policy estimator only; no USB-PD signaling, thermal protection, compliance certification, or hardware qualification.",
       "scope": "catalogue",
-      "catalogueIndex": 108
+      "catalogueIndex": 108,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41189533526",
+        "headRevision": "250a778b25693a3effa83051d1fe175612a145c4",
+        "engine": "Bounded USB-C source PDO advertisement and overcurrent policy estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "usb-c-pd-source-ocp-v1",
+        "expectedResult": {
+          "kind": "usb-c-pd-source",
+          "advertisedProfiles": [
+            {
+              "voltageV": 5,
+              "currentLimitA": 1.5
+            },
+            {
+              "voltageV": 9,
+              "currentLimitA": 2
+            },
+            {
+              "voltageV": 12,
+              "currentLimitA": 1.5
+            }
+          ],
+          "requestedVoltageV": 12,
+          "selectedVoltageV": 12,
+          "negotiationState": "contract",
+          "outputEnabled": true,
+          "outputVoltageV": 12,
+          "loadResistanceOhm": 10,
+          "demandedCurrentA": 1.2,
+          "loadCurrentA": 1.2,
+          "loadPowerW": 14.399999999999999,
+          "sourceState": "enabled",
+          "protocolSignalingModeled": false,
+          "usbPdComplianceCertified": false
+        }
+      }
     }
   ]
 }
