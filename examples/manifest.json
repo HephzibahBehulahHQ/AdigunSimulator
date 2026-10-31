@@ -2466,14 +2466,32 @@
     {
       "id": "059-spi-display",
       "title": "SPI display byte transfer",
-      "status": "in-review",
+      "status": "released",
       "objective": "Deliver a configured byte MSB-first to an ideal SPI display endpoint in mode 0 and verify chip-select, sample edge, byte value, and transfer duration.",
       "acceptanceTest": "tests/core.test.mjs: catalogue SPI display receives mode-0 bytes MSB-first",
       "testId": "core-spi-display",
       "projectFile": "examples/059-spi-display.adigun.json",
       "safetyNote": "Ideal transaction-level digital fixture. Display command sets, pixel rendering, signal integrity, setup/hold timing margins, and physical device limits are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 59
+      "catalogueIndex": 59,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41176074687",
+        "headRevision": "9b75ba09c7372a28bb8d7dfcfecbe41532b5b59d",
+        "engine": "Ideal SPI mode-0 byte transfer",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-spi-mode0-byte-transfer-v1",
+        "expectedResult": {
+          "testByte": "0xA5",
+          "mode": 0,
+          "bitOrder": "MSB-first",
+          "sampleEdge": "rising",
+          "clockBaud": 1000000,
+          "transferDurationSeconds": "8/1000000",
+          "invalidModeByteChipSelect": "blocked"
+        }
+      }
     }
   ]
 }
