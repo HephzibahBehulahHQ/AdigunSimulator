@@ -631,7 +631,8 @@ function render() {
   renderCanvas();
   renderInspector();
   renderValidation();
-  $("#bot-repair-apply").hidden = !state.project.botRepairPreview;\n  $("#bot-proposal-apply").hidden = !state.project.botCircuitProposal;
+  $("#bot-repair-apply").hidden = !state.project.botRepairPreview;
+  $("#bot-proposal-apply").hidden = !state.project.botCircuitProposal;
   applyLocale();
   if (state.dirty && state.recoveryActive && !writeRecoveryDraft(localStorage, RECOVERY_KEY, state.project)) {
     log("[RECOVERY] The browser could not store a local recovery draft. Export important work before closing this tab.");
