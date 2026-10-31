@@ -39,6 +39,7 @@ import { runTemperatureAlarm } from "../js/temperature-alarm.mjs";
 import { runWaterLeakAlarm } from "../js/water-leak-alarm.mjs";
 import { runFanThermostat } from "../js/fan-thermostat.mjs";
 import { runPwmFanController } from "../js/pwm-fan-controller.mjs";
+import { runAutomaticNightLight } from "../js/automatic-night-light.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1471,7 +1472,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 182);
+  assert.equal(getExampleCoverage(registry).total, 183);
   assert.equal(getExampleCoverage(registry).released, 172);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 28);
@@ -4374,4 +4375,13 @@ test("catalogue PWM fan controller interpolates curve knots and clamps endpoints
   assert.deepEqual(result.result.frames.map(frame=>frame.dutyPercent),[0,0,20,40,70,100,100]);
   const invalid=structuredClone(project);invalid.pwmFanController.curve[1].tempC=19;assert.equal(runPwmFanController(invalid).state,"blocked");
   const invalidDuty=structuredClone(project);invalidDuty.pwmFanController.curve[1].dutyPercent=101;assert.equal(runPwmFanController(invalidDuty).state,"blocked");
+});
+
+test("catalogue night light switches the LED below its lux threshold", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/173-automatic-night-light.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runAutomaticNightLight(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"night-light-lux-threshold");
+  assert.deepEqual(result.result.frames.map(frame=>frame.ledOn),[true,true,true,false,false,true]);
+  assert.equal(result.result.ledOnSamples,4);
+  const invalid=structuredClone(project);invalid.automaticNightLight.luxSamples[0]=-1;assert.equal(runAutomaticNightLight(invalid).state,"blocked");
 });

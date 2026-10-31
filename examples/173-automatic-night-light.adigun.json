@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "example-173-automatic-night-light",
+  "metadata": {
+    "name": "Example 173 — Automatic Night Light",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "automaticNightLight": {
+    "kind": "lux-threshold-switch",
+    "thresholdLux": 20,
+    "luxSamples": [
+      0,
+      5,
+      19,
+      20,
+      1000,
+      18
+    ]
+  }
+}

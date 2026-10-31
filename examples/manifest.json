@@ -6718,6 +6718,19 @@
           "physicalFanModel": false
         }
       }
+    },
+    {
+      "id": "173-automatic-night-light",
+      "title": "Automatic night light",
+      "status": "in-review",
+      "objective": "Switch an LED command below a synthetic lux threshold and verify day/night samples, including exact threshold behavior.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue night light switches the LED below its lux threshold",
+      "testId": "core-automatic-night-light",
+      "projectFile": "examples/173-automatic-night-light.adigun.json",
+      "readmeFile": "examples/173-automatic-night-light/README.md",
+      "safetyNote": "Synthetic illuminance and Boolean LED command only; no LDR model, comparator circuit, photometry, placement, or real lighting performance is represented.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
