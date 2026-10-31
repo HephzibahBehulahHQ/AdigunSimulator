@@ -9,6 +9,27 @@ function hasString(value) {
   return typeof value === "string" && value.trim().length > 0;
 }
 
+function isIsoDate(value) {
+  if (typeof value !== "string" || !/^\\d{4}-\\d{2}-\\d{2}$/.test(value)) return false;
+  const parsed = new Date(`${value}T00:00:00.000Z`);
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+}
+
+function isPinMap(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value)
+    && Object.keys(value).length > 0
+    && Object.entries(value).every(([pin, mapping]) => hasString(pin) && hasString(String(mapping)));
+}
+
+function hasMatchingPinMaps(symbolPinMap, footprintPadMap) {
+  if (!isPinMap(symbolPinMap) || !isPinMap(footprintPadMap)) return false;
+  const symbolPins = Object.keys(symbolPinMap).sort();
+  const footprintPins = Object.keys(footprintPadMap).sort();
+  if (symbolPins.length !== footprintPins.length || symbolPins.some((pin, index) => pin !== footprintPins[index])) return false;
+  const pads = Object.values(footprintPadMap).map(String);
+  return new Set(pads).size === pads.length;
+}
+
 export function validatePartRecord(record) {
   const errors = [];
   if (!record || typeof record !== "object") return [issue("PART_OBJECT", record, "Part record must be an object.")];
@@ -16,16 +37,24 @@ export function validatePartRecord(record) {
     if (!hasString(record[field])) errors.push(issue("PART_FIELD", record, `${field} is required.`));
   }
   if (!PART_STATES.includes(record.verificationStatus)) errors.push(issue("PART_STATE", record, "verificationStatus is invalid."));
-  if (!hasString(record?.datasheet?.url) || !hasString(record?.datasheet?.title) || !hasString(record?.datasheet?.accessedAt)) {
-    errors.push(issue("DATASHEET_SOURCE", record, "An authoritative datasheet URL, title, and access date are required."));
+  if (!hasString(record?.datasheet?.url) || !record.datasheet.url.startsWith("https://")
+    || !hasString(record?.datasheet?.title) || !isIsoDate(record?.datasheet?.accessedAt)) {
+    errors.push(issue("DATASHEET_SOURCE", record, "An authoritative HTTPS datasheet URL, title, and valid access date are required."));
   }
   if (record.verificationStatus === "verified") {
-    for (const field of ["package", "symbolPinMap", "footprintPadMap", "modelStatus", "lastReviewedAt", "reviewedBy"]) {
-      if (!record[field] || (typeof record[field] === "string" && !record[field].trim())) {
-        errors.push(issue("VERIFIED_EVIDENCE", record, `${field} is required before a record can be counted as verified.`));
-      }
+    for (const field of ["package", "modelStatus", "reviewedBy"]) {
+      if (!hasString(record[field])) errors.push(issue("VERIFIED_EVIDENCE", record, `${field} is required before a record can be counted as verified.`));
     }
-    if (!hasString(record?.datasheet?.sha256)) errors.push(issue("DATASHEET_CHECKSUM", record, "Verified records require a datasheet SHA-256 checksum."));
+    if (!isPinMap(record.symbolPinMap)) errors.push(issue("SYMBOL_PIN_MAP", record, "Verified records require a non-empty pin-to-symbol mapping."));
+    if (!isPinMap(record.footprintPadMap)) errors.push(issue("FOOTPRINT_PAD_MAP", record, "Verified records require a non-empty pin-to-footprint-pad mapping."));
+    if (!hasMatchingPinMaps(record.symbolPinMap, record.footprintPadMap)) errors.push(issue("PIN_MAP_ALIGNMENT", record, "Symbol and footprint maps must cover the same pins and must not reuse a footprint pad."));
+    if (!isIsoDate(record.lastReviewedAt)) errors.push(issue("REVIEW_DATE", record, "Verified records require a valid ISO review date."));
+    if (["unknown", "tbd", "todo", "unassigned", "n/a"].includes(String(record.reviewedBy).trim().toLowerCase())) {
+      errors.push(issue("REVIEWER_IDENTITY", record, "Verified records require an identified reviewer, not a placeholder."));
+    }
+    if (typeof record?.datasheet?.sha256 !== "string" || !/^[a-f0-9]{64}$/i.test(record.datasheet.sha256)) {
+      errors.push(issue("DATASHEET_CHECKSUM", record, "Verified records require an actual 64-character hexadecimal SHA-256 checksum."));
+    }
   }
   return errors;
 }
