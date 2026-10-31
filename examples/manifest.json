@@ -7072,6 +7072,19 @@
           "redoRestored": true
         }
       }
+    },
+    {
+      "id": "184-unsupported-breadboard-package",
+      "title": "Unsupported breadboard package",
+      "status": "in-review",
+      "objective": "Project a conceptual BGA across the available views, create a breadboard reconciliation item, and prove the unsupported component is excluded from breadboard placements.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue unsupported BGA package becomes a breadboard reconciliation item without placement",
+      "testId": "core-unsupported-breadboard-package",
+      "projectFile": "examples/184-unsupported-breadboard-package.adigun.json",
+      "readmeFile": "examples/184-unsupported-breadboard-package/README.md",
+      "safetyNote": "Conceptual generic 4×4 BGA only. The stored breadboard coordinate is not placement; renderer excludes it and reports reconciliation. The PCB concept is unqualified and not manufacturable.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }

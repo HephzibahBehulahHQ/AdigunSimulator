@@ -50,6 +50,7 @@ import { runMachineFaultAnnunciator } from "../js/machine-fault-annunciator.mjs"
 import { runBreadboardSchematicSync } from "../js/breadboard-schematic-sync.mjs";
 import { runSchematicPcbSync } from "../js/schematic-pcb-sync.mjs";
 import { runThreeViewLedHistory } from "../js/three-view-led-history.mjs";
+import { projectComponentsForView, runUnsupportedBreadboardPackage } from "../js/view-projection.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1482,7 +1483,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 193);
+  assert.equal(getExampleCoverage(registry).total, 194);
   assert.equal(getExampleCoverage(registry).released, 183);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 17);
@@ -4494,4 +4495,14 @@ test("catalogue three-view LED edit shares component identity and restores undo/
   assert.equal(result.result.identitiesPreserved,true);assert.equal(result.result.sharedIdentity,true);assert.equal(result.result.historyRestored,true);assert.equal(result.result.redoRestored,true);
   assert.equal(result.result.originalValue,"330 Ω");assert.equal(result.result.editedValue,"470 Ω");assert.equal(result.result.undoValue,"330 Ω");assert.equal(result.result.redoValue,"470 Ω");
   const invalid=structuredClone(project);invalid.threeViewLedHistory.instanceId="missing";assert.equal(runThreeViewLedHistory(invalid).state,"blocked");
+});
+test("catalogue unsupported BGA package becomes a breadboard reconciliation item without placement", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/184-unsupported-breadboard-package.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const board=projectComponentsForView(project,"breadboard");assert.deepEqual(board.components,[]);assert.equal(board.reconciliationItems.length,1);assert.equal(board.reconciliationItems[0].instanceId,"bga");
+  const schematic=projectComponentsForView(project,"schematic");assert.equal(schematic.components.length,1);assert.deepEqual(schematic.reconciliationItems,[]);
+  const pcb=projectComponentsForView(project,"pcb");assert.equal(pcb.components.length,1);assert.deepEqual(pcb.reconciliationItems,[]);
+  const result=runUnsupportedBreadboardPackage(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"unsupported-breadboard-package-reconciliation");assert.equal(result.result.breadboardPlaced,false);
+  assert.equal(result.result.schematicPlaced,true);assert.equal(result.result.pcbPlaced,true);assert.equal(result.result.fabricationQualified,false);assert.equal(result.result.claimsManufacturable,false);
+  const invalid=structuredClone(project);invalid.unsupportedBreadboardPackage.instanceId="missing";assert.equal(runUnsupportedBreadboardPackage(invalid).state,"blocked");
 });
