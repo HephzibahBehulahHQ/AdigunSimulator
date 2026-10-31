@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -730,15 +730,20 @@ Object.assign(TRANSLATIONS.yo, {exampleReversePolarity:"Ààbò polarity tí kò
 
 Object.assign(TRANSLATIONS.pcm, {exampleReversePolarity:"Reverse-polarity protection",exampleSurgeProtectedInput:"Surge-protected input"});
 
-Object.assign(TRANSLATIONS.en, {morePlannedExamples:"123 of the 200 catalogue projects are released; ten supplemental studies are also available. The remaining catalogue projects are planned and cannot be loaded yet."});
+Object.assign(TRANSLATIONS.en, {morePlannedExamples:"124 of the 200 catalogue projects are released; ten supplemental studies are also available. The remaining catalogue projects are planned and cannot be loaded yet."});
 
-Object.assign(TRANSLATIONS.de, {morePlannedExamples:"123 der 200 Katalogprojekte sind veröffentlicht; zehn ergänzende Studien sind ebenfalls verfügbar. Die übrigen Katalogprojekte sind geplant und noch nicht ladbar."});
+Object.assign(TRANSLATIONS.de, {morePlannedExamples:"124 der 200 Katalogprojekte sind veröffentlicht; zehn ergänzende Studien sind ebenfalls verfügbar. Die übrigen Katalogprojekte sind geplant und noch nicht ladbar."});
 
-Object.assign(TRANSLATIONS.yo, {morePlannedExamples:"A ti tú iṣẹ́ kátàlọ́ọ̀gù 123 nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí."});
+Object.assign(TRANSLATIONS.yo, {morePlannedExamples:"A ti tú iṣẹ́ kátàlọ́ọ̀gù 124 nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí."});
 
-Object.assign(TRANSLATIONS.pcm, {morePlannedExamples:"123 out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load."});
+Object.assign(TRANSLATIONS.pcm, {morePlannedExamples:"124 out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load."});
 
 Object.assign(TRANSLATIONS.en, {runPcbChecks:"Run PCB checks",exportPcbFiles:"Export Gerber / drill / BOM"});
 Object.assign(TRANSLATIONS.de, {runPcbChecks:"PCB prüfen",exportPcbFiles:"Gerber / Bohrdaten / Stückliste exportieren"});
 Object.assign(TRANSLATIONS.yo, {runPcbChecks:"Ṣàyẹ̀wò PCB",exportPcbFiles:"Gbé Gerber / ihò / BOM jáde"});
 Object.assign(TRANSLATIONS.pcm, {runPcbChecks:"Run PCB checks",exportPcbFiles:"Export Gerber / drill / BOM"});
+
+Object.assign(TRANSLATIONS.en, {exampleSingleSidedLedPcb:"Single-sided LED PCB",example555TimerPcb:"555 timer PCB",exampleOpAmpFilterPcb:"Op-amp filter PCB",exampleArduinoShield:"Arduino Uno R3 shield"});
+Object.assign(TRANSLATIONS.de, {exampleSingleSidedLedPcb:"Einseitige LED-Leiterplatte",example555TimerPcb:"555-Timer-Leiterplatte",exampleOpAmpFilterPcb:"Operationsverstärker-Filter-Leiterplatte",exampleArduinoShield:"Arduino-Uno-R3-Shield"});
+Object.assign(TRANSLATIONS.yo, {exampleSingleSidedLedPcb:"PCB LED alákòkò kan",example555TimerPcb:"PCB alákòkò 555",exampleOpAmpFilterPcb:"PCB àlẹ̀mọ́ op-amp",exampleArduinoShield:"Shield Arduino Uno R3"});
+Object.assign(TRANSLATIONS.pcm, {exampleSingleSidedLedPcb:"Single-sided LED PCB",example555TimerPcb:"555 timer PCB",exampleOpAmpFilterPcb:"Op-amp filter PCB",exampleArduinoShield:"Arduino Uno R3 shield"});
