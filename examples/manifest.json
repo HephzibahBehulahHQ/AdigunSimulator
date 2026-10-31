@@ -2915,6 +2915,18 @@
           "physicalLedCurrent": "not modeled"
         }
       }
+    },
+    {
+      "id": "072-avr-ir-receiver",
+      "title": "AVR NEC-like IR receiver",
+      "status": "in-review",
+      "objective": "Decode a known four-byte NEC-like IR frame through an ideal 38 kHz receiver model, verify byte complements and timing tolerances, and display the address and command.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue AVR IR receiver decodes NEC-like timing and flags invalid frames",
+      "testId": "core-avr-ir-receiver",
+      "projectFile": "examples/072-avr-ir-receiver.adigun.json",
+      "safetyNote": "Ideal demodulated timing and byte-decoder model only. It omits optical propagation, carrier waveform, receiver AGC, AVR firmware, ambient-light effects, and physical timing margins.",
+      "scope": "catalogue",
+      "catalogueIndex": 72
     }
   ]
 }

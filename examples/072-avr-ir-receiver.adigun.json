@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-072-avr-ir-receiver",
+  "metadata": {
+    "name": "AVR NEC-Like IR Receiver",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          35,
+          60
+        ],
+        "schematic": [
+          35,
+          60
+        ],
+        "pcb": [
+          35,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "frame",
+      "libraryId": "input.ir-nec-frame",
+      "reference": "SIG1",
+      "value": "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000",
+      "position": {
+        "breadboard": [
+          150,
+          60
+        ],
+        "schematic": [
+          150,
+          60
+        ],
+        "pcb": [
+          150,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "receiver",
+      "libraryId": "sensor.ir-receiver-ideal",
+      "reference": "IR1",
+      "value": "CarrierHz 38000; Output demodulated active-low",
+      "position": {
+        "breadboard": [
+          290,
+          60
+        ],
+        "schematic": [
+          290,
+          60
+        ],
+        "pcb": [
+          290,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "avr",
+      "libraryId": "active.avr-ir-decoder-ideal",
+      "reference": "U1",
+      "value": "Program Decode NEC-like; Input INT0; Output TX; Tolerance 20%",
+      "position": {
+        "breadboard": [
+          430,
+          60
+        ],
+        "schematic": [
+          430,
+          60
+        ],
+        "pcb": [
+          430,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "output.ir-code-display-ideal",
+      "reference": "DISP1",
+      "value": "Address and command bytes",
+      "position": {
+        "breadboard": [
+          570,
+          60
+        ],
+        "schematic": [
+          570,
+          60
+        ],
+        "pcb": [
+          570,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          620,
+          60
+        ],
+        "schematic": [
+          620,
+          60
+        ],
+        "pcb": [
+          620,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "receiver:VCC",
+        "avr:VCC",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "frame:GND",
+        "receiver:GND",
+        "avr:GND",
+        "display:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "OPTICAL_FRAME",
+      "endpoints": [
+        "frame:OUT",
+        "receiver:SIG"
+      ]
+    },
+    {
+      "id": "IR_RX",
+      "endpoints": [
+        "receiver:OUT",
+        "avr:INT0"
+      ]
+    },
+    {
+      "id": "DECODED_TEXT",
+      "endpoints": [
+        "avr:TX",
+        "display:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
