@@ -3057,6 +3057,38 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "076-gps-nmea-display",
+      "title": "GPS NMEA coordinate display",
+      "status": "released",
+      "objective": "Validate a known NMEA RMC sentence checksum and active-fix state, convert coordinates to decimal degrees, and display them.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue GPS RMC example validates NMEA checksum and displays decimal coordinates",
+      "testId": "core-gps-rmc-display",
+      "projectFile": "examples/076-gps-nmea-display.adigun.json",
+      "safetyNote": "Deterministic sentence parsing model only. It does not model GNSS reception, satellite geometry, MCU firmware, UART framing, or position accuracy.",
+      "scope": "catalogue",
+      "catalogueIndex": 76,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41180992351",
+        "headRevision": "bb6435561cbf841b91ee7362d5f98b2382ecf25a",
+        "engine": "Ideal NMEA RMC sentence parser model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-nmea-rmc-coordinate-v1",
+        "expectedResult": {
+          "sentenceType": "GPRMC",
+          "checksum": "6A",
+          "checksumValid": true,
+          "fixStatus": "active",
+          "latitude": 48.1173,
+          "longitude": 11.516666666666667,
+          "speedKnots": 22.4,
+          "displayText": "48.11730, 11.51667",
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
