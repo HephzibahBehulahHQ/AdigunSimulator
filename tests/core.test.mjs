@@ -2310,3 +2310,28 @@ test("catalogue low-power MCU sleeps between rising-edge interrupts and estimate
   broken.nets.find(net=>net.id==="INT").endpoints=["interrupts:INT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue BLE beacon encodes standard legacy advertising data fields", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/081-ble-beacon-configuration.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",analysis.message);
+  assert.equal(analysis.result.kind,"ble-beacon-config");
+  assert.equal(analysis.result.deviceNameUtf8Bytes,6);
+  assert.equal(analysis.result.flags,6);
+  assert.equal(analysis.result.serviceUuid,"0x180D");
+  assert.deepEqual(analysis.result.serviceUuidEncodedBytes,[0x0D,0x18]);
+  assert.equal(analysis.result.txPowerDbm,-4);
+  assert.deepEqual(analysis.result.payloadBytes,[0x02,0x01,0x06,0x03,0x03,0x0D,0x18,0x07,0x09,0x41,0x64,0x69,0x67,0x75,0x6E,0x02,0x0A,0xFC]);
+  assert.equal(analysis.result.payloadHex,"02 01 06 03 03 0D 18 07 09 41 64 69 67 75 6E 02 0A FC");
+  assert.equal(analysis.result.payloadLengthOctets,18);
+  assert.equal(analysis.result.legacyMaximumOctets,31);
+  assert.equal(analysis.result.radioTransmitted,false);
+  assert.equal(analysis.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Name Adigun12345678901234; Flags 0x06; ServiceUuid 0x180D; TxPowerDbm -4"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Name Adigun; Flags 0x100; ServiceUuid 0x180D; TxPowerDbm -4"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Name Adigun; Flags 0x06; ServiceUuid 180G; TxPowerDbm -4"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Name Adigun; Flags 0x06; ServiceUuid 0x180D; TxPowerDbm 200"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="RADIO_DATA").endpoints=["encoder:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});

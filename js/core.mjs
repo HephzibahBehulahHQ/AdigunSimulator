@@ -77,6 +77,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.data-logger-controller-ideal", category: "Active", type: "Ideal EEPROM data logger controller behavior model", prefix: "U", pins: ["SENSOR", "SDA", "SCL", "DISPLAY", "VCC", "GND"], defaultValue: "SamplePeriodMs 100; Mode circular logger", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.eeprom-ring-buffer-ideal", category: "Active", type: "Ideal EEPROM circular ring-buffer model", prefix: "MEM", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Capacity 3; WriteCycleMs 5; Mode circular", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.data-log-display", category: "Output", type: "Ideal EEPROM replay text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Newest retained samples", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.ble-advertising-settings", category: "Inputs", type: "Ideal BLE advertising settings fixture", prefix: "CFG", pins: ["DATA", "GND"], defaultValue: "Name Adigun; Flags 0x06; ServiceUuid 0x180D; TxPowerDbm -4", simulation: "fixture-ble-advertising-settings", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.ble-advertising-encoder-ideal", category: "Active", type: "Generic BLE legacy advertising data encoder model", prefix: "U", pins: ["CONFIG", "TX", "REPORT", "VCC", "GND"], defaultValue: "Protocol legacy; MaximumBytes 31", simulation: "analytical-ble-beacon-config", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.ble-advertiser-ideal", category: "Active", type: "Ideal BLE advertising data receiver model", prefix: "BLE", pins: ["RX", "VCC", "GND"], defaultValue: "Mode legacy; MaximumBytes 31", simulation: "analytical-ble-beacon-config", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.ble-advertising-report", category: "Output", type: "Ideal BLE payload report sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Encoded advertising data", simulation: "analytical-ble-beacon-config", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.interrupt-edge-sequence-ideal", category: "Inputs", type: "Ideal interrupt edge sequence fixture", prefix: "SIG", pins: ["INT", "GND"], defaultValue: "Events 100:rising,130:falling,400:rising; DurationMs 500", simulation: "analytical-low-power-sleep-wake", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.low-power-mcu-ideal", category: "Active", type: "Generic low-power MCU sleep/wake behavior model", prefix: "U", pins: ["INT", "LED", "VCC", "GND"], defaultValue: "RunCurrentUa 5000; SleepCurrentUa 8; WakeDurationMs 20; WakeMode rising", simulation: "analytical-low-power-sleep-wake", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.nfc-tag-ideal", category: "Sensors", type: "Ideal NFC tag UID and read-status fixture", prefix: "TAG", pins: ["UID", "GND"], defaultValue: "UID 04A1B2C3; ReadStatus ok", simulation: "fixture-nfc-tag", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -523,6 +527,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const nfcReaders = project.components.filter((item) => item.libraryId === "active.nfc-reader-ideal");
   const nfcControllers = project.components.filter((item) => item.libraryId === "active.nfc-display-controller-ideal");
   const nfcDisplays = project.components.filter((item) => item.libraryId === "output.nfc-uid-display");
+  const bleSettings = project.components.filter((item) => item.libraryId === "input.ble-advertising-settings");
+  const bleEncoders = project.components.filter((item) => item.libraryId === "active.ble-advertising-encoder-ideal");
+  const bleAdvertisers = project.components.filter((item) => item.libraryId === "active.ble-advertiser-ideal");
+  const bleReports = project.components.filter((item) => item.libraryId === "output.ble-advertising-report");
   const interruptFixtures = project.components.filter((item) => item.libraryId === "input.interrupt-edge-sequence-ideal");
   const lowPowerControllers = project.components.filter((item) => item.libraryId === "active.low-power-mcu-ideal");
   const dataLogFixtures = project.components.filter((item) => item.libraryId === "input.data-log-samples");
@@ -602,6 +610,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (dataLogFixtures.length === 1 && dataLogControllers.length === 1 && ringEeproms.length === 1 && dataLogDisplays.length === 1 && resistor.length === 2 && source.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseEepromRingLogger(project, { source: source[0], fixture: dataLogFixtures[0], controller: dataLogControllers[0], eeprom: ringEeproms[0], display: dataLogDisplays[0], pullups: resistor, ground: ground[0], validation });
+  }
+  if (bleSettings.length === 1 && bleEncoders.length === 1 && bleAdvertisers.length === 1 && bleReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseBleBeaconConfig(project, { source: source[0], settings: bleSettings[0], encoder: bleEncoders[0], advertiser: bleAdvertisers[0], report: bleReports[0], ground: ground[0], validation });
   }
   if (interruptFixtures.length === 1 && lowPowerControllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseLowPowerSleepWake(project, { source: source[0], fixture: interruptFixtures[0], controller: lowPowerControllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
@@ -1702,6 +1713,33 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
+function analyseBleBeaconConfig(project,{source,settings,encoder,advertiser,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const settingFields=fields(settings.value),encoderFields=fields(encoder.value),advertiserFields=fields(advertiser.value);
+  const name=field(settingFields,"Name")??"",flagsText=field(settingFields,"Flags")??"",serviceUuid=(field(settingFields,"ServiceUuid")??"").replace(/^0x/i,""),txPowerDbm=Number(field(settingFields,"TxPowerDbm"));
+  const flags=Number.parseInt(flagsText.replace(/^0x/i,""),16),nameBytes=Array.from(new TextEncoder().encode(name));
+  const groundNet=n(ground,"0"),vccNet=n(encoder,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const dataPaths=n(settings,"DATA")===n(encoder,"CONFIG")&&n(encoder,"TX")===n(advertiser,"RX")&&n(encoder,"REPORT")===n(report,"DATA");
+  const powered=[encoder,advertiser,report].every(part=>n(part,"VCC")===vccNet&&n(part,"GND")===groundNet)&&n(settings,"GND")===groundNet;
+  const configValid=field(encoderFields,"Protocol")==="legacy"&&Number(field(encoderFields,"MaximumBytes"))===31&&field(advertiserFields,"Mode")==="legacy"&&Number(field(advertiserFields,"MaximumBytes"))===31;
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<1.8||supplyVoltage>5.5||!dataPaths||!powered||!configValid||!name.trim()||nameBytes.length===0||!Number.isInteger(flags)||flags<0||flags>255||!/^([0-9A-Fa-f]{4})$/.test(serviceUuid)||!Number.isInteger(txPowerDbm)||txPowerDbm< -128||txPowerDbm>127){
+    return {state:"blocked",message:"Power the encoder, BLE module, and report sink; connect settings → encoder → advertiser/report; configure a non-empty UTF-8 name, one-byte flags, a 16-bit service UUID, signed 8-bit transmit-power value, and legacy 31-byte mode.",validation};
+  }
+  const serviceValue=Number.parseInt(serviceUuid,16),structures=[];
+  const append=(name,type,data)=>structures.push({name,bytes:[data.length+1,type,...data]});
+  append("Flags",0x01,[flags]);
+  append("Complete 16-bit Service UUIDs",0x03,[serviceValue&0xff,(serviceValue>>8)&0xff]);
+  append("Complete Local Name",0x09,nameBytes);
+  append("Tx Power Level",0x0a,[txPowerDbm<0?256+txPowerDbm:txPowerDbm]);
+  const payloadBytes=structures.flatMap(item=>item.bytes);
+  if(payloadBytes.length>31)return {state:"blocked",message:"The encoded legacy advertising data exceeds the 31-octet limit. Shorten the UTF-8 device name or remove an advertising field.",validation};
+  const payloadHex=payloadBytes.map(value=>value.toString(16).padStart(2,"0").toUpperCase()).join(" ");
+  const fieldsSummary=structures.map(item=>({name:item.name,lengthOctets:item.bytes.length,bytes:item.bytes.map(value=>value.toString(16).padStart(2,"0").toUpperCase())}));
+  return {state:"complete",engine:"Ideal Bluetooth LE legacy advertising data encoder",message:"Encodes the configured Flags, Complete 16-bit Service UUIDs, Complete Local Name, and signed Tx Power Level into length/type/data AD structures, then checks the legacy 31-octet data limit. It does not transmit radio packets or model discovery, timing, RF propagation, connection setup, GATT services, privacy, or firmware.",result:{kind:"ble-beacon-config",deviceName:name,deviceNameUtf8Bytes:nameBytes.length,flags,serviceUuid:"0x"+serviceValue.toString(16).padStart(4,"0").toUpperCase(),serviceUuidEncodedBytes:[serviceValue&0xff,(serviceValue>>8)&0xff],txPowerDbm,structures:fieldsSummary,payloadBytes,payloadHex,payloadLengthOctets:payloadBytes.length,legacyMaximumOctets:31,radioTransmitted:false,firmwareExecuted:false},validation};
+}
+
 function analyseLowPowerSleepWake(project,{source,fixture,controller,resistor,led,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
