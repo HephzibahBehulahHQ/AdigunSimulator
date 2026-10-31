@@ -6907,6 +6907,19 @@
           "realRfidModel": false
         }
       }
+    },
+    {
+      "id": "179-warehouse-beacon-concept",
+      "title": "Warehouse beacon concept",
+      "status": "in-review",
+      "objective": "Map synthetic vacant, occupied, and sensor-fault states to distinct beacon outputs and verify output transitions.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue warehouse beacon maps occupancy and fault transitions to distinct outputs",
+      "testId": "core-warehouse-beacon-concept",
+      "projectFile": "examples/179-warehouse-beacon-concept.adigun.json",
+      "readmeFile": "examples/179-warehouse-beacon-concept/README.md",
+      "safetyNote": "Synthetic state-to-indicator mapping only. No sensor, beacon visibility/sound performance, installation, machine interface, or industrial safety function is modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }

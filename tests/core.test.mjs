@@ -45,6 +45,7 @@ import { runGarageDoorConcept } from "../js/garage-door-concept.mjs";
 import { runElevatorCallQueue } from "../js/elevator-call-queue.mjs";
 import { runFireAlarmZone } from "../js/fire-alarm-zone.mjs";
 import { runAccessStrikeLock } from "../js/access-strike-lock.mjs";
+import { runWarehouseBeacon } from "../js/warehouse-beacon.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1477,7 +1478,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 188);
+  assert.equal(getExampleCoverage(registry).total, 189);
   assert.equal(getExampleCoverage(registry).released, 178);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 22);
@@ -4436,4 +4437,13 @@ test("catalogue access strike mock grants allowlisted IDs briefly and audits den
   assert.deepEqual(result.result.frames.map(frame=>frame.strikeUnlocked),[true,true,true,false,true]);
   assert.equal(result.result.frames[1].unlockUntilMs,3000);assert.equal(result.result.mockAuditEvents.length,5);
   const invalid=structuredClone(project);invalid.accessStrikeLock.unlockDurationMs=70000;assert.equal(runAccessStrikeLock(invalid).state,"blocked");
+});
+
+test("catalogue warehouse beacon maps occupancy and fault transitions to distinct outputs", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/179-warehouse-beacon-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runWarehouseBeacon(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"warehouse-beacon-state-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>[frame.greenOn,frame.redOn,frame.amberOn,frame.buzzerOn]),[[true,false,false,false],[false,true,false,false],[false,false,true,true],[true,false,false,false]]);
+  assert.equal(result.result.transitionCount,3);assert.equal(result.result.oneStatusPerFrame,true);
+  const invalid=structuredClone(project);invalid.warehouseBeacon.samples[0]="unknown";assert.equal(runWarehouseBeacon(invalid).state,"blocked");
 });
