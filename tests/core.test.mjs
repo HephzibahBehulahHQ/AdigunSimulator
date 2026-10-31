@@ -1437,7 +1437,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 155);
+  assert.equal(getExampleCoverage(registry).total, 156);
   assert.equal(getExampleCoverage(registry).released, 145);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 55);
@@ -3963,4 +3963,22 @@ test("catalogue logic analyser captures labelled counter states and locks config
   assert.deepEqual(capture.result.samples[5].states,{Q0:1,Q1:0,Q2:1,Q3:0});
   const invalid=JSON.parse(JSON.stringify(project));invalid.logicCapture.trigger.channel="Q9";
   assert.equal(captureLogicAnalyzer(invalid).state,"blocked");
+});
+
+test("catalogue frequency counter measures periods accurately at multiple frequencies", async () => {
+  const {measureFrequency}=await import("../js/frequency-counter.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/146-frequency-counter.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  for(const expectedHz of [50,1000,10000]){
+    const input=JSON.parse(JSON.stringify(project));input.oscillator.periodMs=1000/expectedHz;
+    const reading=measureFrequency(input);
+    assert.equal(reading.state,"complete");
+    assert.equal(reading.result.unit,"Hz");
+    assert.ok(Math.abs(reading.result.measuredFrequencyHz-expectedHz)<1e-8);
+    assert.equal(reading.result.cyclesMeasured,8);
+    assert.ok(Math.abs(reading.result.measuredPeriodMs-1000/expectedHz)<1e-10);
+  }
+  const invalid=JSON.parse(JSON.stringify(project));invalid.oscillator.periodMs=0;
+  assert.equal(measureFrequency(invalid).state,"blocked");
 });
