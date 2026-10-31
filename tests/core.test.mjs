@@ -35,6 +35,7 @@ import { runStarDeltaStarter } from "../js/star-delta-starter.mjs";
 import { runForwardReverseInterlock } from "../js/forward-reverse-interlock.mjs";
 import { runEmergencyStopConcept } from "../js/emergency-stop-concept.mjs";
 import { runDoorInterlockConcept } from "../js/door-interlock-concept.mjs";
+import { runTemperatureAlarm } from "../js/temperature-alarm.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1467,7 +1468,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 178);
+  assert.equal(getExampleCoverage(registry).total, 179);
   assert.equal(getExampleCoverage(registry).released, 168);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 32);
@@ -4332,4 +4333,14 @@ test("catalogue door interlock latches load off on guard opening", async () => {
   assert.equal(result.result.frames[2].resetRejected,true);assert.equal(result.result.loadAlwaysDisabledWhenOpen,true);
   assert.equal(result.result.resetRejectedWhenOpen,true);
   const invalid=structuredClone(project);invalid.doorInterlock.events[0].action="bypass";assert.equal(runDoorInterlockConcept(invalid).state,"blocked");
+});
+
+test("catalogue temperature alarm latches at threshold and applies safe reset policy", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/169-temperature-alarm.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runTemperatureAlarm(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"latched-temperature-alarm");
+  assert.deepEqual(result.result.frames.map(frame=>frame.alarmLatched),[false,true,true,true,true,false,true]);
+  assert.equal(result.result.frames[3].resetRejected,true);assert.equal(result.result.resetRejected,true);
+  const invalid=structuredClone(project);invalid.temperatureAlarm.thresholdC=251;assert.equal(runTemperatureAlarm(invalid).state,"blocked");
+  const invalidSample=structuredClone(project);invalidSample.temperatureAlarm.samples[0].tempC=Infinity;assert.equal(runTemperatureAlarm(invalidSample).state,"blocked");
 });

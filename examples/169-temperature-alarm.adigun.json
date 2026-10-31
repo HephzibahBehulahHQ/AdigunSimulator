@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "example-169-temperature-alarm",
+  "metadata": {
+    "name": "Example 169 — Latched Temperature Alarm",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "temperatureAlarm": {
+    "kind": "latched-temperature-threshold",
+    "thresholdC": 70,
+    "samples": [
+      {
+        "tempC": 65,
+        "reset": false
+      },
+      {
+        "tempC": 70,
+        "reset": false
+      },
+      {
+        "tempC": 75,
+        "reset": false
+      },
+      {
+        "tempC": 75,
+        "reset": true
+      },
+      {
+        "tempC": 60,
+        "reset": false
+      },
+      {
+        "tempC": 60,
+        "reset": true
+      },
+      {
+        "tempC": 71,
+        "reset": false
+      }
+    ]
+  }
+}
