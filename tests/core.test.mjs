@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 76);
+  assert.equal(getExampleCoverage(registry).total, 77);
   assert.equal(getExampleCoverage(registry).released, 66);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 134);
@@ -1999,5 +1999,24 @@ test("catalogue Arduino servo maps potentiometer endpoints to pulse and angle",a
   assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Position 101%; Resolution 10 bit"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(n=>n.id==="SERVO_PWM").endpoints=["mcu:D9"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Arduino stepper driver sequence maps CW/CCW pulses to motion",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/067-arduino-stepper-driver.adigun.json",import.meta.url)));
+  const run=value=>runSupportedAnalysis(updateComponent(project,"mcu",{value}));
+  const cw=run("Program Stepper; Step D3; DirectionPin D2; Steps 200; Direction CW; StepRate 200");
+  assert.equal(cw.state,"complete",cw.message);
+  assert.equal(cw.result.angularTravelDegrees,360);
+  assert.equal(cw.result.finalPositionDegrees,0);
+  assert.equal(cw.result.motionDurationSeconds,1);
+  const ccw=run("Program Stepper; Step D3; DirectionPin D2; Steps 50; Direction CCW; StepRate 100");
+  assert.equal(ccw.result.signedSteps,-50);
+  assert.equal(ccw.result.angularTravelDegrees,-90);
+  assert.deepEqual(ccw.result.phaseSequence[0].coils,[false,true,false,true]);
+  assert.equal(run("Program Stepper; Step D3; DirectionPin D2; Steps 200; Direction CW; StepRate 0").state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="MOTOR_A1").endpoints=["driver:A1"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
