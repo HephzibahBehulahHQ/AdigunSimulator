@@ -544,6 +544,32 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue PWM LED dimmer reports a bounded average-current duty sweep", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/005-pwm-led-dimmer.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const measured = [];
+  for (const duty of [10, 50, 90]) {
+    const candidate = updateComponent(project, "pwm-1", { value: `1 kHz, ${duty}%, 5 V` });
+    const result = runSupportedAnalysis(candidate);
+    assert.equal(result.state, "complete");
+    assert.equal(result.result.kind, "pwm-led-average");
+    assert.equal(result.result.frequencyHz, 1000);
+    assert.equal(result.result.requestedDutyPercent, duty);
+    assert.ok(Math.abs(result.result.averageCurrentA - ((5 - 2) / 330) * duty / 100) < 1e-12);
+    assert.ok(Math.abs(result.result.powerBalanceW) < 1e-12);
+    measured.push(result.result.averageCurrentA);
+  }
+  assert.ok(measured[0] < measured[1] && measured[1] < measured[2]);
+
+  const gateLow = updateComponent(project, "pwm-1", { value: "1 kHz, 90%, 1 V" });
+  assert.equal(runSupportedAnalysis(gateLow).result.averageCurrentA, 0);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "pwm-1", { value: "1 kHz, 110%, 5 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "GATE").endpoints = ["pwm-1:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("12 V LED limiter example calculates the documented current", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/007-led-current-limiter-12v.adigun.json", import.meta.url)));
   const result = runSupportedAnalysis(project);
@@ -587,7 +613,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 17);
+  assert.equal(getExampleCoverage(registry).total, 18);
   assert.equal(getExampleCoverage(registry).released, 7);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 193);
