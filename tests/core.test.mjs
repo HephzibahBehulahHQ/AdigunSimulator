@@ -3050,7 +3050,7 @@ test("catalogue constant-current LED driver regulates across load range and repo
 test("catalogue MOSFET half-bridge enforces dead time and prevents gate overlap", async () => {
   const project=JSON.parse(await readFile(new URL("../examples/111-mosfet-half-bridge.adigun.json",import.meta.url)));
   const result=runSupportedAnalysis(project);
-  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.state,"complete",JSON.stringify(result.validation?.errors??result));
   assert.equal(result.result.kind,"mosfet-half-bridge");
   assert.equal(result.result.periodS,10e-6);
   assert.equal(result.result.deadTimeS,0.5e-6);
