@@ -3233,6 +3233,107 @@
           "physicalSleepCurrent": "not verified"
         }
       }
+    },
+    {
+      "id": "081-ble-beacon-configuration",
+      "title": "BLE beacon advertising data configuration",
+      "status": "released",
+      "objective": "Encode configured Flags, a complete 16-bit service UUID, a complete local name, and signed transmit-power field into Bluetooth LE legacy advertising data and enforce the 31-octet limit.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue BLE beacon encodes standard legacy advertising data fields",
+      "testId": "core-ble-beacon-config",
+      "projectFile": "examples/081-ble-beacon-configuration.adigun.json",
+      "safetyNote": "This is a deterministic payload-encoding exercise only. It does not transmit radio packets or model advertising schedules, discovery, RF propagation, connections, GATT services, privacy, or firmware; the legacy advertising payload limit and field encoding are not a hardware radio validation.",
+      "scope": "catalogue",
+      "catalogueIndex": 81,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41182326724",
+        "headRevision": "f52000b23620ea58ac18980ccab4319cfc59a9f0",
+        "engine": "Ideal Bluetooth LE legacy advertising data encoder",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-ble-legacy-advertising-data-v1",
+        "expectedResult": {
+          "deviceName": "Adigun",
+          "deviceNameUtf8Bytes": 6,
+          "flags": 6,
+          "serviceUuid": "0x180D",
+          "serviceUuidEncodedBytes": [
+            13,
+            24
+          ],
+          "txPowerDbm": -4,
+          "structures": [
+            {
+              "name": "Flags",
+              "lengthOctets": 3,
+              "bytes": [
+                "02",
+                "01",
+                "06"
+              ]
+            },
+            {
+              "name": "Complete 16-bit Service UUIDs",
+              "lengthOctets": 4,
+              "bytes": [
+                "03",
+                "03",
+                "0D",
+                "18"
+              ]
+            },
+            {
+              "name": "Complete Local Name",
+              "lengthOctets": 8,
+              "bytes": [
+                "07",
+                "09",
+                "41",
+                "64",
+                "69",
+                "67",
+                "75",
+                "6E"
+              ]
+            },
+            {
+              "name": "Tx Power Level",
+              "lengthOctets": 3,
+              "bytes": [
+                "02",
+                "0A",
+                "FC"
+              ]
+            }
+          ],
+          "payloadBytes": [
+            2,
+            1,
+            6,
+            3,
+            3,
+            13,
+            24,
+            7,
+            9,
+            65,
+            100,
+            105,
+            103,
+            117,
+            110,
+            2,
+            10,
+            252
+          ],
+          "payloadHex": "02 01 06 03 03 0D 18 07 09 41 64 69 67 75 6E 02 0A FC",
+          "payloadLengthOctets": 18,
+          "legacyMaximumOctets": 31,
+          "radioTransmitted": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
