@@ -34,6 +34,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne556", category: "Active", type: "556 dual timer (ideal astable channels)", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"], defaultValue: "NE556-class", simulation: "analytical-556-dual-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.opamp-ideal", category: "Active", type: "Ideal op-amp (non-inverting midband model)", prefix: "U", pins: ["VCC", "VEE", "+", "-", "OUT"], defaultValue: "Ideal op-amp, dual supply", simulation: "analytical-opamp-noninverting", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
 ]);
@@ -371,6 +372,7 @@ export function runSupportedAnalysis(project) {
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
+  const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
   const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
@@ -418,6 +420,9 @@ export function runSupportedAnalysis(project) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 7) {
+    return analyseOpAmpNonInverting(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, ground: ground[0], validation });
   }
   if (source.length === 1 && timers556.length === 1 && resistor.length === 6 && capacitor.length === 4 && led.length === 2 && ground.length === 1 && project.components.length === 15) {
     return analyseNe556DualAstable(project, { source: source[0], timer: timers556[0], resistors: resistor, capacitors: capacitor, leds: led, ground: ground[0], validation });
@@ -1019,6 +1024,32 @@ function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground
     result: { kind: "supercap-hold-up", sourceVoltage, diodeVf, chargeVoltage: sourceVoltage - diodeVf, capacitance, initialVoltage, minimumVoltage, ratedVoltage, loadResistance, timeConstantS, holdUpTimeS, initialCurrentA, initialLoadPowerW, initialStoredEnergyJ, samples },
     validation
   };
+}
+
+function analyseOpAmpNonInverting(project,{sources,input,opAmp,resistors,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0");
+  const positiveRail=sources.find(part=>n(part,"-")===groundNet&&n(part,"+")!==groundNet);
+  const negativeRail=sources.find(part=>n(part,"+")===groundNet&&n(part,"-")!==groundNet);
+  if(!positiveRail||!negativeRail||n(opAmp,"VCC")!==n(positiveRail,"+")||n(opAmp,"VEE")!==n(negativeRail,"-")
+    ||n(input,"-")!==groundNet||n(input,"+")!==n(opAmp,"+")||n(resistors[0],"1")===n(resistors[0],"2")){
+    return {state:"blocked",message:"Connect the op-amp to distinct positive/negative rails, ground the input reference, and wire a non-inverting feedback divider.",validation};
+  }
+  const outputNet=n(opAmp,"OUT"),invertingNet=n(opAmp,"-");
+  const feedback=resistors.find(part=>(n(part,"1")===outputNet&&n(part,"2")===invertingNet)||(n(part,"2")===outputNet&&n(part,"1")===invertingNet));
+  const groundLeg=resistors.find(part=>part!==feedback&&((n(part,"1")===invertingNet&&n(part,"2")===groundNet)||(n(part,"2")===invertingNet&&n(part,"1")===groundNet)));
+  const rf=feedback?resistanceValue(feedback.value):Number.NaN,rg=groundLeg?resistanceValue(groundLeg.value):Number.NaN;
+  const inputAmplitudeV=voltageValue(input.value),positiveVoltage=voltageValue(positiveRail.value),negativeVoltage=voltageValue(negativeRail.value);
+  if(!feedback||!groundLeg||![rf,rg,inputAmplitudeV,positiveVoltage,negativeVoltage].every(Number.isFinite)||rf<=0||rg<=0||inputAmplitudeV<=0||positiveVoltage<=0||negativeVoltage<=0){
+    return {state:"blocked",message:"The ideal non-inverting model requires positive feedback/input values and valid dual-rail supplies.",validation};
+  }
+  const gainVPerV=1+rf/rg,outputAmplitudeV=inputAmplitudeV*gainVPerV;
+  if(outputAmplitudeV>=Math.min(positiveVoltage,negativeVoltage)){
+    return {state:"blocked",message:"The ideal output amplitude reaches a supply rail; this model does not calculate clipping.",validation};
+  }
+  return {state:"complete",engine:"Ideal op-amp non-inverting midband gain estimate",message:"Calculates closed-loop gain as 1 + Rf/Rg and applies it to the input amplitude at midband. It omits bandwidth, slew rate, input/output limits, offset, noise, loading, common-mode range, and device-specific behavior.",result:{kind:"opamp-noninverting",gainVPerV,inputAmplitudeV,outputAmplitudeV,phaseShiftDeg:0,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage,feedbackResistanceOhm:rf,groundLegResistanceOhm:rg,frequencyResponse:"ideal midband gain only"},validation};
 }
 
 function analyseNe556DualAstable(project,{source,timer,resistors,capacitors,leds,ground,validation}){
