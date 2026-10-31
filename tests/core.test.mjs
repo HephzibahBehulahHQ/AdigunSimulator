@@ -64,6 +64,7 @@ import { buildBomReport, exportBomCsv, runBomExportPlaceholder } from "../js/bom
 import { explainComponent, runBotComponentExplainer } from "../js/bot-component-explainer.mjs";
 import { applyBotFloatingNodeRepairPreview, buildBotFloatingNodeRepairPreview, runBotFloatingNodeRepair } from "../js/bot-floating-node-repair.mjs";
 import { applyBotCircuitProposal, buildBotCircuitProposal, runBotCircuitProposal } from "../js/bot-circuit-proposal.mjs";
+import { auditUiSource, runFourLanguageUiSweep } from "../js/locale-ui-sweep.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1496,7 +1497,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 207);
+  assert.equal(getExampleCoverage(registry).total, 208);
   assert.equal(getExampleCoverage(registry).released, 197);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 3);
@@ -4657,4 +4658,10 @@ test("catalogue BOT 12 V LED proposal validates separately and rejection preserv
   const rejected=applyBotCircuitProposal(project,result.preview,{confirmed:false});assert.equal(rejected.applied,false);assert.equal(rejected.project,project);assert.equal(JSON.stringify(project),before);
   const stale=structuredClone(project);stale.metadata.name+=" changed";assert.equal(applyBotCircuitProposal(stale,result.preview,{confirmed:true}).applied,false);
   const accepted=applyBotCircuitProposal(project,result.preview,{confirmed:true});assert.equal(accepted.applied,true);assert.equal(accepted.project.components.find(item=>item.libraryId==="power.dc-source").value,"12 V");
+});
+test("catalogue four-language UI sweep covers translations, accessible names, and responsive overflow guards", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/198-four-language-ui-sweep.adigun.json",import.meta.url)));
+  const result=runFourLanguageUiSweep(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"four-language-ui-sweep");assert.equal(result.result.localeCount,4);assert.equal(result.result.missingTranslations,0);
+  const html=await readFile(new URL("../index.html",import.meta.url),"utf8");const css=await readFile(new URL("../styles.css",import.meta.url),"utf8");
+  const audit=auditUiSource(html,css);assert.equal(audit.passed,true,JSON.stringify(audit));assert.equal(audit.missingTranslations.length,0);assert.equal(audit.undeclaredKeys.length,0);assert.deepEqual(audit.unlabeledButtons,[]);assert.deepEqual(audit.unlabeledControls,[]);assert.deepEqual(audit.unlabeledImages,[]);assert.deepEqual(audit.failedGuards,[]);assert.equal(audit.renderedPixelCheck,false);
 });
