@@ -6748,6 +6748,19 @@
           "ldrCircuitModel": false
         }
       }
+    },
+    {
+      "id": "174-smart-irrigation-model",
+      "title": "Smart irrigation model",
+      "status": "in-review",
+      "objective": "Water only when a valid synthetic moisture reading is dry and permission is granted; make sensor faults fail off.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue irrigation waters only when dry and permitted and fails off on sensor fault",
+      "testId": "core-smart-irrigation-model",
+      "projectFile": "examples/174-smart-irrigation-model.adigun.json",
+      "readmeFile": "examples/174-smart-irrigation-model/README.md",
+      "safetyNote": "Synthetic decision logic only. No soil sensor calibration, weather, pump/valve hardware, flow protection, water limits, crop behavior, or environmental validation is modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }

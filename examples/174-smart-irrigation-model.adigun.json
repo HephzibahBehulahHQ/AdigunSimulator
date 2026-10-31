@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "example-174-smart-irrigation-model",
+  "metadata": {
+    "name": "Example 174 — Smart Irrigation Decision Model",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "smartIrrigation": {
+    "kind": "dry-permitted-watering",
+    "dryThresholdPct": 35,
+    "samples": [
+      {
+        "moisturePct": 20,
+        "permitted": true,
+        "sensorFault": false
+      },
+      {
+        "moisturePct": 50,
+        "permitted": true,
+        "sensorFault": false
+      },
+      {
+        "moisturePct": 20,
+        "permitted": false,
+        "sensorFault": false
+      },
+      {
+        "moisturePct": null,
+        "permitted": true,
+        "sensorFault": true
+      },
+      {
+        "moisturePct": 40,
+        "permitted": true,
+        "sensorFault": false
+      },
+      {
+        "moisturePct": 30,
+        "permitted": true,
+        "sensorFault": false
+      }
+    ]
+  }
+}
