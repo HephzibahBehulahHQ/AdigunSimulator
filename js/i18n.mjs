@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -762,3 +762,7 @@ Object.assign(TRANSLATIONS.en, {exampleRelayModulePcb:"Low-voltage relay module 
 Object.assign(TRANSLATIONS.de, {exampleRelayModulePcb:"Niederspannungs-Relaismodul-PCB"});
 Object.assign(TRANSLATIONS.yo, {exampleRelayModulePcb:"PCB modulu relay foliteji kékeré"});
 Object.assign(TRANSLATIONS.pcm, {exampleRelayModulePcb:"Low-voltage relay module PCB"});
+Object.assign(TRANSLATIONS.en, {exampleAudioAmplifierPcb:"Low-voltage LM386 audio amplifier PCB"});
+Object.assign(TRANSLATIONS.de, {exampleAudioAmplifierPcb:"Niederspannungs-Audioverstärkerplatine mit LM386"});
+Object.assign(TRANSLATIONS.yo, {exampleAudioAmplifierPcb:"Pátákì amúgbóhùn LM386 foliteji kékeré"});
+Object.assign(TRANSLATIONS.pcm, {exampleAudioAmplifierPcb:"Low-voltage LM386 audio amplifier PCB"});
