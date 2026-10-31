@@ -77,6 +77,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.data-logger-controller-ideal", category: "Active", type: "Ideal EEPROM data logger controller behavior model", prefix: "U", pins: ["SENSOR", "SDA", "SCL", "DISPLAY", "VCC", "GND"], defaultValue: "SamplePeriodMs 100; Mode circular logger", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.eeprom-ring-buffer-ideal", category: "Active", type: "Ideal EEPROM circular ring-buffer model", prefix: "MEM", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Capacity 3; WriteCycleMs 5; Mode circular", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.data-log-display", category: "Output", type: "Ideal EEPROM replay text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Newest retained samples", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.gsm-alarm-event", category: "Inputs", type: "Ideal GSM alarm event fixture", prefix: "SIG", pins: ["ALARM", "GND"], defaultValue: "AlarmState active; Message TEMP_LIMIT_EXCEEDED; Responses OK|+CREG:0,1|OK|>; SendResult +CMGS:0|OK", simulation: "fixture-gsm-alarm", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.gsm-alarm-controller-ideal", category: "Active", type: "Generic GSM alert AT-command sequence model", prefix: "U", pins: ["ALARM", "TX", "RX", "REPORT", "VCC", "GND"], defaultValue: "Mode sms-mock; Destination TEST_ONLY; CommandTimeoutMs 1000", simulation: "analytical-gsm-alarm-mock", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.gsm-modem-at-mock", category: "Active", type: "Ideal GSM modem AT response fixture", prefix: "MODEM", pins: ["RX", "TX", "VCC", "GND"], defaultValue: "Mode AT-mock; Registration registered", simulation: "analytical-gsm-alarm-mock", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.gsm-sms-report", category: "Output", type: "Ideal GSM alert transaction report sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Mocked modem transaction result", simulation: "analytical-gsm-alarm-mock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.lora-temperature-fixture", category: "Inputs", type: "Ideal LoRa temperature sample fixture", prefix: "SIG", pins: ["DATA", "GND"], defaultValue: "TemperatureC 24.6", simulation: "fixture-lora-temperature", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.lora-node-controller-ideal", category: "Active", type: "Generic LoRa sensor-node payload and schedule model", prefix: "U", pins: ["SENSOR", "RADIO", "REPORT", "VCC", "GND"], defaultValue: "NodeId 7; Sequence 42; Mode payload-v1; AirtimeMs 100; DutyWindowMs 60000; DutyLimitPercent 1; RequestsMs 0,9000,18000,27000,36000,45000,54000,55000", simulation: "analytical-lora-node-schedule", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.lora-radio-payload-ideal", category: "Active", type: "Ideal LoRa radio payload sink (no RF)", prefix: "LORA", pins: ["DATA", "VCC", "GND"], defaultValue: "Mode mock; MaximumPayloadBytes 255; Format V1", simulation: "analytical-lora-node-schedule", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -531,6 +535,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const nfcReaders = project.components.filter((item) => item.libraryId === "active.nfc-reader-ideal");
   const nfcControllers = project.components.filter((item) => item.libraryId === "active.nfc-display-controller-ideal");
   const nfcDisplays = project.components.filter((item) => item.libraryId === "output.nfc-uid-display");
+  const gsmEvents = project.components.filter((item) => item.libraryId === "input.gsm-alarm-event");
+  const gsmControllers = project.components.filter((item) => item.libraryId === "active.gsm-alarm-controller-ideal");
+  const gsmModems = project.components.filter((item) => item.libraryId === "active.gsm-modem-at-mock");
+  const gsmReports = project.components.filter((item) => item.libraryId === "output.gsm-sms-report");
   const loraFixtures = project.components.filter((item) => item.libraryId === "input.lora-temperature-fixture");
   const loraControllers = project.components.filter((item) => item.libraryId === "active.lora-node-controller-ideal");
   const loraRadios = project.components.filter((item) => item.libraryId === "active.lora-radio-payload-ideal");
@@ -618,6 +626,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (dataLogFixtures.length === 1 && dataLogControllers.length === 1 && ringEeproms.length === 1 && dataLogDisplays.length === 1 && resistor.length === 2 && source.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseEepromRingLogger(project, { source: source[0], fixture: dataLogFixtures[0], controller: dataLogControllers[0], eeprom: ringEeproms[0], display: dataLogDisplays[0], pullups: resistor, ground: ground[0], validation });
+  }
+  if (gsmEvents.length === 1 && gsmControllers.length === 1 && gsmModems.length === 1 && gsmReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseGsmAlarmMock(project, { source: source[0], event: gsmEvents[0], controller: gsmControllers[0], modem: gsmModems[0], report: gsmReports[0], ground: ground[0], validation });
   }
   if (loraFixtures.length === 1 && loraControllers.length === 1 && loraRadios.length === 1 && loraReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseLoraSensorNode(project, { source: source[0], fixture: loraFixtures[0], controller: loraControllers[0], radio: loraRadios[0], report: loraReports[0], ground: ground[0], validation });
@@ -1724,6 +1735,33 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
+function analyseGsmAlarmMock(project,{source,event,controller,modem,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const eventFields=fields(event.value),controllerFields=fields(controller.value),modemFields=fields(modem.value);
+  const alarmState=field(eventFields,"AlarmState"),message=field(eventFields,"Message")??"",responses=(field(eventFields,"Responses")??"").split("|"),sendResult=(field(eventFields,"SendResult")??"").split("|");
+  const destination=field(controllerFields,"Destination"),timeoutMs=Number((field(controllerFields,"CommandTimeoutMs")??"").replace(/ms$/i,""));
+  const registration=field(modemFields,"Registration"),groundNet=n(ground,"0"),vccNet=n(controller,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const serialWired=n(controller,"TX")===n(modem,"RX")&&n(controller,"RX")===n(modem,"TX");
+  const dataPaths=n(event,"ALARM")===n(controller,"ALARM")&&n(controller,"REPORT")===n(report,"DATA");
+  const powered=[controller,modem,report].every(part=>n(part,"VCC")===vccNet&&n(part,"GND")===groundNet)&&n(event,"GND")===groundNet;
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<3||supplyVoltage>5.5||!serialWired||!dataPaths||!powered||field(controllerFields,"Mode")!=="sms-mock"||destination!=="TEST_ONLY"||field(modemFields,"Mode")!=="AT-mock"||!["active","inactive"].includes(alarmState)||!/^([A-Z0-9_]{1,40})$/.test(message)||!Number.isInteger(timeoutMs)||timeoutMs<100||timeoutMs>60000||responses.length!==4||responses.some(value=>!value.trim())||sendResult.length!==2||sendResult.some(value=>!value.trim())){
+    return {state:"blocked",message:"Wire the alarm input, crossed UART paths, shared ground, modem, and report sink. Use the TEST_ONLY destination, sms-mock mode, a bounded command timeout, and four modem init responses plus a two-field mock send result.",validation};
+  }
+  const commands=["AT","AT+CREG?","AT+CMGF=1",'AT+CMGS="TEST_ONLY"'];
+  if(alarmState==="inactive")return {state:"complete",engine:"Mock GSM AT-command alarm transaction",message:"No alarm is active; no modem commands or alert message are prepared. This local mock never transmits.",result:{kind:"gsm-alarm-mock",alarmState,message,commands:[],commandsCompleted:0,transactionState:"idle-no-alarm",modemAccepted:false,deliveryConfirmed:false,radioTransmitted:false,firmwareExecuted:false},validation};
+  if(registration!=="registered")return {state:"complete",engine:"Mock GSM AT-command alarm transaction",message:"The modem is not registered, so the alert transaction stops before sending. Registration and network service are fixtures only.",result:{kind:"gsm-alarm-mock",alarmState,message,commands,commandsCompleted:0,transactionState:"aborted-not-registered",modemAccepted:false,deliveryConfirmed:false,radioTransmitted:false,firmwareExecuted:false},validation};
+  const expected=["OK","REG","OK",">"];let failedAt=-1;
+  for(let index=0;index<expected.length;index++){
+    const response=responses[index].trim(),ok=expected[index]==="REG"?/^\+CREG:\s*0,[15]$/.test(response):response===expected[index];
+    if(!ok){failedAt=index;break;}
+  }
+  if(failedAt>=0)return {state:"complete",engine:"Mock GSM AT-command alarm transaction",message:"The mocked modem response failed the expected AT-command step; the sequence aborts without preparing an SMS body.",result:{kind:"gsm-alarm-mock",alarmState,message,commands,commandsCompleted:failedAt+1,failedCommand:commands[failedAt],failedResponse:responses[failedAt].trim(),transactionState:"aborted-modem-error",modemAccepted:false,deliveryConfirmed:false,radioTransmitted:false,firmwareExecuted:false},validation};
+  const accepted=/^\+CMGS:\s*\d+$/.test(sendResult[0].trim())&&sendResult[1].trim()==="OK";
+  return {state:"complete",engine:"Mock GSM AT-command alarm transaction",message:accepted?"The AT sequence completed and the mock modem accepted the submission; delivery is not confirmed. Nothing was transmitted.":"The mock modem rejected the message submission; no delivery is confirmed and nothing was transmitted.",result:{kind:"gsm-alarm-mock",alarmState,message,commands,commandsCompleted:commands.length,failedCommand:accepted?null:"message submission",failedResponse:accepted?null:sendResult.join("|"),messageBody:accepted?message:null,transactionState:accepted?"mock-modem-accepted":"aborted-send-error",modemAccepted:accepted,deliveryConfirmed:false,radioTransmitted:false,firmwareExecuted:false},validation};
+}
+
 function analyseLoraSensorNode(project,{source,fixture,controller,radio,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
