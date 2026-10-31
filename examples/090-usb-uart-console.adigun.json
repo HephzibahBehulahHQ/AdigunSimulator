@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-090-usb-uart-console",
+  "metadata": {
+    "name": "USB-UART Console Known Byte Stream",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          35,
+          50
+        ],
+        "schematic": [
+          35,
+          50
+        ],
+        "pcb": [
+          35,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "stream",
+      "libraryId": "input.usb-uart-console-stream",
+      "reference": "HOST1",
+      "value": "Baud 9600; DataBits 8; Parity none; StopBits 1; TXBytes 48 69; RXBytes 4F 4B",
+      "position": {
+        "breadboard": [
+          150,
+          50
+        ],
+        "schematic": [
+          150,
+          50
+        ],
+        "pcb": [
+          150,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "bridge",
+      "libraryId": "active.usb-uart-bridge-mock",
+      "reference": "U1",
+      "value": "Mode local mock; Flow none",
+      "position": {
+        "breadboard": [
+          310,
+          50
+        ],
+        "schematic": [
+          310,
+          50
+        ],
+        "pcb": [
+          310,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.serial-console-report",
+      "reference": "TERM1",
+      "value": "Console output",
+      "position": {
+        "breadboard": [
+          465,
+          50
+        ],
+        "schematic": [
+          465,
+          50
+        ],
+        "pcb": [
+          465,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          565,
+          220
+        ],
+        "schematic": [
+          565,
+          220
+        ],
+        "pcb": [
+          565,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "bridge:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "stream:GND",
+        "bridge:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "TX_HOST",
+      "endpoints": [
+        "stream:TX",
+        "bridge:RX"
+      ]
+    },
+    {
+      "id": "TX_BRIDGE",
+      "endpoints": [
+        "bridge:TX",
+        "report:RX"
+      ]
+    }
+  ],
+  "history": []
+}
