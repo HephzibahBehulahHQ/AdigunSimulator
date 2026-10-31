@@ -10,6 +10,7 @@ import { createGroundingChecklistReport, reviewAudioAmplifierPcb } from "../js/a
 import { createPowerLayoutReport, reviewBuckPowerLayout } from "../js/buck-converter-review.mjs";
 import { createLayerStackupReport, reviewFourLayerMcuBoard } from "../js/mcu-board-plan.mjs";
 import { createDifferentialPairReport, reviewDifferentialPair } from "../js/differential-pair-review.mjs";
+import { createQfnFootprintReport, reviewQfnFootprint } from "../js/qfn-footprint-review.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
@@ -1310,6 +1311,35 @@ test("USB Full-Speed differential pair demo checks mapping, bounded constraints 
   assert.equal(reviewDifferentialPair(brokenPair).status, "failed");
 });
 
+test("QFN footprint validation checks pad map, land pattern, stencil apertures and courtyard", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/132-qfn-footprint-validation.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete");
+  assert.equal(analysis.result.kind,"qfn-footprint-validation");
+  assert.equal(analysis.result.device,"TPS62130RGTR");
+  assert.equal(analysis.result.manufacturingQualified,false);
+  const review=reviewQfnFootprint(project);
+  assert.equal(review.status,"passed");
+  assert.equal(review.checks.length,7);
+  assert.equal(review.pasteCoveragePercent,69.4);
+  const actual=createQfnFootprintReport(project);
+  const expected=await readFile(new URL("../examples/132-qfn-footprint-validation/expected/QFN-Footprint-Review.csv",import.meta.url),"utf8");
+  assert.equal(actual,expected);
+  const missingEp=structuredClone(project);
+  missingEp.pcbFabrication.pads=missingEp.pcbFabrication.pads.filter(pad=>pad.number!=="17");
+  assert.equal(reviewQfnFootprint(missingEp).status,"failed");
+  const wrongPin=structuredClone(project);
+  wrongPin.pcbFabrication.pads.find(pad=>pad.number==="1").pin="PG";
+  assert.equal(reviewQfnFootprint(wrongPin).status,"failed");
+  const badStencil=structuredClone(project);
+  badStencil.pcbFabrication.qfnFootprints[0].stencil.exposedPadWindows[0].xMm=7;
+  assert.equal(reviewQfnFootprint(badStencil).status,"failed");
+  const shortCourt=structuredClone(project);
+  shortCourt.pcbFabrication.qfnFootprints[0].courtyard.widthMm=3.4;
+  assert.equal(reviewQfnFootprint(shortCourt).status,"failed");
+});
+
 test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
@@ -1318,7 +1348,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 141);
+  assert.equal(getExampleCoverage(registry).total, 142);
   assert.equal(getExampleCoverage(registry).released, 131);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 69);

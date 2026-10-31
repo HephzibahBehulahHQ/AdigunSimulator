@@ -1,3 +1,4 @@
+import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
 export const SCHEMA_VERSION = 1;
 export const DESIGN_VIEWS = Object.freeze(["breadboard", "schematic", "pcb"]);
 const UI_LOCALES_FOR_PROJECT = Object.freeze(["en", "de", "yo", "pcm"]);
@@ -272,6 +273,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "connector.swd-header-4", category: "Connectors", type: "4-pin SWD programming header", prefix: "J", pins: ["VDD","GND","SWDIO","SWCLK"], defaultValue: "2.54 mm SWD header", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "active.tusb1106-usb-fs-phy", category: "Active", type: "TI TUSB1106 USB Full-Speed transceiver", prefix: "U", pins: ["VPU","SOFTCON","OE","RCV","VP","VM","SUSPND","GND","VCCIO","SPEED","D-","D+","VPO","VMO","VREG","VCC5"], defaultValue: "TUSB1106RGTR; USB Full-Speed; RGT 16-pin pin map", simulation: "bounded-differential-pcb-rules", status: "TI manufacturer pin map; generic PCB footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.usb-phy-logic-10", category: "Connectors", type: "10-pin USB PHY logic header", prefix: "J", pins: ["VCCIO","GND","VPO","VMO","VP","VM","RCV","OE","SUSPND","SPEED"], defaultValue: "VCCIO, GND, VPO, VMO, RCV, OE, SUSPND, SPEED", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
+  { id: "active.tps62130-qfn16", category: "Active", type: "TI TPS62130 16-pin VQFN with exposed thermal pad", prefix: "U", pins: ["SW_1","SW_2","SW_3","PG","FB","AGND","FSW","DEF","SS_TR","AVIN","PVIN_1","PVIN_2","EN","VOS","PGND_1","PGND_2","EP"], defaultValue: "TPS62130RGTR; RGT0016C; adjustable 3 A buck converter", simulation: "bounded-qfn-footprint-review", status: "TI pin map and package drawing; footprint and stencil proposal", views: { breadboard: false, schematic: true, pcb: true } },
 ]);
 
 function clone(value) {
@@ -603,6 +605,14 @@ function engineeringValue(value, expectedUnit) {
 export function runSupportedAnalysis(project, { previousState } = {}) {
   const validation = validateProject(project);
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
+
+  const qfnPart=project.components.find((item)=>item.libraryId==="active.tps62130-qfn16");
+  if(qfnPart){
+    const review=reviewQfnFootprint(project);
+    if(review.status!=="passed")return {state:"blocked",engine:"Bounded QFN footprint metadata checker",message:"Review the QFN pad map, stencil aperture geometry and courtyard dimensions.",validation,footprintReview:review};
+    return {state:"complete",engine:"Bounded QFN footprint metadata checker",message:"Verified the TI RGT0016C pad map, declared land pattern, stencil proposal and courtyard geometry. Paste transfer, solder-joint quality, thermal performance and fabrication compliance are not simulated.",validation,result:{kind:"qfn-footprint-validation",device:"TPS62130RGTR",package:"RGT0016C",electricalPads:16,exposedPadNumber:"17",stencilApertures:20,pasteCoveragePercent:review.pasteCoveragePercent,manufacturingQualified:false}};
+  }
+
 
 
   const lm386=project.components.find((item)=>item.libraryId==="active.lm386-classab");
