@@ -1919,14 +1919,120 @@
     {
       "id": "048-bcd-counter-display",
       "title": "BCD counter and seven-segment display",
-      "status": "in-review",
+      "status": "released",
       "objective": "Count ten clock edges from 0 through 9 and wrap to 0; assert the correct seven-segment output pattern for each decimal digit and support active-low reset.",
       "acceptanceTest": "tests/core.test.mjs: catalogue BCD counter displays 0 through 9 and wraps with correct segments",
       "testId": "core-bcd-counter-display",
       "projectFile": "examples/048-bcd-counter-display.adigun.json",
       "safetyNote": "Generic ideal static BCD counter/decoder. Clock waveform, propagation delay, timing violations, metastability, segment-driver current limits beyond explicit resistors, and device-specific behavior are not modeled.",
       "scope": "catalogue",
-      "catalogueIndex": 48
+      "catalogueIndex": 48,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41174097741",
+        "headRevision": "9bf905397eff6926407103cd387899600f7cd570",
+        "engine": "Ideal BCD decade counter and seven-segment decoder",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-bcd-counter-display-v1",
+        "expectedResult": {
+          "digits0to9": [
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              0,
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              0,
+              1,
+              1
+            ]
+          ],
+          "wrapsAfterNine": true,
+          "activeLowResetDigit": 0,
+          "invalidClockAboveSupply": "blocked"
+        }
+      }
     }
   ]
 }
