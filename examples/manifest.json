@@ -5605,14 +5605,34 @@
     {
       "id": "137-assembly-variant-board",
       "title": "LED assembly variant board",
-      "status": "in-review",
+      "status": "released",
       "objective": "Generate separate assembly BOMs for an indicator LED fitted and not-fitted option, excluding DNP designators from each variant.",
       "acceptanceTest": "tests/core.test.mjs: catalogue assembly variant board generates two BOMs and excludes DNP parts",
       "testId": "core-assembly-variant-board",
       "projectFile": "examples/137-assembly-variant-board.adigun.json",
       "readmeFile": "examples/137-assembly-variant-board/README.md",
       "safetyNote": "Variant BOM generation excludes only explicit DNP designators from the selected BOM. It does not validate substitutions, sourcing, assembly compatibility or electrical behavior of every possible variant.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 137,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41203695574",
+        "headRevision": "f22f40ba8eecb94a6d36663710656bda4c7376a6",
+        "engine": "DNP-aware assembly variant BOM generator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "assembly-variant-bom-v1",
+        "expectedResult": {
+          "kind": "assembly-variant-bom",
+          "variants": [
+            "basic",
+            "indicator"
+          ],
+          "dnpDesignatorExcluded": "D1",
+          "fittedDesignatorIncluded": "D1",
+          "manufacturingQualified": false
+        }
+      }
     }
   ]
 }
