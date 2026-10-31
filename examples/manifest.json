@@ -4786,7 +4786,7 @@
     {
       "id": "116-inverter-waveform",
       "title": "Inverter waveform concept",
-      "status": "in-review",
+      "status": "released",
       "objective": "Estimate the filtered fundamental RMS output of an ideal single-phase H-bridge from a DC bus and sine-PWM command, and verify the configured output-voltage tolerance and frequency.",
       "acceptanceTest": "tests/core.test.mjs: catalogue inverter reports target RMS and selected output frequency through LC filter",
       "testId": "core-inverter-waveform",
@@ -4794,7 +4794,28 @@
       "readmeFile": "examples/116-inverter-waveform/README.md",
       "safetyNote": "Ideal fundamental/LC estimator only; no PWM switching waveform, mains output, inverter hardware, isolation, thermal, or safety qualification.",
       "scope": "catalogue",
-      "catalogueIndex": 116
+      "catalogueIndex": 116,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41191846461",
+        "headRevision": "a7a13e91ae9324ec9df113a5af595b0bc1fcd90d",
+        "engine": "Ideal SPWM fundamental and passive LC filter estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-spwm-lc-fundamental-v1",
+        "expectedResult": {
+          "kind": "inverter-waveform",
+          "busVoltageV": 48,
+          "modulationIndex": 0.5,
+          "carrierFrequencyHz": 10000,
+          "outputFrequencyHz": 50,
+          "targetVrms": 17,
+          "tolerancePercent": 5,
+          "targetMet": true,
+          "hardwareWaveformModeled": false,
+          "hardwareSafetyQualified": false
+        }
+      }
     }
   ]
 }
