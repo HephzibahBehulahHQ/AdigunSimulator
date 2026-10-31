@@ -6680,6 +6680,19 @@
           "physicalFanModel": false
         }
       }
+    },
+    {
+      "id": "172-pwm-fan-controller",
+      "title": "PWM fan controller",
+      "status": "in-review",
+      "objective": "Map a synthetic temperature sweep to a monotonic PWM duty curve using piecewise-linear interpolation and endpoint clamping.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue PWM fan controller interpolates curve knots and clamps endpoints",
+      "testId": "core-pwm-fan-controller",
+      "projectFile": "examples/172-pwm-fan-controller.adigun.json",
+      "readmeFile": "examples/172-pwm-fan-controller/README.md",
+      "safetyNote": "Setpoint mapping only; no NTC behavior, firmware, timer quantization, driver, fan, airflow, thermal feedback, or cooling performance is modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
