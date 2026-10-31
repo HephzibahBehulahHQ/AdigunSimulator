@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 75);
+  assert.equal(getExampleCoverage(registry).total, 76);
   assert.equal(getExampleCoverage(registry).released, 65);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 135);
@@ -1984,5 +1984,20 @@ test("catalogue ultrasonic ranger converts echo time and reports measurement bou
   }
   const broken=structuredClone(project);
   broken.nets.find(n=>n.id==="ECHO").endpoints=["sensor:ECHO"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Arduino servo maps potentiometer endpoints to pulse and angle",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/066-arduino-servo-control.adigun.json",import.meta.url)));
+  for(const [position,angle] of [[0,0],[50,90.08797653958944],[100,180]]){
+    const result=runSupportedAnalysis(updateComponent(project,"pot",{value:`Position ${position}%; Resolution 10 bit`}));
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.angleDegrees,angle);
+    assert.equal(result.result.firmwareExecuted,false);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Position 101%; Resolution 10 bit"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="SERVO_PWM").endpoints=["mcu:D9"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
