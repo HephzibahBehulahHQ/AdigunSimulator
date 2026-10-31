@@ -65,6 +65,7 @@ import { explainComponent, runBotComponentExplainer } from "../js/bot-component-
 import { applyBotFloatingNodeRepairPreview, buildBotFloatingNodeRepairPreview, runBotFloatingNodeRepair } from "../js/bot-floating-node-repair.mjs";
 import { applyBotCircuitProposal, buildBotCircuitProposal, runBotCircuitProposal } from "../js/bot-circuit-proposal.mjs";
 import { auditUiSource, runFourLanguageUiSweep } from "../js/locale-ui-sweep.mjs";
+import { runOfflineRecoveryScenario } from "../js/offline-recovery-scenario.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1497,7 +1498,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 208);
+  assert.equal(getExampleCoverage(registry).total, 209);
   assert.equal(getExampleCoverage(registry).released, 198);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 2);
@@ -4664,4 +4665,11 @@ test("catalogue four-language UI sweep covers translations, accessible names, an
   const result=runFourLanguageUiSweep(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"four-language-ui-sweep");assert.equal(result.result.localeCount,4);assert.equal(result.result.missingTranslations,0);
   const html=await readFile(new URL("../index.html",import.meta.url),"utf8");const css=await readFile(new URL("../styles.css",import.meta.url),"utf8");
   const audit=auditUiSource(html,css);assert.equal(audit.passed,true,JSON.stringify(audit));assert.equal(audit.missingTranslations.length,0);assert.equal(audit.undeclaredKeys.length,0);assert.deepEqual(audit.unlabeledButtons,[]);assert.deepEqual(audit.unlabeledControls,[]);assert.deepEqual(audit.unlabeledImages,[]);assert.deepEqual(audit.failedGuards,[]);assert.equal(audit.renderedPixelCheck,false);
+});
+test("catalogue offline recovery restores the unsaved edit and preserves a manual export on storage failure", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/199-local-offline-recovery.adigun.json",import.meta.url)));
+  const original=serializeProject(project);const result=runOfflineRecoveryScenario(project);
+  assert.equal(result.state,"complete",result.message);assert.equal(result.result.kind,"offline-recovery-scenario");
+  assert.equal(result.result.editedValue,"470 Ω");assert.equal(result.result.draftSaved,true);assert.equal(result.result.storageFallbackAvailable,true);assert.equal(result.result.silentLoss,false);
+  assert.equal(serializeProject(project),original);
 });
