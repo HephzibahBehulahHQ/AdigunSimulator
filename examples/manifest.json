@@ -4308,6 +4308,67 @@
           "hardwareModeled": false
         }
       }
+    },
+    {
+      "id": "105-bms-cell-monitor",
+      "title": "BMS cell monitor",
+      "status": "released",
+      "objective": "Compare a three-cell stack fixture against configurable over/under-voltage thresholds, calculate stack/min/max values, flag high-cell balance requests, and verify that warnings do not claim physical protection actuation.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue three-cell BMS flags voltage faults and balance requests without actuating protection",
+      "testId": "core-bms-cell-monitor",
+      "projectFile": "examples/105-bms-cell-monitor.adigun.json",
+      "safetyNote": "Ideal cell-voltage threshold estimator only. It does not model cell chemistry/state of charge, measurement error, balancing current, contactors, thermal behavior, fault timing, or BMS safety qualification; reported actions are not actuated.",
+      "scope": "catalogue",
+      "catalogueIndex": 105,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41188070373",
+        "headRevision": "ac433917ac64d0c74196c58168e49f659feac82e",
+        "engine": "Ideal three-cell BMS threshold and passive-balance request estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-three-cell-bms-threshold-v1",
+        "expectedResult": {
+          "kind": "bms-cell-monitor",
+          "chemistryModel": "not modeled",
+          "cellCount": 3,
+          "cellReports": [
+            {
+              "cell": 1,
+              "voltageV": 3.7,
+              "overVoltage": false,
+              "underVoltage": false,
+              "balanceRequested": false
+            },
+            {
+              "cell": 2,
+              "voltageV": 3.72,
+              "overVoltage": false,
+              "underVoltage": false,
+              "balanceRequested": false
+            },
+            {
+              "cell": 3,
+              "voltageV": 3.71,
+              "overVoltage": false,
+              "underVoltage": false,
+              "balanceRequested": false
+            }
+          ],
+          "minimumCellV": 3.7,
+          "maximumCellV": 3.72,
+          "stackVoltageV": 11.13,
+          "overVoltageThresholdV": 4.2,
+          "underVoltageThresholdV": 3,
+          "balanceDeltaV": 0.03,
+          "faultState": "normal",
+          "overVoltageCells": [],
+          "underVoltageCells": [],
+          "cellsToBalance": [],
+          "balancingActuated": false,
+          "protectionActuated": false
+        }
+      }
     }
   ]
 }
