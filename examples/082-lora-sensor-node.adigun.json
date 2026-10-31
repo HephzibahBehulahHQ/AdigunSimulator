@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-082-lora-sensor-node",
+  "metadata": {
+    "name": "LoRa Temperature Sensor Node",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          38,
+          56
+        ],
+        "schematic": [
+          38,
+          56
+        ],
+        "pcb": [
+          38,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "temperature",
+      "libraryId": "input.lora-temperature-fixture",
+      "reference": "SIG1",
+      "value": "TemperatureC 24.6",
+      "position": {
+        "breadboard": [
+          125,
+          56
+        ],
+        "schematic": [
+          125,
+          56
+        ],
+        "pcb": [
+          125,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.lora-node-controller-ideal",
+      "reference": "U1",
+      "value": "NodeId 7; Sequence 42; Mode payload-v1; AirtimeMs 100; DutyWindowMs 60000; DutyLimitPercent 1; RequestsMs 0,9000,18000,27000,36000,45000,54000,55000",
+      "position": {
+        "breadboard": [
+          260,
+          56
+        ],
+        "schematic": [
+          260,
+          56
+        ],
+        "pcb": [
+          260,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "radio",
+      "libraryId": "active.lora-radio-payload-ideal",
+      "reference": "LORA1",
+      "value": "Mode mock; MaximumPayloadBytes 255; Format V1",
+      "position": {
+        "breadboard": [
+          410,
+          56
+        ],
+        "schematic": [
+          410,
+          56
+        ],
+        "pcb": [
+          410,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.lora-duty-report",
+      "reference": "DISP1",
+      "value": "Payload and duty guard result",
+      "position": {
+        "breadboard": [
+          530,
+          56
+        ],
+        "schematic": [
+          530,
+          56
+        ],
+        "pcb": [
+          530,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          245
+        ],
+        "schematic": [
+          605,
+          245
+        ],
+        "pcb": [
+          605,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "controller:VCC",
+        "radio:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "temperature:GND",
+        "controller:GND",
+        "radio:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "SENSOR",
+      "endpoints": [
+        "temperature:DATA",
+        "controller:SENSOR"
+      ]
+    },
+    {
+      "id": "RADIO_DATA",
+      "endpoints": [
+        "controller:RADIO",
+        "radio:DATA"
+      ]
+    },
+    {
+      "id": "REPORT",
+      "endpoints": [
+        "controller:REPORT",
+        "report:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
