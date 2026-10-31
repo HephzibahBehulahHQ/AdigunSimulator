@@ -1158,7 +1158,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 131);
+  assert.equal(getExampleCoverage(registry).total, 132);
   assert.equal(getExampleCoverage(registry).released, 121);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 79);
@@ -3286,6 +3286,26 @@ test("catalogue hot-swap limits capacitor inrush and trips an overload", async (
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="GATE").endpoints=["controller:GATE"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue 555 timer PCB maps every routed net and matches fabrication snapshots", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/122-555-timer-pcb.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  assert.equal(analysis.result.kind,"ne555-astable");
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  assert.ok(drc.checks.includes("no unrouted physical nets"));
+  assert.ok(drc.checks.includes("all physical pads appear on copper paths"));
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  for(const [name,content] of Object.entries(generated.files)){
+    const expected=await readFile(new URL("../examples/122-555-timer-pcb/expected/"+name,import.meta.url),"utf8");
+    assert.equal(content,expected,name);
+  }
+  const unrouted=structuredClone(project);
+  unrouted.pcbFabrication.routes=unrouted.pcbFabrication.routes.filter(route=>route.netId!=="CONTROL");
+  assert.equal(validatePcbFabrication(unrouted).status,"failed");
 });
 
 test("catalogue single-sided LED PCB passes bounded DRC and matches fabrication snapshots", async () => {
