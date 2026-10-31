@@ -5002,7 +5002,7 @@
     {
       "id": "121-single-sided-led-pcb",
       "title": "Single-sided LED PCB",
-      "status": "in-review",
+      "status": "released",
       "objective": "Create a single-sided LED board with mixed through-hole/SMD footprints; run electrical and bounded PCB checks, then export deterministic Gerber, drill and BOM files and compare them with checked-in expected outputs.",
       "acceptanceTest": "tests/core.test.mjs: catalogue LED PCB validates electrical topology, passes bounded DRC, and byte-matches Gerber/drill/BOM snapshots",
       "testId": "core-single-sided-led-pcb",
@@ -5010,7 +5010,33 @@
       "readmeFile": "examples/121-single-sided-led-pcb/README.md",
       "safetyNote": "Single-layer educational manufacturing preview. Generated files pass only the listed bounded internal checks; verify selected real parts, clearances, tolerances, materials and manufacturer rules before production.",
       "scope": "catalogue",
-      "catalogueIndex": 121
+      "catalogueIndex": 121,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41193864092",
+        "headRevision": "ce2f38e935d520e45e48d0ea6cdef0a7d50a052d",
+        "engine": "Analytical DC LED demonstration and bounded single-sided PCB exporter",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "single-sided-fcu-gerber-excellon-bom-v1",
+        "expectedResult": {
+          "kind": "led-current-limiter",
+          "sourceVoltage": 5,
+          "resistance": 330,
+          "ledVf": 2,
+          "currentA": 0.00909090909090909,
+          "resistorPowerW": 0.02727272727272727,
+          "ledOn": true,
+          "pcbDrcStatus": "passed",
+          "artifacts": [
+            "board-F_Cu.gbr",
+            "board-Edge_Cuts.gbr",
+            "board-PTH.drl",
+            "BOM.csv"
+          ],
+          "hardwareManufacturingQualified": false
+        }
+      }
     }
   ]
 }
