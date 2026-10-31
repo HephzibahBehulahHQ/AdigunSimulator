@@ -1856,6 +1856,18 @@
           "invalidClockAboveSupply": "blocked"
         }
       }
+    },
+    {
+      "id": "047-four-bit-binary-counter",
+      "title": "Four-bit binary counter",
+      "status": "in-review",
+      "objective": "Count modulo-16 rising clock edges into a four-bit output, initialize with active-low reset, and expose bit outputs with current-limited LEDs.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue four-bit counter counts rising edges through 15 and wraps to zero",
+      "testId": "core-four-bit-binary-counter",
+      "projectFile": "examples/047-four-bit-binary-counter.adigun.json",
+      "safetyNote": "Generic ideal modulo-16 counter state model. It omits clock waveform quality, propagation delay, setup/hold timing, metastability, output loading beyond LED resistors, and device-specific behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 47
     }
   ]
 }
