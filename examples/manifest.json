@@ -1394,6 +1394,18 @@
           "turnOffCurrentAtThreeTimeConstantsA": 0.012600980302131396
         }
       }
+    },
+    {
+      "id": "036-hbridge-dc-motor",
+      "title": "Four-switch H-bridge DC motor driver",
+      "status": "in-review",
+      "objective": "Use two generic P-channel high-side switches and two generic N-channel low-side switches to drive a 6 Ω + 10 mH motor electrical equivalent from 12 V; test forward and reverse static vectors, coast, MOSFET gate bounds, and same-leg shoot-through interlock.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue H-bridge reverses the motor model and blocks same-leg shoot-through",
+      "testId": "core-hbridge-dc-motor",
+      "projectFile": "examples/036-hbridge-dc-motor.adigun.json",
+      "safetyNote": "Ideal static educational switch model only. It uses 0.1 Ω on-resistance per conducting MOSFET and represents the motor as a series resistance and inductance. It checks same-leg overlap but omits motor back EMF, speed/torque, switching dead time, body-diode commutation, transient current decay, thermal behavior, manufacturer-specific ratings, and safe physical direction reversal.",
+      "scope": "catalogue",
+      "catalogueIndex": 36
     }
   ]
 }
