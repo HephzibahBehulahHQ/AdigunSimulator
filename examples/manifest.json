@@ -7248,6 +7248,19 @@
           "roundingSignificantDigits": 6
         }
       }
+    },
+    {
+      "id": "188-resistor-color-code-reader",
+      "title": "Resistor colour-code reader",
+      "status": "in-review",
+      "objective": "Decode supported four- and five-band resistor color combinations into nominal resistance and tolerance, and reject invalid or unsupported band combinations.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue resistor color-code reader decodes four/five-band values and rejects invalid bands",
+      "testId": "core-resistor-color-code-reader",
+      "projectFile": "examples/188-resistor-color-code-reader.adigun.json",
+      "readmeFile": "examples/188-resistor-color-code-reader/README.md",
+      "safetyNote": "Educational resistor code lookup only. Verify the physical part and tolerance from its datasheet or measurement before design use.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }

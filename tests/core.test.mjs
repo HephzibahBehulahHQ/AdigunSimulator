@@ -54,6 +54,7 @@ import { projectComponentsForView, runUnsupportedBreadboardPackage } from "../js
 import { runMissingFootprintWorkflow } from "../js/pcb-update-resolution.mjs";
 import { cancelPartSubstitutionPreview, createPartSubstitutionPreview, runPinIncompatibleSubstitution } from "../js/pin-substitution-preview.mjs";
 import { convertEngineeringUnit, runUnitConversionCalculator } from "../js/unit-conversion-calculator.mjs";
+import { readResistorBands, runResistorColorCodeReader } from "../js/resistor-color-code.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1486,7 +1487,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 197);
+  assert.equal(getExampleCoverage(registry).total, 198);
   assert.equal(getExampleCoverage(registry).released, 187);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 13);
@@ -4536,4 +4537,13 @@ test("catalogue SI unit converter returns resistor, power, length, and rounded r
   assert.deepEqual(convertEngineeringUnit(2.2,"kΩ","Ω"),{ok:true,value:2200,dimension:"resistance",fromUnit:"kΩ",toUnit:"Ω",precision:6});
   assert.equal(convertEngineeringUnit(1,"kΩ","mW").ok,false);assert.equal(convertEngineeringUnit(Infinity,"mm","m").ok,false);assert.equal(convertEngineeringUnit(1,"m","m",13).ok,false);
   const invalid=structuredClone(project);invalid.unitConversionCalculator.cases[0].fromUnit="mW";assert.equal(runUnitConversionCalculator(invalid).state,"blocked");
+});
+test("catalogue resistor color-code reader decodes four/five-band values and rejects invalid bands", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/188-resistor-color-code-reader.adigun.json",import.meta.url)));
+  const result=runResistorColorCodeReader(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"resistor-color-code-cases");assert.equal(result.result.validCount,2);assert.equal(result.result.rejectedCount,2);
+  assert.equal(result.result.results[0].reading.resistanceOhms,4700);assert.equal(result.result.results[0].reading.tolerancePercent,5);
+  assert.equal(result.result.results[1].reading.resistanceOhms,1000);assert.equal(result.result.results[1].reading.tolerancePercent,1);
+  assert.equal(readResistorBands(["gold","brown","red","gold"]).valid,false);assert.equal(readResistorBands(["brown","black","pink","gold"]).valid,false);
+  assert.equal(readResistorBands(["yellow","violet","red","gold"]).formattedResistance,"4.7 kΩ");assert.equal(readResistorBands(["brown","black","black","brown","brown"]).formattedResistance,"1 kΩ");
+  const invalid=structuredClone(project);invalid.resistorColorCodeReader.cases=[];assert.equal(runResistorColorCodeReader(invalid).state,"blocked");
 });

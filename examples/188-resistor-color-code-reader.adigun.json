@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "id": "example-188-resistor-color-code-reader",
+  "metadata": {
+    "name": "Example 188 — Resistor Colour-Code Reader",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          60,
+          142
+        ],
+        "schematic": [
+          95,
+          128
+        ],
+        "pcb": [
+          92,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          255,
+          142
+        ],
+        "schematic": [
+          260,
+          128
+        ],
+        "pcb": [
+          244,
+          128
+        ]
+      }
+    },
+    {
+      "instanceId": "led-1",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          455,
+          142
+        ],
+        "schematic": [
+          452,
+          128
+        ],
+        "pcb": [
+          408,
+          142
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          565,
+          192
+        ],
+        "schematic": [
+          564,
+          190
+        ],
+        "pcb": [
+          506,
+          192
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "resistor-1:1"
+      ]
+    },
+    {
+      "id": "LED_A",
+      "endpoints": [
+        "resistor-1:2",
+        "led-1:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "led-1:K",
+        "source-1:-",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": [],
+  "breadboardSchematicSync": {
+    "kind": "shared-topology-sync",
+    "sourceView": "breadboard"
+  },
+  "resistorColorCodeReader": {
+    "kind": "resistor-band-cases",
+    "cases": [
+      {
+        "id": "four-band-4k7-5-percent",
+        "bands": [
+          "yellow",
+          "violet",
+          "red",
+          "gold"
+        ]
+      },
+      {
+        "id": "five-band-1k-1-percent",
+        "bands": [
+          "brown",
+          "black",
+          "black",
+          "brown",
+          "brown"
+        ]
+      },
+      {
+        "id": "invalid-metallic-significant-band",
+        "bands": [
+          "gold",
+          "brown",
+          "red",
+          "gold"
+        ]
+      },
+      {
+        "id": "invalid-multiplier-color",
+        "bands": [
+          "brown",
+          "black",
+          "pink",
+          "gold"
+        ]
+      }
+    ]
+  }
+}
