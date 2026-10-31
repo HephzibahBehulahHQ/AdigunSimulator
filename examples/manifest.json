@@ -6042,14 +6042,31 @@
     {
       "id": "151-thermal-warning-boundary",
       "title": "Thermal warning boundary",
-      "status": "in-review",
+      "status": "released",
       "objective": "Calculate electrical power in a loaded voltage-divider resistor and show a rating warning while stating plainly that junction or body temperature and thermal certification are not modeled.",
       "acceptanceTest": "tests/core.test.mjs: catalogue thermal boundary reports dissipation without claiming a thermal model",
       "testId": "core-thermal-warning-boundary",
       "projectFile": "examples/151-thermal-warning-boundary.adigun.json",
       "readmeFile": "examples/151-thermal-warning-boundary/README.md",
       "safetyNote": "Electrical dissipation is an ideal calculation. No temperature, heatsink, enclosure, ambient derating, thermal runaway, reliability, or safety certification is provided; verify the exact component datasheet and real operating conditions.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 151,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41206781611",
+        "headRevision": "c10acc77fa53a44ffc738266e5cd7ae12d609632",
+        "engine": "Analytical voltage-divider dissipation advisory",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "resistor-dissipation-boundary-v1",
+        "expectedResult": {
+          "kind": "thermal-warning-boundary",
+          "resistorDissipationW": 1.190082644628099,
+          "deratedLimitW": 0.125,
+          "ratingConcern": true,
+          "thermalModel": "not-modeled"
+        }
+      }
     }
   ]
 }
