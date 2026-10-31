@@ -1158,7 +1158,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 134);
+  assert.equal(getExampleCoverage(registry).total, 135);
   assert.equal(getExampleCoverage(registry).released, 124);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 76);
@@ -3437,9 +3437,9 @@ test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs,
   assert.deepEqual(STARTER_LIBRARY.find(part=>part.id==="connector.usb-c-receptacle").pins,["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"]);
   const report=createUsbCPinReport(project);
   assert.equal(report.split("\r\n").length,19);
-  assert.match(report,/A5,CC1,CC1/);
-  assert.match(report,/B5,CC2,CC2/);
-  assert.match(report,/A6,D\+,USB_DP/);
+  assert.ok(report.includes('"J1","A5","CC1","CC1"'));
+  assert.ok(report.includes('"J1","B5","CC2","CC2"'));
+  assert.ok(report.includes('"J1","A6","D+","USB_DP"'));
   const drc=validatePcbFabrication(project);
   assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
   const generated=exportPcbFabrication(project);
@@ -3451,7 +3451,7 @@ test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs,
   }
   const broken=structuredClone(project);
   broken.pcbFabrication.connectorPinMap.find(pin=>pin.pin==="B5").netId="CC1";
-  assert.match(createUsbCPinReport(broken),/B5,CC2,CC1/);
+  assert.ok(createUsbCPinReport(broken).includes('"J1","B5","CC2","CC1"'));
   broken.pcbFabrication.pads=broken.pcbFabrication.pads.filter(pad=>!(pad.reference==="J1"&&pad.pin==="A5"));
   assert.equal(validatePcbFabrication(broken).status,"failed");
 });
