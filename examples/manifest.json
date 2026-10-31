@@ -1046,6 +1046,18 @@
       },
       "scope": "catalogue",
       "catalogueIndex": 23
+    },
+    {
+      "id": "024-opamp-noninverting",
+      "title": "Op-amp non-inverting amplifier",
+      "status": "in-review",
+      "objective": "Calculate closed-loop non-inverting midband gain as 1 + Rf/Rg and verify output amplitude against the ideal supply rails.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue non-inverting op-amp reports midband gain and rejects clipping or broken feedback",
+      "testId": "core-opamp-noninverting",
+      "projectFile": "examples/024-opamp-noninverting.adigun.json",
+      "safetyNote": "Ideal educational midband model only. It omits frequency response, slew rate, input/output limits, offset, noise, loading and device-specific behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 24
     }
   ]
 }
