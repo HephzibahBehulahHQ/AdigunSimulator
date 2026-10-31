@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-036-hbridge-dc-motor",
+  "metadata": {
+    "name": "Four-Switch H-Bridge DC Motor Driver",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "gate-lh",
+      "libraryId": "power.dc-source",
+      "reference": "VGLH",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "gate-ll",
+      "libraryId": "power.dc-source",
+      "reference": "VGLL",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "gate-rh",
+      "libraryId": "power.dc-source",
+      "reference": "VGRH",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "gate-rl",
+      "libraryId": "power.dc-source",
+      "reference": "VGRL",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "pmos-left",
+      "libraryId": "active.pmos-high-side-ideal",
+      "reference": "Q1",
+      "value": "Vth 2 V; RdsOn 0.1 Ω; |VGS|max 20 V",
+      "position": {
+        "breadboard": [
+          40,
+          120
+        ],
+        "schematic": [
+          40,
+          120
+        ],
+        "pcb": [
+          40,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "nmos-left",
+      "libraryId": "active.nmos-switch",
+      "reference": "Q2",
+      "value": "Vth 2 V; RdsOn 0.1 Ω",
+      "position": {
+        "breadboard": [
+          155,
+          120
+        ],
+        "schematic": [
+          155,
+          120
+        ],
+        "pcb": [
+          155,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "pmos-right",
+      "libraryId": "active.pmos-high-side-ideal",
+      "reference": "Q3",
+      "value": "Vth 2 V; RdsOn 0.1 Ω; |VGS|max 20 V",
+      "position": {
+        "breadboard": [
+          270,
+          120
+        ],
+        "schematic": [
+          270,
+          120
+        ],
+        "pcb": [
+          270,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "nmos-right",
+      "libraryId": "active.nmos-switch",
+      "reference": "Q4",
+      "value": "Vth 2 V; RdsOn 0.1 Ω",
+      "position": {
+        "breadboard": [
+          385,
+          120
+        ],
+        "schematic": [
+          385,
+          120
+        ],
+        "pcb": [
+          385,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "motor-resistance",
+      "libraryId": "passive.resistor",
+      "reference": "RM",
+      "value": "6 Ω",
+      "position": {
+        "breadboard": [
+          500,
+          120
+        ],
+        "schematic": [
+          500,
+          120
+        ],
+        "pcb": [
+          500,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "motor-inductance",
+      "libraryId": "passive.inductor",
+      "reference": "LM",
+      "value": "10 mH",
+      "position": {
+        "breadboard": [
+          40,
+          186
+        ],
+        "schematic": [
+          40,
+          186
+        ],
+        "pcb": [
+          40,
+          186
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          186
+        ],
+        "schematic": [
+          155,
+          186
+        ],
+        "pcb": [
+          155,
+          186
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "pmos-left:S",
+        "pmos-right:S"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "gate-lh:-",
+        "gate-ll:-",
+        "gate-rh:-",
+        "gate-rl:-",
+        "nmos-left:S",
+        "nmos-right:S",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "GATE_LH",
+      "endpoints": [
+        "gate-lh:+",
+        "pmos-left:G"
+      ]
+    },
+    {
+      "id": "GATE_LL",
+      "endpoints": [
+        "gate-ll:+",
+        "nmos-left:G"
+      ]
+    },
+    {
+      "id": "GATE_RH",
+      "endpoints": [
+        "gate-rh:+",
+        "pmos-right:G"
+      ]
+    },
+    {
+      "id": "GATE_RL",
+      "endpoints": [
+        "gate-rl:+",
+        "nmos-right:G"
+      ]
+    },
+    {
+      "id": "MOTOR_A",
+      "endpoints": [
+        "pmos-left:D",
+        "nmos-left:D",
+        "motor-resistance:1"
+      ]
+    },
+    {
+      "id": "MOTOR_MID",
+      "endpoints": [
+        "motor-resistance:2",
+        "motor-inductance:1"
+      ]
+    },
+    {
+      "id": "MOTOR_B",
+      "endpoints": [
+        "motor-inductance:2",
+        "pmos-right:D",
+        "nmos-right:D"
+      ]
+    }
+  ],
+  "history": []
+}
