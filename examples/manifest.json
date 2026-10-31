@@ -5947,14 +5947,31 @@
     {
       "id": "148-rlc-transient-response",
       "title": "Transient pulse response",
-      "status": "in-review",
+      "status": "released",
       "objective": "Model a series RLC step response, show damped ringing and report a timestep-resolution warning when sample spacing is too coarse.",
       "acceptanceTest": "tests/core.test.mjs: catalogue RLC pulse response shows ringing and warns when timestep undersamples it",
       "testId": "core-rlc-transient-response",
       "projectFile": "examples/148-rlc-transient-response.adigun.json",
       "readmeFile": "examples/148-rlc-transient-response/README.md",
       "safetyNote": "This closed-form ideal RLC model uses nominal values and a declared series topology. It is not a general transient/SPICE engine; parasitics, tolerances, source resistance and nonlinear component behavior are omitted.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 148,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41206067608",
+        "headRevision": "182e94bed1cbf08c9197c0eb3268a8cd2e134053",
+        "engine": "Analytical second-order series RLC step response",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "series-rlc-step-v1",
+        "expectedResult": {
+          "kind": "rlc-step-response",
+          "regime": "underdamped",
+          "dampingRatio": 0.5,
+          "ringingVisible": true,
+          "coarseTimestepWarningCode": "TIMESTEP_RESOLUTION"
+        }
+      }
     }
   ]
 }
