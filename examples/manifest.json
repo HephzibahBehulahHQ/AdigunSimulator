@@ -2369,14 +2369,40 @@
     {
       "id": "056-uart-transmitter",
       "title": "UART transmitter 8N1 frame model",
-      "status": "in-review",
+      "status": "released",
       "objective": "Serialize a configured byte as one low start bit, eight LSB-first data bits, and one high stop bit at the selected baud rate; test byte, frame duration, and format.",
       "acceptanceTest": "tests/core.test.mjs: catalogue UART transmitter emits valid 8N1 frames LSB-first",
       "testId": "core-uart-transmitter",
       "projectFile": "examples/056-uart-transmitter.adigun.json",
       "safetyNote": "Ideal frame-level digital model. Analog edge shape, jitter, parity, oversampling, line loading, and physical transceiver behavior are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 56
+      "catalogueIndex": 56,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41175432292",
+        "headRevision": "9be4676af0a35070cc82a492d0a5d6c56d69e2ab",
+        "engine": "Ideal asynchronous UART 8N1 frame generator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-uart-8n1-frame-v1",
+        "expectedResult": {
+          "testBytes": [
+            "0x00",
+            "0xA5",
+            "0xFF"
+          ],
+          "bauds": [
+            9600,
+            115200
+          ],
+          "frameBits": "start low + 8 LSB-first data + stop high",
+          "frameDurations": [
+            "10/9600 s",
+            "10/115200 s"
+          ],
+          "invalidByteAndBaud": "blocked"
+        }
+      }
     }
   ]
 }
