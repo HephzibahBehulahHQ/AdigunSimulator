@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-052-multiplexer-selector",
+  "metadata": {
+    "name": "Four-to-One Multiplexer Selector",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          50
+        ],
+        "schematic": [
+          40,
+          50
+        ],
+        "pcb": [
+          40,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "input-0",
+      "libraryId": "power.dc-source",
+      "reference": "I0",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          160,
+          50
+        ],
+        "schematic": [
+          160,
+          50
+        ],
+        "pcb": [
+          160,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "input-1",
+      "libraryId": "power.dc-source",
+      "reference": "I1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          280,
+          50
+        ],
+        "schematic": [
+          280,
+          50
+        ],
+        "pcb": [
+          280,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "input-2",
+      "libraryId": "power.dc-source",
+      "reference": "I2",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          400,
+          50
+        ],
+        "schematic": [
+          400,
+          50
+        ],
+        "pcb": [
+          400,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "input-3",
+      "libraryId": "power.dc-source",
+      "reference": "I3",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          140
+        ],
+        "schematic": [
+          40,
+          140
+        ],
+        "pcb": [
+          40,
+          140
+        ]
+      }
+    },
+    {
+      "instanceId": "select-0",
+      "libraryId": "power.dc-source",
+      "reference": "S0",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          160,
+          140
+        ],
+        "schematic": [
+          160,
+          140
+        ],
+        "pcb": [
+          160,
+          140
+        ]
+      }
+    },
+    {
+      "instanceId": "select-1",
+      "libraryId": "power.dc-source",
+      "reference": "S1",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          280,
+          140
+        ],
+        "schematic": [
+          280,
+          140
+        ],
+        "pcb": [
+          280,
+          140
+        ]
+      }
+    },
+    {
+      "instanceId": "mux",
+      "libraryId": "active.logic-mux4-ideal",
+      "reference": "U1",
+      "value": "Ideal 4:1 mux",
+      "position": {
+        "breadboard": [
+          400,
+          140
+        ],
+        "schematic": [
+          400,
+          140
+        ],
+        "pcb": [
+          400,
+          140
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RY",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          40,
+          230
+        ],
+        "schematic": [
+          40,
+          230
+        ],
+        "pcb": [
+          40,
+          230
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "DY",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          160,
+          230
+        ],
+        "schematic": [
+          160,
+          230
+        ],
+        "pcb": [
+          160,
+          230
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          280,
+          230
+        ],
+        "schematic": [
+          280,
+          230
+        ],
+        "pcb": [
+          280,
+          230
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mux:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "input-0:-",
+        "input-1:-",
+        "input-2:-",
+        "input-3:-",
+        "select-0:-",
+        "select-1:-",
+        "mux:GND",
+        "led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "I0",
+      "endpoints": [
+        "input-0:+",
+        "mux:I0"
+      ]
+    },
+    {
+      "id": "I1",
+      "endpoints": [
+        "input-1:+",
+        "mux:I1"
+      ]
+    },
+    {
+      "id": "I2",
+      "endpoints": [
+        "input-2:+",
+        "mux:I2"
+      ]
+    },
+    {
+      "id": "I3",
+      "endpoints": [
+        "input-3:+",
+        "mux:I3"
+      ]
+    },
+    {
+      "id": "S0",
+      "endpoints": [
+        "select-0:+",
+        "mux:S0"
+      ]
+    },
+    {
+      "id": "S1",
+      "endpoints": [
+        "select-1:+",
+        "mux:S1"
+      ]
+    },
+    {
+      "id": "Y",
+      "endpoints": [
+        "mux:Y",
+        "resistor:1"
+      ]
+    },
+    {
+      "id": "LED_Y",
+      "endpoints": [
+        "resistor:2",
+        "led:A"
+      ]
+    }
+  ],
+  "history": []
+}
