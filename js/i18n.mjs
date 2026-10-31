@@ -729,3 +729,11 @@ Object.assign(TRANSLATIONS.de, {exampleReversePolarity:"Verpolungsschutz"});
 Object.assign(TRANSLATIONS.yo, {exampleReversePolarity:"Ààbò polarity tí kò tọ́"});
 
 Object.assign(TRANSLATIONS.pcm, {exampleReversePolarity:"Reverse-polarity protection"});
+
+Object.assign(TRANSLATIONS.en, {morePlannedExamples:"119 of the 200 catalogue projects are released; ten supplemental studies are also available. The remaining catalogue projects are planned and cannot be loaded yet."});
+
+Object.assign(TRANSLATIONS.de, {morePlannedExamples:"119 der 200 Katalogprojekte sind veröffentlicht; zehn ergänzende Studien sind ebenfalls verfügbar. Die übrigen Katalogprojekte sind geplant und noch nicht ladbar."});
+
+Object.assign(TRANSLATIONS.yo, {morePlannedExamples:"A ti tú iṣẹ́ kátàlọ́ọ̀gù 119 nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí."});
+
+Object.assign(TRANSLATIONS.pcm, {morePlannedExamples:"119 out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load."});

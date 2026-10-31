@@ -4922,7 +4922,7 @@
     {
       "id": "119-reverse-polarity",
       "title": "Reverse-polarity protection",
-      "status": "in-review",
+      "status": "released",
       "objective": "Model a MOSFET ideal-diode input protector that powers a resistive load with correct DC polarity and blocks a reversed input.",
       "acceptanceTest": "tests/core.test.mjs: catalogue reverse-polarity MOSFET protector passes forward input and blocks reverse polarity",
       "testId": "core-reverse-polarity",
@@ -4930,7 +4930,28 @@
       "readmeFile": "examples/119-reverse-polarity/README.md",
       "safetyNote": "Ideal low-voltage polarity estimator only; no body-diode transient, gate startup, thermal, surge, or hardware safety qualification.",
       "scope": "catalogue",
-      "catalogueIndex": 119
+      "catalogueIndex": 119,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41192575029",
+        "headRevision": "249178b78c46ed2ec747d72d532b857cf4320e90",
+        "engine": "Ideal MOSFET reverse-polarity protection estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-reverse-polarity-mosfet-v1",
+        "expectedResult": {
+          "kind": "reverse-polarity-protection",
+          "inputPolarity": "forward",
+          "inputVoltageV": 12,
+          "protectedOn": true,
+          "reverseBlocked": false,
+          "outputVoltageV": 11.6,
+          "loadResistanceOhm": 100,
+          "loadCurrentA": 0.116,
+          "forwardDropV": 0.4,
+          "hardwareSafetyQualified": false
+        }
+      }
     }
   ]
 }
