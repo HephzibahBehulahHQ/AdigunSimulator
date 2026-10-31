@@ -29,6 +29,7 @@ import { createSimulationReport } from "../js/simulation-report.mjs";
 import { createSimulationLockfile, verifySimulationLockfile } from "../js/simulation-lockfile.mjs";
 import { runPlcStartStopSequence } from "../js/plc-start-stop-sequence.mjs";
 import { runTrafficLightSequence } from "../js/traffic-light-sequence.mjs";
+import { runTankLevelController } from "../js/tank-level-controller.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1461,7 +1462,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 172);
+  assert.equal(getExampleCoverage(registry).total, 173);
   assert.equal(getExampleCoverage(registry).released, 162);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 38);
@@ -4261,4 +4262,16 @@ test("catalogue traffic-light sequence repeats safe timed states without opposin
   assert.equal(result.result.opposingGreenConflict,false);
   const unsafe=JSON.parse(JSON.stringify(project));unsafe.trafficLight.phases[0]={name:"unsafe",northSouth:"green",eastWest:"green",durationS:5};
   assert.equal(runTrafficLightSequence(unsafe).state,"blocked");
+});
+
+test("catalogue tank controller applies low/high hysteresis across synthetic levels", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/163-plc-tank-level-controller.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runTankLevelController(project);assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"tank-level-hysteresis");assert.equal(result.result.sampleCount,10);assert.equal(result.result.pumpOnSamples,7);
+  assert.deepEqual(result.result.frames.map(frame=>frame.pumpOn),[true,true,true,true,true,false,false,false,true,true]);
+  const invalid=structuredClone(project);invalid.tankLevelController.highLevelPct=20;
+  assert.equal(runTankLevelController(invalid).state,"blocked");
+  const outOfRange=structuredClone(project);outOfRange.tankLevelController.levelSamples[0]=101;
+  assert.equal(runTankLevelController(outOfRange).state,"blocked");
 });

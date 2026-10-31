@@ -6404,6 +6404,19 @@
           "physicalSafetyModel": false
         }
       }
+    },
+    {
+      "id": "163-plc-tank-level-controller",
+      "title": "PLC tank level controller",
+      "status": "in-review",
+      "objective": "Simulate a bounded PLC pump controller with separate low and high level thresholds; verify hysteresis prevents relay chatter across intermediate samples.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue tank controller applies low/high hysteresis across synthetic levels",
+      "testId": "core-plc-tank-level-controller",
+      "projectFile": "examples/163-plc-tank-level-controller.adigun.json",
+      "readmeFile": "examples/163-plc-tank-level-controller/README.md",
+      "safetyNote": "Educational state-model only. No sensor calibration, liquid dynamics, pump protection, dry-run protection, tank overflow protection, field wiring, PLC scan timing, or safety certification is modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
