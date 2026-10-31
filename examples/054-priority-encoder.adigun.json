@@ -285,7 +285,11 @@
         "ground:0",
         "led0:K",
         "led1:K",
-        "led2:K"
+        "led2:K",
+        "input-0:-",
+        "input-1:-",
+        "input-2:-",
+        "input-3:-"
       ]
     },
     {
