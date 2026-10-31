@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 118);
+  assert.equal(getExampleCoverage(registry).total, 119);
   assert.equal(getExampleCoverage(registry).released, 108);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 92);
@@ -2985,5 +2985,39 @@ test("catalogue USB-C source filters PDOs and models fallback, current limit, an
   assert.equal(runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"PDOs 5 V@1.5 A,7 V@2 A,12 V@1.5 A; Request 12 V; MaxVoltage 12 V; MaxCurrent 2 A; MaxPower 18 W; Fault none; Mode source-fixture"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="CC1").endpoints=["source-fixture:CC1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue PoE PD input corrects alternate feed polarity and checks DC/DC power", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/109-poe-pd-input.adigun.json",import.meta.url)));
+  const normal=runSupportedAnalysis(project);
+  assert.equal(normal.state,"complete",normal.message);
+  assert.equal(normal.result.kind,"poe-pd-input");
+  assert.equal(normal.result.rectifiedInputVoltageV,46.8);
+  assert.equal(normal.result.converterEnabled,true);
+  assert.equal(normal.result.outputVoltageV,12);
+  assert.equal(normal.result.loadCurrentA,0.5);
+  assert.equal(normal.result.loadPowerW,6);
+  assert.equal(normal.result.alternativeFeedPolarityCorrected,true);
+  assert.equal(normal.result.ieeePoEComplianceCertified,false);
+
+  for(const fixtureValue of [
+    "Voltage 48 V; Current 350 mA; ActiveFeed B; Polarity forward; Fault none; Mode poe-feed-fixture",
+    "Voltage 48 V; Current 350 mA; ActiveFeed A; Polarity reverse; Fault none; Mode poe-feed-fixture"
+  ]){
+    const alternate=runSupportedAnalysis(updateComponent(project,"poe-fixture",{value:fixtureValue}));
+    assert.equal(alternate.state,"complete");
+    assert.equal(alternate.result.converterEnabled,true);
+    assert.equal(alternate.result.outputVoltageV,12);
+  }
+
+  const powerLimited=runSupportedAnalysis(updateComponent(project,"converter",{value:"UVLO 37 V; MaxInput 57 V; Output 12 V; MaxPower 4 W; Efficiency 90%; Mode ideal-buck"}));
+  assert.equal(powerLimited.state,"complete");
+  assert.equal(powerLimited.result.converterEnabled,false);
+  assert.equal(powerLimited.result.outputVoltageV,0);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project,"poe-fixture",{value:"Voltage 48 V; Current 350 mA; ActiveFeed A; Polarity invalid; Fault none; Mode poe-feed-fixture"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="FEED_A1").endpoints=["poe-fixture:A1"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
