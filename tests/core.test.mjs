@@ -2723,3 +2723,22 @@ test("catalogue e-paper updater follows partial/full state sequences and power r
   broken.nets.find(net=>net.id==="PANEL_DATA").endpoints=["controller:DATA"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue seven-segment clock handles midnight rollover and invalid fixtures", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/100-seven-segment-clock.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"seven-segment-clock");
+  assert.equal(result.result.initialTime,"23:59:58");
+  assert.equal(result.result.outputTime,"00:00:01");
+  assert.deepEqual(result.result.digitValues,[0,0,0,0,0,1]);
+  assert.equal(result.result.midnightRollovers,1);
+  assert.equal(result.result.segmentVectors[5].segmentsOn.join(""),"bc");
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Start 23:59:58; Ticks 86401; TickHz 1; Mode rising-edge"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Start 24:00:00; Ticks 1; TickHz 1; Mode rising-edge"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"clock",{value:"Mode 12h; Digits 6; Common cathode"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SEGMENTS").endpoints=["clock:SEG"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
