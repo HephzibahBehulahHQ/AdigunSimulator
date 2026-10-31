@@ -2588,3 +2588,22 @@ test("catalogue audio tone generator measures a coherent 1 kHz sine spectrum", a
   broken.nets.find(net=>net.id==="TONE_OUT").endpoints=["generator:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue guitar JFET buffer has high input impedance and bounded AC response", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/093-guitar-pedal-buffer.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"guitar-buffer-response");
+  assert.equal(result.result.inputImpedanceRatio,1000000/6800);
+  assert.equal(result.result.highInputImpedance,true);
+  assert.equal(result.result.unityGainInBand,true);
+  assert.ok(result.result.responsePoints[0].gainRatio<0.9);
+  assert.ok(result.result.responsePoints[1].gainRatio>0.9);
+  assert.ok(result.result.responsePoints[2].gainRatio>0.95&&result.result.responsePoints[2].gainRatio<1);
+  assert.ok(result.result.responsePoints.every(point=>point.outputPeakV<0.1));
+  assert.equal(runSupportedAnalysis(updateComponent(project,"buffer",{value:"Mode source follower; Rin 10 kΩ; Rout 100 Ω; Gain 0.98; Cin 100 pF"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"coupling-capacitor",{value:"0 F"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="BUFFER_OUT").endpoints=["buffer:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});

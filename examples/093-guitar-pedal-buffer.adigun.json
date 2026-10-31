@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-093-guitar-pedal-buffer",
+  "metadata": {
+    "name": "Guitar Pickup High-Impedance Buffer",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          30,
+          50
+        ],
+        "schematic": [
+          30,
+          50
+        ],
+        "pcb": [
+          30,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.guitar-pickup-frequency-sweep",
+      "reference": "PICKUP1",
+      "value": "FrequenciesHz 20,80,1000,5000,20000; AmplitudeV 0.1; SourceResistance 6.8 kΩ; LoadResistance 100 kΩ",
+      "position": {
+        "breadboard": [
+          120,
+          50
+        ],
+        "schematic": [
+          120,
+          50
+        ],
+        "pcb": [
+          120,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "source-resistance",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "6.8 kΩ",
+      "position": {
+        "breadboard": [
+          200,
+          130
+        ],
+        "schematic": [
+          200,
+          130
+        ],
+        "pcb": [
+          200,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "coupling-capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "10 nF",
+      "position": {
+        "breadboard": [
+          275,
+          130
+        ],
+        "schematic": [
+          275,
+          130
+        ],
+        "pcb": [
+          275,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "buffer",
+      "libraryId": "active.guitar-jfet-buffer-ideal",
+      "reference": "Q1",
+      "value": "Mode source follower; Rin 1 MΩ; Rout 100 Ω; Gain 0.98; Cin 100 pF",
+      "position": {
+        "breadboard": [
+          340,
+          50
+        ],
+        "schematic": [
+          340,
+          50
+        ],
+        "pcb": [
+          340,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "100 kΩ",
+      "position": {
+        "breadboard": [
+          420,
+          130
+        ],
+        "schematic": [
+          420,
+          130
+        ],
+        "pcb": [
+          420,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.guitar-buffer-response",
+      "reference": "SCOPE1",
+      "value": "Buffer response",
+      "position": {
+        "breadboard": [
+          500,
+          50
+        ],
+        "schematic": [
+          500,
+          50
+        ],
+        "pcb": [
+          500,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          575,
+          220
+        ],
+        "schematic": [
+          575,
+          220
+        ],
+        "pcb": [
+          575,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "buffer:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "fixture:GND",
+        "buffer:GND",
+        "report:GND",
+        "load:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "PICKUP_OUT",
+      "endpoints": [
+        "fixture:OUT",
+        "source-resistance:1"
+      ]
+    },
+    {
+      "id": "COUPLING_IN",
+      "endpoints": [
+        "source-resistance:2",
+        "coupling-capacitor:1"
+      ]
+    },
+    {
+      "id": "BUFFER_IN",
+      "endpoints": [
+        "coupling-capacitor:2",
+        "buffer:IN"
+      ]
+    },
+    {
+      "id": "BUFFER_OUT",
+      "endpoints": [
+        "buffer:OUT",
+        "report:IN",
+        "load:1"
+      ]
+    }
+  ],
+  "history": []
+}
