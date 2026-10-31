@@ -7514,6 +7514,19 @@
           "pricePolicy": "Missing source price remains null and exports as a blank CSV field."
         }
       }
+    },
+    {
+      "id": "195-bot-explain-component",
+      "title": "Adigun BOT explain component",
+      "status": "in-review",
+      "objective": "Explain a selected component from explicit native-project and checked-in library fields, citing each source and naming absent manufacturer, MPN, and datasheet data as unknown.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Adigun BOT component explainer cites project/library fields and discloses unknowns without inventing facts",
+      "testId": "core-bot-explain-component",
+      "projectFile": "examples/195-bot-explain-component.adigun.json",
+      "readmeFile": "examples/195-bot-explain-component/README.md",
+      "safetyNote": "Local project/library explanation only; it is not a datasheet lookup, hardware verification, compatibility decision, or safety approval.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
