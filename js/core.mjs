@@ -17,6 +17,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "passive.inductor", category: "Passive", type: "Inductor", prefix: "L", pins: ["1", "2"], defaultValue: "100 mH", simulation: "analytical-rl-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.transformer-ideal", category: "Passive", type: "Ideal transformer ratio model", prefix: "T", pins: ["PRI1", "PRI2", "SEC1", "SEC2"], defaultValue: "230:12", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.ldr", category: "Passive", type: "Photoresistor (light-dependent resistor)", prefix: "R", pins: ["1", "2"], defaultValue: "Rbright 10 kΩ; Rdark 1 MΩ; light 100%", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.ntc-thermistor", category: "Sensors", type: "NTC thermistor (Beta-model estimate)", prefix: "TH", pins: ["1", "2"], defaultValue: "R25 10 kΩ; B 3950 K; temp 25 °C", simulation: "analytical-ntc-divider", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.potentiometer", category: "Passive", type: "Potentiometer (two-terminal rheostat model)", prefix: "RP", pins: ["1", "2"], defaultValue: "Rmax 10 kΩ; position 50%", simulation: "analytical-passive-tone-control", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.bridge-ideal", category: "Active", type: "Ideal bridge rectifier (fixed diode drop)", prefix: "BR", pins: ["AC1", "AC2", "POS", "NEG"], defaultValue: "0.7 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.zener-ideal", category: "Active", type: "Zener diode (ideal shunt-clamp model)", prefix: "DZ", pins: ["K", "A"], defaultValue: "Vz 5.1 V; Pmax 0.5 W", simulation: "analytical-zener-shunt", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -380,6 +381,7 @@ export function runSupportedAnalysis(project) {
   const solarCells = project.components.filter((item) => item.libraryId === "power.solar-cell");
   const batteries = project.components.filter((item) => item.libraryId === "power.rechargeable-battery");
   const photoresistors = project.components.filter((item) => item.libraryId === "passive.ldr");
+  const ntcs = project.components.filter((item) => item.libraryId === "passive.ntc-thermistor");
   const supercapacitors = project.components.filter((item) => item.libraryId === "passive.supercapacitor");
   const toneControls = project.components.filter((item) => item.libraryId === "passive.potentiometer");
   const schottkyDiodes = project.components.filter((item) => item.libraryId === "diode.schottky");
@@ -395,6 +397,9 @@ export function runSupportedAnalysis(project) {
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
   if (source.length === 1 && tvsDiodes.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 5) {
     return analyseTvsPulseClamp(project, { source: source[0], resistors: resistor, tvs: tvsDiodes[0], ground: ground[0], validation });
+  }
+  if (source.length === 1 && ntcs.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 4) {
+    return analyseNtcTemperatureDivider(project, { source: source[0], ntc: ntcs[0], resistor: resistor[0], ground: ground[0], validation });
   }
   if (source.length === 1 && zeners.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 5) {
     return analyseZenerShuntRegulator(project, { source: source[0], resistors: resistor, zener: zeners[0], ground: ground[0], validation });
@@ -666,6 +671,52 @@ function analyseBridgeRectifier(project, { source, bridge, load, ground, validat
     engine: "Analytical full-wave bridge waveform with fixed diode drops",
     message: "Generated a sampled full-wave rectified load waveform with two conducting diode drops. No smoothing capacitor is present. Diode switching, reverse recovery, source impedance, transformer behavior, component tolerance, thermal effects, ratings, and general SPICE are not modeled.",
     result: { kind: "bridge-rectifier-waveform", sourceRmsVoltage, inputFrequencyHz, peakInputVoltage, diodeDropEach: diodeDrop, peakOutputVoltage, rectifiedFrequencyHz, rippleFrequencyHz: rectifiedFrequencyHz, loadResistance, averageOutputVoltage, rmsOutputVoltage, averageLoadCurrentA, averageLoadPowerW, estimatedSourcePowerW, bridgeDissipationW, powerBalanceW, waveform },
+    validation
+  };
+}
+
+function analyseNtcTemperatureDivider(project, { source, ntc, resistor, ground, validation }) {
+  const supplyVoltage = voltageValue(source.value);
+  const fields = String(ntc.value).split(";").map(field => field.trim());
+  const r25Text = fields[0]?.match(/^R25\\s*(.+)$/i)?.[1];
+  const betaText = fields[1]?.match(/^B\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*K$/i)?.[1];
+  const temperatureText = fields[2]?.match(/^temp\\s*([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*°C$/i)?.[1];
+  const r25Ohm = r25Text ? resistanceValue(r25Text) : Number.NaN;
+  const betaK = betaText ? Number(betaText) : Number.NaN;
+  const temperatureC = temperatureText ? Number(temperatureText) : Number.NaN;
+  const fixedResistance = resistanceValue(resistor.value);
+  if (![supplyVoltage, r25Ohm, betaK, temperatureC, fixedResistance].every(Number.isFinite)
+    || supplyVoltage <= 0 || r25Ohm <= 0 || betaK <= 0 || temperatureC <= -273.15 || fixedResistance <= 0) {
+    return { state: "blocked", message: "The NTC divider needs positive supply, R25, Beta, and fixed resistance values plus a temperature above absolute zero.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const supplyPositive = n(source, "+"), supplyNegative = n(source, "-");
+  const ntcInput = n(ntc, "1"), ntcOutput = n(ntc, "2");
+  const resistorInput = n(resistor, "1"), resistorOutput = n(resistor, "2"), groundNet = n(ground, "0");
+  if (!supplyPositive || supplyPositive === supplyNegative || supplyPositive !== ntcInput
+    || !ntcOutput || ntcOutput !== resistorInput || !groundNet || supplyNegative !== groundNet || resistorOutput !== groundNet) {
+    return { state: "blocked", message: "Connect the NTC above the output node and the fixed resistor from output to ground; reference source negative to ground.", validation };
+  }
+  const absoluteTemperatureK = temperatureC + 273.15;
+  const referenceTemperatureK = 25 + 273.15;
+  const ntcResistance = r25Ohm * Math.exp(betaK * (1 / absoluteTemperatureK - 1 / referenceTemperatureK));
+  const outputVoltage = supplyVoltage * fixedResistance / (ntcResistance + fixedResistance);
+  const dividerCurrentA = supplyVoltage / (ntcResistance + fixedResistance);
+  const samples = [0, 25, 60].map(tempC => {
+    const tempK = tempC + 273.15;
+    const resistanceOhm = r25Ohm * Math.exp(betaK * (1 / tempK - 1 / referenceTemperatureK));
+    return { temperatureC: tempC, resistanceOhm, outputVoltage: supplyVoltage * fixedResistance / (resistanceOhm + fixedResistance) };
+  });
+  if (![ntcResistance, outputVoltage, dividerCurrentA, ...samples.flatMap(s => [s.resistanceOhm, s.outputVoltage])].every(Number.isFinite)) {
+    return { state: "blocked", message: "The NTC model exceeds its numerically supported temperature or resistance range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical NTC Beta-law voltage-divider estimate",
+    message: "Uses one Beta parameter and a 25 °C reference for the stated 0/25/60 °C sweep. It omits part-specific calibration, tolerance, self-heating, thermal lag, and hardware qualification.",
+    result: { kind: "ntc-temperature-divider", supplyVoltage, referenceResistanceAt25C: r25Ohm, betaK, temperatureC, ntcResistance, fixedResistance, outputVoltage, dividerCurrentA, samples },
     validation
   };
 }
