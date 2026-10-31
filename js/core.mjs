@@ -32,7 +32,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.comparator-ideal", category: "Active", type: "Ideal low-battery comparator model", prefix: "U", pins: ["VCC", "GND", "SENSE", "OUT"], defaultValue: "Vref 3.75 V", simulation: "analytical-battery-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
-  { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "not modelled", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "connector.header-1x03", category: "Connectors", type: "Pin header 1×03", prefix: "J", pins: ["1", "2", "3"], defaultValue: "Through-hole", simulation: "schematic/PCB only", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } }
 ]);
@@ -368,6 +368,7 @@ export function runSupportedAnalysis(project) {
   if (!validation.valid) return { state: "blocked", message: "Fix project errors before running analysis.", validation };
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
+  const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const pwmSources = project.components.filter((item) => item.libraryId === "power.pwm-source");
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
   const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
@@ -415,6 +416,9 @@ export function runSupportedAnalysis(project) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (source.length === 1 && timers555.length === 1 && resistor.length === 3 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 9) {
+    return analyseNe555Astable(project, { source: source[0], timer: timers555[0], resistors: resistor, capacitors: capacitor, led: led[0], ground: ground[0], validation });
   }
   if (source.length === 1 && photoresistors.length === 1 && comparators.length === 1 && led.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 7) {
     return analyseLdrNightLight(project, { source: source[0], ldr: photoresistors[0], comparator: comparators[0], led: led[0], resistors: resistor, ground: ground[0], validation });
@@ -1007,6 +1011,52 @@ function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground
     result: { kind: "supercap-hold-up", sourceVoltage, diodeVf, chargeVoltage: sourceVoltage - diodeVf, capacitance, initialVoltage, minimumVoltage, ratedVoltage, loadResistance, timeConstantS, holdUpTimeS, initialCurrentA, initialLoadPowerW, initialStoredEnergyJ, samples },
     validation
   };
+}
+
+function analyseNe555Astable(project, { source, timer, resistors, capacitors, led, ground, validation }) {
+  const supplyVoltage=voltageValue(source.value), ledVf=forwardVoltage(led.value);
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,pin));
+  const vcc=n(source,"+"),groundNet=n(ground,"0");
+  const timerVcc=n(timer,"8"),timerReset=n(timer,"4"),timerGround=n(timer,"1");
+  const timingNet=n(timer,"2"),thresholdNet=n(timer,"6"),dischargeNet=n(timer,"7");
+  const outputNet=n(timer,"3"),controlNet=n(timer,"5");
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!Number.isFinite(ledVf)||ledVf<=0) return {state:"blocked",message:"The 555 astable model needs a positive supply and LED forward voltage.",validation};
+  const timingCapacitor=capacitors.find(part=>n(part,"1")===timingNet||n(part,"2")===timingNet);
+  const controlCapacitor=capacitors.find(part=>part!==timingCapacitor);
+  const timingPin2=timingNet, timingPin6=thresholdNet;
+  const capTimingOther=timingCapacitor?(n(timingCapacitor,"1")===timingNet?n(timingCapacitor,"2"):n(timingCapacitor,"1")):null;
+  const controlCapOther=controlCapacitor?(n(controlCapacitor,"1")===controlNet?n(controlCapacitor,"2"):n(controlCapacitor,"1")):null;
+  const ledAnode=n(led,"A"),ledCathode=n(led,"K");
+  const ledResistor=resistors.find(part=>{
+    const a=n(part,"1"),b=n(part,"2");
+    return (a===outputNet&&b===ledAnode)||(b===outputNet&&a===ledAnode);
+  });
+  const timingResistors=resistors.filter(part=>part!==ledResistor);
+  const resistorAt=(part,pin1,pin2)=>[n(part,"1"),n(part,"2")].includes(pin1)&&[n(part,"1"),n(part,"2")].includes(pin2);
+  const ra=timingResistors.find(part=>resistorAt(part,vcc,dischargeNet));
+  const rb=timingResistors.find(part=>part!==ra&&resistorAt(part,dischargeNet,timingNet));
+  if(!vcc||vcc===groundNet||timerVcc!==vcc||timerReset!==vcc||timerGround!==groundNet
+    ||!timingNet||timingNet!==thresholdNet||!dischargeNet||dischargeNet===vcc
+    ||!outputNet||!controlNet||!ledResistor||!ra||!rb||capTimingOther!==groundNet||controlCapOther!==groundNet
+    ||!ledAnode||ledCathode!==groundNet||n(source,"-")!==groundNet) {
+    return {state:"blocked",message:"Wire the 555 supply/reset to VCC and pin 1 to ground; tie pins 2/6 to the timing capacitor and RB; connect RA to pin 7, the LED to pin 3, and both capacitors to ground.",validation};
+  }
+  const raOhm=resistanceValue(ra.value),rbOhm=resistanceValue(rb.value),ledResistance=resistanceValue(ledResistor.value);
+  const timingCapF=capacitanceValue(timingCapacitor.value),controlCapF=capacitanceValue(controlCapacitor.value);
+  if(![raOhm,rbOhm,ledResistance,timingCapF,controlCapF].every(Number.isFinite)||raOhm<=0||rbOhm<=0||ledResistance<=0||timingCapF<=0||controlCapF<=0){
+    return {state:"blocked",message:"The astable timing resistors, LED resistor, and both capacitors must have positive numeric values.",validation};
+  }
+  const highTimeS=0.693*(raOhm+rbOhm)*timingCapF;
+  const lowTimeS=0.693*rbOhm*timingCapF;
+  const periodS=highTimeS+lowTimeS;
+  const frequencyHz=1/periodS,dutyCycle=highTimeS/periodS;
+  const ledOnCurrentA=Math.max(0,(supplyVoltage-ledVf)/ledResistance);
+  if(![highTimeS,lowTimeS,periodS,frequencyHz,dutyCycle,ledOnCurrentA].every(Number.isFinite)){
+    return {state:"blocked",message:"The 555 timing values exceed the numerically supported range.",validation};
+  }
+  return {state:"complete",engine:"Analytical ideal 555 astable timing estimate",message:"Uses the standard ideal astable timing approximation. It omits output saturation, discharge-transistor voltage, timer tolerances, control-pin noise, startup behavior, and hardware qualification.",result:{kind:"ne555-astable",supplyVoltage,raOhm,rbOhm,timingCapacitanceF:timingCapF,controlCapacitanceF:controlCapF,highTimeS,lowTimeS,periodS,frequencyHz,dutyCycle,dutyPercent:dutyCycle*100,ledOnCurrentA,ledAverageCurrentA:ledOnCurrentA*dutyCycle,ledBlinking:true},validation};
 }
 
 function analyseLdrNightLight(project, { source, ldr, comparator, led, resistors, ground, validation }) {

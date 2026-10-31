@@ -544,6 +544,22 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue 555 astable blinker reports timing and duty from R/C values", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/021-555-astable-blinker.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"ne555-astable");
+  assert.ok(Math.abs(result.result.frequencyHz-(1/(0.693*(10000+2*10000)*0.0001)))<1e-12);
+  assert.ok(Math.abs(result.result.dutyCycle-2/3)<1e-12);
+  assert.ok(result.result.ledBlinking);
+  assert.ok(result.result.ledAverageCurrentA>0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timing-capacitor-1",{value:"0 F"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TIMING").endpoints=["timer-1:2","timing-capacitor-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
 test("catalogue LDR night light switches on in darkness and off in bright light", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/020-ldr-night-light.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -885,7 +901,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 30);
+  assert.equal(getExampleCoverage(registry).total, 31);
   assert.equal(getExampleCoverage(registry).released, 20);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 180);

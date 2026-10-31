@@ -952,6 +952,16 @@
         }
       },
       "scope": "supplemental"
+    },
+    {
+      "id": "021-555-astable-blinker",
+      "title": "555 astable LED blinker",
+      "status": "in-review",
+      "objective": "Model an ideal NE555 astable using RA=10 kΩ, RB=10 kΩ, and CT=100 µF; verify the calculated frequency, high/low times, duty cycle, and LED average current.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue 555 astable blinker reports timing and duty from R/C values and rejects zero capacitance and unsupported timing topology",
+      "testId": "core-555-astable-blinker",
+      "projectFile": "examples/021-555-astable-blinker.adigun.json",
+      "safetyNote": "Ideal timer equation and output model only. It omits timer saturation, tolerances, startup, control-pin noise, component ratings, thermal effects, and hardware qualification."
     }
   ]
 }
