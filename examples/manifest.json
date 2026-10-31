@@ -4220,6 +4220,51 @@
           "controllerHardwareModeled": false
         }
       }
+    },
+    {
+      "id": "103-buck-boost-supply",
+      "title": "Buck-boost supply",
+      "status": "released",
+      "objective": "Regulate a non-inverting four-switch converter target across buck, boost, and input/output crossover cases; test the target, duty, current limit, ripple estimates, power balance, and broken energy path.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue four-switch buck-boost selects buck, boost, and crossover operation",
+      "testId": "core-buckboost-supply",
+      "projectFile": "examples/103-buck-boost-supply.adigun.json",
+      "safetyNote": "Ideal four-switch average model with a user-specified efficiency assumption. It does not simulate switch waveforms, dead time, control dynamics, component tolerances, thermal behavior, or physical hardware.",
+      "scope": "catalogue",
+      "catalogueIndex": 103,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41187593122",
+        "headRevision": "66e529795c07066932fa52e84a13d2f3dfae37fd",
+        "engine": "Ideal four-switch non-inverting buck-boost steady-state CCM estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-four-switch-buckboost-average-v1",
+        "expectedResult": {
+          "kind": "buckboost-converter",
+          "mode": "buck",
+          "inputVoltageV": 12,
+          "outputTargetV": 9,
+          "outputVoltageV": 9,
+          "dutyCyclePercent": 75,
+          "switchingFrequencyHz": 100000,
+          "inductanceH": 0.0001,
+          "capacitanceF": 0.0001,
+          "loadResistanceOhm": 18,
+          "loadCurrentA": 0.5,
+          "inputCurrentA": 0.3947368421052632,
+          "inductorAverageA": 0.5,
+          "inductorRipplePpA": 0.225,
+          "outputRipplePpV": 0.0028125,
+          "conductionMode": "CCM",
+          "inputPowerW": 4.736842105263158,
+          "outputPowerW": 4.5,
+          "converterLossW": 0.2368421052631584,
+          "powerBalanceW": 0,
+          "assumedEfficiencyPercent": 95,
+          "controllerWaveformsModeled": false
+        }
+      }
     }
   ]
 }
