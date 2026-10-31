@@ -2407,14 +2407,31 @@
     {
       "id": "057-uart-receiver",
       "title": "UART receiver and framing-error detector",
-      "status": "in-review",
+      "status": "released",
       "objective": "Decode a supplied ten-bit 8N1 frame LSB-first, return the byte when start/stop bits are valid, and flag framing errors for invalid start or stop bits.",
       "acceptanceTest": "tests/core.test.mjs: catalogue UART receiver decodes valid frames and flags start/stop errors",
       "testId": "core-uart-receiver",
       "projectFile": "examples/057-uart-receiver.adigun.json",
       "safetyNote": "Ideal frame-level digital decoder. Oversampling, clock recovery, analog waveform quality, jitter, noise, parity, and physical transceiver behavior are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 57
+      "catalogueIndex": 57,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41175624855",
+        "headRevision": "4ea76516361c58feb6aafafd8334f2be81343e80",
+        "engine": "Ideal UART 8N1 frame decoder",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-uart-8n1-frame-decoder-v1",
+        "expectedResult": {
+          "validByte": "0xA5",
+          "baud": 9600,
+          "frameBits": "start low + 8 LSB-first data + stop high",
+          "frameDurationSeconds": "10/9600",
+          "invalidStartStop": "framing error; valid=false",
+          "invalidFrameLength": "blocked"
+        }
+      }
     }
   ]
 }
