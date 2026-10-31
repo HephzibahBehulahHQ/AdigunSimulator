@@ -389,6 +389,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (acSource.length === 1 && bridges.length === 1 && resistor.length === 1 && capacitor.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseBridgeSmoothingCapacitor(project, { source: acSource[0], bridge: bridges[0], load: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
+  }
   if (acSource.length === 1 && bridges.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 4) {
     return analyseBridgeRectifier(project, { source: acSource[0], bridge: bridges[0], load: resistor[0], ground: ground[0], validation });
   }
@@ -653,6 +656,85 @@ function analyseBridgeRectifier(project, { source, bridge, load, ground, validat
     engine: "Analytical full-wave bridge waveform with fixed diode drops",
     message: "Generated a sampled full-wave rectified load waveform with two conducting diode drops. No smoothing capacitor is present. Diode switching, reverse recovery, source impedance, transformer behavior, component tolerance, thermal effects, ratings, and general SPICE are not modeled.",
     result: { kind: "bridge-rectifier-waveform", sourceRmsVoltage, inputFrequencyHz, peakInputVoltage, diodeDropEach: diodeDrop, peakOutputVoltage, rectifiedFrequencyHz, rippleFrequencyHz: rectifiedFrequencyHz, loadResistance, averageOutputVoltage, rmsOutputVoltage, averageLoadCurrentA, averageLoadPowerW, estimatedSourcePowerW, bridgeDissipationW, powerBalanceW, waveform },
+    validation
+  };
+}
+
+function analyseBridgeSmoothingCapacitor(project, { source, bridge, load, capacitor, ground, validation }) {
+  const sourceFields = String(source.value).split(",").map(field => field.trim());
+  const rmsMatch = sourceFields.length === 2 ? sourceFields[0].match(/^([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*RMS$/i) : null;
+  const sourceRmsVoltage = rmsMatch ? Number(rmsMatch[1]) : Number.NaN;
+  const inputFrequencyHz = sourceFields.length === 2 ? frequencyValue(sourceFields[1]) : Number.NaN;
+  const diodeDrop = voltageValue(bridge.value);
+  const loadResistance = resistanceValue(load.value);
+  const capacitance = capacitanceValue(capacitor.value);
+  if (![sourceRmsVoltage, inputFrequencyHz, diodeDrop, loadResistance, capacitance].every(Number.isFinite)
+    || sourceRmsVoltage <= 0 || inputFrequencyHz <= 0 || diodeDrop <= 0 || loadResistance <= 0 || capacitance <= 0) {
+    return { state: "blocked", message: "The smoothing model requires positive AC RMS voltage, frequency, diode drop, load resistance, and capacitance.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const sourcePositive = n(source, "+"), sourceNegative = n(source, "-");
+  const ac1 = n(bridge, "AC1"), ac2 = n(bridge, "AC2");
+  const positive = n(bridge, "POS"), negative = n(bridge, "NEG");
+  const loadPositive = n(load, "1"), loadNegative = n(load, "2");
+  const capPositive = n(capacitor, "1"), capNegative = n(capacitor, "2"), groundNet = n(ground, "0");
+  if (!sourcePositive || sourcePositive === sourceNegative || sourcePositive !== ac1 || sourceNegative !== ac2
+    || !positive || positive === negative || loadPositive !== positive || capPositive !== positive
+    || negative !== groundNet || loadNegative !== groundNet || capNegative !== groundNet) {
+    return { state: "blocked", message: "Connect the AC source to the bridge inputs; connect the load and smoothing capacitor in parallel across bridge positive and negative, with negative grounded.", validation };
+  }
+  const peakInputVoltage = sourceRmsVoltage * Math.SQRT2;
+  const rectifiedFrequencyHz = 2 * inputFrequencyHz;
+  const intervalsPerCycle = 400;
+  const cycles = 10;
+  const intervals = intervalsPerCycle * cycles;
+  const dt = 1 / (inputFrequencyHz * intervalsPerCycle);
+  const startMeasure = intervalsPerCycle * (cycles - 2);
+  let capacitorVoltage = 0;
+  const measured = [];
+  for (let i = 0; i <= intervals; i += 1) {
+    const timeS = i * dt;
+    const sourceVoltage = peakInputVoltage * Math.sin(2 * Math.PI * inputFrequencyHz * timeS);
+    const rectifiedVoltage = Math.max(0, Math.abs(sourceVoltage) - 2 * diodeDrop);
+    if (rectifiedVoltage > capacitorVoltage) capacitorVoltage = rectifiedVoltage;
+    else capacitorVoltage *= Math.exp(-dt / (loadResistance * capacitance));
+    if (i >= startMeasure) measured.push({ timeS, inputVoltage: sourceVoltage, rectifiedVoltage, outputVoltage: capacitorVoltage, loadCurrentA: capacitorVoltage / loadResistance });
+  }
+  const voltages = measured.map(point => point.outputVoltage);
+  const peakOutputVoltage = Math.max(...voltages);
+  const minimumOutputVoltage = Math.min(...voltages);
+  const ripplePeakToPeakV = peakOutputVoltage - minimumOutputVoltage;
+  const averageOutputVoltage = voltages.reduce((sum, value) => sum + value, 0) / voltages.length;
+  const unfiltered = measured.map(point => point.rectifiedVoltage);
+  const unfilteredRipplePeakToPeakV = Math.max(...unfiltered) - Math.min(...unfiltered);
+  const waveform = measured.filter((_, index) => index % 5 === 0 || index === measured.length - 1);
+  if (![peakInputVoltage, rectifiedFrequencyHz, peakOutputVoltage, minimumOutputVoltage, ripplePeakToPeakV, averageOutputVoltage, unfilteredRipplePeakToPeakV].every(Number.isFinite)) {
+    return { state: "blocked", message: "The smoothing-capacitor waveform exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical bridge plus ideal-capacitor sampled transient estimate",
+    message: "Compared an ideal fixed-drop bridge with and without a reservoir capacitor across the same resistive load. The capacitor starts discharged; source impedance, diode recovery, ESR, inrush current, transformer behavior, and thermal/rating limits are not modeled.",
+    result: {
+      kind: "bridge-smoothing-capacitor",
+      inputFrequencyHz,
+      rectifiedFrequencyHz,
+      rippleFrequencyHz: rectifiedFrequencyHz,
+      sourceRmsVoltage,
+      peakInputVoltage,
+      diodeDropPerConductingDiode: diodeDrop,
+      loadResistance,
+      capacitanceF: capacitance,
+      peakOutputVoltage,
+      minimumOutputVoltage,
+      averageOutputVoltage,
+      ripplePeakToPeakV,
+      unfilteredRipplePeakToPeakV,
+      rippleReductionRatio: unfilteredRipplePeakToPeakV > 0 ? ripplePeakToPeakV / unfilteredRipplePeakToPeakV : 0,
+      waveform
+    },
     validation
   };
 }
