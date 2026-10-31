@@ -364,7 +364,8 @@ function renderBreadboardControls() {
   const report = validateBreadboardTopology(state.project, { getPartPins: (libraryId) => findLibraryPart(libraryId)?.pins ?? [] });
   const stateLabel = report.state === "complete" ? t("breadboardComplete") : report.state === "blocked" ? t("breadboardBlocked") : t("breadboardIncomplete");
   const issue = report.errors[0] ?? report.warnings[0];
-  $("#breadboard-status").textContent = `${stateLabel} · ${report.mappedPinCount} ${t("breadboardMappedPins")} · ${report.jumperCount} ${t("breadboardJumpers")}${issue ? ` · ${issue.message}` : ""}`;
+  $("#breadboard-status").textContent = `${stateLabel} · ${report.mappedPinCount} ${t("breadboardMappedPins")} · ${report.jumperCount} ${t("breadboardJumpers")}${issue ? ` · ${issue.message}` : ""}${state.breadboardPlacementMode ? ` · ${t("breadboardPlacementActive")}` : ""}`;
+  $("#breadboard-placement-mode").setAttribute("aria-pressed", String(state.breadboardPlacementMode));
   $("#breadboard-placement-list").innerHTML = Object.entries(config?.pinHoles ?? {}).map(([endpoint, hole]) => {
     const component = state.project.components.find((item) => endpoint.startsWith(`${item.instanceId}:`));
     return `<li><span>${escape(component?.reference ?? endpoint)} → ${escape(hole)}</span><button type="button" data-bb-unassign="${escape(endpoint)}" aria-label="${escape(t("breadboardRemovePlacement"))} ${escape(endpoint)}">×</button></li>`;
@@ -1053,9 +1054,8 @@ function handleAction(action) {
   if (action === "redo") redo();
   if (action === "run-simulation") runAnalysis();
   if (action === "breadboard-placement-mode") {
+    if (state.breadboardPlacementMode) { state.breadboardPlacementMode = false; render(); return; }
     if (!$("#breadboard-pin").value) return showDialog(t("breadboardEditor"), t("breadboardSelectPinFirst"));
-    state.activeView = "breadboard";
-    state.breadboardPlacementMode = true;
     activateView("breadboard");
     state.breadboardPlacementMode = true;
     render();
@@ -1131,6 +1131,12 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && state.breadboardPlacementMode) {
+    event.preventDefault();
+    state.breadboardPlacementMode = false;
+    render();
+    return;
+  }
   const holeTarget = event.target.closest?.("[data-breadboard-hole]");
   if (holeTarget && state.breadboardPlacementMode && (event.key === "Enter" || event.key === " ")) {
     event.preventDefault();

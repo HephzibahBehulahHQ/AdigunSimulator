@@ -23,11 +23,12 @@ test("the interface references only declared translation keys and exposes four l
 
 test("breadboard click placement keeps the accessible manual hole-entry workflow", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
-  assert.match(html, /data-action="breadboard-placement-mode"/);
+  assert.match(html, /aria-pressed="false" data-action="breadboard-placement-mode"/);
   assert.match(html, /id="breadboard-hole"/);
   assert.match(app, /data-breadboard-hole=/);
   assert.match(app, /state\.breadboardPlacementMode && state\.activeView === "breadboard"/);
   assert.match(app, /assignBreadboardPin\(\$\("#breadboard-pin"\)\.value, holeTarget\.dataset\.breadboardHole\)/);
+  assert.match(app, /event\.key === "Escape" && state\.breadboardPlacementMode/);
 });
 
 test("the approved corporate logo, official links, and current-year footer are present", async () => {

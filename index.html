@@ -398,7 +398,7 @@
             <input id="breadboard-hole" list="breadboard-hole-options" placeholder="A1–J30, TP1–BM30" pattern="([A-Ja-j]([1-9]|[12][0-9]|30)|(TP|TM|BP|BM|tp|tm|bp|bm)([1-9]|[12][0-9]|30))" required />
             <button class="outline-button" type="submit" data-i18n="breadboardAssignPin">Place pin</button>
           </form>
-          <button class="outline-button" type="button" data-action="breadboard-placement-mode" data-i18n="breadboardClickPlace">Click a hole to place selected pin</button>
+          <button class="outline-button" type="button" id="breadboard-placement-mode" class="outline-button" type="button" aria-pressed="false" data-action="breadboard-placement-mode" data-i18n="breadboardClickPlace">Click a hole to place selected pin</button>
           <ul id="breadboard-placement-list" class="breadboard-list" aria-live="polite"></ul>
           <form id="breadboard-jumper-form" class="connection-form">
             <label for="breadboard-jumper-from" data-i18n="breadboardJumperFrom">Jumper from hole</label>
