@@ -544,6 +544,28 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue passive tone control reduces treble as the rheostat increases", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/014-passive-tone-control.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const middle = runSupportedAnalysis(project);
+  assert.equal(middle.state, "complete");
+  assert.equal(middle.result.kind, "passive-tone-control");
+  assert.equal(middle.result.positionPercent, 50);
+  assert.equal(middle.result.response.length, 3);
+  assert.ok(middle.result.response[0].gain > middle.result.response[2].gain);
+  const minimum = runSupportedAnalysis(updateComponent(project, "pot-1", { value: "Rmax 10 kΩ; position 0%" }));
+  const maximum = runSupportedAnalysis(updateComponent(project, "pot-1", { value: "Rmax 10 kΩ; position 100%" }));
+  assert.equal(minimum.state, "complete");
+  assert.ok(Math.abs(minimum.result.response[2].gain - 1) < 1e-12);
+  assert.ok(maximum.result.response[2].gain < middle.result.response[2].gain);
+  assert.ok(maximum.result.response[0].gain > maximum.result.response[2].gain);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "pot-1", { value: "Rmax 10 kΩ; position 120%" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "OUTPUT").endpoints = ["cap-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue supercapacitor hold-up follows an exponential discharge curve", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/010-supercapacitor-hold-up.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -743,7 +765,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 23);
+  assert.equal(getExampleCoverage(registry).total, 24);
   assert.equal(getExampleCoverage(registry).released, 13);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 187);
