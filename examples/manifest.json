@@ -287,6 +287,54 @@
       }
     },
     {
+      "id": "007-linear-regulated-supply",
+      "title": "230 V to 5 V linear supply model",
+      "status": "released",
+      "objective": "Estimate secondary voltage, full-wave reservoir ripple, regulator dropout margin, output and dissipation for a 230:12 transformer feeding a bridge, 1000 µF capacitor and 100 Ω load; test nominal regulation and low-line dropout.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue 5 V linear supply estimates ripple and regulator dropout and blocks invalid frequency and wiring",
+      "testId": "core-linear-regulated-supply",
+      "projectFile": "examples/007-linear-regulated-supply.adigun.json",
+      "safetyNote": "Simulation only. The 230 V primary is not a construction or mains-safety instruction. Ideal transformer, bridge, ripple-envelope and regulator models omit isolation qualification, pulse currents, control-loop behavior, tolerance, thermal design, and device ratings.",
+      "scope": "catalogue",
+      "catalogueIndex": 7,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41153786104",
+        "headRevision": "59f17490ca5494ff3299cd1e223d845f3bafbecb",
+        "engine": "Analytical transformer, bridge, reservoir-capacitor, and linear-regulator envelope",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-linear-supply-envelope-v1",
+        "libraryLock": "adigun-simulator@728905c83b8e24aeaa8c235fea729206438fab7e",
+        "expectedResult": {
+          "nominal230VRms": {
+            "secondaryRmsVoltage": 12,
+            "rectifiedFrequencyHz": 100,
+            "rectifiedPeakVoltage": 15.570562748477142,
+            "outputVoltage": 5,
+            "regulated": true,
+            "loadCurrentA": 0.05,
+            "rippleVoltagePP": 0.5,
+            "minimumRectifiedVoltage": 15.070562748477142,
+            "averageRectifiedVoltage": 15.320562748477142,
+            "dropoutMarginV": 8.070562748477142,
+            "regulatorDissipationW": 0.5160281374238571,
+            "bridgeDissipationW": 0.07,
+            "loadPowerW": 0.25,
+            "estimatedSecondaryInputPowerW": 0.8360281374238572
+          },
+          "lowLine120VRms": {
+            "secondaryRmsVoltage": 6.260869565217392,
+            "regulated": false,
+            "outputVoltage": 4.958369683072162,
+            "rippleVoltagePP": 0.4958369683072162,
+            "minimumRectifiedVoltage": 6.958369683072162,
+            "dropoutMarginV": 0
+          }
+        }
+      }
+    },
+    {
       "id": "003-led-current-limiter-9v",
       "title": "9 V LED current limiter",
       "status": "released",
@@ -523,16 +571,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "007-linear-regulated-supply",
-      "title": "230 V to 5 V linear supply model",
-      "status": "in-review",
-      "objective": "Estimate secondary voltage, full-wave reservoir ripple, regulator dropout margin, output and dissipation for a 230:12 transformer feeding a bridge, 1000 µF capacitor and 100 Ω load; test nominal regulation and low-line dropout.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue 5 V linear supply estimates ripple and regulator dropout and blocks invalid frequency and wiring",
-      "testId": "core-linear-regulated-supply",
-      "projectFile": "examples/007-linear-regulated-supply.adigun.json",
-      "safetyNote": "Simulation only. The 230 V primary is not a construction or mains-safety instruction. Ideal transformer, bridge, ripple-envelope and regulator models omit isolation qualification, pulse currents, control-loop behavior, tolerance, thermal design, and device ratings."
     }
   ]
 }
