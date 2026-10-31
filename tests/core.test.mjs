@@ -46,6 +46,7 @@ import { runElevatorCallQueue } from "../js/elevator-call-queue.mjs";
 import { runFireAlarmZone } from "../js/fire-alarm-zone.mjs";
 import { runAccessStrikeLock } from "../js/access-strike-lock.mjs";
 import { runWarehouseBeacon } from "../js/warehouse-beacon.mjs";
+import { runMachineFaultAnnunciator } from "../js/machine-fault-annunciator.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1478,7 +1479,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 189);
+  assert.equal(getExampleCoverage(registry).total, 190);
   assert.equal(getExampleCoverage(registry).released, 179);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 21);
@@ -4446,4 +4447,14 @@ test("catalogue warehouse beacon maps occupancy and fault transitions to distinc
   assert.deepEqual(result.result.frames.map(frame=>[frame.greenOn,frame.redOn,frame.amberOn,frame.buzzerOn]),[[true,false,false,false],[false,true,false,false],[false,false,true,true],[true,false,false,false]]);
   assert.equal(result.result.transitionCount,3);assert.equal(result.result.oneStatusPerFrame,true);
   const invalid=structuredClone(project);invalid.warehouseBeacon.samples[0]="unknown";assert.equal(runWarehouseBeacon(invalid).state,"blocked");
+});
+
+test("catalogue fault annunciator clears only after acknowledgement and inactive input", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/180-machine-fault-annunciator.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runMachineFaultAnnunciator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"machine-fault-latched-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.latchedFaults),[["F1"],["F1"],[],["F2"],["F2"],[]]);
+  assert.deepEqual(result.result.frames.map(frame=>frame.buzzerOn),[true,false,false,true,true,false]);
+  assert.equal(result.result.frames[4].faultLampOn,true);assert.equal(result.result.frames[5].healthyLampOn,true);
+  const invalid=structuredClone(project);invalid.machineFaultAnnunciator.events[0].activeFaults=["bad id"];assert.equal(runMachineFaultAnnunciator(invalid).state,"blocked");
 });

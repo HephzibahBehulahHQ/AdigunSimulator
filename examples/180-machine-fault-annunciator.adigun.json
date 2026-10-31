@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "example-180-machine-fault-annunciator",
+  "metadata": {
+    "name": "Example 180 — Machine Fault Annunciator",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "machineFaultAnnunciator": {
+    "kind": "latched-fault-acknowledge-clear",
+    "events": [
+      {
+        "action": "update",
+        "activeFaults": [
+          "F1"
+        ]
+      },
+      {
+        "action": "ack"
+      },
+      {
+        "action": "update",
+        "activeFaults": []
+      },
+      {
+        "action": "update",
+        "activeFaults": [
+          "F2"
+        ]
+      },
+      {
+        "action": "update",
+        "activeFaults": []
+      },
+      {
+        "action": "ack"
+      }
+    ]
+  }
+}
