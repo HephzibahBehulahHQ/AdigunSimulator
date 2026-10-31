@@ -56,10 +56,12 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.i2c-eeprom-ideal", category: "Active", type: "Ideal I²C EEPROM byte memory (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x50; Memory 0x10=0x00", simulation: "analytical-i2c-eeprom-write-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
-  { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D8", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D7", "D8", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.potentiometer-adc-ideal", category: "Inputs", type: "Ideal potentiometer-to-ADC fixture", prefix: "RV", pins: ["VCC", "OUT", "GND"], defaultValue: "Position 50%; Resolution 10 bit", simulation: "fixture-potentiometer-adc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.temperature-analog-ideal", category: "Sensors", type: "Ideal linear analog temperature sensor model", prefix: "TS", pins: ["VCC", "OUT", "GND"], defaultValue: "Temperature 25 C; Scale 10 mV/C; Offset 0 mV", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.lcd-text-sink-ideal", category: "Output", type: "Ideal single-line LCD text sink (behavior model)", prefix: "LCD", pins: ["DATA", "VCC", "GND"], defaultValue: "16-character text row", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "sensor.ultrasonic-echo-ideal", category: "Sensors", type: "Ideal ultrasonic echo-time sensor model", prefix: "US", pins: ["TRIG", "ECHO", "VCC", "GND"], defaultValue: "Echo 5882 us; Minimum 20 mm; Maximum 4000 mm", simulation: "analytical-ultrasonic-range", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.oled-text-sink-ideal", category: "Output", type: "Ideal OLED text sink (behavior model)", prefix: "OLED", pins: ["DATA", "VCC", "GND"], defaultValue: "Distance result", simulation: "analytical-ultrasonic-range", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -435,6 +437,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const adcPotentiometers = project.components.filter((item) => item.libraryId === "input.potentiometer-adc-ideal");
   const temperatureSensors = project.components.filter((item) => item.libraryId === "sensor.temperature-analog-ideal");
   const lcdSinks = project.components.filter((item) => item.libraryId === "output.lcd-text-sink-ideal");
+  const ultrasonicSensors = project.components.filter((item) => item.libraryId === "sensor.ultrasonic-echo-ideal");
+  const oledSinks = project.components.filter((item) => item.libraryId === "output.oled-text-sink-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -499,6 +503,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (ultrasonicSensors.length === 1 && oledSinks.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseMcuUltrasonicRanger(project, { source: source[0], mcu: mcuControllers[0], sensor: ultrasonicSensors[0], oled: oledSinks[0], ground: ground[0], validation });
   }
   if (temperatureSensors.length === 1 && lcdSinks.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuTemperatureMonitor(project, { source: source[0], mcu: mcuControllers[0], sensor: temperatureSensors[0], lcd: lcdSinks[0], ground: ground[0], validation });
@@ -1528,6 +1535,20 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseMcuUltrasonicRanger(project,{source,mcu,sensor,oled,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
+  const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
+  const echoUs=Number(field(sensorFields,"Echo")?.split(/\\s+/)[0]),minimumMm=Number(field(sensorFields,"Minimum")?.split(/\\s+/)[0]),maximumMm=Number(field(sensorFields,"Maximum")?.split(/\\s+/)[0]);
+  const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const wired=n(mcu,"D9")===n(sensor,"TRIG")&&n(sensor,"ECHO")===n(mcu,"D8")&&n(mcu,"D7")===n(oled,"DATA");
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(mcu,"GND")!==groundNet||n(sensor,"VCC")!==vccNet||n(sensor,"GND")!==groundNet||n(oled,"VCC")!==vccNet||n(oled,"GND")!==groundNet||!wired||field(mcuFields,"Program")?.toLowerCase()!=="ultrasonic ranger"||field(mcuFields,"Trigger")!=="D9"||field(mcuFields,"Echo")!=="D8"||field(mcuFields,"Display")!=="D7"||!Number.isFinite(echoUs)||echoUs<=0||echoUs>25000||!Number.isFinite(minimumMm)||!Number.isFinite(maximumMm)||minimumMm<=0||maximumMm<=minimumMm){
+    return {state:"blocked",message:"Wire D9 to trigger, sensor echo to D8, OLED data to D7, share power/ground, and set an echo time from 1 to 25000 µs with valid range limits.",validation};
+  }
+  const roundTripUs=echoUs,distanceMm=roundTripUs*0.343/2,measurementValid=distanceMm>=minimumMm&&distanceMm<=maximumMm;
+  const displayText=measurementValid?(distanceMm/10).toFixed(1)+" cm":"Out of range";
+  return {state:"complete",engine:"Ideal Uno-class ultrasonic time-of-flight estimate",message:"Converts a supplied round-trip echo time using 343 m/s sound speed and formats a distance for an ideal OLED text sink. It does not execute Arduino C++ or model trigger pulses, temperature-dependent sound speed, transducer dead zone, reflections, noise, or physical display timing.",result:{kind:"mcu-ultrasonic-range",echoTimeUs:echoUs,soundSpeedMPerS:343,distanceMm:measurementValid?distanceMm:null,distanceCm:measurementValid?distanceMm/10:null,minimumMm,maximumMm,measurementValid,displayText,firmwareExecuted:false},validation};
+}
 function analyseMcuTemperatureMonitor(project,{source,mcu,sensor,lcd,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
