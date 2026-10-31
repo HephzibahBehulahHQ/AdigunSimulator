@@ -1,0 +1,476 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-049-traffic-light-fsm",
+  "metadata": {
+    "name": "Six-Phase Traffic-Light State Machine",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          40
+        ],
+        "schematic": [
+          40,
+          40
+        ],
+        "pcb": [
+          40,
+          40
+        ]
+      }
+    },
+    {
+      "instanceId": "clock-input",
+      "libraryId": "power.dc-source",
+      "reference": "CLK",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          140,
+          40
+        ],
+        "schematic": [
+          140,
+          40
+        ],
+        "pcb": [
+          140,
+          40
+        ]
+      }
+    },
+    {
+      "instanceId": "reset-input",
+      "libraryId": "power.dc-source",
+      "reference": "RESET_N",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          240,
+          40
+        ],
+        "schematic": [
+          240,
+          40
+        ],
+        "pcb": [
+          240,
+          40
+        ]
+      }
+    },
+    {
+      "instanceId": "fsm",
+      "libraryId": "active.logic-traffic-fsm-ideal",
+      "reference": "U1",
+      "value": "Six-phase traffic-light FSM",
+      "position": {
+        "breadboard": [
+          340,
+          40
+        ],
+        "schematic": [
+          340,
+          40
+        ],
+        "pcb": [
+          340,
+          40
+        ]
+      }
+    },
+    {
+      "instanceId": "r-NS_R",
+      "libraryId": "passive.resistor",
+      "reference": "R-NS_R",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          440,
+          40
+        ],
+        "schematic": [
+          440,
+          40
+        ],
+        "pcb": [
+          440,
+          40
+        ]
+      }
+    },
+    {
+      "instanceId": "r-NS_Y",
+      "libraryId": "passive.resistor",
+      "reference": "R-NS_Y",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          540,
+          40
+        ],
+        "schematic": [
+          540,
+          40
+        ],
+        "pcb": [
+          540,
+          40
+        ]
+      }
+    },
+    {
+      "instanceId": "r-NS_G",
+      "libraryId": "passive.resistor",
+      "reference": "R-NS_G",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          40,
+          105
+        ],
+        "schematic": [
+          40,
+          105
+        ],
+        "pcb": [
+          40,
+          105
+        ]
+      }
+    },
+    {
+      "instanceId": "r-EW_R",
+      "libraryId": "passive.resistor",
+      "reference": "R-EW_R",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          140,
+          105
+        ],
+        "schematic": [
+          140,
+          105
+        ],
+        "pcb": [
+          140,
+          105
+        ]
+      }
+    },
+    {
+      "instanceId": "r-EW_Y",
+      "libraryId": "passive.resistor",
+      "reference": "R-EW_Y",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          240,
+          105
+        ],
+        "schematic": [
+          240,
+          105
+        ],
+        "pcb": [
+          240,
+          105
+        ]
+      }
+    },
+    {
+      "instanceId": "r-EW_G",
+      "libraryId": "passive.resistor",
+      "reference": "R-EW_G",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          340,
+          105
+        ],
+        "schematic": [
+          340,
+          105
+        ],
+        "pcb": [
+          340,
+          105
+        ]
+      }
+    },
+    {
+      "instanceId": "led-NS_R",
+      "libraryId": "diode.led-red",
+      "reference": "LED-NS_R",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          440,
+          105
+        ],
+        "schematic": [
+          440,
+          105
+        ],
+        "pcb": [
+          440,
+          105
+        ]
+      }
+    },
+    {
+      "instanceId": "led-NS_Y",
+      "libraryId": "diode.led-red",
+      "reference": "LED-NS_Y",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          540,
+          105
+        ],
+        "schematic": [
+          540,
+          105
+        ],
+        "pcb": [
+          540,
+          105
+        ]
+      }
+    },
+    {
+      "instanceId": "led-NS_G",
+      "libraryId": "diode.led-red",
+      "reference": "LED-NS_G",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          40,
+          170
+        ],
+        "schematic": [
+          40,
+          170
+        ],
+        "pcb": [
+          40,
+          170
+        ]
+      }
+    },
+    {
+      "instanceId": "led-EW_R",
+      "libraryId": "diode.led-red",
+      "reference": "LED-EW_R",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          140,
+          170
+        ],
+        "schematic": [
+          140,
+          170
+        ],
+        "pcb": [
+          140,
+          170
+        ]
+      }
+    },
+    {
+      "instanceId": "led-EW_Y",
+      "libraryId": "diode.led-red",
+      "reference": "LED-EW_Y",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          240,
+          170
+        ],
+        "schematic": [
+          240,
+          170
+        ],
+        "pcb": [
+          240,
+          170
+        ]
+      }
+    },
+    {
+      "instanceId": "led-EW_G",
+      "libraryId": "diode.led-red",
+      "reference": "LED-EW_G",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          340,
+          170
+        ],
+        "schematic": [
+          340,
+          170
+        ],
+        "pcb": [
+          340,
+          170
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          440,
+          170
+        ],
+        "schematic": [
+          440,
+          170
+        ],
+        "pcb": [
+          440,
+          170
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "fsm:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "clock-input:-",
+        "reset-input:-",
+        "fsm:GND",
+        "ground:0",
+        "led-NS_R:K",
+        "led-NS_Y:K",
+        "led-NS_G:K",
+        "led-EW_R:K",
+        "led-EW_Y:K",
+        "led-EW_G:K"
+      ]
+    },
+    {
+      "id": "CLOCK",
+      "endpoints": [
+        "clock-input:+",
+        "fsm:CLK"
+      ]
+    },
+    {
+      "id": "RESET_N",
+      "endpoints": [
+        "reset-input:+",
+        "fsm:RESET_N"
+      ]
+    },
+    {
+      "id": "LAMP_NS_R",
+      "endpoints": [
+        "fsm:NS_R",
+        "r-NS_R:1"
+      ]
+    },
+    {
+      "id": "LED_NS_R",
+      "endpoints": [
+        "r-NS_R:2",
+        "led-NS_R:A"
+      ]
+    },
+    {
+      "id": "LAMP_NS_Y",
+      "endpoints": [
+        "fsm:NS_Y",
+        "r-NS_Y:1"
+      ]
+    },
+    {
+      "id": "LED_NS_Y",
+      "endpoints": [
+        "r-NS_Y:2",
+        "led-NS_Y:A"
+      ]
+    },
+    {
+      "id": "LAMP_NS_G",
+      "endpoints": [
+        "fsm:NS_G",
+        "r-NS_G:1"
+      ]
+    },
+    {
+      "id": "LED_NS_G",
+      "endpoints": [
+        "r-NS_G:2",
+        "led-NS_G:A"
+      ]
+    },
+    {
+      "id": "LAMP_EW_R",
+      "endpoints": [
+        "fsm:EW_R",
+        "r-EW_R:1"
+      ]
+    },
+    {
+      "id": "LED_EW_R",
+      "endpoints": [
+        "r-EW_R:2",
+        "led-EW_R:A"
+      ]
+    },
+    {
+      "id": "LAMP_EW_Y",
+      "endpoints": [
+        "fsm:EW_Y",
+        "r-EW_Y:1"
+      ]
+    },
+    {
+      "id": "LED_EW_Y",
+      "endpoints": [
+        "r-EW_Y:2",
+        "led-EW_Y:A"
+      ]
+    },
+    {
+      "id": "LAMP_EW_G",
+      "endpoints": [
+        "fsm:EW_G",
+        "r-EW_G:1"
+      ]
+    },
+    {
+      "id": "LED_EW_G",
+      "endpoints": [
+        "r-EW_G:2",
+        "led-EW_G:A"
+      ]
+    }
+  ],
+  "history": []
+}
