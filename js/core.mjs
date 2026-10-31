@@ -11,6 +11,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "passive.capacitor", category: "Passive", type: "Capacitor", prefix: "C", pins: ["1", "2"], defaultValue: "100 µF", simulation: "analytical-rc-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.inductor", category: "Passive", type: "Inductor", prefix: "L", pins: ["1", "2"], defaultValue: "100 mH", simulation: "analytical-rl-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "diode.led-green", category: "Active", type: "Green LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.1 V", simulation: "analytical-polarity-indicator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "ground.signal", category: "Power & Ground", type: "Signal ground", prefix: "GND", pins: ["0"], defaultValue: "0 V", simulation: "reference", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -353,9 +354,13 @@ export function runSupportedAnalysis(project) {
   const switches = project.components.filter((item) => item.libraryId === "input.spdt-switch");
   const pushbuttons = project.components.filter((item) => item.libraryId === "input.pushbutton");
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
+  const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
   if (currentSource.length > 0 && !project.components.every((item) => ["power.dc-source", "power.dc-current-source", "passive.resistor", "ground.signal"].includes(item.libraryId))) {
     return { state: "unsupported", message: "This DC current-source model supports resistor networks with ideal voltage/current sources only; reactive or nonlinear parts are not solved by this analysis.", validation };
+  }
+  if (source.length === 1 && resistor.length === 2 && led.length === 1 && greenLed.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseLedPolarityIndicator(project, { source: source[0], resistors: resistor, redLed: led[0], greenLed: greenLed[0], ground: ground[0], validation });
   }
   if (source.length === 1 && resistor.length === 2 && led.length === 1 && pushbuttons.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analysePushbuttonLed(project, { source: source[0], resistors: resistor, led: led[0], pushbutton: pushbuttons[0], ground: ground[0], validation });
@@ -788,6 +793,80 @@ function analyseLedCurrentLimiter(project, { source, resistor, led, ground, vali
   };
 }
 
+
+
+function analyseLedPolarityIndicator(project, { source, resistors, redLed, greenLed, ground, validation }) {
+  const sourceVoltage = voltageValue(source.value);
+  const redVf = forwardVoltage(redLed.value);
+  const greenVf = forwardVoltage(greenLed.value);
+  if (![sourceVoltage, redVf, greenVf].every(Number.isFinite) || redVf <= 0 || greenVf <= 0) {
+    return { state: "blocked", message: "The polarity indicator requires a numeric signed DC source voltage and positive LED forward voltages.", validation };
+  }
+
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const sourcePositive = netByEndpoint.get(endpoint(source, "+"));
+  const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
+  const groundNet = netByEndpoint.get(endpoint(ground, "0"));
+  const redAnode = netByEndpoint.get(endpoint(redLed, "A"));
+  const redCathode = netByEndpoint.get(endpoint(redLed, "K"));
+  const greenAnode = netByEndpoint.get(endpoint(greenLed, "A"));
+  const greenCathode = netByEndpoint.get(endpoint(greenLed, "K"));
+  if (!sourcePositive || sourcePositive === groundNet || sourceNegative !== groundNet
+    || !redAnode || redCathode !== groundNet || greenAnode !== groundNet || !greenCathode) {
+    return { state: "blocked", message: "Wire the red LED from source positive toward ground and the green LED in the opposite direction across the same source.", validation };
+  }
+
+  const isBetween = (resistor, firstNet, secondNet) => {
+    const first = netByEndpoint.get(endpoint(resistor, "1"));
+    const second = netByEndpoint.get(endpoint(resistor, "2"));
+    return (first === firstNet && second === secondNet) || (first === secondNet && second === firstNet);
+  };
+  const redResistor = resistors.find((resistor) => isBetween(resistor, sourcePositive, redAnode));
+  const greenResistor = resistors.find((resistor) => resistor !== redResistor && isBetween(resistor, sourcePositive, greenCathode));
+  if (!redResistor || !greenResistor) return { state: "blocked", message: "Each anti-parallel LED requires its own series resistor between the supply node and the LED anode/cathode path.", validation };
+
+  const redResistance = resistanceValue(redResistor.value);
+  const greenResistance = resistanceValue(greenResistor.value);
+  if (![redResistance, greenResistance].every(Number.isFinite) || redResistance <= 0 || greenResistance <= 0) {
+    return { state: "blocked", message: "Both LED branches need numeric positive series resistors.", validation };
+  }
+
+  const polarity = Math.sign(sourceVoltage);
+  const redCurrentA = polarity > 0 ? Math.max(0, (sourceVoltage - redVf) / redResistance) : 0;
+  const greenCurrentA = polarity < 0 ? Math.max(0, (-sourceVoltage - greenVf) / greenResistance) : 0;
+  const redPowerW = redCurrentA ** 2 * redResistance;
+  const greenPowerW = greenCurrentA ** 2 * greenResistance;
+  const ledPowerW = redCurrentA * redVf + greenCurrentA * greenVf;
+  const sourceCurrentA = redCurrentA + greenCurrentA;
+  const sourcePowerW = Math.abs(sourceVoltage) * sourceCurrentA;
+  if (![redCurrentA, greenCurrentA, redPowerW, greenPowerW, ledPowerW, sourcePowerW].every(Number.isFinite)) {
+    return { state: "blocked", message: "The polarity indicator result exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical anti-parallel LED polarity indicator",
+    message: "Calculated an ideal low-voltage indicator with red and green LEDs in opposite directions, each with its own series resistor. Reverse recovery, LED reverse breakdown, nonlinear curves, tolerance, thermal effects, and general SPICE are not included.",
+    result: {
+      kind: "led-polarity-indicator",
+      sourceVoltage,
+      polarity: polarity > 0 ? "positive" : polarity < 0 ? "negative" : "zero",
+      redLedOn: redCurrentA > 0.0005,
+      greenLedOn: greenCurrentA > 0.0005,
+      redCurrentA,
+      greenCurrentA,
+      sourceCurrentA,
+      resistorResults: [
+        { reference: redResistor.reference, currentA: redCurrentA, powerW: redPowerW },
+        { reference: greenResistor.reference, currentA: greenCurrentA, powerW: greenPowerW }
+      ],
+      ledPowerW,
+      sourcePowerW,
+      powerBalanceW: sourcePowerW - redPowerW - greenPowerW - ledPowerW
+    },
+    validation
+  };
+}
 
 function analysePushbuttonLed(project, { source, resistors, led, pushbutton, ground, validation }) {
   const sourceVoltage = voltageValue(source.value);
