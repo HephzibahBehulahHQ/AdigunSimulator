@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-007-linear-regulated-supply",
+  "metadata": {
+    "name": "230 V to 5 V Linear Supply Model",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.ac-source",
+      "reference": "VAC1",
+      "value": "230 V RMS, 50 Hz",
+      "position": {
+        "breadboard": [
+          55,
+          80
+        ],
+        "schematic": [
+          55,
+          80
+        ],
+        "pcb": [
+          55,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "transformer-1",
+      "libraryId": "passive.transformer-ideal",
+      "reference": "T1",
+      "value": "230:12",
+      "position": {
+        "breadboard": [
+          135,
+          80
+        ],
+        "schematic": [
+          135,
+          80
+        ],
+        "pcb": [
+          135,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "bridge-1",
+      "libraryId": "diode.bridge-ideal",
+      "reference": "BR1",
+      "value": "0.7 V",
+      "position": {
+        "breadboard": [
+          215,
+          80
+        ],
+        "schematic": [
+          215,
+          80
+        ],
+        "pcb": [
+          215,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "capacitor-1",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "1000 µF",
+      "position": {
+        "breadboard": [
+          295,
+          80
+        ],
+        "schematic": [
+          295,
+          80
+        ],
+        "pcb": [
+          295,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "regulator-1",
+      "libraryId": "active.regulator-7805-ideal",
+      "reference": "U1",
+      "value": "Vout 5 V; dropout 2 V",
+      "position": {
+        "breadboard": [
+          375,
+          80
+        ],
+        "schematic": [
+          375,
+          80
+        ],
+        "pcb": [
+          375,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "load-1",
+      "libraryId": "passive.resistor",
+      "reference": "RLOAD",
+      "value": "100 Ω",
+      "position": {
+        "breadboard": [
+          455,
+          80
+        ],
+        "schematic": [
+          455,
+          80
+        ],
+        "pcb": [
+          455,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          535,
+          80
+        ],
+        "schematic": [
+          535,
+          80
+        ],
+        "pcb": [
+          535,
+          80
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "PRI1",
+      "endpoints": [
+        "source-1:+",
+        "transformer-1:PRI1"
+      ]
+    },
+    {
+      "id": "PRI2",
+      "endpoints": [
+        "source-1:-",
+        "transformer-1:PRI2"
+      ]
+    },
+    {
+      "id": "SEC1",
+      "endpoints": [
+        "transformer-1:SEC1",
+        "bridge-1:AC1"
+      ]
+    },
+    {
+      "id": "SEC2",
+      "endpoints": [
+        "transformer-1:SEC2",
+        "bridge-1:AC2"
+      ]
+    },
+    {
+      "id": "DC_RAW",
+      "endpoints": [
+        "bridge-1:POS",
+        "capacitor-1:1",
+        "regulator-1:IN"
+      ]
+    },
+    {
+      "id": "DC_GND",
+      "endpoints": [
+        "bridge-1:NEG",
+        "capacitor-1:2",
+        "regulator-1:GND",
+        "load-1:2",
+        "ground-1:0"
+      ]
+    },
+    {
+      "id": "DC_5V",
+      "endpoints": [
+        "regulator-1:OUT",
+        "load-1:1"
+      ]
+    }
+  ],
+  "history": []
+}
