@@ -44,6 +44,7 @@ import { runSmartIrrigation } from "../js/smart-irrigation.mjs";
 import { runGarageDoorConcept } from "../js/garage-door-concept.mjs";
 import { runElevatorCallQueue } from "../js/elevator-call-queue.mjs";
 import { runFireAlarmZone } from "../js/fire-alarm-zone.mjs";
+import { runAccessStrikeLock } from "../js/access-strike-lock.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1476,7 +1477,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 187);
+  assert.equal(getExampleCoverage(registry).total, 188);
   assert.equal(getExampleCoverage(registry).released, 177);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 23);
@@ -4425,4 +4426,14 @@ test("catalogue fire-alarm zone keeps alarm distinct from open/short trouble inp
   assert.deepEqual(result.result.frames.map(frame=>[frame.fireAlarm,frame.troubleType]),[[false,null],[true,null],[false,"open-circuit"],[false,"short-circuit"],[false,null]]);
   assert.equal(result.result.alarmSamples,1);assert.equal(result.result.openFaults,1);assert.equal(result.result.shortFaults,1);
   const invalid=structuredClone(project);invalid.fireAlarmZone.samples[0].condition="unknown";assert.equal(runFireAlarmZone(invalid).state,"blocked");
+});
+
+test("catalogue access strike mock grants allowlisted IDs briefly and audits denials", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/178-access-control-strike-lock.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runAccessStrikeLock(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"access-strike-allowlist-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.decision),["granted","denied","denied","denied","granted"]);
+  assert.deepEqual(result.result.frames.map(frame=>frame.strikeUnlocked),[true,true,true,false,true]);
+  assert.equal(result.result.frames[1].unlockUntilMs,3000);assert.equal(result.result.mockAuditEvents.length,5);
+  const invalid=structuredClone(project);invalid.accessStrikeLock.unlockDurationMs=70000;assert.equal(runAccessStrikeLock(invalid).state,"blocked");
 });

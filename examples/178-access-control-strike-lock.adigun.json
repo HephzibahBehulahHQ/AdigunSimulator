@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "example-178-access-control-strike-lock",
+  "metadata": {
+    "name": "Example 178 — Access-Control Strike Lock Mock",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "accessStrikeLock": {
+    "kind": "mock-rfid-allowlist-strike",
+    "allowlist": [
+      "CARD-A100"
+    ],
+    "unlockDurationMs": 3000,
+    "events": [
+      {
+        "atMs": 0,
+        "credentialId": "CARD-A100"
+      },
+      {
+        "atMs": 500,
+        "credentialId": "CARD-X999"
+      },
+      {
+        "atMs": 2999,
+        "credentialId": "CARD-X999"
+      },
+      {
+        "atMs": 3000,
+        "credentialId": "CARD-X999"
+      },
+      {
+        "atMs": 4000,
+        "credentialId": "CARD-A100"
+      }
+    ]
+  }
+}

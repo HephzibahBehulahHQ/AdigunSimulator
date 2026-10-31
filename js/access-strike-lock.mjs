@@ -1,0 +1,11 @@
+const validId=value=>typeof value==="string"&&value.length>=1&&value.length<=40;
+export function runAccessStrikeLock(project) {
+  const cfg=project?.accessStrikeLock,allow=cfg?.allowlist,events=cfg?.events;
+  const validEvents=Array.isArray(events)&&events.length>=1&&events.length<=300&&events.every((event,index)=>validId(event?.credentialId)&&Number.isInteger(event.atMs)&&event.atMs>=0&&event.atMs<=86400000&&(index===0||event.atMs>=events[index-1].atMs));
+  if(cfg?.kind!=="mock-rfid-allowlist-strike"||!Number.isInteger(cfg.unlockDurationMs)||cfg.unlockDurationMs<100||cfg.unlockDurationMs>60000||!Array.isArray(allow)||allow.length<1||allow.length>100||allow.some(id=>!validId(id))||new Set(allow).size!==allow.length||!validEvents)
+    return {state:"blocked",engine:"Mock access strike logic concept",message:"Provide a unique mock allowlist, 100–60,000 ms unlock duration, and ordered credential events.",errors:[{code:"ACCESS_STRIKE_CONFIGURATION",message:"Allowlist or credential-event settings are invalid."}],warnings:[],result:null};
+  let unlockUntilMs=-1;const frames=[];
+  events.forEach((event,index)=>{const granted=allow.includes(event.credentialId);if(granted)unlockUntilMs=event.atMs+cfg.unlockDurationMs;const strikeUnlocked=event.atMs<unlockUntilMs;
+    frames.push({step:index+1,atMs:event.atMs,credentialId:event.credentialId,decision:granted?"granted":"denied",reason:granted?"allowlist-match":"not-on-allowlist",auditEvent:{eventId:index+1,atMs:event.atMs,credentialId:event.credentialId,outcome:granted?"grant":"deny"},strikeUnlocked,unlockUntilMs});});
+  return {state:"complete",engine:"Deterministic mock credential allowlist",message:"Allowlisted mock IDs request a time-bounded strike command; other IDs are denied and do not extend an existing unlock interval.",errors:[],warnings:[{code:"ACCESS_CONTROL_MOCK_ONLY",message:"Mock identity strings only; no RFID cryptography, reader, credentials, network, real lock hardware, secure audit storage, physical egress, or access-control security is modeled."}],result:{kind:"access-strike-allowlist-sequence",eventCount:frames.length,grantCount:frames.filter(frame=>frame.decision==="granted").length,denyCount:frames.filter(frame=>frame.decision==="denied").length,unlockDurationMs:cfg.unlockDurationMs,mockAuditEvents:frames.map(frame=>frame.auditEvent),frames}};
+}
