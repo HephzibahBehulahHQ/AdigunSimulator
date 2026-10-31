@@ -369,7 +369,7 @@ export function runSupportedAnalysis(project) {
   const mosfets = project.components.filter((item) => item.libraryId === "active.nmos-switch");
   const transformers = project.components.filter((item) => item.libraryId === "passive.transformer-ideal");
   const bridges = project.components.filter((item) => item.libraryId === "diode.bridge-ideal");
-  const supercapacitors = project.components.filter((item) => item.libraryId === "passive.supercapacitor");
+
   const regulators = project.components.filter((item) => item.libraryId === "active.regulator-7805-ideal");
   const usbSources = project.components.filter((item) => item.libraryId === "power.usb-source");
   const ptcFuses = project.components.filter((item) => item.libraryId === "protection.ptc-polyfuse");
