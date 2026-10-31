@@ -77,6 +77,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.data-logger-controller-ideal", category: "Active", type: "Ideal EEPROM data logger controller behavior model", prefix: "U", pins: ["SENSOR", "SDA", "SCL", "DISPLAY", "VCC", "GND"], defaultValue: "SamplePeriodMs 100; Mode circular logger", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.eeprom-ring-buffer-ideal", category: "Active", type: "Ideal EEPROM circular ring-buffer model", prefix: "MEM", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Capacity 3; WriteCycleMs 5; Mode circular", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.data-log-display", category: "Output", type: "Ideal EEPROM replay text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Newest retained samples", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.lora-temperature-fixture", category: "Inputs", type: "Ideal LoRa temperature sample fixture", prefix: "SIG", pins: ["DATA", "GND"], defaultValue: "TemperatureC 24.6", simulation: "fixture-lora-temperature", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.lora-node-controller-ideal", category: "Active", type: "Generic LoRa sensor-node payload and schedule model", prefix: "U", pins: ["SENSOR", "RADIO", "REPORT", "VCC", "GND"], defaultValue: "NodeId 7; Sequence 42; Mode payload-v1; AirtimeMs 100; DutyWindowMs 60000; DutyLimitPercent 1; RequestsMs 0,9000,18000,27000,36000,45000,54000,55000", simulation: "analytical-lora-node-schedule", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.lora-radio-payload-ideal", category: "Active", type: "Ideal LoRa radio payload sink (no RF)", prefix: "LORA", pins: ["DATA", "VCC", "GND"], defaultValue: "Mode mock; MaximumPayloadBytes 255; Format V1", simulation: "analytical-lora-node-schedule", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.lora-duty-report", category: "Output", type: "Ideal LoRa send schedule report sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Payload and duty guard result", simulation: "analytical-lora-node-schedule", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.ble-advertising-settings", category: "Inputs", type: "Ideal BLE advertising settings fixture", prefix: "CFG", pins: ["DATA", "GND"], defaultValue: "Name Adigun; Flags 0x06; ServiceUuid 0x180D; TxPowerDbm -4", simulation: "fixture-ble-advertising-settings", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.ble-advertising-encoder-ideal", category: "Active", type: "Generic BLE legacy advertising data encoder model", prefix: "U", pins: ["CONFIG", "TX", "REPORT", "VCC", "GND"], defaultValue: "Protocol legacy; MaximumBytes 31", simulation: "analytical-ble-beacon-config", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ble-advertiser-ideal", category: "Active", type: "Ideal BLE advertising data receiver model", prefix: "BLE", pins: ["RX", "VCC", "GND"], defaultValue: "Mode legacy; MaximumBytes 31", simulation: "analytical-ble-beacon-config", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -527,6 +531,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const nfcReaders = project.components.filter((item) => item.libraryId === "active.nfc-reader-ideal");
   const nfcControllers = project.components.filter((item) => item.libraryId === "active.nfc-display-controller-ideal");
   const nfcDisplays = project.components.filter((item) => item.libraryId === "output.nfc-uid-display");
+  const loraFixtures = project.components.filter((item) => item.libraryId === "input.lora-temperature-fixture");
+  const loraControllers = project.components.filter((item) => item.libraryId === "active.lora-node-controller-ideal");
+  const loraRadios = project.components.filter((item) => item.libraryId === "active.lora-radio-payload-ideal");
+  const loraReports = project.components.filter((item) => item.libraryId === "output.lora-duty-report");
   const bleSettings = project.components.filter((item) => item.libraryId === "input.ble-advertising-settings");
   const bleEncoders = project.components.filter((item) => item.libraryId === "active.ble-advertising-encoder-ideal");
   const bleAdvertisers = project.components.filter((item) => item.libraryId === "active.ble-advertiser-ideal");
@@ -610,6 +618,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (dataLogFixtures.length === 1 && dataLogControllers.length === 1 && ringEeproms.length === 1 && dataLogDisplays.length === 1 && resistor.length === 2 && source.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseEepromRingLogger(project, { source: source[0], fixture: dataLogFixtures[0], controller: dataLogControllers[0], eeprom: ringEeproms[0], display: dataLogDisplays[0], pullups: resistor, ground: ground[0], validation });
+  }
+  if (loraFixtures.length === 1 && loraControllers.length === 1 && loraRadios.length === 1 && loraReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseLoraSensorNode(project, { source: source[0], fixture: loraFixtures[0], controller: loraControllers[0], radio: loraRadios[0], report: loraReports[0], ground: ground[0], validation });
   }
   if (bleSettings.length === 1 && bleEncoders.length === 1 && bleAdvertisers.length === 1 && bleReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseBleBeaconConfig(project, { source: source[0], settings: bleSettings[0], encoder: bleEncoders[0], advertiser: bleAdvertisers[0], report: bleReports[0], ground: ground[0], validation });
@@ -1713,6 +1724,34 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
+function analyseLoraSensorNode(project,{source,fixture,controller,radio,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const fixtureFields=fields(fixture.value),controllerFields=fields(controller.value),radioFields=fields(radio.value);
+  const temperatureC=Number(field(fixtureFields,"TemperatureC")),nodeId=Number(field(controllerFields,"NodeId")),sequence=Number(field(controllerFields,"Sequence"));
+  const airtimeMs=Number((field(controllerFields,"AirtimeMs")??"").replace(/ms$/i,"")),dutyWindowMs=Number((field(controllerFields,"DutyWindowMs")??"").replace(/ms$/i,"")),dutyLimitPercent=Number((field(controllerFields,"DutyLimitPercent")??"").replace(/%$/,""));
+  const requestsText=field(controllerFields,"RequestsMs")??"",requestsMs=requestsText.split(",").map(value=>Number(value.trim()));
+  const groundNet=n(ground,"0"),vccNet=n(controller,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const pathsWired=n(fixture,"DATA")===n(controller,"SENSOR")&&n(controller,"RADIO")===n(radio,"DATA")&&n(controller,"REPORT")===n(report,"DATA");
+  const powered=[controller,radio,report].every(part=>n(part,"VCC")===vccNet&&n(part,"GND")===groundNet)&&n(fixture,"GND")===groundNet;
+  const requestsValid=requestsMs.length>0&&requestsMs.length<=1000&&requestsMs.every((time,index)=>Number.isInteger(time)&&time>=0&&time<dutyWindowMs&&(!index||time>requestsMs[index-1]));
+  const tempDeciC=Math.round(temperatureC*10);
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<1.8||supplyVoltage>5.5||!pathsWired||!powered||field(controllerFields,"Mode")!=="payload-v1"||field(radioFields,"Mode")!=="mock"||Number(field(radioFields,"MaximumPayloadBytes"))!==255||field(radioFields,"Format")!=="V1"||!Number.isInteger(nodeId)||nodeId<0||nodeId>255||!Number.isInteger(sequence)||sequence<0||sequence>65535||!Number.isFinite(temperatureC)||temperatureC< -3276.8||temperatureC>3276.7||!Number.isInteger(airtimeMs)||airtimeMs<1||!Number.isInteger(dutyWindowMs)||dutyWindowMs<airtimeMs||dutyWindowMs>3600000||!Number.isFinite(dutyLimitPercent)||dutyLimitPercent<=0||dutyLimitPercent>100||!requestsValid){
+    return {state:"blocked",message:"Power the node and radio, connect the temperature fixture, radio payload path, and report sink, and configure an 8-bit node ID, 16-bit sequence, signed deci-degree temperature, ordered request times, positive airtime, and a valid configured duty budget.",validation};
+  }
+  const tempWord=tempDeciC<0?65536+tempDeciC:tempDeciC,payloadBytes=[1,nodeId,(sequence>>8)&0xff,sequence&0xff,(tempWord>>8)&0xff,tempWord&0xff];
+  const payloadHex=payloadBytes.map(value=>value.toString(16).padStart(2,"0").toUpperCase()).join(" "),airtimeBudgetMs=dutyWindowMs*dutyLimitPercent/100;
+  let usedAirtimeMs=0,previousTxEndMs=-1;
+  const schedule=requestsMs.map(timeMs=>{
+    if(timeMs<previousTxEndMs)return {timeMs,sent:false,reason:"transmission overlaps previous packet"};
+    if(usedAirtimeMs+airtimeMs>airtimeBudgetMs)return {timeMs,sent:false,reason:"configured duty budget exhausted"};
+    usedAirtimeMs+=airtimeMs;previousTxEndMs=timeMs+airtimeMs;return {timeMs,sent:true,reason:"within configured duty budget"};
+  });
+  const sentCount=schedule.filter(item=>item.sent).length,dutyCyclePercent=usedAirtimeMs/dutyWindowMs*100;
+  return {state:"complete",engine:"Ideal LoRa sensor payload and configured duty-window guard",message:"Encodes a six-octet application payload and admits non-overlapping scheduled sends up to the user-configured airtime budget in one fixed observation window. Airtime is an input assumption; no LoRa PHY, RF transmission, regional rule, firmware, link quality, or regulatory compliance is simulated.",result:{kind:"lora-sensor-node",temperatureC,temperatureDeciC:tempDeciC,nodeId,sequence,payloadBytes,payloadHex,payloadLengthOctets:payloadBytes.length,airtimeMs,dutyWindowMs,dutyLimitPercent,airtimeBudgetMs,usedAirtimeMs,dutyCyclePercent,requestsMs,schedule,sentCount,rejectedCount:schedule.length-sentCount,radioTransmitted:false,firmwareExecuted:false,regionalCompliance:"not evaluated"},validation};
+}
+
 function analyseBleBeaconConfig(project,{source,settings,encoder,advertiser,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
