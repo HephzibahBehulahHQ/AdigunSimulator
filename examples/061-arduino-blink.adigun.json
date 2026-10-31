@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-061-arduino-blink",
+  "metadata": {
+    "name": "Uno-Class D13 LED Blink Behavior",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          45,
+          60
+        ],
+        "schematic": [
+          45,
+          60
+        ],
+        "pcb": [
+          45,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.mcu-uno-ideal",
+      "reference": "U1",
+      "value": "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms",
+      "position": {
+        "breadboard": [
+          160,
+          60
+        ],
+        "schematic": [
+          160,
+          60
+        ],
+        "pcb": [
+          160,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          290,
+          60
+        ],
+        "schematic": [
+          290,
+          60
+        ],
+        "pcb": [
+          290,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          405,
+          60
+        ],
+        "schematic": [
+          405,
+          60
+        ],
+        "pcb": [
+          405,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          520,
+          60
+        ],
+        "schematic": [
+          520,
+          60
+        ],
+        "pcb": [
+          520,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mcu:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "mcu:GND",
+        "led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "D13",
+      "endpoints": [
+        "mcu:D13",
+        "resistor:1"
+      ]
+    },
+    {
+      "id": "LED",
+      "endpoints": [
+        "resistor:2",
+        "led:A"
+      ]
+    }
+  ],
+  "history": []
+}

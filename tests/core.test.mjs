@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 70);
+  assert.equal(getExampleCoverage(registry).total, 71);
   assert.equal(getExampleCoverage(registry).released, 60);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 140);
@@ -1900,4 +1900,21 @@ test("catalogue EEPROM logger preserves a written byte in its ideal register mod
   assert.equal(nack.result.readByte,null);
   assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x50; Register 0x10; Data 0x100; Baud 100000; Cycle write-read; ACK yes"})).state,"blocked");
   assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x50; Register 0x10; Data 0x5A; Baud 100000; Cycle read-only; ACK yes"})).state,"blocked");
+});
+
+
+test("catalogue Arduino blink produces a bounded D13 LED GPIO trace",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/061-arduino-blink.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(result.result.frequencyHz,1);
+  assert.deepEqual(result.result.trace.map(v=>v.gpioHigh),[true,false,true,false]);
+  assert.equal(result.result.trace[0].intervalMs,500);
+  assert.equal(result.result.ledCurrentA,0.00909090909090909);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"mcu",{value:"Program Blink; Pin D13; High 0 ms; Low 500 ms; Runtime 2000 ms"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="D13").endpoints=["mcu:D13"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
