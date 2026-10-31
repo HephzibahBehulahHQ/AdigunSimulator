@@ -1,4 +1,4 @@
-const round = (value) => Number(value).toFixed(6).replace(/0+$/,"").replace(/\\.$/,"");
+const round = (value) => Number(Number(value).toFixed(6)).toString();
 const gerberCoord = (value) => String(Math.round(value * 1_000_000)).padStart(10,"0");
 const pointEqual = (a,b) => Math.hypot(a.xMm-b[0],a.yMm-b[1]) <= 0.001;
 
