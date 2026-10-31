@@ -73,6 +73,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.led-bargraph-10seg-ideal", category: "Output", type: "Ideal 10-segment LED bargraph behavior sink", prefix: "LED", pins: ["IN0", "IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "IN9", "VCC", "GND"], defaultValue: "Segments 10; Mode bar", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.ir-nec-frame", category: "Inputs", type: "Ideal NEC-like optical timing fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000", simulation: "fixture-ir-nec-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "sensor.ir-receiver-ideal", category: "Sensors", type: "Ideal 38 kHz IR demodulator behavior model", prefix: "IR", pins: ["SIG", "VCC", "GND", "OUT"], defaultValue: "CarrierHz 38000; Output demodulated active-low", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.data-log-samples", category: "Inputs", type: "Ideal periodic sensor sample fixture", prefix: "SIG", pins: ["DATA", "GND"], defaultValue: "Samples 10,20,30,40,50; PeriodMs 100; Unit C", simulation: "fixture-data-log-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.data-logger-controller-ideal", category: "Active", type: "Ideal EEPROM data logger controller behavior model", prefix: "U", pins: ["SENSOR", "SDA", "SCL", "DISPLAY", "VCC", "GND"], defaultValue: "SamplePeriodMs 100; Mode circular logger", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.eeprom-ring-buffer-ideal", category: "Active", type: "Ideal EEPROM circular ring-buffer model", prefix: "MEM", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Capacity 3; WriteCycleMs 5; Mode circular", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.data-log-display", category: "Output", type: "Ideal EEPROM replay text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Newest retained samples", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "sensor.nfc-tag-ideal", category: "Sensors", type: "Ideal NFC tag UID and read-status fixture", prefix: "TAG", pins: ["UID", "GND"], defaultValue: "UID 04A1B2C3; ReadStatus ok", simulation: "fixture-nfc-tag", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.nfc-reader-ideal", category: "Active", type: "Ideal UID-only NFC reader behavior model", prefix: "NFC", pins: ["TAG", "DATA", "VCC", "GND"], defaultValue: "Mode UID-only; Band 13.56 MHz", simulation: "analytical-nfc-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.nfc-display-controller-ideal", category: "Active", type: "Generic NFC UID display controller behavior model", prefix: "U", pins: ["RX", "DISPLAY", "VCC", "GND"], defaultValue: "Program Display UID; Mode UID-display-only", simulation: "analytical-nfc-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -517,6 +521,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const nfcReaders = project.components.filter((item) => item.libraryId === "active.nfc-reader-ideal");
   const nfcControllers = project.components.filter((item) => item.libraryId === "active.nfc-display-controller-ideal");
   const nfcDisplays = project.components.filter((item) => item.libraryId === "output.nfc-uid-display");
+  const dataLogFixtures = project.components.filter((item) => item.libraryId === "input.data-log-samples");
+  const dataLogControllers = project.components.filter((item) => item.libraryId === "active.data-logger-controller-ideal");
+  const ringEeproms = project.components.filter((item) => item.libraryId === "active.eeprom-ring-buffer-ideal");
+  const dataLogDisplays = project.components.filter((item) => item.libraryId === "output.data-log-display");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -587,6 +595,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (picControllers.length === 1 && adcPotentiometers.length === 1 && ledBargraphs.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePicAdcBargraph(project, { source: source[0], potentiometer: adcPotentiometers[0], pic: picControllers[0], bargraph: ledBargraphs[0], ground: ground[0], validation });
+  }
+  if (dataLogFixtures.length === 1 && dataLogControllers.length === 1 && ringEeproms.length === 1 && dataLogDisplays.length === 1 && resistor.length === 2 && source.length === 1 && ground.length === 1 && project.components.length === 8) {
+    return analyseEepromRingLogger(project, { source: source[0], fixture: dataLogFixtures[0], controller: dataLogControllers[0], eeprom: ringEeproms[0], display: dataLogDisplays[0], pullups: resistor, ground: ground[0], validation });
   }
   if (nfcTags.length === 1 && nfcReaders.length === 1 && nfcControllers.length === 1 && nfcDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseNfcUidDisplay(project, { source: source[0], tag: nfcTags[0], reader: nfcReaders[0], controller: nfcControllers[0], display: nfcDisplays[0], ground: ground[0], validation });
@@ -1683,6 +1694,28 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const adcCount=Math.round(position*1023/100),illuminatedSegments=Math.min(10,Math.floor(adcCount*10/1023));
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
+}
+function analyseEepromRingLogger(project,{source,fixture,controller,eeprom,display,pullups,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const fixtureFields=fields(fixture.value),controllerFields=fields(controller.value),eepromFields=fields(eeprom.value);
+  const samplesText=field(fixtureFields,"Samples")??"",samples=samplesText.split(",").map(value=>Number(value.trim())),periodMs=Number((field(fixtureFields,"PeriodMs")??"").replace(/ms$/i,"")),samplePeriodMs=Number((field(controllerFields,"SamplePeriodMs")??"").replace(/ms$/i,"")),capacity=Number(field(eepromFields,"Capacity")),writeCycleMs=Number((field(eepromFields,"WriteCycleMs")??"").replace(/ms$/i,""));
+  const groundNet=n(ground,"0"),vccNet=n(controller,"VCC"),supplyVoltage=voltageValue(source.value);
+  const powered=n(source,"+")===vccNet&&n(source,"-")===groundNet&&n(fixture,"GND")===groundNet&&[controller,eeprom,display].every(part=>n(part,"VCC")===vccNet&&n(part,"GND")===groundNet);
+  const sdaNet=n(controller,"SDA"),sclNet=n(controller,"SCL"),busWired=sdaNet&&sclNet&&sdaNet!==sclNet&&n(eeprom,"SDA")===sdaNet&&n(eeprom,"SCL")===sclNet&&pullups.some(item=>(n(item,"1")===vccNet&&n(item,"2")===sdaNet)||(n(item,"2")===vccNet&&n(item,"1")===sdaNet))&&pullups.some(item=>(n(item,"1")===vccNet&&n(item,"2")===sclNet)||(n(item,"2")===vccNet&&n(item,"1")===sclNet));
+  const pullupsValid=pullups.every(item=>{const value=resistanceValue(item.value);return Number.isFinite(value)&&value>=1000&&value<=10000;});
+  const dataPath=n(fixture,"DATA")===n(controller,"SENSOR")&&n(controller,"DISPLAY")===n(display,"DATA");
+  const samplesValid=samples.length>0&&samples.length<=1000&&samples.every(value=>Number.isFinite(value)&&Math.abs(value)<=1e9);
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!powered||!busWired||!pullupsValid||!dataPath||field(controllerFields,"Mode")!=="circular logger"||field(eepromFields,"Mode")!=="circular"||field(fixtureFields,"Unit")!=="C"||!Number.isFinite(periodMs)||periodMs<1||periodMs>3600000||samplePeriodMs!==periodMs||!Number.isInteger(capacity)||capacity<1||capacity>256||!Number.isFinite(writeCycleMs)||writeCycleMs<=0||writeCycleMs>=periodMs||!samplesValid){
+    return {state:"blocked",message:"Power the controller, EEPROM, and display; connect the sample fixture; wire SDA and SCL to the EEPROM with one valid pull-up per line; configure a circular buffer with positive capacity and write cycle shorter than the sample interval.",validation};
+  }
+  const ring=new Array(capacity),timestamps=new Array(capacity);let writeIndex=0;
+  samples.forEach((value,index)=>{ring[writeIndex]=value;timestamps[writeIndex]=index*periodMs;writeIndex=(writeIndex+1)%capacity;});
+  const retainedCount=Math.min(samples.length,capacity),oldestIndex=samples.length>capacity?writeIndex:0;
+  const replayValues=Array.from({length:retainedCount},(_,index)=>ring[(oldestIndex+index)%capacity]),replayTimesMs=Array.from({length:retainedCount},(_,index)=>timestamps[(oldestIndex+index)%capacity]);
+  const overwrittenRecords=Math.max(0,samples.length-capacity),wrapped=samples.length>capacity,replayText=replayValues.map((value,index)=>replayTimesMs[index]+" ms: "+value.toString()+" °C").join(" | ");
+  return {state:"complete",engine:"Ideal EEPROM circular sample-buffer model",message:"Stores periodic fixture samples in a bounded circular buffer and replays the retained values in chronological order. This does not model MCU firmware, physical EEPROM page behavior, write endurance, power-loss recovery, I²C timing, or sensor accuracy.",result:{kind:"eeprom-ring-logger",samplePeriodMs,writeCycleMs,capacity,recordedSamples:samples.length,overwrittenRecords,bufferWrapped:wrapped,replayValues,replayTimesMs,replayUnit:"°C",displayText:replayText,firmwareExecuted:false},validation};
 }
 function analyseNfcUidDisplay(project,{source,tag,reader,controller,display,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
