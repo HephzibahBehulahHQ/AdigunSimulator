@@ -21,6 +21,7 @@ import { analyzeThermalWarningBoundary } from "../js/thermal-warning-boundary.mj
 import { analyzeConvergenceStudy } from "../js/convergence-study.mjs";
 import { diagnoseFloatingNode } from "../js/floating-node-diagnosis.mjs";
 import { diagnoseSupplyShort } from "../js/short-circuit-diagnosis.mjs";
+import { diagnoseMissingGround } from "../js/missing-ground-diagnosis.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1449,7 +1450,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validation.valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 164);
+  assert.equal(getExampleCoverage(registry).total, 165);
   assert.equal(getExampleCoverage(registry).released, 154);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 46);
@@ -4130,4 +4131,18 @@ test("catalogue short-circuit fixture blocks before simulation with no fabricate
   assert.ok(result.diagnostics.suggestions.some(item=>/before energizing/.test(item)));
   const safe=JSON.parse(JSON.stringify(project));safe.nets[0].endpoints=["source-1:+"];
   assert.equal(diagnoseSupplyShort(safe).result.directSupplyShort,false);
+});
+
+test("catalogue missing-ground diagnosis blocks and identifies the reference rule", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/155-missing-ground-diagnosis.adigun.json",import.meta.url)));
+  const validation=validateProject(project);
+  assert.equal(validation.valid,true);
+  assert.ok(validation.warnings.some(warning=>warning.rule==="NO_REFERENCE"));
+  const result=diagnoseMissingGround(project);
+  assert.equal(result.state,"blocked");assert.equal(result.result,null);
+  assert.equal(result.diagnostics.ruleId,"NO_REFERENCE");
+  assert.equal(result.errors[0].code,"MISSING_GROUND_REFERENCE");
+  assert.ok(result.diagnostics.suggestions.length>=2);
+  const grounded=JSON.parse(JSON.stringify(project));grounded.components.push({instanceId:"ground-restored",libraryId:"ground.signal",reference:"GND2",value:"0 V"});
+  assert.equal(diagnoseMissingGround(grounded).result.referencePresent,true);
 });
