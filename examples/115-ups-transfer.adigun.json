@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-115-ups-transfer",
+  "metadata": {
+    "name": "Battery UPS Mains-Loss Transfer",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "15 V",
+      "position": {
+        "breadboard": [
+          40,
+          50
+        ],
+        "schematic": [
+          40,
+          50
+        ],
+        "pcb": [
+          40,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.ups-mains-fixture",
+      "reference": "CMD1",
+      "value": "Mains yes; BatteryVoltage 12 V; Capacity 2 Ah; SOC 80%; MinSOC 20%; HoldUp 10 min; Mode ups-fixture",
+      "position": {
+        "breadboard": [
+          145,
+          50
+        ],
+        "schematic": [
+          145,
+          50
+        ],
+        "pcb": [
+          145,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "charger",
+      "libraryId": "active.ups-charger-transfer-ideal",
+      "reference": "U1",
+      "value": "Efficiency 90%; MaxChargeCurrent 1 A; Mode ups-charger",
+      "position": {
+        "breadboard": [
+          255,
+          50
+        ],
+        "schematic": [
+          255,
+          50
+        ],
+        "pcb": [
+          255,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "battery",
+      "libraryId": "power.rechargeable-battery",
+      "reference": "BAT1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          365,
+          50
+        ],
+        "schematic": [
+          365,
+          50
+        ],
+        "pcb": [
+          365,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "diode",
+      "libraryId": "protection.ups-ideal-diode",
+      "reference": "D1",
+      "value": "ForwardDrop 0 V; Mode ideal-or",
+      "position": {
+        "breadboard": [
+          460,
+          50
+        ],
+        "schematic": [
+          460,
+          50
+        ],
+        "pcb": [
+          460,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RL1",
+      "value": "24 Ω",
+      "position": {
+        "breadboard": [
+          550,
+          50
+        ],
+        "schematic": [
+          550,
+          50
+        ],
+        "pcb": [
+          550,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.ups-transfer-report",
+      "reference": "SCOPE1",
+      "value": "UPS transfer and hold-up report",
+      "position": {
+        "breadboard": [
+          600,
+          150
+        ],
+        "schematic": [
+          600,
+          150
+        ],
+        "pcb": [
+          600,
+          150
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          160
+        ],
+        "schematic": [
+          40,
+          160
+        ],
+        "pcb": [
+          40,
+          160
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "DC_IN",
+      "endpoints": [
+        "source:+",
+        "charger:VIN"
+      ]
+    },
+    {
+      "id": "GROUND",
+      "endpoints": [
+        "source:-",
+        "battery:-",
+        "fixture:GND",
+        "charger:GND",
+        "diode:GND",
+        "report:GND",
+        "load:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "MAINS",
+      "endpoints": [
+        "fixture:MAINS",
+        "charger:MAINS"
+      ]
+    },
+    {
+      "id": "BATTERY",
+      "endpoints": [
+        "charger:BAT",
+        "battery:+",
+        "diode:BAT_IN"
+      ]
+    },
+    {
+      "id": "CHARGER_OUT",
+      "endpoints": [
+        "charger:OUT",
+        "diode:MAIN_IN"
+      ]
+    },
+    {
+      "id": "UPS_OUT",
+      "endpoints": [
+        "diode:OUT",
+        "report:OUT",
+        "load:1"
+      ]
+    },
+    {
+      "id": "CHARGER_STATUS",
+      "endpoints": [
+        "charger:STATUS",
+        "report:CHARGER_STATUS"
+      ]
+    },
+    {
+      "id": "DIODE_STATUS",
+      "endpoints": [
+        "diode:STATUS",
+        "report:DIODE_STATUS"
+      ]
+    }
+  ],
+  "history": []
+}

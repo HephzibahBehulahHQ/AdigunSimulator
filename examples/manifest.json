@@ -4734,6 +4734,19 @@
           "mainsSafetyQualified": false
         }
       }
+    },
+    {
+      "id": "115-ups-transfer",
+      "title": "Battery-powered UPS",
+      "status": "in-review",
+      "objective": "Model mains-priority charging, ideal-diode transfer to a battery after mains loss, and whether the configured reserve can support the load for the requested hold-up window.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue UPS maintains output on mains loss within battery hold-up window",
+      "testId": "core-ups-transfer",
+      "projectFile": "examples/115-ups-transfer.adigun.json",
+      "readmeFile": "examples/115-ups-transfer/README.md",
+      "safetyNote": "Ideal low-voltage energy estimator only. It is not a charger, battery-management, transfer-time, backup-runtime guarantee, mains wiring, or hardware safety qualification.",
+      "scope": "catalogue",
+      "catalogueIndex": 115
     }
   ]
 }
