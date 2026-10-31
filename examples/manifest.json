@@ -3753,6 +3753,47 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "091-electret-microphone-meter",
+      "title": "Electret microphone audio level meter",
+      "status": "released",
+      "objective": "Bias a generic electret small-signal source, apply bounded ideal gain and full-wave envelope detection, and compare calibrated sine levels against ten explicit LED thresholds.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue electret microphone meter follows calibrated sine amplitudes",
+      "testId": "core-electret-mic-meter",
+      "projectFile": "examples/091-electret-microphone-meter.adigun.json",
+      "safetyNote": "Ideal electret signal-chain estimate only. Acoustic sensitivity/noise, preamplifier bandwidth/noise, rectifier ripple and diode behavior, analog clipping recovery, LED current limiting, firmware and hardware behavior are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 91,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41184828300",
+        "headRevision": "137a1dfc0824561976688404a63b5dce0cc49d9b",
+        "engine": "Ideal electret envelope and calibrated LED meter estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-electret-audio-envelope-led-meter-v1",
+        "expectedResult": {
+          "kind": "electret-mic-meter",
+          "micBiasCurrentMa": 0.5,
+          "micBiasResistorOhm": 2200,
+          "micSupplyVoltageV": 3.9,
+          "inputPeakV": 0.01,
+          "frequencyHz": 1000,
+          "gain": 20,
+          "preampPeakV": 0.2,
+          "rectifierDropV": 0,
+          "rectifiedPeakV": 0.2,
+          "ledSegmentsOn": 10,
+          "calibrationInputLevelsMv": [
+            1,
+            5,
+            10,
+            20
+          ],
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
