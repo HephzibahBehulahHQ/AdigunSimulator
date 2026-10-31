@@ -265,6 +265,7 @@ function renderOutput(validation = state.lastValidation ?? validateProject(state
   const dashboard = $("#result-dashboard");
   dashboard.classList.toggle("hidden", !showDashboard);
   dashboard.innerHTML = showDashboard ? renderResultDashboard(state.lastAnalysis) : "";
+  $("#workspace-notes").textContent = state.lastAnalysis?.message ?? "Choose a supported example to see its tested model limits.";
   $("#output-log").classList.toggle("hidden", !isLog || showDashboard);
   $("#issue-list").classList.toggle("hidden", isLog);
   if (!isLog) {
