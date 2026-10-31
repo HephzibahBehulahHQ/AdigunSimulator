@@ -41,6 +41,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-jk-ideal", category: "Active", type: "Ideal positive-edge JK flip-flop (static logic)", prefix: "U", pins: ["J", "K", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge JK flip-flop", simulation: "analytical-jk-toggle-divider", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-counter-4bit-ideal", category: "Active", type: "Ideal 4-bit binary counter (static state)", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Ideal modulo-16 rising-edge counter", simulation: "analytical-4bit-counter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-bcd-display-ideal", category: "Active", type: "Ideal BCD decade counter and seven-segment decoder", prefix: "U", pins: ["CLK", "RESET_N", "SEG_A", "SEG_B", "SEG_C", "SEG_D", "SEG_E", "SEG_F", "SEG_G", "VCC", "GND"], defaultValue: "Ideal BCD decade counter; common-cathode segments", simulation: "analytical-bcd-counter-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-traffic-fsm-ideal", category: "Active", type: "Ideal six-phase traffic-light state machine", prefix: "U", pins: ["CLK", "RESET_N", "NS_R", "NS_Y", "NS_G", "EW_R", "EW_Y", "EW_G", "VCC", "GND"], defaultValue: "Six-phase traffic-light FSM", simulation: "analytical-traffic-light-fsm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -395,6 +396,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const jkFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-jk-ideal");
   const fourBitCounters = project.components.filter((item) => item.libraryId === "active.logic-counter-4bit-ideal");
   const bcdDisplays = project.components.filter((item) => item.libraryId === "active.logic-bcd-display-ideal");
+  const trafficFsms = project.components.filter((item) => item.libraryId === "active.logic-traffic-fsm-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -459,6 +461,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (trafficFsms.length === 1 && source.length === 3 && resistor.length === 6 && led.length === 6 && ground.length === 1 && project.components.length === 18) {
+    return analyseTrafficLightFsm(project, { sources: source, fsm: trafficFsms[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
   }
   if (bcdDisplays.length === 1 && source.length === 3 && resistor.length === 7 && led.length === 7 && ground.length === 1 && project.components.length === 19) {
     return analyseBcdCounterDisplay(project, { sources: source, counter: bcdDisplays[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
@@ -1433,6 +1438,36 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+
+
+function analyseTrafficLightFsm(project,{sources,fsm,resistors,leds,ground,previousState,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),vccNet=n(fsm,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  const clockNet=n(fsm,"CLK"),resetNet=n(fsm,"RESET_N");
+  const clockSource=sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===clockNet);
+  const resetSource=sources.find(v=>v!==supply&&v!==clockSource&&n(v,"-")===groundNet&&n(v,"+")===resetNet);
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,clockVoltage=clockSource?voltageValue(clockSource.value):Number.NaN,resetVoltage=resetSource?voltageValue(resetSource.value):Number.NaN,thresholdV=supplyVoltage/2;
+  const outputPins=["NS_R","NS_Y","NS_G","EW_R","EW_Y","EW_G"];
+  const paths=outputPins.map(pin=>{
+    const net=n(fsm,pin),resistor=resistors.find(r=>n(r,"1")===net||n(r,"2")===net);
+    const led=resistor&&leds.find(x=>((n(resistor,"1")===net&&n(resistor,"2")===n(x,"A"))||(n(resistor,"2")===net&&n(resistor,"1")===n(x,"A")))&&n(x,"K")===groundNet);
+    return {pin,net,resistor,led,resistance:resistor?resistanceValue(resistor.value):Number.NaN,vf:led?forwardVoltage(led.value):Number.NaN};
+  });
+  if(!supply||!clockSource||!resetSource||n(fsm,"GND")!==groundNet
+    ||paths.some(p=>!p.net||!p.resistor||!p.led||!Number.isFinite(p.resistance)||!Number.isFinite(p.vf)||p.resistance<=0||p.vf<=0)
+    ||![supplyVoltage,clockVoltage,resetVoltage].every(Number.isFinite)||supplyVoltage<=0||[clockVoltage,resetVoltage].some(v=>v<0||v>supplyVoltage)){
+    return {state:"blocked",message:"Wire the six-phase traffic-light FSM, clock, active-low reset, six current-limited signal lamps, and supply/ground rails.",validation};
+  }
+  const clockHigh=clockVoltage>=thresholdV,resetActive=resetVoltage<thresholdV,previous=previousState?.result,previousClockHigh=previous?.clockHigh,risingEdge=previousClockHigh===false&&clockHigh;
+  if(!resetActive&&clockHigh&&typeof previousClockHigh!=="boolean")return {state:"blocked",message:"Start with the clock low, then apply rising edges to advance the traffic-light phases.",validation};
+  if(risingEdge&&!resetActive&&!Number.isInteger(previous?.phase))return {state:"blocked",message:"Initialize the traffic-light state machine with active-low reset before advancing phases.",validation};
+  const phase=resetActive?0:risingEdge?(previous.phase+1)%6:Number.isInteger(previous?.phase)?previous.phase:null;
+  const patterns=[[0,0,1,1,0,0],[0,1,0,1,0,0],[1,0,0,1,0,0],[1,0,0,0,0,1],[1,0,0,0,1,0],[1,0,0,1,0,0]];
+  const lamps=phase===null?null:patterns[phase].map(Boolean),lampCurrents=lamps?paths.map((p,i)=>lamps[i]?Math.max(0,(supplyVoltage-p.vf)/p.resistance):0):Array(6).fill(0);
+  const conflictingGreen=lamps?.[2]&&lamps?.[5]||false;
+  return {state:"complete",engine:"Ideal six-phase traffic-light finite-state machine",message:"Advances one phase per rising edge through NS green, NS yellow, all red, EW green, EW yellow, all red. The FSM never commands opposing green lamps together. Real timing, pedestrian phases, sensors, interlocks, propagation, and regulatory traffic-control behavior are not modeled.",result:{kind:"traffic-light-fsm",supplyVoltage,logicThresholdV:thresholdV,clockVoltage,resetVoltage,clockHigh,resetActive,risingEdge,phase,lamps,lampCurrents,conflictingGreen,risingEdgeCount:(previous?.risingEdgeCount||0)+(risingEdge?1:0),mode:resetActive?"asynchronous reset":risingEdge?"advance":clockHigh?"high-level hold":"low-level hold",phaseTiming:"one state transition per rising edge; no real-time phase duration"},validation};
+}
 
 function analyseBcdCounterDisplay(project,{sources,counter,resistors,leds,ground,previousState,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
