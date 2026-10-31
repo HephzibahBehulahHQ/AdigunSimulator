@@ -623,6 +623,36 @@
       }
     },
     {
+      "id": "016-smoothing-capacitor",
+      "title": "Rectifier smoothing capacitor",
+      "status": "released",
+      "objective": "Compare the sampled full-wave bridge waveform with and without a 1,000 µF reservoir capacitor across a 1 kΩ load; verify ripple decreases after startup and retain the 100 Hz ripple cadence.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue smoothing capacitor reduces bridge ripple after startup and blocks invalid capacitance and wiring",
+      "testId": "core-smoothing-capacitor",
+      "projectFile": "examples/016-smoothing-capacitor.adigun.json",
+      "safetyNote": "Ideal educational transient estimate. The capacitor starts discharged and the bridge has zero source impedance; ESR, charging surge, transformer behavior, diode recovery, part ratings, thermal effects, mains safety, and hardware qualification are not modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 16,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41155438499",
+        "headRevision": "c057624bf3e70695a8776860a2a0856150c2c32b",
+        "engine": "Analytical bridge plus ideal-capacitor sampled transient estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "bridge-smoothing-capacitor-v1",
+        "libraryLock": "adigun-simulator@b978b53a89b6b239558d6d744db10329521bf666",
+        "expectedResult": {
+          "inputFrequencyHz": 50,
+          "rippleFrequencyHz": 100,
+          "capacitanceF": 0.001,
+          "loadResistanceOhm": 1000,
+          "capacitorDischargedAtStart": true,
+          "rippleReducedAgainstUnfilteredBridge": true
+        }
+      }
+    },
+    {
       "id": "002-dc-voltage-divider",
       "title": "Unloaded DC voltage divider",
       "status": "released",
@@ -792,16 +822,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "016-smoothing-capacitor",
-      "title": "Rectifier smoothing capacitor",
-      "status": "in-review",
-      "objective": "Compare the sampled full-wave bridge waveform with and without a 1,000 µF reservoir capacitor across a 1 kΩ load; verify ripple decreases after startup and retain the 100 Hz ripple cadence.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue smoothing capacitor reduces bridge ripple after startup and blocks invalid capacitance and wiring",
-      "testId": "core-smoothing-capacitor",
-      "projectFile": "examples/016-smoothing-capacitor.adigun.json",
-      "safetyNote": "Ideal educational transient estimate. The capacitor starts discharged and the bridge has zero source impedance; ESR, charging surge, transformer behavior, diode recovery, part ratings, thermal effects, mains safety, and hardware qualification are not modeled."
     }
   ]
 }

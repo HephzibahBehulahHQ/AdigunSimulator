@@ -2,7 +2,7 @@
 
 This is the authoritative scope catalogue for the 200 required examples. A row specifies a project, expected behaviour and acceptance criterion; it is **not** evidence that the project has been implemented or passed.
 
-The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has fifteen released analytical catalogue examples (rows 1–15) and ten supplemental studies; 185 catalogue entries remain planned until their release requirements are met. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 15, “Bridge rectifier,” is implemented as an ideal sampled low-voltage model with fixed diode drops and no smoothing capacitor.
+The release registry is `examples/manifest.json`. It may mark an example as `released` only when a native project file, an automated acceptance test, a safety note and recorded passing evidence exist. As of this revision, the registry has sixteen released analytical catalogue examples (rows 1–16) and ten supplemental studies; 184 catalogue entries remain planned until their release requirements are met. The other released studies do not occupy catalogue rows and cannot be counted toward the 200-project target. Catalogue row 16, “Smoothing capacitor,” compares ripple after startup using an ideal discharged capacitor across a resistive load.
 
 ## 12. Catalogue of 200 individually specified, testable example projects
 
