@@ -58,6 +58,7 @@ import { readResistorBands, runResistorColorCodeReader } from "../js/resistor-co
 import { calculateLedSeriesResistor, runLedResistorCalculator } from "../js/led-resistor-calculator.mjs";
 import { calculateVoltageDivider, runVoltageDividerCalculator } from "../js/voltage-divider-calculator.mjs";
 import { calculateRcTiming, runRcTimingCalculator } from "../js/rc-timing-calculator.mjs";
+import { calculateOpAmpGain, runOpAmpGainCalculator } from "../js/op-amp-gain-calculator.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1490,7 +1491,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 201);
+  assert.equal(getExampleCoverage(registry).total, 202);
   assert.equal(getExampleCoverage(registry).released, 191);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 9);
@@ -4578,4 +4579,13 @@ test("catalogue RC timing calculator handles decimal resistance and capacitance 
   assert.equal(calculateRcTiming({resistanceValue:0,resistanceUnit:"kΩ",capacitanceValue:1,capacitanceUnit:"µF"}).ok,false);
   assert.equal(calculateRcTiming({resistanceValue:1,resistanceUnit:"kΩ",capacitanceValue:1,capacitanceUnit:"mΩ"}).ok,false);
   const invalid=structuredClone(project);invalid.rcTimingCalculator.cases[0].capacitanceValue=-1;assert.equal(runRcTimingCalculator(invalid).state,"blocked");
+});
+test("catalogue op-amp gain calculator covers both topologies and rejects zero or invalid resistors", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/192-op-amp-gain-calculator.adigun.json",import.meta.url)));
+  const result=runOpAmpGainCalculator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"op-amp-gain-cases");
+  assert.deepEqual(result.result.results.map(item=>item.gain),[-10,10,2]);assert.equal(result.result.results[0].phaseInverted,true);assert.equal(result.result.results[1].phaseInverted,false);
+  assert.equal(calculateOpAmpGain({configuration:"inverting",inputResistanceOhms:0,feedbackResistanceOhms:10000}).ok,false);
+  assert.equal(calculateOpAmpGain({configuration:"non-inverting",feedbackResistanceOhms:-1,groundResistanceOhms:10000}).ok,false);
+  assert.equal(calculateOpAmpGain({configuration:"buffer",feedbackResistanceOhms:10000,groundResistanceOhms:10000}).ok,false);
+  const invalid=structuredClone(project);invalid.opAmpGainCalculator.cases[0].feedbackResistanceOhms=0;assert.equal(runOpAmpGainCalculator(invalid).state,"blocked");
 });
