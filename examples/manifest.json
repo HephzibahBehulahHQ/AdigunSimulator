@@ -1424,6 +1424,18 @@
           "shootThrough": false
         }
       }
+    },
+    {
+      "id": "037-electret-audio-preamp",
+      "title": "Electret microphone single-supply audio preamp",
+      "status": "in-review",
+      "objective": "Bias a generic electret microphone from 5 V, AC-couple its 10 mV 1 kHz signal into a midpoint-biased non-inverting op-amp preamplifier, and test microphone bias, gain, high-pass response, and output headroom.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue electret audio preamp calculates mic bias, midband gain, and coupling response; blocks overbias and rail clipping",
+      "testId": "core-electret-audio-preamp",
+      "projectFile": "examples/037-electret-audio-preamp.adigun.json",
+      "safetyNote": "Generic microphone and ideal op-amp analytical estimate. The mic uses a specified 0.5 mA bias current, 10 mV signal amplitude, and 2.2 kΩ source resistance; the op-amp is ideal and single-supply. No specific manufacturer part is implied. Noise, sensitivity spread, frequency-dependent microphone behavior, op-amp bandwidth/slew/input limits, output load, distortion, thermal effects, and physical validation are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 37
     }
   ]
 }

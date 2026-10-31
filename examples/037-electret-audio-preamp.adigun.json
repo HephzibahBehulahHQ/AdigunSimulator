@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-037-electret-audio-preamp",
+  "metadata": {
+    "name": "Electret Microphone Single-Supply Audio Preamp",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "microphone",
+      "libraryId": "sensor.electret-mic-generic",
+      "reference": "MIC1",
+      "value": "Imic 0.5 mA; Vsig 10 mV; f 1 kHz; Rs 2.2 kΩ",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "opamp",
+      "libraryId": "active.opamp-ideal",
+      "reference": "U1",
+      "value": "Ideal single-supply op-amp; input 0 to 5 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "mic-bias",
+      "libraryId": "passive.resistor",
+      "reference": "RB1",
+      "value": "2.2 kΩ",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "reference-top",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "100 kΩ",
+      "position": {
+        "breadboard": [
+          40,
+          120
+        ],
+        "schematic": [
+          40,
+          120
+        ],
+        "pcb": [
+          40,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "reference-bottom",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "100 kΩ",
+      "position": {
+        "breadboard": [
+          155,
+          120
+        ],
+        "schematic": [
+          155,
+          120
+        ],
+        "pcb": [
+          155,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "input-bias",
+      "libraryId": "passive.resistor",
+      "reference": "RIN",
+      "value": "15 kΩ",
+      "position": {
+        "breadboard": [
+          270,
+          120
+        ],
+        "schematic": [
+          270,
+          120
+        ],
+        "pcb": [
+          270,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "feedback",
+      "libraryId": "passive.resistor",
+      "reference": "RF",
+      "value": "99 kΩ",
+      "position": {
+        "breadboard": [
+          385,
+          120
+        ],
+        "schematic": [
+          385,
+          120
+        ],
+        "pcb": [
+          385,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "gain-leg",
+      "libraryId": "passive.resistor",
+      "reference": "RG",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          500,
+          120
+        ],
+        "schematic": [
+          500,
+          120
+        ],
+        "pcb": [
+          500,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "coupling-capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "CIN",
+      "value": "10 µF",
+      "position": {
+        "breadboard": [
+          40,
+          185
+        ],
+        "schematic": [
+          40,
+          185
+        ],
+        "pcb": [
+          40,
+          185
+        ]
+      }
+    },
+    {
+      "instanceId": "decoupling-capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "CDEC",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          155,
+          185
+        ],
+        "schematic": [
+          155,
+          185
+        ],
+        "pcb": [
+          155,
+          185
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "microphone:VCC",
+        "opamp:VCC",
+        "mic-bias:1",
+        "reference-top:1",
+        "decoupling-capacitor:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "microphone:GND",
+        "opamp:VEE",
+        "reference-bottom:2",
+        "decoupling-capacitor:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "MIC_OUT",
+      "endpoints": [
+        "microphone:OUT",
+        "mic-bias:2",
+        "coupling-capacitor:1"
+      ]
+    },
+    {
+      "id": "AMP_IN",
+      "endpoints": [
+        "coupling-capacitor:2",
+        "opamp:+",
+        "input-bias:1"
+      ]
+    },
+    {
+      "id": "VREF",
+      "endpoints": [
+        "reference-top:2",
+        "reference-bottom:1",
+        "input-bias:2",
+        "gain-leg:2"
+      ]
+    },
+    {
+      "id": "INVERTING",
+      "endpoints": [
+        "opamp:-",
+        "feedback:2",
+        "gain-leg:1"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "opamp:OUT",
+        "feedback:1"
+      ]
+    }
+  ],
+  "history": []
+}
