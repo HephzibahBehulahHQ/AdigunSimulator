@@ -7076,7 +7076,7 @@
     {
       "id": "184-unsupported-breadboard-package",
       "title": "Unsupported breadboard package",
-      "status": "in-review",
+      "status": "released",
       "objective": "Project a conceptual BGA across the available views, create a breadboard reconciliation item, and prove the unsupported component is excluded from breadboard placements.",
       "acceptanceTest": "tests/core.test.mjs: catalogue unsupported BGA package becomes a breadboard reconciliation item without placement",
       "testId": "core-unsupported-breadboard-package",
@@ -7084,7 +7084,30 @@
       "readmeFile": "examples/184-unsupported-breadboard-package/README.md",
       "safetyNote": "Conceptual generic 4×4 BGA only. The stored breadboard coordinate is not placement; renderer excludes it and reports reconciliation. The PCB concept is unqualified and not manufacturable.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 184,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41214221837",
+        "headRevision": "bd673087ef5b5db42ec99e99415179f473828cd6",
+        "engine": "Library view-capability projection",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "unsupported-breadboard-package-projection-v1",
+        "expectedResult": {
+          "kind": "unsupported-breadboard-package-reconciliation",
+          "componentCount": 1,
+          "instanceId": "bga",
+          "reference": "U1",
+          "package": "package.generic-bga-4x4-concept",
+          "breadboardPlaced": false,
+          "breadboardReconciliationCount": 1,
+          "schematicPlaced": true,
+          "pcbPlaced": true,
+          "fabricationQualified": false,
+          "claimsManufacturable": false
+        }
+      }
     }
   ]
 }
