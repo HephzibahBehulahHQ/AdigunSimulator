@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { createProject, findLibraryPart, parseProject, serializeProject } from "../js/core.mjs";
-import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, normalizeBreadboardHole, validateBreadboardTopology } from "../js/breadboard-topology.mjs";
+import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "../js/breadboard-topology.mjs";
 
 const getPartPins = libraryId => findLibraryPart(libraryId)?.pins ?? [];
 const readExample = async file => JSON.parse(await readFile(new URL("../examples/" + file, import.meta.url)));
@@ -102,4 +102,27 @@ test("generic radial capacitor, axial rectifier, and TO-92 transistor placements
   assert.equal(transistor.pinPoints.length,3);
   assert.equal(transistor.exactManufacturerFootprint,false);
   assert.equal(place("active.npn-small-signal",["B","C","E"],["C20","C21","C21"]),null);
+});
+
+test("physical-to-schematic netlist synchronization derives merged nets without mutating the source", async () => {
+  const project = await readExample("001-led-current-limiter.adigun.json");
+  const before = JSON.stringify(project.nets);
+  const exact = deriveBreadboardSchematicNets(project, {getPartPins});
+  assert.equal(exact.state,"complete");
+  assert.equal(exact.changed,false);
+  project.breadboard.jumpers[1] = {from:"C11",to:"TP15"};
+  const preview = deriveBreadboardSchematicNets(project, {getPartPins});
+  assert.equal(preview.state,"complete");
+  assert.equal(preview.changed,true);
+  assert.ok(preview.mergedNetIds.includes("GND"));
+  assert.equal(preview.nets.length,2);
+  assert.notEqual(JSON.stringify(project.nets),JSON.stringify(preview.nets));
+  assert.equal(before.length>0,true);
+});
+
+test("released breadboard-to-schematic synchronization fixture checks physical connectivity", async () => {
+  const project = await readExample("181-breadboard-schematic-sync.adigun.json");
+  const result = runBreadboardSchematicSync(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.physicalNetsMatchSchematic,true);
 });
