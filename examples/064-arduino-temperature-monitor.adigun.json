@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-064-arduino-temperature-monitor",
+  "metadata": {
+    "name": "Uno-Class Linear Temperature Monitor and LCD Result",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          45,
+          60
+        ],
+        "schematic": [
+          45,
+          60
+        ],
+        "pcb": [
+          45,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.mcu-uno-ideal",
+      "reference": "U1",
+      "value": "Program Temperature monitor; ADC A0; Output D8; Format 0.0 C",
+      "position": {
+        "breadboard": [
+          170,
+          60
+        ],
+        "schematic": [
+          170,
+          60
+        ],
+        "pcb": [
+          170,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "sensor",
+      "libraryId": "sensor.temperature-analog-ideal",
+      "reference": "TS1",
+      "value": "Temperature 25 C; Scale 10 mV/C; Offset 0 mV",
+      "position": {
+        "breadboard": [
+          300,
+          60
+        ],
+        "schematic": [
+          300,
+          60
+        ],
+        "pcb": [
+          300,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "lcd",
+      "libraryId": "output.lcd-text-sink-ideal",
+      "reference": "LCD1",
+      "value": "16-character text row",
+      "position": {
+        "breadboard": [
+          430,
+          60
+        ],
+        "schematic": [
+          430,
+          60
+        ],
+        "pcb": [
+          430,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          540,
+          60
+        ],
+        "schematic": [
+          540,
+          60
+        ],
+        "pcb": [
+          540,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mcu:VCC",
+        "sensor:VCC",
+        "lcd:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "mcu:GND",
+        "sensor:GND",
+        "lcd:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "SENSOR_OUT",
+      "endpoints": [
+        "sensor:OUT",
+        "mcu:A0"
+      ]
+    },
+    {
+      "id": "LCD_DATA",
+      "endpoints": [
+        "mcu:D8",
+        "lcd:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
