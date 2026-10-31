@@ -1,0 +1,778 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-125-usb-c-breakout",
+  "metadata": {
+    "name": "USB-C USB 2.0 Breakout",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "usb",
+      "libraryId": "connector.usb-c-receptacle",
+      "reference": "J1",
+      "value": "GCT USB4105; 16-contact USB 2.0 receptacle",
+      "position": {
+        "breadboard": [
+          150,
+          75
+        ],
+        "schematic": [
+          150,
+          75
+        ],
+        "pcb": [
+          150,
+          75
+        ]
+      }
+    },
+    {
+      "instanceId": "rd1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "5.1 kΩ; CC1 Rd",
+      "position": {
+        "breadboard": [
+          260,
+          90
+        ],
+        "schematic": [
+          260,
+          90
+        ],
+        "pcb": [
+          260,
+          90
+        ]
+      }
+    },
+    {
+      "instanceId": "rd2",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "5.1 kΩ; CC2 Rd",
+      "position": {
+        "breadboard": [
+          260,
+          150
+        ],
+        "schematic": [
+          260,
+          150
+        ],
+        "pcb": [
+          260,
+          150
+        ]
+      }
+    },
+    {
+      "instanceId": "output",
+      "libraryId": "connector.breakout-header-4",
+      "reference": "J2",
+      "value": "USB 2.0 breakout: VBUS, GND, D+, D-",
+      "position": {
+        "breadboard": [
+          470,
+          110
+        ],
+        "schematic": [
+          470,
+          110
+        ],
+        "pcb": [
+          470,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          90,
+          210
+        ],
+        "schematic": [
+          90,
+          210
+        ],
+        "pcb": [
+          90,
+          210
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VBUS",
+      "endpoints": [
+        "usb:A4",
+        "usb:A9",
+        "usb:B4",
+        "usb:B9",
+        "output:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "usb:A1",
+        "usb:A12",
+        "usb:B1",
+        "usb:B12",
+        "rd1:2",
+        "rd2:2",
+        "output:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "CC1",
+      "endpoints": [
+        "usb:A5",
+        "rd1:1"
+      ]
+    },
+    {
+      "id": "CC2",
+      "endpoints": [
+        "usb:B5",
+        "rd2:1"
+      ]
+    },
+    {
+      "id": "USB_DP",
+      "endpoints": [
+        "usb:A6",
+        "usb:B6",
+        "output:3"
+      ]
+    },
+    {
+      "id": "USB_DM",
+      "endpoints": [
+        "usb:A7",
+        "usb:B7",
+        "output:4"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 42,
+      "heightMm": 20,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.15
+    },
+    "parts": [
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "footprint": "GCT_USB4105_16P_smt_template",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "rd1",
+        "reference": "R1",
+        "footprint": "R_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "rd2",
+        "reference": "R2",
+        "footprint": "R_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "output",
+        "reference": "J2",
+        "footprint": "HDR_1x04_2.54mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A1",
+        "number": "A1",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 7.25,
+        "yMm": 6
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A4",
+        "number": "A4",
+        "netId": "VBUS",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 7.75,
+        "yMm": 6
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A5",
+        "number": "A5",
+        "netId": "CC1",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 8.25,
+        "yMm": 6
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A6",
+        "number": "A6",
+        "netId": "USB_DP",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 8.75,
+        "yMm": 6
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A7",
+        "number": "A7",
+        "netId": "USB_DM",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 9.25,
+        "yMm": 6
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A8",
+        "number": "A8",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 9.75,
+        "yMm": 6
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A9",
+        "number": "A9",
+        "netId": "VBUS",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 10.25,
+        "yMm": 6
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "A12",
+        "number": "A12",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 10.75,
+        "yMm": 6
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B1",
+        "number": "B1",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 7.25,
+        "yMm": 7.5
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B4",
+        "number": "B4",
+        "netId": "VBUS",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 7.75,
+        "yMm": 7.5
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B5",
+        "number": "B5",
+        "netId": "CC2",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 8.25,
+        "yMm": 7.5
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B6",
+        "number": "B6",
+        "netId": "USB_DP",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 8.75,
+        "yMm": 7.5
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B7",
+        "number": "B7",
+        "netId": "USB_DM",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 9.25,
+        "yMm": 7.5
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B8",
+        "number": "B8",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 9.75,
+        "yMm": 7.5
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B9",
+        "number": "B9",
+        "netId": "VBUS",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 10.25,
+        "yMm": 7.5
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "B12",
+        "number": "B12",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 0.3,
+        "heightMm": 1,
+        "xMm": 10.75,
+        "yMm": 7.5
+      },
+      {
+        "instanceId": "usb",
+        "reference": "J1",
+        "pin": "SHIELD",
+        "number": "SH",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 1.2,
+        "xMm": 13.5,
+        "yMm": 6.75
+      },
+      {
+        "instanceId": "rd1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "CC1",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.7,
+        "xMm": 17,
+        "yMm": 9
+      },
+      {
+        "instanceId": "rd1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.7,
+        "xMm": 19,
+        "yMm": 9
+      },
+      {
+        "instanceId": "rd2",
+        "reference": "R2",
+        "pin": "1",
+        "number": "1",
+        "netId": "CC2",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.7,
+        "xMm": 17,
+        "yMm": 13
+      },
+      {
+        "instanceId": "rd2",
+        "reference": "R2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.7,
+        "xMm": 19,
+        "yMm": 13
+      },
+      {
+        "instanceId": "output",
+        "reference": "J2",
+        "pin": "1",
+        "number": "1",
+        "netId": "VBUS",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 38,
+        "yMm": 3
+      },
+      {
+        "instanceId": "output",
+        "reference": "J2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 38,
+        "yMm": 7
+      },
+      {
+        "instanceId": "output",
+        "reference": "J2",
+        "pin": "3",
+        "number": "3",
+        "netId": "USB_DP",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 38,
+        "yMm": 11
+      },
+      {
+        "instanceId": "output",
+        "reference": "J2",
+        "pin": "4",
+        "number": "4",
+        "netId": "USB_DM",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 38,
+        "yMm": 15
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VBUS",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            7.75,
+            6
+          ],
+          [
+            10.25,
+            6
+          ],
+          [
+            7.75,
+            7.5
+          ],
+          [
+            10.25,
+            7.5
+          ],
+          [
+            38,
+            3
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            7.25,
+            6
+          ],
+          [
+            10.75,
+            6
+          ],
+          [
+            7.25,
+            7.5
+          ],
+          [
+            10.75,
+            7.5
+          ],
+          [
+            19,
+            9
+          ],
+          [
+            19,
+            13
+          ],
+          [
+            38,
+            7
+          ]
+        ]
+      },
+      {
+        "netId": "CC1",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            8.25,
+            6
+          ],
+          [
+            17,
+            9
+          ]
+        ]
+      },
+      {
+        "netId": "CC2",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            8.25,
+            7.5
+          ],
+          [
+            17,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "USB_DP",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            8.75,
+            6
+          ],
+          [
+            8.75,
+            7.5
+          ],
+          [
+            38,
+            11
+          ]
+        ]
+      },
+      {
+        "netId": "USB_DM",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            9.25,
+            6
+          ],
+          [
+            9.25,
+            7.5
+          ],
+          [
+            38,
+            15
+          ]
+        ]
+      }
+    ],
+    "keepouts": [],
+    "connectorPinMap": [
+      {
+        "reference": "J1",
+        "pin": "A1",
+        "signal": "GND",
+        "netId": "GND",
+        "purpose": "GND return",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "A4",
+        "signal": "VBUS",
+        "netId": "VBUS",
+        "purpose": "5 V bus",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "A5",
+        "signal": "CC1",
+        "netId": "CC1",
+        "purpose": "CC1; independent Rd",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "A6",
+        "signal": "D+",
+        "netId": "USB_DP",
+        "purpose": "USB 2.0 data plus",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "A7",
+        "signal": "D-",
+        "netId": "USB_DM",
+        "purpose": "USB 2.0 data minus",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "A8",
+        "signal": "SBU1",
+        "netId": "NC",
+        "purpose": "Not used",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "A9",
+        "signal": "VBUS",
+        "netId": "VBUS",
+        "purpose": "5 V bus",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "A12",
+        "signal": "GND",
+        "netId": "GND",
+        "purpose": "GND return",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "B1",
+        "signal": "GND",
+        "netId": "GND",
+        "purpose": "GND return",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "B4",
+        "signal": "VBUS",
+        "netId": "VBUS",
+        "purpose": "5 V bus",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "B5",
+        "signal": "CC2",
+        "netId": "CC2",
+        "purpose": "CC2; independent Rd",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "B6",
+        "signal": "D+",
+        "netId": "USB_DP",
+        "purpose": "USB 2.0 data plus",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "B7",
+        "signal": "D-",
+        "netId": "USB_DM",
+        "purpose": "USB 2.0 data minus",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "B8",
+        "signal": "SBU2",
+        "netId": "NC",
+        "purpose": "Not used",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "B9",
+        "signal": "VBUS",
+        "netId": "VBUS",
+        "purpose": "5 V bus",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "B12",
+        "signal": "GND",
+        "netId": "GND",
+        "purpose": "GND return",
+        "instanceId": "usb"
+      },
+      {
+        "reference": "J1",
+        "pin": "SHIELD",
+        "signal": "Shield",
+        "netId": "NC",
+        "purpose": "No shield-to-ground bond in this template",
+        "instanceId": "usb"
+      }
+    ]
+  }
+}

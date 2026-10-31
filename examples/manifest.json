@@ -5157,6 +5157,19 @@
           "physicalFitCertified": false
         }
       }
+    },
+    {
+      "id": "125-usbc-breakout",
+      "title": "USB-C USB 2.0 breakout",
+      "status": "in-review",
+      "objective": "Map a GCT USB4105 USB 2.0 Type-C receptacle to VBUS, GND and USB 2.0 data outputs, add separate 5.1 kΩ CC1/CC2 Rd resistors, test every connector pin assignment, bounded DRC and the generated pin report.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue USB-C breakout verifies its connector pin report, CC pull-downs, DRC and export snapshots",
+      "testId": "core-usbc-breakout",
+      "projectFile": "examples/125-usbc-breakout.adigun.json",
+      "readmeFile": "examples/125-usbc-breakout/README.md",
+      "safetyNote": "Educational USB 2.0 sink breakout. USB-C pin and CC wiring are mapped from the USB-IF Type-C specification; the generic receptacle footprint coordinates are a visual template, not a verified production CAD footprint. No USB-PD, electrical compliance, current-carrying validation or manufacturing approval is provided.",
+      "scope": "catalogue",
+      "catalogueIndex": 125
     }
   ]
 }

@@ -4,6 +4,8 @@ const UI_LOCALES_FOR_PROJECT = Object.freeze(["en", "de", "yo", "pcm"]);
 const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistance: 34 });
 
 export const STARTER_LIBRARY = Object.freeze([
+  { id: "connector.usb-c-receptacle", category: "Connectors", type: "USB-C receptacle (USB 2.0, 16 contacts)", prefix: "J", pins: ["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"], defaultValue: "GCT USB4105; 5.1 kΩ Rd on CC1 and CC2", simulation: null, status: "manufacturer identified; footprint template", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "connector.breakout-header-4", category: "Connectors", type: "4-pin breakout header", prefix: "J", pins: ["1","2","3","4"], defaultValue: "VBUS, GND, D+, D-", simulation: null, status: "generic", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.usb-source", category: "Power & Ground", type: "USB 5 V supply model", prefix: "USB", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "power.solar-cell", category: "Power & Ground", type: "Solar cell (linear I–V estimate)", prefix: "PV", pins: ["+", "-"], defaultValue: "Voc 6 V; Isc 100 mA", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },

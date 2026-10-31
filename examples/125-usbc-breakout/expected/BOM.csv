@@ -1,0 +1,5 @@
+"Designator","Quantity","Value","Footprint","Technology","Status"
+"J1","1","GCT USB4105; 16-contact USB 2.0 receptacle","GCT_USB4105_16P_smt_template","smd","Generic footprint; verify selected real part"
+"J2","1","USB 2.0 breakout: VBUS, GND, D+, D-","HDR_1x04_2.54mm","through-hole","Generic footprint; verify selected real part"
+"R1","1","5.1 kΩ; CC1 Rd","R_0603_generic","smd","Generic footprint; verify selected real part"
+"R2","1","5.1 kΩ; CC2 Rd","R_0603_generic","smd","Generic footprint; verify selected real part"

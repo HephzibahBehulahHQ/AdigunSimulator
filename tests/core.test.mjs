@@ -1158,7 +1158,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 134);
+  assert.equal(getExampleCoverage(registry).total, 135);
   assert.equal(getExampleCoverage(registry).released, 124);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 76);
@@ -3426,4 +3426,32 @@ test("catalogue reverse-polarity MOSFET protector passes forward input and block
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="OUTPUT").endpoints=["protector:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs, DRC and export snapshots", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/125-usbc-breakout.adigun.json",import.meta.url)));
+  const {createUsbCPinReport}=await import("../js/usb-c-pin-report.mjs");
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(project.components.find(part=>part.reference==="R1").value.startsWith("5.1 kΩ"),true);
+  assert.equal(project.components.find(part=>part.reference==="R2").value.startsWith("5.1 kΩ"),true);
+  assert.deepEqual(STARTER_LIBRARY.find(part=>part.id==="connector.usb-c-receptacle").pins,["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"]);
+  const report=createUsbCPinReport(project);
+  assert.equal(report.split("\r\n").length,19);
+  assert.ok(report.includes('"J1","A5","CC1","CC1"'));
+  assert.ok(report.includes('"J1","B5","CC2","CC2"'));
+  assert.ok(report.includes('"J1","A6","D+","USB_DP"'));
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  const expectedFiles={...generated.files,"Connector-Pin-Report.csv":report};
+  for(const [name,content] of Object.entries(expectedFiles)){
+    const expected=await readFile(new URL("../examples/125-usbc-breakout/expected/"+name,import.meta.url),"utf8");
+    assert.equal(content,expected,name);
+  }
+  const broken=structuredClone(project);
+  broken.pcbFabrication.connectorPinMap.find(pin=>pin.pin==="B5").netId="CC1";
+  assert.ok(createUsbCPinReport(broken).includes('"J1","B5","CC2","CC1"'));
+  broken.pcbFabrication.pads=broken.pcbFabrication.pads.filter(pad=>!(pad.reference==="J1"&&pad.pin==="A5"));
+  assert.equal(validatePcbFabrication(broken).status,"failed");
 });
