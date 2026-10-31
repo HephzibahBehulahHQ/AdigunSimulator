@@ -1,3 +1,4 @@
+import { reviewTestPointCoverage } from "./test-point-coverage.mjs";
 import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs";
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
 import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
@@ -278,6 +279,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.tps62130-qfn16", category: "Active", type: "TI TPS62130 16-pin VQFN with exposed thermal pad", prefix: "U", pins: ["SW_1","SW_2","SW_3","PG","FB","AGND","FSW","DEF","SS_TR","AVIN","PVIN_1","PVIN_2","EN","VOS","PGND_1","PGND_2","EP"], defaultValue: "TPS62130RGTR; RGT0016C; adjustable 3 A buck converter", simulation: "bounded-qfn-footprint-review", status: "TI pin map and package drawing; footprint and stencil proposal", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "package.generic-bga-4x4-concept", category: "Active", type: "Conceptual 4 × 4 ball-grid array package", prefix: "U", pins: ["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"], defaultValue: "Concept only; 0.80 mm pitch and 0.35 mm land are declared assumptions", simulation: "bounded-bga-escape-capability-review", status: "conceptual geometry; not a manufacturer-specific package", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "control.panel-mount-controller-concept", category: "Active", type: "Panel-mount status controller concept", prefix: "U", pins: ["VIN","GND","STATUS"], defaultValue: "Topology fixture only; no controller logic model", simulation: "bounded-panel-mount-mechanical-review", status: "generic concept; mechanical review only", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "testpoint.generic-smd-top-pad", category: "Connectors", type: "Generic 1.5 mm SMD test pad", prefix: "TP", pins: ["1"], defaultValue: "Top-side test pad; no continuity guarantee", simulation: null, status: "generic layout pad", views: { breadboard: false, schematic: false, pcb: true } },
 ]);
 
 function clone(value) {
@@ -682,6 +684,12 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
     const required=[["VDD33",mcu,"VDD_VDDA"],["GND",mcu,"VSS_VSSA"],["VDD33",hf,"1"],["GND",hf,"2"],["VDD33",bulk,"+"],["GND",bulk,"-"],["VDD33",header,"VDD"],["GND",header,"GND"],["SWDIO",mcu,"PA13_SWDIO"],["SWCLK",mcu,"PA14_SWDCLK"]];
     const pinMap=project.pcbFabrication?.pads?.filter((pad)=>pad.instanceId===mcu.instanceId).length===32&&["PB9","PC14","PC15","VDD_VDDA","VSS_VSSA","NRST","PA0","PA1","PA2","PA3","PA4","PA5","PA6","PA7","PB0","PB1","PB2","PA8","PA9","PC6","PA10","PA11","PA12","PA13_SWDIO","PA14_SWDCLK","PA15","PB3","PB4","PB5","PB6","PB7","PB8"].every((pin,index)=>project.pcbFabrication.pads.some((pad)=>pad.instanceId===mcu.instanceId&&pad.pin===pin&&String(pad.number)===String(index+1)));
     if(!supply||voltageValue(supply.value)!==3.3||!pinMap||required.some(([n,c,p])=>!has(n,c,p)))return {state:"blocked",message:"Check STM32G031 LQFP32 pin map, VDD/VSS decoupling and SWD header connections.",validation};
+    if(project.pcbFabrication?.testPoints){
+      const coverage=reviewTestPointCoverage(project);
+      if(coverage.status!=="passed")return {state:"blocked",engine:"STM32 test-point coverage review",message:"Every required MCU net needs a mapped and accessible top-side test pad.",validation,testPointCoverage:coverage};
+      return {state:"complete",engine:"STM32 board topology and test-point coverage review",message:"Verified STM32 supply/SWD topology and declared top-side test-pad coverage. The four-layer route plan does not prove copper continuity, probe access after assembly, or manufacturing qualification.",validation,result:{kind:"stm32-board-test-point-coverage",device:"STM32G031K8T6",requiredNets:coverage.requiredNetCount,coveredNets:coverage.coveredNetCount,coveragePercent:100,physicalContinuityVerified:false,manufacturingQualified:false}};
+    }
+
     return {state:"complete",engine:"STM32 four-layer board-plan checker",message:"Verified the manufacturer LQFP32 pin map, required supply/ground pins, local decouplers and SWD connector. Firmware, MCU execution, signal integrity, power integrity, manufacturing DRC and electrical performance are not simulated.",validation,result:{kind:"stm32-four-layer-board-plan",device:"STM32G031K8T6",package:"LQFP32",supplyPinsPresent:true,all32PadsMapped:true,stackupLayers:project.pcbFabrication?.stackup?.length??0,firmwareSimulation:false,manufacturingQualified:false}};
   }
 

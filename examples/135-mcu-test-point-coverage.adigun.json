@@ -1,0 +1,1087 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-135-mcu-test-point-coverage",
+  "metadata": {
+    "name": "STM32 MCU Board — Required Test-Point Coverage",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          60,
+          80
+        ],
+        "schematic": [
+          60,
+          80
+        ],
+        "pcb": [
+          60,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.stm32g031k8-lqfp32",
+      "reference": "U1",
+      "value": "STM32G031K8T6; LQFP32; 3.3 V",
+      "position": {
+        "breadboard": [
+          280,
+          100
+        ],
+        "schematic": [
+          280,
+          100
+        ],
+        "pcb": [
+          280,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "swd",
+      "libraryId": "connector.swd-header-4",
+      "reference": "J1",
+      "value": "VDD, GND, SWDIO, SWCLK",
+      "position": {
+        "breadboard": [
+          500,
+          120
+        ],
+        "schematic": [
+          500,
+          120
+        ],
+        "pcb": [
+          500,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "decouple-hf",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF; local VDD/VDDA bypass",
+      "position": {
+        "breadboard": [
+          210,
+          80
+        ],
+        "schematic": [
+          210,
+          80
+        ],
+        "pcb": [
+          210,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "decouple-bulk",
+      "libraryId": "passive.electrolytic-capacitor",
+      "reference": "C2",
+      "value": "4.7 µF; local bulk decoupling",
+      "position": {
+        "breadboard": [
+          270,
+          80
+        ],
+        "schematic": [
+          270,
+          80
+        ],
+        "pcb": [
+          270,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "reset-pullup",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 kΩ; NRST pull-up",
+      "position": {
+        "breadboard": [
+          360,
+          120
+        ],
+        "schematic": [
+          360,
+          120
+        ],
+        "pcb": [
+          360,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "reset-cap",
+      "libraryId": "passive.capacitor",
+      "reference": "C3",
+      "value": "100 nF; NRST filter option",
+      "position": {
+        "breadboard": [
+          430,
+          120
+        ],
+        "schematic": [
+          430,
+          120
+        ],
+        "pcb": [
+          430,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          100,
+          180
+        ],
+        "schematic": [
+          100,
+          180
+        ],
+        "pcb": [
+          100,
+          180
+        ]
+      }
+    },
+    {
+      "instanceId": "tp1",
+      "libraryId": "testpoint.generic-smd-top-pad",
+      "reference": "TP1",
+      "value": "VDD33 top-side test pad",
+      "position": {
+        "breadboard": [
+          100,
+          240
+        ],
+        "schematic": [
+          100,
+          240
+        ],
+        "pcb": [
+          100,
+          240
+        ]
+      }
+    },
+    {
+      "instanceId": "tp2",
+      "libraryId": "testpoint.generic-smd-top-pad",
+      "reference": "TP2",
+      "value": "GND top-side test pad",
+      "position": {
+        "breadboard": [
+          125,
+          240
+        ],
+        "schematic": [
+          125,
+          240
+        ],
+        "pcb": [
+          125,
+          240
+        ]
+      }
+    },
+    {
+      "instanceId": "tp3",
+      "libraryId": "testpoint.generic-smd-top-pad",
+      "reference": "TP3",
+      "value": "NRST top-side test pad",
+      "position": {
+        "breadboard": [
+          150,
+          240
+        ],
+        "schematic": [
+          150,
+          240
+        ],
+        "pcb": [
+          150,
+          240
+        ]
+      }
+    },
+    {
+      "instanceId": "tp4",
+      "libraryId": "testpoint.generic-smd-top-pad",
+      "reference": "TP4",
+      "value": "SWDIO top-side test pad",
+      "position": {
+        "breadboard": [
+          175,
+          240
+        ],
+        "schematic": [
+          175,
+          240
+        ],
+        "pcb": [
+          175,
+          240
+        ]
+      }
+    },
+    {
+      "instanceId": "tp5",
+      "libraryId": "testpoint.generic-smd-top-pad",
+      "reference": "TP5",
+      "value": "SWCLK top-side test pad",
+      "position": {
+        "breadboard": [
+          200,
+          240
+        ],
+        "schematic": [
+          200,
+          240
+        ],
+        "pcb": [
+          200,
+          240
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VDD33",
+      "endpoints": [
+        "supply:+",
+        "mcu:VDD_VDDA",
+        "decouple-hf:1",
+        "decouple-bulk:+",
+        "swd:VDD",
+        "reset-pullup:1",
+        "tp1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "mcu:VSS_VSSA",
+        "decouple-hf:2",
+        "decouple-bulk:-",
+        "swd:GND",
+        "reset-cap:2",
+        "ground:0",
+        "tp2:1"
+      ]
+    },
+    {
+      "id": "NRST",
+      "endpoints": [
+        "mcu:NRST",
+        "reset-pullup:2",
+        "reset-cap:1",
+        "tp3:1"
+      ]
+    },
+    {
+      "id": "SWDIO",
+      "endpoints": [
+        "mcu:PA13_SWDIO",
+        "swd:SWDIO",
+        "tp4:1"
+      ]
+    },
+    {
+      "id": "SWCLK",
+      "endpoints": [
+        "mcu:PA14_SWDCLK",
+        "swd:SWCLK",
+        "tp5:1"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 60,
+      "heightMm": 44,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "In1.Cu",
+        "In2.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.2
+    },
+    "stackup": [
+      {
+        "layer": "F.Cu",
+        "role": "Components and short local signals",
+        "referenceLayer": "In1.Cu"
+      },
+      {
+        "layer": "In1.Cu",
+        "role": "Continuous solid ground plane",
+        "primaryNet": "GND"
+      },
+      {
+        "layer": "In2.Cu",
+        "role": "3V3 distribution and low-speed signals",
+        "powerNet": "VDD33",
+        "returnReference": "In1.Cu"
+      },
+      {
+        "layer": "B.Cu",
+        "role": "Secondary signals",
+        "referenceLayer": "In1.Cu"
+      }
+    ],
+    "parts": [
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "footprint": "STM32G031K8T6_LQFP32_7x7_template",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "swd",
+        "reference": "J1",
+        "footprint": "Header_1x04_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "decouple-hf",
+        "reference": "C1",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "decouple-bulk",
+        "reference": "C2",
+        "footprint": "C_1206_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R1",
+        "footprint": "R_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "reset-cap",
+        "reference": "C3",
+        "footprint": "C_0603_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "tp1",
+        "reference": "TP1",
+        "footprint": "TestPoint_SMD_1.5mm_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "tp2",
+        "reference": "TP2",
+        "footprint": "TestPoint_SMD_1.5mm_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "tp3",
+        "reference": "TP3",
+        "footprint": "TestPoint_SMD_1.5mm_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "tp4",
+        "reference": "TP4",
+        "footprint": "TestPoint_SMD_1.5mm_generic",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "tp5",
+        "reference": "TP5",
+        "footprint": "TestPoint_SMD_1.5mm_generic",
+        "technology": "smd"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PB9",
+        "number": "1",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 28.8,
+        "yMm": 19.2
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PC14",
+        "number": "2",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 28.8,
+        "yMm": 20
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PC15",
+        "number": "3",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 28.8,
+        "yMm": 20.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "VDD_VDDA",
+        "number": "4",
+        "netId": "VDD33",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 28.8,
+        "yMm": 21.6
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "VSS_VSSA",
+        "number": "5",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 28.8,
+        "yMm": 22.4
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NRST",
+        "number": "6",
+        "netId": "NRST",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 28.8,
+        "yMm": 23.2
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA0",
+        "number": "7",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 28.8,
+        "yMm": 24
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA1",
+        "number": "8",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 28.8,
+        "yMm": 24.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA2",
+        "number": "9",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 29.8,
+        "yMm": 26
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA3",
+        "number": "10",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 30.6,
+        "yMm": 26
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA4",
+        "number": "11",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 31.400000000000002,
+        "yMm": 26
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA5",
+        "number": "12",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 32.2,
+        "yMm": 26
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA6",
+        "number": "13",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 33,
+        "yMm": 26
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA7",
+        "number": "14",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 33.8,
+        "yMm": 26
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PB0",
+        "number": "15",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 34.6,
+        "yMm": 26
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PB1",
+        "number": "16",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 35.4,
+        "yMm": 26
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PB2",
+        "number": "17",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 37.2,
+        "yMm": 24.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA8",
+        "number": "18",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 37.2,
+        "yMm": 24
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA9",
+        "number": "19",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 37.2,
+        "yMm": 23.2
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PC6",
+        "number": "20",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 37.2,
+        "yMm": 22.4
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA10",
+        "number": "21",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 37.2,
+        "yMm": 21.6
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA11",
+        "number": "22",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 37.2,
+        "yMm": 20.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA12",
+        "number": "23",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 37.2,
+        "yMm": 20
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA13_SWDIO",
+        "number": "24",
+        "netId": "SWDIO",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.4,
+        "xMm": 37.2,
+        "yMm": 19.2
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA14_SWDCLK",
+        "number": "25",
+        "netId": "SWCLK",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 36.2,
+        "yMm": 18
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PA15",
+        "number": "26",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 35.400000000000006,
+        "yMm": 18
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PB3",
+        "number": "27",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 34.6,
+        "yMm": 18
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PB4",
+        "number": "28",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 33.800000000000004,
+        "yMm": 18
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PB5",
+        "number": "29",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 33,
+        "yMm": 18
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PB6",
+        "number": "30",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 32.2,
+        "yMm": 18
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PB7",
+        "number": "31",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 31.400000000000002,
+        "yMm": 18
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "PB8",
+        "number": "32",
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 0.4,
+        "heightMm": 1.5,
+        "xMm": 30.6,
+        "yMm": 18
+      },
+      {
+        "instanceId": "swd",
+        "reference": "J1",
+        "pin": "VDD",
+        "number": "1",
+        "netId": "VDD33",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 52,
+        "yMm": 16
+      },
+      {
+        "instanceId": "swd",
+        "reference": "J1",
+        "pin": "GND",
+        "number": "2",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 52,
+        "yMm": 18
+      },
+      {
+        "instanceId": "swd",
+        "reference": "J1",
+        "pin": "SWDIO",
+        "number": "3",
+        "netId": "SWDIO",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 52,
+        "yMm": 20
+      },
+      {
+        "instanceId": "swd",
+        "reference": "J1",
+        "pin": "SWCLK",
+        "number": "4",
+        "netId": "SWCLK",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 52,
+        "yMm": 22
+      },
+      {
+        "instanceId": "decouple-hf",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VDD33",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 24,
+        "yMm": 20
+      },
+      {
+        "instanceId": "decouple-hf",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 24,
+        "yMm": 21
+      },
+      {
+        "instanceId": "decouple-bulk",
+        "reference": "C2",
+        "pin": "+",
+        "number": "1",
+        "netId": "VDD33",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 20,
+        "yMm": 23
+      },
+      {
+        "instanceId": "decouple-bulk",
+        "reference": "C2",
+        "pin": "-",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 21.2,
+        "yMm": 23
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VDD33",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 35,
+        "yMm": 15
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "NRST",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 36.2,
+        "yMm": 15
+      },
+      {
+        "instanceId": "reset-cap",
+        "reference": "C3",
+        "pin": "1",
+        "number": "1",
+        "netId": "NRST",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 38,
+        "yMm": 15
+      },
+      {
+        "instanceId": "reset-cap",
+        "reference": "C3",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.8,
+        "xMm": 39.2,
+        "yMm": 15
+      },
+      {
+        "instanceId": "tp1",
+        "reference": "TP1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VDD33",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 1.5,
+        "xMm": 15,
+        "yMm": 10
+      },
+      {
+        "instanceId": "tp2",
+        "reference": "TP2",
+        "pin": "1",
+        "number": "1",
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 1.5,
+        "xMm": 19,
+        "yMm": 10
+      },
+      {
+        "instanceId": "tp3",
+        "reference": "TP3",
+        "pin": "1",
+        "number": "1",
+        "netId": "NRST",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 1.5,
+        "xMm": 23,
+        "yMm": 10
+      },
+      {
+        "instanceId": "tp4",
+        "reference": "TP4",
+        "pin": "1",
+        "number": "1",
+        "netId": "SWDIO",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 1.5,
+        "xMm": 27,
+        "yMm": 10
+      },
+      {
+        "instanceId": "tp5",
+        "reference": "TP5",
+        "pin": "1",
+        "number": "1",
+        "netId": "SWCLK",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 1.5,
+        "xMm": 31,
+        "yMm": 10
+      }
+    ],
+    "routes": [],
+    "keepouts": [],
+    "stackupRules": {
+      "continuousGroundPlane": "In1.Cu",
+      "doNotSplitReturnUnder": "Do not split return paths under clock, SWD, or other fast signal routes.",
+      "avoidLayerTransitions": "Add nearby GND stitching vias wherever fast signals change signal layers",
+      "powerPlane": "In2.Cu VDD33 distribution; preserve uninterrupted ground return on In1.Cu"
+    },
+    "requiredTestPointNets": [
+      "VDD33",
+      "GND",
+      "NRST",
+      "SWDIO",
+      "SWCLK"
+    ],
+    "testPoints": [
+      {
+        "instanceId": "tp1",
+        "reference": "TP1",
+        "netId": "VDD33",
+        "xMm": 15,
+        "yMm": 10,
+        "padDiameterMm": 1.5,
+        "accessLayer": "F.Cu",
+        "accessSide": "top"
+      },
+      {
+        "instanceId": "tp2",
+        "reference": "TP2",
+        "netId": "GND",
+        "xMm": 19,
+        "yMm": 10,
+        "padDiameterMm": 1.5,
+        "accessLayer": "F.Cu",
+        "accessSide": "top"
+      },
+      {
+        "instanceId": "tp3",
+        "reference": "TP3",
+        "netId": "NRST",
+        "xMm": 23,
+        "yMm": 10,
+        "padDiameterMm": 1.5,
+        "accessLayer": "F.Cu",
+        "accessSide": "top"
+      },
+      {
+        "instanceId": "tp4",
+        "reference": "TP4",
+        "netId": "SWDIO",
+        "xMm": 27,
+        "yMm": 10,
+        "padDiameterMm": 1.5,
+        "accessLayer": "F.Cu",
+        "accessSide": "top"
+      },
+      {
+        "instanceId": "tp5",
+        "reference": "TP5",
+        "netId": "SWCLK",
+        "xMm": 31,
+        "yMm": 10,
+        "padDiameterMm": 1.5,
+        "accessLayer": "F.Cu",
+        "accessSide": "top"
+      }
+    ]
+  }
+}
