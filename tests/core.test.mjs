@@ -8,6 +8,7 @@ import { exportPcbFabrication, validatePcbFabrication } from "../js/pcb-export.m
 import { createPcbPlacementReport } from "../js/pcb-placement-report.mjs";
 import { createGroundingChecklistReport, reviewAudioAmplifierPcb } from "../js/audio-pcb-review.mjs";
 import { createPowerLayoutReport, reviewBuckPowerLayout } from "../js/buck-converter-review.mjs";
+import { createLayerStackupReport, reviewFourLayerMcuBoard } from "../js/mcu-board-plan.mjs";
 import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
@@ -1245,6 +1246,36 @@ test("LM2596 buck converter PCB validates topology, high-current layout review, 
   assert.equal(reviewBuckPowerLayout(failedChecklist).status, "failed");
 });
 
+
+test("STM32 four-layer board plan verifies all pads, required power pins, decoupling and return references", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/130-four-layer-mcu-board-plan.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const analysis = runSupportedAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.equal(analysis.result.kind, "stm32-four-layer-board-plan");
+  assert.equal(analysis.result.all32PadsMapped, true);
+  assert.equal(analysis.result.supplyPinsPresent, true);
+  assert.equal(analysis.result.stackupLayers, 4);
+  assert.equal(analysis.result.firmwareSimulation, false);
+
+  const review = reviewFourLayerMcuBoard(project);
+  assert.equal(review.status, "passed");
+  assert.ok(review.checks.every((item) => item.status === "pass"));
+  assert.equal(review.checks.find((item) => item.id === "no-missing-power-pins").status, "pass");
+  assert.match(review.disclaimer, /single-layer F.Cu/);
+  const actual = createLayerStackupReport(project);
+  const expected = await readFile(new URL("../examples/130-four-layer-mcu-board-plan/expected/Board-Stackup-Plan.csv", import.meta.url), "utf8");
+  assert.equal(actual, expected);
+
+  const missingVdd = JSON.parse(JSON.stringify(project));
+  missingVdd.nets.find((net) => net.id === "VDD33").endpoints = missingVdd.nets.find((net) => net.id === "VDD33").endpoints.filter((pin) => pin !== "mcu:VDD_VDDA");
+  assert.equal(runSupportedAnalysis(missingVdd).state, "blocked");
+  assert.equal(reviewFourLayerMcuBoard(missingVdd).status, "failed");
+  const missingPad = JSON.parse(JSON.stringify(project));
+  missingPad.pcbFabrication.pads = missingPad.pcbFabrication.pads.filter((pad) => !(pad.reference === "U1" && pad.number === "5"));
+  assert.equal(reviewFourLayerMcuBoard(missingPad).status, "failed");
+});
+
 test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
@@ -1253,7 +1284,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 139);
+  assert.equal(getExampleCoverage(registry).total, 140);
   assert.equal(getExampleCoverage(registry).released, 129);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 71);
