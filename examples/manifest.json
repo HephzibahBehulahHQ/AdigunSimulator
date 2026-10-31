@@ -7620,7 +7620,7 @@
     {
       "id": "198-four-language-ui-sweep",
       "title": "Four-language UI sweep",
-      "status": "in-review",
+      "status": "released",
       "objective": "Audit English, German, Yorùbá and Nigerian Pidgin translation coverage, localized HTML key references, accessible names/alt text, and responsive overflow safeguards across representative viewport breakpoints.",
       "acceptanceTest": "tests/core.test.mjs: catalogue four-language UI sweep finds no missing keys, undeclared localized attributes, unnamed controls, or missing responsive overflow guards",
       "testId": "core-four-language-ui-sweep",
@@ -7628,7 +7628,33 @@
       "readmeFile": "examples/198-four-language-ui-sweep/README.md",
       "safetyNote": "Static source audit only; it does not claim rendered browser pixel results, assistive-technology certification, or full accessibility conformance.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 198,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41219322857",
+        "headRevision": "fa0d47c88f6241ea7dc59a9deda569a1d776a833",
+        "engine": "Four-language translation, accessibility-name and responsive-guard source audit",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "locale-ui-source-audit-v1",
+        "expectedResult": {
+          "kind": "four-language-ui-sweep",
+          "locales": [
+            "en",
+            "de",
+            "yo",
+            "pcm"
+          ],
+          "missingTranslations": 0,
+          "undeclaredKeys": 0,
+          "unlabeledButtons": 0,
+          "unlabeledControls": 0,
+          "unlabeledImages": 0,
+          "failedResponsiveGuards": 0,
+          "renderedPixelCheck": false
+        }
+      }
     }
   ]
 }
