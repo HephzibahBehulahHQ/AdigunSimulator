@@ -544,6 +544,23 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue op-amp voltage follower tracks input amplitude and blocks rail overdrive",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/026-opamp-voltage-follower.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  for(const inputV of [0.1,0.2,0.5,3]){
+    const result=runSupportedAnalysis(updateComponent(project,"signal",{value:`${inputV} V`}));
+    assert.equal(result.state,"complete");
+    assert.equal(result.result.kind,"opamp-voltage-follower");
+    assert.equal(result.result.gainVPerV,1);
+    assert.equal(result.result.outputAmplitudeV,inputV);
+    assert.equal(result.result.phaseShiftDeg,0);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"12 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["opamp:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
 test("catalogue inverting op-amp reports negative gain and phase reversal",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/025-opamp-inverting.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);
@@ -970,7 +987,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 35);
+  assert.equal(getExampleCoverage(registry).total, 36);
   assert.equal(getExampleCoverage(registry).released, 25);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 175);

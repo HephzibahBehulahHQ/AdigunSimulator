@@ -1104,6 +1104,18 @@
           "negativeSupplyV": -12
         }
       }
+    },
+    {
+      "id": "026-opamp-voltage-follower",
+      "title": "Op-amp voltage follower",
+      "status": "in-review",
+      "objective": "Verify an ideal voltage follower tracks an AC input-amplitude sweep with unity gain and blocks output amplitudes at the supply rails.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue op-amp voltage follower tracks input amplitude and blocks rail overdrive",
+      "testId": "core-opamp-voltage-follower",
+      "projectFile": "examples/026-opamp-voltage-follower.adigun.json",
+      "safetyNote": "Ideal educational midband model only. It omits bandwidth, slew rate, input/output limits, offset, noise, loading and device-specific behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 26
     }
   ]
 }

@@ -421,7 +421,7 @@ export function runSupportedAnalysis(project) {
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
   }
-  if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 7) {
+  if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && ((resistor.length === 2 && project.components.length === 7) || (resistor.length === 0 && project.components.length === 5)) && ground.length === 1) {
     return analyseOpAmpAmplifier(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, ground: ground[0], validation });
   }
   if (source.length === 1 && timers556.length === 1 && resistor.length === 6 && capacitor.length === 4 && led.length === 2 && ground.length === 1 && project.components.length === 15) {
@@ -1043,7 +1043,10 @@ function analyseOpAmpAmplifier(project,{sources,input,opAmp,resistors,ground,val
   const nonInverting=nonInvertingNet===inputNet;
   const inverting=nonInvertingNet===groundNet;
   let gainVPerV,inputResistance,feedbackResistance,phaseShiftDeg,mode;
-  if(feedback&&nonInverting){
+  const voltageFollower=nonInvertingNet===inputNet&&invertingNet===outputNet;
+  if(voltageFollower&&resistors.length===0){
+    gainVPerV=1;inputResistance=null;feedbackResistance=0;phaseShiftDeg=0;mode="voltage-follower";
+  } else if(feedback&&nonInverting){
     const groundLeg=otherResistor&&((n(otherResistor,"1")===invertingNet&&n(otherResistor,"2")===groundNet)||(n(otherResistor,"2")===invertingNet&&n(otherResistor,"1")===groundNet))?otherResistor:null;
     feedbackResistance=feedback?resistanceValue(feedback.value):Number.NaN;
     const groundLegResistance=groundLeg?resistanceValue(groundLeg.value):Number.NaN;
@@ -1063,14 +1066,14 @@ function analyseOpAmpAmplifier(project,{sources,input,opAmp,resistors,ground,val
     return {state:"blocked",message:"Wire the input and feedback network as a non-inverting or inverting amplifier.",validation};
   }
   const inputAmplitudeV=voltageValue(input.value),positiveVoltage=voltageValue(positiveRail.value),negativeVoltage=voltageValue(negativeRail.value);
-  if(![feedbackResistance,inputAmplitudeV,positiveVoltage,negativeVoltage,gainVPerV].every(Number.isFinite)||feedbackResistance<=0||inputAmplitudeV<=0||positiveVoltage<=0||negativeVoltage<=0){
+  if(![feedbackResistance,inputAmplitudeV,positiveVoltage,negativeVoltage,gainVPerV].every(Number.isFinite)||(mode!=="voltage-follower"&&feedbackResistance<=0)||inputAmplitudeV<=0||positiveVoltage<=0||negativeVoltage<=0){
     return {state:"blocked",message:"The ideal amplifier requires positive input amplitude, resistor values, and valid dual-rail supplies.",validation};
   }
   const outputAmplitudeV=inputAmplitudeV*Math.abs(gainVPerV);
   if(outputAmplitudeV>=Math.min(positiveVoltage,negativeVoltage)){
     return {state:"blocked",message:"The ideal output amplitude reaches a supply rail; this model does not calculate clipping.",validation};
   }
-  return {state:"complete",engine:"Ideal op-amp closed-loop midband gain estimate",message:"Calculates the ideal closed-loop inverting or non-inverting gain at midband. It omits bandwidth, slew rate, input/output limits, offset, noise, loading, common-mode range, and device-specific behavior.",result:{kind:inverting?"opamp-inverting":"opamp-noninverting",configuration:mode,gainVPerV,inputAmplitudeV,outputAmplitudeV,phaseShiftDeg,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage,inputResistanceOhm:inputResistance,feedbackResistanceOhm:feedbackResistance,frequencyResponse:"ideal midband gain only"},validation};
+  return {state:"complete",engine:"Ideal op-amp closed-loop midband gain estimate",message:"Calculates the ideal closed-loop inverting or non-inverting gain at midband. It omits bandwidth, slew rate, input/output limits, offset, noise, loading, common-mode range, and device-specific behavior.",result:{kind:mode==="voltage-follower"?"opamp-voltage-follower":inverting?"opamp-inverting":"opamp-noninverting",configuration:mode,gainVPerV,inputAmplitudeV,outputAmplitudeV,phaseShiftDeg,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage,inputResistanceOhm:inputResistance,feedbackResistanceOhm:feedbackResistance,frequencyResponse:"ideal midband gain only"},validation};
 }
 
 function analyseNe556DualAstable(project,{source,timer,resistors,capacitors,leds,ground,validation}){
