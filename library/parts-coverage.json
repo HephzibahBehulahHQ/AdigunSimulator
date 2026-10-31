@@ -5,11 +5,11 @@
     "componentTypes": 565
   },
   "ledger": {
-    "total": 7,
+    "total": 9,
     "verified": 0,
     "remaining": 1000,
     "byStatus": {
-      "candidate": 7,
+      "candidate": 9,
       "in-review": 0,
       "verified": 0,
       "rejected": 0
@@ -45,7 +45,7 @@
       {
         "code": "D",
         "declaredTypes": 35,
-        "partRecords": 1,
+        "partRecords": 2,
         "verifiedRecords": 0,
         "coveredTypes": 0,
         "missingTypes": 35
@@ -53,7 +53,7 @@
       {
         "code": "E",
         "declaredTypes": 47,
-        "partRecords": 3,
+        "partRecords": 4,
         "verifiedRecords": 0,
         "coveredTypes": 0,
         "missingTypes": 47
@@ -382,6 +382,80 @@
     },
     {
       "partId": "ti.lm7805ct-nopb",
+      "currentStatus": "candidate",
+      "readyForHumanReview": false,
+      "missingEvidenceCodes": [
+        "BREADBOARD_COMPATIBILITY",
+        "DATASHEET_CHECKSUM",
+        "FOOTPRINT_ASSET_EVIDENCE",
+        "FOOTPRINT_PAD_MAP",
+        "LIFECYCLE_EVIDENCE",
+        "LIMITS_AND_ALTERNATES",
+        "MODEL_PROVENANCE",
+        "PIN_ELECTRICAL_TYPES",
+        "PIN_MAP_ALIGNMENT",
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE",
+        "SYMBOL_ASSET_EVIDENCE",
+        "SYMBOL_PIN_MAP",
+        "TRANSLATIONS",
+        "VERIFIED_EVIDENCE"
+      ],
+      "evidenceBlockerCodes": [
+        "BREADBOARD_COMPATIBILITY",
+        "DATASHEET_CHECKSUM",
+        "FOOTPRINT_ASSET_EVIDENCE",
+        "FOOTPRINT_PAD_MAP",
+        "LIFECYCLE_EVIDENCE",
+        "LIMITS_AND_ALTERNATES",
+        "MODEL_PROVENANCE",
+        "PIN_ELECTRICAL_TYPES",
+        "PIN_MAP_ALIGNMENT",
+        "SYMBOL_ASSET_EVIDENCE",
+        "SYMBOL_PIN_MAP",
+        "TRANSLATIONS",
+        "VERIFIED_EVIDENCE"
+      ]
+    },
+    {
+      "partId": "nexperia.bss138bk",
+      "currentStatus": "candidate",
+      "readyForHumanReview": false,
+      "missingEvidenceCodes": [
+        "BREADBOARD_COMPATIBILITY",
+        "DATASHEET_CHECKSUM",
+        "FOOTPRINT_ASSET_EVIDENCE",
+        "FOOTPRINT_PAD_MAP",
+        "LIFECYCLE_EVIDENCE",
+        "LIMITS_AND_ALTERNATES",
+        "MODEL_PROVENANCE",
+        "PIN_ELECTRICAL_TYPES",
+        "PIN_MAP_ALIGNMENT",
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE",
+        "SYMBOL_ASSET_EVIDENCE",
+        "SYMBOL_PIN_MAP",
+        "TRANSLATIONS",
+        "VERIFIED_EVIDENCE"
+      ],
+      "evidenceBlockerCodes": [
+        "BREADBOARD_COMPATIBILITY",
+        "DATASHEET_CHECKSUM",
+        "FOOTPRINT_ASSET_EVIDENCE",
+        "FOOTPRINT_PAD_MAP",
+        "LIFECYCLE_EVIDENCE",
+        "LIMITS_AND_ALTERNATES",
+        "MODEL_PROVENANCE",
+        "PIN_ELECTRICAL_TYPES",
+        "PIN_MAP_ALIGNMENT",
+        "SYMBOL_ASSET_EVIDENCE",
+        "SYMBOL_PIN_MAP",
+        "TRANSLATIONS",
+        "VERIFIED_EVIDENCE"
+      ]
+    },
+    {
+      "partId": "microchip.mcp6002-i-p",
       "currentStatus": "candidate",
       "readyForHumanReview": false,
       "missingEvidenceCodes": [
