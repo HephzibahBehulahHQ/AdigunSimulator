@@ -3432,6 +3432,13 @@ test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs,
   const project=JSON.parse(await readFile(new URL("../examples/125-usbc-breakout.adigun.json",import.meta.url)));
   const {createUsbCPinReport}=await import("../js/usb-c-pin-report.mjs");
   assert.equal(validateProject(project).valid,true);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  assert.equal(analysis.result.kind,"usb-c-usb2-breakout");
+  assert.equal(analysis.result.cc1RdOhms,5100);
+  assert.equal(analysis.result.cc2RdOhms,5100);
+  assert.equal(analysis.result.connectorPinMapValid,true);
+  assert.equal(analysis.result.usbPowerDeliveryModeled,false);
   assert.equal(project.components.find(part=>part.reference==="R1").value.startsWith("5.1 kΩ"),true);
   assert.equal(project.components.find(part=>part.reference==="R2").value.startsWith("5.1 kΩ"),true);
   assert.deepEqual(STARTER_LIBRARY.find(part=>part.id==="connector.usb-c-receptacle").pins,["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"]);
