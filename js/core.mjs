@@ -3043,7 +3043,7 @@ function analyseAudioTone(project,{source,settings,generator,report,ground,valid
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
   const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
-  const config=fields(settings.value),waveform=field(config,"Waveform"),frequencyHz=frequencyValue(field(config,"Frequency")??""),amplitudeV=voltageValue(field(config,"Amplitude")??""),offsetV=voltageValue(field(config,"Offset")??""),sampleRateHz=frequencyValue(field(config,"SampleRate")??""),durationSeconds=timeValue(field(config,"Duration")??"");
+  const config=fields(settings.value),waveform=field(config,"Waveform"),frequencyHz=frequencyValue(field(config,"Frequency")??""),amplitudeV=voltageValue(field(config,"Amplitude")??""),offsetV=voltageValue(field(config,"Offset")??""),sampleRateHz=frequencyValue(field(config,"SampleRate")??""),durationMs=Number(String(field(config,"Duration")??"").replace(/\s*ms$/i,"")),durationSeconds=durationMs/1000;
   const supplyVoltage=voltageValue(source.value),groundNet=n(ground,"0"),vccNet=n(source,"+");
   const powered=n(source,"-")===groundNet&&n(generator,"VCC")===vccNet&&n(report,"VCC")===vccNet&&n(generator,"GND")===groundNet&&n(report,"GND")===groundNet&&n(settings,"GND")===groundNet;
   const signalPath=n(settings,"CONFIG")===n(generator,"CONFIG")&&n(generator,"OUT")===n(report,"IN");
