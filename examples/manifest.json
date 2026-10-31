@@ -6159,14 +6159,30 @@
     {
       "id": "155-missing-ground-diagnosis",
       "title": "Missing-ground diagnosis",
-      "status": "in-review",
+      "status": "released",
       "objective": "Block DC analysis when the project has no explicit signal-ground reference, identify the NO_REFERENCE rule, and offer design-aware return-path checks.",
       "acceptanceTest": "tests/core.test.mjs: catalogue missing-ground diagnosis blocks and identifies the reference rule",
       "testId": "core-missing-ground-diagnosis",
       "projectFile": "examples/155-missing-ground-diagnosis.adigun.json",
       "readmeFile": "examples/155-missing-ground-diagnosis/README.md",
       "safetyNote": "A signal-ground symbol is a reference concept, not necessarily protective earth. This check does not determine chassis bonding, isolation, safety earth, or installation requirements.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 155,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41207714212",
+        "headRevision": "c2193e501e477f44f75fb105edc495389aee4b57",
+        "engine": "Signal-ground reference preflight",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "missing-reference-diagnostic-v1",
+        "expectedResult": {
+          "kind": "missing-ground-diagnosis",
+          "ruleId": "NO_REFERENCE",
+          "state": "blocked",
+          "signalGroundPresent": false
+        }
+      }
     }
   ]
 }
