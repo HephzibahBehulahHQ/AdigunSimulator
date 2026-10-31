@@ -1770,7 +1770,7 @@ function analyseIrRemoteActions(project,{source,frame,receiver,decoder,display,g
   const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
   const frameFields=fields(frame.value),receiverFields=fields(receiver.value),decoderFields=fields(decoder.value);
   const numberField=(list,label,suffix)=>Number(field(list,label)?.replace(new RegExp(suffix+"$","i"),""));
-  const bytes=(field(frameFields,"Bytes")??"").split(/\\s+/).filter(Boolean).map(value=>/^[0-9a-f]{2}$/i.test(value)?Number.parseInt(value,16):Number.NaN);
+  const bytes=(field(frameFields,"Bytes")??"").split(/\s+/).filter(Boolean).map(value=>/^[0-9a-f]{2}$/i.test(value)?Number.parseInt(value,16):Number.NaN);
   const tolerance=Number((field(decoderFields,"Tolerance")??"").replace(/%$/,""));
   const timing={leaderMark:numberField(frameFields,"LeaderMarkUs","us"),leaderSpace:numberField(frameFields,"LeaderSpaceUs","us"),bitMark:numberField(frameFields,"BitMarkUs","us"),zeroSpace:numberField(frameFields,"ZeroSpaceUs","us"),oneSpace:numberField(frameFields,"OneSpaceUs","us"),stopMark:numberField(frameFields,"StopMarkUs","us"),carrierHz:numberField(frameFields,"CarrierHz","Hz")};
   const within=(actual,nominal)=>Number.isFinite(actual)&&actual>0&&Math.abs(actual-nominal)<=nominal*tolerance/100;
