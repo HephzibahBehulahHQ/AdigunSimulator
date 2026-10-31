@@ -2983,6 +2983,45 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "074-can-node-pair",
+      "title": "CAN node pair with ACK",
+      "status": "released",
+      "objective": "Transfer an ideal standard CAN frame between two configured nodes, verify the receiver filter, acknowledge the frame, and validate the combined end termination.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue CAN node pair transfers a matching frame and verifies 60 ohm end termination",
+      "testId": "core-can-node-pair",
+      "projectFile": "examples/074-can-node-pair.adigun.json",
+      "safetyNote": "Deterministic logical model only. Arbitration, bit stuffing, CRC faults, analog edges, bus faults, transceiver electrical limits, and MCU firmware are not modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 74,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41180381442",
+        "headRevision": "8e6b6618a0efd8d4e1c1b2b9e25ec1bda70730de",
+        "engine": "Ideal two-node CAN frame and ACK model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-can-node-ack-v1",
+        "expectedResult": {
+          "identifier": "0x123",
+          "dlc": 2,
+          "dataBytes": [
+            "DE",
+            "AD"
+          ],
+          "bitrate": 500000,
+          "transmitted": true,
+          "received": true,
+          "acknowledged": true,
+          "terminationResistorsOhm": [
+            120,
+            120
+          ],
+          "busTerminationOhm": 60,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
