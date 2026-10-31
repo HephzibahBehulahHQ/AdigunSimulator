@@ -2496,14 +2496,32 @@
     {
       "id": "060-eeprom-data-logger",
       "title": "I²C EEPROM sample write and read-back",
-      "status": "in-review",
+      "status": "released",
       "objective": "Write one configured sample byte to a matching ideal I²C EEPROM address/register and verify immediate register read-back; report ACK, NACK, and data preservation.",
       "acceptanceTest": "tests/core.test.mjs: catalogue EEPROM logger preserves a written byte in its ideal register model",
       "testId": "core-eeprom-data-logger",
       "projectFile": "examples/060-eeprom-data-logger.adigun.json",
       "safetyNote": "Digital transaction and ideal immediate-storage model only. Physical EEPROM write-cycle delay, endurance, power loss, page boundaries, bus timing, and MCU firmware are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 60
+      "catalogueIndex": 60,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41176264872",
+        "headRevision": "ccbf430f527a001f4f91213843c3f845b16783b9",
+        "engine": "Ideal I²C EEPROM write/read transaction model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-i2c-eeprom-write-read-v1",
+        "expectedResult": {
+          "address": "0x50",
+          "register": "0x10",
+          "writeByte": "0x5A",
+          "readBack": "0x5A",
+          "writeAndReadAck": true,
+          "immediateStorage": "ideal logical register storage",
+          "physicalEnduranceAndPowerLoss": "not modeled"
+        }
+      }
     }
   ]
 }
