@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-029-window-comparator",
+  "metadata": {
+    "name": "Dual-Comparator Window Indicator",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "signal",
+      "libraryId": "power.dc-source",
+      "reference": "VIN",
+      "value": "2.5 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "lower",
+      "libraryId": "active.comparator-dual-ideal",
+      "reference": "U1",
+      "value": "Ideal comparator: Vin > lower threshold",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "upper",
+      "libraryId": "active.comparator-dual-ideal",
+      "reference": "U2",
+      "value": "Ideal comparator: Vin < upper threshold",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rtop",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "rmid",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "rbottom",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "and",
+      "libraryId": "active.logic-and-ideal",
+      "reference": "U3",
+      "value": "Ideal two-input AND",
+      "position": {
+        "breadboard": [
+          270,
+          130
+        ],
+        "schematic": [
+          270,
+          130
+        ],
+        "pcb": [
+          270,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "rled",
+      "libraryId": "passive.resistor",
+      "reference": "R4",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          385,
+          130
+        ],
+        "schematic": [
+          385,
+          130
+        ],
+        "pcb": [
+          385,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          500,
+          130
+        ],
+        "schematic": [
+          500,
+          130
+        ],
+        "pcb": [
+          500,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          205
+        ],
+        "schematic": [
+          40,
+          205
+        ],
+        "pcb": [
+          40,
+          205
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "lower:VCC",
+        "upper:VCC",
+        "and:VCC",
+        "rtop:1"
+      ]
+    },
+    {
+      "id": "UPPER_LIMIT",
+      "endpoints": [
+        "rtop:2",
+        "rmid:1",
+        "upper:IN+"
+      ]
+    },
+    {
+      "id": "LOWER_LIMIT",
+      "endpoints": [
+        "rmid:2",
+        "rbottom:1",
+        "lower:IN-"
+      ]
+    },
+    {
+      "id": "INPUT",
+      "endpoints": [
+        "signal:+",
+        "lower:IN+",
+        "upper:IN-"
+      ]
+    },
+    {
+      "id": "LOWER_OK",
+      "endpoints": [
+        "lower:OUT",
+        "and:A"
+      ]
+    },
+    {
+      "id": "UPPER_OK",
+      "endpoints": [
+        "upper:OUT",
+        "and:B"
+      ]
+    },
+    {
+      "id": "WINDOW_OUT",
+      "endpoints": [
+        "and:Y",
+        "rled:1"
+      ]
+    },
+    {
+      "id": "LED",
+      "endpoints": [
+        "rled:2",
+        "led:A"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "signal:-",
+        "lower:GND",
+        "upper:GND",
+        "and:GND",
+        "rbottom:2",
+        "led:K",
+        "ground:0"
+      ]
+    }
+  ],
+  "history": []
+}
