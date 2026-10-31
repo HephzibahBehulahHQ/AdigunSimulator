@@ -3832,6 +3832,41 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "093-guitar-pedal-buffer",
+      "title": "Guitar pickup high-impedance buffer",
+      "status": "released",
+      "objective": "Estimate a guitar pickup's AC transfer through a source resistor and coupling capacitor into an ideal high-input-impedance JFET follower and finite load, including low-frequency roll-off and midband gain.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue guitar JFET buffer has high input impedance and bounded AC response",
+      "testId": "core-guitar-buffer-response",
+      "projectFile": "examples/093-guitar-pedal-buffer.adigun.json",
+      "safetyNote": "Ideal pickup and buffer AC estimate only. Pickup inductance/resonance, cable effects, device noise and transfer curves, clipping, tone controls, firmware, and physical hardware are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 93,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41185401544",
+        "headRevision": "d3e4705ccaa0b5c9bc91d87ba21062646583699e",
+        "engine": "Ideal guitar pickup and JFET buffer AC estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-guitar-pickup-jfet-buffer-ac-v1",
+        "expectedResult": {
+          "kind": "guitar-buffer-response",
+          "sourceResistanceOhm": 6800,
+          "inputResistanceOhm": 1000000,
+          "inputImpedanceRatio": 147.05882352941177,
+          "couplingCapacitanceF": 1e-8,
+          "outputLoadOhm": 100000,
+          "lowFrequencyGainBelow": 0.9,
+          "midbandGainMinimum": 0.95,
+          "midbandGainMaximum": 1,
+          "highInputImpedance": true,
+          "unityGainInBand": true,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
