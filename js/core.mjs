@@ -1560,7 +1560,7 @@ function analyseMcuStepper(project,{source,mcu,driver,motor,ground,validation}){
   }
   const signedSteps=direction==="CW"?steps:-steps,angularTravelDegrees=signedSteps*stepAngle,finalPositionDegrees=((angularTravelDegrees%360)+360)%360;
   const phaseTable=[[true,false,false,true],[true,false,true,false],[false,true,true,false],[false,true,false,true]];
-  const phaseSequence=Array.from({length:Math.min(steps,8)},(_,index)=>({step:index+1,phaseIndex:((signedSteps>0?index:4-index)%4+4)%4,coils:phaseTable[((signedSteps>0?index:4-index)%4+4)%4]}));
+  const phaseSequence=Array.from({length:Math.min(steps,8)},(_,index)=>{const phaseIndex=((signedSteps>0?index:3-index)%4+4)%4;return {step:index+1,phaseIndex,coils:phaseTable[phaseIndex]};});
   return {state:"complete",engine:"Ideal Uno-class bipolar stepper sequence and position model",message:"Applies a full-step phase sequence and calculates ideal angular travel from configured steps and step angle. Arduino firmware, acceleration, missed steps, torque/load, coil current/thermal behavior, resonance, and mechanical end stops are omitted.",result:{kind:"mcu-stepper-position",direction,steps,signedSteps,stepRateHz:stepRate,stepsPerRevolution,stepAngleDegrees:stepAngle,angularTravelDegrees,finalPositionDegrees,motionDurationSeconds:steps/stepRate,phaseSequence,firmwareExecuted:false},validation};
 }
 function analyseMcuServoControl(project,{source,mcu,potentiometer,servo,ground,validation}){
