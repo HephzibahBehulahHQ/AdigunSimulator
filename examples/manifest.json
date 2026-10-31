@@ -5821,14 +5821,32 @@
     {
       "id": "144-two-channel-phase",
       "title": "Two-channel phase measurement",
-      "status": "in-review",
+      "status": "released",
       "objective": "Measure the signed phase offset between matched ideal sine sources and report frequency, period, units and sampled trace metadata; validate against a known 90-degree case.",
       "acceptanceTest": "tests/core.test.mjs: catalogue two-channel phase measurement reports a known 90 degree offset and rejects mismatched sources",
       "testId": "core-two-channel-phase",
       "projectFile": "examples/144-two-channel-phase.adigun.json",
       "readmeFile": "examples/144-two-channel-phase/README.md",
       "safetyNote": "The tool calculates phase from ideal declared sine-source phases and matched frequencies. It does not infer phase from sampled analog data or model noise, probe delay, loading, bandwidth or instrument uncertainty.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 144,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41205171988",
+        "headRevision": "57f7a393a7908752e1db99573dddb3e887fb2d09",
+        "engine": "Bounded two-channel ideal sine phase measurement",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "two-channel-phase-v1",
+        "expectedResult": {
+          "kind": "two-channel-phase",
+          "phaseOffsetDeg": 90,
+          "unit": "deg",
+          "frequencyHz": 1000,
+          "sampleCount": 201,
+          "mismatchedFrequencyBlocked": true
+        }
+      }
     }
   ]
 }
