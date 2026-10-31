@@ -7585,7 +7585,7 @@
     {
       "id": "197-bot-circuit-proposal",
       "title": "Adigun BOT circuit proposal",
-      "status": "in-review",
+      "status": "released",
       "objective": "Build a schema-valid 12 V LED proposal from explicit assumptions, calculate a conservative E12 series resistor candidate, pass supported analysis, and require user confirmation before changing the project.",
       "acceptanceTest": "tests/core.test.mjs: catalogue BOT 12 V LED proposal calculates 1 kΩ at 10 mA, validates and simulates a separate candidate, and leaves the source project unchanged when rejected",
       "testId": "core-bot-circuit-proposal",
@@ -7593,7 +7593,29 @@
       "readmeFile": "examples/197-bot-circuit-proposal/README.md",
       "safetyNote": "Ideal low-voltage estimate only. Verify the exact LED and resistor ratings, supply tolerance, thermal derating, and circuit purpose before construction; preview does not silently modify the project.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 197,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41218972398",
+        "headRevision": "4d435e9649a8ba17111d3f712fdba33d3023c33f",
+        "engine": "Adigun BOT 12 V LED circuit proposal",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "bot-12v-led-proposal-v1",
+        "expectedResult": {
+          "kind": "bot-12v-led-circuit-proposal",
+          "supplyVoltageV": 12,
+          "ledForwardVoltageV": 2,
+          "targetCurrentA": 0.01,
+          "recommendedResistanceOhms": 1000,
+          "estimatedCurrentA": 0.01,
+          "resistorDissipationW": 0.1,
+          "candidateValidation": "passed",
+          "candidateAnalysis": "complete",
+          "applied": false
+        }
+      }
     }
   ]
 }
