@@ -426,6 +426,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (acSource.length === 1 && toneControls.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePassiveToneControl(project, { source: acSource[0], control: toneControls[0], capacitor: capacitor[0], load: resistor[0], ground: ground[0], validation });
   }
+  if (source.length === 2 && mosfets.length === 1 && schottkyDiodes.length === 1 && resistor.length === 1 && inductor.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseNmosLowSideSwitch(project, { sources: source, mosfet: mosfets[0], diode: schottkyDiodes[0], coilResistance: resistor[0], coil: inductor[0], ground: ground[0], validation });
+  }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
   }
@@ -995,6 +998,25 @@ function analysePassiveToneControl(project, { source, control, capacitor, load, 
     result: { kind: "passive-tone-control", inputAmplitudeV, maximumResistance, positionPercent, seriesResistance, capacitance, loadResistance, cutoffHz, response },
     validation
   };
+}
+
+function analyseNmosLowSideSwitch(project,{sources,mosfet,diode,coilResistance,coil,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),supplyNet=sources.find(part=>n(part,"-")===groundNet&&n(part,"+")!==groundNet);
+  const gateSource=sources.find(part=>part!==supplyNet&&n(part,"-")===groundNet&&n(part,"+")===n(mosfet,"G"));
+  const drainNet=n(mosfet,"D"),sourceNet=n(mosfet,"S"),coilNode=[n(coil,"1"),n(coil,"2")].find(net=>net!==drainNet);
+  const supplyVoltage=supplyNet?voltageValue(supplyNet.value):Number.NaN,gateVoltage=gateSource?voltageValue(gateSource.value):Number.NaN;
+  const rCoil=resistanceValue(coilResistance.value),inductance=inductanceValue(coil.value),vf=forwardVoltage(diode.value),rdsOn=0.1,vth=2;
+  const resistorWired=(n(coilResistance,"1")===n(supplyNet,"+")&&n(coilResistance,"2")===coilNode)||(n(coilResistance,"2")===n(supplyNet,"+")&&n(coilResistance,"1")===coilNode);
+  const coilWired=(n(coil,"1")===coilNode&&n(coil,"2")===drainNet)||(n(coil,"2")===coilNode&&n(coil,"1")===drainNet);
+  if(!supplyNet||!gateSource||sourceNet!==groundNet||!resistorWired||!coilWired||n(diode,"A")!==drainNet||n(diode,"K")!==n(supplyNet,"+")||![supplyVoltage,gateVoltage,rCoil,inductance,vf].every(Number.isFinite)||supplyVoltage<=0||gateVoltage<0||gateVoltage>supplyVoltage||rCoil<=0||inductance<=0||vf<=0){
+    return {state:"blocked",message:"Wire a valid gate drive, series coil resistance/inductance, low-side MOSFET, and correctly oriented flyback diode.",validation};
+  }
+  const gateHigh=gateVoltage>=vth,onCurrentA=supplyVoltage/(rCoil+rdsOn),onDrainVoltageV=onCurrentA*rdsOn,tauS=inductance/rCoil;
+  const decay=[0,1,3].map(multiple=>{const timeS=multiple*tauS,currentA=Math.max(0,(onCurrentA+vf/rCoil)*Math.exp(-rCoil*timeS/inductance)-vf/rCoil);return {timeS,currentA};});
+  return {state:"complete",engine:"Ideal low-side MOSFET and flyback-coil estimate",message:"Uses a 2 V gate threshold, fixed 0.1 Ω on-resistance, and constant-drop flyback diode. It reports steady off/on states and a first-order coil-current decay. It omits switching edges, MOSFET capacitance, diode recovery, thermal behavior, avalanche, and component ratings.",result:{kind:"nmos-low-side-switch",supplyVoltage,gateVoltage,gateThresholdV:vth,switchOn:gateHigh,drainSourceVoltageV:gateHigh?onDrainVoltageV:supplyVoltage,loadCurrentA:gateHigh?onCurrentA:0,coilResistanceOhm:rCoil,inductanceH:inductance,onCurrentA,onDrainVoltageV,flybackClampVoltageV:supplyVoltage+vf,coilStoredEnergyJ:0.5*inductance*onCurrentA*onCurrentA,timeConstantS:tauS,turnOffDecay:decay},validation};
 }
 
 function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground, validation }) {

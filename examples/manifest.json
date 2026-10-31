@@ -1304,6 +1304,18 @@
           "loadResistanceOhm": 1000
         }
       }
+    },
+    {
+      "id": "033-nmos-low-side-switch",
+      "title": "NMOS low-side inductive-load driver",
+      "status": "in-review",
+      "objective": "Drive a 24 Ω, 100 mH coil from 12 V with a 5 V gate signal; test off/on VDS, current, flyback clamp, and turn-off decay.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue NMOS low-side driver switches coil and clamps turn-off with a flyback diode",
+      "testId": "core-nmos-low-side-switch",
+      "projectFile": "examples/033-nmos-low-side-switch.adigun.json",
+      "safetyNote": "Idealized 2 V threshold, 0.1 Ω MOSFET switch, and constant-drop diode model only. It omits switching edges, capacitance, recovery, avalanche, thermal effects, and component ratings.",
+      "scope": "catalogue",
+      "catalogueIndex": 33
     }
   ]
 }
