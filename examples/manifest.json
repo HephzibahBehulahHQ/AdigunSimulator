@@ -6248,6 +6248,18 @@
           "routingPerformed": false
         }
       }
+    },
+    {
+      "id": "158-component-property-audit",
+      "title": "Component property audit",
+      "status": "in-review",
+      "objective": "Allow a valid resistor value edit, block a zero or out-of-range value before history changes, and preserve standard undo/redo for accepted property edits.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue component property audit accepts valid resistor edits and rejects unsafe ranges before history mutation",
+      "testId": "core-component-property-audit",
+      "projectFile": "examples/158-component-property-audit.adigun.json",
+      "readmeFile": "examples/158-component-property-audit/README.md",
+      "safetyNote": "The resistor edit guard checks only finite nominal resistance from 0.01 Ω through 1 GΩ. It does not validate power rating, tolerance, temperature, footprint, voltage rating, datasheet suitability, or PCB routing.",
+      "scope": "catalogue"
     }
   ]
 }
