@@ -3935,6 +3935,39 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "096-digital-volume-control",
+      "title": "Digital potentiometer audio volume control",
+      "status": "released",
+      "objective": "Apply a stepped linear digital-potentiometer attenuation to a bounded sine input while accounting for wiper resistance, source resistance, and a finite output load; verify monotonic level changes across command positions.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue digital volume control follows monotonic command steps under load",
+      "testId": "core-digital-volume-control",
+      "projectFile": "examples/096-digital-volume-control.adigun.json",
+      "safetyNote": "Generic loaded linear digital-potentiometer model only. It does not implement a specific device protocol or logarithmic audio taper and does not model noise, distortion, bandwidth, firmware, or physical behavior.",
+      "scope": "catalogue",
+      "catalogueIndex": 96,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41185946165",
+        "headRevision": "cdaffc7b49c25c1ee5fc843a7f571718f5f6a4a1",
+        "engine": "Loaded linear digital potentiometer audio attenuation estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "loaded-linear-digital-pot-audio-attenuator-v1",
+        "expectedResult": {
+          "kind": "digital-volume-control",
+          "frequencyHz": 1000,
+          "inputPeakV": 0.5,
+          "command": 5,
+          "steps": 11,
+          "commandPercent": 50,
+          "loadResistanceOhm": 100000,
+          "monotonicControl": true,
+          "deviceProtocolModeled": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
