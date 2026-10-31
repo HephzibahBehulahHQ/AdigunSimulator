@@ -2197,3 +2197,26 @@ test("catalogue RS-485 polling returns only the addressed sensor and prevents co
   broken.nets.find(net=>net.id==="RS485_A").endpoints=["master-xcvr:A","xcvr-1:A","term-1:1","term-2:1"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+
+test("catalogue GPS RMC example validates NMEA checksum and displays decimal coordinates",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/076-gps-nmea-display.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"gnss-rmc");
+  assert.equal(result.result.sentenceType,"GPRMC");
+  assert.equal(result.result.checksum,"6A");
+  assert.equal(result.result.checksumValid,true);
+  assert.equal(result.result.fixStatus,"active");
+  assert.ok(Math.abs(result.result.latitude-48.1173)<1e-9);
+  assert.ok(Math.abs(result.result.longitude-11.516666666666667)<1e-9);
+  assert.equal(result.result.displayText,"48.11730, 11.51667");
+  assert.equal(result.result.firmwareExecuted,false);
+  const badChecksum=updateComponent(project,"gnss",{value:"Sentence $GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*00"});
+  assert.equal(runSupportedAnalysis(badChecksum).state,"blocked");
+  const noFix=updateComponent(project,"gnss",{value:"Sentence $GPRMC,123519,V,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*7D"});
+  assert.equal(runSupportedAnalysis(noFix).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="UART_RX").endpoints=["gnss:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
