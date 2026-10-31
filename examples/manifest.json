@@ -6752,7 +6752,7 @@
     {
       "id": "174-smart-irrigation-model",
       "title": "Smart irrigation model",
-      "status": "in-review",
+      "status": "released",
       "objective": "Water only when a valid synthetic moisture reading is dry and permission is granted; make sensor faults fail off.",
       "acceptanceTest": "tests/core.test.mjs: catalogue irrigation waters only when dry and permitted and fails off on sensor fault",
       "testId": "core-smart-irrigation-model",
@@ -6760,7 +6760,25 @@
       "readmeFile": "examples/174-smart-irrigation-model/README.md",
       "safetyNote": "Synthetic decision logic only. No soil sensor calibration, weather, pump/valve hardware, flow protection, water limits, crop behavior, or environmental validation is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 174,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41211922678",
+        "headRevision": "3b7db45a6741ec435f017c0307a3a6ba06b3cde9",
+        "engine": "Deterministic moisture/permission interlock",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "smart-irrigation-decision-v1",
+        "expectedResult": {
+          "kind": "smart-irrigation-decision-sequence",
+          "sampleCount": 6,
+          "wateringSamples": 2,
+          "sensorFaults": 1,
+          "faultsFailOff": true,
+          "physicalPumpModel": false
+        }
+      }
     }
   ]
 }
