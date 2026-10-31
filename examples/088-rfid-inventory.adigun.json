@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-088-rfid-inventory",
+  "metadata": {
+    "name": "RFID Inventory and Slot Collision Fixture",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          30,
+          50
+        ],
+        "schematic": [
+          30,
+          50
+        ],
+        "pcb": [
+          30,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.rfid-inventory-fixture",
+      "reference": "TAGS1",
+      "value": "UIDs 04A1B2C3,11223344,AABBCCDD,DEADBEEF,04A1B2C3; Slots 4",
+      "position": {
+        "breadboard": [
+          130,
+          50
+        ],
+        "schematic": [
+          130,
+          50
+        ],
+        "pcb": [
+          130,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "reader",
+      "libraryId": "active.rfid-inventory-reader-ideal",
+      "reference": "RFID1",
+      "value": "Mode inventory; Band 13.56 MHz; Slots 4",
+      "position": {
+        "breadboard": [
+          300,
+          50
+        ],
+        "schematic": [
+          300,
+          50
+        ],
+        "pcb": [
+          300,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.rfid-inventory-report",
+      "reference": "DISP1",
+      "value": "Inventory report",
+      "position": {
+        "breadboard": [
+          460,
+          50
+        ],
+        "schematic": [
+          460,
+          50
+        ],
+        "pcb": [
+          460,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "reader:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "fixture:GND",
+        "reader:GND",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "RFID_TAGS",
+      "endpoints": [
+        "fixture:TAGS",
+        "reader:TAGS"
+      ]
+    },
+    {
+      "id": "RFID_DATA",
+      "endpoints": [
+        "reader:DATA",
+        "report:DATA"
+      ]
+    }
+  ],
+  "history": []
+}

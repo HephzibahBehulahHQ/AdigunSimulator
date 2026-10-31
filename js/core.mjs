@@ -111,6 +111,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.nfc-display-controller-ideal", category: "Active", type: "Generic NFC UID display controller behavior model", prefix: "U", pins: ["RX", "DISPLAY", "VCC", "GND"], defaultValue: "Program Display UID; Mode UID-display-only", simulation: "analytical-nfc-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.nfc-uid-display", category: "Output", type: "Ideal NFC UID text display sink", prefix: "OLED", pins: ["DATA", "VCC", "GND"], defaultValue: "UID only", simulation: "analytical-nfc-display", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.rfid-uid-fixture", category: "Inputs", type: "Ideal passive RFID tag UID fixture", prefix: "TAG", pins: ["UID", "GND"], defaultValue: "UID 04A1B2C3", simulation: "fixture-rfid-uid", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.rfid-inventory-fixture", category: "Inputs", type: "Ideal RFID inventory UID and collision fixture", prefix: "TAGS", pins: ["TAGS", "GND"], defaultValue: "UIDs 04A1B2C3,11223344,AABBCCDD,DEADBEEF,04A1B2C3; Slots 4", simulation: "fixture-rfid-inventory", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.rfid-inventory-reader-ideal", category: "Active", type: "Ideal RFID inventory slot estimator", prefix: "RFID", pins: ["TAGS", "DATA", "VCC", "GND"], defaultValue: "Mode inventory; Band 13.56 MHz; Slots 4", simulation: "analytical-rfid-inventory", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.rfid-inventory-report", category: "Output", type: "RFID inventory and collision report sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Inventory report", simulation: "analytical-rfid-inventory", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.rfid-uid-reader-ideal", category: "Active", type: "Ideal UID-only RFID reader behavior model", prefix: "RFID", pins: ["TAG", "DATA", "VCC", "GND"], defaultValue: "Mode UID-only; Band 13.56 MHz", simulation: "analytical-rfid-access", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.rfid-access-controller-ideal", category: "Active", type: "Ideal RFID UID allowlist controller model", prefix: "U", pins: ["TAG", "LOCK", "VCC", "GND"], defaultValue: "Allowlist 04A1B2C3,11223344; UnlockState 1; DenyState 0", simulation: "analytical-rfid-access", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.lock-state-indicator-ideal", category: "Output", type: "Ideal simulated lock state indicator", prefix: "LOCK", pins: ["CTRL", "VCC", "GND"], defaultValue: "Simulated lock state", simulation: "analytical-rfid-access", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -543,6 +546,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const gnssParsers = project.components.filter((item) => item.libraryId === "active.gnss-nmea-parser-ideal");
   const gnssDisplays = project.components.filter((item) => item.libraryId === "output.gnss-position-display");
   const rfidFixtures = project.components.filter((item) => item.libraryId === "input.rfid-uid-fixture");
+  const rfidInventoryFixtures = project.components.filter((item) => item.libraryId === "input.rfid-inventory-fixture");
+  const rfidInventoryReaders = project.components.filter((item) => item.libraryId === "active.rfid-inventory-reader-ideal");
+  const rfidInventoryReports = project.components.filter((item) => item.libraryId === "output.rfid-inventory-report");
   const rfidReaders = project.components.filter((item) => item.libraryId === "active.rfid-uid-reader-ideal");
   const rfidControllers = project.components.filter((item) => item.libraryId === "active.rfid-access-controller-ideal");
   const lockIndicators = project.components.filter((item) => item.libraryId === "output.lock-state-indicator-ideal");
@@ -683,6 +689,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (nfcTags.length === 1 && nfcReaders.length === 1 && nfcControllers.length === 1 && nfcDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseNfcUidDisplay(project, { source: source[0], tag: nfcTags[0], reader: nfcReaders[0], controller: nfcControllers[0], display: nfcDisplays[0], ground: ground[0], validation });
+  }
+  if (rfidInventoryFixtures.length === 1 && rfidInventoryReaders.length === 1 && rfidInventoryReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseRfidInventory(project, { source: source[0], fixture: rfidInventoryFixtures[0], reader: rfidInventoryReaders[0], report: rfidInventoryReports[0], ground: ground[0], validation });
   }
   if (rfidFixtures.length === 1 && rfidReaders.length === 1 && rfidControllers.length === 1 && lockIndicators.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseRfidAllowlist(project, { source: source[0], tag: rfidFixtures[0], reader: rfidReaders[0], controller: rfidControllers[0], indicator: lockIndicators[0], ground: ground[0], validation });
@@ -2030,6 +2039,27 @@ function analyseNfcUidDisplay(project,{source,tag,reader,controller,display,grou
   }
   const displayText="Tag UID: "+uid;
   return {state:"complete",engine:"Ideal NFC UID read-and-display model",message:"Displays a UID from a successful ideal tag-read fixture. A UID is an identifier, not proof of identity or a secret credential. RF coupling, anti-collision, secure card authentication, firmware, and physical NFC behavior are not modeled.",result:{kind:"nfc-uid-display",uid,readStatus,displayText,uidIsAuthentication:false,firmwareExecuted:false},validation};
+}
+function analyseRfidInventory(project,{source,fixture,reader,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const fixtureFields=fields(fixture.value),readerFields=fields(reader.value);
+  const uids=(field(fixtureFields,"UIDs")??"").split(",").map(uid=>uid.trim().toUpperCase());
+  const slots=Number(field(fixtureFields,"Slots")),readerSlots=Number(field(readerFields,"Slots"));
+  const validUid=uid=>/^(?:[0-9A-F]{8}|[0-9A-F]{14}|[0-9A-F]{20})$/.test(uid);
+  const supplyVoltage=voltageValue(source.value),groundNet=n(ground,"0"),vccNet=n(reader,"VCC");
+  const powered=n(source,"+")===vccNet&&n(source,"-")===groundNet&&[reader,report].every(part=>n(part,"VCC")===vccNet&&n(part,"GND")===groundNet)&&n(fixture,"GND")===groundNet;
+  const signalPath=n(fixture,"TAGS")===n(reader,"TAGS")&&n(reader,"DATA")===n(report,"DATA");
+  const pins=[n(source,"+"),n(source,"-"),n(ground,"0"),n(fixture,"TAGS"),n(fixture,"GND"),n(reader,"TAGS"),n(reader,"DATA"),n(reader,"VCC"),n(reader,"GND"),n(report,"DATA"),n(report,"VCC"),n(report,"GND")];
+  const validSlots=[2,4,8,16].includes(slots)&&readerSlots===slots;
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<3||supplyVoltage>5.5||!powered||!signalPath||pins.some(net=>typeof net!=="string"||!net)||field(readerFields,"Mode")!=="inventory"||field(readerFields,"Band")!=="13.56 MHz"||!validSlots||uids.length<1||uids.length>64||uids.some(uid=>!validUid(uid))){
+    return {state:"blocked",message:"Power the ideal reader and report, connect the UID fixture to the reader and the reader data to the report, and use valid 13.56 MHz UID fixtures with matching 2, 4, 8, or 16 slot settings.",validation};
+  }
+  const slotGroups=new Map();for(const uid of uids){const slot=Number.parseInt(uid.slice(-2),16)%slots;if(!slotGroups.has(slot))slotGroups.set(slot,[]);slotGroups.get(slot).push(uid);}
+  const uniqueUids=[...new Set(uids)],collisions=[...slotGroups.entries()].filter(([,group])=>group.length>1).map(([slot,group])=>({slot,uids:[...new Set(group)],tagCount:group.length}));
+  const duplicateUidCount=uids.length-uniqueUids.length,occupiedSlots=slotGroups.size,collisionSlotCount=collisions.length;
+  return {state:"complete",engine:"Deterministic RFID UID-to-slot inventory fixture",message:"Reports tag IDs and slot contention using a deterministic UID-hash fixture for repeatable education. It is not an RFID air-interface implementation: anti-collision protocol timing, RF coupling, modulation, reader certification, secure authentication, firmware, and hardware behavior are not modeled.",result:{kind:"rfid-inventory",bandMHz:13.56,slotCount:slots,tagCount:uids.length,uniqueUidCount:uniqueUids.length,duplicateUidCount,occupiedSlots,collisionSlotCount,collisions,inventoryComplete:collisionSlotCount===0&&duplicateUidCount===0,slotAssignmentModel:"last UID byte modulo slot count",rfTransmitted:false,antiCollisionProtocolModeled:false,authenticationModeled:false,firmwareExecuted:false},validation};
 }
 function analyseRfidAllowlist(project,{source,tag,reader,controller,indicator,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
