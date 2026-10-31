@@ -5756,6 +5756,18 @@
           "leadPlacementChecked": true
         }
       }
+    },
+    {
+      "id": "142-dc-ammeter-use",
+      "title": "DC ammeter use",
+      "status": "in-review",
+      "objective": "Measure DC divider current using an explicitly series-placed ammeter with burden resistance, report amperes and milliampere display, and detect parallel/misplaced terminals.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue DC ammeter measures series current with burden and rejects parallel placement",
+      "testId": "core-dc-ammeter-use",
+      "projectFile": "examples/142-dc-ammeter-use.adigun.json",
+      "readmeFile": "examples/142-dc-ammeter-use/README.md",
+      "safetyNote": "This analytical model covers a bounded resistive DC divider and selected burden resistance only. It does not model meter fuse ratings, current ranges, transient current, lead protection, accuracy, or safe live-work procedure.",
+      "scope": "catalogue"
     }
   ]
 }
