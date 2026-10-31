@@ -36,6 +36,7 @@ import { diagnoseSupplyShort } from "./js/short-circuit-diagnosis.mjs";
 import { diagnoseMissingGround } from "./js/missing-ground-diagnosis.mjs";
 import { reportUnavailableModel } from "./js/model-unavailable-diagnosis.mjs";
 import { runNetCrossProbe } from "./js/net-cross-probe.mjs";
+import { validateComponentProperty } from "./js/component-property-audit.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -533,7 +534,7 @@ function exportProject() {
 
 function runPcbChecks() {
   const report=validatePcbFabrication(state.project);
-  const summary=report.status==="passed"?"Bounded PCB checks passed.":report.errors.join("\\n");
+  const summary=report.status==="passed"?"Bounded PCB checks passed.":report.errors.join("\n");
   showDialog("PCB fabrication checks",summary+"\\n\\nChecks: "+report.checks.join(", ")+"\\nThese checks are educational and do not replace manufacturer validation.");
   log(`[PCB DRC] ${report.status.toUpperCase()} — ${report.errors.length} issue(s).`);
 }
@@ -718,6 +719,8 @@ $("#component-form").addEventListener("submit", (event) => {
   event.preventDefault();
   const component = selectedComponent();
   if (!component) return;
+  const propertyCheck=validateComponentProperty(component,$("#property-value").value);
+  if(!propertyCheck.valid){showDialog("Property not applied",propertyCheck.errors.map(error=>error.message).join("\\n"));log(`[PROPERTY] ${component.reference} edit blocked: ${propertyCheck.errors[0].code}.`);return;}
   captureHistory();
   state.project = updateComponent(state.project, component.instanceId, { reference: $("#property-reference").value.trim(), value: $("#property-value").value.trim() });
   state.dirty = true;

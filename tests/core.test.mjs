@@ -24,6 +24,7 @@ import { diagnoseSupplyShort } from "../js/short-circuit-diagnosis.mjs";
 import { diagnoseMissingGround } from "../js/missing-ground-diagnosis.mjs";
 import { reportUnavailableModel } from "../js/model-unavailable-diagnosis.mjs";
 import { runNetCrossProbe } from "../js/net-cross-probe.mjs";
+import { validateComponentProperty } from "../js/component-property-audit.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1456,7 +1457,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 167);
+  assert.equal(getExampleCoverage(registry).total, 168);
   assert.equal(getExampleCoverage(registry).released, 157);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 43);
@@ -4178,4 +4179,21 @@ test("catalogue net cross-probe preserves the same net ID across all design view
   assert.equal(result.diagnostics.jumpTarget.netId,"LED_A");
   const missing=JSON.parse(JSON.stringify(project));missing.crossProbe.netId="MISSING";
   assert.equal(runNetCrossProbe(missing).state,"blocked");
+});
+
+test("catalogue component property audit accepts valid resistor edits and rejects unsafe ranges before history mutation", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/158-component-property-audit.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const resistor=project.components.find(component=>component.reference==="R1");
+  assert.equal(validateComponentProperty(resistor,"220 Ω").valid,true);
+  assert.equal(validateComponentProperty(resistor,"1 kΩ").resistanceOhms,1000);
+  assert.equal(validateComponentProperty(resistor,"0 Ω").valid,false);
+  assert.equal(validateComponentProperty(resistor,"1e15 Ω").valid,false);
+  assert.equal(validateComponentProperty(resistor,"not a value").valid,false);
+  const app=await readFile(new URL("../app.js",import.meta.url),"utf8");
+  const submit=app.slice(app.indexOf('$("#component-form").addEventListener("submit"'),app.indexOf('$("#remove-component").addEventListener'));
+  assert.ok(submit.indexOf("validateComponentProperty")<submit.indexOf("captureHistory()"));
+  assert.ok(submit.indexOf("captureHistory()")<submit.indexOf("updateComponent("));
+  assert.match(app,/function undo\(/);assert.match(app,/function redo\(/);
 });
