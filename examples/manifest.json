@@ -1079,14 +1079,31 @@
     {
       "id": "025-opamp-inverting",
       "title": "Op-amp inverting amplifier",
-      "status": "in-review",
+      "status": "released",
       "objective": "Model inverting midband voltage gain as -Rf/Rin and verify the output magnitude and 180-degree phase reversal.",
       "acceptanceTest": "tests/core.test.mjs: catalogue inverting op-amp reports negative gain and phase reversal; rejects invalid input resistance and broken feedback",
       "testId": "core-opamp-inverting",
       "projectFile": "examples/025-opamp-inverting.adigun.json",
       "safetyNote": "Ideal educational midband model only. It omits frequency response, slew rate, input/output limits, offset, noise, loading and device-specific behavior.",
       "scope": "catalogue",
-      "catalogueIndex": 25
+      "catalogueIndex": 25,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41169565670",
+        "headRevision": "9c112bc3e56db02b03f23dec9133f6b07d702b4f",
+        "engine": "Ideal op-amp closed-loop midband gain estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-opamp-inverting-v1",
+        "expectedResult": {
+          "gainVPerV": -2,
+          "inputAmplitudeV": 0.1,
+          "outputAmplitudeV": 0.2,
+          "phaseShiftDeg": -180,
+          "positiveSupplyV": 12,
+          "negativeSupplyV": -12
+        }
+      }
     }
   ]
 }
