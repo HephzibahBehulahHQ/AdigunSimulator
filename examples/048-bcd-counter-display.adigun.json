@@ -1,0 +1,531 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-048-bcd-counter-display",
+  "metadata": {
+    "name": "BCD Counter Seven-Segment Display",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          45
+        ],
+        "schematic": [
+          40,
+          45
+        ],
+        "pcb": [
+          40,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "clock-input",
+      "libraryId": "power.dc-source",
+      "reference": "CLK",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          140,
+          45
+        ],
+        "schematic": [
+          140,
+          45
+        ],
+        "pcb": [
+          140,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "reset-input",
+      "libraryId": "power.dc-source",
+      "reference": "RESET_N",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          240,
+          45
+        ],
+        "schematic": [
+          240,
+          45
+        ],
+        "pcb": [
+          240,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "active.logic-bcd-display-ideal",
+      "reference": "U1",
+      "value": "Ideal BCD decade counter; common-cathode segments",
+      "position": {
+        "breadboard": [
+          340,
+          45
+        ],
+        "schematic": [
+          340,
+          45
+        ],
+        "pcb": [
+          340,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "ra",
+      "libraryId": "passive.resistor",
+      "reference": "RA",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          440,
+          45
+        ],
+        "schematic": [
+          440,
+          45
+        ],
+        "pcb": [
+          440,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "rb",
+      "libraryId": "passive.resistor",
+      "reference": "RB",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          540,
+          45
+        ],
+        "schematic": [
+          540,
+          45
+        ],
+        "pcb": [
+          540,
+          45
+        ]
+      }
+    },
+    {
+      "instanceId": "rc",
+      "libraryId": "passive.resistor",
+      "reference": "RC",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          40,
+          110
+        ],
+        "schematic": [
+          40,
+          110
+        ],
+        "pcb": [
+          40,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "rd",
+      "libraryId": "passive.resistor",
+      "reference": "RD",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          140,
+          110
+        ],
+        "schematic": [
+          140,
+          110
+        ],
+        "pcb": [
+          140,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "re",
+      "libraryId": "passive.resistor",
+      "reference": "RE",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          240,
+          110
+        ],
+        "schematic": [
+          240,
+          110
+        ],
+        "pcb": [
+          240,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "rf",
+      "libraryId": "passive.resistor",
+      "reference": "RF",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          340,
+          110
+        ],
+        "schematic": [
+          340,
+          110
+        ],
+        "pcb": [
+          340,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "rg",
+      "libraryId": "passive.resistor",
+      "reference": "RG",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          440,
+          110
+        ],
+        "schematic": [
+          440,
+          110
+        ],
+        "pcb": [
+          440,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "leda",
+      "libraryId": "diode.led-red",
+      "reference": "DA",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          540,
+          110
+        ],
+        "schematic": [
+          540,
+          110
+        ],
+        "pcb": [
+          540,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "ledb",
+      "libraryId": "diode.led-red",
+      "reference": "DB",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          40,
+          175
+        ],
+        "schematic": [
+          40,
+          175
+        ],
+        "pcb": [
+          40,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "ledc",
+      "libraryId": "diode.led-red",
+      "reference": "DC",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          140,
+          175
+        ],
+        "schematic": [
+          140,
+          175
+        ],
+        "pcb": [
+          140,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "ledd",
+      "libraryId": "diode.led-red",
+      "reference": "DD",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          240,
+          175
+        ],
+        "schematic": [
+          240,
+          175
+        ],
+        "pcb": [
+          240,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "lede",
+      "libraryId": "diode.led-red",
+      "reference": "DE",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          340,
+          175
+        ],
+        "schematic": [
+          340,
+          175
+        ],
+        "pcb": [
+          340,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "ledf",
+      "libraryId": "diode.led-red",
+      "reference": "DF",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          440,
+          175
+        ],
+        "schematic": [
+          440,
+          175
+        ],
+        "pcb": [
+          440,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "ledg",
+      "libraryId": "diode.led-red",
+      "reference": "DG",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          540,
+          175
+        ],
+        "schematic": [
+          540,
+          175
+        ],
+        "pcb": [
+          540,
+          175
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          40,
+          240
+        ],
+        "schematic": [
+          40,
+          240
+        ],
+        "pcb": [
+          40,
+          240
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "clock-input:-",
+        "reset-input:-",
+        "display:GND",
+        "ground:0",
+        "leda:K",
+        "ledb:K",
+        "ledc:K",
+        "ledd:K",
+        "lede:K",
+        "ledf:K",
+        "ledg:K"
+      ]
+    },
+    {
+      "id": "CLOCK",
+      "endpoints": [
+        "clock-input:+",
+        "display:CLK"
+      ]
+    },
+    {
+      "id": "RESET_N",
+      "endpoints": [
+        "reset-input:+",
+        "display:RESET_N"
+      ]
+    },
+    {
+      "id": "SEG_A",
+      "endpoints": [
+        "display:SEG_A",
+        "ra:1"
+      ]
+    },
+    {
+      "id": "SEG_LED_A",
+      "endpoints": [
+        "ra:2",
+        "leda:A"
+      ]
+    },
+    {
+      "id": "SEG_B",
+      "endpoints": [
+        "display:SEG_B",
+        "rb:1"
+      ]
+    },
+    {
+      "id": "SEG_LED_B",
+      "endpoints": [
+        "rb:2",
+        "ledb:A"
+      ]
+    },
+    {
+      "id": "SEG_C",
+      "endpoints": [
+        "display:SEG_C",
+        "rc:1"
+      ]
+    },
+    {
+      "id": "SEG_LED_C",
+      "endpoints": [
+        "rc:2",
+        "ledc:A"
+      ]
+    },
+    {
+      "id": "SEG_D",
+      "endpoints": [
+        "display:SEG_D",
+        "rd:1"
+      ]
+    },
+    {
+      "id": "SEG_LED_D",
+      "endpoints": [
+        "rd:2",
+        "ledd:A"
+      ]
+    },
+    {
+      "id": "SEG_E",
+      "endpoints": [
+        "display:SEG_E",
+        "re:1"
+      ]
+    },
+    {
+      "id": "SEG_LED_E",
+      "endpoints": [
+        "re:2",
+        "lede:A"
+      ]
+    },
+    {
+      "id": "SEG_F",
+      "endpoints": [
+        "display:SEG_F",
+        "rf:1"
+      ]
+    },
+    {
+      "id": "SEG_LED_F",
+      "endpoints": [
+        "rf:2",
+        "ledf:A"
+      ]
+    },
+    {
+      "id": "SEG_G",
+      "endpoints": [
+        "display:SEG_G",
+        "rg:1"
+      ]
+    },
+    {
+      "id": "SEG_LED_G",
+      "endpoints": [
+        "rg:2",
+        "ledg:A"
+      ]
+    }
+  ],
+  "history": []
+}

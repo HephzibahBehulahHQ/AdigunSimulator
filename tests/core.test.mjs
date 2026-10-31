@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 57);
+  assert.equal(getExampleCoverage(registry).total, 58);
   assert.equal(getExampleCoverage(registry).released, 47);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 153);
@@ -1553,6 +1553,41 @@ test("catalogue four-bit counter counts rising edges through 15 and wraps to zer
   assert.equal(runSupportedAnalysis(invalid).state, "blocked");
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "BIT3").endpoints = ["counter:Q3"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue BCD counter displays 0 through 9 and wraps with correct segments", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/048-bcd-counter-display.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-bcd-display-ideal"), true);
+  const reset = runSupportedAnalysis(project);
+  assert.equal(reset.state, "complete");
+  assert.equal(reset.result.digit, 0);
+  assert.deepEqual(reset.result.segmentsOn, [true, true, true, true, true, true, false]);
+  let stateProject = updateComponent(project, "reset-input", { value: "5 V" });
+  let state = runSupportedAnalysis(stateProject, { previousState: reset });
+  const expected = [
+    [1,0,1,1,0,0,0,0],[2,1,1,0,1,1,0,1],[3,1,1,1,1,0,0,1],[4,0,1,1,0,0,1,1],
+    [5,1,0,1,1,0,1,1],[6,1,0,1,1,1,1,1],[7,1,1,1,0,0,0,0],[8,1,1,1,1,1,1,1],[9,1,1,1,1,0,1,1]
+  ];
+  for (const [digit,...pattern] of expected) {
+    stateProject = updateComponent(stateProject, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    assert.equal(state.result.digit, digit);
+    assert.deepEqual(state.result.segmentsOn, pattern.map(Boolean));
+    assert.equal(state.result.risingEdge, true);
+    stateProject = updateComponent(stateProject, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    assert.equal(state.result.digit, digit);
+  }
+  stateProject = updateComponent(stateProject, "clock-input", { value: "5 V" });
+  state = runSupportedAnalysis(stateProject, { previousState: state });
+  assert.equal(state.result.digit, 0);
+  assert.deepEqual(state.result.segmentsOn, [true, true, true, true, true, true, false]);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "SEG_G").endpoints = ["display:SEG_G"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
