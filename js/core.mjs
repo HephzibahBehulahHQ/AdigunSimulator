@@ -422,7 +422,7 @@ export function runSupportedAnalysis(project) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 7) {
-    return analyseOpAmpNonInverting(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, ground: ground[0], validation });
+    return analyseOpAmpAmplifier(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, ground: ground[0], validation });
   }
   if (source.length === 1 && timers556.length === 1 && resistor.length === 6 && capacitor.length === 4 && led.length === 2 && ground.length === 1 && project.components.length === 15) {
     return analyseNe556DualAstable(project, { source: source[0], timer: timers556[0], resistors: resistor, capacitors: capacitor, leds: led, ground: ground[0], validation });
@@ -1026,7 +1026,7 @@ function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground
   };
 }
 
-function analyseOpAmpNonInverting(project,{sources,input,opAmp,resistors,ground,validation}){
+function analyseOpAmpAmplifier(project,{sources,input,opAmp,resistors,ground,validation}){
   const netByEndpoint=new Map();
   for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
@@ -1034,22 +1034,43 @@ function analyseOpAmpNonInverting(project,{sources,input,opAmp,resistors,ground,
   const positiveRail=sources.find(part=>n(part,"-")===groundNet&&n(part,"+")!==groundNet);
   const negativeRail=sources.find(part=>n(part,"+")===groundNet&&n(part,"-")!==groundNet);
   if(!positiveRail||!negativeRail||n(opAmp,"VCC")!==n(positiveRail,"+")||n(opAmp,"VEE")!==n(negativeRail,"-")
-    ||n(input,"-")!==groundNet||n(input,"+")!==n(opAmp,"+")||n(resistors[0],"1")===n(resistors[0],"2")){
-    return {state:"blocked",message:"Connect the op-amp to distinct positive/negative rails, ground the input reference, and wire a non-inverting feedback divider.",validation};
+    ||n(input,"-")!==groundNet){
+    return {state:"blocked",message:"Connect the op-amp to distinct positive/negative rails and establish the input reference at ground.",validation};
   }
-  const outputNet=n(opAmp,"OUT"),invertingNet=n(opAmp,"-");
+  const outputNet=n(opAmp,"OUT"),invertingNet=n(opAmp,"-"),nonInvertingNet=n(opAmp,"+"),inputNet=n(input,"+");
   const feedback=resistors.find(part=>(n(part,"1")===outputNet&&n(part,"2")===invertingNet)||(n(part,"2")===outputNet&&n(part,"1")===invertingNet));
-  const groundLeg=resistors.find(part=>part!==feedback&&((n(part,"1")===invertingNet&&n(part,"2")===groundNet)||(n(part,"2")===invertingNet&&n(part,"1")===groundNet)));
-  const rf=feedback?resistanceValue(feedback.value):Number.NaN,rg=groundLeg?resistanceValue(groundLeg.value):Number.NaN;
-  const inputAmplitudeV=voltageValue(input.value),positiveVoltage=voltageValue(positiveRail.value),negativeVoltage=voltageValue(negativeRail.value);
-  if(!feedback||!groundLeg||![rf,rg,inputAmplitudeV,positiveVoltage,negativeVoltage].every(Number.isFinite)||rf<=0||rg<=0||inputAmplitudeV<=0||positiveVoltage<=0||negativeVoltage<=0){
-    return {state:"blocked",message:"The ideal non-inverting model requires positive feedback/input values and valid dual-rail supplies.",validation};
+  const otherResistor=resistors.find(part=>part!==feedback);
+  const nonInverting=nonInvertingNet===inputNet;
+  const inverting=nonInvertingNet===groundNet;
+  let gainVPerV,inputResistance,feedbackResistance,phaseShiftDeg,mode;
+  if(feedback&&nonInverting){
+    const groundLeg=otherResistor&&((n(otherResistor,"1")===invertingNet&&n(otherResistor,"2")===groundNet)||(n(otherResistor,"2")===invertingNet&&n(otherResistor,"1")===groundNet))?otherResistor:null;
+    feedbackResistance=feedback?resistanceValue(feedback.value):Number.NaN;
+    const groundLegResistance=groundLeg?resistanceValue(groundLeg.value):Number.NaN;
+    if(!groundLeg||!Number.isFinite(groundLegResistance)||groundLegResistance<=0){
+      return {state:"blocked",message:"The non-inverting circuit needs Rf from output to the inverting input and Rg from that node to ground.",validation};
+    }
+    gainVPerV=1+feedbackResistance/groundLegResistance;inputResistance=null;phaseShiftDeg=0;mode="non-inverting";
+  } else if(feedback&&inverting){
+    const inputLeg=otherResistor&&((n(otherResistor,"1")===inputNet&&n(otherResistor,"2")===invertingNet)||(n(otherResistor,"2")===inputNet&&n(otherResistor,"1")===invertingNet))?otherResistor:null;
+    inputResistance=inputLeg?resistanceValue(inputLeg.value):Number.NaN;
+    feedbackResistance=resistanceValue(feedback.value);
+    if(!inputLeg||!Number.isFinite(inputResistance)||inputResistance<=0){
+      return {state:"blocked",message:"The inverting circuit needs an input resistor from the AC source to the inverting input and feedback from output to that node.",validation};
+    }
+    gainVPerV=-feedbackResistance/inputResistance;phaseShiftDeg=-180;mode="inverting";
+  } else {
+    return {state:"blocked",message:"Wire the input and feedback network as a non-inverting or inverting amplifier.",validation};
   }
-  const gainVPerV=1+rf/rg,outputAmplitudeV=inputAmplitudeV*gainVPerV;
+  const inputAmplitudeV=voltageValue(input.value),positiveVoltage=voltageValue(positiveRail.value),negativeVoltage=voltageValue(negativeRail.value);
+  if(![feedbackResistance,inputAmplitudeV,positiveVoltage,negativeVoltage,gainVPerV].every(Number.isFinite)||feedbackResistance<=0||inputAmplitudeV<=0||positiveVoltage<=0||negativeVoltage<=0){
+    return {state:"blocked",message:"The ideal amplifier requires positive input amplitude, resistor values, and valid dual-rail supplies.",validation};
+  }
+  const outputAmplitudeV=inputAmplitudeV*Math.abs(gainVPerV);
   if(outputAmplitudeV>=Math.min(positiveVoltage,negativeVoltage)){
     return {state:"blocked",message:"The ideal output amplitude reaches a supply rail; this model does not calculate clipping.",validation};
   }
-  return {state:"complete",engine:"Ideal op-amp non-inverting midband gain estimate",message:"Calculates closed-loop gain as 1 + Rf/Rg and applies it to the input amplitude at midband. It omits bandwidth, slew rate, input/output limits, offset, noise, loading, common-mode range, and device-specific behavior.",result:{kind:"opamp-noninverting",gainVPerV,inputAmplitudeV,outputAmplitudeV,phaseShiftDeg:0,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage,feedbackResistanceOhm:rf,groundLegResistanceOhm:rg,frequencyResponse:"ideal midband gain only"},validation};
+  return {state:"complete",engine:"Ideal op-amp closed-loop midband gain estimate",message:"Calculates the ideal closed-loop inverting or non-inverting gain at midband. It omits bandwidth, slew rate, input/output limits, offset, noise, loading, common-mode range, and device-specific behavior.",result:{kind:inverting?"opamp-inverting":"opamp-noninverting",configuration:mode,gainVPerV,inputAmplitudeV,outputAmplitudeV,phaseShiftDeg,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage,inputResistanceOhm:inputResistance,feedbackResistanceOhm,frequencyResponse:"ideal midband gain only"},validation};
 }
 
 function analyseNe556DualAstable(project,{source,timer,resistors,capacitors,leds,ground,validation}){
