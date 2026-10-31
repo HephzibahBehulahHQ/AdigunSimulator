@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "example-171-fan-thermostat",
+  "metadata": {
+    "name": "Example 171 — Fan Thermostat",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [],
+  "nets": [],
+  "history": [],
+  "fanThermostat": {
+    "kind": "temperature-hysteresis",
+    "fanOffC": 25,
+    "fanOnC": 30,
+    "initialFanOn": false,
+    "samples": [
+      24,
+      30,
+      28,
+      25,
+      26,
+      31,
+      24
+    ]
+  }
+}

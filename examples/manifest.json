@@ -6649,6 +6649,19 @@
           "sensorCircuitModel": false
         }
       }
+    },
+    {
+      "id": "171-fan-thermostat",
+      "title": "Fan thermostat",
+      "status": "in-review",
+      "objective": "Switch a logical fan command on at the upper temperature threshold and off at the lower threshold; verify a temperature sweep retains state inside the hysteresis band.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue fan thermostat switches at hysteresis thresholds and retains state between them",
+      "testId": "core-fan-thermostat",
+      "projectFile": "examples/171-fan-thermostat.adigun.json",
+      "readmeFile": "examples/171-fan-thermostat/README.md",
+      "safetyNote": "Synthetic temperature and Boolean command example only; no NTC transfer curve, sensor tolerance, thermal dynamics, fan hardware, cooling, or protective function is modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
