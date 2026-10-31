@@ -2529,3 +2529,24 @@ test("catalogue I²C level shifter translates open-drain lows bidirectionally", 
   broken.nets.find(net=>net.id==="SDA_HIGH").endpoints=["shifter:SDA_H","report:SDA_H"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue USB-UART console frames a known bidirectional byte stream", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/090-usb-uart-console.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"usb-uart-console");
+  assert.equal(result.result.baud,9600);
+  assert.equal(result.result.frameBits,10);
+  assert.deepEqual(result.result.txHex,["0x48","0x69"]);
+  assert.deepEqual(result.result.rxHex,["0x4F","0x4B"]);
+  assert.equal(result.result.txAscii,"Hi");
+  assert.equal(result.result.rxAscii,"OK");
+  assert.equal(result.result.txDurationSeconds,20/9600);
+  assert.equal(result.result.usbEnumerated,false);
+  assert.equal(result.result.hostContacted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"stream",{value:"Baud 9600; DataBits 8; Parity none; StopBits 1; TXBytes 4G; RXBytes 4F"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"stream",{value:"Baud 200000; DataBits 8; Parity none; StopBits 1; TXBytes 48; RXBytes 4F"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TX_HOST").endpoints=["stream:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
