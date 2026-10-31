@@ -544,6 +544,24 @@ test("catalogue pushbutton LED stays off until pressed and includes its pull-dow
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
+test("catalogue smoothing capacitor reduces bridge ripple after startup", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/016-smoothing-capacitor.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "bridge-smoothing-capacitor");
+  assert.equal(result.result.rippleFrequencyHz, 100);
+  assert.ok(result.result.ripplePeakToPeakV < result.result.unfilteredRipplePeakToPeakV);
+  assert.ok(result.result.averageOutputVoltage > result.result.minimumOutputVoltage);
+  assert.ok(result.result.waveform.length > 10);
+
+  const invalid = updateComponent(project, "capacitor-1", { value: "0 F" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "RECT_POS").endpoints = ["bridge-1:POS", "load-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
 test("catalogue bridge rectifier generates full-wave output at twice line frequency", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/015-bridge-rectifier.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
@@ -787,7 +805,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 25);
+  assert.equal(getExampleCoverage(registry).total, 26);
   assert.equal(getExampleCoverage(registry).released, 15);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 185);
