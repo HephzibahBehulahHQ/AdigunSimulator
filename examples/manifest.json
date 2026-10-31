@@ -2688,6 +2688,18 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "066-arduino-servo-control",
+      "title": "Uno-class potentiometer servo sweep",
+      "status": "in-review",
+      "objective": "Map the 10-bit potentiometer range to calibrated 1–2 ms servo pulses at 50 Hz and a linear 0–180° position estimate.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue Arduino servo maps potentiometer endpoints to pulse and angle",
+      "testId": "core-arduino-servo-control",
+      "projectFile": "examples/066-arduino-servo-control.adigun.json",
+      "safetyNote": "Ideal pulse-to-angle mapping only; Arduino firmware, servo torque, mechanical load, backlash, current transients, and model-specific calibration are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 66
     }
   ]
 }

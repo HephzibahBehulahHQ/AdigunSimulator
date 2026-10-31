@@ -62,6 +62,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.lcd-text-sink-ideal", category: "Output", type: "Ideal single-line LCD text sink (behavior model)", prefix: "LCD", pins: ["DATA", "VCC", "GND"], defaultValue: "16-character text row", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.ultrasonic-echo-ideal", category: "Sensors", type: "Ideal ultrasonic echo-time sensor model", prefix: "US", pins: ["TRIG", "ECHO", "VCC", "GND"], defaultValue: "Echo 5882 us; Minimum 20 mm; Maximum 4000 mm", simulation: "analytical-ultrasonic-range", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.oled-text-sink-ideal", category: "Output", type: "Ideal OLED text sink (behavior model)", prefix: "OLED", pins: ["DATA", "VCC", "GND"], defaultValue: "Distance result", simulation: "analytical-ultrasonic-range", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.servo-angle-ideal", category: "Output", type: "Ideal hobby-servo position model", prefix: "SERVO", pins: ["PWM", "VCC", "GND"], defaultValue: "MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz", simulation: "analytical-servo-position", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -439,6 +440,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const lcdSinks = project.components.filter((item) => item.libraryId === "output.lcd-text-sink-ideal");
   const ultrasonicSensors = project.components.filter((item) => item.libraryId === "sensor.ultrasonic-echo-ideal");
   const oledSinks = project.components.filter((item) => item.libraryId === "output.oled-text-sink-ideal");
+  const servoModels = project.components.filter((item) => item.libraryId === "output.servo-angle-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -503,6 +505,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (servoModels.length === 1 && adcPotentiometers.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseMcuServoControl(project, { source: source[0], mcu: mcuControllers[0], potentiometer: adcPotentiometers[0], servo: servoModels[0], ground: ground[0], validation });
   }
   if (ultrasonicSensors.length === 1 && oledSinks.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuUltrasonicRanger(project, { source: source[0], mcu: mcuControllers[0], sensor: ultrasonicSensors[0], oled: oledSinks[0], ground: ground[0], validation });
@@ -1535,6 +1540,20 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseMcuServoControl(project,{source,mcu,potentiometer,servo,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),servoFields=String(servo.value).split(";").map(v=>v.trim()),potFields=String(potentiometer.value).split(";").map(v=>v.trim());
+  const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim(),number=value=>Number(String(value??"").split(/\s+/)[0]);
+  const position=number(field(potFields,"Position")?.replace(/%$/,"")),adcCount=Number.isFinite(position)?Math.round(position*1023/100):Number.NaN;
+  const minPulse=number(field(servoFields,"MinPulse")),maxPulse=number(field(servoFields,"MaxPulse")),minAngle=number(field(servoFields,"MinAngle")),maxAngle=number(field(servoFields,"MaxAngle")),frequency=number(field(servoFields,"Frequency"));
+  const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const wired=n(potentiometer,"VCC")===vccNet&&n(potentiometer,"GND")===groundNet&&n(potentiometer,"OUT")===n(mcu,"A0")&&n(mcu,"D9")===n(servo,"PWM")&&n(servo,"VCC")===vccNet&&n(servo,"GND")===groundNet;
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!wired||n(mcu,"GND")!==groundNet||field(mcuFields,"Program")?.toLowerCase()!=="servo control"||field(mcuFields,"ADC")!=="A0"||field(mcuFields,"Servo")!=="D9"||!Number.isFinite(position)||position<0||position>100||!Number.isInteger(adcCount)||!Number.isFinite(minPulse)||!Number.isFinite(maxPulse)||maxPulse<=minPulse||!Number.isFinite(minAngle)||!Number.isFinite(maxAngle)||maxAngle<=minAngle||!Number.isFinite(frequency)||frequency<40||frequency>333){
+    return {state:"blocked",message:"Configure a 0–100% potentiometer, A0-to-ADC input, D9 servo pulse output, valid pulse/angle endpoints, and a servo frame rate from 40 to 333 Hz.",validation};
+  }
+  const positionFraction=adcCount/1023,pulseWidthUs=minPulse+positionFraction*(maxPulse-minPulse),angleDegrees=minAngle+positionFraction*(maxAngle-minAngle);
+  return {state:"complete",engine:"Ideal Uno-class hobby-servo pulse mapping",message:"Maps the 10-bit potentiometer reading linearly to the configured servo angle and pulse width. Arduino C++ execution, servo torque, mechanics, backlash, supply transients, and device-specific pulse calibration are omitted.",result:{kind:"mcu-servo-control",positionPercent:position,adcResolutionBits:10,adcCount,pwmFrequencyHz:frequency,pulseWidthUs,angleDegrees,angleRangeDegrees:[minAngle,maxAngle],firmwareExecuted:false},validation};
+}
 function analyseMcuUltrasonicRanger(project,{source,mcu,sensor,oled,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
