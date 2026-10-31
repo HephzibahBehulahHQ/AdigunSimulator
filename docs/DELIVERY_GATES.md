@@ -10,11 +10,11 @@ Authentication is intentionally out of scope until product ownership confirms an
 
 A component may be listed as a candidate or in review, but it is counted as verified only when its ledger record has all of the following:
 
-- An authoritative source and SHA-256 checksum for the reviewed datasheet.
+- An authoritative HTTPS datasheet source and a 64-character hexadecimal SHA-256 checksum for the reviewed document bytes.
 - Exact manufacturer part number, lifecycle and package.
-- Audited symbol-to-pin and footprint-to-pad mappings.
+- Audited symbol-to-pin and footprint-to-pad maps with matching pin keys and unique pad assignments.
 - A declared simulation-model status and licence/source record.
-- Reviewer identity and review date.
+- A named reviewer and a valid ISO review date.
 
 The 1,000-part target is measured from verified records only; candidate records are never presented as verified.
 
@@ -24,7 +24,7 @@ Each catalogue entry is planned until its registry entry includes a native proje
 
 ## Simulation and layout gate
 
-Only an engine that produced the displayed result may be named. The current analytical engine supports the documented LED current-limiter, unloaded two-resistor voltage-divider, and linear resistor networks with one ideal DC source and a shared ground reference; ideal first-order RC charging from zero initial voltage; ideal first-order RL current rise from zero initial current; the selectable SPDT RC charge/discharge model; and the ideal first-order RC low-pass and high-pass plus RL low-pass sinusoidal steady-state responses at 0.1×, 1×, and 10× cutoff. RC discharge assumes an initial capacitor voltage equal to the source voltage and is evaluated as a separate run. General SPICE, arbitrary AC network analysis, nonlinear or multi-element reactive/transient behavior, digital/mixed-signal simulation, thermal analysis, PCB autorouting, DRC, Gerber output and manufacturing checks remain unavailable.
+Only an engine that produced the displayed result may be named. The current analytical engine supports the documented LED current-limiter, unloaded two-resistor voltage-divider, and linear resistor networks with ideal DC voltage/current sources and a shared ground reference; ideal first-order RC charging from zero initial voltage; ideal first-order RL current rise from zero initial current; the selectable SPDT RC charge/discharge model; and the ideal first-order RC low-pass and high-pass plus RL low-pass sinusoidal steady-state responses at 0.1×, 1×, and 10× cutoff. RC discharge assumes an initial capacitor voltage equal to the source voltage and is evaluated as a separate run. General SPICE, arbitrary AC network analysis, nonlinear or multi-element reactive/transient behavior, digital/mixed-signal simulation, thermal analysis, PCB autorouting, DRC, Gerber output and manufacturing checks remain unavailable.
 
 The workspace shares component identity, nets and per-view positions. A view mapping is withheld rather than fabricated when a verified representation is absent. Operators must review physical breadboard rows, component orientation, wiring, power limits, measurements and applicable standards before energising any hardware.
 
