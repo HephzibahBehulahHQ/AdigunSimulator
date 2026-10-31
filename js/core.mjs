@@ -73,6 +73,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.led-bargraph-10seg-ideal", category: "Output", type: "Ideal 10-segment LED bargraph behavior sink", prefix: "LED", pins: ["IN0", "IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "IN9", "VCC", "GND"], defaultValue: "Segments 10; Mode bar", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.ir-nec-frame", category: "Inputs", type: "Ideal NEC-like optical timing fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000", simulation: "fixture-ir-nec-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "sensor.ir-receiver-ideal", category: "Sensors", type: "Ideal 38 kHz IR demodulator behavior model", prefix: "IR", pins: ["SIG", "VCC", "GND", "OUT"], defaultValue: "CarrierHz 38000; Output demodulated active-low", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.watchdog-service-sequence", category: "Inputs", type: "Ideal watchdog service-time fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "ServiceTimesMs 0,40,80,230; RunDurationMs 300", simulation: "fixture-watchdog-service-sequence", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.mcu-watchdog-ideal", category: "Active", type: "Generic MCU watchdog behavior model", prefix: "U", pins: ["WDI", "HEARTBEAT", "VCC", "GND"], defaultValue: "Program Watchdog state model; TimeoutMs 100", simulation: "analytical-mcu-watchdog", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.watchdog-status-display", category: "Output", type: "Ideal watchdog status text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Watchdog state", simulation: "analytical-mcu-watchdog", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.avr-ir-decoder-ideal", category: "Active", type: "Generic AVR NEC-like decoder behavior model", prefix: "U", pins: ["INT0", "TX", "VCC", "GND"], defaultValue: "Program Decode NEC-like; Input INT0; Output TX; Tolerance 20%", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.ir-code-display-ideal", category: "Output", type: "Ideal IR address/command text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Address and command bytes", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -465,6 +468,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const irReceivers = project.components.filter((item) => item.libraryId === "sensor.ir-receiver-ideal");
   const avrIrDecoders = project.components.filter((item) => item.libraryId === "active.avr-ir-decoder-ideal");
   const irCodeDisplays = project.components.filter((item) => item.libraryId === "output.ir-code-display-ideal");
+  const watchdogFixtures = project.components.filter((item) => item.libraryId === "input.watchdog-service-sequence");
+  const watchdogControllers = project.components.filter((item) => item.libraryId === "active.mcu-watchdog-ideal");
+  const watchdogDisplays = project.components.filter((item) => item.libraryId === "output.watchdog-status-display");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -535,6 +541,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (picControllers.length === 1 && adcPotentiometers.length === 1 && ledBargraphs.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePicAdcBargraph(project, { source: source[0], potentiometer: adcPotentiometers[0], pic: picControllers[0], bargraph: ledBargraphs[0], ground: ground[0], validation });
+  }
+  if (watchdogFixtures.length === 1 && watchdogControllers.length === 1 && watchdogDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseMcuWatchdog(project, { source: source[0], fixture: watchdogFixtures[0], mcu: watchdogControllers[0], display: watchdogDisplays[0], ground: ground[0], validation });
   }
   if (irFrames.length === 1 && irReceivers.length === 1 && avrIrDecoders.length === 1 && irCodeDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseAvrIrReceiver(project, { source: source[0], frame: irFrames[0], receiver: irReceivers[0], avr: avrIrDecoders[0], display: irCodeDisplays[0], ground: ground[0], validation });
@@ -1613,6 +1622,29 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const adcCount=Math.round(position*1023/100),illuminatedSegments=Math.min(10,Math.floor(adcCount*10/1023));
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
+}
+function analyseMcuWatchdog(project,{source,fixture,mcu,display,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const sourceVoltage=voltageValue(source.value),fixtureFields=fields(fixture.value),mcuFields=fields(mcu.value);
+  const timeoutMs=Number(field(mcuFields,"TimeoutMs")?.replace(/ms$/i,"")),runDurationMs=Number(field(fixtureFields,"RunDurationMs")?.replace(/ms$/i,""));
+  const serviceText=field(fixtureFields,"ServiceTimesMs")??"",serviceTimesMs=serviceText.split(",").map(item=>Number(item.trim().replace(/ms$/i,"")));
+  const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),powered=n(source,"+")===vccNet&&n(source,"-")===groundNet&&n(mcu,"GND")===groundNet&&n(fixture,"GND")===groundNet&&n(display,"VCC")===vccNet&&n(display,"GND")===groundNet;
+  const signalPath=n(fixture,"OUT")===n(mcu,"WDI")&&n(mcu,"HEARTBEAT")===n(display,"DATA");
+  const sequenceValid=serviceTimesMs.length>0&&serviceTimesMs.every((time,index)=>Number.isFinite(time)&&time>=0&&time<=runDurationMs&&(index===0?time===0:time>serviceTimesMs[index-1]));
+  if(!Number.isFinite(sourceVoltage)||sourceVoltage<=0||!powered||!signalPath||field(mcuFields,"Program")!=="Watchdog state model"||!Number.isFinite(timeoutMs)||timeoutMs<1||timeoutMs>60000||!Number.isFinite(runDurationMs)||runDurationMs<1||runDurationMs>3600000||!sequenceValid){
+    return {state:"blocked",message:"Power the MCU and status display from the same positive supply, connect the watchdog service fixture to WDI, connect HEARTBEAT to the display, and provide a valid positive timeout and ordered service-time sequence beginning at 0 ms.",validation};
+  }
+  let lastServiceMs=serviceTimesMs[0],resetAtMs=null,servicesAccepted=1;
+  for(const serviceMs of serviceTimesMs.slice(1)){
+    if(serviceMs-lastServiceMs>=timeoutMs){resetAtMs=lastServiceMs+timeoutMs;break;}
+    lastServiceMs=serviceMs;servicesAccepted+=1;
+  }
+  if(resetAtMs===null&&runDurationMs-lastServiceMs>=timeoutMs)resetAtMs=lastServiceMs+timeoutMs;
+  const watchdogTriggered=resetAtMs!==null,controllerState=watchdogTriggered?"safe-reset":"running",heartbeatHigh=!watchdogTriggered;
+  const displayText=watchdogTriggered?"WATCHDOG RESET @ "+resetAtMs+" ms":"RUNNING; no watchdog reset";
+  return {state:"complete",engine:"Ideal MCU watchdog service-sequence model",message:"Evaluates configured watchdog service timestamps and reports when a missed service reaches the timeout. This is a deterministic logical model; MCU firmware, clock tolerance, reset circuitry, interrupt latency, and device-specific watchdog behavior are not executed or modeled.",result:{kind:"mcu-watchdog",sourceVoltageV:sourceVoltage,timeoutMs,runDurationMs,serviceTimesMs,servicesAccepted,resetCount:watchdogTriggered?1:0,resetAtMs,watchdogTriggered,controllerState,heartbeatHigh,displayText,firmwareExecuted:false},validation};
 }
 function analyseAvrIrReceiver(project,{source,frame,receiver,avr,display,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);

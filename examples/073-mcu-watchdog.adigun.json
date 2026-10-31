@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-073-mcu-watchdog",
+  "metadata": {
+    "name": "Microcontroller Watchdog Stall Recovery",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          35,
+          60
+        ],
+        "schematic": [
+          35,
+          60
+        ],
+        "pcb": [
+          35,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.watchdog-service-sequence",
+      "reference": "SIG1",
+      "value": "ServiceTimesMs 0,40,80,230; RunDurationMs 300",
+      "position": {
+        "breadboard": [
+          175,
+          60
+        ],
+        "schematic": [
+          175,
+          60
+        ],
+        "pcb": [
+          175,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.mcu-watchdog-ideal",
+      "reference": "U1",
+      "value": "Program Watchdog state model; TimeoutMs 100",
+      "position": {
+        "breadboard": [
+          315,
+          60
+        ],
+        "schematic": [
+          315,
+          60
+        ],
+        "pcb": [
+          315,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "display",
+      "libraryId": "output.watchdog-status-display",
+      "reference": "DISP1",
+      "value": "Watchdog state",
+      "position": {
+        "breadboard": [
+          465,
+          60
+        ],
+        "schematic": [
+          465,
+          60
+        ],
+        "pcb": [
+          465,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          60
+        ],
+        "schematic": [
+          605,
+          60
+        ],
+        "pcb": [
+          605,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mcu:VCC",
+        "display:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "fixture:GND",
+        "mcu:GND",
+        "display:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "WDI",
+      "endpoints": [
+        "fixture:OUT",
+        "mcu:WDI"
+      ]
+    },
+    {
+      "id": "HEARTBEAT",
+      "endpoints": [
+        "mcu:HEARTBEAT",
+        "display:DATA"
+      ]
+    }
+  ],
+  "history": []
+}
