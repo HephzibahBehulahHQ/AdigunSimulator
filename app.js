@@ -234,7 +234,9 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "rfid-access") {
+  if (result.kind === "nfc-uid-display") {
+    metrics.push(["Read status", result.readStatus], ["Tag UID", result.uid], ["Authentication", "UID is not authentication"]);
+  } else if (result.kind === "rfid-access") {
     metrics.push(["Tag UID", result.uid], ["Access decision", result.accessState], ["Lock output", result.lockOutput ? "Unlocked (simulated)" : "Locked"], ["Allowlist entries", String(result.allowlistEntries)], ["Credential model", result.authentication]);
   } else if (result.kind === "gnss-rmc") {
     metrics.push(["Sentence", result.sentenceType], ["UTC time", result.utcTime], ["Fix status", result.fixStatus], ["Latitude", result.latitude.toFixed(5) + "°"], ["Longitude", result.longitude.toFixed(5) + "°"], ["Speed", result.speedKnots.toFixed(1) + " kn"], ["Checksum", result.checksumValid ? "Valid" : "Invalid"]);
@@ -401,7 +403,7 @@ function handleAction(action) {
   if (action === "undo") undo();
   if (action === "redo") redo();
   if (action === "run-simulation") runAnalysis();
-  if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 77 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine.");
+  if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 78 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine.");
 }
 
 document.addEventListener("click", (event) => {
@@ -628,7 +630,7 @@ $("#load-example").addEventListener("click", async () => {
   }
 });
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
-$("#help-button").addEventListener("click", () => showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 77 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine."));
+$("#help-button").addEventListener("click", () => showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 78 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine."));
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
 $("#import-file").addEventListener("change", async (event) => {
