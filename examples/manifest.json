@@ -7373,6 +7373,19 @@
           ]
         }
       }
+    },
+    {
+      "id": "191-rc-timing-calculator",
+      "title": "RC timing calculator",
+      "status": "in-review",
+      "objective": "Calculate the first-order RC time constant and ideal cutoff frequency from resistance and capacitance values with decimal SI-prefix conversion.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue RC timing calculator handles decimal resistance and capacitance prefixes",
+      "testId": "core-rc-timing-calculator",
+      "projectFile": "examples/191-rc-timing-calculator.adigun.json",
+      "readmeFile": "examples/191-rc-timing-calculator/README.md",
+      "safetyNote": "Ideal first-order calculation only. Capacitor tolerance, ESR, leakage, source impedance, loading, and parasitic effects are not modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "complete"
     }
   ]
 }
