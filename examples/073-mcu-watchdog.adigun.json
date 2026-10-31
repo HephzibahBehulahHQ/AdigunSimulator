@@ -12,31 +12,101 @@
       "instanceId": "supply",
       "libraryId": "power.dc-source",
       "reference": "V1",
-      "value": "3.3 V"
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          35,
+          60
+        ],
+        "schematic": [
+          35,
+          60
+        ],
+        "pcb": [
+          35,
+          60
+        ]
+      }
     },
     {
       "instanceId": "fixture",
       "libraryId": "input.watchdog-service-sequence",
       "reference": "SIG1",
-      "value": "ServiceTimesMs 0,40,80,230; RunDurationMs 300"
+      "value": "ServiceTimesMs 0,40,80,230; RunDurationMs 300",
+      "position": {
+        "breadboard": [
+          175,
+          60
+        ],
+        "schematic": [
+          175,
+          60
+        ],
+        "pcb": [
+          175,
+          60
+        ]
+      }
     },
     {
       "instanceId": "mcu",
       "libraryId": "active.mcu-watchdog-ideal",
       "reference": "U1",
-      "value": "Program Watchdog state model; TimeoutMs 100"
+      "value": "Program Watchdog state model; TimeoutMs 100",
+      "position": {
+        "breadboard": [
+          315,
+          60
+        ],
+        "schematic": [
+          315,
+          60
+        ],
+        "pcb": [
+          315,
+          60
+        ]
+      }
     },
     {
       "instanceId": "display",
       "libraryId": "output.watchdog-status-display",
       "reference": "DISP1",
-      "value": "Watchdog state"
+      "value": "Watchdog state",
+      "position": {
+        "breadboard": [
+          465,
+          60
+        ],
+        "schematic": [
+          465,
+          60
+        ],
+        "pcb": [
+          465,
+          60
+        ]
+      }
     },
     {
       "instanceId": "ground",
       "libraryId": "ground.signal",
       "reference": "GND",
-      "value": "0 V"
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          60
+        ],
+        "schematic": [
+          605,
+          60
+        ],
+        "pcb": [
+          605,
+          60
+        ]
+      }
     }
   ],
   "nets": [
