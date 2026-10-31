@@ -2930,7 +2930,7 @@ test("catalogue USB-C sink selects requested profile, falls back to 5 V, and blo
   assert.equal(negotiated.result.negotiationState,"contract");
   assert.equal(negotiated.result.selectedVoltageV,12);
   assert.equal(negotiated.result.loadCurrentA,1.2);
-  assert.equal(negotiated.result.loadPowerW,14.4);
+  assert.ok(Math.abs(negotiated.result.loadPowerW-14.4)<1e-12);
   assert.equal(negotiated.result.protocolSignalingModeled,false);
 
   const fallback=runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"Profiles 5,9 V; Requested 12 V; Fault none; Mode pd-source"}));
