@@ -3867,6 +3867,40 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "094-simple-audio-mixer",
+      "title": "Two-source weighted audio mixer",
+      "status": "released",
+      "objective": "Combine two bounded non-negative source levels at a shared summing node through explicit resistors, then buffer the resistor-weighted average and reject output rail clipping.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue simple mixer computes a resistor-weighted source sum without clipping",
+      "testId": "core-audio-summing-mixer",
+      "projectFile": "examples/094-simple-audio-mixer.adigun.json",
+      "safetyNote": "Passive resistive weighted-average mixer with an ideal unity buffer only. It is not an inverting active mixer; source output impedance, noise, frequency response, amplifier limits, firmware, and hardware are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 94,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41185585767",
+        "headRevision": "cab146a96a621dd78ba89a8898e3968c66456995",
+        "engine": "Two-source resistive weighted mixer and ideal unity buffer",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "two-source-resistive-weighted-mixer-v1",
+        "expectedResult": {
+          "kind": "audio-summing-mixer",
+          "input1V": 1,
+          "input2V": 2,
+          "resistor1Ohm": 10000,
+          "resistor2Ohm": 10000,
+          "weight1": 0.5,
+          "weight2": 0.5,
+          "sumNodeV": 1.5,
+          "outputV": 1.5,
+          "clipped": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
