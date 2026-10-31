@@ -2486,3 +2486,24 @@ test("catalogue FM front-end response peaks at its tuned center frequency", asyn
   broken.nets.find(net=>net.id==="TUNED_RF").endpoints=["tuner:RF_OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue RFID inventory fixture counts duplicate UIDs and slot collisions", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/088-rfid-inventory.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"rfid-inventory");
+  assert.equal(result.result.tagCount,5);
+  assert.equal(result.result.uniqueUidCount,4);
+  assert.equal(result.result.duplicateUidCount,1);
+  assert.equal(result.result.occupiedSlots,3);
+  assert.equal(result.result.collisionSlotCount,1);
+  assert.deepEqual(result.result.collisions,[{slot:3,uids:["04A1B2C3","DEADBEEF"],tagCount:3}]);
+  assert.equal(result.result.inventoryComplete,false);
+  assert.equal(result.result.rfTransmitted,false);
+  assert.equal(result.result.antiCollisionProtocolModeled,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"UIDs 04A1B2C3,INVALID; Slots 4"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"reader",{value:"Mode inventory; Band 13.56 MHz; Slots 8"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="RFID_DATA").endpoints=["reader:DATA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
