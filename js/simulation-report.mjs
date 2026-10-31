@@ -1,0 +1,7 @@
+const MODEL_VERSIONS=Object.freeze({"rc-step-response":"first-order-rc-step-v1","rl-step-response":"first-order-rl-step-v1","led-current-limiter":"led-current-limiter-v1","voltage-divider":"resistive-divider-v1"});
+export function createSimulationReport(project,analysis,{generatedAt=new Date().toISOString()}={}) {
+  if(!project||!analysis||!["complete","blocked","unsupported"].includes(analysis.state))throw new TypeError("A valid project and completed analysis record are required.");
+  const result=analysis.result??null,kind=result?.kind??null;
+  const settings={mode:kind?.includes("step-response")?"time-domain analytical":"bounded analytical",analysisKind:kind,simulationSettings:project.simulationSettings??null,requestedTimeStepS:project.transient?.timeStepS??project.rlcTransient?.timeStepS??null,sampleCount:result?.samples?.length??result?.sampleCount??null};
+  return {schema:"adigun-simulation-report/1",generatedAt,project:{id:project.id??null,name:project.metadata?.name??"Untitled project",documentSchemaVersion:project.schemaVersion,components:(project.components??[]).map(item=>({reference:item.reference,libraryId:item.libraryId,value:item.value})),nets:(project.nets??[]).map(net=>({id:net.id,endpoints:[...net.endpoints]}))},simulation:{state:analysis.state,engine:analysis.engine??"unknown",engineVersion:"adigun-simulator@0.1.0",modelVersion:MODEL_VERSIONS[kind]??"bounded-model-unversioned",settings},result,warnings:analysis.warnings??[],errors:analysis.errors??[],modelLimitations:analysis.message??null};
+}

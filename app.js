@@ -37,6 +37,7 @@ import { diagnoseMissingGround } from "./js/missing-ground-diagnosis.mjs";
 import { reportUnavailableModel } from "./js/model-unavailable-diagnosis.mjs";
 import { runNetCrossProbe } from "./js/net-cross-probe.mjs";
 import { validateComponentProperty } from "./js/component-property-audit.mjs";
+import { createSimulationReport } from "./js/simulation-report.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -418,6 +419,7 @@ function renderOutput(validation = state.lastValidation ?? validateProject(state
   $(".output-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.output === state.activeOutput));
   const dashboard = $("#result-dashboard");
   dashboard.classList.toggle("hidden", !showDashboard);
+  $("#export-simulation-report").disabled = state.lastAnalysis?.state !== "complete";
   dashboard.innerHTML = showDashboard ? renderResultDashboard(state.lastAnalysis) : "";
   $("#workspace-notes").textContent = state.lastAnalysis?.message ?? "Choose a supported example to see its tested model limits.";
   $("#output-log").classList.toggle("hidden", !isLog || showDashboard);
@@ -520,6 +522,14 @@ function runAnalysis() {
   } else { log(`[${result.state.toUpperCase()}] ${result.message ?? result.errors?.[0]?.message ?? "Analysis is unavailable."}`); for(const error of result.errors??[])log(`[DIAGNOSTIC] ${error.code}: ${error.message}`); if(result.diagnostics?.ruleId)log(`[RULE] ${result.diagnostics.ruleId}`); if(result.diagnostics?.status==="unavailable")log(`[COMPONENT STATUS] ${result.diagnostics.componentReference}: unavailable · schematic only · simulation not attempted.`); for(const action of result.diagnostics?.actions??result.diagnostics?.suggestions??[])log(`[SUGGESTION] ${action}`); }
   if(result.diagnostics?.jumpTarget){state.selectedInstanceId=result.diagnostics.jumpTarget.instanceId??state.selectedInstanceId;state.selectedNetId=result.diagnostics.jumpTarget.netId;state.activeView="schematic";render();}
   renderOutput();
+}
+
+function exportSimulationReport() {
+  if(state.lastAnalysis?.state!=="complete"){showDialog("Report unavailable","Run a supported analysis successfully before exporting its report.");return;}
+  const report=createSimulationReport(state.project,state.lastAnalysis);
+  const blob=new Blob([JSON.stringify(report,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+  link.href=url;link.download=`${state.project.metadata.name.replace(/[^a-z0-9]+/gi,"-").replace(/^-|-$/g,"").toLowerCase()||"adigun-simulation"}-report.json`;link.click();URL.revokeObjectURL(url);
+  log("[REPORT] Exported the simulation settings, model version, results, and warnings.");
 }
 
 function exportProject() {
@@ -789,6 +799,7 @@ $("#language").addEventListener("change", (event) => {
 $("#grid-toggle").addEventListener("change", renderCanvas);
 $("#run-simulation").addEventListener("click", runAnalysis);
 $("#run-validation").addEventListener("click", validateAndReport);
+$("#export-simulation-report").addEventListener("click", exportSimulationReport);
 $("#load-example").addEventListener("click", async () => {
   const path = $("#example-picker").value;
   try {

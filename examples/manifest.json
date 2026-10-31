@@ -6277,6 +6277,18 @@
           "undoRedoAvailable": true
         }
       }
+    },
+    {
+      "id": "159-simulation-report-export",
+      "title": "Simulation report export",
+      "status": "in-review",
+      "objective": "Export a known RC step analysis as a JSON report with project settings, engine/model version, exact results, warnings, and limitations.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue simulation report exports reproducible RC settings, model version, results, and warnings",
+      "testId": "core-simulation-report-export",
+      "projectFile": "examples/159-simulation-report-export.adigun.json",
+      "readmeFile": "examples/159-simulation-report-export/README.md",
+      "safetyNote": "A report records the bounded analytical engine result; it is not a full SPICE report, certification, or substitute for validating physical parts and operating conditions.",
+      "scope": "catalogue"
     }
   ]
 }
