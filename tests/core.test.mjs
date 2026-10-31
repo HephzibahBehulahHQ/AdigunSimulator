@@ -3819,3 +3819,27 @@ test("catalogue relay module tests driver, relay pin map, contact isolation clas
   assert.equal(validateRelayModule(crossed).status,"failed");
   assert.equal(validatePcbFabrication(crossed).status,"failed");
 });
+
+test("catalogue manufacturing export pack contains bounded fabrication files, a printable overview and verifiable SHA-256 checksums", async () => {
+  const {createHash}=await import("node:crypto");
+  const {createManufacturingExportPack}=await import("../js/manufacturing-export-pack.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/136-manufacturing-export-pack.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const pack=createManufacturingExportPack(project);
+  assert.equal(pack.status,"passed",JSON.stringify(pack.errors));
+  assert.equal(pack.drc.status,"passed");
+  for(const name of ["board-F_Cu.gbr","board-Edge_Cuts.gbr","board-PTH.drl","BOM.csv","Placement.csv","Assembly-Overview.pdf","Export-Manifest.json","SHA256SUMS.txt"])assert.ok(pack.files[name],name);
+  assert.ok(pack.files["Assembly-Overview.pdf"].startsWith("%PDF-1.4"));
+  assert.ok(pack.files["Assembly-Overview.pdf"].includes("%%EOF"));
+  for(const part of project.pcbFabrication.parts){assert.ok(pack.files["BOM.csv"].includes('"'+part.reference+'"'));assert.ok(pack.files["Placement.csv"].includes('"'+part.reference+'"'));}
+  const manifest=JSON.parse(pack.files["Export-Manifest.json"]);
+  assert.equal(manifest.projectId,project.id);
+  assert.equal(manifest.checks["BOM.csv"],createHash("sha256").update(pack.files["BOM.csv"]).digest("hex"));
+  const rows=pack.files["SHA256SUMS.txt"].trim().split("\n");
+  assert.equal(rows.length,Object.keys(pack.files).length-1);
+  for(const row of rows){const [,expected,name]=row.match(/^([a-f0-9]{64})  (.+)$/)??[];assert.ok(name,row);assert.equal(createHash("sha256").update(pack.files[name]).digest("hex"),expected,name);}
+  assert.equal(pack.checksums["Export-Manifest.json"],createHash("sha256").update(pack.files["Export-Manifest.json"]).digest("hex"));
+  const invalid=JSON.parse(JSON.stringify(project));invalid.pcbFabrication.routes[0].netId="MISSING";
+  assert.equal(createManufacturingExportPack(invalid).status,"blocked");
+});

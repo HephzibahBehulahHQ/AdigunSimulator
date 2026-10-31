@@ -18,6 +18,7 @@ import {
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
+import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -487,19 +488,19 @@ function runPcbChecks() {
   log(`[PCB DRC] ${report.status.toUpperCase()} — ${report.errors.length} issue(s).`);
 }
 function exportPcbFiles() {
-  const result=exportPcbFabrication(state.project);
+  const result=createManufacturingExportPack(state.project);
   if(result.status!=="passed"){
-    showDialog("PCB export blocked",result.drc.errors.join("\\n"));
+    showDialog("PCB export blocked",(result.errors??result.drc?.errors??[]).join("\\n"));
     log("[PCB EXPORT] Blocked until the bounded checks pass.");
     return;
   }
   const stem=state.project.metadata.name.replace(/[^a-z0-9]+/gi,"-").replace(/^-|-$/g,"").toLowerCase()||"adigun-pcb";
   for(const [name,content] of Object.entries(result.files)){
-    const mime=name.endsWith(".csv")?"text/csv":"application/octet-stream";
+    const mime=name.endsWith(".csv")?"text/csv":name.endsWith(".pdf")?"application/pdf":name.endsWith(".json")?"application/json":name.endsWith(".txt")?"text/plain":"application/octet-stream";
     const blob=new Blob([content],{type:mime}),url=URL.createObjectURL(blob),link=document.createElement("a");
-    link.href=url;link.download=`${stem}-${name}`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+    link.href=url;link.download=stem+"-"+name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
   }
-  log("[PCB EXPORT] Downloaded F.Cu Gerber, board outline, Excellon drill, and BOM files.");
+  log("[PCB EXPORT] Downloaded the Gerber, drill, BOM, placement, assembly overview, manifest, and SHA-256 checksum pack.");
 }
 function activateView(view) {
   state.activeView = view;

@@ -5563,6 +5563,18 @@
           "artifact": "Test-Point-Coverage.csv"
         }
       }
+    },
+    {
+      "id": "136-manufacturing-export-pack",
+      "title": "Single-sided PCB manufacturing export pack",
+      "status": "in-review",
+      "objective": "Generate a bounded single-sided PCB handoff pack with Gerber copper and outline, Excellon drill, BOM, placement, a printable assembly overview, a file manifest and SHA-256 checksums.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue manufacturing export pack contains bounded fabrication files, a printable overview and verifiable SHA-256 checksums",
+      "testId": "core-manufacturing-export-pack",
+      "projectFile": "examples/136-manufacturing-export-pack.adigun.json",
+      "readmeFile": "examples/136-manufacturing-export-pack/README.md",
+      "safetyNote": "The pack is generated only after the current bounded single-layer checks pass. Files are educational handoff artifacts and are not a general-purpose fabrication exporter, manufacturing approval, or assembly qualification.",
+      "scope": "catalogue"
     }
   ]
 }
