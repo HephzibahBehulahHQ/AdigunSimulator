@@ -4504,7 +4504,7 @@
     {
       "id": "109-poe-pd-input",
       "title": "PoE powered-device input",
-      "status": "planned",
+      "status": "released",
       "objective": "Rectify alternative PoE feed polarity and estimate a bounded DC/DC input/output power path to a load.",
       "acceptanceTest": "tests/core.test.mjs: catalogue PoE PD input corrects alternate feed polarity and checks DC/DC power",
       "testId": "core-poe-pd-input",
@@ -4512,7 +4512,32 @@
       "readmeFile": "examples/109-poe-pd-input/README.md",
       "safetyNote": "Ideal educational estimator; no physical RJ45 mapping, PoE negotiation, isolation, IEEE compliance, or hardware safety claim.",
       "scope": "catalogue",
-      "catalogueIndex": 109
+      "catalogueIndex": 109,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41189802279",
+        "headRevision": "b5dd02b5c6926f76417ce1092c9b31b46865ebb8",
+        "engine": "Bounded PoE polarity bridge and DC/DC load estimator",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "poe-pd-alternative-feed-v1",
+        "expectedResult": {
+          "kind": "poe-pd-input",
+          "activeFeed": "A",
+          "inputPolarity": "forward",
+          "inputVoltageV": 48,
+          "rectifiedInputVoltageV": 46.8,
+          "converterEnabled": true,
+          "outputVoltageV": 12,
+          "loadCurrentA": 0.5,
+          "loadPowerW": 6,
+          "requiredInputPowerW": 6.666666666666667,
+          "availableInputPowerW": 16.38,
+          "availableOutputPowerW": 12,
+          "alternativeFeedPolarityCorrected": true,
+          "ieeePoEComplianceCertified": false
+        }
+      }
     }
   ]
 }
