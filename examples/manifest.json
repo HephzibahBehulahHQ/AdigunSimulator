@@ -2211,14 +2211,31 @@
     {
       "id": "052-multiplexer-selector",
       "title": "Four-to-one multiplexer selector",
-      "status": "in-review",
+      "status": "released",
       "objective": "Select exactly one of four digital data inputs using two select bits and assert that output equals the selected input for all 16 data vectors and four select combinations.",
       "acceptanceTest": "tests/core.test.mjs: catalogue four-to-one multiplexer selects each input for all data vectors",
       "testId": "core-multiplexer-selector",
       "projectFile": "examples/052-multiplexer-selector.adigun.json",
       "safetyNote": "Generic ideal static mux. It uses a 50% supply logic threshold and ideal rail-to-rail output; propagation delay, input loading, leakage, noise and real logic-family specifications are omitted.",
       "scope": "catalogue",
-      "catalogueIndex": 52
+      "catalogueIndex": 52,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41174622647",
+        "headRevision": "bee16a54b21b93f2f7356b9de8243195699cedea",
+        "engine": "Ideal four-to-one static multiplexer",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-four-to-one-mux-v1",
+        "expectedResult": {
+          "dataVectorsTested": 16,
+          "selectVectorsPerData": 4,
+          "totalCombinations": 64,
+          "selectionRule": "selectedIndex = 2*S1 + S0",
+          "selectedOutputMatchesSelectedInput": true,
+          "invalidSelectVoltage": "blocked"
+        }
+      }
     }
   ]
 }
