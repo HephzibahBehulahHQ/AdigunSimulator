@@ -1437,7 +1437,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 154);
+  assert.equal(getExampleCoverage(registry).total, 155);
   assert.equal(getExampleCoverage(registry).released, 144);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 56);
@@ -3944,4 +3944,23 @@ test("catalogue two-channel phase measurement reports a known 90 degree offset a
   assert.equal(measureTwoChannelPhase(reversed).result.phaseOffsetDeg,-90);
   const mismatched=JSON.parse(JSON.stringify(project));mismatched.phaseScope.channelB.frequencyHz=1001;
   assert.equal(measureTwoChannelPhase(mismatched).state,"blocked");
+});
+
+test("catalogue logic analyser captures labelled counter states and locks configured edge", async () => {
+  const {captureLogicAnalyzer}=await import("../js/logic-analyzer-capture.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/145-logic-analyzer-capture.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const capture=captureLogicAnalyzer(project);
+  assert.equal(capture.state,"complete");
+  assert.equal(capture.result.kind,"logic-analyzer-capture");
+  assert.equal(capture.result.triggerLocked,true);
+  assert.equal(capture.result.triggerChannel,"Q1");
+  assert.equal(capture.result.triggerEdge,"rising");
+  assert.equal(capture.result.triggerSampleIndex,2);
+  assert.equal(capture.result.sampleCount,16);
+  assert.deepEqual(capture.result.samples.map(sample=>sample.decodedCount),Array.from({length:16},(_,i)=>i));
+  assert.deepEqual(capture.result.samples[5].states,{Q0:1,Q1:0,Q2:1,Q3:0});
+  const invalid=JSON.parse(JSON.stringify(project));invalid.logicCapture.trigger.channel="Q9";
+  assert.equal(captureLogicAnalyzer(invalid).state,"blocked");
 });

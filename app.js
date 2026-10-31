@@ -23,6 +23,7 @@ import { analyzeDcVoltmeter } from "./js/dc-voltmeter-analysis.mjs";
 import { analyzeDcAmmeter } from "./js/dc-ammeter-analysis.mjs";
 import { captureTriggeredPulse } from "./js/oscilloscope-trigger.mjs";
 import { measureTwoChannelPhase } from "./js/phase-measurement.mjs";
+import { captureLogicAnalyzer } from "./js/logic-analyzer-capture.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -443,7 +444,7 @@ function validateAndReport() {
 
 function runAnalysis() {
   validateAndReport();
-  const result = state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
+  const result = state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
   state.lastAnalysis = result;
   if (result.state === "complete") {
     const { kind } = result.result;
@@ -452,6 +453,7 @@ function runAnalysis() {
     if(kind==="dc-ammeter")log(`[METER] ${(result.result.displayMilliAmps).toFixed(4)} mA (${result.result.polarity} polarity; burden ${result.result.burdenVoltageV.toFixed(4)} V).`);
     if(kind==="oscilloscope-trigger")log(`[SCOPE] ${result.result.triggerEdge} edge locked at ${result.result.triggerLevelV.toFixed(3)} V; trigger time ${result.result.triggerTimeMs.toFixed(3)} ms; ${result.result.sampleCount} samples.`);
     if(kind==="two-channel-phase")log(`[SCOPE] Channel B phase offset ${result.result.phaseOffsetDeg.toFixed(2)} ${result.result.unit} at ${result.result.frequencyHz.toFixed(2)} Hz.`);
+    if(kind==="logic-analyzer-capture")log(`[LOGIC] Trigger locked on ${result.result.triggerChannel} ${result.result.triggerEdge} edge at sample ${result.result.triggerSampleIndex}; channels ${result.result.channelLabels}.`);
     if (kind === "led-current-limiter") {
       const { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn } = result.result;
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Ω`);
