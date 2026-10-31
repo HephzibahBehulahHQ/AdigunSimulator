@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 46);
+  assert.equal(getExampleCoverage(registry).total, 47);
   assert.equal(getExampleCoverage(registry).released, 36);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 164);
@@ -1232,4 +1232,30 @@ test("catalogue H-bridge reverses the motor model and blocks same-leg shoot-thro
 
   const overvoltage = runSupportedAnalysis(updateComponent(project, "gate-lh", { value: "21 V" }));
   assert.equal(overvoltage.state, "blocked");
+});
+
+test("catalogue electret audio preamp calculates mic bias, midband gain, and coupling response", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/037-electret-audio-preamp.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "electret-audio-preamp");
+  assert.equal(result.result.microphoneBiasVoltageV, 3.9);
+  assert.equal(result.result.referenceVoltageV, 2.5);
+  assert.equal(result.result.gainVPerV, 100);
+  assert.ok(Math.abs(result.result.highPassCutoffHz - 1 / (2 * Math.PI * 17200 * 10e-6)) < 1e-12);
+  assert.ok(result.result.signalBandSamples[0].gain < result.result.signalBandSamples[1].gain);
+  assert.ok(result.result.signalBandSamples[1].gain < result.result.signalBandSamples[2].gain);
+  assert.ok(Math.abs(result.result.outputAmplitudeV - 1) < 1e-4);
+  assert.equal(result.result.outputWithinSupplyRails, true);
+  assert.ok(result.result.outputMinimumV > 0 && result.result.outputMaximumV < 5);
+
+  const overbiased = updateComponent(project, "microphone", { value: "Imic 3 mA; Vsig 10 mV; f 1 kHz; Rs 2.2 kΩ" });
+  assert.equal(runSupportedAnalysis(overbiased).state, "blocked");
+  const overdriven = updateComponent(project, "microphone", { value: "Imic 0.5 mA; Vsig 40 mV; f 1 kHz; Rs 2.2 kΩ" });
+  assert.equal(runSupportedAnalysis(overdriven).state, "blocked");
+
+  const brokenCoupling = structuredClone(project);
+  brokenCoupling.nets.find((net) => net.id === "MIC_OUT").endpoints = ["microphone:OUT", "mic-bias:2"];
+  assert.equal(runSupportedAnalysis(brokenCoupling).state, "blocked");
 });
