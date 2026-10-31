@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-080-low-power-sleep-wake",
+  "metadata": {
+    "name": "Low-Power Sleep and Interrupt Wake",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          38,
+          56
+        ],
+        "schematic": [
+          38,
+          56
+        ],
+        "pcb": [
+          38,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "interrupts",
+      "libraryId": "input.interrupt-edge-sequence-ideal",
+      "reference": "SIG1",
+      "value": "Events 100:rising,130:falling,400:rising; DurationMs 500",
+      "position": {
+        "breadboard": [
+          125,
+          56
+        ],
+        "schematic": [
+          125,
+          56
+        ],
+        "pcb": [
+          125,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.low-power-mcu-ideal",
+      "reference": "U1",
+      "value": "RunCurrentUa 5000; SleepCurrentUa 8; WakeDurationMs 20; WakeMode rising",
+      "position": {
+        "breadboard": [
+          260,
+          56
+        ],
+        "schematic": [
+          260,
+          56
+        ],
+        "pcb": [
+          260,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          410,
+          145
+        ],
+        "schematic": [
+          410,
+          145
+        ],
+        "pcb": [
+          410,
+          145
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2.0 V",
+      "position": {
+        "breadboard": [
+          515,
+          56
+        ],
+        "schematic": [
+          515,
+          56
+        ],
+        "pcb": [
+          515,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          245
+        ],
+        "schematic": [
+          605,
+          245
+        ],
+        "pcb": [
+          605,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mcu:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "interrupts:GND",
+        "mcu:GND",
+        "led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "INT",
+      "endpoints": [
+        "interrupts:INT",
+        "mcu:INT"
+      ]
+    },
+    {
+      "id": "LED_DRIVE",
+      "endpoints": [
+        "mcu:LED",
+        "resistor:1"
+      ]
+    },
+    {
+      "id": "LED_LOAD",
+      "endpoints": [
+        "resistor:2",
+        "led:A"
+      ]
+    }
+  ],
+  "history": []
+}
