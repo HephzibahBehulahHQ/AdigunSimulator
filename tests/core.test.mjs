@@ -2418,3 +2418,29 @@ test("catalogue Wi-Fi relay controller applies valid commands and fails safe off
   broken.nets.find(net=>net.id==="DRIVE").endpoints=["controller:DRIVE"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue Ethernet sensor shows link transitions and builds a local mock frame", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/085-ethernet-sensor-node.adigun.json",import.meta.url)));
+  const frame=runSupportedAnalysis(project);
+  assert.equal(frame.state,"complete",frame.message);
+  assert.equal(frame.result.kind,"ethernet-sensor-frame");
+  assert.deepEqual(frame.result.linkTransitions,["down","negotiating","up"]);
+  assert.equal(frame.result.configurationState,"configured");
+  assert.equal(frame.result.transactionState,"frame-ready-local-only");
+  assert.equal(frame.result.etherType,"0x88B5");
+  assert.deepEqual(frame.result.headerBytes,[2,0,0,0,0,2,2,0,0,0,0,1,0x88,0xB5]);
+  assert.deepEqual(frame.result.payloadBytes,[1,1,0,42,0,246]);
+  assert.deepEqual(frame.result.frameBytes,[2,0,0,0,0,2,2,0,0,0,0,1,0x88,0xB5,1,1,0,42,0,246]);
+  assert.equal(frame.result.frameLengthOctets,20);
+  assert.equal(frame.result.packetTransmitted,false);
+  assert.equal(frame.result.fcsIncluded,false);
+  const noLink=runSupportedAnalysis(updateComponent(updateComponent(project,"config",{value:"LinkTransitions down>negotiating>down; Configuration configured; DeviceId 1; TemperatureC 24.6; Sequence 42"}),"phy",{value:"Mode mock; Link down"}));
+  assert.equal(noLink.result.transactionState,"waiting-for-link");
+  assert.deepEqual(noLink.result.frameBytes,[]);
+  const unconfigured=runSupportedAnalysis(updateComponent(project,"config",{value:"LinkTransitions down>negotiating>up; Configuration unconfigured; DeviceId 1; TemperatureC 24.6; Sequence 42"}));
+  assert.equal(unconfigured.result.transactionState,"waiting-for-configuration");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"config",{value:"LinkTransitions down>up; Configuration configured; DeviceId 1; TemperatureC 24.6; Sequence 42"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TX").endpoints=["controller:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});

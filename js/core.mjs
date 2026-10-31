@@ -77,6 +77,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.data-logger-controller-ideal", category: "Active", type: "Ideal EEPROM data logger controller behavior model", prefix: "U", pins: ["SENSOR", "SDA", "SCL", "DISPLAY", "VCC", "GND"], defaultValue: "SamplePeriodMs 100; Mode circular logger", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.eeprom-ring-buffer-ideal", category: "Active", type: "Ideal EEPROM circular ring-buffer model", prefix: "MEM", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Capacity 3; WriteCycleMs 5; Mode circular", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.data-log-display", category: "Output", type: "Ideal EEPROM replay text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Newest retained samples", simulation: "analytical-eeprom-ring-logger", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.ethernet-sensor-config", category: "Inputs", type: "Ideal Ethernet sensor/configuration fixture", prefix: "SIG", pins: ["DATA", "GND"], defaultValue: "LinkTransitions down>negotiating>up; Configuration configured; DeviceId 1; TemperatureC 24.6; Sequence 42", simulation: "fixture-ethernet-sensor-config", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.ethernet-sensor-controller-ideal", category: "Active", type: "Generic Ethernet sensor payload and state model", prefix: "U", pins: ["SENSOR", "TX", "LINK", "REPORT", "VCC", "GND"], defaultValue: "Mode eth2-mock; SourceMac 02:00:00:00:00:01; DestinationMac 02:00:00:00:00:02; EtherType 0x88B5", simulation: "analytical-ethernet-sensor-frame", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.ethernet-phy-mock", category: "Active", type: "Ideal Ethernet PHY link-state fixture (no packets)", prefix: "PHY", pins: ["RX", "LINK", "VCC", "GND"], defaultValue: "Mode mock; Link up", simulation: "analytical-ethernet-sensor-frame", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.ethernet-frame-report", category: "Output", type: "Ideal Ethernet frame report sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Header and sensor payload", simulation: "analytical-ethernet-sensor-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.wifi-relay-command", category: "Inputs", type: "Ideal Wi-Fi relay command fixture", prefix: "CMD", pins: ["COMMAND", "TOKEN", "GND"], defaultValue: "Command ON; Token TEST_TOKEN", simulation: "fixture-wifi-relay-command", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.wifi-relay-controller-ideal", category: "Active", type: "Generic local Wi-Fi relay command controller", prefix: "U", pins: ["CMD", "TOKEN", "LINK", "DRIVE", "VCC", "GND"], defaultValue: "Mode local-relay; AuthMode placeholder; ExpectedToken TEST_TOKEN; OfflineState fail-safe", simulation: "analytical-wifi-relay-control", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.wifi-module-mock", category: "Active", type: "Ideal Wi-Fi link-state fixture (no network)", prefix: "WIFI", pins: ["LINK", "VCC", "GND"], defaultValue: "Mode local-mock; Link online", simulation: "analytical-wifi-relay-control", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -539,6 +543,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const nfcReaders = project.components.filter((item) => item.libraryId === "active.nfc-reader-ideal");
   const nfcControllers = project.components.filter((item) => item.libraryId === "active.nfc-display-controller-ideal");
   const nfcDisplays = project.components.filter((item) => item.libraryId === "output.nfc-uid-display");
+  const ethernetConfigs = project.components.filter((item) => item.libraryId === "input.ethernet-sensor-config");
+  const ethernetControllers = project.components.filter((item) => item.libraryId === "active.ethernet-sensor-controller-ideal");
+  const ethernetPhys = project.components.filter((item) => item.libraryId === "active.ethernet-phy-mock");
+  const ethernetReports = project.components.filter((item) => item.libraryId === "output.ethernet-frame-report");
   const wifiCommands = project.components.filter((item) => item.libraryId === "input.wifi-relay-command");
   const wifiControllers = project.components.filter((item) => item.libraryId === "active.wifi-relay-controller-ideal");
   const wifiModules = project.components.filter((item) => item.libraryId === "active.wifi-module-mock");
@@ -634,6 +642,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (dataLogFixtures.length === 1 && dataLogControllers.length === 1 && ringEeproms.length === 1 && dataLogDisplays.length === 1 && resistor.length === 2 && source.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseEepromRingLogger(project, { source: source[0], fixture: dataLogFixtures[0], controller: dataLogControllers[0], eeprom: ringEeproms[0], display: dataLogDisplays[0], pullups: resistor, ground: ground[0], validation });
+  }
+  if (ethernetConfigs.length === 1 && ethernetControllers.length === 1 && ethernetPhys.length === 1 && ethernetReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
+    return analyseEthernetSensorFrame(project, { source: source[0], config: ethernetConfigs[0], controller: ethernetControllers[0], phy: ethernetPhys[0], report: ethernetReports[0], ground: ground[0], validation });
   }
   if (wifiCommands.length === 1 && wifiControllers.length === 1 && wifiModules.length === 1 && wifiDrivers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseWifiRelayControl(project, { source: source[0], command: wifiCommands[0], controller: wifiControllers[0], wifi: wifiModules[0], driver: wifiDrivers[0], ground: ground[0], validation });
@@ -1746,6 +1757,36 @@ function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);
   return {state:"complete",engine:"Ideal PIC-class 10-bit ADC bargraph model",message:"Maps the configured potentiometer position through a 10-bit ADC to ten bargraph thresholds. This is a logical behavior model: no PIC firmware, analog input noise, LED current paths, device-specific pin mapping, or physical bargraph characteristics are simulated.",result:{kind:"pic-adc-bargraph",positionPercent:position,adcResolutionBits:10,adcReferenceV:supplyVoltage,adcCount,illuminatedSegments,segments,displayText:segments.map(on=>on?"█":"·").join(""),firmwareExecuted:false},validation};
 }
+function analyseEthernetSensorFrame(project,{source,config,controller,phy,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
+  const field=(list,label)=>list.find(item=>item.startsWith(label+" "))?.slice(label.length).trim();
+  const configFields=fields(config.value),controllerFields=fields(controller.value),phyFields=fields(phy.value);
+  const transitions=(field(configFields,"LinkTransitions")??"").split(">").map(value=>value.trim()),linkConfiguration=field(configFields,"Configuration");
+  const deviceId=Number(field(configFields,"DeviceId")),temperatureC=Number(field(configFields,"TemperatureC")),sequence=Number(field(configFields,"Sequence"));
+  const sourceMacText=field(controllerFields,"SourceMac")??"",destinationMacText=field(controllerFields,"DestinationMac")??"",etherTypeText=(field(controllerFields,"EtherType")??"").replace(/^0x/i,"");
+  const parseMac=value=>{if(!/^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$/.test(value))return null;return value.split(":").map(byte=>Number.parseInt(byte,16));};
+  const sourceMac=parseMac(sourceMacText),destinationMac=parseMac(destinationMacText),etherType=Number.parseInt(etherTypeText,16);
+  const tempDeciC=Math.round(temperatureC*10),groundNet=n(ground,"0"),vccNet=n(controller,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const wired=n(config,"DATA")===n(controller,"SENSOR")&&n(controller,"TX")===n(phy,"RX")&&n(controller,"LINK")===n(phy,"LINK")&&n(controller,"REPORT")===n(report,"DATA");
+  const powered=[controller,phy,report].every(part=>n(part,"VCC")===vccNet&&n(part,"GND")===groundNet)&&n(config,"GND")===groundNet;
+  const legalNext={down:["negotiating"],negotiating:["up","down"],up:["down"]};
+  const transitionsValid=transitions.length>=1&&transitions.length<=10&&transitions[0]==="down"&&transitions.every((state,index)=>["down","negotiating","up"].includes(state)&&(!index||legalNext[transitions[index-1]]?.includes(state)));
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<1.8||supplyVoltage>5.5||!wired||!powered||field(controllerFields,"Mode")!=="eth2-mock"||field(phyFields,"Mode")!=="mock"||!["up","down"].includes(field(phyFields,"Link"))||transitions.at(-1)!==field(phyFields,"Link")||!transitionsValid||!["configured","unconfigured"].includes(linkConfiguration)||!Number.isInteger(deviceId)||deviceId<0||deviceId>255||!Number.isFinite(temperatureC)||temperatureC< -3276.8||temperatureC>3276.7||!Number.isInteger(sequence)||sequence<0||sequence>65535||!sourceMac||!destinationMac||(sourceMac[0]&2)===0||(sourceMac[0]&1)!==0||(destinationMac[0]&1)!==0||!Number.isInteger(etherType)||etherType<0x0600||etherType>0xffff){
+    return {state:"blocked",message:"Power the controller, PHY, and report sink; wire sensor, transmit, link, and report paths. Use a legal down → negotiating → up/down transition sequence, configured or unconfigured state, valid sensor values, unicast MAC addresses, and an EtherType in the Ethernet-II range.",validation};
+  }
+  const linkState=transitions.at(-1);
+  const baseResult={kind:"ethernet-sensor-frame",linkTransitions:transitions,linkState,configurationState:linkConfiguration,deviceId,temperatureC,temperatureDeciC:tempDeciC,sequence,sourceMac:sourceMacText.toUpperCase(),destinationMac:destinationMacText.toUpperCase(),etherType:"0x"+etherType.toString(16).padStart(4,"0").toUpperCase(),packetTransmitted:false,firmwareExecuted:false};
+  if(linkState!=="up"||linkConfiguration!=="configured"){
+    const transactionState=linkState!=="up"?"waiting-for-link":"waiting-for-configuration";
+    return {state:"complete",engine:"Mock Ethernet link/configuration state and frame header",message:"No frame is formed until both link state is up and configuration is complete. No packet is transmitted.",result:{...baseResult,transactionState,frameBytes:[],frameHex:"",frameLengthOctets:0,headerLengthOctets:14,payloadLengthOctets:0,fcsIncluded:false,paddingIncluded:false,preambleIncluded:false},validation};
+  }
+  const tempWord=tempDeciC<0?65536+tempDeciC:tempDeciC,payloadBytes=[1,deviceId,(sequence>>8)&0xff,sequence&0xff,(tempWord>>8)&0xff,tempWord&0xff];
+  const headerBytes=[...destinationMac,...sourceMac,(etherType>>8)&0xff,etherType&0xff],frameBytes=[...headerBytes,...payloadBytes];
+  const hex=bytes=>bytes.map(value=>value.toString(16).padStart(2,"0").toUpperCase()).join(" ");
+  return {state:"complete",engine:"Mock Ethernet-II header and sensor application payload",message:"Forms a 14-octet Ethernet-II header followed by a six-octet local sensor payload. Padding, FCS, preamble, PHY signaling, and actual packet transmission are omitted.",result:{...baseResult,transactionState:"frame-ready-local-only",headerBytes,payloadBytes,frameBytes,headerHex:hex(headerBytes),payloadHex:hex(payloadBytes),frameHex:hex(frameBytes),frameLengthOctets:frameBytes.length,headerLengthOctets:headerBytes.length,payloadLengthOctets:payloadBytes.length,fcsIncluded:false,paddingIncluded:false,preambleIncluded:false},validation};
+}
+
 function analyseWifiRelayControl(project,{source,command,controller,wifi,driver,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
   const n=(part,pin)=>endpointNets.get(endpoint(part,pin)),fields=value=>String(value).split(";").map(item=>item.trim());
