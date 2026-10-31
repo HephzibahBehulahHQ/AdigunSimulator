@@ -1048,7 +1048,7 @@ function analyseHBridgeMotor(project,{sources,pmosSwitches,nmosSwitches,motorRes
   if((leftHighOn&&leftLowOn)||(rightHighOn&&rightLowOn)){
     return {state:"blocked",message:"Shoot-through interlock: never enable the high-side and low-side switch on the same bridge leg at once.",validation};
   }
-  let direction="coast",motorCurrentA=0,leftOutputVoltageV=Number.NaN,rightOutputVoltageV=Number.NaN;
+  let direction="coast",motorCurrentA=0,leftOutputVoltageV=null,rightOutputVoltageV=null;
   const forward=leftHighOn&&rightLowOn&&!rightHighOn&&!leftLowOn;
   const reverse=rightHighOn&&leftLowOn&&!leftHighOn&&!rightLowOn;
   const lowSideBrake=leftLowOn&&rightLowOn&&!leftHighOn&&!rightHighOn;
@@ -1067,8 +1067,8 @@ function analyseHBridgeMotor(project,{sources,pmosSwitches,nmosSwitches,motorRes
     direction="brake";leftOutputVoltageV=lowSideBrake?0:supplyVoltage;
     rightOutputVoltageV=leftOutputVoltageV;
   }
-  const motorVoltageV=leftOutputVoltageV-rightOutputVoltageV;
-  const motorPowerW=Math.abs(motorCurrentA*motorVoltageV);
+  const motorVoltageV=leftOutputVoltageV===null?null:leftOutputVoltageV-rightOutputVoltageV;
+  const motorPowerW=motorVoltageV===null?0:Math.abs(motorCurrentA*motorVoltageV);
   const motorStoredEnergyJ=0.5*lMotor*motorCurrentA*motorCurrentA;
   return {state:"complete",engine:"Ideal four-switch H-bridge DC motor electrical estimate",message:"Models four ideal MOSFET switches, 0.1 Ω on-resistance per conducting switch, and a motor as a series resistance/inductance. It checks same-leg shoot-through and gate-source bounds. It omits motor back EMF, torque/speed, switching dead time and edges, body-diode commutation, transient current decay, thermal behavior, and device-specific ratings; reverse direction is a static vector and not a safe hot-reversal guarantee.",result:{kind:"hbridge-dc-motor",supplyVoltage,gateVoltageV:{leftHigh:gateLeftHighV,leftLow:gateLeftLowV,rightHigh:gateRightHighV,rightLow:gateRightLowV},switchState:{leftHighOn,leftLowOn,rightHighOn,rightLowOn},direction,motorResistanceOhm:rMotor,motorInductanceH:lMotor,motorCurrentA,motorVoltageV,leftOutputVoltageV,rightOutputVoltageV,motorPowerW,motorStoredEnergyJ,switchOnResistanceOhm:rdsOn,shootThrough:false},validation};
 }
