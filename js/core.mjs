@@ -662,7 +662,7 @@ function analyseBridgeRectifier(project, { source, bridge, load, ground, validat
 
 function analyseBridgeSmoothingCapacitor(project, { source, bridge, load, capacitor, ground, validation }) {
   const sourceFields = String(source.value).split(",").map(field => field.trim());
-  const rmsMatch = sourceFields.length === 2 ? sourceFields[0].match(/^([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*V\\s*RMS$/i) : null;
+  const rmsMatch = sourceFields.length === 2 ? sourceFields[0].match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*RMS$/i) : null;
   const sourceRmsVoltage = rmsMatch ? Number(rmsMatch[1]) : Number.NaN;
   const inputFrequencyHz = sourceFields.length === 2 ? frequencyValue(sourceFields[1]) : Number.NaN;
   const diodeDrop = voltageValue(bridge.value);
