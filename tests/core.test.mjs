@@ -2645,3 +2645,21 @@ test("catalogue PWM DAC tracks duty and ripple falls as PWM frequency rises", as
   broken.nets.find(net=>net.id==="FILTER_OUT").endpoints=["series:2"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue digital volume control follows monotonic command steps under load", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/096-digital-volume-control.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"digital-volume-control");
+  const outputs=Array.from({length:11},(_,command)=>runSupportedAnalysis(updateComponent(project,"pot",{value:"Law linear; Rtotal 10 kΩ; Steps 11; Command "+command+"; Rwiper 100 Ω"})).result.outputPeakV);
+  assert.equal(outputs[0],0);
+  assert.ok(outputs.every((value,index)=>index===0||value>=outputs[index-1]));
+  assert.ok(outputs[10]>0.4);
+  assert.equal(result.result.command,5);
+  assert.equal(result.result.deviceProtocolModeled,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Law linear; Rtotal 10 kΩ; Steps 11; Command 11; Rwiper 100 Ω"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Law logarithmic; Rtotal 10 kΩ; Steps 11; Command 5; Rwiper 100 Ω"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="VOLUME_OUT").endpoints=["pot:W"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});

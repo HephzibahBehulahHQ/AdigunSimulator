@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-096-digital-volume-control",
+  "metadata": {
+    "name": "Digital Potentiometer Volume Control",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          30,
+          50
+        ],
+        "schematic": [
+          30,
+          50
+        ],
+        "pcb": [
+          30,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.digital-volume-audio-source",
+      "reference": "SIG1",
+      "value": "AmplitudeV 0.5; FrequencyHz 1000; SourceResistance 1 kΩ",
+      "position": {
+        "breadboard": [
+          120,
+          50
+        ],
+        "schematic": [
+          120,
+          50
+        ],
+        "pcb": [
+          120,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "pot",
+      "libraryId": "active.digital-pot-volume-control-ideal",
+      "reference": "U1",
+      "value": "Law linear; Rtotal 10 kΩ; Steps 11; Command 5; Rwiper 100 Ω",
+      "position": {
+        "breadboard": [
+          280,
+          50
+        ],
+        "schematic": [
+          280,
+          50
+        ],
+        "pcb": [
+          280,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "100 kΩ",
+      "position": {
+        "breadboard": [
+          365,
+          140
+        ],
+        "schematic": [
+          365,
+          140
+        ],
+        "pcb": [
+          365,
+          140
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.audio-volume-report",
+      "reference": "SCOPE1",
+      "value": "Volume report",
+      "position": {
+        "breadboard": [
+          470,
+          50
+        ],
+        "schematic": [
+          470,
+          50
+        ],
+        "pcb": [
+          470,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source:+",
+        "pot:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source:-",
+        "fixture:GND",
+        "pot:GND",
+        "pot:B",
+        "report:GND",
+        "load:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "AUDIO_IN",
+      "endpoints": [
+        "fixture:OUT",
+        "pot:A"
+      ]
+    },
+    {
+      "id": "VOLUME_OUT",
+      "endpoints": [
+        "pot:W",
+        "report:IN",
+        "load:1"
+      ]
+    }
+  ],
+  "history": []
+}
