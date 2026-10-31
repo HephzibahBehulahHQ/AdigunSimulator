@@ -438,6 +438,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (dualComparators.length === 1 && source.length === 2 && resistor.length === 3 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseComparatorThreshold(project, { sources: source, comparator: dualComparators[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
+  if (npnTransistors.length === 1 && source.length === 2 && acSource.length === 0 && resistor.length === 1 && capacitor.length === 0 && ground.length === 1 && project.components.length === 5) {
+    return analyseNpnEmitterFollower(project, { sources: source, transistor: npnTransistors[0], load: resistor[0], ground: ground[0], validation });
+  }
   if (npnTransistors.length === 1 && source.length === 1 && acSource.length === 1 && resistor.length === 5 && capacitor.length === 2 && ground.length === 1 && project.components.length === 11) {
     return analyseNpnCommonEmitter(project, { source: source[0], input: acSource[0], transistor: npnTransistors[0], resistors: resistor, capacitors: capacitor, ground: ground[0], validation });
   }
@@ -1139,6 +1142,22 @@ function analyseComparatorThreshold(project,{sources,comparator,resistors,led,gr
   }
   const thresholdVoltage=supplyVoltage*rLower/(rUpper+rLower),outputHigh=inputVoltage>thresholdVoltage,ledCurrentA=outputHigh?Math.max(0,(supplyVoltage-vf)/rLed):0;
   return {state:"complete",engine:"Ideal dual-input comparator threshold analysis",message:"Compares the input against a resistor-divider threshold and reports an ideal logic state and LED current. It omits propagation delay, hysteresis, offset, input bias, output saturation, noise, loading, and device-specific limits.",result:{kind:"comparator-threshold",supplyVoltage,inputVoltage,thresholdVoltage,outputHigh,outputState:outputHigh?"high":"low",ledOn:outputHigh,ledCurrentA},validation};
+}
+
+function analyseNpnEmitterFollower(project,{sources,transistor,load,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),collectorNet=n(transistor,"C"),baseNet=n(transistor,"B"),emitterNet=n(transistor,"E");
+  const supply=sources.find(part=>n(part,"+")===collectorNet&&n(part,"-")===groundNet);
+  const input=sources.find(part=>part!==supply&&n(part,"+")===baseNet&&n(part,"-")===groundNet);
+  const loadConnected=(n(load,"1")===emitterNet&&n(load,"2")===groundNet)||(n(load,"2")===emitterNet&&n(load,"1")===groundNet);
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,inputVoltage=input?voltageValue(input.value):Number.NaN,loadResistance=resistanceValue(load.value),vbe=0.7,vceSat=0.2;
+  if(!supply||!input||!loadConnected||![supplyVoltage,inputVoltage,loadResistance].every(Number.isFinite)||supplyVoltage<=0||inputVoltage<0||inputVoltage>supplyVoltage||loadResistance<=0){
+    return {state:"blocked",message:"Connect the NPN collector to supply, base to the swept DC input, emitter to a positive load, and all source/load returns to ground.",validation};
+  }
+  const outputVoltage=Math.min(Math.max(0,inputVoltage-vbe),supplyVoltage-vceSat),loadCurrentA=outputVoltage/loadResistance,conducting=outputVoltage>0;
+  return {state:"complete",engine:"Ideal NPN emitter-follower DC estimate",message:"Uses a fixed 0.7 V base-emitter drop and caps the emitter at VCC − VCE(sat). It assumes an ideal base drive and omits beta-dependent base current, output resistance, device curves, temperature, and physical ratings.",result:{kind:"npn-emitter-follower",supplyVoltage,inputVoltage,vbeV:vbe,outputVoltage,voltageDropV:inputVoltage-outputVoltage,loadResistanceOhm:loadResistance,loadCurrentA,conducting,phaseRelation:"non-inverting DC"},validation};
 }
 
 function analyseNpnCommonEmitter(project,{source,input,transistor,resistors,capacitors,ground,validation}){
