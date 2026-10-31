@@ -209,7 +209,6 @@
       "endpoints": [
         "inductor:2",
         "controller:L2",
-        "controller:VOUT",
         "capacitor:1",
         "load:1",
         "report:VOUT"
