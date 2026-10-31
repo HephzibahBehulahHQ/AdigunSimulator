@@ -4657,6 +4657,19 @@
           "hardwareSafetyQualified": false
         }
       }
+    },
+    {
+      "id": "113-triac-ac-dimmer",
+      "title": "TRIAC AC dimmer concept",
+      "status": "in-review",
+      "objective": "Estimate how a symmetric phase angle changes RMS voltage/current in a resistive lamp model and check zero-cross synchronization and fault interlock behavior.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue TRIAC dimmer changes RMS output with phase angle and requires zero-cross sync",
+      "testId": "core-triac-ac-dimmer",
+      "projectFile": "examples/113-triac-ac-dimmer.adigun.json",
+      "readmeFile": "examples/113-triac-ac-dimmer/README.md",
+      "safetyNote": "Educational RMS estimator only. AC mains is conceptual; no physical terminal mapping, switching waveform, isolation qualification, snubber design, thermal analysis, or hardware safety approval.",
+      "scope": "catalogue",
+      "catalogueIndex": 113
     }
   ]
 }
