@@ -1,0 +1,7 @@
+"Check","Status","Detail"
+"lqfp32-pin-map","pass","Every LQFP32 pad has a unique numbered manufacturer pin-map entry."
+"no-missing-power-pins","pass","STM32 VDD/VDDA pin 4 and VSS/VSSA pin 5 are mapped to the power and return nets with both local decouplers."
+"swd-header","pass","SWD connector power, ground, SWDIO and SWCLK are assigned."
+"four-layer-stackup","pass","Four copper layers are defined in order."
+"reference-and-return-path","pass","L2 is a continuous GND reference; outer signal layers reference L2 and return paths must not cross splits."
+"Scope","informational","Stack-up and pin-planning review only. The current PCB exporter handles single-layer F.Cu boards; this four-layer plan has not been routed, DRC-checked, fabricated, or validated for signal/power integrity."

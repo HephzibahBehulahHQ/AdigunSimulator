@@ -5364,6 +5364,18 @@
           ]
         }
       }
+    },
+    {
+      "id": "130-four-layer-mcu-board-plan",
+      "title": "Four-layer STM32G031K8 MCU board plan",
+      "status": "in-review",
+      "objective": "Document a four-layer LQFP32 MCU stack-up and GND return reference, map all package pads, verify VDD/VDDA and VSS/VSSA pins, decouplers and SWD connector.",
+      "acceptanceTest": "tests/core.test.mjs: STM32 four-layer board plan verifies all 32 pads, required power pins, decouplers, SWD and stack-up review",
+      "testId": "core-four-layer-mcu-board-plan",
+      "projectFile": "examples/130-four-layer-mcu-board-plan.adigun.json",
+      "readmeFile": "examples/130-four-layer-mcu-board-plan/README.md",
+      "safetyNote": "Four-layer planning example only. The current PCB exporter is single-layer; this fixture is not routed or DRC-cleared. Firmware, signal/power integrity, EMC and manufacturing qualification are not modeled.",
+      "scope": "catalogue"
     }
   ]
 }
