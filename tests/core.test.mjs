@@ -1437,7 +1437,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 152);
+  assert.equal(getExampleCoverage(registry).total, 153);
   assert.equal(getExampleCoverage(registry).released, 142);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 58);
@@ -3905,4 +3905,24 @@ test("catalogue DC ammeter measures series current with burden and rejects paral
   assert.equal(analyzeDcAmmeter(misplaced).state,"blocked");
   const reversed=JSON.parse(JSON.stringify(project));reversed.instrument.terminals.reverse();
   assert.ok(analyzeDcAmmeter(reversed).result.measuredCurrentA<0);
+});
+
+test("catalogue oscilloscope trigger locks edge and threshold and emits trace metadata", async () => {
+  const {captureTriggeredPulse}=await import("../js/oscilloscope-trigger.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/143-oscilloscope-trigger.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const capture=captureTriggeredPulse(project);
+  assert.equal(capture.state,"complete");
+  assert.equal(capture.result.kind,"oscilloscope-trigger");
+  assert.equal(capture.result.triggerLocked,true);
+  assert.equal(capture.result.triggerEdge,"rising");
+  assert.equal(capture.result.triggerLevelV,2.5);
+  assert.equal(capture.result.triggerTimeMs,0.25);
+  assert.equal(capture.result.sampleCount,101);
+  assert.ok(capture.result.samples.some(sample=>sample.voltageV===5));
+  const falling=JSON.parse(JSON.stringify(project));falling.oscilloscope.triggerEdge="falling";
+  assert.equal(captureTriggeredPulse(falling).result.triggerTimeMs,0.75);
+  const badLevel=JSON.parse(JSON.stringify(project));badLevel.oscilloscope.triggerLevelV=5;
+  assert.equal(captureTriggeredPulse(badLevel).state,"blocked");
 });

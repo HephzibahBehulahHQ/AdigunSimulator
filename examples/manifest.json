@@ -5787,6 +5787,18 @@
           "misplacementBlocked": true
         }
       }
+    },
+    {
+      "id": "143-oscilloscope-trigger",
+      "title": "Oscilloscope trigger",
+      "status": "in-review",
+      "objective": "Capture a bounded ideal PWM pulse trace and lock the first configured rising or falling threshold crossing, preserving edge, level, time and sample metadata.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue oscilloscope trigger locks edge and threshold and emits trace metadata",
+      "testId": "core-oscilloscope-trigger",
+      "projectFile": "examples/143-oscilloscope-trigger.adigun.json",
+      "readmeFile": "examples/143-oscilloscope-trigger/README.md",
+      "safetyNote": "The educational scope model uses ideal rectangular pulses and sampled metadata. It does not model analog bandwidth, probe loading, rise time, noise, aliasing, input protection, or calibrated measurement accuracy.",
+      "scope": "catalogue"
     }
   ]
 }
