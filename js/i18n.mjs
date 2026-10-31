@@ -1,7 +1,7 @@
 export const UI_LOCALES = Object.freeze(["en", "de", "yo", "pcm"]);
 
 export const UI_KEYS = Object.freeze([
-  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
+  "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
   "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -722,13 +722,13 @@ Object.assign(TRANSLATIONS.yo, {morePlannedExamples:"A ti tú iṣẹ́ kátàl�
 
 Object.assign(TRANSLATIONS.pcm, {morePlannedExamples:"118 out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load."});
 
-Object.assign(TRANSLATIONS.en, {exampleReversePolarity:"Reverse-polarity protection"});
+Object.assign(TRANSLATIONS.en, {exampleReversePolarity:"Reverse-polarity protection",exampleSurgeProtectedInput:"Surge-protected input"});
 
-Object.assign(TRANSLATIONS.de, {exampleReversePolarity:"Verpolungsschutz"});
+Object.assign(TRANSLATIONS.de, {exampleReversePolarity:"Verpolungsschutz",exampleSurgeProtectedInput:"Überspannungsgeschützter Eingang"});
 
-Object.assign(TRANSLATIONS.yo, {exampleReversePolarity:"Ààbò polarity tí kò tọ́"});
+Object.assign(TRANSLATIONS.yo, {exampleReversePolarity:"Ààbò polarity tí kò tọ́",exampleSurgeProtectedInput:"Ààbò ìwọlé sí ìgbéga foliteji"});
 
-Object.assign(TRANSLATIONS.pcm, {exampleReversePolarity:"Reverse-polarity protection"});
+Object.assign(TRANSLATIONS.pcm, {exampleReversePolarity:"Reverse-polarity protection",exampleSurgeProtectedInput:"Surge-protected input"});
 
 Object.assign(TRANSLATIONS.en, {morePlannedExamples:"119 of the 200 catalogue projects are released; ten supplemental studies are also available. The remaining catalogue projects are planned and cannot be loaded yet."});
 

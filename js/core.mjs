@@ -239,6 +239,11 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.hotswap-report", category: "Output", type: "Hot-swap inrush and overload report", prefix: "SCOPE", pins: ["VOUT", "INRUSH", "STATUS", "GND"], defaultValue: "Hot-swap protection report", simulation: "analytical-hotswap", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.reverse-polarity-mosfet-ideal", category: "Protection", type: "Ideal reverse-polarity MOSFET protector", prefix: "Q", pins: ["IN", "RETURN", "OUT", "STATUS", "GND"], defaultValue: "ForwardDrop 0.4 V; MaxVoltage 24 V; MaxCurrent 1 A; Mode reverse-block", simulation: "analytical-reverse-polarity", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.reverse-polarity-report", category: "Output", type: "Reverse-polarity protection report", prefix: "SCOPE", pins: ["VOUT", "STATUS", "GND"], defaultValue: "Polarity protection report", simulation: "analytical-reverse-polarity", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.surge-pulse-fixture", category: "Inputs", type: "Input surge pulse fixture", prefix: "PULSE", pins: ["IN", "GND"], defaultValue: "Peak 60 V; Width 1 ms; SourceResistance 10 Ω; Mode transient", simulation: "fixture-surge-input", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "protection.input-fuse-ideal", category: "Protection", type: "Ideal input fuse I²t model", prefix: "F", pins: ["IN", "OUT", "STATUS"], defaultValue: "I2t 0.02 A2s; HoldCurrent 2 A; MaxVoltage 60 V; Mode fuse", simulation: "analytical-surge-input", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "protection.surge-tvs-ideal", category: "Protection", type: "Ideal transient voltage suppressor model", prefix: "D", pins: ["IN", "GND"], defaultValue: "Vclamp 24 V; Emax 1 J; Mode single-pulse", simulation: "analytical-surge-input", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "passive.surge-rc-filter", category: "Passive", type: "Series-resistance input filter model", prefix: "RF", pins: ["IN", "OUT", "GND"], defaultValue: "Resistance 10 Ω; Mode RC-filter", simulation: "analytical-surge-input", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "output.surge-input-report", category: "Output", type: "Surge clamp, fuse, and filtered output report", prefix: "SCOPE", pins: ["VOUT", "FUSE_STATUS", "GND"], defaultValue: "Surge protection report", simulation: "analytical-surge-input", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.clock-tick-fixture", category: "Inputs", type: "RTC time and clock-tick fixture", prefix: "RTC", pins: ["TIME", "VCC", "GND"], defaultValue: "Start 23:59:58; Ticks 3; TickHz 1; Mode rising-edge", simulation: "fixture-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -788,6 +793,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const hotSwapReports = project.components.filter((item) => item.libraryId === "output.hotswap-report");
   const reversePolarityFets = project.components.filter((item) => item.libraryId === "active.reverse-polarity-mosfet-ideal");
   const reversePolarityReports = project.components.filter((item) => item.libraryId === "output.reverse-polarity-report");
+  const surgeFixtures = project.components.filter((item) => item.libraryId === "input.surge-pulse-fixture");
+  const inputFuses = project.components.filter((item) => item.libraryId === "protection.input-fuse-ideal");
+  const surgeTvss = project.components.filter((item) => item.libraryId === "protection.surge-tvs-ideal");
+  const surgeFilters = project.components.filter((item) => item.libraryId === "passive.surge-rc-filter");
+  const surgeReports = project.components.filter((item) => item.libraryId === "output.surge-input-report");
   const clockTickFixtures = project.components.filter((item) => item.libraryId === "input.clock-tick-fixture");
   const sevenSegmentClocks = project.components.filter((item) => item.libraryId === "active.seven-segment-clock-ideal");
   const sevenSegmentDisplays = project.components.filter((item) => item.libraryId === "output.seven-segment-display");
@@ -1068,6 +1078,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length===1&&reversePolarityFets.length===1&&reversePolarityReports.length===1&&resistor.length===1&&ground.length===1&&project.components.length===5) {
     return analyseReversePolarity(project,{source:source[0],protector:reversePolarityFets[0],report:reversePolarityReports[0],load:resistor[0],ground:ground[0],validation});
+  }
+  if (source.length===1&&surgeFixtures.length===1&&inputFuses.length===1&&surgeTvss.length===1&&surgeFilters.length===1&&surgeReports.length===1&&resistor.length===1&&capacitor.length===1&&ground.length===1&&project.components.length===9) {
+    return analyseSurgeInput(project,{source:source[0],fixture:surgeFixtures[0],fuse:inputFuses[0],tvs:surgeTvss[0],filter:surgeFilters[0],report:surgeReports[0],load:resistor[0],capacitor:capacitor[0],ground:ground[0],validation});
   }
   if (bmsCellFixtures.length === 1 && bmsCellMonitors.length === 1 && bmsCellReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseBms3s(project, { source: source[0], fixture: bmsCellFixtures[0], monitor: bmsCellMonitors[0], report: bmsCellReports[0], ground: ground[0], validation });
@@ -3772,6 +3785,45 @@ function analyseReversePolarity(project,{source,protector,report,load,ground,val
   return {state:"complete",engine:"Ideal MOSFET reverse-polarity protection estimator",
     message:"Passes a correctly oriented DC input through the configured idealized MOSFET drop and blocks a reversed input. Reverse recovery, body-diode details, gate startup, transient stress, thermal behavior, and hardware safety are not modeled.",
     result:{kind:"reverse-polarity-protection",inputPolarity,inputVoltageV:Math.abs(inputVoltageV),protectedOn,reverseBlocked:!protectedOn,outputVoltageV,loadResistanceOhm:loadOhm,loadCurrentA,loadPowerW:outputVoltageV*loadCurrentA,forwardDropV,maxVoltageV,maxCurrentA,hardwareSafetyQualified:false},validation};
+}
+function analyseSurgeInput(project,{source,fixture,fuse,tvs,filter,report,load,capacitor,ground,validation}){
+  const nets=new Map();for(const net of project.nets)for(const item of net.endpoints)nets.set(item,net.id);
+  const n=(part,pin)=>nets.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(x=>x.trim());
+  const field=(list,label)=>list.find(x=>x.startsWith(label+" "))?.slice(label.length).trim();
+  const f=fields(fixture.value),fi=fields(fuse.value),tv=fields(tvs.value),rf=fields(filter.value);
+  const pulseV=voltageValue(field(f,"Peak")??""),sourceR=Number(String(field(f,"SourceResistance")??"").replace(/\s*Ω$/i,""));
+  const widthMatch=String(field(f,"Width")??"").match(/^([\d.]+)\s*(us|ms|s)$/i),pulseWidthS=widthMatch?Number(widthMatch[1])*(widthMatch[2].toLowerCase()==="us"?1e-6:widthMatch[2].toLowerCase()==="ms"?1e-3:1):Number.NaN;
+  const fuseI2t=Number(String(field(fi,"I2t")??"").replace(/\s*A2s$/i,"")),fuseHoldA=currentValue(field(fi,"HoldCurrent")??""),fuseMaxV=voltageValue(field(fi,"MaxVoltage")??"");
+  const clampV=voltageValue(field(tv,"Vclamp")??""),tvsMaxJ=Number(String(field(tv,"Emax")??"").replace(/\s*J$/i,""));
+  const filterR=resistanceValue(field(rf,"Resistance")??""),capacitanceF=capacitanceValue(capacitor.value),loadOhm=resistanceValue(load.value),busV=voltageValue(source.value),gnd=n(ground,"0");
+  const inputPath=n(source,"+")===n(fixture,"IN")&&n(source,"+")===n(fuse,"IN")&&n(fixture,"IN")===n(fuse,"IN");
+  const tvsPath=n(fuse,"IN")===n(tvs,"IN")&&n(tvs,"GND")===gnd;
+  const fusePath=n(fuse,"OUT")===n(filter,"IN"),filterPath=n(filter,"OUT")===n(load,"1")&&n(filter,"OUT")===n(capacitor,"1")&&n(filter,"OUT")===n(report,"VOUT");
+  const returnPath=n(source,"-")===gnd&&n(fixture,"GND")===gnd&&n(filter,"GND")===gnd&&n(capacitor,"2")===gnd&&n(load,"2")===gnd&&n(report,"GND")===gnd;
+  const statusPath=n(fuse,"STATUS")===n(report,"FUSE_STATUS");
+  const required=[gnd,n(source,"+"),n(source,"-"),n(fixture,"IN"),n(fixture,"GND"),n(fuse,"IN"),n(fuse,"OUT"),n(tvs,"IN"),n(tvs,"GND"),n(filter,"IN"),n(filter,"OUT"),n(filter,"GND"),n(capacitor,"1"),n(capacitor,"2"),n(load,"1"),n(load,"2"),n(report,"VOUT"),n(fuse,"STATUS"),n(report,"FUSE_STATUS")];
+  if(required.some(x=>typeof x!=="string"||!x)||!inputPath||!tvsPath||!fusePath||!filterPath||!returnPath||!statusPath
+    ||field(f,"Mode")!=="transient"||field(fi,"Mode")!=="fuse"||field(tv,"Mode")!=="single-pulse"||field(rf,"Mode")!=="RC-filter"
+    ||![pulseV,sourceR,pulseWidthS,fuseI2t,fuseHoldA,fuseMaxV,clampV,tvsMaxJ,filterR,capacitanceF,loadOhm,busV].every(Number.isFinite)
+    ||pulseV<=busV||pulseV>fuseMaxV||fuseMaxV>1000||sourceR<=0||sourceR>10000||pulseWidthS<=0||pulseWidthS>10
+    ||fuseI2t<=0||fuseI2t>100||fuseHoldA<=0||fuseHoldA>100||clampV<=busV||clampV>=pulseV||tvsMaxJ<=0||tvsMaxJ>10000
+    ||filterR<=0||filterR>1000||capacitanceF<=0||capacitanceF>1||loadOhm<=0||loadOhm>10000){
+    return {state:"blocked",message:"Wire the source, fuse, shunt TVS, series filter, capacitor, load and report; use a supported single-pulse surge envelope.",validation};
+  }
+  const surgeCurrentA=(pulseV-clampV)/sourceR;
+  const absorbedEnergyJ=clampV*surgeCurrentA*pulseWidthS;
+  const fuseI2tDemand=surgeCurrentA*surgeCurrentA*pulseWidthS;
+  const fuseTripped=fuseI2tDemand>fuseI2t;
+  const fuseWarning=fuseTripped||surgeCurrentA>fuseHoldA;
+  const tauS=filterR*capacitanceF;
+  const steadyOutputV=busV*loadOhm/(filterR+loadOhm);
+  const clampedOutputTargetV=clampV*loadOhm/(filterR+loadOhm);
+  const filteredSurgeOutputV=steadyOutputV+(clampedOutputTargetV-steadyOutputV)*(1-Math.exp(-pulseWidthS/tauS));
+  const outputVoltageV=fuseTripped?0:steadyOutputV;
+  const outputLoadCurrentA=outputVoltageV/loadOhm;
+  return {state:"complete",engine:"Single-pulse TVS, fuse I²t and RC-filter estimator",
+    message:"Estimates one source-resistance-limited surge pulse, TVS clamp energy, fuse I²t warning/trip, and a first-order RC output transient. It does not model a standardized surge waveform, MOV aging, TVS dynamic resistance, fuse time-current curves, layout parasitics, thermal behavior, or hardware safety.",
+    result:{kind:"surge-protected-input",busVoltageV:busV,pulsePeakVoltageV:pulseV,pulseWidthS,sourceResistanceOhm:sourceR,surgeCurrentA,clampVoltageV:clampV,clampActive:true,absorbedEnergyJ,tvsMaximumEnergyJ:tvsMaxJ,tvsWithinEnergyLimit:absorbedEnergyJ<=tvsMaxJ,fuseI2tDemand,fuseI2tLimit:fuseI2t,fuseTripped,fuseWarning,filterResistanceOhm:filterR,filterCapacitanceF:capacitanceF,filterTimeConstantS:tauS,filteredSurgeOutputVoltageV:filteredSurgeOutputV,outputVoltageV,outputLoadCurrentA,loadResistanceOhm:loadOhm,outputEnabled:!fuseTripped},validation};
 }
 function analyseBms3s(project,{source,fixture,monitor,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);

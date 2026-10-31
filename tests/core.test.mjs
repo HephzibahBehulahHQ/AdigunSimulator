@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 129);
+  assert.equal(getExampleCoverage(registry).total, 130);
   assert.equal(getExampleCoverage(registry).released, 119);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 81);
@@ -3284,6 +3284,35 @@ test("catalogue hot-swap limits capacitor inrush and trips an overload", async (
 
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="GATE").endpoints=["controller:GATE"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue surge input clamps a transient and reports fuse warning/trip", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/120-surge-protection.adigun.json",import.meta.url)));
+  const nominal=runSupportedAnalysis(project);
+  assert.equal(nominal.state,"complete",JSON.stringify(nominal.validation?.errors??nominal));
+  assert.equal(nominal.result.kind,"surge-protected-input");
+  assert.equal(nominal.result.clampActive,true);
+  assert.equal(nominal.result.surgeCurrentA,3.6);
+  assert.ok(Math.abs(nominal.result.absorbedEnergyJ-0.0864)<1e-12);
+  assert.equal(nominal.result.fuseWarning,true);
+  assert.equal(nominal.result.fuseTripped,false);
+  assert.equal(nominal.result.outputEnabled,true);
+  assert.ok(Math.abs(nominal.result.filterTimeConstantS-0.001)<1e-12);
+  assert.ok(nominal.result.filteredSurgeOutputVoltageV>17.8&&nominal.result.filteredSurgeOutputVoltageV<17.9);
+
+  const tripped=runSupportedAnalysis(updateComponent(project,"fuse",{value:"I2t 0.01 A2s; HoldCurrent 2 A; MaxVoltage 60 V; Mode fuse"}));
+  assert.equal(tripped.state,"complete");
+  assert.equal(tripped.result.fuseTripped,true);
+  assert.equal(tripped.result.outputEnabled,false);
+  assert.equal(tripped.result.outputVoltageV,0);
+
+  const overEnergy=runSupportedAnalysis(updateComponent(project,"tvs",{value:"Vclamp 24 V; Emax 0.05 J; Mode single-pulse"}));
+  assert.equal(overEnergy.state,"complete");
+  assert.equal(overEnergy.result.tvsWithinEnergyLimit,false);
+
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="FUSED").endpoints=["fuse:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 

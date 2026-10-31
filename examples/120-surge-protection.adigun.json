@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-120-surge-protection",
+  "metadata": {
+    "name": "Surge-Protected DC Input",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "12 V",
+      "position": {
+        "breadboard": [
+          35,
+          50
+        ],
+        "schematic": [
+          35,
+          50
+        ],
+        "pcb": [
+          35,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fixture",
+      "libraryId": "input.surge-pulse-fixture",
+      "reference": "PULSE1",
+      "value": "Peak 60 V; Width 1 ms; SourceResistance 10 Ω; Mode transient",
+      "position": {
+        "breadboard": [
+          115,
+          50
+        ],
+        "schematic": [
+          115,
+          50
+        ],
+        "pcb": [
+          115,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "fuse",
+      "libraryId": "protection.input-fuse-ideal",
+      "reference": "F1",
+      "value": "I2t 0.02 A2s; HoldCurrent 2 A; MaxVoltage 60 V; Mode fuse",
+      "position": {
+        "breadboard": [
+          205,
+          50
+        ],
+        "schematic": [
+          205,
+          50
+        ],
+        "pcb": [
+          205,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "tvs",
+      "libraryId": "protection.surge-tvs-ideal",
+      "reference": "D1",
+      "value": "Vclamp 24 V; Emax 1 J; Mode single-pulse",
+      "position": {
+        "breadboard": [
+          290,
+          50
+        ],
+        "schematic": [
+          290,
+          50
+        ],
+        "pcb": [
+          290,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "filter",
+      "libraryId": "passive.surge-rc-filter",
+      "reference": "RF1",
+      "value": "Resistance 10 Ω; Mode RC-filter",
+      "position": {
+        "breadboard": [
+          380,
+          50
+        ],
+        "schematic": [
+          380,
+          50
+        ],
+        "pcb": [
+          380,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 µF",
+      "position": {
+        "breadboard": [
+          470,
+          50
+        ],
+        "schematic": [
+          470,
+          50
+        ],
+        "pcb": [
+          470,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "RL1",
+      "value": "100 Ω",
+      "position": {
+        "breadboard": [
+          545,
+          50
+        ],
+        "schematic": [
+          545,
+          50
+        ],
+        "pcb": [
+          545,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.surge-input-report",
+      "reference": "SCOPE1",
+      "value": "Surge clamp/fuse/RC output report",
+      "position": {
+        "breadboard": [
+          600,
+          150
+        ],
+        "schematic": [
+          600,
+          150
+        ],
+        "pcb": [
+          600,
+          150
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          35,
+          160
+        ],
+        "schematic": [
+          35,
+          160
+        ],
+        "pcb": [
+          35,
+          160
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "SURGE_INPUT",
+      "endpoints": [
+        "source:+",
+        "fixture:IN",
+        "fuse:IN",
+        "tvs:IN"
+      ]
+    },
+    {
+      "id": "GROUND",
+      "endpoints": [
+        "source:-",
+        "fixture:GND",
+        "tvs:GND",
+        "filter:GND",
+        "capacitor:2",
+        "load:2",
+        "report:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "FUSED",
+      "endpoints": [
+        "fuse:OUT",
+        "filter:IN"
+      ]
+    },
+    {
+      "id": "FILTERED",
+      "endpoints": [
+        "filter:OUT",
+        "capacitor:1",
+        "load:1",
+        "report:VOUT"
+      ]
+    },
+    {
+      "id": "FUSE_STATUS",
+      "endpoints": [
+        "fuse:STATUS",
+        "report:FUSE_STATUS"
+      ]
+    }
+  ],
+  "history": []
+}
