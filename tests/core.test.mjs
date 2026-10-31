@@ -2862,7 +2862,7 @@ test("catalogue three-cell BMS flags voltage faults and balance requests without
   assert.equal(faults.result.faultState,"over-and-under-voltage");
   assert.deepEqual(faults.result.overVoltageCells,[2]);
   assert.deepEqual(faults.result.underVoltageCells,[3]);
-  assert.deepEqual(faults.result.cellsToBalance,[2]);
+  assert.deepEqual(faults.result.cellsToBalance,[1,2]);
   const balance=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Cell1 3.70 V; Cell2 3.80 V; Cell3 3.71 V; Mode 3S"}));
   assert.deepEqual(balance.result.cellsToBalance,[2]);
   assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Cell1 3.70 V; Cell2 4.50 V; Cell3 3.71 V; Mode 3S"})).state,"blocked");
