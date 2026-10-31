@@ -56,6 +56,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.i2c-eeprom-ideal", category: "Active", type: "Ideal I²C EEPROM byte memory (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x50; Memory 0x10=0x00", simulation: "analytical-i2c-eeprom-write-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -425,6 +426,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const i2cEeproms = project.components.filter((item) => item.libraryId === "active.i2c-eeprom-ideal");
   const spiFixtures = project.components.filter((item) => item.libraryId === "input.spi-transfer-source");
   const spiDisplays = project.components.filter((item) => item.libraryId === "active.spi-display-ideal");
+  const mcuControllers = project.components.filter((item) => item.libraryId === "active.mcu-uno-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -489,6 +491,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (mcuControllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseMcuBlink(project, { source: source[0], mcu: mcuControllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
   if (spiFixtures.length === 1 && spiDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 4) {
     return analyseSpiDisplayTransfer(project, { source: source[0], fixture: spiFixtures[0], display: spiDisplays[0], ground: ground[0], validation });
@@ -1506,6 +1511,25 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
 
 
 
+function analyseMcuBlink(project,{source,mcu,resistor,led,ground,validation}){
+  const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(mcu.value).split(";").map(v=>v.trim());
+  const field=label=>fields.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
+  const duration=value=>{const match=String(value??"").match(/^(\\d+(?:\\.\\d+)?)\\s*ms$/i);return match?Number(match[1]):Number.NaN;};
+  const program=field("Program")?.toLowerCase(),pin=field("Pin"),highMs=duration(field("High")),lowMs=duration(field("Low")),runtimeMs=duration(field("Runtime"));
+  const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const seriesPath=(n(mcu,"D13")===n(resistor,"1")&&n(resistor,"2")===n(led,"A"))||(n(mcu,"D13")===n(resistor,"2")&&n(resistor,"1")===n(led,"A"));
+  const resistance=resistanceValue(resistor.value),vf=forwardVoltage(led.value);
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(mcu,"GND")!==groundNet||n(led,"K")!==groundNet||!seriesPath||program!=="blink"||pin!=="D13"||![highMs,lowMs,runtimeMs,resistance,vf].every(Number.isFinite)||highMs<=0||lowMs<=0||runtimeMs<=0||highMs>60000||lowMs>60000||runtimeMs>60000||resistance<=0||vf<=0){
+    return {state:"blocked",message:"Configure the ideal Uno-class GPIO behavior for D13 Blink with positive high/low/runtime milliseconds (maximum 60 s), and wire D13 through a current-limiting resistor and LED to ground.",validation};
+  }
+  const periodMs=highMs+lowMs,ledCurrentA=Math.max(0,(supplyVoltage-vf)/resistance),trace=[];
+  for(let timeMs=0;timeMs<runtimeMs;timeMs+=Math.min(periodMs,runtimeMs-timeMs)){
+    const high=(timeMs%periodMs)<highMs,intervalMs=Math.min(high?highMs-(timeMs%periodMs):periodMs-(timeMs%periodMs),runtimeMs-timeMs);
+    trace.push({timeMs,intervalMs,gpioHigh:high,ledOn:high&&ledCurrentA>0.0005});
+  }
+  return {state:"complete",engine:"Ideal Uno-class GPIO blink sequence",message:"Emits a deterministic digital D13 high/low trace and estimates the LED current when high. This does not execute Arduino C++ firmware or model CPU timing, GPIO output resistance, PWM, interrupts, or board-specific electrical limits.",result:{kind:"mcu-blink",program:"blink",pin:"D13",highMs,lowMs,periodMs,frequencyHz:1000/periodMs,runtimeMs,ledCurrentA,trace,firmwareExecuted:false},validation};
+}
 function analyseSpiDisplayTransfer(project,{source,fixture,display,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(fixture.value).split(";").map(v=>v.trim());
