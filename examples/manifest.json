@@ -2492,6 +2492,18 @@
           "invalidModeByteChipSelect": "blocked"
         }
       }
+    },
+    {
+      "id": "060-eeprom-data-logger",
+      "title": "I²C EEPROM sample write and read-back",
+      "status": "in-review",
+      "objective": "Write one configured sample byte to a matching ideal I²C EEPROM address/register and verify immediate register read-back; report ACK, NACK, and data preservation.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue EEPROM logger preserves a written byte in its ideal register model",
+      "testId": "core-eeprom-data-logger",
+      "projectFile": "examples/060-eeprom-data-logger.adigun.json",
+      "safetyNote": "Digital transaction and ideal immediate-storage model only. Physical EEPROM write-cycle delay, endurance, power loss, page boundaries, bus timing, and MCU firmware are omitted.",
+      "scope": "catalogue",
+      "catalogueIndex": 60
     }
   ]
 }

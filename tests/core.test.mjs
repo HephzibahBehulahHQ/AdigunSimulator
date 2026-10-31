@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 69);
+  assert.equal(getExampleCoverage(registry).total, 70);
   assert.equal(getExampleCoverage(registry).released, 59);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 141);
@@ -1882,4 +1882,22 @@ test("catalogue SPI display receives mode-0 bytes MSB-first", async () => {
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="MOSI").endpoints=["transfer:MOSI"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue EEPROM logger preserves a written byte in its ideal register model", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/060-eeprom-data-logger.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.deviceAck,true);
+  assert.equal(result.result.writeAcknowledged,true);
+  assert.equal(result.result.readByte,0x5A);
+  assert.equal(result.result.readHex,"0x5A");
+  assert.equal(result.result.dataPreserved,true);
+  const nack=runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x51; Register 0x10; Data 0x5A; Baud 100000; Cycle write-read; ACK yes"}));
+  assert.equal(nack.result.deviceAck,false);
+  assert.equal(nack.result.readByte,null);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x50; Register 0x10; Data 0x100; Baud 100000; Cycle write-read; ACK yes"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x50; Register 0x10; Data 0x5A; Baud 100000; Cycle read-only; ACK yes"})).state,"blocked");
 });
