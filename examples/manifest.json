@@ -4538,6 +4538,19 @@
           "ieeePoEComplianceCertified": false
         }
       }
+    },
+    {
+      "id": "110-constant-current-led-driver",
+      "title": "Constant-current LED driver",
+      "status": "planned",
+      "objective": "Regulate an LED string current from a sense reference and resistor across the supported load range, and report an open LED warning.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue constant-current LED driver regulates across load range and reports open LED",
+      "testId": "core-constant-current-led-driver",
+      "projectFile": "examples/110-constant-current-led-driver.adigun.json",
+      "readmeFile": "examples/110-constant-current-led-driver/README.md",
+      "safetyNote": "Ideal average current model only; no switching detail, thermal behavior, protection qualification, or hardware safety claim.",
+      "scope": "catalogue",
+      "catalogueIndex": 110
     }
   ]
 }
