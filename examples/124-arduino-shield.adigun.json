@@ -1,0 +1,1178 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-124-arduino-shield",
+  "metadata": {
+    "name": "Arduino Uno R3 Shield — PWM LED Dimmer",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          65,
+          50
+        ],
+        "schematic": [
+          65,
+          50
+        ],
+        "pcb": [
+          65,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "mcu",
+      "libraryId": "active.mcu-uno-ideal",
+      "reference": "U1",
+      "value": "Program PWM dimmer; ADC A0; PWM D9; Frequency 490",
+      "position": {
+        "breadboard": [
+          310,
+          110
+        ],
+        "schematic": [
+          310,
+          110
+        ],
+        "pcb": [
+          310,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "pot",
+      "libraryId": "input.potentiometer-adc-ideal",
+      "reference": "RV1",
+      "value": "Position 50%; Resolution 10 bit",
+      "position": {
+        "breadboard": [
+          475,
+          180
+        ],
+        "schematic": [
+          475,
+          180
+        ],
+        "pcb": [
+          475,
+          180
+        ]
+      }
+    },
+    {
+      "instanceId": "mosfet",
+      "libraryId": "active.nmos-switch",
+      "reference": "Q1",
+      "value": "Vth 2.0 V",
+      "position": {
+        "breadboard": [
+          315,
+          205
+        ],
+        "schematic": [
+          315,
+          205
+        ],
+        "pcb": [
+          315,
+          205
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          405,
+          165
+        ],
+        "schematic": [
+          405,
+          165
+        ],
+        "pcb": [
+          405,
+          165
+        ]
+      }
+    },
+    {
+      "instanceId": "led",
+      "libraryId": "diode.led-red",
+      "reference": "D1",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          495,
+          165
+        ],
+        "schematic": [
+          495,
+          165
+        ],
+        "pcb": [
+          495,
+          165
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          65,
+          245
+        ],
+        "schematic": [
+          65,
+          245
+        ],
+        "pcb": [
+          65,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "mcu:VCC",
+        "pot:VCC",
+        "resistor:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "mcu:GND",
+        "pot:GND",
+        "mosfet:S",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "ADC",
+      "endpoints": [
+        "pot:OUT",
+        "mcu:A0"
+      ]
+    },
+    {
+      "id": "PWM",
+      "endpoints": [
+        "mcu:D9",
+        "mosfet:G"
+      ]
+    },
+    {
+      "id": "LED_RES",
+      "endpoints": [
+        "resistor:2",
+        "led:A"
+      ]
+    },
+    {
+      "id": "LED_MOSFET",
+      "endpoints": [
+        "led:K",
+        "mosfet:D"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 68.58,
+      "heightMm": 53.34,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.3,
+      "outline": "rectangular UNO R3 shield template"
+    },
+    "parts": [
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "footprint": "Arduino_Uno_R3_Shield_Stackable_Header_Set_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "footprint": "Potentiometer_3Pin_P2.54mm_PTH",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "mosfet",
+        "reference": "Q1",
+        "footprint": "SOT-23-3_SMD",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "footprint": "R_0805_2012Metric_SMD",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "footprint": "LED_0805_2012Metric_SMD",
+        "technology": "smd"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_POWER_ANALOG_1",
+        "number": "1",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 27.94,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "NC"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_POWER_ANALOG_2",
+        "number": "2",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 30.48,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "IOREF"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_POWER_ANALOG_3",
+        "number": "3",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 33.02,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "RESET"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_POWER_ANALOG_4",
+        "number": "4",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 35.56,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "+3V3"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "VCC",
+        "number": "5",
+        "netId": "VCC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 38.1,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "+5V"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "GND",
+        "number": "6",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 40.64,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "GND"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "GND_POWER_ANALOG_7",
+        "number": "7",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 43.18,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "GND",
+        "bridgeEndpoint": "mcu:GND"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_POWER_ANALOG_8",
+        "number": "8",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 45.72,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "VIN"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "A0",
+        "number": "9",
+        "netId": "ADC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 50.8,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "A0"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_POWER_ANALOG_10",
+        "number": "10",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 53.339999999999996,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "A1"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_POWER_ANALOG_11",
+        "number": "11",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 55.879999999999995,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "A2"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_POWER_ANALOG_12",
+        "number": "12",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 58.419999999999995,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "A3"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_POWER_ANALOG_13",
+        "number": "13",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 60.959999999999994,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "A4"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_POWER_ANALOG_14",
+        "number": "14",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 63.5,
+        "yMm": 50.8,
+        "headerGroup": "POWER_ANALOG",
+        "headerFunction": "A5"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_1",
+        "number": "1",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 18.8,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "SCL"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_2",
+        "number": "2",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 21.34,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "SDA"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_3",
+        "number": "3",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 23.88,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "AREF"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "GND_DIGITAL_4",
+        "number": "4",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 26.42,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "GND",
+        "bridgeEndpoint": "mcu:GND"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "D13",
+        "number": "5",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 28.96,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D13"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_6",
+        "number": "6",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 31.5,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D12"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_7",
+        "number": "7",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 34.04,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D11"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_8",
+        "number": "8",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 36.58,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D10"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "D9",
+        "number": "9",
+        "netId": "PWM",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 39.12,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D9"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "D8",
+        "number": "10",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 41.66,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D8"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "D7",
+        "number": "11",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 45.72,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D7"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_12",
+        "number": "12",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 48.26,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D6"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_13",
+        "number": "13",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 50.8,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D5"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_14",
+        "number": "14",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 53.34,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D4"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "D3",
+        "number": "15",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 55.88,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D3"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "D2",
+        "number": "16",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 58.42,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D2"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_17",
+        "number": "17",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 60.96,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D1/TX"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "pin": "NC_DIGITAL_18",
+        "number": "18",
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "xMm": 63.5,
+        "yMm": 2.54,
+        "headerGroup": "DIGITAL",
+        "headerFunction": "D0/RX"
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "pin": "VCC",
+        "number": "VCC",
+        "netId": "VCC",
+        "xMm": 46,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 42,
+        "yMm": 23,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "pin": "GND",
+        "number": "GND",
+        "netId": "GND",
+        "xMm": 50,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "mosfet",
+        "reference": "Q1",
+        "pin": "S",
+        "number": "S",
+        "netId": "GND",
+        "xMm": 41,
+        "yMm": 27,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "pin": "OUT",
+        "number": "OUT",
+        "netId": "ADC",
+        "xMm": 48,
+        "yMm": 38,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "mosfet",
+        "reference": "Q1",
+        "pin": "G",
+        "number": "G",
+        "netId": "PWM",
+        "xMm": 35,
+        "yMm": 27,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "LED_RES",
+        "xMm": 44,
+        "yMm": 23,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "pin": "A",
+        "number": "A",
+        "netId": "LED_RES",
+        "xMm": 47,
+        "yMm": 23,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "pin": "K",
+        "number": "K",
+        "netId": "LED_MOSFET",
+        "xMm": 49,
+        "yMm": 23,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "mosfet",
+        "reference": "Q1",
+        "pin": "D",
+        "number": "D",
+        "netId": "LED_MOSFET",
+        "xMm": 38,
+        "yMm": 27,
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      }
+    ],
+    "routes": [
+      {
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "netId": "VCC",
+        "pointsMm": [
+          [
+            38.1,
+            50.8
+          ],
+          [
+            46,
+            35
+          ],
+          [
+            42,
+            23
+          ]
+        ]
+      },
+      {
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "netId": "GND",
+        "pointsMm": [
+          [
+            40.64,
+            50.8
+          ],
+          [
+            43.18,
+            50.8
+          ],
+          [
+            26.42,
+            2.54
+          ],
+          [
+            50,
+            35
+          ],
+          [
+            41,
+            27
+          ]
+        ]
+      },
+      {
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "netId": "ADC",
+        "pointsMm": [
+          [
+            50.8,
+            50.8
+          ],
+          [
+            48,
+            38
+          ]
+        ]
+      },
+      {
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "netId": "PWM",
+        "pointsMm": [
+          [
+            39.12,
+            2.54
+          ],
+          [
+            35,
+            27
+          ]
+        ]
+      },
+      {
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "netId": "LED_RES",
+        "pointsMm": [
+          [
+            44,
+            23
+          ],
+          [
+            47,
+            23
+          ]
+        ]
+      },
+      {
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "netId": "LED_MOSFET",
+        "pointsMm": [
+          [
+            49,
+            23
+          ],
+          [
+            38,
+            27
+          ]
+        ]
+      }
+    ],
+    "headerMap": [
+      {
+        "id": "POWER_ANALOG",
+        "name": "Uno R3 power and analog row",
+        "yMm": 50.8,
+        "pins": [
+          {
+            "number": "1",
+            "function": "NC",
+            "xMm": 27.94,
+            "yMm": 50.8
+          },
+          {
+            "number": "2",
+            "function": "IOREF",
+            "xMm": 30.48,
+            "yMm": 50.8
+          },
+          {
+            "number": "3",
+            "function": "RESET",
+            "xMm": 33.02,
+            "yMm": 50.8
+          },
+          {
+            "number": "4",
+            "function": "+3V3",
+            "xMm": 35.56,
+            "yMm": 50.8
+          },
+          {
+            "number": "5",
+            "function": "+5V",
+            "xMm": 38.1,
+            "yMm": 50.8
+          },
+          {
+            "number": "6",
+            "function": "GND",
+            "xMm": 40.64,
+            "yMm": 50.8
+          },
+          {
+            "number": "7",
+            "function": "GND",
+            "xMm": 43.18,
+            "yMm": 50.8
+          },
+          {
+            "number": "8",
+            "function": "VIN",
+            "xMm": 45.72,
+            "yMm": 50.8
+          },
+          {
+            "number": "9",
+            "function": "A0",
+            "xMm": 50.8,
+            "yMm": 50.8
+          },
+          {
+            "number": "10",
+            "function": "A1",
+            "xMm": 53.339999999999996,
+            "yMm": 50.8
+          },
+          {
+            "number": "11",
+            "function": "A2",
+            "xMm": 55.879999999999995,
+            "yMm": 50.8
+          },
+          {
+            "number": "12",
+            "function": "A3",
+            "xMm": 58.419999999999995,
+            "yMm": 50.8
+          },
+          {
+            "number": "13",
+            "function": "A4",
+            "xMm": 60.959999999999994,
+            "yMm": 50.8
+          },
+          {
+            "number": "14",
+            "function": "A5",
+            "xMm": 63.5,
+            "yMm": 50.8
+          }
+        ]
+      },
+      {
+        "id": "DIGITAL",
+        "name": "Uno R3 digital row",
+        "yMm": 2.54,
+        "pins": [
+          {
+            "number": "1",
+            "function": "SCL",
+            "xMm": 18.8,
+            "yMm": 2.54
+          },
+          {
+            "number": "2",
+            "function": "SDA",
+            "xMm": 21.34,
+            "yMm": 2.54
+          },
+          {
+            "number": "3",
+            "function": "AREF",
+            "xMm": 23.88,
+            "yMm": 2.54
+          },
+          {
+            "number": "4",
+            "function": "GND",
+            "xMm": 26.42,
+            "yMm": 2.54
+          },
+          {
+            "number": "5",
+            "function": "D13",
+            "xMm": 28.96,
+            "yMm": 2.54
+          },
+          {
+            "number": "6",
+            "function": "D12",
+            "xMm": 31.5,
+            "yMm": 2.54
+          },
+          {
+            "number": "7",
+            "function": "D11",
+            "xMm": 34.04,
+            "yMm": 2.54
+          },
+          {
+            "number": "8",
+            "function": "D10",
+            "xMm": 36.58,
+            "yMm": 2.54
+          },
+          {
+            "number": "9",
+            "function": "D9",
+            "xMm": 39.12,
+            "yMm": 2.54
+          },
+          {
+            "number": "10",
+            "function": "D8",
+            "xMm": 41.66,
+            "yMm": 2.54
+          },
+          {
+            "number": "11",
+            "function": "D7",
+            "xMm": 45.72,
+            "yMm": 2.54
+          },
+          {
+            "number": "12",
+            "function": "D6",
+            "xMm": 48.26,
+            "yMm": 2.54
+          },
+          {
+            "number": "13",
+            "function": "D5",
+            "xMm": 50.8,
+            "yMm": 2.54
+          },
+          {
+            "number": "14",
+            "function": "D4",
+            "xMm": 53.34,
+            "yMm": 2.54
+          },
+          {
+            "number": "15",
+            "function": "D3",
+            "xMm": 55.88,
+            "yMm": 2.54
+          },
+          {
+            "number": "16",
+            "function": "D2",
+            "xMm": 58.42,
+            "yMm": 2.54
+          },
+          {
+            "number": "17",
+            "function": "D1/TX",
+            "xMm": 60.96,
+            "yMm": 2.54
+          },
+          {
+            "number": "18",
+            "function": "D0/RX",
+            "xMm": 63.5,
+            "yMm": 2.54
+          }
+        ]
+      }
+    ],
+    "keepouts": [
+      {
+        "id": "Uno USB connector projection",
+        "xMm": 0.8,
+        "yMm": 0.8,
+        "widthMm": 14,
+        "heightMm": 14
+      },
+      {
+        "id": "Uno DC barrel jack projection",
+        "xMm": 0.8,
+        "yMm": 28,
+        "widthMm": 14,
+        "heightMm": 14
+      },
+      {
+        "id": "Mounting hole lower-left",
+        "xMm": 1,
+        "yMm": 1,
+        "widthMm": 4,
+        "heightMm": 4
+      },
+      {
+        "id": "Mounting hole upper-left",
+        "xMm": 1,
+        "yMm": 34,
+        "widthMm": 4,
+        "heightMm": 4
+      },
+      {
+        "id": "Mounting hole lower-right",
+        "xMm": 63.5,
+        "yMm": 1,
+        "widthMm": 4,
+        "heightMm": 4
+      },
+      {
+        "id": "Mounting hole upper-right",
+        "xMm": 63.5,
+        "yMm": 34,
+        "widthMm": 4,
+        "heightMm": 4
+      }
+    ]
+  }
+}
