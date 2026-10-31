@@ -88,8 +88,8 @@ test("project import validates and confirms replacement before capturing or repl
 
 test("unsaved edits write a local recovery draft and successful saves clear it", async () => {
   const source = await readFile(new URL("../app.js", import.meta.url), "utf8");
-  assert.match(source, /writeRecoveryDraft\\(localStorage, RECOVERY_KEY, state\\.project\\)/);
-  assert.match(source, /clearRecoveryDraft\\(localStorage, RECOVERY_KEY\\)/);
+  assert.match(source, /writeRecoveryDraft\(localStorage, RECOVERY_KEY, state\.project\)/);
+  assert.match(source, /clearRecoveryDraft\(localStorage, RECOVERY_KEY\)/);
   assert.match(source, /Restored the latest unsaved project saved in this browser/);
 });
 
