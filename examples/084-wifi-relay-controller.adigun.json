@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-084-wifi-relay-controller",
+  "metadata": {
+    "name": "Wi-Fi Relay Controller Mock",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          38,
+          56
+        ],
+        "schematic": [
+          38,
+          56
+        ],
+        "pcb": [
+          38,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "command",
+      "libraryId": "input.wifi-relay-command",
+      "reference": "CMD1",
+      "value": "Command ON; Token TEST_TOKEN",
+      "position": {
+        "breadboard": [
+          125,
+          56
+        ],
+        "schematic": [
+          125,
+          56
+        ],
+        "pcb": [
+          125,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "controller",
+      "libraryId": "active.wifi-relay-controller-ideal",
+      "reference": "U1",
+      "value": "Mode local-relay; AuthMode placeholder; ExpectedToken TEST_TOKEN; OfflineState fail-safe",
+      "position": {
+        "breadboard": [
+          260,
+          56
+        ],
+        "schematic": [
+          260,
+          56
+        ],
+        "pcb": [
+          260,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "wifi",
+      "libraryId": "active.wifi-module-mock",
+      "reference": "WIFI1",
+      "value": "Mode local-mock; Link online",
+      "position": {
+        "breadboard": [
+          410,
+          56
+        ],
+        "schematic": [
+          410,
+          56
+        ],
+        "pcb": [
+          410,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "driver",
+      "libraryId": "active.wifi-relay-driver-ideal",
+      "reference": "Q1",
+      "value": "Mode ideal-switch; RequestedCoilCurrentMa 70; MaximumCurrentMa 100",
+      "position": {
+        "breadboard": [
+          530,
+          56
+        ],
+        "schematic": [
+          530,
+          56
+        ],
+        "pcb": [
+          530,
+          56
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          605,
+          245
+        ],
+        "schematic": [
+          605,
+          245
+        ],
+        "pcb": [
+          605,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "controller:VCC",
+        "wifi:VCC",
+        "driver:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "command:GND",
+        "controller:GND",
+        "wifi:GND",
+        "driver:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "COMMAND",
+      "endpoints": [
+        "command:COMMAND",
+        "controller:CMD"
+      ]
+    },
+    {
+      "id": "TOKEN",
+      "endpoints": [
+        "command:TOKEN",
+        "controller:TOKEN"
+      ]
+    },
+    {
+      "id": "LINK",
+      "endpoints": [
+        "wifi:LINK",
+        "controller:LINK"
+      ]
+    },
+    {
+      "id": "DRIVE",
+      "endpoints": [
+        "controller:DRIVE",
+        "driver:IN"
+      ]
+    }
+  ],
+  "history": []
+}
