@@ -5,11 +5,11 @@
     "componentTypes": 565
   },
   "ledger": {
-    "total": 4,
+    "total": 7,
     "verified": 0,
     "remaining": 1000,
     "byStatus": {
-      "candidate": 4,
+      "candidate": 7,
       "in-review": 0,
       "verified": 0,
       "rejected": 0
@@ -45,7 +45,7 @@
       {
         "code": "D",
         "declaredTypes": 35,
-        "partRecords": 0,
+        "partRecords": 1,
         "verifiedRecords": 0,
         "coveredTypes": 0,
         "missingTypes": 35
@@ -53,7 +53,7 @@
       {
         "code": "E",
         "declaredTypes": 47,
-        "partRecords": 2,
+        "partRecords": 3,
         "verifiedRecords": 0,
         "coveredTypes": 0,
         "missingTypes": 47
@@ -61,7 +61,7 @@
       {
         "code": "F",
         "declaredTypes": 67,
-        "partRecords": 0,
+        "partRecords": 1,
         "verifiedRecords": 0,
         "coveredTypes": 0,
         "missingTypes": 67

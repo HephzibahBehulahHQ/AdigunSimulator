@@ -65,6 +65,134 @@
       },
       "notes": "Candidate only. The official product family page must be supplemented by an exact orderable-part datasheet before verification.",
       "typeCode": "C01"
+    },
+    {
+      "id": "onsemi.2n3904bu",
+      "manufacturer": "onsemi",
+      "manufacturerPartNumber": "2N3904BU",
+      "category": "Transistors",
+      "type": "general-purpose NPN BJT",
+      "typeCode": "D01",
+      "lifecycle": "manufacturer lifecycle not determined",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "2N3904 NPN General-Purpose Amplifier datasheet",
+        "url": "https://www.onsemi.com/download/data-sheet/pdf/2n3904-d.pdf",
+        "accessedAt": "2026-10-31"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.onsemi.com/download/data-sheet/pdf/2n3904-d.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "TO-92-3",
+        "pinCount": 3,
+        "sourceUrl": "https://www.onsemi.com/download/data-sheet/pdf/2n3904-d.pdf"
+      },
+      "ratings": [
+        {
+          "name": "collector-emitter voltage",
+          "maximum": 40,
+          "unit": "V"
+        },
+        {
+          "name": "continuous collector current",
+          "maximum": 0.2,
+          "unit": "A"
+        }
+      ],
+      "notes": "Candidate source for exact orderable number 2N3904BU. The manufacturer datasheet identifies the TO-92-3 lead functions; pin maps, licensed symbol/footprint assets, model evidence, datasheet checksum, and independent human review are still required. Not counted as verified."
+    },
+    {
+      "id": "ti.sn74hc00n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC00N",
+      "category": "Digital logic",
+      "type": "NAND gate",
+      "typeCode": "F05",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC00 Quadruple 2-Input NAND Gates datasheet (Rev. H)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc00.pdf",
+        "accessedAt": "2026-10-31"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC00/part-details/SN74HC00N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc00.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-14",
+        "pinCount": 14,
+        "sourceUrl": "https://www.ti.com/product/SN74HC00/part-details/SN74HC00N"
+      },
+      "ratings": [
+        {
+          "name": "operating supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "notes": "TI lists SN74HC00N as an active PDIP-14 orderable part with four independent two-input NAND gates. Full pin mapping, licensed symbol/footprint assets, model evidence, datasheet checksum, and independent human review remain incomplete; not counted as verified."
+    },
+    {
+      "id": "ti.lm7805ct-nopb",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "LM7805CT/NOPB",
+      "category": "Power management",
+      "type": "linear regulator",
+      "typeCode": "E21",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "LM340, LM340A and LM7805 Family Wide VIN 1.5-A Fixed Voltage Regulators datasheet (Rev. L)",
+        "url": "https://www.ti.com/lit/ds/symlink/lm7800.pdf",
+        "accessedAt": "2026-10-31"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/LM7800/part-details/LM7805CT/NOPB",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/lm7800.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "TO-220-3",
+        "pinCount": 3,
+        "sourceUrl": "https://www.ti.com/product/LM7800/part-details/LM7805CT/NOPB"
+      },
+      "ratings": [
+        {
+          "name": "fixed output voltage",
+          "value": 5,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": 0,
+          "maximum": 125,
+          "unit": "°C"
+        }
+      ],
+      "notes": "TI lists this exact order code as active in TO-220 with a fixed 5 V output. Full pin mapping, licensed symbol/footprint assets, model evidence, datasheet checksum, and independent human review remain incomplete; not counted as verified."
     }
   ]
 }

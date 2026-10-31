@@ -486,12 +486,16 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(validatePartLedger(ledger, taxonomy).valid, true);
   assert.equal(validatePartsManifest(manifest, taxonomy, ledger).valid, true);
   const coverage = getLedgerCoverage(ledger);
-  assert.equal(coverage.total, 4);
+  assert.equal(coverage.total, 7);
   assert.equal(coverage.verified, 0);
+  assert.equal(coverage.byStatus.candidate, 7);
   assert.equal(coverage.remaining, 1000);
   assert.deepEqual(getLibraryCoverage(ledger, taxonomy), coverageFile);
   assert.equal(coverageFile.taxonomy.totalTypes, 565);
   assert.equal(coverageFile.taxonomy.categories.length, 15);
+  assert.equal(coverageFile.ledger.total, 7);
+  assert.equal(coverageFile.ledger.verified, 0);
+  assert.equal(coverageFile.ledger.byStatus.candidate, 7);
 });
 
 test("verified parts require complete datasheet, package, pin, model, license, safety, and translation evidence", () => {
