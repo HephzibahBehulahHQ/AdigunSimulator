@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "targetVerifiedRecords": 1000,
+  "taxonomyTypeCount": 565,
+  "taxonomyPath": "library/component-types.json",
+  "ledgerPath": "library/parts-ledger.json",
+  "coveragePath": "library/parts-coverage.json",
+  "evidenceDirectory": "library/evidence",
+  "licenseLedgerPath": "library/licenses.json",
+  "countingPolicy": "Only exact manufacturer orderable part records with complete machine-checkable evidence and identified human reviewer are counted as verified. Automated gates do not prove human source inspection."
+}
