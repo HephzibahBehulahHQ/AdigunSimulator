@@ -694,11 +694,11 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
   assert.equal(getExampleCoverage(registry).total, 21);
-  assert.equal(getExampleCoverage(registry).released, 10);
+  assert.equal(getExampleCoverage(registry).released, 11);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
-  assert.equal(getExampleCoverage(registry).remaining, 190);
+  assert.equal(getExampleCoverage(registry).remaining, 189);
   const catalogue = registry.examples.filter((item) => item.status === "released" && item.scope === "catalogue");
-  assert.deepEqual(catalogue.map((item) => item.catalogueIndex), [1, 2, 3, 4, 5, 6, 7, 11, 12, 13]);
+  assert.deepEqual(catalogue.map((item) => item.catalogueIndex), [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13]);
   const supplemental = registry.examples.filter((item) => item.status === "released" && item.scope === "supplemental");
   assert.equal(supplemental.length, 10);
   assert.equal(supplemental[0].catalogueIndex, undefined);
