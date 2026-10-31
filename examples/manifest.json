@@ -3386,6 +3386,55 @@
           "regionalCompliance": "not evaluated"
         }
       }
+    },
+    {
+      "id": "083-gsm-alarm-notifier",
+      "title": "GSM alarm notifier mock",
+      "status": "released",
+      "objective": "Check a local SMS-style AT command sequence for an active alarm and stop on modem errors, while distinguishing mock modem acceptance from confirmed delivery.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue GSM alarm notifier follows mocked AT steps and aborts on modem errors",
+      "testId": "core-gsm-alarm-mock",
+      "projectFile": "examples/083-gsm-alarm-notifier.adigun.json",
+      "safetyNote": "Local TEST_ONLY transaction simulation only. It never contacts a mobile network or sends an SMS. Registration and modem responses are fixtures; modem firmware, SIM state, network service, RF behavior, and delivery are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 83,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41182702171",
+        "headRevision": "b7793a0e2a11cc451bd246a9564bd727f67cc729",
+        "engine": "Mock GSM AT-command alarm transaction",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "mock-gsm-sms-at-transaction-v1",
+        "expectedResult": {
+          "alarmState": "active",
+          "destination": "TEST_ONLY",
+          "commands": [
+            "AT",
+            "AT+CREG?",
+            "AT+CMGF=1",
+            "AT+CMGS=\"TEST_ONLY\""
+          ],
+          "responses": [
+            "OK",
+            "+CREG:0,1",
+            "OK",
+            ">"
+          ],
+          "sendResult": [
+            "+CMGS:0",
+            "OK"
+          ],
+          "commandsCompleted": 4,
+          "transactionState": "mock-modem-accepted",
+          "messageBody": "TEMP_LIMIT_EXCEEDED",
+          "modemAccepted": true,
+          "deliveryConfirmed": false,
+          "radioTransmitted": false,
+          "firmwareExecuted": false,
+          "errorHandling": "stop at first unexpected modem response"
+        }
+      }
     }
   ]
 }
