@@ -12,7 +12,7 @@ export const UI_KEYS = Object.freeze([
   "simulationControl", "availableAnalysis", "runCalculation", "stopSimulation", "simulationLimit",
   "runValidation", "validationHelp", "botAssistant", "botUnavailable", "botPrivacy", "botPlaceholder",
   "close", "collapseLibrary", "collapseProperties", "maximizeSchematic", "maximizePcb",
-  "releasedExamples", "loadTestedStarter", "loadSelectedExample", "morePlannedExamples", "electricalConnections", "firstPin", "secondPin", "connectPins", "noConnectedNets", "disconnect", "removeComponent"
+  "releasedExamples", "examplePwmLedDimmer", "loadTestedStarter", "loadSelectedExample", "morePlannedExamples", "electricalConnections", "firstPin", "secondPin", "connectPins", "noConnectedNets", "disconnect", "removeComponent"
 ]);
 
 export const TRANSLATIONS = Object.freeze({
@@ -68,3 +68,8 @@ Object.assign(TRANSLATIONS.en, { officialLinks: "Official company links", linked
 Object.assign(TRANSLATIONS.de, { officialLinks: "Offizielle Unternehmenslinks", linkedinPersonalProfile: "Persönliches LinkedIn-Profil", productTagline: "Entwerfen · Analysieren · Prototypisieren" });
 Object.assign(TRANSLATIONS.yo, { officialLinks: "Àwọn ìjápọ̀ àjọ tó jẹ́ ti òfin", linkedinPersonalProfile: "Àkọọ́lẹ̀ LinkedIn ẹni kọọkan", productTagline: "Ṣe àwòrán · Ṣe àyẹ̀wò · Ṣe àpẹẹrẹ" });
 Object.assign(TRANSLATIONS.pcm, { officialLinks: "Official company links", linkedinPersonalProfile: "LinkedIn personal profile", productTagline: "Design · Analyze · Prototype" });
+
+Object.assign(TRANSLATIONS.en, { examplePwmLedDimmer: "5 V PWM LED dimmer", morePlannedExamples: "Eight of the 200 catalogue projects are released; ten supplemental studies are also available. The remaining catalogue projects are planned and cannot be loaded yet.", availableAnalysis: "Available analyses include the ideal PWM LED average-current model; no switching waveform is simulated." });
+Object.assign(TRANSLATIONS.de, { examplePwmLedDimmer: "5-V-PWM-LED-Dimmer", morePlannedExamples: "Acht der 200 Katalogprojekte sind veröffentlicht; zehn ergänzende Studien sind ebenfalls verfügbar. Die übrigen Katalogprojekte sind geplant und noch nicht ladbar.", availableAnalysis: "Verfügbar ist auch das ideale PWM-LED-Mittelstrommodell; eine Schaltkurve wird nicht simuliert." });
+Object.assign(TRANSLATIONS.yo, { examplePwmLedDimmer: "PWM dimmer LED 5 V", morePlannedExamples: "A ti tú iṣẹ́ kátàlọ́ọ̀gù mẹ́jọ nínú 200 síta; àfikún ìwádìí mẹ́wàá tún wà. A ti ṣètò àwọn tó kù, wọn kò tíì ṣe é ṣí.", availableAnalysis: "Àwòṣe ìṣàn àárín PWM LED tó rọrùn wà; a kò ṣe àfihàn ìgbìyànjú yíyípo." });
+Object.assign(TRANSLATIONS.pcm, { examplePwmLedDimmer: "5 V PWM LED dimmer", morePlannedExamples: "Eight out of 200 catalogue projects don release; ten extra studies dey available too. The remaining catalogue projects never ready to load.", availableAnalysis: "Ideal PWM LED average-current model dey available; e no simulate switching waveform." });
