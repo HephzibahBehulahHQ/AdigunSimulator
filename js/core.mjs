@@ -446,6 +446,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (dualComparators.length === 1 && source.length === 2 && resistor.length === 3 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseComparatorThreshold(project, { sources: source, comparator: dualComparators[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
+  if (npnTransistors.length === 1 && source.length === 2 && acSource.length === 0 && schottkyDiodes.length === 1 && resistor.length === 2 && inductor.length === 1 && ground.length === 1 && project.components.length === 8) {
+    return analyseNpnRelayDriver(project, { sources: source, transistor: npnTransistors[0], diode: schottkyDiodes[0], resistors: resistor, coil: inductor[0], ground: ground[0], validation });
+  }
   if (npnTransistors.length === 1 && source.length === 2 && acSource.length === 0 && resistor.length === 1 && capacitor.length === 0 && ground.length === 1 && project.components.length === 5) {
     return analyseNpnEmitterFollower(project, { sources: source, transistor: npnTransistors[0], load: resistor[0], ground: ground[0], validation });
   }
@@ -1040,6 +1043,47 @@ function analyseNmosLowSideSwitch(project,{sources,mosfet,diode,coilResistance,c
   const gateHigh=gateVoltage>=vth,onCurrentA=supplyVoltage/(rCoil+rdsOn),onDrainVoltageV=onCurrentA*rdsOn,tauS=inductance/rCoil;
   const decay=[0,1,3].map(multiple=>{const timeS=multiple*tauS,currentA=Math.max(0,(onCurrentA+vf/rCoil)*Math.exp(-rCoil*timeS/inductance)-vf/rCoil);return {timeS,currentA};});
   return {state:"complete",engine:"Ideal low-side MOSFET and flyback-coil estimate",message:"Uses a 2 V gate threshold, fixed 0.1 Ω on-resistance, and constant-drop flyback diode. It reports steady off/on states and a first-order coil-current decay. It omits switching edges, MOSFET capacitance, diode recovery, thermal behavior, avalanche, and component ratings.",result:{kind:"nmos-low-side-switch",supplyVoltage,gateVoltage,gateThresholdV:vth,switchOn:gateHigh,drainSourceVoltageV:gateHigh?onDrainVoltageV:supplyVoltage,loadCurrentA:gateHigh?onCurrentA:0,coilResistanceOhm:rCoil,inductanceH:inductance,onCurrentA,onDrainVoltageV,flybackClampVoltageV:supplyVoltage+vf,coilStoredEnergyJ:0.5*inductance*onCurrentA*onCurrentA,timeConstantS:tauS,turnOffDecay:decay},validation};
+}
+
+function analyseNpnRelayDriver(project,{sources,transistor,diode,resistors,coil,ground,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const groundNet=n(ground,"0"),collectorNet=n(transistor,"C"),baseNet=n(transistor,"B"),emitterNet=n(transistor,"E");
+  const supply=sources.find(part=>n(part,"-")===groundNet&&n(part,"+")!==groundNet);
+  const control=sources.find(part=>part!==supply&&n(part,"-")===groundNet&&n(part,"+")!==groundNet);
+  const coilResistance=resistors.find(r=>r!==resistors.find(x=>(n(x,"1")===n(control,"+")&&n(x,"2")===baseNet)||(n(x,"2")===n(control,"+")&&n(x,"1")===baseNet)));
+  const baseResistor=resistors.find(r=>r!==coilResistance);
+  const coilMid=coilResistance?([n(coilResistance,"1"),n(coilResistance,"2")].find(net=>net!==n(supply,"+"))):undefined;
+  const baseResistorWired=baseResistor&&control&&((n(baseResistor,"1")===n(control,"+")&&n(baseResistor,"2")===baseNet)||(n(baseResistor,"2")===n(control,"+")&&n(baseResistor,"1")===baseNet));
+  const coilResistanceWired=coilResistance&&supply&&((n(coilResistance,"1")===n(supply,"+")&&n(coilResistance,"2")===coilMid)||(n(coilResistance,"2")===n(supply,"+")&&n(coilResistance,"1")===coilMid));
+  const coilWired=coilMid&&((n(coil,"1")===coilMid&&n(coil,"2")===collectorNet)||(n(coil,"2")===coilMid&&n(coil,"1")===collectorNet));
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,controlVoltage=control?voltageValue(control.value):Number.NaN;
+  const rCoil=coilResistance?resistanceValue(coilResistance.value):Number.NaN,rBase=baseResistor?resistanceValue(baseResistor.value):Number.NaN;
+  const inductance=inductanceValue(coil.value),vf=forwardVoltage(diode.value),beta=100,vbe=0.7,vceSat=0.2,baseCurrentLimitA=0.02,pullInThresholdA=0.4;
+  if(!supply||!control||!baseResistor||!coilResistance||!baseResistorWired||!coilResistanceWired||!coilWired
+    ||n(supply,"-")!==groundNet||n(control,"-")!==groundNet||emitterNet!==groundNet
+    ||n(diode,"A")!==collectorNet||n(diode,"K")!==n(supply,"+")
+    ||![supplyVoltage,controlVoltage,rCoil,rBase,inductance,vf].every(Number.isFinite)
+    ||supplyVoltage<=0||controlVoltage<0||controlVoltage>supplyVoltage||rBase<=0||rCoil<=0||inductance<=0||vf<=0){
+    return {state:"blocked",message:"Wire a common-ground 12 V relay-coil estimate, a current-limited NPN base drive, series R-L coil, and flyback diode from collector to supply.",validation};
+  }
+  const baseCurrentA=Math.max(0,(controlVoltage-vbe)/rBase);
+  if(baseCurrentA>baseCurrentLimitA){
+    return {state:"blocked",message:"The generic model limits base current to 20 mA; increase the base resistor or lower the drive voltage.",validation};
+  }
+  const coilCurrentLimitA=Math.max(0,(supplyVoltage-vceSat)/rCoil),betaLimitedCurrentA=beta*baseCurrentA;
+  const coilCurrentA=Math.min(coilCurrentLimitA,betaLimitedCurrentA),transistorConducting=coilCurrentA>0;
+  const transistorSaturated=transistorConducting&&coilCurrentA>=coilCurrentLimitA-1e-12;
+  const collectorVoltageV=transistorSaturated?vceSat:supplyVoltage-coilCurrentA*rCoil;
+  const timeConstantS=inductance/rCoil;
+  const turnOffDecay=[0,1,3].map(multiple=>{
+    const timeS=multiple*timeConstantS;
+    const currentA=Math.max(0,(coilCurrentA+vf/rCoil)*Math.exp(-rCoil*timeS/inductance)-vf/rCoil);
+    return {timeS,currentA};
+  });
+  const coilStoredEnergyJ=0.5*inductance*coilCurrentA*coilCurrentA;
+  return {state:"complete",engine:"Generic NPN relay-coil and flyback estimate",message:"Uses β=100, VBE=0.7 V, VCE(sat)=0.2 V, a 20 mA base-current bound, a 0.4 A assumed relay pull-in threshold, and a constant-drop diode. The relay is represented by its series R-L coil; contact motion, actual pull-in/drop-out data, switching edges, transistor curves, thermal behavior, diode recovery, and manufacturer ratings are not modeled.",result:{kind:"npn-relay-driver",supplyVoltage,controlVoltage,baseResistanceOhm:rBase,coilResistanceOhm:rCoil,inductanceH:inductance,beta,vbeV:vbe,vceSatV:vceSat,baseCurrentLimitA,baseCurrentA,betaLimitedCurrentA,coilCurrentLimitA,coilCurrentA,transistorConducting,transistorSaturated,collectorVoltageV,relayPullInThresholdA:pullInThresholdA,relayEnergizedEstimate:coilCurrentA>=pullInThresholdA,flybackClampVoltageV:supplyVoltage+vf,coilStoredEnergyJ,timeConstantS,turnOffDecay},validation};
 }
 
 function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground, validation }) {
