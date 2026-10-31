@@ -5326,14 +5326,44 @@
     {
       "id": "129-buck-converter-pcb",
       "title": "12 V to 5 V buck converter PCB",
-      "status": "in-review",
+      "status": "released",
       "objective": "Check an LM2596 fixed-output buck topology with catch diode, inductor, input/output capacitors, feedback sense, high-current net classes, bounded DRC, BOM and placement exports.",
       "acceptanceTest": "tests/core.test.mjs: LM2596 buck converter verifies topology, layout review, DRC and export snapshots",
       "testId": "core-buck-converter-pcb",
       "projectFile": "examples/129-buck-converter-pcb.adigun.json",
       "readmeFile": "examples/129-buck-converter-pcb/README.md",
       "safetyNote": "Educational 12 V to 5 V single-layer template with a declared 1 A layout-review envelope only. Switching behavior, ripple, efficiency, current limit, inductor saturation, thermal performance, EMC and manufacturing safety are not simulated or qualified. Verify the purchased parts and layout before fabrication.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 129,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41197866860",
+        "headRevision": "d4a1c42c06c4257306ae00e1d2daba8f996cfa1d",
+        "engine": "Bounded LM2596 buck topology and PCB power-layout review",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "lm2596-12v-5v-layout-review-v1",
+        "expectedResult": {
+          "kind": "lm2596-buck-converter-topology",
+          "device": "LM2596T-5.0/NOPB",
+          "inputVoltageV": 12,
+          "declaredOutputVoltageV": 5,
+          "declaredLayoutCurrentLimitA": 1,
+          "manufacturerPinMapValid": true,
+          "pcbDrc": "passed",
+          "powerLayoutReview": "passed",
+          "switchingSimulation": false,
+          "hardwareManufacturingQualified": false,
+          "artifacts": [
+            "BOM.csv",
+            "Placement.csv",
+            "Power-Layout-Review.csv",
+            "board-F_Cu.gbr",
+            "board-Edge_Cuts.gbr",
+            "board-PTH.drl"
+          ]
+        }
+      }
     }
   ]
 }
