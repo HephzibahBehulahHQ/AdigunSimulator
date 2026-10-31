@@ -2764,14 +2764,39 @@
     {
       "id": "068-esp32-telemetry-mock",
       "title": "ESP32 temperature telemetry payload mock",
-      "status": "in-review",
+      "status": "released",
       "objective": "Quantize a configured temperature sensor sample into an ideal 12-bit ADC result and form a deterministic JSON telemetry payload for offline inspection.",
       "acceptanceTest": "tests/core.test.mjs: catalogue ESP32 telemetry mock forms JSON locally without network transmission",
       "testId": "core-esp32-telemetry-mock",
       "projectFile": "examples/068-esp32-telemetry-mock.adigun.json",
       "safetyNote": "Offline payload-formatting mock; no Wi-Fi, network, authentication, Internet transfer, ESP32 firmware, ADC nonlinearity, or sensor accuracy is modeled.",
       "scope": "catalogue",
-      "catalogueIndex": 68
+      "catalogueIndex": 68,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41177822704",
+        "headRevision": "d5fecc0ef309b3685e68ea5c8dcfb7418d8f09f9",
+        "engine": "Ideal ESP32-class offline telemetry formatter",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-esp32-telemetry-json-v1",
+        "expectedResult": {
+          "adcResolutionBits": 12,
+          "temperatureSamplesC": [
+            0,
+            25,
+            80
+          ],
+          "payloadFields": [
+            "device",
+            "sequence",
+            "temperatureC"
+          ],
+          "transport": "offline-mock",
+          "transmitted": false,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
