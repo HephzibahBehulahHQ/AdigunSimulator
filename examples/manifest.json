@@ -7451,7 +7451,7 @@
     {
       "id": "193-pcb-trace-width-advisor",
       "title": "PCB trace-width assistant",
-      "status": "in-review",
+      "status": "released",
       "objective": "Estimate trace width from current, copper thickness, temperature rise, and external/internal layer selection using a clearly limited legacy empirical equation.",
       "acceptanceTest": "tests/core.test.mjs: catalogue PCB trace-width advisor provides scoped external/internal estimates and rejects invalid inputs",
       "testId": "core-pcb-trace-width-advisor",
@@ -7459,7 +7459,30 @@
       "readmeFile": "examples/193-pcb-trace-width-advisor/README.md",
       "safetyNote": "Legacy IPC-2221 empirical estimate only. It is not IPC-2152 analysis, standards compliance, DRC, thermal sign-off, or manufacturing approval; validate the board-specific construction and safety requirements.",
       "scope": "catalogue",
-      "expectedAnalysis": "complete"
+      "expectedAnalysis": "complete",
+      "catalogueIndex": 193,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41216292058",
+        "headRevision": "f6d36c765d157762c35eed50d0a65c28f9fa3f17",
+        "engine": "IPC-2221 legacy empirical current/temperature-rise estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "pcb-trace-width-advisory-v1",
+        "expectedResult": {
+          "kind": "pcb-trace-width-advisory",
+          "caseCount": 2,
+          "layerTypes": [
+            "external",
+            "internal"
+          ],
+          "estimatedWidthsMm": [
+            0.7814374629,
+            2.032862549
+          ],
+          "standardLimitation": "Advisory only; not IPC-2152 analysis, compliance, DRC, or manufacturing approval."
+        }
+      }
     }
   ]
 }
