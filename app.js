@@ -16,6 +16,7 @@ import {
   validateProject
 } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
+import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
@@ -227,6 +228,96 @@ function netSvg(project, view, unavailable = new Set()) {
   return `<svg class="wire-layer" viewBox="0 0 680 300" aria-hidden="true">${paths}</svg>`;
 }
 
+
+function breadboardBoardSvg() {
+  const holes = breadboardHoleIds().map((id) => {
+    const { x, y } = breadboardHolePoint(id);
+    const rail = /^(TP|TM|BP|BM)/.test(id);
+    return `<circle class="board-hole ${rail ? "rail-hole" : ""}" cx="${x}" cy="${y}" r="${rail ? 3.1 : 2.1}"/>`;
+  }).join("");
+  return `<svg class="breadboard-art" viewBox="0 0 680 300" preserveAspectRatio="none" role="img" aria-label="Generic 400-point breadboard, thirty columns, ten terminal rows and four split rails">
+    <rect class="board-plate" x="34" y="38" width="612" height="224" rx="13"/>
+    <path class="board-trench" d="M48 151 H632"/>
+    <path class="board-rail-positive" d="M54 54 H330 M350 54 H626 M54 232 H330 M350 232 H626"/>
+    <path class="board-rail-negative" d="M54 68 H330 M350 68 H626 M54 246 H330 M350 246 H626"/>
+    <path class="board-rail-break" d="M340 49 V73 M340 227 V251"/>
+    <g class="board-hole-field">${holes}</g>
+    <g class="board-markings"><text x="39" y="58">+</text><text x="39" y="72">−</text><text x="39" y="236">+</text><text x="39" y="250">−</text><text x="340" y="158">CENTER TRENCH</text></g>
+  </svg>`;
+}
+
+function breadboardWireSvg(project) {
+  const config = project.breadboard;
+  if (!config || !Array.isArray(config.jumpers)) return "";
+  const netByEndpoint = new Map();
+  for (const net of project.nets ?? []) for (const endpoint of net.endpoints ?? []) netByEndpoint.set(endpoint, net.id);
+  const netForHole = (hole) => {
+    const endpoint = Object.entries(config.pinHoles ?? {}).find(([, assigned]) => normalizeBreadboardHole(assigned) === hole)?.[0];
+    return endpoint ? netByEndpoint.get(endpoint) : undefined;
+  };
+  const paths = config.jumpers.map((jumper, index) => {
+    const from = normalizeBreadboardHole(jumper.from), to = normalizeBreadboardHole(jumper.to);
+    const start = from && breadboardHolePoint(from), end = to && breadboardHolePoint(to);
+    if (!start || !end) return "";
+    const netId = netForHole(from) ?? netForHole(to);
+    const lift = Math.max(14, Math.min(38, Math.abs(end.x - start.x) * .08));
+    return `<path class="jumper-wire ${netId ? netClass(netId) : "net-signal"}" d="M${start.x} ${start.y} C${start.x} ${start.y - lift}, ${end.x} ${end.y - lift}, ${end.x} ${end.y}" data-jumper-index="${index}"/>`;
+  }).join("");
+  return `<svg class="wire-layer breadboard-wire-layer" viewBox="0 0 680 300" preserveAspectRatio="none" aria-hidden="true">${paths}</svg>`;
+}
+
+function breadboardPinMarkers(project) {
+  const config = project.breadboard;
+  if (!config?.pinHoles) return "";
+  const netByEndpoint = new Map();
+  for (const net of project.nets ?? []) for (const endpoint of net.endpoints ?? []) netByEndpoint.set(endpoint, net.id);
+  return Object.entries(config.pinHoles).map(([endpoint, rawHole]) => {
+    const hole = normalizeBreadboardHole(rawHole), split = endpoint.indexOf(":");
+    const component = project.components.find((item) => item.instanceId === endpoint.slice(0, split));
+    if (!hole || !component) return "";
+    const pin = endpoint.slice(split + 1), part = findLibraryPart(component.libraryId), point = breadboardHolePoint(hole);
+    const netId = netByEndpoint.get(endpoint);
+    const selected = component.instanceId === state.selectedInstanceId ? " selected" : "";
+    const netSelected = netId && netId === state.selectedNetId ? " is-net-highlight" : "";
+    const aria = `${component.reference} pin ${pin} at breadboard hole ${hole}`;
+    return `<button type="button" class="breadboard-pin ${netId ? netClass(netId) : ""}${selected}${netSelected}" data-instance-id="${escape(component.instanceId)}" title="${escape(aria)}" aria-label="${escape(aria)}" style="--pin-x:${(point.x / 680) * 100}%;--pin-y:${(point.y / 300) * 100}%"><span class="physical-pin-name" aria-hidden="true">${selected ? `${escape(component.reference)}.${escape(pin)}` : ""}</span><span class="sr-only">${escape(component.reference)}.${escape(pin)} · ${escape(part?.type ?? "Component")} · ${escape(hole)}</span></button>`;
+  }).join("");
+}
+
+function renderBreadboardControls() {
+  const config = state.project.breadboard;
+  const pinSelect = $("#breadboard-pin");
+  const holes = breadboardHoleIds();
+  const previous = pinSelect.value;
+  const options = state.project.components.flatMap((component) => {
+    const part = findLibraryPart(component.libraryId);
+    return (part?.pins ?? []).map((pin) => ({ value: `${component.instanceId}:${pin}`, label: `${component.reference}.${pin} — ${part.type}` }));
+  });
+  pinSelect.innerHTML = options.map((item) => `<option value="${escape(item.value)}">${escape(item.label)}</option>`).join("");
+  if (options.some((item) => item.value === previous)) pinSelect.value = previous;
+  $("#breadboard-hole-options").innerHTML = holes.map((hole) => `<option value="${hole}"></option>`).join("");
+  const report = validateBreadboardTopology(state.project, { getPartPins: (libraryId) => findLibraryPart(libraryId)?.pins ?? [] });
+  const stateLabel = report.state === "complete" ? t("breadboardComplete") : report.state === "blocked" ? t("breadboardBlocked") : t("breadboardIncomplete");
+  const issue = report.errors[0] ?? report.warnings[0];
+  $("#breadboard-status").textContent = `${stateLabel} · ${report.mappedPinCount} ${t("breadboardMappedPins")} · ${report.jumperCount} ${t("breadboardJumpers")}${issue ? ` · ${issue.message}` : ""}`;
+  $("#breadboard-placement-list").innerHTML = Object.entries(config?.pinHoles ?? {}).map(([endpoint, hole]) => {
+    const component = state.project.components.find((item) => endpoint.startsWith(`${item.instanceId}:`));
+    return `<li><span>${escape(component?.reference ?? endpoint)} → ${escape(hole)}</span><button type="button" data-bb-unassign="${escape(endpoint)}" aria-label="${escape(t("breadboardRemovePlacement"))} ${escape(endpoint)}">×</button></li>`;
+  }).join("") || `<li>${escape(t("breadboardNoPlacements"))}</li>`;
+  $("#breadboard-jumper-list").innerHTML = (config?.jumpers ?? []).map((jumper, index) => `<li><span>${escape(jumper.from)} ↔ ${escape(jumper.to)}</span><button type="button" data-bb-remove-jumper="${index}" aria-label="${escape(t("breadboardRemoveJumper"))} ${escape(jumper.from)} ${escape(jumper.to)}">×</button></li>`).join("") || `<li>${escape(t("breadboardNoJumpers"))}</li>`;
+}
+
+function commitBreadboardEdit(project, message) {
+  captureHistory();
+  state.project = { ...project, metadata: { ...project.metadata, updatedAt: new Date().toISOString() } };
+  state.dirty = true;
+  state.recoveryActive = true;
+  state.lastValidation = null;
+  render();
+  validateAndReport();
+  log(message);
+}
+
 function renderCanvas() {
   const canvas = $("#design-canvas");
   canvas.className = `design-canvas ${state.activeView} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
@@ -237,11 +328,17 @@ function renderCanvas() {
   const projection = projectComponentsForView(state.project, state.activeView);
   const issues = projection.reconciliationItems;
   const unavailable = new Set(issues.map((issue) => issue.instanceId));
-  const parts = projection.components.map((component) => componentVisual(component, state.activeView)).join("");
-  const surface = state.activeView === "breadboard" ? `<div class="breadboard-board" aria-hidden="true"><i></i><i></i><i></i><i></i></div>` : "";
-  const wires = netSvg(state.project, state.activeView, unavailable);
+  const isBreadboard = state.activeView === "breadboard";
+  const hasPhysicalMap = Object.keys(state.project.breadboard?.pinHoles ?? {}).length > 0;
+  const parts = isBreadboard && hasPhysicalMap
+    ? breadboardPinMarkers(state.project)
+    : projection.components.map((component) => componentVisual(component, state.activeView)).join("");
+  const surface = isBreadboard ? breadboardBoardSvg() : "";
+  const wires = isBreadboard
+    ? breadboardWireSvg(state.project)
+    : netSvg(state.project, state.activeView, unavailable);
   const reconciliationNotice = issues.length ? `<div class="reconciliation-notice"><strong>Reconciliation needed</strong>${issues.map((issue) => `<span>${escape(issue.reference)}: ${escape(issue.reason)}</span>`).join("")}</div>` : "";
-  const label = state.activeView === "breadboard" ? "Shared project net layout — confirm physical breadboard rows before energising." : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : "PCB mapping preview — routing/DRC not implemented.";
+  const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : "PCB mapping preview — routing/DRC not implemented.";
   canvas.innerHTML = `<div class="canvas-label">${label}</div>${reconciliationNotice}<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${surface}${wires}${parts}</div>`;
   const miniSchematic = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "schematic").length).map((component) => componentVisual(component, "schematic")).join("");
   const miniPcb = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "pcb").length).map((component) => componentVisual(component, "pcb")).join("");
@@ -265,6 +362,7 @@ function renderInspector() {
   $("#component-form button").disabled = !component;
   $("#remove-component").disabled = !component;
   renderConnections();
+  renderBreadboardControls();
 }
 
 function renderConnections() {
@@ -1045,6 +1143,50 @@ $("#connection-form").addEventListener("submit", (event) => {
   } catch (error) {
     showDialog("Connection not added", error instanceof Error ? error.message : "The selected pins could not be connected.");
   }
+});
+
+$("#breadboard-pin-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const endpoint = $("#breadboard-pin").value;
+  const hole = normalizeBreadboardHole($("#breadboard-hole").value);
+  if (!endpoint || !hole) return showDialog(t("breadboardEditor"), t("breadboardInvalidHole"));
+  const [instanceId, ...pinParts] = endpoint.split(":");
+  const pin = pinParts.join(":");
+  const component = state.project.components.find((item) => item.instanceId === instanceId);
+  if (!component || !findLibraryPart(component.libraryId)?.pins.includes(pin)) return showDialog(t("breadboardEditor"), t("breadboardUnknownPin"));
+  const current = state.project.breadboard ?? { model: BREADBOARD_MODEL.id, pinHoles: {}, jumpers: [] };
+  const next = { ...state.project, breadboard: { ...current, model: BREADBOARD_MODEL.id, pinHoles: { ...(current.pinHoles ?? {}), [endpoint]: hole }, jumpers: current.jumpers ?? [] } };
+  $("#breadboard-hole").value = "";
+  commitBreadboardEdit(next, `[BREADBOARD] Placed ${endpoint} at ${hole}.`);
+});
+$("#breadboard-placement-list").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-bb-unassign]");
+  if (!button) return;
+  const current = state.project.breadboard;
+  if (!current?.pinHoles?.[button.dataset.bbUnassign]) return;
+  const pinHoles = { ...current.pinHoles };
+  delete pinHoles[button.dataset.bbUnassign];
+  commitBreadboardEdit({ ...state.project, breadboard: { ...current, pinHoles } }, `[BREADBOARD] Removed physical placement for ${button.dataset.bbUnassign}.`);
+});
+$("#breadboard-jumper-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const from = normalizeBreadboardHole($("#breadboard-jumper-from").value);
+  const to = normalizeBreadboardHole($("#breadboard-jumper-to").value);
+  if (!from || !to || from === to) return showDialog(t("breadboardEditor"), t("breadboardInvalidJumper"));
+  const current = state.project.breadboard ?? { model: BREADBOARD_MODEL.id, pinHoles: {}, jumpers: [] };
+  const next = { ...state.project, breadboard: { ...current, model: BREADBOARD_MODEL.id, pinHoles: current.pinHoles ?? {}, jumpers: [...(current.jumpers ?? []), { from, to }] } };
+  $("#breadboard-jumper-from").value = "";
+  $("#breadboard-jumper-to").value = "";
+  commitBreadboardEdit(next, `[BREADBOARD] Added physical jumper ${from}–${to}.`);
+});
+$("#breadboard-jumper-list").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-bb-remove-jumper]");
+  if (!button) return;
+  const current = state.project.breadboard;
+  const index = Number(button.dataset.bbRemoveJumper);
+  if (!Number.isInteger(index) || !current?.jumpers?.[index]) return;
+  const jumpers = current.jumpers.filter((_, itemIndex) => itemIndex !== index);
+  commitBreadboardEdit({ ...state.project, breadboard: { ...current, jumpers } }, "[BREADBOARD] Removed a physical jumper.");
 });
 $("#net-list").addEventListener("click", (event) => {
   const netButton = event.target.closest("[data-net-id]");
