@@ -63,6 +63,7 @@ import { calculatePcbTraceWidth, runPcbTraceWidthAdvisor } from "../js/pcb-trace
 import { buildBomReport, exportBomCsv, runBomExportPlaceholder } from "../js/bom-report.mjs";
 import { explainComponent, runBotComponentExplainer } from "../js/bot-component-explainer.mjs";
 import { applyBotFloatingNodeRepairPreview, buildBotFloatingNodeRepairPreview, runBotFloatingNodeRepair } from "../js/bot-floating-node-repair.mjs";
+import { applyBotCircuitProposal, buildBotCircuitProposal, runBotCircuitProposal } from "../js/bot-circuit-proposal.mjs";
 
 test("starter project validates and produces a bounded analytical DC result", () => {
   const result = runSupportedAnalysis(createProject());
@@ -1495,7 +1496,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     }
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 206);
+  assert.equal(getExampleCoverage(registry).total, 207);
   assert.equal(getExampleCoverage(registry).released, 196);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 4);
@@ -4644,4 +4645,16 @@ test("catalogue BOT floating-node repair preview validates separately and requir
   const accepted=applyBotFloatingNodeRepairPreview(project,result.preview,{confirmed:true});assert.equal(accepted.applied,true);assert.equal(accepted.project.components.length,project.components.length+1);
   const changed=structuredClone(project);changed.metadata.name+=" edited";const stale=applyBotFloatingNodeRepairPreview(changed,result.preview,{confirmed:true});assert.equal(stale.applied,false);assert.equal(stale.project,changed);
   assert.equal(validateProject(accepted.project).valid,true);
+});
+test("catalogue BOT 12 V LED proposal validates separately and rejection preserves the project", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/197-bot-circuit-proposal.adigun.json",import.meta.url)));
+  const before=JSON.stringify(project);const result=runBotCircuitProposal(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"bot-12v-led-circuit-proposal");assert.equal(result.result.applied,false);
+  assert.equal(result.preview.proposal.source,"12 V");assert.equal(result.preview.proposal.resistor,"1000 Ω");
+  assert.ok(Math.abs(result.preview.proposal.estimatedCurrentA-0.01)<1e-12);assert.ok(Math.abs(result.preview.proposal.resistorDissipationW-0.1)<1e-12);
+  assert.equal(validateProject(result.preview.candidate).valid,true);assert.equal(runSupportedAnalysis(result.preview.candidate).state,"complete");
+  assert.equal(JSON.stringify(project),before);
+  const rejected=applyBotCircuitProposal(project,result.preview,{confirmed:false});assert.equal(rejected.applied,false);assert.equal(rejected.project,project);assert.equal(JSON.stringify(project),before);
+  const stale=structuredClone(project);stale.metadata.name+=" changed";assert.equal(applyBotCircuitProposal(stale,result.preview,{confirmed:true}).applied,false);
+  const accepted=applyBotCircuitProposal(project,result.preview,{confirmed:true});assert.equal(accepted.applied,true);assert.equal(accepted.project.components.find(item=>item.libraryId==="power.dc-source").value,"12 V");
 });
