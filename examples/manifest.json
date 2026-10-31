@@ -6588,6 +6588,19 @@
           "safetyRated": false
         }
       }
+    },
+    {
+      "id": "169-temperature-alarm",
+      "title": "Temperature alarm",
+      "status": "in-review",
+      "objective": "Latch an alarm when synthetic temperature reaches the configured threshold; reject reset while hot and test reset below threshold.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue temperature alarm latches at threshold and applies safe reset policy",
+      "testId": "core-temperature-alarm",
+      "projectFile": "examples/169-temperature-alarm.adigun.json",
+      "readmeFile": "examples/169-temperature-alarm/README.md",
+      "safetyNote": "Synthetic educational alarm model only; no thermistor accuracy, calibration, circuit behavior, thermal dynamics, buzzer load, protective function, or safety certification is modeled.",
+      "scope": "catalogue",
+      "expectedAnalysis": "unsupported"
     }
   ]
 }
