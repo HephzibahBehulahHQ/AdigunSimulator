@@ -3192,7 +3192,7 @@ function analyseSolarMppSweep(project,{source,fixture,controller,report,ground,v
   const curve=fields(fixture.value),settings=fields(controller.value);
   const vocV=voltageValue(field(curve,"Voc")??""),iscA=currentValue(field(curve,"Isc")??""),vmpV=voltageValue(field(curve,"Vmp")??""),impA=currentValue(field(curve,"Imp")??"");
   const irradiancePercent=Number((field(curve,"Irradiance")??"").replace("%","")),samples=Number(field(settings,"Samples"));
-  const maxCurrentA=currentValue(field(settings,"MaxCurrent")??""),maxPowerW=Number((field(settings,"MaxPower")??"").replace(/\s*W$/i,""));
+  const efficiencyPercent=Number((field(settings,"Efficiency")??"").replace("%","")),maxVocV=voltageValue(field(settings,"MaxVoc")??""),maxCurrentA=currentValue(field(settings,"MaxCurrent")??"");
   const sourceVoltage=voltageValue(source.value),groundNet=n(ground,"0"),vccNet=n(source,"+");
   const powered=n(source,"-")===groundNet&&n(fixture,"VCC")===vccNet&&n(controller,"VCC")===vccNet&&n(report,"VCC")===vccNet&&n(fixture,"GND")===groundNet&&n(controller,"GND")===groundNet&&n(report,"GND")===groundNet;
   const pvPath=n(fixture,"PV+")===n(controller,"PV+")&&n(fixture,"PV-")===n(controller,"PV-"),reportPath=n(controller,"REPORT")===n(report,"REPORT");
@@ -3250,7 +3250,7 @@ function analyseUsbCPdSource(project,{source,fixture,controller,report,load,grou
   const pdoText=field(settings,"PDOs")??"";
   const pdos=pdoText.split(",").map(text=>{const [voltageText,currentText]=text.split("@");return {voltageV:voltageValue(voltageText??""),currentLimitA:currentValue(currentText??"")};});
   const requestV=voltageValue(field(settings,"Request")??""),maxVoltageV=voltageValue(field(settings,"MaxVoltage")??"");
-  const maxCurrentA=currentValue(field(settings,"MaxCurrent")??""),maxPowerW=powerValue(field(settings,"MaxPower")??"");
+  const maxCurrentA=currentValue(field(settings,"MaxCurrent")??""),maxPowerW=Number((field(settings,"MaxPower")??"").replace(/\s*W$/i,""));
   const ocpTripPercent=Number((field(policy,"OCP")??"").replace("%","")),fallbackV=voltageValue(field(policy,"Fallback")??"");
   const loadOhm=engineeringValue(load.value,"Ω"),fault=field(settings,"Fault"),gnd=n(ground,"0"),vcc=n(source,"+");
   const powered=n(source,"-")===gnd&&n(fixture,"VCC")===vcc&&n(controller,"VCC")===vcc&&n(report,"VCC")===vcc&&n(fixture,"GND")===gnd&&n(controller,"GND")===gnd&&n(report,"GND")===gnd;
