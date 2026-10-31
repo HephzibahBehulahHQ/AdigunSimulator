@@ -6562,7 +6562,7 @@
     {
       "id": "168-door-interlock-concept",
       "title": "Door interlock concept",
-      "status": "in-review",
+      "status": "released",
       "objective": "Verify that an open guard disables and latches off the logical load and that closure/reset alone cannot restart it.",
       "acceptanceTest": "tests/core.test.mjs: catalogue door interlock latches load off on guard opening",
       "testId": "core-door-interlock-concept",
@@ -6570,7 +6570,24 @@
       "readmeFile": "examples/168-door-interlock-concept/README.md",
       "safetyNote": "Educational logic concept only. Not a safety-rated guard interlock; no guard locking, fault diagnostics, wiring, risk assessment, or machine-safety compliance is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 168,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41210887464",
+        "headRevision": "d81fe0587785608723b14dc7b71fac40b446a7c5",
+        "engine": "Deterministic guard-open latch concept",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "door-interlock-latch-concept-v1",
+        "expectedResult": {
+          "kind": "door-interlock-sequence",
+          "frameCount": 7,
+          "loadAlwaysDisabledWhenOpen": true,
+          "resetRejectedWhenOpen": true,
+          "safetyRated": false
+        }
+      }
     }
   ]
 }
