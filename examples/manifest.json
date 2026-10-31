@@ -3673,6 +3673,42 @@
           "firmwareExecuted": false
         }
       }
+    },
+    {
+      "id": "089-i2c-level-shifter",
+      "title": "Bidirectional I²C bus level shifter",
+      "status": "released",
+      "objective": "Translate bounded open-drain SDA and SCL transitions between 3.3 V and 5 V domains, using four explicit rail-side pull-ups and report both logic levels, drive directions, rail safety and static sink current.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue I²C level shifter translates open-drain lows bidirectionally",
+      "testId": "core-i2c-level-shifter",
+      "projectFile": "examples/089-i2c-level-shifter.adigun.json",
+      "safetyNote": "Ideal bidirectional open-drain logic model only. MOSFET threshold/body-diode behavior, edge timing, bus capacitance, pull-up tolerances, rise time, actual device limits, firmware, and hardware are not modeled or verified.",
+      "scope": "catalogue",
+      "catalogueIndex": 89,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41184474626",
+        "headRevision": "10f02a189470d8a580ef719525ad63a4b6f194c7",
+        "engine": "Ideal bidirectional open-drain I²C level-shifter model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "ideal-i2c-open-drain-level-shift-v1",
+        "expectedResult": {
+          "kind": "i2c-level-shifter",
+          "lowRailV": 3.3,
+          "highRailV": 5,
+          "lowPullupOhm": 4700,
+          "highPullupOhm": 4700,
+          "transitionCount": 4,
+          "lowSideDriveTransitions": 2,
+          "highSideDriveTransitions": 2,
+          "peakCombinedPullupSinkCurrentMa": 1.7659574468085106,
+          "lowSideOvervoltage": false,
+          "highSideOvervoltage": false,
+          "bidirectionalTransitionsVerified": true,
+          "firmwareExecuted": false
+        }
+      }
     }
   ]
 }
