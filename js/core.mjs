@@ -17,6 +17,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "passive.inductor", category: "Passive", type: "Inductor", prefix: "L", pins: ["1", "2"], defaultValue: "100 mH", simulation: "analytical-rl-step", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.transformer-ideal", category: "Passive", type: "Ideal transformer ratio model", prefix: "T", pins: ["PRI1", "PRI2", "SEC1", "SEC2"], defaultValue: "230:12", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "passive.ldr", category: "Passive", type: "Photoresistor (light-dependent resistor)", prefix: "R", pins: ["1", "2"], defaultValue: "Rbright 10 kΩ; Rdark 1 MΩ; light 100%", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.potentiometer", category: "Passive", type: "Potentiometer (two-terminal rheostat model)", prefix: "RP", pins: ["1", "2"], defaultValue: "Rmax 10 kΩ; position 50%", simulation: "analytical-passive-tone-control", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.bridge-ideal", category: "Active", type: "Ideal bridge rectifier (fixed diode drop)", prefix: "BR", pins: ["AC1", "AC2", "POS", "NEG"], defaultValue: "0.7 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.schottky", category: "Active", type: "Schottky diode (fixed-drop estimate)", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 0.3 V", simulation: "analytical-solar-garden-light", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -375,6 +376,7 @@ export function runSupportedAnalysis(project) {
   const batteries = project.components.filter((item) => item.libraryId === "power.rechargeable-battery");
   const photoresistors = project.components.filter((item) => item.libraryId === "passive.ldr");
   const supercapacitors = project.components.filter((item) => item.libraryId === "passive.supercapacitor");
+  const toneControls = project.components.filter((item) => item.libraryId === "passive.potentiometer");
   const schottkyDiodes = project.components.filter((item) => item.libraryId === "diode.schottky");
   const currentSource = project.components.filter((item) => item.libraryId === "power.dc-current-source");
   const acSource = project.components.filter((item) => item.libraryId === "power.ac-source");
@@ -386,6 +388,9 @@ export function runSupportedAnalysis(project) {
   const led = project.components.filter((item) => item.libraryId === "diode.led-red");
   const greenLed = project.components.filter((item) => item.libraryId === "diode.led-green");
   const ground = project.components.filter((item) => item.libraryId === "ground.signal");
+  if (acSource.length === 1 && toneControls.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analysePassiveToneControl(project, { source: acSource[0], control: toneControls[0], capacitor: capacitor[0], load: resistor[0], ground: ground[0], validation });
+  }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
   }
@@ -575,6 +580,57 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
     engine: "Analytical ideal low-battery comparator and divider",
     message: "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
     result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
+    validation
+  };
+}
+
+function analysePassiveToneControl(project, { source, control, capacitor, load, ground, validation }) {
+  const inputAmplitudeV = voltageValue(source.value);
+  const capacitance = capacitanceValue(capacitor.value);
+  const loadResistance = resistanceValue(load.value);
+  const controlFields = String(control.value).match(/Rmax\s*([^;]+)\s*;\s*position\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*%/i);
+  const maximumResistance = controlFields ? resistanceValue(controlFields[1]) : Number.NaN;
+  const positionPercent = controlFields ? Number(controlFields[2]) : Number.NaN;
+  if (![inputAmplitudeV, capacitance, loadResistance, maximumResistance, positionPercent].every(Number.isFinite)
+    || inputAmplitudeV <= 0 || capacitance <= 0 || loadResistance <= 0 || maximumResistance <= 0
+    || positionPercent < 0 || positionPercent > 100) {
+    return { state: "blocked", message: "The tone-control model needs positive source, capacitor, load and potentiometer values, with control position from 0% to 100%.", validation };
+  }
+  const netByEndpoint = new Map();
+  for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
+  const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
+  const sourcePositive = n(source, "+"), sourceNegative = n(source, "-");
+  const controlInput = n(control, "1"), controlOutput = n(control, "2");
+  const capacitorFirst = n(capacitor, "1"), capacitorSecond = n(capacitor, "2");
+  const loadFirst = n(load, "1"), loadSecond = n(load, "2"), groundNet = n(ground, "0");
+  if (!sourcePositive || sourcePositive === groundNet || sourcePositive !== controlInput
+    || !controlOutput || controlOutput === sourcePositive || capacitorFirst !== controlOutput || loadFirst !== controlOutput
+    || sourceNegative !== groundNet || capacitorSecond !== groundNet || loadSecond !== groundNet) {
+    return { state: "blocked", message: "Wire the AC source through the two-terminal tone control to the output, with capacitor and load in parallel from output to the shared source return.", validation };
+  }
+  const seriesResistance = maximumResistance * positionPercent / 100;
+  const parallelResistance = seriesResistance === 0 ? 0 : (seriesResistance * loadResistance) / (seriesResistance + loadResistance);
+  const cutoffHz = parallelResistance === 0 ? Number.POSITIVE_INFINITY : 1 / (2 * Math.PI * capacitance * parallelResistance);
+  const frequenciesHz = [100, 1000, 10000];
+  const response = frequenciesHz.map(frequencyHz => {
+    const reactance = 1 / (2 * Math.PI * frequencyHz * capacitance);
+    const denominator = loadResistance ** 2 + reactance ** 2;
+    const parallelReal = loadResistance * reactance ** 2 / denominator;
+    const parallelImag = -(loadResistance ** 2) * reactance / denominator;
+    const transferDenominator = (seriesResistance + parallelReal) ** 2 + parallelImag ** 2;
+    const transferReal = (parallelReal * (seriesResistance + parallelReal) + parallelImag ** 2) / transferDenominator;
+    const transferImag = parallelImag * seriesResistance / transferDenominator;
+    const gain = Math.hypot(transferReal, transferImag);
+    return { frequencyHz, gain, phaseRad: Math.atan2(transferImag, transferReal), inputAmplitudeV, outputAmplitudeV: inputAmplitudeV * gain };
+  });
+  if (response.some(point => ![point.gain, point.phaseRad, point.outputAmplitudeV].every(Number.isFinite))) {
+    return { state: "blocked", message: "The tone-control frequency response exceeds the numerically supported range.", validation };
+  }
+  return {
+    state: "complete",
+    engine: "Analytical loaded single-pole passive treble-cut response",
+    message: "Calculated the loaded frequency response of a two-terminal rheostat, shunt capacitor, and resistive load. This is a single-pole treble-cut control, not a Baxandall or multi-band equalizer; wiper noise, source impedance, capacitor loss, audio power, tolerances, and general SPICE are omitted.",
+    result: { kind: "passive-tone-control", inputAmplitudeV, maximumResistance, positionPercent, seriesResistance, capacitance, loadResistance, cutoffHz, response },
     validation
   };
 }
