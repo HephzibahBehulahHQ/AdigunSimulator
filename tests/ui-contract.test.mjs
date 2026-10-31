@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { UI_KEYS, UI_LOCALES } from "../js/i18n.mjs";
 
@@ -24,12 +25,14 @@ test("the approved corporate logo, official links, and current-year footer are p
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   const logo = await readFile(new URL("../assets/brand/hephzibah-behulah-official.jpg", import.meta.url));
   assert.deepEqual([...logo.subarray(0, 3)], [0xff, 0xd8, 0xff]);
+  const gitBlobSha = createHash("sha1").update(Buffer.concat([Buffer.from(`blob ${logo.length}\0`), logo])).digest("hex");
+  assert.equal(gitBlobSha, "f7b0e4a650d861fb9d52ed91ea894edec030e03b");
   assert.match(html, /src="assets\/brand\/hephzibah-behulah-official\.jpg"/);
   assert.match(html, /alt="[^"]+" data-i18n-alt="corporateLogoAlt"/);
   assert.doesNotMatch(html, /class="logo-mark"/);
   for (const url of [
     "https://hephzibahbehulah.com/",
-    "https://github.com/HephzibahBehulahHQ/AdigunSimulator",
+    "https://github.com/HephzibahBehulahHQ/AdigunSimulator/blob/main/README.md",
     "https://github.com/HephzibahBehulahHQ/AdigunSimulator/issues",
     "https://www.facebook.com/Hephzibahbehulah/",
     "https://x.com/HephzibaBehulah",
