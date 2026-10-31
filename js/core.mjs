@@ -36,6 +36,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-and-ideal", category: "Active", type: "Ideal two-input AND gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-window-comparator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-or-ideal", category: "Active", type: "Ideal two-input OR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-or-gate-truth-table", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-xor-ideal", category: "Active", type: "Ideal two-input XOR parity gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-xor-parity-checker", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.logic-nor-ideal", category: "Active", type: "Ideal two-input NOR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-nor-sr-latch", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.ne555", category: "Active", type: "555 timer", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8"], defaultValue: "NE555-class", simulation: "analytical-555-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -385,6 +386,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const andGates = project.components.filter((item) => item.libraryId === "active.logic-and-ideal");
   const orGates = project.components.filter((item) => item.libraryId === "active.logic-or-ideal");
   const xorGates = project.components.filter((item) => item.libraryId === "active.logic-xor-ideal");
+  const norGates = project.components.filter((item) => item.libraryId === "active.logic-nor-ideal");
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
@@ -449,6 +451,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (source.length === 1 && schottkyDiodes.length === 1 && supercapacitors.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseSupercapHoldUp(project, { source: source[0], diode: schottkyDiodes[0], capacitor: supercapacitors[0], load: resistor[0], ground: ground[0], validation });
+  }
+  if (norGates.length === 2 && source.length === 3 && resistor.length === 2 && led.length === 2 && ground.length === 1 && project.components.length === 10) {
+    return analyseNorSrLatch(project, { sources: source, gates: norGates, resistors: resistor, leds: led, ground: ground[0], previousState, validation });
   }
   if (xorGates.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analyseLogicGateTruthTable(project, { sources: source, gate: xorGates[0], resistor: resistor[0], led: led[0], ground: ground[0], validation, logic: "xor" });
@@ -1403,6 +1408,52 @@ function analyseReferenceBuffer(project,{sources,opAmp,load,ground,validation}){
   }
   const loadCurrentA=referenceVoltage/loadResistance;
   return {state:"complete",engine:"Ideal reference-voltage follower load estimate",message:"Buffers a fixed reference voltage and reports the ideal resistive load current. It assumes zero output impedance and unlimited output current, and omits accuracy drift, noise, bandwidth, stability, thermal effects, and device-specific limits.",result:{kind:"reference-buffer",referenceVoltage,outputVoltage:referenceVoltage,gainVPerV:1,loadResistanceOhm:loadResistance,loadCurrentA,positiveSupplyV:positiveVoltage,negativeSupplyV:-negativeVoltage},validation};
+}
+
+function analyseNorSrLatch(project,{sources,gates,resistors,leds,ground,previousState,validation}){
+  const netByEndpoint=new Map();
+  for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
+  const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
+  const [setGate,resetGate]=gates,groundNet=n(ground,"0"),qNet=n(resetGate,"Y"),qBarNet=n(setGate,"Y");
+  const supply=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")!==groundNet);
+  const inputSourceFor=(gate)=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&([n(gate,"A"),n(gate,"B")].includes(n(v,"+"))));
+  const setSource=inputSourceFor(setGate),resetSource=inputSourceFor(resetGate);
+  const setSourceNet=setSource?n(setSource,"+"):undefined,resetSourceNet=resetSource?n(resetSource,"+"):undefined;
+  const setFeedback=[n(setGate,"A"),n(setGate,"B")].includes(qNet),resetFeedback=[n(resetGate,"A"),n(resetGate,"B")].includes(qBarNet);
+  const setPinSource=setSource&&[n(setGate,"A"),n(setGate,"B")].includes(setSourceNet)&&setSourceNet!==qBarNet;
+  const resetPinSource=resetSource&&[n(resetGate,"A"),n(resetGate,"B")].includes(resetSourceNet)&&resetSourceNet!==qNet;
+  const ledPath=(outputNet)=>resistors.find(r=>{const d=leds.find(x=>((n(r,"1")===outputNet&&n(r,"2")===n(x,"A"))||(n(r,"2")===outputNet&&n(r,"1")===n(x,"A")))&&n(x,"K")===groundNet);return Boolean(d);});
+  const setResistor=ledPath(qNet),resetResistor=ledPath(qBarNet);
+  const setLed=setResistor&&leds.find(x=>(n(setResistor,"1")===qNet&&n(setResistor,"2")===n(x,"A")||n(setResistor,"2")===qNet&&n(setResistor,"1")===n(x,"A"))&&n(x,"K")===groundNet);
+  const resetLed=resetResistor&&leds.find(x=>(n(resetResistor,"1")===qBarNet&&n(resetResistor,"2")===n(x,"A")||n(resetResistor,"2")===qBarNet&&n(resetResistor,"1")===n(x,"A"))&&n(x,"K")===groundNet);
+  const supplyVoltage=supply?voltageValue(supply.value):Number.NaN;
+  const setVoltage=setSource?voltageValue(setSource.value):Number.NaN,resetVoltage=resetSource?voltageValue(resetSource.value):Number.NaN;
+  const setCurrent=setResistor?resistanceValue(setResistor.value):Number.NaN,resetCurrent=resetResistor?resistanceValue(resetResistor.value):Number.NaN;
+  const setVf=setLed?forwardVoltage(setLed.value):Number.NaN,resetVf=resetLed?forwardVoltage(resetLed.value):Number.NaN;
+  const thresholdV=supplyVoltage/2;
+  if(!supply||!setSource||!resetSource||!setFeedback||!resetFeedback||!setPinSource||!resetPinSource
+    ||n(setGate,"VCC")!==n(supply,"+")||n(resetGate,"VCC")!==n(supply,"+")
+    ||n(setGate,"GND")!==groundNet||n(resetGate,"GND")!==groundNet
+    ||!setResistor||!resetResistor||!setLed||!resetLed
+    ||![supplyVoltage,setVoltage,resetVoltage,setCurrent,resetCurrent,setVf,resetVf].every(Number.isFinite)
+    ||supplyVoltage<=0||setVoltage<0||resetVoltage<0||setVoltage>supplyVoltage||resetVoltage>supplyVoltage
+    ||setCurrent<=0||resetCurrent<=0||setVf<=0||resetVf<=0){
+    return {state:"blocked",message:"Wire two cross-coupled NOR gates, active-high set/reset inputs, and separate current-limited Q/Q̅ indicators.",validation};
+  }
+  const setActive=setVoltage>=thresholdV,resetActive=resetVoltage>=thresholdV;
+  if(setActive&&resetActive)return {state:"blocked",message:"The NOR SR latch forbids set and reset being asserted at the same time.",validation};
+  let q;
+  if(setActive)q=true;
+  else if(resetActive)q=false;
+  else{
+    const retained=previousState?.result?.q??previousState?.q;
+    if(typeof retained!=="boolean")return {state:"blocked",message:"The latch is in hold mode without a known prior state; apply set or reset first.",validation};
+    q=retained;
+  }
+  const qBar=!q,qVoltage=q?supplyVoltage:0,qBarVoltage=qBar?supplyVoltage:0;
+  const qLedCurrentA=q?Math.max(0,(qVoltage-setVf)/setCurrent):0;
+  const qBarLedCurrentA=qBar?Math.max(0,(qBarVoltage-resetVf)/resetCurrent):0;
+  return {state:"complete",engine:"Cross-coupled NOR SR latch with memory",message:"Models an active-high NOR latch with state retention when both inputs are low and explicitly blocks the prohibited set/reset combination. Gates are ideal and static; propagation delay, metastability, input switch bounce, output drive limits, and part-specific behavior are omitted.",result:{kind:"nor-sr-latch",supplyVoltage,logicThresholdV:thresholdV,setVoltage,resetVoltage,setActive,resetActive,q,qBar,qVoltage,qBarVoltage,qLedCurrentA,qBarLedCurrentA,mode:setActive?"set":resetActive?"reset":"hold"},validation};
 }
 
 function analyseLogicGateTruthTable(project,{sources,gate,resistor,led,ground,validation,logic="and"}){

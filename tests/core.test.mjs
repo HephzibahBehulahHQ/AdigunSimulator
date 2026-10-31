@@ -1128,7 +1128,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 53);
+  assert.equal(getExampleCoverage(registry).total, 54);
   assert.equal(getExampleCoverage(registry).released, 43);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 157);
@@ -1394,4 +1394,40 @@ test("catalogue XOR parity checker asserts for odd parity only", async () => {
     assert.equal(result.result.ledOn, expected);
     assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 330 : 0);
   }
+});
+
+test("catalogue NOR SR latch sets, resets, holds state, and blocks forbidden inputs", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/044-sr-latch-nor.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const set = runSupportedAnalysis(project);
+  assert.equal(set.state, "complete");
+  assert.equal(set.result.kind, "nor-sr-latch");
+  assert.equal(set.result.q, true);
+  assert.equal(set.result.qBar, false);
+  assert.equal(set.result.mode, "set");
+  assert.ok(Math.abs(set.result.qLedCurrentA - (5 - 2) / 330) < 1e-12);
+
+  let holdProject = updateComponent(project, "set-input", { value: "0 V" });
+  holdProject = updateComponent(holdProject, "reset-input", { value: "0 V" });
+  const heldSet = runSupportedAnalysis(holdProject, { previousState: set });
+  assert.equal(heldSet.state, "complete");
+  assert.equal(heldSet.result.mode, "hold");
+  assert.equal(heldSet.result.q, true);
+  assert.equal(heldSet.result.qBar, false);
+
+  let resetProject = updateComponent(project, "set-input", { value: "0 V" });
+  resetProject = updateComponent(resetProject, "reset-input", { value: "5 V" });
+  const reset = runSupportedAnalysis(resetProject);
+  assert.equal(reset.state, "complete");
+  assert.equal(reset.result.mode, "reset");
+  assert.equal(reset.result.q, false);
+  assert.equal(reset.result.qBar, true);
+  const heldReset = runSupportedAnalysis(holdProject, { previousState: reset });
+  assert.equal(heldReset.result.q, false);
+  assert.equal(heldReset.result.qBar, true);
+
+  let forbidden = updateComponent(project, "set-input", { value: "5 V" });
+  forbidden = updateComponent(forbidden, "reset-input", { value: "5 V" });
+  assert.equal(runSupportedAnalysis(forbidden).state, "blocked");
+  assert.equal(runSupportedAnalysis(holdProject).state, "blocked");
 });

@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-044-sr-latch",
+  "metadata": {
+    "name": "Cross-Coupled NOR SR Latch",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "set-input",
+      "libraryId": "power.dc-source",
+      "reference": "SET",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "reset-input",
+      "libraryId": "power.dc-source",
+      "reference": "RESET",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "set-gate",
+      "libraryId": "active.logic-nor-ideal",
+      "reference": "U1",
+      "value": "Ideal NOR gate",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "reset-gate",
+      "libraryId": "active.logic-nor-ideal",
+      "reference": "U2",
+      "value": "Ideal NOR gate",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "q-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RQ",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          40,
+          130
+        ],
+        "schematic": [
+          40,
+          130
+        ],
+        "pcb": [
+          40,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "qbar-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RQB",
+      "value": "330 Ω",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "q-led",
+      "libraryId": "diode.led-red",
+      "reference": "DQ",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          270,
+          130
+        ],
+        "schematic": [
+          270,
+          130
+        ],
+        "pcb": [
+          270,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "qbar-led",
+      "libraryId": "diode.led-red",
+      "reference": "DQB",
+      "value": "Vf 2 V",
+      "position": {
+        "breadboard": [
+          385,
+          130
+        ],
+        "schematic": [
+          385,
+          130
+        ],
+        "pcb": [
+          385,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          500,
+          130
+        ],
+        "schematic": [
+          500,
+          130
+        ],
+        "pcb": [
+          500,
+          130
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "set-gate:VCC",
+        "reset-gate:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "set-input:-",
+        "reset-input:-",
+        "set-gate:GND",
+        "reset-gate:GND",
+        "q-led:K",
+        "qbar-led:K",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "SET",
+      "endpoints": [
+        "set-input:+",
+        "set-gate:A"
+      ]
+    },
+    {
+      "id": "RESET",
+      "endpoints": [
+        "reset-input:+",
+        "reset-gate:A"
+      ]
+    },
+    {
+      "id": "Q",
+      "endpoints": [
+        "reset-gate:Y",
+        "set-gate:B",
+        "q-resistor:1"
+      ]
+    },
+    {
+      "id": "QBAR",
+      "endpoints": [
+        "set-gate:Y",
+        "reset-gate:B",
+        "qbar-resistor:1"
+      ]
+    },
+    {
+      "id": "Q_LED",
+      "endpoints": [
+        "q-resistor:2",
+        "q-led:A"
+      ]
+    },
+    {
+      "id": "QBAR_LED",
+      "endpoints": [
+        "qbar-resistor:2",
+        "qbar-led:A"
+      ]
+    }
+  ],
+  "history": []
+}
