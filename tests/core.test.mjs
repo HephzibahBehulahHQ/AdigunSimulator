@@ -1157,7 +1157,7 @@ test("released examples carry a native project, acceptance test, safety scope, a
     assert.equal(validateProject(example).valid, true, item.id);
     assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
   }
-  assert.equal(getExampleCoverage(registry).total, 117);
+  assert.equal(getExampleCoverage(registry).total, 118);
   assert.equal(getExampleCoverage(registry).released, 107);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
   assert.equal(getExampleCoverage(registry).remaining, 93);
@@ -2948,5 +2948,42 @@ test("catalogue USB-C sink selects requested profile, falls back to 5 V, and blo
   assert.equal(runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"Profiles 5,7,12 V; Requested 12 V; Fault none; Mode pd-source"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="CC2").endpoints=["source-fixture:CC2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue USB-C source filters PDOs and models fallback, current limit, and OCP shutdown", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/108-usb-c-source-concept.adigun.json",import.meta.url)));
+  const normal=runSupportedAnalysis(project);
+  assert.equal(normal.state,"complete",normal.message);
+  assert.equal(normal.result.kind,"usb-c-pd-source");
+  assert.deepEqual(normal.result.advertisedProfiles.map(p=>p.voltageV),[5,9,12]);
+  assert.equal(normal.result.negotiationState,"contract");
+  assert.equal(normal.result.selectedVoltageV,12);
+  assert.equal(normal.result.outputVoltageV,12);
+  assert.equal(normal.result.loadCurrentA,1.2);
+  assert.equal(normal.result.protocolSignalingModeled,false);
+
+  const constrained=runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"PDOs 5 V@1.5 A,9 V@2 A,12 V@1.5 A; Request 12 V; MaxVoltage 12 V; MaxCurrent 2 A; MaxPower 10 W; Fault none; Mode source-fixture"}));
+  assert.equal(constrained.state,"complete");
+  assert.deepEqual(constrained.result.advertisedProfiles.map(p=>p.voltageV),[5]);
+  assert.equal(constrained.result.negotiationState,"fallback-5v");
+  assert.equal(constrained.result.outputVoltageV,5);
+
+  const limited=runSupportedAnalysis(updateComponent(project,"load",{value:"7 Ω"}));
+  assert.equal(limited.state,"complete");
+  assert.equal(limited.result.negotiationState,"current-limited");
+  assert.equal(limited.result.loadCurrentA,1.5);
+  assert.equal(limited.result.outputVoltageV,10.5);
+
+  const overcurrent=runSupportedAnalysis(updateComponent(project,"load",{value:"1 Ω"}));
+  assert.equal(overcurrent.state,"complete");
+  assert.equal(overcurrent.result.negotiationState,"overcurrent-shutdown");
+  assert.equal(overcurrent.result.outputEnabled,false);
+  assert.equal(overcurrent.result.outputVoltageV,0);
+  assert.equal(overcurrent.result.loadCurrentA,0);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"PDOs 5 V@1.5 A,7 V@2 A,12 V@1.5 A; Request 12 V; MaxVoltage 12 V; MaxCurrent 2 A; MaxPower 18 W; Fault none; Mode source-fixture"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="CC1").endpoints=["source-fixture:CC1"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });

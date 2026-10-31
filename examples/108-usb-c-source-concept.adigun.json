@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-108-usb-c-source-concept",
+  "metadata": {
+    "name": "USB-C Source Profile Concept",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "control-source",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "3.3 V",
+      "position": {
+        "breadboard": [
+          40,
+          50
+        ],
+        "schematic": [
+          35,
+          50
+        ],
+        "pcb": [
+          35,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "source-fixture",
+      "libraryId": "input.usb-c-pd-request-fixture",
+      "reference": "USBC1",
+      "value": "PDOs 5 V@1.5 A,9 V@2 A,12 V@1.5 A; Request 12 V; MaxVoltage 12 V; MaxCurrent 2 A; MaxPower 18 W; Fault none; Mode source-fixture",
+      "position": {
+        "breadboard": [
+          140,
+          50
+        ],
+        "schematic": [
+          145,
+          50
+        ],
+        "pcb": [
+          145,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "source-controller",
+      "libraryId": "active.usb-c-pd-source-controller-ideal",
+      "reference": "U1",
+      "value": "OCP 125%; Fallback 5 V; Mode source-policy",
+      "position": {
+        "breadboard": [
+          310,
+          50
+        ],
+        "schematic": [
+          320,
+          50
+        ],
+        "pcb": [
+          320,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "load",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "10 Ω",
+      "position": {
+        "breadboard": [
+          455,
+          50
+        ],
+        "schematic": [
+          470,
+          50
+        ],
+        "pcb": [
+          470,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "report",
+      "libraryId": "output.usb-c-source-report",
+      "reference": "SCOPE1",
+      "value": "USB-C source policy report",
+      "position": {
+        "breadboard": [
+          550,
+          50
+        ],
+        "schematic": [
+          555,
+          50
+        ],
+        "pcb": [
+          555,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          560,
+          220
+        ],
+        "schematic": [
+          560,
+          220
+        ],
+        "pcb": [
+          560,
+          220
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "control-source:+",
+        "source-fixture:VCC",
+        "source-controller:VCC",
+        "report:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "control-source:-",
+        "source-fixture:GND",
+        "source-controller:GND",
+        "report:GND",
+        "load:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "CC1",
+      "endpoints": [
+        "source-fixture:CC1",
+        "source-controller:CC1"
+      ]
+    },
+    {
+      "id": "CC2",
+      "endpoints": [
+        "source-fixture:CC2",
+        "source-controller:CC2"
+      ]
+    },
+    {
+      "id": "VBUS_OUT",
+      "endpoints": [
+        "source-controller:VBUS_OUT",
+        "report:VBUS",
+        "load:1"
+      ]
+    },
+    {
+      "id": "STATUS",
+      "endpoints": [
+        "source-controller:STATUS",
+        "report:STATUS"
+      ]
+    }
+  ],
+  "history": []
+}
