@@ -3436,7 +3436,7 @@ test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs,
   assert.equal(project.components.find(part=>part.reference==="R2").value.startsWith("5.1 kΩ"),true);
   assert.deepEqual(STARTER_LIBRARY.find(part=>part.id==="connector.usb-c-receptacle").pins,["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"]);
   const report=createUsbCPinReport(project);
-  assert.equal(report.split("\\r\\n").length,19);
+  assert.equal(report.split("\r\n").length,19);
   assert.match(report,/A5,CC1,CC1/);
   assert.match(report,/B5,CC2,CC2/);
   assert.match(report,/A6,D\\+,USB_DP/);
