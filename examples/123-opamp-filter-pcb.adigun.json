@@ -1,0 +1,705 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-123-opamp-filter-pcb",
+  "metadata": {
+    "name": "Op-Amp Filter PCB",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "positive-rail",
+      "libraryId": "power.dc-source",
+      "reference": "J1",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          50,
+          50
+        ],
+        "schematic": [
+          50,
+          50
+        ],
+        "pcb": [
+          50,
+          50
+        ]
+      }
+    },
+    {
+      "instanceId": "negative-rail",
+      "libraryId": "power.dc-source",
+      "reference": "J2",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          50,
+          110
+        ],
+        "schematic": [
+          50,
+          110
+        ],
+        "pcb": [
+          50,
+          110
+        ]
+      }
+    },
+    {
+      "instanceId": "input",
+      "libraryId": "power.ac-source",
+      "reference": "J3",
+      "value": "1 V",
+      "position": {
+        "breadboard": [
+          50,
+          200
+        ],
+        "schematic": [
+          50,
+          200
+        ],
+        "pcb": [
+          50,
+          200
+        ]
+      }
+    },
+    {
+      "instanceId": "opamp",
+      "libraryId": "active.opamp-ideal",
+      "reference": "U1",
+      "value": "Ideal op-amp, ±9 V rails",
+      "position": {
+        "breadboard": [
+          280,
+          125
+        ],
+        "schematic": [
+          280,
+          125
+        ],
+        "pcb": [
+          280,
+          125
+        ]
+      }
+    },
+    {
+      "instanceId": "input-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RIN",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          160,
+          180
+        ],
+        "schematic": [
+          160,
+          180
+        ],
+        "pcb": [
+          160,
+          180
+        ]
+      }
+    },
+    {
+      "instanceId": "feedback",
+      "libraryId": "passive.resistor",
+      "reference": "RF",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          410,
+          70
+        ],
+        "schematic": [
+          410,
+          70
+        ],
+        "pcb": [
+          410,
+          70
+        ]
+      }
+    },
+    {
+      "instanceId": "gain-leg",
+      "libraryId": "passive.resistor",
+      "reference": "RG",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          420,
+          205
+        ],
+        "schematic": [
+          420,
+          205
+        ],
+        "pcb": [
+          420,
+          205
+        ]
+      }
+    },
+    {
+      "instanceId": "capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "10 nF",
+      "position": {
+        "breadboard": [
+          240,
+          230
+        ],
+        "schematic": [
+          240,
+          230
+        ],
+        "pcb": [
+          240,
+          230
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          70,
+          245
+        ],
+        "schematic": [
+          70,
+          245
+        ],
+        "pcb": [
+          70,
+          245
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "positive-rail:+",
+        "opamp:VCC"
+      ]
+    },
+    {
+      "id": "VEE",
+      "endpoints": [
+        "negative-rail:-",
+        "opamp:VEE"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "positive-rail:-",
+        "negative-rail:+",
+        "input:-",
+        "gain-leg:2",
+        "capacitor:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "INPUT",
+      "endpoints": [
+        "input:+",
+        "input-resistor:1"
+      ]
+    },
+    {
+      "id": "FILTERED_INPUT",
+      "endpoints": [
+        "input-resistor:2",
+        "opamp:+",
+        "capacitor:1"
+      ]
+    },
+    {
+      "id": "INVERTING",
+      "endpoints": [
+        "opamp:-",
+        "feedback:2",
+        "gain-leg:1"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "opamp:OUT",
+        "feedback:1"
+      ]
+    }
+  ],
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 45,
+      "heightMm": 30,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.25,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "positive-rail",
+        "reference": "J1",
+        "footprint": "PinHeader_1x02_P2.54mm_PTH",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "negative-rail",
+        "reference": "J2",
+        "footprint": "PinHeader_1x02_P2.54mm_PTH",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "input",
+        "reference": "J3",
+        "footprint": "PinHeader_1x02_P2.54mm_PTH",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "footprint": "SOIC-8_3.9x4.9mm_P1.27mm_SMD",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "input-resistor",
+        "reference": "RIN",
+        "footprint": "R_0805_2012Metric_SMD",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "feedback",
+        "reference": "RF",
+        "footprint": "R_0805_2012Metric_SMD",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "gain-leg",
+        "reference": "RG",
+        "footprint": "R_0805_2012Metric_SMD",
+        "technology": "smd"
+      },
+      {
+        "instanceId": "capacitor",
+        "reference": "C1",
+        "footprint": "C_0603_1608Metric_SMD",
+        "technology": "smd"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "positive-rail",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "xMm": 5,
+        "yMm": 6,
+        "netId": "VCC",
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "VCC",
+        "number": "7",
+        "xMm": 25.81,
+        "yMm": 13.365,
+        "netId": "VCC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "negative-rail",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "xMm": 5,
+        "yMm": 16.54,
+        "netId": "VEE",
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "VEE",
+        "number": "4",
+        "xMm": 20.73,
+        "yMm": 15.905,
+        "netId": "VEE",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "positive-rail",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "xMm": 5,
+        "yMm": 8.54,
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "negative-rail",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "xMm": 5,
+        "yMm": 14,
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "input",
+        "reference": "J3",
+        "pin": "-",
+        "number": "2",
+        "xMm": 5,
+        "yMm": 25.54,
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "gain-leg",
+        "reference": "RG",
+        "pin": "2",
+        "number": "2",
+        "xMm": 36,
+        "yMm": 20,
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "capacitor",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "xMm": 18,
+        "yMm": 26,
+        "netId": "GND",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.8
+      },
+      {
+        "instanceId": "input",
+        "reference": "J3",
+        "pin": "+",
+        "number": "1",
+        "xMm": 5,
+        "yMm": 23,
+        "netId": "INPUT",
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "input-resistor",
+        "reference": "RIN",
+        "pin": "1",
+        "number": "1",
+        "xMm": 10,
+        "yMm": 23,
+        "netId": "INPUT",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "input-resistor",
+        "reference": "RIN",
+        "pin": "2",
+        "number": "2",
+        "xMm": 12,
+        "yMm": 23,
+        "netId": "FILTERED_INPUT",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "+",
+        "number": "3",
+        "xMm": 20.73,
+        "yMm": 14.635,
+        "netId": "FILTERED_INPUT",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "capacitor",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "xMm": 16,
+        "yMm": 26,
+        "netId": "FILTERED_INPUT",
+        "technology": "smd",
+        "widthMm": 1,
+        "heightMm": 0.8
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "-",
+        "number": "2",
+        "xMm": 20.73,
+        "yMm": 13.365,
+        "netId": "INVERTING",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "feedback",
+        "reference": "RF",
+        "pin": "2",
+        "number": "2",
+        "xMm": 34,
+        "yMm": 11,
+        "netId": "INVERTING",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "gain-leg",
+        "reference": "RG",
+        "pin": "1",
+        "number": "1",
+        "xMm": 32,
+        "yMm": 20,
+        "netId": "INVERTING",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "OUT",
+        "number": "6",
+        "xMm": 25.81,
+        "yMm": 14.635,
+        "netId": "OUTPUT",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "feedback",
+        "reference": "RF",
+        "pin": "1",
+        "number": "1",
+        "xMm": 30,
+        "yMm": 11,
+        "netId": "OUTPUT",
+        "technology": "smd",
+        "widthMm": 1.2,
+        "heightMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "NC1",
+        "number": "1",
+        "xMm": 20.73,
+        "yMm": 12.095,
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "NC5",
+        "number": "5",
+        "xMm": 25.81,
+        "yMm": 15.905,
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "NC8",
+        "number": "8",
+        "xMm": 25.81,
+        "yMm": 12.095,
+        "netId": "NC",
+        "technology": "smd",
+        "widthMm": 1.5,
+        "heightMm": 0.6
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            5,
+            6
+          ],
+          [
+            25.81,
+            13.365
+          ]
+        ]
+      },
+      {
+        "netId": "VEE",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            5,
+            16.54
+          ],
+          [
+            20.73,
+            15.905
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            5,
+            8.54
+          ],
+          [
+            5,
+            14
+          ],
+          [
+            5,
+            25.54
+          ],
+          [
+            36,
+            20
+          ],
+          [
+            18,
+            26
+          ]
+        ]
+      },
+      {
+        "netId": "INPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            5,
+            23
+          ],
+          [
+            10,
+            23
+          ]
+        ]
+      },
+      {
+        "netId": "FILTERED_INPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            12,
+            23
+          ],
+          [
+            20.73,
+            14.635
+          ],
+          [
+            16,
+            26
+          ]
+        ]
+      },
+      {
+        "netId": "INVERTING",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            20.73,
+            13.365
+          ],
+          [
+            34,
+            11
+          ],
+          [
+            32,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "OUTPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            25.81,
+            14.635
+          ],
+          [
+            30,
+            11
+          ]
+        ]
+      }
+    ]
+  }
+}
