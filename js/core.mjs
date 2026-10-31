@@ -1677,7 +1677,7 @@ function analyseGnssRmc(project,{source,gnss,parser,display,ground,validation}){
     const magnitude=degrees+minutes/60;return hemisphere==="S"||hemisphere==="W"?-magnitude:magnitude;
   };
   const latitude=parseCoordinate(dataFields[3],dataFields[4],2,90),longitude=parseCoordinate(dataFields[5],dataFields[6],3,180);
-  const speedKnots=Number(dataFields[7]),timeValid=/^\\d{6}(?:\\.\\d+)?$/.test(dataFields[1]??""),dateValid=/^\\d{6}$/.test(dataFields[9]??"");
+  const speedKnots=Number(dataFields[7]),timeValid=/^\d{6}(?:\.\d+)?$/.test(dataFields[1]??""),dateValid=/^\d{6}$/.test(dataFields[9]??"");
   const powered=n(source,"+")===n(parser,"VCC")&&n(source,"-")===n(ground,"0")&&n(gnss,"VCC")===n(parser,"VCC")&&n(display,"VCC")===n(parser,"VCC")&&n(gnss,"GND")===n(ground,"0")&&n(parser,"GND")===n(ground,"0")&&n(display,"GND")===n(ground,"0");
   const signalPath=n(gnss,"TX")===n(parser,"RX")&&n(parser,"DISPLAY")===n(display,"DATA");
   if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!powered||!signalPath||field(fields(parser.value),"SentenceType")!=="RMC"||!checksumValid||!fixValid||!timeValid||!dateValid||!Number.isFinite(latitude)||!Number.isFinite(longitude)||!Number.isFinite(speedKnots)||speedKnots<0){
