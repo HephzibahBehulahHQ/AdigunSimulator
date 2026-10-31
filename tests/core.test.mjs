@@ -4268,7 +4268,7 @@ test("catalogue tank controller applies low/high hysteresis across synthetic lev
   const project=JSON.parse(await readFile(new URL("../examples/163-plc-tank-level-controller.adigun.json",import.meta.url)));
   assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
   const result=runTankLevelController(project);assert.equal(result.state,"complete");
-  assert.equal(result.result.kind,"tank-level-hysteresis");assert.equal(result.result.sampleCount,10);assert.equal(result.result.pumpOnSamples,8);
+  assert.equal(result.result.kind,"tank-level-hysteresis");assert.equal(result.result.sampleCount,10);assert.equal(result.result.pumpOnSamples,7);
   assert.deepEqual(result.result.frames.map(frame=>frame.pumpOn),[true,true,true,true,true,false,false,false,true,true]);
   const invalid=structuredClone(project);invalid.tankLevelController.highLevelPct=20;
   assert.equal(runTankLevelController(invalid).state,"blocked");
