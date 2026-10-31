@@ -234,7 +234,9 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "stm32-timer-pwm") {
+  if (result.kind === "mcu-watchdog") {
+    metrics.push(["Watchdog timeout", result.timeoutMs + " ms"], ["Run duration", result.runDurationMs + " ms"], ["Accepted service calls", String(result.servicesAccepted)], ["Watchdog resets", String(result.resetCount)], ["Reset time", result.resetAtMs === null ? "Not triggered" : result.resetAtMs + " ms"], ["Controller state", result.controllerState], ["Heartbeat output", result.heartbeatHigh ? "HIGH" : "LOW"]);
+  } else if (result.kind === "stm32-timer-pwm") {
     const frequencyText = result.frequencyHz >= 1000 ? (result.frequencyHz / 1000).toFixed(2) + " kHz" : result.frequencyHz.toFixed(2) + " Hz";
     metrics.push(["PWM frequency", frequencyText], ["Duty cycle", (result.dutyCycle * 100).toFixed(1) + " %"], ["LED current while on", (result.peakLedCurrentA * 1000).toFixed(2) + " mA"], ["Estimated average LED current", (result.averageLedCurrentA * 1000).toFixed(2) + " mA"]);
     const duty = Math.max(0, Math.min(1, result.dutyCycle));
@@ -391,7 +393,7 @@ function handleAction(action) {
   if (action === "undo") undo();
   if (action === "redo") redo();
   if (action === "run-simulation") runAnalysis();
-  if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 72 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine.");
+  if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 73 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine.");
 }
 
 document.addEventListener("click", (event) => {
@@ -618,7 +620,7 @@ $("#load-example").addEventListener("click", async () => {
   }
 });
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
-$("#help-button").addEventListener("click", () => showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 72 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine."));
+$("#help-button").addEventListener("click", () => showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 73 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine."));
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
 $("#import-file").addEventListener("change", async (event) => {
