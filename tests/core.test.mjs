@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { addComponent, connectPins, createEmptyProject, createProject, createVoltageDividerProject, disconnectPin, getViewReconciliationIssues, moveComponent, parseProject, removeComponent, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
-import { getLedgerCoverage, getLibraryCoverage, validateComponentTypes, validatePartsManifest, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
+import { getLedgerCoverage, getLibraryCoverage, getPartVerificationReadiness, validateComponentTypes, validatePartsManifest, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
 import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "../js/pcb-export.mjs";
 import { createPcbPlacementReport } from "../js/pcb-placement-report.mjs";
@@ -496,6 +496,14 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(coverageFile.ledger.total, 7);
   assert.equal(coverageFile.ledger.verified, 0);
   assert.equal(coverageFile.ledger.byStatus.candidate, 7);
+  const readiness = getPartVerificationReadiness(ledger.records[0]);
+  assert.equal(readiness.currentStatus, "candidate");
+  assert.equal(readiness.verified, false);
+  assert.equal(readiness.readyForHumanReview, false);
+  assert.equal(readiness.requiresHumanReview, true);
+  assert.ok(readiness.missingEvidenceCodes.includes("DATASHEET_CHECKSUM"));
+  assert.equal(coverageFile.reviewQueue.length, 7);
+  assert.ok(coverageFile.reviewQueue.every(item => !item.readyForHumanReview));
 });
 
 test("verified parts require complete datasheet, package, pin, model, license, safety, and translation evidence", () => {

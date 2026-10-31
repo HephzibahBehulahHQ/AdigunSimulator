@@ -61,9 +61,10 @@ function validRatings(ratings) {
 }
 
 function validateVerifiedEvidence(record, errors) {
-  for (const field of ["package", "modelStatus", "reviewedBy"]) {
+  for (const field of ["package", "modelStatus"]) {
     if (!hasString(record[field])) errors.push(issue("VERIFIED_EVIDENCE", record, `${field} is required before a record can be counted as verified.`));
   }
+  if (!hasString(record.reviewedBy)) errors.push(issue("REVIEWER_IDENTITY", record, "An identified human reviewer is required before a record can be counted as verified."));
   if (!hasString(record.typeCode)) errors.push(issue("TYPE_CODE", record, "Verified records require an explicit taxonomy typeCode."));
   if (!validRatings(record.ratings)) errors.push(issue("RATINGS_UNITS", record, "Verified records require numeric ratings with explicit units and valid ranges."));
   if (!isPinMap(record.symbolPinMap)) errors.push(issue("SYMBOL_PIN_MAP", record, "Verified records require a non-empty pin-to-symbol mapping."));
@@ -121,6 +122,23 @@ export function validatePartRecord(record) {
   }
   if (record.verificationStatus === "verified") validateVerifiedEvidence(record, errors);
   return errors;
+}
+
+
+export function getPartVerificationReadiness(record) {
+  const candidate = { ...record, verificationStatus: "verified" };
+  const missingEvidence = validatePartRecord(candidate);
+  const missingEvidenceCodes = [...new Set(missingEvidence.map(item => item.code))].sort();
+  const evidenceBlockerCodes = missingEvidenceCodes.filter(code => !["REVIEW_DATE", "REVIEWER_IDENTITY"].includes(code));
+  return {
+    partId: record?.id ?? "unknown",
+    currentStatus: record?.verificationStatus ?? "unknown",
+    verified: record?.verificationStatus === "verified" && missingEvidenceCodes.length === 0,
+    readyForHumanReview: evidenceBlockerCodes.length === 0,
+    requiresHumanReview: record?.verificationStatus !== "verified",
+    missingEvidenceCodes,
+    evidenceBlockerCodes
+  };
 }
 
 export function validateComponentTypes(taxonomy) {
@@ -194,12 +212,17 @@ export function getLibraryCoverage(ledger, taxonomy) {
     };
   });
   const byStatus = Object.fromEntries(PART_STATES.map((state) => [state, records.filter((record) => record.verificationStatus === state).length]));
+  const reviewQueue = records.filter(record => record.verificationStatus !== "verified").map(record => {
+    const readiness = getPartVerificationReadiness(record);
+    return { partId: readiness.partId, currentStatus: readiness.currentStatus, readyForHumanReview: readiness.readyForHumanReview, missingEvidenceCodes: readiness.missingEvidenceCodes, evidenceBlockerCodes: readiness.evidenceBlockerCodes };
+  });
   return {
     schemaVersion: 1,
     targets: { verifiedParts: LIBRARY_TARGET, componentTypes: TAXONOMY_TARGET },
     ledger: { total: records.length, verified: byStatus.verified, remaining: Math.max(0, LIBRARY_TARGET - byStatus.verified), byStatus },
     taxonomy: { totalTypes: taxonomyResult.typeCodes?.size ?? 0, categories: cats },
-    humanReviewRequired: true
+    humanReviewRequired: true,
+    reviewQueue
   };
 }
 
