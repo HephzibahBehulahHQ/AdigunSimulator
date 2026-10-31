@@ -5670,14 +5670,33 @@
     {
       "id": "139-copper-zone-demo",
       "title": "Ground copper-zone refill demo",
-      "status": "in-review",
+      "status": "released",
       "objective": "Preview a bounded GND copper fill with explicit foreign-net pad/route clearances and four-spoke thermal-relief intent; report permitted pad candidates and refill estimates.",
       "acceptanceTest": "tests/core.test.mjs: catalogue copper-zone demo refills only permitted-net cells and blocks invalid clearance",
       "testId": "core-copper-zone-demo",
       "projectFile": "examples/139-copper-zone-demo.adigun.json",
       "readmeFile": "examples/139-copper-zone-demo/README.md",
       "safetyNote": "The rectangular grid fill is an educational area preview with conservative clearance exclusions. It does not create production copper geometry, prove connectivity or thermal relief, or replace zone refill and manufacturing DRC.",
-      "scope": "catalogue"
+      "scope": "catalogue",
+      "catalogueIndex": 139,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41204114984",
+        "headRevision": "bcd40147646f22c6ea20bf4d742f05f8e3147979",
+        "engine": "Bounded copper-zone grid refill preview",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "rectangular-zone-grid-preview-v1",
+        "expectedResult": {
+          "kind": "copper-zone-preview",
+          "net": "GND",
+          "filledCells": 2750,
+          "permittedPadCandidates": 2,
+          "thermalReliefPadCandidates": 1,
+          "productionCopperGeometry": false,
+          "manufacturingQualified": false
+        }
+      }
     }
   ]
 }
