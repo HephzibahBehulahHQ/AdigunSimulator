@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-039-active-low-pass",
+  "metadata": {
+    "name": "First-Order Active Low-Pass Filter",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "positive-rail",
+      "libraryId": "power.dc-source",
+      "reference": "VCC",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "negative-rail",
+      "libraryId": "power.dc-source",
+      "reference": "VEE",
+      "value": "9 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "input",
+      "libraryId": "power.ac-source",
+      "reference": "VIN",
+      "value": "1 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "opamp",
+      "libraryId": "active.opamp-ideal",
+      "reference": "U1",
+      "value": "Ideal op-amp, ±9 V rails",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "input-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RIN",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          500,
+          55
+        ],
+        "schematic": [
+          500,
+          55
+        ],
+        "pcb": [
+          500,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "feedback",
+      "libraryId": "passive.resistor",
+      "reference": "RF",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          40,
+          120
+        ],
+        "schematic": [
+          40,
+          120
+        ],
+        "pcb": [
+          40,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "gain-leg",
+      "libraryId": "passive.resistor",
+      "reference": "RG",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          155,
+          120
+        ],
+        "schematic": [
+          155,
+          120
+        ],
+        "pcb": [
+          155,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "capacitor",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "10 nF",
+      "position": {
+        "breadboard": [
+          270,
+          120
+        ],
+        "schematic": [
+          270,
+          120
+        ],
+        "pcb": [
+          270,
+          120
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          385,
+          120
+        ],
+        "schematic": [
+          385,
+          120
+        ],
+        "pcb": [
+          385,
+          120
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "positive-rail:+",
+        "opamp:VCC"
+      ]
+    },
+    {
+      "id": "VEE",
+      "endpoints": [
+        "negative-rail:-",
+        "opamp:VEE"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "positive-rail:-",
+        "negative-rail:+",
+        "input:-",
+        "gain-leg:2",
+        "capacitor:2",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "INPUT",
+      "endpoints": [
+        "input:+",
+        "input-resistor:1"
+      ]
+    },
+    {
+      "id": "FILTERED_INPUT",
+      "endpoints": [
+        "input-resistor:2",
+        "opamp:+",
+        "capacitor:1"
+      ]
+    },
+    {
+      "id": "INVERTING",
+      "endpoints": [
+        "opamp:-",
+        "feedback:2",
+        "gain-leg:1"
+      ]
+    },
+    {
+      "id": "OUTPUT",
+      "endpoints": [
+        "opamp:OUT",
+        "feedback:1"
+      ]
+    }
+  ],
+  "history": []
+}
