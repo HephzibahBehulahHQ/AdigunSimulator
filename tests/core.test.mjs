@@ -2626,3 +2626,22 @@ test("catalogue simple mixer computes a resistor-weighted source sum without cli
   broken.nets.find(net=>net.id==="SUM").endpoints=["r1:2","r2:2"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
+
+test("catalogue PWM DAC tracks duty and ripple falls as PWM frequency rises", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/095-pwm-audio-dac.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"pwm-audio-dac");
+  assert.ok(Math.abs(result.result.averageOutputV-2.475247524752475)<1e-12);
+  assert.ok(result.result.rippleVpp>0&&result.result.rippleVpp<0.2);
+  assert.equal(result.result.tracksDutyCycle,true);
+  const low=runSupportedAnalysis(updateComponent(project,"settings",{value:"Frequency 100 Hz; Duty 50%; Vlogic 5 V"}));
+  const high=runSupportedAnalysis(updateComponent(project,"settings",{value:"Frequency 10000 Hz; Duty 50%; Vlogic 5 V"}));
+  assert.ok(low.result.rippleVpp>result.result.rippleVpp);
+  assert.ok(result.result.rippleVpp>high.result.rippleVpp);
+  assert.ok(Math.abs(runSupportedAnalysis(updateComponent(project,"settings",{value:"Frequency 1000 Hz; Duty 25%; Vlogic 5 V"})).result.averageOutputV-1.2376237623762376)<1e-12);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Frequency 1000 Hz; Duty 100%; Vlogic 5 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="FILTER_OUT").endpoints=["series:2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
