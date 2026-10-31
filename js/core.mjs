@@ -1515,7 +1515,7 @@ function analyseMcuBlink(project,{source,mcu,resistor,led,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(mcu.value).split(";").map(v=>v.trim());
   const field=label=>fields.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
-  const duration=value=>{const match=String(value??"").match(/^(\\d+(?:\\.\\d+)?)\\s*ms$/i);return match?Number(match[1]):Number.NaN;};
+  const duration=value=>{const match=String(value??"").match(/^(\d+(?:\.\d+)?)\s*ms$/i);return match?Number(match[1]):Number.NaN;};
   const program=field("Program")?.toLowerCase(),pin=field("Pin"),highMs=duration(field("High")),lowMs=duration(field("Low")),runtimeMs=duration(field("Runtime"));
   const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
   const seriesPath=(n(mcu,"D13")===n(resistor,"1")&&n(resistor,"2")===n(led,"A"))||(n(mcu,"D13")===n(resistor,"2")&&n(resistor,"1")===n(led,"A"));
