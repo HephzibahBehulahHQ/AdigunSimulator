@@ -6653,7 +6653,7 @@
     {
       "id": "171-fan-thermostat",
       "title": "Fan thermostat",
-      "status": "in-review",
+      "status": "released",
       "objective": "Switch a logical fan command on at the upper temperature threshold and off at the lower threshold; verify a temperature sweep retains state inside the hysteresis band.",
       "acceptanceTest": "tests/core.test.mjs: catalogue fan thermostat switches at hysteresis thresholds and retains state between them",
       "testId": "core-fan-thermostat",
@@ -6661,7 +6661,25 @@
       "readmeFile": "examples/171-fan-thermostat/README.md",
       "safetyNote": "Synthetic temperature and Boolean command example only; no NTC transfer curve, sensor tolerance, thermal dynamics, fan hardware, cooling, or protective function is modeled.",
       "scope": "catalogue",
-      "expectedAnalysis": "unsupported"
+      "expectedAnalysis": "unsupported",
+      "catalogueIndex": 171,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41211385997",
+        "headRevision": "3bd9b65c4eb683ac9c8ca49e88bbc141e077122f",
+        "engine": "Deterministic fan thermostat hysteresis model",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "fan-thermostat-hysteresis-v1",
+        "expectedResult": {
+          "kind": "fan-thermostat-hysteresis",
+          "sampleCount": 7,
+          "fanOnSamples": 3,
+          "fanOnC": 30,
+          "fanOffC": 25,
+          "physicalFanModel": false
+        }
+      }
     }
   ]
 }
