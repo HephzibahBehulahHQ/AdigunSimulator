@@ -385,6 +385,56 @@
       }
     },
     {
+      "id": "009-solar-garden-light",
+      "title": "Solar garden light day/night model",
+      "status": "released",
+      "objective": "Estimate solar-cell charging through a Schottky diode during daylight and switch a battery-powered LED through an LDR divider and ideal MOSFET at night; test both light extremes and energy accounting.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue solar garden light charges in daylight and lights at night, with invalid illumination and wiring blocked",
+      "testId": "core-solar-garden-light",
+      "projectFile": "examples/009-solar-garden-light.adigun.json",
+      "safetyNote": "Educational quasi-static model only. The battery is a fixed-voltage sink/source; no state-of-charge, chemistry, charge-control, cell curvature, twilight hysteresis, component ratings, thermal behavior, or hardware safety is modeled.",
+      "scope": "catalogue",
+      "catalogueIndex": 9,
+      "verification": {
+        "status": "passed",
+        "workflow": "Verify AdigunSimulator",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41154318481",
+        "headRevision": "735df4aae779321f762a60c7a7ed74891658eba3",
+        "engine": "Analytical solar garden-light day/night and charge estimate",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "solar-garden-light-fixed-battery-v1",
+        "libraryLock": "adigun-simulator@81cddd7ad69b709998f30db94de28d329b3af046",
+        "expectedResult": {
+          "daylight": {
+            "illuminationPercent": 100,
+            "ldrResistance": 10000,
+            "gateVoltage": 0.33636363636363636,
+            "mosfetConducting": false,
+            "ledOn": false,
+            "chargeCurrentA": 0.03333333333333334,
+            "solarPowerAtDiodeInputW": 0.13333333333333336,
+            "diodePowerW": 0.010000000000000002,
+            "batteryChargePowerW": 0.12333333333333336,
+            "solarPowerBalanceW": 0
+          },
+          "night": {
+            "illuminationPercent": 0,
+            "ldrResistance": 1000000,
+            "gateVoltage": 3.3636363636363638,
+            "mosfetConducting": true,
+            "ledOn": true,
+            "chargeCurrentA": 0,
+            "ledCurrentA": 0.005151515151515152,
+            "batteryCurrentIntoBatteryA": -0.005151515151515152,
+            "ledResistorPowerW": 0.00875757575757576,
+            "ledPowerW": 0.010303030303030303,
+            "batteryPowerToLedW": 0.019060606060606063,
+            "ledPowerBalanceW": 0
+          }
+        }
+      }
+    },
+    {
       "id": "003-led-current-limiter-9v",
       "title": "9 V LED current limiter",
       "status": "released",
@@ -621,16 +671,6 @@
         }
       },
       "scope": "supplemental"
-    },
-    {
-      "id": "009-solar-garden-light",
-      "title": "Solar garden light day/night model",
-      "status": "in-review",
-      "objective": "Estimate solar-cell charging through a Schottky diode during daylight and switch a battery-powered LED through an LDR divider and ideal MOSFET at night; test both light extremes and energy accounting.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue solar garden light charges in daylight and lights at night, with invalid illumination and wiring blocked",
-      "testId": "core-solar-garden-light",
-      "projectFile": "examples/009-solar-garden-light.adigun.json",
-      "safetyNote": "Educational quasi-static model only. The battery is a fixed-voltage sink/source; no state-of-charge, chemistry, charge-control, cell curvature, twilight hysteresis, component ratings, thermal behavior, or hardware safety is modeled."
     }
   ]
 }
