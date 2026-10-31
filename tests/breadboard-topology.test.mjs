@@ -22,7 +22,7 @@ test("generic 400-point board models terminal strips, center trench, split rails
   assert.equal(breadboardHolePoint("BM30").x > breadboardHolePoint("BM1").x, true);
 });
 
-test("starter LED project has a physically connected hole and jumper mapping for each canonical net", () => {
+test("starter LED project has a physically connected hole and jumper mapping for each canonical net", async () => {
   const project = await readExample("001-led-current-limiter.adigun.json");
   const result = validateBreadboardTopology(project, {getPartPins});
   assert.equal(result.state, "complete");
@@ -31,7 +31,7 @@ test("starter LED project has a physically connected hole and jumper mapping for
   assert.equal(result.mappedPinCount, 7);
 });
 
-test("breadboard topology catches a physical short between separate schematic nets", () => {
+test("breadboard topology catches a physical short between separate schematic nets", async () => {
   const project = await readExample("001-led-current-limiter.adigun.json");
   project.breadboard.jumpers[1] = {from:"A15",to:"TP15"};
   const result = validateBreadboardTopology(project, {getPartPins});
@@ -39,7 +39,7 @@ test("breadboard topology catches a physical short between separate schematic ne
   assert.ok(result.errors.some(issue => issue.code === "BREADBOARD_SHORT"));
 });
 
-test("breadboard topology catches a split net and duplicate pin-hole assignments", () => {
+test("breadboard topology catches a split net and duplicate pin-hole assignments", async () => {
   const split = await readExample("001-led-current-limiter.adigun.json");
   split.breadboard.jumpers = split.breadboard.jumpers.slice(1);
   const splitResult = validateBreadboardTopology(split, {getPartPins});
