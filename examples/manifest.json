@@ -6096,6 +6096,18 @@
           "actionable": true
         }
       }
+    },
+    {
+      "id": "153-floating-node-diagnosis",
+      "title": "Floating-node diagnosis",
+      "status": "in-review",
+      "objective": "Diagnose an analog node isolated from DC bias by a capacitor, report the floating net and jump target, and suggest checks without silently modifying the design.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue floating-node diagnosis identifies the object to inspect",
+      "testId": "core-floating-node-diagnosis",
+      "projectFile": "examples/153-floating-node-diagnosis.adigun.json",
+      "readmeFile": "examples/153-floating-node-diagnosis/README.md",
+      "safetyNote": "This is a bounded DC connectivity diagnosis for the declared capacitor-isolated fixture. It is not a general ERC, AC analysis, or SPICE operating-point solver; select any bias or bleed path based on circuit requirements.",
+      "scope": "catalogue"
     }
   ]
 }
