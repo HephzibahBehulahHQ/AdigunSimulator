@@ -47,7 +47,7 @@ Recorded expected result:
   "sampleEdge": "rising",
   "clockBaud": 1000000,
   "baud": 1000000,
-  "bits": [1, 0, 1, 0, 0, 1, 0, 1],
+  "bits": [true, false, true, false, false, true, false, true],
   "receivedByte": 165,
   "receivedHex": "0xA5",
   "transferDurationSeconds": 0.000008,
