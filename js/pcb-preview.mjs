@@ -1,10 +1,11 @@
 const esc=(v)=>String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
 const n=(v)=>Number(v).toFixed(3);
+export function getPcbPreviewScale(board){return board&&Number.isFinite(board.widthMm)&&Number.isFinite(board.heightMm)&&board.widthMm>0&&board.heightMm>0?Math.min(588/board.widthMm,208/board.heightMm):0;}
 function emptySvg(label){return `<svg class="pcb-preview-svg" viewBox="0 0 680 300" preserveAspectRatio="none" role="img" aria-label="${esc(label)}"><rect class="pcb-board-outline" x="34" y="38" width="612" height="224" rx="16"/><text class="pcb-empty-note" x="340" y="154">${esc(label)}</text></svg>`;}
 export function renderPcbPreviewSvg(project, emptyLabel="Footprint and route data unavailable."){
  const pcb=project?.pcbFabrication, board=pcb?.board;
  if(!board||!Number.isFinite(board.widthMm)||!Number.isFinite(board.heightMm)||board.widthMm<=0||board.heightMm<=0||!Array.isArray(pcb.pads)||!Array.isArray(pcb.parts)||!Array.isArray(pcb.routes))return emptySvg(emptyLabel);
- const scale=Math.min(588/board.widthMm,208/board.heightMm), w=board.widthMm*scale,h=board.heightMm*scale,x0=(680-w)/2,y0=(300-h)/2;
+ const scale=getPcbPreviewScale(board), w=board.widthMm*scale,h=board.heightMm*scale,x0=(680-w)/2,y0=(300-h)/2;
  const xy=(x,y)=>[x0+x*scale,y0+y*scale];
  const partsById=new Map(pcb.parts.map(p=>[p.instanceId,p]));
  const compsById=new Map((project.components??[]).map(c=>[c.instanceId,c]));
