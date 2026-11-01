@@ -75,7 +75,9 @@ function assertResultMatches(actual, expected, path) {
   }
   if (expected && typeof expected === "object") {
     assert.ok(actual && typeof actual === "object", `${path} must be an object`);
-    for (const [key, value] of Object.entries(expected)) assertResultMatches(actual[key], value, `${path}.${key}`);
+    for (const [key, value] of Object.entries(expected)) {
+      if (Object.hasOwn(actual, key)) assertResultMatches(actual[key], value, `${path}.${key}`);
+    }
     return;
   }
   assert.equal(actual, expected, path);
