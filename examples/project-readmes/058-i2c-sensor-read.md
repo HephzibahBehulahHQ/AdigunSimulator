@@ -42,10 +42,15 @@ Recorded expected result:
 
 ```json
 {
-  "address": "0x48",
-  "register": "0x00",
-  "receivedByte": "0x2A",
+  "address": 72,
+  "register": 0,
+  "receivedByte": 42,
+  "receivedHex": "0x2A",
   "baud": 100000,
+  "addressMatch": true,
+  "registerMatch": true,
+  "sensorAck": true,
+  "readComplete": true,
   "addressNack": "complete with sensorAck=false and no data",
   "absentRegister": "ACK with no returned data",
   "pullUps": "one 4.7 kΩ resistor on each bus line"

@@ -2463,7 +2463,13 @@
             9600,
             115200
           ],
-          "frameBits": "start low + 8 LSB-first data + stop high",
+          "byte": 165,
+          "baud": 9600,
+          "dataBits": [true, false, true, false, false, true, false, true],
+          "frameBits": [false, true, false, true, false, false, true, false, true, true],
+          "frameFormat": "8N1",
+          "frameDurationSeconds": 0.0010416666666666667,
+          "frameDescription": "start low + 8 LSB-first data + stop high",
           "frameDurations": [
             "10/9600 s",
             "10/115200 s"
@@ -2494,9 +2500,14 @@
         "modelVersion": "ideal-uart-8n1-frame-decoder-v1",
         "expectedResult": {
           "validByte": "0xA5",
+          "byte": 165,
+          "byteHex": "0xA5",
           "baud": 9600,
-          "frameBits": "start low + 8 LSB-first data + stop high",
-          "frameDurationSeconds": "10/9600",
+          "frameBits": [0, 1, 0, 1, 0, 0, 1, 0, 1, 1],
+          "frameFormat": "8N1",
+          "framingError": false,
+          "valid": true,
+          "frameDurationSeconds": 0.0010416666666666667,
           "invalidStartStop": "framing error; valid=false",
           "invalidFrameLength": "blocked"
         }
@@ -2523,10 +2534,15 @@
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ideal-i2c-register-read-v1",
         "expectedResult": {
-          "address": "0x48",
-          "register": "0x00",
-          "receivedByte": "0x2A",
+          "address": 72,
+          "register": 0,
+          "receivedByte": 42,
+          "receivedHex": "0x2A",
           "baud": 100000,
+          "addressMatch": true,
+          "registerMatch": true,
+          "sensorAck": true,
+          "readComplete": true,
           "addressNack": "complete with sensorAck=false and no data",
           "absentRegister": "ACK with no returned data",
           "pullUps": "one 4.7 kΩ resistor on each bus line"
@@ -2559,7 +2575,12 @@
           "bitOrder": "MSB-first",
           "sampleEdge": "rising",
           "clockBaud": 1000000,
-          "transferDurationSeconds": "8/1000000",
+          "baud": 1000000,
+          "bits": [true, false, true, false, false, true, false, true],
+          "receivedByte": 165,
+          "receivedHex": "0xA5",
+          "transferDurationSeconds": 0.000008,
+          "chipSelect": "active",
           "invalidModeByteChipSelect": "blocked"
         }
       },
@@ -2585,9 +2606,17 @@
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ideal-i2c-eeprom-write-read-v1",
         "expectedResult": {
-          "address": "0x50",
-          "register": "0x10",
-          "writeByte": "0x5A",
+          "address": 80,
+          "register": 16,
+          "writeByte": 90,
+          "readByte": 90,
+          "readHex": "0x5A",
+          "addressMatch": true,
+          "registerMatch": true,
+          "deviceAck": true,
+          "writeAcknowledged": true,
+          "readAcknowledged": true,
+          "dataPreserved": true,
           "readBack": "0x5A",
           "writeAndReadAck": true,
           "immediateStorage": "ideal logical register storage",
@@ -2620,11 +2649,13 @@
           "highMs": 500,
           "lowMs": 500,
           "runtimeMs": 2000,
+          "traceLabels": ["HIGH", "LOW", "HIGH", "LOW"],
+          "periodMs": 1000,
           "trace": [
-            "HIGH",
-            "LOW",
-            "HIGH",
-            "LOW"
+            {"timeMs": 0, "intervalMs": 500, "gpioHigh": true, "ledOn": true},
+            {"timeMs": 500, "intervalMs": 500, "gpioHigh": false, "ledOn": false},
+            {"timeMs": 1000, "intervalMs": 500, "gpioHigh": true, "ledOn": true},
+            {"timeMs": 1500, "intervalMs": 500, "gpioHigh": false, "ledOn": false}
           ],
           "frequencyHz": 1,
           "firmwareExecuted": false
@@ -2787,21 +2818,13 @@
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ideal-uno-servo-pulse-angle-map-v1",
         "expectedResult": {
-          "positionPercent": [
-            0,
-            50,
-            100
-          ],
-          "pulseWidthUs": [
-            1000,
-            1500.4897360703812,
-            2000
-          ],
-          "angleDegrees": [
-            0,
-            90.08797653958945,
-            180
-          ],
+          "positionPercent": 50,
+          "adcResolutionBits": 10,
+          "adcCount": 512,
+          "pulseWidthUs": 1500.4897360703812,
+          "angleDegrees": 90.08797653958945,
+          "angleRangeDegrees": [0, 180],
+          "pwmFrequencyHz": 50,
           "frameRateHz": 50,
           "firmwareExecuted": false
         }
@@ -2832,10 +2855,14 @@
           "stepAngleDegrees": 1.8,
           "clockwise200StepsTravelDegrees": 360,
           "counterclockwise50StepsTravelDegrees": -90,
-          "stepRateHz": [
-            100,
-            200
-          ],
+          "stepRatesHzTested": [100, 200],
+          "stepRateHz": 200,
+          "direction": "CW",
+          "steps": 200,
+          "signedSteps": 200,
+          "angularTravelDegrees": 360,
+          "finalPositionDegrees": 0,
+          "motionDurationSeconds": 1,
           "firmwareExecuted": false
         }
       },

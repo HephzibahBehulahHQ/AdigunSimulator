@@ -45,11 +45,13 @@ Recorded expected result:
   "highMs": 500,
   "lowMs": 500,
   "runtimeMs": 2000,
+  "traceLabels": ["HIGH", "LOW", "HIGH", "LOW"],
+  "periodMs": 1000,
   "trace": [
-    "HIGH",
-    "LOW",
-    "HIGH",
-    "LOW"
+    {"timeMs": 0, "intervalMs": 500, "gpioHigh": true, "ledOn": true},
+    {"timeMs": 500, "intervalMs": 500, "gpioHigh": false, "ledOn": false},
+    {"timeMs": 1000, "intervalMs": 500, "gpioHigh": true, "ledOn": true},
+    {"timeMs": 1500, "intervalMs": 500, "gpioHigh": false, "ledOn": false}
   ],
   "frequencyHz": 1,
   "firmwareExecuted": false

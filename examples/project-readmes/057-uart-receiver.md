@@ -44,9 +44,14 @@ Recorded expected result:
 ```json
 {
   "validByte": "0xA5",
+  "byte": 165,
+  "byteHex": "0xA5",
   "baud": 9600,
-  "frameBits": "start low + 8 LSB-first data + stop high",
-  "frameDurationSeconds": "10/9600",
+  "frameBits": [0, 1, 0, 1, 0, 0, 1, 0, 1, 1],
+  "frameFormat": "8N1",
+  "framingError": false,
+  "valid": true,
+  "frameDurationSeconds": 0.0010416666666666667,
   "invalidStartStop": "framing error; valid=false",
   "invalidFrameLength": "blocked"
 }

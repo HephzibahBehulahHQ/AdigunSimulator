@@ -42,9 +42,17 @@ Recorded expected result:
 
 ```json
 {
-  "address": "0x50",
-  "register": "0x10",
-  "writeByte": "0x5A",
+  "address": 80,
+  "register": 16,
+  "writeByte": 90,
+  "readByte": 90,
+  "readHex": "0x5A",
+  "addressMatch": true,
+  "registerMatch": true,
+  "deviceAck": true,
+  "writeAcknowledged": true,
+  "readAcknowledged": true,
+  "dataPreserved": true,
   "readBack": "0x5A",
   "writeAndReadAck": true,
   "immediateStorage": "ideal logical register storage",

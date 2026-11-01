@@ -46,7 +46,12 @@ Recorded expected result:
   "bitOrder": "MSB-first",
   "sampleEdge": "rising",
   "clockBaud": 1000000,
-  "transferDurationSeconds": "8/1000000",
+  "baud": 1000000,
+  "bits": [true, false, true, false, false, true, false, true],
+  "receivedByte": 165,
+  "receivedHex": "0xA5",
+  "transferDurationSeconds": 0.000008,
+  "chipSelect": "active",
   "invalidModeByteChipSelect": "blocked"
 }
 ```

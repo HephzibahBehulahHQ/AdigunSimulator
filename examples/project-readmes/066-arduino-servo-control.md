@@ -41,21 +41,13 @@ Recorded expected result:
 
 ```json
 {
-  "positionPercent": [
-    0,
-    50,
-    100
-  ],
-  "pulseWidthUs": [
-    1000,
-    1500.4897360703812,
-    2000
-  ],
-  "angleDegrees": [
-    0,
-    90.08797653958945,
-    180
-  ],
+  "positionPercent": 50,
+  "adcResolutionBits": 10,
+  "adcCount": 512,
+  "pulseWidthUs": 1500.4897360703812,
+  "angleDegrees": 90.08797653958945,
+  "angleRangeDegrees": [0, 180],
+  "pwmFrequencyHz": 50,
   "frameRateHz": 50,
   "firmwareExecuted": false
 }
