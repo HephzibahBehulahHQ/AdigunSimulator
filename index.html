@@ -353,6 +353,13 @@
           <button class="outline-button" type="submit" data-i18n="applyProperties">Apply properties</button>
           <button id="remove-component" class="secondary-button" type="button" data-i18n="removeComponent" disabled>Remove component</button>
         </form>
+        <section id="pcb-footprint-details" class="simulation-control hidden" aria-live="polite">
+          <h3 data-i18n="pcbFootprintProperties">PCB footprint</h3>
+          <p><span data-i18n="pcbFootprintPackage">Package</span>: <strong id="pcb-footprint-package">—</strong></p>
+          <p><span data-i18n="pcbFootprintPosition">Pad centroid (mm)</span>: <strong id="pcb-footprint-position">—</strong></p>
+          <p><span data-i18n="pcbFootprintPadCount">Pads</span>: <strong id="pcb-footprint-pad-count">—</strong></p>
+          <p><span data-i18n="pcbFootprintRouteCount">Routes on connected nets</span>: <strong id="pcb-footprint-route-count">—</strong></p>
+        </section>
         <form id="project-form" class="property-form hidden">
           <label><span data-i18n="projectName">Project name</span> <input id="project-name" required /></label>
           <label><span data-i18n="locale">Locale</span> <input id="project-locale" readonly /></label>
