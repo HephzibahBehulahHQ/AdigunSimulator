@@ -43,6 +43,21 @@ Recorded expected result:
 
 ```json
 {
+  "sourceVoltage": 5,
+  "ledVf": 2,
+  "resistance": 330,
+  "frequencyHz": 1000,
+  "requestedDutyPercent": 50,
+  "effectiveDutyFraction": 0.5,
+  "gateHighVoltage": 5,
+  "thresholdVoltage": 2,
+  "mosfetConducting": true,
+  "onCurrentA": 0.00909090909090909,
+  "averageCurrentA": 0.004545454545454545,
+  "resistorPowerW": 0.013636363636363637,
+  "ledPowerW": 0.00909090909090909,
+  "sourcePowerW": 0.022727272727272728,
+  "powerBalanceW": 0,
   "10PercentDuty": {
     "frequencyHz": 1000,
     "requestedDutyPercent": 10,
