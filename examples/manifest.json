@@ -5112,7 +5112,7 @@
           "filterCapacitanceF": 0.0001,
           "filterTimeConstantS": 0.001,
           "outputVoltageV": 10.909090909090908,
-          "outputLoadCurrentA": 0.12,
+          "outputLoadCurrentA": 0.10909090909090908,
           "outputEnabled": true,
           "hardwareSafetyQualified": false
         }
