@@ -1318,6 +1318,14 @@ document.addEventListener("pointermove", (event) => {
   if (visual) { visual.style.setProperty("--x", `${x}px`); visual.style.setProperty("--y", `${y}px`); }
 });
 
+document.addEventListener("pointercancel", (event) => {
+  if (!state.drag || event.pointerId !== state.drag.pointerId) return;
+  const drag = state.drag;
+  state.drag = null;
+  drag.canvas.releasePointerCapture?.(event.pointerId);
+  if (drag.mode === "move-pcb") renderCanvas();
+});
+
 document.addEventListener("pointerup", (event) => {
   if (!state.drag || event.pointerId !== state.drag.pointerId) return;
   const drag = state.drag;
@@ -1330,10 +1338,10 @@ document.addEventListener("pointerup", (event) => {
     const delta = { x: (event.clientX - drag.start.x) * (680 / rect.width) / scale, y: (event.clientY - drag.start.y) * (300 / rect.height) / scale };
     if ($("#snap-toggle").checked) { delta.x = Math.round(delta.x * 2) / 2; delta.y = Math.round(delta.y * 2) / 2; }
     const result = movePcbFootprint(state.project, drag.instanceId, delta);
+    state.selectedInstanceId = drag.instanceId;
     if (result.status === "complete") {
       captureHistory();
       state.project = result.project;
-      state.selectedInstanceId = drag.instanceId;
       state.dirty = true;
       state.recoveryActive = true;
       state.lastValidation = null;
@@ -1341,7 +1349,7 @@ document.addEventListener("pointerup", (event) => {
       validateAndReport();
       log(`[PCB] ${drag.instanceId} moved ${result.movedPadCount} pad(s); ${result.updatedRoutePoints} attached route point(s) updated.`);
     } else {
-      renderCanvas();
+      render();
       if (result.status === "blocked") {
         const message = result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : t("pcbMoveNoFootprint");
         showDialog(t("pcbMenu"), message);
