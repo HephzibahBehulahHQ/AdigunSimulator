@@ -2040,6 +2040,9 @@
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ideal-jk-toggle-divider-v1",
         "expectedResult": {
+          "mode": "asynchronous clear",
+          "q": false,
+          "risingEdge": false,
           "initializedClear": {
             "mode": "asynchronous clear",
             "q": false
