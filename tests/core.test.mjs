@@ -68,6 +68,19 @@ import { auditUiSource, runFourLanguageUiSweep } from "../js/locale-ui-sweep.mjs
 import { runOfflineRecoveryScenario } from "../js/offline-recovery-scenario.mjs";
 import { runReleaseCandidateE2EFixtures } from "../js/release-candidate-e2e.mjs";
 
+function assertResultMatches(actual, expected, path) {
+  if (Array.isArray(expected)) {
+    assert.deepEqual(actual, expected, path);
+    return;
+  }
+  if (expected && typeof expected === "object") {
+    assert.ok(actual && typeof actual === "object", `${path} must be an object`);
+    for (const [key, value] of Object.entries(expected)) assertResultMatches(actual[key], value, `${path}.${key}`);
+    return;
+  }
+  assert.equal(actual, expected, path);
+}
+
 test("core-led-current-limiter: catalogue 001 produces its recorded analytical result", async () => {
   const project = createProject();
   const result = runSupportedAnalysis(project);
@@ -1521,7 +1534,12 @@ test("released examples carry a native project, acceptance test, safety scope, a
       assert.equal(runSupportedAnalysis(example).state, "unsupported", item.id);
       continue;
     }
-    assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
+    const analysis = runSupportedAnalysis(example);
+    assert.equal(analysis.state, "complete", item.id);
+    if (item.scope === "catalogue") {
+      assert.ok(item.verification?.expectedResult, `${item.id} is missing its recorded result`);
+      assertResultMatches(analysis.result, item.verification.expectedResult, item.id);
+    }
   }
   assert.equal(getExampleCoverage(registry).total, 210);
   assert.equal(getExampleCoverage(registry).released, 200);
