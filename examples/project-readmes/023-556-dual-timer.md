@@ -60,13 +60,13 @@ Recorded expected result:
 ```json
 {
   "channelA": {
-    "frequencyHz": 4.809043771043771,
+    "frequencyHz": 0.481000481000481,
     "dutyCycle": 0.6666666666666666,
     "highTimeS": 1.386,
     "lowTimeS": 0.693
   },
   "channelB": {
-    "frequencyHz": 48.09043771043771,
+    "frequencyHz": 4.810004810004809,
     "dutyCycle": 0.6666666666666666,
     "highTimeS": 0.1386,
     "lowTimeS": 0.0693
