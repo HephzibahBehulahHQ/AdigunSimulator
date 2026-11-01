@@ -2855,10 +2855,14 @@
           "stepAngleDegrees": 1.8,
           "clockwise200StepsTravelDegrees": 360,
           "counterclockwise50StepsTravelDegrees": -90,
-          "stepRateHz": [
-            100,
-            200
-          ],
+          "stepRatesHzTested": [100, 200],
+          "stepRateHz": 200,
+          "direction": "CW",
+          "steps": 200,
+          "signedSteps": 200,
+          "angularTravelDegrees": 360,
+          "finalPositionDegrees": 0,
+          "motionDurationSeconds": 1,
           "firmwareExecuted": false
         }
       },
