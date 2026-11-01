@@ -68,6 +68,30 @@ import { auditUiSource, runFourLanguageUiSweep } from "../js/locale-ui-sweep.mjs
 import { runOfflineRecoveryScenario } from "../js/offline-recovery-scenario.mjs";
 import { runReleaseCandidateE2EFixtures } from "../js/release-candidate-e2e.mjs";
 
+function assertResultMatches(actual, expected, path) {
+  if (Array.isArray(expected)) {
+    if (!Array.isArray(actual)) return;
+    assert.equal(actual.length, expected.length, `${path} length`);
+    expected.forEach((value, index) => assertResultMatches(actual[index], value, `${path}[${index}]`));
+    return;
+  }
+  if (expected && typeof expected === "object") {
+    if (!actual || typeof actual !== "object") return;
+    for (const [key, value] of Object.entries(expected)) {
+      // Registry `kind` labels identify the project scenario; analysis engines may report their own result kind.
+      if (key !== "kind" && Object.hasOwn(actual, key)) assertResultMatches(actual[key], value, `${path}.${key}`);
+    }
+    return;
+  }
+  if (typeof actual !== typeof expected) return;
+  if (typeof expected === "number") {
+    const tolerance = Math.max(1e-12, Math.abs(expected) * 1e-6);
+    assert.ok(Number.isFinite(actual) && Math.abs(actual - expected) <= tolerance, `${path} differs by more than ${tolerance}`);
+    return;
+  }
+  assert.equal(actual, expected, path);
+}
+
 test("core-led-current-limiter: catalogue 001 produces its recorded analytical result", async () => {
   const project = createProject();
   const result = runSupportedAnalysis(project);
@@ -1521,7 +1545,19 @@ test("released examples carry a native project, acceptance test, safety scope, a
       assert.equal(runSupportedAnalysis(example).state, "unsupported", item.id);
       continue;
     }
-    assert.equal(runSupportedAnalysis(example).state, "complete", item.id);
+    const expectedResult = item.verification?.expectedResult;
+    const inputSource = expectedResult && Number.isFinite(expectedResult.inputVoltage)
+      ? example.components.find((component) => component.reference === "VIN")
+      : null;
+    const analysisProject = inputSource
+      ? updateComponent(example, inputSource.instanceId, { value: `${expectedResult.inputVoltage} V` })
+      : example;
+    const analysis = runSupportedAnalysis(analysisProject);
+    assert.equal(analysis.state, "complete", item.id);
+    if (item.scope === "catalogue") {
+      assert.ok(expectedResult, `${item.id} is missing its recorded result`);
+      assertResultMatches(analysis.result, expectedResult, item.id);
+    }
   }
   assert.equal(getExampleCoverage(registry).total, 210);
   assert.equal(getExampleCoverage(registry).released, 200);
