@@ -2149,6 +2149,8 @@
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ideal-bcd-counter-display-v1",
         "expectedResult": {
+          "digit": 0,
+          "segmentsOn": [true, true, true, true, true, true, false],
           "digits0to9": [
             [
               1,
