@@ -1252,13 +1252,13 @@ document.addEventListener("keydown", (event) => {
       state.lastValidation = null;
       render();
       validateAndReport();
-      $("#design-canvas [data-pcb-footprint=\"${CSS.escape(instanceId)}\"]")?.focus();
+      $(`#design-canvas [data-pcb-footprint="${CSS.escape(instanceId)}"]`)?.focus();
       log(`[PCB] ${instanceId} nudged by ${step} mm.`);
     } else if (result.status === "blocked") {
       showDialog(t("pcbMenu"), result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : t("pcbMoveNoFootprint"));
     } else {
       render();
-      $("#design-canvas [data-pcb-footprint=\"${CSS.escape(instanceId)}\"]")?.focus();
+      $(`#design-canvas [data-pcb-footprint="${CSS.escape(instanceId)}"]`)?.focus();
     }
     return;
   }
