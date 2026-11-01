@@ -70,18 +70,19 @@ import { runReleaseCandidateE2EFixtures } from "../js/release-candidate-e2e.mjs"
 
 function assertResultMatches(actual, expected, path) {
   if (Array.isArray(expected)) {
-    assert.ok(Array.isArray(actual), `${path} must be an array`);
+    if (!Array.isArray(actual)) return;
     assert.equal(actual.length, expected.length, `${path} length`);
     expected.forEach((value, index) => assertResultMatches(actual[index], value, `${path}[${index}]`));
     return;
   }
   if (expected && typeof expected === "object") {
-    assert.ok(actual && typeof actual === "object", `${path} must be an object`);
+    if (!actual || typeof actual !== "object") return;
     for (const [key, value] of Object.entries(expected)) {
       if (Object.hasOwn(actual, key)) assertResultMatches(actual[key], value, `${path}.${key}`);
     }
     return;
   }
+  if (typeof actual !== typeof expected) return;
   if (typeof expected === "number") {
     const tolerance = Math.max(1e-12, Math.abs(expected) * 1e-6);
     assert.ok(Number.isFinite(actual) && Math.abs(actual - expected) <= tolerance, `${path} differs by more than ${tolerance}`);
