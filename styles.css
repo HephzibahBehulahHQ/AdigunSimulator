@@ -145,6 +145,7 @@ h1 span { color: var(--cyan); }
 .pcb-footprint-outline { fill:rgb(11 18 32 / 22%); stroke:#d5c575; stroke-width:1; stroke-dasharray:3 2; }
 .pcb-footprint-hit { pointer-events:all; cursor:grab; touch-action:none; }
 .pcb-footprint-hit:active { cursor:grabbing; }
+.pcb-footprint-hit:focus-visible { outline:2px solid #22d3ee; outline-offset:2px; }
 .pcb-footprint-hit:hover .pcb-footprint-outline { stroke:#22d3ee; stroke-width:1.7; }
 .pcb-footprint-label { fill:#f1f6e7; font:700 7px system-ui,sans-serif; text-anchor:middle; paint-order:stroke; stroke:#123227; stroke-width:2px; stroke-linejoin:round; }
 .pcb-route { fill:none; stroke:#e44646; stroke-linecap:round; stroke-linejoin:round; }

@@ -1236,6 +1236,32 @@ document.addEventListener("keydown", (event) => {
       return;
     }
   }
+  const pcbFootprintTarget = event.target.closest?.(".pcb-footprint-hit");
+  if (pcbFootprintTarget && state.activeView === "pcb" && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+    event.preventDefault();
+    const step = $("#snap-toggle").checked ? 0.5 : 0.1;
+    const delta = { x: event.key === "ArrowLeft" ? -step : event.key === "ArrowRight" ? step : 0, y: event.key === "ArrowUp" ? -step : event.key === "ArrowDown" ? step : 0 };
+    const instanceId = pcbFootprintTarget.dataset.pcbFootprint;
+    const result = movePcbFootprint(state.project, instanceId, delta);
+    state.selectedInstanceId = instanceId;
+    if (result.status === "complete") {
+      captureHistory();
+      state.project = result.project;
+      state.dirty = true;
+      state.recoveryActive = true;
+      state.lastValidation = null;
+      render();
+      validateAndReport();
+      $(`#design-canvas [data-pcb-footprint="${CSS.escape(instanceId)}"]`)?.focus();
+      log(`[PCB] ${instanceId} nudged by ${step} mm.`);
+    } else if (result.status === "blocked") {
+      showDialog(t("pcbMenu"), result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : t("pcbMoveNoFootprint"));
+    } else {
+      render();
+      $(`#design-canvas [data-pcb-footprint="${CSS.escape(instanceId)}"]`)?.focus();
+    }
+    return;
+  }
   const target = event.target;
   const editingText = target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
   const modifier = event.ctrlKey || event.metaKey;
