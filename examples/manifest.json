@@ -13,10 +13,24 @@
       "verification": {
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41144371348"
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41321013886",
+        "headRevision": "23ba7e943d273da16e3f0e813bf18ce6d4398753",
+        "engine": "Analytical DC LED demonstration",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "led-current-limiter-v1",
+        "expectedResult": {
+          "kind": "led-current-limiter",
+          "sourceVoltage": 5,
+          "resistance": 330,
+          "ledVf": 2,
+          "currentA": 0.00909090909090909,
+          "resistorPowerW": 0.02727272727272727,
+          "ledOn": true
+        }
       },
       "scope": "catalogue",
-      "catalogueIndex": 1
+      "catalogueIndex": 1,
+      "readmeFile": "examples/001-led-current-limiter/README.md"
     },
     {
       "id": "002-two-led-polarity-indicator",
