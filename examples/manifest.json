@@ -2392,6 +2392,8 @@
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ideal-four-bit-ring-shift-v1",
         "expectedResult": {
+          "bits": [true, false, false, false],
+          "oneHot": true,
           "resetBits": [
             true,
             false,
