@@ -1920,6 +1920,13 @@
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ideal-nor-sr-latch-v1",
         "expectedResult": {
+          "mode": "set",
+          "q": true,
+          "qBar": false,
+          "qVoltage": 5,
+          "qBarVoltage": 0,
+          "qLedCurrentA": 0.00909090909090909,
+          "qBarLedCurrentA": 0,
           "set": {
             "mode": "set",
             "q": true,
