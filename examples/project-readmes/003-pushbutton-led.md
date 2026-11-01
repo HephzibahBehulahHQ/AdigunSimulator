@@ -42,6 +42,17 @@ Recorded expected result:
 
 ```json
 {
+  "switchState": "normally-open",
+  "sourceVoltage": 5,
+  "ledVf": 2,
+  "ledOn": false,
+  "ledCurrentA": 0,
+  "pullDownCurrentA": 0,
+  "sourceCurrentA": 0,
+  "outputVoltageV": 0,
+  "ledPowerW": 0,
+  "sourcePowerW": 0,
+  "powerBalanceW": 0,
   "normallyOpen": {
     "switchState": "normally-open",
     "ledOn": false,
