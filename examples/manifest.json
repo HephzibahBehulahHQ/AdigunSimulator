@@ -108,6 +108,17 @@
         "modelVersion": "ideal-pushbutton-led-v1",
         "libraryLock": "adigun-simulator@9aae708642dc7db476f6a99a3f8a4f09429c80e7",
         "expectedResult": {
+          "switchState": "normally-open",
+          "sourceVoltage": 5,
+          "ledVf": 2,
+          "ledOn": false,
+          "ledCurrentA": 0,
+          "pullDownCurrentA": 0,
+          "sourceCurrentA": 0,
+          "outputVoltageV": 0,
+          "ledPowerW": 0,
+          "sourcePowerW": 0,
+          "powerBalanceW": 0,
           "normallyOpen": {
             "switchState": "normally-open",
             "ledOn": false,
