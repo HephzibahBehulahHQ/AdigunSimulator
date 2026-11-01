@@ -50,7 +50,8 @@ Recorded expected result:
     9600,
     115200
   ],
-  "frameBits": "start low + 8 LSB-first data + stop high",
+  "frameBits": 10,
+  "frameDescription": "start low + 8 LSB-first data + stop high",
   "frameDurations": [
     "10/9600 s",
     "10/115200 s"
