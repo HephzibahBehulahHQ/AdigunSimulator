@@ -53,6 +53,15 @@
         "modelVersion": "ideal-led-polarity-v1",
         "libraryLock": "adigun-simulator@b643a616e91563cb083ca2e25ba155fc86a5a1b6",
         "expectedResult": {
+          "sourceVoltage": 5,
+          "polarity": "positive",
+          "redLedOn": true,
+          "greenLedOn": false,
+          "redCurrentA": 0.00909090909090909,
+          "greenCurrentA": 0,
+          "sourceCurrentA": 0.00909090909090909,
+          "ledPowerW": 0.01818181818181818,
+          "sourcePowerW": 0.04545454545454545,
           "positive5V": {
             "polarity": "positive",
             "redLedOn": true,
