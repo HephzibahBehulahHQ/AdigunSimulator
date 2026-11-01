@@ -49,6 +49,9 @@ Recorded expected result:
 
 ```json
 {
+  "mode": "asynchronous clear",
+  "q": false,
+  "risingEdge": false,
   "initializedClear": {
     "mode": "asynchronous clear",
     "q": false
