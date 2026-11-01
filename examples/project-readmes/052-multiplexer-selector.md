@@ -53,6 +53,19 @@ Recorded expected result:
 
 ```json
 {
+  "kind": "mux4",
+  "supplyVoltage": 5,
+  "logicThresholdV": 2.5,
+  "dataVoltages": [0, 5, 0, 5],
+  "dataBits": [false, true, false, true],
+  "select0": true,
+  "select1": false,
+  "selectedIndex": 1,
+  "selectedInput": true,
+  "outputHigh": true,
+  "outputVoltage": 5,
+  "ledOn": true,
+  "ledCurrentA": 0.00909090909090909,
   "dataVectorsTested": 16,
   "selectVectorsPerData": 4,
   "totalCombinations": 64,
