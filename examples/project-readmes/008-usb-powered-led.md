@@ -41,6 +41,21 @@ Recorded expected result:
 
 ```json
 {
+  "sourceVoltage": 5,
+  "ledVf": 2,
+  "resistance": 330,
+  "holdCurrentA": 0.5,
+  "coldResistance": 0.1,
+  "currentA": 0.009088155104513784,
+  "fuseVoltageDrop": 0.0009088155104513784,
+  "holdCurrentExceeded": false,
+  "overloadWarning": false,
+  "fuseTripPredicted": false,
+  "resistorPowerW": 0.027256205857220984,
+  "fusePowerW": 0.000008259456320369994,
+  "ledPowerW": 0.018176310209027567,
+  "sourcePowerW": 0.04544077552256892,
+  "powerBalanceW": 0,
   "normal5V": {
     "sourceVoltage": 5,
     "ledVf": 2,
