@@ -50,7 +50,12 @@ Recorded expected result:
     9600,
     115200
   ],
-  "frameBits": 10,
+  "byte": 165,
+  "baud": 9600,
+  "dataBits": [true, false, true, false, false, true, false, true],
+  "frameBits": [false, true, false, true, false, false, true, false, true, true],
+  "frameFormat": "8N1",
+  "frameDurationSeconds": 0.0010416666666666667,
   "frameDescription": "start low + 8 LSB-first data + stop high",
   "frameDurations": [
     "10/9600 s",
