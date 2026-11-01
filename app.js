@@ -484,6 +484,16 @@ function renderInspector() {
   $("#property-reference").value = component?.reference ?? "";
   $("#property-value").value = component?.value ?? "";
   $("#property-status").value = part?.status ?? "Unresolved library part";
+  const pcbPart = state.project.pcbFabrication?.parts?.find((item) => item.instanceId === component?.instanceId);
+  const pcbPads = state.project.pcbFabrication?.pads?.filter((item) => item.instanceId === component?.instanceId) ?? [];
+  const padNets = new Set(pcbPads.map((item) => item.netId));
+  const pcbRoutes = (state.project.pcbFabrication?.routes ?? []).filter((item) => padNets.has(item.netId));
+  const centroid = pcbPads.length ? [pcbPads.reduce((sum, item) => sum + item.xMm, 0) / pcbPads.length, pcbPads.reduce((sum, item) => sum + item.yMm, 0) / pcbPads.length] : null;
+  $("#pcb-footprint-details").classList.toggle("hidden", state.activeView !== "pcb" || !pcbPart);
+  $("#pcb-footprint-package").textContent = pcbPart?.footprint ?? "—";
+  $("#pcb-footprint-position").textContent = centroid ? centroid.map((value) => value.toFixed(2)).join(", ") : "—";
+  $("#pcb-footprint-pad-count").textContent = String(pcbPads.length);
+  $("#pcb-footprint-route-count").textContent = String(pcbRoutes.length);
   $("#component-form").classList.toggle("hidden", state.activeInspector === "project");
   $("#project-form").classList.toggle("hidden", state.activeInspector !== "project");
   $("#simulation-form").classList.remove("hidden");

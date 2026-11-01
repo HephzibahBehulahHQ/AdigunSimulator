@@ -68,10 +68,11 @@ test("PCB view renders stored fabrication geometry and labels absent footprint d
 });
 
 test("PCB stored footprints can be moved through the synchronized pad and route model", async () => {
-  const [app, preview, edit] = await Promise.all([
+  const [app, preview, edit, html] = await Promise.all([
     readFile(appFile, "utf8"),
     readFile(new URL("../js/pcb-preview.mjs", import.meta.url), "utf8"),
-    readFile(new URL("../js/pcb-edit.mjs", import.meta.url), "utf8")
+    readFile(new URL("../js/pcb-edit.mjs", import.meta.url), "utf8"),
+    readFile(indexFile, "utf8")
   ]);
   assert.match(app, /import \{ movePcbFootprint \} from "\.\/js\/pcb-edit\.mjs"/);
   assert.match(app, /mode: "move-pcb"/);
@@ -83,6 +84,8 @@ test("PCB stored footprints can be moved through the synchronized pad and route 
   assert.match(app, /pcbFootprintTarget && state\.activeView === "pcb"/);
   assert.match(app, /state\.selectedInstanceId = drag\.instanceId;\s+if \(result\.status === "complete"\)/);
   assert.match(app, /document\.addEventListener\("pointercancel"/);
+  assert.match(html, /id="pcb-footprint-details"/);
+  assert.match(app, /pcb-footprint-pad-count/);
 });
 
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
