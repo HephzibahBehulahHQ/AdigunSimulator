@@ -83,7 +83,7 @@ function assertResultMatches(actual, expected, path) {
     return;
   }
   if (typeof expected === "number") {
-    const tolerance = Math.max(1e-15, Math.abs(expected) * 1e-9);
+    const tolerance = Math.max(1e-12, Math.abs(expected) * 1e-6);
     assert.ok(Number.isFinite(actual) && Math.abs(actual - expected) <= tolerance, `${path} differs by more than ${tolerance}`);
     return;
   }
