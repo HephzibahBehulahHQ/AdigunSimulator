@@ -1,28 +1,32 @@
-# 060 — I²C EEPROM sample write and read-back
+# 079 — EEPROM circular data logger
 
 ## Purpose
 
-Write one configured sample byte to a matching ideal I²C EEPROM address/register and verify immediate register read-back; report ACK, NACK, and data preservation.
+Record periodic temperature fixture samples into a bounded EEPROM ring buffer and replay the newest entries chronologically after wrap.
 
 ## Bill of materials
 
 | Reference | Project library ID | Project value |
 |---|---|---|
 | V1 | `power.dc-source` | 3.3 V |
-| BUS1 | `input.i2c-read-transaction` | Address 0x50; Register 0x10; Data 0x5A; Baud 100000; Cycle write-read; ACK yes |
-| U1 | `active.i2c-eeprom-ideal` | Address 0x50; Memory 0x10=0x00 |
+| SIG1 | `input.data-log-samples` | Samples 10,20,30,40,50; PeriodMs 100; Unit C |
+| U1 | `active.data-logger-controller-ideal` | SamplePeriodMs 100; Mode circular logger |
+| MEM1 | `active.eeprom-ring-buffer-ideal` | Capacity 3; WriteCycleMs 5; Mode circular |
 | R1 | `passive.resistor` | 4.7 kΩ |
 | R2 | `passive.resistor` | 4.7 kΩ |
+| DISP1 | `output.data-log-display` | Newest retained samples |
 | GND | `ground.signal` | 0 V |
 
 These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
 
 ## Net connections
 
-- **VCC:** `supply:+`, `eeprom:VCC`, `pullup-sda:1`, `pullup-scl:1`
-- **GND:** `supply:-`, `transaction:GND`, `eeprom:GND`, `ground:0`
-- **SDA:** `transaction:SDA`, `eeprom:SDA`, `pullup-sda:2`
-- **SCL:** `transaction:SCL`, `eeprom:SCL`, `pullup-scl:2`
+- **VCC:** `supply:+`, `controller:VCC`, `eeprom:VCC`, `pull-sda:1`, `pull-scl:1`, `display:VCC`
+- **GND:** `supply:-`, `fixture:GND`, `controller:GND`, `eeprom:GND`, `display:GND`, `ground:0`
+- **SAMPLES:** `fixture:DATA`, `controller:SENSOR`
+- **SDA:** `controller:SDA`, `eeprom:SDA`, `pull-sda:2`
+- **SCL:** `controller:SCL`, `eeprom:SCL`, `pull-scl:2`
+- **DISPLAY:** `controller:DISPLAY`, `display:DATA`
 
 ## Views and physical-layout status
 
@@ -32,30 +36,40 @@ No stored PCB fabrication geometry is present. The PCB view is a conceptual/shar
 
 ## Acceptance test and expected result
 
-- Stable test ID: `core-eeprom-data-logger`
-- Engine: Ideal I²C EEPROM write/read transaction model
+- Stable test ID: `core-eeprom-ring-logger`
+- Engine: Ideal EEPROM circular sample-buffer model
 - Engine version: `adigun-simulator@0.1.0`
-- Model version: `ideal-i2c-eeprom-write-read-v1`
-- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41176264872
+- Model version: `ideal-eeprom-ring-buffer-v1`
+- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41181542805
 
 Recorded expected result:
 
 ```json
 {
-  "address": "0x50",
-  "register": "0x10",
-  "writeByte": "0x5A",
-  "readBack": "0x5A",
-  "writeAndReadAck": true,
-  "immediateStorage": "ideal logical register storage",
-  "physicalEnduranceAndPowerLoss": "not modeled"
+  "samplePeriodMs": 100,
+  "writeCycleMs": 5,
+  "capacity": 3,
+  "recordedSamples": 5,
+  "overwrittenRecords": 2,
+  "bufferWrapped": true,
+  "replayValues": [
+    30,
+    40,
+    50
+  ],
+  "replayTimesMs": [
+    200,
+    300,
+    400
+  ],
+  "firmwareExecuted": false
 }
 ```
 
 ## Safety and model limits
 
-Digital transaction and ideal immediate-storage model only. Physical EEPROM write-cycle delay, endurance, power loss, page boundaries, bus timing, and MCU firmware are omitted.
+Ideal deterministic ring-buffer model only. MCU firmware, EEPROM page behavior, write endurance, power-loss recovery, I²C timing, and sensor accuracy are not modeled.
 
 Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
 
-Native project: `examples/060-eeprom-data-logger.adigun.json`.
+Native project: `examples/079-eeprom-data-logger.adigun.json`.
