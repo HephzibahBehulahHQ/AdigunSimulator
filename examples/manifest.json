@@ -1980,6 +1980,12 @@
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ideal-d-flip-flop-v1",
         "expectedResult": {
+          "clockHigh": false,
+          "risingEdge": false,
+          "q": null,
+          "qBar": null,
+          "mode": "low-level hold",
+          "ledCurrentA": 0,
           "initialClockLow": {
             "clockHigh": false,
             "risingEdge": false,
