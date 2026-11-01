@@ -13,8 +13,8 @@
       "verification": {
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41320647882",
-        "headRevision": "b7f4ebac936871cc1c43d0be8dcb74b73db7b42e",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41321013886",
+        "headRevision": "23ba7e943d273da16e3f0e813bf18ce6d4398753",
         "engine": "Analytical DC LED demonstration",
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "led-current-limiter-v1",
