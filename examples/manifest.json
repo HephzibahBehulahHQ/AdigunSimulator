@@ -711,6 +711,18 @@
         "modelVersion": "passive-tone-cut-loaded-rc-v1",
         "libraryLock": "adigun-simulator@f550d6fc3dfdd0ac5fd073f54386aa4238accde4",
         "expectedResult": {
+          "inputAmplitudeV": 1,
+          "maximumResistance": 10000,
+          "positionPercent": 50,
+          "seriesResistance": 5000,
+          "capacitance": 1e-7,
+          "loadResistance": 10000,
+          "cutoffHz": 477.46482927568604,
+          "response": [
+            {"frequencyHz": 100, "gain": 0.6525091286378826, "phaseRad": -0.20645531758085955},
+            {"frequencyHz": 1000, "gain": 0.287247182748001, "phaseRad": -1.1253388328842984},
+            {"frequencyHz": 10000, "gain": 0.03179476756097162, "phaseRad": -1.523086077295077}
+          ],
           "defaultPosition50Percent": {
             "cutoffHz": 477.46482927568604,
             "response": [
