@@ -83,6 +83,8 @@ test("PCB stored footprints can be moved through the synchronized pad and route 
   assert.match(app, /pcbFootprintTarget && state\.activeView === "pcb"/);
   assert.match(app, /state\.selectedInstanceId = drag\.instanceId;\s+if \(result\.status === "complete"\)/);
   assert.match(app, /document\.addEventListener\("pointercancel"/);
+  assert.match(html, /id="pcb-footprint-details"/);
+  assert.match(app, /pcb-footprint-pad-count/);
 });
 
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
