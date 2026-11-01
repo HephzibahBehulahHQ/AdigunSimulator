@@ -2270,6 +2270,8 @@
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ideal-six-phase-traffic-fsm-v1",
         "expectedResult": {
+          "phase": 0,
+          "lamps": [false, false, true, true, false, false],
           "phaseLampVectors": [
             [
               false,
