@@ -46,6 +46,23 @@ Recorded expected result:
 
 ```json
 {
+  "primaryRmsVoltage": 230,
+  "lineFrequencyHz": 50,
+  "secondaryRmsVoltage": 12,
+  "rectifiedFrequencyHz": 100,
+  "rectifiedPeakVoltage": 15.570562748477142,
+  "outputSetpointV": 5,
+  "outputVoltage": 5,
+  "regulated": true,
+  "loadCurrentA": 0.05,
+  "rippleVoltagePP": 0.5,
+  "minimumRectifiedVoltage": 15.070562748477142,
+  "averageRectifiedVoltage": 15.320562748477142,
+  "dropoutMarginV": 8.070562748477142,
+  "regulatorDissipationW": 0.5160281374238571,
+  "bridgeDissipationW": 0.07,
+  "loadPowerW": 0.25,
+  "estimatedSecondaryInputPowerW": 0.8360281374238572,
   "nominal230VRms": {
     "secondaryRmsVoltage": 12,
     "rectifiedFrequencyHz": 100,
