@@ -67,6 +67,20 @@ test("PCB view renders stored fabrication geometry and labels absent footprint d
   assert.match(html, /data-view="pcb"/);
 });
 
+test("PCB stored footprints can be moved through the synchronized pad and route model", async () => {
+  const [app, preview, edit] = await Promise.all([
+    readFile(appFile, "utf8"),
+    readFile(new URL("../js/pcb-preview.mjs", import.meta.url), "utf8"),
+    readFile(new URL("../js/pcb-edit.mjs", import.meta.url), "utf8")
+  ]);
+  assert.match(app, /import \{ movePcbFootprint \} from "\.\/js\/pcb-edit\.mjs"/);
+  assert.match(app, /mode: "move-pcb"/);
+  assert.match(app, /movePcbFootprint\(state\.project, drag\.instanceId, delta\)/);
+  assert.match(preview, /class="pcb-footprint-hit" data-instance-id=/);
+  assert.match(edit, /updatedRoutePoints/);
+  assert.match(edit, /OUT_OF_BOUNDS/);
+});
+
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   const logo = await readFile(new URL("../assets/brand/hephzibah-behulah-official.jpg", import.meta.url));

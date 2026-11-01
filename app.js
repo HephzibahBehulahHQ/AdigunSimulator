@@ -19,7 +19,8 @@ import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
-import { renderPcbPreviewSvg } from "./js/pcb-preview.mjs";
+import { renderPcbPreviewSvg, getPcbPreviewScale } from "./js/pcb-preview.mjs";
+import { movePcbFootprint } from "./js/pcb-edit.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
@@ -1266,7 +1267,15 @@ document.addEventListener("pointerdown", (event) => {
   const canvas = event.target.closest("#design-canvas");
   if (!canvas) return;
   const component = event.target.closest(".placed-component");
+  const pcbFootprint = state.activeView === "pcb" && state.activeTool === "select" ? event.target.closest(".pcb-footprint-hit") : null;
   const point = { x: event.clientX, y: event.clientY };
+  if (pcbFootprint) {
+    const svg = pcbFootprint.ownerSVGElement;
+    state.drag = { mode: "move-pcb", pointerId: event.pointerId, instanceId: pcbFootprint.dataset.pcbFootprint, start: point, svg, canvas };
+    canvas.setPointerCapture?.(event.pointerId);
+    event.preventDefault();
+    return;
+  }
   if (component && state.activeTool === "select") {
     const item = state.project.components.find((candidate) => candidate.instanceId === component.dataset.instanceId);
     if (!item) return;
@@ -1290,6 +1299,16 @@ document.addEventListener("pointermove", (event) => {
     if (scene) { scene.style.setProperty("--pan-x", `${state.pan.x}px`); scene.style.setProperty("--pan-y", `${state.pan.y}px`); }
     return;
   }
+  if (state.drag.mode === "move-pcb") {
+    const rect = state.drag.svg.getBoundingClientRect();
+    const viewX = deltaX * (680 / rect.width), viewY = deltaY * (300 / rect.height);
+    const scale = getPcbPreviewScale(state.project.pcbFabrication?.board);
+    if (!scale) return;
+    state.drag.previewDelta = { x: viewX / scale, y: viewY / scale };
+    const group = state.drag.svg.querySelector(`[data-pcb-footprint="${CSS.escape(state.drag.instanceId)}"]`);
+    if (group) group.setAttribute("transform", `translate(${viewX} ${viewY})`);
+    return;
+  }
   const rect = state.drag.canvas.getBoundingClientRect();
   const scaleX = 680 / rect.width;
   const scaleY = 300 / rect.height;
@@ -1304,6 +1323,33 @@ document.addEventListener("pointerup", (event) => {
   const drag = state.drag;
   state.drag = null;
   drag.canvas.releasePointerCapture?.(event.pointerId);
+  if (drag.mode === "move-pcb") {
+    const rect = drag.svg.getBoundingClientRect();
+    const scale = getPcbPreviewScale(state.project.pcbFabrication?.board);
+    if (!scale) { renderCanvas(); return; }
+    const delta = { x: (event.clientX - drag.start.x) * (680 / rect.width) / scale, y: (event.clientY - drag.start.y) * (300 / rect.height) / scale };
+    if ($("#snap-toggle").checked) { delta.x = Math.round(delta.x * 2) / 2; delta.y = Math.round(delta.y * 2) / 2; }
+    const result = movePcbFootprint(state.project, drag.instanceId, delta);
+    if (result.status === "complete") {
+      captureHistory();
+      state.project = result.project;
+      state.selectedInstanceId = drag.instanceId;
+      state.dirty = true;
+      state.recoveryActive = true;
+      state.lastValidation = null;
+      render();
+      validateAndReport();
+      log(`[PCB] ${drag.instanceId} moved ${result.movedPadCount} pad(s); ${result.updatedRoutePoints} attached route point(s) updated.`);
+    } else {
+      renderCanvas();
+      if (result.status === "blocked") {
+        const message = result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : t("pcbMoveNoFootprint");
+        showDialog(t("pcbMenu"), message);
+        log(`[PCB] Footprint move blocked: ${result.code}.`);
+      }
+    }
+    return;
+  }
   if (drag.mode !== "move") return;
   const rect = drag.canvas.getBoundingClientRect();
   const x = drag.startPosition[0] + ((event.clientX - drag.start.x) * (680 / rect.width));
