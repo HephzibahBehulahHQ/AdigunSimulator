@@ -48,6 +48,8 @@ Recorded expected result:
 ```json
 {
   "samplesRequired": 3,
+  "sampleCount": 3,
+  "output": false,
   "bounceSequenceRejected": [
     5,
     0,
