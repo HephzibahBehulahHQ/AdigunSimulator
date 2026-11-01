@@ -78,7 +78,8 @@ function assertResultMatches(actual, expected, path) {
   if (expected && typeof expected === "object") {
     if (!actual || typeof actual !== "object") return;
     for (const [key, value] of Object.entries(expected)) {
-      if (Object.hasOwn(actual, key)) assertResultMatches(actual[key], value, `${path}.${key}`);
+      // Registry `kind` labels identify the project scenario; analysis engines may report their own result kind.
+      if (key !== "kind" && Object.hasOwn(actual, key)) assertResultMatches(actual[key], value, `${path}.${key}`);
     }
     return;
   }
