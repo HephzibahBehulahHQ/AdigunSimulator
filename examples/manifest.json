@@ -75,7 +75,8 @@
             "greenCurrentA": 0
           }
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/002-two-led-polarity-indicator.md"
     },
     {
       "id": "003-pushbutton-led",
@@ -114,7 +115,8 @@
             "powerBalanceW": 0
           }
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/003-pushbutton-led.md"
     },
     {
       "id": "004-latching-led-switch",
@@ -152,7 +154,8 @@
             "powerBalanceW": 0
           }
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/004-latching-led-switch.md"
     },
     {
       "id": "005-pwm-led-dimmer",
@@ -221,7 +224,8 @@
             "averageCurrentA": 0
           }
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/005-pwm-led-dimmer.md"
     },
     {
       "id": "006-battery-discharge-monitor",
@@ -282,7 +286,8 @@
             "powerBalanceW": 0
           }
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/006-battery-discharge-monitor.md"
     },
     {
       "id": "007-linear-regulated-supply",
@@ -330,7 +335,8 @@
             "dropoutMarginV": 0
           }
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/007-linear-regulated-supply.md"
     },
     {
       "id": "008-usb-powered-led",
@@ -380,7 +386,8 @@
             "fuseTripPredicted": false
           }
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/008-usb-powered-led.md"
     },
     {
       "id": "009-solar-garden-light",
@@ -430,7 +437,8 @@
             "ledPowerBalanceW": 0
           }
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/009-solar-garden-light.md"
     },
     {
       "id": "010-supercapacitor-hold-up",
@@ -468,7 +476,8 @@
             "voltageAtThresholdV": 3
           }
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/010-supercapacitor-hold-up.md"
     },
     {
       "id": "011-rc-charge-discharge",
@@ -495,7 +504,8 @@
         }
       },
       "scope": "catalogue",
-      "catalogueIndex": 11
+      "catalogueIndex": 11,
+      "readmeFile": "examples/project-readmes/011-rc-charge-discharge.md"
     },
     {
       "id": "012-rc-low-pass",
@@ -523,7 +533,8 @@
         }
       },
       "scope": "catalogue",
-      "catalogueIndex": 12
+      "catalogueIndex": 12,
+      "readmeFile": "examples/project-readmes/012-rc-low-pass.md"
     },
     {
       "id": "013-rc-high-pass",
@@ -551,7 +562,8 @@
         }
       },
       "scope": "catalogue",
-      "catalogueIndex": 13
+      "catalogueIndex": 13,
+      "readmeFile": "examples/project-readmes/013-rc-high-pass.md"
     },
     {
       "id": "014-passive-tone-control",
@@ -603,7 +615,8 @@
             "highFrequencyGain": 0.015907437547469306
           }
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/014-passive-tone-control.md"
     },
     {
       "id": "015-bridge-rectifier",
@@ -634,7 +647,8 @@
           "diodeDropPerConductingDiode": 0.7,
           "smoothingCapacitor": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/015-bridge-rectifier.md"
     },
     {
       "id": "016-smoothing-capacitor",
@@ -664,7 +678,8 @@
           "capacitorDischargedAtStart": true,
           "rippleReducedAgainstUnfilteredBridge": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/016-smoothing-capacitor.md"
     },
     {
       "id": "017-zener-shunt-regulator",
@@ -695,7 +710,8 @@
           "zenerPowerBelowEnteredLimit": true,
           "overloadInputProducesWarning": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/017-zener-shunt-regulator.md"
     },
     {
       "id": "018-tvs-surge-clamp",
@@ -727,7 +743,8 @@
           "pulseEnergyJ": 0.010476,
           "energyLimitWarning": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/018-tvs-surge-clamp.md"
     },
     {
       "id": "019-ntc-temperature-divider",
@@ -763,7 +780,8 @@
           "outputIncreasesWithTemperature": true,
           "outputAt25C": 2.5
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/019-ntc-temperature-divider.md"
     },
     {
       "id": "020-ldr-night-light",
@@ -794,7 +812,8 @@
           "darkLedOn": true,
           "darkLedCurrentA": 0.00909090909090909
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/020-ldr-night-light.md"
     },
     {
       "id": "021-555-astable-blinker",
@@ -824,7 +843,8 @@
           "dutyCycle": 0.6666666666666666,
           "ledBlinking": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/021-555-astable-blinker.md"
     },
     {
       "id": "022-555-monostable",
@@ -853,7 +873,8 @@
           "triggeredPressProducesOnePulse": true,
           "normalOpenProducesNoPulse": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/022-555-monostable.md"
     },
     {
       "id": "002-dc-voltage-divider",
@@ -1059,7 +1080,8 @@
         }
       },
       "scope": "catalogue",
-      "catalogueIndex": 23
+      "catalogueIndex": 23,
+      "readmeFile": "examples/project-readmes/023-556-dual-timer.md"
     },
     {
       "id": "024-opamp-noninverting",
@@ -1088,7 +1110,8 @@
           "positiveSupplyV": 12,
           "negativeSupplyV": -12
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/024-opamp-noninverting.md"
     },
     {
       "id": "025-opamp-inverting",
@@ -1117,7 +1140,8 @@
           "positiveSupplyV": 12,
           "negativeSupplyV": -12
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/025-opamp-inverting.md"
     },
     {
       "id": "026-opamp-voltage-follower",
@@ -1146,7 +1170,8 @@
           "positiveSupplyV": 12,
           "negativeSupplyV": -12
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/026-opamp-voltage-follower.md"
     },
     {
       "id": "027-comparator-threshold",
@@ -1175,7 +1200,8 @@
           "ledOn": true,
           "ledCurrentA": 0.00909090909090909
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/027-comparator-threshold.md"
     },
     {
       "id": "028-schmitt-trigger",
@@ -1203,7 +1229,8 @@
           "risingThresholdV": 3,
           "hysteresisV": 0.5
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/028-schmitt-trigger.md"
     },
     {
       "id": "029-window-comparator",
@@ -1234,7 +1261,8 @@
           "windowActive": true,
           "ledOn": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/029-window-comparator.md"
     },
     {
       "id": "030-reference-buffer",
@@ -1262,7 +1290,8 @@
           "loadResistanceOhm": 10000,
           "loadCurrentA": 0.00025
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/030-reference-buffer.md"
     },
     {
       "id": "031-transistor-common-emitter",
@@ -1289,7 +1318,8 @@
           "inverting": true,
           "activeBiasPoint": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/031-transistor-common-emitter.md"
     },
     {
       "id": "032-emitter-follower",
@@ -1317,7 +1347,8 @@
           "outputVoltage": 1.8,
           "loadResistanceOhm": 1000
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/032-emitter-follower.md"
     },
     {
       "id": "033-nmos-low-side-switch",
@@ -1344,7 +1375,8 @@
           "gateThresholdV": 2,
           "switchOn": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/033-nmos-low-side-switch.md"
     },
     {
       "id": "034-pmos-high-side-switch",
@@ -1371,7 +1403,8 @@
           "gateSourceVoltageV": -12,
           "switchOn": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/034-pmos-high-side-switch.md"
     },
     {
       "id": "035-npn-relay-driver",
@@ -1407,7 +1440,8 @@
           "turnOffCurrentAtOneTimeConstantA": 0.17297255159060215,
           "turnOffCurrentAtThreeTimeConstantsA": 0.012600980302131396
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/035-npn-relay-driver.md"
     },
     {
       "id": "036-hbridge-dc-motor",
@@ -1437,7 +1471,8 @@
           "rightOutputVoltageV": 0.1935483870967742,
           "shootThrough": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/036-hbridge-dc-motor.md"
     },
     {
       "id": "037-electret-audio-preamp",
@@ -1471,7 +1506,8 @@
           "outputMaximumV": 3.4999995718922454,
           "outputWithinSupplyRails": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/037-electret-audio-preamp.md"
     },
     {
       "id": "038-audio-power-amplifier",
@@ -1504,7 +1540,8 @@
           "speakerCurrentRmsA": 0.1353722172005118,
           "speakerRealPowerW": 0.1466050975182603
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/038-audio-power-amplifier.md"
     },
     {
       "id": "039-active-low-pass",
@@ -1544,7 +1581,8 @@
           ],
           "maximumOutputAmplitudeV": 2
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/039-active-low-pass.md"
     },
     {
       "id": "040-wien-bridge-oscillator",
@@ -1575,7 +1613,8 @@
           "limiterDiodeDropV": 0.3,
           "outputWithinSupplyRails": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/040-wien-bridge-oscillator.md"
     },
     {
       "id": "041-and-gate-truth-table",
@@ -1623,7 +1662,8 @@
           ],
           "ledCurrentWhenHighA": 0.00909090909090909
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/041-and-gate-truth-table.md"
     },
     {
       "id": "042-or-gate-truth-table",
@@ -1671,7 +1711,8 @@
           ],
           "ledCurrentWhenHighA": 0.00909090909090909
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/042-or-gate-truth-table.md"
     },
     {
       "id": "043-xor-parity-checker",
@@ -1719,7 +1760,8 @@
           ],
           "oddParityIndicator": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/043-xor-parity-checker.md"
     },
     {
       "id": "044-sr-latch-nor",
@@ -1771,7 +1813,8 @@
           },
           "simultaneousSetAndReset": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/044-sr-latch-nor.md"
     },
     {
       "id": "045-d-flip-flop-register",
@@ -1824,7 +1867,8 @@
           },
           "clockHighWithoutPriorLow": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/045-d-flip-flop-register.md"
     },
     {
       "id": "046-jk-toggle-divider",
@@ -1869,7 +1913,8 @@
           },
           "invalidClockAboveSupply": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/046-jk-toggle-divider.md"
     },
     {
       "id": "047-four-bit-binary-counter",
@@ -1928,7 +1973,8 @@
           ],
           "invalidClockAboveSupply": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/047-four-bit-binary-counter.md"
     },
     {
       "id": "048-bcd-counter-display",
@@ -2046,7 +2092,8 @@
           "activeLowResetDigit": 0,
           "invalidClockAboveSupply": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/048-bcd-counter-display.md"
     },
     {
       "id": "049-traffic-light-fsm",
@@ -2122,7 +2169,8 @@
           "opposingGreenInvariant": true,
           "onePhasePerRisingEdge": true
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/049-traffic-light-fsm.md"
     },
     {
       "id": "050-debounced-digital-input",
@@ -2162,7 +2210,8 @@
           "outputAfterThreeStableHighSamples": true,
           "invalidVoltage": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/050-debounced-digital-input.md"
     },
     {
       "id": "051-shift-register-led-chaser",
@@ -2220,7 +2269,8 @@
           "repeatsAfterFourEdges": true,
           "invalidClockAboveSupply": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/051-shift-register-led-chaser.md"
     },
     {
       "id": "052-multiplexer-selector",
@@ -2249,7 +2299,8 @@
           "selectedOutputMatchesSelectedInput": true,
           "invalidSelectVoltage": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/052-multiplexer-selector.md"
     },
     {
       "id": "053-decoder-controlled-leds",
@@ -2306,7 +2357,8 @@
           "oneHotEachAddress": true,
           "invalidVoltage": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/053-decoder-controlled-leds.md"
     },
     {
       "id": "054-priority-encoder",
@@ -2346,7 +2398,8 @@
           "highestPriority": "D3",
           "invalidInput": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/054-priority-encoder.md"
     },
     {
       "id": "055-alu-add-subtract",
@@ -2378,7 +2431,8 @@
           "carryInSubtract": "no-borrow indicator",
           "signedOverflow": "not modeled"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/055-alu-add-subtract.md"
     },
     {
       "id": "056-uart-transmitter",
@@ -2416,7 +2470,8 @@
           ],
           "invalidByteAndBaud": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/056-uart-transmitter.md"
     },
     {
       "id": "057-uart-receiver",
@@ -2445,7 +2500,8 @@
           "invalidStartStop": "framing error; valid=false",
           "invalidFrameLength": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/057-uart-receiver.md"
     },
     {
       "id": "058-i2c-sensor-read",
@@ -2475,7 +2531,8 @@
           "absentRegister": "ACK with no returned data",
           "pullUps": "one 4.7 kΩ resistor on each bus line"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/058-i2c-sensor-read.md"
     },
     {
       "id": "059-spi-display",
@@ -2505,7 +2562,8 @@
           "transferDurationSeconds": "8/1000000",
           "invalidModeByteChipSelect": "blocked"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/059-spi-display.md"
     },
     {
       "id": "060-eeprom-data-logger",
@@ -2535,7 +2593,8 @@
           "immediateStorage": "ideal logical register storage",
           "physicalEnduranceAndPowerLoss": "not modeled"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/060-eeprom-data-logger.md"
     },
     {
       "id": "061-arduino-blink",
@@ -2570,7 +2629,8 @@
           "frequencyHz": 1,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/061-arduino-blink.md"
     },
     {
       "id": "062-arduino-button-debounce",
@@ -2599,7 +2659,8 @@
           "finalOutput": "off",
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/062-arduino-button-debounce.md"
     },
     {
       "id": "063-arduino-pwm-dimmer",
@@ -2640,7 +2701,8 @@
           "mosfetTopology": "low-side ideal switch",
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/063-arduino-pwm-dimmer.md"
     },
     {
       "id": "064-arduino-temperature-monitor",
@@ -2672,7 +2734,8 @@
           "displayOutput": "one-line °C text",
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/064-arduino-temperature-monitor.md"
     },
     {
       "id": "065-arduino-ultrasonic-ranger",
@@ -2701,7 +2764,8 @@
           "outOfRangeEchoUs": 25000,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/065-arduino-ultrasonic-ranger.md"
     },
     {
       "id": "066-arduino-servo-control",
@@ -2741,7 +2805,8 @@
           "frameRateHz": 50,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/066-arduino-servo-control.md"
     },
     {
       "id": "067-arduino-stepper-driver",
@@ -2773,7 +2838,8 @@
           ],
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/067-arduino-stepper-driver.md"
     },
     {
       "id": "068-esp32-telemetry-mock",
@@ -2810,7 +2876,8 @@
           "transmitted": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/068-esp32-telemetry-mock.md"
     },
     {
       "id": "069-pico-adc-voltmeter",
@@ -2847,7 +2914,8 @@
           "aboveReference": "blocked",
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/069-pico-adc-voltmeter.md"
     },
     {
       "id": "070-stm32-timer-pwm",
@@ -2875,7 +2943,8 @@
           "firmwareExecuted": false,
           "physicalTimerAndGPIOBehavior": "not modeled"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/070-stm32-timer-pwm.md"
     },
     {
       "id": "071-pic-adc-bargraph",
@@ -2928,7 +2997,8 @@
           "firmwareExecuted": false,
           "physicalLedCurrent": "not modeled"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/071-pic-adc-bargraph.md"
     },
     {
       "id": "072-avr-ir-receiver",
@@ -2959,7 +3029,8 @@
           "frameDurationUs": 67980,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/072-avr-ir-receiver.md"
     },
     {
       "id": "073-mcu-watchdog",
@@ -2996,7 +3067,8 @@
           "heartbeatHigh": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/073-mcu-watchdog.md"
     },
     {
       "id": "074-can-node-pair",
@@ -3035,7 +3107,8 @@
           "busTerminationOhm": 60,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/074-can-node-pair.md"
     },
     {
       "id": "075-rs485-sensor-network",
@@ -3070,7 +3143,8 @@
           "busTerminationOhm": 60,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/075-rs485-sensor-network.md"
     },
     {
       "id": "076-gps-nmea-display",
@@ -3102,7 +3176,8 @@
           "displayText": "48.11730, 11.51667",
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/076-gps-nmea-display.md"
     },
     {
       "id": "077-rfid-access-reader",
@@ -3133,7 +3208,8 @@
           "authentication": "UID only; not secure",
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/077-rfid-access-reader.md"
     },
     {
       "id": "078-nfc-uid-display",
@@ -3161,7 +3237,8 @@
           "uidIsAuthentication": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/078-nfc-uid-display.md"
     },
     {
       "id": "079-eeprom-data-logger",
@@ -3201,7 +3278,8 @@
           ],
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/079-eeprom-data-logger.md"
     },
     {
       "id": "080-low-power-sleep-wake",
@@ -3246,7 +3324,8 @@
           "firmwareExecuted": false,
           "physicalSleepCurrent": "not verified"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/080-low-power-sleep-wake.md"
     },
     {
       "id": "081-ble-beacon-configuration",
@@ -3347,7 +3426,8 @@
           "radioTransmitted": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/081-ble-beacon-configuration.md"
     },
     {
       "id": "082-lora-sensor-node",
@@ -3399,7 +3479,8 @@
           "firmwareExecuted": false,
           "regionalCompliance": "not evaluated"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/082-lora-sensor-node.md"
     },
     {
       "id": "083-gsm-alarm-notifier",
@@ -3448,7 +3529,8 @@
           "firmwareExecuted": false,
           "errorHandling": "stop at first unexpected modem response"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/083-gsm-alarm-notifier.md"
     },
     {
       "id": "084-wifi-relay-controller",
@@ -3484,7 +3566,8 @@
           "firmwareExecuted": false,
           "offlineState": "de-energized"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/084-wifi-relay-controller.md"
     },
     {
       "id": "085-ethernet-sensor-node",
@@ -3572,7 +3655,8 @@
           "packetTransmitted": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/085-ethernet-sensor-node.md"
     },
     {
       "id": "086-ir-remote-actions",
@@ -3605,7 +3689,8 @@
           "actionExecuted": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/086-ir-remote-actions.md"
     },
     {
       "id": "087-fm-front-end-response",
@@ -3639,7 +3724,8 @@
           "demodulationModeled": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/087-fm-front-end-response.md"
     },
     {
       "id": "088-rfid-inventory",
@@ -3686,7 +3772,8 @@
           "authenticationModeled": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/088-rfid-inventory.md"
     },
     {
       "id": "089-i2c-level-shifter",
@@ -3722,7 +3809,8 @@
           "bidirectionalTransitionsVerified": true,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/089-i2c-level-shifter.md"
     },
     {
       "id": "090-usb-uart-console",
@@ -3766,7 +3854,8 @@
           "hostContacted": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/090-usb-uart-console.md"
     },
     {
       "id": "091-electret-microphone-meter",
@@ -3807,7 +3896,8 @@
           ],
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/091-electret-microphone-meter.md"
     },
     {
       "id": "092-audio-tone-generator",
@@ -3845,7 +3935,8 @@
           "secondHarmonicBelowV": 1e-12,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/092-audio-tone-generator.md"
     },
     {
       "id": "093-guitar-pedal-buffer",
@@ -3880,7 +3971,8 @@
           "unityGainInBand": true,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/093-guitar-pedal-buffer.md"
     },
     {
       "id": "094-simple-audio-mixer",
@@ -3914,7 +4006,8 @@
           "clipped": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/094-simple-audio-mixer.md"
     },
     {
       "id": "095-pwm-audio-dac",
@@ -3948,7 +4041,8 @@
           "tracksDutyCycle": true,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/095-pwm-audio-dac.md"
     },
     {
       "id": "096-digital-volume-control",
@@ -3981,7 +4075,8 @@
           "deviceProtocolModeled": false,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/096-digital-volume-control.md"
     },
     {
       "id": "097-rgb-led-controller",
@@ -4021,7 +4116,8 @@
           "monotonicDutyMapping": true,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/097-rgb-led-controller.md"
     },
     {
       "id": "098-oled-status-panel",
@@ -4058,7 +4154,8 @@
           "pressureHpa": 1013,
           "firmwareExecuted": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/098-oled-status-panel.md"
     },
     {
       "id": "099-epaper-display-updater",
@@ -4106,7 +4203,8 @@
           "refreshCompleted": true,
           "powerStateAfter": "sleep"
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/099-epaper-display-updater.md"
     },
     {
       "id": "100-seven-segment-clock",
@@ -4147,7 +4245,8 @@
           "firmwareExecuted": false,
           "displayDriven": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/100-seven-segment-clock.md"
     },
     {
       "id": "101-buck-converter-baseline",
@@ -4190,7 +4289,8 @@
           "powerBalanceW": 0,
           "controllerHardwareModeled": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/101-buck-converter-baseline.md"
     },
     {
       "id": "102-boost-converter-baseline",
@@ -4233,7 +4333,8 @@
           "powerBalanceW": 0,
           "controllerHardwareModeled": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/102-boost-converter-baseline.md"
     },
     {
       "id": "103-buck-boost-supply",
@@ -4278,7 +4379,8 @@
           "assumedEfficiencyPercent": 95,
           "controllerWaveformsModeled": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/103-buck-boost-supply.md"
     },
     {
       "id": "104-liion-charger-concept",
@@ -4321,7 +4423,8 @@
           "chargingEnabled": true,
           "hardwareModeled": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/104-liion-charger-concept.md"
     },
     {
       "id": "105-bms-cell-monitor",
@@ -4382,7 +4485,8 @@
           "balancingActuated": false,
           "protectionActuated": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/105-bms-cell-monitor.md"
     },
     {
       "id": "106-solar-mppt-concept",
@@ -4423,7 +4527,8 @@
           "trackingAlgorithmModeled": false,
           "converterHardwareModeled": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/106-solar-mppt-concept.md"
     },
     {
       "id": "107-usb-c-sink-concept",
@@ -5335,7 +5440,8 @@
           "audioGainSimulation": false,
           "hardwareManufacturingQualified": false
         }
-      }
+      },
+      "readmeFile": "examples/project-readmes/128-audio-amplifier-pcb.md"
     },
     {
       "id": "129-buck-converter-pcb",

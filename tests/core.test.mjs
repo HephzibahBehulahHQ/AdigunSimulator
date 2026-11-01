@@ -1505,6 +1505,10 @@ test("released examples carry a native project, acceptance test, safety scope, a
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
   assert.equal(validateExampleRegistry(registry).valid, true);
   for (const item of registry.examples.filter((example) => example.status === "released")) {
+    if (item.scope === "catalogue") {
+      assert.ok(item.readmeFile, `${item.id} is missing its project README`);
+      await readFile(new URL(`../${item.readmeFile}`, import.meta.url), "utf8");
+    }
     const example = JSON.parse(await readFile(new URL(`../${item.projectFile}`, import.meta.url)));
     const validation = validateProject(example);
     if (item.expectedValidation === "invalid") {
