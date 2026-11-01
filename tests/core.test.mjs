@@ -1543,11 +1543,18 @@ test("released examples carry a native project, acceptance test, safety scope, a
       assert.equal(runSupportedAnalysis(example).state, "unsupported", item.id);
       continue;
     }
-    const analysis = runSupportedAnalysis(example);
+    const expectedResult = item.verification?.expectedResult;
+    const inputSource = expectedResult && Number.isFinite(expectedResult.inputVoltage)
+      ? example.components.find((component) => component.reference === "VIN")
+      : null;
+    const analysisProject = inputSource
+      ? updateComponent(example, inputSource.instanceId, { value: `${expectedResult.inputVoltage} V` })
+      : example;
+    const analysis = runSupportedAnalysis(analysisProject);
     assert.equal(analysis.state, "complete", item.id);
     if (item.scope === "catalogue") {
-      assert.ok(item.verification?.expectedResult, `${item.id} is missing its recorded result`);
-      assertResultMatches(analysis.result, item.verification.expectedResult, item.id);
+      assert.ok(expectedResult, `${item.id} is missing its recorded result`);
+      assertResultMatches(analysis.result, expectedResult, item.id);
     }
   }
   assert.equal(getExampleCoverage(registry).total, 210);
