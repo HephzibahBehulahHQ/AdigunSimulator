@@ -68,11 +68,19 @@ import { auditUiSource, runFourLanguageUiSweep } from "../js/locale-ui-sweep.mjs
 import { runOfflineRecoveryScenario } from "../js/offline-recovery-scenario.mjs";
 import { runReleaseCandidateE2EFixtures } from "../js/release-candidate-e2e.mjs";
 
-test("starter project validates and produces a bounded analytical DC result", () => {
-  const result = runSupportedAnalysis(createProject());
+test("core-led-current-limiter: catalogue 001 produces its recorded analytical result", async () => {
+  const project = createProject();
+  const result = runSupportedAnalysis(project);
   assert.equal(result.state, "complete");
-  assert.equal(result.result.ledOn, true);
-  assert.ok(Math.abs(result.result.currentA - 0.00909) < 0.0001);
+  assert.equal(result.engine, "Analytical DC LED demonstration");
+  const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
+  const example = registry.examples.find((item) => item.id === "001-led-current-limiter");
+  assert.ok(example);
+  assert.deepEqual(result.result, example.verification.expectedResult);
+  const readme = await readFile(new URL(`../${example.readmeFile}`, import.meta.url), "utf8");
+  assert.match(readme, /Bill of materials/i);
+  assert.match(readme, /9\.09 mA/);
+  assert.match(readme, /model limitations/i);
 });
 
 test("a new project starts blank and remains a valid native document", () => {
