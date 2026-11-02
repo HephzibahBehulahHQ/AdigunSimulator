@@ -1,20 +1,4 @@
-import {
-  STARTER_LIBRARY,
-  addComponent,
-  createProject,
-  connectPins,
-  createEmptyProject,
-  disconnectPin,
-  findLibraryPart,
-  getViewReconciliationIssues,
-  moveComponent,
-  removeComponent,
-  parseProject,
-  runSupportedAnalysis,
-  serializeProject,
-  updateComponent,
-  validateProject
-} from "./js/core.mjs";
+import { STARTER_LIBRARY, addComponent, createProject, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
@@ -25,65 +9,65 @@ import { createPcbRoute } from "./js/pcb-routing.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
-import { analyzeDcVoltmeter } from "./js/dc-voltmeter-analysis.mjs";
-import { analyzeDcAmmeter } from "./js/dc-ammeter-analysis.mjs";
-import { captureTriggeredPulse } from "./js/oscilloscope-trigger.mjs";
-import { measureTwoChannelPhase } from "./js/phase-measurement.mjs";
-import { captureLogicAnalyzer } from "./js/logic-analyzer-capture.mjs";
-import { measureFrequency } from "./js/frequency-counter.mjs";
-import { analyzeRcBode } from "./js/rc-bode-analysis.mjs";
-import { analyzeRlcStep } from "./js/rlc-transient.mjs";
-import { runParameterSweep } from "./js/parameter-sweep.mjs";
-import { runMonteCarloTolerance } from "./js/monte-carlo-tolerance.mjs";
-import { analyzeThermalWarningBoundary } from "./js/thermal-warning-boundary.mjs";
-import { analyzeConvergenceStudy } from "./js/convergence-study.mjs";
-import { diagnoseFloatingNode } from "./js/floating-node-diagnosis.mjs";
-import { diagnoseSupplyShort } from "./js/short-circuit-diagnosis.mjs";
-import { diagnoseMissingGround } from "./js/missing-ground-diagnosis.mjs";
-import { reportUnavailableModel } from "./js/model-unavailable-diagnosis.mjs";
-import { runNetCrossProbe } from "./js/net-cross-probe.mjs";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { validateComponentProperty } from "./js/component-property-audit.mjs";
 import { createSimulationReport } from "./js/simulation-report.mjs";
 import { verifySimulationLockfile } from "./js/simulation-lockfile.mjs";
-import { runPlcStartStopSequence } from "./js/plc-start-stop-sequence.mjs";
-import { runTrafficLightSequence } from "./js/traffic-light-sequence.mjs";
-import { runTankLevelController } from "./js/tank-level-controller.mjs";
-import { runConveyorCounter } from "./js/conveyor-counter.mjs";
-import { runStarDeltaStarter } from "./js/star-delta-starter.mjs";
-import { runForwardReverseInterlock } from "./js/forward-reverse-interlock.mjs";
-import { runEmergencyStopConcept } from "./js/emergency-stop-concept.mjs";
-import { runDoorInterlockConcept } from "./js/door-interlock-concept.mjs";
-import { runTemperatureAlarm } from "./js/temperature-alarm.mjs";
-import { runWaterLeakAlarm } from "./js/water-leak-alarm.mjs";
-import { runFanThermostat } from "./js/fan-thermostat.mjs";
-import { runPwmFanController } from "./js/pwm-fan-controller.mjs";
-import { runAutomaticNightLight } from "./js/automatic-night-light.mjs";
-import { runSmartIrrigation } from "./js/smart-irrigation.mjs";
-import { runGarageDoorConcept } from "./js/garage-door-concept.mjs";
-import { runElevatorCallQueue } from "./js/elevator-call-queue.mjs";
-import { runFireAlarmZone } from "./js/fire-alarm-zone.mjs";
-import { runAccessStrikeLock } from "./js/access-strike-lock.mjs";
-import { runWarehouseBeacon } from "./js/warehouse-beacon.mjs";
-import { runMachineFaultAnnunciator } from "./js/machine-fault-annunciator.mjs";
-import { runBreadboardSchematicSync } from "./js/breadboard-schematic-sync.mjs";
-import { runSchematicPcbSync } from "./js/schematic-pcb-sync.mjs";
-import { runThreeViewLedHistory } from "./js/three-view-led-history.mjs";
-import { projectComponentsForView, runUnsupportedBreadboardPackage } from "./js/view-projection.mjs";
-import { runMissingFootprintWorkflow } from "./js/pcb-update-resolution.mjs";
-import { runPinIncompatibleSubstitution } from "./js/pin-substitution-preview.mjs";
-import { runUnitConversionCalculator } from "./js/unit-conversion-calculator.mjs";
-import { runResistorColorCodeReader } from "./js/resistor-color-code.mjs";
-import { runLedResistorCalculator } from "./js/led-resistor-calculator.mjs";
-import { runVoltageDividerCalculator } from "./js/voltage-divider-calculator.mjs";
-import { runRcTimingCalculator } from "./js/rc-timing-calculator.mjs";
-import { runOpAmpGainCalculator } from "./js/op-amp-gain-calculator.mjs";
-import { runPcbTraceWidthAdvisor } from "./js/pcb-trace-width-advisor.mjs";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { projectComponentsForView } from "./js/view-projection.mjs";
+
+
+
+
+
+
+
+
+
 import { exportBomCsv, runBomExportPlaceholder } from "./js/bom-report.mjs";
-import { explainComponent, runBotComponentExplainer } from "./js/bot-component-explainer.mjs";
+import { explainComponent } from "./js/bot-component-explainer.mjs";
 import { applyBotFloatingNodeRepairPreview, runBotFloatingNodeRepair } from "./js/bot-floating-node-repair.mjs";
 import { applyBotCircuitProposal, runBotCircuitProposal } from "./js/bot-circuit-proposal.mjs";
-import { runFourLanguageUiSweep } from "./js/locale-ui-sweep.mjs";
-import { runOfflineRecoveryScenario } from "./js/offline-recovery-scenario.mjs";
+
+
 import { runReleaseCandidateE2E } from "./js/release-candidate-e2e.mjs";
 import { createSimulationWorkerRun } from "./js/simulation-worker-client.mjs";
 
@@ -925,10 +909,8 @@ function validateAndReport() {
   else issues.forEach((issue) => log(`[${issue.rule}] ${issue.message}`));
 }
 
-const GENERAL_ANALYSIS_PROJECT_FIELDS = new Set(["schemaVersion", "id", "metadata", "components", "nets", "history", "breadboard"]);
-
-function isGeneralAnalysisWorkerEligible(project) {
-  return Object.keys(project).every((key) => GENERAL_ANALYSIS_PROJECT_FIELDS.has(key));
+function isAnalysisWorkerEligible(project) {
+  return Boolean(project && !project.releaseCandidateE2E);
 }
 
 function setSimulationWorkerBusy(busy) {
@@ -967,7 +949,7 @@ function runAnalysis(workerResult = null) {
   if (workerResult === null) {
     if (state.activeSimulation) return;
     validateAndReport();
-    if (isGeneralAnalysisWorkerEligible(state.project)) {
+    if (isAnalysisWorkerEligible(state.project)) {
       const projectSnapshot = JSON.stringify(state.project);
       const run = createSimulationWorkerRun(state.project);
       state.activeSimulation = run;
@@ -988,7 +970,7 @@ function runAnalysis(workerResult = null) {
       return;
     }
   }
-  const result = state.project.offlineRecoveryScenario ? runOfflineRecoveryScenario(state.project) : state.project.localeUiSweep ? runFourLanguageUiSweep(state.project) : state.project.botCircuitProposal ? runBotCircuitProposal(state.project) : state.project.botRepairPreview ? runBotFloatingNodeRepair(state.project) : state.project.botExplainComponent ? runBotComponentExplainer(state.project) : state.project.bomExportPlaceholder ? runBomExportPlaceholder(state.project) : state.project.pcbTraceWidthAdvisor ? runPcbTraceWidthAdvisor(state.project) : state.project.opAmpGainCalculator ? runOpAmpGainCalculator(state.project) : state.project.rcTimingCalculator ? runRcTimingCalculator(state.project) : state.project.voltageDividerCalculator ? runVoltageDividerCalculator(state.project) : state.project.ledResistorCalculator ? runLedResistorCalculator(state.project) : state.project.resistorColorCodeReader ? runResistorColorCodeReader(state.project) : state.project.unitConversionCalculator ? runUnitConversionCalculator(state.project) : state.project.substitutionPreview ? runPinIncompatibleSubstitution(state.project) : state.project.missingFootprintWorkflow ? runMissingFootprintWorkflow(state.project) : state.project.unsupportedBreadboardPackage ? runUnsupportedBreadboardPackage(state.project) : state.project.threeViewLedHistory ? runThreeViewLedHistory(state.project) : state.project.schematicPcbSync ? runSchematicPcbSync(state.project) : state.project.breadboardSchematicSync ? runBreadboardSchematicSync(state.project) : state.project.machineFaultAnnunciator ? runMachineFaultAnnunciator(state.project) : state.project.warehouseBeacon ? runWarehouseBeacon(state.project) : state.project.accessStrikeLock ? runAccessStrikeLock(state.project) : state.project.fireAlarmZone ? runFireAlarmZone(state.project) : state.project.elevatorCallQueue ? runElevatorCallQueue(state.project) : state.project.garageDoorConcept ? runGarageDoorConcept(state.project) : state.project.smartIrrigation ? runSmartIrrigation(state.project) : state.project.automaticNightLight ? runAutomaticNightLight(state.project) : state.project.pwmFanController ? runPwmFanController(state.project) : state.project.fanThermostat ? runFanThermostat(state.project) : state.project.waterLeakAlarm ? runWaterLeakAlarm(state.project) : state.project.temperatureAlarm ? runTemperatureAlarm(state.project) : state.project.doorInterlock ? runDoorInterlockConcept(state.project) : state.project.emergencyStopConcept ? runEmergencyStopConcept(state.project) : state.project.forwardReverseMotor ? runForwardReverseInterlock(state.project) : state.project.starDeltaStarter ? runStarDeltaStarter(state.project) : state.project.conveyorCounter ? runConveyorCounter(state.project) : state.project.tankLevelController ? runTankLevelController(state.project) : state.project.trafficLight ? runTrafficLightSequence(state.project) : state.project.plcMotorSequence ? runPlcStartStopSequence(state.project) : state.project.crossProbe ? runNetCrossProbe(state.project) : state.project.modelAvailabilityFixture ? reportUnavailableModel(state.project) : state.project.missingGroundFixture ? diagnoseMissingGround(state.project) : state.project.shortCircuitFixture ? diagnoseSupplyShort(state.project) : state.project.floatingNodeDiagnosis ? diagnoseFloatingNode(state.project) : state.project.convergenceStudy ? analyzeConvergenceStudy(state.project) : state.project.thermalBoundary ? analyzeThermalWarningBoundary(state.project) : state.project.monteCarloTolerance ? runMonteCarloTolerance(state.project) : state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : (workerResult ?? runSupportedAnalysis(state.project));
+  const result = workerResult;
   state.lastAnalysis = result;
   if (result.state === "complete") {
     const { kind } = result.result;
@@ -1685,7 +1667,9 @@ $("#load-example").addEventListener("click", async () => {
     const response = await fetch(path, { headers: { Accept: "application/json" } });
     if (!response.ok) throw new Error(`The example request returned ${response.status}.`);
     const project = parseProject(await response.text());
-    const analysis = runSupportedAnalysis(project);
+    const analysis = project.releaseCandidateE2E
+      ? await runReleaseCandidateE2E(project)
+      : await createSimulationWorkerRun(project).promise;
     if (analysis.state !== "complete") throw new Error("The selected example does not pass its supported analysis check.");
     if (state.dirty && !confirm("Replace the current project with this released example? Export unsaved work first if you need it.")) return;
     state.history = [];
@@ -1730,10 +1714,10 @@ if (initialProject.fresh) {
   $("#example-picker").value = starterPath;
   fetch(starterPath, { headers: { Accept: "application/json" } })
     .then((response) => { if (!response.ok) throw new Error("Starter example unavailable."); return response.text(); })
-    .then((documentText) => {
+    .then(async (documentText) => {
       if (state.userInteracted || state.dirty || localStorage.getItem(STORAGE_KEY) || state.project.id !== initialProject.project.id) return;
       const project = parseProject(documentText);
-      const analysis = runSupportedAnalysis(project);
+      const analysis = await createSimulationWorkerRun(project).promise;
       if (analysis.state !== "complete") return;
       replaceProject(project, { dirty: false });
       state.selectedInstanceId = "resistor";
