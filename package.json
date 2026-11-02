@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
+    "generate:pdip28-footprint": "node scripts/generate-pdip28-footprint.mjs",
     "generate:part-symbols": "node scripts/generate-part-symbols.mjs",
     "validate:library": "node scripts/validate-part-ledger.mjs",
-    "check": "node --check app.js && node --check js/core.mjs && node --check js/i18n.mjs && node --check js/analysis-dispatch.mjs && node --check js/simulation-worker.mjs && node --check js/simulation-worker-client.mjs && node --check scripts/generate-part-symbols.mjs"
+    "check": "node --check app.js && node --check js/core.mjs && node --check js/i18n.mjs && node --check js/analysis-dispatch.mjs && node --check js/simulation-worker.mjs && node --check js/simulation-worker-client.mjs && node --check scripts/generate-part-symbols.mjs && node --check scripts/generate-pdip28-footprint.mjs"
   }
 }
 

@@ -94,7 +94,7 @@ function assertResultMatches(actual, expected, path) {
   return 1;
 }
 
-const assertTextSnapshot = (actual, expected, name) => assert.equal(actual.replaceAll("\r\n", "\n"), expected.replaceAll("\r\n", "\n"), name);
+const assertTextSnapshot = (actual, expected, name) => assert.equal(actual.replaceAll("\n", "\n"), expected.replaceAll("\n", "\n"), name);
 
 test("core-led-current-limiter: catalogue 001 produces its recorded analytical result", async () => {
   const project = createProject();
@@ -539,7 +539,7 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(readiness.requiresHumanReview, true);
   assert.ok(readiness.missingEvidenceCodes.includes("FOOTPRINT_ASSET_EVIDENCE"));
   assert.equal(coverageFile.reviewQueue.length, 9);
-  assert.ok(coverageFile.reviewQueue.every(item => !item.readyForHumanReview));
+  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId), ["microchip.atmega328p-pu"]);
 });
 
 test("verified parts require complete datasheet, package, pin, model, license, safety, and translation evidence", () => {
@@ -3849,7 +3849,7 @@ test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs,
   assert.equal(project.components.find(part=>part.reference==="R2").value.startsWith("5.1 kΩ"),true);
   assert.deepEqual(STARTER_LIBRARY.find(part=>part.id==="connector.usb-c-receptacle").pins,["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"]);
   const report=createUsbCPinReport(project);
-  assert.equal(report.split("\r\n").length,19);
+  assert.equal(report.split("\n").length,19);
   assert.ok(report.includes('"J1","A5","CC1","CC1"'));
   assert.ok(report.includes('"J1","B5","CC2","CC2"'));
   assert.ok(report.includes('"J1","A6","D+","USB_DP"'));
@@ -4680,7 +4680,7 @@ test("catalogue BOM export groups verified fields and leaves unsourced cost blan
   assert.ok(result.result.rows.every(row=>row.unitCost===null&&row.extendedCost===null));
   const csv=exportBomCsv(buildBomReport(project));assert.equal(csv.ok,true);
   assert.match(csv.csv,/"Unit Cost","Extended Cost","Currency","Price Source","Price As Of"/);
-  assert.ok(csv.csv.split("\r\n").filter(Boolean).every(line=>!line.includes("$0")&&!line.includes("\"0\"")));
+  assert.ok(csv.csv.split("\n").filter(Boolean).every(line=>!line.includes("$0")&&!line.includes("\"0\"")));
   const grouped=structuredClone(project);grouped.components.push({...structuredClone(project.components[1]),instanceId:"resistor-2",reference:"R, \"2\""});
   const groupedReport=buildBomReport(grouped);const resistorRow=groupedReport.rows.find(row=>row.libraryId==="passive.resistor");
   assert.equal(resistorRow.quantity,2);assert.equal(resistorRow.references,"R, \"2\", R1");

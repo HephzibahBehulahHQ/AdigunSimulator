@@ -338,6 +338,49 @@
         "sha256": "8be3d8815995ed0c98c2ed46d605c2a21ef857117abdb4f9c6249e9f19b5e290",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.atmega328p-pu/footprint.json",
+        "sha256": "3db5797e9d34822b53b0a5d955b43eaff6631075c971fbc39c1278267be88ee0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14",
+        "15": "15",
+        "16": "16",
+        "17": "17",
+        "18": "18",
+        "19": "19",
+        "20": "20",
+        "21": "21",
+        "22": "22",
+        "23": "23",
+        "24": "24",
+        "25": "25",
+        "26": "26",
+        "27": "27",
+        "28": "28"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "drawing": "28P3, DS40002061A, package drawing page 640",
+        "assetPath": "library/assets/footprints/microchip.atmega328p-pu/footprint.json",
+        "designNote": "Pad diameter and drill are application-selected educational defaults, not sourced manufacturer recommendations."
       }
     },
     {
@@ -764,4 +807,3 @@
     }
   ]
 }
-

@@ -191,19 +191,12 @@
     {
       "partId": "microchip.atmega328p-pu",
       "currentStatus": "candidate",
-      "readyForHumanReview": false,
+      "readyForHumanReview": true,
       "missingEvidenceCodes": [
-        "FOOTPRINT_ASSET_EVIDENCE",
-        "FOOTPRINT_PAD_MAP",
-        "PIN_MAP_ALIGNMENT",
         "REVIEWER_IDENTITY",
         "REVIEW_DATE"
       ],
-      "evidenceBlockerCodes": [
-        "FOOTPRINT_ASSET_EVIDENCE",
-        "FOOTPRINT_PAD_MAP",
-        "PIN_MAP_ALIGNMENT"
-      ]
+      "evidenceBlockerCodes": []
     },
     {
       "partId": "nexperia.1n4148",
@@ -379,4 +372,3 @@
     }
   ]
 }
-

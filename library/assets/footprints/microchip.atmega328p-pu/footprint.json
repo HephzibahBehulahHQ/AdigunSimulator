@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "microchip.atmega328p-pu",
+  "package": "Microchip 28P3 PDIP-28",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -3.81,
+    "yMm": -16.51
+  },
+  "packageOutline": {
+    "bodyLengthMm": {
+      "minimum": 34.544,
+      "maximum": 34.798
+    },
+    "bodyWidthMm": {
+      "minimum": 7.112,
+      "maximum": 7.493
+    },
+    "leadRowPitchMm": 7.62,
+    "leadPitchMm": 2.54,
+    "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+    "drawing": "28P3, DS40002061A, package drawing page 640"
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.8,
+    "drillMm": 0.8,
+    "source": "AdigunSimulator CC0 educational default selected for a 0.533 mm maximum stated lead width; not a manufacturer land-pattern recommendation or fabrication rule."
+  },
+  "pads": [
+    {
+      "number": 1,
+      "xMm": -3.81,
+      "yMm": -16.51
+    },
+    {
+      "number": 2,
+      "xMm": -3.81,
+      "yMm": -13.970000000000002
+    },
+    {
+      "number": 3,
+      "xMm": -3.81,
+      "yMm": -11.430000000000001
+    },
+    {
+      "number": 4,
+      "xMm": -3.81,
+      "yMm": -8.89
+    },
+    {
+      "number": 5,
+      "xMm": -3.81,
+      "yMm": -6.350000000000001
+    },
+    {
+      "number": 6,
+      "xMm": -3.81,
+      "yMm": -3.8100000000000023
+    },
+    {
+      "number": 7,
+      "xMm": -3.81,
+      "yMm": -1.2700000000000014
+    },
+    {
+      "number": 8,
+      "xMm": -3.81,
+      "yMm": 1.2699999999999996
+    },
+    {
+      "number": 9,
+      "xMm": -3.81,
+      "yMm": 3.8099999999999987
+    },
+    {
+      "number": 10,
+      "xMm": -3.81,
+      "yMm": 6.349999999999998
+    },
+    {
+      "number": 11,
+      "xMm": -3.81,
+      "yMm": 8.889999999999997
+    },
+    {
+      "number": 12,
+      "xMm": -3.81,
+      "yMm": 11.43
+    },
+    {
+      "number": 13,
+      "xMm": -3.81,
+      "yMm": 13.969999999999999
+    },
+    {
+      "number": 14,
+      "xMm": -3.81,
+      "yMm": 16.51
+    },
+    {
+      "number": 15,
+      "xMm": 3.81,
+      "yMm": 16.51
+    },
+    {
+      "number": 16,
+      "xMm": 3.81,
+      "yMm": 13.970000000000002
+    },
+    {
+      "number": 17,
+      "xMm": 3.81,
+      "yMm": 11.430000000000001
+    },
+    {
+      "number": 18,
+      "xMm": 3.81,
+      "yMm": 8.89
+    },
+    {
+      "number": 19,
+      "xMm": 3.81,
+      "yMm": 6.350000000000001
+    },
+    {
+      "number": 20,
+      "xMm": 3.81,
+      "yMm": 3.8100000000000023
+    },
+    {
+      "number": 21,
+      "xMm": 3.81,
+      "yMm": 1.2700000000000014
+    },
+    {
+      "number": 22,
+      "xMm": 3.81,
+      "yMm": -1.2699999999999996
+    },
+    {
+      "number": 23,
+      "xMm": 3.81,
+      "yMm": -3.8099999999999987
+    },
+    {
+      "number": 24,
+      "xMm": 3.81,
+      "yMm": -6.349999999999998
+    },
+    {
+      "number": 25,
+      "xMm": 3.81,
+      "yMm": -8.889999999999997
+    },
+    {
+      "number": 26,
+      "xMm": 3.81,
+      "yMm": -11.43
+    },
+    {
+      "number": 27,
+      "xMm": 3.81,
+      "yMm": -13.969999999999999
+    },
+    {
+      "number": 28,
+      "xMm": 3.81,
+      "yMm": -16.51
+    }
+  ],
+  "limitations": [
+    "Generated from the published package outline and pin numbering; the manufacturer does not publish this generated pad artwork as an approved land pattern.",
+    "Check the exact physical part, finished-hole tolerance, annular ring, solder process, courtyard, board rules, and assembly constraints before use.",
+    "This asset is educational and has not passed independent footprint review or manufacturing DRC."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
