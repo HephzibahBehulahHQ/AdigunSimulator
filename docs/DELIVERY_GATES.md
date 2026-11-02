@@ -2,9 +2,9 @@
 
 ## Current release boundary
 
-The current application is a local-first static workspace. It stores projects in the browser and supports native import/export. It does not create accounts, upload projects, call an AI model, collect telemetry, or connect to a manufacturer.
+The current application is a local-first static workspace. It stores projects in the browser and supports native import/export. It does not create accounts, upload projects, call an external AI model, collect telemetry, or connect to a manufacturer. Adigun BOT currently provides deterministic local component explanations and live canvas suggestions grounded in native project nets and checked-in library pins.
 
-Authentication is intentionally out of scope until product ownership confirms an identity provider, roles, retained data, deletion policy, privacy notice, deployment topology, incident contact, and budget. Adigun BOT remains visibly unavailable until a grounded, auditable service is approved and tested.
+Authentication is intentionally out of scope until product ownership confirms an identity provider, roles, retained data, deletion policy, privacy notice, deployment topology, incident contact, and budget. The local co-pilot does not require sign-in and does not auto-save; accepted previews modify only the unsaved working copy and can be rolled back with Undo. Any future external AI, account, or cloud service requires separate approval and testing.
 
 ## Component evidence gate
 

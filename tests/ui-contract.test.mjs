@@ -48,6 +48,31 @@ test("simulation controls expose bounded digital event simulation and native-net
   assert.match(app, /projectForAnalysis = state\.project;\s*state\.dirty = true/);
 });
 
+test("live Adigun BOT observes the current canvas and requires an explicit preview before edits", async () => {
+  const [html, app, bot, help] = await Promise.all([
+    readFile(indexFile, "utf8"), readFile(appFile, "utf8"),
+    readFile(new URL("../js/bot-live-copilot.mjs", import.meta.url), "utf8"),
+    readFile(new URL("../docs/HELP.md", import.meta.url), "utf8")
+  ]);
+  assert.match(html, /id="bot-live-toggle" type="checkbox" checked/);
+  assert.match(html, /id="bot-goal"/);
+  assert.match(html, /id="bot-suggestion-accept"/);
+  assert.match(html, /id="bot-suggestion-dismiss"/);
+  assert.match(html, /id="bot-suggestion-more"/);
+  assert.match(html, /id="bot-preview-apply"/);
+  assert.match(app, /botLiveCopilot\.notify\(state\.project/);
+  assert.match(app, /dragging: Boolean\(state\.drag\)/);
+  assert.match(app, /active\?\.matches\?\./);
+  assert.match(app, /applyBotSuggestionPreview\(state\.project, currentBotPreview, \{ confirmed: true \}\)/);
+  assert.match(app, /Use Undo to roll back/);
+  assert.match(bot, /rateLimitMs = 25000/);
+  assert.match(bot, /debounceMs = 650/);
+  assert.match(bot, /validateProject\(preview\.candidate\)/);
+  assert.match(help, /## Table of contents[\s\S]*\[The live co-pilot\]/);
+  assert.match(help, /## The live co-pilot/);
+  assert.match(help, /does not call an external AI service/i);
+});
+
 test("manufacturer evidence browser exposes unverified records without enabling project insertion", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   assert.match(html, /data-library-mode="evidence"/);

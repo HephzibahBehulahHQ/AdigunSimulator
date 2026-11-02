@@ -1,0 +1,35 @@
+# AdigunSimulator Help
+
+## Table of contents
+
+- [Working with the design views](#working-with-the-design-views)
+- [Running supported analyses](#running-supported-analyses)
+- [The live co-pilot](#the-live-co-pilot)
+- [Saving and undoing changes](#saving-and-undoing-changes)
+- [Known limits](#known-limits)
+
+## Working with the design views
+
+Breadboard, schematic, and PCB views use one native project. A pin connection is stored once in the project's nets and appears in each supported view. A missing footprint or unsupported representation is reported instead of being fabricated.
+
+## Running supported analyses
+
+Choose a supported analysis mode, review its configured inputs and stated model limits, then run it. Results come from the named bounded model. AdigunSimulator is not a general SPICE replacement and does not certify electrical safety or manufacturability.
+
+## The live co-pilot
+
+Adigun BOT's live co-pilot is a local, deterministic analyzer. It reads the current native-project components, library pin definitions, and net endpoints. It can point out an open input on supported two-input gates, an unconnected gate output that could be observed with a logic probe, unconnected gate supply pins, multiple recognized gate outputs on one net, and parts that have remained entirely unwired for five seconds. It asks about the project goal when it cannot identify a clear path. Hovering over or selecting a component shows its current connected peers and open pins.
+
+Use the **Live co-pilot** checkbox in the Adigun BOT panel to turn proactive checks on or off. Enter a goal or question in the panel and select **Ask**; a project goal is remembered for this browser session only. Checks are debounced, limited to one suggestion every 25 seconds, and paused while you type, drag, or run a simulation. Dismissed findings are suppressed temporarily.
+
+For a supported suggestion, choose **Preview** to inspect the proposed change, then **Apply preview** to accept it. The Bot never changes the project before that confirmation. Applying a preview changes only the current working project; it is not auto-saved. Use **Undo** to roll it back, and use the normal save command only when you are ready. Stale or invalid previews are rejected without changing the project. Guests can use these local suggestions without signing in.
+
+Adigun BOT does not call an external AI service, infer real component ratings, decide an unknown supply voltage, or claim safety approval. The open gate-input preview connects one pushbutton terminal to the gate and deliberately leaves the other terminal open for the designer to wire to the intended source. The logic-probe preview only observes a net. For unsupported circuit intent, connect pins with the normal editor controls and run project validation.
+
+## Saving and undoing changes
+
+Project edits remain in the working copy until the user saves or exports them. Undo restores the previous project state. The Bot does not auto-save or upload project data.
+
+## Known limits
+
+Supported simulations, component evidence, PCB checks, and exports are bounded by the implementation status and delivery gates in this repository. A generic symbol, candidate part, analytical example, or educational PCB check is not manufacturer verification or production certification.
