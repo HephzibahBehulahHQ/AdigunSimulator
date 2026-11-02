@@ -33,6 +33,19 @@ test("simulation controls expose a bounded linear RLC AC sweep through the worke
   assert.match(app, /result\.kind === "linear-ac-sweep"/);
 });
 
+test("simulation controls expose bounded digital event simulation and native-net probes", async () => {
+  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  assert.match(html, /value="digital-events" data-i18n="analysisDigitalEvents"/);
+  assert.match(html, /id="digital-stop-ns"/);
+  assert.match(html, /id="digital-events-json"/);
+  assert.match(html, /id="digital-probe-nets" multiple/);
+  assert.match(app, /digitalEventSimulation: \{ stopTimeNs:/);
+  assert.match(app, /createSimulationWorkerRun\(projectForAnalysis\)/);
+  assert.match(app, /result\.kind === "digital-event-simulation"/);
+  assert.match(app, /captureHistory\(\);\s*state\.project = \{ \.\.\.projectForAnalysis, metadata:/);
+  assert.match(app, /projectForAnalysis = state\.project;\s*state\.dirty = true/);
+});
+
 test("manufacturer evidence browser exposes unverified records without enabling project insertion", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   assert.match(html, /data-library-mode="evidence"/);

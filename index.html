@@ -378,6 +378,7 @@
           <select id="simulation-analysis-mode">
             <option value="automatic" data-i18n="analysisAutomatic">Project-defined / automatic</option>
             <option value="linear-ac" data-i18n="analysisLinearAcSweep">Linear RLC AC sweep</option>
+            <option value="digital-events" data-i18n="analysisDigitalEvents">Digital event simulation</option>
           </select>
           <div id="ac-sweep-controls" class="ac-sweep-controls hidden">
             <label><span data-i18n="acStartHz">Start frequency (Hz)</span><input id="ac-start-hz" type="number" min="0.000001" step="any" value="10" /></label>
@@ -385,9 +386,15 @@
             <label><span data-i18n="acPointsPerDecade">Points per decade</span><input id="ac-points-per-decade" type="number" min="1" max="50" step="1" value="12" /></label>
             <label><span data-i18n="acOutputNet">Output net</span><select id="ac-output-net"><option value="" data-i18n="acAutoOutputLabel">Automatic output net</option></select></label>
           </div>
+          <div id="digital-event-controls" class="digital-event-controls hidden">
+            <label><span data-i18n="digitalStopTime">Stop time (ns)</span><input id="digital-stop-ns" type="number" min="0" max="1000000000" step="1" value="1000" /></label>
+            <label><span data-i18n="digitalInputEvents">Input events (JSON)</span><textarea id="digital-events-json" rows="5" spellcheck="false" aria-describedby="digital-events-help">[]</textarea></label>
+            <p id="digital-events-help" class="limit-note" data-i18n="digitalInputEventsHelp">Example: [{"timeNs":100,"sourceReference":"VA","high":true}]</p>
+            <label><span data-i18n="digitalProbeNets">Probe nets</span><select id="digital-probe-nets" multiple size="4"></select></label>
+          </div>
           <button id="run-simulation" class="run-button" type="button">▶ <span data-i18n="runCalculation">Run calculation</span></button>
           <button id="stop-simulation" class="secondary-button" type="button" data-action="stop-simulation" disabled>■ <span data-i18n="stopSimulation">Stop</span></button>
-          <p class="limit-note" data-i18n="simulationLimit">General SPICE, digital and mixed-signal engines are not implemented yet.</p>
+          <p class="limit-note" data-i18n="simulationLimit">Only labeled bounded models are available; digital gate events use zero delay. Sequential-event, mixed-signal and general SPICE engines are unavailable.</p>
         </section>
         <section class="simulation-control">
           <h3 data-i18n="validation">Validation</h3>

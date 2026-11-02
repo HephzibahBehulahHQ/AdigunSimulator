@@ -46,6 +46,7 @@ export function getExampleCoverage(registry) {
   const examples = Array.isArray(registry?.examples) ? registry.examples : [];
   const released = examples.filter((example) => example.status === "released" && example.scope === "catalogue").length;
   const supplemental = examples.filter((example) => example.status === "released" && example.scope === "supplemental").length;
-  return { total: examples.length, released, supplemental, target: 200, remaining: Math.max(0, 200 - released) };
+  const planned = examples.filter((example) => example.status === "planned").length;
+  return { total: examples.length, released, supplemental, planned, target: 200, remaining: Math.max(0, 200 - released) };
 }
 

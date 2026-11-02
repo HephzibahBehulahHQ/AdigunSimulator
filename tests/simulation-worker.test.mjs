@@ -32,7 +32,7 @@ test("worker message handler returns the same supported result and rejects inval
 
 test("worker dispatcher reaches each released analysis fixture's recorded complete or blocked state", async () => {
   const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url), "utf8"));
-  const fixtures = registry.examples.filter((example) => example.id !== "200-release-candidate-e2e");
+  const fixtures = registry.examples.filter((example) => example.status === "released" && example.id !== "200-release-candidate-e2e");
   assert.equal(fixtures.length, 209);
   for (const [index, example] of fixtures.entries()) {
     const project = JSON.parse(await readFile(new URL(`../${example.projectFile}`, import.meta.url), "utf8"));
