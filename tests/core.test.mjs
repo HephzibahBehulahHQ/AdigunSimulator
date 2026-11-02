@@ -1,3 +1,4 @@
+import { movePcbFootprint } from "../js/pcb-edit.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
@@ -4744,4 +4745,48 @@ test("catalogue release candidate passes build, import, edit, simulation, ERC/DR
   assert.equal(result.state,"complete",result.message);assert.equal(result.result.kind,"release-candidate-e2e");
   assert.deepEqual(result.result.checks,{build:true,import:true,edit:true,simulation:true,erc:true,drc:true,export:true,schematicPcbSync:true,botPreview:true});
   assert.equal(result.result.fixtureCount,4);assert.equal(result.result.pcbDrc,"passed");assert.equal(result.result.botMutation,false);
+});
+
+function makeProject() {
+ return {
+  metadata:{updatedAt:"2026-01-01T00:00:00.000Z"},
+  components:[{instanceId:"r1",position:{pcb:[100,100],schematic:[120,120]}},{instanceId:"d1",position:{pcb:[300,100]}}],
+  pcbFabrication:{
+   board:{widthMm:40,heightMm:20},
+   parts:[{instanceId:"r1",reference:"R1",footprint:"R_0603"},{instanceId:"d1",reference:"D1",footprint:"D_SOD-123"}],
+   pads:[
+    {instanceId:"r1",number:"1",netId:"VCC",xMm:5,yMm:5,technology:"through-hole",diameterMm:1},
+    {instanceId:"r1",number:"2",netId:"SIG",xMm:10,yMm:5,technology:"smd",widthMm:1,heightMm:1},
+    {instanceId:"d1",number:"1",netId:"SIG",xMm:20,yMm:10,technology:"through-hole",diameterMm:1}
+   ],
+   routes:[
+    {netId:"VCC",widthMm:.25,pointsMm:[[5,5],[6,5]]},
+    {netId:"SIG",widthMm:.25,pointsMm:[[10,5],[15,5],[20,10]]},
+    {netId:"GND",widthMm:.25,pointsMm:[[2,2],[2,3]]}
+   ]
+  }
+ };
+}
+test("PCB footprint movement keeps pad anchors and attached route endpoints together",()=>{
+ const project=makeProject(),before=structuredClone(project),result=movePcbFootprint(project,"r1",{x:2,y:-1});
+ assert.equal(result.status,"complete");assert.equal(result.movedPadCount,2);assert.equal(result.updatedRoutePoints,2);
+ assert.deepEqual(result.project.pcbFabrication.pads.slice(0,2).map(p=>[p.xMm,p.yMm]),[[7,4],[12,4]]);
+ assert.deepEqual(result.project.pcbFabrication.routes.map(r=>r.pointsMm),[[[7,4],[6,5]],[[12,4],[15,5],[20,10]],[[2,2],[2,3]]]);
+ assert.deepEqual(result.project.components[0].position,{pcb:[120.8,89.6],schematic:[120,120]});
+ assert.deepEqual(project,before,"the operation must not mutate the source project");
+});
+test("PCB footprint movement rejects board-edge overflow without changing the source",()=>{
+ const project=makeProject(),before=structuredClone(project),result=movePcbFootprint(project,"r1",{x:31,y:0});
+ assert.deepEqual(result,{status:"blocked",code:"OUT_OF_BOUNDS"});assert.deepEqual(project,before);
+});
+test("PCB footprint movement rejects invalid geometry and unknown footprints",()=>{
+ const project=makeProject();
+ assert.deepEqual(movePcbFootprint(project,"missing",{x:1,y:0}),{status:"blocked",code:"UNKNOWN_FOOTPRINT"});
+ assert.deepEqual(movePcbFootprint(project,"d1",{x:Number.NaN,y:0}),{status:"blocked",code:"INVALID_DELTA"});
+ project.pcbFabrication.pads.find(p=>p.instanceId==="r1").xMm=Number.NaN;
+ assert.deepEqual(movePcbFootprint(project,"r1",{x:1,y:0}),{status:"blocked",code:"INVALID_FOOTPRINT_GEOMETRY"});
+});
+test("PCB footprint movement reports unchanged for a zero delta",()=>{
+ const project=makeProject(),result=movePcbFootprint(project,"r1",{x:0,y:0});
+ assert.equal(result.status,"unchanged");assert.equal(result.project,project);
 });
