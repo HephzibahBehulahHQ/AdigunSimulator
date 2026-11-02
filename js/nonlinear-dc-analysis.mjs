@@ -9,7 +9,7 @@ const GMIN_SIEMENS = 1e-12;
 const MAX_EXP_ARGUMENT = 30;
 const Q = 1.602176634e-19;
 const K = 1.380649e-23;
-const ALLOWED = new Set(["power.dc-source", "power.dc-current-source", "passive.resistor", "diode.shockley-generic", "active.npn-ebers-moll-generic", "ground.signal"]);
+const ALLOWED = new Set(["power.dc-source", "power.dc-current-source", "passive.resistor", "diode.shockley-generic", "active.npn-ebers-moll-generic", "active.pnp-ebers-moll-generic", "ground.signal"]);
 
 function parseScalar(text, defaultUnit = "") {
   const match = String(text).trim().match(/^([+]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*(p|n|u|µ|μ|m|k|K|M|G)?\s*([a-zA-ZΩ]*)$/i);
@@ -32,7 +32,7 @@ function diodeModel(value) {
   return { saturationCurrentA, idealityFactor };
 }
 
-function npnModel(value) {
+function bjtModel(value) {
   const fields = Object.fromEntries(String(value).split(/[;,]/).map((part) => part.trim()).filter(Boolean).map((part) => {
     const match = part.match(/^([A-Za-z]+)\s*=\s*(.+)$/);
     return match ? [match[1].toLowerCase(), match[2]] : ["", ""];
@@ -123,13 +123,14 @@ function diodeCurrent(model, voltage, thermalVoltage) {
 }
 
 function ebersMoll(model, voltageB, voltageC, voltageE, thermalVoltage) {
+  const polarity = model.polarity ?? 1;
   const junction = { saturationCurrentA: model.saturationCurrentA, idealityFactor: 1 };
-  const forward = diodeCurrent(junction, voltageB - voltageE, thermalVoltage);
-  const reverse = diodeCurrent(junction, voltageB - voltageC, thermalVoltage);
+  const forward = diodeCurrent(junction, polarity * (voltageB - voltageE), thermalVoltage);
+  const reverse = diodeCurrent(junction, polarity * (voltageB - voltageC), thermalVoltage);
   const { alphaF, alphaR } = model, forwardCurrent = forward.currentA, reverseCurrent = reverse.currentA;
   const forwardG = forward.conductanceS, reverseG = reverse.conductanceS;
   return {
-    currents: [(1 - alphaF) * forwardCurrent + (1 - alphaR) * reverseCurrent, alphaF * forwardCurrent - reverseCurrent, -forwardCurrent + alphaR * reverseCurrent],
+    currents: [(1 - alphaF) * forwardCurrent + (1 - alphaR) * reverseCurrent, alphaF * forwardCurrent - reverseCurrent, -forwardCurrent + alphaR * reverseCurrent].map((current) => polarity * current),
     jacobian: [
       [(1 - alphaF) * forwardG + (1 - alphaR) * reverseG, -(1 - alphaR) * reverseG, -(1 - alphaF) * forwardG],
       [alphaF * forwardG - reverseG, reverseG, -alphaF * forwardG],
@@ -171,7 +172,7 @@ function branchValue(item, pin, terminalMap) { return terminalMap.get(`${item.in
 
 export function runNonlinearDcOperatingPoint(project) {
   const validation = validateProject(project);
-  const base = { engine: "Bounded nonlinear DC modified nodal analysis", engineId: "adigun-nonlinear-dc-mna", engineVersion: "1.1.0", validation };
+  const base = { engine: "Bounded nonlinear DC modified nodal analysis", engineId: "adigun-nonlinear-dc-mna", engineVersion: "1.2.0", validation };
   if (!validation.valid) return { state: "blocked", ...base, message: "Fix project errors before running nonlinear DC analysis." };
   const config = project?.shockleyDcOperatingPoint;
   if (!config || typeof config !== "object" || Array.isArray(config)) return { state: "blocked", ...base, message: "Select nonlinear DC operating-point analysis and set its temperature." };
@@ -202,10 +203,11 @@ export function runNonlinearDcOperatingPoint(project) {
       const model = diodeModel(item.value), nodeA = branchValue(item, "A", terminalMap), nodeB = branchValue(item, "K", terminalMap);
       if (!model || !nodeA || !nodeB || nodeA === nodeB) return { state: "blocked", ...base, message: `${item.reference} needs valid Is and n model fields and two distinct connected nets.` };
       diodes.push({ reference: item.reference, nodeA, nodeB, ...model });
-    } else if (item.libraryId === "active.npn-ebers-moll-generic") {
-      const model = npnModel(item.value), baseNet = branchValue(item, "B", terminalMap), collectorNet = branchValue(item, "C", terminalMap), emitterNet = branchValue(item, "E", terminalMap);
+    } else if (["active.npn-ebers-moll-generic", "active.pnp-ebers-moll-generic"].includes(item.libraryId)) {
+      const isPnp = item.libraryId === "active.pnp-ebers-moll-generic";
+      const model = bjtModel(item.value), baseNet = branchValue(item, "B", terminalMap), collectorNet = branchValue(item, "C", terminalMap), emitterNet = branchValue(item, "E", terminalMap);
       if (!model || !baseNet || !collectorNet || !emitterNet || new Set([baseNet, collectorNet, emitterNet]).size !== 3) return { state: "blocked", ...base, message: `${item.reference} needs valid Is, alphaF, and alphaR model fields and three distinct connected nets.` };
-      transistors.push({ reference: item.reference, baseNet, collectorNet, emitterNet, ...model });
+      transistors.push({ reference: item.reference, type: isPnp ? "PNP" : "NPN", polarity: isPnp ? -1 : 1, baseNet, collectorNet, emitterNet, ...model });
     } else {
       const positiveNet = branchValue(item, "+", terminalMap), negativeNet = branchValue(item, "-", terminalMap);
       if (!positiveNet || !negativeNet || positiveNet === negativeNet) return { state: "blocked", ...base, message: `${item.reference} needs two distinct connected source nets.` };
@@ -217,7 +219,7 @@ export function runNonlinearDcOperatingPoint(project) {
     }
   }
   if (!voltageSources.length && !currentSources.length) return { state: "blocked", ...base, message: "Add at least one independent DC voltage or current source." };
-  if (!diodes.length && !transistors.length) return { state: "blocked", ...base, message: "Add at least one generic Shockley diode or Ebers–Moll NPN transistor to use this analysis." };
+  if (!diodes.length && !transistors.length) return { state: "blocked", ...base, message: "Add at least one generic Shockley diode or Ebers–Moll NPN/PNP transistor to use this analysis." };
 
   const branches = [...resistors, ...diodes, ...voltageSources, ...currentSources,
     ...transistors.flatMap((item) => [{ nodeA: item.baseNet, nodeB: item.collectorNet }, { nodeA: item.baseNet, nodeB: item.emitterNet }])];
@@ -287,7 +289,7 @@ export function runNonlinearDcOperatingPoint(project) {
     const voltageB = nodeVoltages[branch.baseNet], voltageC = nodeVoltages[branch.collectorNet], voltageE = nodeVoltages[branch.emitterNet];
     const device = ebersMoll(branch, voltageB, voltageC, voltageE, thermalVoltage);
     const powerW = voltageB * device.currents[0] + voltageC * device.currents[1] + voltageE * device.currents[2];
-    return { reference: branch.reference, vBE: voltageB - voltageE, vBC: voltageB - voltageC, vCE: voltageC - voltageE, baseCurrentA: device.currents[0], collectorCurrentA: device.currents[1], emitterCurrentA: device.currents[2], powerW };
+    return { reference: branch.reference, type: branch.type, vBE: voltageB - voltageE, vBC: voltageB - voltageC, vCE: voltageC - voltageE, baseCurrentA: device.currents[0], collectorCurrentA: device.currents[1], emitterCurrentA: device.currents[2], powerW };
   });
   const resistorResults = resistors.map((branch) => {
     const voltage = nodeVoltages[branch.nodeA] - nodeVoltages[branch.nodeB], currentA = voltage / branch.resistance;
@@ -307,10 +309,10 @@ export function runNonlinearDcOperatingPoint(project) {
   const sourcePowerW = [...sourceResults.map((item) => item.powerDeliveredW), ...currentResults.map((item) => item.powerDeliveredW)].reduce((sum, value) => sum + value, 0);
   return {
     state: "complete", ...base,
-    message: "Solved a bounded DC operating point with generic Shockley diodes, ideal Ebers–Moll NPNs, and ideal independent sources. These model parameters are not manufacturer-verified part data.",
+    message: "Solved a bounded DC operating point with generic Shockley diodes, ideal Ebers–Moll NPN/PNP transistors, and ideal independent sources. These model parameters are not manufacturer-verified part data.",
     convergenceState: "converged", warnings: [{ code: "GENERIC_NONLINEAR_MODEL_LIMITS", message: `Generic ideal junction models only: ${diodes.length ? "no diode series resistance, reverse breakdown, or junction capacitance. " : ""}${transistors.length ? "no BJT high injection, Early effect, base/collector resistance, secondary breakdown, or junction capacitance. " : ""}Temperature changes thermal voltage only; model saturation currents do not vary with temperature. Self-heating and general SPICE behavior are not modeled. A 1 pS small-signal floor is used only to stabilize Newton iterations.` }],
-    analysisSettings: { temperatureC, maxIterations: MAX_ITERATIONS, residualLimit: RESIDUAL_LIMIT, diodeModel: diodes.length ? "ideal-shockley-v1" : undefined, transistorModel: transistors.length ? "ideal-ebers-moll-npn-v1" : undefined },
-    modelIds: ["ideal-r-v1", "ideal-dc-voltage-source-v1", "ideal-dc-current-source-v1", ...(diodes.length ? ["generic-shockley-diode-v1"] : []), ...(transistors.length ? ["generic-ebers-moll-npn-v1"] : [])],
+    analysisSettings: { temperatureC, maxIterations: MAX_ITERATIONS, residualLimit: RESIDUAL_LIMIT, diodeModel: diodes.length ? "ideal-shockley-v1" : undefined, transistorModel: transistors.length ? [...new Set(transistors.map((item) => `ideal-ebers-moll-${item.type.toLowerCase()}-v1`))].join("+") : undefined },
+    modelIds: ["ideal-r-v1", "ideal-dc-voltage-source-v1", "ideal-dc-current-source-v1", ...(diodes.length ? ["generic-shockley-diode-v1"] : []), ...new Set(transistors.map((item) => `generic-ebers-moll-${item.type.toLowerCase()}-v1`))],
     numericalEvidence: { iterations, maximumRelativeResidual: lastNonlinearResidual, nonlinearKclAndConstraintResidual: lastNonlinearResidual, linearizedSolveResidual: lastSolve.relativeResidual },
     result: { kind: "nonlinear-dc-operating-point", temperatureC, iterations, maximumRelativeResidual: lastNonlinearResidual, nonlinearKclAndConstraintResidual: lastNonlinearResidual, linearizedSolveResidual: lastSolve.relativeResidual, nodeVoltages, resistors: resistorResults, diodes: diodeResults, transistors: transistorResults, voltageSources: sourceResults, currentSources: currentResults, passivePowerW, transistorPowerW, devicePowerW, sourcePowerW, powerBalanceW: devicePowerW - sourcePowerW }
   };

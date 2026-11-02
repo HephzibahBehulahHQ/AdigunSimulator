@@ -15,7 +15,7 @@ async function shockleyProject({ value = "Is=2 nA; n=1.8", temperatureC = 25, re
   return project;
 }
 
-async function npnProject({ value = "Is=1e-14 A; alphaF=0.99; alphaR=0.5" } = {}) {
+async function npnProject({ value = "Is=1e-14 A; alphaF=0.99; alphaR=0.5", pnp = false } = {}) {
   const project = JSON.parse(await readFile(new URL("../examples/001-led-current-limiter.adigun.json", import.meta.url), "utf8"));
   const source = project.components.find((item) => item.reference === "V1");
   const resistor = project.components.find((item) => item.reference === "R1");
@@ -25,10 +25,15 @@ async function npnProject({ value = "Is=1e-14 A; alphaF=0.99; alphaR=0.5" } = {}
     source,
     { ...resistor, instanceId: "base-resistor", reference: "RB", value: "100 kΩ" },
     { ...resistor, instanceId: "collector-resistor", reference: "RC", value: "1 kΩ" },
-    { ...device, libraryId: "active.npn-ebers-moll-generic", reference: "Q1", value },
+    { ...device, libraryId: pnp ? "active.pnp-ebers-moll-generic" : "active.npn-ebers-moll-generic", reference: "Q1", value },
     ground
   ];
-  project.nets = [
+  project.nets = pnp ? [
+    { id: "VCC", endpoints: ["source-1:+", "led-1:E"] },
+    { id: "BASE", endpoints: ["base-resistor:2", "led-1:B"] },
+    { id: "COLLECTOR", endpoints: ["collector-resistor:2", "led-1:C"] },
+    { id: "GND", endpoints: ["source-1:-", "base-resistor:1", "collector-resistor:1", "ground-1:0"] }
+  ] : [
     { id: "VCC", endpoints: ["source-1:+", "base-resistor:1", "collector-resistor:1"] },
     { id: "BASE", endpoints: ["base-resistor:2", "led-1:B"] },
     { id: "COLLECTOR", endpoints: ["collector-resistor:2", "led-1:C"] },
@@ -80,6 +85,22 @@ test("generic Ebers–Moll NPN solves a common-emitter bias and balances termina
   assert.ok(Math.abs(result.result.devicePowerW - result.result.passivePowerW - result.result.transistorPowerW) < 1e-12);
   assert.ok(Math.abs(result.result.powerBalanceW) < 1e-7);
   assert.match(result.warnings[0].message, /Early effect/i);
+});
+
+test("generic Ebers–Moll PNP solves a high-side bias with signed terminal currents and power balance", async () => {
+  const result = runNonlinearDcOperatingPoint(await npnProject({ pnp: true }));
+  assert.equal(result.state, "complete", result.message);
+  const transistor = result.result.transistors[0];
+  assert.equal(transistor.type, "PNP");
+  assert.ok(transistor.vBE < -0.55 && transistor.vBE > -0.85);
+  assert.ok(transistor.baseCurrentA < 0);
+  assert.ok(transistor.collectorCurrentA < -0.001 && transistor.collectorCurrentA > -0.01);
+  assert.ok(transistor.emitterCurrentA > 0);
+  assert.ok(Math.abs(transistor.baseCurrentA + transistor.collectorCurrentA + transistor.emitterCurrentA) < 1e-10);
+  assert.ok(result.result.nonlinearKclAndConstraintResidual <= 1e-8);
+  assert.ok(result.result.passivePowerW > 0 && result.result.transistorPowerW > 0);
+  assert.ok(Math.abs(result.result.powerBalanceW) < 1e-7);
+  assert.ok(result.modelIds.includes("generic-ebers-moll-pnp-v1"));
 });
 
 test("supplemental Ebers–Moll example is a runnable, bounded common-emitter operating point", async () => {
