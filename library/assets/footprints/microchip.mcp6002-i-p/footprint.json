@@ -21,8 +21,10 @@
       "typical": 6.35,
       "maximum": 7.112
     },
+    "overallLengthMaxMm": null,
     "leadRowPitchMm": 7.62,
     "leadPitchMm": 2.54,
+    "layout": "dual-row",
     "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf",
     "drawing": "C04-018-P Rev E Sheet 2, DS20001733L page 30; dimensions converted from inches to mm"
   },

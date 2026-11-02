@@ -19,8 +19,10 @@
       "minimum": 6.1,
       "maximum": 6.6
     },
+    "overallLengthMaxMm": null,
     "leadRowPitchMm": 7.62,
     "leadPitchMm": 2.54,
+    "layout": "dual-row",
     "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
     "drawing": "P (R-PDIP-T8), drawing 4040082/E, 04/2010"
   },

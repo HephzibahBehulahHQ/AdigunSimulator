@@ -119,7 +119,7 @@
       },
       "footprintAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.lm555p/footprint.json",
-        "sha256": "54fd8c2b686d370339bcd2983848a9b1a2e276030d0e1a5fac1fae4ed6b29a89",
+        "sha256": "e0dfbdcb93a51d138220c2efb97b0b245dff82940497e15a44fa5ddbc940fdc4",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "educational-candidate"
@@ -364,7 +364,7 @@
       },
       "footprintAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.atmega328p-pu/footprint.json",
-        "sha256": "09741a848d95ad7f0f038ce091c4de866d2860f637e9988c9b031c7f84e7679c",
+        "sha256": "944326f5822bc815d867e264853ecb8f3499756313b8be7eb56ec2bf0df74856",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "educational-candidate"
@@ -626,7 +626,7 @@
       },
       "footprintAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc00n/footprint.json",
-        "sha256": "2ac9a75facc581bc1f808bcd14cbeae5cc16b748b4e31e7cb8bf91d642014fa0",
+        "sha256": "a201ea464e34b815fe01cc93839956690b05ab0f90937fa25c88007d136f33f4",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "educational-candidate"
@@ -686,11 +686,28 @@
         "pinCount": 3,
         "sourceUrl": "https://www.ti.com/product/LM7800/part-details/LM7805CT/NOPB"
       },
+      "package": "TO-220-3",
       "ratings": [
         {
           "name": "fixed output voltage",
           "value": 5,
           "unit": "V"
+        },
+        {
+          "name": "recommended input voltage for 5 V output",
+          "minimum": 7.5,
+          "maximum": 20,
+          "unit": "V"
+        },
+        {
+          "name": "maximum input voltage",
+          "value": 35,
+          "unit": "V"
+        },
+        {
+          "name": "maximum output current",
+          "value": 1.5,
+          "unit": "A"
         },
         {
           "name": "operating temperature",
@@ -709,6 +726,7 @@
         "2": "power-in",
         "3": "power-out"
       },
+      "modelStatus": "not-modelled",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "No licensed or validated regulator model is attached to this record. Thermal shutdown, dropout, stability, current limit, and transient response are not represented by an ideal 5 V source."
@@ -717,13 +735,63 @@
         "sourceUrl": "https://www.ti.com/product/LM7800/part-details/LM7805CT/NOPB",
         "checkedAt": "2026-11-02"
       },
+      "warnings": [
+        "The 1.5 A family rating depends on input-output voltage difference, thermal resistance, heatsinking, and ambient temperature; this application does not model thermal shutdown or safe operating area.",
+        "Use input and output capacitors and check stability and transient guidance in the TI datasheet. The 35 V input value is a maximum rating, not the recommended operating ceiling."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "TO-220-3 through-hole leads can be inserted into suitable solderless-board rows; verify lead pitch, lead width, regulator clearance, external heat dissipation, and safe low-voltage use before powering.",
+        "operatingLimits": [
+          "Recommended input for the 5 V regulator: 7.5 V to 20 V",
+          "Operating temperature: 0 °C to +125 °C",
+          "Maximum input rating: 35 V; do not treat this absolute limit as a recommended operating target"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "LM7805CT/NOPB 5 V linear regulator",
+          "description": "A three-terminal 5 V regulator in TO-220. The app records its pinout and limits but does not model its device-specific regulation or thermal behavior."
+        },
+        "de": {
+          "name": "LM7805CT/NOPB 5-V-Linearregler",
+          "description": "Ein dreipoliger 5-V-Regler im TO-220-Gehäuse. Die App erfasst Pinbelegung und Grenzwerte, modelliert aber nicht das bausteinspezifische Regel- oder Wärmeverhalten."
+        },
+        "yo": {
+          "name": "Regulator linear 5 V LM7805CT/NOPB",
+          "description": "Regulator 5 V tó ní terminal mẹ́ta nínú package TO-220. App yìí ṣàkọsílẹ̀ pin àti limits, kò sì model regulation tàbí ìwà ooru gangan."
+        },
+        "pcm": {
+          "name": "LM7805CT/NOPB 5 V linear regulator",
+          "description": "Na 3-terminal 5 V regulator for TO-220 package. App record the pins and limits but e no model the exact regulation or heat behaviour."
+        }
+      },
       "evidenceNote": "library/evidence/ti.lm7805ct-nopb.md",
-      "notes": "TI orderable page identifies the exact LM7805CT/NOPB TO-220 order code; datasheet pin functions are input, ground, and output on pins 1, 2, and 3. Licensed assets, actual footprint pad map, datasheet checksum, complete operating-limit evidence, model fixture, required metadata, and human review remain incomplete; not counted as verified.",
+      "notes": "TI identifies LM7805CT/NOPB as a TO-220 part. The record includes sourced pin functions, datasheet checksum, operating ranges, limitations, four-language descriptions, and a CC0 educational footprint proposal. Physical fit, heat and board review, and independent human approval remain open; not counted as verified.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.lm7805ct-nopb/symbol.svg",
         "sha256": "5b2a23f7cb8f06b378cc13a3d170e7e71695c61b705e7cbe004e858c7f8d1857",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.lm7805ct-nopb/footprint.json",
+        "sha256": "d6435c90ed211430b152be0e3247da065d7f420ee0a32a86af8ba33e9309a487",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm7800.pdf",
+        "drawing": "NDG0003F, TO-220, datasheet mechanical drawing",
+        "assetPath": "library/assets/footprints/ti.lm7805ct-nopb/footprint.json",
+        "designNote": "Pad diameter and drill are application-selected educational defaults, not sourced manufacturer recommendations."
       }
     },
     {
@@ -891,7 +959,7 @@
       },
       "footprintAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.mcp6002-i-p/footprint.json",
-        "sha256": "444af3a0a7e94bf59b641aac9c3305e135deebdafdf6712bd636009d4c4a62ab",
+        "sha256": "b1a99965ae600cdffcf24ae56991a6f2163b6a6419db669d6a4e789008f6f15c",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "educational-candidate"
