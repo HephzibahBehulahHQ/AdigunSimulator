@@ -8,7 +8,9 @@ The generator creates original connection-block schematic symbols from the sourc
 npm run generate:part-symbols
 ```
 
-These generated SVGs are released under CC0 1.0, recorded with SHA-256 digests, and do not claim manufacturer artwork or a device simulation model. No footprint asset is generated automatically: exact geometry and pad numbering require package evidence and review.
+Generated SVG symbols and footprint candidates are released under CC0 1.0 and recorded with SHA-256 digests. They do not claim manufacturer symbol artwork or a device simulation model. The repository includes source-grounded educational through-hole candidates and a BSS138BK SOT23 reflow-footprint reconstruction; each remains unverified until its source bytes, pad geometry, and independent human review are complete.
+
+The app's **Manufacturer evidence** catalogue lets users search the ledger and inspect each record's lifecycle, package, model status, datasheet, and evidence blockers. It is read-only: candidates cannot be inserted into projects or used as simulated device models. The ordinary starter library remains separate and is labeled as generic.
 
 Recompute the coverage report and validate evidence after changes:
 

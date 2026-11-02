@@ -21,6 +21,15 @@ test("the interface references only declared translation keys and exposes four l
   assert.deepEqual(values(languageSelect, /<option value="([^"]+)">/g), UI_LOCALES);
 });
 
+test("manufacturer evidence browser exposes unverified records without enabling project insertion", async () => {
+  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  assert.match(html, /data-library-mode="evidence"/);
+  assert.match(html, /data-i18n="manufacturerEvidenceMode"/);
+  assert.match(app, /searchManufacturerParts\(query\)/);
+  assert.match(app, /\$\("#add-component"\)\.hidden = true/);
+  assert.match(app, /summary\.evidenceBlockerCodes\.join\("\, "\)/);
+});
+
 test("implementation status is localized and reflects released scope without stale PCB claims", async () => {
   const app = await readFile(appFile, "utf8");
   assert.ok(UI_KEYS.includes("implementationStatusBody"));
