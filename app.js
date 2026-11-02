@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 47085)
-Total output lines: 1999
-
 import { STARTER_LIBRARY, addComponent, createProject, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
@@ -619,7 +616,658 @@ function renderInspector() {
   const pcbPads = state.project.pcbFabrication?.pads?.filter((item) => item.instanceId === component?.instanceId) ?? [];
   const padNets = new Set(pcbPads.map((item) => item.netId));
   const pcbRoutes = (state.project.pcbFabrication?.routes ?? []).filter((item) => padNets.has(item.netId));
-  const centroid = pcbPads.length ? [pcbPads.reduce((sum, item) => sum + item.xMm, 0) / pcbPads.length, pcbPads.reduce((sum, item) => sum + item.yMm, 0) / pcbPads.leng…27085 tokens truncated…oject.metadata.name.replace(/[^a-z0-9]+/gi,"-").replace(/^-|-$/g,"").toLowerCase()||"adigun-simulation"}-report.json`;link.click();URL.revokeObjectURL(url);
+  const centroid = pcbPads.length ? [pcbPads.reduce((sum, item) => sum + item.xMm, 0) / pcbPads.length, pcbPads.reduce((sum, item) => sum + item.yMm, 0) / pcbPads.length] : null;
+  $("#pcb-footprint-details").classList.toggle("hidden", state.activeView !== "pcb" || !pcbPart);
+  $("#pcb-footprint-package").textContent = pcbPart?.footprint ?? "—";
+  $("#pcb-footprint-position").textContent = centroid ? centroid.map((value) => value.toFixed(2)).join(", ") : "—";
+  $("#pcb-footprint-pad-count").textContent = String(pcbPads.length);
+  $("#pcb-footprint-route-count").textContent = String(pcbRoutes.length);
+  $("#component-form").classList.toggle("hidden", state.activeInspector === "project");
+  $("#project-form").classList.toggle("hidden", state.activeInspector !== "project");
+  $("#simulation-form").classList.remove("hidden");
+  $("#workspace-notes").textContent = state.lastAnalysis?.message ?? "Choose a supported example to see its tested model limits.";
+  $("#project-name").value = state.project.metadata.name;
+  $("#project-locale").value = state.project.metadata.locale;
+  $("#component-form button").disabled = !component;
+  $("#remove-component").disabled = !component;
+  renderConnections();
+  renderBreadboardControls();
+}
+
+function renderConnections() {
+  const options = state.project.components.flatMap((component) => {
+    const part = findLibraryPart(component.libraryId);
+    return (part?.pins ?? []).map((pin) => ({ value: `${component.instanceId}:${pin}`, label: `${component.reference}.${pin} — ${part.type}` }));
+  });
+  for (const selector of ["#connection-first", "#connection-second"]) {
+    const select = $(selector);
+    const previous = select.value;
+    select.innerHTML = options.map((item) => `<option value="${escape(item.value)}">${escape(item.label)}</option>`).join("");
+    if (options.some((item) => item.value === previous)) select.value = previous;
+  }
+  const probeSelect = $("#digital-probe-nets");
+  const priorProbes = new Set([...probeSelect.selectedOptions].map((option) => option.value));
+  const configuredProbes = new Set(state.project.digitalEventSimulation?.probeNets ?? []);
+  probeSelect.innerHTML = state.project.nets.map((net) => `<option value="${escape(net.id)}">${escape(net.id)}</option>`).join("");
+  [...probeSelect.options].forEach((option) => { option.selected = priorProbes.has(option.value) || (!priorProbes.size && configuredProbes.has(option.value)); });
+  if (!["digital-events-json", "digital-initial-states"].includes(document.activeElement?.id)) {
+    $("#digital-stop-ns").value = String(state.project.digitalEventSimulation?.stopTimeNs ?? 1000);
+    $("#digital-events-json").value = JSON.stringify(state.project.digitalEventSimulation?.events ?? [], null, 2);
+    $("#digital-initial-states").value = JSON.stringify(state.project.digitalEventSimulation?.initialStates ?? {}, null, 2);
+  }
+  $("#net-list").innerHTML = state.project.nets.map((net) => `
+    <li><button type="button" class="net-select ${net.id === state.selectedNetId ? "active" : ""}" data-net-id="${escape(net.id)}" aria-pressed="${net.id === state.selectedNetId}">${escape(net.id)}</button><ul>${net.endpoints.map((item) => `<li>${escape(item)} <button type="button" class="disconnect-pin" data-endpoint="${escape(item)}" aria-label="${escape(t("disconnect"))} ${escape(item)}">×</button></li>`).join("")}</ul></li>`).join("") || `<li>${escape(t("noConnectedNets"))}</li>`;
+}
+
+function renderValidation() {
+  const validation = state.lastValidation ?? validateProject(state.project);
+  $("#error-count").textContent = validation.errors.length;
+  $("#warning-count").textContent = validation.warnings.length;
+  $("#validation-summary").textContent = validation.valid
+    ? (state.lastValidation ? `${validation.warnings.length} warning(s); no blocking project schema errors.` : t("validationHelp"))
+    : `${validation.errors.length} error(s) block analysis.`;
+  renderOutput(validation);
+}
+
+function renderResultDashboard(analysis) {
+  if (!analysis || analysis.state !== "complete") return "";
+  const result = analysis.result ?? {};
+  const metrics = [];
+  let waveform = "";
+  if (result.kind === "linear-ac-sweep") {
+    metrics.push([t("acPoints"), String(result.samples.length)], [t("acOutputNet"), result.outputNet ?? t("notRecorded")], [t("acStartHz"), `${result.startHz}–${result.stopHz} Hz`]);
+    const rows = result.samples.map((sample) => `<tr><td>${Number(sample.frequencyHz.toPrecision(6))}</td><td>${sample.output ? Number(sample.output.magnitudeV.toPrecision(6)) : "—"}</td><td>${sample.output ? `${Number(sample.output.phaseDegrees.toPrecision(6))}°` : "—"}</td></tr>`).join("");
+    waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearAcSweep"))}</figcaption><table class="result-table linear-ac-table"><thead><tr><th>${escape(t("acFrequencyHz"))}</th><th>${escape(t("acMagnitude"))}</th><th>${escape(t("acPhase"))}</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "linear-rlc-transient") {
+    const values = result.samples.map((sample) => sample.voltageV);
+    const min = Math.min(0, ...values), max = Math.max(0, ...values), span = Math.max(max - min, 1e-12);
+    const points = result.samples.filter((_, index) => index === 0 || index === result.samples.length - 1 || index % Math.max(1, Math.ceil(result.samples.length / 120)) === 0).map((sample) => `${(4 + sample.timeSeconds / result.stopSeconds * 592).toFixed(2)},${(92 - (sample.voltageV - min) / span * 80).toFixed(2)}`).join(" ");
+    const initialSummary = [...Object.entries(result.initialConditions.capacitorVoltageVByReference).map(([reference, value]) => `${reference}=${value} V`), ...Object.entries(result.initialConditions.inductorCurrentAByReference).map(([reference, value]) => `${reference}=${value} A`)].join("; ") || "0 V / 0 A";
+    metrics.push([t("transientSampleCount"), String(result.sampleCount)], [t("transientStopSeconds"), `${result.stopSeconds} s`], [t("transientOutputNet"), result.outputNet], [t("transientInitialConditions"), initialSummary], [t("transientFinalVoltage"), `${values.at(-1).toPrecision(6)} V`], [t("transientResidual"), result.maximumRelativeResidual.toExponential(2)]);
+    waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearTransient"))} · ${escape(result.outputNet)}</figcaption><svg viewBox="0 0 600 110" role="img" aria-label="${escape(t("transientTraceLabel"))}"><path class="wave-axis" d="M4 92H596 M4 12V92"/><polyline class="wave-trace" points="${points}"/></svg><p>${escape(analysis.message)}</p><p>${escape(analysis.warnings?.[0]?.message ?? "")}</p></figure>`;
+  } else if (result.kind === "digital-event-simulation") {
+    const rows = Object.entries(result.trace).flatMap(([net, points]) => points.map((point) => ({ net, ...point }))).sort((a, b) => a.timeNs - b.timeNs || a.net.localeCompare(b.net));
+    metrics.push([t("digitalStopTime"), `${result.stopTimeNs} ns`], [t("digitalEventCount"), String(result.processedEvents)], [t("digitalProbeNets"), result.probeNets.join(", ")]);
+    waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisDigitalEvents"))}</figcaption><table class="result-table"><thead><tr><th>${escape(t("digitalEventTimeNs"))}</th><th>${escape(t("digitalProbeNets"))}</th><th>${escape(t("digitalEventLevel"))}</th></tr></thead><tbody>${rows.map((row) => `<tr><td>${row.timeNs}</td><td>${escape(row.net)}</td><td>${row.high ? "1 · HIGH" : "0 · LOW"}</td></tr>`).join("")}</tbody></table><p>${escape(analysis.message)}</p></figure>`;
+  } else if (result.kind === "release-candidate-e2e") {
+    metrics.push(["Fixtures",String(result.fixtureCount)],["PCB DRC",result.pcbDrc],["BOT project edit",result.botMutation?"Changed":"Read-only"],["Passed gates",String(Object.values(result.checks).filter(Boolean).length)]);
+    const rows=Object.entries(result.checks).map(([name,passed])=>'<tr><td>'+escape(name)+'</td><td>'+(passed?"PASS":"FAIL")+'</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Release candidate · build through export</figcaption><table class="result-table"><thead><tr><th>Gate</th><th>Result</th></tr></thead><tbody>'+rows+'</tbody></table><p>BOT cites local project/library fields; PCB export is illustrative, not manufacturing approval.</p></figure>';
+  } else if (result.kind === "offline-recovery-scenario") {
+    metrics.push(["Draft restored",result.draftSaved?"Yes":"No"],["Storage fallback",result.storageFallbackAvailable?"Native export valid":"Unavailable"],["Recovered edit",result.editedValue],["Silent loss",result.silentLoss?"Detected":"None"]);
+    waveform='<figure class="result-waveform"><figcaption>Local offline recovery · simulated storage interruption</figcaption><p>Unsaved edit restored from a versioned draft. When browser storage is unavailable, use <strong>File → Export</strong> before closing.</p><p>CI uses an in-memory storage mock; real browser quota and crash behavior are outside this test.</p></figure>';
+  } else if (result.kind === "four-language-ui-sweep") {
+    metrics.push(["Locales",result.locales.join(" · ")],["Declared interface keys",String(result.declaredKeyCount)],["Missing translations",String(result.missingTranslations)],["Rendered pixel check",result.renderedPixelCheck?"Measured":"Not claimed"]);
+    waveform='<figure class="result-waveform"><figcaption>Four-language UI source audit</figcaption><p>Translation coverage: '+(result.missingTranslations===0?"complete":"incomplete")+'. Static accessibility and responsive overflow contracts run in the automated catalogue test.</p><p>No rendered pixel measurement is claimed by this source audit.</p></figure>';
+  } else if (result.kind === "bot-12v-led-circuit-proposal") {
+    metrics.push(["Supply assumption",result.proposal.source],["Series resistor",result.proposal.resistor],["LED Vf assumption",result.proposal.ledVf],["Estimated current",(result.proposal.estimatedCurrentA*1000).toFixed(2)+" mA"],["Resistor dissipation",result.proposal.resistorDissipationW.toFixed(3)+" W"],["Preview applied",result.applied?"Yes":"No · confirmation required"]);
+    waveform='<figure class="result-waveform"><figcaption>Adigun BOT · 12 V LED proposal</figcaption><p>Candidate passes schema validation and supported LED analysis. The original project remains unchanged until confirmation.</p><p>'+escape(result.warning)+'</p></figure>';
+  } else if (result.kind === "bot-floating-node-repair-preview") {
+    metrics.push(["Diagnosis", result.diagnosis.netId+" · "+result.diagnosis.reference], ["Proposed part", result.proposal.reference+" · "+result.proposal.value], ["Validation", result.validationValid?"Candidate passes project validation":"Candidate blocked"], ["Applied", result.applied?"Yes":"No · confirmation required"]);
+    waveform='<figure class="result-waveform"><figcaption>Adigun BOT · uncommitted repair preview</figcaption><p>Connect '+escape(result.diagnosis.netId)+' to GND through a proposed '+escape(result.proposal.value)+' resistor. No project change has been applied.</p><p>'+escape(result.warning)+'</p></figure>';
+  } else if (result.kind === "bot-grounded-component-explanation") {
+    metrics.push(["Component", result.reference], ["Known project/library fields", String(result.known.length)], ["Unknown library fields", String(result.unknown.length)]);
+    const rows=result.known.map(item=>'<tr><td>'+escape(item.field)+'</td><td>'+escape(item.value)+'</td><td>'+escape(item.source)+'</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Adigun BOT · source-grounded component facts</figcaption><table class="result-table"><thead><tr><th>Field</th><th>Recorded value</th><th>Source</th></tr></thead><tbody>'+rows+'</tbody></table><p>Unknown: '+result.unknown.map(escape).join(" ")+'</p></figure>';
+  } else if (result.kind === "bom-cost-placeholder") {
+    metrics.push(["BOM lines", String(result.rowCount)], ["Components", String(result.itemCount)], ["Cost total", result.totalCost === null ? "Unavailable · no complete sourced prices" : result.currency + " " + result.totalCost.toFixed(2)]);
+    const rows=result.rows.map(item=>'<tr><td>'+escape(item.references)+'</td><td>'+item.quantity+'</td><td>'+escape(item.libraryId)+'</td><td>'+escape(item.description)+'</td><td>'+escape(item.value)+'</td><td>'+(item.unitCost === null ? "—" : escape(item.currency + " " + item.unitCost.toFixed(2)))+'</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Verified-field BOM · prices blank without dated source evidence</figcaption><table class="result-table"><thead><tr><th>References</th><th>Qty</th><th>Library part</th><th>Description</th><th>Value</th><th>Unit cost</th></tr></thead><tbody>'+rows+'</tbody></table><p>Export BOM CSV from File. Missing prices are unavailable, not zero.</p></figure>';
+  } else if (result.kind === "pcb-trace-width-advisory") {
+    metrics.push('<div class="result-metric"><span>Trace cases</span><strong>'+result.caseCount+'</strong></div>','<div class="result-metric"><span>Model</span><strong>Legacy empirical estimate</strong></div>','<div class="result-metric"><span>Standards status</span><strong>Advisory · not compliance</strong></div>');
+    const rows=result.results.map(item=>'<tr><td>'+escape(item.id)+'</td><td>'+item.currentA+' A</td><td>'+item.copperThicknessUm+' µm</td><td>'+escape(item.layerType)+'</td><td>'+item.temperatureRiseC+' °C</td><td>'+item.widthMm.toFixed(3)+' mm</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Trace-width estimate · IPC-2221 legacy equation</figcaption><table class="result-table"><thead><tr><th>Case</th><th>Current</th><th>Copper</th><th>Layer</th><th>Rise</th><th>Estimated width</th></tr></thead><tbody>'+rows+'</tbody></table><p>'+escape(result.standardLimitation)+'</p></figure>';
+  } else if (result.kind === "op-amp-gain-cases") {
+    metrics.push('<div class="result-metric"><span>Gain cases</span><strong>'+result.caseCount+'</strong></div>','<div class="result-metric"><span>Inverting</span><strong>−Rf / Rin</strong></div>','<div class="result-metric"><span>Non-inverting</span><strong>1 + Rf / Rg</strong></div>');
+    const rows=result.results.map(item=>'<tr><td>'+escape(item.id)+'</td><td>'+escape(item.configuration)+'</td><td>'+(item.inputResistanceOhms??"—")+' Ω</td><td>'+item.feedbackResistanceOhms+' Ω</td><td>'+(item.groundResistanceOhms??"—")+' Ω</td><td>'+item.gain.toFixed(3)+'</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Ideal op-amp closed-loop gain from resistor ratios</figcaption><table class="result-table"><thead><tr><th>Case</th><th>Topology</th><th>Rin</th><th>Rf</th><th>Rg</th><th>Gain</th></tr></thead><tbody>'+rows+'</tbody></table><p>Ideal ratios only; amplifier bandwidth, output swing, stability, and supply rails are not modeled.</p></figure>';
+  } else if (result.kind === "rc-timing-cases") {
+    metrics.push('<div class="result-metric"><span>Calculation cases</span><strong>'+result.caseCount+'</strong></div>','<div class="result-metric"><span>Results</span><strong>τ and cutoff frequency</strong></div>','<div class="result-metric"><span>Prefix handling</span><strong>Ω to MΩ · pF to F</strong></div>');
+    const rows=result.results.map(item=>'<tr><td>'+escape(item.id)+'</td><td>'+item.resistanceValue+' '+escape(item.resistanceUnit)+'</td><td>'+item.capacitanceValue+' '+escape(item.capacitanceUnit)+'</td><td>'+(item.timeConstantSeconds*1000).toPrecision(5)+' ms</td><td>'+item.cutoffFrequencyHz.toPrecision(5)+' Hz</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>RC timing · time constant and ideal cutoff frequency</figcaption><table class="result-table"><thead><tr><th>Case</th><th>Resistance</th><th>Capacitance</th><th>Time constant</th><th>Cutoff</th></tr></thead><tbody>'+rows+'</tbody></table><p>First-order ideal model; parasitics and loading are not included.</p></figure>';
+  } else if (result.kind === "voltage-divider-cases") {
+    metrics.push('<div class="result-metric"><span>Calculation cases</span><strong>'+result.caseCount+'</strong></div>','<div class="result-metric"><span>Loading warnings</span><strong>'+result.loadingWarningCount+'</strong></div>','<div class="result-metric"><span>Model</span><strong>Ideal resistors · 5% default limit</strong></div>');
+    const rows=result.results.map(item=>'<tr><td>'+escape(item.id)+'</td><td>'+item.inputVoltageV+' V</td><td>'+(item.resistanceTopOhms/1000)+' kΩ / '+(item.resistanceBottomOhms/1000)+' kΩ</td><td>'+item.unloadedOutputV.toFixed(3)+' V / '+item.loadedOutputV.toFixed(3)+' V</td><td>'+item.loadingChangePercent.toFixed(2)+'% '+(item.warnings.length?"· WARNING":"") +'</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Divider output · unloaded and loaded values</figcaption><table class="result-table"><thead><tr><th>Case</th><th>Input</th><th>R1 / R2</th><th>Unloaded / loaded Vout</th><th>Load change</th></tr></thead><tbody>'+rows+'</tbody></table><p>Ideal resistive model only; downstream input impedance and source tolerance require review.</p></figure>';
+  } else if (result.kind === "led-series-resistor-cases") {
+    metrics.push('<div class="result-metric"><span>Calculation cases</span><strong>'+result.caseCount+'</strong></div>','<div class="result-metric"><span>Power warnings</span><strong>'+result.powerWarningCount+'</strong></div>','<div class="result-metric"><span>Selection rule</span><strong>Next E12 value ≥ ideal minimum</strong></div>');
+    const rows=result.results.map(item=>'<tr><td>'+escape(item.id)+'</td><td>'+item.supplyVoltageV+' V − '+item.ledForwardVoltageV+' V</td><td>'+item.requiredResistanceOhms.toFixed(1)+' Ω → '+item.recommendedResistanceOhms+' Ω</td><td>'+item.estimatedCurrentmA.toFixed(2)+' mA</td><td>'+item.resistorDissipationW.toFixed(3)+' W'+(item.warnings.length?" · WARNING":"")+'</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>LED resistor estimates · voltage, E12 value, current, dissipation</figcaption><table class="result-table"><thead><tr><th>Case</th><th>Available voltage</th><th>Required → recommended</th><th>Estimated current</th><th>Resistor power</th></tr></thead><tbody>'+rows+'</tbody></table><p>Ideal estimates only; select component ratings with thermal derating and verify the actual LED datasheet.</p></figure>';
+  } else if (result.kind === "resistor-color-code-cases") {
+    metrics.push('<div class="result-metric"><span>Valid readings</span><strong>'+result.validCount+'</strong></div>','<div class="result-metric"><span>Rejected combinations</span><strong>'+result.rejectedCount+'</strong></div>','<div class="result-metric"><span>Supported formats</span><strong>4-band · 5-band</strong></div>');
+    const rows=result.results.map(item=>'<tr><td>'+escape(item.bands.join(" · ")) +'</td><td>'+(item.reading.valid?escape(item.reading.formattedResistance)+" ±"+item.reading.tolerancePercent+"%":"Rejected: "+escape(item.reading.error))+'</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Resistor colour code · nominal value and tolerance</figcaption><table class="result-table"><thead><tr><th>Color bands</th><th>Reading</th></tr></thead><tbody>'+rows+'</tbody></table></figure>';
+  } else if (result.kind === "si-unit-conversion-cases") {
+    metrics.push('<div class="result-metric"><span>Conversion cases</span><strong>'+result.caseCount+'</strong></div>','<div class="result-metric"><span>Method</span><strong>SI scale factors</strong></div>','<div class="result-metric"><span>Rounding</span><strong>Significant digits</strong></div>');
+    const rows=result.results.map(item=>'<tr><td>'+escape(item.category)+'</td><td>'+item.value+' '+escape(item.fromUnit)+'</td><td>'+item.convertedValue+' '+escape(item.toUnit)+'</td><td>'+item.precision+' significant digits</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Engineering unit conversions · resistance, power, length</figcaption><table class="result-table"><thead><tr><th>Category</th><th>Input</th><th>Converted</th><th>Rounding</th></tr></thead><tbody>'+rows+'</tbody></table></figure>';
+  } else if (result.kind === "pin-incompatible-substitution-preview") {
+    metrics.push('<div class="result-metric"><span>Substitution</span><strong>'+(result.substitutionBlocked?"Blocked · pin roles differ":"Preview passed")+'</strong></div>','<div class="result-metric"><span>Original</span><strong>'+escape(result.originalLibraryId)+' · retained</strong></div>','<div class="result-metric"><span>Preview</span><strong>'+escape(result.candidateLibraryId)+' · canceled</strong></div>');
+    const rows=result.unmappedUsedPins.map(pin=>'<tr><td>'+escape(result.reference)+'.'+escape(pin)+'</td><td>'+escape(result.candidateLibraryId)+'</td><td>No matching pin name</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Candidate pin map · cancellation preserved the original</figcaption><table class="result-table"><thead><tr><th>Used source pin</th><th>Candidate</th><th>Preview</th></tr></thead><tbody>'+rows+'</tbody></table><p>A matching 8-pin count is not electrical compatibility. Preview canceled; original project unchanged.</p></figure>';
+  } else if (result.kind === "missing-footprint-resolution-report") {
+    metrics.push('<div class="result-metric"><span>PCB update</span><strong>Blocked pending footprint review</strong></div>','<div class="result-metric"><span>Missing mappings</span><strong>'+result.missingFootprintCount+'</strong></div>','<div class="result-metric"><span>Automatic substitution</span><strong>No</strong></div>');
+    const rows=result.missingFootprints.map(item=>'<tr><td>'+escape(item.reference)+'</td><td>'+escape(item.part)+'</td><td>'+escape(item.reason)+'</td></tr>').join("");
+    waveform='<figure class="result-waveform"><figcaption>Required report · missing PCB footprint mappings</figcaption><table class="result-table"><thead><tr><th>Reference</th><th>Library part</th><th>Resolution status</th></tr></thead><tbody>'+rows+'</tbody></table><ol>'+result.requiredReport.resolutionOptions.map(option=>'<li>'+escape(option)+'</li>').join("")+'</ol></figure>';
+  } else if (result.kind === "unsupported-breadboard-package-reconciliation") {
+    metrics.push('<div class="result-metric"><span>Package</span><strong>'+escape(result.reference)+' · concept</strong></div>','<div class="result-metric"><span>Breadboard placement</span><strong>Excluded</strong></div>','<div class="result-metric"><span>Reconciliation item</span><strong>'+escape(result.breadboardReconciliation.reason)+'</strong></div>');
+    waveform='<figure class="result-waveform"><figcaption>Unsupported package · view projection check</figcaption><table class="result-table"><thead><tr><th>View</th><th>Projection</th><th>Result</th></tr></thead><tbody><tr><td>Breadboard</td><td>Reconciliation item</td><td>No placement</td></tr><tr><td>Schematic</td><td>Supported concept</td><td>Visible</td></tr><tr><td>PCB</td><td>Illustrative concept</td><td>'+(result.pcbPlaced?"Visible · not manufacturing qualified":"Reconciliation needed")+'</td></tr></tbody></table></figure>';
+  } else if (result.kind === "three-view-led-sync-history") {
+    metrics.push('<div class="result-metric"><span>Component edit</span><strong>'+escape(result.reference)+" · "+escape(result.originalValue)+" → "+escape(result.editedValue)+'</strong></div>','<div class="result-metric"><span>Views updated</span><strong>'+result.availableViews.length+'</strong></div>','<div class="result-metric"><span>History</span><strong>Undo + redo passed</strong></div>');
+    waveform='<figure class="result-waveform"><figcaption>One canonical LED project · shared view data and history snapshots</figcaption><table class="result-table"><thead><tr><th>Projection</th><th>Component</th><th>Edit</th><th>History check</th></tr></thead><tbody>'+result.availableViews.map(view=>'<tr><td>'+escape(view)+'</td><td>'+escape(result.reference)+'</td><td>'+(result.reconciliationByView[view]?"Reconciliation needed":"Shared edit · "+escape(result.editedValue))+'</td><td>'+(result.reconciliationByView[view]?result.reconciliationByView[view]+" items; no placement":"Shared identity preserved")+"</td></tr>").join("")+'<tr><td>Undo</td><td>'+escape(result.reference)+'</td><td>'+escape(result.undoValue)+'</td><td>Original snapshot restored</td></tr><tr><td>Redo</td><td>'+escape(result.reference)+'</td><td>'+escape(result.redoValue)+'</td><td>Edited snapshot restored</td></tr></tbody></table></figure>';
+  } else if (result.kind === "schematic-pcb-netlist-pad-sync") {
+    const rows=result.netPadMap.map(net=>`<tr><td>${escape(net.netId)}</td><td>${escape(net.schematicEndpoints.join(", "))}</td><td>${escape(net.pcbPads.join(", "))}</td><td>${net.pcbPads.length===net.schematicEndpoints.length?"Preserved":"Missing"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Components / nets</span><strong>${result.componentCount} / ${result.netCount}</strong></div>`,`<div class="result-metric"><span>Pin mapping</span><strong>${result.mappedPinCount} pins</strong></div>`,`<div class="result-metric"><span>Footprint status</span><strong>Illustrative · unverified</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Schematic-to-PCB sync · net ID and pad endpoint audit</figcaption><table class="result-table"><thead><tr><th>Net ID</th><th>Schematic pins</th><th>Illustrative PCB pads</th><th>Endpoints</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "breadboard-schematic-structural-sync") {
+    const rows=result.netIds.map(id=>{const net=result.breadboard.nets.find(item=>item.id===id);return `<tr><td>${escape(id)}</td><td>${escape(net.endpoints.join(", "))}</td><td>${escape(result.schematic.nets.find(item=>item.id===id)?.endpoints.join(", ")??"Missing")}</td><td>${result.schematic.nets.some(item=>item.id===id)?"Same ID":"Missing"}</td></tr>`;}).join("");
+    metrics.push(`<div class="result-metric"><span>Components</span><strong>${result.componentCount}</strong></div>`,`<div class="result-metric"><span>Shared nets</span><strong>${result.netCount}</strong></div>`,`<div class="result-metric"><span>Structural match</span><strong>${result.structurallyEqual?"Yes":"No"}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Breadboard-to-schematic sync · canonical net identity comparison</figcaption><table class="result-table"><thead><tr><th>Net ID</th><th>Breadboard endpoints</th><th>Schematic endpoints</th><th>Identity</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "machine-fault-latched-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${escape(frame.action)}</td><td>${frame.activeFaults.join(", ")||"—"}</td><td>${frame.latchedFaults.join(", ")||"—"}</td><td>${frame.acknowledgedFaults.join(", ")||"—"}</td><td>${frame.faultLampOn?"ON":"OFF"}</td><td>${frame.buzzerOn?"ON":"OFF"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Steps</span><strong>${result.frameCount}</strong></div>`,`<div class="result-metric"><span>Final latched faults</span><strong>${result.frames.at(-1).latchedFaults.join(", ")||"None"}</strong></div>`,`<div class="result-metric"><span>Clear + acknowledge</span><strong>Both required</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Machine fault annunciator · latch and acknowledge table</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Action</th><th>Active</th><th>Latched</th><th>Acknowledged</th><th>Fault lamp</th><th>Buzzer</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "warehouse-beacon-state-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${escape(frame.state)}</td><td>${frame.greenOn?"ON":"—"}</td><td>${frame.redOn?"ON":"—"}</td><td>${frame.amberOn?"ON":"—"}</td><td>${frame.buzzerOn?"ON":"OFF"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Samples / transitions</span><strong>${result.sampleCount} / ${result.transitionCount}</strong></div>`,`<div class="result-metric"><span>One status per sample</span><strong>${result.oneStatusPerFrame?"Yes":"No"}</strong></div>`,`<div class="result-metric"><span>Fault indicator</span><strong>Amber + buzzer</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Warehouse beacon · occupancy status sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>State</th><th>Green</th><th>Red</th><th>Amber</th><th>Buzzer</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "access-strike-allowlist-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.atMs} ms</td><td>${escape(frame.credentialId)}</td><td>${escape(frame.decision)}</td><td>${frame.strikeUnlocked?"UNLOCK":"LOCKED"}</td><td>${escape(frame.reason)}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Grants / denials</span><strong>${result.grantCount} / ${result.denyCount}</strong></div>`,`<div class="result-metric"><span>Unlock interval</span><strong>${result.unlockDurationMs} ms</strong></div>`,`<div class="result-metric"><span>Audit events</span><strong>${result.mockAuditEvents.length} · mock</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Access-control mock · grant/deny and strike timeline</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Time</th><th>Mock credential</th><th>Decision</th><th>Strike</th><th>Reason</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "fire-alarm-zone-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${escape(frame.zoneId)}</td><td>${escape(frame.condition)}</td><td>${frame.fireAlarm?"ALARM":"—"}</td><td>${frame.trouble?escape(frame.troubleType):"—"}</td><td>${frame.buzzerOn?"ON":"OFF"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Alarm samples</span><strong>${result.alarmSamples}</strong></div>`,`<div class="result-metric"><span>Open / short faults</span><strong>${result.openFaults} / ${result.shortFaults}</strong></div>`,`<div class="result-metric"><span>Fire buzzer</span><strong>Alarm only</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Fire-alarm zone · distinct alarm and trouble table</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Zone</th><th>Input</th><th>Alarm</th><th>Trouble</th><th>Buzzer</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "elevator-fifo-call-queue") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${escape(frame.action)}${frame.floor===null?"":" "+frame.floor}</td><td>${escape(frame.outcome)}</td><td>${frame.activeTarget??"—"}</td><td>${frame.queue.join(", ")||"—"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Floor count</span><strong>${result.floorCount}</strong></div>`,`<div class="result-metric"><span>Targets dispatched</span><strong>${result.dispatchedTargets.join(" → ")||"None"}</strong></div>`,`<div class="result-metric"><span>Duplicate calls ignored</span><strong>${result.duplicateCallsIgnored}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Elevator scheduler · FIFO request state table</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Event</th><th>Outcome</th><th>Next target</th><th>Queue</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "garage-door-limit-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${escape(frame.action)}</td><td>${escape(frame.mode)}</td><td>${frame.openLimit?"Active":"—"}</td><td>${frame.closedLimit?"Active":"—"}</td><td>${frame.conflictRejected?"Rejected":"—"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Limit stops</span><strong>${result.frames.filter(frame=>frame.action.endsWith("-limit")&&frame.mode==="stopped").length}</strong></div>`,`<div class="result-metric"><span>Conflicts rejected</span><strong>${result.conflictingRequestsRejected}</strong></div>`,`<div class="result-metric"><span>Direction overlap</span><strong>${result.noDriveOverlap?"None":"Detected"}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Garage door · synthetic limit and direction sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Event</th><th>Mode</th><th>Open limit</th><th>Closed limit</th><th>Decision</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "smart-irrigation-decision-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.moisturePct===null?"Fault":frame.moisturePct+"%"}</td><td>${frame.permitted?"Yes":"No"}</td><td>${frame.dry?"Yes":"No"}</td><td>${frame.waterCommand}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Dry threshold</span><strong>${result.dryThresholdPct}%</strong></div>`,`<div class="result-metric"><span>Water commands</span><strong>${result.wateringSamples}/${result.sampleCount}</strong></div>`,`<div class="result-metric"><span>Sensor fault policy</span><strong>Fail off</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Smart irrigation · moisture, permission, and fault checks</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Moisture</th><th>Permitted</th><th>Dry</th><th>Pump/valve</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "night-light-lux-threshold") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.lux} lux</td><td>${escape(frame.condition)}</td><td>${frame.ledOn?"ON":"OFF"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Darkness threshold</span><strong>${result.thresholdLux} lux</strong></div>`,`<div class="result-metric"><span>LED-on samples</span><strong>${result.ledOnSamples}/${result.sampleCount}</strong></div>`,`<div class="result-metric"><span>Threshold behavior</span><strong>Below = ON</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Automatic night light · synthetic day/night lux samples</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Illuminance</th><th>Condition</th><th>LED command</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "pwm-fan-duty-curve") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.tempC} °C</td><td>${frame.dutyPercent}%</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Curve knots</span><strong>${result.knotCount}</strong></div>`,`<div class="result-metric"><span>Mapped samples</span><strong>${result.sampleCount}</strong></div>`,`<div class="result-metric"><span>Method</span><strong>Linear / clamped</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>PWM fan controller · temperature-to-duty mapping</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Temperature</th><th>Duty command</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "fan-thermostat-hysteresis") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.tempC} °C</td><td>${frame.fanOn?"ON":"OFF"}</td><td>${escape(frame.transition)}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Fan ON threshold</span><strong>${result.fanOnC} °C</strong></div>`,`<div class="result-metric"><span>Fan OFF threshold</span><strong>${result.fanOffC} °C</strong></div>`,`<div class="result-metric"><span>Fan-on samples</span><strong>${result.fanOnSamples}/${result.sampleCount}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Fan thermostat · synthetic temperature sweep</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Temperature</th><th>Fan command</th><th>Transition</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "water-leak-alarm-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.wet?"WET":"Dry"}</td><td>${frame.alarmOn?"ALARM":"Clear"}</td><td>${frame.relayCommand}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Wet episodes</span><strong>${result.alarmEpisodes}</strong></div>`,`<div class="result-metric"><span>Dry recovery</span><strong>${result.dryRecoveryObserved?"Observed":"Not observed"}</strong></div>`,`<div class="result-metric"><span>Sample count</span><strong>${result.sampleCount}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Water-leak alarm · synthetic wet/dry sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Sensor</th><th>Alarm</th><th>Relay command</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "latched-temperature-alarm") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.tempC} °C</td><td>${frame.resetRequested?"Yes":"No"}</td><td>${frame.resetRejected?"Rejected":"—"}</td><td>${frame.alarmLatched?"LATCHED":"Clear"}</td><td>${frame.buzzerOn?"ON":"OFF"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Threshold</span><strong>${result.thresholdC} °C</strong></div>`,`<div class="result-metric"><span>Alarm trips</span><strong>${result.tripCount}</strong></div>`,`<div class="result-metric"><span>Hot reset rejected</span><strong>${result.resetRejected?"Yes":"No"}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Temperature alarm · synthetic sensor samples</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Temperature</th><th>Reset</th><th>Decision</th><th>Alarm</th><th>Buzzer</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "door-interlock-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${escape(frame.action)}</td><td>${frame.guardClosed?"Closed":"OPEN"}</td><td>${frame.faultLatched?"YES":"No"}</td><td>${frame.loadEnabled?"ON":"OFF"}</td><td>${frame.resetRejected?"Rejected":"—"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Load off while guard open</span><strong>${result.loadAlwaysDisabledWhenOpen?"Yes":"No"}</strong></div>`,`<div class="result-metric"><span>Reset while open</span><strong>${result.resetRejectedWhenOpen?"Rejected":"None"}</strong></div>`,`<div class="result-metric"><span>Safety-rated model</span><strong>No</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Door interlock · educational guard-state sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Action</th><th>Guard</th><th>Latch</th><th>Load command</th><th>Reset</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "emergency-stop-latched-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${escape(frame.action)}</td><td>${frame.estopHealthy?"Healthy":"TRIPPED"}</td><td>${frame.latched?"YES":"No"}</td><td>${frame.loadEnabled?"ON":"OFF"}</td><td>${frame.resetRejected?"Rejected":"—"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Reset while tripped</span><strong>${result.unsafeResetRejected?"Rejected":"None"}</strong></div>`,`<div class="result-metric"><span>Separate start required</span><strong>${result.restartRequiresNewStart?"Yes":"No"}</strong></div>`,`<div class="result-metric"><span>Safety-rated model</span><strong>No</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>E-stop latch · educational logical sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Action</th><th>E-stop input</th><th>Latch</th><th>Load command</th><th>Reset</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "forward-reverse-interlock-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${escape(frame.request)}</td><td>${escape(frame.direction)}</td><td>${frame.forwardEnergized?"ON":"OFF"}</td><td>${frame.reverseEnergized?"ON":"OFF"}</td><td>${frame.conflictRejected?"Rejected":"Accepted"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Requests</span><strong>${result.frameCount}</strong></div>`,`<div class="result-metric"><span>Conflicts rejected</span><strong>${result.conflictRequestsRejected}</strong></div>`,`<div class="result-metric"><span>Outputs overlap</span><strong>${result.noOverlap?"No":"Yes"}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Forward/reverse interlock · logical command sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Request</th><th>State</th><th>Forward</th><th>Reverse</th><th>Decision</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "star-delta-transition-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.atMs} ms</td><td>${escape(frame.command)}</td><td>${escape(frame.mode)}</td><td>${frame.starEnergized?"ON":"OFF"}</td><td>${frame.deltaEnergized?"ON":"OFF"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Star interval</span><strong>${result.starTimeMs} ms</strong></div>`,`<div class="result-metric"><span>Dead time</span><strong>${result.deadTimeMs} ms</strong></div>`,`<div class="result-metric"><span>Output overlap</span><strong>${result.noOverlap?"None":"Detected"}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Star-delta starter · logical interlock transition table</figcaption><table class="result-table"><thead><tr><th>Time</th><th>Event</th><th>Mode</th><th>Star output</th><th>Delta output</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "conveyor-edge-counter") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.photoeye?"Blocked":"Clear"}</td><td>${frame.risingEdge?"Yes":"No"}</td><td>${frame.count}</td><td>${frame.motorRunning?"RUN":"STOP"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Target</span><strong>${result.targetCount}</strong></div>`,`<div class="result-metric"><span>Count</span><strong>${result.finalCount}</strong></div>`,`<div class="result-metric"><span>Stop event</span><strong>${result.stoppedAtEvent??"Not reached"}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Conveyor target counter · synthetic photoeye sequence</figcaption><table class="result-table"><thead><tr><th>Event</th><th>Photoeye</th><th>Rising edge</th><th>Count</th><th>Motor command</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "tank-level-hysteresis") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.levelPct}%</td><td>${frame.pumpOn?"ON":"OFF"}</td><td>${escape(frame.transition)}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Low threshold</span><strong>${result.lowLevelPct}%</strong></div>`,`<div class="result-metric"><span>High threshold</span><strong>${result.highLevelPct}%</strong></div>`,`<div class="result-metric"><span>Pump-on samples</span><strong>${result.pumpOnSamples}/${result.sampleCount}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Tank-level hysteresis · synthetic PLC state sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Level</th><th>Pump command</th><th>State</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "traffic-light-fsm-sequence") {
+    const rows=result.phases.map(phase=>`<tr><td>${phase.cycle}</td><td>${escape(phase.name)}</td><td>${phase.northSouth.toUpperCase()}</td><td>${phase.eastWest.toUpperCase()}</td><td>${phase.startTimeS}–${phase.endTimeS} s</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Cycles</span><strong>${result.cycleCount}</strong></div>`,`<div class="result-metric"><span>Total sequence</span><strong>${result.totalDurationS} s</strong></div>`,`<div class="result-metric"><span>Opposing green</span><strong>No</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Timed traffic-light FSM · state table</figcaption><table class="result-table"><thead><tr><th>Cycle</th><th>Phase</th><th>North–South</th><th>East–West</th><th>Time</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "plc-start-stop-sequence") {
+    const rows=result.frames.map(frame=>`<tr><td>${frame.step}</td><td>${frame.startPressed?"Pressed":"Released"}</td><td>${frame.stopHealthy?"Closed":"Open"}</td><td>${frame.emergencyStopHealthy?"Healthy":"TRIPPED"}</td><td>${frame.contactorEnergized?"ON":"OFF"}</td></tr>`).join("");
+    metrics.push(`<div class="result-metric"><span>Control steps</span><strong>${result.sampleCount}</strong></div>`,`<div class="result-metric"><span>Seal-in retained</span><strong>${result.sealInRetained?"Yes":"No"}</strong></div>`,`<div class="result-metric"><span>E-stop opens output</span><strong>${result.emergencyStopDropsOutput?"Yes":"No"}</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>PLC start/stop motor control · Boolean concept sequence</figcaption><table class="result-table"><thead><tr><th>Step</th><th>Start</th><th>Stop</th><th>E-stop</th><th>Contactor</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "thermal-warning-boundary") {
+    metrics.push(`<div class="result-metric"><span>${result.reference} dissipation</span><strong>${(result.resistorDissipationW*1000).toFixed(1)} mW</strong></div>`,`<div class="result-metric"><span>Entered rating / derated limit</span><strong>${result.ratedPowerW} W / ${(result.deratedLimitW*1000).toFixed(1)} mW</strong></div>`,`<div class="result-metric"><span>Suggested minimum rating</span><strong>≥ ${result.recommendedMinimumRatingW.toFixed(2)} W</strong></div>`);
+    waveform=`<figure class="result-waveform"><figcaption>Electrical loading advisory · thermal model unavailable</figcaption><p class="model-limit">Temperature rise and thermal safety are not calculated. Verify datasheet ratings and real operating conditions.</p></figure>`;
+  } else if (result.kind === "monte-carlo-tolerance") {
+    const bins=result.histogram, max=Math.max(...bins.map(bin=>bin.count),1), bars=bins.map((bin,index)=>{const x=32+index*41,y=96-(bin.count/max)*68,w=26,h=96-y;return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2"></rect>`;}).join("");
+    waveform=`<figure class="result-waveform"><figcaption>Seeded current distribution · ${result.sampleCount} trials · R tolerance ±${result.tolerancePct}%</figcaption><svg viewBox="0 0 480 118" role="img" aria-label="Histogram of simulated LED current values"><path class="wave-axis" d="M28 18 V98 H458"></path><g class="histogram-bars">${bars}</g><text x="30" y="114">${(result.minimum*1000).toFixed(2)} mA</text><text x="400" y="114">${(result.maximum*1000).toFixed(2)} mA</text></svg></figure>`;
+    metrics.push(`<div class="result-metric"><span>Mean current</span><strong>${(result.mean*1000).toFixed(3)} mA</strong></div>`,`<div class="result-metric"><span>Std. deviation</span><strong>${(result.standardDeviation*1000).toFixed(3)} mA</strong></div>`,`<div class="result-metric"><span>Median current</span><strong>${(result.median*1000).toFixed(3)} mA</strong></div>`);
+  } else if (result.kind === "parameter-sweep") {
+    const points=result.points, max=Math.max(...points.map(point=>point.currentA),1e-12), path=points.map((point,index)=>{const x=32+(416*index)/(points.length-1),y=94-(point.currentA/max)*68;return (index?"L ":"M ")+x.toFixed(1)+" "+y.toFixed(1);}).join(" ");
+    waveform=`<figure class="result-waveform"><figcaption>LED current vs. ${escape(result.parameterReference)} resistance · ${points.length} tested values</figcaption><svg viewBox="0 0 480 118" role="img" aria-label="LED current decreases as series resistance increases"><path class="wave-axis" d="M28 18 V98 H458"></path><path class="wave-trace" d="${path}"></path><text x="30" y="114">${points[0].resistanceOhms} Ω</text><text x="400" y="114">${points.at(-1).resistanceOhms} Ω</text></svg></figure>`;
+    for(const point of points)metrics.push(`<div class="result-metric"><span>${point.resistanceOhms} Ω</span><strong>${(point.currentA*1000).toFixed(3)} mA</strong></div>`);
+  } else if (result.kind === "rlc-step-response") {
+    const samples=result.samples, max=Math.max(...samples.map(point=>point.capacitorVoltageV),result.sourceVoltage), path=samples.map((point,index)=>{const x=24+(432*index)/(samples.length-1),y=86-(point.capacitorVoltageV/max)*62;return (index?"L ":"M ")+x.toFixed(1)+" "+y.toFixed(1);}).join(" ");
+    waveform=`<figure class="result-waveform"><figcaption>Series RLC pulse response · ${result.regime} · ${result.dampedFrequencyHz.toFixed(2)} Hz</figcaption><svg viewBox="0 0 480 108" role="img" aria-label="RLC capacitor voltage transient showing damping and ringing"><path class="wave-axis" d="M20 86 H468 M24 16 V90"></path><path class="wave-trace" d="${path}"></path><text x="24" y="104">0 s</text><text x="405" y="104">${result.durationS.toPrecision(3)} s</text></svg></figure>`;
+  } else if (result.kind === "rc-bode-plot") {
+    const points=result.points, x=index=>30+(420*index)/(points.length-1), yMag=value=>22+Math.min(44,Math.max(0,-value/40*44)), yPhase=value=>75+(-value/90)*34;
+    const mag=points.map((point,index)=>(index?"L ":"M ")+x(index).toFixed(1)+" "+yMag(point.magnitudeDb).toFixed(1)).join(" "), phase=points.map((point,index)=>(index?"L ":"M ")+x(index).toFixed(1)+" "+yPhase(point.phaseDeg).toFixed(1)).join(" ");
+    waveform=`<figure class="result-waveform"><figcaption>RC low-pass Bode response · cutoff ${result.cutoffHz.toFixed(2)} Hz</figcaption><svg viewBox="0 0 480 124" role="img" aria-label="RC Bode plot with magnitude and phase versus logarithmic frequency"><path class="wave-axis" d="M28 20 V112 H458 M28 72 H458"></path><path d="${mag}" fill="none" stroke="#36d5f5" stroke-width="2"></path><path d="${phase}" fill="none" stroke="#ffb55d" stroke-width="2"></path><circle cx="${x(result.cutoffIndex).toFixed(1)}" cy="${yMag(result.cutoffMagnitudeDb).toFixed(1)}" r="4" fill="#ffffff"></circle><text x="30" y="12">Magnitude (dB)</text><text x="30" y="121">Frequency (log Hz)</text><text x="338" y="12" fill="#ffb55d">Phase (deg)</text><text x="${(x(result.cutoffIndex)+6).toFixed(1)}" y="35">fc</text></svg></figure>`;
+  } else if (result.kind === "eeprom-ring-logger") {
+    metrics.push(["Sample interval", result.samplePeriodMs + " ms"], ["Buffer capacity", String(result.capacity)], ["Samples recorded", String(result.recordedSamples)], ["Overwritten records", String(result.overwrittenRecords)], ["Buffer wrapped", result.bufferWrapped ? "Yes" : "No"], ["Replay values", result.replayValues.join(", ") + " °C"]);
+  } else if (result.kind === "low-power-sleep-wake") {
+    metrics.push(["Run duration", result.durationMs + " ms"], ["MCU sleep current", result.sleepCurrentUa + " µA"], ["MCU run current", result.runCurrentUa + " µA"], ["Wake events", String(result.wakeCount)], ["Awake / asleep", result.awakeTimeMs + " / " + result.sleepTimeMs + " ms"], ["Estimated average supply current", result.averageSupplyCurrentUa.toFixed(2) + " µA"], ["Estimated energy", result.energyMj.toFixed(3) + " mJ"], ["LED load while awake", result.ledPeakCurrentMa.toFixed(2) + " mA"]);
+  } else if (result.kind === "fm-front-end-response") {
+    metrics.push(["Tuned center", result.centerFrequencyMHz.toFixed(2) + " MHz"], ["Resonator Q", String(result.q)], ["Gain block", result.gainDb.toFixed(1) + " dB"], ["Peak sample", result.peakFrequencyMHz.toFixed(2) + " MHz"], ["Peak total gain", result.peakResponseDb.toFixed(2) + " dB"], ["Peak output amplitude", result.peakOutputAmplitudeV.toFixed(4) + " V"], ["RF transmission", result.rfTransmitted ? "Yes" : "No"], ["FM demodulation", result.demodulationModeled ? "Modeled" : "Not modeled"]);
+    const points = result.responsePoints;
+    const min = Math.min(...points.map((point) => point.totalGainDb));
+    const max = Math.max(...points.map((point) => point.totalGainDb));
+    const span = Math.max(0.001, max - min);
+    const path = points.map((point, index) => {
+      const x = 24 + (432 * index) / Math.max(1, points.length - 1);
+      const y = 84 - ((point.totalGainDb - min) / span) * 62;
+      return (index ? "L " : "M ") + x.toFixed(1) + " " + y.toFixed(1);
+    }).join(" ");
+    waveform = `<figure class="result-waveform"><figcaption>Ideal tuned response · peak ${result.peakFrequencyMHz.toFixed(2)} MHz</figcaption><svg viewBox="0 0 480 108" role="img" aria-label="Ideal FM front-end gain versus frequency"><path class="wave-axis" d="M20 84 H468 M24 18 V88"></path><path class="wave-trace" d="${path}"></path><text x="24" y="103">${points[0].frequencyMHz.toFixed(0)} MHz</text><text x="402" y="103">${points.at(-1).frequencyMHz.toFixed(0)} MHz</text></svg></figure>`;
+  } else if (result.kind === "ir-remote-action") {
+    metrics.push(["Protocol", result.protocol], ["Decoded frame", result.rawCode], ["Address", result.address], ["Command", result.command], ["Selected action", result.action], ["Action mapping entries", String(result.mapEntries)], ["Frame duration", result.frameDurationUs + " µs"], ["Action executed", result.actionExecuted ? "Yes" : "No (display only)"]);
+  } else if (result.kind === "ethernet-sensor-frame") {
+    metrics.push(["Link transitions", result.linkTransitions.join(" → ")], ["Link state", result.linkState], ["Configuration", result.configurationState], ["Transaction", result.transactionState], ["Ethernet-II header", result.headerHex ?? "Not formed"], ["Sensor payload", result.payloadHex ?? "Not formed"], ["Mock frame length", result.frameLengthOctets + " octets"], ["FCS / padding", (result.fcsIncluded ? "FCS included" : "FCS omitted") + " / " + (result.paddingIncluded ? "included" : "omitted")], ["Packet transmission", result.packetTransmitted ? "Yes" : "No (local mock)"]);
+  } else if (result.kind === "wifi-relay-control") {
+    metrics.push(["Local command", result.command], ["Wi-Fi link", result.linkState], ["Authentication model", result.authentication], ["Command result", result.transactionState], ["Ideal relay driver", result.relayEnergized ? "Energized" : "De-energized"], ["Coil current estimate", result.coilCurrentMa.toFixed(1) + " mA"], ["Physical relay action", result.physicalRelaySwitched ? "Modeled" : "Not modeled"], ["Network transmission", result.networkTransmitted ? "Yes" : "No (local mock)"]);
+  } else if (result.kind === "gsm-alarm-mock") {
+    metrics.push(["Alarm input", result.alarmState], ["AT commands completed", result.commandsCompleted + " / " + result.commands.length], ["Transaction state", result.transactionState], ["Alert text", result.messageBody ?? "Not prepared"], ["Mock modem accepted", result.modemAccepted ? "Yes" : "No"], ["Delivery confirmed", result.deliveryConfirmed ? "Yes" : "No"], ["Radio transmission", result.radioTransmitted ? "Yes" : "No (local mock)"]);
+  } else if (result.kind === "lora-sensor-node") {
+    metrics.push(["Node ID", String(result.nodeId)], ["Temperature sample", result.temperatureC.toFixed(1) + " °C"], ["Application payload", result.payloadHex], ["Payload size", result.payloadLengthOctets + " octets"], ["Configured airtime", result.airtimeMs + " ms per send"], ["Duty window / configured limit", result.dutyWindowMs + " ms / " + result.dutyLimitPercent + " %"], ["Accepted / rejected requests", result.sentCount + " / " + result.rejectedCount], ["Airtime used", result.usedAirtimeMs + " / " + result.airtimeBudgetMs + " ms"], ["Window duty estimate", result.dutyCyclePercent.toFixed(3) + " %"], ["Radio transmission", result.radioTransmitted ? "Yes" : "No (mock only)"]);
+  } else if (result.kind === "ble-beacon-config") {
+    metrics.push(["Device name", result.deviceName], ["Flags", "0x" + result.flags.toString(16).padStart(2, "0").toUpperCase()], ["16-bit service UUID", result.serviceUuid], ["Tx power field", result.txPowerDbm + " dBm"], ["Encoded legacy payload", result.payloadHex], ["Advertising data length", result.payloadLengthOctets + " / " + result.legacyMaximumOctets + " octets"], ["Radio transmission", result.radioTransmitted ? "Yes" : "No (configuration only)"]);
+  } else if (result.kind === "nfc-uid-display") {
+    metrics.push(["Read status", result.readStatus], ["Tag UID", result.uid], ["Authentication", "UID is not authentication"]);
+  } else if (result.kind === "epaper-refresh") {
+    metrics.push(["Refresh mode", result.refreshMode], ["Frame changes", result.changedTiles + " / " + result.totalTiles], ["Changed fraction", (result.changeFraction * 100).toFixed(1) + " %"], ["Panel power", result.panelPower], ["Woke from sleep", result.wakeOccurred ? "Yes" : "No"], ["Estimated duration", result.estimatedDurationMs + " ms"], ["Refresh complete", result.refreshCompleted ? "Yes" : "No"], ["Partial count after", String(result.partialsSinceFullAfter)], ["State sequence", result.stateSequence.join(" → ")]);
+  } else if (result.kind === "solar-mpp-sweep") {
+    metrics.push(["Open-circuit voltage",result.openCircuitVoltageV.toFixed(2)+" V"],["Short-circuit current",(result.shortCircuitCurrentA*1000).toFixed(1)+" mA"],["Configured MPP",result.configuredMppVoltageV.toFixed(2)+" V · "+(result.configuredMppCurrentA*1000).toFixed(1)+" mA"],["Best sampled point",result.maximumPowerPoint.voltageV.toFixed(2)+" V · "+(result.maximumPowerPoint.currentA*1000).toFixed(1)+" mA"],["Sampled power",result.maximumPowerPoint.powerW.toFixed(3)+" W"],["Converter output estimate",result.conversionOutputPowerW.toFixed(3)+" W"],["Sweep points",String(result.sampleCount)],["Model boundary","Static curve sweep; no tracking algorithm or hardware modeled"]);
+  } else if (result.kind === "usb-c-pd-sink") {
+    metrics.push(["Negotiation state",result.negotiationState],["Selected VBUS",result.selectedVoltageV.toFixed(2)+" V"],["Load current",(result.loadCurrentA*1000).toFixed(1)+" mA"],["Load power",result.loadPowerW.toFixed(2)+" W"],["Available profiles",result.availableProfilesV.map(v=>v+" V").join(", ")],["Decision",result.reason],["Model boundary","Fixed-profile policy estimate; no USB-PD signaling or compliance test"]);
+  } else if (result.kind === "usb-c-pd-source") {
+    metrics.push(["Source state",result.sourceState],["Negotiation state",result.negotiationState],["Selected PDO",result.selectedVoltageV+" V · "+result.selectedCurrentLimitA+" A"],["Advertised PDOs",result.advertisedProfiles.map(p=>p.voltageV+" V / "+p.currentLimitA+" A").join(", ")],["Output voltage",result.outputVoltageV.toFixed(2)+" V"],["Load current",(result.loadCurrentA*1000).toFixed(1)+" mA"],["Load power",result.loadPowerW.toFixed(2)+" W"],["Model boundary","Fixed-PDO policy estimate; no USB-PD signaling or compliance test"]);
+  } else if (result.kind === "poe-pd-input") {
+    metrics.push(["Active feed",result.activeFeed],["Input polarity",result.inputPolarity],["Rectified input",result.rectifiedInputVoltageV.toFixed(2)+" V"],["DC/DC stage",result.converterEnabled ? "Enabled" : "Disabled"],["Output voltage",result.outputVoltageV.toFixed(2)+" V"],["Load current",(result.loadCurrentA*1000).toFixed(1)+" mA"],["Load power",result.loadPowerW.toFixed(2)+" W"],["Model boundary","Ideal feed bridge and DC/DC estimate; no PoE compliance or RJ45 mapping"]);
+  } else if (result.kind === "constant-current-led-driver") {
+    metrics.push(["Regulation state",result.regulationState],["LED forward voltage",result.ledForwardVoltageV.toFixed(2)+" V"],["LED current",(result.ledCurrentA*1000).toFixed(1)+" mA"],["Sense voltage",result.senseVoltageV.toFixed(3)+" V"],["Compliance headroom",result.headroomV.toFixed(2)+" V"],["LED power",result.ledPowerW.toFixed(2)+" W"],["Input power estimate",result.inputPowerW.toFixed(2)+" W"],["Warning",result.warning||"None"],["Model boundary","Ideal average current regulation; no switching or thermal simulation"]);
+  } else if (result.kind === "mosfet-half-bridge") {
+    metrics.push(["Gate timing",result.gateSequence.map(state=>state.phase+" "+(state.durationS*1e6).toFixed(2)+" µs").join(" · ")],["High-side duty",result.highDutyPercent+" %"],["Low-side duty",result.lowDutyPercent+" %"],["Dead-time fraction",(result.deadTimeFraction*100).toFixed(1)+" %"],["High-side on current",(result.highSideOnCurrentA*1000).toFixed(1)+" mA"],["Average high-side current",(result.highSideAverageCurrentA*1000).toFixed(1)+" mA"],["Shoot-through overlap",result.shootThrough ? "Detected" : "None"],["Model boundary","Ideal dead-time timing and resistive-load estimate"]);
+  } else if (result.kind === "reverse-polarity-protection") {
+    metrics.push(["Input polarity",result.inputPolarity],["Protector",result.protectedOn?"Conducting":"Reverse blocked"],["Input / output voltage",result.inputVoltageV.toFixed(2)+" / "+result.outputVoltageV.toFixed(2)+" V"],["Load current / power",(result.loadCurrentA*1000).toFixed(1)+" mA / "+result.loadPowerW.toFixed(3)+" W"],["MOSFET path drop",result.forwardDropV.toFixed(2)+" V"],["Model boundary","Ideal polarity test; no transient or safety qualification"]);
+  } else if (result.kind === "surge-protected-input") {
+    metrics.push(["Surge pulse",result.pulsePeakVoltageV.toFixed(1)+" V · "+(result.pulseWidthS*1000).toFixed(2)+" ms"],["TVS clamp / energy",result.clampVoltageV.toFixed(1)+" V · "+(result.absorbedEnergyJ*1000).toFixed(2)+" mJ"],["Fuse I²t",result.fuseI2tDemand.toFixed(4)+" / "+result.fuseI2tLimit.toFixed(4)+" A²s · "+(result.fuseWarning?"warning":"within hold")],["Protected output",result.outputEnabled?result.outputVoltageV.toFixed(2)+" V":"Disabled · fuse tripped"],["Filtered transient",result.filteredSurgeOutputVoltageV.toFixed(2)+" V"],["RC time constant",(result.filterTimeConstantS*1000).toFixed(2)+" ms"],["Model boundary","Single-pulse educational estimate; no surge compliance or hardware safety qualification"]);
+  } else if (result.kind === "hotswap-protection") {
+    metrics.push(["Input / output state",result.busVoltageV.toFixed(1)+" V / "+(result.outputEnabled?"Enabled":"Tripped or disabled")],["Capacitive inrush", (result.rawInrushCurrentA*1000).toFixed(1)+" mA raw · "+(result.inrushCurrentA*1000).toFixed(1)+" mA limited"],["Ramp / estimated charge time",(result.rampTimeS*1000).toFixed(1)+" / "+(result.estimatedChargeTimeS*1000).toFixed(2)+" ms"],["Steady load current",(result.loadCurrentA*1000).toFixed(1)+" mA"],["Overload limit / trip",(result.overloadLimitA*1000).toFixed(0)+" mA / "+(result.overloadTrip?"Yes":"No")],["MOSFET dissipation",result.mosfetPowerW.toFixed(3)+" W"],["Model boundary","Ideal current-limit estimate; no SOA or thermal qualification"]);
+  } else if (result.kind === "electronic-load") {
+    metrics.push(["DUT supply / current limit",result.supplyVoltageV.toFixed(2)+" V / "+(result.maxCurrentA*1000).toFixed(0)+" mA"],["Shunt resistance / tolerance",result.shuntResistanceOhm+" Ω / ±"+result.tolerancePercent+" %"],["Current-step results",result.steps.map(step=>(step.requestedCurrentA*1000).toFixed(0)+"→"+(step.measuredCurrentA*1000).toFixed(0)+" mA").join(" · ")],["MOSFET dissipation",result.steps.map(step=>step.mosfetPowerW.toFixed(2)+" W").join(" · ")],["All steps within tolerance",result.allStepsWithinTolerance?"Yes":"No"],["Model boundary","Ideal steady-state loop; transient and SOA behavior not modeled"]);
+  } else if (result.kind === "inverter-waveform") {
+    metrics.push(["DC bus / modulation",result.busVoltageV.toFixed(1)+" V / "+result.modulationIndex.toFixed(2)],["Carrier / output frequency",result.carrierFrequencyHz+" Hz / "+result.outputFrequencyHz+" Hz"],["Unfiltered / filtered RMS",result.unfilteredFundamentalVrms.toFixed(2)+" / "+result.filteredOutputVrms.toFixed(2)+" V"],["LC resonance",result.filterResonanceHz.toFixed(1)+" Hz"],["Target tolerance",result.targetVrms+" V ±"+result.tolerancePercent+" % · "+(result.targetMet?"met":"not met")],["Load current / power",(result.loadCurrentRmsA*1000).toFixed(1)+" mA / "+result.loadPowerW.toFixed(2)+" W"],["Model boundary","Fundamental and passive filter estimate; PWM waveform not modeled"]);
+  } else if (result.kind === "ups-transfer") {
+    metrics.push(["Mains / selected source",result.mainsAvailable?"Present":"Lost · "+result.sourceSelected],["UPS output",result.outputEnabled?result.outputVoltageV.toFixed(2)+" V":"Disabled"],["Load current / power",(result.loadCurrentA*1000).toFixed(1)+" mA / "+result.loadPowerW.toFixed(2)+" W"],["Battery state of charge",result.stateOfChargePercent+" %"],["Estimated / required hold-up",result.estimatedHoldUpMin.toFixed(1)+" / "+result.requiredHoldUpMin+" min"],["Hold-up window",result.holdUpSatisfied?"Met":"Not met"],["Charge / discharge current",(result.batteryChargeCurrentA*1000).toFixed(0)+" / "+(result.batteryDischargeCurrentA*1000).toFixed(0)+" mA"],["Model boundary","Ideal energy and transfer estimate; no runtime or safety guarantee"]);
+  } else if (result.kind === "ssr-ac-switch") {
+    metrics.push(["Control / relay state",result.control+" / "+result.loadState],["Fault",result.fault],["AC source",result.sourceRmsVoltageV+" V RMS · "+result.frequencyHz+" Hz"],["Load voltage / current",result.loadVoltageRmsV.toFixed(2)+" V RMS / "+(result.loadCurrentRmsA*1000).toFixed(2)+" mA RMS"],["Off-state leakage",(result.offLeakageCurrentA*1000).toFixed(2)+" mA"],["Load power",result.loadPowerW.toFixed(3)+" W"],["Model boundary","Ideal AC SSR estimate; isolation is not a physical safety qualification"]);
+  } else if (result.kind === "triac-ac-dimmer") {
+    metrics.push(["AC input",result.sourceRmsVoltageV.toFixed(1)+" V RMS · "+result.frequencyHz+" Hz"],["Phase angle",result.phaseAngleDeg+"°"],["Zero-cross synchronization",result.zeroCrossLocked?"Locked":"Lost"],["Triac firing",result.firingEnabled?"Enabled":"Inhibited"],["Lamp voltage / current",result.lampVoltageRmsV.toFixed(2)+" V RMS / "+(result.lampCurrentRmsA*1000).toFixed(1)+" mA RMS"],["Lamp power",result.lampPowerW.toFixed(2)+" W"],["Model boundary","RMS estimator only; no mains safety, isolation, or switching model"]);
+  } else if (result.kind === "igbt-inverter-leg") {
+    metrics.push(["Switching state",result.switchingState],["High / low gate",String(result.highGateOn)+" / "+String(result.lowGateOn)],["Fault input",result.fault],["Interlock",result.interlockActive?"Active":"Inactive"],["Output / load current",result.outputVoltageV.toFixed(2)+" V / "+(result.loadCurrentA*1000).toFixed(1)+" mA"],["Load power",result.loadPowerW.toFixed(2)+" W"],["Model boundary","Ideal IGBT logic and resistive-load estimate; no switching or safety qualification"]);
+  } else if (result.kind === "bms-cell-monitor") {
+    metrics.push(["Stack voltage",result.stackVoltageV.toFixed(2)+" V"],["Cell range",result.minimumCellV.toFixed(3)+"–"+result.maximumCellV.toFixed(3)+" V"],["Fault state",result.faultState],["Over-voltage cells",result.overVoltageCells.join(", ")||"None"],["Under-voltage cells",result.underVoltageCells.join(", ")||"None"],["Balance requests",result.cellsToBalance.join(", ")||"None"],["Balancing / protection","Report only; not actuated"],["Model boundary","Ideal thresholds; no cell chemistry or safety qualification"]);
+  } else if (result.kind === "liion-charge") {
+    metrics.push(["Cell present",result.cellPresent?"Yes":"No"],["Charge phase",result.phase],["Cell voltage",result.cellVoltageV.toFixed(3)+" V"],["Charge current",(result.chargeCurrentA*1000).toFixed(1)+" mA"],["Temperature",result.temperatureC.toFixed(1)+" °C"],["Battery power",(result.batteryPowerW*1000).toFixed(1)+" mW"],["Input current",(result.inputCurrentA*1000).toFixed(1)+" mA"],["Charging",result.chargingEnabled?"Enabled":"Inhibited"],["Model boundary","Ideal CC/CV estimator; no cell or charger safety qualification"]);
+  } else if (result.kind === "buckboost-converter") {
+    metrics.push(["Conversion mode",result.mode],["Input → target",result.inputVoltageV.toFixed(2)+" V → "+result.outputTargetV.toFixed(2)+" V"],["Regulated estimate",result.outputVoltageV.toFixed(2)+" V"],["Duty cycle",result.dutyCyclePercent.toFixed(1)+" %"],["Input / load current",(result.inputCurrentA*1000).toFixed(2)+" mA / "+(result.loadCurrentA*1000).toFixed(2)+" mA"],["Inductor / output ripple",(result.inductorRipplePpA*1000).toFixed(2)+" mA / "+(result.outputRipplePpV*1000).toFixed(2)+" mV p-p"],["Assumed efficiency",result.assumedEfficiencyPercent.toFixed(1)+" %"],["Model boundary","Ideal average model; switching waveforms not modeled"]);
+  } else if (result.kind === "boost-converter") {
+    metrics.push(["Input voltage",result.inputVoltageV.toFixed(2)+" V"],["Duty cycle",result.dutyCyclePercent.toFixed(1)+" %"],["Average output",result.outputVoltageV.toFixed(3)+" V"],["Input / load current",(result.inputCurrentA*1000).toFixed(2)+" mA / "+(result.loadCurrentA*1000).toFixed(2)+" mA"],["Inductor ripple",(result.inductorRipplePpA*1000).toFixed(2)+" mA p-p"],["Output ripple",(result.outputRipplePpV*1000).toFixed(2)+" mV p-p"],["Conduction mode",result.conductionMode],["Estimated efficiency",result.estimatedEfficiencyPercent.toFixed(1)+" %"],["Model boundary","Average CCM estimate; switching loop and hardware not modeled"]);
+  } else if (result.kind === "buck-converter") {
+    metrics.push(["Input voltage",result.inputVoltageV.toFixed(2)+" V"],["Duty cycle",result.dutyCyclePercent.toFixed(1)+" %"],["Average output",result.outputVoltageV.toFixed(3)+" V"],["Load current", (result.loadCurrentA*1000).toFixed(2)+" mA"],["Inductor ripple", (result.inductorRipplePpA*1000).toFixed(2)+" mA p-p"],["Output ripple", (result.outputRipplePpV*1000).toFixed(2)+" mV p-p"],["Conduction mode",result.conductionMode],["Estimated efficiency",result.estimatedEfficiencyPercent.toFixed(1)+" %"],["Model boundary","Average CCM estimate; switching loop and hardware not modeled"]);
+  } else if (result.kind === "seven-segment-clock") {
+    metrics.push(["Time before",result.initialTime],["Clock ticks",String(result.ticks)+" at "+result.tickHz+" Hz"],["Time after",result.outputTime],["Midnight rollovers",String(result.midnightRollovers)],["Display",result.displayDigits+" digit "+result.displayType],["Firmware / hardware","Not modeled"]);
+    waveform="<figure class=\"result-waveform\"><figcaption>Seven-segment clock · "+result.outputTime+"</figcaption><svg viewBox=\"0 0 480 112\" role=\"img\" aria-label=\"Six seven-segment clock digits\"><rect x=\"10\" y=\"10\" width=\"460\" height=\"92\" rx=\"8\" fill=\"#071a24\" stroke=\"#32cfe0\"></rect><text x=\"240\" y=\"69\" text-anchor=\"middle\" fill=\"#67e9ed\" font-family=\"monospace\" font-size=\"42\">"+result.outputTime+"</text></svg></figure>";
+  } else if (result.kind === "oled-status-panel") {
+    metrics.push(["Panel state", result.displayState], ["Temperature", result.temperatureC===null?"Missing":result.temperatureC.toFixed(1)+" °C"], ["Humidity", result.humidityPct===null?"Missing":result.humidityPct.toFixed(0)+" %"], ["Pressure", result.pressureHpa===null?"Missing":result.pressureHpa.toFixed(0)+" hPa"], ["Missing sensors", result.missingSensors.join(", ")||"None"], ["Display format", result.displayColumns+" × "+result.displayRows], ["Line overflow", result.overflowLines.length?"Yes":"No"]);
+    waveform="<figure class=\"result-waveform\"><figcaption>OLED status panel · "+result.displayState+"</figcaption><svg viewBox=\"0 0 480 112\" role=\"img\" aria-label=\"Two-line OLED status panel\"><rect x=\"12\" y=\"12\" width=\"456\" height=\"88\" rx=\"8\" fill=\"#071a24\" stroke=\"#32cfe0\"></rect><text x=\"28\" y=\"50\" fill=\"#67e9ed\" font-family=\"monospace\" font-size=\"20\">"+result.displayLines[0]+"</text><text x=\"28\" y=\"82\" fill=\"#67e9ed\" font-family=\"monospace\" font-size=\"20\">"+result.displayLines[1]+"</text></svg></figure>";
+  } else if (result.kind === "rgb-pwm-controller") {
+    metrics.push(["Requested colour", result.cssColor], ["PWM frequency", result.frequencyHz.toFixed(0) + " Hz"], ["Red duty / current", result.channels.R.dutyCyclePercent.toFixed(1) + " % / " + result.channels.R.averageCurrentMa.toFixed(2) + " mA"], ["Green duty / current", result.channels.G.dutyCyclePercent.toFixed(1) + " % / " + result.channels.G.averageCurrentMa.toFixed(2) + " mA"], ["Blue duty / current", result.channels.B.dutyCyclePercent.toFixed(1) + " % / " + result.channels.B.averageCurrentMa.toFixed(2) + " mA"], ["Total average current", result.totalAverageCurrentMa.toFixed(2) + " mA"], ["Per-channel limit", result.peakChannelCurrentLimitMa + " mA peak"], ["Mapping", "8-bit linear PWM"]);
+    waveform="<figure class=\"result-waveform\"><figcaption>RGB output · "+result.cssColor+"</figcaption><svg viewBox=\"0 0 480 84\" role=\"img\" aria-label=\"Requested RGB PWM colour\"><rect x=\"20\" y=\"18\" width=\"440\" height=\"48\" rx=\"8\" fill=\""+result.cssColor+"\"></rect></svg></figure>";
+  } else if (result.kind === "digital-volume-control") {
+    metrics.push(["Input level", result.inputPeakV.toFixed(3) + " V peak"], ["Output level", result.outputPeakV.toFixed(3) + " V peak"], ["Volume command", result.command + " / " + (result.steps - 1)], ["Control position", result.commandPercent.toFixed(0) + " %"], ["Gain", result.gainDb.toFixed(1) + " dB"], ["Output RMS", result.outputRmsV.toFixed(3) + " V"], ["Loaded output", (result.loadResistanceOhm / 1000).toFixed(0) + " kΩ"], ["Model", "Linear digital potentiometer"]);
+    waveform="<figure class=\"result-waveform\"><figcaption>Digital volume · "+result.commandPercent.toFixed(0)+"%</figcaption><svg viewBox=\"0 0 480 72\" role=\"img\" aria-label=\"Digital volume level\"><rect x=\"20\" y=\"24\" width=\"440\" height=\"24\" rx=\"12\" fill=\"#173044\"></rect><rect x=\"20\" y=\"24\" width=\""+(440*result.attenuationRatio).toFixed(1)+"\" height=\"24\" rx=\"12\" fill=\"#36d9a7\"></rect></svg></figure>";
+  } else if (result.kind === "pwm-audio-dac") {
+    metrics.push(["PWM frequency", result.frequencyHz.toFixed(0) + " Hz"], ["Duty cycle", result.dutyCyclePercent.toFixed(1) + " %"], ["Average output", result.averageOutputV.toFixed(3) + " V"], ["Steady-state ripple", (result.rippleVpp * 1000).toFixed(2) + " mV p-p"], ["RC time constant", (result.timeConstantSeconds * 1000).toFixed(2) + " ms"], ["Loaded high target", result.highPeakV.toFixed(3) + " V"], ["Minimum valley", result.lowValleyV.toFixed(3) + " V"], ["Duty tracking", result.tracksDutyCycle ? "Yes" : "No"]);
+  } else if (result.kind === "audio-summing-mixer") {
+    metrics.push(["Input 1", result.input1V.toFixed(3) + " V"], ["Input 2", result.input2V.toFixed(3) + " V"], ["R1 weighting", (result.weight1 * 100).toFixed(1) + " %"], ["R2 weighting", (result.weight2 * 100).toFixed(1) + " %"], ["Summing node", result.sumNodeV.toFixed(3) + " V"], ["Buffered output", result.outputV.toFixed(3) + " V"], ["Clipping", result.clipped ? "Yes" : "No"], ["Model", "Resistive weighted average"]);
+  } else if (result.kind === "guitar-buffer-response") {
+    metrics.push(["Pickup source resistance", result.sourceResistanceOhm.toFixed(0) + " Ω"], ["Buffer input resistance", (result.inputResistanceOhm / 1000000).toFixed(2) + " MΩ"], ["Input impedance ratio", result.inputImpedanceRatio.toFixed(0) + "×"], ["Coupling capacitor", (result.couplingCapacitanceF * 1e9).toFixed(0) + " nF"], ["Output load", (result.outputLoadOhm / 1000).toFixed(0) + " kΩ"], ["1 kHz gain", result.midbandGainRatio.toFixed(3) + "×"], ["High input impedance", result.highInputImpedance ? "Yes" : "No"], ["Unity gain in band", result.unityGainInBand ? "Yes" : "No"]);
+    const points=result.responsePoints,min=Math.min(...points.map(point=>point.gainRatio)),max=Math.max(...points.map(point=>point.gainRatio)),span=Math.max(0.001,max-min),path=points.map((point,index)=>((index?"L ":"M ")+(24+432*index/Math.max(1,points.length-1)).toFixed(1)+" "+(82-(point.gainRatio-min)/span*62).toFixed(1))).join(" ");
+    waveform="<figure class=\"result-waveform\"><figcaption>Pickup-to-buffer AC response</figcaption><svg viewBox=\"0 0 480 100\" role=\"img\" aria-label=\"Guitar buffer gain by frequency\"><path class=\"wave-axis\" d=\"M20 82 H468 M24 16 V88\"></path><path class=\"wave-trace\" d=\""+path+"\"></path></svg></figure>";
+  } else if (result.kind === "audio-tone-spectrum") {
+    metrics.push(["Tone frequency", result.frequencyHz.toFixed(1) + " Hz"], ["Peak amplitude", result.amplitudePeakV.toFixed(3) + " V"], ["Sample rate", result.sampleRateHz.toFixed(0) + " samples/s"], ["Capture", (result.durationSeconds * 1000).toFixed(2) + " ms"], ["Rising zero crossings", String(result.positiveZeroCrossings)], ["Measured frequency", result.measuredFrequencyHz.toFixed(1) + " Hz"], ["Fundamental amplitude", result.fundamentalAmplitudeV.toFixed(4) + " V"], ["Second harmonic", result.secondHarmonicDbc.toFixed(1) + " dBc"], ["THD estimate", result.thdPercent.toExponential(2) + " %"]);
+    const points=result.sampleTrace,low=Math.min(...points),high=Math.max(...points),range=Math.max(0.001,high-low),path=points.map((value,index)=>((index?"L ":"M ")+(24+432*index/Math.max(1,points.length-1)).toFixed(1)+" "+(82-(value-low)/range*62).toFixed(1))).join(" ");
+    waveform="<figure class=\"result-waveform\"><figcaption>Ideal sampled sine · "+result.frequencyHz.toFixed(0)+" Hz</figcaption><svg viewBox=\"0 0 480 100\" role=\"img\" aria-label=\"Generated audio tone waveform\"><path class=\"wave-axis\" d=\"M20 82 H468 M24 16 V88\"></path><path class=\"wave-trace\" d=\""+path+"\"></path></svg></figure>";
+  } else if (result.kind === "electret-mic-meter") {
+    metrics.push(["Microphone bias", result.micBiasCurrentMa.toFixed(2) + " mA"], ["Mic terminal voltage", result.micSupplyVoltageV.toFixed(2) + " V"], ["Input level", (result.inputPeakV * 1000).toFixed(1) + " mV peak"], ["Frequency", result.frequencyHz.toFixed(0) + " Hz"], ["Preamp gain", result.gain.toFixed(1) + "×"], ["Rectified envelope", (result.rectifiedPeakV * 1000).toFixed(1) + " mV"], ["LED segments", result.ledSegmentsOn + " / 10"], ["Model scope", "Ideal signal chain"]);
+    const bars=result.segments.map((segment,index)=>"<rect x=\"" + (24+index*44) + "\" y=\"26\" width=\"34\" height=\"48\" rx=\"4\" fill=\"" + (segment.on?"#38d9a9":"#1b3344") + "\" stroke=\"" + (segment.on?"#83ffe0":"#537286") + "\"></rect>").join("");
+    waveform = "<figure class=\"result-waveform\"><figcaption>Calibrated audio level · " + result.ledSegmentsOn + "/10 segments</figcaption><svg viewBox=\"0 0 480 100\" role=\"img\" aria-label=\"Ten segment audio level meter\">" + bars + "</svg></figure>";
+  } else if (result.kind === "usb-uart-console") {
+    metrics.push(["Baud rate", result.baud + " bit/s"], ["Framing", result.dataBits + result.parity[0].toUpperCase() + result.stopBits], ["TX bytes", result.txHex.join(" ")], ["TX text", result.txAscii], ["RX bytes", result.rxHex.join(" ") || "None"], ["RX text", result.rxAscii || "None"], ["TX duration", (result.txDurationSeconds * 1000).toFixed(3) + " ms"], ["RX duration", (result.rxDurationSeconds * 1000).toFixed(3) + " ms"], ["USB enumeration", "Not modeled"], ["Host contact", "None"]);
+  } else if (result.kind === "i2c-level-shifter") {
+    metrics.push(["Low-voltage rail", result.lowRailV.toFixed(2) + " V"], ["High-voltage rail", result.highRailV.toFixed(2) + " V"], ["Low-side pull-ups", result.lowPullupOhm + " Ω"], ["High-side pull-ups", result.highPullupOhm + " Ω"], ["Transitions checked", String(result.transitionCount)], ["Low-side driven lows", String(result.lowSideDriveTransitions)], ["High-side driven lows", String(result.highSideDriveTransitions)], ["Peak static pull-up current", result.peakCombinedPullupSinkCurrentMa.toFixed(3) + " mA"], ["Rail overvoltage", "None in ideal model"], ["Bidirectional test", result.bidirectionalTransitionsVerified ? "Passed" : "Failed"]);
+  } else if (result.kind === "rfid-inventory") {
+    metrics.push(["Frequency band", result.bandMHz.toFixed(2) + " MHz"], ["Inventory slots", String(result.slotCount)], ["Fixture tags", String(result.tagCount)], ["Unique UIDs", String(result.uniqueUidCount)], ["Duplicate UID count", String(result.duplicateUidCount)], ["Occupied slots", String(result.occupiedSlots)], ["Collision slots", String(result.collisionSlotCount)], ["Inventory complete", result.inventoryComplete ? "Yes" : "No"], ["RF transmission", "Not modeled"], ["Anti-collision protocol", "Not modeled"]);
+  } else if (result.kind === "rfid-access") {
+    metrics.push(["Tag UID", result.uid], ["Access decision", result.accessState], ["Lock output", result.lockOutput ? "Unlocked (simulated)" : "Locked"], ["Allowlist entries", String(result.allowlistEntries)], ["Credential model", result.authentication]);
+  } else if (result.kind === "gnss-rmc") {
+    metrics.push(["Sentence", result.sentenceType], ["UTC time", result.utcTime], ["Fix status", result.fixStatus], ["Latitude", result.latitude.toFixed(5) + "°"], ["Longitude", result.longitude.toFixed(5) + "°"], ["Speed", result.speedKnots.toFixed(1) + " kn"], ["Checksum", result.checksumValid ? "Valid" : "Invalid"]);
+  } else if (result.kind === "rs485-addressed-poll") {
+    metrics.push(["Polled node", result.pollAddress], ["Temperature", result.temperatureC.toFixed(1) + " °C"], ["Responding nodes", String(result.respondingNodes)], ["Silent nodes", String(result.silentNodes)], ["Simultaneous drivers", String(result.simultaneousDrivers)], ["Combined termination", result.busTerminationOhm.toFixed(1) + " Ω"]);
+  } else if (result.kind === "can-node-pair") {
+    metrics.push(["CAN identifier", result.identifier], ["Data bytes", result.dataBytes.join(" ")], ["Bit rate", (result.bitrate / 1000).toFixed(0) + " kbit/s"], ["Frame received", result.received ? "Yes" : "No"], ["ACK", result.acknowledged ? "Yes" : "No"], ["Combined termination", result.busTerminationOhm.toFixed(1) + " Ω"]);
+  } else if (result.kind === "mcu-watchdog") {
+    metrics.push(["Watchdog timeout", result.timeoutMs + " ms"], ["Run duration", result.runDurationMs + " ms"], ["Accepted service calls", String(result.servicesAccepted)], ["Watchdog resets", String(result.resetCount)], ["Reset time", result.resetAtMs === null ? "Not triggered" : result.resetAtMs + " ms"], ["Controller state", result.controllerState], ["Heartbeat output", result.heartbeatHigh ? "HIGH" : "LOW"]);
+  } else if (result.kind === "stm32-timer-pwm") {
+    const frequencyText = result.frequencyHz >= 1000 ? (result.frequencyHz / 1000).toFixed(2) + " kHz" : result.frequencyHz.toFixed(2) + " Hz";
+    metrics.push(["PWM frequency", frequencyText], ["Duty cycle", (result.dutyCycle * 100).toFixed(1) + " %"], ["LED current while on", (result.peakLedCurrentA * 1000).toFixed(2) + " mA"], ["Estimated average LED current", (result.averageLedCurrentA * 1000).toFixed(2) + " mA"]);
+    const duty = Math.max(0, Math.min(1, result.dutyCycle));
+    const pulse = 106 * duty;
+    let path = "M 24 84";
+    for (let cycle = 0; cycle < 4; cycle += 1) {
+      const x = 24 + cycle * 112;
+      path += " M " + x + " 84 V 24 H " + (x + pulse) + " V 84";
+    }
+    waveform = `<figure class="result-waveform"><figcaption>Ideal PWM output · ${escape(frequencyText)} · ${(duty * 100).toFixed(1)}% duty</figcaption><svg viewBox="0 0 480 108" role="img" aria-label="Ideal PWM output waveform"><path class="wave-axis" d="M20 84 H468 M24 18 V88"></path><path class="wave-trace" d="${path}"></path><text x="24" y="103">0</text><text x="414" y="103">Time (ms)</text></svg></figure>`;
+  } else {
+    for (const [key, value] of Object.entries(result)) {
+      if (key === "kind" || key === "firmwareExecuted" || value === null || typeof value === "object") continue;
+      const label = key.replace(/([A-Z])/g, " $1").replace(/^./, (letter) => letter.toUpperCase());
+      const display = typeof value === "number" ? (Math.abs(value) >= 1000 ? value.toLocaleString() : Number(value.toPrecision(5))).toString() : String(value);
+      metrics.push([label, display]);
+      if (metrics.length >= 8) break;
+    }
+  }
+  const cards = metrics.map(([label, value]) => `<article class="result-metric"><span>${escape(label)}</span><strong>${escape(value)}</strong></article>`).join("");
+  return `<div class="result-dashboard-heading"><strong><span class="result-status-dot"></span>Simulation completed</strong><small>${escape(analysis.engine)}</small></div><div class="result-dashboard-body"><div class="result-metric-grid">${cards}</div>${waveform}</div><p class="result-limit">${escape(analysis.message)}</p>`;
+}
+function renderOutput(validation = state.lastValidation ?? validateProject(state.project)) {
+  const isLog = state.activeOutput === "output";
+  const showDashboard = isLog && state.lastAnalysis?.state === "complete";
+  const issues = state.activeOutput === "errors" ? validation.errors : validation.warnings;
+  $(".output-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.output === state.activeOutput));
+  const dashboard = $("#result-dashboard");
+  dashboard.classList.toggle("hidden", !showDashboard);
+  $("#export-simulation-report").disabled = state.lastAnalysis?.state !== "complete";
+  dashboard.innerHTML = showDashboard ? renderResultDashboard(state.lastAnalysis) : "";
+  $("#workspace-notes").textContent = state.lastAnalysis?.message ?? "Choose a supported example to see its tested model limits.";
+  $("#output-log").classList.toggle("hidden", !isLog || showDashboard);
+  $("#issue-list").classList.toggle("hidden", isLog);
+  if (!isLog) {
+    $("#issue-list").textContent = issues.length
+      ? issues.map((issue) => `[${issue.rule}] ${issue.message}`).join("\n")
+      : `[${state.activeOutput.toUpperCase()}] None.`;
+  }
+}
+
+function applyLocale() {
+  const locale = state.project.metadata.locale;
+  const messages = TRANSLATIONS[locale] ?? TRANSLATIONS.en;
+  document.documentElement.lang = locale;
+  $$("[data-i18n]").forEach((node) => { node.textContent = messages[node.dataset.i18n] ?? TRANSLATIONS.en[node.dataset.i18n] ?? node.textContent; });
+  $("[data-i18n-placeholder]").forEach((node) => { node.placeholder = messages[node.dataset.i18nPlaceholder] ?? TRANSLATIONS.en[node.dataset.i18nPlaceholder] ?? node.placeholder; });
+  $("[data-i18n-alt]").forEach((node) => { node.alt = messages[node.dataset.i18nAlt] ?? TRANSLATIONS.en[node.dataset.i18nAlt] ?? node.alt; });
+  $$("[data-i18n-aria]").forEach((node) => { node.setAttribute("aria-label", messages[node.dataset.i18nAria] ?? TRANSLATIONS.en[node.dataset.i18nAria] ?? node.getAttribute("aria-label")); });
+  $$("[data-i18n-title]").forEach((node) => { node.title = messages[node.dataset.i18nTitle] ?? TRANSLATIONS.en[node.dataset.i18nTitle] ?? node.title; });
+  $("#language").value = locale;
+}
+
+function renderAcSweepOutputOptions() {
+  const select = $("#ac-output-net");
+  if (!select) return;
+  const current = select.value;
+  select.innerHTML = `<option value="">${escape(t("acAutoOutputLabel"))}</option>${(state.project.nets ?? []).map((net) => `<option value="${escape(net.id)}">${escape(net.id)}</option>`).join("")}`;
+  if ((state.project.nets ?? []).some((net) => net.id === current)) select.value = current;
+}
+
+function renderLinearTransientOutputOptions() {
+  const select = $("#transient-output-net");
+  if (!select) return;
+  const current = select.value;
+  select.innerHTML = `<option value="">${escape(t("acAutoOutputLabel"))}</option>${(state.project.nets ?? []).map((net) => `<option value="${escape(net.id)}">${escape(net.id)}</option>`).join("")}`;
+  if ((state.project.nets ?? []).some((net) => net.id === current)) select.value = current;
+}
+
+function render() {
+  applyLocale();
+  renderAcSweepOutputOptions();
+  renderLinearTransientOutputOptions();
+  renderLibrary();
+  renderCanvas();
+  renderInspector();
+  renderValidation();
+  $("#bot-repair-apply").hidden = !state.project.botRepairPreview;
+  $("#bot-proposal-apply").hidden = !state.project.botCircuitProposal;
+  if (state.dirty && state.recoveryActive && !state.botUnsavedOnly && !writeRecoveryDraft(localStorage, RECOVERY_KEY, state.project)) {
+    log("[RECOVERY] The browser could not store a local recovery draft. Export important work before closing this tab.");
+  }
+  updateSaveState();
+  notifyBotCanvas();
+}
+
+function log(message) {
+  const output = $("#output-log");
+  output.textContent = `${output.textContent.trim()}\n${message}`.trim();
+  output.scrollTop = output.scrollHeight;
+}
+
+function showDialog(title, message) {
+  $("#dialog-title").textContent = title;
+  $("#dialog-message").textContent = message;
+  $("#status-dialog").showModal();
+}
+
+function showImplementationStatus() {
+  showDialog(t("implementationStatus"), t("implementationStatusBody"));
+}
+
+function validateAndReport() {
+  state.lastValidation = validateProject(state.project);
+  renderValidation();
+  const issues = [...state.lastValidation.errors, ...state.lastValidation.warnings];
+  if (!issues.length) log("[VALIDATION] No project errors or warnings were found.");
+  else issues.forEach((issue) => log(`[${issue.rule}] ${issue.message}`));
+}
+
+function isAnalysisWorkerEligible(project) {
+  return Boolean(project && !project.releaseCandidateE2E);
+}
+
+function projectWithSelectedAnalysis(project, key, config) {
+  const selected = { ...project };
+  delete selected.linearAcSweep;
+  delete selected.linearRlcTransient;
+  delete selected.digitalEventSimulation;
+  selected[key] = config;
+  return selected;
+}
+
+function setSimulationWorkerBusy(busy) {
+  for (const button of $$('[data-action="run-simulation"]')) button.disabled = busy;
+  $("#run-simulation").disabled = busy;
+  $("#stop-simulation").disabled = !busy;
+}
+
+function stopSimulation() {
+  const run = state.activeSimulation;
+  if (!run) return;
+  state.activeSimulation = null;
+  run.cancel();
+  setSimulationWorkerBusy(false);
+  state.lastAnalysis = { state: "cancelled", engine: "Worker-isolated bounded analysis", message: "The analysis was cancelled." };
+  notifyBotCanvas();
+  log("[CANCELLED] The analysis worker was stopped; no result was produced.");
+  renderOutput();
+}
+
+function runAnalysis(workerResult = null) {
+  if(workerResult === null && state.project.releaseCandidateE2E){
+    validateAndReport();
+    state.lastAnalysis={state:"running",engine:"Release-candidate end-to-end suite",message:"Loading checked-in acceptance fixtures.",result:null};
+    renderOutput();
+    notifyBotCanvas();
+    runReleaseCandidateE2E(state.project).then(result=>{
+      state.lastAnalysis=result;
+      notifyBotCanvas();
+      if(result.state==="complete")log("[E2E] All release-candidate gates passed.");
+      else log("[E2E] "+(result.errors?.[0]?.message??result.message));
+      renderOutput();
+    }).catch(error=>{
+      state.lastAnalysis={state:"blocked",engine:"Release-candidate end-to-end suite",message:error instanceof Error?error.message:"The workflow failed.",errors:[],warnings:[],result:null};
+      notifyBotCanvas();
+      renderOutput();
+    });
+    return;
+  }
+  if (workerResult === null) {
+    if (state.activeSimulation) return;
+    validateAndReport();
+    if (isAnalysisWorkerEligible(state.project)) {
+      const analysisMode = $("#simulation-analysis-mode").value;
+      let projectForAnalysis = state.project;
+      if (analysisMode === "linear-ac") projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearAcSweep", { startHz: Number($("#ac-start-hz").value), stopHz: Number($("#ac-stop-hz").value), pointsPerDecade: Number($("#ac-points-per-decade").value), outputNet: $("#ac-output-net").value || undefined });
+      if (analysisMode === "linear-transient") {
+        let initialConditions;
+        try { initialConditions = JSON.parse($("#transient-initial-conditions").value); }
+        catch { state.lastAnalysis = { state: "blocked", engine: "Linear RLC transient configuration", message: "Initial conditions must be valid JSON." }; renderValidation(); return; }
+        projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearRlcTransient", { stopSeconds: Number($("#transient-stop-seconds").value), timeStepSeconds: Number($("#transient-time-step").value), outputNet: $("#transient-output-net").value || undefined, initialConditions });
+      }
+      if (analysisMode === "digital-events") {
+        let events, initialStates;
+        try {
+          events = JSON.parse($("#digital-events-json").value);
+          initialStates = JSON.parse($("#digital-initial-states").value);
+        } catch { state.lastAnalysis = { state: "blocked", engine: "Digital event configuration", message: "Input events and initial states must be valid JSON." }; renderValidation(); return; }
+        projectForAnalysis = projectWithSelectedAnalysis(state.project, "digitalEventSimulation", { stopTimeNs: Number($("#digital-stop-ns").value), events, initialStates, probeNets: [...$("#digital-probe-nets").selectedOptions].map((option) => option.value) });
+        if (JSON.stringify(projectForAnalysis.digitalEventSimulation) !== JSON.stringify(state.project.digitalEventSimulation)) {
+          captureHistory();
+          state.project = { ...projectForAnalysis, metadata: { ...projectForAnalysis.metadata, updatedAt: new Date().toISOString() } };
+          projectForAnalysis = state.project;
+          state.dirty = true;
+          renderConnections();
+        }
+      }
+      const projectSnapshot = JSON.stringify(state.project);
+      const run = createSimulationWorkerRun(projectForAnalysis);
+      state.activeSimulation = run;
+      state.lastAnalysis = { state: "running", engine: "Worker-isolated bounded analysis", message: "Running the supported analysis in a background worker." };
+      notifyBotCanvas();
+      setSimulationWorkerBusy(true);
+      renderOutput();
+      run.promise.then((result) => {
+        if (state.activeSimulation !== run) return;
+        state.activeSimulation = null;
+        setSimulationWorkerBusy(false);
+        notifyBotCanvas();
+        if (JSON.stringify(state.project) !== projectSnapshot) {
+          state.lastAnalysis = { state: "stale", engine: "Worker-isolated bounded analysis", message: "The project changed while analysis was running. Run the analysis again for the current design." };
+          renderOutput();
+          return;
+        }
+        runAnalysis(result);
+      });
+      return;
+    }
+  }
+  const result = workerResult;
+  state.lastAnalysis = result;
+  if (result.state === "complete") {
+    const { kind } = result.result;
+    log(`[ANALYSIS] ${result.engine}`);
+    if(kind==="schematic-pcb-netlist-pad-sync")log(`[SCHEMATIC → PCB] ${result.result.componentCount} components, ${result.result.netCount} nets, ${result.result.mappedPinCount} mapped pins; all endpoints preserved. Pad map: ${result.result.mappingStatus}.`);
+    if(kind==="breadboard-schematic-structural-sync")log(`[VIEW SYNC] ${result.result.componentCount} component(s), ${result.result.netCount} net(s); ${result.result.sourceView} and ${result.result.targetView} structures ${result.result.structurallyEqual?"match":"differ"}.`);
+    if(kind==="machine-fault-latched-sequence")log(`[FAULT PANEL CONCEPT] ${result.result.frameCount} input steps; final latched faults: ${result.result.frames.at(-1).latchedFaults.join(", ")||"none"}.`);
+    if(kind==="warehouse-beacon-state-sequence")log(`[WAREHOUSE BEACON] ${result.result.sampleCount} states, ${result.result.transitionCount} transitions; exclusive status indication: ${result.result.oneStatusPerFrame}.`);
+    if(kind==="access-strike-allowlist-sequence")log(`[ACCESS MOCK] ${result.result.grantCount} grant(s), ${result.result.denyCount} denial(s); ${result.result.mockAuditEvents.length} mock audit event(s).`);
+    if(kind==="fire-alarm-zone-sequence")log(`[FIRE ZONE CONCEPT] ${result.result.alarmSamples} alarm sample(s); ${result.result.openFaults} open and ${result.result.shortFaults} short faults distinguished.`);
+    if(kind==="elevator-fifo-call-queue")log(`[ELEVATOR QUEUE CONCEPT] ${result.result.eventCount} events; queued targets ${result.result.dispatchedTargets.join(", ")||"none"}; duplicate calls coalesced: ${result.result.duplicateCallsIgnored}.`);
+    if(kind==="garage-door-limit-sequence")log(`[GARAGE DOOR CONCEPT] ${result.result.conflictingRequestsRejected} conflict request(s) rejected; drive overlap: ${result.result.noDriveOverlap?"none":"detected"}.`);
+    if(kind==="smart-irrigation-decision-sequence")log(`[IRRIGATION CONCEPT] ${result.result.wateringSamples}/${result.result.sampleCount} samples water; ${result.result.sensorFaults} sensor fault(s), all fail off: ${result.result.faultsFailOff}.`);
+    if(kind==="night-light-lux-threshold")log(`[NIGHT LIGHT] ${result.result.thresholdLux} lux threshold; LED on ${result.result.ledOnSamples}/${result.result.sampleCount} samples.`);
+    if(kind==="pwm-fan-duty-curve")log(`[PWM FAN] ${result.result.knotCount} temperature/duty knots; ${result.result.sampleCount} samples mapped.`);
+    if(kind==="fan-thermostat-hysteresis")log(`[FAN THERMOSTAT] ON at ${result.result.fanOnC} °C, OFF at ${result.result.fanOffC} °C; fan on ${result.result.fanOnSamples}/${result.result.sampleCount} samples.`);
+    if(kind==="water-leak-alarm-sequence")log(`[LEAK ALARM CONCEPT] ${result.result.alarmEpisodes} wet episode(s); dry recovery observed: ${result.result.dryRecoveryObserved}.`);
+    if(kind==="latched-temperature-alarm")log(`[TEMPERATURE ALARM] Threshold ${result.result.thresholdC} °C; ${result.result.tripCount} trip(s); reset while hot rejected: ${result.result.resetRejected}.`);
+    if(kind==="door-interlock-sequence")log(`[GUARD LOGIC CONCEPT] Load stayed disabled while open: ${result.result.loadAlwaysDisabledWhenOpen}; open-guard reset rejected: ${result.result.resetRejectedWhenOpen}.`);
+    if(kind==="emergency-stop-latched-sequence")log(`[E-STOP LOGIC CONCEPT] ${result.result.unsafeResetRejected?"unsafe reset rejected":"no rejected reset"}; load restart requires separate start: ${result.result.restartRequiresNewStart}.`);
+    if(kind==="forward-reverse-interlock-sequence")log(`[DIRECTION PLC CONCEPT] ${result.result.conflictRequestsRejected} opposite-direction request(s) rejected; overlap: ${result.result.noOverlap?"none":"detected"}.`);
+    if(kind==="star-delta-transition-sequence")log(`[STAR-DELTA CONCEPT] ${result.result.frameCount} transition samples; star/delta overlap: ${result.result.noOverlap?"none":"detected"}.`);
+    if(kind==="conveyor-edge-counter")log(`[CONVEYOR PLC CONCEPT] Count ${result.result.finalCount}/${result.result.targetCount}; logical motor ${result.result.motorStopped?"stopped":"running"} at event ${result.result.stoppedAtEvent??"not reached"}.`);
+    if(kind==="tank-level-hysteresis")log(`[TANK PLC CONCEPT] ${result.result.sampleCount} synthetic level samples; pump on ${result.result.pumpOnSamples} sample(s), thresholds ${result.result.lowLevelPct}%/${result.result.highLevelPct}%.`);
+    if(kind==="traffic-light-fsm-sequence")log(`[TRAFFIC FSM] ${result.result.cycleCount} cycle(s), ${result.result.totalDurationS} s, ${result.result.opposingGreenConflict?"CONFLICT":"no opposing green conflict"}.`);
+    if(kind==="plc-start-stop-sequence")log(`[PLC CONCEPT] ${result.result.sampleCount} control steps; seal-in retained: ${result.result.sealInRetained}; e-stop dropped output: ${result.result.emergencyStopDropsOutput}.`);
+    if(kind==="net-cross-probe")log(`[CROSS-PROBE] Selected net ${result.result.netId} across ${result.result.views.join(", ")} using the shared project net ID.`);
+    if(kind==="dc-voltmeter")log(`[METER] ${result.result.measuredVoltageV.toFixed(4)} ${result.result.unit} from ${result.result.positiveLeadNet} to ${result.result.negativeLeadNet} (${result.result.polarity} polarity).`);
+    if(kind==="dc-ammeter")log(`[METER] ${(result.result.displayMilliAmps).toFixed(4)} mA (${result.result.polarity} polarity; burden ${result.result.burdenVoltageV.toFixed(4)} V).`);
+    if(kind==="oscilloscope-trigger")log(`[SCOPE] ${result.result.triggerEdge} edge locked at ${result.result.triggerLevelV.toFixed(3)} V; trigger time ${result.result.triggerTimeMs.toFixed(3)} ms; ${result.result.sampleCount} samples.`);
+    if(kind==="two-channel-phase")log(`[SCOPE] Channel B phase offset ${result.result.phaseOffsetDeg.toFixed(2)} ${result.result.unit} at ${result.result.frequencyHz.toFixed(2)} Hz.`);
+    if(kind==="logic-analyzer-capture")log(`[LOGIC] Trigger locked on ${result.result.triggerChannel} ${result.result.triggerEdge} edge at sample ${result.result.triggerSampleIndex}; channels ${result.result.channelLabels}.`);
+    if(kind==="frequency-counter")log(`[COUNTER] ${result.result.measuredFrequencyHz.toFixed(6)} ${result.result.unit}; period ${result.result.measuredPeriodMs.toFixed(6)} ms over ${result.result.cyclesMeasured} cycles.`);
+    if(kind==="rc-bode-plot")log(`[BODE] Cutoff ${result.result.cutoffHz.toFixed(3)} Hz; at cutoff ${result.result.cutoffMagnitudeDb.toFixed(3)} dB and ${result.result.cutoffPhaseDeg.toFixed(2)} deg.`);
+    if(kind==="rlc-step-response"){log(`[TRANSIENT] ${result.result.regime} RLC response; peak ${result.result.peakVoltageV.toFixed(3)} V; ${result.warnings.length} timestep warning(s).`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
+    if(kind==="parameter-sweep"){log(`[SWEEP] ${result.result.sampleCount} resistance points for ${result.result.parameterReference}; current falls from ${(result.result.points[0].currentA*1000).toFixed(3)} mA to ${(result.result.points.at(-1).currentA*1000).toFixed(3)} mA.`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
+    if(kind==="monte-carlo-tolerance"){log(`[MONTE CARLO] ${result.result.sampleCount} seeded trials; mean ${(result.result.mean*1000).toFixed(3)} mA, range ${(result.result.minimum*1000).toFixed(3)}–${(result.result.maximum*1000).toFixed(3)} mA.`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
+    if(kind==="thermal-warning-boundary"){log(`[THERMAL ADVISORY] ${result.result.reference} electrical dissipation ${(result.result.resistorDissipationW*1000).toFixed(1)} mW; derated entered limit ${(result.result.deratedLimitW*1000).toFixed(1)} mW.`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
+    if (kind === "led-current-limiter") {
+      const { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn } = result.result;
+      log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Ω`);
+      log(`[RESULT] I=${(currentA * 1000).toFixed(3)} mA, Presistor=${(resistorPowerW * 1000).toFixed(3)} mW, LED ${ledOn ? "conducting" : "off"}.`);
+    } else if (kind === "net-cross-probe") {
+      log(`[CROSS-PROBE] ${result.result.endpointCount} endpoint(s) on ${result.result.netId}; selection synchronized in all three views.`);
+    } else if (kind === "voltage-divider") {
+      const { sourceVoltage, upperResistance, lowerResistance, outputVoltage, currentA, totalPowerW } = result.result;
+      log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Rupper=${upperResistance.toFixed(3)} Ω, Rlower=${lowerResistance.toFixed(3)} Ω`);
+      log(`[RESULT] Vout=${outputVoltage.toFixed(3)} V, I=${(currentA * 1000).toFixed(3)} mA, Ptotal=${(totalPowerW * 1000).toFixed(3)} mW.`);
+    } else if (kind === "rc-step-response") {
+      const { sourceVoltage, resistance, capacitance, timeConstantS, samples } = result.result;
+      log(`[RESULT] Vstep=${sourceVoltage.toFixed(3)} V, R=${resistance.toFixed(3)} Ω, C=${capacitance.toExponential(3)} F, τ=${timeConstantS.toExponential(3)} s.`);
+      for (const sample of samples) log(`[TRANSIENT] t=${sample.timeS.toExponential(3)} s, Vc=${sample.capacitorVoltage.toFixed(3)} V, I=${(sample.currentA * 1000).toFixed(3)} mA, PR=${(sample.resistorPowerW * 1000).toFixed(3)} mW`);
+    } else if (kind === "rl-step-response") {
+      const { sourceVoltage, resistance, inductance, timeConstantS, samples } = result.result;
+      log(`[RESULT] Vstep=${sourceVoltage.toFixed(3)} V, R=${resistance.toFixed(3)} Ω, L=${inductance.toExponential(3)} H, τ=${timeConstantS.toExponential(3)} s.`);
+      for (const sample of samples) log(`[TRANSIENT] t=${sample.timeS.toExponential(3)} s, I=${(sample.currentA * 1000).toFixed(3)} mA, VL=${sample.inductorVoltage.toFixed(3)} V, PR=${(sample.resistorPowerW * 1000).toFixed(3)} mW`);
+    } else {
+      const { sourceVoltage, sourceCurrentA, nodeVoltages, resistors } = result.result;
+      log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Isource=${(sourceCurrentA * 1000).toFixed(3)} mA.`);
+      for (const [node, voltage] of Object.entries(nodeVoltages)) log(`[NODE] ${node}=${voltage.toFixed(3)} V`);
+      for (const item of resistors) log(`[RESISTOR] ${item.reference}: V=${item.voltage.toFixed(3)} V, I=${(item.currentA * 1000).toFixed(3)} mA, P=${(item.powerW * 1000).toFixed(3)} mW`);
+    }
+    log(`[LIMIT] ${result.message}`);
+  } else { log(`[${result.state.toUpperCase()}] ${result.message ?? result.errors?.[0]?.message ?? "Analysis is unavailable."}`); for(const error of result.errors??[])log(`[DIAGNOSTIC] ${error.code}: ${error.message}`); if(result.diagnostics?.ruleId)log(`[RULE] ${result.diagnostics.ruleId}`); if(result.diagnostics?.status==="unavailable")log(`[COMPONENT STATUS] ${result.diagnostics.componentReference}: unavailable · schematic only · simulation not attempted.`); for(const action of result.diagnostics?.actions??result.diagnostics?.suggestions??[])log(`[SUGGESTION] ${action}`); }
+  if(result.diagnostics?.jumpTarget){state.selectedInstanceId=result.diagnostics.jumpTarget.instanceId??state.selectedInstanceId;state.selectedNetId=result.diagnostics.jumpTarget.netId;state.activeView="schematic";render();}
+  renderOutput();
+}
+
+async function verifyRunLockfile() {
+  const path=state.project.reproducibilityLockFile;
+  if(!path){showDialog("Run lock unavailable","This project does not reference a run lockfile.");return;}
+  try{const response=await fetch(path,{headers:{Accept:"application/json"}});if(!response.ok)throw new Error(`The run lock request returned ${response.status}.`);const lock=JSON.parse(await response.text());const report=verifySimulationLockfile(state.project,lock);if(report.matched){log(`[LOCK] Verified ${lock.modelSelection.modelVersion} with the locked component library and values.`);showDialog("Run lock verified",`${lock.modelSelection.modelVersion} matches the checked-in component, setting, and model lock.`);}else{const message=report.errors[0]?.message??"The run lock did not match.";log(`[LOCK] Mismatch: ${message}`);showDialog("Run lock mismatch",message);}}catch(error){showDialog("Run lock unavailable",error instanceof Error?error.message:"The lockfile could not be checked.");}
+}
+
+function exportSimulationReport() {
+  if(state.lastAnalysis?.state!=="complete"){showDialog("Report unavailable","Run a supported analysis successfully before exporting its report.");return;}
+  const report=createSimulationReport(state.project,state.lastAnalysis);
+  const blob=new Blob([JSON.stringify(report,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+  link.href=url;link.download=`${state.project.metadata.name.replace(/[^a-z0-9]+/gi,"-").replace(/^-|-$/g,"").toLowerCase()||"adigun-simulation"}-report.json`;link.click();URL.revokeObjectURL(url);
   log("[REPORT] Exported the simulation settings, model version, results, and warnings.");
 }
 
@@ -1347,5 +1995,4 @@ if (initialProject.fresh) {
     })
     .catch(() => {});
 }
-
 
