@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "microchip.mcp6002-i-p",
+  "package": "Microchip P / 8-Lead PDIP, 300 mil body",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -3.81,
+    "yMm": -3.81
+  },
+  "packageOutline": {
+    "bodyLengthMm": {
+      "minimum": 8.8392,
+      "typical": 9.271,
+      "maximum": 10.16
+    },
+    "bodyWidthMm": {
+      "minimum": 6.096,
+      "typical": 6.35,
+      "maximum": 7.112
+    },
+    "leadRowPitchMm": 7.62,
+    "leadPitchMm": 2.54,
+    "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf",
+    "drawing": "C04-018-P Rev E Sheet 2, DS20001733L page 30; dimensions converted from inches to mm"
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.8,
+    "drillMm": 0.8,
+    "source": "AdigunSimulator CC0 educational default selected against the stated 0.559 mm maximum lead width; not a manufacturer land-pattern recommendation or fabrication rule."
+  },
+  "pads": [
+    {
+      "number": 1,
+      "xMm": -3.81,
+      "yMm": -3.81
+    },
+    {
+      "number": 2,
+      "xMm": -3.81,
+      "yMm": -1.27
+    },
+    {
+      "number": 3,
+      "xMm": -3.81,
+      "yMm": 1.27
+    },
+    {
+      "number": 4,
+      "xMm": -3.81,
+      "yMm": 3.81
+    },
+    {
+      "number": 5,
+      "xMm": 3.81,
+      "yMm": 3.81
+    },
+    {
+      "number": 6,
+      "xMm": 3.81,
+      "yMm": 1.27
+    },
+    {
+      "number": 7,
+      "xMm": 3.81,
+      "yMm": -1.27
+    },
+    {
+      "number": 8,
+      "xMm": 3.81,
+      "yMm": -3.81
+    }
+  ],
+  "limitations": [
+    "Generated from the published package outline and pin numbering; the manufacturer does not publish this generated pad artwork as an approved land pattern.",
+    "Check the exact physical part, finished-hole tolerance, annular ring, solder process, courtyard, board rules, and assembly constraints before use.",
+    "This asset is educational and has not passed independent footprint review or manufacturing DRC."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
