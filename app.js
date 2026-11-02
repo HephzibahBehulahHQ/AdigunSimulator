@@ -66,6 +66,7 @@ import { exportBomCsv, runBomExportPlaceholder } from "./js/bom-report.mjs";
 import { explainComponent } from "./js/bot-component-explainer.mjs";
 import { applyBotFloatingNodeRepairPreview, runBotFloatingNodeRepair } from "./js/bot-floating-node-repair.mjs";
 import { applyBotCircuitProposal, runBotCircuitProposal } from "./js/bot-circuit-proposal.mjs";
+import { analyzeBotCanvas, applyBotSuggestionPreview, buildBotSuggestionPreview, createBotLiveCopilot, explainComponentWiring } from "./js/bot-live-copilot.mjs";
 
 
 import { runReleaseCandidateE2E } from "./js/release-candidate-e2e.mjs";
@@ -101,6 +102,7 @@ const state = {
   history: [],
   future: [],
   dirty: initialProject.recovered,
+  botUnsavedOnly: false,
   lastValidation: null,
   breadboardSyncPreview: null,
   breadboardPlacementMode: false,
@@ -115,6 +117,83 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const escape = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
 const t = (key) => translate(state.project.metadata.locale, key);
+const botUnconnectedSince = new Map(state.project.components.map((item) => [item.instanceId, Date.now()]));
+let currentBotFinding = null;
+let currentBotPreview = null;
+let lastBotHover = null;
+
+function renderBotFinding(finding) {
+  currentBotFinding = finding;
+  const panel = $("#bot-suggestion");
+  if (!panel) return;
+  panel.hidden = !finding;
+  $("#bot-suggestion-preview").hidden = true;
+  $("#bot-suggestion-detail").hidden = true;
+  currentBotPreview = null;
+  if (!finding) return;
+  const messageKeys = { "missing-gate-input": "botMissingInputMessage", "unobserved-gate-output": "botOutputMessage", "goal-question": "botGoalQuestionMessage", "unwired-component": "botUnwiredMessage", "missing-gate-rails": "botRailsMessage", "driver-conflict": "botConflictMessage" };
+  const key = messageKeys[finding.kind] ?? "botGoalQuestionMessage";
+  const message = t(key).replaceAll("{reference}", finding.reference ?? "").replaceAll("{pin}", finding.pin ?? "").replaceAll("{pins}", finding.pins ?? "").replaceAll("{net}", finding.net ?? "").replaceAll("{drivers}", finding.drivers ?? "");
+  $("#bot-suggestion-title").textContent = t("botSuggestionHeading");
+  $("#bot-suggestion-message").textContent = message;
+  $("#bot-suggestion-detail").textContent = finding.detail;
+  $("#bot-suggestion-accept").hidden = !finding.action || finding.action === "ask-goal";
+}
+
+function notifyBotCanvas() {
+  const liveIds = new Set(state.project.components.map((item) => item.instanceId));
+  for (const item of state.project.components) if (!botUnconnectedSince.has(item.instanceId)) botUnconnectedSince.set(item.instanceId, Date.now());
+  for (const id of botUnconnectedSince.keys()) if (!liveIds.has(id)) botUnconnectedSince.delete(id);
+  const active = document.activeElement;
+  const typing = Boolean(active?.matches?.('textarea, [contenteditable="true"], input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"])'));
+  botLiveCopilot.notify(state.project, { dragging: Boolean(state.drag), busy: Boolean(state.activeSimulation) || state.lastAnalysis?.state === "running", typing, unconnectedSince: Object.fromEntries(botUnconnectedSince) });
+}
+
+const botLiveCopilot = createBotLiveCopilot({ onSuggestion: renderBotFinding });
+
+function showBotWiringExplanation(target) {
+  const result = explainComponentWiring(state.project, target);
+  if (result.ok) $("#bot-response").textContent = result.answer;
+}
+
+function answerBotQuestion() {
+  const question = $("#bot-goal").value.trim();
+  if (!question) return;
+  if (/\b(build|trying|project goal|purpose|designing|make a|create a)\b/i.test(question)) {
+    botLiveCopilot.setGoal(question);
+    $("#bot-response").textContent = `For this session, I will use this project goal: ${question}`;
+  } else {
+    const explanation = explainComponentWiring(state.project, state.selectedInstanceId);
+    const findings = analyzeBotCanvas(state.project, { goal: botLiveCopilot.getGoal(), unconnectedSince: Object.fromEntries(botUnconnectedSince) });
+    const grounded = findings[0]?.message ?? "The current native project has no detected missing gate input, unconnected gate output, missing gate rail, or shared logic output.";
+    $("#bot-response").textContent = explanation.ok ? `${explanation.answer} Live checks: ${grounded}` : `I can answer from current project wiring and the checked-in library only. ${grounded}`;
+  }
+  $("#bot-goal").blur();
+  notifyBotCanvas();
+}
+
+function prepareBotSuggestionPreview() {
+  if (!currentBotFinding) return;
+  if (!currentBotFinding.action || currentBotFinding.action === "ask-goal") { $("#bot-goal").focus(); return; }
+  const preview = buildBotSuggestionPreview(state.project, currentBotFinding);
+  if (!preview.ok) { $("#bot-response").textContent = preview.error; return; }
+  currentBotPreview = preview;
+  $("#bot-preview-summary").textContent = `${preview.summary} Nothing is saved automatically.`;
+  $("#bot-suggestion-preview").hidden = false;
+}
+
+function applyBotSuggestion() {
+  if (!currentBotPreview) return;
+  const outcome = applyBotSuggestionPreview(state.project, currentBotPreview, { confirmed: true });
+  if (!outcome.ok) { $("#bot-response").textContent = outcome.message; $("#bot-suggestion-preview").hidden = true; currentBotPreview = null; return; }
+  captureHistory();
+  state.botUnsavedOnly = true;
+  state.dirty = true;
+  replaceProject(outcome.project);
+  renderBotFinding(null);
+  $("#bot-response").textContent = `${outcome.message} Use Undo to roll back this accepted change; save manually when ready.`;
+  log("[BOT] Accepted a reviewed live preview. The change remains unsaved until the user saves it.");
+}
 
 function loadProject() {
   try {
@@ -132,6 +211,7 @@ function saveLocal() {
   clearRecoveryDraft(localStorage, RECOVERY_KEY);
   state.recoveryActive = false;
   state.dirty = false;
+  state.botUnsavedOnly = false;
   updateSaveState();
   log("[SAVED] Project stored locally in this browser.");
 }
@@ -142,6 +222,7 @@ function captureHistory() {
   if (state.history.length > 30) state.history.shift();
   state.future = [];
   state.recoveryActive = true;
+  state.botUnsavedOnly = false;
 }
 
 function replaceProject(project, { dirty = true } = {}) {
@@ -156,6 +237,7 @@ function replaceProject(project, { dirty = true } = {}) {
 
 function undo() {
   if (!state.history.length) return log("[INFO] There is no earlier local edit to undo.");
+  state.botUnsavedOnly = false;
   state.future.push(serializeProject(state.project));
   replaceProject(parseProject(state.history.pop()));
   log("[UNDO] Restored the previous local project state.");
@@ -163,6 +245,7 @@ function undo() {
 
 function redo() {
   if (!state.future.length) return log("[INFO] There is no later local edit to redo.");
+  state.botUnsavedOnly = false;
   state.history.push(serializeProject(state.project));
   replaceProject(parseProject(state.future.pop()));
   log("[REDO] Restored the next local project state.");
@@ -942,10 +1025,11 @@ function render() {
   renderValidation();
   $("#bot-repair-apply").hidden = !state.project.botRepairPreview;
   $("#bot-proposal-apply").hidden = !state.project.botCircuitProposal;
-  if (state.dirty && state.recoveryActive && !writeRecoveryDraft(localStorage, RECOVERY_KEY, state.project)) {
+  if (state.dirty && state.recoveryActive && !state.botUnsavedOnly && !writeRecoveryDraft(localStorage, RECOVERY_KEY, state.project)) {
     log("[RECOVERY] The browser could not store a local recovery draft. Export important work before closing this tab.");
   }
   updateSaveState();
+  notifyBotCanvas();
 }
 
 function log(message) {
@@ -989,6 +1073,7 @@ function stopSimulation() {
   run.cancel();
   setSimulationWorkerBusy(false);
   state.lastAnalysis = { state: "cancelled", engine: "Worker-isolated bounded analysis", message: "The analysis was cancelled." };
+  notifyBotCanvas();
   log("[CANCELLED] The analysis worker was stopped; no result was produced.");
   renderOutput();
 }
@@ -998,13 +1083,16 @@ function runAnalysis(workerResult = null) {
     validateAndReport();
     state.lastAnalysis={state:"running",engine:"Release-candidate end-to-end suite",message:"Loading checked-in acceptance fixtures.",result:null};
     renderOutput();
+    notifyBotCanvas();
     runReleaseCandidateE2E(state.project).then(result=>{
       state.lastAnalysis=result;
+      notifyBotCanvas();
       if(result.state==="complete")log("[E2E] All release-candidate gates passed.");
       else log("[E2E] "+(result.errors?.[0]?.message??result.message));
       renderOutput();
     }).catch(error=>{
       state.lastAnalysis={state:"blocked",engine:"Release-candidate end-to-end suite",message:error instanceof Error?error.message:"The workflow failed.",errors:[],warnings:[],result:null};
+      notifyBotCanvas();
       renderOutput();
     });
     return;
@@ -1035,12 +1123,14 @@ function runAnalysis(workerResult = null) {
       const run = createSimulationWorkerRun(projectForAnalysis);
       state.activeSimulation = run;
       state.lastAnalysis = { state: "running", engine: "Worker-isolated bounded analysis", message: "Running the supported analysis in a background worker." };
+      notifyBotCanvas();
       setSimulationWorkerBusy(true);
       renderOutput();
       run.promise.then((result) => {
         if (state.activeSimulation !== run) return;
         state.activeSimulation = null;
         setSimulationWorkerBusy(false);
+        notifyBotCanvas();
         if (JSON.stringify(state.project) !== projectSnapshot) {
           state.lastAnalysis = { state: "stale", engine: "Worker-isolated bounded analysis", message: "The project changed while analysis was running. Run the analysis again for the current design." };
           renderOutput();
@@ -1405,7 +1495,7 @@ document.addEventListener("click", (event) => {
     renderLibrary();
   }
   const instanceButton = event.target.closest("[data-instance-id]");
-  if (instanceButton) { state.selectedInstanceId = instanceButton.dataset.instanceId; render(); }
+  if (instanceButton) { state.selectedInstanceId = instanceButton.dataset.instanceId; render(); showBotWiringExplanation(state.selectedInstanceId); }
   const viewButton = event.target.closest("[data-view]");
   if (viewButton) activateView(viewButton.dataset.view);
   const inspector = event.target.closest("[data-inspector]");
@@ -1791,6 +1881,22 @@ $("#theme-toggle").addEventListener("click", () => document.body.classList.toggl
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
 $("#bot-form").addEventListener("submit", (event) => { event.preventDefault(); answerBotFromSelection(); });
+$("#bot-question-form").addEventListener("submit", (event) => { event.preventDefault(); answerBotQuestion(); });
+$("#bot-live-toggle").addEventListener("change", (event) => {
+  botLiveCopilot.setEnabled(event.target.checked);
+  $("#bot-response").textContent = event.target.checked ? "Live checks are on. Suggestions use current project connections and library pin data." : "Live co-pilot is off. You can still ask Adigun BOT to explain the selected part.";
+});
+$("#bot-suggestion-accept").addEventListener("click", prepareBotSuggestionPreview);
+$("#bot-suggestion-dismiss").addEventListener("click", () => { if (currentBotFinding) botLiveCopilot.dismiss(currentBotFinding.id); renderBotFinding(null); });
+$("#bot-suggestion-more").addEventListener("click", () => { const detail = $("#bot-suggestion-detail"); detail.hidden = !detail.hidden; });
+$("#bot-preview-apply").addEventListener("click", applyBotSuggestion);
+$("#bot-preview-cancel").addEventListener("click", () => { currentBotPreview = null; $("#bot-suggestion-preview").hidden = true; });
+document.addEventListener("focusout", (event) => { if (event.target.closest("#bot-content")) setTimeout(notifyBotCanvas, 0); });
+document.addEventListener("pointerover", (event) => {
+  const target = event.target.closest("[data-instance-id]");
+  const instanceId = target?.dataset.instanceId;
+  if (instanceId && instanceId !== lastBotHover) { lastBotHover = instanceId; showBotWiringExplanation(instanceId); }
+});
 $("#bot-repair-apply").addEventListener("click", confirmBotRepairPreview);
 $("#bot-proposal-apply").addEventListener("click", confirmBotCircuitProposal);
 $("#import-file").addEventListener("change", async (event) => {
