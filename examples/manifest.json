@@ -7560,7 +7560,7 @@
           "highTimeS": 1.386,
           "lowTimeS": 0.693,
           "periodS": 2.079,
-          "frequencyHz": 0.48099951900048097,
+          "frequencyHz": 0.48100048100048104,
           "dutyCycle": 0.6666666666666666,
           "ledOnCurrentA": 0.00909090909090909,
           "componentCount": 9,
