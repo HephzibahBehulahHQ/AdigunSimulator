@@ -378,6 +378,7 @@
           <select id="simulation-analysis-mode">
             <option value="automatic" data-i18n="analysisAutomatic">Project-defined / automatic</option>
             <option value="linear-ac" data-i18n="analysisLinearAcSweep">Linear RLC AC sweep</option>
+            <option value="linear-transient" data-i18n="analysisLinearTransient">Linear RLC transient</option>
             <option value="digital-events" data-i18n="analysisDigitalEvents">Digital event simulation</option>
           </select>
           <div id="ac-sweep-controls" class="ac-sweep-controls hidden">
@@ -385,6 +386,11 @@
             <label><span data-i18n="acStopHz">Stop frequency (Hz)</span><input id="ac-stop-hz" type="number" min="0.000001" step="any" value="100000" /></label>
             <label><span data-i18n="acPointsPerDecade">Points per decade</span><input id="ac-points-per-decade" type="number" min="1" max="50" step="1" value="12" /></label>
             <label><span data-i18n="acOutputNet">Output net</span><select id="ac-output-net"><option value="" data-i18n="acAutoOutputLabel">Automatic output net</option></select></label>
+          </div>
+          <div id="linear-transient-controls" class="ac-sweep-controls hidden">
+            <label><span data-i18n="transientStopSeconds">Stop time (s)</span><input id="transient-stop-seconds" type="number" min="0.000001" step="any" value="0.005" /></label>
+            <label><span data-i18n="transientTimeStep">Time step (s)</span><input id="transient-time-step" type="number" min="0.000000001" step="any" value="0.00001" /></label>
+            <label><span data-i18n="transientOutputNet">Output net</span><select id="transient-output-net"><option value="" data-i18n="acAutoOutputLabel">Automatic output net</option></select></label>
           </div>
           <div id="digital-event-controls" class="digital-event-controls hidden">
             <label><span data-i18n="digitalStopTime">Stop time (ns)</span><input id="digital-stop-ns" type="number" min="0" max="1000000000" step="1" value="1000" /></label>
