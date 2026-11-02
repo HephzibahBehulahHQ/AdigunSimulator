@@ -8,3 +8,7 @@ The examples cover a 3.3 V red LED, a 5 V blue LED, and a 12 V case that exceeds
 
 ## Limits
 These are ideal DC estimates. Source and LED variation, resistor tolerance, thermal derating, pulse behavior, and manufacturer limits are not modeled.
+
+## Direct circuit analysis result
+
+The base 5 V, 330 Ω, 2 V LED circuit has a bounded DC estimate of 9.09 mA and 27.27 mW resistor dissipation. This calculator/advisor output is a separate analytical tool result.
