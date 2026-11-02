@@ -539,7 +539,7 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(readiness.requiresHumanReview, true);
   assert.ok(readiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
   assert.equal(coverageFile.reviewQueue.length, 9);
-  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId).sort(), ["microchip.atmega328p-pu", "ti.lm555p"]);
+  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId).sort(), ["microchip.atmega328p-pu", "ti.lm555p", "ti.sn74hc00n"]);
 });
 
 test("verified parts require complete datasheet, package, pin, model, license, safety, and translation evidence", () => {

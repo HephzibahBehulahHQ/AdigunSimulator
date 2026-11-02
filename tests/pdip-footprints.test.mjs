@@ -6,7 +6,8 @@ import { getPartVerificationReadiness } from "../js/part-ledger.mjs";
 
 const expected = {
   "microchip.atmega328p-pu": { count: 28, bodyLength: [34.544, 34.798], bodyWidth: [7.112, 7.493] },
-  "ti.lm555p": { count: 8, bodyLength: [9.02, 10.16], bodyWidth: [6.10, 6.60] }
+  "ti.lm555p": { count: 8, bodyLength: [9.02, 10.16], bodyWidth: [6.10, 6.60] },
+  "ti.sn74hc00n": { count: 14, bodyLength: { nominal: 19.30 }, bodyWidth: { nominal: 6.40 } }
 };
 
 test("PDIP candidate footprints have source-based outlines, unique pin maps, and disclosed educational pads", async () => {
@@ -22,8 +23,10 @@ test("PDIP candidate footprints have source-based outlines, unique pin maps, and
     assert.equal(record.footprintAsset.designStatus, "educational-candidate");
     assert.equal(footprint.pads.length, facts.count);
     assert.deepEqual(Object.keys(record.footprintPadMap), Object.keys(record.symbolPinMap));
-    assert.deepEqual(footprint.packageOutline.bodyLengthMm, { minimum: facts.bodyLength[0], maximum: facts.bodyLength[1] });
-    assert.deepEqual(footprint.packageOutline.bodyWidthMm, { minimum: facts.bodyWidth[0], maximum: facts.bodyWidth[1] });
+    const expectedLength = Array.isArray(facts.bodyLength) ? { minimum: facts.bodyLength[0], maximum: facts.bodyLength[1] } : facts.bodyLength;
+    const expectedWidth = Array.isArray(facts.bodyWidth) ? { minimum: facts.bodyWidth[0], maximum: facts.bodyWidth[1] } : facts.bodyWidth;
+    assert.deepEqual(footprint.packageOutline.bodyLengthMm, expectedLength);
+    assert.deepEqual(footprint.packageOutline.bodyWidthMm, expectedWidth);
     assert.equal(footprint.packageOutline.leadPitchMm, 2.54);
     assert.equal(footprint.packageOutline.leadRowPitchMm, 7.62);
     assert.deepEqual(footprint.pads.map((pad) => pad.number), Array.from({ length: facts.count }, (_, index) => index + 1));

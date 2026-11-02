@@ -529,6 +529,7 @@
         "pinCount": 14,
         "sourceUrl": "https://www.ti.com/product/SN74HC00/part-details/SN74HC00N"
       },
+      "package": "PDIP-14",
       "ratings": [
         {
           "name": "operating supply voltage",
@@ -575,6 +576,7 @@
         "13": "input",
         "14": "power-in"
       },
+      "modelStatus": "not-modelled",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "No licensed manufacturer or validated SPICE model has been imported for this record. The simulator must not imply timing, drive-strength, or analog behavior for this part."
@@ -583,13 +585,73 @@
         "sourceUrl": "https://www.ti.com/product/SN74HC00/part-details/SN74HC00N",
         "checkedAt": "2026-11-02"
       },
+      "warnings": [
+        "The 2 V to 6 V operating range does not imply the output level, drive current, or timing required by a connected circuit; device-specific gate behavior is not modeled.",
+        "Use a common supply and reference ground, and check input thresholds and output loading against the TI datasheet."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-14 through-hole package intended to straddle a solderless board center trench; confirm the exact breadboard trench and physical package fit before use.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC00N quad 2-input NAND gate",
+          "description": "Four independent two-input NAND gates in a PDIP-14 package. The app records pin identity and package data but does not model device-specific logic levels or timing."
+        },
+        "de": {
+          "name": "SN74HC00N mit vier 2-Eingang-NAND-Gattern",
+          "description": "Vier unabhängige NAND-Gatter mit je zwei Eingängen im PDIP-14-Gehäuse. Die App erfasst Pins und Gehäusedaten, modelliert aber keine bausteinspezifischen Pegel oder Laufzeiten."
+        },
+        "yo": {
+          "name": "SN74HC00N NAND gate mẹ́rin tó ní input méjì kọ̀ọ̀kan",
+          "description": "NAND gate mẹ́rin tó dúró lọ́tọ̀, ọkọọkan ní input méjì, nínú package PDIP-14. App yìí ṣàkọsílẹ̀ pin àti package, kò sì ṣe model logic level tàbí timing gangan."
+        },
+        "pcm": {
+          "name": "SN74HC00N four 2-input NAND gates",
+          "description": "Four separate NAND gates with two inputs each, inside PDIP-14 package. The app record the pins and package but e no model the exact logic level or timing."
+        }
+      },
       "evidenceNote": "library/evidence/ti.sn74hc00n.md",
-      "notes": "TI lists SN74HC00N as an active PDIP-14 orderable part with four independent two-input NAND gates. Datasheet pin names and pin numbers are recorded, with logical electrical pin types inferred from their defined roles. A physical footprint asset and pad map, checksummed datasheet and licensed symbol/footprint assets, independently validated model/fixture, remaining required metadata, and human review are incomplete; not counted as verified.",
+      "notes": "TI lists SN74HC00N as an active PDIP-14 orderable part with four independent two-input NAND gates. Datasheet pin names, pin numbers, SHA-256, ratings, translations, and a CC0 educational footprint proposal are recorded. The footprint and breadboard fit need physical review, device behavior is not modeled, and an independent human reviewer has not approved this record; not counted as verified.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc00n/symbol.svg",
         "sha256": "3820b47b5fb28bfd8b66486434a7659190246dac02679a115fa5dc19797d0fde",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc00n/footprint.json",
+        "sha256": "2ac9a75facc581bc1f808bcd14cbeae5cc16b748b4e31e7cb8bf91d642014fa0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc00.pdf",
+        "drawing": "N (PDIP-14), SN74HC00 device information table; nominal body size 19.30 × 6.40 mm",
+        "assetPath": "library/assets/footprints/ti.sn74hc00n/footprint.json",
+        "designNote": "Pad diameter and drill are application-selected educational defaults, not sourced manufacturer recommendations."
       }
     },
     {

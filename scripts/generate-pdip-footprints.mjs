@@ -25,6 +25,17 @@ const configs = [
     bodyWidthMm: { minimum: 6.10, maximum: 6.60 },
     sourceUrl: "https://www.ti.com/lit/ds/symlink/lm555.pdf",
     drawing: "P (R-PDIP-T8), drawing 4040082/E, 04/2010"
+  },
+  {
+    partId: "ti.sn74hc00n",
+    manufacturer: "Texas Instruments",
+    package: "N / R-PDIP-T14",
+    pinCount: 14,
+    leadWidthMaxMm: 0.53,
+    bodyLengthMm: { nominal: 19.30 },
+    bodyWidthMm: { nominal: 6.40 },
+    sourceUrl: "https://www.ti.com/lit/ds/symlink/sn74hc00.pdf",
+    drawing: "N (PDIP-14), SN74HC00 device information table; nominal body size 19.30 × 6.40 mm"
   }
 ];
 const pitchMm = 2.54;

@@ -27,15 +27,18 @@ The TI datasheet identifies four independent two-input NAND gates, a 2 V to 6 V 
 | 13 | 4B | input |
 | 14 | VCC | power-in |
 
-The electrical pin classifications are engineering interpretations of the signal names and function; they are not quoted TI electrical-interface declarations. Pin numbering is not a substitute for a footprint geometry file.
+The electrical pin classifications are engineering interpretations of the signal names and function; they are not quoted TI electrical-interface declarations.
+
+## Package asset
+
+`library/assets/footprints/ti.sn74hc00n/footprint.json` maps all fourteen pin numbers. TI lists the N package as PDIP-14 with a nominal 19.30 mm × 6.40 mm body. The 2.54 mm lead pitch and 7.62 mm row spacing are the selected DIP convention used by this educational candidate. Its CC0 1.8 mm pad and 0.8 mm drill are application-selected defaults, not TI land-pattern recommendations.
 
 ## Verification still required
 
-- Download the canonical datasheet bytes and record a reproducible SHA-256 digest.
-- Add a source-backed symbol asset and PDIP-14 footprint geometry, each with provenance and license evidence; independently check symbol-to-pin and pin-to-pad alignment.
-- Establish supported breadboard use and explicit operating limits for that use.
+- Independently check the generated symbol and PDIP-14 pin-to-pad map against the exact physical part.
+- Confirm breadboard center-trench fit with a physical part and board.
 - Either import a licensed TI model and validate it against fixtures, or retain the explicit not-modelled limitation.
-- Add required warning/alternate and four-locale metadata, then obtain a named independent human review and date.
+- Obtain a named independent human review and date.
 
 Until these items are complete, this part remains a candidate and must not count toward the 1,000 verified-part target.
 

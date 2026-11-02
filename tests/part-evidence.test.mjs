@@ -15,11 +15,14 @@ test("TI SN74HC00N evidence records datasheet pin roles without overstating veri
   assert.equal(record.symbolPinMap["14"], "VCC");
   assert.equal(record.pinElectricalTypes["3"], "output");
   assert.equal(record.simulationModel.status, "not-modelled");
+  assert.equal(record.modelStatus, "not-modelled");
+  assert.equal(record.translations.yo.name.includes("SN74HC00N"), true);
 
   const readiness = getPartVerificationReadiness(record);
   assert.equal(readiness.verified, false);
   assert.ok(!readiness.missingEvidenceCodes.includes("DATASHEET_CHECKSUM"));
-  assert.ok(readiness.missingEvidenceCodes.includes("FOOTPRINT_ASSET_EVIDENCE"));
+  assert.ok(!readiness.missingEvidenceCodes.includes("FOOTPRINT_ASSET_EVIDENCE"));
+  assert.equal(readiness.readyForHumanReview, true);
   assert.ok(readiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
 });
 
