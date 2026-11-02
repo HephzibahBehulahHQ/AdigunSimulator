@@ -8,6 +8,7 @@ Captured 2026-11-02 by downloading the PDF from each listed official manufacture
 | TI SN74HC00N | [SNx4HC00 datasheet](https://www.ti.com/lit/ds/symlink/sn74hc00.pdf) | 2,135,969 | `3d3bdace13c7ebeb542e516ae670fc9d7b0b551f9d5222579294e330af38c111` |
 | TI LM7805CT/NOPB | [LM7800/LM7805 family datasheet](https://www.ti.com/lit/ds/symlink/lm7800.pdf) | 2,712,955 | `49391342cf3b05f89ae94607257ef03f678ae9f1a3bdd388252adb8b00da043d` |
 | Microchip MCP6002-I/P | [MCP600x family datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf) | 931,340 | `4f879ab31115ecfa149dfefa62073c9efdbc4beccbdc3a8d7e10281f3877f8fb` |
+| Microchip ATmega328P-PU | [ATmega328P datasheet](https://ww1.microchip.com/downloads/en/devicedoc/atmel-7810-automotive-microcontrollers-atmega328p_datasheet.pdf) | 8,585,103 | `fb84858d0b12c695a12b13f0c74b962d81210247d440c7a24c0ed23dfabfdfaf` |
 
 These checksums establish the identity of the downloaded datasheet bytes at capture time. They do not establish licensing for symbol, footprint, or simulation-model assets and do not replace a human technical review.
 
