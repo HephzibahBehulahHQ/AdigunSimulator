@@ -537,7 +537,7 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(readiness.verified, false);
   assert.equal(readiness.readyForHumanReview, false);
   assert.equal(readiness.requiresHumanReview, true);
-  assert.ok(readiness.missingEvidenceCodes.includes("DATASHEET_CHECKSUM"));
+  assert.ok(readiness.missingEvidenceCodes.includes("FOOTPRINT_ASSET_EVIDENCE"));
   assert.equal(coverageFile.reviewQueue.length, 9);
   assert.ok(coverageFile.reviewQueue.every(item => !item.readyForHumanReview));
 });

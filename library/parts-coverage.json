@@ -148,7 +148,6 @@
       "readyForHumanReview": false,
       "missingEvidenceCodes": [
         "BREADBOARD_COMPATIBILITY",
-        "DATASHEET_CHECKSUM",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
         "LIMITS_AND_ALTERNATES",
@@ -162,7 +161,6 @@
       ],
       "evidenceBlockerCodes": [
         "BREADBOARD_COMPATIBILITY",
-        "DATASHEET_CHECKSUM",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
         "LIMITS_AND_ALTERNATES",
@@ -331,7 +329,6 @@
       "readyForHumanReview": false,
       "missingEvidenceCodes": [
         "BREADBOARD_COMPATIBILITY",
-        "DATASHEET_CHECKSUM",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
         "LIMITS_AND_ALTERNATES",
@@ -344,7 +341,6 @@
       ],
       "evidenceBlockerCodes": [
         "BREADBOARD_COMPATIBILITY",
-        "DATASHEET_CHECKSUM",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
         "LIMITS_AND_ALTERNATES",
@@ -360,7 +356,6 @@
       "readyForHumanReview": false,
       "missingEvidenceCodes": [
         "BREADBOARD_COMPATIBILITY",
-        "DATASHEET_CHECKSUM",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
         "LIMITS_AND_ALTERNATES",
@@ -373,7 +368,6 @@
       ],
       "evidenceBlockerCodes": [
         "BREADBOARD_COMPATIBILITY",
-        "DATASHEET_CHECKSUM",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
         "LIMITS_AND_ALTERNATES",
@@ -426,7 +420,6 @@
       "readyForHumanReview": false,
       "missingEvidenceCodes": [
         "BREADBOARD_COMPATIBILITY",
-        "DATASHEET_CHECKSUM",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
         "LIFECYCLE_EVIDENCE",
@@ -443,7 +436,6 @@
       ],
       "evidenceBlockerCodes": [
         "BREADBOARD_COMPATIBILITY",
-        "DATASHEET_CHECKSUM",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
         "LIFECYCLE_EVIDENCE",

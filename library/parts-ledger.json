@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-31",
+  "updatedAt": "2026-11-02",
   "records": [
     {
       "id": "ti.lm555p",
@@ -13,7 +13,10 @@
       "datasheet": {
         "title": "LM555 Timer datasheet (Rev. D)",
         "url": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
-        "accessedAt": "2026-11-02"
+        "accessedAt": "2026-11-02",
+        "sha256": "0bb44c3df8e5254bd887333faf4303a86722e1e1c4c7c2f038200ff8f540d99d",
+        "sha256Bytes": 1221961,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-02.md"
       },
       "manufacturerSources": [
         { "url": "https://www.ti.com/product/LM555", "kind": "manufacturer-product-page" },
@@ -159,7 +162,10 @@
       "datasheet": {
         "title": "SNx4HC00 Quadruple 2-Input NAND Gates datasheet (Rev. H)",
         "url": "https://www.ti.com/lit/ds/symlink/sn74hc00.pdf",
-        "accessedAt": "2026-11-02"
+        "accessedAt": "2026-11-02",
+        "sha256": "3d3bdace13c7ebeb542e516ae670fc9d7b0b551f9d5222579294e330af38c111",
+        "sha256Bytes": 2135969,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-02.md"
       },
       "manufacturerSources": [
         {
@@ -221,7 +227,10 @@
       "datasheet": {
         "title": "LM340, LM340A and LM7805 Family Wide VIN 1.5-A Fixed Voltage Regulators datasheet (Rev. L)",
         "url": "https://www.ti.com/lit/ds/symlink/lm7800.pdf",
-        "accessedAt": "2026-11-02"
+        "accessedAt": "2026-11-02",
+        "sha256": "49391342cf3b05f89ae94607257ef03f678ae9f1a3bdd388252adb8b00da043d",
+        "sha256Bytes": 2712955,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-02.md"
       },
       "manufacturerSources": [
         {
@@ -319,7 +328,10 @@
       "datasheet": {
         "title": "MCP6001/R/U/2/4, 1 MHz, Low-Power Op Amp data sheet",
         "url": "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf",
-        "accessedAt": "2026-10-31"
+        "accessedAt": "2026-11-02",
+        "sha256": "4f879ab31115ecfa149dfefa62073c9efdbc4beccbdc3a8d7e10281f3877f8fb",
+        "sha256Bytes": 931340,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-02.md"
       },
       "manufacturerSources": [
         {
