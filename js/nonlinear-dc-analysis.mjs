@@ -94,6 +94,28 @@ function diodeCurrent(model, voltage, thermalVoltage) {
   return { currentA, conductanceS };
 }
 
+function nonlinearResidual(x, { nodes, index, resistors, diodes, voltageSources, currentSources, thermalVoltage }) {
+  const imbalance = new Float64Array(nodes.length), scale = new Float64Array(nodes.length);
+  const voltageAt = (net) => net === index.ground ? 0 : x[index.nodes.get(net)];
+  const addBranchCurrent = (nodeA, nodeB, currentAtoB) => {
+    const a = nodeA === index.ground ? undefined : index.nodes.get(nodeA);
+    const b = nodeB === index.ground ? undefined : index.nodes.get(nodeB);
+    if (a !== undefined) { imbalance[a] += currentAtoB; scale[a] += Math.abs(currentAtoB); }
+    if (b !== undefined) { imbalance[b] -= currentAtoB; scale[b] += Math.abs(currentAtoB); }
+  };
+  for (const branch of resistors) addBranchCurrent(branch.nodeA, branch.nodeB, (voltageAt(branch.nodeA) - voltageAt(branch.nodeB)) / branch.resistance);
+  for (const branch of diodes) addBranchCurrent(branch.nodeA, branch.nodeB, diodeCurrent(branch, voltageAt(branch.nodeA) - voltageAt(branch.nodeB), thermalVoltage).currentA);
+  for (const branch of currentSources) addBranchCurrent(branch.positiveNet, branch.negativeNet, -branch.value);
+  voltageSources.forEach((branch, offset) => addBranchCurrent(branch.positiveNet, branch.negativeNet, x[nodes.length + offset]));
+  let maximum = 0;
+  for (let i = 0; i < nodes.length; i += 1) maximum = Math.max(maximum, Math.abs(imbalance[i]) / Math.max(scale[i], 1e-15));
+  voltageSources.forEach((branch) => {
+    const error = voltageAt(branch.positiveNet) - voltageAt(branch.negativeNet) - branch.value;
+    maximum = Math.max(maximum, Math.abs(error) / Math.max(1, Math.abs(branch.value)));
+  });
+  return maximum;
+}
+
 function branchValue(item, pin, terminalMap) { return terminalMap.get(`${item.instanceId}:${pin}`); }
 
 export function runNonlinearDcOperatingPoint(project) {
@@ -158,7 +180,7 @@ export function runNonlinearDcOperatingPoint(project) {
   const index = { ground, nodes: new Map(nodes.map((node, offset) => [node, offset])) };
   const thermalVoltage = K * (temperatureC + 273.15) / Q;
   if (!(thermalVoltage > 0)) return { state: "blocked", ...base, message: "The requested temperature does not produce a valid thermal voltage." };
-  let x = new Float64Array(dimension), lastSolve = null, converged = false, iterations = 0;
+  let x = new Float64Array(dimension), lastSolve = null, lastNonlinearResidual = Infinity, converged = false, iterations = 0;
   for (iterations = 1; iterations <= MAX_ITERATIONS; iterations += 1) {
     const matrix = Array(dimension * dimension).fill(0), rhs = Array(dimension).fill(0);
     for (const branch of resistors) stampConductance(matrix, rhs, dimension, index, branch.nodeA, branch.nodeB, 1 / branch.resistance);
@@ -191,7 +213,8 @@ export function runNonlinearDcOperatingPoint(project) {
     const maxVoltageDelta = Math.max(0, ...Array.from(updated.slice(0, nodes.length), (value, i) => Math.abs(value - x[i])));
     x = updated;
     lastSolve = solved;
-    if (maxVoltageDelta < 1e-9) { converged = true; break; }
+    lastNonlinearResidual = nonlinearResidual(x, { nodes, index, resistors, diodes, voltageSources, currentSources, thermalVoltage });
+    if (maxVoltageDelta < 1e-9 && lastNonlinearResidual <= RESIDUAL_LIMIT) { converged = true; break; }
   }
   if (!converged || !lastSolve) return { state: "blocked", ...base, message: `The diode operating point did not converge within ${MAX_ITERATIONS} iterations; no result was fabricated.`, convergenceState: "failed" };
   const nodeVoltages = Object.fromEntries([[ground, 0], ...nodes.map((node, i) => [node, x[i]])]);
@@ -220,7 +243,7 @@ export function runNonlinearDcOperatingPoint(project) {
     convergenceState: "converged", warnings: [{ code: "GENERIC_SHOCKLEY_LIMITS", message: "Generic ideal Shockley model only: no series resistance, reverse breakdown, junction capacitance, self-heating, temperature-dependent saturation current, or general SPICE. A 1 pS small-signal floor is used only to stabilize Newton iterations." }],
     analysisSettings: { temperatureC, maxIterations: MAX_ITERATIONS, residualLimit: RESIDUAL_LIMIT, diodeModel: "ideal-shockley-v1" },
     modelIds: ["ideal-r-v1", "ideal-dc-voltage-source-v1", "ideal-dc-current-source-v1", "generic-shockley-diode-v1"],
-    numericalEvidence: { iterations, maximumRelativeResidual: lastSolve.relativeResidual },
-    result: { kind: "nonlinear-dc-operating-point", temperatureC, iterations, maximumRelativeResidual: lastSolve.relativeResidual, nodeVoltages, resistors: resistorResults, diodes: diodeResults, voltageSources: sourceResults, currentSources: currentResults, passivePowerW, sourcePowerW, powerBalanceW: passivePowerW - sourcePowerW }
+    numericalEvidence: { iterations, maximumRelativeResidual: lastNonlinearResidual, nonlinearKclAndConstraintResidual: lastNonlinearResidual, linearizedSolveResidual: lastSolve.relativeResidual },
+    result: { kind: "nonlinear-dc-operating-point", temperatureC, iterations, maximumRelativeResidual: lastNonlinearResidual, nonlinearKclAndConstraintResidual: lastNonlinearResidual, linearizedSolveResidual: lastSolve.relativeResidual, nodeVoltages, resistors: resistorResults, diodes: diodeResults, voltageSources: sourceResults, currentSources: currentResults, passivePowerW, sourcePowerW, powerBalanceW: passivePowerW - sourcePowerW }
   };
 }

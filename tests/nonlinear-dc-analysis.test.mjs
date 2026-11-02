@@ -22,8 +22,23 @@ test("bounded Shockley MNA solves a resistor-fed generic silicon diode and balan
   assert.ok(result.result.diodes[0].voltage > 0.4 && result.result.diodes[0].voltage < 0.9);
   assert.ok(result.result.diodes[0].currentA > 0.005 && result.result.diodes[0].currentA < 0.02);
   assert.ok(result.result.maximumRelativeResidual <= 1e-8);
+  assert.equal(result.result.maximumRelativeResidual, result.result.nonlinearKclAndConstraintResidual);
+  assert.ok(result.result.linearizedSolveResidual <= 1e-8);
   assert.ok(Math.abs(result.result.powerBalanceW) < 1e-7);
   assert.match(result.warnings[0].message, /no .*general SPICE/i);
+});
+
+test("nonlinear KCL and power balance include current-source injection direction", async () => {
+  const project = await shockleyProject();
+  const source = project.components.find((item) => item.reference === "V1");
+  source.libraryId = "power.dc-current-source";
+  source.reference = "I1";
+  source.value = "5 mA";
+  const result = runNonlinearDcOperatingPoint(project);
+  assert.equal(result.state, "complete", result.message);
+  assert.ok(result.result.diodes[0].currentA > 0.0049 && result.result.diodes[0].currentA < 0.0051);
+  assert.ok(result.result.nonlinearKclAndConstraintResidual <= 1e-8);
+  assert.ok(Math.abs(result.result.powerBalanceW) < 1e-7);
 });
 
 test("simulation worker dispatches nonlinear DC mode and returns its solved operating point", async () => {
