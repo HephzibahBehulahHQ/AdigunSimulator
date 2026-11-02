@@ -148,10 +148,29 @@ test("reverse-biased generic diode reports leakage with the correct current dire
   assert.ok(Math.abs(result.result.diodes[0].currentA + 2e-9) < 1e-10);
 });
 
+test("generic diode series resistance reduces current and accounts for internal voltage and dissipation", async () => {
+  const ideal = runNonlinearDcOperatingPoint(await shockleyProject());
+  const withResistance = runNonlinearDcOperatingPoint(await shockleyProject({ value: "Is=2 nA; n=1.8; Rs=100 Ω" }));
+  assert.equal(ideal.state, "complete", ideal.message);
+  assert.equal(withResistance.state, "complete", withResistance.message);
+  const diode = withResistance.result.diodes[0];
+  assert.ok(diode.currentA < ideal.result.diodes[0].currentA);
+  assert.ok(diode.junctionVoltageV < diode.voltage);
+  assert.ok(diode.seriesResistancePowerW > 0);
+  assert.equal(diode.seriesResistanceOhm, 100);
+  assert.equal(withResistance.analysisSettings.diodeModel, "shockley-series-resistance-v1");
+  assert.ok(withResistance.modelIds.includes("generic-diode-series-resistance-v1"));
+  assert.ok(Math.abs(diode.powerW - diode.voltage * diode.currentA) < 1e-12);
+  assert.ok(Math.abs(withResistance.result.powerBalanceW) < 1e-7);
+  assert.ok(withResistance.result.nonlinearKclAndConstraintResidual <= 1e-8);
+});
+
 test("Shockley model and analysis temperature are validated without claiming manufacturer data", async () => {
   const project = await shockleyProject({ value: "Is=0; n=1.8" });
   assert.equal(runNonlinearDcOperatingPoint(project).state, "blocked");
   project.components.find((item) => item.reference === "D1").value = "Is=2 nA; n=3.1";
+  assert.equal(runNonlinearDcOperatingPoint(project).state, "blocked");
+  project.components.find((item) => item.reference === "D1").value = "Is=2 nA; n=1.8; Rs=1.1 MΩ";
   assert.equal(runNonlinearDcOperatingPoint(project).state, "blocked");
   const invalidTemperature = await shockleyProject({ temperatureC: 201 });
   assert.equal(runNonlinearDcOperatingPoint(invalidTemperature).state, "blocked");

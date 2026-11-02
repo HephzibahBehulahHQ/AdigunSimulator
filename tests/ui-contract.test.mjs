@@ -40,7 +40,7 @@ test("generic diode and Ebers–Moll NPN/PNP DC operating point is selectable, b
   ]);
   assert.match(html, /value="nonlinear-dc" data-i18n="analysisNonlinearDc"/);
   assert.match(html, /examples\/supplemental-npn-ebers-moll-bias\.adigun\.json/);
-  assert.match(html, /ideal Ebers–Moll NPN\/PNP BJTs/);
+  assert.match(html, /generic Ebers–Moll NPN\/PNP BJTs/);
   assert.match(html, /id="nonlinear-dc-temperature"/);
   assert.match(app, /shockleyDcOperatingPoint/);
   assert.match(app, /result\.kind === "nonlinear-dc-operating-point"/);
@@ -51,7 +51,9 @@ test("generic diode and Ebers–Moll NPN/PNP DC operating point is selectable, b
   assert.match(app, /nonlinear-dc-controls/);
   assert.match(dispatcher, /runNonlinearDcOperatingPoint/);
   assert.ok(UI_KEYS.includes("exampleGenericNpnEbersMoll"));
-  for (const key of ["analysisNonlinearDc", "nonlinearJunctionTemperature", "nonlinearDcModelHelp", "nonlinearIterations", "nonlinearNodeVoltages", "nonlinearDiodeResults", "nonlinearTransistorResults", "nonlinearTransistorType", "nonlinearBaseCurrent"]) assert.match(locales, new RegExp(`${key}:`));
+  for (const key of ["analysisNonlinearDc", "nonlinearJunctionTemperature", "nonlinearDcModelHelp", "nonlinearIterations", "nonlinearNodeVoltages", "nonlinearDiodeResults", "nonlinearJunctionVoltage", "nonlinearSeriesResistance", "nonlinearSeriesPower", "nonlinearTransistorResults", "nonlinearTransistorType", "nonlinearBaseCurrent"]) assert.match(locales, new RegExp(`${key}:`));
+  assert.match(app, /item\.junctionVoltageV/);
+  assert.match(app, /item\.seriesResistancePowerW/);
   assert.match(docs, /generic Shockley/);
   assert.match(docs, /Ebers–Moll NPN and PNP/);
   assert.match(docs, /Neither generic model is a manufacturer-verified part model/);

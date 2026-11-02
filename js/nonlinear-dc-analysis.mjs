@@ -28,8 +28,12 @@ function diodeModel(value) {
   }).filter(([key]) => key));
   const saturationCurrentA = parseScalar(fields.is ?? "", "A");
   const idealityFactor = Number(fields.n);
-  if (!Number.isFinite(saturationCurrentA) || saturationCurrentA < 1e-18 || saturationCurrentA > 1e-2 || !Number.isFinite(idealityFactor) || idealityFactor < 1 || idealityFactor > 3 || Object.keys(fields).some((key) => !["is", "n"].includes(key))) return null;
-  return { saturationCurrentA, idealityFactor };
+  const seriesResistanceOhm = parseScalar(fields.rs ?? "0", "Ω");
+  if (!Number.isFinite(saturationCurrentA) || saturationCurrentA < 1e-18 || saturationCurrentA > 1e-2
+    || !Number.isFinite(idealityFactor) || idealityFactor < 1 || idealityFactor > 3
+    || !Number.isFinite(seriesResistanceOhm) || seriesResistanceOhm < 0 || seriesResistanceOhm > 1e6
+    || Object.keys(fields).some((key) => !["is", "n", "rs"].includes(key))) return null;
+  return { saturationCurrentA, idealityFactor, seriesResistanceOhm };
 }
 
 function bjtModel(value) {
@@ -112,14 +116,39 @@ function stampMultiTerminal(matrix, rhs, size, index, x, nets, device) {
 
 function diodeCurrent(model, voltage, thermalVoltage) {
   const scale = model.idealityFactor * thermalVoltage;
-  const argument = voltage / scale;
-  let exponential;
-  if (argument > MAX_EXP_ARGUMENT) exponential = Math.exp(MAX_EXP_ARGUMENT) * (1 + argument - MAX_EXP_ARGUMENT);
-  else if (argument < -MAX_EXP_ARGUMENT) exponential = Math.exp(-MAX_EXP_ARGUMENT);
-  else exponential = Math.exp(argument);
-  const currentA = model.saturationCurrentA * (exponential - 1);
-  const conductanceS = Math.max(model.saturationCurrentA * exponential / scale, GMIN_SIEMENS);
-  return { currentA, conductanceS };
+  const evaluateJunction = (junctionVoltageV) => {
+    const argument = junctionVoltageV / scale;
+    let exponential;
+    if (argument > MAX_EXP_ARGUMENT) exponential = Math.exp(MAX_EXP_ARGUMENT) * (1 + argument - MAX_EXP_ARGUMENT);
+    else if (argument < -MAX_EXP_ARGUMENT) exponential = Math.exp(-MAX_EXP_ARGUMENT);
+    else exponential = Math.exp(argument);
+    return {
+      currentA: model.saturationCurrentA * (exponential - 1),
+      conductanceS: Math.max(model.saturationCurrentA * (argument > MAX_EXP_ARGUMENT ? Math.exp(MAX_EXP_ARGUMENT) : exponential) / scale, GMIN_SIEMENS)
+    };
+  };
+  const resistance = model.seriesResistanceOhm ?? 0;
+  if (resistance === 0) return { ...evaluateJunction(voltage), junctionVoltageV: voltage };
+  let currentA = evaluateJunction(voltage).currentA;
+  let junctionVoltageV = voltage;
+  let converged = false;
+  for (let iteration = 0; iteration < 50; iteration += 1) {
+    junctionVoltageV = voltage - currentA * resistance;
+    const junction = evaluateJunction(junctionVoltageV);
+    const residualA = currentA - junction.currentA;
+    const updateA = residualA / (1 + resistance * junction.conductanceS);
+    currentA -= updateA;
+    if (!Number.isFinite(currentA)) return { currentA: NaN, conductanceS: NaN, junctionVoltageV: NaN };
+    if (Math.abs(updateA) <= Math.max(1e-15, Math.abs(currentA) * 1e-10)) { converged = true; break; }
+  }
+  if (!converged) return { currentA: NaN, conductanceS: NaN, junctionVoltageV: NaN };
+  junctionVoltageV = voltage - currentA * resistance;
+  const junction = evaluateJunction(junctionVoltageV);
+  return {
+    currentA,
+    junctionVoltageV,
+    conductanceS: junction.conductanceS / (1 + resistance * junction.conductanceS)
+  };
 }
 
 function ebersMoll(model, voltageB, voltageC, voltageE, thermalVoltage) {
@@ -201,7 +230,7 @@ export function runNonlinearDcOperatingPoint(project) {
       resistors.push({ reference: item.reference, nodeA, nodeB, resistance });
     } else if (item.libraryId === "diode.shockley-generic") {
       const model = diodeModel(item.value), nodeA = branchValue(item, "A", terminalMap), nodeB = branchValue(item, "K", terminalMap);
-      if (!model || !nodeA || !nodeB || nodeA === nodeB) return { state: "blocked", ...base, message: `${item.reference} needs valid Is and n model fields and two distinct connected nets.` };
+      if (!model || !nodeA || !nodeB || nodeA === nodeB) return { state: "blocked", ...base, message: `${item.reference} needs valid Is and n fields, optional Rs between 0 and 1 MΩ, and two distinct connected nets.` };
       diodes.push({ reference: item.reference, nodeA, nodeB, ...model });
     } else if (["active.npn-ebers-moll-generic", "active.pnp-ebers-moll-generic"].includes(item.libraryId)) {
       const isPnp = item.libraryId === "active.pnp-ebers-moll-generic";
@@ -283,7 +312,9 @@ export function runNonlinearDcOperatingPoint(project) {
   const diodeResults = diodes.map((branch) => {
     const voltage = nodeVoltages[branch.nodeA] - nodeVoltages[branch.nodeB];
     const currentA = diodeCurrent(branch, voltage, thermalVoltage).currentA;
-    return { reference: branch.reference, voltage, currentA, powerW: voltage * currentA, saturationCurrentA: branch.saturationCurrentA, idealityFactor: branch.idealityFactor };
+    const device = diodeCurrent(branch, voltage, thermalVoltage);
+    const seriesResistancePowerW = currentA * currentA * branch.seriesResistanceOhm;
+    return { reference: branch.reference, voltage, junctionVoltageV: device.junctionVoltageV, currentA, powerW: voltage * currentA, seriesResistancePowerW, saturationCurrentA: branch.saturationCurrentA, idealityFactor: branch.idealityFactor, seriesResistanceOhm: branch.seriesResistanceOhm };
   });
   const transistorResults = transistors.map((branch) => {
     const voltageB = nodeVoltages[branch.baseNet], voltageC = nodeVoltages[branch.collectorNet], voltageE = nodeVoltages[branch.emitterNet];
@@ -310,9 +341,9 @@ export function runNonlinearDcOperatingPoint(project) {
   return {
     state: "complete", ...base,
     message: "Solved a bounded DC operating point with generic Shockley diodes, ideal Ebers–Moll NPN/PNP transistors, and ideal independent sources. These model parameters are not manufacturer-verified part data.",
-    convergenceState: "converged", warnings: [{ code: "GENERIC_NONLINEAR_MODEL_LIMITS", message: `Generic ideal junction models only: ${diodes.length ? "no diode series resistance, reverse breakdown, or junction capacitance. " : ""}${transistors.length ? "no BJT high injection, Early effect, base/collector resistance, secondary breakdown, or junction capacitance. " : ""}Temperature changes thermal voltage only; model saturation currents do not vary with temperature. Self-heating and general SPICE behavior are not modeled. A 1 pS small-signal floor is used only to stabilize Newton iterations.` }],
-    analysisSettings: { temperatureC, maxIterations: MAX_ITERATIONS, residualLimit: RESIDUAL_LIMIT, diodeModel: diodes.length ? "ideal-shockley-v1" : undefined, transistorModel: transistors.length ? [...new Set(transistors.map((item) => `ideal-ebers-moll-${item.type.toLowerCase()}-v1`))].join("+") : undefined },
-    modelIds: ["ideal-r-v1", "ideal-dc-voltage-source-v1", "ideal-dc-current-source-v1", ...(diodes.length ? ["generic-shockley-diode-v1"] : []), ...new Set(transistors.map((item) => `generic-ebers-moll-${item.type.toLowerCase()}-v1`))],
+    convergenceState: "converged", warnings: [{ code: "GENERIC_NONLINEAR_MODEL_LIMITS", message: `Generic junction models only: ${diodes.length ? `${diodes.some((item) => item.seriesResistanceOhm === 0) ? "some diodes omit series resistance. " : ""}no diode reverse breakdown or junction capacitance. ` : ""}${transistors.length ? "no BJT high injection, Early effect, base/collector resistance, secondary breakdown, or junction capacitance. " : ""}Temperature changes thermal voltage only; model saturation currents do not vary with temperature. Self-heating and general SPICE behavior are not modeled. A 1 pS small-signal floor is used only to stabilize Newton iterations.` }],
+    analysisSettings: { temperatureC, maxIterations: MAX_ITERATIONS, residualLimit: RESIDUAL_LIMIT, diodeModel: diodes.length ? diodes.some((item) => item.seriesResistanceOhm > 0) ? "shockley-series-resistance-v1" : "ideal-shockley-v1" : undefined, transistorModel: transistors.length ? [...new Set(transistors.map((item) => `ideal-ebers-moll-${item.type.toLowerCase()}-v1`))].join("+") : undefined },
+    modelIds: ["ideal-r-v1", "ideal-dc-voltage-source-v1", "ideal-dc-current-source-v1", ...(diodes.length ? ["generic-shockley-diode-v1", ...(diodes.some((item) => item.seriesResistanceOhm > 0) ? ["generic-diode-series-resistance-v1"] : [])] : []), ...new Set(transistors.map((item) => `generic-ebers-moll-${item.type.toLowerCase()}-v1`))],
     numericalEvidence: { iterations, maximumRelativeResidual: lastNonlinearResidual, nonlinearKclAndConstraintResidual: lastNonlinearResidual, linearizedSolveResidual: lastSolve.relativeResidual },
     result: { kind: "nonlinear-dc-operating-point", temperatureC, iterations, maximumRelativeResidual: lastNonlinearResidual, nonlinearKclAndConstraintResidual: lastNonlinearResidual, linearizedSolveResidual: lastSolve.relativeResidual, nodeVoltages, resistors: resistorResults, diodes: diodeResults, transistors: transistorResults, voltageSources: sourceResults, currentSources: currentResults, passivePowerW, transistorPowerW, devicePowerW, sourcePowerW, powerBalanceW: devicePowerW - sourcePowerW }
   };
