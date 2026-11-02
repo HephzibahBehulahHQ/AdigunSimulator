@@ -12,6 +12,10 @@ Open the example and use **PCB → Export PCB files**. Export is blocked while e
 
 Automated coverage confirms that both conflicts appear, neither review nor choice recording mutates the native project, unresolved conflicts block export, and even recorded choices are not silently applied.
 
+## Direct analysis result
+
+The base 5 V, 330 Ω, 2 V LED circuit produces an ideal estimated current of 9.09 mA and resistor dissipation of 27.27 mW in the bounded DC analyzer. The PCB-to-schematic reconciliation report is a separate consistency check and does not validate manufacturing suitability.
+
 ## Limits
 
 This example demonstrates conflict detection and choice recording. It does not perform a merge or source edit. Any decision must be applied separately, then electrical analysis and PCB DRC must be rerun before export.
