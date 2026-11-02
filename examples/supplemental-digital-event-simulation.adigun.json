@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-041-and-gate-truth-table",
+  "metadata": {
+    "name": "Two-input AND digital event simulation",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-11-02T20:52:51.621Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "input-a",
+      "libraryId": "power.dc-source",
+      "reference": "VA",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "input-b",
+      "libraryId": "power.dc-source",
+      "reference": "VB",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "gate",
+      "libraryId": "active.logic-and-ideal",
+      "reference": "U1",
+      "value": "Ideal AND logic; 5 V supply",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "b890ecff-c0b4-4f3f-90e6-e6375de36305",
+      "libraryId": "instrument.logic-probe",
+      "reference": "LP1",
+      "value": "Logic threshold from connected gate supply",
+      "position": {
+        "breadboard": [
+          120,
+          60
+        ],
+        "schematic": [
+          120,
+          60
+        ],
+        "pcb": [
+          120,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "a628b019-6a8d-427b-874c-ec4c3108a14d",
+      "libraryId": "instrument.logic-probe",
+      "reference": "LP2",
+      "value": "Logic threshold from connected gate supply",
+      "position": {
+        "breadboard": [
+          192,
+          60
+        ],
+        "schematic": [
+          192,
+          60
+        ],
+        "pcb": [
+          192,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "1c2affbf-20c7-477b-8829-3a4e91965cbe",
+      "libraryId": "instrument.logic-probe",
+      "reference": "LP3",
+      "value": "Logic threshold from connected gate supply",
+      "position": {
+        "breadboard": [
+          336,
+          60
+        ],
+        "schematic": [
+          336,
+          60
+        ],
+        "pcb": [
+          336,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "gate:VCC"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "input-a:-",
+        "input-b:-",
+        "gate:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "A",
+      "endpoints": [
+        "input-a:+",
+        "gate:A",
+        "b890ecff-c0b4-4f3f-90e6-e6375de36305:IN"
+      ]
+    },
+    {
+      "id": "B",
+      "endpoints": [
+        "input-b:+",
+        "gate:B",
+        "a628b019-6a8d-427b-874c-ec4c3108a14d:IN"
+      ]
+    },
+    {
+      "id": "Y",
+      "endpoints": [
+        "gate:Y",
+        "1c2affbf-20c7-477b-8829-3a4e91965cbe:IN"
+      ]
+    }
+  ],
+  "history": [],
+  "digitalEventSimulation": {
+    "stopTimeNs": 400,
+    "events": [
+      {
+        "timeNs": 100,
+        "sourceReference": "VA",
+        "high": true
+      },
+      {
+        "timeNs": 200,
+        "sourceReference": "VB",
+        "high": true
+      },
+      {
+        "timeNs": 300,
+        "sourceReference": "VA",
+        "high": false
+      }
+    ],
+    "probeNets": [
+      "A",
+      "B",
+      "Y"
+    ]
+  }
+}
