@@ -59,11 +59,20 @@
       "lifecycle": "end-of-life",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "1N4448 high-speed diode product page covering 1N4148/1N4448 family information",
-        "url": "https://www.nexperia.com/product/1N4448",
-        "accessedAt": "2026-10-30"
+        "title": "1N4148; 1N4448 high-speed diodes product data sheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf",
+        "accessedAt": "2026-11-02"
       },
-      "notes": "Candidate only. The official product family page must be supplemented by an exact orderable-part datasheet before verification.",
+      "manufacturerSources": [
+        { "url": "https://www.nexperia.com/product/1N4148", "kind": "manufacturer-product-family-page" },
+        { "url": "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf", "kind": "manufacturer-product-family-datasheet" }
+      ],
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No licensed or validated model is attached to this ledger record. Do not infer reverse recovery or transient behavior from the generic ideal-diode model."
+      },
+      "evidenceNote": "library/evidence/nexperia.1n4148.md",
+      "notes": "Nexperia's product page states glass-diode manufacturing and sales have transferred to Tak Cheong under Nexperia license. This record remains a family-level candidate: exact Tak Cheong orderable identity, lifecycle status, datasheet checksum, licensed symbol/footprint assets, pin-pad map, model, and human review are unresolved.",
       "typeCode": "C01"
     },
     {
@@ -78,7 +87,7 @@
       "datasheet": {
         "title": "2N3904 NPN General-Purpose Amplifier datasheet",
         "url": "https://www.onsemi.com/download/data-sheet/pdf/2n3904-d.pdf",
-        "accessedAt": "2026-10-31"
+        "accessedAt": "2026-11-02"
       },
       "manufacturerSources": [
         {
@@ -103,7 +112,14 @@
           "unit": "A"
         }
       ],
-      "notes": "Candidate source for exact orderable number 2N3904BU. The manufacturer datasheet identifies the TO-92-3 lead functions; pin maps, licensed symbol/footprint assets, model evidence, datasheet checksum, and independent human review are still required. Not counted as verified."
+      "symbolPinMap": { "1": "Emitter", "2": "Base", "3": "Collector" },
+      "pinElectricalTypes": { "1": "passive", "2": "input", "3": "passive" },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No licensed or validated transistor model is attached to this record; current simulator results must not claim BJT gain, switching time, or safe operating area for this part."
+      },
+      "evidenceNote": "library/evidence/onsemi.2n3904bu.md",
+      "notes": "The onsemi datasheet identifies TO-92-3 lead functions as emitter, base, and collector on pins 1, 2, and 3. The exact BU orderable identity/lifecycle, datasheet checksum, licensed symbol/footprint assets, physical footprint pad map, validated model and human review remain incomplete; not counted as verified."
     },
     {
       "id": "ti.sn74hc00n",
@@ -179,7 +195,7 @@
       "datasheet": {
         "title": "LM340, LM340A and LM7805 Family Wide VIN 1.5-A Fixed Voltage Regulators datasheet (Rev. L)",
         "url": "https://www.ti.com/lit/ds/symlink/lm7800.pdf",
-        "accessedAt": "2026-10-31"
+        "accessedAt": "2026-11-02"
       },
       "manufacturerSources": [
         {
@@ -209,7 +225,18 @@
           "unit": "°C"
         }
       ],
-      "notes": "TI lists this exact order code as active in TO-220 with a fixed 5 V output. Full pin mapping, licensed symbol/footprint assets, model evidence, datasheet checksum, and independent human review remain incomplete; not counted as verified."
+      "symbolPinMap": { "1": "INPUT", "2": "GND", "3": "OUTPUT" },
+      "pinElectricalTypes": { "1": "power-in", "2": "power-in", "3": "power-out" },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No licensed or validated regulator model is attached to this record. Thermal shutdown, dropout, stability, current limit, and transient response are not represented by an ideal 5 V source."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/LM7800/part-details/LM7805CT/NOPB",
+        "checkedAt": "2026-11-02"
+      },
+      "evidenceNote": "library/evidence/ti.lm7805ct-nopb.md",
+      "notes": "TI orderable page identifies the exact LM7805CT/NOPB TO-220 order code; datasheet pin functions are input, ground, and output on pins 1, 2, and 3. Licensed assets, actual footprint pad map, datasheet checksum, complete operating-limit evidence, model fixture, required metadata, and human review remain incomplete; not counted as verified."
     },
     {
       "id": "nexperia.bss138bk",
