@@ -1,0 +1,4 @@
+Original generic pin-map symbols generated for AdigunSimulator are dedicated to the public domain under CC0 1.0 Universal: https://creativecommons.org/publicdomain/zero/1.0/.
+
+Manufacturer pin names and numbers are factual references; symbol artwork is original.
+

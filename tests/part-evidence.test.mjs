@@ -31,6 +31,7 @@ test("sourced candidate pin maps stay explicit and do not imply verified models 
   const diode = byId.get("nexperia.1n4148");
   const timer = byId.get("ti.lm555p");
   const amplifier = byId.get("st.lm358dt");
+  const microchipOpAmp = byId.get("microchip.mcp6002-i-p");
 
   assert.deepEqual(bjt.symbolPinMap, { "1": "Emitter", "2": "Base", "3": "Collector" });
   assert.deepEqual(regulator.symbolPinMap, { "1": "INPUT", "2": "GND", "3": "OUTPUT" });
@@ -56,6 +57,14 @@ test("sourced candidate pin maps stay explicit and do not imply verified models 
   assert.equal(amplifier.lifecycle, "active");
   assert.equal(amplifier.simulationModel.status, "not-modelled");
   assert.equal(getPartVerificationReadiness(amplifier).verified, false);
+  assert.deepEqual(microchipOpAmp.symbolPinMap, {
+    "1": "OUTA", "2": "INA-", "3": "INA+", "4": "VSS",
+    "5": "INB+", "6": "INB-", "7": "OUTB", "8": "VDD"
+  });
+  assert.equal(microchipOpAmp.datasheet.sha256Bytes, 931340);
+  assert.equal(microchipOpAmp.simulationModel.status, "not-modelled");
+  assert.equal(microchipOpAmp.verificationStatus, "candidate");
+  assert.equal(getPartVerificationReadiness(microchipOpAmp).verified, false);
   assert.match(timer.datasheet.sha256, /^[a-f0-9]{64}$/);
   assert.equal(timer.datasheet.sha256Bytes, 1221961);
   assert.match(byId.get("ti.sn74hc00n").datasheet.sha256, /^[a-f0-9]{64}$/);

@@ -19,8 +19,14 @@
         "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-02.md"
       },
       "manufacturerSources": [
-        { "url": "https://www.ti.com/product/LM555", "kind": "manufacturer-product-page" },
-        { "url": "https://www.ti.com/lit/ds/symlink/lm555.pdf", "kind": "manufacturer-datasheet" }
+        {
+          "url": "https://www.ti.com/product/LM555",
+          "kind": "manufacturer-product-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
+          "kind": "manufacturer-datasheet"
+        }
       ],
       "packageEvidence": {
         "package": "PDIP-8",
@@ -29,12 +35,24 @@
       },
       "package": "PDIP-8",
       "symbolPinMap": {
-        "1": "GND", "2": "TRIG", "3": "OUT", "4": "RESET",
-        "5": "CONT", "6": "THRES", "7": "DISCH", "8": "VCC"
+        "1": "GND",
+        "2": "TRIG",
+        "3": "OUT",
+        "4": "RESET",
+        "5": "CONT",
+        "6": "THRES",
+        "7": "DISCH",
+        "8": "VCC"
       },
       "pinElectricalTypes": {
-        "1": "power-in", "2": "input", "3": "output", "4": "input",
-        "5": "analog", "6": "input", "7": "open-collector", "8": "power-in"
+        "1": "power-in",
+        "2": "input",
+        "3": "output",
+        "4": "input",
+        "5": "analog",
+        "6": "input",
+        "7": "open-collector",
+        "8": "power-in"
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -42,8 +60,18 @@
       },
       "modelStatus": "not-modelled",
       "ratings": [
-        { "name": "operating supply voltage", "minimum": 4.5, "maximum": 16, "unit": "V" },
-        { "name": "operating temperature", "minimum": 0, "maximum": 70, "unit": "°C" }
+        {
+          "name": "operating supply voltage",
+          "minimum": 4.5,
+          "maximum": 16,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": 0,
+          "maximum": 70,
+          "unit": "°C"
+        }
       ],
       "warnings": [
         "Detailed timing, output-stage, and comparator behavior for the specific LM555 is not modeled in this app.",
@@ -53,13 +81,28 @@
       "breadboard": {
         "compatible": true,
         "adapter": "PDIP-8 through-hole part; verify the board center trench and mapped lead spacing before assembly.",
-        "operatingLimits": ["TI recommended supply: 4.5 V to 16 V", "TI operating temperature: 0 °C to 70 °C"]
+        "operatingLimits": [
+          "TI recommended supply: 4.5 V to 16 V",
+          "TI operating temperature: 0 °C to 70 °C"
+        ]
       },
       "translations": {
-        "en": { "name": "LM555 timer", "description": "An 8-pin timer. Detailed device timing and output behavior are not simulated in this app." },
-        "de": { "name": "LM555-Zeitgeber", "description": "Ein 8-poliger Zeitgeber. Das genaue Zeit- und Ausgangsverhalten dieses Bausteins wird in dieser App nicht simuliert." },
-        "yo": { "name": "Aago LM555", "description": "Aago ẹsẹ mẹjọ ni. Ìṣàfarawé yìí kò ṣàfihàn ìṣesí àkókò àti jáde gangan ti ẹ̀rọ yìí." },
-        "pcm": { "name": "LM555 timer", "description": "Na timer wey get 8 pins. This app no dey simulate the exact timing and output behaviour of this part." }
+        "en": {
+          "name": "LM555 timer",
+          "description": "An 8-pin timer. Detailed device timing and output behavior are not simulated in this app."
+        },
+        "de": {
+          "name": "LM555-Zeitgeber",
+          "description": "Ein 8-poliger Zeitgeber. Das genaue Zeit- und Ausgangsverhalten dieses Bausteins wird in dieser App nicht simuliert."
+        },
+        "yo": {
+          "name": "Aago LM555",
+          "description": "Aago ẹsẹ mẹjọ ni. Ìṣàfarawé yìí kò ṣàfihàn ìṣesí àkókò àti jáde gangan ti ẹ̀rọ yìí."
+        },
+        "pcm": {
+          "name": "LM555 timer",
+          "description": "Na timer wey get 8 pins. This app no dey simulate the exact timing and output behaviour of this part."
+        }
       },
       "lifecycleEvidence": {
         "sourceUrl": "https://www.ti.com/product/LM555",
@@ -67,7 +110,13 @@
       },
       "evidenceNote": "library/evidence/ti.lm555p.md",
       "notes": "TI identifies LM555 as active and lists an 8-pin PDIP package. Datasheet pin numbers and logical functions are recorded; physical pad geometry, licensed symbol/footprint assets, checksum, validated device model, full required metadata, and independent human review remain incomplete. Not counted as verified.",
-      "typeCode": "E45"
+      "typeCode": "E45",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.lm555p/symbol.svg",
+        "sha256": "7721e9034fd78bf6738d5bc37db8a6c61a064af42caa455b58738f8ef7c640f8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     },
     {
       "id": "st.lm358dt",
@@ -83,8 +132,14 @@
         "accessedAt": "2026-11-02"
       },
       "manufacturerSources": [
-        { "url": "https://www.st.com/en/amplifiers-and-comparators/lm358.html", "kind": "manufacturer-product-page" },
-        { "url": "https://www.st.com/resource/en/datasheet/lm358.pdf", "kind": "manufacturer-datasheet" }
+        {
+          "url": "https://www.st.com/en/amplifiers-and-comparators/lm358.html",
+          "kind": "manufacturer-product-page"
+        },
+        {
+          "url": "https://www.st.com/resource/en/datasheet/lm358.pdf",
+          "kind": "manufacturer-datasheet"
+        }
       ],
       "packageEvidence": {
         "package": "SO-8",
@@ -92,12 +147,24 @@
         "sourceUrl": "https://www.st.com/en/amplifiers-and-comparators/lm358.html"
       },
       "symbolPinMap": {
-        "1": "OUT1", "2": "IN1-", "3": "IN1+", "4": "VCC-",
-        "5": "IN2+", "6": "IN2-", "7": "OUT2", "8": "VCC+"
+        "1": "OUT1",
+        "2": "IN1-",
+        "3": "IN1+",
+        "4": "VCC-",
+        "5": "IN2+",
+        "6": "IN2-",
+        "7": "OUT2",
+        "8": "VCC+"
       },
       "pinElectricalTypes": {
-        "1": "analog", "2": "analog", "3": "analog", "4": "power-in",
-        "5": "analog", "6": "analog", "7": "analog", "8": "power-in"
+        "1": "analog",
+        "2": "analog",
+        "3": "analog",
+        "4": "power-in",
+        "5": "analog",
+        "6": "analog",
+        "7": "analog",
+        "8": "power-in"
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -109,7 +176,13 @@
       },
       "evidenceNote": "library/evidence/st.lm358dt.md",
       "notes": "ST lists exact orderable LM358DT as active in SO-8. The datasheet pin-number/function map is recorded. Datasheet checksum, licensed symbol/footprint assets, physical pad map, validated model, complete metadata, and human review remain incomplete. Not counted as verified.",
-      "typeCode": "E01"
+      "typeCode": "E01",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/st.lm358dt/symbol.svg",
+        "sha256": "edbe879ac4d8ae410053992bfe1e0e2dc11bd290ea81063ec20d2e13d435d4db",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     },
     {
       "id": "microchip.atmega328p-pu",
@@ -141,8 +214,14 @@
         "accessedAt": "2026-11-02"
       },
       "manufacturerSources": [
-        { "url": "https://www.nexperia.com/product/1N4148", "kind": "manufacturer-product-family-page" },
-        { "url": "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf", "kind": "manufacturer-product-family-datasheet" }
+        {
+          "url": "https://www.nexperia.com/product/1N4148",
+          "kind": "manufacturer-product-family-page"
+        },
+        {
+          "url": "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf",
+          "kind": "manufacturer-product-family-datasheet"
+        }
       ],
       "simulationModel": {
         "status": "not-modelled",
@@ -189,14 +268,28 @@
           "unit": "A"
         }
       ],
-      "symbolPinMap": { "1": "Emitter", "2": "Base", "3": "Collector" },
-      "pinElectricalTypes": { "1": "passive", "2": "input", "3": "passive" },
+      "symbolPinMap": {
+        "1": "Emitter",
+        "2": "Base",
+        "3": "Collector"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "input",
+        "3": "passive"
+      },
       "simulationModel": {
         "status": "not-modelled",
         "reason": "No licensed or validated transistor model is attached to this record; current simulator results must not claim BJT gain, switching time, or safe operating area for this part."
       },
       "evidenceNote": "library/evidence/onsemi.2n3904bu.md",
-      "notes": "The onsemi datasheet identifies TO-92-3 lead functions as emitter, base, and collector on pins 1, 2, and 3. The exact BU orderable identity/lifecycle, datasheet checksum, licensed symbol/footprint assets, physical footprint pad map, validated model and human review remain incomplete; not counted as verified."
+      "notes": "The onsemi datasheet identifies TO-92-3 lead functions as emitter, base, and collector on pins 1, 2, and 3. The exact BU orderable identity/lifecycle, datasheet checksum, licensed symbol/footprint assets, physical footprint pad map, validated model and human review remain incomplete; not counted as verified.",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/onsemi.2n3904bu/symbol.svg",
+        "sha256": "d155ce5095db860b2c83ed20050f1bd85c7f20b30edec47bfc71e0d405e348b5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     },
     {
       "id": "ti.sn74hc00n",
@@ -245,12 +338,36 @@
         }
       ],
       "symbolPinMap": {
-        "1": "1A", "2": "1B", "3": "1Y", "4": "2A", "5": "2B", "6": "2Y", "7": "GND",
-        "8": "3Y", "9": "3A", "10": "3B", "11": "4Y", "12": "4A", "13": "4B", "14": "VCC"
+        "1": "1A",
+        "2": "1B",
+        "3": "1Y",
+        "4": "2A",
+        "5": "2B",
+        "6": "2Y",
+        "7": "GND",
+        "8": "3Y",
+        "9": "3A",
+        "10": "3B",
+        "11": "4Y",
+        "12": "4A",
+        "13": "4B",
+        "14": "VCC"
       },
       "pinElectricalTypes": {
-        "1": "input", "2": "input", "3": "output", "4": "input", "5": "input", "6": "output", "7": "power-in",
-        "8": "output", "9": "input", "10": "input", "11": "output", "12": "input", "13": "input", "14": "power-in"
+        "1": "input",
+        "2": "input",
+        "3": "output",
+        "4": "input",
+        "5": "input",
+        "6": "output",
+        "7": "power-in",
+        "8": "output",
+        "9": "input",
+        "10": "input",
+        "11": "output",
+        "12": "input",
+        "13": "input",
+        "14": "power-in"
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -261,7 +378,13 @@
         "checkedAt": "2026-11-02"
       },
       "evidenceNote": "library/evidence/ti.sn74hc00n.md",
-      "notes": "TI lists SN74HC00N as an active PDIP-14 orderable part with four independent two-input NAND gates. Datasheet pin names and pin numbers are recorded, with logical electrical pin types inferred from their defined roles. A physical footprint asset and pad map, checksummed datasheet and licensed symbol/footprint assets, independently validated model/fixture, remaining required metadata, and human review are incomplete; not counted as verified."
+      "notes": "TI lists SN74HC00N as an active PDIP-14 orderable part with four independent two-input NAND gates. Datasheet pin names and pin numbers are recorded, with logical electrical pin types inferred from their defined roles. A physical footprint asset and pad map, checksummed datasheet and licensed symbol/footprint assets, independently validated model/fixture, remaining required metadata, and human review are incomplete; not counted as verified.",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc00n/symbol.svg",
+        "sha256": "3820b47b5fb28bfd8b66486434a7659190246dac02679a115fa5dc19797d0fde",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     },
     {
       "id": "ti.lm7805ct-nopb",
@@ -308,8 +431,16 @@
           "unit": "°C"
         }
       ],
-      "symbolPinMap": { "1": "INPUT", "2": "GND", "3": "OUTPUT" },
-      "pinElectricalTypes": { "1": "power-in", "2": "power-in", "3": "power-out" },
+      "symbolPinMap": {
+        "1": "INPUT",
+        "2": "GND",
+        "3": "OUTPUT"
+      },
+      "pinElectricalTypes": {
+        "1": "power-in",
+        "2": "power-in",
+        "3": "power-out"
+      },
       "simulationModel": {
         "status": "not-modelled",
         "reason": "No licensed or validated regulator model is attached to this record. Thermal shutdown, dropout, stability, current limit, and transient response are not represented by an ideal 5 V source."
@@ -319,7 +450,13 @@
         "checkedAt": "2026-11-02"
       },
       "evidenceNote": "library/evidence/ti.lm7805ct-nopb.md",
-      "notes": "TI orderable page identifies the exact LM7805CT/NOPB TO-220 order code; datasheet pin functions are input, ground, and output on pins 1, 2, and 3. Licensed assets, actual footprint pad map, datasheet checksum, complete operating-limit evidence, model fixture, required metadata, and human review remain incomplete; not counted as verified."
+      "notes": "TI orderable page identifies the exact LM7805CT/NOPB TO-220 order code; datasheet pin functions are input, ground, and output on pins 1, 2, and 3. Licensed assets, actual footprint pad map, datasheet checksum, complete operating-limit evidence, model fixture, required metadata, and human review remain incomplete; not counted as verified.",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.lm7805ct-nopb/symbol.svg",
+        "sha256": "5b2a23f7cb8f06b378cc13a3d170e7e71695c61b705e7cbe004e858c7f8d1857",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     },
     {
       "id": "nexperia.bss138bk",
@@ -396,6 +533,27 @@
         "pinCount": 8,
         "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf"
       },
+      "package": "PDIP-8",
+      "symbolPinMap": {
+        "1": "OUTA",
+        "2": "INA-",
+        "3": "INA+",
+        "4": "VSS",
+        "5": "INB+",
+        "6": "INB-",
+        "7": "OUTB",
+        "8": "VDD"
+      },
+      "pinElectricalTypes": {
+        "1": "analog",
+        "2": "analog",
+        "3": "analog",
+        "4": "power-in",
+        "5": "analog",
+        "6": "analog",
+        "7": "analog",
+        "8": "power-in"
+      },
       "ratings": [
         {
           "name": "operating supply voltage",
@@ -415,7 +573,54 @@
           "unit": "°C"
         }
       ],
-      "notes": "Microchip lists the exact MCP6002-I/P as an in-production 8-pin PDIP dual op amp. Pin maps, licensed symbol/footprint assets, model evidence, datasheet checksum, and independent human review remain incomplete; not counted as verified."
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No Microchip model is imported and fixture-validated in this simulator; no device-specific input/output, saturation, stability, or transient behavior is claimed."
+      },
+      "modelStatus": "not-modelled",
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.microchip.com/en-us/product/MCP6002",
+        "checkedAt": "2026-11-02"
+      },
+      "warnings": [
+        "The simulator does not model rail-to-rail limits, input common-mode limits, output swing, stability, or capacitive-load behavior for this device.",
+        "The PDIP package can fit a breadboard; check the board center trench and confirm pin mapping before assembly."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "8-lead PDIP through-hole package; verify center-trench clearance and pad mapping before assembly.",
+        "operatingLimits": [
+          "Supply voltage: 1.8 V to 6 V",
+          "MCP6002-I operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "MCP6002 dual op amp",
+          "description": "A low-power dual amplifier. This app does not simulate the exact device's analog limits or transient behavior."
+        },
+        "de": {
+          "name": "MCP6002-Doppeloperationsverstärker",
+          "description": "Ein stromsparender Doppelverstärker. Diese App simuliert nicht die exakten analogen Grenzwerte oder das Übergangsverhalten dieses Bausteins."
+        },
+        "yo": {
+          "name": "Amúgbálẹ̀ op-amp méjì MCP6002",
+          "description": "Amúgbálẹ̀ méjì tó ń lo agbára díẹ̀. Ìṣàfilọ́lẹ̀ yìí kò ṣàfihàn gbogbo ààlà analog tàbí ìhùwàsí ìyípadà rẹ̀ gangan."
+        },
+        "pcm": {
+          "name": "MCP6002 dual op amp",
+          "description": "Na low-power amplifier wey get two channels. This app no dey simulate the exact analog limits or transient behaviour of this part."
+        }
+      },
+      "evidenceNote": "library/evidence/microchip.mcp6002-i-p.md",
+      "notes": "Microchip lists exact part MCP6002-I/P as an in-production 8-pin PDIP dual op amp. The datasheet pin map, operating range, and SHA-256 are recorded. Licensed symbol/footprint assets, physical pad map, validated model, complete evidence and human review remain incomplete; not counted as verified.",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.mcp6002-i-p/symbol.svg",
+        "sha256": "da6d4377184b5e759b7c54adbfe9f78add544f9b2de08cac8073fcdbfec6d174",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     }
   ]
 }

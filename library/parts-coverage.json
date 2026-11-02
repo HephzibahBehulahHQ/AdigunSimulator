@@ -151,14 +151,12 @@
         "FOOTPRINT_PAD_MAP",
         "PIN_MAP_ALIGNMENT",
         "REVIEWER_IDENTITY",
-        "REVIEW_DATE",
-        "SYMBOL_ASSET_EVIDENCE"
+        "REVIEW_DATE"
       ],
       "evidenceBlockerCodes": [
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
-        "PIN_MAP_ALIGNMENT",
-        "SYMBOL_ASSET_EVIDENCE"
+        "PIN_MAP_ALIGNMENT"
       ]
     },
     {
@@ -175,7 +173,6 @@
         "RATINGS_UNITS",
         "REVIEWER_IDENTITY",
         "REVIEW_DATE",
-        "SYMBOL_ASSET_EVIDENCE",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
       ],
@@ -187,7 +184,6 @@
         "LIMITS_AND_ALTERNATES",
         "PIN_MAP_ALIGNMENT",
         "RATINGS_UNITS",
-        "SYMBOL_ASSET_EVIDENCE",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
       ]
@@ -286,7 +282,6 @@
         "PIN_MAP_ALIGNMENT",
         "REVIEWER_IDENTITY",
         "REVIEW_DATE",
-        "SYMBOL_ASSET_EVIDENCE",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
       ],
@@ -298,7 +293,6 @@
         "LIFECYCLE_EVIDENCE",
         "LIMITS_AND_ALTERNATES",
         "PIN_MAP_ALIGNMENT",
-        "SYMBOL_ASSET_EVIDENCE",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
       ]
@@ -315,7 +309,6 @@
         "PIN_MAP_ALIGNMENT",
         "REVIEWER_IDENTITY",
         "REVIEW_DATE",
-        "SYMBOL_ASSET_EVIDENCE",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
       ],
@@ -325,7 +318,6 @@
         "FOOTPRINT_PAD_MAP",
         "LIMITS_AND_ALTERNATES",
         "PIN_MAP_ALIGNMENT",
-        "SYMBOL_ASSET_EVIDENCE",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
       ]
@@ -342,7 +334,6 @@
         "PIN_MAP_ALIGNMENT",
         "REVIEWER_IDENTITY",
         "REVIEW_DATE",
-        "SYMBOL_ASSET_EVIDENCE",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
       ],
@@ -352,7 +343,6 @@
         "FOOTPRINT_PAD_MAP",
         "LIMITS_AND_ALTERNATES",
         "PIN_MAP_ALIGNMENT",
-        "SYMBOL_ASSET_EVIDENCE",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
       ]
@@ -399,34 +389,16 @@
       "currentStatus": "candidate",
       "readyForHumanReview": false,
       "missingEvidenceCodes": [
-        "BREADBOARD_COMPATIBILITY",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
-        "LIFECYCLE_EVIDENCE",
-        "LIMITS_AND_ALTERNATES",
-        "MODEL_PROVENANCE",
-        "PIN_ELECTRICAL_TYPES",
         "PIN_MAP_ALIGNMENT",
         "REVIEWER_IDENTITY",
-        "REVIEW_DATE",
-        "SYMBOL_ASSET_EVIDENCE",
-        "SYMBOL_PIN_MAP",
-        "TRANSLATIONS",
-        "VERIFIED_EVIDENCE"
+        "REVIEW_DATE"
       ],
       "evidenceBlockerCodes": [
-        "BREADBOARD_COMPATIBILITY",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
-        "LIFECYCLE_EVIDENCE",
-        "LIMITS_AND_ALTERNATES",
-        "MODEL_PROVENANCE",
-        "PIN_ELECTRICAL_TYPES",
-        "PIN_MAP_ALIGNMENT",
-        "SYMBOL_ASSET_EVIDENCE",
-        "SYMBOL_PIN_MAP",
-        "TRANSLATIONS",
-        "VERIFIED_EVIDENCE"
+        "PIN_MAP_ALIGNMENT"
       ]
     }
   ]
