@@ -27,6 +27,7 @@
         "pinCount": 8,
         "sourceUrl": "https://www.ti.com/product/LM555"
       },
+      "package": "PDIP-8",
       "symbolPinMap": {
         "1": "GND", "2": "TRIG", "3": "OUT", "4": "RESET",
         "5": "CONT", "6": "THRES", "7": "DISCH", "8": "VCC"
@@ -38,6 +39,27 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "No licensed or validated LM555 model is attached to this record. The app must not imply oscillator timing, output drive, saturation, or comparator limits for this specific device."
+      },
+      "modelStatus": "not-modelled",
+      "ratings": [
+        { "name": "operating supply voltage", "minimum": 4.5, "maximum": 16, "unit": "V" },
+        { "name": "operating temperature", "minimum": 0, "maximum": 70, "unit": "°C" }
+      ],
+      "warnings": [
+        "Detailed timing, output-stage, and comparator behavior for the specific LM555 is not modeled in this app.",
+        "Use the TI datasheet for the full recommended operating conditions and absolute maximum ratings."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-8 through-hole part; verify the board center trench and mapped lead spacing before assembly.",
+        "operatingLimits": ["TI recommended supply: 4.5 V to 16 V", "TI operating temperature: 0 °C to 70 °C"]
+      },
+      "translations": {
+        "en": { "name": "LM555 timer", "description": "An 8-pin timer. Detailed device timing and output behavior are not simulated in this app." },
+        "de": { "name": "LM555-Zeitgeber", "description": "Ein 8-poliger Zeitgeber. Das genaue Zeit- und Ausgangsverhalten dieses Bausteins wird in dieser App nicht simuliert." },
+        "yo": { "name": "Aago LM555", "description": "Aago ẹsẹ mẹjọ ni. Ìṣàfarawé yìí kò ṣàfihàn ìṣesí àkókò àti jáde gangan ti ẹ̀rọ yìí." },
+        "pcm": { "name": "LM555 timer", "description": "Na timer wey get 8 pins. This app no dey simulate the exact timing and output behaviour of this part." }
       },
       "lifecycleEvidence": {
         "sourceUrl": "https://www.ti.com/product/LM555",
