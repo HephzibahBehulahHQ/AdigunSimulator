@@ -5,6 +5,7 @@ import {
   validatePartLedger,
   validatePartsManifest
 } from "../js/part-ledger.mjs";
+import { validatePartAssetIntegrity } from "./part-asset-integrity.mjs";
 
 const readJson = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
 const [ledger, taxonomy, manifest, checkedCoverage] = await Promise.all([
@@ -18,6 +19,7 @@ const checks = [
   validatePartLedger(ledger, taxonomy),
   validatePartsManifest(manifest, taxonomy, ledger)
 ];
+checks.push(await validatePartAssetIntegrity(ledger, (path) => readFile(new URL(`../${path}`, import.meta.url))));
 const coverage = getLibraryCoverage(ledger, taxonomy);
 if (JSON.stringify(coverage) !== JSON.stringify(checkedCoverage)) {
   checks.push({ valid: false, errors: [{ code: "STALE_COVERAGE", message: "Committed parts-coverage.json does not match the ledger and taxonomy." }] });
