@@ -69,7 +69,10 @@ test("sourced candidate pin maps stay explicit and do not imply verified models 
   assert.equal(microchipOpAmp.datasheet.sha256Bytes, 931340);
   assert.equal(microchipOpAmp.simulationModel.status, "not-modelled");
   assert.equal(microchipOpAmp.verificationStatus, "candidate");
-  assert.equal(getPartVerificationReadiness(microchipOpAmp).verified, false);
+  const microchipOpAmpReadiness = getPartVerificationReadiness(microchipOpAmp);
+  assert.equal(microchipOpAmpReadiness.verified, false);
+  assert.equal(microchipOpAmpReadiness.readyForHumanReview, true);
+  assert.ok(microchipOpAmpReadiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
   assert.equal(avr.packageEvidence.package, "PDIP-28");
   assert.equal(avr.symbolPinMap["1"], "PC6/RESET");
   assert.equal(avr.symbolPinMap["7"], "VCC");

@@ -36,6 +36,17 @@ const configs = [
     bodyWidthMm: { nominal: 6.40 },
     sourceUrl: "https://www.ti.com/lit/ds/symlink/sn74hc00.pdf",
     drawing: "N (PDIP-14), SN74HC00 device information table; nominal body size 19.30 × 6.40 mm"
+  },
+  {
+    partId: "microchip.mcp6002-i-p",
+    manufacturer: "Microchip",
+    package: "P / 8-Lead PDIP, 300 mil body",
+    pinCount: 8,
+    leadWidthMaxMm: 0.559,
+    bodyLengthMm: { minimum: 8.8392, typical: 9.271, maximum: 10.16 },
+    bodyWidthMm: { minimum: 6.096, typical: 6.35, maximum: 7.112 },
+    sourceUrl: "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf",
+    drawing: "C04-018-P Rev E Sheet 2, DS20001733L page 30; dimensions converted from inches to mm"
   }
 ];
 const pitchMm = 2.54;

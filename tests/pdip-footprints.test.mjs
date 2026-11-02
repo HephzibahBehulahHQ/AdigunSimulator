@@ -7,7 +7,8 @@ import { getPartVerificationReadiness } from "../js/part-ledger.mjs";
 const expected = {
   "microchip.atmega328p-pu": { count: 28, bodyLength: [34.544, 34.798], bodyWidth: [7.112, 7.493] },
   "ti.lm555p": { count: 8, bodyLength: [9.02, 10.16], bodyWidth: [6.10, 6.60] },
-  "ti.sn74hc00n": { count: 14, bodyLength: { nominal: 19.30 }, bodyWidth: { nominal: 6.40 } }
+  "ti.sn74hc00n": { count: 14, bodyLength: { nominal: 19.30 }, bodyWidth: { nominal: 6.40 } },
+  "microchip.mcp6002-i-p": { count: 8, bodyLength: { minimum: 8.8392, typical: 9.271, maximum: 10.16 }, bodyWidth: { minimum: 6.096, typical: 6.35, maximum: 7.112 } }
 };
 
 test("PDIP candidate footprints have source-based outlines, unique pin maps, and disclosed educational pads", async () => {

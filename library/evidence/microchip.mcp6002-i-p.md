@@ -24,9 +24,13 @@ Microchip lists the exact MCP6002-I/P in production, in 8-lead PDIP, with an ope
 
 The canonical PDF was downloaded from Microchip's official URL on 2026-11-02 (931,340 bytes). Its SHA-256 is `4f879ab31115ecfa149dfefa62073c9efdbc4beccbdc3a8d7e10281f3877f8fb`.
 
+## Package asset
+
+`library/assets/footprints/microchip.mcp6002-i-p/footprint.json` maps all eight pins to pads. Microchip drawing C04-018-P specifies a 0.100-inch basic lead pitch and gives body limits of 0.348–0.400 inch long by 0.240–0.280 inch wide. The generated file converts those package dimensions to millimetres. Its 1.8 mm circular pad and 0.8 mm drill are AdigunSimulator educational defaults, not Microchip recommendations. The footprint is a review candidate, not manufacturing-certified.
+
 ## Verification still required
 
-- Add licensed symbol and PDIP-8 footprint assets and independently validate pad mapping and geometry.
+- Independently inspect the generated footprint against the physical part and verify its pad mapping and geometry.
 - Attach and validate an approved model or keep the explicit not-modelled limit.
 - Complete remaining warnings/alternates, breadboard, and four-locale review metadata.
 - Obtain named independent human review and date.
