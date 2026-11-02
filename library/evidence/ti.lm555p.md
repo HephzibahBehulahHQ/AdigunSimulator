@@ -25,12 +25,16 @@ TI lists an operating supply range of 4.5 V to 16 V and an operating temperature
 | 7 | DISCH | open-collector |
 | 8 | VCC | power-in |
 
-The pin types describe intended circuit roles; they are not a substitute for a validated electrical model. The package listing does not provide a footprint asset or license for redistribution.
+The pin types describe intended circuit roles; they are not a substitute for a validated electrical model. The TI package drawing specifies the P (R-PDIP-T8) outline; the generated CC0 asset is our educational land-pattern proposal, not TI artwork or a manufacturer recommendation.
+
+## Package asset
+
+`library/assets/footprints/ti.lm555p/footprint.json` maps all eight package pin numbers to pads. Body limits are transcribed from TI drawing 4040082/E; 2.54 mm lead pitch and 7.62 mm row spacing follow the package drawing convention. The 1.8 mm pad and 0.8 mm drill are application-selected educational defaults. The asset remains a candidate pending physical-fit review, fabrication-rule checks, and independent technical review.
 
 ## Verification still required
 
 - Record a reproducible checksum for the canonical datasheet bytes.
-- Add and license a symbol asset and PDIP-8 footprint geometry; verify every pin-to-pad mapping.
+- Independently inspect the generated PDIP-8 geometry and every pin-to-pad mapping against the physical part and TI package drawing; the generated symbol artwork is a generic pin map.
 - Add complete ratings, breadboard limits, warnings, alternate-part notes, and four-locale metadata.
 - Import and validate a licensed device model against fixtures or maintain the explicit not-modelled limitation.
 - Obtain an independent named human review and date.

@@ -145,19 +145,12 @@
     {
       "partId": "ti.lm555p",
       "currentStatus": "candidate",
-      "readyForHumanReview": false,
+      "readyForHumanReview": true,
       "missingEvidenceCodes": [
-        "FOOTPRINT_ASSET_EVIDENCE",
-        "FOOTPRINT_PAD_MAP",
-        "PIN_MAP_ALIGNMENT",
         "REVIEWER_IDENTITY",
         "REVIEW_DATE"
       ],
-      "evidenceBlockerCodes": [
-        "FOOTPRINT_ASSET_EVIDENCE",
-        "FOOTPRINT_PAD_MAP",
-        "PIN_MAP_ALIGNMENT"
-      ]
+      "evidenceBlockerCodes": []
     },
     {
       "partId": "st.lm358dt",

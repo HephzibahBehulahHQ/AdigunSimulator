@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "ti.lm555p",
+  "package": "Texas Instruments P / R-PDIP-T8",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -3.81,
+    "yMm": -3.81
+  },
+  "packageOutline": {
+    "bodyLengthMm": {
+      "minimum": 9.02,
+      "maximum": 10.16
+    },
+    "bodyWidthMm": {
+      "minimum": 6.1,
+      "maximum": 6.6
+    },
+    "leadRowPitchMm": 7.62,
+    "leadPitchMm": 2.54,
+    "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
+    "drawing": "P (R-PDIP-T8), drawing 4040082/E, 04/2010"
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.8,
+    "drillMm": 0.8,
+    "source": "AdigunSimulator CC0 educational default selected against the stated 0.533 mm maximum lead width; not a manufacturer land-pattern recommendation or fabrication rule."
+  },
+  "pads": [
+    {
+      "number": 1,
+      "xMm": -3.81,
+      "yMm": -3.81
+    },
+    {
+      "number": 2,
+      "xMm": -3.81,
+      "yMm": -1.27
+    },
+    {
+      "number": 3,
+      "xMm": -3.81,
+      "yMm": 1.27
+    },
+    {
+      "number": 4,
+      "xMm": -3.81,
+      "yMm": 3.81
+    },
+    {
+      "number": 5,
+      "xMm": 3.81,
+      "yMm": 3.81
+    },
+    {
+      "number": 6,
+      "xMm": 3.81,
+      "yMm": 1.27
+    },
+    {
+      "number": 7,
+      "xMm": 3.81,
+      "yMm": -1.27
+    },
+    {
+      "number": 8,
+      "xMm": 3.81,
+      "yMm": -3.81
+    }
+  ],
+  "limitations": [
+    "Generated from the published package outline and pin numbering; the manufacturer does not publish this generated pad artwork as an approved land pattern.",
+    "Check the exact physical part, finished-hole tolerance, annular ring, solder process, courtyard, board rules, and assembly constraints before use.",
+    "This asset is educational and has not passed independent footprint review or manufacturing DRC."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

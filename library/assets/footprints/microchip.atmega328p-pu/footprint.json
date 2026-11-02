@@ -28,7 +28,7 @@
     "shape": "circle",
     "diameterMm": 1.8,
     "drillMm": 0.8,
-    "source": "AdigunSimulator CC0 educational default selected for a 0.533 mm maximum stated lead width; not a manufacturer land-pattern recommendation or fabrication rule."
+    "source": "AdigunSimulator CC0 educational default selected against the stated 0.533 mm maximum lead width; not a manufacturer land-pattern recommendation or fabrication rule."
   },
   "pads": [
     {
