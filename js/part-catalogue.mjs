@@ -32,6 +32,7 @@ export function getManufacturerPartEvidenceSummary(record) {
     verified: readiness.verified,
     requiresHumanReview: readiness.requiresHumanReview,
     readyForHumanReview: readiness.readyForHumanReview,
+    evidenceBlocked: readiness.evidenceBlockerCodes.length > 0,
     missingEvidenceCodes: readiness.missingEvidenceCodes,
     evidenceBlockerCodes: readiness.evidenceBlockerCodes,
     simulationStatus: record.modelStatus ?? record.simulationModel?.status ?? "unspecified",
