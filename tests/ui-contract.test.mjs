@@ -85,6 +85,11 @@ test("header account and compact action controls flow without overlapping on nar
   assert.ok(header.indexOf("id=\"save-state\"") < header.indexOf("id=\"account-status\"") && header.indexOf("id=\"account-status\"") < header.indexOf("id=\"language\"") && header.indexOf("id=\"language\"") < header.indexOf("id=\"theme-toggle\"") && header.indexOf("id=\"theme-toggle\"") < header.indexOf("id=\"global-search-toggle\"") && header.indexOf("id=\"global-search-toggle\"") < header.indexOf("id=\"help-button\""));
   assert.match(header, /id="account-status"[^>]*data-auth-state="guest"/);
   assert.match(header, /title="Account · Guest \(sign-in unavailable\)"/);
+  assert.match(header, /id="account-status"[\s\S]*?<svg[^>]*aria-hidden="true" viewBox="0 0 24 24"><circle/);
+  assert.match(css, /\.icon-button \{[^}]*width:\s*2\.25rem[^}]*height:\s*2\.25rem/);
+  assert.match(css, /\.language-control \{[^}]*width:\s*2\.25rem[^}]*height:\s*2\.25rem/);
+  assert.match(css, /\.account-button\[data-auth-state="signed-in"\] \.account-status-dot \{ background:\s*var\(--good\); \}/);
+  assert.match(css, /\.account-button\[data-auth-state="guest"\] \.account-status-dot \{ background:\s*#8994a3; \}/);
   assert.match(css, /\.header-actions\s*\{[^}]*gap:\s*12px/);
   assert.match(css, /\.identity, \.header-actions,[\s\S]*?display: flex; align-items: center/);
   assert.doesNotMatch(css, /\.header-actions\s*\{[^}]*position:\s*absolute/);
