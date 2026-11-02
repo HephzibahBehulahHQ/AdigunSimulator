@@ -21,6 +21,14 @@ test("the interface references only declared translation keys and exposes four l
   assert.deepEqual(values(languageSelect, /<option value="([^"]+)">/g), UI_LOCALES);
 });
 
+test("implementation status is localized and reflects released scope without stale PCB claims", async () => {
+  const app = await readFile(appFile, "utf8");
+  assert.ok(UI_KEYS.includes("implementationStatusBody"));
+  assert.match(app, /function showImplementationStatus\(\)/);
+  assert.equal((app.match(/showImplementationStatus\(\)/g) ?? []).length, 2);
+  assert.doesNotMatch(app, /199 released|placement preview without routing|single-sided PCB export preview/);
+});
+
 test("breadboard click placement keeps the accessible manual hole-entry workflow", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   assert.match(html, /aria-pressed="false" data-action="breadboard-placement-mode"/);
@@ -210,5 +218,4 @@ test("the published example catalogue retains all 200 individually specified acc
   assert.deepEqual(rows, Array.from({ length: 200 }, (_, index) => index + 1));
   assert.match(catalogue, /row specifies[\s\S]*implemented or passed/i);
 });
-
 

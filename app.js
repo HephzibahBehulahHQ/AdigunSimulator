@@ -911,6 +911,10 @@ function showDialog(title, message) {
   $("#status-dialog").showModal();
 }
 
+function showImplementationStatus() {
+  showDialog(t("implementationStatus"), t("implementationStatusBody"));
+}
+
 function validateAndReport() {
   state.lastValidation = validateProject(state.project);
   renderValidation();
@@ -1163,7 +1167,7 @@ function handleAction(action) {
     validateAndReport();
     log("[SYNC] Applied reviewed physical breadboard connectivity to the canonical netlist shared by schematic and PCB views.");
   }
-  if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 199 released and tested catalogue examples, bounded analytical models, and a single-sided PCB export preview for projects that include fabrication data. Its checks do not replace manufacturer validation; the application is not a general SPICE engine.");
+  if (action === "help") showImplementationStatus();
 }
 
 function handlePcbRouteCanvasClick(event) {
@@ -1649,7 +1653,7 @@ $("#load-example").addEventListener("click", async () => {
   }
 });
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
-$("#help-button").addEventListener("click", () => showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 199 released and tested catalogue examples, and bounded analytical models. PCB view is a placement preview without routing or DRC; the application is not a general SPICE engine."));
+$("#help-button").addEventListener("click", showImplementationStatus);
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
 $("#bot-form").addEventListener("submit", (event) => { event.preventDefault(); answerBotFromSelection(); });
