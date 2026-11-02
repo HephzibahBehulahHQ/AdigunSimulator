@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "ti.sn74hc00n",
+  "package": "Texas Instruments N / R-PDIP-T14",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -3.81,
+    "yMm": -7.62
+  },
+  "packageOutline": {
+    "bodyLengthMm": {
+      "nominal": 19.3
+    },
+    "bodyWidthMm": {
+      "nominal": 6.4
+    },
+    "leadRowPitchMm": 7.62,
+    "leadPitchMm": 2.54,
+    "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc00.pdf",
+    "drawing": "N (PDIP-14), SN74HC00 device information table; nominal body size 19.30 × 6.40 mm"
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.8,
+    "drillMm": 0.8,
+    "source": "AdigunSimulator CC0 educational default selected against the stated 0.53 mm maximum lead width; not a manufacturer land-pattern recommendation or fabrication rule."
+  },
+  "pads": [
+    {
+      "number": 1,
+      "xMm": -3.81,
+      "yMm": -7.62
+    },
+    {
+      "number": 2,
+      "xMm": -3.81,
+      "yMm": -5.08
+    },
+    {
+      "number": 3,
+      "xMm": -3.81,
+      "yMm": -2.54
+    },
+    {
+      "number": 4,
+      "xMm": -3.81,
+      "yMm": 0
+    },
+    {
+      "number": 5,
+      "xMm": -3.81,
+      "yMm": 2.54
+    },
+    {
+      "number": 6,
+      "xMm": -3.81,
+      "yMm": 5.079999999999999
+    },
+    {
+      "number": 7,
+      "xMm": -3.81,
+      "yMm": 7.62
+    },
+    {
+      "number": 8,
+      "xMm": 3.81,
+      "yMm": 7.62
+    },
+    {
+      "number": 9,
+      "xMm": 3.81,
+      "yMm": 5.08
+    },
+    {
+      "number": 10,
+      "xMm": 3.81,
+      "yMm": 2.54
+    },
+    {
+      "number": 11,
+      "xMm": 3.81,
+      "yMm": 0
+    },
+    {
+      "number": 12,
+      "xMm": 3.81,
+      "yMm": -2.54
+    },
+    {
+      "number": 13,
+      "xMm": 3.81,
+      "yMm": -5.079999999999999
+    },
+    {
+      "number": 14,
+      "xMm": 3.81,
+      "yMm": -7.62
+    }
+  ],
+  "limitations": [
+    "Generated from the published package outline and pin numbering; the manufacturer does not publish this generated pad artwork as an approved land pattern.",
+    "Check the exact physical part, finished-hole tolerance, annular ring, solder process, courtyard, board rules, and assembly constraints before use.",
+    "This asset is educational and has not passed independent footprint review or manufacturing DRC."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
