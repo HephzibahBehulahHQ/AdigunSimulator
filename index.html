@@ -395,6 +395,8 @@
             <label><span data-i18n="transientStopSeconds">Stop time (s)</span><input id="transient-stop-seconds" type="number" min="0.000001" step="any" value="0.005" /></label>
             <label><span data-i18n="transientTimeStep">Time step (s)</span><input id="transient-time-step" type="number" min="0.000000001" step="any" value="0.00001" /></label>
             <label><span data-i18n="transientOutputNet">Output net</span><select id="transient-output-net"><option value="" data-i18n="acAutoOutputLabel">Automatic output net</option></select></label>
+            <label><span data-i18n="transientInitialConditions">Initial conditions (JSON)</span><textarea id="transient-initial-conditions" rows="3" spellcheck="false" aria-describedby="transient-initial-conditions-help">{"capacitorVoltagesV":{},"inductorCurrentsA":{}}</textarea></label>
+            <p id="transient-initial-conditions-help" class="limit-note" data-i18n="transientInitialConditionsHelp">Optional capacitorVoltagesV and inductorCurrentsA maps use component references; omitted values start at zero.</p>
           </div>
           <div id="digital-event-controls" class="digital-event-controls hidden">
             <label><span data-i18n="digitalStopTime">Stop time (ns)</span><input id="digital-stop-ns" type="number" min="0" max="1000000000" step="1" value="1000" /></label>

@@ -666,7 +666,8 @@ function renderResultDashboard(analysis) {
     const values = result.samples.map((sample) => sample.voltageV);
     const min = Math.min(0, ...values), max = Math.max(0, ...values), span = Math.max(max - min, 1e-12);
     const points = result.samples.filter((_, index) => index === 0 || index === result.samples.length - 1 || index % Math.max(1, Math.ceil(result.samples.length / 120)) === 0).map((sample) => `${(4 + sample.timeSeconds / result.stopSeconds * 592).toFixed(2)},${(92 - (sample.voltageV - min) / span * 80).toFixed(2)}`).join(" ");
-    metrics.push([t("transientSampleCount"), String(result.sampleCount)], [t("transientStopSeconds"), `${result.stopSeconds} s`], [t("transientOutputNet"), result.outputNet], [t("transientFinalVoltage"), `${values.at(-1).toPrecision(6)} V`], [t("transientResidual"), result.maximumRelativeResidual.toExponential(2)]);
+    const initialSummary = [...Object.entries(result.initialConditions.capacitorVoltageVByReference).map(([reference, value]) => `${reference}=${value} V`), ...Object.entries(result.initialConditions.inductorCurrentAByReference).map(([reference, value]) => `${reference}=${value} A`)].join("; ") || "0 V / 0 A";
+    metrics.push([t("transientSampleCount"), String(result.sampleCount)], [t("transientStopSeconds"), `${result.stopSeconds} s`], [t("transientOutputNet"), result.outputNet], [t("transientInitialConditions"), initialSummary], [t("transientFinalVoltage"), `${values.at(-1).toPrecision(6)} V`], [t("transientResidual"), result.maximumRelativeResidual.toExponential(2)]);
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearTransient"))} · ${escape(result.outputNet)}</figcaption><svg viewBox="0 0 600 110" role="img" aria-label="${escape(t("transientTraceLabel"))}"><path class="wave-axis" d="M4 92H596 M4 12V92"/><polyline class="wave-trace" points="${points}"/></svg><p>${escape(analysis.message)}</p><p>${escape(analysis.warnings?.[0]?.message ?? "")}</p></figure>`;
   } else if (result.kind === "digital-event-simulation") {
     const rows = Object.entries(result.trace).flatMap(([net, points]) => points.map((point) => ({ net, ...point }))).sort((a, b) => a.timeNs - b.timeNs || a.net.localeCompare(b.net));
@@ -1128,7 +1129,12 @@ function runAnalysis(workerResult = null) {
       const analysisMode = $("#simulation-analysis-mode").value;
       let projectForAnalysis = state.project;
       if (analysisMode === "linear-ac") projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearAcSweep", { startHz: Number($("#ac-start-hz").value), stopHz: Number($("#ac-stop-hz").value), pointsPerDecade: Number($("#ac-points-per-decade").value), outputNet: $("#ac-output-net").value || undefined });
-      if (analysisMode === "linear-transient") projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearRlcTransient", { stopSeconds: Number($("#transient-stop-seconds").value), timeStepSeconds: Number($("#transient-time-step").value), outputNet: $("#transient-output-net").value || undefined });
+      if (analysisMode === "linear-transient") {
+        let initialConditions;
+        try { initialConditions = JSON.parse($("#transient-initial-conditions").value); }
+        catch { state.lastAnalysis = { state: "blocked", engine: "Linear RLC transient configuration", message: "Initial conditions must be valid JSON." }; renderValidation(); return; }
+        projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearRlcTransient", { stopSeconds: Number($("#transient-stop-seconds").value), timeStepSeconds: Number($("#transient-time-step").value), outputNet: $("#transient-output-net").value || undefined, initialConditions });
+      }
       if (analysisMode === "digital-events") {
         let events, initialStates;
         try {

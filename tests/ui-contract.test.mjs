@@ -54,10 +54,13 @@ test("simulation controls expose bounded linear RLC transient analysis and a loc
   assert.match(html, /id="transient-stop-seconds"/);
   assert.match(html, /id="transient-time-step"/);
   assert.match(html, /id="transient-output-net"/);
+  assert.match(html, /id="transient-initial-conditions"/);
+  assert.match(html, /aria-describedby="transient-initial-conditions-help"/);
   assert.match(app, /projectWithSelectedAnalysis\(state\.project, "linearRlcTransient", \{ stopSeconds:/);
+  assert.match(app, /initialConditions = JSON\.parse\(\$\("#transient-initial-conditions"\)\.value\)/);
   assert.match(app, /result\.kind === "linear-rlc-transient"/);
   assert.match(app, /projectWithSelectedAnalysis/);
-  for (const key of ["analysisLinearTransient", "transientStopSeconds", "transientTimeStep", "transientOutputNet", "transientSampleCount", "transientFinalVoltage", "transientResidual", "transientTraceLabel"]) assert.match(locales, new RegExp(`${key}:`));
+  for (const key of ["analysisLinearTransient", "transientStopSeconds", "transientTimeStep", "transientOutputNet", "transientInitialConditions", "transientInitialConditionsHelp", "transientSampleCount", "transientFinalVoltage", "transientResidual", "transientTraceLabel"]) assert.match(locales, new RegExp(`${key}:`));
 });
 
 test("header account and compact action controls flow without overlapping on narrow screens", async () => {

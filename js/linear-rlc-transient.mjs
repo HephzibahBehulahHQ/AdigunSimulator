@@ -27,6 +27,27 @@ function terminalMap(project) {
   return result;
 }
 
+function configuredInitialValues(config, capacitors, inductors) {
+  const input = config.initialConditions ?? {};
+  if (!input || typeof input !== "object" || Array.isArray(input)) return { error: "Initial conditions must be an object." };
+  if (Object.keys(input).some((key) => !["capacitorVoltagesV", "inductorCurrentsA"].includes(key))) return { error: "Initial conditions support only capacitorVoltagesV and inductorCurrentsA maps." };
+  const resolve = (key, parts, limit) => {
+    const values = input[key] ?? {};
+    if (!values || typeof values !== "object" || Array.isArray(values)) return { error: `${key} must be an object keyed by component reference.` };
+    const known = new Set(parts.map(({ item }) => item.reference));
+    const result = {};
+    for (const [reference, value] of Object.entries(values)) {
+      if (!known.has(reference)) return { error: `${key} includes unknown ${reference}; use the reference of a connected modeled component.` };
+      if (typeof value !== "number" || !Number.isFinite(value) || Math.abs(value) > limit) return { error: `${key}.${reference} must be a finite number between ${-limit} and ${limit}.` };
+      result[reference] = value;
+    }
+    return { values: result };
+  };
+  const capacitorVoltages = resolve("capacitorVoltagesV", capacitors, 1e9);
+  const inductorCurrents = resolve("inductorCurrentsA", inductors, 1e6);
+  return capacitorVoltages.error ? capacitorVoltages : inductorCurrents.error ? inductorCurrents : { capacitorVoltages: capacitorVoltages.values, inductorCurrents: inductorCurrents.values };
+}
+
 function solve(matrix, rhs, size) {
   const a = matrix.slice(), b = rhs.slice();
   for (let column = 0; column < size; column += 1) {
@@ -100,6 +121,8 @@ export function runLinearRlcTransient(project) {
   const grounds = components.filter((item) => item.libraryId === "ground.signal");
   if (!sources.length || grounds.length !== 1) return blocked("Connect at least one DC voltage source and exactly one signal-ground reference.");
   if (sources.some((part) => !Number.isFinite(part.voltage)) || resistors.some((part) => !(part.value > 0 && Number.isFinite(part.value))) || capacitors.some((part) => !(part.value > 0 && Number.isFinite(part.value))) || inductors.some((part) => !(part.value > 0 && Number.isFinite(part.value)))) return blocked("Use finite positive DC source, resistance, capacitance, and inductance values with compatible units.");
+  const initialConditions = configuredInitialValues(config, capacitors, inductors);
+  if (initialConditions.error) return blocked(initialConditions.error);
 
   let endpointNet;
   try { endpointNet = terminalMap(project); } catch (error) { return blocked(error.message); }
@@ -124,9 +147,9 @@ export function runLinearRlcTransient(project) {
   if (estimatedWork > MAX_SOLVE_WORK) return blocked(`This run needs ${estimatedWork.toLocaleString()} solve operations; the configured work limit is ${MAX_SOLVE_WORK.toLocaleString()}. Increase the time step or simplify the circuit.`);
 
   const sourceIndexes = new Map(sources.map(({ item }, index) => [item.instanceId, netIds.length + index]));
-  const capacitorState = new Map(capacitors.map(({ item }) => [item.instanceId, { voltage: 0, current: 0 }]));
-  const inductorState = new Map(inductors.map(({ item }) => [item.instanceId, { voltage: 0, current: 0 }]));
-  const samples = [{ timeSeconds: 0, voltageV: 0 }];
+  const capacitorState = new Map(capacitors.map(({ item }) => [item.instanceId, { voltage: initialConditions.capacitorVoltages[item.reference] ?? 0, current: 0 }]));
+  const inductorState = new Map(inductors.map(({ item }) => [item.instanceId, { voltage: 0, current: initialConditions.inductorCurrents[item.reference] ?? 0 }]));
+  const samples = [];
   let maximumResidual = 0;
   for (let step = 1; step <= steps; step += 1) {
     const matrix = new Float64Array(size * size), rhs = new Float64Array(size);
@@ -167,9 +190,9 @@ export function runLinearRlcTransient(project) {
   }
   return {
     state: "complete", engine: "Linear RLC transient modified nodal analysis",
-    message: "Bounded linear RLC transient solved with trapezoidal companion models. DC sources step instantaneously at t=0; capacitor voltages and inductor currents start at zero.",
+    message: "Bounded linear RLC transient solved with trapezoidal companion models. DC sources step instantaneously at t=0; unspecified capacitor voltages and inductor currents start at zero.",
     errors: [], warnings: [{ code: "LINEAR_RLC_MODEL_LIMITS", message: "Ideal sources and passive RLC parts only; no ESR, parasitics, nonlinear devices, source rise time, impulsive-current detail, thermal model, or general SPICE." }],
     validation,
-    result: { kind: "linear-rlc-transient", outputNet, stopSeconds, timeStepSeconds, sampleCount: samples.length, integration: "trapezoidal companion model", initialConditions: { capacitorVoltageV: 0, inductorCurrentA: 0 }, maximumRelativeResidual: maximumResidual, modelIds: ["linear-rlc-trapezoidal-transient-v1"], samples }
+    result: { kind: "linear-rlc-transient", outputNet, stopSeconds, timeStepSeconds, sampleCount: samples.length, integration: "trapezoidal companion model", initialConditions: { capacitorVoltageVByReference: Object.fromEntries(capacitors.map(({ item }) => [item.reference, initialConditions.capacitorVoltages[item.reference] ?? 0])), inductorCurrentAByReference: Object.fromEntries(inductors.map(({ item }) => [item.reference, initialConditions.inductorCurrents[item.reference] ?? 0])) }, maximumRelativeResidual: maximumResidual, modelIds: ["linear-rlc-trapezoidal-transient-v1"], samples }
   };
 }
