@@ -41,6 +41,13 @@ Recorded expected result:
 
 ```json
 {
+  "switchPosition": "A",
+  "ledOn": true,
+  "sourceVoltage": 5,
+  "ledVf": 2,
+  "ledCurrentA": 0.00909090909090909,
+  "sourceCurrentA": 0.00909090909090909,
+  "powerBalanceW": 0,
   "positionA": {
     "switchPosition": "A",
     "ledOn": true,

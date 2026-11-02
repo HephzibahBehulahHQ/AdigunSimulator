@@ -65,6 +65,8 @@ Recorded expected result:
 
 ```json
 {
+  "phase": 0,
+  "lamps": [false, false, true, true, false, false],
   "phaseLampVectors": [
     [
       false,

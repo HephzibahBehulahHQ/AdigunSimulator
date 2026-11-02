@@ -8,3 +8,7 @@ The suite builds and validates blank and starter projects; imports all four nati
 
 ## Limits
 The 555 PCB export is illustrative, not fabrication approval. The BOT result is a local field-grounded explanation, not external AI verification. CI does not deploy the site or certify physical hardware.
+
+## Direct circuit analysis result
+
+The 5 V NE555 astable project estimates a 2.079 s period at 0.481 Hz and 66.7% duty under the bounded ideal timing model. The release-candidate E2E test adds integration checks but does not expand the model.

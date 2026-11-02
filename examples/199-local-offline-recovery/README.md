@@ -8,3 +8,7 @@ The test changes R1 from 330 Ω to 470 Ω without changing the source fixture. A
 
 ## Limits
 CI uses an in-memory storage mock. It does not simulate a real browser crash, filesystem failure, quota eviction, or guarantee that a user's browser permits local storage. Keep an exported project copy when recovery matters.
+
+## Direct circuit analysis result
+
+The base 5 V, 330 Ω, 2 V LED circuit has a bounded DC estimate of 9.09 mA and 27.27 mW resistor dissipation. The proposal, language sweep, or offline-recovery scenario is checked separately.

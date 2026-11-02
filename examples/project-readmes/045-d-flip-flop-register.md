@@ -45,6 +45,12 @@ Recorded expected result:
 
 ```json
 {
+  "clockHigh": false,
+  "risingEdge": false,
+  "q": null,
+  "qBar": null,
+  "mode": "low-level hold",
+  "ledCurrentA": 0,
   "initialClockLow": {
     "clockHigh": false,
     "risingEdge": false,

@@ -57,6 +57,8 @@ Recorded expected result:
 
 ```json
 {
+  "bits": [true, false, false, false],
+  "oneHot": true,
   "resetBits": [
     true,
     false,

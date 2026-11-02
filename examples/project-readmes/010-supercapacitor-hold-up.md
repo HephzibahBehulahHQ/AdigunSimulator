@@ -40,6 +40,19 @@ Recorded expected result:
 
 ```json
 {
+  "sourceVoltage": 5,
+  "diodeVf": 0.3,
+  "chargeVoltage": 4.7,
+  "capacitance": 1,
+  "initialVoltage": 4.7,
+  "minimumVoltage": 3,
+  "ratedVoltage": 5,
+  "loadResistance": 100,
+  "timeConstantS": 100,
+  "holdUpTimeS": 44.89502200479032,
+  "initialCurrentA": 0.047,
+  "initialLoadPowerW": 0.2209,
+  "initialStoredEnergyJ": 11.045000000000002,
   "oneFaradHundredOhm": {
     "sourceVoltage": 5,
     "diodeVf": 0.3,

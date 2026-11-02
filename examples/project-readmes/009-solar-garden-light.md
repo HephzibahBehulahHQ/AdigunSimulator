@@ -47,6 +47,26 @@ Recorded expected result:
 
 ```json
 {
+  "batteryVoltage": 3.7,
+  "illuminationPercent": 100,
+  "ldrResistance": 10000,
+  "gateVoltage": 0.33636363636363636,
+  "mosfetThresholdVoltage": 2,
+  "mosfetConducting": false,
+  "ledOn": false,
+  "ledCurrentA": 0,
+  "solarOpenCircuitVoltage": 6,
+  "solarShortCircuitCurrentA": 0.1,
+  "effectiveSolarVoc": 6,
+  "effectiveSolarIsc": 0.1,
+  "chargeHeadroomV": 2,
+  "chargeCurrentA": 0.03333333333333334,
+  "batteryCurrentIntoBatteryA": 0.03333333333333334,
+  "solarPowerAtDiodeInputW": 0.13333333333333336,
+  "diodePowerW": 0.010000000000000002,
+  "batteryChargePowerW": 0.12333333333333336,
+  "solarPowerBalanceW": 0,
+  "ledPowerBalanceW": 0,
   "daylight": {
     "illuminationPercent": 100,
     "ldrResistance": 10000,

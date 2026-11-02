@@ -57,6 +57,17 @@ Recorded expected result:
 
 ```json
 {
+  "kind": "priority-encoder",
+  "supplyVoltage": 5,
+  "logicThresholdV": 2.5,
+  "inputVoltages": [0, 0, 0, 0],
+  "inputs": [false, false, false, false],
+  "highestIndex": -1,
+  "valid": false,
+  "code": 0,
+  "codeBits": [false, false],
+  "outputBits": [false, false, false],
+  "outputCurrents": [0, 0, 0],
   "noActiveInput": {
     "valid": false,
     "code": 0

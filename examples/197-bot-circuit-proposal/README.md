@@ -8,3 +8,7 @@ For a nominal 2.0 V LED drop and a 10 mA target, the ideal minimum series resist
 
 ## Confirmation and limits
 Preview does not edit the open project. Accepting requires a separate confirmation; rejecting leaves it byte-for-byte unchanged. The generic LED model does not establish actual forward voltage or safe current. Check the exact LED datasheet, resistor power rating/derating, supply tolerance and circuit purpose before construction.
+
+## Direct circuit analysis result
+
+The base 5 V, 330 Ω, 2 V LED circuit has a bounded DC estimate of 9.09 mA and 27.27 mW resistor dissipation. The proposal, language sweep, or offline-recovery scenario is checked separately.

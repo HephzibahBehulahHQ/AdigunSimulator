@@ -10,3 +10,7 @@ This example solves the legacy empirical relationship `I = k × ΔT^0.44 × A^0.
 The equation is an educational legacy estimate, not an IPC-2152 chart analysis or a compliance decision. IPC's own design guidance describes current-carrying capacity as dependent on broader board construction and thermal conditions. Verify stackup, planes, vias, ambient, duty cycle, voltage drop, copper tolerances, fabrication rules, and safety requirements using the applicable standard and board-specific analysis.
 
 References: [IPC design process flow](https://www.electronics.org/media/10284/download) · [IPC standards revision table](https://www.ipc.org/ipc-document-revision-table)
+
+## Direct circuit analysis result
+
+The base 5 V, 330 Ω, 2 V LED circuit has a bounded DC estimate of 9.09 mA and 27.27 mW resistor dissipation. This calculator/advisor output is a separate analytical tool result.

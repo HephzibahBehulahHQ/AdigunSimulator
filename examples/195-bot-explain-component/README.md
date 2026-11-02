@@ -8,3 +8,7 @@ The fixture asks Adigun BOT to explain resistor R1. The result cites the project
 
 ## Limits and privacy
 This example runs locally and does not call an AI service or perform a web lookup. It does not infer ratings, compatibility, safety, manufacturer identity or datasheet facts that are absent from the recorded fields. Check the actual component marking and manufacturer documentation before relying on a physical part.
+
+## Direct circuit analysis result
+
+The base 5 V, 330 Ω, 2 V LED circuit has a bounded DC estimate of 9.09 mA and 27.27 mW resistor dissipation. This calculator/advisor output is a separate analytical tool result.

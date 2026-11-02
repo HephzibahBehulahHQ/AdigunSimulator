@@ -50,6 +50,13 @@ Recorded expected result:
 
 ```json
 {
+  "mode": "set",
+  "q": true,
+  "qBar": false,
+  "qVoltage": 5,
+  "qBarVoltage": 0,
+  "qLedCurrentA": 0.00909090909090909,
+  "qBarLedCurrentA": 0,
   "set": {
     "mode": "set",
     "q": true,

@@ -8,3 +8,7 @@ Yellow–violet–red–gold reads 4.7 kΩ ±5%. Brown–black–black–brown�
 
 ## Limits
 The reader is an educational lookup. Confirm the part marking, tolerance, and measured value before selecting a component for a circuit.
+
+## Direct circuit analysis result
+
+The base 5 V, 330 Ω, 2 V LED circuit has a bounded DC estimate of 9.09 mA and 27.27 mW resistor dissipation. This calculator/advisor output is a separate analytical tool result.

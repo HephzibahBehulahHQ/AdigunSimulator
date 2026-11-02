@@ -69,6 +69,8 @@ Recorded expected result:
 
 ```json
 {
+  "digit": 0,
+  "segmentsOn": [true, true, true, true, true, true, false],
   "digits0to9": [
     [
       1,

@@ -44,6 +44,24 @@ Recorded expected result:
 
 ```json
 {
+  "batteryVoltage": 9,
+  "upperResistance": 10000,
+  "lowerResistance": 10000,
+  "ledResistance": 1000,
+  "dividerCurrentA": 0.00045,
+  "senseVoltage": 4.5,
+  "tripVoltage": 3.75,
+  "tripBatteryVoltage": 7.5,
+  "lowBattery": false,
+  "comparatorOutputVoltage": 0,
+  "ledOn": false,
+  "ledCurrentA": 0,
+  "sourceCurrentA": 0.00045,
+  "dividerPowerW": 0.00405,
+  "ledResistorPowerW": 0,
+  "ledPowerW": 0,
+  "sourcePowerW": 0.00405,
+  "powerBalanceW": 0,
   "nominal9V": {
     "batteryVoltage": 9,
     "senseVoltage": 4.5,

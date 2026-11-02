@@ -9,5 +9,9 @@ Run the diagnostic to get a blocked DC result with error code `FLOATING_DC_NODE`
 ## Limits
 This is a focused educational DC check for the declared fixture. It does not provide general-purpose ERC, AC analysis, or SPICE.
 
+## Direct divider result
+
+The base 9 V, 1 kΩ/2 kΩ divider has 3 mA current and 6 V unloaded output in the bounded DC analyzer. The deliberately floating capacitor is handled separately by the floating-node diagnostic.
+
 ## Run and verify
 Select **Run**. Automated acceptance is in `tests/core.test.mjs` under “catalogue floating-node diagnosis identifies the object to inspect”.

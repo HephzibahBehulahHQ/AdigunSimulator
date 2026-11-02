@@ -42,6 +42,15 @@ Recorded expected result:
 
 ```json
 {
+  "sourceVoltage": 5,
+  "polarity": "positive",
+  "redLedOn": true,
+  "greenLedOn": false,
+  "redCurrentA": 0.00909090909090909,
+  "greenCurrentA": 0,
+  "sourceCurrentA": 0.00909090909090909,
+  "ledPowerW": 0.01818181818181818,
+  "sourcePowerW": 0.04545454545454545,
   "positive5V": {
     "polarity": "positive",
     "redLedOn": true,

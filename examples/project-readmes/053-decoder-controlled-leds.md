@@ -57,6 +57,14 @@ Recorded expected result:
 
 ```json
 {
+  "kind": "decoder-2to4",
+  "supplyVoltage": 5,
+  "logicThresholdV": 2.5,
+  "addressBits": [false, false],
+  "address": 0,
+  "outputsHigh": [true, false, false, false],
+  "outputCurrents": [0.00909090909090909, 0, 0, 0],
+  "oneHot": true,
   "addresses": [
     0,
     1,
