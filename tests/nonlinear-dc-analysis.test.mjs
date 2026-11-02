@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { runNonlinearDcOperatingPoint } from "../js/nonlinear-dc-analysis.mjs";
+import { handleSimulationWorkerMessage } from "../js/simulation-worker.mjs";
 
 async function shockleyProject({ value = "Is=2 nA; n=1.8", temperatureC = 25, reverse = false } = {}) {
   const project = JSON.parse(await readFile(new URL("../examples/001-led-current-limiter.adigun.json", import.meta.url), "utf8"));
@@ -23,6 +24,15 @@ test("bounded Shockley MNA solves a resistor-fed generic silicon diode and balan
   assert.ok(result.result.maximumRelativeResidual <= 1e-8);
   assert.ok(Math.abs(result.result.powerBalanceW) < 1e-7);
   assert.match(result.warnings[0].message, /no .*general SPICE/i);
+});
+
+test("simulation worker dispatches nonlinear DC mode and returns its solved operating point", async () => {
+  const project = await shockleyProject();
+  const response = handleSimulationWorkerMessage({ type: "run", requestId: 42, project });
+  assert.equal(response.type, "result");
+  assert.equal(response.requestId, 42);
+  assert.equal(response.result.state, "complete", response.result.message);
+  assert.equal(response.result.result.kind, "nonlinear-dc-operating-point");
 });
 
 test("reverse-biased generic diode reports leakage with the correct current direction", async () => {
