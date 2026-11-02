@@ -70,6 +70,7 @@ import { applyBotCircuitProposal, runBotCircuitProposal } from "./js/bot-circuit
 
 import { runReleaseCandidateE2E } from "./js/release-candidate-e2e.mjs";
 import { createSimulationWorkerRun } from "./js/simulation-worker-client.mjs";
+import { getManufacturerPartEvidenceSummary, searchManufacturerParts } from "./js/part-catalogue.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -85,6 +86,8 @@ const state = {
   userInteracted: false,
   recoveryActive: initialProject.recovered,
   selectedLibraryId: null,
+  selectedEvidencePartId: null,
+  libraryMode: "starter",
   activeCategory: "All",
   selectedInstanceId: "resistor-1",
   activeView: "breadboard",
@@ -176,6 +179,35 @@ function selectedComponent() {
 
 function renderLibrary() {
   const query = $("#component-search").value.trim().toLowerCase();
+  const evidenceMode = state.libraryMode === "evidence";
+  $("#category-filters").classList.toggle("hidden", evidenceMode);
+  $("#library-status").textContent = evidenceMode ? t("evidenceLibraryNotice") : t("libraryNotice");
+  $("#component-search").placeholder = evidenceMode ? t("searchManufacturerParts") : t("searchLibrary");
+  if (evidenceMode) {
+    const matching = searchManufacturerParts(query);
+    $("#component-list").setAttribute("aria-label", t("manufacturerEvidenceMode"));
+    $("#component-list").innerHTML = matching.map((record) => `
+      <li><button type="button" class="component-item evidence-item ${record.id === state.selectedEvidencePartId ? "selected" : ""}" data-evidence-part-id="${escape(record.id)}">
+        <span class="evidence-status evidence-status-${escape(record.verificationStatus)}">${escape(t(record.verificationStatus === "verified" ? "verifiedStatus" : "candidateStatus"))}</span>
+        <span><strong>${escape(record.manufacturerPartNumber)}</strong><small>${escape(record.manufacturer)} · ${escape(record.package ?? record.packageEvidence?.package ?? t("packageUnknown"))}</small></span>
+      </button></li>`).join("") || `<li class="empty-list">${escape(t("noManufacturerMatches"))}</li>`;
+    const record = matching.find((item) => item.id === state.selectedEvidencePartId) ?? matching[0] ?? null;
+    state.selectedEvidencePartId = record?.id ?? null;
+    const summary = record ? getManufacturerPartEvidenceSummary(record) : null;
+    $("#selected-part-type").textContent = record ? `${record.manufacturer} · ${record.category}` : t("selectComponent");
+    $("#selected-part-name").textContent = record?.manufacturerPartNumber ?? t("noPartSelected");
+    if (record && summary) {
+      const link = record.datasheet?.url ? `<a href="${escape(record.datasheet.url)}" target="_blank" rel="noopener noreferrer">${escape(t("openDatasheet"))}</a>` : "";
+      const blockers = summary.evidenceBlockerCodes.length ? summary.evidenceBlockerCodes.join(", ") : t("none");
+      $("#selected-part-detail").innerHTML = `<span>${escape(t("packageLabel"))}: ${escape(record.package ?? record.packageEvidence?.package ?? t("packageUnknown"))}</span><span>${escape(t("lifecycleLabel"))}: ${escape(record.lifecycle ?? t("unknown"))}</span><span>${escape(t("simulationLabel"))}: ${escape(summary.simulationStatus)}</span><span>${escape(t("reviewBlockersLabel"))}: ${escape(blockers)}</span>${summary.requiresHumanReview ? `<span>${escape(t("humanReviewRequired"))}</span>` : ""}${link}<strong>${escape(record.verificationStatus === "verified" ? t("verifiedStatus") : t("candidateStatus"))}</strong>`;
+    } else {
+      $("#selected-part-detail").textContent = t("noManufacturerMatches");
+    }
+    $("#add-component").hidden = true;
+    return;
+  }
+  $("#component-list").setAttribute("aria-label", t("starterLibraryMode"));
+  $("#add-component").hidden = false;
   const matching = STARTER_LIBRARY.filter((part) => (state.activeCategory === "All" || part.category === state.activeCategory) && `${part.type} ${part.id} ${part.category}`.toLowerCase().includes(query));
   $("#component-list").innerHTML = matching.map((part) => `
     <li><button type="button" class="component-item ${part.id === state.selectedLibraryId ? "selected" : ""}" data-library-id="${escape(part.id)}">
@@ -872,13 +904,13 @@ function applyLocale() {
 }
 
 function render() {
+  applyLocale();
   renderLibrary();
   renderCanvas();
   renderInspector();
   renderValidation();
   $("#bot-repair-apply").hidden = !state.project.botRepairPreview;
   $("#bot-proposal-apply").hidden = !state.project.botCircuitProposal;
-  applyLocale();
   if (state.dirty && state.recoveryActive && !writeRecoveryDraft(localStorage, RECOVERY_KEY, state.project)) {
     log("[RECOVERY] The browser could not store a local recovery draft. Export important work before closing this tab.");
   }
@@ -1268,6 +1300,23 @@ function handlePcbRouteCanvasClick(event) {
 document.addEventListener("click", (event) => {
   state.userInteracted = true;
   if (handlePcbRouteCanvasClick(event)) return;
+  const libraryModeButton = event.target.closest("[data-library-mode]");
+  if (libraryModeButton) {
+    state.libraryMode = libraryModeButton.dataset.libraryMode;
+    $$("[data-library-mode]").forEach((button) => {
+      const active = button === libraryModeButton;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+    renderLibrary();
+    return;
+  }
+  const evidencePartButton = event.target.closest("[data-evidence-part-id]");
+  if (evidencePartButton) {
+    state.selectedEvidencePartId = evidencePartButton.dataset.evidencePartId;
+    renderLibrary();
+    return;
+  }
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (action) handleAction(action);
   const schematicPinTarget = event.target.closest("[data-schematic-endpoint]");

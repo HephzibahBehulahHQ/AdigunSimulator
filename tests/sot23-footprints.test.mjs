@@ -10,7 +10,7 @@ test("BSS138BK candidate footprint matches the sourced SOT23 pin and reflow geom
   const assetUrl = new URL(`../${record.footprintEvidence.assetPath}`, import.meta.url);
   const bytes = await readFile(assetUrl);
   const footprint = JSON.parse(bytes.toString("utf8"));
-  assert.equal(createHash("sha256").update(bytes).digest("hex"), record.footprintAsset.sha256);
+  assert.equal(createHash("sha256").update(bytes.toString("utf8").replace(/\r\n/g, "\n")).digest("hex"), record.footprintAsset.sha256);
   assert.equal(footprint.kind, "manufacturer-reflow-footprint-candidate");
   assert.equal(footprint.packageOutline.sourceUrl, record.datasheet.url);
   assert.deepEqual(footprint.pads.map(({ number }) => number), [1, 2, 3]);

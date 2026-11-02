@@ -286,6 +286,10 @@
     <main id="workspace" class="workspace">
       <aside class="library-panel panel" aria-label="Components library">
         <div class="panel-heading"><h2 data-i18n="components">Components</h2><button class="panel-close" type="button" aria-label="Collapse component library" data-i18n-aria="collapseLibrary" data-collapse="library-panel">×</button></div>
+        <div class="library-mode-tabs" role="group" aria-label="Component catalogue" data-i18n-aria="componentCatalogueLabel">
+          <button class="library-mode active" type="button" aria-pressed="true" data-library-mode="starter" data-i18n="starterLibraryMode">Starter parts</button>
+          <button class="library-mode" type="button" aria-pressed="false" data-library-mode="evidence" data-i18n="manufacturerEvidenceMode">Manufacturer evidence</button>
+        </div>
         <label class="search-box"><span aria-hidden="true">⌕</span><input id="component-search" type="search" placeholder="Search starter library…" data-i18n-placeholder="searchLibrary" /></label>
         <div id="library-status" class="library-note" data-i18n="libraryNotice">Starter generic library — not the verified 1,000-part catalogue.</div>
         <div id="category-filters" class="category-filters" role="group" aria-label="Component categories" data-i18n-aria="componentCategories">
