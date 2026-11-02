@@ -8,3 +8,7 @@ Both parts have eight pins, but their pin names and functions do not match. All 
 
 ## Limits
 Pin count alone does not establish electrical, package, or footprint compatibility. This is a safe compatibility-preview example and does not authorize a real-world substitution.
+
+## Direct circuit analysis result
+
+The 5 V NE555 astable project estimates a 2.079 s period at 0.481 Hz and 66.7% duty under the bounded ideal timing model. The pin-incompatible substitution preview is separate from that circuit calculation.
