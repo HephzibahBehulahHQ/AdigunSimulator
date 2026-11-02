@@ -46,6 +46,7 @@ test("generic diode and Ebers–Moll NPN DC operating point is selectable, bound
   assert.match(app, /nonlinearKclAndConstraintResidual/);
   assert.match(app, /nonlinearLinearResidual/);
   assert.match(app, /result\.transistors\.map/);
+  assert.match(app, /const diodeTable = diodeRows \?/);
   assert.match(app, /nonlinear-dc-controls/);
   assert.match(dispatcher, /runNonlinearDcOperatingPoint/);
   for (const key of ["analysisNonlinearDc", "nonlinearJunctionTemperature", "nonlinearDcModelHelp", "nonlinearIterations", "nonlinearNodeVoltages", "nonlinearDiodeResults", "nonlinearTransistorResults", "nonlinearBaseCurrent"]) assert.match(locales, new RegExp(`${key}:`));
