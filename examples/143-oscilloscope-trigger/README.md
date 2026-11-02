@@ -12,6 +12,10 @@ Open the example and select Run. The output dashboard displays trigger settings 
 
 Tests check rising and falling edge times, threshold lock, 101 trace samples, and rejection of a threshold outside the signal range.
 
+## Direct PWM LED analysis result
+
+The native 5 V PWM circuit runs through the bounded average-current analyzer at 1 kHz and 50% duty. It estimates 9.09 mA during the on interval, 4.55 mA average LED current, and 13.64 mW average resistor dissipation under the ideal switch model. The instrument capture or measurement is a separate modeled result.
+
 ## Limits
 
 This is an ideal rectangular pulse model. It does not model probe loading, analog bandwidth, edge slew, noise, aliasing, scope input limits or calibration.
