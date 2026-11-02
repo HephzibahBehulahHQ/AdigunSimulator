@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { createProject, runSupportedAnalysis } from "../js/core.mjs";
 import { handleSimulationWorkerMessage } from "../js/simulation-worker.mjs";
-import { createSimulationWorkerRun } from "../js/simulation-worker-client.mjs";
+import { createSimulationWorkerRun, MAX_SIMULATION_PROJECT_BYTES } from "../js/simulation-worker-client.mjs";
 
 class FakeWorker {
   static autoReply = true;
@@ -92,4 +92,20 @@ test("worker client applies its configured timeout and reports unavailable worke
   assert.equal(unavailable.state, "unavailable");
   assert.match(unavailable.message, /not support module workers/);
   FakeWorker.autoReply = true;
+});
+
+test("worker client bounds serialized project size before creating a worker", async () => {
+  const workerCount = FakeWorker.instances.length;
+  const project = { oversized: "x".repeat(MAX_SIMULATION_PROJECT_BYTES) };
+  const result = await createSimulationWorkerRun(project, { WorkerClass: FakeWorker }).promise;
+  assert.equal(result.state, "blocked");
+  assert.match(result.message, /worker input limit/);
+  assert.equal(FakeWorker.instances.length, workerCount);
+
+  const circular = {};
+  circular.self = circular;
+  const serialization = await createSimulationWorkerRun(circular, { WorkerClass: FakeWorker }).promise;
+  assert.equal(serialization.state, "blocked");
+  assert.match(serialization.message, /not serializable/);
+  assert.equal(FakeWorker.instances.length, workerCount);
 });
