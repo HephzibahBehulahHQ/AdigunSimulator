@@ -56,11 +56,37 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "LM358 product and datasheet page",
-        "url": "https://www.st.com/en/amplifiers-and-comparators/lm358.html",
-        "accessedAt": "2026-10-30"
+        "title": "Low-power dual operational amplifiers datasheet (DocID2163 Rev. 15)",
+        "url": "https://www.st.com/resource/en/datasheet/lm358.pdf",
+        "accessedAt": "2026-11-02"
       },
-      "notes": "Authoritative candidate source recorded. It is not counted as verified until package/pin/footprint/model evidence is complete.",
+      "manufacturerSources": [
+        { "url": "https://www.st.com/en/amplifiers-and-comparators/lm358.html", "kind": "manufacturer-product-page" },
+        { "url": "https://www.st.com/resource/en/datasheet/lm358.pdf", "kind": "manufacturer-datasheet" }
+      ],
+      "packageEvidence": {
+        "package": "SO-8",
+        "pinCount": 8,
+        "sourceUrl": "https://www.st.com/en/amplifiers-and-comparators/lm358.html"
+      },
+      "symbolPinMap": {
+        "1": "OUT1", "2": "IN1-", "3": "IN1+", "4": "VCC-",
+        "5": "IN2+", "6": "IN2-", "7": "OUT2", "8": "VCC+"
+      },
+      "pinElectricalTypes": {
+        "1": "analog", "2": "analog", "3": "analog", "4": "power-in",
+        "5": "analog", "6": "analog", "7": "analog", "8": "power-in"
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "ST lists a PSpice model, but no ST model has been retrieved, licensed for this use, imported, or validated in this simulator; this part is currently unmodelled here."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.st.com/en/amplifiers-and-comparators/lm358.html",
+        "checkedAt": "2026-11-02"
+      },
+      "evidenceNote": "library/evidence/st.lm358dt.md",
+      "notes": "ST lists exact orderable LM358DT as active in SO-8. The datasheet pin-number/function map is recorded. Datasheet checksum, licensed symbol/footprint assets, physical pad map, validated model, complete metadata, and human review remain incomplete. Not counted as verified.",
       "typeCode": "E01"
     },
     {
