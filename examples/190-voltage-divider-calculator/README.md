@@ -8,3 +8,7 @@ For 12 V with two 10 kΩ resistors, unloaded output is 6 V. A 100 kΩ load gives
 
 ## Limits
 This ideal DC calculator does not include source impedance, resistor tolerance, temperature, resistor power, or real downstream input characteristics.
+
+## Direct circuit analysis result
+
+The base 5 V, 330 Ω, 2 V LED circuit has a bounded DC estimate of 9.09 mA and 27.27 mW resistor dissipation. This calculator/advisor output is a separate analytical tool result.
