@@ -17,5 +17,9 @@ Using I = (5 V − 2 V) / R:
 
 All three trials should complete, and current should decrease as resistance increases.
 
+## Direct circuit result
+
+The base native circuit produces an ideal estimated LED current of 9.09 mA from 5 V through 330 Ω with a 2 V LED drop. The parameter sweep evaluates its configured range separately.
+
 ## Run and verify
 Open the example, choose **Run**, and inspect the parameter-sweep result chart and per-value readings. Automated acceptance is in `tests/core.test.mjs` under “catalogue parameter sweep analyzes three resistor values and reports the expected current trend”.
