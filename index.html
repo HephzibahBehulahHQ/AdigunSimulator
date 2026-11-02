@@ -390,11 +390,13 @@
             <label><span data-i18n="digitalStopTime">Stop time (ns)</span><input id="digital-stop-ns" type="number" min="0" max="1000000000" step="1" value="1000" /></label>
             <label><span data-i18n="digitalInputEvents">Input events (JSON)</span><textarea id="digital-events-json" rows="5" spellcheck="false" aria-describedby="digital-events-help">[]</textarea></label>
             <p id="digital-events-help" class="limit-note" data-i18n="digitalInputEventsHelp">Example: [{"timeNs":100,"sourceReference":"VA","high":true}]</p>
+            <label><span data-i18n="digitalInitialStates">Initial D flip-flop states (JSON)</span><textarea id="digital-initial-states" rows="3" spellcheck="false">{}</textarea></label>
+            <p class="limit-note" data-i18n="digitalInitialStatesHelp">Provide one Boolean state per D flip-flop, e.g. {"U1":false}.</p>
             <label><span data-i18n="digitalProbeNets">Probe nets</span><select id="digital-probe-nets" multiple size="4"></select></label>
           </div>
           <button id="run-simulation" class="run-button" type="button">▶ <span data-i18n="runCalculation">Run calculation</span></button>
           <button id="stop-simulation" class="secondary-button" type="button" data-action="stop-simulation" disabled>■ <span data-i18n="stopSimulation">Stop</span></button>
-          <p class="limit-note" data-i18n="simulationLimit">Only labeled bounded models are available; digital gate events use zero delay. Sequential-event, mixed-signal and general SPICE engines are unavailable.</p>
+          <p class="limit-note" data-i18n="simulationLimit">Digital gates and D flip-flops use zero delay; asynchronous controls, mixed-signal and general SPICE are unavailable.</p>
         </section>
         <section class="simulation-control">
           <h3 data-i18n="validation">Validation</h3>

@@ -30,6 +30,36 @@ function makeAndCircuit(libraryId = "active.logic-and-ideal") {
   return { ...project, digitalEventSimulation: { stopTimeNs: 500, events: [], probeNets: probes } };
 }
 
+function makeDFlipFlopCircuit() {
+  let project = createEmptyProject({ name: "Sequential digital event verification" });
+  for (const part of ["power.dc-source", "power.dc-source", "power.dc-source", "active.logic-dff-ideal", "ground.signal", "instrument.logic-probe", "instrument.logic-probe", "instrument.logic-probe", "instrument.logic-probe"]) project = addComponent(project, part);
+  project = {
+    ...project,
+    components: project.components.map((part, index) => ({ ...part, reference: ["VCC", "D", "CLK", "U1", "GND", "PD", "PC", "PQ", "PQB"][index], value: index === 0 ? "5 V" : "0 V" }))
+  };
+  const pin = (reference, name) => `${project.components.find((part) => part.reference === reference).instanceId}:${name}`;
+  for (const [first, second] of [
+    [pin("VCC", "+"), pin("U1", "VCC")],
+    [pin("VCC", "+"), pin("U1", "PRE")],
+    [pin("VCC", "+"), pin("U1", "CLR")],
+    [pin("VCC", "-"), pin("D", "-")],
+    [pin("VCC", "-"), pin("CLK", "-")],
+    [pin("VCC", "-"), pin("U1", "GND")],
+    [pin("VCC", "-"), pin("GND", "0")],
+    [pin("D", "+"), pin("U1", "D")],
+    [pin("CLK", "+"), pin("U1", "CLK")],
+    [pin("D", "+"), pin("PD", "IN")],
+    [pin("CLK", "+"), pin("PC", "IN")],
+    [pin("U1", "Q"), pin("PQ", "IN")],
+    [pin("U1", "QBAR"), pin("PQB", "IN")]
+  ]) project = connectPins(project, first, second);
+  const probeNets = ["D:+", "CLK:+", "U1:Q", "U1:QBAR"].map((endpoint) => {
+    const [reference, terminal] = endpoint.split(":");
+    return project.nets.find((net) => net.endpoints.includes(pin(reference, terminal))).id;
+  });
+  return { ...project, digitalEventSimulation: { stopTimeNs: 400, events: [], probeNets, initialStates: { U1: false } } };
+}
+
 test("digital event engine evaluates full truth tables for AND, OR, XOR and NOR gates", () => {
   const operations = [
     ["active.logic-and-ideal", (a, b) => a && b],
@@ -65,6 +95,50 @@ test("digital event queue sorts inputs and records only settled probe transition
   assert.deepEqual(result.result.trace[netA], [{ timeNs: 0, high: false }, { timeNs: 100, high: true }, { timeNs: 300, high: false }]);
   assert.deepEqual(result.result.trace[netB], [{ timeNs: 0, high: false }, { timeNs: 200, high: true }]);
   assert.deepEqual(result.result.trace[netY], [{ timeNs: 0, high: false }, { timeNs: 200, high: true }, { timeNs: 300, high: false }]);
+});
+
+test("positive-edge D flip-flop samples D, retains state between edges, and exposes Q-bar", () => {
+  const project = makeDFlipFlopCircuit();
+  project.digitalEventSimulation.events = [
+    { timeNs: 100, sourceReference: "D", high: true },
+    { timeNs: 200, sourceReference: "CLK", high: true },
+    { timeNs: 250, sourceReference: "D", high: false },
+    { timeNs: 300, sourceReference: "CLK", high: false },
+    { timeNs: 350, sourceReference: "CLK", high: true }
+  ];
+  const [dataNet, clockNet, qNet, qBarNet] = project.digitalEventSimulation.probeNets;
+  const result = runProjectAnalysis(project);
+  assert.equal(result.state, "complete", result.message);
+  assert.deepEqual(result.result.trace[dataNet], [{ timeNs: 0, high: false }, { timeNs: 100, high: true }, { timeNs: 250, high: false }]);
+  assert.deepEqual(result.result.trace[clockNet], [{ timeNs: 0, high: false }, { timeNs: 200, high: true }, { timeNs: 300, high: false }, { timeNs: 350, high: true }]);
+  assert.deepEqual(result.result.trace[qNet], [{ timeNs: 0, high: false }, { timeNs: 200, high: true }, { timeNs: 350, high: false }]);
+  assert.deepEqual(result.result.trace[qBarNet], [{ timeNs: 0, high: true }, { timeNs: 200, high: false }, { timeNs: 350, high: true }]);
+  assert.ok(result.modelIds.includes("ideal-positive-edge-d-flip-flop-v1"));
+});
+
+test("supplemental native D flip-flop example matches its explicit initial-state timeline", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/supplemental-d-flip-flop-events.adigun.json", import.meta.url), "utf8"));
+  const result = runProjectAnalysis(project);
+  assert.equal(result.state, "complete", result.message);
+  assert.deepEqual(project.digitalEventSimulation.probeNets.map((net) => result.result.trace[net]), [
+    [{ timeNs: 0, high: false }, { timeNs: 100, high: true }, { timeNs: 250, high: false }],
+    [{ timeNs: 0, high: false }, { timeNs: 200, high: true }, { timeNs: 300, high: false }, { timeNs: 350, high: true }],
+    [{ timeNs: 0, high: false }, { timeNs: 200, high: true }, { timeNs: 350, high: false }],
+    [{ timeNs: 0, high: true }, { timeNs: 200, high: false }, { timeNs: 350, high: true }]
+  ]);
+});
+
+test("D flip-flops require explicit initial state and inactive-high asynchronous control pins", () => {
+  const missingInitial = makeDFlipFlopCircuit();
+  delete missingInitial.digitalEventSimulation.initialStates;
+  assert.equal(runProjectAnalysis(missingInitial).state, "blocked");
+
+  const activeClear = makeDFlipFlopCircuit();
+  activeClear.digitalEventSimulation.events = [{ timeNs: 10, sourceReference: "D", high: true }];
+  activeClear.nets = activeClear.nets.map((net) => net.id === "VCC" ? { ...net, endpoints: net.endpoints.filter((endpoint) => endpoint !== `${activeClear.components.find((part) => part.reference === "U1").instanceId}:CLR`) } : net);
+  activeClear.nets.push({ id: "CLR_N", endpoints: [`${activeClear.components.find((part) => part.reference === "U1").instanceId}:CLR`, `${activeClear.components.find((part) => part.reference === "D").instanceId}:+`] });
+  activeClear.digitalEventSimulation.events.push({ timeNs: 20, sourceReference: "D", high: false });
+  assert.notEqual(runProjectAnalysis(activeClear).state, "complete");
 });
 
 test("digital engine refuses ambiguous voltages, duplicate simultaneous inputs, missing probes, and unsupported models", () => {

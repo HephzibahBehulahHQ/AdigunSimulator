@@ -38,8 +38,10 @@ test("simulation controls expose bounded digital event simulation and native-net
   assert.match(html, /value="digital-events" data-i18n="analysisDigitalEvents"/);
   assert.match(html, /id="digital-stop-ns"/);
   assert.match(html, /id="digital-events-json"/);
+  assert.match(html, /id="digital-initial-states"/);
   assert.match(html, /id="digital-probe-nets" multiple/);
   assert.match(app, /digitalEventSimulation: \{ stopTimeNs:/);
+  assert.match(app, /initialStates = JSON\.parse\(\$\("#digital-initial-states"\)\.value\)/);
   assert.match(app, /createSimulationWorkerRun\(projectForAnalysis\)/);
   assert.match(app, /result\.kind === "digital-event-simulation"/);
   assert.match(app, /captureHistory\(\);\s*state\.project = \{ \.\.\.projectForAnalysis, metadata:/);

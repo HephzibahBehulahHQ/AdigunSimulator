@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "id": "catalogue-045-d-flip-flop-register",
+  "metadata": {
+    "name": "Positive-edge D flip-flop event simulation",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-11-02T21:10:11.393Z"
+  },
+  "components": [
+    {
+      "instanceId": "supply",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          40,
+          55
+        ],
+        "schematic": [
+          40,
+          55
+        ],
+        "pcb": [
+          40,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "data-input",
+      "libraryId": "power.dc-source",
+      "reference": "D",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          55
+        ],
+        "schematic": [
+          155,
+          55
+        ],
+        "pcb": [
+          155,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "clock-input",
+      "libraryId": "power.dc-source",
+      "reference": "CLK",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          270,
+          55
+        ],
+        "schematic": [
+          270,
+          55
+        ],
+        "pcb": [
+          270,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "dff",
+      "libraryId": "active.logic-dff-ideal",
+      "reference": "U1",
+      "value": "Ideal positive-edge D flip-flop",
+      "position": {
+        "breadboard": [
+          385,
+          55
+        ],
+        "schematic": [
+          385,
+          55
+        ],
+        "pcb": [
+          385,
+          55
+        ]
+      }
+    },
+    {
+      "instanceId": "ground",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          155,
+          130
+        ],
+        "schematic": [
+          155,
+          130
+        ],
+        "pcb": [
+          155,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "13497a58-9d72-434c-a76d-be2c0e484ec2",
+      "libraryId": "instrument.logic-probe",
+      "reference": "LP1",
+      "value": "Logic threshold from connected gate supply",
+      "position": {
+        "breadboard": [
+          120,
+          60
+        ],
+        "schematic": [
+          120,
+          60
+        ],
+        "pcb": [
+          120,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "07463aaa-39e7-4c59-a20f-4eee3b74c421",
+      "libraryId": "instrument.logic-probe",
+      "reference": "LP2",
+      "value": "Logic threshold from connected gate supply",
+      "position": {
+        "breadboard": [
+          192,
+          60
+        ],
+        "schematic": [
+          192,
+          60
+        ],
+        "pcb": [
+          192,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "44c4b5a0-d92d-4670-89bc-cb50cf0f6a69",
+      "libraryId": "instrument.logic-probe",
+      "reference": "LP3",
+      "value": "Logic threshold from connected gate supply",
+      "position": {
+        "breadboard": [
+          336,
+          60
+        ],
+        "schematic": [
+          336,
+          60
+        ],
+        "pcb": [
+          336,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "3c742b6a-bfb1-4703-ad0e-8a850b72c618",
+      "libraryId": "instrument.logic-probe",
+      "reference": "LP4",
+      "value": "Logic threshold from connected gate supply",
+      "position": {
+        "breadboard": [
+          480,
+          60
+        ],
+        "schematic": [
+          480,
+          60
+        ],
+        "pcb": [
+          480,
+          60
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "supply:+",
+        "dff:VCC",
+        "dff:PRE",
+        "dff:CLR"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "supply:-",
+        "data-input:-",
+        "clock-input:-",
+        "dff:GND",
+        "ground:0"
+      ]
+    },
+    {
+      "id": "DATA",
+      "endpoints": [
+        "data-input:+",
+        "dff:D",
+        "13497a58-9d72-434c-a76d-be2c0e484ec2:IN"
+      ]
+    },
+    {
+      "id": "CLOCK",
+      "endpoints": [
+        "clock-input:+",
+        "dff:CLK",
+        "07463aaa-39e7-4c59-a20f-4eee3b74c421:IN"
+      ]
+    },
+    {
+      "id": "N1",
+      "endpoints": [
+        "dff:Q",
+        "44c4b5a0-d92d-4670-89bc-cb50cf0f6a69:IN"
+      ]
+    },
+    {
+      "id": "N2",
+      "endpoints": [
+        "dff:QBAR",
+        "3c742b6a-bfb1-4703-ad0e-8a850b72c618:IN"
+      ]
+    }
+  ],
+  "history": [],
+  "digitalEventSimulation": {
+    "stopTimeNs": 400,
+    "events": [
+      {
+        "timeNs": 100,
+        "sourceReference": "D",
+        "high": true
+      },
+      {
+        "timeNs": 200,
+        "sourceReference": "CLK",
+        "high": true
+      },
+      {
+        "timeNs": 250,
+        "sourceReference": "D",
+        "high": false
+      },
+      {
+        "timeNs": 300,
+        "sourceReference": "CLK",
+        "high": false
+      },
+      {
+        "timeNs": 350,
+        "sourceReference": "CLK",
+        "high": true
+      }
+    ],
+    "initialStates": {
+      "U1": false
+    },
+    "probeNets": [
+      "DATA",
+      "CLOCK",
+      "N1",
+      "N2"
+    ]
+  }
+}

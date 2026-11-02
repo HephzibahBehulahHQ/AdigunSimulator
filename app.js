@@ -551,9 +551,10 @@ function renderConnections() {
   const configuredProbes = new Set(state.project.digitalEventSimulation?.probeNets ?? []);
   probeSelect.innerHTML = state.project.nets.map((net) => `<option value="${escape(net.id)}">${escape(net.id)}</option>`).join("");
   [...probeSelect.options].forEach((option) => { option.selected = priorProbes.has(option.value) || (!priorProbes.size && configuredProbes.has(option.value)); });
-  if (document.activeElement !== $("#digital-events-json")) {
+  if (!["digital-events-json", "digital-initial-states"].includes(document.activeElement?.id)) {
     $("#digital-stop-ns").value = String(state.project.digitalEventSimulation?.stopTimeNs ?? 1000);
     $("#digital-events-json").value = JSON.stringify(state.project.digitalEventSimulation?.events ?? [], null, 2);
+    $("#digital-initial-states").value = JSON.stringify(state.project.digitalEventSimulation?.initialStates ?? {}, null, 2);
   }
   $("#net-list").innerHTML = state.project.nets.map((net) => `
     <li><button type="button" class="net-select ${net.id === state.selectedNetId ? "active" : ""}" data-net-id="${escape(net.id)}" aria-pressed="${net.id === state.selectedNetId}">${escape(net.id)}</button><ul>${net.endpoints.map((item) => `<li>${escape(item)} <button type="button" class="disconnect-pin" data-endpoint="${escape(item)}" aria-label="${escape(t("disconnect"))} ${escape(item)}">Ã—</button></li>`).join("")}</ul></li>`).join("") || `<li>${escape(t("noConnectedNets"))}</li>`;
@@ -580,7 +581,7 @@ function renderResultDashboard(analysis) {
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearAcSweep"))}</figcaption><table class="result-table linear-ac-table"><thead><tr><th>${escape(t("acFrequencyHz"))}</th><th>${escape(t("acMagnitude"))}</th><th>${escape(t("acPhase"))}</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
   } else if (result.kind === "digital-event-simulation") {
     const rows = Object.entries(result.trace).flatMap(([net, points]) => points.map((point) => ({ net, ...point }))).sort((a, b) => a.timeNs - b.timeNs || a.net.localeCompare(b.net));
-    metrics.push([t("digitalStopTime"), `${result.stopTimeNs} ns`], [t("digitalInputEvents"), String(result.processedEvents)], [t("digitalProbeNets"), result.probeNets.join(", ")]);
+    metrics.push([t("digitalStopTime"), `${result.stopTimeNs} ns`], [t("digitalEventCount"), String(result.processedEvents)], [t("digitalProbeNets"), result.probeNets.join(", ")]);
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisDigitalEvents"))}</figcaption><table class="result-table"><thead><tr><th>${escape(t("digitalEventTimeNs"))}</th><th>${escape(t("digitalProbeNets"))}</th><th>${escape(t("digitalEventLevel"))}</th></tr></thead><tbody>${rows.map((row) => `<tr><td>${row.timeNs}</td><td>${escape(row.net)}</td><td>${row.high ? "1 Â· HIGH" : "0 Â· LOW"}</td></tr>`).join("")}</tbody></table><p>${escape(analysis.message)}</p></figure>`;
   } else if (result.kind === "release-candidate-e2e") {
     metrics.push(["Fixtures",String(result.fixtureCount)],["PCB DRC",result.pcbDrc],["BOT project edit",result.botMutation?"Changed":"Read-only"],["Passed gates",String(Object.values(result.checks).filter(Boolean).length)]);
@@ -785,1048 +786,1295 @@ function renderResultDashboard(analysis) {
   } else if (result.kind === "nfc-uid-display") {
     metrics.push(["Read status", result.readStatus], ["Tag UID", result.uid], ["Authentication", "UID is not authentication"]);
   } else if (result.kind === "epaper-refresh") {
-    metrics.push(["Refresh mode", result.refreshMode], ["Frame changes", result.changedTiles + " / " + result.totalTiles], ["Changed fraction", (result.changeFraction * 100).toFixed(1) + " %"], ["Panel power", result.panelPower], ["Woke from sleep", result.wakeOccurred ? "Yes" : "No"], ["Estimated duration", result.estimatedDurationMs + " ms"], ["Refresh complete", result.refreshCompleted ? "Yes" : "No"], ["Partial count after", String(result.partialsSinceFullAfter)], ["State sequence", result.stateSequence.join(" â†’ ")]);
-  } else if (result.kind === "solar-mpp-sweep") {
-    metrics.push(["Open-circuit voltage",result.openCircuitVoltageV.toFixed(2)+" V"],["Short-circuit current",(result.shortCircuitCurrentA*1000).toFixed(1)+" mA"],["Configured MPP",result.configuredMppVoltageV.toFixed(2)+" V Â· "+(result.configuredMppCurrentA*1000).toFixed(1)+" mA"],["Best sampled point",result.maximumPowerPoint.voltageV.toFixed(2)+" V Â· "+(result.maximumPowerPoint.currentA*1000).toFixed(1)+" mA"],["Sampled power",result.maximumPowerPoint.powerW.toFixed(3)+" W"],["Converter output estimate",result.conversionOutputPowerW.toFixed(3)+" W"],["Sweep points",String(result.sampleCount)],["Model boundary","Static curve sweep; no tracking algorithm or hardware modeled"]);
-  } else if (result.kind === "usb-c-pd-sink") {
-    metrics.push(["Negotiation state",result.negotiationState],["Selected VBUS",result.selectedVoltageV.toFixed(2)+" V"],["Load current",(result.loadCurrentA*1000).toFixed(1)+" mA"],["Load power",result.loadPowerW.toFixed(2)+" W"],["Available profiles",result.availableProfilesV.map(v=>v+" V").join(", ")],["Decision",result.reason],["Model boundary","Fixed-profile policy estimate; no USB-PD signaling or compliance test"]);
-  } else if (result.kind === "usb-c-pd-source") {
-    metrics.push(["Source state",result.sourceState],["Negotiation state",result.negotiationState],["Selected PDO",result.selectedVoltageV+" V Â· "+result.selectedCurrentLimitA+" A"],["Advertised PDOs",result.advertisedProfiles.map(p=>p.voltageV+" V / "+p.currentLimitA+" A").join(", ")],["Output voltage",result.outputVoltageV.toFixed(2)+" V"],["Load current",(result.loadCurrentA*1000).toFixed(1)+" mA"],["Load power",result.loadPowerW.toFixed(2)+" W"],["Model boundary","Fixed-PDO policy estimate; no USB-PD signaling or compliance test"]);
-  } else if (result.kind === "poe-pd-input") {
-    metrics.push(["Active feed",result.activeFeed],["Input polarity",result.inputPolarity],["Rectified input",result.rectifiedInputVoltageV.toFixed(2)+" V"],["DC/DC stage",result.converterEnabled ? "Enabled" : "Disabled"],["Output voltage",result.outputVoltageV.toFixed(2)+" V"],["Load current",(result.loadCurrentA*1000).toFixed(1)+" mA"],["Load power",result.loadPowerW.toFixed(2)+" W"],["Model boundary","Ideal feed bridge and DC/DC estimate; no PoE compliance or RJ45 mapping"]);
-  } else if (result.kind === "constant-current-led-driver") {
-    metrics.push(["Regulation state",result.regulationState],["LED forward voltage",result.ledForwardVoltageV.toFixed(2)+" V"],["LED current",(result.ledCurrentA*1000).toFixed(1)+" mA"],["Sense voltage",result.senseVoltageV.toFixed(3)+" V"],["Compliance headroom",result.headroomV.toFixed(2)+" V"],["LED power",result.ledPowerW.toFixed(2)+" W"],["Input power estimate",result.inputPowerW.toFixed(2)+" W"],["Warning",result.warning||"None"],["Model boundary","Ideal average current regulation; no switching or thermal simulation"]);
-  } else if (result.kind === "mosfet-half-bridge") {
-    metrics.push(["Gate timing",result.gateSequence.map(state=>state.phase+" "+(state.durationS*1e6).toFixed(2)+" Âµs").join(" Â· ")],["High-side duty",result.highDutyPercent+" %"],["Low-side duty",result.lowDutyPercent+" %"],["Dead-time fraction",(result.deadTimeFraction*100).toFixed(1)+" %"],["High-side on current",(result.highSideOnCurrentA*1000).toFixed(1)+" mA"],["Average high-side current",(result.highSideAverageCurrentA*1000).toFixed(1)+" mA"],["Shoot-through overlap",result.shootThrough ? "Detected" : "None"],["Model boundary","Ideal dead-time timing and resistive-load estimate"]);
-  } else if (result.kind === "reverse-polarity-protection") {
-    metrics.push(["Input polarity",result.inputPolarity],["Protector",result.protectedOn?"Conducting":"Reverse blocked"],["Input / output voltage",result.inputVoltageV.toFixed(2)+" / "+result.outputVoltageV.toFixed(2)+" V"],["Load current / power",(result.loadCurrentA*1000).toFixed(1)+" mA / "+result.loadPowerW.toFixed(3)+" W"],["MOSFET path drop",result.forwardDropV.toFixed(2)+" V"],["Model boundary","Ideal polarity test; no transient or safety qualification"]);
-  } else if (result.kind === "surge-protected-input") {
-    metrics.push(["Surge pulse",result.pulsePeakVoltageV.toFixed(1)+" V Â· "+(result.pulseWidthS*1000).toFixed(2)+" ms"],["TVS clamp / energy",result.clampVoltageV.toFixed(1)+" V Â· "+(result.absorbedEnergyJ*1000).toFixed(2)+" mJ"],["Fuse IÂ²t",result.fuseI2tDemand.toFixed(4)+" / "+result.fuseI2tLimit.toFixed(4)+" AÂ²s Â· "+(result.fuseWarning?"warning":"within hold")],["Protected output",result.outputEnabled?result.outputVoltageV.toFixed(2)+" V":"Disabled Â· fuse tripped"],["Filtered transient",result.filteredSurgeOutputVoltageV.toFixed(2)+" V"],["RC time constant",(result.filterTimeConstantS*1000).toFixed(2)+" ms"],["Model boundary","Single-pulse educational estimate; no surge compliance or hardware safety qualification"]);
-  } else if (result.kind === "hotswap-protection") {
-    metrics.push(["Input / output state",result.busVoltageV.toFixed(1)+" V / "+(result.outputEnabled?"Enabled":"Tripped or disabled")],["Capacitive inrush", (result.rawInrushCurrentA*1000).toFixed(1)+" mA raw Â· "+(result.inrushCurrentA*1000).toFixed(1)+" mA limited"],["Ramp / estimated charge time",(result.rampTimeS*1000).toFixed(1)+" / "+(result.estimatedChargeTimeS*1000).toFixed(2)+" ms"],["Steady load current",(result.loadCurrentA*1000).toFixed(1)+" mA"],["Overload limit / trip",(result.overloadLimitA*1000).toFixed(0)+" mA / "+(result.overloadTrip?"Yes":"No")],["MOSFET dissipation",result.mosfetPowerW.toFixed(3)+" W"],["Model boundary","Ideal current-limit estimate; no SOA or thermal qualification"]);
-  } else if (result.kind === "electronic-load") {
-    metrics.push(["DUT supply / current limit",result.supplyVoltageV.toFixed(2)+" V / "+(result.maxCurrentA*1000).toFixed(0)+" mA"],["Shunt resistance / tolerance",result.shuntResistanceOhm+" Î© / Â±"+result.tolerancePercent+" %"],["Current-step results",result.steps.map(step=>(step.requestedCurrentA*1000).toFixed(0)+"â†’"+(step.measuredCurrentA*1000).toFixed(0)+" mA").join(" Â· ")],["MOSFET dissipation",result.steps.map(step=>step.mosfetPowerW.toFixed(2)+" W").join(" Â· ")],["All steps within tolerance",result.allStepsWithinTolerance?"Yes":"No"],["Model boundary","Ideal steady-state loop; transient and SOA behavior not modeled"]);
-  } else if (result.kind === "inverter-waveform") {
-    metrics.push(["DC bus / modulation",result.busVoltageV.toFixed(1)+" V / "+result.modulationIndex.toFixed(2)],["Carrier / output frequency",result.carrierFrequencyHz+" Hz / "+result.outputFrequencyHz+" Hz"],["Unfiltered / filtered RMS",result.unfilteredFundamentalVrms.toFixed(2)+" / "+result.filteredOutputVrms.toFixed(2)+" V"],["LC resonance",result.filterResonanceHz.toFixed(1)+" Hz"],["Target tolerance",result.targetVrms+" V Â±"+result.tolerancePercent+" % Â· "+(result.targetMet?"met":"not met")],["Load current / power",(result.loadCurrentRmsA*1000).toFixed(1)+" mA / "+result.loadPowerW.toFixed(2)+" W"],["Model boundary","Fundamental and passive filter estimate; PWM waveform not modeled"]);
-  } else if (result.kind === "ups-transfer") {
-    metrics.push(["Mains / selected source",result.mainsAvailable?"Present":"Lost Â· "+result.sourceSelected],["UPS output",result.outputEnabled?result.outputVoltageV.toFixed(2)+" V":"Disabled"],["Load current / power",(result.loadCurrentA*1000).toFixed(1)+" mA / "+result.loadPowerW.toFixed(2)+" W"],["Battery state of charge",result.stateOfChargePercent+" %"],["Estimated / required hold-up",result.estimatedHoldUpMin.toFixed(1)+" / "+result.requiredHoldUpMin+" min"],["Hold-up window",result.holdUpSatisfied?"Met":"Not met"],["Charge / discharge current",(result.batteryChargeCurrentA*1000).toFixed(0)+" / "+(result.batteryDischargeCurrentA*1000).toFixed(0)+" mA"],["Model boundary","Ideal energy and transfer estimate; no runtime or safety guarantee"]);
-  } else if (result.kind === "ssr-ac-switch") {
-    metrics.push(["Control / relay state",result.control+" / "+result.loadState],["Fault",result.fault],["AC source",result.sourceRmsVoltageV+" V RMS Â· "+result.frequencyHz+" Hz"],["Load voltage / current",result.loadVoltageRmsV.toFixed(2)+" V RMS / "+(result.loadCurrentRmsA*1000).toFixed(2)+" mA RMS"],["Off-state leakage",(result.offLeakageCurrentA*1000).toFixed(2)+" mA"],["Load power",result.loadPowerW.toFixed(3)+" W"],["Model boundary","Ideal AC SSR estimate; isolation is not a physical safety qualification"]);
-  } else if (result.kind === "triac-ac-dimmer") {
-    metrics.push(["AC input",result.sourceRmsVoltageV.toFixed(1)+" V RMS Â· "+result.frequencyHz+" Hz"],["Phase angle",result.phaseAngleDeg+"Â°"],["Zero-cross synchronization",result.zeroCrossLocked?"Locked":"Lost"],["Triac firing",result.firingEnabled?"Enabled":"Inhibited"],["Lamp voltage / current",result.lampVoltageRmsV.toFixed(2)+" V RMS / "+(result.lampCurrentRmsA*1000).toFixed(1)+" mA RMS"],["Lamp power",result.lampPowerW.toFixed(2)+" W"],["Model boundary","RMS estimator only; no mains safety, isolation, or switching model"]);
-  } else if (result.kind === "igbt-inverter-leg") {
-    metrics.push(["Switching state",result.switchingState],["High / low gate",String(result.highGateOn)+" / "+String(result.lowGateOn)],["Fault input",result.fault],["Interlock",result.interlockActive?"Active":"Inactive"],["Output / load current",result.outputVoltageV.toFixed(2)+" V / "+(result.loadCurrentA*1000).toFixed(1)+" mA"],["Load power",result.loadPowerW.toFixed(2)+" W"],["Model boundary","Ideal IGBT logic and resistive-load estimate; no switching or safety qualification"]);
-  } else if (result.kind === "bms-cell-monitor") {
-    metrics.push(["Stack voltage",result.stackVoltageV.toFixed(2)+" V"],["Cell range",result.minimumCellV.toFixed(3)+"â€“"+result.maximumCellV.toFixed(3)+" V"],["Fault state",result.faultState],["Over-voltage cells",result.overVoltageCells.join(", ")||"None"],["Under-voltage cells",result.underVoltageCells.join(", ")||"None"],["Balance requests",result.cellsToBalance.join(", ")||"None"],["Balancing / protection","Report only; not actuated"],["Model boundary","Ideal thresholds; no cell chemistry or safety qualification"]);
-  } else if (result.kind === "liion-charge") {
-    metrics.push(["Cell present",result.cellPresent?"Yes":"No"],["Charge phase",result.phase],["Cell voltage",result.cellVoltageV.toFixed(3)+" V"],["Charge current",(result.chargeCurrentA*1000).toFixed(1)+" mA"],["Temperature",result.temperatureC.toFixed(1)+" Â°C"],["Battery power",(result.batteryPowerW*1000).toFixed(1)+" mW"],["Input current",(result.inputCurrentA*1000).toFixed(1)+" mA"],["Charging",result.chargingEnabled?"Enabled":"Inhibited"],["Model boundary","Ideal CC/CV estimator; no cell or charger safety qualification"]);
-  } else if (result.kind === "buckboost-converter") {
-    metrics.push(["Conversion mode",result.mode],["Input â†’ target",result.inputVoltageV.toFixed(2)+" V â†’ "+result.outputTargetV.toFixed(2)+" V"],["Regulated estimate",result.outputVoltageV.toFixed(2)+" V"],["Duty cycle",result.dutyCyclePercent.toFixed(1)+" %"],["Input / load current",(result.inputCurrentA*1000).toFixed(2)+" mA / "+(result.loadCurrentA*1000).toFixed(2)+" mA"],["Inductor / output ripple",(result.inductorRipplePpA*1000).toFixed(2)+" mA / "+(result.outputRipplePpV*1000).toFixed(2)+" mV p-p"],["Assumed efficiency",result.assumedEfficiencyPercent.toFixed(1)+" %"],["Model boundary","Ideal average model; switching waveforms not modeled"]);
-  } else if (result.kind === "boost-converter") {
-    metrics.push(["Input voltage",result.inputVoltageV.toFixed(2)+" V"],["Duty cycle",result.dutyCyclePercent.toFixed(1)+" %"],["Average output",result.outputVoltageV.toFixed(3)+" V"],["Input / load current",(result.inputCurrentA*1000).toFixed(2)+" mA / "+(result.loadCurrentA*1000).toFixed(2)+" mA"],["Inductor ripple",(result.inductorRipplePpA*1000).toFixed(2)+" mA p-p"],["Output ripple",(result.outputRipplePpV*1000).toFixed(2)+" mV p-p"],["Conduction mode",result.conductionMode],["Estimated efficiency",result.estimatedEfficiencyPercent.toFixed(1)+" %"],["Model boundary","Average CCM estimate; switching loop and hardware not modeled"]);
-  } else if (result.kind === "buck-converter") {
-    metrics.push(["Input voltage",result.inputVoltageV.toFixed(2)+" V"],["Duty cycle",result.dutyCyclePercent.toFixed(1)+" %"],["Average output",result.outputVoltageV.toFixed(3)+" V"],["Load current", (result.loadCurrentA*1000).toFixed(2)+" mA"],["Inductor ripple", (result.inductorRipplePpA*1000).toFixed(2)+" mA p-p"],["Output ripple", (result.outputRipplePpV*1000).toFixed(2)+" mV p-p"],["Conduction mode",result.conductionMode],["Estimated efficiency",result.estimatedEfficiencyPercent.toFixed(1)+" %"],["Model boundary","Average CCM estimate; switching loop and hardware not modeled"]);
-  } else if (result.kind === "seven-segment-clock") {
-    metrics.push(["Time before",result.initialTime],["Clock ticks",String(result.ticks)+" at "+result.tickHz+" Hz"],["Time after",result.outputTime],["Midnight rollovers",String(result.midnightRollovers)],["Display",result.displayDigits+" digit "+result.displayType],["Firmware / hardware","Not modeled"]);
-    waveform="<figure class=\"result-waveform\"><figcaption>Seven-segment clock Â· "+result.outputTime+"</figcaption><svg viewBox=\"0 0 480 112\" role=\"img\" aria-label=\"Six seven-segment clock digits\"><rect x=\"10\" y=\"10\" width=\"460\" height=\"92\" rx=\"8\" fill=\"#071a24\" stroke=\"#32cfe0\"></rect><text x=\"240\" y=\"69\" text-anchor=\"middle\" fill=\"#67e9ed\" font-family=\"monospace\" font-size=\"42\">"+result.outputTime+"</text></svg></figure>";
-  } else if (result.kind === "oled-status-panel") {
-    metrics.push(["Panel state", result.displayState], ["Temperature", result.temperatureC===null?"Missing":result.temperatureC.toFixed(1)+" Â°C"], ["Humidity", result.humidityPct===null?"Missing":result.humidityPct.toFixed(0)+" %"], ["Pressure", result.pressureHpa===null?"Missing":result.pressureHpa.toFixed(0)+" hPa"], ["Missing sensors", result.missingSensors.join(", ")||"None"], ["Display format", result.displayColumns+" Ã— "+result.displayRows], ["Line overflow", result.overflowLines.length?"Yes":"No"]);
-    waveform="<figure class=\"result-waveform\"><figcaption>OLED status panel Â· "+result.displayState+"</figcaption><svg viewBox=\"0 0 480 112\" role=\"img\" aria-label=\"Two-line OLED status panel\"><rect x=\"12\" y=\"12\" width=\"456\" height=\"88\" rx=\"8\" fill=\"#071a24\" stroke=\"#32cfe0\"></rect><text x=\"28\" y=\"50\" fill=\"#67e9ed\" font-family=\"monospace\" font-size=\"20\">"+result.displayLines[0]+"</text><text x=\"28\" y=\"82\" fill=\"#67e9ed\" font-family=\"monospace\" font-size=\"20\">"+result.displayLines[1]+"</text></svg></figure>";
-  } else if (result.kind === "rgb-pwm-controller") {
-    metrics.push(["Requested colour", result.cssColor], ["PWM frequency", result.frequencyHz.toFixed(0) + " Hz"], ["Red duty / current", result.channels.R.dutyCyclePercent.toFixed(1) + " % / " + result.channels.R.averageCurrentMa.toFixed(2) + " mA"], ["Green duty / current", result.channels.G.dutyCyclePercent.toFixed(1) + " % / " + result.channels.G.averageCurrentMa.toFixed(2) + " mA"], ["Blue duty / current", result.channels.B.dutyCyclePercent.toFixed(1) + " % / " + result.channels.B.averageCurrentMa.toFixed(2) + " mA"], ["Total average current", result.totalAverageCurrentMa.toFixed(2) + " mA"], ["Per-channel limit", result.peakChannelCurrentLimitMa + " mA peak"], ["Mapping", "8-bit linear PWM"]);
-    waveform="<figure class=\"result-waveform\"><figcaption>RGB output Â· "+result.cssColor+"</figcaption><svg viewBox=\"0 0 480 84\" role=\"img\" aria-label=\"Requested RGB PWM colour\"><rect x=\"20\" y=\"18\" width=\"440\" height=\"48\" rx=\"8\" fill=\""+result.cssColor+"\"></rect></svg></figure>";
-  } else if (result.kind === "digital-volume-control") {
-    metrics.push(["Input level", result.inputPeakV.toFixed(3) + " V peak"], ["Output level", result.outputPeakV.toFixed(3) + " V peak"], ["Volume command", result.command + " / " + (result.steps - 1)], ["Control position", result.commandPercent.toFixed(0) + " %"], ["Gain", result.gainDb.toFixed(1) + " dB"], ["Output RMS", result.outputRmsV.toFixed(3) + " V"], ["Loaded output", (result.loadResistanceOhm / 1000).toFixed(0) + " kÎ©"], ["Model", "Linear digital potentiometer"]);
-    waveform="<figure class=\"result-waveform\"><figcaption>Digital volume Â· "+result.commandPercent.toFixed(0)+"%</figcaption><svg viewBox=\"0 0 480 72\" role=\"img\" aria-label=\"Digital volume level\"><rect x=\"20\" y=\"24\" width=\"440\" height=\"24\" rx=\"12\" fill=\"#173044\"></rect><rect x=\"20\" y=\"24\" width=\""+(440*result.attenuationRatio).toFixed(1)+"\" height=\"24\" rx=\"12\" fill=\"#36d9a7\"></rect></svg></figure>";
-  } else if (result.kind === "pwm-audio-dac") {
-    metrics.push(["PWM frequency", result.frequencyHz.toFixed(0) + " Hz"], ["Duty cycle", result.dutyCyclePercent.toFixed(1) + " %"], ["Average output", result.averageOutputV.toFixed(3) + " V"], ["Steady-state ripple", (result.rippleVpp * 1000).toFixed(2) + " mV p-p"], ["RC time constant", (result.timeConstantSeconds * 1000).toFixed(2) + " ms"], ["Loaded high target", result.highPeakV.toFixed(3) + " V"], ["Minimum valley", result.lowValleyV.toFixed(3) + " V"], ["Duty tracking", result.tracksDutyCycle ? "Yes" : "No"]);
-  } else if (result.kind === "audio-summing-mixer") {
-    metrics.push(["Input 1", result.input1V.toFixed(3) + " V"], ["Input 2", result.input2V.toFixed(3) + " V"], ["R1 weighting", (result.weight1 * 100).toFixed(1) + " %"], ["R2 weighting", (result.weight2 * 100).toFixed(1) + " %"], ["Summing node", result.sumNodeV.toFixed(3) + " V"], ["Buffered output", result.outputV.toFixed(3) + " V"], ["Clipping", result.clipped ? "Yes" : "No"], ["Model", "Resistive weighted average"]);
-  } else if (result.kind === "guitar-buffer-response") {
-    metrics.push(["Pickup source resistance", result.sourceResistanceOhm.toFixed(0) + " Î©"], ["Buffer input resistance", (result.inputResistanceOhm / 1000000).toFixed(2) + " MÎ©"], ["Input impedance ratio", result.inputImpedanceRatio.toFixed(0) + "Ã—"], ["Coupling capacitor", (result.couplingCapacitanceF * 1e9).toFixed(0) + " nF"], ["Output load", (result.outputLoadOhm / 1000).toFixed(0) + " kÎ©"], ["1 kHz gain", result.midbandGainRatio.toFixed(3) + "Ã—"], ["High input impedance", result.highInputImpedance ? "Yes" : "No"], ["Unity gain in band", result.unityGainInBand ? "Yes" : "No"]);
-    const points=result.responsePoints,min=Math.min(...points.map(point=>point.gainRatio)),max=Math.max(...points.map(point=>point.gainRatio)),span=Math.max(0.001,max-min),path=points.map((point,index)=>((index?"L ":"M ")+(24+432*index/Math.max(1,points.length-1)).toFixed(1)+" "+(82-(point.gainRatio-min)/span*62).toFixed(1))).join(" ");
-    waveform="<figure class=\"result-waveform\"><figcaption>Pickup-to-buffer AC response</figcaption><svg viewBox=\"0 0 480 100\" role=\"img\" aria-label=\"Guitar buffer gain by frequency\"><path class=\"wave-axis\" d=\"M20 82 H468 M24 16 V88\"></path><path class=\"wave-trace\" d=\""+path+"\"></path></svg></figure>";
-  } else if (result.kind === "audio-tone-spectrum") {
-    metrics.push(["Tone frequency", result.frequencyHz.toFixed(1) + " Hz"], ["Peak amplitude", result.amplitudePeakV.toFixed(3) + " V"], ["Sample rate", result.sampleRateHz.toFixed(0) + " samples/s"], ["Capture", (result.durationSeconds * 1000).toFixed(2) + " ms"], ["Rising zero crossings", String(result.positiveZeroCrossings)], ["Measured frequency", result.measuredFrequencyHz.toFixed(1) + " Hz"], ["Fundamental amplitude", result.fundamentalAmplitudeV.toFixed(4) + " V"], ["Second harmonic", result.secondHarmonicDbc.toFixed(1) + " dBc"], ["THD estimate", result.thdPercent.toExponential(2) + " %"]);
-    const points=result.sampleTrace,low=Math.min(...points),high=Math.max(...points),range=Math.max(0.001,high-low),path=points.map((value,index)=>((index?"L ":"M ")+(24+432*index/Math.max(1,points.length-1)).toFixed(1)+" "+(82-(value-low)/range*62).toFixed(1))).join(" ");
-    waveform="<figure class=\"result-waveform\"><figcaption>Ideal sampled sine Â· "+result.frequencyHz.toFixed(0)+" Hz</figcaption><svg viewBox=\"0 0 480 100\" role=\"img\" aria-label=\"Generated audio tone waveform\"><path class=\"wave-axis\" d=\"M20 82 H468 M24 16 V88\"></path><path class=\"wave-trace\" d=\""+path+"\"></path></svg></figure>";
-  } else if (result.kind === "electret-mic-meter") {
-    metrics.push(["Microphone bias", result.micBiasCurrentMa.toFixed(2) + " mA"], ["Mic terminal voltage", result.micSupplyVoltageV.toFixed(2) + " V"], ["Input level", (result.inputPeakV * 1000).toFixed(1) + " mV peak"], ["Frequency", result.frequencyHz.toFixed(0) + " Hz"], ["Preamp gain", result.gain.toFixed(1) + "Ã—"], ["Rectified envelope", (result.rectifiedPeakV * 1000).toFixed(1) + " mV"], ["LED segments", result.ledSegmentsOn + " / 10"], ["Model scope", "Ideal signal chain"]);
-    const bars=result.segments.map((segment,index)=>"<rect x=\"" + (24+index*44) + "\" y=\"26\" width=\"34\" height=\"48\" rx=\"4\" fill=\"" + (segment.on?"#38d9a9":"#1b3344") + "\" stroke=\"" + (segment.on?"#83ffe0":"#537286") + "\"></rect>").join("");
-    waveform = "<figure class=\"result-waveform\"><figcaption>Calibrated audio level Â· " + result.ledSegmentsOn + "/10 segments</figcaption><svg viewBox=\"0 0 480 100\" role=\"img\" aria-label=\"Ten segment audio level meter\">" + bars + "</svg></figure>";
-  } else if (result.kind === "usb-uart-console") {
-    metrics.push(["Baud rate", result.baud + " bit/s"], ["Framing", result.dataBits + result.parity[0].toUpperCase() + result.stopBits], ["TX bytes", result.txHex.join(" ")], ["TX text", result.txAscii], ["RX bytes", result.rxHex.join(" ") || "None"], ["RX text", result.rxAscii || "None"], ["TX duration", (result.txDurationSeconds * 1000).toFixed(3) + " ms"], ["RX duration", (result.rxDurationSeconds * 1000).toFixed(3) + " ms"], ["USB enumeration", "Not modeled"], ["Host contact", "None"]);
-  } else if (result.kind === "i2c-level-shifter") {
-    metrics.push(["Low-voltage rail", result.lowRailV.toFixed(2) + " V"], ["High-voltage rail", result.highRailV.toFixed(2) + " V"], ["Low-side pull-ups", result.lowPullupOhm + " Î©"], ["High-side pull-ups", result.highPullupOhm + " Î©"], ["Transitions checked", String(result.transitionCount)], ["Low-side driven lows", String(result.lowSideDriveTransitions)], ["High-side driven lows", String(result.highSideDriveTransitions)], ["Peak static pull-up current", result.peakCombinedPullupSinkCurrentMa.toFixed(3) + " mA"], ["Rail overvoltage", "None in ideal model"], ["Bidirectional test", result.bidirectionalTransitionsVerified ? "Passed" : "Failed"]);
-  } else if (result.kind === "rfid-inventory") {
-    metrics.push(["Frequency band", result.bandMHz.toFixed(2) + " MHz"], ["Inventory slots", String(result.slotCount)], ["Fixture tags", String(result.tagCount)], ["Unique UIDs", String(result.uniqueUidCount)], ["Duplicate UID count", String(result.duplicateUidCount)], ["Occupied slots", String(result.occupiedSlots)], ["Collision slots", String(result.collisionSlotCount)], ["Inventory complete", result.inventoryComplete ? "Yes" : "No"], ["RF transmission", "Not modeled"], ["Anti-collision protocol", "Not modeled"]);
-  } else if (result.kind === "rfid-access") {
-    metrics.push(["Tag UID", result.uid], ["Access decision", result.accessState], ["Lock output", result.lockOutput ? "Unlocked (simulated)" : "Locked"], ["Allowlist entries", String(result.allowlistEntries)], ["Credential model", result.authentication]);
-  } else if (result.kind === "gnss-rmc") {
-    metrics.push(["Sentence", result.sentenceType], ["UTC time", result.utcTime], ["Fix status", result.fixStatus], ["Latitude", result.latitude.toFixed(5) + "Â°"], ["Longitude", result.longitude.toFixed(5) + "Â°"], ["Speed", result.speedKnots.toFixed(1) + " kn"], ["Checksum", result.checksumValid ? "Valid" : "Invalid"]);
-  } else if (result.kind === "rs485-addressed-poll") {
-    metrics.push(["Polled node", result.pollAddress], ["Temperature", result.temperatureC.toFixed(1) + " Â°C"], ["Responding nodes", String(result.respondingNodes)], ["Silent nodes", String(result.silentNodes)], ["Simultaneous drivers", String(result.simultaneousDrivers)], ["Combined termination", result.busTerminationOhm.toFixed(1) + " Î©"]);
-  } else if (result.kind === "can-node-pair") {
-    metrics.push(["CAN identifier", result.identifier], ["Data bytes", result.dataBytes.join(" ")], ["Bit rate", (result.bitrate / 1000).toFixed(0) + " kbit/s"], ["Frame received", result.received ? "Yes" : "No"], ["ACK", result.acknowledged ? "Yes" : "No"], ["Combined termination", result.busTerminationOhm.toFixed(1) + " Î©"]);
-  } else if (result.kind === "mcu-watchdog") {
-    metrics.push(["Watchdog timeout", result.timeoutMs + " ms"], ["Run duration", result.runDurationMs + " ms"], ["Accepted service calls", String(result.servicesAccepted)], ["Watchdog resets", String(result.resetCount)], ["Reset time", result.resetAtMs === null ? "Not triggered" : result.resetAtMs + " ms"], ["Controller state", result.controllerState], ["Heartbeat output", result.heartbeatHigh ? "HIGH" : "LOW"]);
-  } else if (result.kind === "stm32-timer-pwm") {
-    const frequencyText = result.frequencyHz >= 1000 ? (result.frequencyHz / 1000).toFixed(2) + " kHz" : result.frequencyHz.toFixed(2) + " Hz";
-    metrics.push(["PWM frequency", frequencyText], ["Duty cycle", (result.dutyCycle * 100).toFixed(1) + " %"], ["LED current while on", (result.peakLedCurrentA * 1000).toFixed(2) + " mA"], ["Estimated average LED current", (result.averageLedCurrentA * 1000).toFixed(2) + " mA"]);
-    const duty = Math.max(0, Math.min(1, result.dutyCycle));
-    const pulse = 106 * duty;
-    let path = "M 24 84";
-    for (let cycle = 0; cycle < 4; cycle += 1) {
-      const x = 24 + cycle * 112;
-      path += " M " + x + " 84 V 24 H " + (x + pulse) + " V 84";
-    }
-    waveform = `<figure class="result-waveform"><figcaption>Ideal PWM output Â· ${escape(frequencyText)} Â· ${(duty * 100).toFixed(1)}% duty</figcaption><svg viewBox="0 0 480 108" role="img" aria-label="Ideal PWM output waveform"><path class="wave-axis" d="M20 84 H468 M24 18 V88"></path><path class="wave-trace" d="${path}"></path><text x="24" y="103">0</text><text x="414" y="103">Time (ms)</text></svg></figure>`;
-  } else {
-    for (const [key, value] of Object.entries(result)) {
-      if (key === "kind" || key === "firmwareExecuted" || value === null || typeof value === "object") continue;
-      const label = key.replace(/([A-Z])/g, " $1").replace(/^./, (letter) => letter.toUpperCase());
-      const display = typeof value === "number" ? (Math.abs(value) >= 1000 ? value.toLocaleString() : Number(value.toPrecision(5))).toString() : String(value);
-      metrics.push([label, display]);
-      if (metrics.length >= 8) break;
-    }
-  }
-  const cards = metrics.map(([label, value]) => `<article class="result-metric"><span>${escape(label)}</span><strong>${escape(value)}</strong></article>`).join("");
-  return `<div class="result-dashboard-heading"><strong><span class="result-status-dot"></span>Simulation completed</strong><small>${escape(analysis.engine)}</small></div><div class="result-dashboard-body"><div class="result-metric-grid">${cards}</div>${waveform}</div><p class="result-limit">${escape(analysis.message)}</p>`;
-}
-function renderOutput(validation = state.lastValidation ?? validateProject(state.project)) {
-  const isLog = state.activeOutput === "output";
-  const showDashboard = isLog && state.lastAnalysis?.state === "complete";
-  const issues = state.activeOutput === "errors" ? validation.errors : validation.warnings;
-  $(".output-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.output === state.activeOutput));
-  const dashboard = $("#result-dashboard");
-  dashboard.classList.toggle("hidden", !showDashboard);
-  $("#export-simulation-report").disabled = state.lastAnalysis?.state !== "complete";
-  dashboard.innerHTML = showDashboard ? renderResultDashboard(state.lastAnalysis) : "";
-  $("#workspace-notes").textContent = state.lastAnalysis?.message ?? "Choose a supported example to see its tested model limits.";
-  $("#output-log").classList.toggle("hidden", !isLog || showDashboard);
-  $("#issue-list").classList.toggle("hidden", isLog);
-  if (!isLog) {
-    $("#issue-list").textContent = issues.length
-      ? issues.map((issue) => `[${issue.rule}] ${issue.message}`).join("\n")
-      : `[${state.activeOutput.toUpperCase()}] None.`;
-  }
-}
+    metrics.push(["Refresh mode", result.refreshMode], ["Frame changes", result.changedTiles + " / " + result.totalTiles], ["Changed fractkm6×­¢G§²ÚîÆ­yÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNİÜ›Û™ÕÜÛÙŞK›™]Ë™š[™
+™]O›™]šYOOH‘’ST—ÓÕUŠK™[™Ú[Ï]Ü›Û™ÕÜÛÙŞK›™]Ë™š[™
+™]O›™]šYOOH‘’ST—ÓÕUŠK™[™Ú[Ë™š[\Š[™Ú[O™[™Ú[OOH˜Ø\XÚ]Ü‹LNŒHŠNÃBˆ\ÜÙ\™\]X[
+[˜[^™T˜Ğ›ÙJÜ›Û™ÕÜÛÙŞJKœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH“È[ÙH™\ÜÛœÙHÚİÜÈš[™Ú[™È[™Ø\›œÈÚ[ˆ[Y\İ\[™\œØ[\\È]‹\Ş[˜È
 
-function applyLocale() {
-  const locale = state.project.metadata.locale;
-  const messages = TRANSLATIONS[locale] ?? TRANSLATIONS.en;
-  document.documentElement.lang = locale;
-  $$("[data-i18n]").forEach((node) => { node.textContent = messages[node.dataset.i18n] ?? TRANSLATIONS.en[node.dataset.i18n] ?? node.textContent; });
-  $("[data-i18n-placeholder]").forEach((node) => { node.placeholder = messages[node.dataset.i18nPlaceholder] ?? TRANSLATIONS.en[node.dataset.i18nPlaceholder] ?? node.placeholder; });
-  $("[data-i18n-alt]").forEach((node) => { node.alt = messages[node.dataset.i18nAlt] ?? TRANSLATIONS.en[node.dataset.i18nAlt] ?? node.alt; });
-  $$("[data-i18n-aria]").forEach((node) => { node.setAttribute("aria-label", messages[node.dataset.i18nAria] ?? TRANSLATIONS.en[node.dataset.i18nAria] ?? node.getAttribute("aria-label")); });
-  $$("[data-i18n-title]").forEach((node) => { node.title = messages[node.dataset.i18nTitle] ?? TRANSLATIONS.en[node.dataset.i18nTitle] ?? node.title; });
-  $("#language").value = locale;
-}
+HOˆÃBˆÛÛœİØ[˜[^™T›Ôİ\OX]ØZ][\Ü
+‹‹‹ÚœËÜ›Ë]˜[œÚY[›ZœÈŠNÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌM\›Ë]˜[œÚY[\™\ÜÛœÙK˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆÛÛœİİ\ÜY\[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+NØ\ÜÙ\™\]X[
+İ\ÜYœİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+İ\ÜYœ™\İ[šÚ[™œ›Ë\İ\\™\ÜÛœÙHŠNÃBˆÛÛœİ™\İ[X[˜[^™T›Ôİ\
+›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œ›Ë\İ\\™\ÜÛœÙHŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™YÚ[YK[™\™[\YŠNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[œš[™Ú[™Õš\ÚX›JNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[œXZÕ›ÛYÙUœ™\İ[œ™\İ[œÛİ\˜ÙU›ÛYÙJNÃBˆ\ÜÙ\™\]X[
+™\İ[Ø\›š[™ÜË›[™İ
+NÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[œØ[\PÛİ[L
+NÃBˆÛÛœİÛØ\œÙOR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNØÛØ\œÙKœ›Õ˜[œÚY[[YTİ\ÏLŒNÃBˆÛÛœİØ\›™YX[˜[^™T›Ôİ\
+ÛØ\œÙJNÃBˆ\ÜÙ\™\]X[
+Ø\›™Yœİ]K˜ÛÛ\]HŠNÃBˆ\ÜÙ\›ÚÊØ\›™YØ\›š[™ÜËœÛÛYJØ\›š[™ÏOØ\›š[™Ë˜ÛÙOOOH•SQTÕTÔ‘TÓÓUSÓˆŠJNÃBˆÛÛœİœ›ÚÙ[R”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNØœ›ÚÙ[‹›™]Ë™š[™
+™]O›™]šYOOH“ĞÈŠK™[™Ú[ÏXœ›ÚÙ[‹›™]Ë™š[™
+™]O›™]šYOOH“ĞÈŠK™[™Ú[Ë™š[\Š[™Ú[O™[™Ú[OOH˜Ø\XÚ]Ü‹LNŒHŠNÃBˆ\ÜÙ\™\]X[
+[˜[^™T›Ôİ\
+œ›ÚÙ[ŠKœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH\˜[Y]\ˆİÙY\[˜[^™\È™YH™\Ú\İÜˆ˜[Y\È[™™\ÜÈH^XİYİ\œ™[™[™‹\Ş[˜È
 
-function renderAcSweepOutputOptions() {
-  const select = $("#ac-output-net");
-  if (!select) return;
-  const current = select.value;
-  select.innerHTML = `<option value="">${escape(t("acAutoOutputLabel"))}</option>${(state.project.nets ?? []).map((net) => `<option value="${escape(net.id)}">${escape(net.id)}</option>`).join("")}`;
-  if ((state.project.nets ?? []).some((net) => net.id === current)) select.value = current;
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMK\\˜[Y]\‹\İÙY\˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K˜ÛÛ\]HŠNÃBˆÛÛœİ™\İ[\[”\˜[Y]\”İÙY\
+›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œ\˜[Y]\‹\İÙY\ŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œØ[\PÛİ[ÊNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[œÚ[Ë›X\
+Ú[OœÚ[œ™\Ú\İ[˜ÙSÚ\ÊKÌŒŒÌÌÌJNÃBˆ\ÜÙ\›ÚÊX]˜XœÊ™\İ[œ™\İ[œÚ[ÖÌK˜İ\œ™[KJËÌŒŒ
+JOYKLLŠNÃBˆ\ÜÙ\›ÚÊX]˜XœÊ™\İ[œ™\İ[œÚ[ÖÌWK˜İ\œ™[KJËÌÌÌ
+JOYKLLŠNÃBˆ\ÜÙ\›ÚÊX]˜XœÊ™\İ[œ™\İ[œÚ[ÖÌ—K˜İ\œ™[KJËÍÌ
+JOYKLLŠNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[œÚ[ÖÌK˜İ\œ™[Oœ™\İ[œ™\İ[œÚ[ÖÌWK˜İ\œ™[JNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[œÚ[ÖÌWK˜İ\œ™[Oœ™\İ[œ™\İ[œÚ[ÖÌ—K˜İ\œ™[JNÃBˆÛÛœİ\XØ]OR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNÙ\XØ]Kœ\˜[Y]\”İÙY\˜[Y\ÏVÌŒŒÌÌÌÌNÃBˆ\ÜÙ\™\]X[
+[”\˜[Y]\”İÙY\
+\XØ]JKœİ]K˜›ØÚÙYŠNÃBˆÛÛœİÛÑ™]ÏR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNİÛÑ™]Ëœ\˜[Y]\”İÙY\˜[Y\ÏVÌŒŒÌÌNÃBˆ\ÜÙ\™\]X[
+[”\˜[Y]\”İÙY\
+ÛÑ™]ÊKœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH[ÛHØ\›ÈÛ\˜[˜ÙHİYH\ÈÙYYY™\›ÙXÚX›K[™›İ[™Y‹\Ş[˜È
 
-function render() {
-  applyLocale();
-  renderAcSweepOutputOptions();
-  renderLibrary();
-  renderCanvas();
-  renderInspector();
-  renderValidation();
-  $("#bot-repair-apply").hidden = !state.project.botRepairPreview;
-  $("#bot-proposal-apply").hidden = !state.project.botCircuitProposal;
-  if (state.dirty && state.recoveryActive && !writeRecoveryDraft(localStorage, RECOVERY_KEY, state.project)) {
-    log("[RECOVERY] The browser could not store a local recovery draft. Export important work before closing this tab.");
-  }
-  updateSaveState();
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌML[[ÛKXØ\›Ë]Û\˜[˜ÙK\[‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K˜ÛÛ\]HŠNÃBˆÛÛœİš\œİ\[“[ÛPØ\›ÕÛ\˜[˜ÙJ›Ú™Xİ
+K™\X]\[“[ÛPØ\›ÕÛ\˜[˜ÙJ›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+š\œİœİ]K˜ÛÛ\]HŠNØ\ÜÙ\™Y\\]X[
+š\œİ™\X]
+NÃBˆ\ÜÙ\™\]X[
+š\œİœ™\İ[œØ[\PÛİ[L
+NØ\ÜÙ\™\]X[
+š\œİœ™\İ[œÙYYŒŒLÌJNÃBˆ\ÜÙ\™\]X[
+š\œİœ™\İ[š\İÙÜ˜[Kœ™YXÙJ
+İ[Kš[ŠOOœİ[JØš[‹˜Ûİ[
+KL
+NÃBˆ\ÜÙ\›ÚÊš\œİœ™\İ[›Z[š[][OLËÊÌÌ
+ŒKŒJJNØ\ÜÙ\›ÚÊš\œİœ™\İ[›X^[][OLËÊÌÌ
+ŒMJJNÃBˆ\ÜÙ\›ÚÊš\œİœ™\İ[›Z[š[][Oš\œİœ™\İ[›YX[ŠNØ\ÜÙ\›ÚÊš\œİœ™\İ[›YX[š\œİœ™\İ[›X^[][JNÃBˆÛÛœİ[˜[YR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNÚ[˜[Y›[ÛPØ\›ÕÛ\˜[˜ÙKœÙYYLÃBˆ\ÜÙ\™\]X[
+[“[ÛPØ\›ÕÛ\˜[˜ÙJ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH\›X[›İ[™\H™\ÜÈ\ÜÚ\][ÛˆÚ]İ]ÛZ[Z[™ÈH\›X[[Ù[‹\Ş[˜È
 
-function log(message) {
-  const output = $("#output-log");
-  output.textContent = `${output.textContent.trim()}\n${message}`.trim();
-  output.scrollTop = output.scrollHeight;
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMLK]\›X[]Ø\›š[™ËX›İ[™\K˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K˜ÛÛ\]HŠNÃBˆÛÛœİ™\İ[X[˜[^™U\›X[Ø\›š[™Ğ›İ[™\J›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™\›X[]Ø\›š[™ËX›İ[™\HŠNÃBˆ\ÜÙ\›ÚÊX]˜XœÊ™\İ[œ™\İ[œ™\Ú\İÜ‘\ÜÚ\][Û•ËLKŒNLŒNJOYKLLŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ˜][™ĞÛÛ˜Ù\›‹YJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[\›X[[Ù[››İ[[Ù[YŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[[\\˜]\™Tš\ÙPË[
+NÃBˆ\ÜÙ\›ÚÊ™\İ[Ø\›š[™ÜËœÛÛYJØ\›š[™ÏOØ\›š[™Ë˜ÛÙOOOH•T“PSÓSÑSÓ“ÕÓSÑSQŠJNÃBˆ\ÜÙ\›ÚÊ™\İ[Ø\›š[™ÜËœÛÛYJØ\›š[™ÏOØ\›š[™Ë˜ÛÙOOOH”ÕÑT—ÔUS‘×ÑVÑQQQŠJNÃBˆÛÛœİ[˜[YR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNÚ[˜[Y\›X[›İ[™\Kœ˜]YİÙ\•ÏLÃBˆ\ÜÙ\™\]X[
+[˜[^™U\›X[Ø\›š[™Ğ›İ[™\J[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHÛÛ™\™Ù[˜ÙHİYH™]\›œÈXİ[Û˜X›H[Z]ÈÚ]İ]˜XœšXØ][™ÈÛÛ™\ˆİ]]‹\Ş[˜È
 
-function showDialog(title, message) {
-  $("#dialog-title").textContent = title;
-  $("#dialog-message").textContent = message;
-  $("#status-dialog").showModal();
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌML‹XÛÛ™\™Ù[˜ÙKY˜Z[\™K\İYK˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆÛÛœİ™\İ[X[˜[^™PÛÛ™\™Ù[˜ÙTİYJ›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜›ØÚÙYŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[[
+NÃBˆ\ÜÙ\™\]X[
+™\İ[™XYÛ›ÜİXÜËœÛÛ™\’]\˜][ÛœË[
+NÃBˆ\ÜÙ\™\]X[
+™\İ[™XYÛ›ÜİXÜËœ™\ÜY[XİšXØ[™\İ[[
+NÃBˆ\ÜÙ\›ÚÊ™\İ[™\œ›ÜœËœÛÛYJ\œ›ÜO™\œ›Ü‹˜ÛÙOOOH”ÔPÑWÔÓÓ‘T—ÕSURSP“HŠJNÃBˆ\ÜÙ\›ÚÊ™\İ[™\œ›ÜœËœÛÛYJ\œ›ÜO™\œ›Ü‹˜ÛÙOOOHÓÓ•‘T‘ÑSÑWÓ“ÕĞUSTQŠJNÃBˆ\ÜÙ\›X]Ú
+™\İ[™\œ›ÜœÖÌK›Y\ÜØYÙKÔÔPÑHÜ\˜][™Ë\Ú[ÛÛ™\‹ÊNÃBˆ\ÜÙ\›ÚÊ™\İ[™XYÛ›ÜİXÜË˜Xİ[ÛœËœÛÛYJXİ[ÛO‹ÜÙ\šY\È™\Ú\İ[˜ÙKË\İ
+Xİ[ÛŠJJNÃBˆÛÛœİ[˜[YR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNÚ[˜[Y˜ÛÛ™\™Ù[˜ÙTİYK™š^\™OH[šÛ›İÛˆÃBˆ\ÜÙ\™\]X[
+[˜[^™PÛÛ™\™Ù[˜ÙTİYJ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBˆ\ÜÙ\™\]X[
+[˜[^™PÛÛ™\™Ù[˜ÙTİYJ[˜[Y
+K™\œ›ÜœÖÌK˜ÛÙKÓÓ•‘T‘ÑSÑWÑ’VT‘WÕS’Ó“ÕÓˆŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH›Ø][™Ë[›ÙHXYÛ›ÜÚ\ÈY[YšY\ÈHØš™XİÈ[œÜXİ‹\Ş[˜È
 
-function showImplementationStatus() {
-  showDialog(t("implementationStatus"), t("implementationStatusBody"));
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMLËY›Ø][™Ë[›ÙKYXYÛ›ÜÚ\Ë˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆÛÛœİ™\İ[YXYÛ›ÜÙQ›Ø][™Ó›ÙJ›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜›ØÚÙYŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[[
+NÃBˆ\ÜÙ\™\]X[
+™\İ[™\œ›ÜœÖÌK˜ÛÙK‘“ĞUS‘×Ñ×Ó“ÑHŠNÃBˆ\ÜÙ\™\]X[
+™\İ[™XYÛ›ÜİXÜË›™]Y‘“ĞUS‘ÈŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[™XYÛ›ÜİXÜËš[\\™Ù]Ú[œİ[˜ÙRYˆ˜Ø\XÚ]Ü‹Y›Ø][™È‹™]Yˆ‘“ĞUS‘ÈŸJNÃBˆ\ÜÙ\›ÚÊ™\İ[™XYÛ›ÜİXÜËœİYÙÙ\İ[ÛœËœÛÛYJ][OO‹ØšX\ÈÜˆ›YY™\Ú\İÜ‹Ë\İ
+][JJJNÃBˆÛÛœİZ\ÜÚ[™ÏR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNÛZ\ÜÚ[™Ë›™]Ï[Z\ÜÚ[™Ë›™]Ë™š[\Š™]O›™]šYOOH‘“ĞUS‘ÈŠNÃBˆ\ÜÙ\™\]X[
+XYÛ›ÜÙQ›Ø][™Ó›ÙJZ\ÜÚ[™ÊK™\œ›ÜœÖÌK˜ÛÙK‘“ĞUS‘×Ó“ÑWÕT‘ÑUÓRTÔÒS‘ÈŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHÚÜXÚ\˜İZ]š^\™H›ØÚÜÈ™Y›Ü™HÚ[][][ÛˆÚ]›È˜XœšXØ]Yİ\œ™[‹\Ş[˜È
 
-function validateAndReport() {
-  state.lastValidation = validateProject(state.project);
-  renderValidation();
-  const issues = [...state.lastValidation.errors, ...state.lastValidation.warnings];
-  if (!issues.length) log("[VALIDATION] No project errors or warnings were found.");
-  else issues.forEach((issue) => log(`[${issue.rule}] ${issue.message}`));
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMM\ÚÜXÚ\˜İZ]YXYÛ›ÜÚ\Ë˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ˜[Y][Û]˜[Y]T›Ú™Xİ
+›Ú™Xİ
+NØ\ÜÙ\™\]X[
+˜[Y][Û‹˜[Y˜[ÙJNÃBˆ\ÜÙ\›ÚÊ˜[Y][Û‹™\œ›ÜœËœÛÛYJ\œ›ÜO™\œ›Ü‹œ[OOOH”ÓÕTÑWÔÒÔ•ŠJNÃBˆÛÛœİ™\İ[YXYÛ›ÜÙTİ\TÚÜ
+›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜›ØÚÙYŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[[
+NÃBˆ\ÜÙ\™\]X[
+™\İ[™XYÛ›ÜİXÜË˜[˜[\Ú\Ğ][\Y˜[ÙJNÃBˆ\ÜÙ\™\]X[
+™\İ[™\œ›ÜœÖÌK˜ÛÙK”ÕTWÔÒÔ•ĞÒTÕRUŠNÃBˆ\ÜÙ\™\]X[
+™\İ[™XYÛ›ÜİXÜË›™]Y”ÒÔ•ŠNÃBˆ\ÜÙ\›ÚÊ™\İ[™XYÛ›ÜİXÜËœİYÙÙ\İ[ÛœËœÛÛYJ][OO‹Ø™Y›Ü™H[™\™Ú^š[™ËË\İ
+][JJJNÃBˆÛÛœİØY™OR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNÜØY™K›™]ÖÌK™[™Ú[ÏVÈœÛİ\˜ÙKLNŠÈ—NÃBˆ\ÜÙ\™\]X[
+XYÛ›ÜÙTİ\TÚÜ
+ØY™JKœ™\İ[™\™Xİİ\TÚÜ˜[ÙJNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHZ\ÜÚ[™ËYÜ›İ[™XYÛ›ÜÚ\È›ØÚÜÈ[™Y[YšY\ÈH™Y™\™[˜ÙH[H‹\Ş[˜È
 
-function isAnalysisWorkerEligible(project) {
-  return Boolean(project && !project.releaseCandidateE2E);
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMMK[Z\ÜÚ[™ËYÜ›İ[™YXYÛ›ÜÚ\Ë˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ˜[Y][Û]˜[Y]T›Ú™Xİ
+›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+˜[Y][Û‹˜[YYJNÃBˆ\ÜÙ\›ÚÊ˜[Y][Û‹Ø\›š[™ÜËœÛÛYJØ\›š[™ÏOØ\›š[™Ëœ[OOOH““×Ô‘Q‘T‘SÑHŠJNÃBˆÛÛœİ™\İ[YXYÛ›ÜÙSZ\ÜÚ[™ÑÜ›İ[™
+›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜›ØÚÙYŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[[
+NÃBˆ\ÜÙ\™\]X[
+™\İ[™XYÛ›ÜİXÜËœ[RY““×Ô‘Q‘T‘SÑHŠNÃBˆ\ÜÙ\™\]X[
+™\İ[™\œ›ÜœÖÌK˜ÛÙK“RTÔÒS‘×ÑÔ“ÕS‘Ô‘Q‘T‘SÑHŠNÃBˆ\ÜÙ\›ÚÊ™\İ[™XYÛ›ÜİXÜËœİYÙÙ\İ[ÛœË›[™İLŠNÃBˆÛÛœİÜ›İ[™YR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNÙÜ›İ[™Y˜ÛÛ\Û™[Ëœ\Ú
+Ú[œİ[˜ÙRYˆ™Ü›İ[™\™\İÜ™Y‹Xœ˜\RYˆ™Ü›İ[™œÚYÛ˜[‹™Y™\™[˜ÙNˆ‘Ó‘ˆ‹˜[YNˆŒˆŸJNÃBˆ\ÜÙ\™\]X[
+XYÛ›ÜÙSZ\ÜÚ[™ÑÜ›İ[™
+Ü›İ[™Y
+Kœ™\İ[œ™Y™\™[˜ÙT™\Ù[YJNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH[˜]˜Z[X›K[[Ù[š^\™H\ÈØÚ[X]XË[Û›H[™™]™\ˆÚ[][]\ÈH˜ZÙH[Ù[‹\Ş[˜È
 
-function setSimulationWorkerBusy(busy) {
-  for (const button of $$('[data-action="run-simulation"]')) button.disabled = busy;
-  $("#run-simulation").disabled = busy;
-  $("#stop-simulation").disabled = !busy;
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMM‹[[Ù[][˜]˜Z[X›KYXYÛ›ÜÚ\Ë˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\™\Ü[˜]˜Z[X›S[Ù[
+›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜›ØÚÙYŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[[
+NÃBˆ\ÜÙ\™\]X[
+™\İ[™XYÛ›ÜİXÜË˜[˜[\Ú\Ğ][\Y˜[ÙJNÃBˆ\ÜÙ\™\]X[
+™\İ[™XYÛ›ÜİXÜËœİ]\Ë[˜]˜Z[X›HŠNÃBˆ\ÜÙ\™\]X[
+™\İ[™XYÛ›ÜİXÜË™\Ü^S[ÙKœØÚ[X]XË[Û›HŠNÃBˆ\ÜÙ\™\]X[
+™\İ[™\œ›ÜœÖÌK˜ÛÙKÓÓTÓ‘S•ÓSÑSÕSURSP“HŠNÃBˆ\ÜÙ\›X]Ú
+™\İ[›Y\ÜØYÙKÜÚİÛˆ[ˆHØÚ[X]XËÊNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH™]Ü›ÜÜË\›Ø™H™\Ù\™\ÈHØ[YH™]QXÜ›ÜÜÈ[\ÚYÛˆšY]ÜÈ‹\Ş[˜È
 
-function stopSimulation() {
-  const run = state.activeSimulation;
-  if (!run) return;
-  state.activeSimulation = null;
-  run.cancel();
-  setSimulationWorkerBusy(false);
-  state.lastAnalysis = { state: "cancelled", engine: "Worker-isolated bounded analysis", message: "The analysis was cancelled." };
-  log("[CANCELLED] The analysis worker was stopped; no result was produced.");
-  renderOutput();
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMMË[™]\›Ø™KXÜ›ÜÜË\›Ø™K˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K˜ÛÛ\]HŠNÃBˆÛÛœİ™\İ[\[“™]Ü›ÜÜÔ›Ø™J›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™›™]XÜ›ÜÜË\›Ø™HŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[›™]Y“QĞHŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œÚ\™Y™]YYJNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[šY]ÜËÈ˜œ™XY›Ø\™‹œØÚ[X]XÈ‹œØˆ—JNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™[™Ú[Ûİ[ŠNÃBˆ\ÜÙ\™\]X[
+™\İ[™XYÛ›ÜİXÜËš[\\™Ù]›™]Y“QĞHŠNÃBˆÛÛœİZ\ÜÚ[™ÏR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNÛZ\ÜÚ[™Ë˜Ü›ÜÜÔ›Ø™K›™]YH“RTÔÒS‘ÈÃBˆ\ÜÙ\™\]X[
+[“™]Ü›ÜÜÔ›Ø™JZ\ÜÚ[™ÊKœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHÛÛ\Û™[›Ü\H]Y]XØÙ\È˜[Y™\Ú\İÜˆY]È[™™Z™XİÈ[œØY™H˜[™Ù\È™Y›Ü™H\İÜH]]][Ûˆ‹\Ş[˜È
 
-function runAnalysis(workerResult = null) {
-  if(workerResult === null && state.project.releaseCandidateE2E){
-    validateAndReport();
-    state.lastAnalysis={state:"running",engine:"Release-candidate end-to-end suite",message:"Loading checked-in acceptance fixtures.",result:null};
-    renderOutput();
-    runReleaseCandidateE2E(state.project).then(result=>{
-      state.lastAnalysis=result;
-      if(result.state==="complete")log("[E2E] All release-candidate gates passed.");
-      else log("[E2E] "+(result.errors?.[0]?.message??result.message));
-      renderOutput();
-    }).catch(error=>{
-      state.lastAnalysis={state:"blocked",engine:"Release-candidate end-to-end suite",message:error instanceof Error?error.message:"The workflow failed.",errors:[],warnings:[],result:null};
-      renderOutput();
-    });
-    return;
-  }
-  if (workerResult === null) {
-    if (state.activeSimulation) return;
-    validateAndReport();
-    if (isAnalysisWorkerEligible(state.project)) {
-      const analysisMode = $("#simulation-analysis-mode").value;
-      let projectForAnalysis = state.project;
-      if (analysisMode === "linear-ac") projectForAnalysis = { ...state.project, linearAcSweep: { startHz: Number($("#ac-start-hz").value), stopHz: Number($("#ac-stop-hz").value), pointsPerDecade: Number($("#ac-points-per-decade").value), outputNet: $("#ac-output-net").value || undefined } };
-      if (analysisMode === "digital-events") {
-        let events;
-        try { events = JSON.parse($("#digital-events-json").value); }
-        catch { state.lastAnalysis = { state: "blocked", engine: "Digital event configuration", message: "Input events must be valid JSON." }; renderValidation(); return; }
-        projectForAnalysis = { ...state.project, digitalEventSimulation: { stopTimeNs: Number($("#digital-stop-ns").value), events, probeNets: [...$("#digital-probe-nets").selectedOptions].map((option) => option.value) } };
-        if (JSON.stringify(projectForAnalysis.digitalEventSimulation) !== JSON.stringify(state.project.digitalEventSimulation)) {
-          captureHistory();
-          state.project = { ...projectForAnalysis, metadata: { ...projectForAnalysis.metadata, updatedAt: new Date().toISOString() } };
-          projectForAnalysis = state.project;
-          state.dirty = true;
-          renderConnections();
-        }
-      }
-      const projectSnapshot = JSON.stringify(state.project);
-      const run = createSimulationWorkerRun(projectForAnalysis);
-      state.activeSimulation = run;
-      state.lastAnalysis = { state: "running", engine: "Worker-isolated bounded analysis", message: "Running the supported analysis in a background worker." };
-      setSimulationWorkerBusy(true);
-      renderOutput();
-      run.promise.then((result) => {
-        if (state.activeSimulation !== run) return;
-        state.activeSimulation = null;
-        setSimulationWorkerBusy(false);
-        if (JSON.stringify(state.project) !== projectSnapshot) {
-          state.lastAnalysis = { state: "stale", engine: "Worker-isolated bounded analysis", message: "The project changed while analysis was running. Run the analysis again for the current design." };
-          renderOutput();
-          return;
-        }
-        runAnalysis(result);
-      });
-      return;
-    }
-  }
-  const result = workerResult;
-  state.lastAnalysis = result;
-  if (result.state === "complete") {
-    const { kind } = result.result;
-    log(`[ANALYSIS] ${result.engine}`);
-    if(kind==="schematic-pcb-netlist-pad-sync")log(`[SCHEMATIC â†’ PCB] ${result.result.componentCount} components, ${result.result.netCount} nets, ${result.result.mappedPinCount} mapped pins; all endpoints preserved. Pad map: ${result.result.mappingStatus}.`);
-    if(kind==="breadboard-schematic-structural-sync")log(`[VIEW SYNC] ${result.result.componentCount} component(s), ${result.result.netCount} net(s); ${result.result.sourceView} and ${result.result.targetView} structures ${result.result.structurallyEqual?"match":"differ"}.`);
-    if(kind==="machine-fault-latched-sequence")log(`[FAULT PANEL CONCEPT] ${result.result.frameCount} input steps; final latched faults: ${result.result.frames.at(-1).latchedFaults.join(", ")||"none"}.`);
-    if(kind==="warehouse-beacon-state-sequence")log(`[WAREHOUSE BEACON] ${result.result.sampleCount} states, ${result.result.transitionCount} transitions; exclusive status indication: ${result.result.oneStatusPerFrame}.`);
-    if(kind==="access-strike-allowlist-sequence")log(`[ACCESS MOCK] ${result.result.grantCount} grant(s), ${result.result.denyCount} denial(s); ${result.result.mockAuditEvents.length} mock audit event(s).`);
-    if(kind==="fire-alarm-zone-sequence")log(`[FIRE ZONE CONCEPT] ${result.result.alarmSamples} alarm sample(s); ${result.result.openFaults} open and ${result.result.shortFaults} short faults distinguished.`);
-    if(kind==="elevator-fifo-call-queue")log(`[ELEVATOR QUEUE CONCEPT] ${result.result.eventCount} events; queued targets ${result.result.dispatchedTargets.join(", ")||"none"}; duplicate calls coalesced: ${result.result.duplicateCallsIgnored}.`);
-    if(kind==="garage-door-limit-sequence")log(`[GARAGE DOOR CONCEPT] ${result.result.conflictingRequestsRejected} conflict request(s) rejected; drive overlap: ${result.result.noDriveOverlap?"none":"detected"}.`);
-    if(kind==="smart-irrigation-decision-sequence")log(`[IRRIGATION CONCEPT] ${result.result.wateringSamples}/${result.result.sampleCount} samples water; ${result.result.sensorFaults} sensor fault(s), all fail off: ${result.result.faultsFailOff}.`);
-    if(kind==="night-light-lux-threshold")log(`[NIGHT LIGHT] ${result.result.thresholdLux} lux threshold; LED on ${result.result.ledOnSamples}/${result.result.sampleCount} samples.`);
-    if(kind==="pwm-fan-duty-curve")log(`[PWM FAN] ${result.result.knotCount} temperature/duty knots; ${result.result.sampleCount} samples mapped.`);
-    if(kind==="fan-thermostat-hysteresis")log(`[FAN THERMOSTAT] ON at ${result.result.fanOnC} Â°C, OFF at ${result.result.fanOffC} Â°C; fan on ${result.result.fanOnSamples}/${result.result.sampleCount} samples.`);
-    if(kind==="water-leak-alarm-sequence")log(`[LEAK ALARM CONCEPT] ${result.result.alarmEpisodes} wet episode(s); dry recovery observed: ${result.result.dryRecoveryObserved}.`);
-    if(kind==="latched-temperature-alarm")log(`[TEMPERATURE ALARM] Threshold ${result.result.thresholdC} Â°C; ${result.result.tripCount} trip(s); reset while hot rejected: ${result.result.resetRejected}.`);
-    if(kind==="door-interlock-sequence")log(`[GUARD LOGIC CONCEPT] Load stayed disabled while open: ${result.result.loadAlwaysDisabledWhenOpen}; open-guard reset rejected: ${result.result.resetRejectedWhenOpen}.`);
-    if(kind==="emergency-stop-latched-sequence")log(`[E-STOP LOGIC CONCEPT] ${result.result.unsafeResetRejected?"unsafe reset rejected":"no rejected reset"}; load restart requires separate start: ${result.result.restartRequiresNewStart}.`);
-    if(kind==="forward-reverse-interlock-sequence")log(`[DIRECTION PLC CONCEPT] ${result.result.conflictRequestsRejected} opposite-direction request(s) rejected; overlap: ${result.result.noOverlap?"none":"detected"}.`);
-    if(kind==="star-delta-transition-sequence")log(`[STAR-DELTA CONCEPT] ${result.result.frameCount} transition samples; star/delta overlap: ${result.result.noOverlap?"none":"detected"}.`);
-    if(kind==="conveyor-edge-counter")log(`[CONVEYOR PLC CONCEPT] Count ${result.result.finalCount}/${result.result.targetCount}; logical motor ${result.result.motorStopped?"stopped":"running"} at event ${result.result.stoppedAtEvent??"not reached"}.`);
-    if(kind==="tank-level-hysteresis")log(`[TANK PLC CONCEPT] ${result.result.sampleCount} synthetic level samples; pump on ${result.result.pumpOnSamples} sample(s), thresholds ${result.result.lowLevelPct}%/${result.result.highLevelPct}%.`);
-    if(kind==="traffic-light-fsm-sequence")log(`[TRAFFIC FSM] ${result.result.cycleCount} cycle(s), ${result.result.totalDurationS} s, ${result.result.opposingGreenConflict?"CONFLICT":"no opposing green conflict"}.`);
-    if(kind==="plc-start-stop-sequence")log(`[PLC CONCEPT] ${result.result.sampleCount} control steps; seal-in retained: ${result.result.sealInRetained}; e-stop dropped output: ${result.result.emergencyStopDropsOutput}.`);
-    if(kind==="net-cross-probe")log(`[CROSS-PROBE] Selected net ${result.result.netId} across ${result.result.views.join(", ")} using the shared project net ID.`);
-    if(kind==="dc-voltmeter")log(`[METER] ${result.result.measuredVoltageV.toFixed(4)} ${result.result.unit} from ${result.result.positiveLeadNet} to ${result.result.negativeLeadNet} (${result.result.polarity} polarity).`);
-    if(kind==="dc-ammeter")log(`[METER] ${(result.result.displayMilliAmps).toFixed(4)} mA (${result.result.polarity} polarity; burden ${result.result.burdenVoltageV.toFixed(4)} V).`);
-    if(kind==="oscilloscope-trigger")log(`[SCOPE] ${result.result.triggerEdge} edge locked at ${result.result.triggerLevelV.toFixed(3)} V; trigger time ${result.result.triggerTimeMs.toFixed(3)} ms; ${result.result.sampleCount} samples.`);
-    if(kind==="two-channel-phase")log(`[SCOPE] Channel B phase offset ${result.result.phaseOffsetDeg.toFixed(2)} ${result.result.unit} at ${result.result.frequencyHz.toFixed(2)} Hz.`);
-    if(kind==="logic-analyzer-capture")log(`[LOGIC] Trigger locked on ${result.result.triggerChannel} ${result.result.triggerEdge} edge at sample ${result.result.triggerSampleIndex}; channels ${result.result.channelLabels}.`);
-    if(kind==="frequency-counter")log(`[COUNTER] ${result.result.measuredFrequencyHz.toFixed(6)} ${result.result.unit}; period ${result.result.measuredPeriodMs.toFixed(6)} ms over ${result.result.cyclesMeasured} cycles.`);
-    if(kind==="rc-bode-plot")log(`[BODE] Cutoff ${result.result.cutoffHz.toFixed(3)} Hz; at cutoff ${result.result.cutoffMagnitudeDb.toFixed(3)} dB and ${result.result.cutoffPhaseDeg.toFixed(2)} deg.`);
-    if(kind==="rlc-step-response"){log(`[TRANSIENT] ${result.result.regime} RLC response; peak ${result.result.peakVoltageV.toFixed(3)} V; ${result.warnings.length} timestep warning(s).`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
-    if(kind==="parameter-sweep"){log(`[SWEEP] ${result.result.sampleCount} resistance points for ${result.result.parameterReference}; current falls from ${(result.result.points[0].currentA*1000).toFixed(3)} mA to ${(result.result.points.at(-1).currentA*1000).toFixed(3)} mA.`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
-    if(kind==="monte-carlo-tolerance"){log(`[MONTE CARLO] ${result.result.sampleCount} seeded trials; mean ${(result.result.mean*1000).toFixed(3)} mA, range ${(result.result.minimum*1000).toFixed(3)}â€“${(result.result.maximum*1000).toFixed(3)} mA.`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
-    if(kind==="thermal-warning-boundary"){log(`[THERMAL ADVISORY] ${result.result.reference} electrical dissipation ${(result.result.resistorDissipationW*1000).toFixed(1)} mW; derated entered limit ${(result.result.deratedLimitW*1000).toFixed(1)} mW.`);for(const warning of result.warnings??[])log(`[WARNING] ${warning.code}: ${warning.message}`);}
-    if (kind === "led-current-limiter") {
-      const { sourceVoltage, resistance, ledVf, currentA, resistorPowerW, ledOn } = result.result;
-      log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Vf=${ledVf.toFixed(3)} V, R=${resistance.toFixed(3)} Î©`);
-      log(`[RESULT] I=${(currentA * 1000).toFixed(3)} mA, Presistor=${(resistorPowerW * 1000).toFixed(3)} mW, LED ${ledOn ? "conducting" : "off"}.`);
-    } else if (kind === "net-cross-probe") {
-      log(`[CROSS-PROBE] ${result.result.endpointCount} endpoint(s) on ${result.result.netId}; selection synchronized in all three views.`);
-    } else if (kind === "voltage-divider") {
-      const { sourceVoltage, upperResistance, lowerResistance, outputVoltage, currentA, totalPowerW } = result.result;
-      log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Rupper=${upperResistance.toFixed(3)} Î©, Rlower=${lowerResistance.toFixed(3)} Î©`);
-      log(`[RESULT] Vout=${outputVoltage.toFixed(3)} V, I=${(currentA * 1000).toFixed(3)} mA, Ptotal=${(totalPowerW * 1000).toFixed(3)} mW.`);
-    } else if (kind === "rc-step-response") {
-      const { sourceVoltage, resistance, capacitance, timeConstantS, samples } = result.result;
-      log(`[RESULT] Vstep=${sourceVoltage.toFixed(3)} V, R=${resistance.toFixed(3)} Î©, C=${capacitance.toExponential(3)} F, Ï„=${timeConstantS.toExponential(3)} s.`);
-      for (const sample of samples) log(`[TRANSIENT] t=${sample.timeS.toExponential(3)} s, Vc=${sample.capacitorVoltage.toFixed(3)} V, I=${(sample.currentA * 1000).toFixed(3)} mA, PR=${(sample.resistorPowerW * 1000).toFixed(3)} mW`);
-    } else if (kind === "rl-step-response") {
-      const { sourceVoltage, resistance, inductance, timeConstantS, samples } = result.result;
-      log(`[RESULT] Vstep=${sourceVoltage.toFixed(3)} V, R=${resistance.toFixed(3)} Î©, L=${inductance.toExponential(3)} H, Ï„=${timeConstantS.toExponential(3)} s.`);
-      for (const sample of samples) log(`[TRANSIENT] t=${sample.timeS.toExponential(3)} s, I=${(sample.currentA * 1000).toFixed(3)} mA, VL=${sample.inductorVoltage.toFixed(3)} V, PR=${(sample.resistorPowerW * 1000).toFixed(3)} mW`);
-    } else {
-      const { sourceVoltage, sourceCurrentA, nodeVoltages, resistors } = result.result;
-      log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Isource=${(sourceCurrentA * 1000).toFixed(3)} mA.`);
-      for (const [node, voltage] of Object.entries(nodeVoltages)) log(`[NODE] ${node}=${voltage.toFixed(3)} V`);
-      for (const item of resistors) log(`[RESISTOR] ${item.reference}: V=${item.voltage.toFixed(3)} V, I=${(item.currentA * 1000).toFixed(3)} mA, P=${(item.powerW * 1000).toFixed(3)} mW`);
-    }
-    log(`[LIMIT] ${result.message}`);
-  } else { log(`[${result.state.toUpperCase()}] ${result.message ?? result.errors?.[0]?.message ?? "Analysis is unavailable."}`); for(const error of result.errors??[])log(`[DIAGNOSTIC] ${error.code}: ${error.message}`); if(result.diagnostics?.ruleId)log(`[RULE] ${result.diagnostics.ruleId}`); if(result.diagnostics?.status==="unavailable")log(`[COMPONENT STATUS] ${result.diagnostics.componentReference}: unavailable Â· schematic only Â· simulation not attempted.`); for(const action of result.diagnostics?.actions??result.diagnostics?.suggestions??[])log(`[SUGGESTION] ${action}`); }
-  if(result.diagnostics?.jumpTarget){state.selectedInstanceId=result.diagnostics.jumpTarget.instanceId??state.selectedInstanceId;state.selectedNetId=result.diagnostics.jumpTarget.netId;state.activeView="schematic";render();}
-  renderOutput();
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMNXÛÛ\Û™[\›Ü\KX]Y]˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K˜ÛÛ\]HŠNÃBˆÛÛœİ™\Ú\İÜ\›Ú™Xİ˜ÛÛ\Û™[Ë™š[™
+ÛÛ\Û™[O˜ÛÛ\Û™[œ™Y™\™[˜ÙOOOH”ŒHŠNÃBˆ\ÜÙ\™\]X[
+˜[Y]PÛÛ\Û™[›Ü\J™\Ú\İÜ‹ŒŒŒ3ªHŠK˜[YYJNÃBˆ\ÜÙ\™\]X[
+˜[Y]PÛÛ\Û™[›Ü\J™\Ú\İÜ‹ŒHóªHŠKœ™\Ú\İ[˜ÙSÚ\ËL
+NÃBˆ\ÜÙ\™\]X[
+˜[Y]PÛÛ\Û™[›Ü\J™\Ú\İÜ‹Œ3ªHŠK˜[Y˜[ÙJNÃBˆ\ÜÙ\™\]X[
+˜[Y]PÛÛ\Û™[›Ü\J™\Ú\İÜ‹ŒYLMH3ªHŠK˜[Y˜[ÙJNÃBˆ\ÜÙ\™\]X[
+˜[Y]PÛÛ\Û™[›Ü\J™\Ú\İÜ‹››İH˜[YHŠK˜[Y˜[ÙJNÃBˆÛÛœİ\X]ØZ]™XYš[J™]ÈT“
+‹‹‹Ø\šœÈ‹[\Ü›Y]K\›
+K]ŠNÃBˆÛÛœİİX›Z]X\œÛXÙJ\š[™^ÙŠ	É
+ˆØÛÛ\Û™[Y›Ü›HŠK˜Y]™[\İ[™\ŠœİX›Z]‰ÊK\š[™^ÙŠ	É
+ˆÜ™[[İ™KXÛÛ\Û™[ŠK˜Y]™[\İ[™\‰ÊJNÃBˆ\ÜÙ\›ÚÊİX›Z]š[™^ÙŠ˜[Y]PÛÛ\Û™[›Ü\HŠOİX›Z]š[™^ÙŠ˜Ø\\™R\İÜJ
+HŠJNÃBˆ\ÜÙ\›ÚÊİX›Z]š[™^ÙŠ˜Ø\\™R\İÜJ
+HŠOİX›Z]š[™^ÙŠ\]PÛÛ\Û™[
+ŠJNÃBˆ\ÜÙ\›X]Ú
+\Ù[˜İ[Ûˆ[™×
+ÊNØ\ÜÙ\›X]Ú
+\Ù[˜İ[Ûˆ™Y×
+ÊNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHÚ[][][Ûˆ™\Ü^ÜÈ™\›ÙXÚX›HÈÙ][™ÜË[Ù[™\œÚ[Û‹™\İ[Ë[™Ø\›š[™ÜÈ‹\Ş[˜È
 
-async function verifyRunLockfile() {
-  const path=state.project.reproducibilityLockFile;
-  if(!path){showDialog("Run lock unavailable","This project does not reference a run lockfile.");return;}
-  try{const response=await fetch(path,{headers:{Accept:"application/json"}});if(!response.ok)throw new Error(`The run lock request returned ${response.status}.`);const lock=JSON.parse(await response.text());const report=verifySimulationLockfile(state.project,lock);if(report.matched){log(`[LOCK] Verified ${lock.modelSelection.modelVersion} with the locked component library and values.`);showDialog("Run lock verified",`${lock.modelSelection.modelVersion} matches the checked-in component, setting, and model lock.`);}else{const message=report.errors[0]?.message??"The run lock did not match.";log(`[LOCK] Mismatch: ${message}`);showDialog("Run lock mismatch",message);}}catch(error){showDialog("Run lock unavailable",error instanceof Error?error.message:"The lockfile could not be checked.");}
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌK\˜Ë\İ\\™\ÜÛœÙK˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆÛÛœİ[˜[\Ú\Ï\[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+[˜[\Ú\Ëœİ]K˜ÛÛ\]HŠNÃBˆÛÛœİ™\ÜXÜ™X]TÚ[][][Û”™\Ü
+›Ú™Xİ[˜[\Ú\ËÙÙ[™\˜]Y]ˆŒŒ‹LLLÌUŒŒŒˆŸJNÃBˆ\ÜÙ\™\]X[
+™\ÜœØÚ[XK˜YYİ[‹\Ú[][][Û‹\™\ÜÌHŠNÃBˆ\ÜÙ\™\]X[
+™\ÜœÚ[][][Û‹œÙ][™ÜË˜[˜[\Ú\ÒÚ[™œ˜Ë\İ\\™\ÜÛœÙHŠNÃBˆ\ÜÙ\™\]X[
+™\ÜœÚ[][][Û‹›[Ù[™\œÚ[Û‹™š\œİ[Ü™\‹\˜Ë\İ\]ŒHŠNÃBˆ\ÜÙ\›ÚÊ™\ÜœÚ[][][Û‹œÙ][™ÜËœØ[\PÛİ[Œ
+NÃBˆ\ÜÙ\™\]X[
+™\Üœ™\İ[šÚ[™œ˜Ë\İ\\™\ÜÛœÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\ÜØ\›š[™ÜË[˜[\Ú\ËØ\›š[™ÜÏÏÖ×JNÃBˆ\ÜÙ\›ÚÊ™\Üœ›Ú™Xİ˜ÛÛ\Û™[ËœÛÛYJÛÛ\Û™[O˜ÛÛ\Û™[œ™Y™\™[˜ÙOOOH”ŒH‰‰˜ÛÛ\Û™[˜[YOOOHŒHóªHŠJNÃBˆÛÛœİ[X]ØZ]™XYš[J™]ÈT“
+‹‹‹Ú[™^š[‹[\Ü›Y]K\›
+K]ŠNÃBˆ\ÜÙ\›X]Ú
+[ÚYH™^Ü\Ú[][][Û‹\™\Ü‹ÊNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH[ˆØÚÙš[HÙ[XİÈHØ[YHÈ[Ù[[™]XİÈ›Ú™XİšY‹\Ş[˜È
 
-function exportSimulationReport() {
-  if(state.lastAnalysis?.state!=="complete"){showDialog("Report unavailable","Run a supported analysis successfully before exporting its report.");return;}
-  const report=createSimulationReport(state.project,state.lastAnalysis);
-  const blob=new Blob([JSON.stringify(report,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),link=document.createElement("a");
-  link.href=url;link.download=`${state.project.metadata.name.replace(/[^a-z0-9]+/gi,"-").replace(/^-|-$/g,"").toLowerCase()||"adigun-simulation"}-report.json`;link.click();URL.revokeObjectURL(url);
-  log("[REPORT] Exported the simulation settings, model version, results, and warnings.");
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMŒ\™\›ÙXÚX›K\[‹[ØÚÙš[K˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİX[šY™\İR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÛX[šY™\İšœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ[O[X[šY™\İ™^[\\Ë™š[™
+^[\OO™^[\KšYOOHŒMŒ\™\›ÙXÚX›K\[‹[ØÚÙš[HŠNÃBˆ\ÜÙ\™\]X[
+[K›ØÚÙš[Qš[K™^[\\ËÌMŒ\™\›ÙXÚX›K\[‹[ØÚÙš[KÜÚ[][][Û‹›ØÚËšœÛÛˆŠNÃBˆÛÛœİØÚÏR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMŒ\™\›ÙXÚX›K\[‹[ØÚÙš[KÜÚ[][][Û‹›ØÚËšœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™Y\\]X[
+Ü™X]TÚ[][][Û“ØÚÙš[J›Ú™Xİ
+KØÚÊNÃBˆÛÛœİ™\šYšYY]™\šYTÚ[][][Û“ØÚÙš[J›Ú™XİØÚÊNÃBˆ\ÜÙ\™\]X[
+™\šYšYY›X]ÚYYJNØ\ÜÙ\™\]X[
+™\šYšYY˜XİX[›[Ù[Ù[Xİ[Û‹›[Ù[™\œÚ[Û‹™š\œİ[Ü™\‹\˜Ë\İ\]ŒHŠNÃBˆÛÛœİšYR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNÙšY˜ÛÛ\Û™[Ë™š[™
+ÛÛ\Û™[O˜ÛÛ\Û™[œ™Y™\™[˜ÙOOOH”ŒHŠK˜[YOHŒKŒHóªHÃBˆ\ÜÙ\™\]X[
+™\šYTÚ[][][Û“ØÚÙš[JšYØÚÊK›X]ÚY˜[ÙJNÃBˆ\ÜÙ\™\]X[
+™\šYTÚ[][][Û“ØÚÙš[JšYØÚÊK™\œ›ÜœÖÌK˜ÛÙK”•S—ÓĞÒ×ÓRTÓPUÒŠNÃBˆÛÛœİ[X]ØZ]™XYš[J™]ÈT“
+‹‹‹Ú[™^š[‹[\Ü›Y]K\›
+K]ŠNØ\ÜÙ\›X]Ú
+[Ù]KXXİ[ÛH™\šYK\[‹[ØÚÈ‹ÊNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHÈ[İÜˆÙX[Z[ˆÛÈÛˆİ\[™›ÜÈÛˆİÜÜˆ[Y\™Ù[˜ŞHİÜ‹\Ş[˜È
 
-function confirmBotCircuitProposal() {
-  const analysis=runBotCircuitProposal(state.project);
-  if(analysis.state!=="complete"){showDialog("Circuit proposal unavailable",analysis.errors[0]?.message??analysis.message);return;}
-  const proposal=analysis.result.proposal;
-  if(!confirm("Replace this project with the proposed "+proposal.source+" LED circuit using a "+proposal.resistor+" series resistor? Check the actual LED and resistor ratings before building.")){log("[BOT] Circuit proposal rejected; project unchanged.");return;}
-  const outcome=applyBotCircuitProposal(state.project,analysis.preview,{confirmed:true});
-  if(!outcome.ok){showDialog("Proposal not applied",outcome.message);return;}
-  captureHistory();replaceProject(outcome.project);log("[BOT] Confirmed circuit proposal applied locally. Verify the exact physical part ratings before construction.");
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMŒK\Ë\İ\\İÜ[[İÜ‹XÛÛ˜Ù\˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[”Ôİ\İÜÙ\]Y[˜ÙJ›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œË\İ\\İÜ\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÌK˜ÛÛXİÜ‘[™\™Ú^™Y˜[ÙJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÌWK˜ÛÛXİÜ‘[™\™Ú^™YYJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÌ—K˜ÛÛXİÜ‘[™\™Ú^™YYJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÌ×K˜ÛÛXİÜ‘[™\™Ú^™Y˜[ÙJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÍWK˜ÛÛXİÜ‘[™\™Ú^™Y˜[ÙJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œÙX[[”™]Z[™YYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[™[Y\™Ù[˜ŞTİÜ›ÜÓİ]]YJNÃBˆÛÛœİ[˜[YR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNÚ[˜[YœÓ[İÜ”Ù\]Y[˜ÙK™œ˜[Y\ÖÌKœİ\™\ÜÙYH™˜[ÙHÃBˆ\ÜÙ\™\]X[
+[”Ôİ\İÜÙ\]Y[˜ÙJ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH˜Y™šXË[YÚÙ\]Y[˜ÙH™\X]ÈØY™H[YYİ]\ÈÚ]İ]ÜÜÚ[™ÈÜ™Y[ˆ‹\Ş[˜È
 
-function confirmBotRepairPreview() {
-  const analysis=runBotFloatingNodeRepair(state.project);
-  if(analysis.state!=="complete"){showDialog("Repair preview unavailable",analysis.errors[0]?.message??analysis.message);return;}
-  const proposal=analysis.result.proposal;
-  if(!confirm("Apply the previewed "+proposal.value+" bleed resistor from "+proposal.from+" to "+proposal.to+"? Review signal loading and circuit intent first.")){log("[BOT] Repair preview canceled; project unchanged.");return;}
-  const outcome=applyBotFloatingNodeRepairPreview(state.project,analysis.preview,{confirmed:true});
-  if(!outcome.ok){showDialog("Repair not applied",outcome.message);return;}
-  captureHistory();replaceProject(outcome.project);log("[BOT] Confirmed preview applied locally. Recheck circuit behavior and validation.");
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMŒ‹\Ë]˜Y™šXË[YÚ˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[•˜Y™šXÓYÚÙ\]Y[˜ÙJ›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™˜Y™šXË[YÚYœÛK\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜ŞXÛPÛİ[ŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ\ÙPÛİ[M
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[İ[\˜][Û”ËL
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ\Ù\ÖÌK››ÜÛİ]œ™YŠNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[œİ]\Ë™]™\Jİ]OOˆJİ]K››ÜÛİ]OOH™Ü™Y[ˆ‰‰œİ]K™X\İÙ\İOOH™Ü™Y[ˆŠJJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[›ÜÜÚ[™ÑÜ™Y[ÛÛ™›Xİ˜[ÙJNÃBˆÛÛœİ[œØY™OR”ÓÓ‹œ\œÙJ”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+JNİ[œØY™K˜Y™šXÓYÚœ\Ù\ÖÌO^Û˜[YNˆ[œØY™H‹›ÜÛİ]ˆ™Ü™Y[ˆ‹X\İÙ\İˆ™Ü™Y[ˆ‹\˜][Û”Î_NÃBˆ\ÜÙ\™\]X[
+[•˜Y™šXÓYÚÙ\]Y[˜ÙJ[œØY™JKœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH[šÈÛÛ›Û\ˆ\Y\ÈİËÚYÚ\İ\™\Ú\ÈXÜ›ÜÜÈŞ[]XÈ]™[È‹\Ş[˜È
 
-function answerBotFromSelection() {
-  const selected=state.project.components.find(item=>item.instanceId===state.selectedInstanceId);
-  const result=explainComponent(state.project,selected?.instanceId);
-  const response=$("#bot-response");
-  response.textContent=result.ok?result.answer:result.error;
-  log(result.ok?"[BOT] Answered from project and checked-in library fields only.":"[BOT] "+result.error);
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMŒË\Ë][šË[]™[XÛÛ›Û\‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[•[šÓ]™[ÛÛ›Û\Š›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™[šË[]™[Z\İ\™\Ú\ÈŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œØ[\PÛİ[L
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ[\Û”Ø[\\ËÊNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YKœ[\ÛŠKİYKYKYKYKYK˜[ÙK˜[ÙK˜[ÙKYKYWJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y[šÓ]™[ÛÛ›Û\‹šYÚ]™[İLŒÃBˆ\ÜÙ\™\]X[
+[•[šÓ]™[ÛÛ›Û\Š[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBˆÛÛœİİ]Ù”˜[™ÙO\İXİ\™YÛÛ™J›Ú™Xİ
+NÛİ]Ù”˜[™ÙK[šÓ]™[ÛÛ›Û\‹›]™[Ø[\\ÖÌOLLNÃBˆ\ÜÙ\™\]X[
+[•[šÓ]™[ÛÛ›Û\Šİ]Ù”˜[™ÙJKœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHÛÛ™^[ÜˆÛİ[\ˆÛİ[Èš\Ú[™ÈİÙ^YHYÙ\È[™İÜÈ]\™Ù]‹\Ş[˜È
 
-function exportBomCsvFile() {
-  const analysis = runBomExportPlaceholder(state.project);
-  if (analysis.state !== "complete") { showDialog("BOM export unavailable", analysis.errors[0]?.message ?? "Run the BOM example or add supported components first."); return; }
-  const exported = exportBomCsv({ ok: true, rows: analysis.result.rows });
-  if (!exported.ok) { showDialog("BOM export unavailable", exported.error); return; }
-  const blob = new Blob([exported.csv], { type: "text/csv;charset=utf-8" }), url = URL.createObjectURL(blob), link = document.createElement("a");
-  link.href = url; link.download = "adigun-bom.csv"; link.click(); URL.revokeObjectURL(url);
-  log("[BOM] Exported verified project/library fields; prices without source evidence are blank.");
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌM\ËXÛÛ™^[Ü‹XÛİ[\‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[ÛÛ™^[ÜÛİ[\Š›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™˜ÛÛ™^[Ü‹YYÙKXÛİ[\ˆŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™š[˜[Ûİ[ÊNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œİÜY]]™[ÊNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[›[İÜ”İÜYYJNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK˜Ûİ[
+KÌKKK‹‹ËËË×JNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YKœš\Ú[™ÑYÙJKÙ˜[ÙKYK˜[ÙK˜[ÙKYK˜[ÙKYK˜[ÙK˜[ÙK˜[ÙWJNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK›[İÜ”[›š[™ÊKİYKYKYKYKYKYK˜[ÙK˜[ÙK˜[ÙK˜[ÙWJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y˜ÛÛ™^[ÜÛİ[\‹\™Ù]Ûİ[LØ\ÜÙ\™\]X[
+[ÛÛ™^[ÜÛİ[\Š[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBˆÛÛœİ[˜[YÚYÛ˜[\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[YÚYÛ˜[˜ÛÛ™^[ÜÛİ[\‹œİÙ^YQ]™[ÖÌOLNØ\ÜÙ\™\]X[
+[ÛÛ™^[ÜÛİ[\Š[˜[YÚYÛ˜[
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHİ\‹Y[Hİ\\ˆ[İ™\È›İYÚ^Û\Ú]™Hİ]]È[™˜[œÚ][ÛˆXY[YH‹\Ş[˜È
 
-function exportProject() {
-  const blob = new Blob([serializeProject(state.project)], { type: "application/json" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = `${state.project.metadata.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "adigun-project"}.adigun.json`;
-  link.click();
-  URL.revokeObjectURL(link.href);
-  log("[EXPORTED] Native project JSON downloaded.");
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMK\İ\‹Y[K\İ\\‹XÛÛ˜Ù\˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[”İ\‘[Tİ\\Š›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œİ\‹Y[K]˜[œÚ][Û‹\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK›[ÙJKÈœİ\ˆ‹œİ\ˆ‹˜[œÚ][Ûˆ‹˜[œÚ][Ûˆ‹™[H‹™[H‹œİÜY‹œİ\ˆ—JNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[››Óİ™\›\YJNØ\ÜÙ\›ÚÊ™\İ[œ™\İ[™œ˜[Y\Ë™]™\Jœ˜[YOOˆJœ˜[YKœİ\‘[™\™Ú^™Y	‰™œ˜[YK™[Q[™\™Ú^™Y
+JJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Yœİ\‘[Tİ\\‹™XY[YS\ÏLØ\ÜÙ\™\]X[
+[”İ\‘[Tİ\\Š[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBˆÛÛœİ[›Ü™\™Y\İXİ\™YÛÛ™J›Ú™Xİ
+Nİ[›Ü™\™Yœİ\‘[Tİ\\‹™]™[ÖÌ—K˜]\ÏLLØ\ÜÙ\™\]X[
+[”İ\‘[Tİ\\Š[›Ü™\™Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH›ÜØ\™Ü™]™\œÙHÙÚXÈ™Z™XİÈ[ˆÜÜÚ]KY\™Xİ[Ûˆ™\]Y\İ[[İÜY‹\Ş[˜È
 
-function runPcbChecks() {
-  const report=validatePcbFabrication(state.project);
-  const summary=report.status==="passed"?"Bounded PCB checks passed.":report.errors.join("\n");
-  showDialog("PCB fabrication checks",summary+"\\n\\nChecks: "+report.checks.join(", ")+"\\nThese checks are educational and do not replace manufacturer validation.");
-  log(`[PCB DRC] ${report.status.toUpperCase()} â€” ${report.errors.length} issue(s).`);
-}
-function exportPcbFiles() {
-  const result=createManufacturingExportPack(state.project);
-  if(result.status!=="passed"){
-    showDialog("PCB export blocked",(result.errors??result.drc?.errors??[]).join("\\n"));
-    log("[PCB EXPORT] Blocked until the bounded checks pass.");
-    return;
-  }
-  const stem=state.project.metadata.name.replace(/[^a-z0-9]+/gi,"-").replace(/^-|-$/g,"").toLowerCase()||"adigun-pcb";
-  for(const [name,content] of Object.entries(result.files)){
-    const mime=name.endsWith(".csv")?"text/csv":name.endsWith(".pdf")?"application/pdf":name.endsWith(".json")?"application/json":name.endsWith(".txt")?"text/plain":"application/octet-stream";
-    const blob=new Blob([content],{type:mime}),url=URL.createObjectURL(blob),link=document.createElement("a");
-    link.href=url;link.download=stem+"-"+name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
-  }
-  log("[PCB EXPORT] Downloaded the Gerber, drill, BOM, placement, assembly overview, manifest, and SHA-256 checksum pack.");
-}
-function activateView(view) {
-  state.activeView = view;
-  if (view !== "breadboard") state.breadboardPlacementMode = false;
-  if (view !== "schematic") { state.schematicWireMode = false; state.schematicWireStart = null; }
-  if (view !== "pcb") { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; if (state.activeTool === "pcb-route") state.activeTool = "select"; }
-  $$(".view-tab").forEach((tab) => { const active = tab.dataset.view === view; tab.classList.toggle("active", active); tab.setAttribute("aria-selected", String(active)); });
-  renderCanvas();
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌM‹Y›ÜØ\™\™]™\œÙK[[İÜ‹XÛÛ˜Ù\˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[‘›ÜØ\™™]™\œÙR[\›ØÚÊ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK™\™Xİ[ÛŠKÈ™›ÜØ\™‹™›ÜØ\™‹™›ÜØ\™‹œİÜY‹œ™]™\œÙH‹œ™]™\œÙH‹œİÜY—JNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK˜ÛÛ™›Xİ™Z™XİY
+KÙ˜[ÙK˜[ÙKYK˜[ÙK˜[ÙKYK˜[ÙWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜ÛÛ™›Xİ™\]Y\İÔ™Z™XİYŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[››Óİ™\›\YJNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[™œ˜[Y\Ë™]™\Jœ˜[YOOˆJœ˜[YK™›ÜØ\™[™\™Ú^™Y	‰™œ˜[YKœ™]™\œÙQ[™\™Ú^™Y
+JJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y™›ÜØ\™™]™\œÙS[İÜ‹™]™[ÖÌKœ™\]Y\İH˜›İØ\ÜÙ\™\]X[
+[‘›ÜØ\™™]™\œÙR[\›ØÚÊ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHK\İÜ]Ú™Z™XİÈ™\Ù]Ú[Hš\Y[™™YYÈÙ\\˜]H™\İ\‹\Ş[˜È
 
-function setInspector(tab) {
-  state.activeInspector = tab;
-  $$(".inspector-tab").forEach((button) => button.classList.toggle("active", button.dataset.inspector === tab));
-  renderInspector();
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMËY[Y\™Ù[˜ŞK\İÜ\ØY™]KXÛÛ˜Ù\˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[‘[Y\™Ù[˜ŞTİÜÛÛ˜Ù\
+›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™™[Y\™Ù[˜ŞK\İÜ[]ÚY\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK›ØY[˜X›Y
+KİYK˜[ÙK˜[ÙK˜[ÙK˜[ÙKYK˜[ÙWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÌ—Kœ™\Ù]™Z™XİYYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÍK›]ÚY˜[ÙJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[[œØY™T™\Ù]™Z™XİYYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\İ\™\]Z\™\Ó™]Ôİ\YJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y™[Y\™Ù[˜ŞTİÜÛÛ˜Ù\™]™[ÖÌK˜Xİ[ÛH˜]]Ë\™\İ\Ø\ÜÙ\™\]X[
+[‘[Y\™Ù[˜ŞTİÜÛÛ˜Ù\
+[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHÛÜˆ[\›ØÚÈ]Ú\ÈØYÙ™ˆÛˆİX\™Ü[š[™È‹\Ş[˜È
 
-function handleAction(action) {
-  if (action === "new-project") {
-    if (state.dirty && !confirm("Create a new project? Unsaved local changes can still be exported first.")) return;
-    state.history = [];
-    state.future = [];
-    state.lastValidation = null;
-    replaceProject(createEmptyProject({ locale: state.project.metadata.locale }));
-    log("[NEW] Created a blank circuit project.");
-  }
-  if (action === "import-project") $("#import-file").click();
-  if (action === "save") saveLocal();
-  if (action === "export") exportProject();
-  if (action === "bom-export") exportBomCsvFile();
-  if (action === "verify-run-lock") verifyRunLockfile();
-  if (action === "pcb-drc") runPcbChecks();
-  if (action === "pcb-export") exportPcbFiles();
-  if (action === "validate") validateAndReport();
-  if (action === "undo") undo();
-  if (action === "redo") redo();
-  if (action === "run-simulation") runAnalysis();
-  if (action === "stop-simulation") stopSimulation();
-  if (action === "schematic-wire-mode") {
-    if (state.schematicWireMode) { state.schematicWireMode = false; state.schematicWireStart = null; }
-    else { activateView("schematic"); state.schematicWireMode = true; state.schematicWireStart = null; }
-    render();
-  }
-  if (action === "breadboard-placement-mode") {
-    if (state.breadboardPlacementMode) { state.breadboardPlacementMode = false; render(); return; }
-    if (!$("#breadboard-pin").value) return showDialog(t("breadboardEditor"), t("breadboardSelectPinFirst"));
-    activateView("breadboard");
-    state.breadboardPlacementMode = true;
-    render();
-    requestAnimationFrame(() => $("#design-canvas [data-breadboard-hole]")?.focus());
-  }
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMYÛÜ‹Z[\›ØÚËXÛÛ˜Ù\˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[‘ÛÜ’[\›ØÚĞÛÛ˜Ù\
+›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™™ÛÜ‹Z[\›ØÚË\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK›ØY[˜X›Y
+KİYK˜[ÙK˜[ÙK˜[ÙK˜[ÙKYK˜[ÙWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÌ—Kœ™\Ù]™Z™XİYYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[›ØY[Ø^\Ñ\ØX›YÚ[“Ü[‹YJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\Ù]™Z™XİYÚ[“Ü[‹YJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y™ÛÜ’[\›ØÚË™]™[ÖÌK˜Xİ[ÛH˜\\ÜÈØ\ÜÙ\™\]X[
+[‘ÛÜ’[\›ØÚĞÛÛ˜Ù\
+[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH[\\˜]\™H[\›H]Ú\È]™\ÚÛ[™\Y\ÈØY™H™\Ù]ÛXŞH‹\Ş[˜È
 
-  if (action === "breadboard-sync-review") {
-    const preview = deriveBreadboardSchematicNets(state.project, { getPartPins: (libraryId) => findLibraryPart(libraryId)?.pins ?? [] });
-    state.breadboardSyncPreview = { ...preview, fingerprint: breadboardSyncFingerprint(state.project) };
-    renderBreadboardControls();
-    log(preview.message);
-  }
-  if (action === "breadboard-sync-apply") {
-    const preview = state.breadboardSyncPreview;
-    if (!preview || preview.state !== "complete" || preview.fingerprint !== breadboardSyncFingerprint(state.project) || !preview.changed) {
-      state.breadboardSyncPreview = null;
-      renderBreadboardControls();
-      return showDialog(t("breadboardSyncReview"), t("breadboardSyncStale"));
-    }
-    const next = { ...state.project, nets: preview.nets, metadata: { ...state.project.metadata, updatedAt: new Date().toISOString() } };
-    const validation = validateProject(next);
-    if (!validation.valid) return showDialog(t("breadboardSyncReview"), validation.errors.map((issue) => issue.message).join(" "));
-    captureHistory();
-    state.project = next;
-    state.breadboardSyncPreview = null;
-    state.dirty = true;
-    state.recoveryActive = true;
-    state.lastValidation = null;
-    render();
-    validateAndReport();
-    log("[SYNC] Applied reviewed physical breadboard connectivity to the canonical netlist shared by schematic and PCB views.");
-  }
-  if (action === "help") showImplementationStatus();
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMK][\\˜]\™KX[\›K˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[•[\\˜]\™P[\›J›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™›]ÚY][\\˜]\™KX[\›HŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK˜[\›S]ÚY
+KÙ˜[ÙKYKYKYKYK˜[ÙKYWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÌ×Kœ™\Ù]™Z™XİYYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\Ù]™Z™XİYYJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y[\\˜]\™P[\›K™\ÚÛÏLLNØ\ÜÙ\™\]X[
+[•[\\˜]\™P[\›J[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBˆÛÛœİ[˜[YØ[\O\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[YØ[\K[\\˜]\™P[\›KœØ[\\ÖÌK[\ÏR[™š[š]NØ\ÜÙ\™\]X[
+[•[\\˜]\™P[\›J[˜[YØ[\JKœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHØ]\ˆXZÈ[\›HšYÙÙ\œÈÛˆÙ][œ][™™XÛİ™\œÈÛˆH[œ]‹\Ş[˜È
 
-function handlePcbRouteCanvasClick(event) {
-  if (state.activeView !== "pcb" || state.activeTool !== "pcb-route" || !event.target.closest("#design-canvas")) return false;
-  const pad = event.target.closest("[data-pcb-pad]");
-  if (pad) {
-    event.preventDefault();
-    event.stopPropagation();
-    state.selectedInstanceId = pad.dataset.instanceId;
-    if (pad.dataset.pcbNet === "NC") { showDialog(t("pcbMenu"), t("pcbRouteBlocked")); return true; }
-    if (!state.pcbRouteDraft) {
-      state.pcbRouteDraft = { startPad: pad.dataset.pcbPad, netId: pad.dataset.pcbNet, pointsMm: [[Number(pad.dataset.xMm), Number(pad.dataset.yMm)]] };
-      state.pcbRouteHintKey = "pcbRouteWaypoint";
-      render();
-      log(`[PCB] Route start selected at ${pad.dataset.pcbPad} on ${pad.dataset.pcbNet}.`);
-      return true;
-    }
-    if (pad.dataset.pcbNet !== state.pcbRouteDraft.netId) {
-      state.pcbRouteHintKey = "pcbRouteDifferentNet";
-      renderCanvas();
-      return true;
-    }
-    const result = createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1) });
-    if (result.status === "complete") {
-      captureHistory();
-      state.project = result.project;
-      state.dirty = true;
-      state.recoveryActive = true;
-      state.lastValidation = null;
-      state.pcbRouteDraft = null;
-      state.pcbRouteHintKey = "pcbRouteReady";
-      render();
-      log(`[PCB] Added a ${result.layer} route on ${result.netId} using ${result.pointsMm.length} point(s), ${result.widthMm} mm wide. Run PCB checks before export.`);
-    } else if (result.status === "unchanged") {
-      state.pcbRouteDraft = null;
-      state.pcbRouteHintKey = "pcbRouteReady";
-      renderCanvas();
-    } else {
-      state.pcbRouteHintKey = "pcbRouteBlocked";
-      renderCanvas();
-      showDialog(t("pcbMenu"), `${t("pcbRouteBlocked")} (${result.code})`);
-      log(`[PCB] Interactive route blocked: ${result.code}.`);
-    }
-    return true;
-  }
-  if (event.target.closest(".pcb-footprint-hit")) { event.preventDefault(); event.stopPropagation(); return true; }
-  const svg = event.target.closest(".pcb-preview-svg");
-  if (!svg || !state.pcbRouteDraft) return false;
-  const rect = svg.getBoundingClientRect();
-  if (!rect.width || !rect.height) return true;
-  const viewPoint = [(event.clientX - rect.left) * 680 / rect.width, (event.clientY - rect.top) * 300 / rect.height];
-  const point = pcbPreviewPointToBoardMm(state.project, viewPoint);
-  const board = state.project.pcbFabrication?.board;
-  if (!point || point[0] < 0 || point[1] < 0 || point[0] > board.widthMm || point[1] > board.heightMm) {
-    state.pcbRouteHintKey = "pcbRouteBlocked";
-    renderCanvas();
-    return true;
-  }
-  if ($("#snap-toggle").checked) { point[0] = Math.round(point[0] * 2) / 2; point[1] = Math.round(point[1] * 2) / 2; }
-  const previous = state.pcbRouteDraft.pointsMm.at(-1);
-  if (!previous || Math.hypot(point[0] - previous[0], point[1] - previous[1]) > 0.001) state.pcbRouteDraft.pointsMm.push(point);
-  state.pcbRouteHintKey = "pcbRouteWaypoint";
-  renderCanvas();
-  return true;
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMÌ]Ø]\‹[XZËX[\›K˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[•Ø]\“XZĞ[\›J›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™Ø]\‹[XZËX[\›K\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK˜[\›SÛŠKÙ˜[ÙKYKYK˜[ÙK˜[ÙKYK˜[ÙWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜[\›Q\\ÛÙ\ËŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[™T™XÛİ™\SØœÙ\™YYJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[YØ]\“XZĞ[\›KÙ]Ø[\\ÖÌOHÙ]Ø\ÜÙ\™\]X[
+[•Ø]\“XZĞ[\›J[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH˜[ˆ\›[Üİ]İÚ]Ú\È]\İ\™\Ú\È™\ÚÛÈ[™™]Z[œÈİ]H™]ÙY[ˆ[H‹\Ş[˜È
 
-document.addEventListener("click", (event) => {
-  state.userInteracted = true;
-  if (handlePcbRouteCanvasClick(event)) return;
-  const libraryModeButton = event.target.closest("[data-library-mode]");
-  if (libraryModeButton) {
-    state.libraryMode = libraryModeButton.dataset.libraryMode;
-    $$("[data-library-mode]").forEach((button) => {
-      const active = button === libraryModeButton;
-      button.classList.toggle("active", active);
-      button.setAttribute("aria-pressed", String(active));
-    });
-    renderLibrary();
-    return;
-  }
-  const evidencePartButton = event.target.closest("[data-evidence-part-id]");
-  if (evidencePartButton) {
-    state.selectedEvidencePartId = evidencePartButton.dataset.evidencePartId;
-    renderLibrary();
-    return;
-  }
-  const action = event.target.closest("[data-action]")?.dataset.action;
-  if (action) handleAction(action);
-  const schematicPinTarget = event.target.closest("[data-schematic-endpoint]");
-  if (schematicPinTarget && state.schematicWireMode && state.activeView === "schematic") {
-    const endpoint = schematicPinTarget.dataset.schematicEndpoint;
-    if (!state.schematicWireStart) { state.schematicWireStart = endpoint; renderCanvas(); return; }
-    if (state.schematicWireStart === endpoint) { state.schematicWireStart = null; renderCanvas(); return; }
-    try {
-      captureHistory();
-      state.project = connectPins(state.project, state.schematicWireStart, endpoint);
-      state.schematicWireMode = false;
-      state.schematicWireStart = null;
-      state.dirty = true;
-      state.recoveryActive = true;
-      state.lastValidation = null;
-      render();
-      validateAndReport();
-      log(`[SCHEMATIC] Connected ${endpoint} to the selected pin in the shared netlist.`);
-    } catch (error) {
-      showDialog(t("schematic"), error instanceof Error ? error.message : t("schematicWireFailed"));
-    }
-    return;
-  }
-  const holeTarget = event.target.closest("[data-breadboard-hole]");
-  if (holeTarget && state.breadboardPlacementMode && state.activeView === "breadboard") {
-    const placed = assignBreadboardPin($("#breadboard-pin").value, holeTarget.dataset.breadboardHole);
-    if (placed) { state.breadboardPlacementMode = false; render(); }
-    return;
-  }
-  if (event.target.closest(".app-menu-popover")) event.target.closest("details").open = false;
-  const libraryButton = event.target.closest("[data-library-id]");
-  if (libraryButton) { state.selectedLibraryId = libraryButton.dataset.libraryId; renderLibrary(); }
-  const categoryButton = event.target.closest("[data-category]");
-  if (categoryButton) {
-    state.activeCategory = categoryButton.dataset.category;
-    $$(".category-filter").forEach((button) => button.classList.toggle("active", button === categoryButton));
-    renderLibrary();
-  }
-  const instanceButton = event.target.closest("[data-instance-id]");
-  if (instanceButton) { state.selectedInstanceId = instanceButton.dataset.instanceId; render(); }
-  const viewButton = event.target.closest("[data-view]");
-  if (viewButton) activateView(viewButton.dataset.view);
-  const inspector = event.target.closest("[data-inspector]");
-  if (inspector) setInspector(inspector.dataset.inspector);
-  const outputTab = event.target.closest("[data-output]");
-  if (outputTab) { state.activeOutput = outputTab.dataset.output; renderOutput(); }
-  const tool = event.target.closest("[data-tool]");
-  if (tool) {
-    if (tool.dataset.tool === "zoom-in") state.scale = Math.min(1.5, state.scale + 0.1);
-    if (tool.dataset.tool === "zoom-out") state.scale = Math.max(0.6, state.scale - 0.1);
-    if (["select", "pan"].includes(tool.dataset.tool)) { state.activeTool = tool.dataset.tool; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
-    if (tool.dataset.tool === "pcb-route") {
-      if (state.activeTool === "pcb-route") { state.activeTool = "select"; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
-      else { activateView("pcb"); state.activeTool = "pcb-route"; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
-    }
-    $$("[data-tool]").forEach((button) => button.classList.toggle("active", button === tool && !["zoom-in", "zoom-out"].includes(tool.dataset.tool)));
-    $("#zoom-level").textContent = `${Math.round(state.scale * 100)}%`;
-    $("#design-canvas").style.setProperty("--canvas-scale", state.scale);
-    if (["select", "pan", "pcb-route"].includes(tool.dataset.tool)) renderCanvas();
-  }
-  const collapse = event.target.closest("[data-collapse]");
-  if (collapse) document.querySelector(`.${collapse.dataset.collapse}`).classList.toggle("collapsed");
-});
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMÌKY˜[‹]\›[Üİ]˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[‘˜[•\›[Üİ]
+›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™™˜[‹]\›[Üİ]Z\İ\™\Ú\ÈŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK™˜[“ÛŠKÙ˜[ÙKYKYK˜[ÙK˜[ÙKYK˜[ÙWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™˜[“Û”Ø[\\ËÊNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y™˜[•\›[Üİ]™˜[“Ù™ÏLÌNØ\ÜÙ\™\]X[
+[‘˜[•\›[Üİ]
+[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBˆÛÛœİ[˜[YØ[\O\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[YØ[\K™˜[•\›[Üİ]œØ[\\ÖÌOLMLNØ\ÜÙ\™\]X[
+[‘˜[•\›[Üİ]
+[˜[YØ[\JKœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHÓH˜[ˆÛÛ›Û\ˆ[\œÛ]\Èİ\™HÛ›İÈ[™Û[\È[™Ú[È‹\Ş[˜È
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && (state.breadboardPlacementMode || state.schematicWireMode || state.activeTool === "pcb-route")) {
-    event.preventDefault();
-    state.breadboardPlacementMode = false;
-    state.schematicWireMode = false;
-    state.schematicWireStart = null;
-    if (state.activeTool === "pcb-route") state.activeTool = "select";
-    state.pcbRouteDraft = null;
-    state.pcbRouteHintKey = null;
-    render();
-    return;
-  }
-  const holeTarget = event.target.closest?.("[data-breadboard-hole]");
-  if (holeTarget && state.breadboardPlacementMode) {
-    const holeIds = breadboardHoleIds();
-    const index = holeIds.indexOf(holeTarget.dataset.breadboardHole);
-    if (["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(event.key)) {
-      event.preventDefault();
-      const direction = ["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : -1;
-      const nextHole = holeIds[(index + direction + holeIds.length) % holeIds.length];
-      $(`#design-canvas [data-breadboard-hole="${nextHole}"]`)?.focus();
-      return;
-    }
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      const placed = assignBreadboardPin($("#breadboard-pin").value, holeTarget.dataset.breadboardHole);
-      if (placed) { state.breadboardPlacementMode = false; render(); }
-      return;
-    }
-  }
-  const pcbFootprintTarget = event.target.closest?.(".pcb-footprint-hit");
-  if (pcbFootprintTarget && state.activeView === "pcb" && state.activeTool === "select" && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
-    event.preventDefault();
-    const step = $("#snap-toggle").checked ? 0.5 : 0.1;
-    const delta = { x: event.key === "ArrowLeft" ? -step : event.key === "ArrowRight" ? step : 0, y: event.key === "ArrowUp" ? -step : event.key === "ArrowDown" ? step : 0 };
-    const instanceId = pcbFootprintTarget.dataset.pcbFootprint;
-    const result = movePcbFootprint(state.project, instanceId, delta);
-    state.selectedInstanceId = instanceId;
-    if (result.status === "complete") {
-      captureHistory();
-      state.project = result.project;
-      state.dirty = true;
-      state.recoveryActive = true;
-      state.lastValidation = null;
-      render();
-      validateAndReport();
-      $(`#design-canvas [data-pcb-footprint="${CSS.escape(instanceId)}"]`)?.focus();
-      log(`[PCB] ${instanceId} nudged by ${step} mm.`);
-    } else if (result.status === "blocked") {
-      showDialog(t("pcbMenu"), result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : result.code === "INVALID_FOOTPRINT_GEOMETRY" ? t("pcbMoveInvalidGeometry") : t("pcbMoveNoFootprint"));
-    } else {
-      render();
-      $(`#design-canvas [data-pcb-footprint="${CSS.escape(instanceId)}"]`)?.focus();
-    }
-    return;
-  }
-  const target = event.target;
-  const editingText = target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
-  const modifier = event.ctrlKey || event.metaKey;
-  const key = event.key.toLowerCase();
-  if (modifier && key === "z") {
-    event.preventDefault();
-    if (event.shiftKey) redo(); else undo();
-    return;
-  }
-  if (modifier && key === "y") { event.preventDefault(); redo(); return; }
-  if (modifier && key === "s") { event.preventDefault(); saveLocal(); return; }
-  if (!editingText && (event.key === "Delete" || event.key === "Backspace")) {
-    const component = selectedComponent();
-    if (!component) return;
-    event.preventDefault();
-    captureHistory();
-    state.project = removeComponent(state.project, component.instanceId);
-    state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
-    state.dirty = true;
-  state.recoveryActive = true;
-    state.lastValidation = null;
-    render();
-    validateAndReport();
-    log(`[REMOVE] Removed ${component.reference} and cleaned its net endpoints.`);
-  }
-});
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMÌ‹\ÛKY˜[‹XÛÛ›Û\‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[”ÛQ˜[ÛÛ›Û\Š›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œÛKY˜[‹Y]KXİ\™HŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK™]T\˜Ù[
+KÌŒÌLLJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[YœÛQ˜[ÛÛ›Û\‹˜İ\™VÌWK[\ÏLNNØ\ÜÙ\™\]X[
+[”ÛQ˜[ÛÛ›Û\Š[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBˆÛÛœİ[˜[Y]O\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y]KœÛQ˜[ÛÛ›Û\‹˜İ\™VÌWK™]T\˜Ù[LLNØ\ÜÙ\™\]X[
+[”ÛQ˜[ÛÛ›Û\Š[˜[Y]JKœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHšYÚYÚİÚ]Ú\ÈHQ™[İÈ]È^™\ÚÛ‹\Ş[˜È
 
-document.addEventListener("pointerdown", (event) => {
-  const canvas = event.target.closest("#design-canvas");
-  if (!canvas) return;
-  const component = event.target.closest(".placed-component");
-  const pcbFootprint = state.activeView === "pcb" && state.activeTool === "select" ? event.target.closest(".pcb-footprint-hit") : null;
-  const point = { x: event.clientX, y: event.clientY };
-  if (pcbFootprint) {
-    const svg = pcbFootprint.ownerSVGElement;
-    state.drag = { mode: "move-pcb", pointerId: event.pointerId, instanceId: pcbFootprint.dataset.pcbFootprint, start: point, svg, canvas };
-    canvas.setPointerCapture?.(event.pointerId);
-    event.preventDefault();
-    return;
-  }
-  if (component && state.activeTool === "select") {
-    const item = state.project.components.find((candidate) => candidate.instanceId === component.dataset.instanceId);
-    if (!item) return;
-    state.drag = { mode: "move", pointerId: event.pointerId, instanceId: item.instanceId, start: point, startPosition: [...item.position[state.activeView]], canvas };
-    canvas.setPointerCapture?.(event.pointerId);
-    return;
-  }
-  if (!component && state.activeTool === "pan") {
-    state.drag = { mode: "pan", pointerId: event.pointerId, start: point, startPan: { ...state.pan }, canvas };
-    canvas.setPointerCapture?.(event.pointerId);
-  }
-});
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMÌËX]]ÛX]XË[šYÚ[YÚ˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[]]ÛX]XÓšYÚYÚ
+›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™›šYÚ[YÚ[^]™\ÚÛŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK›YÛŠKİYKYKYK˜[ÙK˜[ÙKYWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[›YÛ”Ø[\\Ë
+NÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y˜]]ÛX]XÓšYÚYÚ›^Ø[\\ÖÌOKLNØ\ÜÙ\™\]X[
+[]]ÛX]XÓšYÚYÚ
+[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH\œšYØ][ÛˆØ]\œÈÛ›HÚ[ˆH[™\›Z]Y[™˜Z[ÈÙ™ˆÛˆÙ[œÛÜˆ˜][‹\Ş[˜È
 
-document.addEventListener("pointermove", (event) => {
-  if (!state.drag || event.pointerId !== state.drag.pointerId) return;
-  const deltaX = event.clientX - state.drag.start.x;
-  const deltaY = event.clientY - state.drag.start.y;
-  if (state.drag.mode === "pan") {
-    state.pan = { x: Math.max(-120, Math.min(120, state.drag.startPan.x + deltaX)), y: Math.max(-80, Math.min(80, state.drag.startPan.y + deltaY)) };
-    const scene = $("#design-canvas .canvas-scene");
-    if (scene) { scene.style.setProperty("--pan-x", `${state.pan.x}px`); scene.style.setProperty("--pan-y", `${state.pan.y}px`); }
-    return;
-  }
-  if (state.drag.mode === "move-pcb") {
-    const rect = state.drag.svg.getBoundingClientRect();
-    const viewX = deltaX * (680 / rect.width), viewY = deltaY * (300 / rect.height);
-    const scale = getPcbPreviewScale(state.project.pcbFabrication?.board);
-    if (!scale) return;
-    state.drag.previewDelta = { x: viewX / scale, y: viewY / scale };
-    const group = state.drag.svg.querySelector(`[data-pcb-footprint="${CSS.escape(state.drag.instanceId)}"]`);
-    if (group) group.setAttribute("transform", `translate(${viewX} ${viewY})`);
-    return;
-  }
-  const rect = state.drag.canvas.getBoundingClientRect();
-  const scaleX = 680 / rect.width;
-  const scaleY = 300 / rect.height;
-  const x = state.drag.startPosition[0] + (deltaX * scaleX);
-  const y = state.drag.startPosition[1] + (deltaY * scaleY);
-  const visual = state.drag.canvas.querySelector(`[data-instance-id="${CSS.escape(state.drag.instanceId)}"]`);
-  if (visual) { visual.style.setProperty("--x", `${x}px`); visual.style.setProperty("--y", `${y}px`); }
-});
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMÍ\ÛX\Z\œšYØ][Û‹[[Ù[˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[”ÛX\\œšYØ][ÛŠ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œÛX\Z\œšYØ][Û‹YXÚ\Ú[Û‹\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YKØ]\š[™ÊKİYK˜[ÙK˜[ÙK˜[ÙK˜[ÙKYWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™˜][Ñ˜Z[Ù™‹YJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œÙ[œÛÜ‘˜][ËJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[YœÛX\\œšYØ][Û‹œØ[\\ÖÌ×KœÙ[œÛÜ‘˜][Y˜[ÙNØ\ÜÙ\™\]X[
+[”ÛX\\œšYØ][ÛŠ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHØ\˜YÙHÛÜˆ[Z]İÚ]Ú\ÈİÜ[İ[Ûˆ[™™Z™XİÜÜÚ]KY\™Xİ[ÛˆÛÛ[X[™È‹\Ş[˜È
 
-document.addEventListener("pointercancel", (event) => {
-  if (!state.drag || event.pointerId !== state.drag.pointerId) return;
-  const drag = state.drag;
-  state.drag = null;
-  drag.canvas.releasePointerCapture?.(event.pointerId);
-  if (drag.mode === "move-pcb") renderCanvas();
-});
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMÍKYØ\˜YÙKYÛÜ‹XÛÛ˜Ù\˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[‘Ø\˜YÙQÛÜÛÛ˜Ù\
+›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™™Ø\˜YÙKYÛÜ‹[[Z]\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK›[ÙJKÈ›Ü[š[™È‹œİÜY‹˜ÛÜÚ[™È‹˜ÛÜÚ[™È‹œİÜY‹œİÜY‹›Ü[š[™È—JNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÌ×K˜ÛÛ™›Xİ™Z™XİYYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜ÛÛ™›Xİ[™Ô™\]Y\İÔ™Z™XİYJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[››Ñš]™Sİ™\›\YJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y™Ø\˜YÙQÛÜÛÛ˜Ù\™]™[ÖÌK˜Xİ[ÛHœ™]™\œÙHØ\ÜÙ\™\]X[
+[‘Ø\˜YÙQÛÜÛÛ˜Ù\
+[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH[]˜]ÜˆØÚY[\ˆ™\Ù\™\È’Q“ÈØ[È[™YÛ›Ü™\È\XØ]H[™[™È›ÛÜˆ‹\Ş[˜È
 
-document.addEventListener("pointerup", (event) => {
-  if (!state.drag || event.pointerId !== state.drag.pointerId) return;
-  const drag = state.drag;
-  state.drag = null;
-  drag.canvas.releasePointerCapture?.(event.pointerId);
-  if (drag.mode === "move-pcb") {
-    const rect = drag.svg.getBoundingClientRect();
-    const scale = getPcbPreviewScale(state.project.pcbFabrication?.board);
-    if (!scale) { renderCanvas(); return; }
-    const delta = { x: (event.clientX - drag.start.x) * (680 / rect.width) / scale, y: (event.clientY - drag.start.y) * (300 / rect.height) / scale };
-    if ($("#snap-toggle").checked) { delta.x = Math.round(delta.x * 2) / 2; delta.y = Math.round(delta.y * 2) / 2; }
-    const result = movePcbFootprint(state.project, drag.instanceId, delta);
-    state.selectedInstanceId = drag.instanceId;
-    if (result.status === "complete") {
-      captureHistory();
-      state.project = result.project;
-      state.dirty = true;
-      state.recoveryActive = true;
-      state.lastValidation = null;
-      render();
-      validateAndReport();
-      log(`[PCB] ${drag.instanceId} moved ${result.movedPadCount} pad(s); ${result.updatedRoutePoints} attached route point(s) updated.`);
-    } else {
-      render();
-      if (result.status === "blocked") {
-        const message = result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : result.code === "INVALID_FOOTPRINT_GEOMETRY" ? t("pcbMoveInvalidGeometry") : t("pcbMoveNoFootprint");
-        showDialog(t("pcbMenu"), message);
-        log(`[PCB] Footprint move blocked: ${result.code}.`);
-      }
-    }
-    return;
-  }
-  if (drag.mode !== "move") return;
-  const rect = drag.canvas.getBoundingClientRect();
-  const x = drag.startPosition[0] + ((event.clientX - drag.start.x) * (680 / rect.width));
-  const y = drag.startPosition[1] + ((event.clientY - drag.start.y) * (300 / rect.height));
-  captureHistory();
-  state.project = moveComponent(state.project, drag.instanceId, state.activeView, [x, y], { snap: $("#snap-toggle").checked });
-  state.selectedInstanceId = drag.instanceId;
-  state.dirty = true;
-  state.recoveryActive = true;
-  state.lastValidation = null;
-  render();
-});
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMÍ‹Y[]˜]Ü‹XØ[\]Y]YK˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[‘[]˜]ÜØ[]Y]YJ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™™[]˜]Ü‹YšY›ËXØ[\]Y]YHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YKœ]Y]YJKÖÌ×KÌË—KÌË—KÌ—K×K×WJNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™\Ü]ÚY\™Ù]ËÌË—JNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[™\XØ]PØ[ÒYÛ›Ü™YJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y™[]˜]ÜØ[]Y]YK™]™[ÖÌK™›ÛÜMØ\ÜÙ\™\]X[
+[‘[]˜]ÜØ[]Y]YJ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHš\™KX[\›H›Û™HÙY\È[\›H\İ[˜İœ›ÛHÜ[‹ÜÚÜ›İX›H[œ]È‹\Ş[˜È
 
-$("#component-search").addEventListener("input", renderLibrary);
-$("#global-search").addEventListener("input", (event) => { $("#component-search").value = event.target.value; renderLibrary(); });
-$("#add-component").addEventListener("click", () => {
-  if (!state.selectedLibraryId) return;
-  captureHistory();
-  state.project = addComponent(state.project, state.selectedLibraryId);
-  state.selectedInstanceId = state.project.components.at(-1).instanceId;
-  state.dirty = true;
-  state.recoveryActive = true;
-  log(`[ADD] Added ${selectedComponent().reference} from the starter generic library.`);
-  render();
-});
-$("#component-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const component = selectedComponent();
-  if (!component) return;
-  const propertyCheck=validateComponentProperty(component,$("#property-value").value);
-  if(!propertyCheck.valid){showDialog("Property not applied",propertyCheck.errors.map(error=>error.message).join("\\n"));log(`[PROPERTY] ${component.reference} edit blocked: ${propertyCheck.errors[0].code}.`);return;}
-  captureHistory();
-  state.project = updateComponent(state.project, component.instanceId, { reference: $("#property-reference").value.trim(), value: $("#property-value").value.trim() });
-  state.dirty = true;
-  state.recoveryActive = true;
-  validateAndReport();
-  render();
-});
-$("#remove-component").addEventListener("click", () => {
-  const component = selectedComponent();
-  if (!component) return;
-  captureHistory();
-  state.project = removeComponent(state.project, component.instanceId);
-  if (state.project.breadboard?.pinHoles) {
-    const endpointPrefix = `${component.instanceId}:`;
-    state.project = { ...state.project, breadboard: { ...state.project.breadboard, pinHoles: Object.fromEntries(Object.entries(state.project.breadboard.pinHoles).filter(([endpoint]) => !endpoint.startsWith(endpointPrefix))) } };
-  }
-  state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
-  state.dirty = true;
-  state.recoveryActive = true;
-  state.lastValidation = null;
-  render();
-  validateAndReport();
-  log(`[REMOVE] Removed ${component.reference} and cleaned its net endpoints.`);
-});
-$("#connection-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  try {
-    captureHistory();
-    state.project = connectPins(state.project, $("#connection-first").value, $("#connection-second").value);
-    state.dirty = true;
-  state.recoveryActive = true;
-    state.lastValidation = null;
-    render();
-    validateAndReport();
-  } catch (error) {
-    showDialog("Connection not added", error instanceof Error ? error.message : "The selected pins could not be connected.");
-  }
-});
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMÍËYš\™KX[\›K^›Û™KXÛÛ˜Ù\˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[‘š\™P[\›V›Û™J›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™™š\™KX[\›K^›Û™K\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO–Ùœ˜[YK™š\™P[\›Kœ˜[YK›İX›U\WJKÖÙ˜[ÙK[KİYK[KÙ˜[ÙK›Ü[‹XÚ\˜İZ]—KÙ˜[ÙKœÚÜXÚ\˜İZ]—KÙ˜[ÙK[WJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜[\›TØ[\\ËJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[›Ü[‘˜][ËJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œÚÜ˜][ËJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y™š\™P[\›V›Û™KœØ[\\ÖÌK˜ÛÛ™][ÛH[šÛ›İÛˆØ\ÜÙ\™\]X[
+[‘š\™P[\›V›Û™J[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHXØÙ\ÜÈİšZÙH[ØÚÈÜ˜[È[İÛ\İYQÈœšYY›H[™]Y]È[šX[È‹\Ş[˜È
 
-function assignBreadboardPin(endpoint, hole) {
-  const normalizedHole = normalizeBreadboardHole(hole);
-  if (!endpoint || !normalizedHole) return showDialog(t("breadboardEditor"), t("breadboardInvalidHole"));
-  const [instanceId, ...pinParts] = endpoint.split(":");
-  const pin = pinParts.join(":");
-  const component = state.project.components.find((item) => item.instanceId === instanceId);
-  if (!component || !findLibraryPart(component.libraryId)?.pins.includes(pin)) return showDialog(t("breadboardEditor"), t("breadboardUnknownPin"));
-  const current = state.project.breadboard ?? { model: BREADBOARD_MODEL.id, pinHoles: {}, jumpers: [] };
-  const next = { ...state.project, breadboard: { ...current, model: BREADBOARD_MODEL.id, pinHoles: { ...(current.pinHoles ?? {}), [endpoint]: normalizedHole }, jumpers: current.jumpers ?? [] } };
-  commitBreadboardEdit(next, `[BREADBOARD] Placed ${endpoint} at ${normalizedHole}.`);
-  return true;
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMÎXXØÙ\ÜËXÛÛ›Û\İšZÙK[ØÚË˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[XØÙ\ÜÔİšZÙSØÚÊ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™˜XØÙ\ÜË\İšZÙKX[İÛ\İ\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK™XÚ\Ú[ÛŠKÈ™Ü˜[Y‹™[šYY‹™[šYY‹™[šYY‹™Ü˜[Y—JNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YKœİšZÙU[›ØÚÙY
+KİYKYKYK˜[ÙKYWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÌWK[›ØÚÕ[[\ËÌ
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[›[ØÚĞ]Y]]™[Ë›[™İJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y˜XØÙ\ÜÔİšZÙSØÚË[›ØÚÑ\˜][Û“\ÏMÌØ\ÜÙ\™\]X[
+[XØÙ\ÜÔİšZÙSØÚÊ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHØ\™Zİ\ÙH™XXÛÛˆX\ÈØØİ\[˜ŞH[™˜][˜[œÚ][ÛœÈÈ\İ[˜İİ]]È‹\Ş[˜È
 
-$("#breadboard-pin-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  if (assignBreadboardPin($("#breadboard-pin").value, $("#breadboard-hole").value)) $("#breadboard-hole").value = "";
-});
-$("#breadboard-placement-list").addEventListener("click", (event) => {
-  const button = event.target.closest("[data-bb-unassign]");
-  if (!button) return;
-  const current = state.project.breadboard;
-  if (!current?.pinHoles?.[button.dataset.bbUnassign]) return;
-  const pinHoles = { ...current.pinHoles };
-  delete pinHoles[button.dataset.bbUnassign];
-  commitBreadboardEdit({ ...state.project, breadboard: { ...current, pinHoles } }, `[BREADBOARD] Removed physical placement for ${button.dataset.bbUnassign}.`);
-});
-$("#breadboard-jumper-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const from = normalizeBreadboardHole($("#breadboard-jumper-from").value);
-  const to = normalizeBreadboardHole($("#breadboard-jumper-to").value);
-  if (!from || !to || from === to) return showDialog(t("breadboardEditor"), t("breadboardInvalidJumper"));
-  const current = state.project.breadboard ?? { model: BREADBOARD_MODEL.id, pinHoles: {}, jumpers: [] };
-  const next = { ...state.project, breadboard: { ...current, model: BREADBOARD_MODEL.id, pinHoles: current.pinHoles ?? {}, jumpers: [...(current.jumpers ?? []), { from, to }] } };
-  $("#breadboard-jumper-from").value = "";
-  $("#breadboard-jumper-to").value = "";
-  commitBreadboardEdit(next, `[BREADBOARD] Added physical jumper ${from}â€“${to}.`);
-});
-$("#breadboard-jumper-list").addEventListener("click", (event) => {
-  const button = event.target.closest("[data-bb-remove-jumper]");
-  if (!button) return;
-  const current = state.project.breadboard;
-  const index = Number(button.dataset.bbRemoveJumper);
-  if (!Number.isInteger(index) || !current?.jumpers?.[index]) return;
-  const jumpers = current.jumpers.filter((_, itemIndex) => itemIndex !== index);
-  commitBreadboardEdit({ ...state.project, breadboard: { ...current, jumpers } }, "[BREADBOARD] Removed a physical jumper.");
-});
-$("#net-list").addEventListener("click", (event) => {
-  const netButton = event.target.closest("[data-net-id]");
-  if (netButton) {
-    state.selectedNetId = state.selectedNetId === netButton.dataset.netId ? null : netButton.dataset.netId;
-    render();
-    return;
-  }
-  const button = event.target.closest("[data-endpoint]");
-  if (!button) return;
-  captureHistory();
-  state.project = disconnectPin(state.project, button.dataset.endpoint);
-  state.dirty = true;
-  state.recoveryActive = true;
-  state.lastValidation = null;
-  render();
-  validateAndReport();
-});
-$("#project-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  captureHistory();
-  state.project = { ...state.project, metadata: { ...state.project.metadata, name: $("#project-name").value.trim(), updatedAt: new Date().toISOString() } };
-  state.dirty = true;
-  state.recoveryActive = true;
-  render();
-});
-$("#language").addEventListener("change", (event) => {
-  state.project = { ...state.project, metadata: { ...state.project.metadata, locale: event.target.value } };
-  state.dirty = true;
-  state.recoveryActive = true;
-  render();
-});
-$("#grid-toggle").addEventListener("change", renderCanvas);
-$("#run-simulation").addEventListener("click", () => runAnalysis());
-$("#simulation-analysis-mode").addEventListener("change", (event) => {
-  $("#ac-sweep-controls").classList.toggle("hidden", event.target.value !== "linear-ac");
-  $("#digital-event-controls").classList.toggle("hidden", event.target.value !== "digital-events");
-});
-$("#run-validation").addEventListener("click", validateAndReport);
-$("#export-simulation-report").addEventListener("click", exportSimulationReport);
-$("#load-example").addEventListener("click", async () => {
-  const path = $("#example-picker").value;
-  try {
-    const response = await fetch(path, { headers: { Accept: "application/json" } });
-    if (!response.ok) throw new Error(`The example request returned ${response.status}.`);
-    const project = parseProject(await response.text());
-    const analysis = project.releaseCandidateE2E
-      ? await runReleaseCandidateE2E(project)
-      : await createSimulationWorkerRun(project).promise;
-    if (analysis.state !== "complete") throw new Error("The selected example does not pass its supported analysis check.");
-    if (state.dirty && !confirm("Replace the current project with this released example? Export unsaved work first if you need it.")) return;
-    state.history = [];
-    state.future = [];
-    state.lastValidation = null;
-    state.activeOutput = "output";
-    replaceProject(project, { dirty: false });
-    state.lastAnalysis = analysis;
-    state.selectedInstanceId = project.components.find((item) => item.libraryId === "passive.resistor")?.instanceId ?? project.components[0]?.instanceId ?? null;
-    render();
-    log(`[EXAMPLE] Loaded and validated ${project.metadata.name}.`);
-  } catch (error) {
-    showDialog("Example unavailable", error instanceof Error ? error.message : "The selected example could not be loaded.");
-  }
-});
-$("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
-$("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
-$("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
-$("#bot-form").addEventListener("submit", (event) => { event.preventDefault(); answerBotFromSelection(); });
-$("#bot-repair-apply").addEventListener("click", confirmBotRepairPreview);
-$("#bot-proposal-apply").addEventListener("click", confirmBotCircuitProposal);
-$("#import-file").addEventListener("change", async (event) => {
-  const [file] = event.target.files;
-  if (!file) return;
-  try {
-    const importedProject = parseProject(await file.text());
-    if (state.dirty && !confirm("Replace the current project with this imported file? Export unsaved work first if you need it.")) return;
-    captureHistory();
-    state.lastValidation = null;
-    state.activeOutput = "output";
-    replaceProject(importedProject, { dirty: false });
-    log(`[IMPORTED] ${file.name} loaded after schema validation.`);
-  } catch (error) {
-    showDialog("Import blocked", error instanceof Error ? error.message : "The selected file is not a supported project.");
-  } finally { event.target.value = ""; }
-});
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌMÎK]Ø\™Zİ\ÙKX™XXÛÛ‹XÛÛ˜Ù\˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[•Ø\™Zİ\ÙP™XXÛÛŠ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™Ø\™Zİ\ÙKX™XXÛÛ‹\İ]K\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO–Ùœ˜[YK™Ü™Y[“Û‹œ˜[YKœ™YÛ‹œ˜[YK˜[X™\“Û‹œ˜[YK˜^™\“Û—JKÖİYK˜[ÙK˜[ÙK˜[ÙWKÙ˜[ÙKYK˜[ÙK˜[ÙWKÙ˜[ÙK˜[ÙKYKYWKİYK˜[ÙK˜[ÙK˜[ÙWWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜[œÚ][ÛÛİ[ÊNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[›Û™Tİ]\Ô\‘œ˜[YKYJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[YØ\™Zİ\ÙP™XXÛÛ‹œØ[\\ÖÌOH[šÛ›İÛˆØ\ÜÙ\™\]X[
+[•Ø\™Zİ\ÙP™XXÛÛŠ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH˜][[›[˜ÚX]ÜˆÛX\œÈÛ›HY\ˆXÚÛ›İÛYÙ[Y[[™[˜Xİ]™H[œ]‹\Ş[˜È
 
-render();
-if (state.recoveredDraft) log("[RECOVERY] Restored the latest unsaved project saved in this browser.");
-if (initialProject.fresh) {
-  const starterPath = "examples/070-stm32-timer-pwm.adigun.json";
-  $("#example-picker").value = starterPath;
-  fetch(starterPath, { headers: { Accept: "application/json" } })
-    .then((response) => { if (!response.ok) throw new Error("Starter example unavailable."); return response.text(); })
-    .then(async (documentText) => {
-      if (state.userInteracted || state.dirty || localStorage.getItem(STORAGE_KEY) || state.project.id !== initialProject.project.id) return;
-      const project = parseProject(documentText);
-      const analysis = await createSimulationWorkerRun(project).promise;
-      if (analysis.state !== "complete") return;
-      replaceProject(project, { dirty: false });
-      state.selectedInstanceId = "resistor";
-      state.activeView = "breadboard";
-      state.activeInspector = "component";
-      state.lastAnalysis = analysis;
-      $("#example-picker").value = starterPath;
-      render();
-      log("[STARTER] Loaded the tested STM32 timer PWM sample.");
-    })
-    .catch(() => {});
-}
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌN[XXÚ[™KY˜][X[›[˜ÚX]Ü‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K[œİ\ÜYŠNÃBˆÛÛœİ™\İ[\[“XXÚ[™Q˜][[›[˜ÚX]ÜŠ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™›XXÚ[™KY˜][[]ÚY\Ù\]Y[˜ÙHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK›]ÚY˜][ÊKÖÈ‘ŒH—KÈ‘ŒH—K×KÈ‘Œˆ—KÈ‘Œˆ—K×WJNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[™œ˜[Y\Ë›X\
+œ˜[YOO™œ˜[YK˜^™\“ÛŠKİYK˜[ÙK˜[ÙKYKYK˜[ÙWJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÍK™˜][[\Û‹YJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[™œ˜[Y\ÖÍWKšX[S[\Û‹YJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y›XXÚ[™Q˜][[›[˜ÚX]Ü‹™]™[ÖÌK˜Xİ]™Q˜][ÏVÈ˜˜YY—NØ\ÜÙ\™\]X[
+[“XXÚ[™Q˜][[›[˜ÚX]ÜŠ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHœ™XY›Ø\™Ú\š[™ÈŞ[˜Ú›Ûš^™\ÈÛÛ\Û™[[™™]Y[]Y\È[ÈØÚ[X]XÈ›Ú™Xİ[Ûˆ‹\Ş[˜È
 
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNKXœ™XY›Ø\™\ØÚ[X]XË\Ş[˜Ë˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆÛÛœİÛÛ\Û™[YÏ\›Ú™Xİ˜ÛÛ\Û™[Ë›X\
+][OOš][Kš[œİ[˜ÙRY
+KœÛÜ
+
+NÃBˆÛÛœİœ™XY›Ø\™Y]Y\ØÛÛ›™Xİ[Š›Ú™Xİœ™\Ú\İÜ‹LNŒˆŠNÃBˆÛÛœİÚ\™YXÛÛ›™Xİ[œÊœ™XY›Ø\™Y]œ™\Ú\İÜ‹LNŒˆ‹›YLNHŠNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+Ú\™Y
+K˜[YYJNÃBˆÛÛœİ™\İ[\[œ™XY›Ø\™ØÚ[X]XÔŞ[˜ÊÚ\™Y
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™˜œ™XY›Ø\™\ØÚ[X]XË\İXİ\˜[\Ş[˜ÈŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œİXİ\˜[Q\]X[YJNØ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[˜ÛÛ\Û™[YËÛÛ\Û™[YÊNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[›™]YËš[˜ÛY\Ê“ŒHŠJNØ\ÜÙ\›ÚÊ™\İ[œ™\İ[›™]YËš[˜ÛY\Ê•ĞÈŠJNØ\ÜÙ\›ÚÊ™\İ[œ™\İ[›™]YËš[˜ÛY\Ê‘Ó‘ŠJNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[˜œ™XY›Ø\™™\İ[œ™\İ[œØÚ[X]XÊNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYHØÚ[X]XË]ËTĞˆ›Ú™Xİ[Ûˆ™\Ù\™\È]™\HMMH™][™Ú[[ˆ[ˆ[\İ˜]]™HYX\‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌN‹\ØÚ[X]XË\Ø‹\Ş[˜Ë˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K˜ÛÛ\]HŠNÃBˆÛÛœİ™\İ[\[”ØÚ[X]XÔØ”Ş[˜Ê›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œØÚ[X]XË\Ø‹[™]\İ\Y\Ş[˜ÈŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[›X\[™Ôİ]\Ëš[\İ˜]]™K][™\šYšYYŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜ÛÛ\Û™[Ûİ[JNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[›™]Ûİ[ÊNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œÛİ\˜ÙQ[™Ú[Ûİ[™\İ[œ™\İ[œY[™Ú[Ûİ[
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[›™]\İ™\Ù\™YYJNÃBˆÛÛœİZ\ÜÚ[™Ï\İXİ\™YÛÛ™J›Ú™Xİ
+NÛZ\ÜÚ[™ËœØÚ[X]XÔØ”Ş[˜ËœYX\œÜ
+
+NØ\ÜÙ\™\]X[
+[”ØÚ[X]XÔØ”Ş[˜ÊZ\ÜÚ[™ÊKœİ]K˜›ØÚÙYŠNÃBˆÛÛœİ\XØ]O\İXİ\™YÛÛ™J›Ú™Xİ
+NÙ\XØ]KœØÚ[X]XÔØ”Ş[˜ËœYX\ÌWKœYHŒHØ\ÜÙ\™\]X[
+[”ØÚ[X]XÔØ”Ş[˜Ê\XØ]JKœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYH™YK]šY]ÈQY]Ú\™\ÈÛÛ\Û™[Y[]H[™™\İÜ™\È[™ËÜ™YÈÛ˜\ÚİÈ‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNË]™YK]šY]Ë[Y\›Ú™Xİ˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆ\ÜÙ\™Y\\]X[
+Ù]šY]Ô™XÛÛ˜Ú[X][Û’\ÜİY\Ê›Ú™Xİ˜œ™XY›Ø\™ŠK×JNØ\ÜÙ\™Y\\]X[
+Ù]šY]Ô™XÛÛ˜Ú[X][Û’\ÜİY\Ê›Ú™XİœØÚ[X]XÈŠK×JNÃBˆÛÛœİØ’\ÜİY\ÏYÙ]šY]Ô™XÛÛ˜Ú[X][Û’\ÜİY\Ê›Ú™XİœØˆŠNØ\ÜÙ\™\]X[
+Ø’\ÜİY\Ë›[™İ
+NØ\ÜÙ\›ÚÊØ’\ÜİY\ËœÛÛYJ\ÜİYOOš\ÜİYKš[œİ[˜ÙRYOOHœ™\Ú\İÜ‹LHŠJNÃBˆÛÛœİ™\İ[\[•™YUšY]ÓY\İÜJ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™™YK]šY]Ë[Y\Ş[˜ËZ\İÜHŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[˜]˜Z[X›UšY]ÜËÈ˜œ™XY›Ø\™‹œØÚ[X]XÈ‹œØˆ—JNØ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[œ™XÛÛ˜Ú[X][ÛUšY]ËØœ™XY›Ø\™ŒØÚ[X]XÎŒØJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œØ”™XÛÛ˜Ú[X][Û‹›[™İ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[šY[]Y\Ô™\Ù\™YYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œÚ\™YY[]KYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[š\İÜT™\İÜ™YYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™YÔ™\İÜ™YYJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[›ÜšYÚ[˜[˜[YKŒÌÌ3ªHŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[™Y]Y˜[YKÌ3ªHŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[[™Õ˜[YKŒÌÌ3ªHŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™YÕ˜[YKÌ3ªHŠNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y™YUšY]ÓY\İÜKš[œİ[˜ÙRYH›Z\ÜÚ[™ÈØ\ÜÙ\™\]X[
+[•™YUšY]ÓY\İÜJ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYH[œİ\ÜY‘ĞHXÚØYÙH™XÛÛY\ÈHœ™XY›Ø\™™XÛÛ˜Ú[X][Ûˆ][HÚ]İ]XÙ[Y[‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌN][œİ\ÜYXœ™XY›Ø\™\XÚØYÙK˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNÃBˆÛÛœİ›Ø\™\›Ú™XİÛÛ\Û™[Ñ›Ü•šY]Ê›Ú™Xİ˜œ™XY›Ø\™ŠNØ\ÜÙ\™Y\\]X[
+›Ø\™˜ÛÛ\Û™[Ë×JNØ\ÜÙ\™\]X[
+›Ø\™œ™XÛÛ˜Ú[X][Û’][\Ë›[™İJNØ\ÜÙ\™\]X[
+›Ø\™œ™XÛÛ˜Ú[X][Û’][\ÖÌKš[œİ[˜ÙRY˜™ØHŠNÃBˆÛÛœİØÚ[X]XÏ\›Ú™XİÛÛ\Û™[Ñ›Ü•šY]Ê›Ú™XİœØÚ[X]XÈŠNØ\ÜÙ\™\]X[
+ØÚ[X]XË˜ÛÛ\Û™[Ë›[™İJNØ\ÜÙ\™Y\\]X[
+ØÚ[X]XËœ™XÛÛ˜Ú[X][Û’][\Ë×JNÃBˆÛÛœİØ\›Ú™XİÛÛ\Û™[Ñ›Ü•šY]Ê›Ú™XİœØˆŠNØ\ÜÙ\™\]X[
+Ø‹˜ÛÛ\Û™[Ë›[™İJNØ\ÜÙ\™Y\\]X[
+Ø‹œ™XÛÛ˜Ú[X][Û’][\Ë×JNÃBˆÛÛœİ™\İ[\[•[œİ\ÜYœ™XY›Ø\™XÚØYÙJ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™[œİ\ÜYXœ™XY›Ø\™\XÚØYÙK\™XÛÛ˜Ú[X][ÛˆŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜œ™XY›Ø\™XÙY˜[ÙJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œØÚ[X]XÔXÙYYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œØ”XÙYYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[™˜XœšXØ][Û”]X[YšYY˜[ÙJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜ÛZ[\ÓX[Y˜Xİ\˜X›K˜[ÙJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y[œİ\ÜYœ™XY›Ø\™XÚØYÙKš[œİ[˜ÙRYH›Z\ÜÚ[™ÈØ\ÜÙ\™\]X[
+[•[œİ\ÜYœ™XY›Ø\™XÚØYÙJ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYHZ\ÜÚ[™ËY›Ûİš[ÛÜšÙ›İÈ›ØÚÜÈĞˆ\]H[™™]\›œÈ™\]Z\™Y™\ÛÛ][Ûˆ™\Ü‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNK[Z\ÜÚ[™ËY›Ûİš[]ÛÜšÙ›İË˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê›Ú™Xİ
+Kœİ]K˜ÛÛ\]HŠNÃBˆÛÛœİ™Y›Ü™O\Ù\šX[^™T›Ú™Xİ
+›Ú™Xİ
+K™\İ[\[“Z\ÜÚ[™Ñ›Ûİš[ÛÜšÙ›İÊ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™›Z\ÜÚ[™ËY›Ûİš[\™\ÛÛ][Û‹\™\ÜŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œØ•\]P›ØÚÙYYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ›Ú™Xİ[˜Ú[™ÙYYJNØ\ÜÙ\™\]X[
+Ù\šX[^™T›Ú™Xİ
+›Ú™Xİ
+K™Y›Ü™JNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[›Z\ÜÚ[™Ñ›Ûİš[Ûİ[›Ú™Xİ˜ÛÛ\Û™[Ë›[™İ
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œXÙYÛÛ\Û™[Ûİ[
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\]Z\™Y™\Üœİ]\Ëœ™\]Z\™YŠNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[›Z\ÜÚ[™Ñ›Ûİš[ËœÛÛYJ][OOš][Kœ™Y™\™[˜ÙOOOH•LH‰‰š][Kœ\OOH˜Xİ]™K›™MMMHŠJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\]Z\™Y™\Ü˜›ØÚÙY™Y™\™[˜Ù\Ë›[™İ›Ú™Xİ˜ÛÛ\Û™[Ë›[™İ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\]Z\™Y™\Üœ™\ÛÛ][Û“Ü[ÛœË›[™İÊNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜]]ÛX]XÔİXœİ]][Û‹˜[ÙJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[[™\šYšYY›Ûİš[Ğ\ÜÚYÛ™Y˜[ÙJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y›Z\ÜÚ[™Ñ›Ûİš[ÛÜšÙ›İË\™Ù]šY]ÏH˜œ™XY›Ø\™Ø\ÜÙ\™\]X[
+[“Z\ÜÚ[™Ñ›Ûİš[ÛÜšÙ›İÊ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYH[‹Z[˜ÛÛ\]X›HİXœİ]][Ûˆ\È™]šY]ÙY›ØÚÙY[™Ø[˜Ù[YÚ]İ]Ú[™Ú[™ÈÜšYÚ[˜[‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌN‹\[‹Z[˜ÛÛ\]X›K\İXœİ]][Û‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+›Ú™Xİ
+K˜[YYJNØÛÛœİ™Y›Ü™O\Ù\šX[^™T›Ú™Xİ
+›Ú™Xİ
+NÃBˆÛÛœİ™]šY]ÏXÜ™X]T\İXœİ]][Û”™]šY]Ê›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™]šY]Ëœİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™]šY]Ë˜›ØÚÙYYJNØ\ÜÙ\™\]X[
+™]šY]ËœÛİ\˜ÙT\œ[œË›[™İ
+NØ\ÜÙ\™\]X[
+™]šY]Ë˜Ø[™Y]Kœ[œË›[™İ
+NÃBˆ\ÜÙ\™Y\\]X[
+™]šY]ËœÚ\™Y[“˜[Y\Ë×JNØ\ÜÙ\™\]X[
+™]šY]Ë[›X\Y\ÙY[œË›[™İ
+NØ\ÜÙ\›ÚÊ™]šY]Ë˜Y™™XİY™]Ëš[˜ÛY\Ê•SRS‘ÈŠJNÃBˆÛÛœİØ[˜Ù[YXØ[˜Ù[\İXœİ]][Û”™]šY]Ê™]šY]ÊNØ\ÜÙ\™\]X[
+Ø[˜Ù[Y˜Ø[˜Ù[YYJNØ\ÜÙ\™\]X[
+Ù\šX[^™T›Ú™Xİ
+Ø[˜Ù[Yœ›Ú™Xİ
+K™Y›Ü™JNØ\ÜÙ\™\]X[
+Ù\šX[^™T›Ú™Xİ
+›Ú™Xİ
+K™Y›Ü™JNÃBˆÛÛœİ™\İ[\[”[’[˜ÛÛ\]X›TİXœİ]][ÛŠ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œ[‹Z[˜ÛÛ\]X›K\İXœİ]][Û‹\™]šY]ÈŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œİXœİ]][Û›ØÚÙYYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™]šY]ĞØ[˜Ù[YYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ›Ú™Xİ[˜Ú[™ÙYYJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[›ÜšYÚ[˜[Xœ˜\RY˜Xİ]™K›™MMMHŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜Ø[™Y]SXœ˜\RY˜Xİ]™K›LÎ‹XÛ\ÜØXˆŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[[›X\Y\ÙY[œË›[™İ
+NÃBŸJNÃB\İ
+˜Ø][ÙİYHÒH[š]ÛÛ™\\ˆ™]\›œÈ™\Ú\İÜ‹İÙ\‹[™İ[™›İ[™Y™\İ[È‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNË][š]XÛÛ™\œÚ[Û‹XØ[İ[]Ü‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™\İ[\[•[š]ÛÛ™\œÚ[ÛØ[İ[]ÜŠ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œÚK][š]XÛÛ™\œÚ[Û‹XØ\Ù\ÈŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[œ™\İ[Ë›X\
+][OOš][K˜ÛÛ™\Y˜[YJKÍÌŒKŒLKKŒŒÍM×JNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[œ™\İ[Ë›X\
+][OOš][K™[Y[œÚ[ÛŠKÈœ™\Ú\İ[˜ÙH‹œİÙ\ˆ‹›[™İ‹œ™\Ú\İ[˜ÙH—JNÃBˆ\ÜÙ\™Y\\]X[
+ÛÛ™\[™Ú[™Y\š[™Õ[š]
+‹Œ‹šóªH‹³ªHŠKÛÚÎYK˜[YNŒŒŒ[Y[œÚ[Ûˆœ™\Ú\İ[˜ÙH‹œ›ÛU[š]ˆšóªH‹Õ[š]ˆ³ªH‹™XÚ\Ú[ÛŸJNÃBˆ\ÜÙ\™\]X[
+ÛÛ™\[™Ú[™Y\š[™Õ[š]
+KšóªH‹›UÈŠK›ÚË˜[ÙJNØ\ÜÙ\™\]X[
+ÛÛ™\[™Ú[™Y\š[™Õ[š]
+[™š[š]K›[H‹›HŠK›ÚË˜[ÙJNØ\ÜÙ\™\]X[
+ÛÛ™\[™Ú[™Y\š[™Õ[š]
+K›H‹›H‹LÊK›ÚË˜[ÙJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y[š]ÛÛ™\œÚ[ÛØ[İ[]Ü‹˜Ø\Ù\ÖÌK™œ›ÛU[š]H›UÈØ\ÜÙ\™\]X[
+[•[š]ÛÛ™\œÚ[ÛØ[İ[]ÜŠ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYH™\Ú\İÜˆÛÛÜ‹XÛÙH™XY\ˆXÛÙ\È›İ\‹Ùš]™KX˜[™˜[Y\È[™™Z™XİÈ[˜[Y˜[™È‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌN\™\Ú\İÜ‹XÛÛÜ‹XÛÙK\™XY\‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™\İ[\[”™\Ú\İÜÛÛÜÛÙT™XY\Š›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œ™\Ú\İÜ‹XÛÛÜ‹XÛÙKXØ\Ù\ÈŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜[YÛİ[ŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™Z™XİYÛİ[ŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\İ[ÖÌKœ™XY[™Ëœ™\Ú\İ[˜ÙSÚ\ËÌ
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\İ[ÖÌKœ™XY[™ËÛ\˜[˜ÙT\˜Ù[JNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\İ[ÖÌWKœ™XY[™Ëœ™\Ú\İ[˜ÙSÚ\ËL
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\İ[ÖÌWKœ™XY[™ËÛ\˜[˜ÙT\˜Ù[JNÃBˆ\ÜÙ\™\]X[
+™XY™\Ú\İÜ˜[™ÊÈ™ÛÛ‹˜œ›İÛˆ‹œ™Y‹™ÛÛ—JK˜[Y˜[ÙJNØ\ÜÙ\™\]X[
+™XY™\Ú\İÜ˜[™ÊÈ˜œ›İÛˆ‹˜›XÚÈ‹œ[šÈ‹™ÛÛ—JK˜[Y˜[ÙJNÃBˆ\ÜÙ\™\]X[
+™XY™\Ú\İÜ˜[™ÊÈY[İÈ‹š[Û]‹œ™Y‹™ÛÛ—JK™›Ü›X]Y™\Ú\İ[˜ÙKÈóªHŠNØ\ÜÙ\™\]X[
+™XY™\Ú\İÜ˜[™ÊÈ˜œ›İÛˆ‹˜›XÚÈ‹˜›XÚÈ‹˜œ›İÛˆ‹˜œ›İÛˆ—JK™›Ü›X]Y™\Ú\İ[˜ÙKŒHóªHŠNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Yœ™\Ú\İÜÛÛÜÛÙT™XY\‹˜Ø\Ù\ÏV×NØ\ÜÙ\™\]X[
+[”™\Ú\İÜÛÛÜÛÙT™XY\Š[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYHQ™\Ú\İÜˆØ[İ[]Üˆ›İ[™È\Ø\™ÈLLˆ[™Ø\›œÈÛˆ™\Ú\İÜˆİÙ\ˆ‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNK[Y\™\Ú\İÜ‹XØ[İ[]Ü‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™\İ[\[“Y™\Ú\İÜØ[İ[]ÜŠ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™›Y\Ù\šY\Ë\™\Ú\İÜ‹XØ\Ù\ÈŠNÃBˆÛÛœİÜ™Y›YKİÙ\—O\™\İ[œ™\İ[œ™\İ[ÎØ\ÜÙ\›ÚÊX]˜XœÊ™Yœ™\]Z\™Y™\Ú\İ[˜ÙSÚ\ËLLÌ
+OYKNJNØ\ÜÙ\™\]X[
+™Yœ™XÛÛ[Y[™Y™\Ú\İ[˜ÙSÚ\ËML
+NØ\ÜÙ\›ÚÊ™Y™\İ[X]Yİ\œ™[PO\™Y\™Ù]İ\œ™[PJNÃBˆ\ÜÙ\™\]X[
+›YKœ™XÛÛ[Y[™Y™\Ú\İ[˜ÙSÚ\ËML
+NØ\ÜÙ\›ÚÊ›YK™\İ[X]Yİ\œ™[POX›YK\™Ù]İ\œ™[PJNÃBˆ\ÜÙ\™\]X[
+İÙ\‹œ™XÛÛ[Y[™Y™\Ú\İ[˜ÙSÚ\ËMŒ
+NØ\ÜÙ\›ÚÊİÙ\‹Ø\›š[™ÜËœÛÛYJØ\›š[™ÏOØ\›š[™Ë˜ÛÙOOOH”‘TÒTÕÔ—ÔÕÑT—ÑVÑQQQŠJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œİÙ\•Ø\›š[™ĞÛİ[JNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]SYÙ\šY\Ô™\Ú\İÜŠÜİ\U›ÛYÙUŒ‹Y›ÜØ\™›ÛYÙUŒ‹\™Ù]İ\œ™[PNŒL™\Ú\İÜ”İÙ\”˜][™ÕÎŒŒL_JK›ÚË˜[ÙJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y›Y™\Ú\İÜØ[İ[]Ü‹˜Ø\Ù\ÖÌK\™Ù]İ\œ™[POLØ\ÜÙ\™\]X[
+[“Y™\Ú\İÜØ[İ[]ÜŠ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYH›ÛYÙKY]šY\ˆØ[İ[]Üˆ™\ÜÈ[›ØYY˜][È[™ØY\ÚYØ\›š[™È‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNL]›ÛYÙKY]šY\‹XØ[İ[]Ü‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™\İ[\[•›ÛYÙQ]šY\Ø[İ[]ÜŠ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™›ÛYÙKY]šY\‹XØ\Ù\ÈŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[›ØY[™ÕØ\›š[™ĞÛİ[JNÃBˆÛÛœİÛÜ[‹YÚX]WO\™\İ[œ™\İ[œ™\İ[ÎØ\ÜÙ\™\]X[
+Ü[‹[›ØYYİ]]‹ŠNØ\ÜÙ\™\]X[
+Ü[‹›ØYYİ]]‹ŠNØ\ÜÙ\™\]X[
+Ü[‹›ØY[™ĞÚ[™ÙT\˜Ù[
+NÃBˆ\ÜÙ\›ÚÊX]˜XœÊYÚ›ØYYİ]]‹MKÌMMÌMMÌM
+OYKNJNØ\ÜÙ\›ÚÊYÚ›ØY[™ĞÚ[™ÙT\˜Ù[JNÃBˆ\ÜÙ\™\]X[
+X]K›ØYYİ]]‹
+NØ\ÜÙ\›ÚÊX]K›ØY[™ĞÚ[™ÙT\˜Ù[ŒÌ
+NØ\ÜÙ\›ÚÊX]KØ\›š[™ÜËœÛÛYJØ\›š[™ÏOØ\›š[™Ë˜ÛÙOOOH‘U’QT—ÓĞQS‘ÈŠJNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]U›ÛYÙQ]šY\ŠÚ[œ]›ÛYÙUŒL‹™\Ú\İ[˜ÙUÜÚ\ÎŒ™\Ú\İ[˜ÙP›İÛSÚ\ÎŒLJK›ÚË˜[ÙJNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]U›ÛYÙQ]šY\ŠÚ[œ]›ÛYÙUŒL‹™\Ú\İ[˜ÙUÜÚ\ÎŒL™\Ú\İ[˜ÙP›İÛSÚ\ÎŒLØY™\Ú\İ[˜ÙSÚ\ÎŒJK›ÚË˜[ÙJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y›ÛYÙQ]šY\Ø[İ[]Ü‹˜Ø\Ù\ÖÌKš[œ]›ÛYÙULØ\ÜÙ\™\]X[
+[•›ÛYÙQ]šY\Ø[İ[]ÜŠ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYHÈ[Z[™ÈØ[İ[]Üˆ[™\ÈXÚ[X[™\Ú\İ[˜ÙH[™Ø\XÚ][˜ÙH™Yš^\È‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNLK\˜Ë][Z[™ËXØ[İ[]Ü‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™\İ[\[”˜Õ[Z[™ĞØ[İ[]ÜŠ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œ˜Ë][Z[™ËXØ\Ù\ÈŠNÃBˆÛÛœİØK‹×O\™\İ[œ™\İ[œ™\İ[ÎØ\ÜÙ\›ÚÊX]˜XœÊK[YPÛÛœİ[ÙXÛÛ™ËLŒJOYKLLŠNØ\ÜÙ\›ÚÊX]˜XœÊK˜İ]Ù™‘œ™\]Y[˜ŞR‹LMNKŒMMMÌLNJOYKN
+NÃBˆ\ÜÙ\›ÚÊX]˜XœÊ‹[YPÛÛœİ[ÙXÛÛ™ËLŒÊOYKLLŠNØ\ÜÙ\›ÚÊX]˜XœÊ‹˜İ]Ù™‘œ™\]Y[˜ŞR‹LËŒÎŒÍLÎJOYKN
+NÃBˆ\ÜÙ\›ÚÊX]˜XœÊË[YPÛÛœİ[ÙXÛÛ™ËL‹Œ™KMŠOYKLMJNØ\ÜÙ\›ÚÊX]˜XœÊË˜İ]Ù™‘œ™\]Y[˜ŞR‹MÌŒÍËŒMMNMLJOYKMJNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]T˜Õ[Z[™ÊÜ™\Ú\İ[˜ÙU˜[YNŒ™\Ú\İ[˜ÙU[š]ˆšóªH‹Ø\XÚ][˜ÙU˜[YNŒKØ\XÚ][˜ÙU[š]ˆ°­QˆŸJK›ÚË˜[ÙJNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]T˜Õ[Z[™ÊÜ™\Ú\İ[˜ÙU˜[YNŒK™\Ú\İ[˜ÙU[š]ˆšóªH‹Ø\XÚ][˜ÙU˜[YNŒKØ\XÚ][˜ÙU[š]ˆ›sªHŸJK›ÚË˜[ÙJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Yœ˜Õ[Z[™ĞØ[İ[]Ü‹˜Ø\Ù\ÖÌK˜Ø\XÚ][˜ÙU˜[YOKLNØ\ÜÙ\™\]X[
+[”˜Õ[Z[™ĞØ[İ[]ÜŠ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYHÜX[\ØZ[ˆØ[İ[]ÜˆÛİ™\œÈ›İÜÛÙÚY\È[™™Z™XİÈ™\›ÈÜˆ[˜[Y™\Ú\İÜœÈ‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNL‹[ÜX[\YØZ[‹XØ[İ[]Ü‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™\İ[\[“Ü[\ØZ[Ø[İ[]ÜŠ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™›ÜX[\YØZ[‹XØ\Ù\ÈŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[œ™\İ[Ë›X\
+][OOš][K™ØZ[ŠKËLLL—JNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\İ[ÖÌKœ\ÙR[™\YYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™\İ[ÖÌWKœ\ÙR[™\Y˜[ÙJNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]SÜ[\ØZ[ŠØÛÛ™šYİ\˜][Ûˆš[™\[™È‹[œ]™\Ú\İ[˜ÙSÚ\ÎŒ™YY˜XÚÔ™\Ú\İ[˜ÙSÚ\ÎŒLJK›ÚË˜[ÙJNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]SÜ[\ØZ[ŠØÛÛ™šYİ\˜][Ûˆ››Û‹Z[™\[™È‹™YY˜XÚÔ™\Ú\İ[˜ÙSÚ\Î‹LKÜ›İ[™™\Ú\İ[˜ÙSÚ\ÎŒLJK›ÚË˜[ÙJNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]SÜ[\ØZ[ŠØÛÛ™šYİ\˜][Ûˆ˜Y™™\ˆ‹™YY˜XÚÔ™\Ú\İ[˜ÙSÚ\ÎŒLÜ›İ[™™\Ú\İ[˜ÙSÚ\ÎŒLJK›ÚË˜[ÙJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y›Ü[\ØZ[Ø[İ[]Ü‹˜Ø\Ù\ÖÌK™™YY˜XÚÔ™\Ú\İ[˜ÙSÚ\ÏLØ\ÜÙ\™\]X[
+[“Ü[\ØZ[Ø[İ[]ÜŠ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYHĞˆ˜XÙK]ÚYYš\ÛÜˆ›İšY\ÈØÛÜY^\›˜[Ú[\›˜[\İ[X]\È[™™Z™XİÈ[˜[Y[œ]È‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNLË\Ø‹]˜XÙK]ÚYXYš\ÛÜ‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™\İ[\[”Ø•˜XÙUÚYYš\ÛÜŠ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œØ‹]˜XÙK]ÚYXYš\ÛÜHŠNØ\ÜÙ\›X]Ú
+™\İ[œ™\İ[œİ[™\™[Z]][Û‹ÒTËLŒML‹ÊNÃBˆÛÛœİÙ^\›˜[[\›˜[O\™\İ[œ™\İ[œ™\İ[ÎØ\ÜÙ\›ÚÊX]˜XœÊ^\›˜[ÚY[KLÎMÍÍŒJOYKNJNØ\ÜÙ\›ÚÊX]˜XœÊ[\›˜[ÚY[KL‹ŒÌŒML
+OYKNJNØ\ÜÙ\›ÚÊ[\›˜[ÚY[O™^\›˜[ÚY[JNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]TØ•˜XÙUÚY
+Øİ\œ™[NŒÛÜ\•XÚÛ™\ÜÕ[NŒÍK[\\˜]\™Tš\ÙPÎŒL^Y\•\Nˆ™^\›˜[ŸJK›ÚË˜[ÙJNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]TØ•˜XÙUÚY
+Øİ\œ™[NŒKÛÜ\•XÚÛ™\ÜÕ[N‹LK[\\˜]\™Tš\ÙPÎŒL^Y\•\Nˆ™^\›˜[ŸJK›ÚË˜[ÙJNÃBˆ\ÜÙ\™\]X[
+Ø[İ[]TØ•˜XÙUÚY
+Øİ\œ™[NŒKÛÜ\•XÚÛ™\ÜÕ[NŒÍK[\\˜]\™Tš\ÙPÎŒL^Y\•\Nˆ[šÛ›İÛˆŸJK›ÚË˜[ÙJNÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[YœØ•˜XÙUÚYYš\ÛÜ‹˜Ø\Ù\ÖÌK[\\˜]\™Tš\ÙPÏLØ\ÜÙ\™\]X[
+[”Ø•˜XÙUÚYYš\ÛÜŠ[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃBƒB\İ
+˜Ø][ÙİYH“ÓH^ÜÜ›İ\È™\šYšYYšY[È[™X]™\È[œÛİ\˜ÙYÛÜİ›[šÈ‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNMX›ÛKY^ÜXÛÜİ\XÙZÛ\‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™\İ[\[›ÛQ^ÜXÙZÛ\Š›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™˜›ÛKXÛÜİ\XÙZÛ\ˆŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[š][PÛİ[
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ›İĞÛİ[
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[İ[ÛÜİ[
+NÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[œ›İÜË™]™\J›İÏOœ›İË[š]ÛÜİOO[[	‰œ›İË™^[™YÛÜİOO[[
+JNÃBˆÛÛœİÜİY^Ü›ÛPÜİŠZ[›ÛT™\Ü
+›Ú™Xİ
+JNØ\ÜÙ\™\]X[
+Üİ‹›ÚËYJNÃBˆ\ÜÙ\›X]Ú
+Üİ‹˜Üİ‹È•[š]ÛÜİ‹‘^[™YÛÜİ‹İ\œ™[˜ŞH‹”šXÙHÛİ\˜ÙH‹”šXÙH\ÈÙˆ‹ÊNÃBˆ\ÜÙ\›ÚÊÜİ‹˜Üİ‹œÜ]
+——ˆŠK™š[\Š›ÛÛX[ŠK™]™\J[™OOˆ[[™Kš[˜ÛY\Ê‰ŠI‰ˆ[[™Kš[˜ÛY\Ê—ŒˆŠJJNÃBˆÛÛœİÜ›İ\Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÙÜ›İ\Y˜ÛÛ\Û™[Ëœ\Ú
+Ë‹‹œİXİ\™YÛÛ™J›Ú™Xİ˜ÛÛ\Û™[ÖÌWJK[œİ[˜ÙRYˆœ™\Ú\İÜ‹Lˆ‹™Y™\™[˜ÙNˆ”‹Œ—ˆŸJNÃBˆÛÛœİÜ›İ\Y™\ÜXZ[›ÛT™\Ü
+Ü›İ\Y
+NØÛÛœİ™\Ú\İÜ”›İÏYÜ›İ\Y™\Üœ›İÜË™š[™
+›İÏOœ›İË›Xœ˜\RYOOHœ\ÜÚ]™Kœ™\Ú\İÜˆŠNÃBˆ\ÜÙ\™\]X[
+™\Ú\İÜ”›İËœ]X[]KŠNØ\ÜÙ\™\]X[
+™\Ú\İÜ”›İËœ™Y™\™[˜Ù\Ë”‹Œ—‹ŒHŠNÃBˆ\ÜÙ\›X]Ú
+^Ü›ÛPÜİŠÜ›İ\Y™\Ü
+K˜Üİ‹È”‹ˆŒˆˆ‹ŒH‹ÊNÃBˆÛÛœİšXÙY\İXİ\™YÛÛ™J›Ú™Xİ
+NÜšXÙY˜ÛÛ\Û™[ÖÌWK™\šYšYYšXÙO^İ[š]ÛÜİŒŒL‹İ\œ™[˜ŞNˆ‘UTˆ‹Ûİ\˜ÙNˆšÎ‹ËÙ^[\K˜ÛÛKÜ\ËÜ™\Ú\İÜˆ‹\ÓÙˆŒŒ‹LLLÌŸNÃBˆÛÛœİšXÙY™\ÜXZ[›ÛT™\Ü
+šXÙY
+NØ\ÜÙ\™\]X[
+šXÙY™\Üœ›İÜË™š[™
+›İÏOœ›İË›Xœ˜\RYOOHœ\ÜÚ]™Kœ™\Ú\İÜˆŠK™^[™YÛÜİŒLŠNØ\ÜÙ\™\]X[
+šXÙY™\Üİ[ÛÜİ[
+NÃBˆÛÛœİ[˜[Y\İXİ\™YÛÛ™J›Ú™Xİ
+NÚ[˜[Y˜ÛÛ\Û™[ÖÌK›Xœ˜\RYH[šÛ›İÛ‹œ\Ø\ÜÙ\™\]X[
+[›ÛQ^ÜXÙZÛ\Š[˜[Y
+Kœİ]K˜›ØÚÙYŠNÃBŸJNÃB\İ
+˜Ø][ÙİYHYYİ[ˆ“ÕÛÛ\Û™[^Z[™\ˆÚ]\ÈÛİ\˜ÙHšY[È[™\ØÛÜÙ\È[šÛ›İÛœÈ‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNMKX›İY^Z[‹XÛÛ\Û™[˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™\İ[\[›İÛÛ\Û™[^Z[™\Š›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™˜›İYÜ›İ[™YXÛÛ\Û™[Y^[˜][ÛˆŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œ™Y™\™[˜ÙK”ŒHŠNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[šÛ›İÛ‹œÛÛYJ][OOš][K™šY[OOHÛÛ™šYİ\™Y˜[YH‰‰š][K˜[YOOOHŒÌÌ3ªH‰‰š][KœÛİ\˜ÙOOOH“˜]]™H›Ú™XİŠJNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[šÛ›İÛ‹œÛÛYJ][OOš][K™šY[OOH“Xœ˜\H\ØÜš\[Ûˆ‰‰š][KœÛİ\˜ÙOOOHÚXÚÙYZ[ˆÛÛ\Û™[Xœ˜\HŠJNÃBˆ\ÜÙ\›X]Ú
+™\İ[œ™\İ[˜[œİÙ\‹ÔÛİ\˜Ù\Îˆ˜]]™H›Ú™Xİ[™ÚXÚÙYZ[ˆÛÛ\Û™[Xœ˜\KÊNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[[šÛ›İÛ‹œÛÛYJ][OO‹ÓX[Y˜Xİ\™\ˆ\È›İ™XÛÜ™YË\İ
+][JJJNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[[šÛ›İÛ‹œÛÛYJ][OOš][Kš[˜ÛY\Ê“X[Y˜Xİ\™\ˆ\[X™\ˆ
+TŠH\È›İ™XÛÜ™YˆŠJJNÃBˆ\ÜÙ\›ÚÊ™\İ[œ™\İ[[šÛ›İÛ‹œÛÛYJ][OO‹Ù]\ÚY][šÈ\È›İ™XÛÜ™YË\İ
+][JJJNÃBˆ\ÜÙ\›X]Ú
+™\İ[›Y\ÜØYÙKÛ›È^\›˜[RHÜˆÙXˆÛÚİ\ÚJNÃBˆ\ÜÙ\™\]X[
+^Z[ÛÛ\Û™[
+›Ú™Xİ›Z\ÜÚ[™Ë\™Y™\™[˜ÙHŠK›ÚË˜[ÙJNÃBˆÛÛœİ[œİ\ÜY\İXİ\™YÛÛ™J›Ú™Xİ
+Nİ[œİ\ÜY˜ÛÛ\Û™[ÖÌWK›Xœ˜\RYH[™\šYšYYœ\Ø\ÜÙ\™\]X[
+^Z[ÛÛ\Û™[
+[œİ\ÜY”ŒHŠK›ÚË˜[ÙJNÃBŸJNÃB\İ
+˜Ø][ÙİYH“Õ›Ø][™Ë[›ÙH™\Z\ˆ™]šY]È˜[Y]\ÈÙ\\˜][H[™™\]Z\™\ÈÛÛ™š\›X][Ûˆ‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNM‹X›İY›Ø][™Ë[›ÙK\™\Z\‹\™]šY]Ë˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™Y›Ü™OR”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+NØÛÛœİ™\İ[\[›İ›Ø][™Ó›ÙT™\Z\Š›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™˜›İY›Ø][™Ë[›ÙK\™\Z\‹\™]šY]ÈŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜[Y][Û•˜[YYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜\YY˜[ÙJNÃBˆ\ÜÙ\™\]X[
+”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+K™Y›Ü™JNØ\ÜÙ\™\]X[
+™\İ[œ™]šY]Ë˜Ø[™Y]K˜ÛÛ\Û™[Ë›[™İ›Ú™Xİ˜ÛÛ\Û™[Ë›[™İ
+ÌJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™]šY]Ëœ›ÜÜØ[˜[YKŒHsªHŠNØ\ÜÙ\™\]X[
+™\İ[œ™]šY]Ëœ›ÜÜØ[™œ›ÛK‘“ĞUS‘ÈŠNØ\ÜÙ\™\]X[
+™\İ[œ™]šY]Ëœ›ÜÜØ[Ë‘Ó‘ŠNÃBˆ\ÜÙ\™\]X[
+\P›İ›Ø][™Ó›ÙT™\Z\”™]šY]Ê›Ú™Xİ™\İ[œ™]šY]ËØÛÛ™š\›YY™˜[Ù_JK˜\YY˜[ÙJNØ\ÜÙ\™\]X[
+”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+K™Y›Ü™JNÃBˆÛÛœİXØÙ\YX\P›İ›Ø][™Ó›ÙT™\Z\”™]šY]Ê›Ú™Xİ™\İ[œ™]šY]ËØÛÛ™š\›YYY_JNØ\ÜÙ\™\]X[
+XØÙ\Y˜\YYYJNØ\ÜÙ\™\]X[
+XØÙ\Yœ›Ú™Xİ˜ÛÛ\Û™[Ë›[™İ›Ú™Xİ˜ÛÛ\Û™[Ë›[™İ
+ÌJNÃBˆÛÛœİÚ[™ÙY\İXİ\™YÛÛ™J›Ú™Xİ
+NØÚ[™ÙY›Y]Y]K›˜[YJÏHˆY]YØÛÛœİİ[OX\P›İ›Ø][™Ó›ÙT™\Z\”™]šY]ÊÚ[™ÙY™\İ[œ™]šY]ËØÛÛ™š\›YYY_JNØ\ÜÙ\™\]X[
+İ[K˜\YY˜[ÙJNØ\ÜÙ\™\]X[
+İ[Kœ›Ú™XİÚ[™ÙY
+NÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+XØÙ\Yœ›Ú™Xİ
+K˜[YYJNÃBŸJNÃB\İ
+˜Ø][ÙİYH“ÕLˆˆQ›ÜÜØ[˜[Y]\ÈÙ\\˜][H[™™Z™Xİ[Ûˆ™\Ù\™\ÈH›Ú™Xİ‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNMËX›İXÚ\˜İZ]\›ÜÜØ[˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™Y›Ü™OR”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+NØÛÛœİ™\İ[\[›İÚ\˜İZ]›ÜÜØ[
+›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™˜›İLL‹[YXÚ\˜İZ]\›ÜÜØ[ŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜\YY˜[ÙJNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™]šY]Ëœ›ÜÜØ[œÛİ\˜ÙKŒLˆˆŠNØ\ÜÙ\™\]X[
+™\İ[œ™]šY]Ëœ›ÜÜØ[œ™\Ú\İÜ‹ŒL3ªHŠNÃBˆ\ÜÙ\›ÚÊX]˜XœÊ™\İ[œ™]šY]Ëœ›ÜÜØ[™\İ[X]Yİ\œ™[KLŒJOYKLLŠNØ\ÜÙ\›ÚÊX]˜XœÊ™\İ[œ™]šY]Ëœ›ÜÜØ[œ™\Ú\İÜ‘\ÜÚ\][Û•ËLŒJOYKLLŠNÃBˆ\ÜÙ\™\]X[
+˜[Y]T›Ú™Xİ
+™\İ[œ™]šY]Ë˜Ø[™Y]JK˜[YYJNØ\ÜÙ\™\]X[
+[”İ\ÜY[˜[\Ú\Ê™\İ[œ™]šY]Ë˜Ø[™Y]JKœİ]K˜ÛÛ\]HŠNÃBˆ\ÜÙ\™\]X[
+”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+K™Y›Ü™JNÃBˆÛÛœİ™Z™XİYX\P›İÚ\˜İZ]›ÜÜØ[
+›Ú™Xİ™\İ[œ™]šY]ËØÛÛ™š\›YY™˜[Ù_JNØ\ÜÙ\™\]X[
+™Z™XİY˜\YY˜[ÙJNØ\ÜÙ\™\]X[
+™Z™XİYœ›Ú™Xİ›Ú™Xİ
+NØ\ÜÙ\™\]X[
+”ÓÓ‹œİš[™ÚYJ›Ú™Xİ
+K™Y›Ü™JNÃBˆÛÛœİİ[O\İXİ\™YÛÛ™J›Ú™Xİ
+NÜİ[K›Y]Y]K›˜[YJÏHˆÚ[™ÙYØ\ÜÙ\™\]X[
+\P›İÚ\˜İZ]›ÜÜØ[
+İ[K™\İ[œ™]šY]ËØÛÛ™š\›YYY_JK˜\YY˜[ÙJNÃBˆÛÛœİXØÙ\YX\P›İÚ\˜İZ]›ÜÜØ[
+›Ú™Xİ™\İ[œ™]šY]ËØÛÛ™š\›YYY_JNØ\ÜÙ\™\]X[
+XØÙ\Y˜\YYYJNØ\ÜÙ\™\]X[
+XØÙ\Yœ›Ú™Xİ˜ÛÛ\Û™[Ë™š[™
+][OOš][K›Xœ˜\RYOOHœİÙ\‹™Ë\Ûİ\˜ÙHŠK˜[YKŒLˆˆŠNÃBŸJNÃB\İ
+˜Ø][ÙİYH›İ\‹[[™İXYÙHRHİÙY\Ûİ™\œÈ˜[œÛ][ÛœËXØÙ\ÜÚX›H˜[Y\Ë[™™\ÜÛœÚ]™Hİ™\™›İÈİX\™È‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNNY›İ\‹[[™İXYÙK]ZK\İÙY\˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİ™\İ[\[‘›İ\“[™İXYÙUZTİÙY\
+›Ú™Xİ
+NØ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™™›İ\‹[[™İXYÙK]ZK\İÙY\ŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[›ØØ[PÛİ[
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[›Z\ÜÚ[™Õ˜[œÛ][ÛœË
+NÃBˆÛÛœİ[X]ØZ]™XYš[J™]ÈT“
+‹‹‹Ú[™^š[‹[\Ü›Y]K\›
+K]ŠNØÛÛœİÜÜÏX]ØZ]™XYš[J™]ÈT“
+‹‹‹Üİ[\Ë˜ÜÜÈ‹[\Ü›Y]K\›
+K]ŠNÃBˆÛÛœİ]Y]X]Y]ZTÛİ\˜ÙJ[ÜÜÊNØ\ÜÙ\™\]X[
+]Y]œ\ÜÙYYK”ÓÓ‹œİš[™ÚYJ]Y]
+JNØ\ÜÙ\™\]X[
+]Y]›Z\ÜÚ[™Õ˜[œÛ][ÛœË›[™İ
+NØ\ÜÙ\™\]X[
+]Y][™XÛ\™YÙ^\Ë›[™İ
+NØ\ÜÙ\™Y\\]X[
+]Y][›X™[Y]ÛœË×JNØ\ÜÙ\™Y\\]X[
+]Y][›X™[YÛÛ›ÛË×JNØ\ÜÙ\™Y\\]X[
+]Y][›X™[Y[XYÙ\Ë×JNØ\ÜÙ\™Y\\]X[
+]Y]™˜Z[YİX\™Ë×JNØ\ÜÙ\™\]X[
+]Y]œ™[™\™Y^[ÚXÚË˜[ÙJNÃBŸJNÃB\İ
+˜Ø][ÙİYHÙ™›[™H™XÛİ™\H™\İÜ™\ÈH[œØ]™YY][™™\Ù\™\ÈHX[X[^ÜÛˆİÜ˜YÙH˜Z[\™H‹\Ş[˜È
+
+HOˆÃBˆÛÛœİ›Ú™XİR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌNNK[ØØ[[Ù™›[™K\™XÛİ™\K˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİÜšYÚ[˜[\Ù\šX[^™T›Ú™Xİ
+›Ú™Xİ
+NØÛÛœİ™\İ[\[“Ù™›[™T™XÛİ™\TØÙ[˜\š[Ê›Ú™Xİ
+NÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]H‹™\İ[›Y\ÜØYÙJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™›Ù™›[™K\™XÛİ™\K\ØÙ[˜\š[ÈŠNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™Y]Y˜[YKÌ3ªHŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[™˜YØ]™YYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œİÜ˜YÙQ˜[˜XÚĞ]˜Z[X›KYJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œÚ[[ÜÜË˜[ÙJNÃBˆ\ÜÙ\™\]X[
+Ù\šX[^™T›Ú™Xİ
+›Ú™Xİ
+KÜšYÚ[˜[
+NÃBŸJNÃB\İ
+˜Ø][ÙİYH™[X\ÙHØ[™Y]H\ÜÙ\ÈZ[[\ÜY]Ú[][][Û‹TËÑË^ÜŞ[˜È[™“Õ\™]šY]ÈØ]\È‹\Ş[˜È
+
+HOˆÃBˆÛÛœİØ[™Y]OR”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÌŒ\™[X\ÙKXØ[™Y]KYL™K˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJNÃBˆÛÛœİYÏVÈŒK[YXİ\œ™[[[Z]\ˆ‹ŒLŒ‹MMMK][Y\‹\Øˆ‹ŒN‹\ØÚ[X]XË\Ø‹\Ş[˜È‹ŒNMKX›İY^Z[‹XÛÛ\Û™[—NÃBˆÛÛœİ›Ú™XİÏSØš™Xİ™œ›ÛQ[šY\Ê]ØZ]›ÛZ\ÙK˜[
+YË›X\
+\Ş[˜ÈYO–ÚY”ÓÓ‹œ\œÙJ]ØZ]™XYš[J™]ÈT“
+‹‹‹Ù^[\\ËÈŠÚY
+È‹˜YYİ[‹šœÛÛˆ‹[\Ü›Y]K\›
+JJWJJJNÃBˆÛÛœİ™\İ[\[”™[X\ÙPØ[™Y]QL‘Qš^\™\ÊØØ[™Y]K›Ú™XİßJNÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]K˜ÛÛ\]H‹™\İ[›Y\ÜØYÙJNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[šÚ[™œ™[X\ÙKXØ[™Y]KYL™HŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ™\İ[˜ÚXÚÜËØZ[YK[\ÜYKY]YKÚ[][][ÛYK\˜ÎYK˜ÎYK^ÜYKØÚ[X]XÔØ”Ş[˜ÎYK›İ™]šY]ÎY_JNÃBˆ\ÜÙ\™\]X[
+™\İ[œ™\İ[™š^\™PÛİ[
+NØ\ÜÙ\™\]X[
+™\İ[œ™\İ[œØ‘˜Ëœ\ÜÙYŠNØ\ÜÙ\™\]X[
+™\İ[œ™\İ[˜›İ]]][Û‹˜[ÙJNÃBŸJNÃBƒB™[˜İ[ÛˆXZÙT›Ú™Xİ
+
+HÃBˆ™]\›ˆÃBˆY]Y]Nİ\]Y]ˆŒŒ‹LKLUŒŒŒˆŸKBˆÛÛ\Û™[Î–ŞÚ[œİ[˜ÙRYˆœŒH‹ÜÚ][ÛÜØ–ÌLLKØÚ[X]XÎ–ÌLŒLŒ__KÚ[œİ[˜ÙRYˆ™H‹ÜÚ][ÛÜØ–ÌÌL__WKBˆØ‘˜XœšXØ][ÛÃBˆ›Ø\™İÚY[NZYÚ[NŒŒKBˆ\Î–ŞÚ[œİ[˜ÙRYˆœŒH‹™Y™\™[˜ÙNˆ”ŒH‹›Ûİš[ˆ”—ÌŒÈŸKÚ[œİ[˜ÙRYˆ™H‹™Y™\™[˜ÙNˆ‘H‹›Ûİš[ˆ‘ÔÓÑLLŒÈŸWKBˆYÎ–ÃBˆÚ[œİ[˜ÙRYˆœŒH‹[X™\ˆŒH‹™]Yˆ•ĞÈ‹[NKS[NKXÚ›ÛÙŞNˆ›İYÚZÛH‹X[Y]\“[NŒ_KBˆÚ[œİ[˜ÙRYˆœŒH‹[X™\ˆŒˆ‹™]Yˆ”ÒQÈ‹[NŒLS[NKXÚ›ÛÙŞNˆœÛY‹ÚY[NŒKZYÚ[NŒ_KBˆÚ[œİ[˜ÙRYˆ™H‹[X™\ˆŒH‹™]Yˆ”ÒQÈ‹[NŒŒS[NŒLXÚ›ÛÙŞNˆ›İYÚZÛH‹X[Y]\“[NŒ_CBˆKBˆ›İ]\Î–ÃBˆÛ™]Yˆ•ĞÈ‹ÚY[N‹ŒKÚ[Ó[N–ÖÍKWKÍ‹WW_KBˆÛ™]Yˆ”ÒQÈ‹ÚY[N‹ŒKÚ[Ó[N–ÖÌLWKÌMKWKÌŒLW_KBˆÛ™]Yˆ‘Ó‘‹ÚY[N‹ŒKÚ[Ó[N–ÖÌ‹—KÌ‹×W_CBˆCBˆCBˆNÃBŸCB\İ
+”Ğˆ›Ûİš[[İ™[Y[ÙY\ÈY[˜ÚÜœÈ[™]XÚY›İ]H[™Ú[ÈÙÙ]\ˆ‹
+
+OOÃBˆÛÛœİ›Ú™Xİ[XZÙT›Ú™Xİ
+
+K™Y›Ü™O\İXİ\™YÛÛ™J›Ú™Xİ
+K™\İ[[[İ™TØ‘›Ûİš[
+›Ú™XİœŒH‹ŞŒ‹N‹L_JNÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]\Ë˜ÛÛ\]HŠNØ\ÜÙ\™\]X[
+™\İ[›[İ™YYÛİ[ŠNØ\ÜÙ\™\]X[
+™\İ[\]Y›İ]TÚ[ËŠNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ›Ú™XİœØ‘˜XœšXØ][Û‹œYËœÛXÙJŠK›X\
+O–Ü[KS[WJKÖÍËKÌL‹WJNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ›Ú™XİœØ‘˜XœšXØ][Û‹œ›İ]\Ë›X\
+Oœ‹œÚ[Ó[JKÖÖÍËKÍ‹WWKÖÌL‹KÌMKWKÌŒLWKÖÌ‹—KÌ‹×WWJNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[œ›Ú™Xİ˜ÛÛ\Û™[ÖÌKœÜÚ][Û‹ÜØ–ÌLŒK—KØÚ[X]XÎ–ÌLŒLŒ_JNÃBˆ\ÜÙ\™Y\\]X[
+›Ú™Xİ™Y›Ü™KHÜ\˜][Ûˆ]\İ›İ]]]HHÛİ\˜ÙH›Ú™XİŠNÃBŸJNÃB\İ
+”Ğˆ›Ûİš[[İ™[Y[™Z™XİÈ›Ø\™YYÙHİ™\™›İÈÚ]İ]Ú[™Ú[™ÈHÛİ\˜ÙH‹
+
+OOÃBˆÛÛœİ›Ú™Xİ[XZÙT›Ú™Xİ
+
+K™Y›Ü™O\İXİ\™YÛÛ™J›Ú™Xİ
+K™\İ[[[İ™TØ‘›Ûİš[
+›Ú™XİœŒH‹ŞŒÌKNŒJNÃBˆ\ÜÙ\™Y\\]X[
+™\İ[Üİ]\Îˆ˜›ØÚÙY‹ÛÙNˆ“ÕUÓÑ—Ğ“ÕS‘ÈŸJNØ\ÜÙ\™Y\\]X[
+›Ú™Xİ™Y›Ü™JNÃBŸJNÃB\İ
+”Ğˆ›Ûİš[[İ™[Y[™Z™XİÈ[˜[YÙ[ÛY]H[™[šÛ›İÛˆ›Ûİš[È‹
+
+OOÃBˆÛÛœİ›Ú™Xİ[XZÙT›Ú™Xİ
+
+NÃBˆ\ÜÙ\™Y\\]X[
+[İ™TØ‘›Ûİš[
+›Ú™Xİ›Z\ÜÚ[™È‹ŞŒKNŒJKÜİ]\Îˆ˜›ØÚÙY‹ÛÙNˆ•S’Ó“ÕÓ—Ñ“ÓÕ’S•ŸJNÃBˆ\ÜÙ\™Y\\]X[
+[İ™TØ‘›Ûİš[
+›Ú™Xİ™H‹Ş“[X™\‹“˜S‹NŒJKÜİ]\Îˆ˜›ØÚÙY‹ÛÙNˆ’S•SQÑSHŸJNÃBˆ›Ú™XİœØ‘˜XœšXØ][Û‹œYË™š[™
+Oœš[œİ[˜ÙRYOOHœŒHŠK[OS[X™\‹“˜SÃBˆ\ÜÙ\™Y\\]X[
+[İ™TØ‘›Ûİš[
+›Ú™XİœŒH‹ŞŒKNŒJKÜİ]\Îˆ˜›ØÚÙY‹ÛÙNˆ’S•SQÑ“ÓÕ’S•ÑÑSÓQU–HŸJNÃBŸJNÃB\İ
+”Ğˆ›Ûİš[[İ™[Y[™\ÜÈ[˜Ú[™ÙY›ÜˆH™\›È[H‹
+
+OOÃBˆÛÛœİ›Ú™Xİ[XZÙT›Ú™Xİ
+
+K™\İ[[[İ™TØ‘›Ûİš[
+›Ú™XİœŒH‹ŞŒNŒJNÃBˆ\ÜÙ\™\]X[
+™\İ[œİ]\Ë[˜Ú[™ÙYŠNØ\ÜÙ\™\]X[
+™\İ[œ›Ú™Xİ›Ú™Xİ
+NÃBŸJNÃB
