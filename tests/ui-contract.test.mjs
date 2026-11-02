@@ -42,6 +42,8 @@ test("generic Shockley DC operating point is selectable, bounded, and rendered w
   assert.match(html, /id="nonlinear-dc-temperature"/);
   assert.match(app, /shockleyDcOperatingPoint/);
   assert.match(app, /result\.kind === "nonlinear-dc-operating-point"/);
+  assert.match(app, /nonlinearKclAndConstraintResidual/);
+  assert.match(app, /nonlinearLinearResidual/);
   assert.match(app, /nonlinear-dc-controls/);
   assert.match(dispatcher, /runNonlinearDcOperatingPoint/);
   for (const key of ["analysisNonlinearDc", "nonlinearJunctionTemperature", "nonlinearDcModelHelp", "nonlinearIterations", "nonlinearNodeVoltages", "nonlinearDiodeResults"]) assert.match(locales, new RegExp(`${key}:`));
