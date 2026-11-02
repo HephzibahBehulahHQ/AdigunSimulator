@@ -830,12 +830,103 @@
           "unit": "V"
         },
         {
+          "name": "gate-source voltage",
+          "minimum": -20,
+          "maximum": 20,
+          "unit": "V"
+        },
+        {
           "name": "continuous drain current",
           "maximum": 0.36,
-          "unit": "A"
+          "unit": "A",
+          "conditions": "VGS = 10 V; ambient 25 °C; PCB mounting conditions apply"
+        },
+        {
+          "name": "drain-source on-state resistance",
+          "typical": 1,
+          "maximum": 1.6,
+          "unit": "Ω",
+          "conditions": "VGS = 10 V; ID = 350 mA; junction 25 °C"
         }
       ],
-      "notes": "Nexperia lists the exact BSS138BK as a production N-channel enhancement-mode MOSFET in SOT23. Pin maps, licensed symbol/footprint assets, model evidence, datasheet checksum, and independent human review remain incomplete; not counted as verified."
+      "notes": "Nexperia datasheet confirms BSS138BK pin mapping and SOT23 dimensions, and provides a manufacturer reflow pad pattern. Pattern center coordinates are reconstructed and remain subject to independent review. The device model is not implemented; no datasheet checksum or human approval is recorded.",
+      "package": "SOT23-3 (TO-236AB)",
+      "symbolPinMap": {
+        "1": "Gate",
+        "2": "Source",
+        "3": "Drain"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "modelStatus": "not-modelled",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No licensed and validated BSS138BK model is attached. The generic MOSFET model must not be treated as matching this device's transfer, switching, thermal, or safe-operating characteristics."
+      },
+      "warnings": [
+        "The 360 mA current rating is conditional on gate voltage, ambient temperature, PCB mounting, and thermal limits; it is not a general safe current for every layout.",
+        "The ±20 V gate-source limit is a maximum stress rating. Keep gate voltage within recommended operating conditions and protect against transients.",
+        "The component is unmodelled in this simulator; do not infer device-specific switching, RDS(on), thermal, or safe-operating behavior."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": false,
+        "adapter": "SOT23 is a surface-mount package and cannot be inserted directly into a solderless breadboard. Use a properly wired SOT23-to-through-hole adapter and check orientation and pin numbering.",
+        "operatingLimits": [
+          "Maximum VDS: 60 V",
+          "Maximum VGS: −20 V to +20 V",
+          "360 mA current rating applies only under the datasheet's stated conditions"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "BSS138BK N-channel MOSFET (SOT23)",
+          "description": "SOT23 N-channel MOSFET with sourced pin and package data. The simulator does not model this device's electrical or thermal behavior."
+        },
+        "de": {
+          "name": "BSS138BK N-Kanal-MOSFET (SOT23)",
+          "description": "N-Kanal-MOSFET im SOT23-Gehäuse mit belegten Pin- und Gehäusedaten. Das Simulationsmodell bildet das elektrische und thermische Verhalten dieses Bauteils nicht ab."
+        },
+        "yo": {
+          "name": "BSS138BK MOSFET N-channel (SOT23)",
+          "description": "MOSFET N-channel nínú package SOT23 pẹ̀lú data pin àti package tó ní orísun. Simulator yìí kò model ìwà itanna tàbí ooru gangan ti component yìí."
+        },
+        "pcm": {
+          "name": "BSS138BK N-channel MOSFET (SOT23)",
+          "description": "N-channel MOSFET for SOT23 package with sourced pin and package data. Simulator no model the exact electrical or heat behaviour of this part."
+        }
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BSS138BK.pdf",
+        "drawing": "Figures 18–19: SOT23 package outline and manufacturer reflow soldering footprint",
+        "assetPath": "library/assets/footprints/nexperia.bss138bk/footprint.json",
+        "designNote": "Manufacturer pad dimensions are retained. Pad-center coordinates are reconstructed from labeled pattern dimensions and require human review."
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bss138bk/symbol.svg",
+        "sha256": "a44dc1445ec3decfd9e120f002e7bc1515824298de3fd74649ff94c94114b4aa",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.nexperia.com/product/BSS138BK",
+        "checkedAt": "2026-11-02"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bss138bk/footprint.json",
+        "sha256": "b8d95093458b364373b7d555e5ce39bec86bac91ff0920fb333a2ad0f2527490",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      }
     },
     {
       "id": "microchip.mcp6002-i-p",
@@ -981,5 +1072,6 @@
         "designNote": "Pad diameter and drill are application-selected educational defaults, not sourced manufacturer recommendations."
       }
     }
-  ]
+  ],
+  "lastUpdated": "2026-11-02"
 }

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-reflow-footprint-candidate",
+  "partId": "nexperia.bss138bk",
+  "package": "Nexperia SOT23 (TO-236AB)",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -1.075,
+    "yMm": 0
+  },
+  "packageOutline": {
+    "bodyLengthMm": {
+      "minimum": 2.8,
+      "maximum": 3
+    },
+    "bodyWidthMm": {
+      "minimum": 1.2,
+      "maximum": 1.4
+    },
+    "bodyHeightMm": {
+      "minimum": 0.9,
+      "maximum": 1.1
+    },
+    "pinPitchMm": 1.9,
+    "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BSS138BK.pdf",
+    "drawing": "Figure 18, SOT23 package outline; dimensions in original mm"
+  },
+  "landPattern": {
+    "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BSS138BK.pdf",
+    "drawing": "Figure 19, reflow soldering footprint for SOT23 (TO-236AB)",
+    "padGeometrySource": "Manufacturer drawing dimensions: pin 1 pad 1.7 × 0.7 mm; pins 2 and 3 pads 0.6 × 1.0 mm; opposing-pin pitch 1.9 mm; pin-pair pitch 0.95 mm.",
+    "padCoordinatesSource": "Pad centers are reconstructed from Figure 19's 3.3 mm total span, 1.9 mm pin-pair pitch, and symmetric arrangement; verify against the drawing before fabrication."
+  },
+  "pads": [
+    {
+      "number": 1,
+      "xMm": -1.075,
+      "yMm": 0,
+      "widthMm": 1.7,
+      "heightMm": 0.7
+    },
+    {
+      "number": 2,
+      "xMm": 1.075,
+      "yMm": 0.95,
+      "widthMm": 0.6,
+      "heightMm": 1
+    },
+    {
+      "number": 3,
+      "xMm": 1.075,
+      "yMm": -0.95,
+      "widthMm": 0.6,
+      "heightMm": 1
+    }
+  ],
+  "limitations": [
+    "Manufacturer soldering drawing is used for the reflow pad dimensions; center coordinates are reconstructed from its labeled dimensions and require independent inspection.",
+    "This candidate has not had independent physical-fit, assembly, solder-mask, courtyard, board-rule, or manufacturing review.",
+    "No semiconductor device model is implied by this footprint."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
