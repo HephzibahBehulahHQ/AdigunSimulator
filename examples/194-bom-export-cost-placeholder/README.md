@@ -10,3 +10,7 @@ A price is included only when the component carries a numeric unit cost, ISO cur
 
 ## Limits
 This is a project-data export aid, not a supplier quote, purchasing commitment, inventory check, tax/shipping estimate or price database. Verify part identity and sourcing before procurement.
+
+## Direct circuit analysis result
+
+The base 5 V, 330 Ω, 2 V LED circuit has a bounded DC estimate of 9.09 mA and 27.27 mW resistor dissipation. This calculator/advisor output is a separate analytical tool result.
