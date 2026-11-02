@@ -36,7 +36,7 @@ test("general user circuit analysis runs in a cancelable worker and discards sta
   assert.match(app, /createSimulationWorkerRun\(state\.project\)/);
   assert.match(app, /run\.cancel\(\)/);
   assert.match(app, /JSON\.stringify\(state\.project\) !== projectSnapshot/);
-  assert.match(app, /runSupportedAnalysis\(state\.project\)/);
+  assert.match(app, /function isAnalysisWorkerEligible\(project\)\s*\{\s*return Boolean\(project && !project\.releaseCandidateE2E\)/);
 });
 
 test("breadboard click placement keeps the accessible manual hole-entry workflow", async () => {
@@ -173,7 +173,7 @@ test("released example picker points only to tested registry projects", async ()
   const releasedFiles = manifest.examples.filter((example) => example.status === "released").map((example) => example.projectFile).sort();
   const pickerFiles = values(html, /<option\b[^>]*\bvalue="(examples\/[^"]+\.adigun\.json)"[^>]*>/g).sort();
   assert.deepEqual(pickerFiles, releasedFiles);
-  assert.match(app, /runSupportedAnalysis\(project\)/);
+  assert.match(app, /createSimulationWorkerRun\(project\)\.promise/);
   assert.match(app, /Loaded and validated/);
 });
 
