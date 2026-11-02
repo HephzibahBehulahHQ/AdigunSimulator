@@ -94,6 +94,8 @@ test("live Adigun BOT observes the current canvas and requires an explicit previ
   assert.match(html, /id="bot-suggestion-more"/);
   assert.match(html, /id="bot-preview-apply"/);
   assert.match(app, /botLiveCopilot\.notify\(state\.project/);
+  assert.match(app, /answerBotProductQuestion\(question, state\.project\.metadata\.locale\)/);
+  assert.match(app, /activateView\(productAnswer\.view\)/);
   assert.match(app, /dragging: Boolean\(state\.drag\)/);
   assert.match(app, /active\?\.matches\?\./);
   assert.match(app, /applyBotSuggestionPreview\(state\.project, currentBotPreview, \{ confirmed: true \}\)/);
