@@ -33,22 +33,25 @@ test("simulation controls expose a bounded linear RLC AC sweep through the worke
   assert.match(app, /result\.kind === "linear-ac-sweep"/);
 });
 
-test("generic Shockley DC operating point is selectable, bounded, and rendered with model disclosures", async () => {
+test("generic diode and Ebers–Moll NPN DC operating point is selectable, bounded, and disclosed", async () => {
   const [html, app, dispatcher, locales, docs] = await Promise.all([
     readFile(indexFile, "utf8"), readFile(appFile, "utf8"), readFile(new URL("../js/analysis-dispatch.mjs", import.meta.url), "utf8"),
     readFile(new URL("../js/i18n.mjs", import.meta.url), "utf8"), readFile(new URL("../docs/DELIVERY_GATES.md", import.meta.url), "utf8")
   ]);
   assert.match(html, /value="nonlinear-dc" data-i18n="analysisNonlinearDc"/);
+  assert.match(html, /ideal Ebers–Moll NPNs/);
   assert.match(html, /id="nonlinear-dc-temperature"/);
   assert.match(app, /shockleyDcOperatingPoint/);
   assert.match(app, /result\.kind === "nonlinear-dc-operating-point"/);
   assert.match(app, /nonlinearKclAndConstraintResidual/);
   assert.match(app, /nonlinearLinearResidual/);
+  assert.match(app, /result\.transistors\.map/);
   assert.match(app, /nonlinear-dc-controls/);
   assert.match(dispatcher, /runNonlinearDcOperatingPoint/);
-  for (const key of ["analysisNonlinearDc", "nonlinearJunctionTemperature", "nonlinearDcModelHelp", "nonlinearIterations", "nonlinearNodeVoltages", "nonlinearDiodeResults"]) assert.match(locales, new RegExp(`${key}:`));
+  for (const key of ["analysisNonlinearDc", "nonlinearJunctionTemperature", "nonlinearDcModelHelp", "nonlinearIterations", "nonlinearNodeVoltages", "nonlinearDiodeResults", "nonlinearTransistorResults", "nonlinearBaseCurrent"]) assert.match(locales, new RegExp(`${key}:`));
   assert.match(docs, /generic Shockley/);
-  assert.match(docs, /not a manufacturer-verified part model/);
+  assert.match(docs, /Ebers–Moll NPN/);
+  assert.match(docs, /Neither generic model is a manufacturer-verified part model/);
 });
 
 test("simulation controls expose bounded digital event simulation and native-net probes", async () => {
