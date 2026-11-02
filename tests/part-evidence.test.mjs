@@ -43,7 +43,12 @@ test("sourced candidate pin maps stay explicit and do not imply verified models 
   });
   assert.equal(timer.packageEvidence.package, "PDIP-8");
   assert.equal(timer.verificationStatus, "candidate");
-  assert.equal(getPartVerificationReadiness(timer).verified, false);
+  const timerReadiness = getPartVerificationReadiness(timer);
+  assert.ok(!timerReadiness.missingEvidenceCodes.includes("RATINGS_UNITS"));
+  assert.ok(!timerReadiness.missingEvidenceCodes.includes("BREADBOARD_COMPATIBILITY"));
+  assert.ok(!timerReadiness.missingEvidenceCodes.includes("TRANSLATIONS"));
+  assert.ok(timerReadiness.missingEvidenceCodes.includes("FOOTPRINT_ASSET_EVIDENCE"));
+  assert.equal(timerReadiness.verified, false);
   assert.deepEqual(amplifier.symbolPinMap, {
     "1": "OUT1", "2": "IN1-", "3": "IN1+", "4": "VCC-",
     "5": "IN2+", "6": "IN2-", "7": "OUT2", "8": "VCC+"
