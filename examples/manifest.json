@@ -7515,6 +7515,12 @@
         "modelVersion": "breadboard-schematic-structural-sync-v1",
         "expectedResult": {
           "kind": "breadboard-schematic-structural-sync",
+          "sourceVoltage": 5,
+          "resistance": 330,
+          "ledVf": 2,
+          "currentA": 0.00909090909090909,
+          "resistorPowerW": 0.02727272727272727,
+          "ledOn": true,
           "componentCount": 4,
           "netCount": 3,
           "structurallyEqual": true,
