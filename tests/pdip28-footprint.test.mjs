@@ -10,7 +10,7 @@ test("ATmega328P PDIP-28 candidate footprint matches manufacturer package dimens
   const assetBytes = await readFile(new URL("../library/assets/footprints/microchip.atmega328p-pu/footprint.json", import.meta.url));
   const footprint = JSON.parse(assetBytes.toString("utf8"));
 
-  assert.equal(createHash("sha256").update(assetBytes.toString("utf8").replace(/\n/g, "\n")).digest("hex"), record.footprintAsset.sha256);
+  assert.equal(createHash("sha256").update(assetBytes.toString("utf8").replace(/\r\n/g, "\n")).digest("hex"), record.footprintAsset.sha256);
   assert.equal(record.footprintAsset.licenseId, "CC0-1.0");
   assert.equal(record.footprintAsset.designStatus, "educational-candidate");
   assert.deepEqual(Object.keys(record.footprintPadMap), Object.keys(record.symbolPinMap));
