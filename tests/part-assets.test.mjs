@@ -12,7 +12,7 @@ test("generated manufacturer pin-map symbols match ledger hashes and CC0 licensi
 
   for (const record of records) {
     const svg = await readFile(new URL(`../library/assets/parts/${record.id}/symbol.svg`, import.meta.url));
-    assert.equal(createHash("sha256").update(svg).digest("hex"), record.symbolAsset.sha256);
+    assert.equal(createHash("sha256").update(svg.toString("utf8").replace(/\r\n/g, "\n")).digest("hex"), record.symbolAsset.sha256);
     assert.equal(record.symbolAsset.licenseId, "CC0-1.0");
     assert.equal(record.symbolAsset.licenseUrl, "https://creativecommons.org/publicdomain/zero/1.0/");
     const sourcePath = `/library/assets/parts/${record.id}/symbol.svg`;
