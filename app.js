@@ -85,6 +85,7 @@ import { applyBotCircuitProposal, runBotCircuitProposal } from "./js/bot-circuit
 import { runFourLanguageUiSweep } from "./js/locale-ui-sweep.mjs";
 import { runOfflineRecoveryScenario } from "./js/offline-recovery-scenario.mjs";
 import { runReleaseCandidateE2E } from "./js/release-candidate-e2e.mjs";
+import { createSimulationWorkerRun } from "./js/simulation-worker-client.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -119,7 +120,8 @@ const state = {
   schematicWireMode: false,
   schematicWireStart: null,
   pcbRouteDraft: null,
-  pcbRouteHintKey: null
+  pcbRouteHintKey: null,
+  activeSimulation: null
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -923,8 +925,31 @@ function validateAndReport() {
   else issues.forEach((issue) => log(`[${issue.rule}] ${issue.message}`));
 }
 
-function runAnalysis() {
-  if(state.project.releaseCandidateE2E){
+const GENERAL_ANALYSIS_PROJECT_FIELDS = new Set(["schemaVersion", "id", "metadata", "components", "nets", "history", "breadboard"]);
+
+function isGeneralAnalysisWorkerEligible(project) {
+  return Object.keys(project).every((key) => GENERAL_ANALYSIS_PROJECT_FIELDS.has(key));
+}
+
+function setSimulationWorkerBusy(busy) {
+  for (const button of $$('[data-action="run-simulation"]')) button.disabled = busy;
+  $("#run-simulation").disabled = busy;
+  $("#stop-simulation").disabled = !busy;
+}
+
+function stopSimulation() {
+  const run = state.activeSimulation;
+  if (!run) return;
+  state.activeSimulation = null;
+  run.cancel();
+  setSimulationWorkerBusy(false);
+  state.lastAnalysis = { state: "cancelled", engine: "Worker-isolated bounded analysis", message: "The analysis was cancelled." };
+  log("[CANCELLED] The analysis worker was stopped; no result was produced.");
+  renderOutput();
+}
+
+function runAnalysis(workerResult = null) {
+  if(workerResult === null && state.project.releaseCandidateE2E){
     validateAndReport();
     state.lastAnalysis={state:"running",engine:"Release-candidate end-to-end suite",message:"Loading checked-in acceptance fixtures.",result:null};
     renderOutput();
@@ -939,8 +964,31 @@ function runAnalysis() {
     });
     return;
   }
-  validateAndReport();
-  const result = state.project.offlineRecoveryScenario ? runOfflineRecoveryScenario(state.project) : state.project.localeUiSweep ? runFourLanguageUiSweep(state.project) : state.project.botCircuitProposal ? runBotCircuitProposal(state.project) : state.project.botRepairPreview ? runBotFloatingNodeRepair(state.project) : state.project.botExplainComponent ? runBotComponentExplainer(state.project) : state.project.bomExportPlaceholder ? runBomExportPlaceholder(state.project) : state.project.pcbTraceWidthAdvisor ? runPcbTraceWidthAdvisor(state.project) : state.project.opAmpGainCalculator ? runOpAmpGainCalculator(state.project) : state.project.rcTimingCalculator ? runRcTimingCalculator(state.project) : state.project.voltageDividerCalculator ? runVoltageDividerCalculator(state.project) : state.project.ledResistorCalculator ? runLedResistorCalculator(state.project) : state.project.resistorColorCodeReader ? runResistorColorCodeReader(state.project) : state.project.unitConversionCalculator ? runUnitConversionCalculator(state.project) : state.project.substitutionPreview ? runPinIncompatibleSubstitution(state.project) : state.project.missingFootprintWorkflow ? runMissingFootprintWorkflow(state.project) : state.project.unsupportedBreadboardPackage ? runUnsupportedBreadboardPackage(state.project) : state.project.threeViewLedHistory ? runThreeViewLedHistory(state.project) : state.project.schematicPcbSync ? runSchematicPcbSync(state.project) : state.project.breadboardSchematicSync ? runBreadboardSchematicSync(state.project) : state.project.machineFaultAnnunciator ? runMachineFaultAnnunciator(state.project) : state.project.warehouseBeacon ? runWarehouseBeacon(state.project) : state.project.accessStrikeLock ? runAccessStrikeLock(state.project) : state.project.fireAlarmZone ? runFireAlarmZone(state.project) : state.project.elevatorCallQueue ? runElevatorCallQueue(state.project) : state.project.garageDoorConcept ? runGarageDoorConcept(state.project) : state.project.smartIrrigation ? runSmartIrrigation(state.project) : state.project.automaticNightLight ? runAutomaticNightLight(state.project) : state.project.pwmFanController ? runPwmFanController(state.project) : state.project.fanThermostat ? runFanThermostat(state.project) : state.project.waterLeakAlarm ? runWaterLeakAlarm(state.project) : state.project.temperatureAlarm ? runTemperatureAlarm(state.project) : state.project.doorInterlock ? runDoorInterlockConcept(state.project) : state.project.emergencyStopConcept ? runEmergencyStopConcept(state.project) : state.project.forwardReverseMotor ? runForwardReverseInterlock(state.project) : state.project.starDeltaStarter ? runStarDeltaStarter(state.project) : state.project.conveyorCounter ? runConveyorCounter(state.project) : state.project.tankLevelController ? runTankLevelController(state.project) : state.project.trafficLight ? runTrafficLightSequence(state.project) : state.project.plcMotorSequence ? runPlcStartStopSequence(state.project) : state.project.crossProbe ? runNetCrossProbe(state.project) : state.project.modelAvailabilityFixture ? reportUnavailableModel(state.project) : state.project.missingGroundFixture ? diagnoseMissingGround(state.project) : state.project.shortCircuitFixture ? diagnoseSupplyShort(state.project) : state.project.floatingNodeDiagnosis ? diagnoseFloatingNode(state.project) : state.project.convergenceStudy ? analyzeConvergenceStudy(state.project) : state.project.thermalBoundary ? analyzeThermalWarningBoundary(state.project) : state.project.monteCarloTolerance ? runMonteCarloTolerance(state.project) : state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : runSupportedAnalysis(state.project);
+  if (workerResult === null) {
+    if (state.activeSimulation) return;
+    validateAndReport();
+    if (isGeneralAnalysisWorkerEligible(state.project)) {
+      const projectSnapshot = JSON.stringify(state.project);
+      const run = createSimulationWorkerRun(state.project);
+      state.activeSimulation = run;
+      state.lastAnalysis = { state: "running", engine: "Worker-isolated bounded analysis", message: "Running the supported analysis in a background worker." };
+      setSimulationWorkerBusy(true);
+      renderOutput();
+      run.promise.then((result) => {
+        if (state.activeSimulation !== run) return;
+        state.activeSimulation = null;
+        setSimulationWorkerBusy(false);
+        if (JSON.stringify(state.project) !== projectSnapshot) {
+          state.lastAnalysis = { state: "stale", engine: "Worker-isolated bounded analysis", message: "The project changed while analysis was running. Run the analysis again for the current design." };
+          renderOutput();
+          return;
+        }
+        runAnalysis(result);
+      });
+      return;
+    }
+  }
+  const result = state.project.offlineRecoveryScenario ? runOfflineRecoveryScenario(state.project) : state.project.localeUiSweep ? runFourLanguageUiSweep(state.project) : state.project.botCircuitProposal ? runBotCircuitProposal(state.project) : state.project.botRepairPreview ? runBotFloatingNodeRepair(state.project) : state.project.botExplainComponent ? runBotComponentExplainer(state.project) : state.project.bomExportPlaceholder ? runBomExportPlaceholder(state.project) : state.project.pcbTraceWidthAdvisor ? runPcbTraceWidthAdvisor(state.project) : state.project.opAmpGainCalculator ? runOpAmpGainCalculator(state.project) : state.project.rcTimingCalculator ? runRcTimingCalculator(state.project) : state.project.voltageDividerCalculator ? runVoltageDividerCalculator(state.project) : state.project.ledResistorCalculator ? runLedResistorCalculator(state.project) : state.project.resistorColorCodeReader ? runResistorColorCodeReader(state.project) : state.project.unitConversionCalculator ? runUnitConversionCalculator(state.project) : state.project.substitutionPreview ? runPinIncompatibleSubstitution(state.project) : state.project.missingFootprintWorkflow ? runMissingFootprintWorkflow(state.project) : state.project.unsupportedBreadboardPackage ? runUnsupportedBreadboardPackage(state.project) : state.project.threeViewLedHistory ? runThreeViewLedHistory(state.project) : state.project.schematicPcbSync ? runSchematicPcbSync(state.project) : state.project.breadboardSchematicSync ? runBreadboardSchematicSync(state.project) : state.project.machineFaultAnnunciator ? runMachineFaultAnnunciator(state.project) : state.project.warehouseBeacon ? runWarehouseBeacon(state.project) : state.project.accessStrikeLock ? runAccessStrikeLock(state.project) : state.project.fireAlarmZone ? runFireAlarmZone(state.project) : state.project.elevatorCallQueue ? runElevatorCallQueue(state.project) : state.project.garageDoorConcept ? runGarageDoorConcept(state.project) : state.project.smartIrrigation ? runSmartIrrigation(state.project) : state.project.automaticNightLight ? runAutomaticNightLight(state.project) : state.project.pwmFanController ? runPwmFanController(state.project) : state.project.fanThermostat ? runFanThermostat(state.project) : state.project.waterLeakAlarm ? runWaterLeakAlarm(state.project) : state.project.temperatureAlarm ? runTemperatureAlarm(state.project) : state.project.doorInterlock ? runDoorInterlockConcept(state.project) : state.project.emergencyStopConcept ? runEmergencyStopConcept(state.project) : state.project.forwardReverseMotor ? runForwardReverseInterlock(state.project) : state.project.starDeltaStarter ? runStarDeltaStarter(state.project) : state.project.conveyorCounter ? runConveyorCounter(state.project) : state.project.tankLevelController ? runTankLevelController(state.project) : state.project.trafficLight ? runTrafficLightSequence(state.project) : state.project.plcMotorSequence ? runPlcStartStopSequence(state.project) : state.project.crossProbe ? runNetCrossProbe(state.project) : state.project.modelAvailabilityFixture ? reportUnavailableModel(state.project) : state.project.missingGroundFixture ? diagnoseMissingGround(state.project) : state.project.shortCircuitFixture ? diagnoseSupplyShort(state.project) : state.project.floatingNodeDiagnosis ? diagnoseFloatingNode(state.project) : state.project.convergenceStudy ? analyzeConvergenceStudy(state.project) : state.project.thermalBoundary ? analyzeThermalWarningBoundary(state.project) : state.project.monteCarloTolerance ? runMonteCarloTolerance(state.project) : state.project.parameterSweep ? runParameterSweep(state.project) : state.project.instrument?.type === "dc-voltmeter" ? analyzeDcVoltmeter(state.project) : state.project.instrument?.type === "dc-ammeter" ? analyzeDcAmmeter(state.project) : state.project.phaseScope ? measureTwoChannelPhase(state.project) : state.project.logicCapture ? captureLogicAnalyzer(state.project) : state.project.bodeAnalysis ? analyzeRcBode(state.project) : state.project.rlcTransient ? analyzeRlcStep(state.project) : state.project.frequencyCounter ? measureFrequency(state.project) : state.project.oscilloscope ? captureTriggeredPulse(state.project) : (workerResult ?? runSupportedAnalysis(state.project));
   state.lastAnalysis = result;
   if (result.state === "complete") {
     const { kind } = result.result;
@@ -1127,6 +1175,7 @@ function handleAction(action) {
   if (action === "undo") undo();
   if (action === "redo") redo();
   if (action === "run-simulation") runAnalysis();
+  if (action === "stop-simulation") stopSimulation();
   if (action === "schematic-wire-mode") {
     if (state.schematicWireMode) { state.schematicWireMode = false; state.schematicWireStart = null; }
     else { activateView("schematic"); state.schematicWireMode = true; state.schematicWireStart = null; }
@@ -1627,7 +1676,7 @@ $("#language").addEventListener("change", (event) => {
   render();
 });
 $("#grid-toggle").addEventListener("change", renderCanvas);
-$("#run-simulation").addEventListener("click", runAnalysis);
+$("#run-simulation").addEventListener("click", () => runAnalysis());
 $("#run-validation").addEventListener("click", validateAndReport);
 $("#export-simulation-report").addEventListener("click", exportSimulationReport);
 $("#load-example").addEventListener("click", async () => {

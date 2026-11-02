@@ -30,6 +30,15 @@ test("implementation status is localized and reflects released scope without sta
   assert.doesNotMatch(app, /199 released|placement preview without routing|single-sided PCB export preview/);
 });
 
+test("general user circuit analysis runs in a cancelable worker and discards stale results", async () => {
+  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  assert.match(html, /id="stop-simulation"[^>]*data-action="stop-simulation"/);
+  assert.match(app, /createSimulationWorkerRun\(state\.project\)/);
+  assert.match(app, /run\.cancel\(\)/);
+  assert.match(app, /JSON\.stringify\(state\.project\) !== projectSnapshot/);
+  assert.match(app, /runSupportedAnalysis\(state\.project\)/);
+});
+
 test("breadboard click placement keeps the accessible manual hole-entry workflow", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   assert.match(html, /aria-pressed="false" data-action="breadboard-placement-mode"/);

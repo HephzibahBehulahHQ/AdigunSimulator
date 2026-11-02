@@ -10,6 +10,8 @@ The current implementation establishes a dependency-free browser foundation: a r
 
 PCB projects with stored board, footprint, pad, and net data support footprint moves and interactive single-layer F.Cu routing between pads on the same declared net. The route tool enforces the stored board bounds, net-class trace width, pad/track clearance, and keep-outs. Bounded PCB checks and educational Gerber/Excellon/BOM export are available for mapped projects; they are not a standards-complete DRC or manufacturing release. Autorouting, multiple copper layers, and manufacturer-specific production checks are unavailable.
 
+The general supported-analysis path for user-created canonical circuit documents runs in a cancelable module worker with a 10-second limit. Dedicated example analyzers have not all moved to the worker boundary, and worker isolation does not add new simulation models.
+
 The surge-protected-input example estimates one source-resistance-limited pulse, ideal TVS energy, fuse I²t warning/trip, and an RC-filtered output. It is not a standardized surge test or production qualification.
 
 It does **not** yet claim a 1,000 verified-part library, general SPICE simulation, arbitrary nonlinear or multi-element reactive/transient analysis, PCB manufacturing readiness, physical hardware safety, cloud accounts, or an AI service. Unsupported actions are disclosed in the interface rather than simulated.
@@ -35,5 +37,4 @@ The part evidence gate is implemented in `js/part-ledger.mjs`. Run `npm run vali
 ## Ownership
 
 Hephzibah Behulah → HB Elektroniker → AdigunSimulator.
-
 
