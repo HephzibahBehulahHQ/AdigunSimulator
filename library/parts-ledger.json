@@ -116,6 +116,29 @@
         "sha256": "7721e9034fd78bf6738d5bc37db8a6c61a064af42caa455b58738f8ef7c640f8",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.lm555p/footprint.json",
+        "sha256": "54fd8c2b686d370339bcd2983848a9b1a2e276030d0e1a5fac1fae4ed6b29a89",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
+        "drawing": "P (R-PDIP-T8), drawing 4040082/E, 04/2010",
+        "assetPath": "library/assets/footprints/ti.lm555p/footprint.json",
+        "designNote": "Pad diameter and drill are application-selected educational defaults, not sourced manufacturer recommendations."
       }
     },
     {
@@ -341,7 +364,7 @@
       },
       "footprintAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.atmega328p-pu/footprint.json",
-        "sha256": "3db5797e9d34822b53b0a5d955b43eaff6631075c971fbc39c1278267be88ee0",
+        "sha256": "09741a848d95ad7f0f038ce091c4de866d2860f637e9988c9b031c7f84e7679c",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "educational-candidate"

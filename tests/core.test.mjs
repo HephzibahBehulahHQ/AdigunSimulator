@@ -535,11 +535,11 @@ test("part ledger preserves candidate status until complete real-part evidence i
   const readiness = getPartVerificationReadiness(ledger.records[0]);
   assert.equal(readiness.currentStatus, "candidate");
   assert.equal(readiness.verified, false);
-  assert.equal(readiness.readyForHumanReview, false);
+  assert.equal(readiness.readyForHumanReview, true);
   assert.equal(readiness.requiresHumanReview, true);
-  assert.ok(readiness.missingEvidenceCodes.includes("FOOTPRINT_ASSET_EVIDENCE"));
+  assert.ok(readiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
   assert.equal(coverageFile.reviewQueue.length, 9);
-  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId), ["microchip.atmega328p-pu"]);
+  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId).sort(), ["microchip.atmega328p-pu", "ti.lm555p"]);
 });
 
 test("verified parts require complete datasheet, package, pin, model, license, safety, and translation evidence", () => {
