@@ -8,3 +8,7 @@ Calculate the ideal RC time constant τ = R × C and cutoff frequency f = 1/(2π
 
 ## Limits
 This is an ideal first-order calculation. Real component tolerance, ESR, leakage, layout parasitics, source impedance, and load are not included.
+
+## Direct circuit analysis result
+
+The base 5 V, 330 Ω, 2 V LED circuit has a bounded DC estimate of 9.09 mA and 27.27 mW resistor dissipation. This calculator/advisor output is a separate analytical tool result.
