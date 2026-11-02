@@ -23,3 +23,21 @@ test("TI SN74HC00N evidence records datasheet pin roles without overstating veri
   assert.ok(readiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
 });
 
+test("sourced candidate pin maps stay explicit and do not imply verified models or footprints", async () => {
+  const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url)));
+  const byId = new Map(ledger.records.map((record) => [record.id, record]));
+  const bjt = byId.get("onsemi.2n3904bu");
+  const regulator = byId.get("ti.lm7805ct-nopb");
+  const diode = byId.get("nexperia.1n4148");
+
+  assert.deepEqual(bjt.symbolPinMap, { "1": "Emitter", "2": "Base", "3": "Collector" });
+  assert.deepEqual(regulator.symbolPinMap, { "1": "INPUT", "2": "GND", "3": "OUTPUT" });
+  assert.equal(regulator.lifecycleEvidence.checkedAt, "2026-11-02");
+  assert.match(diode.datasheet.url, /1N4148_1N4448\.pdf$/);
+  assert.equal(diode.simulationModel.status, "not-modelled");
+  for (const record of [bjt, regulator, diode]) {
+    assert.equal(record.verificationStatus, "candidate");
+    assert.equal(getPartVerificationReadiness(record).verified, false);
+  }
+});
+
