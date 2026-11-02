@@ -13,9 +13,35 @@
       "datasheet": {
         "title": "LM555 Timer datasheet (Rev. D)",
         "url": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
-        "accessedAt": "2026-10-30"
+        "accessedAt": "2026-11-02"
       },
-      "notes": "Authoritative candidate source recorded. Pin, footprint, model, checksum and reviewer evidence are not yet complete.",
+      "manufacturerSources": [
+        { "url": "https://www.ti.com/product/LM555", "kind": "manufacturer-product-page" },
+        { "url": "https://www.ti.com/lit/ds/symlink/lm555.pdf", "kind": "manufacturer-datasheet" }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-8",
+        "pinCount": 8,
+        "sourceUrl": "https://www.ti.com/product/LM555"
+      },
+      "symbolPinMap": {
+        "1": "GND", "2": "TRIG", "3": "OUT", "4": "RESET",
+        "5": "CONT", "6": "THRES", "7": "DISCH", "8": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "power-in", "2": "input", "3": "output", "4": "input",
+        "5": "analog", "6": "input", "7": "open-collector", "8": "power-in"
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No licensed or validated LM555 model is attached to this record. The app must not imply oscillator timing, output drive, saturation, or comparator limits for this specific device."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/LM555",
+        "checkedAt": "2026-11-02"
+      },
+      "evidenceNote": "library/evidence/ti.lm555p.md",
+      "notes": "TI identifies LM555 as active and lists an 8-pin PDIP package. Datasheet pin numbers and logical functions are recorded; physical pad geometry, licensed symbol/footprint assets, checksum, validated device model, full required metadata, and independent human review remain incomplete. Not counted as verified.",
       "typeCode": "E45"
     },
     {
