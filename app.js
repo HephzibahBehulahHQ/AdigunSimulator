@@ -565,7 +565,11 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "release-candidate-e2e") {
+  if (result.kind === "linear-ac-sweep") {
+    metrics.push([t("acPoints"), String(result.samples.length)], [t("acOutputNet"), result.outputNet ?? t("notRecorded")], [t("acStartHz"), `${result.startHz}–${result.stopHz} Hz`]);
+    const rows = result.samples.map((sample) => `<tr><td>${Number(sample.frequencyHz.toPrecision(6))}</td><td>${sample.output ? Number(sample.output.magnitudeV.toPrecision(6)) : "—"}</td><td>${sample.output ? `${Number(sample.output.phaseDegrees.toPrecision(6))}°` : "—"}</td></tr>`).join("");
+    waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearAcSweep"))}</figcaption><table class="result-table linear-ac-table"><thead><tr><th>${escape(t("acFrequencyHz"))}</th><th>${escape(t("acMagnitude"))}</th><th>${escape(t("acPhase"))}</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "release-candidate-e2e") {
     metrics.push(["Fixtures",String(result.fixtureCount)],["PCB DRC",result.pcbDrc],["BOT project edit",result.botMutation?"Changed":"Read-only"],["Passed gates",String(Object.values(result.checks).filter(Boolean).length)]);
     const rows=Object.entries(result.checks).map(([name,passed])=>'<tr><td>'+escape(name)+'</td><td>'+(passed?"PASS":"FAIL")+'</td></tr>').join("");
     waveform='<figure class="result-waveform"><figcaption>Release candidate · build through export</figcaption><table class="result-table"><thead><tr><th>Gate</th><th>Result</th></tr></thead><tbody>'+rows+'</tbody></table><p>BOT cites local project/library fields; PCB export is illustrative, not manufacturing approval.</p></figure>';
@@ -907,8 +911,17 @@ function applyLocale() {
   $("#language").value = locale;
 }
 
+function renderAcSweepOutputOptions() {
+  const select = $("#ac-output-net");
+  if (!select) return;
+  const current = select.value;
+  select.innerHTML = `<option value="">${escape(t("acAutoOutputLabel"))}</option>${(state.project.nets ?? []).map((net) => `<option value="${escape(net.id)}">${escape(net.id)}</option>`).join("")}`;
+  if ((state.project.nets ?? []).some((net) => net.id === current)) select.value = current;
+}
+
 function render() {
   applyLocale();
+  renderAcSweepOutputOptions();
   renderLibrary();
   renderCanvas();
   renderInspector();
@@ -987,7 +1000,11 @@ function runAnalysis(workerResult = null) {
     validateAndReport();
     if (isAnalysisWorkerEligible(state.project)) {
       const projectSnapshot = JSON.stringify(state.project);
-      const run = createSimulationWorkerRun(state.project);
+      const analysisMode = $("#simulation-analysis-mode").value;
+      const projectForAnalysis = analysisMode === "linear-ac"
+        ? { ...state.project, linearAcSweep: { startHz: Number($("#ac-start-hz").value), stopHz: Number($("#ac-stop-hz").value), pointsPerDecade: Number($("#ac-points-per-decade").value), outputNet: $("#ac-output-net").value || undefined } }
+        : state.project;
+      const run = createSimulationWorkerRun(projectForAnalysis);
       state.activeSimulation = run;
       state.lastAnalysis = { state: "running", engine: "Worker-isolated bounded analysis", message: "Running the supported analysis in a background worker." };
       setSimulationWorkerBusy(true);
@@ -1712,6 +1729,9 @@ $("#language").addEventListener("change", (event) => {
 });
 $("#grid-toggle").addEventListener("change", renderCanvas);
 $("#run-simulation").addEventListener("click", () => runAnalysis());
+$("#simulation-analysis-mode").addEventListener("change", (event) => {
+  $("#ac-sweep-controls").classList.toggle("hidden", event.target.value !== "linear-ac");
+});
 $("#run-validation").addEventListener("click", validateAndReport);
 $("#export-simulation-report").addEventListener("click", exportSimulationReport);
 $("#load-example").addEventListener("click", async () => {
