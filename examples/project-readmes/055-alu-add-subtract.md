@@ -75,6 +75,22 @@ Recorded expected result:
 
 ```json
 {
+  "kind": "alu4-add-subtract",
+  "supplyVoltage": 5,
+  "logicThresholdV": 2.5,
+  "aBits": [false, false, false, false],
+  "bBits": [false, false, false, false],
+  "subtract": false,
+  "a": 0,
+  "b": 0,
+  "adjustedB": 0,
+  "sumBits": [false, false, false, false],
+  "sum": 0,
+  "carryOut": false,
+  "borrow": false,
+  "outputBits": [false, false, false, false, false],
+  "outputCurrents": [0, 0, 0, 0, 0],
+  "operation": "add",
   "operandBits": 4,
   "operationModes": [
     "add",
