@@ -10,6 +10,10 @@ Evidence checked: 2026-11-02
 
 TI lists the LM555 as active and provides an 8-pin PDIP package. The datasheet assigns these functions:
 
+The canonical PDF was downloaded from the TI URL above on 2026-11-02 (1,221,961 bytes). Its SHA-256 is `0bb44c3df8e5254bd887333faf4303a86722e1e1c4c7c2f038200ff8f540d99d`.
+
+TI lists an operating supply range of 4.5 V to 16 V and an operating temperature range of 0 °C to 70 °C. The breadboard compatibility entry is a mechanical fit assessment based on the PDIP package; verify trench clearance and do not use it as an electrical safety rating.
+
 | Pin | Function | Logical electrical type |
 |---:|---|---|
 | 1 | GND | power-in |
