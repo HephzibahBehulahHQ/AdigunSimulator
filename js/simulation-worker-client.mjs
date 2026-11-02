@@ -1,7 +1,17 @@
 let nextRequestId = 1;
+export const MAX_SIMULATION_PROJECT_BYTES = 4 * 1024 * 1024;
 
 export function createSimulationWorkerRun(project, { WorkerClass = globalThis.Worker, timeoutMs = 10000 } = {}) {
   const unavailable = (message) => ({ state: "unavailable", engine: "Worker-isolated bounded analysis", message });
+  let projectBytes;
+  try {
+    projectBytes = new TextEncoder().encode(JSON.stringify(project)).byteLength;
+  } catch {
+    return { promise: Promise.resolve({ state: "blocked", engine: "Worker-isolated bounded analysis", message: "The project is not serializable; analysis was not attempted." }), cancel() {} };
+  }
+  if (projectBytes > MAX_SIMULATION_PROJECT_BYTES) {
+    return { promise: Promise.resolve({ state: "blocked", engine: "Worker-isolated bounded analysis", message: `The serialized project exceeds the ${MAX_SIMULATION_PROJECT_BYTES}-byte worker input limit; analysis was not attempted.` }), cancel() {} };
+  }
   if (typeof WorkerClass !== "function") return { promise: Promise.resolve(unavailable("This browser does not support module workers; analysis was not attempted.")), cancel() {} };
 
   let worker;
