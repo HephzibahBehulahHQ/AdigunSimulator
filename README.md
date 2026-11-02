@@ -10,7 +10,7 @@ The current implementation establishes a dependency-free browser foundation: a r
 
 PCB projects with stored board, footprint, pad, and net data support footprint moves and interactive single-layer F.Cu routing between pads on the same declared net. The route tool enforces the stored board bounds, net-class trace width, pad/track clearance, and keep-outs. Bounded PCB checks and educational Gerber/Excellon/BOM export are available for mapped projects; they are not a standards-complete DRC or manufacturing release. Autorouting, multiple copper layers, and manufacturer-specific production checks are unavailable.
 
-The supported circuit-analysis dispatcher runs in a cancelable module worker with a 10-second limit. The release-candidate test harness remains a separate asynchronous UI workflow. Worker isolation does not add new simulation models.
+The supported circuit-analysis dispatcher runs in a cancelable module worker with a 10-second job limit and 4 MiB serialized-project input cap. The input cap bounds payload size but is not a hard browser heap limit. The release-candidate test harness remains a separate asynchronous UI workflow. Worker isolation does not add new simulation models.
 
 The surge-protected-input example estimates one source-resistance-limited pulse, ideal TVS energy, fuse I²t warning/trip, and an RC-filtered output. It is not a standardized surge test or production qualification.
 
