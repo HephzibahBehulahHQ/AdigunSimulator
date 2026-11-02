@@ -21,6 +21,11 @@ export function searchManufacturerParts(query = "") {
 
 export function getManufacturerPartEvidenceSummary(record) {
   const readiness = getPartVerificationReadiness(record);
+  const pinMap = Object.entries(record.symbolPinMap ?? {}).map(([pin, name]) => ({
+    pin,
+    name,
+    electricalType: record.pinElectricalTypes?.[pin] ?? null
+  }));
   return Object.freeze({
     partId: record.id,
     status: record.verificationStatus,
@@ -30,6 +35,11 @@ export function getManufacturerPartEvidenceSummary(record) {
     missingEvidenceCodes: readiness.missingEvidenceCodes,
     evidenceBlockerCodes: readiness.evidenceBlockerCodes,
     simulationStatus: record.modelStatus ?? record.simulationModel?.status ?? "unspecified",
-    datasheetUrl: record.datasheet?.url ?? null
+    datasheetUrl: record.datasheet?.url ?? null,
+    datasheetChecksumPresent: Boolean(record.datasheet?.sha256),
+    pinMap: Object.freeze(pinMap.map(Object.freeze)),
+    ratings: Object.freeze((record.ratings ?? []).map((rating) => Object.freeze({ ...rating }))),
+    footprintEvidencePath: record.footprintEvidence?.assetPath ?? null,
+    footprintEvidenceStatus: record.footprintEvidence?.designStatus ?? record.footprintAsset?.designStatus ?? "not-recorded"
   });
 }

@@ -12,6 +12,10 @@ test("manufacturer evidence search returns exact records without promoting candi
   assert.equal(summary.requiresHumanReview, true);
   assert.equal(summary.simulationStatus, "not-modelled");
   assert.ok(summary.evidenceBlockerCodes.includes("DATASHEET_CHECKSUM"));
+  assert.ok(summary.pinMap.length > 0);
+  assert.ok(summary.ratings.length > 0);
+  assert.equal(summary.footprintEvidencePath, matches[0].footprintEvidence.assetPath);
+  assert.equal(summary.datasheetChecksumPresent, false);
 });
 
 test("manufacturer evidence browser provides a searchable review snapshot for every ledger record", () => {
