@@ -147,28 +147,18 @@
       "currentStatus": "candidate",
       "readyForHumanReview": false,
       "missingEvidenceCodes": [
-        "BREADBOARD_COMPATIBILITY",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
-        "LIMITS_AND_ALTERNATES",
         "PIN_MAP_ALIGNMENT",
-        "RATINGS_UNITS",
         "REVIEWER_IDENTITY",
         "REVIEW_DATE",
-        "SYMBOL_ASSET_EVIDENCE",
-        "TRANSLATIONS",
-        "VERIFIED_EVIDENCE"
+        "SYMBOL_ASSET_EVIDENCE"
       ],
       "evidenceBlockerCodes": [
-        "BREADBOARD_COMPATIBILITY",
         "FOOTPRINT_ASSET_EVIDENCE",
         "FOOTPRINT_PAD_MAP",
-        "LIMITS_AND_ALTERNATES",
         "PIN_MAP_ALIGNMENT",
-        "RATINGS_UNITS",
-        "SYMBOL_ASSET_EVIDENCE",
-        "TRANSLATIONS",
-        "VERIFIED_EVIDENCE"
+        "SYMBOL_ASSET_EVIDENCE"
       ]
     },
     {
