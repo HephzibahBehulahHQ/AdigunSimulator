@@ -75,6 +75,8 @@ test("header account and compact action controls flow without overlapping on nar
   assert.doesNotMatch(css, /\.account-status-dot\s*\{[^}]*position:\s*absolute/);
   assert.match(css, /@media \(max-width: 800px\)[\s\S]*?\.header-actions\s*\{[^}]*flex-wrap:\s*wrap/);
   assert.match(css, /@media \(max-width: 520px\)[\s\S]*?\.header-actions \.save-state\s*\{\s*display:\s*none/);
+  assert.match(css, /\.command-bar\s*\{[^}]*flex-direction:\s*column/);
+  assert.match(css, /\.project-actions\s*\{[^}]*width:\s*100%[^}]*flex-wrap:\s*wrap/);
   assert.match(app, /global-search-toggle/);
   assert.match(app, /search\.hidden = !search\.hidden/);
 });
@@ -320,4 +322,5 @@ test("the published example catalogue retains all 200 individually specified acc
   assert.deepEqual(rows, Array.from({ length: 200 }, (_, index) => index + 1));
   assert.match(catalogue, /row specifies[\s\S]*implemented or passed/i);
 });
+
 
