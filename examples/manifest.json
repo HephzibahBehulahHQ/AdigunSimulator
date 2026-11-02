@@ -6063,6 +6063,12 @@
         "modelVersion": "rectangular-zone-grid-preview-v1",
         "expectedResult": {
           "kind": "copper-zone-preview",
+          "sourceVoltage": 5,
+          "resistance": 330,
+          "ledVf": 2,
+          "currentA": 0.00909090909090909,
+          "resistorPowerW": 0.02727272727272727,
+          "ledOn": true,
           "net": "GND",
           "filledCells": 2750,
           "permittedPadCandidates": 2,
