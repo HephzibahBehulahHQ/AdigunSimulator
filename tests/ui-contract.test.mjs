@@ -28,7 +28,7 @@ test("breadboard click placement keeps the accessible manual hole-entry workflow
   assert.match(app, /data-breadboard-hole=/);
   assert.match(app, /state\.breadboardPlacementMode && state\.activeView === "breadboard"/);
   assert.match(app, /assignBreadboardPin\(\$\("#breadboard-pin"\)\.value, holeTarget\.dataset\.breadboardHole\)/);
-  assert.match(app, /event\.key === "Escape" && \(state\.breadboardPlacementMode \|\| state\.schematicWireMode\)/);
+  assert.match(app, /event\.key === "Escape" && \(state\.breadboardPlacementMode \|\| state\.schematicWireMode \|\| state\.activeTool === "pcb-route"\)/);
   assert.match(app, /tabindex="-1"/);
   assert.match(app, /\["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"\]/);
   assert.match(app, /requestAnimationFrame\(\(\) => \$\("#design-canvas \[data-breadboard-hole\]"\)\?\.focus\(\)\)/);
@@ -86,6 +86,20 @@ test("PCB stored footprints can be moved through the synchronized pad and route 
   assert.match(app, /document\.addEventListener\("pointercancel"/);
   assert.match(html, /id="pcb-footprint-details"/);
   assert.match(app, /pcb-footprint-pad-count/);
+});
+
+test("PCB interactive routing is accessible, net-bound, localized, and uses the validated geometry operation", async () => {
+  const [app, html, translations] = await Promise.all([
+    readFile(appFile, "utf8"),
+    readFile(indexFile, "utf8"),
+    readFile(new URL("../js/i18n.mjs", import.meta.url), "utf8")
+  ]);
+  assert.match(html, /id="pcb-route-mode"[^>]*data-tool="pcb-route"[^>]*aria-pressed="false"/);
+  assert.match(html, /id="pcb-route-status" role="status" aria-live="polite"/);
+  assert.ok(app.includes("createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1) })"));
+  assert.ok(app.includes("pcbPreviewPointToBoardMm(state.project, viewPoint)"));
+  assert.match(app, /state.pcbRouteDraft = null;\s+state.pcbRouteHintKey = "pcbRouteReady"/);
+  for (const locale of ["en", "de", "yo", "pcm"]) assert.match(translations, new RegExp(`Object\\.assign\\(TRANSLATIONS\\.${locale}, \\{ pcbRoute:`));
 });
 
 test("the approved corporate logo, official links, and current-year footer are present", async () => {
@@ -196,4 +210,5 @@ test("the published example catalogue retains all 200 individually specified acc
   assert.deepEqual(rows, Array.from({ length: 200 }, (_, index) => index + 1));
   assert.match(catalogue, /row specifies[\s\S]*implemented or passed/i);
 });
+
 

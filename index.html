@@ -325,6 +325,8 @@
           <label><input id="grid-toggle" type="checkbox" checked /> <span data-i18n="grid">Grid</span></label>
           <button id="schematic-wire-mode" type="button" class="toolbar-button" aria-pressed="false" data-action="schematic-wire-mode"><span aria-hidden="true">⌁</span> <span data-i18n="schematicWireMode">Wire</span></button>
           <span id="schematic-wire-status" role="status" aria-live="polite"></span>
+          <button id="pcb-route-mode" type="button" class="toolbar-button" data-tool="pcb-route" aria-pressed="false" aria-label="Interactive PCB routing" data-i18n-aria="pcbRouteAria" disabled><span aria-hidden="true">⌁</span> <span data-i18n="pcbRoute">Route</span></button>
+          <span id="pcb-route-status" role="status" aria-live="polite"></span>
           <span class="toolbar-spacer"></span>
           <button type="button" class="toolbar-button" data-action="undo">↶ <span>Undo</span></button>
           <button type="button" class="toolbar-button" data-action="redo">↷ <span>Redo</span></button>
@@ -447,4 +449,5 @@
     <script type="module" src="app.js"></script>
   </body>
 </html>
+
 

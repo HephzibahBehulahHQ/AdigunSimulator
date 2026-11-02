@@ -94,6 +94,8 @@ function assertResultMatches(actual, expected, path) {
   return 1;
 }
 
+const assertTextSnapshot = (actual, expected, name) => assert.equal(actual.replaceAll("\r\n", "\n"), expected.replaceAll("\r\n", "\n"), name);
+
 test("core-led-current-limiter: catalogue 001 produces its recorded analytical result", async () => {
   const project = createProject();
   const result = runSupportedAnalysis(project);
@@ -1282,7 +1284,7 @@ test("LM386 audio amplifier PCB validates topology, grounding review, DRC, BOM, 
   };
   for (const [name, actual] of Object.entries(snapshots)) {
     const expected = await readFile(new URL("../examples/128-audio-amplifier-pcb/expected/" + name, import.meta.url), "utf8");
-    assert.equal(actual, expected, name);
+    assertTextSnapshot(actual, expected, name);
   }
   assert.match(snapshots["BOM.csv"], /"U1","1","TI LM386N-1/);
   assert.match(snapshots["Placement.csv"], /"J2","Speaker/);
@@ -1329,7 +1331,7 @@ test("LM2596 buck converter PCB validates topology, high-current layout review, 
   };
   for (const [name, actual] of Object.entries(snapshots)) {
     const expected = await readFile(new URL("../examples/129-buck-converter-pcb/expected/" + name, import.meta.url), "utf8");
-    assert.equal(actual, expected, name);
+    assertTextSnapshot(actual, expected, name);
   }
   assert.match(snapshots["BOM.csv"], /"U1","1","LM2596T-5.0/);
   assert.match(snapshots["BOM.csv"], /"D1","1","onsemi 1N5822G/);
@@ -3707,7 +3709,7 @@ test("catalogue Uno shield matches its header map and clears mechanical keep-out
   assert.equal(generated.status,"passed");
   for(const [name,content] of Object.entries(generated.files)){
     const expected=await readFile(new URL("../examples/124-arduino-shield/expected/"+name,import.meta.url),"utf8");
-    assert.equal(content,expected,name);
+    assertTextSnapshot(content,expected,name);
   }
   const colliding=structuredClone(project);
   colliding.pcbFabrication.pads.find(pad=>pad.reference==="R1").xMm=8;
@@ -3729,7 +3731,7 @@ test("catalogue op-amp filter PCB preserves native netlist and matches fabricati
   assert.equal(generated.status,"passed");
   for(const [name,content] of Object.entries(generated.files)){
     const expected=await readFile(new URL("../examples/123-opamp-filter-pcb/expected/"+name,import.meta.url),"utf8");
-    assert.equal(content,expected,name);
+    assertTextSnapshot(content,expected,name);
   }
   const changed=structuredClone(project);
   changed.pcbFabrication.pads.find(pad=>pad.reference==="U1"&&pad.number==="6").netId="INVERTING";
@@ -3749,7 +3751,7 @@ test("catalogue 555 timer PCB maps every routed net and matches fabrication snap
   assert.equal(generated.status,"passed");
   for(const [name,content] of Object.entries(generated.files)){
     const expected=await readFile(new URL("../examples/122-555-timer-pcb/expected/"+name,import.meta.url),"utf8");
-    assert.equal(content,expected,name);
+    assertTextSnapshot(content,expected,name);
   }
   const unrouted=structuredClone(project);
   unrouted.pcbFabrication.routes=unrouted.pcbFabrication.routes.filter(route=>route.netId!=="CONTROL");
@@ -3769,7 +3771,7 @@ test("catalogue single-sided LED PCB passes bounded DRC and matches fabrication 
   assert.deepEqual(Object.keys(generated.files).sort(),["BOM.csv","board-Edge_Cuts.gbr","board-F_Cu.gbr","board-PTH.drl"]);
   for(const [name,content] of Object.entries(generated.files)){
     const expected=await readFile(new URL("../examples/121-single-sided-led-pcb/expected/"+name,import.meta.url),"utf8");
-    assert.equal(content,expected,name);
+    assertTextSnapshot(content,expected,name);
   }
   const broken=structuredClone(project);
   broken.pcbFabrication.routes[1].netId="GND";
@@ -3858,7 +3860,7 @@ test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs,
   const expectedFiles={...generated.files,"Connector-Pin-Report.csv":report};
   for(const [name,content] of Object.entries(expectedFiles)){
     const expected=await readFile(new URL("../examples/125-usbc-breakout/expected/"+name,import.meta.url),"utf8");
-    assert.equal(content,expected,name);
+    assertTextSnapshot(content,expected,name);
   }
   const broken=structuredClone(project);
   broken.pcbFabrication.connectorPinMap.find(pin=>pin.pin==="B5").netId="CC1";
@@ -3894,7 +3896,7 @@ test("catalogue BME280 sensor breakout checks native/ERC subset, sensor wiring, 
   const files={...generated.files,"Placement.csv":placement};
   for(const [name,content] of Object.entries(files)){
     const expected=await readFile(new URL("../examples/126-bme280-breakout/expected/"+name,import.meta.url),"utf8");
-    assert.equal(content,expected,name);
+    assertTextSnapshot(content,expected,name);
   }
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="SCL").endpoints=broken.nets.find(net=>net.id==="SCL").endpoints.filter(endpoint=>endpoint!=="bme:SCL");
@@ -3934,7 +3936,7 @@ test("catalogue relay module tests driver, relay pin map, contact isolation clas
   assert.ok(files["Relay-Isolation-Report.csv"].includes('"COIL","CONTACT","3.2"'));
   for(const [name,content] of Object.entries(files)){
     const expected=await readFile(new URL("../examples/127-relay-module-pcb/expected/"+name,import.meta.url),"utf8");
-    assert.equal(content,expected,name);
+    assertTextSnapshot(content,expected,name);
   }
   const widened=structuredClone(project);
   widened.pcbFabrication.netClassRules.find(rule=>rule.classA==="COIL"&&rule.classB==="CONTACT").clearanceMm=12;

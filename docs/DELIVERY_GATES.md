@@ -24,9 +24,11 @@ Each catalogue entry is planned until its registry entry includes a native proje
 
 ## Simulation and layout gate
 
-Only an engine that produced the displayed result may be named. The current analytical engine supports the ideal pushbutton LED circuit with pull-down, the documented LED current-limiter, unloaded two-resistor voltage-divider, and linear resistor networks with ideal DC voltage/current sources and a shared ground reference; ideal first-order RC charging from zero initial voltage; ideal first-order RL current rise from zero initial current; the selectable SPDT RC charge/discharge model; and the ideal first-order RC low-pass and high-pass plus RL low-pass sinusoidal steady-state responses at 0.1×, 1×, and 10× cutoff. RC discharge assumes an initial capacitor voltage equal to the source voltage and is evaluated as a separate run. General SPICE, arbitrary AC network analysis, nonlinear or multi-element reactive/transient behavior, digital/mixed-signal simulation, thermal analysis, PCB autorouting, DRC, Gerber output and manufacturing checks remain unavailable.
+Only an engine that produced the displayed result may be named. The current analytical engine supports the ideal pushbutton LED circuit with pull-down, the documented LED current-limiter, unloaded two-resistor voltage-divider, and linear resistor networks with ideal DC voltage/current sources and a shared ground reference; ideal first-order RC charging from zero initial voltage; ideal first-order RL current rise from zero initial current; the selectable SPDT RC charge/discharge model; and the ideal first-order RC low-pass and high-pass plus RL low-pass sinusoidal steady-state responses at 0.1×, 1×, and 10× cutoff. RC discharge assumes an initial capacitor voltage equal to the source voltage and is evaluated as a separate run. General SPICE, arbitrary AC network analysis, nonlinear or multi-element reactive/transient behavior, digital/mixed-signal simulation, and thermal analysis remain unavailable.
 
-The workspace shares component identity, nets and per-view positions. A view mapping is withheld rather than fabricated when a verified representation is absent. Operators must review physical breadboard rows, component orientation, wiring, power limits, measurements and applicable standards before energising any hardware.
+Projects that include stored PCB board, footprint, pad, and route data support interactive single-layer F.Cu routing between pads on the same declared net. Routing enforces the stored board bounds, net-class minimum trace width, configured copper clearance, existing foreign-net copper, pad clearances, and declared keep-outs; incomplete PCB mappings do not enable the tool. The existing PCB checks and Gerber/Excellon/BOM exporters cover a bounded educational rule subset. They are not a standards-complete DRC, exhaustive manufacturing rule check, or manufacturing release. Autorouting, multiple copper layers, 3D verification, impedance and high-speed constraints, and manufacturer-specific production checks remain unavailable.
+
+The workspace shares component identity, nets and per-view positions. A view mapping is withheld rather than fabricated when a verified representation is absent. Operators must review physical breadboard rows, component orientation, wiring, power limits, measurements, PCB exports and applicable standards before energising or manufacturing any hardware.
 
 ## Required quality evidence before a production release
 
@@ -38,4 +40,5 @@ The workspace shares component identity, nets and per-view positions. A view map
 6. Deployment, rollback and monitoring plans are approved before publishing a public service.
 
 No automated test suite justifies a claim of zero defects. Release notes must state the actual test evidence, known limitations and unresolved risk.
+
 

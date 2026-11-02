@@ -19,8 +19,9 @@ import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
-import { renderPcbPreviewSvg, getPcbPreviewScale } from "./js/pcb-preview.mjs";
+import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
 import { movePcbFootprint } from "./js/pcb-edit.mjs";
+import { createPcbRoute } from "./js/pcb-routing.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
@@ -116,7 +117,9 @@ const state = {
   breadboardSyncPreview: null,
   breadboardPlacementMode: false,
   schematicWireMode: false,
-  schematicWireStart: null
+  schematicWireStart: null,
+  pcbRouteDraft: null,
+  pcbRouteHintKey: null
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -445,7 +448,7 @@ function commitBreadboardEdit(project, message) {
 
 function renderCanvas() {
   const canvas = $("#design-canvas");
-  canvas.className = `design-canvas ${state.activeView} ${state.breadboardPlacementMode ? "is-placement-mode" : ""} ${state.schematicWireMode ? "is-wire-mode" : ""} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
+  canvas.className = `design-canvas ${state.activeView} ${state.breadboardPlacementMode ? "is-placement-mode" : ""} ${state.schematicWireMode ? "is-wire-mode" : ""} ${state.activeTool === "pcb-route" ? "is-pcb-route-mode" : ""} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
   const canvasArea = document.querySelector(".canvas-area");
   canvasArea.classList.toggle("has-overview", state.activeView === "breadboard");
   document.querySelectorAll("[data-mini-view]").forEach((panel) => { panel.hidden = panel.dataset.miniView !== "schematic" || state.activeView !== "breadboard"; });
@@ -468,9 +471,13 @@ function renderCanvas() {
       : netSvg(state.project, state.activeView, unavailable);
   const reconciliationNotice = issues.length ? `<div class="reconciliation-notice"><strong>Reconciliation needed</strong>${issues.map((issue) => `<span>${escape(issue.reference)}: ${escape(issue.reason)}</span>`).join("")}</div>` : "";
   const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : (hasPcbData ? t("pcbStoredLayoutPreview") : t("pcbNoFootprintData"));
-  canvas.innerHTML = `<div class="canvas-label">${label}</div>${reconciliationNotice}<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${surface}${wires}${parts}</div>`;
+  canvas.innerHTML = `<div class="canvas-label">${label}</div>${reconciliationNotice}<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${isPcb && hasPcbData ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData"), state.pcbRouteDraft) : surface}${wires}${parts}</div>`;
   $("#schematic-wire-mode").setAttribute("aria-pressed", String(state.schematicWireMode));
   $("#schematic-wire-status").textContent = !state.schematicWireMode ? "" : state.schematicWireStart ? t("schematicWireNext") : t("schematicWireStart");
+  $("#pcb-route-mode").disabled = !hasPcbData;
+  $("#pcb-route-mode").setAttribute("aria-pressed", String(state.activeTool === "pcb-route"));
+  $("#pcb-route-status").textContent = state.activeTool !== "pcb-route" ? "" : t(state.pcbRouteHintKey ?? (state.pcbRouteDraft ? "pcbRouteWaypoint" : "pcbRouteStart"));
+  $$('[data-tool]').forEach((button) => button.classList.toggle("active", button.dataset.tool === state.activeTool));
   const miniSchematic = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "schematic").length).map((component) => componentVisual(component, "schematic")).join("");
   const miniPcb = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "pcb").length).map((component) => componentVisual(component, "pcb")).join("");
   $("#schematic-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "schematic", new Set(getViewReconciliationIssues(state.project, "schematic").map((issue) => issue.instanceId)))}${miniSchematic}</div>`;
@@ -1085,6 +1092,7 @@ function activateView(view) {
   state.activeView = view;
   if (view !== "breadboard") state.breadboardPlacementMode = false;
   if (view !== "schematic") { state.schematicWireMode = false; state.schematicWireStart = null; }
+  if (view !== "pcb") { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; if (state.activeTool === "pcb-route") state.activeTool = "select"; }
   $$(".view-tab").forEach((tab) => { const active = tab.dataset.view === view; tab.classList.toggle("active", active); tab.setAttribute("aria-selected", String(active)); });
   renderCanvas();
 }
@@ -1158,8 +1166,73 @@ function handleAction(action) {
   if (action === "help") showDialog("Implementation status", "The workspace has a generic starter library, local project storage, four interface locales, 199 released and tested catalogue examples, bounded analytical models, and a single-sided PCB export preview for projects that include fabrication data. Its checks do not replace manufacturer validation; the application is not a general SPICE engine.");
 }
 
+function handlePcbRouteCanvasClick(event) {
+  if (state.activeView !== "pcb" || state.activeTool !== "pcb-route" || !event.target.closest("#design-canvas")) return false;
+  const pad = event.target.closest("[data-pcb-pad]");
+  if (pad) {
+    event.preventDefault();
+    event.stopPropagation();
+    state.selectedInstanceId = pad.dataset.instanceId;
+    if (pad.dataset.pcbNet === "NC") { showDialog(t("pcbMenu"), t("pcbRouteBlocked")); return true; }
+    if (!state.pcbRouteDraft) {
+      state.pcbRouteDraft = { startPad: pad.dataset.pcbPad, netId: pad.dataset.pcbNet, pointsMm: [[Number(pad.dataset.xMm), Number(pad.dataset.yMm)]] };
+      state.pcbRouteHintKey = "pcbRouteWaypoint";
+      render();
+      log(`[PCB] Route start selected at ${pad.dataset.pcbPad} on ${pad.dataset.pcbNet}.`);
+      return true;
+    }
+    if (pad.dataset.pcbNet !== state.pcbRouteDraft.netId) {
+      state.pcbRouteHintKey = "pcbRouteDifferentNet";
+      renderCanvas();
+      return true;
+    }
+    const result = createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1) });
+    if (result.status === "complete") {
+      captureHistory();
+      state.project = result.project;
+      state.dirty = true;
+      state.recoveryActive = true;
+      state.lastValidation = null;
+      state.pcbRouteDraft = null;
+      state.pcbRouteHintKey = "pcbRouteReady";
+      render();
+      log(`[PCB] Added a ${result.layer} route on ${result.netId} using ${result.pointsMm.length} point(s), ${result.widthMm} mm wide. Run PCB checks before export.`);
+    } else if (result.status === "unchanged") {
+      state.pcbRouteDraft = null;
+      state.pcbRouteHintKey = "pcbRouteReady";
+      renderCanvas();
+    } else {
+      state.pcbRouteHintKey = "pcbRouteBlocked";
+      renderCanvas();
+      showDialog(t("pcbMenu"), `${t("pcbRouteBlocked")} (${result.code})`);
+      log(`[PCB] Interactive route blocked: ${result.code}.`);
+    }
+    return true;
+  }
+  if (event.target.closest(".pcb-footprint-hit")) { event.preventDefault(); event.stopPropagation(); return true; }
+  const svg = event.target.closest(".pcb-preview-svg");
+  if (!svg || !state.pcbRouteDraft) return false;
+  const rect = svg.getBoundingClientRect();
+  if (!rect.width || !rect.height) return true;
+  const viewPoint = [(event.clientX - rect.left) * 680 / rect.width, (event.clientY - rect.top) * 300 / rect.height];
+  const point = pcbPreviewPointToBoardMm(state.project, viewPoint);
+  const board = state.project.pcbFabrication?.board;
+  if (!point || point[0] < 0 || point[1] < 0 || point[0] > board.widthMm || point[1] > board.heightMm) {
+    state.pcbRouteHintKey = "pcbRouteBlocked";
+    renderCanvas();
+    return true;
+  }
+  if ($("#snap-toggle").checked) { point[0] = Math.round(point[0] * 2) / 2; point[1] = Math.round(point[1] * 2) / 2; }
+  const previous = state.pcbRouteDraft.pointsMm.at(-1);
+  if (!previous || Math.hypot(point[0] - previous[0], point[1] - previous[1]) > 0.001) state.pcbRouteDraft.pointsMm.push(point);
+  state.pcbRouteHintKey = "pcbRouteWaypoint";
+  renderCanvas();
+  return true;
+}
+
 document.addEventListener("click", (event) => {
   state.userInteracted = true;
+  if (handlePcbRouteCanvasClick(event)) return;
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (action) handleAction(action);
   const schematicPinTarget = event.target.closest("[data-schematic-endpoint]");
@@ -1210,21 +1283,29 @@ document.addEventListener("click", (event) => {
   if (tool) {
     if (tool.dataset.tool === "zoom-in") state.scale = Math.min(1.5, state.scale + 0.1);
     if (tool.dataset.tool === "zoom-out") state.scale = Math.max(0.6, state.scale - 0.1);
-    if (["select", "pan"].includes(tool.dataset.tool)) state.activeTool = tool.dataset.tool;
+    if (["select", "pan"].includes(tool.dataset.tool)) { state.activeTool = tool.dataset.tool; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
+    if (tool.dataset.tool === "pcb-route") {
+      if (state.activeTool === "pcb-route") { state.activeTool = "select"; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
+      else { activateView("pcb"); state.activeTool = "pcb-route"; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
+    }
     $$("[data-tool]").forEach((button) => button.classList.toggle("active", button === tool && !["zoom-in", "zoom-out"].includes(tool.dataset.tool)));
     $("#zoom-level").textContent = `${Math.round(state.scale * 100)}%`;
     $("#design-canvas").style.setProperty("--canvas-scale", state.scale);
+    if (["select", "pan", "pcb-route"].includes(tool.dataset.tool)) renderCanvas();
   }
   const collapse = event.target.closest("[data-collapse]");
   if (collapse) document.querySelector(`.${collapse.dataset.collapse}`).classList.toggle("collapsed");
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && (state.breadboardPlacementMode || state.schematicWireMode)) {
+  if (event.key === "Escape" && (state.breadboardPlacementMode || state.schematicWireMode || state.activeTool === "pcb-route")) {
     event.preventDefault();
     state.breadboardPlacementMode = false;
     state.schematicWireMode = false;
     state.schematicWireStart = null;
+    if (state.activeTool === "pcb-route") state.activeTool = "select";
+    state.pcbRouteDraft = null;
+    state.pcbRouteHintKey = null;
     render();
     return;
   }
@@ -1247,7 +1328,7 @@ document.addEventListener("keydown", (event) => {
     }
   }
   const pcbFootprintTarget = event.target.closest?.(".pcb-footprint-hit");
-  if (pcbFootprintTarget && state.activeView === "pcb" && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+  if (pcbFootprintTarget && state.activeView === "pcb" && state.activeTool === "select" && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
     event.preventDefault();
     const step = $("#snap-toggle").checked ? 0.5 : 0.1;
     const delta = { x: event.key === "ArrowLeft" ? -step : event.key === "ArrowRight" ? step : 0, y: event.key === "ArrowUp" ? -step : event.key === "ArrowDown" ? step : 0 };
