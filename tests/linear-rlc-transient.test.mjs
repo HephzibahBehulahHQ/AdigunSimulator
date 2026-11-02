@@ -35,6 +35,23 @@ function makeRlCircuit(config = {}) {
   };
 }
 
+function makeSeriesRlcCircuit(config = {}) {
+  let project = createEmptyProject({ name: "Bounded series RLC transient verification" });
+  for (const id of ["power.dc-source", "passive.resistor", "passive.inductor", "passive.capacitor", "ground.signal"]) project = addComponent(project, id);
+  const pin = (reference, terminal) => `${project.components.find((item) => item.reference === reference).instanceId}:${terminal}`;
+  for (const [a, b] of [
+    [pin("V1", "+"), pin("R1", "1")], [pin("R1", "2"), pin("L1", "1")],
+    [pin("L1", "2"), pin("C1", "1")], [pin("C1", "2"), pin("V1", "-")],
+    [pin("GND1", "0"), pin("V1", "-")]
+  ]) project = connectPins(project, a, b);
+  const outputNet = project.nets.find((net) => net.endpoints.includes(pin("C1", "1"))).id;
+  return {
+    ...project,
+    components: project.components.map((item) => item.reference === "V1" ? { ...item, value: "5 V" } : item.reference === "R1" ? { ...item, value: "20 Ω" } : item.reference === "L1" ? { ...item, value: "10 mH" } : item.reference === "C1" ? { ...item, value: "10 µF" } : item),
+    linearRlcTransient: { stopSeconds: 0.02, timeStepSeconds: 0.00001, outputNet, ...config }
+  };
+}
+
 test("linear RLC transient MNA matches an RC step response from zero initial energy", () => {
   const result = runProjectAnalysis(makeRcCircuit());
   assert.equal(result.state, "complete", result.message);
@@ -57,6 +74,16 @@ test("linear RLC transient MNA matches a series RL step response from zero initi
   assert.ok(Math.abs(atTau.voltageV - 5 / Math.E) < 0.01, `${atTau.voltageV} V across L at one time constant`);
   assert.ok(result.result.samples.at(-1).voltageV < 0.05);
   assert.equal(result.result.initialConditions.inductorCurrentA, 0);
+});
+
+test("linear RLC transient resolves damped series-RLC ringing and settles to DC", () => {
+  const result = runProjectAnalysis(makeSeriesRlcCircuit());
+  assert.equal(result.state, "complete", result.message);
+  assert.equal(result.result.sampleCount, 2001);
+  const peak = Math.max(...result.result.samples.map((sample) => sample.voltageV));
+  assert.ok(peak > 6.5 && peak < 7.0, `expected damped RLC overshoot, got ${peak} V`);
+  assert.ok(Math.abs(result.result.samples.at(-1).voltageV - 5) < 0.01);
+  assert.ok(result.result.maximumRelativeResidual <= 1e-8);
 });
 
 test("linear RLC transient blocks unsupported parts, unconnected pins, and excessive solve work", () => {
