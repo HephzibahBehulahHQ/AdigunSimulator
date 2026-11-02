@@ -26,6 +26,7 @@ test("implementation status is localized and reflects released scope without sta
   assert.ok(UI_KEYS.includes("implementationStatusBody"));
   assert.match(app, /function showImplementationStatus\(\)/);
   assert.equal((app.match(/showImplementationStatus\(\)/g) ?? []).length, 2);
+  assert.doesNotMatch(app, /\$\("#help-button"\)\.addEventListener/);
   assert.doesNotMatch(app, /199 released|placement preview without routing|single-sided PCB export preview/);
 });
 

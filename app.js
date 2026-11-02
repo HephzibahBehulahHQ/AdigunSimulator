@@ -1653,7 +1653,6 @@ $("#load-example").addEventListener("click", async () => {
   }
 });
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
-$("#help-button").addEventListener("click", showImplementationStatus);
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
 $("#bot-form").addEventListener("submit", (event) => { event.preventDefault(); answerBotFromSelection(); });
