@@ -190,15 +190,155 @@
       "manufacturerPartNumber": "ATMEGA328P-PU",
       "category": "Programmable controllers",
       "type": "8-bit microcontroller",
-      "lifecycle": "not-recommended-for-new-designs",
+      "lifecycle": "in production",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "ATmega328P product and documentation page",
-        "url": "https://www.microchip.com/en-us/product/ATMEGA328P",
-        "accessedAt": "2026-10-30"
+        "title": "ATmega328P datasheet, 7810D-AVR-01/15",
+        "url": "https://ww1.microchip.com/downloads/en/devicedoc/atmel-7810-automotive-microcontrollers-atmega328p_datasheet.pdf",
+        "accessedAt": "2026-11-02",
+        "sha256": "fb84858d0b12c695a12b13f0c74b962d81210247d440c7a24c0ed23dfabfdfaf",
+        "sha256Bytes": 8585103,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-02.md"
       },
-      "notes": "Candidate only. The official source identifies the family as not recommended for new designs; no lifecycle claim is hidden.",
-      "typeCode": "G01"
+      "manufacturerSources": [
+        {
+          "url": "https://www.microchip.com/en-us/product/ATMEGA328P",
+          "kind": "manufacturer-product-page"
+        },
+        {
+          "url": "https://ww1.microchip.com/downloads/en/devicedoc/atmel-7810-automotive-microcontrollers-atmega328p_datasheet.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-28",
+        "pinCount": 28,
+        "sourceUrl": "https://www.microchip.com/en-us/product/ATMEGA328P"
+      },
+      "package": "PDIP-28",
+      "symbolPinMap": {
+        "1": "PC6/RESET",
+        "2": "PD0/RXD",
+        "3": "PD1/TXD",
+        "4": "PD2/INT0",
+        "5": "PD3/INT1/OC2B",
+        "6": "PD4/T0/XCK",
+        "7": "VCC",
+        "8": "GND",
+        "9": "PB6/XTAL1/TOSC1",
+        "10": "PB7/XTAL2/TOSC2",
+        "11": "PD5/T1/OC0B",
+        "12": "PD6/AIN0/OC0A",
+        "13": "PD7/AIN1",
+        "14": "PB0/ICP1/CLKO",
+        "15": "PB1/OC1A",
+        "16": "PB2/SS/OC1B",
+        "17": "PB3/MOSI/OC2A",
+        "18": "PB4/MISO",
+        "19": "PB5/SCK",
+        "20": "AVCC",
+        "21": "AREF",
+        "22": "GND",
+        "23": "PC0/ADC0",
+        "24": "PC1/ADC1",
+        "25": "PC2/ADC2",
+        "26": "PC3/ADC3",
+        "27": "PC4/ADC4/SDA",
+        "28": "PC5/ADC5/SCL"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "bidirectional",
+        "3": "bidirectional",
+        "4": "bidirectional",
+        "5": "bidirectional",
+        "6": "bidirectional",
+        "7": "power-in",
+        "8": "power-in",
+        "9": "bidirectional",
+        "10": "bidirectional",
+        "11": "bidirectional",
+        "12": "bidirectional",
+        "13": "bidirectional",
+        "14": "bidirectional",
+        "15": "bidirectional",
+        "16": "bidirectional",
+        "17": "bidirectional",
+        "18": "bidirectional",
+        "19": "bidirectional",
+        "20": "power-in",
+        "21": "analog",
+        "22": "power-in",
+        "23": "bidirectional",
+        "24": "bidirectional",
+        "25": "bidirectional",
+        "26": "bidirectional",
+        "27": "bidirectional",
+        "28": "bidirectional"
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No Microchip instruction-set or firmware model is imported and validated in this simulator. Pin maps do not imply executable AVR firmware behavior."
+      },
+      "modelStatus": "not-modelled",
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.microchip.com/en-us/product/ATMEGA328P",
+        "checkedAt": "2026-11-02"
+      },
+      "ratings": [
+        {
+          "name": "operating supply voltage",
+          "minimum": 2.7,
+          "maximum": 5.5,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "warnings": [
+        "This ledger entry documents the package pins; the simulator does not execute ATmega328P instructions or firmware.",
+        "AVCC, AREF, reset, and clock pins require datasheet-compliant circuit connections."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "28-lead SPDIP through-hole package; confirm the board trench, body width, clock circuit, reset, and power-pin placement.",
+        "operatingLimits": [
+          "Supply voltage: 2.7 V to 5.5 V",
+          "ATMEGA328P-PU temperature range: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "ATmega328P 8-bit microcontroller",
+          "description": "A 28-pin AVR microcontroller. This app records pin functions but does not run its firmware."
+        },
+        "de": {
+          "name": "ATmega328P 8-Bit-Mikrocontroller",
+          "description": "Ein 28-poliger AVR-Mikrocontroller. Diese App dokumentiert die Pins, führt aber keine Firmware aus."
+        },
+        "yo": {
+          "name": "Kékèké microcontroller ATmega328P",
+          "description": "Microcontroller AVR ẹsẹ 28 ni. Ìṣàfilọ́lẹ̀ yìí ṣàkọsílẹ̀ iṣẹ́ ẹsẹ̀ rẹ̀, kò sì ṣiṣẹ́ firmware rẹ̀."
+        },
+        "pcm": {
+          "name": "ATmega328P 8-bit microcontroller",
+          "description": "Na 28-pin AVR microcontroller. This app record the pin functions but e no run the firmware."
+        }
+      },
+      "evidenceNote": "library/evidence/microchip.atmega328p-pu.md",
+      "notes": "Microchip lists ATMEGA328P-PU as an available-to-order 28-pin SPDIP part with -40 °C to +85 °C range. Datasheet pin map and checksum are recorded. Firmware execution, licensed footprint/symbol assets beyond the generated pin map, complete safety review, and human verification remain incomplete; not counted as verified.",
+      "typeCode": "G01",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.atmega328p-pu/symbol.svg",
+        "sha256": "8be3d8815995ed0c98c2ed46d605c2a21ef857117abdb4f9c6249e9f19b5e290",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     },
     {
       "id": "nexperia.1n4148",
