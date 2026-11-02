@@ -19,6 +19,22 @@ function makeRcCircuit(config = {}) {
   };
 }
 
+function makeRlCircuit(config = {}) {
+  let project = createEmptyProject({ name: "Bounded linear RL transient verification" });
+  for (const id of ["power.dc-source", "passive.resistor", "passive.inductor", "ground.signal"]) project = addComponent(project, id);
+  const pin = (reference, terminal) => `${project.components.find((item) => item.reference === reference).instanceId}:${terminal}`;
+  for (const [a, b] of [
+    [pin("V1", "+"), pin("R1", "1")], [pin("R1", "2"), pin("L1", "1")],
+    [pin("L1", "2"), pin("V1", "-")], [pin("GND1", "0"), pin("V1", "-")]
+  ]) project = connectPins(project, a, b);
+  const outputNet = project.nets.find((net) => net.endpoints.includes(pin("L1", "1"))).id;
+  return {
+    ...project,
+    components: project.components.map((item) => item.reference === "V1" ? { ...item, value: "5 V" } : item.reference === "R1" ? { ...item, value: "1 kΩ" } : item.reference === "L1" ? { ...item, value: "1 H" } : item),
+    linearRlcTransient: { stopSeconds: 0.005, timeStepSeconds: 0.00001, outputNet, ...config }
+  };
+}
+
 test("linear RLC transient MNA matches an RC step response from zero initial energy", () => {
   const result = runProjectAnalysis(makeRcCircuit());
   assert.equal(result.state, "complete", result.message);
@@ -31,6 +47,16 @@ test("linear RLC transient MNA matches an RC step response from zero initial ene
   assert.equal(result.result.initialConditions.capacitorVoltageV, 0);
   assert.equal(result.result.initialConditions.inductorCurrentA, 0);
   assert.equal(result.result.modelIds[0], "linear-rlc-trapezoidal-transient-v1");
+});
+
+test("linear RLC transient MNA matches a series RL step response from zero initial current", () => {
+  const result = runProjectAnalysis(makeRlCircuit());
+  assert.equal(result.state, "complete", result.message);
+  assert.equal(result.result.kind, "linear-rlc-transient");
+  const atTau = result.result.samples[100];
+  assert.ok(Math.abs(atTau.voltageV - 5 / Math.E) < 0.01, `${atTau.voltageV} V across L at one time constant`);
+  assert.ok(result.result.samples.at(-1).voltageV < 0.05);
+  assert.equal(result.result.initialConditions.inductorCurrentA, 0);
 });
 
 test("linear RLC transient blocks unsupported parts, unconnected pins, and excessive solve work", () => {
