@@ -522,24 +522,31 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(validatePartLedger(ledger, taxonomy).valid, true);
   assert.equal(validatePartsManifest(manifest, taxonomy, ledger).valid, true);
   const coverage = getLedgerCoverage(ledger);
-  assert.equal(coverage.total, 9);
+  assert.equal(coverage.total, 10);
   assert.equal(coverage.verified, 0);
-  assert.equal(coverage.byStatus.candidate, 9);
+  assert.equal(coverage.byStatus.candidate, 10);
   assert.equal(coverage.remaining, 1000);
   assert.deepEqual(getLibraryCoverage(ledger, taxonomy), coverageFile);
   assert.equal(coverageFile.taxonomy.totalTypes, 565);
   assert.equal(coverageFile.taxonomy.categories.length, 15);
-  assert.equal(coverageFile.ledger.total, 9);
+  assert.equal(coverageFile.ledger.total, 10);
   assert.equal(coverageFile.ledger.verified, 0);
-  assert.equal(coverageFile.ledger.byStatus.candidate, 9);
+  assert.equal(coverageFile.ledger.byStatus.candidate, 10);
   const readiness = getPartVerificationReadiness(ledger.records[0]);
   assert.equal(readiness.currentStatus, "candidate");
   assert.equal(readiness.verified, false);
   assert.equal(readiness.readyForHumanReview, true);
   assert.equal(readiness.requiresHumanReview, true);
   assert.ok(readiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
-  assert.equal(coverageFile.reviewQueue.length, 9);
-  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId).sort(), ["microchip.atmega328p-pu", "microchip.mcp6002-i-p", "ti.lm555p", "ti.lm7805ct-nopb", "ti.sn74hc00n"]);
+  assert.equal(coverageFile.reviewQueue.length, 10);
+  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId).sort(), ["microchip.atmega328p-pu", "microchip.mcp6002-i-p", "ti.lm555p", "ti.lm7805ct-nopb", "ti.sn74hc00n", "ti.sn74hc74n"]);
+  const flipFlop = ledger.records.find((record) => record.id === "ti.sn74hc74n");
+  assert.equal(flipFlop.manufacturerPartNumber, "SN74HC74N");
+  assert.equal(flipFlop.typeCode, "F32");
+  assert.equal(flipFlop.verificationStatus, "candidate");
+  assert.equal(flipFlop.datasheet.sha256, "a4043d37d693a2997900a0542dd226b9b61285794f3c1a541adb99cc7dcb1ae2");
+  assert.deepEqual(flipFlop.symbolPinMap, { "1":"1CLR", "2":"1D", "3":"1CLK", "4":"1PRE", "5":"1Q", "6":"1QBAR", "7":"GND", "8":"2QBAR", "9":"2Q", "10":"2PRE", "11":"2CLK", "12":"2D", "13":"2CLR", "14":"VCC" });
+  assert.equal(getPartVerificationReadiness(flipFlop).readyForHumanReview, true);
 });
 
 test("verified parts require complete datasheet, package, pin, model, license, safety, and translation evidence", () => {

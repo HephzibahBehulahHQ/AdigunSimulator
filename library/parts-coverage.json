@@ -5,11 +5,11 @@
     "componentTypes": 565
   },
   "ledger": {
-    "total": 9,
+    "total": 10,
     "verified": 0,
     "remaining": 1000,
     "byStatus": {
-      "candidate": 9,
+      "candidate": 10,
       "in-review": 0,
       "verified": 0,
       "rejected": 0
@@ -61,7 +61,7 @@
       {
         "code": "F",
         "declaredTypes": 67,
-        "partRecords": 1,
+        "partRecords": 2,
         "verifiedRecords": 0,
         "coveredTypes": 0,
         "missingTypes": 67
@@ -294,6 +294,16 @@
     },
     {
       "partId": "microchip.mcp6002-i-p",
+      "currentStatus": "candidate",
+      "readyForHumanReview": true,
+      "missingEvidenceCodes": [
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE"
+      ],
+      "evidenceBlockerCodes": []
+    },
+    {
+      "partId": "ti.sn74hc74n",
       "currentStatus": "candidate",
       "readyForHumanReview": true,
       "missingEvidenceCodes": [

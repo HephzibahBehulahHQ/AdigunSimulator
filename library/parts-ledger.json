@@ -1071,6 +1071,163 @@
         "assetPath": "library/assets/footprints/microchip.mcp6002-i-p/footprint.json",
         "designNote": "Pad diameter and drill are application-selected educational defaults, not sourced manufacturer recommendations."
       }
+    },
+    {
+      "id": "ti.sn74hc74n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC74N",
+      "category": "Digital logic",
+      "type": "Dual D-type flip-flop",
+      "typeCode": "F32",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC74 Dual D-Type Positive-Edge-Triggered Flip-Flops With Clear and Preset datasheet (Rev. F)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc74.pdf",
+        "accessedAt": "2026-11-03",
+        "sha256": "a4043d37d693a2997900a0542dd226b9b61285794f3c1a541adb99cc7dcb1ae2",
+        "sha256Bytes": 2256700,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-03.md"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC74/part-details/SN74HC74N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc74.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-14",
+        "pinCount": 14,
+        "sourceUrl": "https://www.ti.com/product/SN74HC74/part-details/SN74HC74N"
+      },
+      "package": "PDIP-14",
+      "ratings": [
+        {
+          "name": "recommended supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "symbolPinMap": {
+        "1": "1CLR",
+        "2": "1D",
+        "3": "1CLK",
+        "4": "1PRE",
+        "5": "1Q",
+        "6": "1QBAR",
+        "7": "GND",
+        "8": "2QBAR",
+        "9": "2Q",
+        "10": "2PRE",
+        "11": "2CLK",
+        "12": "2D",
+        "13": "2CLR",
+        "14": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "input",
+        "3": "input",
+        "4": "input",
+        "5": "output",
+        "6": "output",
+        "7": "power-in",
+        "8": "output",
+        "9": "output",
+        "10": "input",
+        "11": "input",
+        "12": "input",
+        "13": "input",
+        "14": "power-in"
+      },
+      "modelStatus": "ideal",
+      "simulationModel": {
+        "status": "ideal",
+        "reason": "Only the generic ideal positive-edge D flip-flop event mode is available. It does not model TI-specific logic thresholds, propagation delay, setup/hold, output drive, power, temperature behavior, or analog characteristics."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/SN74HC74/part-details/SN74HC74N",
+        "checkedAt": "2026-11-03"
+      },
+      "warnings": [
+        "Generic ideal D flip-flop events are not a manufacturer-verified SN74HC74N timing or electrical model.",
+        "Use a common supply and ground, and check TI input thresholds, output loading, clock timing, and asynchronous preset/clear requirements against the datasheet."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-14 through-hole package intended to straddle a solderless board center trench; confirm exact trench and physical package fit before use.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC74N dual D-type flip-flop",
+          "description": "Two independent positive-edge D flip-flops with asynchronous preset and clear in PDIP-14. The app uses a generic ideal event model and does not model TI-specific thresholds or timing."
+        },
+        "de": {
+          "name": "SN74HC74N mit zwei D-Flipflops",
+          "description": "Zwei unabhängige flankengesteuerte D-Flipflops mit asynchronem Setzen und Rücksetzen im PDIP-14-Gehäuse. Das App-Modell bildet keine TI-spezifischen Pegel oder Zeiten ab."
+        },
+        "yo": {
+          "name": "SN74HC74N D flip-flop méjì",
+          "description": "D flip-flop méjì tó ń gba clock edge pẹ̀lú preset àti clear, nínú PDIP-14. App náà lo ideal generic model; kò ṣe model threshold tàbí timing TI pàtó."
+        },
+        "pcm": {
+          "name": "SN74HC74N dual D flip-flop",
+          "description": "Two separate D flip-flops wey follow positive clock edge, with preset and clear, inside PDIP-14. App use generic ideal event model; e no model TI exact logic level or timing."
+        }
+      },
+      "evidenceNote": "library/evidence/ti.sn74hc74n.md",
+      "notes": "TI product page lists SN74HC74N as active and the datasheet documents its dual D flip-flop function, PDIP-14 package, pin map, supply, and temperature. Datasheet bytes, four-language descriptions, and CC0 educational symbol/footprint drafts are recorded. Human review, physical fit, and part-specific model validation remain open; not counted as verified.",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc74n/symbol.svg",
+        "sha256": "1719b520470c93a28c529206d6267747cd1fa7f88102e17f78d47f3b64794a61",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc74n/footprint.json",
+        "sha256": "e372714b78631d539cd52f16498654c80f22414ea25514cebc9110916125722f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc74.pdf",
+        "drawing": "N (PDIP-14), SN74HC74 device information table; nominal body size 19.30 × 6.40 mm",
+        "assetPath": "library/assets/footprints/ti.sn74hc74n/footprint.json",
+        "designNote": "2.54 mm pitch and 7.62 mm row spacing follow the educational PDIP-14 layout convention. Pad diameter and drill are CC0 defaults, not manufacturer land-pattern recommendations; physical review remains required."
+      }
     }
   ],
   "lastUpdated": "2026-11-02"
