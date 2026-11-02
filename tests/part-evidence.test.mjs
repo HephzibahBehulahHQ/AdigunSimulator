@@ -32,6 +32,7 @@ test("sourced candidate pin maps stay explicit and do not imply verified models 
   const timer = byId.get("ti.lm555p");
   const amplifier = byId.get("st.lm358dt");
   const microchipOpAmp = byId.get("microchip.mcp6002-i-p");
+  const avr = byId.get("microchip.atmega328p-pu");
 
   assert.deepEqual(bjt.symbolPinMap, { "1": "Emitter", "2": "Base", "3": "Collector" });
   assert.deepEqual(regulator.symbolPinMap, { "1": "INPUT", "2": "GND", "3": "OUTPUT" });
@@ -65,6 +66,13 @@ test("sourced candidate pin maps stay explicit and do not imply verified models 
   assert.equal(microchipOpAmp.simulationModel.status, "not-modelled");
   assert.equal(microchipOpAmp.verificationStatus, "candidate");
   assert.equal(getPartVerificationReadiness(microchipOpAmp).verified, false);
+  assert.equal(avr.packageEvidence.package, "PDIP-28");
+  assert.equal(avr.symbolPinMap["1"], "PC6/RESET");
+  assert.equal(avr.symbolPinMap["7"], "VCC");
+  assert.equal(avr.symbolPinMap["20"], "AVCC");
+  assert.equal(avr.symbolPinMap["28"], "PC5/ADC5/SCL");
+  assert.equal(avr.simulationModel.status, "not-modelled");
+  assert.equal(getPartVerificationReadiness(avr).verified, false);
   assert.match(timer.datasheet.sha256, /^[a-f0-9]{64}$/);
   assert.equal(timer.datasheet.sha256Bytes, 1221961);
   assert.match(byId.get("ti.sn74hc00n").datasheet.sha256, /^[a-f0-9]{64}$/);
@@ -79,7 +87,7 @@ test("sourced candidate pin maps stay explicit and do not imply verified models 
 test("captured manufacturer datasheet checksums match ledger bytes and remain only one part of verification", async () => {
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url)));
   const note = await readFile(new URL("../library/evidence/datasheet-checksums-2026-11-02.md", import.meta.url), "utf8");
-  for (const id of ["ti.lm555p", "ti.sn74hc00n", "ti.lm7805ct-nopb", "microchip.mcp6002-i-p"]) {
+  for (const id of ["ti.lm555p", "ti.sn74hc00n", "ti.lm7805ct-nopb", "microchip.mcp6002-i-p", "microchip.atmega328p-pu"]) {
     const record = ledger.records.find((part) => part.id === id);
     assert.match(record.datasheet.sha256, /^[a-f0-9]{64}$/);
     assert.ok(Number.isSafeInteger(record.datasheet.sha256Bytes));
