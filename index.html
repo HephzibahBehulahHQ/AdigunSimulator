@@ -381,10 +381,15 @@
           <label for="simulation-analysis-mode" data-i18n="analysisMode">Analysis mode</label>
           <select id="simulation-analysis-mode">
             <option value="automatic" data-i18n="analysisAutomatic">Project-defined / automatic</option>
+            <option value="nonlinear-dc" data-i18n="analysisNonlinearDc">Nonlinear DC operating point (Shockley diode)</option>
             <option value="linear-ac" data-i18n="analysisLinearAcSweep">Linear RLC AC sweep</option>
             <option value="linear-transient" data-i18n="analysisLinearTransient">Linear RLC transient</option>
             <option value="digital-events" data-i18n="analysisDigitalEvents">Digital event simulation</option>
           </select>
+          <div id="nonlinear-dc-controls" class="ac-sweep-controls hidden">
+            <label><span data-i18n="nonlinearJunctionTemperature">Junction temperature (°C)</span><input id="nonlinear-dc-temperature" type="number" min="-100" max="200" step="any" value="25" /></label>
+            <p class="limit-note" data-i18n="nonlinearDcModelHelp">Uses generic ideal Shockley diodes; model parameters are not manufacturer-verified.</p>
+          </div>
           <div id="ac-sweep-controls" class="ac-sweep-controls hidden">
             <label><span data-i18n="acStartHz">Start frequency (Hz)</span><input id="ac-start-hz" type="number" min="0.000001" step="any" value="10" /></label>
             <label><span data-i18n="acStopHz">Stop frequency (Hz)</span><input id="ac-stop-hz" type="number" min="0.000001" step="any" value="100000" /></label>

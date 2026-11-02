@@ -678,6 +678,11 @@ function renderResultDashboard(analysis) {
     metrics.push([t("acPoints"), String(result.samples.length)], [t("acOutputNet"), result.outputNet ?? t("notRecorded")], [t("acStartHz"), `${result.startHz}–${result.stopHz} Hz`]);
     const rows = result.samples.map((sample) => `<tr><td>${Number(sample.frequencyHz.toPrecision(6))}</td><td>${sample.output ? Number(sample.output.magnitudeV.toPrecision(6)) : "—"}</td><td>${sample.output ? `${Number(sample.output.phaseDegrees.toPrecision(6))}°` : "—"}</td></tr>`).join("");
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearAcSweep"))}</figcaption><table class="result-table linear-ac-table"><thead><tr><th>${escape(t("acFrequencyHz"))}</th><th>${escape(t("acMagnitude"))}</th><th>${escape(t("acPhase"))}</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "nonlinear-dc-operating-point") {
+    metrics.push([t("nonlinearJunctionTemperature"), `${result.temperatureC} °C`], [t("nonlinearIterations"), String(result.iterations)], [t("nonlinearResidual"), result.maximumRelativeResidual.toExponential(2)], [t("nonlinearPowerBalance"), `${result.powerBalanceW.toExponential(2)} W`]);
+    const nodeRows = Object.entries(result.nodeVoltages).map(([net, voltage]) => `<tr><td>${escape(net)}</td><td>${Number(voltage.toPrecision(7))} V</td></tr>`).join("");
+    const diodeRows = result.diodes.map((item) => `<tr><td>${escape(item.reference)}</td><td>${Number(item.voltage.toPrecision(7))} V</td><td>${Number((item.currentA * 1000).toPrecision(7))} mA</td><td>${Number((item.powerW * 1000).toPrecision(7))} mW</td></tr>`).join("");
+    waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisNonlinearDc"))}</figcaption><h4>${escape(t("nonlinearNodeVoltages"))}</h4><table class="result-table"><thead><tr><th>${escape(t("nonlinearNet"))}</th><th>${escape(t("nonlinearVoltage"))}</th></tr></thead><tbody>${nodeRows}</tbody></table><h4>${escape(t("nonlinearDiodeResults"))}</h4><table class="result-table"><thead><tr><th>${escape(t("reference"))}</th><th>${escape(t("nonlinearVoltage"))}</th><th>${escape(t("nonlinearCurrent"))}</th><th>${escape(t("nonlinearPower"))}</th></tr></thead><tbody>${diodeRows}</tbody></table><p>${escape(analysis.message)}</p><p>${escape(analysis.warnings?.[0]?.message ?? "")}</p></figure>`;
   } else if (result.kind === "linear-rlc-transient") {
     const values = result.samples.map((sample) => sample.voltageV);
     const min = Math.min(0, ...values), max = Math.max(0, ...values), span = Math.max(max - min, 1e-12);
@@ -1097,6 +1102,7 @@ function projectWithSelectedAnalysis(project, key, config) {
   delete selected.linearAcSweep;
   delete selected.linearRlcTransient;
   delete selected.digitalEventSimulation;
+  delete selected.shockleyDcOperatingPoint;
   selected[key] = config;
   return selected;
 }
@@ -1144,6 +1150,7 @@ function runAnalysis(workerResult = null) {
     if (isAnalysisWorkerEligible(state.project)) {
       const analysisMode = $("#simulation-analysis-mode").value;
       let projectForAnalysis = state.project;
+      if (analysisMode === "nonlinear-dc") projectForAnalysis = projectWithSelectedAnalysis(state.project, "shockleyDcOperatingPoint", { temperatureC: Number($("#nonlinear-dc-temperature").value) });
       if (analysisMode === "linear-ac") projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearAcSweep", { startHz: Number($("#ac-start-hz").value), stopHz: Number($("#ac-stop-hz").value), pointsPerDecade: Number($("#ac-points-per-decade").value), outputNet: $("#ac-output-net").value || undefined });
       if (analysisMode === "linear-transient") {
         let initialConditions;
@@ -1895,6 +1902,7 @@ $("#language").addEventListener("change", (event) => {
 $("#grid-toggle").addEventListener("change", renderCanvas);
 $("#run-simulation").addEventListener("click", () => runAnalysis());
 $("#simulation-analysis-mode").addEventListener("change", (event) => {
+  $("#nonlinear-dc-controls").classList.toggle("hidden", event.target.value !== "nonlinear-dc");
   $("#ac-sweep-controls").classList.toggle("hidden", event.target.value !== "linear-ac");
   $("#linear-transient-controls").classList.toggle("hidden", event.target.value !== "linear-transient");
   $("#digital-event-controls").classList.toggle("hidden", event.target.value !== "digital-events");
