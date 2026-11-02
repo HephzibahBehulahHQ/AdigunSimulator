@@ -374,6 +374,17 @@
         <section id="simulation-form" class="simulation-control hidden">
           <h3 data-i18n="simulationControl">Simulation Control</h3>
           <p data-i18n="availableAnalysis">Available analyses: LED current limiter and unloaded two-resistor voltage divider.</p>
+          <label for="simulation-analysis-mode" data-i18n="analysisMode">Analysis mode</label>
+          <select id="simulation-analysis-mode">
+            <option value="automatic" data-i18n="analysisAutomatic">Project-defined / automatic</option>
+            <option value="linear-ac" data-i18n="analysisLinearAcSweep">Linear RLC AC sweep</option>
+          </select>
+          <div id="ac-sweep-controls" class="ac-sweep-controls hidden">
+            <label><span data-i18n="acStartHz">Start frequency (Hz)</span><input id="ac-start-hz" type="number" min="0.000001" step="any" value="10" /></label>
+            <label><span data-i18n="acStopHz">Stop frequency (Hz)</span><input id="ac-stop-hz" type="number" min="0.000001" step="any" value="100000" /></label>
+            <label><span data-i18n="acPointsPerDecade">Points per decade</span><input id="ac-points-per-decade" type="number" min="1" max="50" step="1" value="12" /></label>
+            <label><span data-i18n="acOutputNet">Output net</span><select id="ac-output-net"><option value="" data-i18n="acAutoOutputLabel">Automatic output net</option></select></label>
+          </div>
           <button id="run-simulation" class="run-button" type="button">▶ <span data-i18n="runCalculation">Run calculation</span></button>
           <button id="stop-simulation" class="secondary-button" type="button" data-action="stop-simulation" disabled>■ <span data-i18n="stopSimulation">Stop</span></button>
           <p class="limit-note" data-i18n="simulationLimit">General SPICE, digital and mixed-signal engines are not implemented yet.</p>

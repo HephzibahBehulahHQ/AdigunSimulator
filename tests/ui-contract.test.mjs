@@ -21,6 +21,18 @@ test("the interface references only declared translation keys and exposes four l
   assert.deepEqual(values(languageSelect, /<option value="([^"]+)">/g), UI_LOCALES);
 });
 
+test("simulation controls expose a bounded linear RLC AC sweep through the worker", async () => {
+  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  assert.match(html, /id="simulation-analysis-mode"/);
+  assert.match(html, /value="linear-ac" data-i18n="analysisLinearAcSweep"/);
+  assert.match(html, /id="ac-start-hz"/);
+  assert.match(html, /id="ac-stop-hz"/);
+  assert.match(html, /id="ac-points-per-decade"/);
+  assert.match(html, /id="ac-output-net"/);
+  assert.match(app, /createSimulationWorkerRun\(projectForAnalysis\)/);
+  assert.match(app, /result\.kind === "linear-ac-sweep"/);
+});
+
 test("manufacturer evidence browser exposes unverified records without enabling project insertion", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   assert.match(html, /data-library-mode="evidence"/);
@@ -42,7 +54,7 @@ test("implementation status is localized and reflects released scope without sta
 test("general user circuit analysis runs in a cancelable worker and discards stale results", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   assert.match(html, /id="stop-simulation"[^>]*data-action="stop-simulation"/);
-  assert.match(app, /createSimulationWorkerRun\(state\.project\)/);
+  assert.match(app, /createSimulationWorkerRun\(projectForAnalysis\)/);
   assert.match(app, /run\.cancel\(\)/);
   assert.match(app, /JSON\.stringify\(state\.project\) !== projectSnapshot/);
   assert.match(app, /function isAnalysisWorkerEligible\(project\)\s*\{\s*return Boolean\(project && !project\.releaseCandidateE2E\)/);
