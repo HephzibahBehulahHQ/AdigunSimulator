@@ -6596,6 +6596,7 @@
       "catalogueIndex": 153,
       "verification": {
         "status": "passed",
+        "expectedState": "blocked",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41207122927",
         "headRevision": "5c99ec4e8f0a6fd8ccad48b23a4d8eeef2e25d5a",
@@ -6705,6 +6706,7 @@
       "catalogueIndex": 156,
       "verification": {
         "status": "passed",
+        "expectedState": "blocked",
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41208042192",
         "headRevision": "ba0c3efe8df641a413c3c08327c5106e4fbbde1d",

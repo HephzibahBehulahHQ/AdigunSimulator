@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { createProject, runSupportedAnalysis } from "../js/core.mjs";
 import { handleSimulationWorkerMessage } from "../js/simulation-worker.mjs";
 import { createSimulationWorkerRun } from "../js/simulation-worker-client.mjs";
@@ -27,6 +28,20 @@ test("worker message handler returns the same supported result and rejects inval
   assert.deepEqual(handleSimulationWorkerMessage({ type: "run", requestId: -1, project }), {
     type: "error", requestId: -1, error: { code: "INVALID_REQUEST", message: "The simulation worker received an invalid request." }
   });
+});
+
+test("worker dispatcher reaches each released analysis fixture's recorded complete or blocked state", async () => {
+  const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url), "utf8"));
+  const fixtures = registry.examples.filter((example) => example.id !== "200-release-candidate-e2e");
+  assert.equal(fixtures.length, 209);
+  for (const [index, example] of fixtures.entries()) {
+    const project = JSON.parse(await readFile(new URL(`../${example.projectFile}`, import.meta.url), "utf8"));
+    const expectedState = example.verification.expectedState ?? example.verification.expectedResult?.state ?? "complete";
+    const response = handleSimulationWorkerMessage({ type: "run", requestId: index + 1, project });
+    assert.equal(response.type, "result", example.id);
+    assert.equal(response.result.state, expectedState, example.id);
+    assert.equal(typeof response.result.engine, "string", example.id);
+  }
 });
 
 test("worker client runs module worker analysis and terminates after a result", async () => {
