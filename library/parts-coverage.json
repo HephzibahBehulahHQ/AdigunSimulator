@@ -272,27 +272,12 @@
     {
       "partId": "ti.lm7805ct-nopb",
       "currentStatus": "candidate",
-      "readyForHumanReview": false,
+      "readyForHumanReview": true,
       "missingEvidenceCodes": [
-        "BREADBOARD_COMPATIBILITY",
-        "FOOTPRINT_ASSET_EVIDENCE",
-        "FOOTPRINT_PAD_MAP",
-        "LIMITS_AND_ALTERNATES",
-        "PIN_MAP_ALIGNMENT",
         "REVIEWER_IDENTITY",
-        "REVIEW_DATE",
-        "TRANSLATIONS",
-        "VERIFIED_EVIDENCE"
+        "REVIEW_DATE"
       ],
-      "evidenceBlockerCodes": [
-        "BREADBOARD_COMPATIBILITY",
-        "FOOTPRINT_ASSET_EVIDENCE",
-        "FOOTPRINT_PAD_MAP",
-        "LIMITS_AND_ALTERNATES",
-        "PIN_MAP_ALIGNMENT",
-        "TRANSLATIONS",
-        "VERIFIED_EVIDENCE"
-      ]
+      "evidenceBlockerCodes": []
     },
     {
       "partId": "nexperia.bss138bk",

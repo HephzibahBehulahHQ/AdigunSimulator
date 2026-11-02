@@ -47,12 +47,32 @@ const configs = [
     bodyWidthMm: { minimum: 6.096, typical: 6.35, maximum: 7.112 },
     sourceUrl: "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf",
     drawing: "C04-018-P Rev E Sheet 2, DS20001733L page 30; dimensions converted from inches to mm"
+  },
+  {
+    partId: "ti.lm7805ct-nopb",
+    manufacturer: "Texas Instruments",
+    package: "NDG0003F TO-220-3",
+    pinCount: 3,
+    layout: "inline",
+    leadWidthMaxMm: 1.397,
+    leadThicknessMaxMm: 0.94,
+    bodyLengthMm: { minimum: 8.39, typical: 8.64, maximum: 8.89 },
+    bodyWidthMm: { minimum: 10.04, typical: 10.16, maximum: 10.54 },
+    overallLengthMaxMm: 16.26,
+    padDiameterMm: 3.5,
+    padDrillMm: 2.0,
+    sourceUrl: "https://www.ti.com/lit/ds/symlink/lm7800.pdf",
+    drawing: "NDG0003F, TO-220, datasheet mechanical drawing"
   }
 ];
 const pitchMm = 2.54;
 const rowPitchMm = 7.62;
 
-function makePads(pinCount) {
+function makePads(pinCount, layout) {
+  if (layout === "inline") {
+    const firstY = -((pinCount - 1) * pitchMm) / 2;
+    return Array.from({ length: pinCount }, (_, index) => ({ number: index + 1, xMm: 0, yMm: firstY + index * pitchMm }));
+  }
   const rowCount = pinCount / 2;
   const firstY = -((rowCount - 1) * pitchMm) / 2;
   const pads = [];
@@ -70,7 +90,7 @@ const taxonomy = JSON.parse(await readFile("library/component-types.json", "utf8
 for (const config of configs) {
   const record = ledger.records.find((item) => item.id === config.partId);
   if (!record) throw new Error(`Missing part ledger record: ${config.partId}`);
-  const pads = makePads(config.pinCount);
+  const pads = makePads(config.pinCount, config.layout);
   if (Object.keys(record.symbolPinMap ?? {}).length !== pads.length) {
     throw new Error(`Pin count mismatch for ${config.partId}; refusing to generate a misleading footprint.`);
   }
@@ -83,20 +103,22 @@ for (const config of configs) {
     package: `${config.manufacturer} ${config.package}`,
     view: "top",
     units: "mm",
-    pinOne: { number: 1, xMm: -rowPitchMm / 2, yMm: pads[0].yMm },
+    pinOne: { number: 1, xMm: pads[0].xMm, yMm: pads[0].yMm },
     packageOutline: {
       bodyLengthMm: config.bodyLengthMm,
       bodyWidthMm: config.bodyWidthMm,
-      leadRowPitchMm: rowPitchMm,
+      overallLengthMaxMm: config.overallLengthMaxMm ?? null,
+      leadRowPitchMm: config.layout === "inline" ? null : rowPitchMm,
       leadPitchMm: pitchMm,
+      layout: config.layout ?? "dual-row",
       sourceUrl: config.sourceUrl,
       drawing: config.drawing
     },
     padPattern: {
       shape: "circle",
-      diameterMm: 1.8,
-      drillMm: 0.8,
-      source: `AdigunSimulator CC0 educational default selected against the stated ${config.leadWidthMaxMm} mm maximum lead width; not a manufacturer land-pattern recommendation or fabrication rule.`
+      diameterMm: config.padDiameterMm ?? 1.8,
+      drillMm: config.padDrillMm ?? 0.8,
+      source: `AdigunSimulator CC0 educational default selected against the stated ${config.leadWidthMaxMm} mm maximum lead width${config.leadThicknessMaxMm ? ` and ${config.leadThicknessMaxMm} mm maximum lead thickness` : ""}; not a manufacturer land-pattern recommendation or fabrication rule.`
     },
     pads,
     limitations: [
@@ -127,4 +149,4 @@ for (const config of configs) {
 
 await writeFile("library/parts-ledger.json", `${JSON.stringify(ledger, null, 2)}\n`, "utf8");
 await writeFile("library/parts-coverage.json", `${JSON.stringify(getLibraryCoverage(ledger, taxonomy), null, 2)}\n`, "utf8");
-process.stdout.write(`Generated ${configs.length} PDIP footprint candidates (${configs.map(({ pinCount }) => pinCount).join(" and ")} pins)\n`);
+process.stdout.write(`Generated ${configs.length} through-hole footprint candidates (${configs.map(({ pinCount }) => pinCount).join(" and ")} pins)\n`);

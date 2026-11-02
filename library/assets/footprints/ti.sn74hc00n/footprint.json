@@ -17,8 +17,10 @@
     "bodyWidthMm": {
       "nominal": 6.4
     },
+    "overallLengthMaxMm": null,
     "leadRowPitchMm": 7.62,
     "leadPitchMm": 2.54,
+    "layout": "dual-row",
     "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc00.pdf",
     "drawing": "N (PDIP-14), SN74HC00 device information table; nominal body size 19.30 × 6.40 mm"
   },

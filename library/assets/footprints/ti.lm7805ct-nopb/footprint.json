@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "ti.lm7805ct-nopb",
+  "package": "Texas Instruments NDG0003F TO-220-3",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": 0,
+    "yMm": -2.54
+  },
+  "packageOutline": {
+    "bodyLengthMm": {
+      "minimum": 8.39,
+      "typical": 8.64,
+      "maximum": 8.89
+    },
+    "bodyWidthMm": {
+      "minimum": 10.04,
+      "typical": 10.16,
+      "maximum": 10.54
+    },
+    "overallLengthMaxMm": 16.26,
+    "leadRowPitchMm": null,
+    "leadPitchMm": 2.54,
+    "layout": "inline",
+    "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm7800.pdf",
+    "drawing": "NDG0003F, TO-220, datasheet mechanical drawing"
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 3.5,
+    "drillMm": 2,
+    "source": "AdigunSimulator CC0 educational default selected against the stated 1.397 mm maximum lead width and 0.94 mm maximum lead thickness; not a manufacturer land-pattern recommendation or fabrication rule."
+  },
+  "pads": [
+    {
+      "number": 1,
+      "xMm": 0,
+      "yMm": -2.54
+    },
+    {
+      "number": 2,
+      "xMm": 0,
+      "yMm": 0
+    },
+    {
+      "number": 3,
+      "xMm": 0,
+      "yMm": 2.54
+    }
+  ],
+  "limitations": [
+    "Generated from the published package outline and pin numbering; the manufacturer does not publish this generated pad artwork as an approved land pattern.",
+    "Check the exact physical part, finished-hole tolerance, annular ring, solder process, courtyard, board rules, and assembly constraints before use.",
+    "This asset is educational and has not passed independent footprint review or manufacturing DRC."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
