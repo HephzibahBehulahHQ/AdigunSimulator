@@ -1904,6 +1904,15 @@ $("#load-example").addEventListener("click", async () => {
   }
 });
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
+$("#global-search-toggle").addEventListener("click", () => {
+  const search = $(".global-search");
+  search.hidden = !search.hidden;
+  $("#global-search-toggle").setAttribute("aria-expanded", String(!search.hidden));
+  if (!search.hidden) $("#global-search").focus();
+});
+$("#global-search").addEventListener("keydown", (event) => {
+  if (event.key === "Escape") { $(".global-search").hidden = true; $("#global-search-toggle").focus(); }
+});
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
 $("#bot-form").addEventListener("submit", (event) => { event.preventDefault(); answerBotFromSelection(); });
