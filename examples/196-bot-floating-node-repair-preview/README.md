@@ -8,3 +8,7 @@ The existing diagnosis identifies net FLOATING at C1. The BOT proposes adding a 
 
 ## Limits
 The 1 MΩ value is illustrative, not an engineering recommendation. A bleed/bias path can load a signal or alter circuit behavior. Review the design intent, signal loading, component ratings and physical schematic before accepting any change. The local rule preview is not a substitute for electrical engineering review.
+
+## Direct divider analysis result
+
+The base 9 V, 1 kΩ/2 kΩ divider has 3 mA current and 6 V unloaded output in the bounded DC analyzer. The BOT repair preview proposes edits and does not apply or validate them as physical repairs.
