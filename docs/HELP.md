@@ -26,6 +26,8 @@ For a supported suggestion, choose **Preview** to inspect the proposed change, t
 
 Adigun BOT does not call an external AI service, infer real component ratings, decide an unknown supply voltage, or claim safety approval. The open gate-input preview connects one pushbutton terminal to the gate and deliberately leaves the other terminal open for the designer to wire to the intended source. The logic-probe preview only observes a net. For unsupported circuit intent, connect pins with the normal editor controls and run project validation.
 
+You can also ask Adigun BOT how to start a project, run a supported analysis, use the parts panel, save or export, or change the interface language. It can switch directly to Breadboard, Schematic, or PCB view when asked to open or show that view. These answers use checked-in product guidance and disclose the current simulation, parts, and PCB limits; they do not call an external model or change circuit data.
+
 ## Saving and undoing changes
 
 Project edits remain in the working copy until the user saves or exports them. Undo restores the previous project state. The Bot does not auto-save or upload project data.
@@ -33,3 +35,4 @@ Project edits remain in the working copy until the user saves or exports them. U
 ## Known limits
 
 Supported simulations, component evidence, PCB checks, and exports are bounded by the implementation status and delivery gates in this repository. A generic symbol, candidate part, analytical example, or educational PCB check is not manufacturer verification or production certification.
+
