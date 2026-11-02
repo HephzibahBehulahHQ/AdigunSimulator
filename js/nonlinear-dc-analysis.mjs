@@ -301,7 +301,9 @@ export function runNonlinearDcOperatingPoint(project) {
     const voltage = nodeVoltages[branch.positiveNet] - nodeVoltages[branch.negativeNet];
     return { reference: branch.reference, voltage, currentA: branch.value, powerDeliveredW: voltage * branch.value };
   });
-  const passivePowerW = [...resistorResults, ...diodeResults, ...transistorResults].reduce((sum, item) => sum + item.powerW, 0);
+  const passivePowerW = [...resistorResults, ...diodeResults].reduce((sum, item) => sum + item.powerW, 0);
+  const transistorPowerW = transistorResults.reduce((sum, item) => sum + item.powerW, 0);
+  const devicePowerW = passivePowerW + transistorPowerW;
   const sourcePowerW = [...sourceResults.map((item) => item.powerDeliveredW), ...currentResults.map((item) => item.powerDeliveredW)].reduce((sum, value) => sum + value, 0);
   return {
     state: "complete", ...base,
@@ -310,6 +312,6 @@ export function runNonlinearDcOperatingPoint(project) {
     analysisSettings: { temperatureC, maxIterations: MAX_ITERATIONS, residualLimit: RESIDUAL_LIMIT, diodeModel: diodes.length ? "ideal-shockley-v1" : undefined, transistorModel: transistors.length ? "ideal-ebers-moll-npn-v1" : undefined },
     modelIds: ["ideal-r-v1", "ideal-dc-voltage-source-v1", "ideal-dc-current-source-v1", ...(diodes.length ? ["generic-shockley-diode-v1"] : []), ...(transistors.length ? ["generic-ebers-moll-npn-v1"] : [])],
     numericalEvidence: { iterations, maximumRelativeResidual: lastNonlinearResidual, nonlinearKclAndConstraintResidual: lastNonlinearResidual, linearizedSolveResidual: lastSolve.relativeResidual },
-    result: { kind: "nonlinear-dc-operating-point", temperatureC, iterations, maximumRelativeResidual: lastNonlinearResidual, nonlinearKclAndConstraintResidual: lastNonlinearResidual, linearizedSolveResidual: lastSolve.relativeResidual, nodeVoltages, resistors: resistorResults, diodes: diodeResults, transistors: transistorResults, voltageSources: sourceResults, currentSources: currentResults, passivePowerW, sourcePowerW, powerBalanceW: passivePowerW - sourcePowerW }
+    result: { kind: "nonlinear-dc-operating-point", temperatureC, iterations, maximumRelativeResidual: lastNonlinearResidual, nonlinearKclAndConstraintResidual: lastNonlinearResidual, linearizedSolveResidual: lastSolve.relativeResidual, nodeVoltages, resistors: resistorResults, diodes: diodeResults, transistors: transistorResults, voltageSources: sourceResults, currentSources: currentResults, passivePowerW, transistorPowerW, devicePowerW, sourcePowerW, powerBalanceW: devicePowerW - sourcePowerW }
   };
 }

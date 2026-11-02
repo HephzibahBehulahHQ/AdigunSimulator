@@ -39,6 +39,7 @@ test("generic diode and Ebers–Moll NPN DC operating point is selectable, bound
     readFile(new URL("../js/i18n.mjs", import.meta.url), "utf8"), readFile(new URL("../docs/DELIVERY_GATES.md", import.meta.url), "utf8")
   ]);
   assert.match(html, /value="nonlinear-dc" data-i18n="analysisNonlinearDc"/);
+  assert.match(html, /examples\/supplemental-npn-ebers-moll-bias\.adigun\.json/);
   assert.match(html, /ideal Ebers–Moll NPNs/);
   assert.match(html, /id="nonlinear-dc-temperature"/);
   assert.match(app, /shockleyDcOperatingPoint/);
@@ -49,6 +50,7 @@ test("generic diode and Ebers–Moll NPN DC operating point is selectable, bound
   assert.match(app, /const diodeTable = diodeRows \?/);
   assert.match(app, /nonlinear-dc-controls/);
   assert.match(dispatcher, /runNonlinearDcOperatingPoint/);
+  assert.ok(UI_KEYS.includes("exampleGenericNpnEbersMoll"));
   for (const key of ["analysisNonlinearDc", "nonlinearJunctionTemperature", "nonlinearDcModelHelp", "nonlinearIterations", "nonlinearNodeVoltages", "nonlinearDiodeResults", "nonlinearTransistorResults", "nonlinearBaseCurrent"]) assert.match(locales, new RegExp(`${key}:`));
   assert.match(docs, /generic Shockley/);
   assert.match(docs, /Ebers–Moll NPN/);
@@ -288,14 +290,14 @@ test("diagnostics tabs have an accessible target and a stateful handler", async 
   assert.match(app, /function exportPcbFiles/);
 });
 
-test("released example picker points only to tested registry projects", async () => {
+test("example picker points only to tested catalogue or explicit supplemental projects", async () => {
   const [html, app, manifestText] = await Promise.all([
     readFile(indexFile, "utf8"), readFile(appFile, "utf8"), readFile(new URL("../examples/manifest.json", import.meta.url), "utf8")
   ]);
   const manifest = JSON.parse(manifestText);
   const releasedFiles = manifest.examples.filter((example) => example.status === "released").map((example) => example.projectFile).sort();
   const pickerFiles = values(html, /<option\b[^>]*\bvalue="(examples\/[^"]+\.adigun\.json)"[^>]*>/g).sort();
-  assert.deepEqual(pickerFiles, releasedFiles);
+  assert.deepEqual(pickerFiles, [...releasedFiles, "examples/supplemental-npn-ebers-moll-bias.adigun.json"].sort());
   assert.match(app, /createSimulationWorkerRun\(project\)\.promise/);
   assert.match(app, /Loaded and validated/);
 });

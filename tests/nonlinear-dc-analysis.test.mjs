@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { validateProject } from "../js/core.mjs";
 import { runNonlinearDcOperatingPoint } from "../js/nonlinear-dc-analysis.mjs";
 import { handleSimulationWorkerMessage } from "../js/simulation-worker.mjs";
 
@@ -75,8 +76,32 @@ test("generic Ebers–Moll NPN solves a common-emitter bias and balances termina
   assert.ok(transistor.emitterCurrentA < 0);
   assert.ok(Math.abs(transistor.baseCurrentA + transistor.collectorCurrentA + transistor.emitterCurrentA) < 1e-10);
   assert.ok(result.result.nonlinearKclAndConstraintResidual <= 1e-8);
+  assert.ok(result.result.passivePowerW > 0 && result.result.transistorPowerW > 0);
+  assert.ok(Math.abs(result.result.devicePowerW - result.result.passivePowerW - result.result.transistorPowerW) < 1e-12);
   assert.ok(Math.abs(result.result.powerBalanceW) < 1e-7);
   assert.match(result.warnings[0].message, /Early effect/i);
+});
+
+test("supplemental Ebers–Moll example is a runnable, bounded common-emitter operating point", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/supplemental-npn-ebers-moll-bias.adigun.json", import.meta.url), "utf8"));
+  assert.equal(validateProject(project).valid, true);
+  const result = runNonlinearDcOperatingPoint(project);
+  assert.equal(result.state, "complete", result.message);
+  assert.equal(result.result.transistors.length, 1);
+  const transistor = result.result.transistors[0];
+  assert.ok(Math.abs(transistor.vBE - 0.66816) < 0.002);
+  assert.ok(Math.abs(transistor.baseCurrentA - 19.6902e-6) < 0.1e-6);
+  assert.ok(Math.abs(transistor.collectorCurrentA - 1.94933e-3) < 0.01e-3);
+  assert.ok(Math.abs(result.result.nodeVoltages.COLLECTOR - 3.05067) < 0.01);
+  assert.ok(result.result.nonlinearKclAndConstraintResidual < 1e-8);
+  assert.ok(result.result.passivePowerW > 0 && result.result.transistorPowerW > 0);
+  assert.ok(Math.abs(result.result.powerBalanceW) < 1e-7);
+  assert.match(result.message, /not manufacturer-verified/i);
+  const response = handleSimulationWorkerMessage({ type: "run", requestId: 73, project });
+  assert.equal(response.type, "result");
+  assert.equal(response.requestId, 73);
+  assert.equal(response.result.state, "complete", response.result.message);
+  assert.equal(response.result.result.transistors[0].reference, "Q1");
 });
 
 test("Ebers–Moll model coefficients outside their physical interval are blocked", async () => {
