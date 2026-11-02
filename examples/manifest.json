@@ -8450,6 +8450,93 @@
           },
           "scope": "supplemental",
           "readmeFile": "examples/project-readmes/supplemental-digital-event-simulation.md"
+        },
+    {
+          "id": "supplemental-d-flip-flop-events",
+          "title": "Positive-edge D flip-flop event simulation",
+          "status": "planned",
+          "objective": "Model explicit initial Q state and sample D only on positive clock edges, retaining Q between edges.",
+          "acceptanceTest": "tests/digital-event-analysis.test.mjs: positive-edge D flip-flop samples D, retains state between edges, and exposes Q-bar",
+          "testId": "digital-event-positive-edge-dff-timeline",
+          "projectFile": "examples/supplemental-d-flip-flop-events.adigun.json",
+          "safetyNote": "Ideal zero-delay positive-edge state model only. PRE and CLR remain inactive-high. Setup/hold, asynchronous control behavior, propagation delay, metastability, electrical loading, and device-specific timing are not modeled.",
+          "verification": {
+            "status": "pending",
+            "engine": "Ideal digital discrete-event logic simulation",
+            "engineVersion": "adigun-simulator@0.1.0",
+            "modelVersion": "digital-event-engine-v1",
+            "expectedResult": {
+              "kind": "digital-event-simulation",
+              "stopTimeNs": 400,
+              "initialStates": {
+                "U1": false
+              },
+              "transitions": {
+                "D": [
+                  [
+                    0,
+                    false
+                  ],
+                  [
+                    100,
+                    true
+                  ],
+                  [
+                    250,
+                    false
+                  ]
+                ],
+                "CLK": [
+                  [
+                    0,
+                    false
+                  ],
+                  [
+                    200,
+                    true
+                  ],
+                  [
+                    300,
+                    false
+                  ],
+                  [
+                    350,
+                    true
+                  ]
+                ],
+                "Q": [
+                  [
+                    0,
+                    false
+                  ],
+                  [
+                    200,
+                    true
+                  ],
+                  [
+                    350,
+                    false
+                  ]
+                ],
+                "QBAR": [
+                  [
+                    0,
+                    true
+                  ],
+                  [
+                    200,
+                    false
+                  ],
+                  [
+                    350,
+                    true
+                  ]
+                ]
+              }
+            }
+          },
+          "scope": "supplemental",
+          "readmeFile": "examples/project-readmes/supplemental-d-flip-flop-events.md"
         }
   ]
 }

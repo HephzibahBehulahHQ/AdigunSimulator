@@ -551,9 +551,10 @@ function renderConnections() {
   const configuredProbes = new Set(state.project.digitalEventSimulation?.probeNets ?? []);
   probeSelect.innerHTML = state.project.nets.map((net) => `<option value="${escape(net.id)}">${escape(net.id)}</option>`).join("");
   [...probeSelect.options].forEach((option) => { option.selected = priorProbes.has(option.value) || (!priorProbes.size && configuredProbes.has(option.value)); });
-  if (document.activeElement !== $("#digital-events-json")) {
+  if (!["digital-events-json", "digital-initial-states"].includes(document.activeElement?.id)) {
     $("#digital-stop-ns").value = String(state.project.digitalEventSimulation?.stopTimeNs ?? 1000);
     $("#digital-events-json").value = JSON.stringify(state.project.digitalEventSimulation?.events ?? [], null, 2);
+    $("#digital-initial-states").value = JSON.stringify(state.project.digitalEventSimulation?.initialStates ?? {}, null, 2);
   }
   $("#net-list").innerHTML = state.project.nets.map((net) => `
     <li><button type="button" class="net-select ${net.id === state.selectedNetId ? "active" : ""}" data-net-id="${escape(net.id)}" aria-pressed="${net.id === state.selectedNetId}">${escape(net.id)}</button><ul>${net.endpoints.map((item) => `<li>${escape(item)} <button type="button" class="disconnect-pin" data-endpoint="${escape(item)}" aria-label="${escape(t("disconnect"))} ${escape(item)}">×</button></li>`).join("")}</ul></li>`).join("") || `<li>${escape(t("noConnectedNets"))}</li>`;
@@ -580,7 +581,7 @@ function renderResultDashboard(analysis) {
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearAcSweep"))}</figcaption><table class="result-table linear-ac-table"><thead><tr><th>${escape(t("acFrequencyHz"))}</th><th>${escape(t("acMagnitude"))}</th><th>${escape(t("acPhase"))}</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
   } else if (result.kind === "digital-event-simulation") {
     const rows = Object.entries(result.trace).flatMap(([net, points]) => points.map((point) => ({ net, ...point }))).sort((a, b) => a.timeNs - b.timeNs || a.net.localeCompare(b.net));
-    metrics.push([t("digitalStopTime"), `${result.stopTimeNs} ns`], [t("digitalInputEvents"), String(result.processedEvents)], [t("digitalProbeNets"), result.probeNets.join(", ")]);
+    metrics.push([t("digitalStopTime"), `${result.stopTimeNs} ns`], [t("digitalEventCount"), String(result.processedEvents)], [t("digitalProbeNets"), result.probeNets.join(", ")]);
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisDigitalEvents"))}</figcaption><table class="result-table"><thead><tr><th>${escape(t("digitalEventTimeNs"))}</th><th>${escape(t("digitalProbeNets"))}</th><th>${escape(t("digitalEventLevel"))}</th></tr></thead><tbody>${rows.map((row) => `<tr><td>${row.timeNs}</td><td>${escape(row.net)}</td><td>${row.high ? "1 · HIGH" : "0 · LOW"}</td></tr>`).join("")}</tbody></table><p>${escape(analysis.message)}</p></figure>`;
   } else if (result.kind === "release-candidate-e2e") {
     metrics.push(["Fixtures",String(result.fixtureCount)],["PCB DRC",result.pcbDrc],["BOT project edit",result.botMutation?"Changed":"Read-only"],["Passed gates",String(Object.values(result.checks).filter(Boolean).length)]);
@@ -1016,10 +1017,12 @@ function runAnalysis(workerResult = null) {
       let projectForAnalysis = state.project;
       if (analysisMode === "linear-ac") projectForAnalysis = { ...state.project, linearAcSweep: { startHz: Number($("#ac-start-hz").value), stopHz: Number($("#ac-stop-hz").value), pointsPerDecade: Number($("#ac-points-per-decade").value), outputNet: $("#ac-output-net").value || undefined } };
       if (analysisMode === "digital-events") {
-        let events;
-        try { events = JSON.parse($("#digital-events-json").value); }
-        catch { state.lastAnalysis = { state: "blocked", engine: "Digital event configuration", message: "Input events must be valid JSON." }; renderValidation(); return; }
-        projectForAnalysis = { ...state.project, digitalEventSimulation: { stopTimeNs: Number($("#digital-stop-ns").value), events, probeNets: [...$("#digital-probe-nets").selectedOptions].map((option) => option.value) } };
+        let events, initialStates;
+        try {
+          events = JSON.parse($("#digital-events-json").value);
+          initialStates = JSON.parse($("#digital-initial-states").value);
+        } catch { state.lastAnalysis = { state: "blocked", engine: "Digital event configuration", message: "Input events and initial states must be valid JSON." }; renderValidation(); return; }
+        projectForAnalysis = { ...state.project, digitalEventSimulation: { stopTimeNs: Number($("#digital-stop-ns").value), events, initialStates, probeNets: [...$("#digital-probe-nets").selectedOptions].map((option) => option.value) } };
         if (JSON.stringify(projectForAnalysis.digitalEventSimulation) !== JSON.stringify(state.project.digitalEventSimulation)) {
           captureHistory();
           state.project = { ...projectForAnalysis, metadata: { ...projectForAnalysis.metadata, updatedAt: new Date().toISOString() } };
