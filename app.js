@@ -1265,7 +1265,7 @@ document.addEventListener("keydown", (event) => {
       $(`#design-canvas [data-pcb-footprint="${CSS.escape(instanceId)}"]`)?.focus();
       log(`[PCB] ${instanceId} nudged by ${step} mm.`);
     } else if (result.status === "blocked") {
-      showDialog(t("pcbMenu"), result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : t("pcbMoveNoFootprint"));
+      showDialog(t("pcbMenu"), result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : result.code === "INVALID_FOOTPRINT_GEOMETRY" ? t("pcbMoveInvalidGeometry") : t("pcbMoveNoFootprint"));
     } else {
       render();
       $(`#design-canvas [data-pcb-footprint="${CSS.escape(instanceId)}"]`)?.focus();
@@ -1387,7 +1387,7 @@ document.addEventListener("pointerup", (event) => {
     } else {
       render();
       if (result.status === "blocked") {
-        const message = result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : t("pcbMoveNoFootprint");
+        const message = result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : result.code === "INVALID_FOOTPRINT_GEOMETRY" ? t("pcbMoveInvalidGeometry") : t("pcbMoveNoFootprint");
         showDialog(t("pcbMenu"), message);
         log(`[PCB] Footprint move blocked: ${result.code}.`);
       }
