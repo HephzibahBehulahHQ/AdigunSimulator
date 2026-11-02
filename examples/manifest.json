@@ -5942,6 +5942,12 @@
         "modelVersion": "single-layer-manufacturing-export-pack-v1",
         "expectedResult": {
           "kind": "pcb-manufacturing-export-pack",
+          "sourceVoltage": 5,
+          "resistance": 330,
+          "ledVf": 2,
+          "currentA": 0.00909090909090909,
+          "resistorPowerW": 0.02727272727272727,
+          "ledOn": true,
           "project": "Single-sided LED manufacturing export pack",
           "files": [
             "board-F_Cu.gbr",
