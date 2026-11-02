@@ -32,6 +32,8 @@ Projects that include stored PCB board, footprint, pad, and route data support i
 
 The workspace shares component identity, nets and per-view positions. A view mapping is withheld rather than fabricated when a verified representation is absent. Operators must review physical breadboard rows, component orientation, wiring, power limits, measurements, PCB exports and applicable standards before energising or manufacturing any hardware.
 
+The selectable linear RLC transient analysis uses bounded modified nodal analysis with trapezoidal companion models for ideal DC voltage sources, resistors, capacitors and inductors. It starts with zero capacitor voltage and inductor current, treats DC sources as instantaneous steps, and limits the run to 64 components, 48 non-reference nodes, 2,000 steps and 8,000,000 estimated solve operations. It reports a sampled output-net voltage and normalized linear-system residual. ESR, parasitics, non-linear devices, source slew, thermal behavior and impulsive-current detail are not modeled; this is not general-purpose SPICE. Automated RC-step tests do not replace independent circuit-model review or browser interaction testing.
+
 ## Required quality evidence before a production release
 
 1. Automated unit, schema, serialization, localization and UI-contract tests pass in continuous integration.

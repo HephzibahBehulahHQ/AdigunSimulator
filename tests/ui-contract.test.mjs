@@ -17,7 +17,7 @@ test("the interface references only declared translation keys and exposes four l
   const keys = values(html, /data-i18n(?:-(?:placeholder|aria|title|alt))?="([^"]+)"/g);
   assert.ok(keys.length > 30);
   for (const key of keys) assert.ok(UI_KEYS.includes(key), `index.html references unknown translation key: ${key}`);
-  const languageSelect = html.match(/<select id="language">([\s\S]*?)<\/select>/)?.[1] ?? "";
+  const languageSelect = html.match(/<select id="language"[^>]*>([\s\S]*?)<\/select>/)?.[1] ?? "";
   assert.deepEqual(values(languageSelect, /<option value="([^"]+)">/g), UI_LOCALES);
 });
 
@@ -40,12 +40,40 @@ test("simulation controls expose bounded digital event simulation and native-net
   assert.match(html, /id="digital-events-json"/);
   assert.match(html, /id="digital-initial-states"/);
   assert.match(html, /id="digital-probe-nets" multiple/);
-  assert.match(app, /digitalEventSimulation: \{ stopTimeNs:/);
+  assert.match(app, /projectWithSelectedAnalysis\(state\.project, "digitalEventSimulation", \{ stopTimeNs:/);
   assert.match(app, /initialStates = JSON\.parse\(\$\("#digital-initial-states"\)\.value\)/);
   assert.match(app, /createSimulationWorkerRun\(projectForAnalysis\)/);
   assert.match(app, /result\.kind === "digital-event-simulation"/);
   assert.match(app, /captureHistory\(\);\s*state\.project = \{ \.\.\.projectForAnalysis, metadata:/);
   assert.match(app, /projectForAnalysis = state\.project;\s*state\.dirty = true/);
+});
+
+test("simulation controls expose bounded linear RLC transient analysis and a localized trace", async () => {
+  const [html, app, locales] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8"), readFile(new URL("../js/i18n.mjs", import.meta.url), "utf8")]);
+  assert.match(html, /value="linear-transient" data-i18n="analysisLinearTransient"/);
+  assert.match(html, /id="transient-stop-seconds"/);
+  assert.match(html, /id="transient-time-step"/);
+  assert.match(html, /id="transient-output-net"/);
+  assert.match(app, /projectWithSelectedAnalysis\(state\.project, "linearRlcTransient", \{ stopSeconds:/);
+  assert.match(app, /result\.kind === "linear-rlc-transient"/);
+  assert.match(app, /projectWithSelectedAnalysis/);
+  for (const key of ["analysisLinearTransient", "transientStopSeconds", "transientTimeStep", "transientOutputNet", "transientSampleCount", "transientFinalVoltage", "transientResidual", "transientTraceLabel"]) assert.match(locales, new RegExp(`${key}:`));
+});
+
+test("header account and compact action controls flow without overlapping on narrow screens", async () => {
+  const [html, css, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(new URL("../styles.css", import.meta.url), "utf8"), readFile(appFile, "utf8")]);
+  const header = html.match(/<div class="header-actions"[\s\S]*?<\/div>/)?.[0] ?? "";
+  assert.ok(header.indexOf("id=\"save-state\"") < header.indexOf("id=\"account-status\"") && header.indexOf("id=\"account-status\"") < header.indexOf("id=\"language\"") && header.indexOf("id=\"language\"") < header.indexOf("id=\"theme-toggle\"") && header.indexOf("id=\"theme-toggle\"") < header.indexOf("id=\"global-search-toggle\"") && header.indexOf("id=\"global-search-toggle\"") < header.indexOf("id=\"help-button\""));
+  assert.match(header, /id="account-status"[^>]*data-auth-state="guest"/);
+  assert.match(header, /title="Account · Guest \(sign-in unavailable\)"/);
+  assert.match(css, /\.header-actions\s*\{[^}]*gap:\s*12px/);
+  assert.match(css, /\.identity, \.header-actions,[\s\S]*?display: flex; align-items: center/);
+  assert.doesNotMatch(css, /\.header-actions\s*\{[^}]*position:\s*absolute/);
+  assert.doesNotMatch(css, /\.account-status-dot\s*\{[^}]*position:\s*absolute/);
+  assert.match(css, /@media \(max-width: 800px\)[\s\S]*?\.header-actions\s*\{[^}]*flex-wrap:\s*wrap/);
+  assert.match(css, /@media \(max-width: 520px\)[\s\S]*?\.header-actions \.save-state\s*\{\s*display:\s*none/);
+  assert.match(app, /global-search-toggle/);
+  assert.match(app, /search\.hidden = !search\.hidden/);
 });
 
 test("live Adigun BOT observes the current canvas and requires an explicit preview before edits", async () => {
