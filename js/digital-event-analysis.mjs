@@ -208,3 +208,4 @@ export function runDigitalEventSimulation(project) {
     result: { kind: "digital-event-simulation", stopTimeNs, processedEvents: events.length, probeNets: probes, trace }
   };
 }
+

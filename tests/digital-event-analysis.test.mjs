@@ -242,3 +242,4 @@ test("ideal non-loading logic probes stay out of the physical BOM", async () => 
   assert.equal(report.ok, true);
   assert.equal(report.rows.some((row) => row.libraryId === "instrument.logic-probe"), false);
 });
+
