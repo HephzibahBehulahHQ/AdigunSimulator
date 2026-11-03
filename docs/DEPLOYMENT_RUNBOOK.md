@@ -18,6 +18,7 @@ The only checked-in workflow is `.github/workflows/ci.yml`; it runs library vali
 
 - PR #505 is a draft on `codex/rl-transient-acceptance`; its current head is not deployed.
 - GitHub Actions run #1234 passed for the PR head. Local validation also passed: 357 tests, `npm run check`, `npm run validate:library`, and `git diff --check`.
-- This PR adds generic simulator models that still require the independent electrical review above. The parts ledger contains 14 candidates and 0 verified parts; candidates do not count toward the 1,000-part target.
+- This PR adds generic simulator models that still require the independent electrical review above. The parts ledger contains 15 candidates and 0 verified parts; candidates do not count toward the 1,000-part target.
 - Do not infer that the draft is releasable from its passing checks or from the currently healthy production URL.
+
 
