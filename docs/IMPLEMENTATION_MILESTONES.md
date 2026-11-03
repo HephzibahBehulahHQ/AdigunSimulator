@@ -16,8 +16,16 @@ This tracker records evidence-backed progress against the product requirements. 
 ## Current branch verification
 
 - Branch: `codex/rl-transient-acceptance`.
-- Pushed commit: `b9a4e5e7ca2e97960fd3150b286924c714b96501`; local branch and `origin` point to the same commit.
+- PCB milestone baseline: `b9a4e5e7ca2e97960fd3150b286924c714b96501`; consult the branch for subsequent commits.
 - Required automated checks: 362 tests passed; syntax check, library validation, and `git diff --check` passed; GitHub Actions run #1248 passed.
 - Deployment: not performed. The checked-in deployment runbook requires a non-draft review path, current-head checks, independent electrical review, and approved release safeguards before merge/deployment.
 
 Update this tracker when a milestone's evidence changes. Do not count candidates as verified parts, planned examples as released projects, or an illustrative PCB export as manufacturing approval.
+
+## Workspace startup and Run recovery — 2026-11-03
+
+- The previous Python preview served `.mjs` as `text/plain` on this Windows machine. The new `npm run dev` server uses explicit JavaScript MIME types and a fixed simulator root. HTTP regression tests traverse the startup and worker import graph and cover JSON, HEAD, asset types, private paths, malformed URLs and rejected writes.
+- Browser execution then exposed three single-element selectors incorrectly used as collections in localization and diagnostics. Those prevented initial rendering; all three now select collections.
+- The Run completion handler also formatted every unrecognized result as a resistor-network result, throwing on the default STM32 example. That formatter now applies only to its declared result kind.
+- Browser checks now show 276 starter entries, populated canvas, the current-year footer, working English/German/Yoruba/Pidgin switching, STM32 PWM results (1.00 kHz, 49.9%, 3.94 mA on-current), and working Errors/Output tabs. No new console errors appeared in the corrected Run/diagnostics checks. These are bounded startup checks, not full browser acceptance.
+- Six new automated tests cover HTTP delivery and execution of the actual localization, diagnostic-tab and result-completion functions. The local suite passed 368/368, with syntax, library validation and whitespace checks passing. Full release, manufacturing and independent electrical review remain open.

@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "node scripts/serve.mjs",
     "test": "node --test tests/*.test.mjs",
     "generate:pdip-footprints": "node scripts/generate-pdip-footprints.mjs",
     "generate:sot23-footprint": "node scripts/generate-sot23-footprint.mjs",

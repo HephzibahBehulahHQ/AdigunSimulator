@@ -18,7 +18,9 @@ It does **not** yet claim a 1,000 verified-part library, general SPICE simulatio
 
 ## Run locally
 
-Open `index.html` in a modern browser, or serve the folder with any static web server. No install is required.
+With Node.js 22 or later, run `npm run dev` from this repository and open `http://127.0.0.1:4176/`. No dependency install is required. Use `npm run dev -- --port=4177` if that port is busy. The server prints the product name and source directory, binds only to loopback, and serves this checkout regardless of the shell's working directory.
+
+Use HTTP rather than opening `index.html` as a file: the application loads JavaScript modules, workers and JSON examples. The preview server explicitly serves `.js` and `.mjs` as JavaScript. On Windows, Python's generic static server may inherit a registry MIME mapping of `text/plain` for `.mjs`; browsers then reject module loading and leave an empty workspace. A rendered header alone is not evidence that the application has started. Confirm the component list, example canvas, and current-year footer populate.
 
 ## Checks
 
