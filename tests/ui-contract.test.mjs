@@ -93,7 +93,8 @@ test("header account and compact action controls flow without overlapping on nar
   const [html, css, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(new URL("../styles.css", import.meta.url), "utf8"), readFile(appFile, "utf8")]);
   const header = html.match(/<div class="header-actions"[\s\S]*?<\/div>/)?.[0] ?? "";
   assert.ok(header.indexOf("id=\"save-state\"") < header.indexOf("id=\"account-status\"") && header.indexOf("id=\"account-status\"") < header.indexOf("id=\"language\"") && header.indexOf("id=\"language\"") < header.indexOf("id=\"theme-toggle\"") && header.indexOf("id=\"theme-toggle\"") < header.indexOf("id=\"global-search-toggle\"") && header.indexOf("id=\"global-search-toggle\"") < header.indexOf("id=\"help-button\""));
-  assert.match(header, /id="account-status"[^>]*data-auth-state="guest"/);
+  assert.match(header, /<span id="account-status"[^>]*role="img"[^>]*data-auth-state="guest"/);
+  assert.doesNotMatch(header, /<button id="account-status"/);
   assert.match(header, /data-i18n-title="accountGuestTooltip"/);
   assert.match(header, /data-i18n-aria="accountGuestAria"/);
   for (const locale of UI_LOCALES) {
