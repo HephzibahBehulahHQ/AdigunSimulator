@@ -17,7 +17,7 @@ The only checked-in workflow is `.github/workflows/ci.yml`; it runs library vali
 ## Current release state checked 2026-11-03
 
 - PR #505 is a draft on `codex/rl-transient-acceptance`; its current head is not deployed.
-- GitHub Actions run #1241 passed for the previous decoder-only head; the multiplexer change must pass CI before release. Local validation on the current working tree passed: 360 tests, `npm run check`, `npm run validate:library`, and `git diff --check`.
+- GitHub Actions run #1242 passed for commit `ef53015`, including the decoder and multiplexer event models. Local validation also passed: 360 tests, `npm run check`, `npm run validate:library`, and `git diff --check`. Check the current PR head for later commits before release.
 - The digital event engine includes ideal active-high 2-to-4 decoder and 4-to-1 multiplexer models with zero propagation delay; it does not model device-specific thresholds, timing, loading, or analog behavior. These generic models still require the independent electrical review above before release.
 - The parts ledger contains 15 candidates and 0 verified parts; candidates do not count toward the 1,000-part target.
 - Do not infer that the draft is releasable from its passing checks or from the currently healthy production URL.
