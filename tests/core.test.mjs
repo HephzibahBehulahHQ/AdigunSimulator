@@ -1,473 +1,4802 @@
-Y™Áäx-ÆÈ‹j◊ù¢Îi∫⁄+äßj[hëÈ‹¢ÈÌ◊N˙Û§Ëµ©h∫⁄n∂XßzÕZ[\‹ù»[›ôTÿëõ€›ö[ùHúõ€Hããã⁄úÀ‹ÿãYY]õZú»é√Bö[\‹ù\›úõ€HõõŸNù\›é√Bö[\‹ù\‹Ÿ\ùúõ€HõõŸNò\‹Ÿ\ù‹›öX›é√Bö[\‹ù»ôXYö[HHúõ€HõõŸNôúÀ‹õ€Z\Ÿ\»é√Bö[\‹ù»Y€€\€ô[ù€€õôX›[úÀ‹ôX]Q[\Tõ⁄ôX›‹ôX]Tõ⁄ôX›‹ôX]Uõ€YŸQ]öY\îõ⁄ôX›\ÿ€€õôX›[ãŸ]öY]‘ôX€€ò⁄[X][€í\‹›Y\À[›ôP€€\€ô[ù\úŸTõ⁄ôX›ô[[›ôP€€\€ô[ùù[î›\‹ùY[ò[\⁄\À’TïTó”PîêTñKŸ\öX[^ôTõ⁄ôX›\]P€€\€ô[ùò[Y]Tõ⁄ôX›Húõ€Hããã⁄úÀÿ€‹ôKõZú»é√Bö[\‹ù»Ÿ]YŸ\ê€›ô\òYŸKŸ]Xúò\ûP€›ô\òYŸKŸ]\ùô\öYöXÿ][€îôXY[ô\‹Àò[Y]P€€\€ô[ù\\Àò[Y]T\ù”X[öYô\›ò[Y]T\ùYŸ\ãò[Y]T\ùôX€‹ôHúõ€Hããã⁄úÀ‹\ù[YŸ\ãõZú»é√Bö[\‹ù»Ÿ]^[\P€›ô\òYŸKò[Y]Q^[\TôY⁄\›ûHHúõ€Hããã⁄úÀŸ^[\K\ôY⁄\›ûKõZú»é√Bö[\‹ù»^‹ùÿëòXúöXÿ][€ãò[Y]TÿëòXúöXÿ][€àHúõ€Hããã⁄úÀ‹ÿãY^‹ùõZú»é√Bö[\‹ù»‹ôX]TÿîXŸ[Y[ùô\‹ùHúõ€Hããã⁄úÀ‹ÿã\XŸ[Y[ù\ô\‹ùõZú»é√Bö[\‹ù»‹ôX]Q‹õ›[ô[ô–⁄X⁄€\›ô\‹ùô]öY]–]Y[–[\YöY\îÿàHúõ€Hããã⁄úÀÿ]Y[À\ÿã\ô]öY]ÀõZú»é√Bö[\‹ù»‹ôX]T›Ÿ\ì^[›]ô\‹ùô]öY]–ùX⁄‘›Ÿ\ì^[›]Húõ€Hããã⁄úÀÿùX⁄ÀX€€ùô\ù\ã\ô]öY]ÀõZú»é√Bö[\‹ù»‹ôX]S^Y\î›X⁄›\ô\‹ùô]öY]—õ›\ì^Y\ìX›Põÿ\ôHúõ€Hããã⁄úÀ€X›KXõÿ\ô\[ãõZú»é√Bö[\‹ù»‹ôX]QYôô\ô[ùX[Z\îô\‹ùô]öY]—Yôô\ô[ùX[Z\àHúõ€Hããã⁄úÀŸYôô\ô[ùX[\Z\ã\ô]öY]ÀõZú»é√Bö[\‹ù»‹ôX]TYõëõ€›ö[ùô\‹ùô]öY]‘Yõëõ€›ö[ùHúõ€Hããã⁄úÀ‹YõãYõ€›ö[ù\ô]öY]ÀõZú»é√Bö[\‹ù»‹ôX]PôÿQ\ÿÿ\Tô\‹ùô]öY]–ôÿQ\ÿÿ\P€€òŸ\Húõ€Hããã⁄úÀÿôÿKY\ÿÿ\K\ô]öY]ÀõZú»é√Bö[\‹ù»‹ôX]T[ô[[›[ùYX⁄[öXÿ[ô\‹ùô]öY]‘[ô[[›[ùYX⁄[öXÿ[»Húõ€Hããã⁄úÀ‹[ô[[[›[ù[YX⁄[öXÿ[\ô]öY]ÀõZú»é√Bö[\‹ù»‹ôX]U\›⁄[ù€›ô\òYŸTô\‹ùô]öY]’\›⁄[ù€›ô\òYŸHHúõ€Hããã⁄úÀ›\›\⁄[ùX€›ô\òYŸKõZú»é√Bö[\‹ù»êSî”US”îÀRW“—VTÀRW”––STÀò[ú€]HHúõ€Hããã⁄úÀ⁄LNãõZú»é√Bö[\‹ù»ù[î\ò[Y]\î›ŸY\Húõ€Hããã⁄úÀ‹\ò[Y]\ã\›ŸY\õZú»é√Bö[\‹ù»ù[ì[€ùPÿ\õ’€\ò[òŸHHúõ€Hããã⁄úÀ€[€ùKXÿ\õÀ]€\ò[òŸKõZú»é√Bö[\‹ù»[ò[^ôU\õX[ÿ\õö[ô–õ›[ô\ûHHúõ€Hããã⁄úÀ›\õX[]ÿ\õö[ôÀXõ›[ô\ûKõZú»é√Bö[\‹ù»[ò[^ôP€€ùô\ôŸ[òŸT›YHHúõ€Hããã⁄úÀÿ€€ùô\ôŸ[òŸK\›YKõZú»é√Bö[\‹ù»XY€õ‹ŸQõÿ][ô”õŸHHúõ€Hããã⁄úÀŸõÿ][ôÀ[õŸKYXY€õ‹⁄\ÀõZú»é√Bö[\‹ù»XY€õ‹ŸT›\T⁄‹ùHúõ€Hããã⁄úÀ‹⁄‹ùX⁄\ò›Z]YXY€õ‹⁄\ÀõZú»é√Bö[\‹ù»XY€õ‹ŸSZ\‹⁄[ô—‹õ›[ôHúõ€Hããã⁄úÀ€Z\‹⁄[ôÀY‹õ›[ôYXY€õ‹⁄\ÀõZú»é√Bö[\‹ù»ô\‹ù[ò]òZ[XõS[Ÿ[Húõ€Hããã⁄úÀ€[Ÿ[][ò]òZ[XõKYXY€õ‹⁄\ÀõZú»é√Bö[\‹ù»ù[ìô]‹õ‹‹‘õÿôHHúõ€Hããã⁄úÀ€ô]X‹õ‹‹À\õÿôKõZú»é√Bö[\‹ù»ò[Y]P€€\€ô[ùõ‹\ùHHúõ€Hããã⁄úÀÿ€€\€ô[ù\õ‹\ùKX]Y]õZú»é√Bö[\‹ù»‹ôX]T⁄[][][€îô\‹ùHúõ€Hããã⁄úÀ‹⁄[][][€ã\ô\‹ùõZú»é√Bö[\‹ù»‹ôX]T⁄[][][€ìÿ⁄Ÿö[Kô\öYûT⁄[][][€ìÿ⁄Ÿö[HHúõ€Hããã⁄úÀ‹⁄[][][€ã[ÿ⁄Ÿö[KõZú»é√Bö[\‹ù»ù[î‘›\ù›‹Ÿ\]Y[òŸHHúõ€Hããã⁄úÀ‹À\›\ù\›‹\Ÿ\]Y[òŸKõZú»é√Bö[\‹ù»ù[ïòYôöX”Y⁄Ÿ\]Y[òŸHHúõ€Hããã⁄úÀ›òYôöXÀ[Y⁄\Ÿ\]Y[òŸKõZú»é√Bö[\‹ù»ù[ï[ö”]ô[€€ùõ€\àHúõ€Hããã⁄úÀ›[öÀ[]ô[X€€ùõ€\ãõZú»é√Bö[\‹ù»ù[ê€€ùô^[‹ê€›[ù\àHúõ€Hããã⁄úÀÿ€€ùô^[‹ãX€›[ù\ãõZú»é√Bö[\‹ù»ù[î›\ë[T›\ù\àHúõ€Hããã⁄úÀ‹›\ãY[K\›\ù\ãõZú»é√Bö[\‹ù»ù[ëõ‹ùÿ\ôô]ô\úŸR[ù\õÿ⁄»Húõ€Hããã⁄úÀŸõ‹ùÿ\ô\ô]ô\úŸKZ[ù\õÿ⁄ÀõZú»é√Bö[\‹ù»ù[ë[Y\ôŸ[òﬁT›‹€€òŸ\Húõ€Hããã⁄úÀŸ[Y\ôŸ[òﬁK\›‹X€€òŸ\õZú»é√Bö[\‹ù»ù[ë€‹í[ù\õÿ⁄–€€òŸ\Húõ€Hããã⁄úÀŸ€‹ãZ[ù\õÿ⁄ÀX€€òŸ\õZú»é√Bö[\‹ù»ù[ï[\\ò]\ôP[\õHHúõ€Hããã⁄úÀ›[\\ò]\ôKX[\õKõZú»é√Bö[\‹ù»ù[ïÿ]\ìXZ–[\õHHúõ€Hããã⁄úÀ›ÿ]\ã[XZÀX[\õKõZú»é√Bö[\‹ù»ù[ëò[ï\õ[‹›]Húõ€Hããã⁄úÀŸò[ã]\õ[‹›]õZú»é√Bö[\‹ù»ù[î€Qò[ê€€ùõ€\àHúõ€Hããã⁄úÀ‹€KYò[ãX€€ùõ€\ãõZú»é√Bö[\‹ù»ù[ê]]€X]X”öY⁄Y⁄Húõ€Hããã⁄úÀÿ]]€X]XÀ[öY⁄[Y⁄õZú»é√Bö[\‹ù»ù[î€X\ù\úöYÿ][€àHúõ€Hããã⁄úÀ‹€X\ùZ\úöYÿ][€ãõZú»é√Bö[\‹ù»ù[ëÿ\òYŸQ€‹ê€€òŸ\Húõ€Hããã⁄úÀŸÿ\òYŸKY€‹ãX€€òŸ\õZú»é√Bö[\‹ù»ù[ë[]ò]‹êÿ[]Y]YHHúõ€Hããã⁄úÀŸ[]ò]‹ãXÿ[\]Y]YKõZú»é√Bö[\‹ù»ù[ëö\ôP[\õVõ€ôHHúõ€Hããã⁄úÀŸö\ôKX[\õK^õ€ôKõZú»é√Bö[\‹ù»ù[êXÿŸ\‹‘›öZŸSÿ⁄»Húõ€Hããã⁄úÀÿXÿŸ\‹À\›öZŸK[ÿ⁄ÀõZú»é√Bö[\‹ù»ù[ïÿ\ôZ›\ŸPôXX€€àHúõ€Hããã⁄úÀ›ÿ\ôZ›\ŸKXôXX€€ãõZú»é√Bö[\‹ù»ù[ìXX⁄[ôQò][[õù[ò⁄X]‹àHúõ€Hããã⁄úÀ€XX⁄[ôKYò][X[õù[ò⁄X]‹ãõZú»é√Bö[\‹ù»ù[êúôXYõÿ\ôÿ⁄[X]X‘ﬁ[ò»Húõ€Hããã⁄úÀÿúôXYõÿ\ô\ÿ⁄[X]XÀ\ﬁ[òÀõZú»é√Bö[\‹ù»ù[îÿ⁄[X]X‘ÿîﬁ[ò»Húõ€Hããã⁄úÀ‹ÿ⁄[X]XÀ\ÿã\ﬁ[òÀõZú»é√Bö[\‹ù»ù[ïôYUöY]”Y\›‹ûHHúõ€Hããã⁄úÀ›ôYK]öY]À[YZ\›‹ûKõZú»é√Bö[\‹ù»õ⁄ôX›€€\€ô[ù—õ‹ïöY]Àù[ï[ú›\‹ùYúôXYõÿ\ôX⁄ÿYŸHHúõ€Hããã⁄úÀ›öY]À\õ⁄ôX›[€ãõZú»é√Bö[\‹ù»ù[ìZ\‹⁄[ô—õ€›ö[ù€‹öŸõ›»Húõ€Hããã⁄úÀ‹ÿã]\]K\ô\€€][€ãõZú»é√Bö[\‹ù»ÿ[òŸ[\ù›Xú›]][€îô]öY]À‹ôX]T\ù›Xú›]][€îô]öY]Àù[î[í[ò€€\]XõT›Xú›]][€àHúõ€Hããã⁄úÀ‹[ã\›Xú›]][€ã\ô]öY]ÀõZú»é√Bö[\‹ù»€€ùô\ù[ô⁄[ôY\ö[ô’[ö]ù[ï[ö]€€ùô\ú⁄[€êÿ[›[]‹àHúõ€Hããã⁄úÀ›[ö]X€€ùô\ú⁄[€ãXÿ[›[]‹ãõZú»é√Bö[\‹ù»ôXYô\⁄\›‹êò[ôÀù[îô\⁄\›‹ê€€‹ê€ŸTôXY\àHúõ€Hããã⁄úÀ‹ô\⁄\›‹ãX€€‹ãX€ŸKõZú»é√Bö[\‹ù»ÿ[›[]SYŸ\öY\‘ô\⁄\›‹ãù[ìYô\⁄\›‹êÿ[›[]‹àHúõ€Hããã⁄úÀ€Y\ô\⁄\›‹ãXÿ[›[]‹ãõZú»é√Bö[\‹ù»ÿ[›[]Uõ€YŸQ]öY\ãù[ïõ€YŸQ]öY\êÿ[›[]‹àHúõ€Hããã⁄úÀ›õ€YŸKY]öY\ãXÿ[›[]‹ãõZú»é√Bö[\‹ù»ÿ[›[]Tò’[Z[ôÀù[îò’[Z[ô–ÿ[›[]‹àHúõ€Hããã⁄úÀ‹òÀ][Z[ôÀXÿ[›[]‹ãõZú»é√Bö[\‹ù»ÿ[›[]S‹[\ÿZ[ãù[ì‹[\ÿZ[êÿ[›[]‹àHúõ€Hããã⁄úÀ€‹X[\YÿZ[ãXÿ[›[]‹ãõZú»é√Bö[\‹ù»ÿ[›[]TÿïòXŸU⁄Yù[îÿïòXŸU⁄YYö\€‹àHúõ€Hããã⁄úÀ‹ÿã]òXŸK]⁄YXYö\€‹ãõZú»é√Bö[\‹ù»ùZ[õ€Tô\‹ù^‹ùõ€P‹›ãù[êõ€Q^‹ùXŸZ€\àHúõ€Hããã⁄úÀÿõ€K\ô\‹ùõZú»é√Bö[\‹ù»^Z[ê€€\€ô[ùù[êõ›€€\€ô[ù^Z[ô\àHúõ€Hããã⁄úÀÿõ›X€€\€ô[ùY^Z[ô\ãõZú»é√Bö[\‹ù»\Põ›õÿ][ô”õŸTô\Z\îô]öY]ÀùZ[õ›õÿ][ô”õŸTô\Z\îô]öY]Àù[êõ›õÿ][ô”õŸTô\Z\àHúõ€Hããã⁄úÀÿõ›Yõÿ][ôÀ[õŸK\ô\Z\ãõZú»é√Bö[\‹ù»\Põ›⁄\ò›Z]õ‹‹ÿ[ùZ[õ›⁄\ò›Z]õ‹‹ÿ[ù[êõ›⁄\ò›Z]õ‹‹ÿ[Húõ€Hããã⁄úÀÿõ›X⁄\ò›Z]\õ‹‹ÿ[õZú»é√Bö[\‹ù»]Y]ZT€›\òŸKù[ëõ›\ì[ô›XYŸUZT›ŸY\Húõ€Hããã⁄úÀ€ÿÿ[K]ZK\›ŸY\õZú»é√Bö[\‹ù»ù[ìŸôõ[ôTôX€›ô\ûTÿŸ[ò\ö[»Húõ€Hããã⁄úÀ€Ÿôõ[ôK\ôX€›ô\ûK\ÿŸ[ò\ö[ÀõZú»é√Bö[\‹ù»ù[îô[X\ŸPÿ[ôY]QLëQö^\ô\»Húõ€Hããã⁄úÀ‹ô[X\ŸKXÿ[ôY]KYLôKõZú»é√BÉBôù[ò›[€à\‹Ÿ\ùô\›[X]⁄\ X›X[^X›Y]
-H√BàYà
-\úò^Kö\–\úò^J^X›Y
-JH√Bà\‹Ÿ\ùõ⁄ \úò^Kö\–\úò^JX›X[
-K	‹]H]\›ôH[à\úò^H⁄[àôX€‹ôY\»€ôX
-N√Bà\‹Ÿ\ùô\]X[
-X›X[õ[ô›^X›Yõ[ô›	‹]H[ô›
-N√Bàô]\õà^X›YúôYXŸJ
-€›[ùò[YK[ô^
-HOà€›[ù
-»\‹Ÿ\ùô\›[X]⁄\ X›X[⁄[ô^Kò[YK	‹]V…⁄[ô^WX
-K
-N√BàCBàYà
-^X›Y	âà\[Ÿà^X›YOOHõÿöôX›äH√Bà\‹Ÿ\ùõ⁄ X›X[	âà\[ŸàX›X[OOHõÿöôX›à	âàP\úò^Kö\–\úò^JX›X[
-K	‹]H]\›ôH[àÿöôX›⁄[àôX€‹ôY\»€ôX
-N√Bà]€€\\ôYöY[»H√Bàõ‹à
-€€ú›⁄Ÿ^Kò[YWHŸàÿöôX›ô[ùöY\ ^X›Y
-JH√BàÀ»ôY⁄\›ûH⁄[ôXô[»Y[ùYûHHõ⁄ôX›ÿŸ[ò\ö[Œ»[ò[\⁄\»[ô⁄[ô\»X^Hô\‹ùZ\à›€àô\›[⁄[ôÉBàYà
-Ÿ^HOOHö⁄[ôà	âàÿöôX›ö\”›€äX›X[Ÿ^JJH€€\\ôYöY[»
-œH\‹Ÿ\ùô\›[X]⁄\ X›X[⁄Ÿ^WKò[YK	‹]Kâ⁄Ÿ^_X
-N√BàCBàô]\õà€€\\ôYöY[Œ√BàCBà\‹Ÿ\ùô\]X[
-\[ŸàX›X[\[Ÿà^X›Y	‹]H\X
-N√BàYà
-\[Ÿà^X›YOOHõù[Xô\àäH√Bà€€ú›€\ò[òŸHHX]õX^
-YKLLãX]òXú ^X›Y
-H
-àYKMäN√Bà\‹Ÿ\ùõ⁄ ù[Xô\ãö\—ö[ö]JX›X[
-H	âàX]òXú X›X[H^X›Y
-HH€\ò[òŸK	‹]HYôô\ú»ûH[‹ôH[à	›€\ò[òŸ_X
-N√BàH[ŸH√Bà\‹Ÿ\ùô\]X[
-X›X[^X›Y]
-N√BàCBàô]\õàN√BüCBÉBò€€ú›\‹Ÿ\ù^€ò\⁄›H
-X›X[^X›Yò[YJHOà\‹Ÿ\ùô\]X[
-X›X[úô\XŸP[
-óóàãóàäK^X›Yúô\XŸP[
-óóàãóàäKò[YJN√BÉBù\›
-ò€‹ôK[YX›\úô[ù[[Z]\éàÿ][Ÿ›YHHõŸXŸ\»]»ôX€‹ôY[ò[]Xÿ[ô\›[ã\ﬁ[ò»
+import { movePcbFootprint } from "../js/pcb-edit.mjs";
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { addComponent, connectPins, createEmptyProject, createProject, createVoltageDividerProject, disconnectPin, getViewReconciliationIssues, moveComponent, parseProject, removeComponent, runSupportedAnalysis, STARTER_LIBRARY, serializeProject, updateComponent, validateProject } from "../js/core.mjs";
+import { getLedgerCoverage, getLibraryCoverage, getPartVerificationReadiness, validateComponentTypes, validatePartsManifest, validatePartLedger, validatePartRecord } from "../js/part-ledger.mjs";
+import { getExampleCoverage, validateExampleRegistry } from "../js/example-registry.mjs";
+import { exportPcbFabrication, validatePcbFabrication } from "../js/pcb-export.mjs";
+import { createPcbPlacementReport } from "../js/pcb-placement-report.mjs";
+import { createGroundingChecklistReport, reviewAudioAmplifierPcb } from "../js/audio-pcb-review.mjs";
+import { createPowerLayoutReport, reviewBuckPowerLayout } from "../js/buck-converter-review.mjs";
+import { createLayerStackupReport, reviewFourLayerMcuBoard } from "../js/mcu-board-plan.mjs";
+import { createDifferentialPairReport, reviewDifferentialPair } from "../js/differential-pair-review.mjs";
+import { createQfnFootprintReport, reviewQfnFootprint } from "../js/qfn-footprint-review.mjs";
+import { createBgaEscapeReport, reviewBgaEscapeConcept } from "../js/bga-escape-review.mjs";
+import { createPanelMountMechanicalReport, reviewPanelMountMechanicals } from "../js/panel-mount-mechanical-review.mjs";
+import { createTestPointCoverageReport, reviewTestPointCoverage } from "../js/test-point-coverage.mjs";
+import { TRANSLATIONS, UI_KEYS, UI_LOCALES, translate } from "../js/i18n.mjs";
+import { runParameterSweep } from "../js/parameter-sweep.mjs";
+import { runMonteCarloTolerance } from "../js/monte-carlo-tolerance.mjs";
+import { analyzeThermalWarningBoundary } from "../js/thermal-warning-boundary.mjs";
+import { analyzeConvergenceStudy } from "../js/convergence-study.mjs";
+import { diagnoseFloatingNode } from "../js/floating-node-diagnosis.mjs";
+import { diagnoseSupplyShort } from "../js/short-circuit-diagnosis.mjs";
+import { diagnoseMissingGround } from "../js/missing-ground-diagnosis.mjs";
+import { reportUnavailableModel } from "../js/model-unavailable-diagnosis.mjs";
+import { runNetCrossProbe } from "../js/net-cross-probe.mjs";
+import { validateComponentProperty } from "../js/component-property-audit.mjs";
+import { createSimulationReport } from "../js/simulation-report.mjs";
+import { createSimulationLockfile, verifySimulationLockfile } from "../js/simulation-lockfile.mjs";
+import { runPlcStartStopSequence } from "../js/plc-start-stop-sequence.mjs";
+import { runTrafficLightSequence } from "../js/traffic-light-sequence.mjs";
+import { runTankLevelController } from "../js/tank-level-controller.mjs";
+import { runConveyorCounter } from "../js/conveyor-counter.mjs";
+import { runStarDeltaStarter } from "../js/star-delta-starter.mjs";
+import { runForwardReverseInterlock } from "../js/forward-reverse-interlock.mjs";
+import { runEmergencyStopConcept } from "../js/emergency-stop-concept.mjs";
+import { runDoorInterlockConcept } from "../js/door-interlock-concept.mjs";
+import { runTemperatureAlarm } from "../js/temperature-alarm.mjs";
+import { runWaterLeakAlarm } from "../js/water-leak-alarm.mjs";
+import { runFanThermostat } from "../js/fan-thermostat.mjs";
+import { runPwmFanController } from "../js/pwm-fan-controller.mjs";
+import { runAutomaticNightLight } from "../js/automatic-night-light.mjs";
+import { runSmartIrrigation } from "../js/smart-irrigation.mjs";
+import { runGarageDoorConcept } from "../js/garage-door-concept.mjs";
+import { runElevatorCallQueue } from "../js/elevator-call-queue.mjs";
+import { runFireAlarmZone } from "../js/fire-alarm-zone.mjs";
+import { runAccessStrikeLock } from "../js/access-strike-lock.mjs";
+import { runWarehouseBeacon } from "../js/warehouse-beacon.mjs";
+import { runMachineFaultAnnunciator } from "../js/machine-fault-annunciator.mjs";
+import { runBreadboardSchematicSync } from "../js/breadboard-schematic-sync.mjs";
+import { runSchematicPcbSync } from "../js/schematic-pcb-sync.mjs";
+import { runThreeViewLedHistory } from "../js/three-view-led-history.mjs";
+import { projectComponentsForView, runUnsupportedBreadboardPackage } from "../js/view-projection.mjs";
+import { runMissingFootprintWorkflow } from "../js/pcb-update-resolution.mjs";
+import { cancelPartSubstitutionPreview, createPartSubstitutionPreview, runPinIncompatibleSubstitution } from "../js/pin-substitution-preview.mjs";
+import { convertEngineeringUnit, runUnitConversionCalculator } from "../js/unit-conversion-calculator.mjs";
+import { readResistorBands, runResistorColorCodeReader } from "../js/resistor-color-code.mjs";
+import { calculateLedSeriesResistor, runLedResistorCalculator } from "../js/led-resistor-calculator.mjs";
+import { calculateVoltageDivider, runVoltageDividerCalculator } from "../js/voltage-divider-calculator.mjs";
+import { calculateRcTiming, runRcTimingCalculator } from "../js/rc-timing-calculator.mjs";
+import { calculateOpAmpGain, runOpAmpGainCalculator } from "../js/op-amp-gain-calculator.mjs";
+import { calculatePcbTraceWidth, runPcbTraceWidthAdvisor } from "../js/pcb-trace-width-advisor.mjs";
+import { buildBomReport, exportBomCsv, runBomExportPlaceholder } from "../js/bom-report.mjs";
+import { explainComponent, runBotComponentExplainer } from "../js/bot-component-explainer.mjs";
+import { applyBotFloatingNodeRepairPreview, buildBotFloatingNodeRepairPreview, runBotFloatingNodeRepair } from "../js/bot-floating-node-repair.mjs";
+import { applyBotCircuitProposal, buildBotCircuitProposal, runBotCircuitProposal } from "../js/bot-circuit-proposal.mjs";
+import { auditUiSource, runFourLanguageUiSweep } from "../js/locale-ui-sweep.mjs";
+import { runOfflineRecoveryScenario } from "../js/offline-recovery-scenario.mjs";
+import { runReleaseCandidateE2EFixtures } from "../js/release-candidate-e2e.mjs";
 
-HOà√Bà€€ú›õ⁄ôX›H‹ôX]Tõ⁄ôX›
+function assertResultMatches(actual, expected, path) {
+  if (Array.isArray(expected)) {
+    assert.ok(Array.isArray(actual), `${path} must be an array when recorded as one`);
+    assert.equal(actual.length, expected.length, `${path} length`);
+    return expected.reduce((count, value, index) => count + assertResultMatches(actual[index], value, `${path}[${index}]`), 0);
+  }
+  if (expected && typeof expected === "object") {
+    assert.ok(actual && typeof actual === "object" && !Array.isArray(actual), `${path} must be an object when recorded as one`);
+    let comparedFields = 0;
+    for (const [key, value] of Object.entries(expected)) {
+      // Registry `kind` labels identify the project scenario; analysis engines may report their own result kind.
+      if (key !== "kind" && Object.hasOwn(actual, key)) comparedFields += assertResultMatches(actual[key], value, `${path}.${key}`);
+    }
+    return comparedFields;
+  }
+  assert.equal(typeof actual, typeof expected, `${path} type`);
+  if (typeof expected === "number") {
+    const tolerance = Math.max(1e-12, Math.abs(expected) * 1e-6);
+    assert.ok(Number.isFinite(actual) && Math.abs(actual - expected) <= tolerance, `${path} differs by more than ${tolerance}`);
+  } else {
+    assert.equal(actual, expected, path);
+  }
+  return 1;
+}
 
-N√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[ô[ô⁄[ôKê[ò[]Xÿ[»Q[[€ú›ò][€àäN√Bà€€ú›ôY⁄\›ûHHî””ãú\úŸJ]ÿZ]ôXYö[Jô]»Tì
-ãããŸ^[\\À€X[öYô\›öú€€àã[\‹ùõY]Kù\õ
-JJN√Bà€€ú›^[\HHôY⁄\›ûKô^[\\Àôö[ô
+const assertTextSnapshot = (actual, expected, name) => assert.equal(actual.replaceAll("\r\n", "\n"), expected.replaceAll("\r\n", "\n"), name);
 
-][JHOà][KöYOOHåK[YX›\úô[ù[[Z]\àäN√Bà\‹Ÿ\ùõ⁄ ^[\JN√Bà\‹Ÿ\ùôY\\]X[
-ô\›[úô\›[^[\Kùô\öYöXÿ][€ãô^X›Yô\›[
-N√Bà€€ú›ôXYYHH]ÿZ]ôXYö[Jô]»Tì
-ãã…Ÿ^[\KúôXYYQö[_X[\‹ùõY]Kù\õ
-Kù]éäN√Bà\‹Ÿ\ùõX]⁄
-ôXYYK–ö[ŸàX]\öX[À⁄JN√Bà\‹Ÿ\ùõX]⁄
-ôXYYKŒWåHPK N√Bà\‹Ÿ\ùõX]⁄
-ôXYYK€[Ÿ[[Z]][€úÀ⁄JN√BüJN√BÉBù\›
-òHô]»õ⁄ôX››\ù»õ[ö»[ôô[XZ[ú»Hò[Yò]]ôHÿ›[Y[ùã
+test("core-led-current-limiter: catalogue 001 produces its recorded analytical result", async () => {
+  const project = createProject();
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.engine, "Analytical DC LED demonstration");
+  const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
+  const example = registry.examples.find((item) => item.id === "001-led-current-limiter");
+  assert.ok(example);
+  assert.deepEqual(result.result, example.verification.expectedResult);
+  const readme = await readFile(new URL(`../${example.readmeFile}`, import.meta.url), "utf8");
+  assert.match(readme, /Bill of materials/i);
+  assert.match(readme, /9\.09 mA/);
+  assert.match(readme, /model limitations/i);
+});
 
-HOà√Bà€€ú›õ⁄ôX›H‹ôX]Q[\Tõ⁄ôX›
-»ÿÿ[NàôHàJN√Bà\‹Ÿ\ùô\]X[
-õ⁄ôX›ò€€\€ô[ùÀõ[ô›
-N√Bà\‹Ÿ\ùô\]X[
-õ⁄ôX›õô]Àõ[ô›
-N√Bà\‹Ÿ\ùô\]X[
-õ⁄ôX›õY]Y]Kõÿÿ[KôHäN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-Kú›]Kù[ú›\‹ùYäN√BüJN√BÉBù\›
-ö[ùò[Yô\⁄\›[òŸHõÿ⁄‹»H›\‹ùY[ò[\⁄\»ã
+test("a new project starts blank and remains a valid native document", () => {
+  const project = createEmptyProject({ locale: "de" });
+  assert.equal(project.components.length, 0);
+  assert.equal(project.nets.length, 0);
+  assert.equal(project.metadata.locale, "de");
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(runSupportedAnalysis(project).state, "unsupported");
+});
 
-HOà√Bà€€ú›õ⁄ôX›H\]P€€\€ô[ù
-‹ôX]Tõ⁄ôX›
+test("invalid resistance blocks the supported analysis", () => {
+  const project = updateComponent(createProject(), "resistor-1", { value: "0 Œ©" });
+  assert.equal(runSupportedAnalysis(project).state, "blocked");
+});
 
-Kúô\⁄\›‹ãLHã»ò[YNàå3™HàJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-Kú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-ë»[ò[\⁄\»\úŸ\»“HôYö^\»⁄]ÿ\ŸK\Ÿ[ú⁄]]ôHZ[H[ôYYÿH[ö]»ã
+test("DC analysis parses SI prefixes with case-sensitive milli and mega units", () => {
+  const milli = updateComponent(createProject(), "resistor-1", { value: "1 mŒ©" });
+  const mega = updateComponent(createProject(), "resistor-1", { value: "1 MŒ©" });
+  assert.equal(runSupportedAnalysis(milli).state, "complete");
+  assert.ok(Math.abs(runSupportedAnalysis(milli).result.resistance - 0.001) < 1e-12);
+  assert.ok(Math.abs(runSupportedAnalysis(mega).result.resistance - 1e6) < 1e-6);
+  assert.equal(runSupportedAnalysis(updateComponent(createProject(), "resistor-1", { value: "330 bananas" })).state, "blocked");
+});
 
-HOà√Bà€€ú›Z[HH\]P€€\€ô[ù
-‹ôX]Tõ⁄ôX›
+test("a documented voltage divider produces bounded DC values", () => {
+  const result = runSupportedAnalysis(createVoltageDividerProject());
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "voltage-divider");
+  assert.equal(result.result.outputVoltage, 6);
+  assert.equal(result.result.currentA, 0.003);
+});
 
-Kúô\⁄\›‹ãLHã»ò[YNàåHs™HàJN√Bà€€ú›YYÿHH\]P€€\€ô[ù
-‹ôX]Tõ⁄ôX›
+test("linear DC nodal analysis solves a resistor branch network", () => {
+  const project = createVoltageDividerProject({ sourceValue: "5 V", upperResistanceValue: "1 kŒ©", lowerResistanceValue: "1 kŒ©" });
+  project.components.push({ instanceId: "resistor-branch-1", libraryId: "passive.resistor", reference: "R3", value: "1 kŒ©", position: { breadboard: [520, 140], schematic: [520, 140], pcb: [520, 140] } });
+  project.nets = [
+    { id: "VCC", endpoints: ["source-1:+", "resistor-top-1:1"] },
+    { id: "MID", endpoints: ["resistor-top-1:2", "resistor-bottom-1:1", "resistor-branch-1:1"] },
+    { id: "GND", endpoints: ["resistor-bottom-1:2", "resistor-branch-1:2", "source-1:-", "ground-1:0"] }
+  ];
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "resistive-network");
+  assert.ok(Math.abs(result.result.nodeVoltages.MID - (5 / 3)) < 1e-9);
+  assert.ok(Math.abs(result.result.sourceCurrentA - (5 / 1500)) < 1e-9);
+  assert.equal(result.result.resistors.length, 3);
+});
 
-Kúô\⁄\›‹ãLHã»ò[YNàåHs™HàJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ Z[JKú›]Kò€€\]HäN√Bà\‹Ÿ\ùõ⁄ X]òXú ù[î›\‹ùY[ò[\⁄\ Z[JKúô\›[úô\⁄\›[òŸHHåJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ù[î›\‹ùY[ò[\⁄\ YYÿJKúô\›[úô\⁄\›[òŸHHYMäHYKMäN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ \]P€€\€ô[ù
-‹ôX]Tõ⁄ôX›
+test("parallel resistor load example has a reproducible DC operating point", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/004-parallel-resistor-load.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "resistive-network");
+  assert.ok(Math.abs(result.result.nodeVoltages.MID - (5 / 3)) < 1e-9);
+  assert.ok(Math.abs(result.result.sourceCurrentA - (5 / 1500)) < 1e-9);
+  assert.equal(result.result.resistors.length, 3);
+});
 
-Kúô\⁄\›‹ãLHã»ò[YNàåÃÃò[ò[ò\»àJJKú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-òHÿ›[Y[ùYõ€YŸH]öY\àõŸXŸ\»õ›[ôY»ò[Y\»ã
+test("RC high-pass response attenuates below cutoff and passes above it", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/013-rc-high-pass.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "rc-high-pass");
+  assert.ok(Math.abs(result.result.cutoffHz - 1 / (2 * Math.PI * 0.1)) < 1e-12);
+  const [below, cutoff, above] = result.result.samples;
+  assert.ok(Math.abs(cutoff.gain - Math.SQRT1_2) < 1e-12);
+  assert.ok(below.gain < cutoff.gain && cutoff.gain < above.gain);
+  assert.ok(Math.abs(below.gain - 1 / Math.sqrt(101)) < 1e-12);
+  assert.ok(Math.abs(above.gain - 10 / Math.sqrt(101)) < 1e-12);
 
-HOà√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ ‹ôX]Uõ€YŸQ]öY\îõ⁄ôX›
+  const broken = structuredClone(project);
+  broken.nets[1].endpoints = ["capacitor-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+  const invalid = updateComponent(project, "resistor-1", { value: "0 Œ©" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+});
 
-JN√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ö⁄[ôùõ€YŸKY]öY\àäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[õ›]]õ€YŸKäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ò›\úô[ùKå N√BüJN√BÉBù\›
-õ[ôX\à»õŸ[[ò[\⁄\»€€ô\»Hô\⁄\›‹àúò[ò⁄ô]€‹ö»ã
+test("RL low-pass response uses the calculated cutoff and attenuates above it", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/supplemental-rl-low-pass.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "rl-low-pass");
+  assert.ok(Math.abs(result.result.timeConstantS - 0.0001) < 1e-15);
+  assert.ok(Math.abs(result.result.cutoffHz - 1000 / (2 * Math.PI * 0.1)) < 1e-9);
+  const [below, cutoff, above] = result.result.samples;
+  assert.ok(Math.abs(cutoff.gain - Math.SQRT1_2) < 1e-12);
+  assert.ok(Math.abs(cutoff.outputAmplitudeV - Math.SQRT1_2) < 1e-12);
+  assert.ok(below.gain > cutoff.gain && cutoff.gain > above.gain);
+  assert.ok(Math.abs(above.gain - 1 / Math.sqrt(101)) < 1e-12);
 
-HOà√Bà€€ú›õ⁄ôX›H‹ôX]Uõ€YŸQ]öY\îõ⁄ôX›
-»€›\òŸUò[YNàçHàã\\îô\⁄\›[òŸUò[YNàåHÛ™Hã›Ÿ\îô\⁄\›[òŸUò[YNàåHÛ™HàJN√Bàõ⁄ôX›ò€€\€ô[ùÀú\⁄
-»[ú›[òŸRYàúô\⁄\›‹ãXúò[ò⁄LHãXúò\ûRYàú\‹⁄]ôKúô\⁄\›‹àãôYô\ô[òŸNàîå»ãò[YNàåHÛ™Hã‹⁄][€éà»úôXYõÿ\ôàÕLåMKÿ⁄[X]XŒàÕLåMKÿéàÕLåMHHJN√Bàõ⁄ôX›õô]»H√Bà»Yàïê–»ã[ô⁄[ùŒà»ú€›\òŸKLNä»ãúô\⁄\›‹ã]‹LNåHóHKBà»YàìRQã[ô⁄[ùŒà»úô\⁄\›‹ã]‹LNåàãúô\⁄\›‹ãXõ›€KLNåHãúô\⁄\›‹ãXúò[ò⁄LNåHóHKBà»Yàë”ëã[ô⁄[ùŒà»úô\⁄\›‹ãXõ›€KLNåàãúô\⁄\›‹ãXúò[ò⁄LNåàãú€›\òŸKLNãHãô‹õ›[ôLNåóHCBàN√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ö⁄[ôúô\⁄\›]ôK[ô]€‹ö»äN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[õõŸUõ€YŸ\ÀìRQH
-H» JHYKNJN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ú€›\òŸP›\úô[ùHH
-H»ML
-JHYKNJN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[úô\⁄\›‹úÀõ[ô› N√BüJN√BÉBù\›
-ú\ò[[ô\⁄\›‹àÿY^[\H\»Hô\õŸX⁄XõH»‹\ò][ô»⁄[ùã\ﬁ[ò»
+  const broken = structuredClone(project);
+  broken.nets[1].endpoints = ["resistor-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+  const invalid = updateComponent(project, "inductor-1", { value: "0 H" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const tinyResistance = updateComponent(project, "resistor-1", { value: "1e-300 Œ©" });
+  const extreme = updateComponent(tinyResistance, "inductor-1", { value: "1e300 H" });
+  assert.equal(runSupportedAnalysis(extreme).state, "blocked");
+});
 
-HOà√Bà€€ú›õ⁄ôX›Hî””ãú\úŸJ]ÿZ]ôXYö[Jô]»Tì
-ãããŸ^[\\ÀÃ\\ò[[\ô\⁄\›‹ã[ÿYòYY›[ãöú€€àã[\‹ùõY]Kù\õ
-JJN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ö⁄[ôúô\⁄\›]ôK[ô]€‹ö»äN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[õõŸUõ€YŸ\ÀìRQH
-H» JHYKNJN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ú€›\òŸP›\úô[ùHH
-H»ML
-JHYKNJN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[úô\⁄\›‹úÀõ[ô› N√BüJN√BÉBù\›
-îê»Y⁄\\‹»ô\‹€úŸH][ùX]\»ô[›»›]Ÿôà[ô\‹Ÿ\»Xõ›ôH]ã\ﬁ[ò»
+test("RC low-pass response uses the calculated cutoff and attenuates above it", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/012-rc-low-pass.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "rc-low-pass");
+  assert.ok(Math.abs(result.result.cutoffHz - 1 / (2 * Math.PI * 0.1)) < 1e-12);
+  const [below, cutoff, above] = result.result.samples;
+  assert.ok(Math.abs(cutoff.gain - Math.SQRT1_2) < 1e-12);
+  assert.ok(Math.abs(cutoff.outputAmplitudeV - Math.SQRT1_2) < 1e-12);
+  assert.ok(below.gain > cutoff.gain && cutoff.gain > above.gain);
+  assert.ok(Math.abs(above.gain - 1 / Math.sqrt(101)) < 1e-12);
 
-HOà√Bà€€ú›õ⁄ôX›Hî””ãú\úŸJ]ÿZ]ôXYö[Jô]»Tì
-ãããŸ^[\\ÀÃLÀ\òÀZY⁄\\‹ÀòYY›[ãöú€€àã[\‹ùõY]Kù\õ
-JJN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ö⁄[ôúòÀZY⁄\\‹»äN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ò›]ŸôíàHH»
-à
-àX]îH
-àåJJHYKLLäN√Bà€€ú›ÿô[›À›]ŸôãXõ›ôWHHô\›[úô\›[úÿ[\\Œ√Bà\‹Ÿ\ùõ⁄ X]òXú ›]ŸôãôÿZ[àHX]î‘TïWÃäHYKLLäN√Bà\‹Ÿ\ùõ⁄ ô[›ÀôÿZ[à›]ŸôãôÿZ[à	âà›]ŸôãôÿZ[àXõ›ôKôÿZ[äN√Bà\‹Ÿ\ùõ⁄ X]òXú ô[›ÀôÿZ[àHH»X]ú‹\ù
-LJJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú Xõ›ôKôÿZ[àHL»X]ú‹\ù
-LJJHYKLLäN√BÉBà€€ú›úõ⁄Ÿ[àH›ùX›\ôY€€ôJõ⁄ôX›
-N√Bàúõ⁄Ÿ[ãõô]÷ÃWKô[ô⁄[ù»H»òÿ\X⁄]‹ãLNåàóN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ úõ⁄Ÿ[äKú›]Kòõÿ⁄ŸYäN√Bà€€ú›[ùò[YH\]P€€\€ô[ù
-õ⁄ôX›úô\⁄\›‹ãLHã»ò[YNàå3™HàJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ [ùò[Y
-Kú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-îì›À\\‹»ô\‹€úŸH\Ÿ\»Hÿ[›[]Y›]Ÿôà[ô][ùX]\»Xõ›ôH]ã\ﬁ[ò»
+  const broken = structuredClone(project);
+  broken.nets[1].endpoints = ["resistor-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+  const invalid = updateComponent(project, "capacitor-1", { value: "0 F" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const underflow = updateComponent(project, "capacitor-1", { value: "1e-300 F" });
+  const tinyResistance = updateComponent(underflow, "resistor-1", { value: "1e-300 Œ©" });
+  assert.equal(runSupportedAnalysis(tinyResistance).state, "blocked");
+});
 
-HOà√Bà€€ú›õ⁄ôX›Hî””ãú\úŸJ]ÿZ]ôXYö[Jô]»Tì
-ãããŸ^[\\À‹›\[Y[ù[\õ[›À\\‹ÀòYY›[ãöú€€àã[\‹ùõY]Kù\õ
-JJN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ö⁄[ôúõ[›À\\‹»äN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ù[YP€€ú›[ù»HåJHYKLMJN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ò›]ŸôíàHL»
-à
-àX]îH
-àåJJHYKNJN√Bà€€ú›ÿô[›À›]ŸôãXõ›ôWHHô\›[úô\›[úÿ[\\Œ√Bà\‹Ÿ\ùõ⁄ X]òXú ›]ŸôãôÿZ[àHX]î‘TïWÃäHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ›]Ÿôãõ›]][\]YUàHX]î‘TïWÃäHYKLLäN√Bà\‹Ÿ\ùõ⁄ ô[›ÀôÿZ[àà›]ŸôãôÿZ[à	âà›]ŸôãôÿZ[ààXõ›ôKôÿZ[äN√Bà\‹Ÿ\ùõ⁄ X]òXú Xõ›ôKôÿZ[àHH»X]ú‹\ù
-LJJHYKLLäN√BÉBà€€ú›úõ⁄Ÿ[àH›ùX›\ôY€€ôJõ⁄ôX›
-N√Bàúõ⁄Ÿ[ãõô]÷ÃWKô[ô⁄[ù»H»úô\⁄\›‹ãLNåàóN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ úõ⁄Ÿ[äKú›]Kòõÿ⁄ŸYäN√Bà€€ú›[ùò[YH\]P€€\€ô[ù
-õ⁄ôX›ö[ôX›‹ãLHã»ò[YNàåàJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ [ùò[Y
-Kú›]Kòõÿ⁄ŸYäN√Bà€€ú›[ûTô\⁄\›[òŸHH\]P€€\€ô[ù
-õ⁄ôX›úô\⁄\›‹ãLHã»ò[YNàåYKLÃ3™HàJN√Bà€€ú›^ô[YHH\]P€€\€ô[ù
-[ûTô\⁄\›[òŸKö[ôX›‹ãLHã»ò[YNàåYLÃàJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ ^ô[YJKú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-îê»›À\\‹»ô\‹€úŸH\Ÿ\»Hÿ[›[]Y›]Ÿôà[ô][ùX]\»Xõ›ôH]ã\ﬁ[ò»
+test("single-pole RC step response reports time constant and analytic samples", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/005-rc-step-response.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "rc-step-response");
+  assert.ok(Math.abs(result.result.timeConstantS - 0.1) < 1e-12);
+  assert.ok(Math.abs(result.result.samples[1].capacitorVoltage - 5 * (1 - Math.exp(-1))) < 1e-12);
+  assert.ok(Math.abs(result.result.samples[1].currentA - (5 / 1000) * Math.exp(-1)) < 1e-12);
+  const broken = structuredClone(project);
+  broken.nets[1].endpoints = ["resistor-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+  const overflow = structuredClone(project);
+  overflow.components.find((item) => item.instanceId === "resistor-1").value = "1e300 Œ©";
+  overflow.components.find((item) => item.instanceId === "capacitor-1").value = "1e300 F";
+  assert.equal(runSupportedAnalysis(overflow).state, "blocked");
+});
 
-HOà√Bà€€ú›õ⁄ôX›Hî””ãú\úŸJ]ÿZ]ôXYö[Jô]»Tì
-ãããŸ^[\\ÀÃLã\òÀ[›À\\‹ÀòYY›[ãöú€€àã[\‹ùõY]Kù\õ
-JJN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ö⁄[ôúòÀ[›À\\‹»äN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ò›]ŸôíàHH»
-à
-àX]îH
-àåJJHYKLLäN√Bà€€ú›ÿô[›À›]ŸôãXõ›ôWHHô\›[úô\›[úÿ[\\Œ√Bà\‹Ÿ\ùõ⁄ X]òXú ›]ŸôãôÿZ[àHX]î‘TïWÃäHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ›]Ÿôãõ›]][\]YUàHX]î‘TïWÃäHYKLLäN√Bà\‹Ÿ\ùõ⁄ ô[›ÀôÿZ[àà›]ŸôãôÿZ[à	âà›]ŸôãôÿZ[ààXõ›ôKôÿZ[äN√Bà\‹Ÿ\ùõ⁄ X]òXú Xõ›ôKôÿZ[àHH»X]ú‹\ù
-LJJHYKLLäN√BÉBà€€ú›úõ⁄Ÿ[àH›ùX›\ôY€€ôJõ⁄ôX›
-N√Bàúõ⁄Ÿ[ãõô]÷ÃWKô[ô⁄[ù»H»úô\⁄\›‹ãLNåàóN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ úõ⁄Ÿ[äKú›]Kòõÿ⁄ŸYäN√Bà€€ú›[ùò[YH\]P€€\€ô[ù
-õ⁄ôX›òÿ\X⁄]‹ãLHã»ò[YNàåààJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ [ùò[Y
-Kú›]Kòõÿ⁄ŸYäN√Bà€€ú›[ô\ôõ›»H\]P€€\€ô[ù
-õ⁄ôX›òÿ\X⁄]‹ãLHã»ò[YNàåYKLÃààJN√Bà€€ú›[ûTô\⁄\›[òŸHH\]P€€\€ô[ù
-[ô\ôõ›Àúô\⁄\›‹ãLHã»ò[YNàåYKLÃ3™HàJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ [ûTô\⁄\›[òŸJKú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-ú⁄[ô€K\€Hê»›\ô\‹€úŸHô\‹ù»[YH€€ú›[ù[ô[ò[]X»ÿ[\\»ã\ﬁ[ò»
+test("SPDT RC example calculates charging and discharging at one time constant", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/011-rc-charge-discharge.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const charge = runSupportedAnalysis(project);
+  assert.equal(charge.state, "complete");
+  assert.equal(charge.result.kind, "rc-charge-discharge");
+  assert.equal(charge.result.mode, "charge");
+  assert.ok(Math.abs(charge.result.timeConstantS - 0.1) < 1e-12);
+  assert.ok(Math.abs(charge.result.samples[1].capacitorVoltage / 5 - (1 - Math.exp(-1))) < 1e-12);
+  assert.ok(Math.abs(charge.result.samples[1].capacitorVoltage / 5 - 0.6321205588) < 1e-10);
 
-HOà√Bà€€ú›õ⁄ôX›Hî””ãú\úŸJ]ÿZ]ôXYö[Jô]»Tì
-ãããŸ^[\\ÀÃK\òÀ\›\\ô\‹€úŸKòYY›[ãöú€€àã[\‹ùõY]Kù\õ
-JJN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ö⁄[ôúòÀ\›\\ô\‹€úŸHäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ù[YP€€ú›[ù»HåJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[úÿ[\\÷ÃWKòÿ\X⁄]‹ïõ€YŸHHH
-à
-HHX]ô^
-LJJJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[úÿ[\\÷ÃWKò›\úô[ùHH
-H»L
-H
-àX]ô^
-LJJHYKLLäN√Bà€€ú›úõ⁄Ÿ[àH›ùX›\ôY€€ôJõ⁄ôX›
-N√Bàúõ⁄Ÿ[ãõô]÷ÃWKô[ô⁄[ù»H»úô\⁄\›‹ãLNåàóN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ úõ⁄Ÿ[äKú›]Kòõÿ⁄ŸYäN√Bà€€ú››ô\ôõ›»H›ùX›\ôY€€ôJõ⁄ôX›
-N√Bà›ô\ôõ›Àò€€\€ô[ùÀôö[ô
+  const dischargeProject = updateComponent(project, "switch-1", { value: "Discharge (B)" });
+  const discharge = runSupportedAnalysis(dischargeProject);
+  assert.equal(discharge.state, "complete");
+  assert.equal(discharge.result.mode, "discharge");
+  assert.ok(Math.abs(discharge.result.samples[1].capacitorVoltage / 5 - Math.exp(-1)) < 1e-12);
+  assert.ok(Math.abs(discharge.result.samples[1].capacitorVoltage / 5 - 0.3678794412) < 1e-10);
 
-][JHOà][Kö[ú›[òŸRYOOHúô\⁄\›‹ãLHäKùò[YHHåYLÃ3™Hé√Bà›ô\ôõ›Àò€€\€ô[ùÀôö[ô
+  const wrongPosition = updateComponent(project, "switch-1", { value: "Center" });
+  assert.equal(runSupportedAnalysis(wrongPosition).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "SW_COM").endpoints = ["switch-1:COM"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+  const underflow = updateComponent(project, "capacitor-1", { value: "1e-300 F" });
+  const tinyResistance = updateComponent(underflow, "resistor-1", { value: "1e-300 Œ©" });
+  assert.equal(runSupportedAnalysis(tinyResistance).state, "blocked");
+});
 
-][JHOà][Kö[ú›[òŸRYOOHòÿ\X⁄]‹ãLHäKùò[YHHåYLÃàé√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ ›ô\ôõ› Kú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-î‘ê»^[\Hÿ[›[]\»⁄\ô⁄[ô»[ô\ÿ⁄\ô⁄[ô»]€ôH[YH€€ú›[ùã\ﬁ[ò»
+test("single-pole RL step response reports current rise and inductor voltage", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/006-rl-step-response.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "rl-step-response");
+  assert.ok(Math.abs(result.result.timeConstantS - 0.001) < 1e-12);
+  assert.ok(Math.abs(result.result.samples[1].currentA - 0.05 * (1 - Math.exp(-1))) < 1e-12);
+  assert.ok(Math.abs(result.result.samples[1].inductorVoltage - 5 * Math.exp(-1)) < 1e-12);
+  const broken = structuredClone(project);
+  broken.nets[1].endpoints = ["resistor-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
 
-HOà√Bà€€ú›õ⁄ôX›Hî””ãú\úŸJ]ÿZ]ôXYö[Jô]»Tì
-ãããŸ^[\\ÀÃLK\òÀX⁄\ôŸKY\ÿ⁄\ôŸKòYY›[ãöú€€àã[\‹ùõY]Kù\õ
-JJN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√Bà€€ú›⁄\ôŸHHù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-⁄\ôŸKú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-⁄\ôŸKúô\›[ö⁄[ôúòÀX⁄\ôŸKY\ÿ⁄\ôŸHäN√Bà\‹Ÿ\ùô\]X[
-⁄\ôŸKúô\›[õ[ŸKò⁄\ôŸHäN√Bà\‹Ÿ\ùõ⁄ X]òXú ⁄\ôŸKúô\›[ù[YP€€ú›[ù»HåJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ⁄\ôŸKúô\›[úÿ[\\÷ÃWKòÿ\X⁄]‹ïõ€YŸH»HH
-HHX]ô^
-LJJJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ⁄\ôŸKúô\›[úÿ[\\÷ÃWKòÿ\X⁄]‹ïõ€YŸH»HHçåÃåLåMN
-HYKLL
-N√BÉBà€€ú›\ÿ⁄\ôŸTõ⁄ôX›H\]P€€\€ô[ù
-õ⁄ôX›ú›⁄]⁄LHã»ò[YNàë\ÿ⁄\ôŸH
-äHàJN√Bà€€ú›\ÿ⁄\ôŸHHù[î›\‹ùY[ò[\⁄\ \ÿ⁄\ôŸTõ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-\ÿ⁄\ôŸKú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-\ÿ⁄\ôŸKúô\›[õ[ŸKô\ÿ⁄\ôŸHäN√Bà\‹Ÿ\ùõ⁄ X]òXú \ÿ⁄\ôŸKúô\›[úÿ[\\÷ÃWKòÿ\X⁄]‹ïõ€YŸH»HHX]ô^
-LJJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú \ÿ⁄\ôŸKúô\›[úÿ[\\÷ÃWKòÿ\X⁄]‹ïõ€YŸH»HHåÕçŒŒMLäHYKLL
-N√BÉBà€€ú›‹õ€ô‘‹⁄][€àH\]P€€\€ô[ù
-õ⁄ôX›ú›⁄]⁄LHã»ò[YNàêŸ[ù\ààJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ ‹õ€ô‘‹⁄][€äKú›]Kòõÿ⁄ŸYäN√Bà€€ú›úõ⁄Ÿ[àH›ùX›\ôY€€ôJõ⁄ôX›
-N√Bàúõ⁄Ÿ[ãõô]Àôö[ô
+test("multiple DC voltage sources solve by modified nodal analysis and enforce power balance", () => {
+  const project = createEmptyProject();
+  const positions = {
+    "source-1": { breadboard: [80, 80], schematic: [80, 80], pcb: [80, 80] },
+    "source-2": { breadboard: [240, 80], schematic: [240, 80], pcb: [240, 80] },
+    "resistor-1": { breadboard: [400, 80], schematic: [400, 80], pcb: [400, 80] },
+    "ground-1": { breadboard: [560, 80], schematic: [560, 80], pcb: [560, 80] }
+  };
+  project.components = [
+    { instanceId: "source-1", libraryId: "power.dc-source", reference: "V1", value: "5 V", position: positions["source-1"] },
+    { instanceId: "source-2", libraryId: "power.dc-source", reference: "V2", value: "3 V", position: positions["source-2"] },
+    { instanceId: "resistor-1", libraryId: "passive.resistor", reference: "R1", value: "1 kŒ©", position: positions["resistor-1"] },
+    { instanceId: "ground-1", libraryId: "ground.signal", reference: "GND", value: "0 V", position: positions["ground-1"] }
+  ];
+  project.nets = [
+    { id: "GND", endpoints: ["source-1:-", "resistor-1:2", "ground-1:0"] },
+    { id: "MID", endpoints: ["source-1:+", "source-2:-"] },
+    { id: "VOUT", endpoints: ["source-2:+", "resistor-1:1"] }
+  ];
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "multi-source-resistive-network");
+  assert.ok(Math.abs(result.result.nodeVoltages.MID - 5) < 1e-12);
+  assert.ok(Math.abs(result.result.nodeVoltages.VOUT - 8) < 1e-12);
+  assert.ok(Math.abs(result.result.resistors[0].currentA - 0.008) < 1e-12);
+  assert.ok(Math.abs(result.result.sources[0].deliveredCurrentA - 0.008) < 1e-12);
+  assert.ok(Math.abs(result.result.sources[1].deliveredCurrentA - 0.008) < 1e-12);
+  assert.ok(Math.abs(result.result.powerBalanceW) < 1e-12);
 
-ô]
-HOàô]öYOOHî’◊–””HäKô[ô⁄[ù»H»ú›⁄]⁄LNê””HóN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ úõ⁄Ÿ[äKú›]Kòõÿ⁄ŸYäN√Bà€€ú›[ô\ôõ›»H\]P€€\€ô[ù
-õ⁄ôX›òÿ\X⁄]‹ãLHã»ò[YNàåYKLÃààJN√Bà€€ú›[ûTô\⁄\›[òŸHH\]P€€\€ô[ù
-[ô\ôõ›Àúô\⁄\›‹ãLHã»ò[YNàåYKLÃ3™HàJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ [ûTô\⁄\›[òŸJKú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-ú⁄[ô€K\€Hì›\ô\‹€úŸHô\‹ù»›\úô[ùö\ŸH[ô[ôX›‹àõ€YŸHã\ﬁ[ò»
+  const contradictory = structuredClone(project);
+  contradictory.nets = [
+    { id: "VOUT", endpoints: ["source-1:+", "source-2:+", "resistor-1:1"] },
+    { id: "GND", endpoints: ["source-1:-", "source-2:-", "resistor-1:2", "ground-1:0"] }
+  ];
+  contradictory.components.find((item) => item.instanceId === "source-2").value = "3 V";
+  assert.equal(runSupportedAnalysis(contradictory).state, "blocked");
+});
 
-HOà√Bà€€ú›õ⁄ôX›Hî””ãú\úŸJ]ÿZ]ôXYö[Jô]»Tì
-ãããŸ^[\\ÀÃã\õ\›\\ô\‹€úŸKòYY›[ãöú€€àã[\‹ùõY]Kù\õ
-JJN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ö⁄[ôúõ\›\\ô\‹€úŸHäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ù[YP€€ú›[ù»HåJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[úÿ[\\÷ÃWKò›\úô[ùHHåH
-à
-HHX]ô^
-LJJJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[úÿ[\\÷ÃWKö[ôX›‹ïõ€YŸHHH
-àX]ô^
-LJJHYKLLäN√Bà€€ú›úõ⁄Ÿ[àH›ùX›\ôY€€ôJõ⁄ôX›
-N√Bàúõ⁄Ÿ[ãõô]÷ÃWKô[ô⁄[ù»H»úô\⁄\›‹ãLNåàóN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ úõ⁄Ÿ[äKú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-õ][\H»õ€YŸH€›\òŸ\»€€ôHûH[ŸYöYYõŸ[[ò[\⁄\»[ô[ôõ‹òŸH›Ÿ\àò[[òŸHã
+test("ideal DC current source drives a resistor and balances power", () => {
+  const project = createEmptyProject();
+  const positions = {
+    "current-1": { breadboard: [120, 80], schematic: [120, 80], pcb: [120, 80] },
+    "resistor-1": { breadboard: [320, 80], schematic: [320, 80], pcb: [320, 80] },
+    "ground-1": { breadboard: [520, 80], schematic: [520, 80], pcb: [520, 80] }
+  };
+  project.components = [
+    { instanceId: "current-1", libraryId: "power.dc-current-source", reference: "I1", value: "1 mA", position: positions["current-1"] },
+    { instanceId: "resistor-1", libraryId: "passive.resistor", reference: "R1", value: "1 kŒ©", position: positions["resistor-1"] },
+    { instanceId: "ground-1", libraryId: "ground.signal", reference: "GND", value: "0 V", position: positions["ground-1"] }
+  ];
+  project.nets = [
+    { id: "LOAD", endpoints: ["current-1:+", "resistor-1:1"] },
+    { id: "GND", endpoints: ["current-1:-", "resistor-1:2", "ground-1:0"] }
+  ];
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "linear-dc-mna-network");
+  assert.ok(Math.abs(result.result.nodeVoltages.LOAD - 1) < 1e-12);
+  assert.ok(Math.abs(result.result.resistors[0].currentA - 0.001) < 1e-12);
+  assert.ok(Math.abs(result.result.currentSources[0].outputCurrentA - 0.001) < 1e-12);
+  assert.ok(Math.abs(result.result.powerBalanceW) < 1e-12);
 
-HOà√Bà€€ú›õ⁄ôX›H‹ôX]Q[\Tõ⁄ôX›
+  const mixed = structuredClone(project);
+  mixed.components.push({
+    instanceId: "voltage-1", libraryId: "power.dc-source", reference: "V1", value: "5 V",
+    position: { breadboard: [120, 180], schematic: [120, 180], pcb: [120, 180] }
+  });
+  mixed.nets[0].endpoints.push("voltage-1:+");
+  mixed.nets[1].endpoints.push("voltage-1:-");
+  const mixedResult = runSupportedAnalysis(mixed);
+  assert.equal(mixedResult.state, "complete");
+  assert.ok(Math.abs(mixedResult.result.nodeVoltages.LOAD - 5) < 1e-12);
+  assert.ok(Math.abs(mixedResult.result.sources[0].deliveredCurrentA - 0.004) < 1e-12);
+  assert.ok(Math.abs(mixedResult.result.currentSources[0].powerDeliveredW - 0.005) < 1e-12);
+  assert.ok(Math.abs(mixedResult.result.powerBalanceW) < 1e-12);
 
-N√Bà€€ú›‹⁄][€ú»H√Bàú€›\òŸKLHéà»úôXYõÿ\ôàŒKÿ⁄[X]XŒàŒKÿéàŒHKBàú€›\òŸKLàéà»úôXYõÿ\ôàÃçKÿ⁄[X]XŒàÃçKÿéàÃçHKBàúô\⁄\›‹ãLHéà»úôXYõÿ\ôàÕKÿ⁄[X]XŒàÕKÿéàÕHKBàô‹õ›[ôLHéà»úôXYõÿ\ôàÕMåKÿ⁄[X]XŒàÕMåKÿéàÕMåHCBàN√Bàõ⁄ôX›ò€€\€ô[ù»H√Bà»[ú›[òŸRYàú€›\òŸKLHãXúò\ûRYàú›Ÿ\ãôÀ\€›\òŸHãôYô\ô[òŸNàïåHãò[YNàçHàã‹⁄][€éà‹⁄][€ú÷»ú€›\òŸKLHóHKBà»[ú›[òŸRYàú€›\òŸKLàãXúò\ûRYàú›Ÿ\ãôÀ\€›\òŸHãôYô\ô[òŸNàïåàãò[YNàå»àã‹⁄][€éà‹⁄][€ú÷»ú€›\òŸKLàóHKBà»[ú›[òŸRYàúô\⁄\›‹ãLHãXúò\ûRYàú\‹⁄]ôKúô\⁄\›‹àãôYô\ô[òŸNàîåHãò[YNàåHÛ™Hã‹⁄][€éà‹⁄][€ú÷»úô\⁄\›‹ãLHóHKBà»[ú›[òŸRYàô‹õ›[ôLHãXúò\ûRYàô‹õ›[ôú⁄Y€ò[ãôYô\ô[òŸNàë”ëãò[YNàåàã‹⁄][€éà‹⁄][€ú÷»ô‹õ›[ôLHóHCBàN√Bàõ⁄ôX›õô]»H√Bà»Yàë”ëã[ô⁄[ùŒà»ú€›\òŸKLNãHãúô\⁄\›‹ãLNåàãô‹õ›[ôLNåóHKBà»YàìRQã[ô⁄[ùŒà»ú€›\òŸKLNä»ãú€›\òŸKLéãHóHKBà»Yàïì’Uã[ô⁄[ùŒà»ú€›\òŸKLéä»ãúô\⁄\›‹ãLNåHóHCBàN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ö⁄[ôõ][K\€›\òŸK\ô\⁄\›]ôK[ô]€‹ö»äN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[õõŸUõ€YŸ\ÀìRQHJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[õõŸUõ€YŸ\Àïì’UH
-HYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[úô\⁄\›‹ú÷ÃKò›\úô[ùHHå
-HYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ú€›\òŸ\÷ÃKô[]ô\ôY›\úô[ùHHå
-HYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ú€›\òŸ\÷ÃWKô[]ô\ôY›\úô[ùHHå
-HYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ú›Ÿ\êò[[òŸU HYKLLäN√BÉBà€€ú›€€ùòYX›‹ûHH›ùX›\ôY€€ôJõ⁄ôX›
-N√Bà€€ùòYX›‹ûKõô]»H√Bà»Yàïì’Uã[ô⁄[ùŒà»ú€›\òŸKLNä»ãú€›\òŸKLéä»ãúô\⁄\›‹ãLNåHóHKBà»Yàë”ëã[ô⁄[ùŒà»ú€›\òŸKLNãHãú€›\òŸKLéãHãúô\⁄\›‹ãLNåàãô‹õ›[ôLNåóHCBàN√Bà€€ùòYX›‹ûKò€€\€ô[ùÀôö[ô
+  const malformed = structuredClone(project);
+  malformed.components[0].value = "1 mV";
+  assert.equal(runSupportedAnalysis(malformed).state, "blocked");
+});
 
-][JHOà][Kö[ú›[òŸRYOOHú€›\òŸKLàäKùò[YHHå»àé√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ €€ùòYX›‹ûJKú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-öYX[»›\úô[ù€›\òŸHö]ô\»Hô\⁄\›‹à[ôò[[òŸ\»›Ÿ\àã
+test("linear DC nodal analysis blocks a floating resistor island", () => {
+  const project = createVoltageDividerProject();
+  project.nets = [
+    { id: "VCC", endpoints: ["source-1:+"] },
+    { id: "UPPER", endpoints: ["resistor-top-1:1", "resistor-top-1:2"] },
+    { id: "LOWER", endpoints: ["resistor-bottom-1:1", "resistor-bottom-1:2"] },
+    { id: "GND", endpoints: ["source-1:-", "ground-1:0"] }
+  ];
+  assert.equal(runSupportedAnalysis(project).state, "blocked");
+});
 
-HOà√Bà€€ú›õ⁄ôX›H‹ôX]Q[\Tõ⁄ôX›
+test("a voltage divider with a broken netlist is blocked rather than guessed", () => {
+  const project = createVoltageDividerProject();
+  project.nets = [];
+  assert.equal(runSupportedAnalysis(project).state, "blocked");
+});
 
-N√Bà€€ú›‹⁄][€ú»H√Bàò›\úô[ùLHéà»úôXYõÿ\ôàÃLåKÿ⁄[X]XŒàÃLåKÿéàÃLåHKBàúô\⁄\›‹ãLHéà»úôXYõÿ\ôàÃÃåKÿ⁄[X]XŒàÃÃåKÿéàÃÃåHKBàô‹õ›[ôLHéà»úôXYõÿ\ôàÕLåKÿ⁄[X]XŒàÕLåKÿéàÕLåHCBàN√Bàõ⁄ôX›ò€€\€ô[ù»H√Bà»[ú›[òŸRYàò›\úô[ùLHãXúò\ûRYàú›Ÿ\ãôÀX›\úô[ù\€›\òŸHãôYô\ô[òŸNàíLHãò[YNàåHPHã‹⁄][€éà‹⁄][€ú÷»ò›\úô[ùLHóHKBà»[ú›[òŸRYàúô\⁄\›‹ãLHãXúò\ûRYàú\‹⁄]ôKúô\⁄\›‹àãôYô\ô[òŸNàîåHãò[YNàåHÛ™Hã‹⁄][€éà‹⁄][€ú÷»úô\⁄\›‹ãLHóHKBà»[ú›[òŸRYàô‹õ›[ôLHãXúò\ûRYàô‹õ›[ôú⁄Y€ò[ãôYô\ô[òŸNàë”ëãò[YNàåàã‹⁄][€éà‹⁄][€ú÷»ô‹õ›[ôLHóHCBàN√Bàõ⁄ôX›õô]»H√Bà»Yàì–Qã[ô⁄[ùŒà»ò›\úô[ùLNä»ãúô\⁄\›‹ãLNåHóHKBà»Yàë”ëã[ô⁄[ùŒà»ò›\úô[ùLNãHãúô\⁄\›‹ãLNåàãô‹õ›[ôLNåóHCBàN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√Bà€€ú›ô\›[Hù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùô\]X[
-ô\›[úô\›[ö⁄[ôõ[ôX\ãYÀ[[òK[ô]€‹ö»äN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[õõŸUõ€YŸ\Àì–QHJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[úô\⁄\›‹ú÷ÃKò›\úô[ùHHåJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ò›\úô[ù€›\òŸ\÷ÃKõ›]]›\úô[ùHHåJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú ô\›[úô\›[ú›Ÿ\êò[[òŸU HYKLLäN√BÉBà€€ú›Z^YH›ùX›\ôY€€ôJõ⁄ôX›
-N√BàZ^Yò€€\€ô[ùÀú\⁄
-√Bà[ú›[òŸRYàùõ€YŸKLHãXúò\ûRYàú›Ÿ\ãôÀ\€›\òŸHãôYô\ô[òŸNàïåHãò[YNàçHàãBà‹⁄][€éà»úôXYõÿ\ôàÃLåNKÿ⁄[X]XŒàÃLåNKÿéàÃLåNHCBàJN√BàZ^Yõô]÷ÃKô[ô⁄[ùÀú\⁄
-ùõ€YŸKLNä»äN√BàZ^Yõô]÷ÃWKô[ô⁄[ùÀú\⁄
-ùõ€YŸKLNãHäN√Bà€€ú›Z^Yô\›[Hù[î›\‹ùY[ò[\⁄\ Z^Y
-N√Bà\‹Ÿ\ùô\]X[
-Z^Yô\›[ú›]Kò€€\]HäN√Bà\‹Ÿ\ùõ⁄ X]òXú Z^Yô\›[úô\›[õõŸUõ€YŸ\Àì–QHJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú Z^Yô\›[úô\›[ú€›\òŸ\÷ÃKô[]ô\ôY›\úô[ùHHå
-HYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú Z^Yô\›[úô\›[ò›\úô[ù€›\òŸ\÷ÃKú›Ÿ\ë[]ô\ôY»HåJHYKLLäN√Bà\‹Ÿ\ùõ⁄ X]òXú Z^Yô\›[úô\›[ú›Ÿ\êò[[òŸU HYKLLäN√BÉBà€€ú›X[õ‹õYYH›ùX›\ôY€€ôJõ⁄ôX›
-N√BàX[õ‹õYYò€€\€ô[ù÷ÃKùò[YHHåHUàé√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ X[õ‹õYY
-Kú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-õ[ôX\à»õŸ[[ò[\⁄\»õÿ⁄‹»Hõÿ][ô»ô\⁄\›‹à\€[ôã
+test("invalid net endpoints are rejected before analysis", () => {
+  const project = createProject();
+  project.nets[0].endpoints.push("resistor-1:9");
+  const validation = validateProject(project);
+  assert.equal(validation.valid, false);
+  assert.equal(runSupportedAnalysis(project).state, "blocked");
+});
 
-HOà√Bà€€ú›õ⁄ôX›H‹ôX]Uõ€YŸQ]öY\îõ⁄ôX›
+test("duplicate net identifiers and invalid LED forward voltage are blocked", () => {
+  const duplicate = createProject();
+  duplicate.nets[1].id = duplicate.nets[0].id;
+  assert.ok(validateProject(duplicate).errors.some((issue) => issue.rule === "DUPLICATE_NET_ID"));
+  const invalidLed = updateComponent(createProject(), "led-1", { value: "Vf -2.0 V" });
+  assert.equal(runSupportedAnalysis(invalidLed).state, "blocked");
+});
 
-N√Bàõ⁄ôX›õô]»H√Bà»Yàïê–»ã[ô⁄[ùŒà»ú€›\òŸKLNä»óHKBà»YàïTTàã[ô⁄[ùŒà»úô\⁄\›‹ã]‹LNåHãúô\⁄\›‹ã]‹LNåàóHKBà»Yàì’—Tàã[ô⁄[ùŒà»úô\⁄\›‹ãXõ›€KLNåHãúô\⁄\›‹ãXõ›€KLNåàóHKBà»Yàë”ëã[ô⁄[ùŒà»ú€›\òŸKLNãHãô‹õ›[ôLNåóHCBàN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-Kú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-òHõ€YŸH]öY\à⁄]Húõ⁄Ÿ[àô]\›\»õÿ⁄ŸYò]\à[à›Y\‹ŸYã
+test("electrical-rule validation warns about unconnected pins and blocks a source short", () => {
+  const incomplete = addComponent(createProject(), "input.pushbutton");
+  assert.ok(validateProject(incomplete).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"));
+  const shorted = createProject();
+  shorted.nets[0].endpoints.push("source-1:-");
+  const validation = validateProject(shorted);
+  assert.ok(validation.errors.some((issue) => issue.rule === "SOURCE_SHORT"));
+  assert.equal(runSupportedAnalysis(shorted).state, "blocked");
+});
 
-HOà√Bà€€ú›õ⁄ôX›H‹ôX]Uõ€YŸQ]öY\îõ⁄ôX›
+test("a disconnected LED demo is not presented as a supported calculation", () => {
+  const project = createProject();
+  project.nets = [];
+  assert.equal(runSupportedAnalysis(project).state, "blocked");
+});
 
-N√Bàõ⁄ôX›õô]»H◊N√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-Kú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-ö[ùò[Yô][ô⁄[ù»\ôHôZôX›YôYõ‹ôH[ò[\⁄\»ã
+test("views report missing mappings instead of fabricating a representation", () => {
+  const project = addComponent(createProject(), "instrument.voltmeter");
+  assert.equal(getViewReconciliationIssues(project, "schematic").length, 0);
+  assert.equal(getViewReconciliationIssues(project, "breadboard").at(-1).reference, "M1");
+  assert.equal(getViewReconciliationIssues(project, "pcb").length, project.components.length);
+});
 
-HOà√Bà€€ú›õ⁄ôX›H‹ôX]Tõ⁄ôX›
+test("component insertion assigns a unique reference and retains project validity", () => {
+  const project = addComponent(createProject(), "input.pushbutton");
+  assert.equal(project.components.at(-1).reference, "SW1");
+  assert.equal(validateProject(project).valid, true);
+});
 
-N√Bàõ⁄ôX›õô]÷ÃKô[ô⁄[ùÀú\⁄
-úô\⁄\›‹ãLNéHäN√Bà€€ú›ò[Y][€àHò[Y]Tõ⁄ôX›
-õ⁄ôX›
-N√Bà\‹Ÿ\ùô\]X[
-ò[Y][€ãùò[Yò[ŸJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-Kú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-ô\Xÿ]Hô]Y[ùYöY\ú»[ô[ùò[YQõ‹ùÿ\ôõ€YŸH\ôHõÿ⁄ŸYã
+test("added components use open canvas positions in each representation", () => {
+  let project = createEmptyProject();
+  for (let index = 0; index < 12; index += 1) project = addComponent(project, "passive.resistor");
+  const overlaps = validateProject(project).warnings.filter((issue) => issue.rule === "LAYOUT_OVERLAP");
+  assert.deepEqual(overlaps, []);
+  for (const view of ["breadboard", "schematic", "pcb"]) {
+    const coordinates = project.components.map((item) => item.position[view]);
+    assert.equal(new Set(coordinates.map((position) => position.join(","))).size, coordinates.length);
+  }
+});
 
-HOà√Bà€€ú›\Xÿ]HH‹ôX]Tõ⁄ôX›
+test("component movement is view-specific, bounded, and may snap to the grid", () => {
+  const moved = moveComponent(createProject(), "resistor-1", "schematic", [300, 147], { snap: true });
+  const resistor = moved.components.find((component) => component.instanceId === "resistor-1");
+  assert.deepEqual(resistor.position.schematic, [300, 144]);
+  assert.deepEqual(resistor.position.breadboard, [255, 142]);
+  const bounded = moveComponent(moved, "resistor-1", "breadboard", [-400, 900]);
+  assert.deepEqual(bounded.components.find((component) => component.instanceId === "resistor-1").position.breadboard, [28, 244]);
+});
 
-N√Bà\Xÿ]Kõô]÷ÃWKöYH\Xÿ]Kõô]÷ÃKöY√Bà\‹Ÿ\ùõ⁄ ò[Y]Tõ⁄ôX›
-\Xÿ]JKô\úõ‹úÀú€€YJ
-\‹›YJHOà\‹›YKúù[HOOHëTP–UW”ëU“QäJN√Bà€€ú›[ùò[YYH\]P€€\€ô[ù
-‹ôX]Tõ⁄ôX›
+test("pin wiring merges existing nets and disconnection preserves remaining nets", () => {
+  const project = createProject();
+  const connected = connectPins(project, "source-1:+", "led-1:A");
+  assert.equal(connected.nets.length, 2);
+  assert.ok(connected.nets.some((net) => net.endpoints.includes("source-1:+") && net.endpoints.includes("resistor-1:1") && net.endpoints.includes("led-1:A")));
+  assert.equal(validateProject(connected).valid, true);
+  const disconnected = disconnectPin(connected, "led-1:A");
+  assert.ok(!disconnected.nets.some((net) => net.endpoints.includes("led-1:A")));
+  assert.equal(validateProject(disconnected).valid, true);
+  assert.throws(() => connectPins(project, "missing:1", "led-1:A"));
+});
 
-KõYLHã»ò[YNàïôàLãåààJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ [ùò[YY
-Kú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-ô[X›öXÿ[\ù[Hò[Y][€àÿ\õú»Xõ›][ò€€õôX›Y[ú»[ôõÿ⁄‹»H€›\òŸH⁄‹ùã
+test("component removal cleans its pins from nets and leaves project valid", () => {
+  const removed = removeComponent(createProject(), "led-1");
+  assert.ok(!removed.components.some((item) => item.instanceId === "led-1"));
+  assert.ok(removed.nets.every((net) => net.endpoints.every((item) => !item.startsWith("led-1:"))));
+  assert.equal(validateProject(removed).valid, true);
+  assert.throws(() => removeComponent(removed, "missing"));
+});
 
-HOà√Bà€€ú›[ò€€\]HHY€€\€ô[ù
-‹ôX]Tõ⁄ôX›
+test("all starter library entries have a visible category and explicit view mappings", () => {
+  for (const part of STARTER_LIBRARY) {
+    assert.ok(part.category);
+    assert.equal(typeof part.views.breadboard, "boolean");
+    assert.equal(typeof part.views.schematic, "boolean");
+    assert.equal(typeof part.views.pcb, "boolean");
+  }
+});
 
-Kö[ú]ú\⁄ù]€àäN√Bà\‹Ÿ\ùõ⁄ ò[Y]Tõ⁄ôX›
-[ò€€\]JKùÿ\õö[ô‹Àú€€YJ
-\‹›YJHOà\‹›YKúù[HOOHïSê””ìëP’Q‘SàäJN√Bà€€ú›⁄‹ùYH‹ôX]Tõ⁄ôX›
+test("native project serialization round-trips", () => {
+  const project = createProject();
+  assert.deepEqual(parseProject(serializeProject(project)), project);
+});
 
-N√Bà⁄‹ùYõô]÷ÃKô[ô⁄[ùÀú\⁄
-ú€›\òŸKLNãHäN√Bà€€ú›ò[Y][€àHò[Y]Tõ⁄ôX›
-⁄‹ùY
-N√Bà\‹Ÿ\ùõ⁄ ò[Y][€ãô\úõ‹úÀú€€YJ
-\‹›YJHOà\‹›YKúù[HOOHî”’Tê—W‘“‘ïäJN√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ ⁄‹ùY
-Kú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-òH\ÿ€€õôX›YQ[[»\»õ›ô\Ÿ[ùY\»H›\‹ùYÿ[›[][€àã
+test("malformed imported project shapes return validation errors instead of throwing", () => {
+  for (const value of [null, [], {}, { schemaVersion: 1, metadata: { name: "Broken" }, components: [], nets: [null] }, { schemaVersion: 1, metadata: { name: "Broken" }, components: [], nets: [{ id: "NET" }] }]) {
+    assert.doesNotThrow(() => validateProject(value));
+    assert.equal(validateProject(value).valid, false);
+  }
+  assert.throws(() => parseProject(JSON.stringify({ schemaVersion: 1, metadata: { name: "Broken" }, components: [], nets: [{ id: "NET" }] })));
+});
 
-HOà√Bà€€ú›õ⁄ôX›H‹ôX]Tõ⁄ôX›
+test("layout positions must be numeric, safe, and within canvas bounds", () => {
+  const malformed = createProject();
+  malformed.components[0].position.schematic = ['0" onmouseover="alert(1)', 120];
+  assert.ok(validateProject(malformed).errors.some((issue) => issue.rule === "LAYOUT_POSITION"));
+  assert.throws(() => parseProject(JSON.stringify(malformed)));
+  const outside = createProject();
+  outside.components[0].position.pcb = [5000, 120];
+  assert.ok(validateProject(outside).errors.some((issue) => issue.rule === "LAYOUT_BOUNDS"));
+});
 
-N√Bàõ⁄ôX›õô]»H◊N√Bà\‹Ÿ\ùô\]X[
-ù[î›\‹ùY[ò[\⁄\ õ⁄ôX›
-Kú›]Kòõÿ⁄ŸYäN√BüJN√BÉBù\›
-ùöY]‹»ô\‹ùZ\‹⁄[ô»X\[ô‹»[ú›XYŸàòXúöXÿ][ô»Hô\ô\Ÿ[ù][€àã
+test("part ledger preserves candidate status until complete real-part evidence is reviewed", async () => {
+  const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url)));
+  const taxonomy = JSON.parse(await readFile(new URL("../library/component-types.json", import.meta.url)));
+  const manifest = JSON.parse(await readFile(new URL("../library/parts-manifest.json", import.meta.url)));
+  const coverageFile = JSON.parse(await readFile(new URL("../library/parts-coverage.json", import.meta.url)));
+  assert.equal(validateComponentTypes(taxonomy).valid, true);
+  assert.equal(validatePartLedger(ledger, taxonomy).valid, true);
+  assert.equal(validatePartsManifest(manifest, taxonomy, ledger).valid, true);
+  const coverage = getLedgerCoverage(ledger);
+  assert.equal(coverage.total, 14);
+  assert.equal(coverage.verified, 0);
+  assert.equal(coverage.byStatus.candidate, 14);
+  assert.equal(coverage.remaining, 1000);
+  assert.deepEqual(getLibraryCoverage(ledger, taxonomy), coverageFile);
+  assert.equal(coverageFile.taxonomy.totalTypes, 565);
+  assert.equal(coverageFile.taxonomy.categories.length, 15);
+  assert.equal(coverageFile.ledger.total, 14);
+  assert.equal(coverageFile.ledger.verified, 0);
+  assert.equal(coverageFile.ledger.byStatus.candidate, 14);
+  const readiness = getPartVerificationReadiness(ledger.records[0]);
+  assert.equal(readiness.currentStatus, "candidate");
+  assert.equal(readiness.verified, false);
+  assert.equal(readiness.readyForHumanReview, true);
+  assert.equal(readiness.requiresHumanReview, true);
+  assert.ok(readiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
+  assert.equal(coverageFile.reviewQueue.length, 14);
+  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId).sort(), ["microchip.atmega328p-pu", "microchip.mcp6002-i-p", "ti.lm555p", "ti.lm7805ct-nopb", "ti.sn74hc00n", "ti.sn74hc08n", "ti.sn74hc14n", "ti.sn74hc32n", "ti.sn74hc74n", "ti.sn74hc86n"]);
+  const flipFlop = ledger.records.find((record) => record.id === "ti.sn74hc74n");
+  assert.equal(flipFlop.manufacturerPartNumber, "SN74HC74N");
+  assert.equal(flipFlop.typeCode, "F32");
+  assert.equal(flipFlop.verificationStatus, "candidate");
+  assert.equal(flipFlop.datasheet.sha256, "a4043d37d693a2997900a0542dd226b9b61285794f3c1a541adb99cc7dcb1ae2");
+  assert.deepEqual(flipFlop.symbolPinMap, { "1":"1CLR", "2":"1D", "3":"1CLK", "4":"1PRE", "5":"1Q", "6":"1QBAR", "7":"GND", "8":"2QBAR", "9":"2Q", "10":"2PRE", "11":"2CLK", "12":"2D", "13":"2CLR", "14":"VCC" });
+  assert.equal(getPartVerificationReadiness(flipFlop).readyForHumanReview, true);
+});
 
-HOà√Bà€€ú›õ⁄ôX›HY€€\€ô[ù
-‹ôX]Tõ⁄ôX›
+test("verified parts require complete datasheet, package, pin, model, license, safety, and translation evidence", () => {
+  const record = {
+    id: "fixture.part",
+    manufacturer: "Fixture Manufacturer",
+    manufacturerPartNumber: "FIXTURE-2",
+    category: "Test",
+    type: "small-signal diode",
+    typeCode: "C01",
+    lifecycle: "active",
+    verificationStatus: "verified",
+    package: "DIP-2",
+    packageEvidence: { sourceUrl: "https://manufacturer.example/package" },
+    ratings: [{ name: "reverse voltage", maximum: 100, unit: "V" }],
+    symbolPinMap: { "1": "Anode", "2": "Cathode" },
+    footprintPadMap: { "1": "pad-1", "2": "pad-2" },
+    pinElectricalTypes: { "1": "passive", "2": "passive" },
+    symbolAsset: { sourceUrl: "https://manufacturer.example/symbol", sha256: "b".repeat(64), licenseId: "CC0-1.0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/" },
+    footprintAsset: { sourceUrl: "https://manufacturer.example/footprint", sha256: "c".repeat(64), licenseId: "CC0-1.0", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/" },
+    modelStatus: "not-modelled",
+    simulationModel: { status: "not-modelled", reason: "No validated model is supplied for this example record." },
+    breadboard: { compatible: true, adapter: "Direct DIP-2 placement", operatingLimits: ["Observe rated reverse voltage."] },
+    warnings: [],
+    alternates: [],
+    translations: {
+      en: { name: "Fixture diode", description: "Two-pin test part." },
+      de: { name: "Testdiode", description: "Zweipoliges Testbauteil." },
+      yo: { name: "D√≠√≥√≤d√¨ √¨d√°nw√≤", description: "·∫∏ÃÄy√† √¨d√°nw√≤ ·∫πs·∫πÃÄ m√©j√¨." },
+      pcm: { name: "Test diode", description: "Two-pin test part." }
+    },
+    lifecycleEvidence: { sourceUrl: "https://manufacturer.example/lifecycle" },
+    lastReviewedAt: "2026-10-31",
+    reviewedBy: "Fixture Reviewer",
+    datasheet: {
+      title: "Fixture datasheet",
+      url: "https://manufacturer.example/datasheet.pdf",
+      accessedAt: "2026-10-31",
+      sha256: "a".repeat(64)
+    }
+  };
+  assert.deepEqual(validatePartRecord(record), []);
+  assert.ok(validatePartRecord({ ...record, datasheet: { ...record.datasheet, sha256: "not-a-checksum" } }).some((issue) => issue.code === "DATASHEET_CHECKSUM"));
+  assert.ok(validatePartRecord({ ...record, footprintPadMap: { "1": "pad-1", "3": "pad-2" } }).some((issue) => issue.code === "PIN_MAP_ALIGNMENT"));
+  assert.ok(validatePartRecord({ ...record, footprintPadMap: { "1": "pad-1", "2": "pad-1" } }).some((issue) => issue.code === "PIN_MAP_ALIGNMENT"));
+  assert.ok(validatePartRecord({ ...record, lastReviewedAt: "2026-02-31" }).some((issue) => issue.code === "REVIEW_DATE"));
+  assert.ok(validatePartRecord({ ...record, reviewedBy: "TBD" }).some((issue) => issue.code === "REVIEWER_IDENTITY"));
+  assert.ok(validatePartRecord({ ...record, symbolPinMap: { "1": null, "2": "Cathode" } }).some((issue) => issue.code === "SYMBOL_PIN_MAP"));
+  assert.ok(validatePartRecord({ ...record, symbolAsset: { ...record.symbolAsset, licenseId: "" } }).some((issue) => issue.code === "SYMBOL_ASSET_EVIDENCE"));
+  assert.ok(validatePartRecord({ ...record, translations: { en: record.translations.en } }).some((issue) => issue.code === "TRANSLATIONS"));
+  assert.ok(validatePartRecord({ ...record, ratings: [{ name: "voltage", maximum: 5 }] }).some((issue) => issue.code === "RATINGS_UNITS"));
+});
 
-Kö[ú›ù[Y[ùùõ€Y]\àäN√Bà\‹Ÿ\ùô\]X[
-Ÿ]öY]‘ôX€€ò⁄[X][€í\‹›Y\ õ⁄ôX›úÿ⁄[X]X»äKõ[ô›
-N√Bà\‹Ÿ\ùô\]X[
-Ÿ]öY]‘ôX€€ò⁄[X][€í\‹›Y\ õ⁄ôX›òúôXYõÿ\ôäKò]
-LJKúôYô\ô[òŸKìLHäN√Bà\‹Ÿ\ùô\]X[
-Ÿ]öY]‘ôX€€ò⁄[X][€í\‹›Y\ õ⁄ôX›úÿàäKõ[ô›õ⁄ôX›ò€€\€ô[ùÀõ[ô›
-N√BüJN√BÉBù\›
-ò€€\€ô[ù[úŸ\ù[€à\‹⁄Y€ú»H[ö\]YHôYô\ô[òŸH[ôô]Z[ú»õ⁄ôX›ò[Y]Hã
+test("a verified record cannot bypass checksum, mapping, model, and human-review evidence", () => {
+  const errors = validatePartRecord({ id: "unsafe.example", manufacturer: "Example", manufacturerPartNumber: "X1", category: "Test", type: "test", lifecycle: "active", verificationStatus: "verified", datasheet: { title: "Source", url: "https://example.invalid", accessedAt: "2026-10-30" } });
+  assert.ok(errors.some((error) => error.code === "DATASHEET_CHECKSUM"));
+  assert.ok(errors.some((error) => error.code === "VERIFIED_EVIDENCE"));
+  assert.ok(errors.some((error) => error.code === "MODEL_PROVENANCE"));
+});
 
-HOà√Bà€€ú›õ⁄ôX›HY€€\€ô[ù
-‹ôX]Tõ⁄ôX›
+test("catalogue latching SPDT switch selects a defined LED state", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/004-latching-led-switch.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const on = runSupportedAnalysis(project);
+  assert.equal(on.state, "complete");
+  assert.equal(on.result.kind, "latching-led-switch");
+  assert.equal(on.result.switchPosition, "A");
+  assert.equal(on.result.ledOn, true);
+  assert.ok(Math.abs(on.result.ledCurrentA - (5 - 2) / 330) < 1e-12);
+  assert.ok(Math.abs(on.result.powerBalanceW) < 1e-12);
 
-Kö[ú]ú\⁄ù]€àäN√Bà\‹Ÿ\ùô\]X[
-õ⁄ôX›ò€€\€ô[ùÀò]
-LJKúôYô\ô[òŸKî’ÃHäN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùò[YùYJN√BüJN√BÉBù\›
-òYY€€\€ô[ù»\ŸH‹[àÿ[ùò\»‹⁄][€ú»[àXX⁄ô\ô\Ÿ[ù][€àã
+  const off = runSupportedAnalysis(updateComponent(project, "switch-1", { value: "Position B" }));
+  assert.equal(off.state, "complete");
+  assert.equal(off.result.switchPosition, "B");
+  assert.equal(off.result.ledOn, false);
+  assert.equal(off.result.ledCurrentA, 0);
+  assert.equal(off.result.sourceCurrentA, 0);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "switch-1", { value: "Between positions" })).state, "blocked");
 
-HOà√Bà]õ⁄ôX›H‹ôX]Q[\Tõ⁄ôX›
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "VCC").endpoints = ["source-1:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
 
-N√Bàõ‹à
-][ô^H»[ô^Lé»[ô^
-œHJHõ⁄ôX›HY€€\€ô[ù
-õ⁄ôX›ú\‹⁄]ôKúô\⁄\›‹àäN√Bà€€ú››ô\õ\»Hò[Y]Tõ⁄ôX›
-õ⁄ôX›
-Kùÿ\õö[ô‹Àôö[\ä
-\‹›YJHOà\‹›YKúù[HOOHìVS’U”’ëTìTäN√Bà\‹Ÿ\ùôY\\]X[
-›ô\õ\À◊JN√Bàõ‹à
-€€ú›öY]»Ÿà»òúôXYõÿ\ôãúÿ⁄[X]X»ãúÿàóJH√Bà€€ú›€€‹ô[ò]\»Hõ⁄ôX›ò€€\€ô[ùÀõX\
+test("catalogue anti-parallel LEDs change with source polarity", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/002-two-led-polarity-indicator.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const positive = runSupportedAnalysis(project);
+  assert.equal(positive.state, "complete");
+  assert.equal(positive.result.kind, "led-polarity-indicator");
+  assert.equal(positive.result.redLedOn, true);
+  assert.equal(positive.result.greenLedOn, false);
+  assert.ok(Math.abs(positive.result.redCurrentA - (5 - 2) / 330) < 1e-12);
+  assert.equal(positive.result.greenCurrentA, 0);
+  assert.ok(Math.abs(positive.result.powerBalanceW) < 1e-12);
 
-][JHOà][Kú‹⁄][€ñ›öY]◊JN√Bà\‹Ÿ\ùô\]X[
-ô]»Ÿ]
-€€‹ô[ò]\ÀõX\
+  const reversed = updateComponent(project, "source-1", { value: "-5 V" });
+  const negative = runSupportedAnalysis(reversed);
+  assert.equal(negative.state, "complete");
+  assert.equal(negative.result.redLedOn, false);
+  assert.equal(negative.result.greenLedOn, true);
+  assert.equal(negative.result.redCurrentA, 0);
+  assert.ok(Math.abs(negative.result.greenCurrentA - (5 - 2.1) / 330) < 1e-12);
+  assert.ok(Math.abs(negative.result.powerBalanceW) < 1e-12);
 
-‹⁄][€äHOà‹⁄][€ãöõ⁄[äãäJJKú⁄^ôK€€‹ô[ò]\Àõ[ô›
-N√BàCBüJN√BÉBù\›
-ò€€\€ô[ù[›ô[Y[ù\»öY]À\‹X⁄YöXÀõ›[ôY[ôX^H€ò\»H‹öYã
+  const zero = runSupportedAnalysis(updateComponent(project, "source-1", { value: "0 V" }));
+  assert.equal(zero.state, "complete");
+  assert.equal(zero.result.redLedOn, false);
+  assert.equal(zero.result.greenLedOn, false);
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "GREEN_K").endpoints = ["led-green:K"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
 
-HOà√Bà€€ú›[›ôYH[›ôP€€\€ô[ù
-‹ôX]Tõ⁄ôX›
+test("catalogue pushbutton LED stays off until pressed and includes its pull-down", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/003-pushbutton-led.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
 
-Kúô\⁄\›‹ãLHãúÿ⁄[X]X»ãÃÃM◊K»€ò\àùYHJN√Bà€€ú›ô\⁄\›‹àH[›ôYò€€\€ô[ùÀôö[ô
+  const open = runSupportedAnalysis(project);
+  assert.equal(open.state, "complete");
+  assert.equal(open.result.kind, "pushbutton-led");
+  assert.equal(open.result.switchState, "normally-open");
+  assert.equal(open.result.ledOn, false);
+  assert.equal(open.result.ledCurrentA, 0);
+  assert.equal(open.result.sourceCurrentA, 0);
 
-€€\€ô[ù
-HOà€€\€ô[ùö[ú›[òŸRYOOHúô\⁄\›‹ãLHäN√Bà\‹Ÿ\ùôY\\]X[
-ô\⁄\›‹ãú‹⁄][€ãúÿ⁄[X]XÀÃÃMJN√Bà\‹Ÿ\ùôY\\]X[
-ô\⁄\›‹ãú‹⁄][€ãòúôXYõÿ\ôÃçMKMóJN√Bà€€ú›õ›[ôYH[›ôP€€\€ô[ù
-[›ôYúô\⁄\›‹ãLHãòúôXYõÿ\ôãÀMLJN√Bà\‹Ÿ\ùôY\\]X[
-õ›[ôYò€€\€ô[ùÀôö[ô
+  const pressedProject = updateComponent(project, "switch-1", { value: "Pressed" });
+  const pressed = runSupportedAnalysis(pressedProject);
+  assert.equal(pressed.state, "complete");
+  assert.equal(pressed.result.switchState, "pressed");
+  assert.equal(pressed.result.ledOn, true);
+  assert.ok(Math.abs(pressed.result.ledCurrentA - (5 - 2) / 330) < 1e-12);
+  assert.ok(Math.abs(pressed.result.pullDownCurrentA - 5 / 10000) < 1e-12);
+  assert.ok(Math.abs(pressed.result.powerBalanceW) < 1e-12);
 
-€€\€ô[ù
-HOà€€\€ô[ùö[ú›[òŸRYOOHúô\⁄\›‹ãLHäKú‹⁄][€ãòúôXYõÿ\ôÃéçJN√BüJN√BÉBù\›
-ú[à⁄\ö[ô»Y\ôŸ\»^\›[ô»ô]»[ô\ÿ€€õôX›[€àô\Ÿ\ùô\»ô[XZ[ö[ô»ô]»ã
+  const invalidState = updateComponent(project, "switch-1", { value: "Half pressed" });
+  assert.equal(runSupportedAnalysis(invalidState).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "VCC").endpoints = ["source-1:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
 
-HOà√Bà€€ú›õ⁄ôX›H‹ôX]Tõ⁄ôX›
+test("catalogue P-MOS high-side switch drives load and blocks gate-source overvoltage",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/034-pmos-high-side-switch.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const on=runSupportedAnalysis(project);
+  assert.equal(on.state,"complete");
+  assert.equal(on.result.kind,"pmos-high-side-switch");
+  assert.equal(on.result.switchOn,true);
+  assert.ok(on.result.loadVoltage>11.9);
+  assert.ok(on.result.loadCurrentA>0.09);
+  const off=runSupportedAnalysis(updateComponent(project,"gate-drive",{value:"12 V"}));
+  assert.equal(off.result.switchOn,false);
+  assert.equal(off.result.loadCurrentA,0);
+  assert.equal(off.result.loadVoltage,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"gate-drive",{value:"-9 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"gate-drive",{value:"13 V"})).state,"blocked");
+});
 
-N√Bà€€ú›€€õôX›YH€€õôX›[ú õ⁄ôX›ú€›\òŸKLNä»ãõYLNêHäN√Bà\‹Ÿ\ùô\]X[
-€€õôX›Yõô]Àõ[ô›äN√Bà\‹Ÿ\ùõ⁄ €€õôX›Yõô]Àú€€YJ
-ô]
-HOàô]ô[ô⁄[ùÀö[ò€Y\ ú€›\òŸKLNä»äH	âàô]ô[ô⁄[ùÀö[ò€Y\ úô\⁄\›‹ãLNåHäH	âàô]ô[ô⁄[ùÀö[ò€Y\ õYLNêHäJJN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-€€õôX›Y
-Kùò[YùYJN√Bà€€ú›\ÿ€€õôX›YH\ÿ€€õôX›[ä€€õôX›YõYLNêHäN√Bà\‹Ÿ\ùõ⁄ Y\ÿ€€õôX›Yõô]Àú€€YJ
-ô]
-HOàô]ô[ô⁄[ùÀö[ò€Y\ õYLNêHäJJN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-\ÿ€€õôX›Y
-Kùò[YùYJN√Bà\‹Ÿ\ùùõ›‹ 
+test("catalogue NMOS low-side driver switches coil and clamps turn-off with a flyback diode",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/033-nmos-low-side-switch.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const on=runSupportedAnalysis(project);
+  assert.equal(on.state,"complete");
+  assert.equal(on.result.kind,"nmos-low-side-switch");
+  assert.equal(on.result.switchOn,true);
+  assert.ok(on.result.loadCurrentA>0.49);
+  assert.ok(on.result.drainSourceVoltageV<0.1);
+  assert.ok(on.result.coilStoredEnergyJ>0);
+  const off=runSupportedAnalysis(updateComponent(project,"gate-drive",{value:"0 V"}));
+  assert.equal(off.result.switchOn,false);
+  assert.equal(off.result.loadCurrentA,0);
+  assert.equal(off.result.drainSourceVoltageV,12);
+  assert.equal(off.result.flybackClampVoltageV,12.3);
+  assert.ok(off.result.turnOffDecay[0].currentA>off.result.turnOffDecay[1].currentA);
+  assert.ok(off.result.turnOffDecay[1].currentA>off.result.turnOffDecay[2].currentA);
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="VCC").endpoints=["supply:+","coil-r:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
 
-HOà€€õôX›[ú õ⁄ôX›õZ\‹⁄[ôŒåHãõYLNêHäJN√BüJN√BÉBù\›
-ò€€\€ô[ùô[[›ò[€X[ú»]»[ú»úõ€Hô]»[ôX]ô\»õ⁄ôX›ò[Yã
+test("catalogue NPN emitter follower tracks a DC sweep one VBE below input",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/032-emitter-follower.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const expected=[[0.5,0],[1.5,0.8],[2.5,1.8],[3.5,2.8],[5,4.3]];
+  for(const [inputV,outputV] of expected){
+    const result=runSupportedAnalysis(updateComponent(project,"input",{value:`${inputV} V`}));
+    assert.equal(result.state,"complete");
+    assert.equal(result.result.kind,"npn-emitter-follower");
+    assert.equal(result.result.outputVoltage,outputV);
+    if(inputV>0.7)assert.ok(Math.abs(result.result.voltageDropV-0.7)<1e-12);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"input",{value:"5.1 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"0 Œ©"})).state,"blocked");
+});
 
-HOà√Bà€€ú›ô[[›ôYHô[[›ôP€€\€ô[ù
-‹ôX]Tõ⁄ôX›
+test("catalogue common-emitter amplifier solves active bias and inverted sine trace",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/031-transistor-common-emitter.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"npn-common-emitter");
+  assert.ok(result.result.collectorCurrentA>0);
+  assert.ok(result.result.vceV>0.2);
+  assert.ok(result.result.collectorVoltageV>result.result.emitterVoltageV);
+  assert.ok(result.result.gainVPerV<0);
+  assert.ok(result.result.outputAmplitudeV>0);
+  assert.ok(result.result.maximumPeakV>result.result.outputAmplitudeV);
+  assert.equal(result.result.sineTrace.length,9);
+  assert.ok(result.result.sineTrace[2].inputV>0&&result.result.sineTrace[2].outputV<0);
+  assert.ok(result.result.sineTrace[6].inputV<0&&result.result.sineTrace[6].outputV>0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"3 V"})).state,"blocked");
+});
 
-KõYLHäN√Bà\‹Ÿ\ùõ⁄ \ô[[›ôYò€€\€ô[ùÀú€€YJ
-][JHOà][Kö[ú›[òŸRYOOHõYLHäJN√Bà\‹Ÿ\ùõ⁄ ô[[›ôYõô]Àô]ô\ûJ
-ô]
-HOàô]ô[ô⁄[ùÀô]ô\ûJ
-][JHOàZ][Kú›\ù’⁄]
-õYLNàäJJJN√Bà\‹Ÿ\ùô\]X[
-ò[Y]Tõ⁄ôX›
-ô[[›ôY
-Kùò[YùYJN√Bà\‹Ÿ\ùùõ›‹ 
+test("catalogue reference buffer holds its ideal output across a load sweep",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/030-reference-buffer.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  for(const [loadOhm,expectedCurrent] of [[100000,0.000025],[10000,0.00025],[1000,0.0025]]){
+    const result=runSupportedAnalysis(updateComponent(project,"load",{value:`${loadOhm} Œ©`}));
+    assert.equal(result.state,"complete");
+    assert.equal(result.result.kind,"reference-buffer");
+    assert.equal(result.result.outputVoltage,2.5);
+    assert.equal(result.result.loadCurrentA,expectedCurrent);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"0 Œ©"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["opamp:OUT","load:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
 
-HOàô[[›ôP€€\€ô[ù
-ô[[›ôYõZ\‹⁄[ô»äJN√BüJN√BÉBù\›
-ò[›\ù\àXúò\ûH[ùöY\»]ôHHö\⁄XõHÿ]Y€‹ûH[ô^X⁄]öY]»X\[ô‹»ã
+test("catalogue window comparator lights only between the two divider thresholds",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/029-window-comparator.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const middle=runSupportedAnalysis(project);
+  assert.equal(middle.state,"complete");
+  assert.equal(middle.result.kind,"window-comparator");
+  assert.ok(Math.abs(middle.result.lowerThresholdV-5/3)<1e-12);
+  assert.ok(Math.abs(middle.result.upperThresholdV-10/3)<1e-12);
+  assert.equal(middle.result.windowActive,true);
+  assert.equal(middle.result.ledOn,true);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"1 V"})).result.windowActive,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"4 V"})).result.windowActive,false);
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="LOWER_OK").endpoints=["lower:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
 
-HOà√Bàõ‹à
-€€ú›\ùŸà’TïTó”PîêTñJH√Bà\‹Ÿ\ùõ⁄ \ùòÿ]Y€‹ûJN√Bà\‹Ÿ\ùô\]X[
-\[Ÿà\ùùöY]‹ÀòúôXYõÿ\ôòõ€€X[àäN√Bà\‹Ÿ\ùô\]X[
-\[Ÿà\ùùöY]‹Àúÿ⁄[X]XÀòõ€€X[àäN√Bà\‹Ÿ\ùô\]X[
-\[Ÿà\ùùöY]‹Àúÿãòõ€€X[àäN√BàC|ÔØ:∂âûÀk∫wµÁ\‰µ›Ö…ï°Ω’ÕîµâïÖçΩ∏µçΩπçï¡–πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°¡…Ω©ïç–§πŸÖ±•ê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…’πM’¡¡Ω…—ïëπÖ±ÂÕ•Ã°¡…Ω©ïç–§πÕ—Ö—î∞â’πÕ’¡¡Ω…—ïêà§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’π]Ö…ï°Ω’Õï	ïÖçΩ∏°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞â›Ö…ï°Ω’ÕîµâïÖçΩ∏µÕ—Ö—îµÕï≈’ïπçîà§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–πô…ÖµïÃπµÖ¿°ô…ÖµîÙ˘mô…Öµîπù…ïïπ=∏±ô…Öµîπ…ïë=∏±ô…ÖµîπÖµâï…=∏±ô…Öµîπâ’ÈÈï…=πt§±mm—…’î±ôÖ±Õî±ôÖ±Õî±ôÖ±Õït±môÖ±Õî±—…’î±ôÖ±Õî±ôÖ±Õït±môÖ±Õî±ôÖ±Õî±—…’î±—…’ït±m—…’î±ôÖ±Õî±ôÖ±Õî±ôÖ±Õïut§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π—…ÖπÕ•—•ΩπΩ’π–∞Ã§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πΩπïM—Ö—’ÕAï……Öµî±—…’î§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπ›Ö…ï°Ω’Õï	ïÖçΩ∏πÕÖµ¡±ïÕl¡tÙâ’π≠πΩ›∏àÌÖÕÕï…–πï≈’Ö∞°…’π]Ö…ï°Ω’Õï	ïÖçΩ∏°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4(4)—ïÕ–†âçÖ—Ö±Ωù’îÅôÖ’±–ÅÖππ’πç•Ö—Ω»Åç±ïÖ…ÃÅΩπ±‰ÅÖô—ï»ÅÖç≠πΩ›±ïëùïµïπ–ÅÖπêÅ•πÖç—•ŸîÅ•π¡’–à∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‡¿µµÖç°•πîµôÖ’±–µÖππ’πç•Ö—Ω»πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°¡…Ω©ïç–§πŸÖ±•ê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…’πM’¡¡Ω…—ïëπÖ±ÂÕ•Ã°¡…Ω©ïç–§πÕ—Ö—î∞â’πÕ’¡¡Ω…—ïêà§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’π5Öç°•πïÖ’±—ππ’πç•Ö—Ω»°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞âµÖç°•πîµôÖ’±–µ±Ö—ç°ïêµÕï≈’ïπçîà§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–πô…ÖµïÃπµÖ¿°ô…ÖµîÙ˘ô…Öµîπ±Ö—ç°ïëÖ’±—Ã§±mlâƒât±lâƒât±mt±lâ»ât±lâ»ât±mut§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–πô…ÖµïÃπµÖ¿°ô…ÖµîÙ˘ô…Öµîπâ’ÈÈï…=∏§±m—…’î±ôÖ±Õî±ôÖ±Õî±—…’î±—…’î±ôÖ±Õït§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πô…ÖµïÕl—tπôÖ’±—1Öµ¡=∏±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πô…ÖµïÕl’tπ°ïÖ±—°Â1Öµ¡=∏±—…’î§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπµÖç°•πïÖ’±—ππ’πç•Ö—Ω»πïŸïπ—Õl¡tπÖç—•ŸïÖ’±—ÃılââÖêÅ•êâtÌÖÕÕï…–πï≈’Ö∞°…’π5Öç°•πïÖ’±—ππ’πç•Ö—Ω»°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4(4)—ïÕ–†âçÖ—Ö±Ωù’îÅâ…ïÖëâΩÖ…êÅ›•…•πúÅÕÂπç°…Ωπ•ÈïÃÅçΩµ¡Ωπïπ–ÅÖπêÅπï–Å•ëïπ—•—•ïÃÅ•π—ºÅÕç°ïµÖ—•åÅ¡…Ω©ïç—•Ω∏à∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‡ƒµâ…ïÖëâΩÖ…êµÕç°ïµÖ—•åµÕÂπåπÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°¡…Ω©ïç–§πŸÖ±•ê±—…’î§Ï4(ÄÅçΩπÕ–ÅçΩµ¡Ωπïπ—%ëÃı¡…Ω©ïç–πçΩµ¡Ωπïπ—ÃπµÖ¿°•—ï¥Ù˘•—ï¥π•πÕ—Öπçï%ê§πÕΩ…–†§Ï4(ÄÅçΩπÕ–Åâ…ïÖëâΩÖ…ëë•–ıë•ÕçΩππïç—A•∏°¡…Ω©ïç–∞â…ïÕ•Õ—Ω»¥ƒË»à§Ï4(ÄÅçΩπÕ–Å›•…ïêıçΩππïç—A•πÃ°â…ïÖëâΩÖ…ëë•–∞â…ïÕ•Õ—Ω»¥ƒË»à∞â±ïê¥ƒÈà§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°›•…ïê§πŸÖ±•ê±—…’î§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’π	…ïÖëâΩÖ…ëMç°ïµÖ—•çMÂπå°›•…ïê§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞ââ…ïÖëâΩÖ…êµÕç°ïµÖ—•åµÕ—…’ç—’…Ö∞µÕÂπåà§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÕ—…’ç—’…Ö±±Â≈’Ö∞±—…’î§ÌÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–πçΩµ¡Ωπïπ—%ëÃ±çΩµ¡Ωπïπ—%ëÃ§Ï4(ÄÅÖÕÕï…–πΩ¨°…ïÕ’±–π…ïÕ’±–ππï—%ëÃπ•πç±’ëïÃ†â8ƒà§§ÌÖÕÕï…–πΩ¨°…ïÕ’±–π…ïÕ’±–ππï—%ëÃπ•πç±’ëïÃ†âYà§§ÌÖÕÕï…–πΩ¨°…ïÕ’±–π…ïÕ’±–ππï—%ëÃπ•πç±’ëïÃ†â9à§§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–πâ…ïÖëâΩÖ…ê±…ïÕ’±–π…ïÕ’±–πÕç°ïµÖ—•å§Ï4)Ù§Ï4(4)—ïÕ–†âçÖ—Ö±Ωù’îÅÕç°ïµÖ—•åµ—ºµAÅ¡…Ω©ïç—•Ω∏Å¡…ïÕï…ŸïÃÅïŸï…‰Ä‘‘‘Åπï–Åïπë¡Ω•π–Å•∏ÅÖ∏Å•±±’Õ—…Ö—•ŸîÅ¡ÖêÅµÖ¿à∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‡»µÕç°ïµÖ—•åµ¡çàµÕÂπåπÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°¡…Ω©ïç–§πŸÖ±•ê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…’πM’¡¡Ω…—ïëπÖ±ÂÕ•Ã°¡…Ω©ïç–§πÕ—Ö—î∞âçΩµ¡±ï—îà§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πMç°ïµÖ—•çAçâMÂπå°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞âÕç°ïµÖ—•åµ¡çàµπï—±•Õ–µ¡ÖêµÕÂπåà§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πµÖ¡¡•πùM—Ö—’Ã∞â•±±’Õ—…Ö—•Ÿîµ’πŸï…•ô•ïêà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πçΩµ¡Ωπïπ—Ω’π–∞‰§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–ππï—Ω’π–∞‹§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÕΩ’…çïπë¡Ω•π—Ω’π–±…ïÕ’±–π…ïÕ’±–π¡Öëπë¡Ω•π—Ω’π–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–ππï—±•Õ—A…ïÕï…Ÿïê±—…’î§Ï4(ÄÅçΩπÕ–Åµ•ÕÕ•πúıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ìµ•ÕÕ•πúπÕç°ïµÖ—•çAçâMÂπåπ¡Öë5Ö¿π¡Ω¿†§ÌÖÕÕï…–πï≈’Ö∞°…’πMç°ïµÖ—•çAçâMÂπå°µ•ÕÕ•πú§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4(ÄÅçΩπÕ–Åë’¡±•çÖ—îıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ìë’¡±•çÖ—îπÕç°ïµÖ—•çAçâMÂπåπ¡Öë5Ö¡l≈tπ¡ÖêÙàƒàÌÖÕÕï…–πï≈’Ö∞°…’πMç°ïµÖ—•çAçâMÂπå°ë’¡±•çÖ—î§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅ—°…ïîµŸ•ï‹Å1Åïë•–ÅÕ°Ö…ïÃÅçΩµ¡Ωπïπ–Å•ëïπ—•—‰ÅÖπêÅ…ïÕ—Ω…ïÃÅ’πëºΩ…ïëºÅÕπÖ¡Õ°Ω—Ãà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‡Ãµ—°…ïîµŸ•ï‹µ±ïêµ¡…Ω©ïç–πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°¡…Ω©ïç–§πŸÖ±•ê±—…’î§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°ùï—Y•ï›IïçΩπç•±•Ö—•Ωπ%ÕÕ’ïÃ°¡…Ω©ïç–∞ââ…ïÖëâΩÖ…êà§±mt§ÌÖÕÕï…–πëïï¡≈’Ö∞°ùï—Y•ï›IïçΩπç•±•Ö—•Ωπ%ÕÕ’ïÃ°¡…Ω©ïç–∞âÕç°ïµÖ—•åà§±mt§Ï4(ÄÅçΩπÕ–Å¡çâ%ÕÕ’ïÃıùï—Y•ï›IïçΩπç•±•Ö—•Ωπ%ÕÕ’ïÃ°¡…Ω©ïç–∞â¡çàà§ÌÖÕÕï…–πï≈’Ö∞°¡çâ%ÕÕ’ïÃπ±ïπù—†∞–§ÌÖÕÕï…–πΩ¨°¡çâ%ÕÕ’ïÃπÕΩµî°•ÕÕ’îÙ˘•ÕÕ’îπ•πÕ—Öπçï%êÙÙÙâ…ïÕ•Õ—Ω»¥ƒà§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πQ°…ïïY•ï›1ïë!•Õ—Ω…‰°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞â—°…ïîµŸ•ï‹µ±ïêµÕÂπåµ°•Õ—Ω…‰à§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÖŸÖ•±Öâ±ïY•ï›Ã±lââ…ïÖëâΩÖ…êà∞âÕç°ïµÖ—•åà∞â¡çàât§ÌÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïçΩπç•±•Ö—•Ωπ	ÂY•ï‹±Ìâ…ïÖëâΩÖ…êË¿±Õç°ïµÖ—•åË¿±¡çàË—Ù§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π¡çâIïçΩπç•±•Ö—•Ω∏π±ïπù—†∞–§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π•ëïπ—•—•ïÕA…ïÕï…Ÿïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÕ°Ö…ïë%ëïπ—•—‰±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π°•Õ—Ω…ÂIïÕ—Ω…ïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïëΩIïÕ—Ω…ïê±—…’î§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πΩ…•ù•πÖ±YÖ±’î∞àÃÃ¿É:§à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πïë•—ïëYÖ±’î∞à–‹¿É:§à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π’πëΩYÖ±’î∞àÃÃ¿É:§à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïëΩYÖ±’î∞à–‹¿É:§à§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπ—°…ïïY•ï›1ïë!•Õ—Ω…‰π•πÕ—Öπçï%êÙâµ•ÕÕ•πúàÌÖÕÕï…–πï≈’Ö∞°…’πQ°…ïïY•ï›1ïë!•Õ—Ω…‰°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅ’πÕ’¡¡Ω…—ïêÅ	Å¡Öç≠ÖùîÅâïçΩµïÃÅÑÅâ…ïÖëâΩÖ…êÅ…ïçΩπç•±•Ö—•Ω∏Å•—ï¥Å›•—°Ω’–Å¡±Öçïµïπ–à∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‡–µ’πÕ’¡¡Ω…—ïêµâ…ïÖëâΩÖ…êµ¡Öç≠ÖùîπÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°¡…Ω©ïç–§πŸÖ±•ê±—…’î§Ï4(ÄÅçΩπÕ–ÅâΩÖ…êı¡…Ω©ïç—Ωµ¡Ωπïπ—ÕΩ…Y•ï‹°¡…Ω©ïç–∞ââ…ïÖëâΩÖ…êà§ÌÖÕÕï…–πëïï¡≈’Ö∞°âΩÖ…êπçΩµ¡Ωπïπ—Ã±mt§ÌÖÕÕï…–πï≈’Ö∞°âΩÖ…êπ…ïçΩπç•±•Ö—•Ωπ%—ïµÃπ±ïπù—†∞ƒ§ÌÖÕÕï…–πï≈’Ö∞°âΩÖ…êπ…ïçΩπç•±•Ö—•Ωπ%—ïµÕl¡tπ•πÕ—Öπçï%ê∞ââùÑà§Ï4(ÄÅçΩπÕ–ÅÕç°ïµÖ—•åı¡…Ω©ïç—Ωµ¡Ωπïπ—ÕΩ…Y•ï‹°¡…Ω©ïç–∞âÕç°ïµÖ—•åà§ÌÖÕÕï…–πï≈’Ö∞°Õç°ïµÖ—•åπçΩµ¡Ωπïπ—Ãπ±ïπù—†∞ƒ§ÌÖÕÕï…–πëïï¡≈’Ö∞°Õç°ïµÖ—•åπ…ïçΩπç•±•Ö—•Ωπ%—ïµÃ±mt§Ï4(ÄÅçΩπÕ–Å¡çàı¡…Ω©ïç—Ωµ¡Ωπïπ—ÕΩ…Y•ï‹°¡…Ω©ïç–∞â¡çàà§ÌÖÕÕï…–πï≈’Ö∞°¡çàπçΩµ¡Ωπïπ—Ãπ±ïπù—†∞ƒ§ÌÖÕÕï…–πëïï¡≈’Ö∞°¡çàπ…ïçΩπç•±•Ö—•Ωπ%—ïµÃ±mt§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πUπÕ’¡¡Ω…—ïë	…ïÖëâΩÖ…ëAÖç≠Öùî°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞â’πÕ’¡¡Ω…—ïêµâ…ïÖëâΩÖ…êµ¡Öç≠Öùîµ…ïçΩπç•±•Ö—•Ω∏à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πâ…ïÖëâΩÖ…ëA±Öçïê±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÕç°ïµÖ—•çA±Öçïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π¡çâA±Öçïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πôÖâ…•çÖ—•ΩπE’Ö±•ô•ïê±ôÖ±Õî§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πç±Ö•µÕ5Öπ’ôÖç—’…Öâ±î±ôÖ±Õî§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπ’πÕ’¡¡Ω…—ïë	…ïÖëâΩÖ…ëAÖç≠Öùîπ•πÕ—Öπçï%êÙâµ•ÕÕ•πúàÌÖÕÕï…–πï≈’Ö∞°…’πUπÕ’¡¡Ω…—ïë	…ïÖëâΩÖ…ëAÖç≠Öùî°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅµ•ÕÕ•πúµôΩΩ—¡…•π–Å›Ω…≠ô±Ω‹Åâ±Ωç≠ÃÅAÅ’¡ëÖ—îÅÖπêÅ…ï—’…πÃÅ…ï≈’•…ïêÅ…ïÕΩ±’—•Ω∏Å…ï¡Ω…–à∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‡‘µµ•ÕÕ•πúµôΩΩ—¡…•π–µ›Ω…≠ô±Ω‹πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°¡…Ω©ïç–§πŸÖ±•ê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…’πM’¡¡Ω…—ïëπÖ±ÂÕ•Ã°¡…Ω©ïç–§πÕ—Ö—î∞âçΩµ¡±ï—îà§Ï4(ÄÅçΩπÕ–ÅâïôΩ…îıÕï…•Ö±•ÈïA…Ω©ïç–°¡…Ω©ïç–§±…ïÕ’±–ı…’π5•ÕÕ•πùΩΩ—¡…•π—]Ω…≠ô±Ω‹°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞âµ•ÕÕ•πúµôΩΩ—¡…•π–µ…ïÕΩ±’—•Ω∏µ…ï¡Ω…–à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π¡çâU¡ëÖ—ï	±Ωç≠ïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π¡…Ω©ïç—Uπç°Öπùïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°Õï…•Ö±•ÈïA…Ω©ïç–°¡…Ω©ïç–§±âïôΩ…î§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πµ•ÕÕ•πùΩΩ—¡…•π—Ω’π–±¡…Ω©ïç–πçΩµ¡Ωπïπ—Ãπ±ïπù—†§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π¡±ÖçïëΩµ¡Ωπïπ—Ω’π–∞¿§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ï≈’•…ïëIï¡Ω…–πÕ—Ö—’Ã∞â…ï≈’•…ïêà§Ï4(ÄÅÖÕÕï…–πΩ¨°…ïÕ’±–π…ïÕ’±–πµ•ÕÕ•πùΩΩ—¡…•π—ÃπÕΩµî°•—ï¥Ù˘•—ï¥π…ïôï…ïπçîÙÙÙâTƒàòô•—ï¥π¡Ö…–ÙÙÙâÖç—•Ÿîππî‘‘‘à§§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ï≈’•…ïëIï¡Ω…–πâ±Ωç≠ïëIïôï…ïπçïÃπ±ïπù—†±¡…Ω©ïç–πçΩµ¡Ωπïπ—Ãπ±ïπù—†§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ï≈’•…ïëIï¡Ω…–π…ïÕΩ±’—•Ωπ=¡—•ΩπÃπ±ïπù—†∞Ã§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÖ’—ΩµÖ—•çM’âÕ—•—’—•Ω∏±ôÖ±Õî§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π’πŸï…•ô•ïëΩΩ—¡…•π—ÕÕÕ•ùπïê±ôÖ±Õî§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπµ•ÕÕ•πùΩΩ—¡…•π—]Ω…≠ô±Ω‹π—Ö…ùï—Y•ï‹Ùââ…ïÖëâΩÖ…êàÌÖÕÕï…–πï≈’Ö∞°…’π5•ÕÕ•πùΩΩ—¡…•π—]Ω…≠ô±Ω‹°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅ¡•∏µ•πçΩµ¡Ö—•â±îÅÕ’âÕ—•—’—•Ω∏Å•ÃÅ¡…ïŸ•ï›ïê∞Åâ±Ωç≠ïê∞ÅÖπêÅçÖπçï±ïêÅ›•—°Ω’–Åç°Öπù•πúÅΩ…•ù•πÖ∞à∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‡ÿµ¡•∏µ•πçΩµ¡Ö—•â±îµÕ’âÕ—•—’—•Ω∏πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°¡…Ω©ïç–§πŸÖ±•ê±—…’î§ÌçΩπÕ–ÅâïôΩ…îıÕï…•Ö±•ÈïA…Ω©ïç–°¡…Ω©ïç–§Ï4(ÄÅçΩπÕ–Å¡…ïŸ•ï‹ıç…ïÖ—ïAÖ…—M’âÕ—•—’—•ΩπA…ïŸ•ï‹°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°¡…ïŸ•ï‹πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°¡…ïŸ•ï‹πâ±Ωç≠ïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°¡…ïŸ•ï‹πÕΩ’…çïAÖ…–π¡•πÃπ±ïπù—†∞‡§ÌÖÕÕï…–πï≈’Ö∞°¡…ïŸ•ï‹πçÖπë•ëÖ—îπ¡•πÃπ±ïπù—†∞‡§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°¡…ïŸ•ï‹πÕ°Ö…ïëA•π9ÖµïÃ±mt§ÌÖÕÕï…–πï≈’Ö∞°¡…ïŸ•ï‹π’πµÖ¡¡ïëUÕïëA•πÃπ±ïπù—†∞‡§ÌÖÕÕï…–πΩ¨°¡…ïŸ•ï‹πÖôôïç—ïë9ï—Ãπ•πç±’ëïÃ†âQ%5%9à§§Ï4(ÄÅçΩπÕ–ÅçÖπçï±ïêıçÖπçï±AÖ…—M’âÕ—•—’—•ΩπA…ïŸ•ï‹°¡…ïŸ•ï‹§ÌÖÕÕï…–πï≈’Ö∞°çÖπçï±ïêπçÖπçï±±ïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°Õï…•Ö±•ÈïA…Ω©ïç–°çÖπçï±ïêπ¡…Ω©ïç–§±âïôΩ…î§ÌÖÕÕï…–πï≈’Ö∞°Õï…•Ö±•ÈïA…Ω©ïç–°¡…Ω©ïç–§±âïôΩ…î§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πA•π%πçΩµ¡Ö—•â±ïM’âÕ—•—’—•Ω∏°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞â¡•∏µ•πçΩµ¡Ö—•â±îµÕ’âÕ—•—’—•Ω∏µ¡…ïŸ•ï‹à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÕ’âÕ—•—’—•Ωπ	±Ωç≠ïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π¡…ïŸ•ï›Öπçï±±ïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π¡…Ω©ïç—Uπç°Öπùïê±—…’î§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πΩ…•ù•πÖ±1•â…Ö…Â%ê∞âÖç—•Ÿîππî‘‘‘à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πçÖπë•ëÖ—ï1•â…Ö…Â%ê∞âÖç—•Ÿîπ±¥Ã‡ÿµç±ÖÕÕÖàà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π’πµÖ¡¡ïëUÕïëA•πÃπ±ïπù—†∞‡§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅM$Å’π•–ÅçΩπŸï…—ï»Å…ï—’…πÃÅ…ïÕ•Õ—Ω»∞Å¡Ω›ï»∞Å±ïπù—†∞ÅÖπêÅ…Ω’πëïêÅ…ïÕ’±—Ãà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‡‹µ’π•–µçΩπŸï…Õ•Ω∏µçÖ±ç’±Ö—Ω»πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πUπ•—ΩπŸï…Õ•ΩπÖ±ç’±Ö—Ω»°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞âÕ§µ’π•–µçΩπŸï…Õ•Ω∏µçÖÕïÃà§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïÕ’±—ÃπµÖ¿°•—ï¥Ù˘•—ï¥πçΩπŸï…—ïëYÖ±’î§±l–‹¿¿∞¿∏»‘∞¿∏ƒ»‘∞ƒ∏»Ã–‘›t§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïÕ’±—ÃπµÖ¿°•—ï¥Ù˘•—ï¥πë•µïπÕ•Ω∏§±lâ…ïÕ•Õ—Öπçîà∞â¡Ω›ï»à∞â±ïπù—†à∞â…ïÕ•Õ—Öπçîât§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°çΩπŸï…—πù•πïï…•πùUπ•–†»∏»∞âØ:§à∞ã:§à§±ÌΩ¨È—…’î±ŸÖ±’îË»»¿¿±ë•µïπÕ•Ω∏Ëâ…ïÕ•Õ—Öπçîà±ô…ΩµUπ•–ËâØ:§à±—ΩUπ•–Ëã:§à±¡…ïç•Õ•Ω∏ËŸÙ§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çΩπŸï…—πù•πïï…•πùUπ•–†ƒ∞âØ:§à∞âµ\à§πΩ¨±ôÖ±Õî§ÌÖÕÕï…–πï≈’Ö∞°çΩπŸï…—πù•πïï…•πùUπ•–°%πô•π•—‰∞âµ¥à∞â¥à§πΩ¨±ôÖ±Õî§ÌÖÕÕï…–πï≈’Ö∞°çΩπŸï…—πù•πïï…•πùUπ•–†ƒ∞â¥à∞â¥à∞ƒÃ§πΩ¨±ôÖ±Õî§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπ’π•—ΩπŸï…Õ•ΩπÖ±ç’±Ö—Ω»πçÖÕïÕl¡tπô…ΩµUπ•–Ùâµ\àÌÖÕÕï…–πï≈’Ö∞°…’πUπ•—ΩπŸï…Õ•ΩπÖ±ç’±Ö—Ω»°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅ…ïÕ•Õ—Ω»ÅçΩ±Ω»µçΩëîÅ…ïÖëï»ÅëïçΩëïÃÅôΩ’»Ωô•ŸîµâÖπêÅŸÖ±’ïÃÅÖπêÅ…ï©ïç—ÃÅ•πŸÖ±•êÅâÖπëÃà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‡‡µ…ïÕ•Õ—Ω»µçΩ±Ω»µçΩëîµ…ïÖëï»πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πIïÕ•Õ—Ω…Ω±Ω…ΩëïIïÖëï»°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞â…ïÕ•Õ—Ω»µçΩ±Ω»µçΩëîµçÖÕïÃà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πŸÖ±•ëΩ’π–∞»§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ï©ïç—ïëΩ’π–∞»§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïÕ’±—Õl¡tπ…ïÖë•πúπ…ïÕ•Õ—Öπçï=°µÃ∞–‹¿¿§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïÕ’±—Õl¡tπ…ïÖë•πúπ—Ω±ï…ÖπçïAï…çïπ–∞‘§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïÕ’±—Õl≈tπ…ïÖë•πúπ…ïÕ•Õ—Öπçï=°µÃ∞ƒ¿¿¿§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïÕ’±—Õl≈tπ…ïÖë•πúπ—Ω±ï…ÖπçïAï…çïπ–∞ƒ§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÖëIïÕ•Õ—Ω…	ÖπëÃ°lâùΩ±êà∞ââ…Ω›∏à∞â…ïêà∞âùΩ±êât§πŸÖ±•ê±ôÖ±Õî§ÌÖÕÕï…–πï≈’Ö∞°…ïÖëIïÕ•Õ—Ω…	ÖπëÃ°lââ…Ω›∏à∞ââ±Öç¨à∞â¡•π¨à∞âùΩ±êât§πŸÖ±•ê±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÖëIïÕ•Õ—Ω…	ÖπëÃ°lâÂï±±Ω‹à∞âŸ•Ω±ï–à∞â…ïêà∞âùΩ±êât§πôΩ…µÖ——ïëIïÕ•Õ—Öπçî∞à–∏‹ÅØ:§à§ÌÖÕÕï…–πï≈’Ö∞°…ïÖëIïÕ•Õ—Ω…	ÖπëÃ°lââ…Ω›∏à∞ââ±Öç¨à∞ââ±Öç¨à∞ââ…Ω›∏à∞ââ…Ω›∏ât§πôΩ…µÖ——ïëIïÕ•Õ—Öπçî∞àƒÅØ:§à§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπ…ïÕ•Õ—Ω…Ω±Ω…ΩëïIïÖëï»πçÖÕïÃımtÌÖÕÕï…–πï≈’Ö∞°…’πIïÕ•Õ—Ω…Ω±Ω…ΩëïIïÖëï»°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅ1Å…ïÕ•Õ—Ω»ÅçÖ±ç’±Ö—Ω»Å…Ω’πëÃÅ’¡›Ö…êÅ—ºÅƒ»ÅÖπêÅ›Ö…πÃÅΩ∏Å…ïÕ•Õ—Ω»Å¡Ω›ï»à∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‡‰µ±ïêµ…ïÕ•Õ—Ω»µçÖ±ç’±Ö—Ω»πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’π1ïëIïÕ•Õ—Ω…Ö±ç’±Ö—Ω»°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞â±ïêµÕï…•ïÃµ…ïÕ•Õ—Ω»µçÖÕïÃà§Ï4(ÄÅçΩπÕ–Åm…ïê±â±’î±¡Ω›ï…tı…ïÕ’±–π…ïÕ’±–π…ïÕ’±—ÃÌÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°…ïêπ…ï≈’•…ïëIïÕ•Õ—Öπçï=°µÃ¥ƒÃ¿§≈î¥‰§ÌÖÕÕï…–πï≈’Ö∞°…ïêπ…ïçΩµµïπëïëIïÕ•Õ—Öπçï=°µÃ∞ƒ‘¿§ÌÖÕÕï…–πΩ¨°…ïêπïÕ—•µÖ—ïë’……ïπ—µı…ïêπ—Ö…ùï—’……ïπ—µ§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°â±’îπ…ïçΩµµïπëïëIïÕ•Õ—Öπçï=°µÃ∞ƒ‘¿§ÌÖÕÕï…–πΩ¨°â±’îπïÕ—•µÖ—ïë’……ïπ—µıâ±’îπ—Ö…ùï—’……ïπ—µ§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°¡Ω›ï»π…ïçΩµµïπëïëIïÕ•Õ—Öπçï=°µÃ∞‘ÿ¿§ÌÖÕÕï…–πΩ¨°¡Ω›ï»π›Ö…π•πùÃπÕΩµî°›Ö…π•πúÙ˘›Ö…π•πúπçΩëîÙÙÙâIM%MQ=I}A=]I}aà§§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π¡Ω›ï…]Ö…π•πùΩ’π–∞ƒ§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ï1ïëMï…•ïÕIïÕ•Õ—Ω»°ÌÕ’¡¡±ÂYΩ±—ÖùïXË»±±ïëΩ…›Ö…ëYΩ±—ÖùïXË»±—Ö…ùï—’……ïπ—µËƒ¿±…ïÕ•Õ—Ω…AΩ›ï…IÖ—•πù\Ë¿∏ƒ»’Ù§πΩ¨±ôÖ±Õî§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπ±ïëIïÕ•Õ—Ω…Ö±ç’±Ö—Ω»πçÖÕïÕl¡tπ—Ö…ùï—’……ïπ—µÙ¿ÌÖÕÕï…–πï≈’Ö∞°…’π1ïëIïÕ•Õ—Ω…Ö±ç’±Ö—Ω»°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅŸΩ±—Öùîµë•Ÿ•ëï»ÅçÖ±ç’±Ö—Ω»Å…ï¡Ω…—ÃÅ’π±ΩÖëïêÅ…Ö—•ºÅÖπêÅ±ΩÖêµÕ°•ô–Å›Ö…π•πúà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‰¿µŸΩ±—Öùîµë•Ÿ•ëï»µçÖ±ç’±Ö—Ω»πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πYΩ±—Öùï•Ÿ•ëï…Ö±ç’±Ö—Ω»°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞âŸΩ±—Öùîµë•Ÿ•ëï»µçÖÕïÃà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π±ΩÖë•πù]Ö…π•πùΩ’π–∞ƒ§Ï4(ÄÅçΩπÕ–ÅmΩ¡ï∏±±•ù°–±°ïÖŸÂtı…ïÕ’±–π…ïÕ’±–π…ïÕ’±—ÃÌÖÕÕï…–πï≈’Ö∞°Ω¡ï∏π’π±ΩÖëïë=’—¡’—X∞ÿ§ÌÖÕÕï…–πï≈’Ö∞°Ω¡ï∏π±ΩÖëïë=’—¡’—X∞ÿ§ÌÖÕÕï…–πï≈’Ö∞°Ω¡ï∏π±ΩÖë•πù°ÖπùïAï…çïπ–∞¿§Ï4(ÄÅÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°±•ù°–π±ΩÖëïë=’—¡’—X¥‘∏‹ƒ–»‡‘‹ƒ–»‡‘‹ƒ–§≈î¥‰§ÌÖÕÕï…–πΩ¨°±•ù°–π±ΩÖë•πù°ÖπùïAï…çïπ–‘§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°°ïÖŸ‰π±ΩÖëïë=’—¡’—X∞–§ÌÖÕÕï…–πΩ¨°°ïÖŸ‰π±ΩÖë•πù°ÖπùïAï…çïπ–¯Ã¿§ÌÖÕÕï…–πΩ¨°°ïÖŸ‰π›Ö…π•πùÃπÕΩµî°›Ö…π•πúÙ˘›Ö…π•πúπçΩëîÙÙÙâ%Y%I}1=%9à§§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ïYΩ±—Öùï•Ÿ•ëï»°Ì•π¡’—YΩ±—ÖùïXËƒ»±…ïÕ•Õ—ÖπçïQΩ¡=°µÃË¿±…ïÕ•Õ—Öπçï	Ω——Ωµ=°µÃËƒ¿¿¿¡Ù§πΩ¨±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ïYΩ±—Öùï•Ÿ•ëï»°Ì•π¡’—YΩ±—ÖùïXËƒ»±…ïÕ•Õ—ÖπçïQΩ¡=°µÃËƒ¿¿¿¿±…ïÕ•Õ—Öπçï	Ω——Ωµ=°µÃËƒ¿¿¿¿±±ΩÖëIïÕ•Õ—Öπçï=°µÃË¡Ù§πΩ¨±ôÖ±Õî§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπŸΩ±—Öùï•Ÿ•ëï…Ö±ç’±Ö—Ω»πçÖÕïÕl¡tπ•π¡’—YΩ±—ÖùïXÙ¿ÌÖÕÕï…–πï≈’Ö∞°…’πYΩ±—Öùï•Ÿ•ëï…Ö±ç’±Ö—Ω»°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅIÅ—•µ•πúÅçÖ±ç’±Ö—Ω»Å°Öπë±ïÃÅëïç•µÖ∞Å…ïÕ•Õ—ÖπçîÅÖπêÅçÖ¡Öç•—ÖπçîÅ¡…ïô•·ïÃà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‰ƒµ…åµ—•µ•πúµçÖ±ç’±Ö—Ω»πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πIçQ•µ•πùÖ±ç’±Ö—Ω»°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞â…åµ—•µ•πúµçÖÕïÃà§Ï4(ÄÅçΩπÕ–ÅmÑ±à±çtı…ïÕ’±–π…ïÕ’±–π…ïÕ’±—ÃÌÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°Ñπ—•µïΩπÕ—Öπ—MïçΩπëÃ¥¿∏¿¿ƒ§≈î¥ƒ»§ÌÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°Ñπç’—Ωôô…ï≈’ïπçÂ!Ë¥ƒ‘‰∏ƒ‘–‰–Ã¿‰ƒ‰§≈î¥‡§Ï4(ÄÅÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°àπ—•µïΩπÕ—Öπ—MïçΩπëÃ¥¿∏¿–‹§≈î¥ƒ»§ÌÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°àπç’—Ωôô…ï≈’ïπçÂ!Ë¥Ã∏Ã‡ÿ»‹‘Ã‡–‰§≈î¥‡§Ï4(ÄÅÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°åπ—•µïΩπÕ—Öπ—MïçΩπëÃ¥»∏…î¥ÿ§≈î¥ƒ‘§ÌÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°åπç’—Ωôô…ï≈’ïπçÂ!Ë¥‹»Ã–Ã∏ƒ‘‘‰‘¿‰§≈î¥‘§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ïIçQ•µ•πú°Ì…ïÕ•Õ—ÖπçïYÖ±’îË¿±…ïÕ•Õ—ÖπçïUπ•–ËâØ:§à±çÖ¡Öç•—ÖπçïYÖ±’îËƒ±çÖ¡Öç•—ÖπçïUπ•–Ëã
-’âÙ§πΩ¨±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ïIçQ•µ•πú°Ì…ïÕ•Õ—ÖπçïYÖ±’îËƒ±…ïÕ•Õ—ÖπçïUπ•–ËâØ:§à±çÖ¡Öç•—ÖπçïYÖ±’îËƒ±çÖ¡Öç•—ÖπçïUπ•–Ëâ∑:§âÙ§πΩ¨±ôÖ±Õî§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπ…çQ•µ•πùÖ±ç’±Ö—Ω»πçÖÕïÕl¡tπçÖ¡Öç•—ÖπçïYÖ±’îÙ¥ƒÌÖÕÕï…–πï≈’Ö∞°…’πIçQ•µ•πùÖ±ç’±Ö—Ω»°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅΩ¿µÖµ¿ÅùÖ•∏ÅçÖ±ç’±Ö—Ω»ÅçΩŸï…ÃÅâΩ—†Å—Ω¡Ω±Ωù•ïÃÅÖπêÅ…ï©ïç—ÃÅÈï…ºÅΩ»Å•πŸÖ±•êÅ…ïÕ•Õ—Ω…Ãà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‰»µΩ¿µÖµ¿µùÖ•∏µçÖ±ç’±Ö—Ω»πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’π=¡µ¡Ö•πÖ±ç’±Ö—Ω»°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞âΩ¿µÖµ¿µùÖ•∏µçÖÕïÃà§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïÕ’±—ÃπµÖ¿°•—ï¥Ù˘•—ï¥πùÖ•∏§±l¥ƒ¿∞ƒ¿∞…t§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïÕ’±—Õl¡tπ¡°ÖÕï%πŸï…—ïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïÕ’±—Õl≈tπ¡°ÖÕï%πŸï…—ïê±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ï=¡µ¡Ö•∏°ÌçΩπô•ù’…Ö—•Ω∏Ëâ•πŸï…—•πúà±•π¡’—IïÕ•Õ—Öπçï=°µÃË¿±ôïïëâÖç≠IïÕ•Õ—Öπçï=°µÃËƒ¿¿¿¡Ù§πΩ¨±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ï=¡µ¡Ö•∏°ÌçΩπô•ù’…Ö—•Ω∏ËâπΩ∏µ•πŸï…—•πúà±ôïïëâÖç≠IïÕ•Õ—Öπçï=°µÃË¥ƒ±ù…Ω’πëIïÕ•Õ—Öπçï=°µÃËƒ¿¿¿¡Ù§πΩ¨±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ï=¡µ¡Ö•∏°ÌçΩπô•ù’…Ö—•Ω∏Ëââ’ôôï»à±ôïïëâÖç≠IïÕ•Õ—Öπçï=°µÃËƒ¿¿¿¿±ù…Ω’πëIïÕ•Õ—Öπçï=°µÃËƒ¿¿¿¡Ù§πΩ¨±ôÖ±Õî§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπΩ¡µ¡Ö•πÖ±ç’±Ö—Ω»πçÖÕïÕl¡tπôïïëâÖç≠IïÕ•Õ—Öπçï=°µÃÙ¿ÌÖÕÕï…–πï≈’Ö∞°…’π=¡µ¡Ö•πÖ±ç’±Ö—Ω»°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅAÅ—…Öçîµ›•ë—†ÅÖëŸ•ÕΩ»Å¡…ΩŸ•ëïÃÅÕçΩ¡ïêÅï·—ï…πÖ∞Ω•π—ï…πÖ∞ÅïÕ—•µÖ—ïÃÅÖπêÅ…ï©ïç—ÃÅ•πŸÖ±•êÅ•π¡’—Ãà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‰Ãµ¡çàµ—…Öçîµ›•ë—†µÖëŸ•ÕΩ»πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πAçâQ…Öçï]•ë—°ëŸ•ÕΩ»°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞â¡çàµ—…Öçîµ›•ë—†µÖëŸ•ÕΩ…‰à§ÌÖÕÕï…–πµÖ—ç†°…ïÕ’±–π…ïÕ’±–πÕ—ÖπëÖ…ë1•µ•—Ö—•Ω∏∞Ω%A¥»ƒ‘»º§Ï4(ÄÅçΩπÕ–Åmï·—ï…πÖ∞±•π—ï…πÖ±tı…ïÕ’±–π…ïÕ’±–π…ïÕ’±—ÃÌÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°ï·—ï…πÖ∞π›•ë—°5¥¥¿∏‹‡ƒ–Ã‹–ÿ»‰§≈î¥‰§ÌÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°•π—ï…πÖ∞π›•ë—°5¥¥»∏¿Ã»‡ÿ»‘–‰¿§≈î¥‰§ÌÖÕÕï…–πΩ¨°•π—ï…πÖ∞π›•ë—°5¥˘ï·—ï…πÖ∞π›•ë—°5¥§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ïAçâQ…Öçï]•ë—†°Ìç’……ïπ—Ë¿±çΩ¡¡ï…Q°•ç≠πïÕÕU¥ËÃ‘±—ïµ¡ï…Ö—’…ïI•ÕïËƒ¿±±ÖÂï…QÂ¡îËâï·—ï…πÖ∞âÙ§πΩ¨±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ïAçâQ…Öçï]•ë—†°Ìç’……ïπ—Ëƒ±çΩ¡¡ï…Q°•ç≠πïÕÕU¥Ë¥ƒ±—ïµ¡ï…Ö—’…ïI•ÕïËƒ¿±±ÖÂï…QÂ¡îËâï·—ï…πÖ∞âÙ§πΩ¨±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°çÖ±ç’±Ö—ïAçâQ…Öçï]•ë—†°Ìç’……ïπ—Ëƒ±çΩ¡¡ï…Q°•ç≠πïÕÕU¥ËÃ‘±—ïµ¡ï…Ö—’…ïI•ÕïËƒ¿±±ÖÂï…QÂ¡îËâ’π≠πΩ›∏âÙ§πΩ¨±ôÖ±Õî§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπ¡çâQ…Öçï]•ë—°ëŸ•ÕΩ»πçÖÕïÕl¡tπ—ïµ¡ï…Ö—’…ïI•ÕïÙ¿ÌÖÕÕï…–πï≈’Ö∞°…’πAçâQ…Öçï]•ë—°ëŸ•ÕΩ»°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4(4)—ïÕ–†âçÖ—Ö±Ωù’îÅ	=4Åï·¡Ω…–Åù…Ω’¡ÃÅŸï…•ô•ïêÅô•ï±ëÃÅÖπêÅ±ïÖŸïÃÅ’πÕΩ’…çïêÅçΩÕ–Åâ±Öπ¨à∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‰–µâΩ¥µï·¡Ω…–µçΩÕ–µ¡±Öçï°Ω±ëï»πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’π	Ωµ·¡Ω…—A±Öçï°Ω±ëï»°¡…Ω©ïç–§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞ââΩ¥µçΩÕ–µ¡±Öçï°Ω±ëï»à§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π•—ïµΩ’π–∞–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…Ω›Ω’π–∞–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π—Ω—Ö±ΩÕ–±π’±∞§Ï4(ÄÅÖÕÕï…–πΩ¨°…ïÕ’±–π…ïÕ’±–π…Ω›ÃπïŸï…‰°…Ω‹Ù˘…Ω‹π’π•—ΩÕ–ÙÙıπ’±∞òô…Ω‹πï·—ïπëïëΩÕ–ÙÙıπ’±∞§§Ï4(ÄÅçΩπÕ–ÅçÕÿıï·¡Ω…—	ΩµÕÿ°â’•±ë	ΩµIï¡Ω…–°¡…Ω©ïç–§§ÌÖÕÕï…–πï≈’Ö∞°çÕÿπΩ¨±—…’î§Ï4(ÄÅÖÕÕï…–πµÖ—ç†°çÕÿπçÕÿ∞ºâUπ•–ÅΩÕ–à∞â·—ïπëïêÅΩÕ–à∞â’……ïπç‰à∞âA…•çîÅMΩ’…çîà∞âA…•çîÅÃÅ=òàº§Ï4(ÄÅÖÕÕï…–πΩ¨°çÕÿπçÕÿπÕ¡±•–†âq…q∏à§πô•±—ï»°	ΩΩ±ïÖ∏§πïŸï…‰°±•πîÙ¯Ö±•πîπ•πç±’ëïÃ†àê¿à§òòÖ±•πîπ•πç±’ëïÃ†âpà¡pàà§§§Ï4(ÄÅçΩπÕ–Åù…Ω’¡ïêıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ìù…Ω’¡ïêπçΩµ¡Ωπïπ—Ãπ¡’Õ†°Ï∏∏πÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–πçΩµ¡Ωπïπ—Õl≈t§±•πÕ—Öπçï%êËâ…ïÕ•Õ—Ω»¥»à±…ïôï…ïπçîËâH∞Åpà…pàâÙ§Ï4(ÄÅçΩπÕ–Åù…Ω’¡ïëIï¡Ω…–ıâ’•±ë	ΩµIï¡Ω…–°ù…Ω’¡ïê§ÌçΩπÕ–Å…ïÕ•Õ—Ω…IΩ‹ıù…Ω’¡ïëIï¡Ω…–π…Ω›Ãπô•πê°…Ω‹Ù˘…Ω‹π±•â…Ö…Â%êÙÙÙâ¡ÖÕÕ•Ÿîπ…ïÕ•Õ—Ω»à§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ•Õ—Ω…IΩ‹π≈’Öπ—•—‰∞»§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ•Õ—Ω…IΩ‹π…ïôï…ïπçïÃ∞âH∞Åpà…pà∞ÅHƒà§Ï4(ÄÅÖÕÕï…–πµÖ—ç†°ï·¡Ω…—	ΩµÕÿ°ù…Ω’¡ïëIï¡Ω…–§πçÕÿ∞ºâH∞Äàà»àà∞ÅHƒàº§Ï4(ÄÅçΩπÕ–Å¡…•çïêıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì¡…•çïêπçΩµ¡Ωπïπ—Õl≈tπŸï…•ô•ïëA…•çîıÌ’π•—ΩÕ–Ë¿∏ƒ»±ç’……ïπç‰ËâUHà±ÕΩ’…çîËâ°——¡ÃËºΩï·Öµ¡±îπçΩ¥Ω¡Ö…—ÃΩ…ïÕ•Õ—Ω»à±ÖÕ=òËà»¿»ÿ¥ƒ¿¥Ã¿âÙÏ4(ÄÅçΩπÕ–Å¡…•çïëIï¡Ω…–ıâ’•±ë	ΩµIï¡Ω…–°¡…•çïê§ÌÖÕÕï…–πï≈’Ö∞°¡…•çïëIï¡Ω…–π…Ω›Ãπô•πê°…Ω‹Ù˘…Ω‹π±•â…Ö…Â%êÙÙÙâ¡ÖÕÕ•Ÿîπ…ïÕ•Õ—Ω»à§πï·—ïπëïëΩÕ–∞¿∏ƒ»§ÌÖÕÕï…–πï≈’Ö∞°¡…•çïëIï¡Ω…–π—Ω—Ö±ΩÕ–±π’±∞§Ï4(ÄÅçΩπÕ–Å•πŸÖ±•êıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì•πŸÖ±•êπçΩµ¡Ωπïπ—Õl¡tπ±•â…Ö…Â%êÙâ’π≠πΩ›∏π¡Ö…–àÌÖÕÕï…–πï≈’Ö∞°…’π	Ωµ·¡Ω…—A±Öçï°Ω±ëï»°•πŸÖ±•ê§πÕ—Ö—î∞ââ±Ωç≠ïêà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅë•ù’∏Å	=PÅçΩµ¡Ωπïπ–Åï·¡±Ö•πï»Åç•—ïÃÅÕΩ’…çîÅô•ï±ëÃÅÖπêÅë•Õç±ΩÕïÃÅ’π≠πΩ›πÃà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‰‘µâΩ–µï·¡±Ö•∏µçΩµ¡Ωπïπ–πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’π	Ω—Ωµ¡Ωπïπ—·¡±Ö•πï»°¡…Ω©ïç–§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞ââΩ–µù…Ω’πëïêµçΩµ¡Ωπïπ–µï·¡±ÖπÖ—•Ω∏à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π…ïôï…ïπçî∞âHƒà§Ï4(ÄÅÖÕÕï…–πΩ¨°…ïÕ’±–π…ïÕ’±–π≠πΩ›∏πÕΩµî°•—ï¥Ù˘•—ï¥πô•ï±êÙÙÙâΩπô•ù’…ïêÅŸÖ±’îàòô•—ï¥πŸÖ±’îÙÙÙàÃÃ¿É:§àòô•—ï¥πÕΩ’…çîÙÙÙâ9Ö—•ŸîÅ¡…Ω©ïç–à§§Ï4(ÄÅÖÕÕï…–πΩ¨°…ïÕ’±–π…ïÕ’±–π≠πΩ›∏πÕΩµî°•—ï¥Ù˘•—ï¥πô•ï±êÙÙÙâ1•â…Ö…‰ÅëïÕç…•¡—•Ω∏àòô•—ï¥πÕΩ’…çîÙÙÙâ°ïç≠ïêµ•∏ÅçΩµ¡Ωπïπ–Å±•â…Ö…‰à§§Ï4(ÄÅÖÕÕï…–πµÖ—ç†°…ïÕ’±–π…ïÕ’±–πÖπÕ›ï»∞ΩMΩ’…çïÃËÅ9Ö—•ŸîÅ¡…Ω©ïç–ÅÖπêÅ°ïç≠ïêµ•∏ÅçΩµ¡Ωπïπ–Å±•â…Ö…‰º§Ï4(ÄÅÖÕÕï…–πΩ¨°…ïÕ’±–π…ïÕ’±–π’π≠πΩ›∏πÕΩµî°•—ï¥Ù¯Ω5Öπ’ôÖç—’…ï»Å•ÃÅπΩ–Å…ïçΩ…ëïêºπ—ïÕ–°•—ï¥§§§Ï4(ÄÅÖÕÕï…–πΩ¨°…ïÕ’±–π…ïÕ’±–π’π≠πΩ›∏πÕΩµî°•—ï¥Ù˘•—ï¥π•πç±’ëïÃ†â5Öπ’ôÖç—’…ï»Å¡Ö…–Åπ’µâï»Ä°5A8§Å•ÃÅπΩ–Å…ïçΩ…ëïê∏à§§§Ï4(ÄÅÖÕÕï…–πΩ¨°…ïÕ’±–π…ïÕ’±–π’π≠πΩ›∏πÕΩµî°•—ï¥Ù¯ΩëÖ—ÖÕ°ïï–Å±•π¨Å•ÃÅπΩ–Å…ïçΩ…ëïêºπ—ïÕ–°•—ï¥§§§Ï4(ÄÅÖÕÕï…–πµÖ—ç†°…ïÕ’±–πµïÕÕÖùî∞ΩπºÅï·—ï…πÖ∞Å$ÅΩ»Å›ïàÅ±ΩΩ≠’¿Ω§§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ï·¡±Ö•πΩµ¡Ωπïπ–°¡…Ω©ïç–∞âµ•ÕÕ•πúµ…ïôï…ïπçîà§πΩ¨±ôÖ±Õî§Ï4(ÄÅçΩπÕ–Å’πÕ’¡¡Ω…—ïêıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ì’πÕ’¡¡Ω…—ïêπçΩµ¡Ωπïπ—Õl≈tπ±•â…Ö…Â%êÙâ’πŸï…•ô•ïêπ¡Ö…–àÌÖÕÕï…–πï≈’Ö∞°ï·¡±Ö•πΩµ¡Ωπïπ–°’πÕ’¡¡Ω…—ïê∞âHƒà§πΩ¨±ôÖ±Õî§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅ	=PÅô±ΩÖ—•πúµπΩëîÅ…ï¡Ö•»Å¡…ïŸ•ï‹ÅŸÖ±•ëÖ—ïÃÅÕï¡Ö…Ö—ï±‰ÅÖπêÅ…ï≈’•…ïÃÅçΩπô•…µÖ—•Ω∏à∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‰ÿµâΩ–µô±ΩÖ—•πúµπΩëîµ…ï¡Ö•»µ¡…ïŸ•ï‹πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–ÅâïôΩ…îı)M=8πÕ—…•πù•ô‰°¡…Ω©ïç–§ÌçΩπÕ–Å…ïÕ’±–ı…’π	Ω—±ΩÖ—•πù9ΩëïIï¡Ö•»°¡…Ω©ïç–§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞ââΩ–µô±ΩÖ—•πúµπΩëîµ…ï¡Ö•»µ¡…ïŸ•ï‹à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πŸÖ±•ëÖ—•ΩπYÖ±•ê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÖ¡¡±•ïê±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°)M=8πÕ—…•πù•ô‰°¡…Ω©ïç–§±âïôΩ…î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π¡…ïŸ•ï‹πçÖπë•ëÖ—îπçΩµ¡Ωπïπ—Ãπ±ïπù—†±¡…Ω©ïç–πçΩµ¡Ωπïπ—Ãπ±ïπù—†¨ƒ§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π¡…ïŸ•ï‹π¡…Ω¡ΩÕÖ∞πŸÖ±’î∞àƒÅ7:§à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π¡…ïŸ•ï‹π¡…Ω¡ΩÕÖ∞πô…Ω¥∞â1=Q%9à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π¡…ïŸ•ï‹π¡…Ω¡ΩÕÖ∞π—º∞â9à§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°Ö¡¡±Â	Ω—±ΩÖ—•πù9ΩëïIï¡Ö•…A…ïŸ•ï‹°¡…Ω©ïç–±…ïÕ’±–π¡…ïŸ•ï‹±ÌçΩπô•…µïêÈôÖ±ÕïÙ§πÖ¡¡±•ïê±ôÖ±Õî§ÌÖÕÕï…–πï≈’Ö∞°)M=8πÕ—…•πù•ô‰°¡…Ω©ïç–§±âïôΩ…î§Ï4(ÄÅçΩπÕ–ÅÖççï¡—ïêıÖ¡¡±Â	Ω—±ΩÖ—•πù9ΩëïIï¡Ö•…A…ïŸ•ï‹°¡…Ω©ïç–±…ïÕ’±–π¡…ïŸ•ï‹±ÌçΩπô•…µïêÈ—…’ïÙ§ÌÖÕÕï…–πï≈’Ö∞°Öççï¡—ïêπÖ¡¡±•ïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°Öççï¡—ïêπ¡…Ω©ïç–πçΩµ¡Ωπïπ—Ãπ±ïπù—†±¡…Ω©ïç–πçΩµ¡Ωπïπ—Ãπ±ïπù—†¨ƒ§Ï4(ÄÅçΩπÕ–Åç°ÖπùïêıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§Ìç°Öπùïêπµï—ÖëÖ—ÑππÖµî¨ÙàÅïë•—ïêàÌçΩπÕ–ÅÕ—Ö±îıÖ¡¡±Â	Ω—±ΩÖ—•πù9ΩëïIï¡Ö•…A…ïŸ•ï‹°ç°Öπùïê±…ïÕ’±–π¡…ïŸ•ï‹±ÌçΩπô•…µïêÈ—…’ïÙ§ÌÖÕÕï…–πï≈’Ö∞°Õ—Ö±îπÖ¡¡±•ïê±ôÖ±Õî§ÌÖÕÕï…–πï≈’Ö∞°Õ—Ö±îπ¡…Ω©ïç–±ç°Öπùïê§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°Öççï¡—ïêπ¡…Ω©ïç–§πŸÖ±•ê±—…’î§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅ	=PÄƒ»ÅXÅ1Å¡…Ω¡ΩÕÖ∞ÅŸÖ±•ëÖ—ïÃÅÕï¡Ö…Ö—ï±‰ÅÖπêÅ…ï©ïç—•Ω∏Å¡…ïÕï…ŸïÃÅ—°îÅ¡…Ω©ïç–à∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‰‹µâΩ–µç•…ç’•–µ¡…Ω¡ΩÕÖ∞πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–ÅâïôΩ…îı)M=8πÕ—…•πù•ô‰°¡…Ω©ïç–§ÌçΩπÕ–Å…ïÕ’±–ı…’π	Ω—•…ç’•—A…Ω¡ΩÕÖ∞°¡…Ω©ïç–§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞ââΩ–¥ƒ…ÿµ±ïêµç•…ç’•–µ¡…Ω¡ΩÕÖ∞à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÖ¡¡±•ïê±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π¡…ïŸ•ï‹π¡…Ω¡ΩÕÖ∞πÕΩ’…çî∞àƒ»ÅXà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π¡…ïŸ•ï‹π¡…Ω¡ΩÕÖ∞π…ïÕ•Õ—Ω»∞àƒ¿¿¿É:§à§Ï4(ÄÅÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°…ïÕ’±–π¡…ïŸ•ï‹π¡…Ω¡ΩÕÖ∞πïÕ—•µÖ—ïë’……ïπ—¥¿∏¿ƒ§≈î¥ƒ»§ÌÖÕÕï…–πΩ¨°5Ö—†πÖâÃ°…ïÕ’±–π¡…ïŸ•ï‹π¡…Ω¡ΩÕÖ∞π…ïÕ•Õ—Ω…•ÕÕ•¡Ö—•Ωπ\¥¿∏ƒ§≈î¥ƒ»§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°ŸÖ±•ëÖ—ïA…Ω©ïç–°…ïÕ’±–π¡…ïŸ•ï‹πçÖπë•ëÖ—î§πŸÖ±•ê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…’πM’¡¡Ω…—ïëπÖ±ÂÕ•Ã°…ïÕ’±–π¡…ïŸ•ï‹πçÖπë•ëÖ—î§πÕ—Ö—î∞âçΩµ¡±ï—îà§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°)M=8πÕ—…•πù•ô‰°¡…Ω©ïç–§±âïôΩ…î§Ï4(ÄÅçΩπÕ–Å…ï©ïç—ïêıÖ¡¡±Â	Ω—•…ç’•—A…Ω¡ΩÕÖ∞°¡…Ω©ïç–±…ïÕ’±–π¡…ïŸ•ï‹±ÌçΩπô•…µïêÈôÖ±ÕïÙ§ÌÖÕÕï…–πï≈’Ö∞°…ï©ïç—ïêπÖ¡¡±•ïê±ôÖ±Õî§ÌÖÕÕï…–πï≈’Ö∞°…ï©ïç—ïêπ¡…Ω©ïç–±¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°)M=8πÕ—…•πù•ô‰°¡…Ω©ïç–§±âïôΩ…î§Ï4(ÄÅçΩπÕ–ÅÕ—Ö±îıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§ÌÕ—Ö±îπµï—ÖëÖ—ÑππÖµî¨ÙàÅç°ÖπùïêàÌÖÕÕï…–πï≈’Ö∞°Ö¡¡±Â	Ω—•…ç’•—A…Ω¡ΩÕÖ∞°Õ—Ö±î±…ïÕ’±–π¡…ïŸ•ï‹±ÌçΩπô•…µïêÈ—…’ïÙ§πÖ¡¡±•ïê±ôÖ±Õî§Ï4(ÄÅçΩπÕ–ÅÖççï¡—ïêıÖ¡¡±Â	Ω—•…ç’•—A…Ω¡ΩÕÖ∞°¡…Ω©ïç–±…ïÕ’±–π¡…ïŸ•ï‹±ÌçΩπô•…µïêÈ—…’ïÙ§ÌÖÕÕï…–πï≈’Ö∞°Öççï¡—ïêπÖ¡¡±•ïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°Öççï¡—ïêπ¡…Ω©ïç–πçΩµ¡Ωπïπ—Ãπô•πê°•—ï¥Ù˘•—ï¥π±•â…Ö…Â%êÙÙÙâ¡Ω›ï»πëåµÕΩ’…çîà§πŸÖ±’î∞àƒ»ÅXà§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅôΩ’»µ±Öπù’ÖùîÅU$ÅÕ›ïï¿ÅçΩŸï…ÃÅ—…ÖπÕ±Ö—•ΩπÃ∞ÅÖççïÕÕ•â±îÅπÖµïÃ∞ÅÖπêÅ…ïÕ¡ΩπÕ•ŸîÅΩŸï…ô±Ω‹Åù’Ö…ëÃà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‰‡µôΩ’»µ±Öπù’Öùîµ’§µÕ›ïï¿πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πΩ’…1Öπù’ÖùïU•M›ïï¿°¡…Ω©ïç–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞âôΩ’»µ±Öπù’Öùîµ’§µÕ›ïï¿à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π±ΩçÖ±ïΩ’π–∞–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πµ•ÕÕ•πùQ…ÖπÕ±Ö—•ΩπÃ∞¿§Ï4(ÄÅçΩπÕ–Å°—µ∞ıÖ›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ω•πëï‡π°—µ∞à±•µ¡Ω…–πµï—Ñπ’…∞§∞â’—ò‡à§ÌçΩπÕ–ÅçÕÃıÖ›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏ΩÕ—Â±ïÃπçÕÃà±•µ¡Ω…–πµï—Ñπ’…∞§∞â’—ò‡à§Ï4(ÄÅçΩπÕ–ÅÖ’ë•–ıÖ’ë•—U•MΩ’…çî°°—µ∞±çÕÃ§ÌÖÕÕï…–πï≈’Ö∞°Ö’ë•–π¡ÖÕÕïê±—…’î±)M=8πÕ—…•πù•ô‰°Ö’ë•–§§ÌÖÕÕï…–πï≈’Ö∞°Ö’ë•–πµ•ÕÕ•πùQ…ÖπÕ±Ö—•ΩπÃπ±ïπù—†∞¿§ÌÖÕÕï…–πï≈’Ö∞°Ö’ë•–π’πëïç±Ö…ïë-ïÂÃπ±ïπù—†∞¿§ÌÖÕÕï…–πëïï¡≈’Ö∞°Ö’ë•–π’π±Öâï±ïë	’——ΩπÃ±mt§ÌÖÕÕï…–πëïï¡≈’Ö∞°Ö’ë•–π’π±Öâï±ïëΩπ—…Ω±Ã±mt§ÌÖÕÕï…–πëïï¡≈’Ö∞°Ö’ë•–π’π±Öâï±ïë%µÖùïÃ±mt§ÌÖÕÕï…–πëïï¡≈’Ö∞°Ö’ë•–πôÖ•±ïë’Ö…ëÃ±mt§ÌÖÕÕï…–πï≈’Ö∞°Ö’ë•–π…ïπëï…ïëA•·ï±°ïç¨±ôÖ±Õî§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅΩôô±•πîÅ…ïçΩŸï…‰Å…ïÕ—Ω…ïÃÅ—°îÅ’πÕÖŸïêÅïë•–ÅÖπêÅ¡…ïÕï…ŸïÃÅÑÅµÖπ’Ö∞Åï·¡Ω…–ÅΩ∏ÅÕ—Ω…ÖùîÅôÖ•±’…îà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç–ı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºƒ‰‰µ±ΩçÖ∞µΩôô±•πîµ…ïçΩŸï…‰πÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–ÅΩ…•ù•πÖ∞ıÕï…•Ö±•ÈïA…Ω©ïç–°¡…Ω©ïç–§ÌçΩπÕ–Å…ïÕ’±–ı…’π=ôô±•πïIïçΩŸï…ÂMçïπÖ…•º°¡…Ω©ïç–§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà±…ïÕ’±–πµïÕÕÖùî§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞âΩôô±•πîµ…ïçΩŸï…‰µÕçïπÖ…•ºà§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πïë•—ïëYÖ±’î∞à–‹¿É:§à§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πë…Öô—MÖŸïê±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÕ—Ω…ÖùïÖ±±âÖç≠ŸÖ•±Öâ±î±—…’î§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πÕ•±ïπ—1ΩÕÃ±ôÖ±Õî§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°Õï…•Ö±•ÈïA…Ω©ïç–°¡…Ω©ïç–§±Ω…•ù•πÖ∞§Ï4)Ù§Ï4)—ïÕ–†âçÖ—Ö±Ωù’îÅ…ï±ïÖÕîÅçÖπë•ëÖ—îÅ¡ÖÕÕïÃÅâ’•±ê∞Å•µ¡Ω…–∞Åïë•–∞ÅÕ•µ’±Ö—•Ω∏∞ÅIΩI∞Åï·¡Ω…–∞ÅÕÂπåÅÖπêÅ	=Pµ¡…ïŸ•ï‹ÅùÖ—ïÃà∞ÅÖÕÂπåÄ†§ÄÙ¯ÅÏ4(ÄÅçΩπÕ–ÅçÖπë•ëÖ—îı)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃº»¿¿µ…ï±ïÖÕîµçÖπë•ëÖ—îµî…îπÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§§Ï4(ÄÅçΩπÕ–Å•ëÃılà¿¿ƒµ±ïêµç’……ïπ–µ±•µ•—ï»à∞àƒ»»¥‘‘‘µ—•µï»µ¡çàà∞àƒ‡»µÕç°ïµÖ—•åµ¡çàµÕÂπåà∞àƒ‰‘µâΩ–µï·¡±Ö•∏µçΩµ¡Ωπïπ–âtÏ4(ÄÅçΩπÕ–Å¡…Ω©ïç—Ãı=â©ïç–πô…Ωµπ—…•ïÃ°Ö›Ö•–ÅA…Ωµ•ÕîπÖ±∞°•ëÃπµÖ¿°ÖÕÂπåÅ•êÙ˘m•ê±)M=8π¡Ö…Õî°Ö›Ö•–Å…ïÖë•±î°πï‹ÅUI0†à∏∏Ωï·Öµ¡±ïÃºà≠•ê¨àπÖë•ù’∏π©ÕΩ∏à±•µ¡Ω…–πµï—Ñπ’…∞§§•t§§§Ï4(ÄÅçΩπÕ–Å…ïÕ’±–ı…’πIï±ïÖÕïÖπë•ëÖ—ï…•·—’…ïÃ°ÌçÖπë•ëÖ—î±¡…Ω©ïç—ÕÙ§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—î∞âçΩµ¡±ï—îà±…ïÕ’±–πµïÕÕÖùî§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π≠•πê∞â…ï±ïÖÕîµçÖπë•ëÖ—îµî…îà§Ï4(ÄÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π…ïÕ’±–πç°ïç≠Ã±Ìâ’•±êÈ—…’î±•µ¡Ω…–È—…’î±ïë•–È—…’î±Õ•µ’±Ö—•Ω∏È—…’î±ï…åÈ—…’î±ë…åÈ—…’î±ï·¡Ω…–È—…’î±Õç°ïµÖ—•çAçâMÂπåÈ—…’î±âΩ—A…ïŸ•ï‹È—…’ïÙ§Ï4(ÄÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πô•·—’…ïΩ’π–∞–§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–π¡çâ…å∞â¡ÖÕÕïêà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π…ïÕ’±–πâΩ—5’—Ö—•Ω∏±ôÖ±Õî§Ï4)Ù§Ï4(4)ô’πç—•Ω∏ÅµÖ≠ïA…Ω©ïç–†§ÅÏ4(Å…ï—’…∏ÅÏ4(ÄÅµï—ÖëÖ—ÑÈÌ’¡ëÖ—ïë–Ëà»¿»ÿ¥¿ƒ¥¿≈P¿¿Ë¿¿Ë¿¿∏¿¿¡hâÙ∞4(ÄÅçΩµ¡Ωπïπ—ÃÈmÌ•πÕ—Öπçï%êËâ»ƒà±¡ΩÕ•—•Ω∏ÈÌ¡çàÈlƒ¿¿∞ƒ¿¡t±Õç°ïµÖ—•åÈlƒ»¿∞ƒ»¡uıÙ±Ì•πÕ—Öπçï%êËâêƒà±¡ΩÕ•—•Ω∏ÈÌ¡çàÈlÃ¿¿∞ƒ¿¡uııt∞4(ÄÅ¡çâÖâ…•çÖ—•Ω∏ÈÏ4(ÄÄÅâΩÖ…êÈÌ›•ë—°5¥Ë–¿±°ï•ù°—5¥Ë»¡Ù∞4(ÄÄÅ¡Ö…—ÃÈmÌ•πÕ—Öπçï%êËâ»ƒà±…ïôï…ïπçîËâHƒà±ôΩΩ—¡…•π–ËâI|¿ÿ¿ÃâÙ±Ì•πÕ—Öπçï%êËâêƒà±…ïôï…ïπçîËâƒà±ôΩΩ—¡…•π–Ëâ}M=¥ƒ»Ãâıt∞4(ÄÄÅ¡ÖëÃÈl4(ÄÄÄÅÌ•πÕ—Öπçï%êËâ»ƒà±π’µâï»Ëàƒà±πï—%êËâYà±·5¥Ë‘±Â5¥Ë‘±—ïç°πΩ±Ωù‰Ëâ—°…Ω’ù†µ°Ω±îà±ë•Öµï—ï…5¥Ë≈Ù∞4(ÄÄÄÅÌ•πÕ—Öπçï%êËâ»ƒà±π’µâï»Ëà»à±πï—%êËâM%à±·5¥Ëƒ¿±Â5¥Ë‘±—ïç°πΩ±Ωù‰ËâÕµêà±›•ë—°5¥Ëƒ±°ï•ù°—5¥Ë≈Ù∞4(ÄÄÄÅÌ•πÕ—Öπçï%êËâêƒà±π’µâï»Ëàƒà±πï—%êËâM%à±·5¥Ë»¿±Â5¥Ëƒ¿±—ïç°πΩ±Ωù‰Ëâ—°…Ω’ù†µ°Ω±îà±ë•Öµï—ï…5¥Ë≈Ù4(ÄÄÅt∞4(ÄÄÅ…Ω’—ïÃÈl4(ÄÄÄÅÌπï—%êËâYà±›•ë—°5¥Ë∏»‘±¡Ω•π—Õ5¥Èml‘∞’t±lÿ∞’uuÙ∞4(ÄÄÄÅÌπï—%êËâM%à±›•ë—°5¥Ë∏»‘±¡Ω•π—Õ5¥Èmlƒ¿∞’t±lƒ‘∞’t±l»¿∞ƒ¡uuÙ∞4(ÄÄÄÅÌπï—%êËâ9à±›•ë—°5¥Ë∏»‘±¡Ω•π—Õ5¥Èml»∞…t±l»∞ÕuuÙ4(ÄÄÅt4(ÄÅÙ4(ÅÙÏ4)Ù4)—ïÕ–†âAÅôΩΩ—¡…•π–ÅµΩŸïµïπ–Å≠ïï¡ÃÅ¡ÖêÅÖπç°Ω…ÃÅÖπêÅÖ——Öç°ïêÅ…Ω’—îÅïπë¡Ω•π—ÃÅ—Ωùï—°ï»à∞†§Ù˘Ï4(ÅçΩπÕ–Å¡…Ω©ïç–ıµÖ≠ïA…Ω©ïç–†§±âïôΩ…îıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§±…ïÕ’±–ıµΩŸïAçâΩΩ—¡…•π–°¡…Ω©ïç–∞â»ƒà±Ì‡Ë»±‰Ë¥≈Ù§Ï4(ÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—’Ã∞âçΩµ¡±ï—îà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πµΩŸïëAÖëΩ’π–∞»§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π’¡ëÖ—ïëIΩ’—ïAΩ•π—Ã∞»§Ï4(ÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π¡…Ω©ïç–π¡çâÖâ…•çÖ—•Ω∏π¡ÖëÃπÕ±•çî†¿∞»§πµÖ¿°¿Ù˘m¿π·5¥±¿πÂ5µt§±ml‹∞—t±lƒ»∞—ut§Ï4(ÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π¡…Ω©ïç–π¡çâÖâ…•çÖ—•Ω∏π…Ω’—ïÃπµÖ¿°»Ù˘»π¡Ω•π—Õ5¥§±mml‹∞—t±lÿ∞’ut±mlƒ»∞—t±lƒ‘∞’t±l»¿∞ƒ¡ut±ml»∞…t±l»∞Õuut§Ï4(ÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–π¡…Ω©ïç–πçΩµ¡Ωπïπ—Õl¡tπ¡ΩÕ•—•Ω∏±Ì¡çàÈlƒ»¿∏‡∞‡‰∏Ÿt±Õç°ïµÖ—•åÈlƒ»¿∞ƒ»¡uÙ§Ï4(ÅÖÕÕï…–πëïï¡≈’Ö∞°¡…Ω©ïç–±âïôΩ…î∞â—°îÅΩ¡ï…Ö—•Ω∏Åµ’Õ–ÅπΩ–Åµ’—Ö—îÅ—°îÅÕΩ’…çîÅ¡…Ω©ïç–à§Ï4)Ù§Ï4)—ïÕ–†âAÅôΩΩ—¡…•π–ÅµΩŸïµïπ–Å…ï©ïç—ÃÅâΩÖ…êµïëùîÅΩŸï…ô±Ω‹Å›•—°Ω’–Åç°Öπù•πúÅ—°îÅÕΩ’…çîà∞†§Ù˘Ï4(ÅçΩπÕ–Å¡…Ω©ïç–ıµÖ≠ïA…Ω©ïç–†§±âïôΩ…îıÕ—…’ç—’…ïë±Ωπî°¡…Ω©ïç–§±…ïÕ’±–ıµΩŸïAçâΩΩ—¡…•π–°¡…Ω©ïç–∞â»ƒà±Ì‡ËÃƒ±‰Ë¡Ù§Ï4(ÅÖÕÕï…–πëïï¡≈’Ö∞°…ïÕ’±–±ÌÕ—Ö—’ÃËââ±Ωç≠ïêà±çΩëîËâ=UQ}=}	=U9LâÙ§ÌÖÕÕï…–πëïï¡≈’Ö∞°¡…Ω©ïç–±âïôΩ…î§Ï4)Ù§Ï4)—ïÕ–†âAÅôΩΩ—¡…•π–ÅµΩŸïµïπ–Å…ï©ïç—ÃÅ•πŸÖ±•êÅùïΩµï—…‰ÅÖπêÅ’π≠πΩ›∏ÅôΩΩ—¡…•π—Ãà∞†§Ù˘Ï4(ÅçΩπÕ–Å¡…Ω©ïç–ıµÖ≠ïA…Ω©ïç–†§Ï4(ÅÖÕÕï…–πëïï¡≈’Ö∞°µΩŸïAçâΩΩ—¡…•π–°¡…Ω©ïç–∞âµ•ÕÕ•πúà±Ì‡Ëƒ±‰Ë¡Ù§±ÌÕ—Ö—’ÃËââ±Ωç≠ïêà±çΩëîËâU9-9=]9}==QAI%9PâÙ§Ï4(ÅÖÕÕï…–πëïï¡≈’Ö∞°µΩŸïAçâΩΩ—¡…•π–°¡…Ω©ïç–∞âêƒà±Ì‡È9’µâï»π9Ö8±‰Ë¡Ù§±ÌÕ—Ö—’ÃËââ±Ωç≠ïêà±çΩëîËâ%9Y1%}1QâÙ§Ï4(Å¡…Ω©ïç–π¡çâÖâ…•çÖ—•Ω∏π¡ÖëÃπô•πê°¿Ù˘¿π•πÕ—Öπçï%êÙÙÙâ»ƒà§π·5¥ı9’µâï»π9Ö8Ï4(ÅÖÕÕï…–πëïï¡≈’Ö∞°µΩŸïAçâΩΩ—¡…•π–°¡…Ω©ïç–∞â»ƒà±Ì‡Ëƒ±‰Ë¡Ù§±ÌÕ—Ö—’ÃËââ±Ωç≠ïêà±çΩëîËâ%9Y1%}==QAI%9Q}=5QIdâÙ§Ï4)Ù§Ï4)—ïÕ–†âAÅôΩΩ—¡…•π–ÅµΩŸïµïπ–Å…ï¡Ω…—ÃÅ’πç°ÖπùïêÅôΩ»ÅÑÅÈï…ºÅëï±—Ñà∞†§Ù˘Ï4(ÅçΩπÕ–Å¡…Ω©ïç–ıµÖ≠ïA…Ω©ïç–†§±…ïÕ’±–ıµΩŸïAçâΩΩ—¡…•π–°¡…Ω©ïç–∞â»ƒà±Ì‡Ë¿±‰Ë¡Ù§Ï4(ÅÖÕÕï…–πï≈’Ö∞°…ïÕ’±–πÕ—Ö—’Ã∞â’πç°Öπùïêà§ÌÖÕÕï…–πï≈’Ö∞°…ïÕ’±–π¡…Ω©ïç–±¡…Ω©ïç–§Ï4)Ù§Ï4(
+test("catalogue Schmitt trigger has distinct thresholds and retains state inside the hysteresis band",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/028-schmitt-trigger.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const below=runSupportedAnalysis(project);
+  assert.equal(below.state,"complete");
+  assert.equal(below.result.kind,"schmitt-trigger");
+  assert.equal(below.result.fallingThresholdV,2.5);
+  assert.equal(below.result.risingThresholdV,3);
+  assert.equal(below.result.hysteresisV,0.5);
+  assert.equal(below.result.outputState,"low");
+  const above=runSupportedAnalysis(updateComponent(project,"signal",{value:"3.1 V"}));
+  assert.equal(above.result.outputState,"high");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"2.7 V"}),{previousState:"low"}).result.outputState,"low");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"2.7 V"}),{previousState:"high"}).result.outputState,"high");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUT").endpoints=["schmitt:OUT","rled:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue comparator threshold switches on rising input and off below threshold",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/027-comparator-threshold.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const below=runSupportedAnalysis(project);
+  assert.equal(below.state,"complete");
+  assert.equal(below.result.kind,"comparator-threshold");
+  assert.equal(below.result.thresholdVoltage,2.5);
+  assert.equal(below.result.outputState,"low");
+  assert.equal(below.result.ledOn,false);
+  const above=runSupportedAnalysis(updateComponent(project,"signal",{value:"2.6 V"}));
+  assert.equal(above.result.outputState,"high");
+  assert.equal(above.result.ledOn,true);
+  assert.ok(above.result.ledCurrentA>0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"2.4 V"})).result.ledOn,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"6 V"})).state,"blocked");
+});
+
+test("catalogue op-amp voltage follower tracks input amplitude and blocks rail overdrive",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/026-opamp-voltage-follower.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  for(const inputV of [0.1,0.2,0.5,3]){
+    const result=runSupportedAnalysis(updateComponent(project,"signal",{value:`${inputV} V`}));
+    assert.equal(result.state,"complete");
+    assert.equal(result.result.kind,"opamp-voltage-follower");
+    assert.equal(result.result.gainVPerV,1);
+    assert.equal(result.result.outputAmplitudeV,inputV);
+    assert.equal(result.result.phaseShiftDeg,0);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"signal",{value:"12 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["opamp:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue inverting op-amp reports negative gain and phase reversal",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/025-opamp-inverting.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"opamp-inverting");
+  assert.equal(result.result.gainVPerV,-2);
+  assert.equal(result.result.outputAmplitudeV,0.2);
+  assert.equal(result.result.phaseShiftDeg,-180);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"rin",{value:"0 Œ©"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["opamp:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue non-inverting op-amp reports midband gain and rejects clipping or broken feedback",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/024-opamp-noninverting.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"opamp-noninverting");
+  assert.equal(result.result.gainVPerV,2);
+  assert.equal(result.result.inputAmplitudeV,0.1);
+  assert.equal(result.result.outputAmplitudeV,0.2);
+  assert.equal(result.result.phaseShiftDeg,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"rf",{value:"0 Œ©"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["opamp:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+  const clipped=updateComponent(project,"rf",{value:"2 MŒ©"});
+  assert.equal(runSupportedAnalysis(clipped).state,"blocked");
+});
+
+test("catalogue 556 dual timer reports independent astable frequencies",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/023-556-dual-timer.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"ne556-dual-astable");
+  assert.ok(Math.abs(result.result.channelA.frequencyHz-1/(0.693*(10000+2*10000)*0.0001))<1e-12);
+  assert.ok(Math.abs(result.result.channelB.frequencyHz-1/(0.693*(10000+2*10000)*0.00001))<1e-12);
+  assert.notEqual(result.result.channelA.frequencyHz,result.result.channelB.frequencyHz);
+  assert.ok(result.result.channelA.ledAverageCurrentA>0&&result.result.channelB.ledAverageCurrentA>0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"ct-B",{value:"0 F"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="B_TIMING").endpoints=["timer-1:12","ct-B:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue 555 monostable produces one pulse of approximately 1.1 RC", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/022-555-monostable.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const idle=runSupportedAnalysis(project);
+  assert.equal(idle.state,"complete");
+  assert.equal(idle.result.kind,"ne555-monostable");
+  assert.equal(idle.result.triggered,false);
+  assert.equal(idle.result.outputPulseCount,0);
+  const triggered=runSupportedAnalysis(updateComponent(project,"trigger-1",{value:"Pressed"}));
+  assert.equal(triggered.state,"complete");
+  assert.equal(triggered.result.triggered,true);
+  assert.equal(triggered.result.outputPulseCount,1);
+  assert.ok(Math.abs(triggered.result.pulseWidthS-1.1)<1e-12);
+  assert.ok(triggered.result.ledCurrentDuringPulseA>0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timing-capacitor-1",{value:"0 F"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TIMING").endpoints=["timer-1:6","timing-capacitor-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue 555 astable blinker reports timing and duty from R/C values", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/021-555-astable-blinker.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"ne555-astable");
+  assert.ok(Math.abs(result.result.frequencyHz-(1/(0.693*(10000+2*10000)*0.0001)))<1e-12);
+  assert.ok(Math.abs(result.result.dutyCycle-2/3)<1e-12);
+  assert.ok(result.result.ledBlinking);
+  assert.ok(result.result.ledAverageCurrentA>0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timing-capacitor-1",{value:"0 F"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TIMING").endpoints=["timer-1:2","timing-capacitor-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue LDR night light switches on in darkness and off in bright light", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/020-ldr-night-light.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const night = runSupportedAnalysis(project);
+  assert.equal(night.state, "complete");
+  assert.equal(night.result.kind, "ldr-night-light");
+  assert.equal(night.result.ledOn, true);
+  assert.ok(night.result.ledCurrentA > 0);
+  const day = runSupportedAnalysis(updateComponent(project, "ldr-1", { value: "Rbright 10 kŒ©; Rdark 1 MŒ©; light 100%" }));
+  assert.equal(day.result.ledOn, false);
+  assert.equal(day.result.ledCurrentA, 0);
+  assert.ok(night.result.samples[0].ledOn && !night.result.samples[2].ledOn);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "comparator-1", { value: "Vref 6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find(net => net.id === "SENSE").endpoints = ["ldr-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue NTC divider resistance and output vary monotonically from 0 to 60 C", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/019-ntc-temperature-divider.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "ntc-temperature-divider");
+  const [cold, room, hot] = result.result.samples;
+  assert.ok(cold.resistanceOhm > room.resistanceOhm && room.resistanceOhm > hot.resistanceOhm);
+  assert.ok(cold.outputVoltage < room.outputVoltage && room.outputVoltage < hot.outputVoltage);
+  assert.ok(Math.abs(room.resistanceOhm - 10000) < 1e-8);
+  assert.equal(room.outputVoltage, 2.5);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "ntc-1", { value: "R25 10 kŒ©; B 3950 K; temp -300 ¬∞C" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find(net => net.id === "VOUT").endpoints = ["ntc-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue TVS clamp holds a pulse below the entered power and energy limits", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/018-tvs-surge-clamp.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "tvs-pulse-clamp");
+  assert.equal(result.result.pulseClamped, true);
+  assert.equal(result.result.pulseOutputVoltage, 18);
+  assert.ok(result.result.pulseEnergyJ > 0.01);
+  assert.ok(result.warnings.some(message => /energy exceeds/.test(message)));
+  assert.ok(result.result.pulseOutputVoltage < result.result.pulseUnclampedVoltage);
+
+  const invalid = updateComponent(project, "source-1", { value: "12 V" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find(net => net.id === "VOUT").endpoints = ["series-resistor-1:2", "load-resistor-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue Zener shunt regulator clamps within power and reports overload", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/017-zener-shunt-regulator.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const nominal = runSupportedAnalysis(project);
+  assert.equal(nominal.state, "complete");
+  assert.equal(nominal.result.kind, "zener-shunt-regulator");
+  assert.equal(nominal.result.outputVoltage, 5.1);
+  assert.ok(nominal.result.zenerCurrentA > 0);
+  assert.ok(nominal.result.zenerPowerW < nominal.result.maxZenerPowerW);
+  assert.deepEqual(nominal.warnings, []);
+
+  const overloaded = updateComponent(project, "source-1", { value: "12 V" });
+  const highCurrent = updateComponent(overloaded, "series-resistor-1", { value: "10 Œ©" });
+  const overloadResult = runSupportedAnalysis(highCurrent);
+  assert.equal(overloadResult.state, "complete");
+  assert.ok(overloadResult.warnings.length > 0);
+  assert.ok(overloadResult.result.zenerPowerW > overloadResult.result.maxZenerPowerW);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "zener-1", { value: "5.1 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find(net => net.id === "VOUT").endpoints = ["series-resistor-1:2", "load-resistor-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue smoothing capacitor reduces bridge ripple after startup", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/016-smoothing-capacitor.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "bridge-smoothing-capacitor");
+  assert.equal(result.result.rippleFrequencyHz, 100);
+  assert.ok(result.result.ripplePeakToPeakV < result.result.unfilteredRipplePeakToPeakV);
+  assert.ok(result.result.averageOutputVoltage > result.result.minimumOutputVoltage);
+  assert.ok(result.result.waveform.length > 10);
+
+  const invalid = updateComponent(project, "capacitor-1", { value: "0 F" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "RECT_POS").endpoints = ["bridge-1:POS", "load-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue bridge rectifier generates full-wave output at twice line frequency", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/015-bridge-rectifier.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "bridge-rectifier-waveform");
+  assert.equal(result.result.inputFrequencyHz, 50);
+  assert.equal(result.result.rectifiedFrequencyHz, 100);
+  assert.equal(result.result.rippleFrequencyHz, 100);
+  assert.ok(Math.abs(result.result.peakOutputVoltage - (12 * Math.SQRT2 - 1.4)) < 1e-12);
+  assert.equal(result.result.waveform[0].outputVoltage, 0);
+  assert.ok(result.result.waveform.some(point => point.outputVoltage > 0));
+  assert.ok(result.result.averageOutputVoltage > 0);
+  assert.ok(Math.abs(result.result.powerBalanceW) < 1e-12);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "source-1", { value: "12 V RMS, 0 Hz" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "AC2").endpoints = ["source-1:-"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue passive tone control reduces treble as the rheostat increases", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/014-passive-tone-control.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const middle = runSupportedAnalysis(project);
+  assert.equal(middle.state, "complete");
+  assert.equal(middle.result.kind, "passive-tone-control");
+  assert.equal(middle.result.positionPercent, 50);
+  assert.equal(middle.result.response.length, 3);
+  assert.ok(middle.result.response[0].gain > middle.result.response[2].gain);
+  const minimum = runSupportedAnalysis(updateComponent(project, "pot-1", { value: "Rmax 10 kŒ©; position 0%" }));
+  const maximum = runSupportedAnalysis(updateComponent(project, "pot-1", { value: "Rmax 10 kŒ©; position 100%" }));
+  assert.equal(minimum.state, "complete");
+  assert.ok(Math.abs(minimum.result.response[2].gain - 1) < 1e-12);
+  assert.ok(maximum.result.response[2].gain < middle.result.response[2].gain);
+  assert.ok(maximum.result.response[0].gain > maximum.result.response[2].gain);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "pot-1", { value: "Rmax 10 kŒ©; position 120%" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "OUTPUT").endpoints = ["cap-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue supercapacitor hold-up follows an exponential discharge curve", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/010-supercapacitor-hold-up.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "supercap-hold-up");
+  assert.equal(result.result.timeConstantS, 100);
+  assert.ok(Math.abs(result.result.holdUpTimeS - 100 * Math.log(4.7 / 3)) < 1e-12);
+  assert.equal(result.result.samples[0].voltage, 4.7);
+  assert.ok(Math.abs(result.result.samples[3].voltage - 3) < 1e-12);
+  assert.ok(result.result.samples[1].voltage > result.result.samples[2].voltage);
+  assert.equal(result.result.initialStoredEnergyJ, 0.5 * 4.7 ** 2);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "cap-1", { value: "C 1 F; Vstart 4.7 V; Vmin 3 V; Vmax 4 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "CAP_LOAD").endpoints = ["diode-1:K"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue solar garden light charges in daylight and lights at night", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/009-solar-garden-light.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const day = runSupportedAnalysis(project);
+  assert.equal(day.state, "complete");
+  assert.equal(day.result.kind, "solar-garden-light");
+  assert.equal(day.result.illuminationPercent, 100);
+  assert.equal(day.result.mosfetConducting, false);
+  assert.equal(day.result.ledOn, false);
+  assert.ok(Math.abs(day.result.chargeCurrentA - 0.1 * (1 - 4 / 6)) < 1e-12);
+  assert.ok(Math.abs(day.result.solarPowerBalanceW) < 1e-12);
+
+  const nightProject = updateComponent(project, "ldr-1", { value: "Rbright 10 kŒ©; Rdark 1 MŒ©; light 0%" });
+  const night = runSupportedAnalysis(nightProject);
+  assert.equal(night.state, "complete");
+  assert.equal(night.result.illuminationPercent, 0);
+  assert.equal(night.result.chargeCurrentA, 0);
+  assert.equal(night.result.mosfetConducting, true);
+  assert.equal(night.result.ledOn, true);
+  assert.ok(Math.abs(night.result.ledCurrentA - (3.7 - 2) / 330) < 1e-12);
+  assert.ok(night.result.batteryCurrentIntoBatteryA < 0);
+  assert.ok(Math.abs(night.result.ledPowerBalanceW) < 1e-12);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "ldr-1", { value: "light 110%" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "GATE").endpoints = ["ldr-1:1"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue USB LED estimates normal current and flags a PTC hold-current overload", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/008-usb-powered-led.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const normal = runSupportedAnalysis(project);
+  assert.equal(normal.state, "complete");
+  assert.equal(normal.result.kind, "usb-led-ptc");
+  assert.equal(normal.result.holdCurrentExceeded, false);
+  assert.equal(normal.result.overloadWarning, false);
+  assert.equal(normal.result.fuseTripPredicted, false);
+  assert.ok(Math.abs(normal.result.currentA - 3 / 330.1) < 1e-12);
+  assert.ok(Math.abs(normal.result.powerBalanceW) < 1e-12);
+
+  const overload = runSupportedAnalysis(updateComponent(project, "resistor-1", { value: "1 Œ©" }));
+  assert.equal(overload.state, "complete");
+  assert.equal(overload.result.holdCurrentExceeded, true);
+  assert.equal(overload.result.overloadWarning, true);
+  assert.equal(overload.result.fuseTripPredicted, false);
+  assert.match(overload.message, /exceeds the configured PTC hold current/);
+  assert.ok(Math.abs(overload.result.powerBalanceW) < 1e-12);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "fuse-1", { value: "invalid" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "FUSED_5V").endpoints = ["fuse-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue 5 V linear supply estimates ripple and regulator dropout", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/007-linear-regulated-supply.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const nominal = runSupportedAnalysis(project);
+  assert.equal(nominal.state, "complete");
+  assert.equal(nominal.result.kind, "linear-regulated-supply");
+  assert.equal(nominal.result.secondaryRmsVoltage, 12);
+  assert.equal(nominal.result.rectifiedFrequencyHz, 100);
+  assert.equal(nominal.result.regulated, true);
+  assert.equal(nominal.result.outputVoltage, 5);
+  assert.ok(Math.abs(nominal.result.rippleVoltagePP - 0.5) < 1e-12);
+  assert.ok(nominal.result.dropoutMarginV > 0);
+  assert.ok(Math.abs(nominal.result.powerBalanceW) < 1e-12);
+  const lowLine = runSupportedAnalysis(updateComponent(project, "source-1", { value: "120 V RMS, 50 Hz" }));
+  assert.equal(lowLine.state, "complete");
+  assert.equal(lowLine.result.regulated, false);
+  assert.ok(lowLine.result.outputVoltage > 4.9 && lowLine.result.outputVoltage < 5);
+  assert.ok(Math.abs(lowLine.result.minimumRectifiedVoltage - lowLine.result.outputVoltage - 2) < 1e-12);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "source-1", { value: "230 V RMS, 0 Hz" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "DC_RAW").endpoints = ["bridge-1:POS"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue battery discharge monitor asserts across the divider threshold", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/006-battery-discharge-monitor.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const nominal = runSupportedAnalysis(project);
+  assert.equal(nominal.state, "complete");
+  assert.equal(nominal.result.kind, "battery-discharge-monitor");
+  assert.equal(nominal.result.tripBatteryVoltage, 7.5);
+  assert.equal(nominal.result.lowBattery, false);
+  assert.equal(nominal.result.ledOn, false);
+  assert.ok(Math.abs(nominal.result.dividerCurrentA - 9 / 20000) < 1e-12);
+
+  const above = runSupportedAnalysis(updateComponent(project, "battery-1", { value: "7.6 V" }));
+  assert.equal(above.state, "complete");
+  assert.equal(above.result.lowBattery, false);
+  const below = runSupportedAnalysis(updateComponent(project, "battery-1", { value: "7.4 V" }));
+  assert.equal(below.state, "complete");
+  assert.equal(below.result.lowBattery, true);
+  assert.equal(below.result.ledOn, true);
+  assert.ok(Math.abs(below.result.ledCurrentA - (7.4 - 2) / 1000) < 1e-12);
+  assert.ok(Math.abs(below.result.powerBalanceW) < 1e-12);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "comparator-1", { value: "bad threshold" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "SENSE").endpoints = ["upper-1:2"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue PWM LED dimmer reports a bounded average-current duty sweep", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/005-pwm-led-dimmer.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
+  const measured = [];
+  for (const duty of [10, 50, 90]) {
+    const candidate = updateComponent(project, "pwm-1", { value: `1 kHz, ${duty}%, 5 V` });
+    const result = runSupportedAnalysis(candidate);
+    assert.equal(result.state, "complete");
+    assert.equal(result.result.kind, "pwm-led-average");
+    assert.equal(result.result.frequencyHz, 1000);
+    assert.equal(result.result.requestedDutyPercent, duty);
+    assert.ok(Math.abs(result.result.averageCurrentA - ((5 - 2) / 330) * duty / 100) < 1e-12);
+    assert.ok(Math.abs(result.result.powerBalanceW) < 1e-12);
+    measured.push(result.result.averageCurrentA);
+  }
+  assert.ok(measured[0] < measured[1] && measured[1] < measured[2]);
+
+  const gateLow = updateComponent(project, "pwm-1", { value: "1 kHz, 90%, 1 V" });
+  assert.equal(runSupportedAnalysis(gateLow).result.averageCurrentA, 0);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "pwm-1", { value: "1 kHz, 110%, 5 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "GATE").endpoints = ["pwm-1:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("12 V LED limiter example calculates the documented current", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/007-led-current-limiter-12v.adigun.json", import.meta.url)));
+  const result = runSupportedAnalysis(project);
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(result.state, "complete");
+  assert.ok(Math.abs(result.result.currentA - (10 / 2200)) < 1e-12);
+});
+
+test("3.3 V LED limiter example calculates the documented current", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/008-led-current-limiter-3v3.adigun.json", import.meta.url)));
+  const result = runSupportedAnalysis(project);
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(result.state, "complete");
+  assert.ok(Math.abs(result.result.currentA - (1.3 / 150)) < 1e-12);
+});
+
+test("3 kŒ© / 1 kŒ© divider example calculates output voltage", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/009-dc-voltage-divider-3k-1k.adigun.json", import.meta.url)));
+  const result = runSupportedAnalysis(project);
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "voltage-divider");
+  assert.equal(result.result.outputVoltage, 2.25);
+});
+
+test("12 V parallel load example solves its midpoint and source current", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/010-parallel-load-12v.adigun.json", import.meta.url)));
+  const result = runSupportedAnalysis(project);
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "resistive-network");
+  assert.ok(Math.abs(result.result.nodeVoltages.MID - (12 * 6 / 11)) < 1e-9);
+  assert.ok(Math.abs(result.result.sourceCurrentA - (12 / 2200)) < 1e-12);
+});
+
+
+test("LM386 audio amplifier PCB validates topology, grounding review, DRC, BOM, placement and export snapshots", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/128-audio-amplifier-pcb.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const analysis = runSupportedAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.equal(analysis.result.kind, "lm386-audio-amplifier-topology");
+  assert.equal(analysis.result.manufacturerPinMapValid, true);
+  assert.equal(analysis.result.speakerLoadSimulation, false);
+  assert.match(analysis.message, /not simulated/);
+
+  const review = reviewAudioAmplifierPcb(project);
+  assert.equal(review.status, "passed");
+  assert.ok(review.checks.every((item) => item.status === "pass"));
+  assert.match(review.disclaimer, /no waveform, gain, clipping, THD/);
+  assert.equal(validatePcbFabrication(project).status, "passed");
+  const exported = exportPcbFabrication(project);
+  assert.equal(exported.status, "passed");
+  const snapshots = {
+    ...exported.files,
+    "Placement.csv": createPcbPlacementReport(project),
+    "Grounding-Routing-Review.csv": createGroundingChecklistReport(project)
+  };
+  for (const [name, actual] of Object.entries(snapshots)) {
+    const expected = await readFile(new URL("../examples/128-audio-amplifier-pcb/expected/" + name, import.meta.url), "utf8");
+    assertTextSnapshot(actual, expected, name);
+  }
+  assert.match(snapshots["BOM.csv"], /"U1","1","TI LM386N-1/);
+  assert.match(snapshots["Placement.csv"], /"J2","Speaker/);
+  assert.match(snapshots["Grounding-Routing-Review.csv"], /star-point","pass/);
+
+  const wrongBypass = structuredClone(project);
+  wrongBypass.nets.find((net) => net.id === "VCC").endpoints.push("c-hf:1");
+  wrongBypass.nets.find((net) => net.id === "GND").endpoints = wrongBypass.nets.find((net) => net.id === "GND").endpoints.filter((pin) => pin !== "c-hf:1");
+  assert.equal(runSupportedAnalysis(wrongBypass).state, "blocked");
+  assert.equal(validatePcbFabrication(wrongBypass).status, "failed");
+
+  const failedReview = structuredClone(project);
+  failedReview.pcbFabrication.groundRoutingReview.checklist[0].status = "review";
+  assert.equal(reviewAudioAmplifierPcb(failedReview).status, "failed");
+  const narrowRoute = structuredClone(project);
+  narrowRoute.pcbFabrication.routes.find((route) => route.netId === "AMP_OUT").widthMm = 0.2;
+  assert.equal(reviewAudioAmplifierPcb(narrowRoute).status, "failed");
+});
+
+
+test("LM2596 buck converter PCB validates topology, high-current layout review, DRC and exports", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/129-buck-converter-pcb.adigun.json", import.meta.url)));
+  const validation = validateProject(project);
+  assert.equal(validation.valid, true);
+  assert.deepEqual(validation.warnings, []);
+  const analysis = runSupportedAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.equal(analysis.result.kind, "lm2596-buck-converter-topology");
+  assert.equal(analysis.result.manufacturerPinMapValid, true);
+  assert.equal(analysis.result.switchingSimulation, false);
+  assert.match(analysis.message, /not simulated/);
+
+  const review = reviewBuckPowerLayout(project);
+  assert.equal(review.status, "passed");
+  assert.ok(review.checks.every((item) => item.status === "pass"));
+  assert.match(review.disclaimer, /do not establish output regulation, ripple/);
+  assert.equal(validatePcbFabrication(project).status, "passed");
+  const exported = exportPcbFabrication(project);
+  assert.equal(exported.status, "passed");
+  const snapshots = {
+    ...exported.files,
+    "Placement.csv": createPcbPlacementReport(project),
+    "Power-Layout-Review.csv": createPowerLayoutReport(project)
+  };
+  for (const [name, actual] of Object.entries(snapshots)) {
+    const expected = await readFile(new URL("../examples/129-buck-converter-pcb/expected/" + name, import.meta.url), "utf8");
+    assertTextSnapshot(actual, expected, name);
+  }
+  assert.match(snapshots["BOM.csv"], /"U1","1","LM2596T-5.0/);
+  assert.match(snapshots["BOM.csv"], /"D1","1","onsemi 1N5822G/);
+  assert.match(snapshots["Power-Layout-Review.csv"], /high-current-widths","pass/);
+
+  const reversedDiode = JSON.parse(JSON.stringify(project));
+  reversedDiode.nets.find((net) => net.id === "SW").endpoints = reversedDiode.nets.find((net) => net.id === "SW").endpoints.filter((pin) => pin !== "catch-diode:K").concat("catch-diode:A");
+  reversedDiode.nets.find((net) => net.id === "GND").endpoints = reversedDiode.nets.find((net) => net.id === "GND").endpoints.filter((pin) => pin !== "catch-diode:A").concat("catch-diode:K");
+  assert.equal(runSupportedAnalysis(reversedDiode).state, "blocked");
+  assert.equal(validatePcbFabrication(reversedDiode).status, "failed");
+
+  const narrowTrace = JSON.parse(JSON.stringify(project));
+  narrowTrace.pcbFabrication.routes.find((route) => route.netId === "VOUT").widthMm = 0.4;
+  assert.equal(reviewBuckPowerLayout(narrowTrace).status, "failed");
+  const failedChecklist = JSON.parse(JSON.stringify(project));
+  failedChecklist.pcbFabrication.powerLayoutReview.checklist[0].status = "review";
+  assert.equal(reviewBuckPowerLayout(failedChecklist).status, "failed");
+});
+
+
+test("STM32 four-layer board plan verifies all pads, required power pins, decoupling and return references", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/130-four-layer-mcu-board-plan.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const analysis = runSupportedAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.equal(analysis.result.kind, "stm32-four-layer-board-plan");
+  assert.equal(analysis.result.all32PadsMapped, true);
+  assert.equal(analysis.result.supplyPinsPresent, true);
+  assert.equal(analysis.result.stackupLayers, 4);
+  assert.equal(analysis.result.firmwareSimulation, false);
+
+  const review = reviewFourLayerMcuBoard(project);
+  assert.equal(review.status, "passed");
+  assert.ok(review.checks.every((item) => item.status === "pass"));
+  assert.equal(review.checks.find((item) => item.id === "no-missing-power-pins").status, "pass");
+  assert.match(review.disclaimer, /single-layer F.Cu/);
+  const actual = createLayerStackupReport(project);
+  const expected = await readFile(new URL("../examples/130-four-layer-mcu-board-plan/expected/Board-Stackup-Plan.csv", import.meta.url), "utf8");
+  assert.equal(actual, expected);
+
+  const missingVdd = JSON.parse(JSON.stringify(project));
+  missingVdd.nets.find((net) => net.id === "VDD33").endpoints = missingVdd.nets.find((net) => net.id === "VDD33").endpoints.filter((pin) => pin !== "mcu:VDD_VDDA");
+  assert.equal(runSupportedAnalysis(missingVdd).state, "blocked");
+  assert.equal(reviewFourLayerMcuBoard(missingVdd).status, "failed");
+  const missingPad = JSON.parse(JSON.stringify(project));
+  missingPad.pcbFabrication.pads = missingPad.pcbFabrication.pads.filter((pad) => !(pad.reference === "U1" && pad.number === "5"));
+  assert.equal(reviewFourLayerMcuBoard(missingPad).status, "failed");
+});
+
+
+test("USB Full-Speed differential pair demo checks mapping, bounded constraints and report snapshot", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/131-usb-differential-pair-demo.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const analysis = runSupportedAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.equal(analysis.result.kind, "usb-full-speed-differential-pair-plan");
+  assert.equal(analysis.result.impedanceSolver, false);
+  assert.equal(analysis.result.usbProtocolSimulation, false);
+  assert.match(analysis.message, /no field solver/);
+
+  const review = reviewDifferentialPair(project);
+  assert.equal(review.status, "passed");
+  assert.ok(review.checks.every((item) => item.status === "pass"));
+  assert.ok(Math.abs(review.skewMm - 0.1) < 1e-9);
+  const report = createDifferentialPairReport(project);
+  const snapshot = await readFile(new URL("../examples/131-usb-differential-pair-demo/expected/Differential-Pair-Constraint-Report.csv", import.meta.url), "utf8");
+  assert.equal(report, snapshot);
+  assert.match(report, /target-impedance-disclosure","pass/);
+  assert.match(review.disclaimer, /does not run a field solver/);
+
+  const excessiveSkew = JSON.parse(JSON.stringify(project));
+  excessiveSkew.pcbFabrication.differentialPairs[0].negativeLengthMm = 25;
+  assert.equal(reviewDifferentialPair(excessiveSkew).status, "failed");
+  const invalidWidth = JSON.parse(JSON.stringify(project));
+  invalidWidth.pcbFabrication.differentialPairs[0].widthMm = 0.4;
+  assert.equal(reviewDifferentialPair(invalidWidth).status, "failed");
+  const brokenPair = JSON.parse(JSON.stringify(project));
+  brokenPair.nets.find((net) => net.id === "USB_DP").endpoints = brokenPair.nets.find((net) => net.id === "USB_DP").endpoints.filter((pin) => pin !== "phy:D+");
+  assert.equal(runSupportedAnalysis(brokenPair).state, "blocked");
+  assert.equal(reviewDifferentialPair(brokenPair).status, "failed");
+});
+
+test("QFN footprint validation checks pad map, land pattern, stencil apertures and courtyard", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/132-qfn-footprint-validation.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete");
+  assert.equal(analysis.result.kind,"qfn-footprint-validation");
+  assert.equal(analysis.result.device,"TPS62130RGTR");
+  assert.equal(analysis.result.manufacturingQualified,false);
+  const review=reviewQfnFootprint(project);
+  assert.equal(review.status,"passed");
+  assert.equal(review.checks.length,7);
+  assert.equal(review.pasteCoveragePercent,69.4);
+  const actual=createQfnFootprintReport(project);
+  const expected=await readFile(new URL("../examples/132-qfn-footprint-validation/expected/QFN-Footprint-Review.csv",import.meta.url),"utf8");
+  assert.equal(actual,expected);
+  const missingEp=structuredClone(project);
+  missingEp.pcbFabrication.pads=missingEp.pcbFabrication.pads.filter(pad=>pad.number!=="17");
+  assert.equal(reviewQfnFootprint(missingEp).status,"failed");
+  const wrongPin=structuredClone(project);
+  wrongPin.pcbFabrication.pads.find(pad=>pad.number==="1").pin="PG";
+  assert.equal(reviewQfnFootprint(wrongPin).status,"failed");
+  const badStencil=structuredClone(project);
+  badStencil.pcbFabrication.qfnFootprints[0].stencil.exposedPadWindows[0].xMm=7;
+  assert.equal(reviewQfnFootprint(badStencil).status,"failed");
+  const shortCourt=structuredClone(project);
+  shortCourt.pcbFabrication.qfnFootprints[0].courtyard.widthMm=3.4;
+  assert.equal(reviewQfnFootprint(shortCourt).status,"failed");
+});
+
+test("BGA escape concept clearly discloses unsupported routing and manufacturing claims", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/133-bga-escape-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete");
+  assert.equal(analysis.result.kind,"bga-escape-concept");
+  assert.equal(analysis.result.escapeRoutingPerformed,false);
+  assert.equal(analysis.result.viaEscapeVerified,false);
+  assert.equal(analysis.result.manufacturability,"not-assessed");
+  assert.equal(analysis.result.fabricationQualified,false);
+  const review=reviewBgaEscapeConcept(project);
+  assert.equal(review.status,"passed");
+  assert.equal(review.nominalLandGapMm,0.45);
+  assert.match(review.disclaimer,/does not route BGA escapes or vias/);
+  const expected=await readFile(new URL("../examples/133-bga-escape-concept/expected/BGA-Escape-Capability-Report.csv",import.meta.url),"utf8");
+  assert.equal(createBgaEscapeReport(project),expected);
+  const missingBall=structuredClone(project);
+  missingBall.pcbFabrication.pads=missingBall.pcbFabrication.pads.filter(p=>p.number!=="D4");
+  assert.equal(reviewBgaEscapeConcept(missingBall).status,"failed");
+  const falseRouter=structuredClone(project);
+  falseRouter.pcbFabrication.bgaEscapePlan.escapeRouting.available=true;
+  assert.equal(reviewBgaEscapeConcept(falseRouter).status,"failed");
+  const falseManufacturing=structuredClone(project);
+  falseManufacturing.pcbFabrication.bgaEscapePlan.claimsManufacturable=true;
+  assert.equal(reviewBgaEscapeConcept(falseManufacturing).status,"failed");
+  const assertedRoute=structuredClone(project);
+  assertedRoute.pcbFabrication.routes.push({netId:"A1",layer:"B.Cu",widthMm:0.1,pointsMm:[[8.8,8.8],[8.8,9.2]]});
+  assert.equal(reviewBgaEscapeConcept(assertedRoute).status,"failed");
+});
+
+test("panel-mount controller reviews hole/cutout dimensions and PCB clearances", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/134-panel-mount-controller.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(validatePcbFabrication(project).status,"passed");
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete");
+  assert.equal(analysis.result.kind,"panel-mount-controller-mechanical-plan");
+  assert.equal(analysis.result.mountingHoleCount,4);
+  assert.equal(analysis.result.edgeCutoutCount,1);
+  assert.equal(analysis.result.mechanicalFeatureExported,false);
+  const review=reviewPanelMountMechanicals(project);
+  assert.equal(review.status,"passed");
+  assert.equal(review.checks.find(c=>c.id==="drc").status,"pass");
+  const expected=await readFile(new URL("../examples/134-panel-mount-controller/expected/Panel-Mount-Mechanical-Review.csv",import.meta.url),"utf8");
+  assert.equal(createPanelMountMechanicalReport(project),expected);
+  const outside=structuredClone(project);
+  outside.pcbFabrication.mechanicalFeatures.find(f=>f.id==="MH1").xMm=1;
+  assert.equal(reviewPanelMountMechanicals(outside).status,"failed");
+  const missingSlotKeepout=structuredClone(project);
+  missingSlotKeepout.pcbFabrication.keepouts=missingSlotKeepout.pcbFabrication.keepouts.filter(k=>k.id!=="KO-CUT1");
+  assert.equal(reviewPanelMountMechanicals(missingSlotKeepout).status,"failed");
+  const blockedRoute=structuredClone(project);
+  blockedRoute.pcbFabrication.routes.find(r=>r.netId==="GND").pointsMm=[[34,22.5],[55.5,35.5],[12,27],[12,20]];
+  assert.equal(validatePcbFabrication(blockedRoute).status,"failed");
+  assert.equal(reviewPanelMountMechanicals(blockedRoute).status,"failed");
+});
+
+test("STM32 board coverage report maps required nets to accessible top-side test points", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/135-mcu-test-point-coverage.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete");
+  assert.equal(analysis.result.kind,"stm32-board-test-point-coverage");
+  assert.equal(analysis.result.requiredNets,5);
+  assert.equal(analysis.result.coveredNets,5);
+  assert.equal(analysis.result.physicalContinuityVerified,false);
+  const review=reviewTestPointCoverage(project);
+  assert.equal(review.status,"passed");
+  assert.equal(review.coveragePercent,undefined);
+  const expected=await readFile(new URL("../examples/135-mcu-test-point-coverage/expected/Test-Point-Coverage.csv",import.meta.url),"utf8");
+  assert.equal(createTestPointCoverageReport(project),expected);
+  const missing=structuredClone(project);
+  missing.pcbFabrication.testPoints=missing.pcbFabrication.testPoints.filter(tp=>tp.netId!=="NRST");
+  assert.equal(reviewTestPointCoverage(missing).status,"failed");
+  const wrongLayer=structuredClone(project);
+  wrongLayer.pcbFabrication.testPoints[0].accessLayer="B.Cu";
+  assert.equal(reviewTestPointCoverage(wrongLayer).status,"failed");
+  const obstructed=structuredClone(project);
+  const tp=obstructed.pcbFabrication.testPoints[0],pad=obstructed.pcbFabrication.pads.find(p=>p.reference===tp.reference);
+  tp.xMm=pad.xMm=28.8;tp.yMm=pad.yMm=19.2;
+  assert.equal(reviewTestPointCoverage(obstructed).status,"failed");
+  const disconnected=structuredClone(project);
+  disconnected.nets.find(n=>n.id==="NRST").endpoints=disconnected.nets.find(n=>n.id==="NRST").endpoints.filter(e=>e!=="tp3:1");
+  assert.equal(reviewTestPointCoverage(disconnected).status,"failed");
+});
+
+test("released examples carry a native project, acceptance test, safety scope, and supported result", async () => {
+  const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url)));
+  assert.equal(validateExampleRegistry(registry).valid, true);
+  for (const item of registry.examples.filter((example) => example.status === "released")) {
+    if (item.scope === "catalogue") {
+      assert.ok(item.readmeFile, `${item.id} is missing its project README`);
+      await readFile(new URL(`../${item.readmeFile}`, import.meta.url), "utf8");
+    }
+    const example = JSON.parse(await readFile(new URL(`../${item.projectFile}`, import.meta.url)));
+    const validation = validateProject(example);
+    if (item.expectedValidation === "invalid") {
+      assert.equal(validation.valid, false, item.id);
+      assert.ok(validation.errors.some(error => error.rule === "SOURCE_SHORT"), item.id);
+      continue;
+    }
+    assert.equal(validation.valid, true, item.id);
+    if (item.expectedAnalysis === "unsupported") {
+      assert.equal(runSupportedAnalysis(example).state, "unsupported", item.id);
+      continue;
+    }
+    const expectedResult = item.verification?.expectedResult;
+    const inputSource = expectedResult && Number.isFinite(expectedResult.inputVoltage)
+      ? example.components.find((component) => component.reference === "VIN")
+      : null;
+    const analysisProject = inputSource
+      ? updateComponent(example, inputSource.instanceId, { value: `${expectedResult.inputVoltage} V` })
+      : example;
+    const analysis = runSupportedAnalysis(analysisProject);
+    assert.equal(analysis.state, "complete", item.id);
+    if (item.scope === "catalogue") {
+      assert.ok(expectedResult, `${item.id} is missing its recorded result`);
+      const comparedFields = assertResultMatches(analysis.result, expectedResult, item.id);
+      assert.ok(comparedFields > 0, `${item.id} expected result does not overlap analysis output fields`);
+    }
+  }
+  assert.equal(getExampleCoverage(registry).total, 212);
+  assert.equal(getExampleCoverage(registry).released, 200);
+  assert.equal(getExampleCoverage(registry).supplemental, 10);
+  assert.equal(getExampleCoverage(registry).planned, 2);
+  assert.equal(getExampleCoverage(registry).remaining, 0);
+  const catalogue = registry.examples.filter((item) => item.status === "released" && item.scope === "catalogue");
+  assert.deepEqual(catalogue.map((item) => item.catalogueIndex), [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200]);
+  const supplemental = registry.examples.filter((item) => item.status === "released" && item.scope === "supplemental");
+  assert.equal(supplemental.length, 10);
+  assert.equal(supplemental[0].catalogueIndex, undefined);
+});
+
+test("released example status cannot be asserted without passing CI evidence", () => {
+  const entry = { id: "x", title: "x", status: "released", objective: "x", acceptanceTest: "x", safetyNote: "x", testId: "x", projectFile: "examples/x.json" };
+  assert.ok(validateExampleRegistry({ schemaVersion: 1, examples: [entry] }).errors.some((issue) => issue.code === "RELEASE_RESULT"));
+  assert.ok(validateExampleRegistry({ schemaVersion: 1, examples: [null] }).errors.some((issue) => issue.code === "EXAMPLE_OBJECT"));
+});
+
+test("all supported UI locales contain every declared interface key", () => {
+  for (const locale of UI_LOCALES) {
+    for (const key of UI_KEYS) assert.ok(TRANSLATIONS[locale][key], `${locale} is missing ${key}`);
+  }
+  assert.equal(translate("unsupported-locale", "newProject"), "New Project");
+});
+
+test("catalogue NPN relay driver estimates coil pull-in and flyback release current", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/035-npn-relay-driver.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const on = runSupportedAnalysis(project);
+  assert.equal(on.state, "complete");
+  assert.equal(on.result.kind, "npn-relay-driver");
+  assert.equal(on.result.transistorSaturated, true);
+  assert.equal(on.result.relayEnergizedEstimate, true);
+  assert.ok(Math.abs(on.result.baseCurrentA - (5 - 0.7) / 220) < 1e-12);
+  assert.ok(Math.abs(on.result.coilCurrentA - (12 - 0.2) / 24) < 1e-12);
+  assert.ok(Math.abs(on.result.collectorVoltageV - 0.2) < 1e-12);
+  assert.ok(Math.abs(on.result.coilStoredEnergyJ - 0.5 * 0.1 * on.result.coilCurrentA ** 2) < 1e-12);
+  assert.equal(on.result.turnOffDecay.length, 3);
+  assert.ok(Math.abs(on.result.turnOffDecay[0].currentA - on.result.coilCurrentA) < 1e-12);
+  assert.ok(on.result.turnOffDecay[1].currentA > 0);
+  assert.ok(on.result.turnOffDecay[2].currentA < on.result.turnOffDecay[1].currentA);
+  assert.equal(on.result.flybackClampVoltageV, 12.3);
+
+  const offProject = updateComponent(project, "control", { value: "0 V" });
+  const off = runSupportedAnalysis(offProject);
+  assert.equal(off.state, "complete");
+  assert.equal(off.result.transistorConducting, false);
+  assert.equal(off.result.coilCurrentA, 0);
+  assert.equal(off.result.relayEnergizedEstimate, false);
+
+  const weakDrive = runSupportedAnalysis(updateComponent(project, "control", { value: "1 V" }));
+  assert.equal(weakDrive.state, "complete");
+  assert.equal(weakDrive.result.transistorSaturated, false);
+  assert.ok(Math.abs(weakDrive.result.coilCurrentA - 100 * (1 - 0.7) / 220) < 1e-12);
+  assert.equal(weakDrive.result.relayEnergizedEstimate, false);
+
+  const reversedDiode = structuredClone(project);
+  reversedDiode.nets.find((net) => net.id === "VCC").endpoints = ["supply:+", "coil-resistor:1", "flyback:A"];
+  reversedDiode.nets.find((net) => net.id === "COLLECTOR").endpoints = ["coil-inductor:2", "npn:C", "flyback:K"];
+  assert.equal(runSupportedAnalysis(reversedDiode).state, "blocked");
+
+  const excessiveBaseDrive = updateComponent(project, "base-resistor", { value: "10 Œ©" });
+  assert.equal(runSupportedAnalysis(excessiveBaseDrive).state, "blocked");
+});
+
+test("catalogue H-bridge reverses the motor model and blocks same-leg shoot-through", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/036-hbridge-dc-motor.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const forward = runSupportedAnalysis(project);
+  assert.equal(forward.state, "complete");
+  assert.equal(forward.result.kind, "hbridge-dc-motor");
+  assert.equal(forward.result.direction, "forward");
+  assert.equal(forward.result.shootThrough, false);
+  assert.equal(forward.result.switchState.leftHighOn, true);
+  assert.equal(forward.result.switchState.rightLowOn, true);
+  assert.ok(Math.abs(forward.result.motorCurrentA - 12 / 6.2) < 1e-12);
+  assert.ok(Math.abs(forward.result.motorVoltageV - forward.result.motorCurrentA * 6) < 1e-12);
+  assert.ok(forward.result.motorPowerW > 0);
+
+  let reverseProject = updateComponent(project, "gate-lh", { value: "12 V" });
+  reverseProject = updateComponent(reverseProject, "gate-ll", { value: "5 V" });
+  reverseProject = updateComponent(reverseProject, "gate-rh", { value: "0 V" });
+  reverseProject = updateComponent(reverseProject, "gate-rl", { value: "0 V" });
+  const reverse = runSupportedAnalysis(reverseProject);
+  assert.equal(reverse.state, "complete");
+  assert.equal(reverse.result.direction, "reverse");
+  assert.ok(reverse.result.motorCurrentA < 0);
+  assert.ok(reverse.result.motorVoltageV < 0);
+  assert.equal(reverse.result.shootThrough, false);
+
+  let coastProject = updateComponent(project, "gate-lh", { value: "12 V" });
+  coastProject = updateComponent(coastProject, "gate-rh", { value: "12 V" });
+  coastProject = updateComponent(coastProject, "gate-rl", { value: "0 V" });
+  const coast = runSupportedAnalysis(coastProject);
+  assert.equal(coast.state, "complete");
+  assert.equal(coast.result.direction, "coast");
+  assert.equal(coast.result.motorVoltageV, null);
+  assert.equal(coast.result.motorPowerW, 0);
+
+  const shootThrough = runSupportedAnalysis(updateComponent(project, "gate-ll", { value: "5 V" }));
+  assert.equal(shootThrough.state, "blocked");
+  assert.match(shootThrough.message, /Shoot-through interlock/);
+
+  const overvoltage = runSupportedAnalysis(updateComponent(project, "gate-lh", { value: "21 V" }));
+  assert.equal(overvoltage.state, "blocked");
+});
+
+test("catalogue electret audio preamp calculates mic bias, midband gain, and coupling response", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/037-electret-audio-preamp.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "electret-audio-preamp");
+  assert.equal(result.result.microphoneBiasVoltageV, 3.9);
+  assert.equal(result.result.referenceVoltageV, 2.5);
+  assert.equal(result.result.gainVPerV, 100);
+  assert.ok(Math.abs(result.result.highPassCutoffHz - 1 / (2 * Math.PI * 17200 * 10e-6)) < 1e-12);
+  assert.ok(result.result.signalBandSamples[0].gain < result.result.signalBandSamples[1].gain);
+  assert.ok(result.result.signalBandSamples[1].gain < result.result.signalBandSamples[2].gain);
+  assert.ok(Math.abs(result.result.outputAmplitudeV - 1) < 1e-4);
+  assert.equal(result.result.outputWithinSupplyRails, true);
+  assert.ok(result.result.outputMinimumV > 0 && result.result.outputMaximumV < 5);
+
+  const overbiased = updateComponent(project, "microphone", { value: "Imic 3 mA; Vsig 10 mV; f 1 kHz; Rs 2.2 kŒ©" });
+  assert.equal(runSupportedAnalysis(overbiased).state, "blocked");
+  const overdriven = updateComponent(project, "microphone", { value: "Imic 0.5 mA; Vsig 40 mV; f 1 kHz; Rs 2.2 kŒ©" });
+  assert.equal(runSupportedAnalysis(overdriven).state, "blocked");
+
+  const brokenCoupling = structuredClone(project);
+  brokenCoupling.nets.find((net) => net.id === "MIC_OUT").endpoints = ["microphone:OUT", "mic-bias:2"];
+  assert.equal(runSupportedAnalysis(brokenCoupling).state, "blocked");
+});
+
+test("catalogue class-AB audio amplifier reports speaker power and clipping warning", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/038-audio-power-amplifier.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "audio-power-amplifier");
+  assert.equal(result.result.clipped, false);
+  assert.equal(result.result.outputBiasVoltageV, 4.5);
+  assert.ok(Math.abs(result.result.requestedOutputAmplitudeV - 1.6) < 1e-12);
+  assert.ok(result.result.speakerVoltageRmsV > 0);
+  assert.ok(result.result.speakerCurrentRmsA > 0);
+  assert.ok(result.result.speakerRealPowerW > 0);
+  assert.ok(result.result.frequencyResponse[0].gain < result.result.frequencyResponse[1].gain);
+  assert.ok(result.result.frequencyResponse[0].gain < result.result.frequencyResponse[2].gain);
+  assert.equal(result.result.clippingWarning, null);
+  assert.match(result.message, /does not calculate THD/);
+
+  const overdriven = runSupportedAnalysis(updateComponent(project, "input", { value: "200 mV" }));
+  assert.equal(overdriven.state, "complete");
+  assert.equal(overdriven.result.clipped, true);
+  assert.equal(overdriven.result.amplifierOutputAmplitudeV, 2);
+  assert.match(overdriven.result.clippingWarning, /distortion is not modeled/);
+
+  const brokenOutput = structuredClone(project);
+  brokenOutput.nets.find((net) => net.id === "SPEAKER_PLUS").endpoints = ["speaker:+"];
+  assert.equal(runSupportedAnalysis(brokenOutput).state, "blocked");
+});
+
+test("catalogue active low-pass filter matches its designed cutoff and gain", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/039-active-low-pass.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "active-low-pass");
+  assert.ok(Math.abs(result.result.cutoffHz - 1 / (2 * Math.PI * 10000 * 10e-9)) < 1e-12);
+  assert.equal(result.result.passbandGain, 2);
+  const [below, cutoff, above] = result.result.response;
+  assert.ok(Math.abs(below.gain - (2 / Math.sqrt(1.01))) < 1e-12);
+  assert.ok(Math.abs(cutoff.gain - 2 / Math.sqrt(2)) < 1e-12);
+  assert.ok(Math.abs(above.gain - (2 / Math.sqrt(101))) < 1e-12);
+  assert.ok(below.gain > cutoff.gain && cutoff.gain > above.gain);
+  assert.equal(result.result.maximumOutputAmplitudeV, 2);
+
+  const overload = runSupportedAnalysis(updateComponent(project, "input", { value: "10 V" }));
+  assert.equal(overload.state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "FILTERED_INPUT").endpoints = ["input-resistor:2", "opamp:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue Wien bridge oscillator starts above unity loop gain and limits amplitude", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/040-wien-bridge-oscillator.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const result = runSupportedAnalysis(project);
+  assert.equal(result.state, "complete");
+  assert.equal(result.result.kind, "wien-bridge-oscillator");
+  assert.ok(Math.abs(result.result.frequencyHz - 1 / (2 * Math.PI * 10e3 * 10e-9)) < 1e-12);
+  assert.equal(result.result.amplifierGain, 3.2);
+  assert.ok(result.result.loopGain > 1);
+  assert.equal(result.result.oscillationStarts, true);
+  assert.ok(Math.abs(result.result.estimatedSteadyAmplitudeV - (0.3 * 32 / 22)) < 1e-12);
+  assert.equal(result.result.outputWithinSupplyRails, true);
+
+  const belowStartup = runSupportedAnalysis(updateComponent(project, "feedback", { value: "18 kŒ©" }));
+  assert.equal(belowStartup.state, "complete");
+  assert.equal(belowStartup.result.oscillationStarts, false);
+  assert.equal(belowStartup.result.estimatedSteadyAmplitudeV, 0);
+
+  const unbalancedBridge = runSupportedAnalysis(updateComponent(project, "shunt-resistor", { value: "12 kŒ©" }));
+  assert.equal(unbalancedBridge.state, "blocked");
+
+  const sameDirectionDiodes = structuredClone(project);
+  sameDirectionDiodes.nets.find((net) => net.id === "OUTPUT").endpoints = ["opamp:OUT", "series-capacitor:1", "feedback:1", "limiter-1:A", "limiter-2:A"];
+  sameDirectionDiodes.nets.find((net) => net.id === "INVERTING").endpoints = ["opamp:-", "feedback:2", "gain-leg:1", "limiter-1:K", "limiter-2:K"];
+  assert.equal(runSupportedAnalysis(sameDirectionDiodes).state, "blocked");
+});
+
+test("catalogue AND gate matches all input vectors and drives a current-limited LED", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/041-and-gate-truth-table.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const vectors = [[0, 0, false], [0, 5, false], [5, 0, false], [5, 5, true]];
+  for (const [a, b, expected] of vectors) {
+    let vector = updateComponent(project, "input-a", { value: `${a} V` });
+    vector = updateComponent(vector, "input-b", { value: `${b} V` });
+    const result = runSupportedAnalysis(vector);
+    assert.equal(result.state, "complete");
+    assert.equal(result.result.outputHigh, expected);
+    assert.equal(result.result.ledOn, expected);
+    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 330 : 0);
+  }
+  let threshold = updateComponent(project, "input-a", { value: "2.5 V" });
+  threshold = updateComponent(threshold, "input-b", { value: "5 V" });
+  assert.equal(runSupportedAnalysis(threshold).result.outputHigh, true);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "input-a", { value: "6 V" })).state, "blocked");
+
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "LED_A").endpoints = ["led:A"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue OR gate matches all input vectors and drives the LED for either high input", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/042-or-gate-truth-table.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-or-ideal"), true);
+  const vectors = [[0, 0, false], [0, 5, true], [5, 0, true], [5, 5, true]];
+  for (const [a, b, expected] of vectors) {
+    let vector = updateComponent(project, "input-a", { value: `${a} V` });
+    vector = updateComponent(vector, "input-b", { value: `${b} V` });
+    const result = runSupportedAnalysis(vector);
+    assert.equal(result.state, "complete");
+    assert.equal(result.result.kind, "or-gate-truth-table");
+    assert.equal(result.result.outputHigh, expected);
+    assert.equal(result.result.ledOn, expected);
+    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 330 : 0);
+  }
+  const invalid = updateComponent(project, "input-b", { value: "6 V" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+});
+
+test("catalogue XOR parity checker asserts for odd parity only", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/043-xor-parity-checker.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-xor-ideal"), true);
+  const vectors = [[0, 0, false], [0, 5, true], [5, 0, true], [5, 5, false]];
+  for (const [a, b, expected] of vectors) {
+    let vector = updateComponent(project, "input-a", { value: `${a} V` });
+    vector = updateComponent(vector, "input-b", { value: `${b} V` });
+    const result = runSupportedAnalysis(vector);
+    assert.equal(result.state, "complete");
+    assert.equal(result.result.kind, "xor-gate-truth-table");
+    assert.equal(result.result.outputHigh, expected);
+    assert.equal(result.result.ledOn, expected);
+    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 330 : 0);
+  }
+});
+
+test("catalogue NOR SR latch sets, resets, holds state, and blocks forbidden inputs", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/044-sr-latch-nor.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  const set = runSupportedAnalysis(project);
+  assert.equal(set.state, "complete");
+  assert.equal(set.result.kind, "nor-sr-latch");
+  assert.equal(set.result.q, true);
+  assert.equal(set.result.qBar, false);
+  assert.equal(set.result.mode, "set");
+  assert.ok(Math.abs(set.result.qLedCurrentA - (5 - 2) / 330) < 1e-12);
+
+  let holdProject = updateComponent(project, "set-input", { value: "0 V" });
+  holdProject = updateComponent(holdProject, "reset-input", { value: "0 V" });
+  const heldSet = runSupportedAnalysis(holdProject, { previousState: set });
+  assert.equal(heldSet.state, "complete");
+  assert.equal(heldSet.result.mode, "hold");
+  assert.equal(heldSet.result.q, true);
+  assert.equal(heldSet.result.qBar, false);
+
+  let resetProject = updateComponent(project, "set-input", { value: "0 V" });
+  resetProject = updateComponent(resetProject, "reset-input", { value: "5 V" });
+  const reset = runSupportedAnalysis(resetProject);
+  assert.equal(reset.state, "complete");
+  assert.equal(reset.result.mode, "reset");
+  assert.equal(reset.result.q, false);
+  assert.equal(reset.result.qBar, true);
+  const heldReset = runSupportedAnalysis(holdProject, { previousState: reset });
+  assert.equal(heldReset.result.q, false);
+  assert.equal(heldReset.result.qBar, true);
+
+  let forbidden = updateComponent(project, "set-input", { value: "5 V" });
+  forbidden = updateComponent(forbidden, "reset-input", { value: "5 V" });
+  assert.equal(runSupportedAnalysis(forbidden).state, "blocked");
+  assert.equal(runSupportedAnalysis(holdProject).state, "blocked");
+});
+
+test("catalogue D flip-flop samples data only on rising edges and annotates timing limits", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/045-d-flip-flop-register.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-dff-ideal"), true);
+
+  const initial = runSupportedAnalysis(project);
+  assert.equal(initial.state, "complete");
+  assert.equal(initial.result.kind, "d-flip-flop");
+  assert.equal(initial.result.q, null);
+  assert.equal(initial.result.mode, "low-level hold");
+  assert.match(initial.result.timingAnnotation, /not simulated/);
+
+  let rising = updateComponent(project, "data-input", { value: "5 V" });
+  rising = updateComponent(rising, "clock-input", { value: "5 V" });
+  const sampledOne = runSupportedAnalysis(rising, { previousState: initial });
+  assert.equal(sampledOne.state, "complete");
+  assert.equal(sampledOne.result.risingEdge, true);
+  assert.equal(sampledOne.result.sampled, true);
+  assert.equal(sampledOne.result.q, true);
+  assert.ok(Math.abs(sampledOne.result.ledCurrentA - (5 - 2) / 330) < 1e-12);
+
+  let highLevel = updateComponent(rising, "data-input", { value: "0 V" });
+  const heldHigh = runSupportedAnalysis(highLevel, { previousState: sampledOne });
+  assert.equal(heldHigh.result.risingEdge, false);
+  assert.equal(heldHigh.result.q, true);
+
+  let falling = updateComponent(highLevel, "clock-input", { value: "0 V" });
+  const afterFalling = runSupportedAnalysis(falling, { previousState: heldHigh });
+  assert.equal(afterFalling.result.risingEdge, false);
+  assert.equal(afterFalling.result.q, true);
+
+  let secondRising = updateComponent(falling, "clock-input", { value: "5 V" });
+  const sampledZero = runSupportedAnalysis(secondRising, { previousState: afterFalling });
+  assert.equal(sampledZero.result.risingEdge, true);
+  assert.equal(sampledZero.result.q, false);
+  assert.equal(sampledZero.result.qBar, true);
+  assert.equal(sampledZero.result.ledCurrentA, 0);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "5 V" })).state, "blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project, "data-input", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "DATA").endpoints = ["data-input:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue JK toggle divider toggles on each rising edge and clears asynchronously", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/046-jk-toggle-divider.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-jk-ideal"), true);
+
+  const cleared = runSupportedAnalysis(project);
+  assert.equal(cleared.state, "complete");
+  assert.equal(cleared.result.kind, "jk-toggle-divider");
+  assert.equal(cleared.result.mode, "asynchronous clear");
+  assert.equal(cleared.result.q, false);
+
+  let released = updateComponent(project, "clear-input", { value: "5 V" });
+  const lowClock = runSupportedAnalysis(released, { previousState: cleared });
+  assert.equal(lowClock.result.mode, "low-level hold");
+  assert.equal(lowClock.result.q, false);
+
+  let firstEdge = updateComponent(released, "clock-input", { value: "5 V" });
+  const first = runSupportedAnalysis(firstEdge, { previousState: lowClock });
+  assert.equal(first.result.risingEdge, true);
+  assert.equal(first.result.mode, "toggle");
+  assert.equal(first.result.q, true);
+  assert.equal(first.result.risingEdgeCount, 1);
+  assert.equal(first.result.outputToClockFrequencyRatio, 0.5);
+
+  let fallingProject = updateComponent(firstEdge, "clock-input", { value: "0 V" });
+  const falling = runSupportedAnalysis(fallingProject, { previousState: first });
+  assert.equal(falling.result.risingEdge, false);
+  assert.equal(falling.result.q, true);
+  let secondEdge = updateComponent(fallingProject, "clock-input", { value: "5 V" });
+  const second = runSupportedAnalysis(secondEdge, { previousState: falling });
+  assert.equal(second.result.q, false);
+  assert.equal(second.result.risingEdgeCount, 2);
+
+  const clearedAgain = runSupportedAnalysis(updateComponent(secondEdge, "clear-input", { value: "0 V" }), { previousState: second });
+  assert.equal(clearedAgain.result.q, false);
+  assert.equal(clearedAgain.result.mode, "asynchronous clear");
+  assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "6 V" })).state, "blocked");
+
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "J").endpoints = ["j-input:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue four-bit counter counts rising edges through 15 and wraps to zero", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/047-four-bit-binary-counter.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-counter-4bit-ideal"), true);
+  const reset = runSupportedAnalysis(project);
+  assert.equal(reset.state, "complete");
+  assert.equal(reset.result.count, 0);
+  assert.deepEqual(reset.result.bits, [false, false, false, false]);
+  assert.equal(reset.result.mode, "asynchronous reset");
+
+  let stateProject = updateComponent(project, "reset-input", { value: "5 V" });
+  let state = runSupportedAnalysis(stateProject, { previousState: reset });
+  assert.equal(state.result.count, 0);
+  for (let expected = 1; expected <= 16; expected++) {
+    stateProject = updateComponent(stateProject, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    assert.equal(state.state, "complete");
+    assert.equal(state.result.count, expected & 15);
+    assert.equal(state.result.risingEdge, true);
+    assert.equal(state.result.risingEdgeCount, expected);
+    stateProject = updateComponent(stateProject, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    assert.equal(state.result.count, expected & 15);
+    assert.equal(state.result.risingEdge, false);
+  }
+  assert.equal(state.result.bitFrequencyRatios[0], 0.5);
+  assert.equal(state.result.bitFrequencyRatios[3], 0.0625);
+  const invalid = updateComponent(project, "clock-input", { value: "6 V" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "BIT3").endpoints = ["counter:Q3"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue BCD counter displays 0 through 9 and wraps with correct segments", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/048-bcd-counter-display.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-bcd-display-ideal"), true);
+  const reset = runSupportedAnalysis(project);
+  assert.equal(reset.state, "complete");
+  assert.equal(reset.result.digit, 0);
+  assert.deepEqual(reset.result.segmentsOn, [true, true, true, true, true, true, false]);
+  let stateProject = updateComponent(project, "reset-input", { value: "5 V" });
+  let state = runSupportedAnalysis(stateProject, { previousState: reset });
+  const expected = [
+    [1,0,1,1,0,0,0,0],[2,1,1,0,1,1,0,1],[3,1,1,1,1,0,0,1],[4,0,1,1,0,0,1,1],
+    [5,1,0,1,1,0,1,1],[6,1,0,1,1,1,1,1],[7,1,1,1,0,0,0,0],[8,1,1,1,1,1,1,1],[9,1,1,1,1,0,1,1]
+  ];
+  for (const [digit,...pattern] of expected) {
+    stateProject = updateComponent(stateProject, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    assert.equal(state.result.digit, digit);
+    assert.deepEqual(state.result.segmentsOn, pattern.map(Boolean));
+    assert.equal(state.result.risingEdge, true);
+    stateProject = updateComponent(stateProject, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    assert.equal(state.result.digit, digit);
+  }
+  stateProject = updateComponent(stateProject, "clock-input", { value: "5 V" });
+  state = runSupportedAnalysis(stateProject, { previousState: state });
+  assert.equal(state.result.digit, 0);
+  assert.deepEqual(state.result.segmentsOn, [true, true, true, true, true, true, false]);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "SEG_G").endpoints = ["display:SEG_G"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue traffic-light FSM cycles safe six-phase states without opposing green", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/049-traffic-light-fsm.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-traffic-fsm-ideal"), true);
+  const expected = [
+    [false,false,true,true,false,false],
+    [false,true,false,true,false,false],
+    [true,false,false,true,false,false],
+    [true,false,false,false,false,true],
+    [true,false,false,false,true,false],
+    [true,false,false,true,false,false]
+  ];
+  let state = runSupportedAnalysis(project);
+  assert.equal(state.state, "complete");
+  assert.equal(state.result.phase, 0);
+  assert.deepEqual(state.result.lamps, expected[0]);
+  let stateProject = updateComponent(project, "reset-input", { value: "5 V" });
+  state = runSupportedAnalysis(stateProject, { previousState: state });
+  for (let step = 1; step <= 6; step++) {
+    stateProject = updateComponent(stateProject, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    const phase = step % 6;
+    assert.equal(state.result.phase, phase);
+    assert.deepEqual(state.result.lamps, expected[phase]);
+    assert.equal(state.result.conflictingGreen, false);
+    stateProject = updateComponent(stateProject, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(stateProject, { previousState: state });
+    assert.equal(state.result.phase, phase);
+    assert.equal(state.result.risingEdge, false);
+  }
+  const invalid = updateComponent(project, "clock-input", { value: "6 V" });
+  assert.equal(runSupportedAnalysis(invalid).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "LAMP_EW_G").endpoints = ["fsm:EW_G"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue digital debouncer rejects short bounce and accepts stable samples", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/050-debounced-digital-input.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-debounce-ideal"), true);
+  const reset = runSupportedAnalysis(project);
+  assert.equal(reset.state, "complete");
+  assert.equal(reset.result.output, false);
+  let p = updateComponent(project, "reset-input", { value: "5 V" });
+  let state = runSupportedAnalysis(p, { previousState: reset });
+  const bounce = [5, 0, 5, 0, 5, 0];
+  for (const voltage of bounce) {
+    p = updateComponent(p, "raw-input", { value: `${voltage} V` });
+    p = updateComponent(p, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+    assert.equal(state.state, "complete");
+    assert.equal(state.result.output, false);
+    p = updateComponent(p, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+  }
+  for (let sample = 1; sample <= 3; sample++) {
+    p = updateComponent(p, "raw-input", { value: "5 V" });
+    p = updateComponent(p, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+    assert.equal(state.state, "complete");
+    assert.equal(state.result.stableSamples, sample);
+    assert.equal(state.result.output, sample === 3);
+    p = updateComponent(p, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+  }
+  assert.equal(state.result.output, true);
+  assert.match(state.message, /not a simulated RC\/Schmitt analog circuit/);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "raw-input", { value: "6 V" })).state, "blocked");
+  const invalidCount = updateComponent(project, "debounce", { value: "Stable samples 1" });
+  assert.equal(runSupportedAnalysis(invalidCount).state, "blocked");
+});
+
+
+test("catalogue four-bit ring shift register moves one LED per rising edge", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/051-shift-register-led-chaser.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-ring-shift-4bit-ideal"), true);
+  const reset = runSupportedAnalysis(project);
+  assert.equal(reset.state, "complete");
+  assert.deepEqual(reset.result.bits, [true,false,false,false]);
+  const expected = [[false,true,false,false],[false,false,true,false],[false,false,false,true],[true,false,false,false]];
+  let p = updateComponent(project, "reset-input", { value: "5 V" });
+  let state = runSupportedAnalysis(p, { previousState: reset });
+  for (const bits of expected) {
+    p = updateComponent(p, "clock-input", { value: "5 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+    assert.equal(state.state, "complete");
+    assert.deepEqual(state.result.bits, bits);
+    assert.equal(state.result.oneHot, true);
+    assert.equal(state.result.activeLedIndex, bits.indexOf(true));
+    p = updateComponent(p, "clock-input", { value: "0 V" });
+    state = runSupportedAnalysis(p, { previousState: state });
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "LED3").endpoints = ["led3:A"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue four-to-one multiplexer selects each input for all data vectors", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/052-multiplexer-selector.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-mux4-ideal"), true);
+  for (let data = 0; data < 16; data++) {
+    let vector = project;
+    for (let bit = 0; bit < 4; bit++) vector = updateComponent(vector, `input-${bit}`, { value: data & (1 << bit) ? "5 V" : "0 V" });
+    for (let selected = 0; selected < 4; selected++) {
+      let selection = updateComponent(vector, "select-0", { value: selected & 1 ? "5 V" : "0 V" });
+      selection = updateComponent(selection, "select-1", { value: selected & 2 ? "5 V" : "0 V" });
+      const result = runSupportedAnalysis(selection);
+      assert.equal(result.state, "complete");
+      assert.equal(result.result.selectedIndex, selected);
+      assert.equal(result.result.outputHigh, Boolean(data & (1 << selected)));
+    }
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project, "select-0", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "I3").endpoints = ["input-3:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue two-to-four decoder asserts exactly one matching output", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/053-decoder-controlled-leds.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-decoder-2to4-ideal"), true);
+  for (let address = 0; address < 4; address++) {
+    let vector = updateComponent(project, "address-0", { value: address & 1 ? "5 V" : "0 V" });
+    vector = updateComponent(vector, "address-1", { value: address & 2 ? "5 V" : "0 V" });
+    const result = runSupportedAnalysis(vector);
+    assert.equal(result.state, "complete");
+    assert.equal(result.result.address, address);
+    assert.deepEqual(result.result.outputsHigh, [0,1,2,3].map(i=>i===address));
+    assert.equal(result.result.oneHot, true);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project, "address-1", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "Y3").endpoints = ["decoder:Y3"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+
+test("catalogue priority encoder reports the highest asserted input", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/054-priority-encoder.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-priority-encoder-4to2-ideal"), true);
+  const vectors = [
+    [0,0,0,0,false,0,-1],[1,0,0,0,true,0,0],[0,1,0,0,true,1,1],[0,0,1,0,true,2,2],[0,0,0,1,true,3,3],
+    [1,0,1,0,true,2,2],[0,1,0,1,true,3,3],[1,1,1,1,true,3,3]
+  ];
+  for (const [d0,d1,d2,d3,valid,code,highest] of vectors) {
+    let vector=project;
+    for(const [index,value] of [d0,d1,d2,d3].entries())vector=updateComponent(vector,`input-${index}`,{value:value?"5 V":"0 V"});
+    const result=runSupportedAnalysis(vector);
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.valid,valid);
+    assert.equal(result.result.code,code);
+    assert.equal(result.result.highestIndex,highest);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"input-3",{value:"6 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="D3").endpoints=["input-3:+"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue four-bit ALU matches exhaustive unsigned add/subtract vectors", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/055-alu-add-subtract.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-alu4-ideal"), true);
+  let vectors = 0;
+  for (let a = 0; a < 16; a++) for (let b = 0; b < 16; b++) for (const subtract of [false, true]) {
+    let vector = project;
+    for (let bit = 0; bit < 4; bit++) {
+      vector = updateComponent(vector, `a${bit}`, { value: a & (1 << bit) ? "5 V" : "0 V" });
+      vector = updateComponent(vector, `b${bit}`, { value: b & (1 << bit) ? "5 V" : "0 V" });
+    }
+    vector = updateComponent(vector, "subtract", { value: subtract ? "5 V" : "0 V" });
+    const result = runSupportedAnalysis(vector);
+    assert.equal(result.state, "complete", result.message);
+    const expectedFull = subtract ? a + ((b ^ 15) + 1) : a + b;
+    assert.equal(result.result.sum, expectedFull & 15, `a=${a}, b=${b}, subtract=${subtract}`);
+    assert.equal(result.result.carryOut, Boolean(expectedFull & 16), `carry a=${a}, b=${b}, subtract=${subtract}`);
+    assert.equal(result.result.borrow, subtract && a < b);
+    vectors++;
+  }
+  assert.equal(vectors, 512);
+  assert.equal(runSupportedAnalysis(updateComponent(project, "a0", { value: "6 V" })).state, "blocked");
+  const broken = structuredClone(project);
+  broken.nets.find((net) => net.id === "B3").endpoints = ["b3:+"];
+  assert.equal(runSupportedAnalysis(broken).state, "blocked");
+});
+
+test("catalogue UART transmitter emits valid 8N1 frames LSB-first", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/056-uart-transmitter.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.uart-tx-ideal"), true);
+  for (const [byte, baud] of [[0x00,9600],[0xA5,9600],[0xFF,115200]]) {
+    const configured = updateComponent(project, "uart", { value: `Byte 0x${byte.toString(16)}; Baud ${baud}` });
+    const result = runSupportedAnalysis(configured);
+    assert.equal(result.state, "complete", result.message);
+    assert.equal(result.result.byte, byte);
+    assert.equal(result.result.baud, baud);
+    assert.deepEqual(result.result.dataBits, Array.from({length:8},(_,bit)=>Boolean(byte&(1<<bit))));
+    assert.deepEqual(result.result.frameBits, [false,...result.result.dataBits,true]);
+    assert.equal(result.result.frameDurationSeconds, 10/baud);
+    assert.equal(result.result.frameFormat, "8N1");
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"uart",{value:"Byte 256; Baud 9600"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"uart",{value:"Byte 42; Baud 100"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TX").endpoints=["uart:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue UART receiver decodes valid frames and flags start/stop errors", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/057-uart-receiver.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "input.uart-frame-source"), true);
+  assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.uart-rx-ideal"), true);
+  const valid = runSupportedAnalysis(project);
+  assert.equal(valid.state, "complete");
+  assert.equal(valid.result.byte, 0xA5);
+  assert.equal(valid.result.byteHex, "0xA5");
+  assert.equal(valid.result.valid, true);
+  assert.equal(valid.result.framingError, false);
+  assert.equal(valid.result.frameDurationSeconds, 10/9600);
+
+  const badStart=updateComponent(project,"serial-frame",{value:"Bits 1,1,0,1,0,0,1,0,1,1; Baud 9600"});
+  const startError=runSupportedAnalysis(badStart);
+  assert.equal(startError.state,"complete");
+  assert.equal(startError.result.framingError,true);
+  assert.equal(startError.result.valid,false);
+  const badStop=updateComponent(project,"serial-frame",{value:"Bits 0,1,0,1,0,0,1,0,1,0; Baud 9600"});
+  assert.equal(runSupportedAnalysis(badStop).result.framingError,true);
+  const badLength=updateComponent(project,"serial-frame",{value:"Bits 0,1,0; Baud 9600"});
+  assert.equal(runSupportedAnalysis(badLength).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="RX").endpoints=["receiver:RX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+
+test("catalogue I2C register sensor acknowledges and returns configured data", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/058-i2c-sensor-read.adigun.json", import.meta.url)));
+  assert.equal(validateProject(project).valid, true);
+  assert.equal(STARTER_LIBRARY.some((part)=>part.id==="input.i2c-read-transaction"),true);
+  assert.equal(STARTER_LIBRARY.some((part)=>part.id==="active.i2c-sensor-ideal"),true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.addressMatch,true);
+  assert.equal(result.result.sensorAck,true);
+  assert.equal(result.result.receivedByte,0x2A);
+  assert.equal(result.result.receivedHex,"0x2A");
+  assert.equal(result.result.masterFinalNack,true);
+  const nack=runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x49; Register 0x00; Baud 100000; ACK yes"}));
+  assert.equal(nack.state,"complete");
+  assert.equal(nack.result.sensorAck,false);
+  assert.equal(nack.result.receivedByte,null);
+  const absent=runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x48; Register 0x01; Baud 100000; ACK yes"}));
+  assert.equal(absent.result.sensorAck,true);
+  assert.equal(absent.result.registerMatch,false);
+  assert.equal(absent.result.receivedByte,null);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x48; Register 0x00; Baud 100000; ACK no"})).result.sensorAck,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x48; Register 0x00; Baud 1000; ACK yes"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SDA").endpoints=["transaction:SDA","sensor:SDA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue SPI display receives mode-0 bytes MSB-first", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/059-spi-display.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.receivedByte,0xA5);
+  assert.deepEqual(result.result.bits,[true,false,true,false,false,true,false,true]);
+  assert.equal(result.result.sampleEdge,"rising");
+  assert.equal(result.result.transferDurationSeconds,8/1000000);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transfer",{value:"Mode 3; Byte 0xA5; Baud 1000000; CS active"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transfer",{value:"Mode 0; Byte 0x100; Baud 1000000; CS active"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transfer",{value:"Mode 0; Byte 0xA5; Baud 1000000; CS inactive"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="MOSI").endpoints=["transfer:MOSI"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue EEPROM logger preserves a written byte in its ideal register model", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/060-eeprom-data-logger.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.deviceAck,true);
+  assert.equal(result.result.writeAcknowledged,true);
+  assert.equal(result.result.readByte,0x5A);
+  assert.equal(result.result.readHex,"0x5A");
+  assert.equal(result.result.dataPreserved,true);
+  const nack=runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x51; Register 0x10; Data 0x5A; Baud 100000; Cycle write-read; ACK yes"}));
+  assert.equal(nack.result.deviceAck,false);
+  assert.equal(nack.result.readByte,null);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x50; Register 0x10; Data 0x100; Baud 100000; Cycle write-read; ACK yes"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"transaction",{value:"Address 0x50; Register 0x10; Data 0x5A; Baud 100000; Cycle read-only; ACK yes"})).state,"blocked");
+});
+
+
+test("catalogue Arduino blink produces a bounded D13 LED GPIO trace",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/061-arduino-blink.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(result.result.frequencyHz,1);
+  assert.deepEqual(result.result.trace.map(v=>v.gpioHigh),[true,false,true,false]);
+  assert.equal(result.result.trace[0].intervalMs,500);
+  assert.equal(result.result.ledCurrentA,0.00909090909090909);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"mcu",{value:"Program Blink; Pin D13; High 0 ms; Low 500 ms; Runtime 2000 ms"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="D13").endpoints=["mcu:D13"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Arduino button debounce rejects bounce and toggles once per stable press",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/062-arduino-button-debounce.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(result.result.toggleCount,2);
+  assert.deepEqual(result.result.trace.map(x=>x.acceptedTransition&&x.stableInput===1?x.sampleIndex:null).filter(x=>x!==null),[5,11]);
+  assert.equal(result.result.outputOn,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"mcu",{value:"Program Button debounce; Input D2; Output D13; Mode Toggle; Stable 21"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="BUTTON").endpoints=["button:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Arduino PWM dimmer maps potentiometer ADC to MOSFET LED average current",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/063-arduino-pwm-dimmer.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  for(const [position,count,duty] of [[0,0,0],[50,512,512/1023],[100,1023,1]]){
+    const configured=updateComponent(project,"pot",{value:`Position ${position}%; Resolution 10 bit`});
+    const result=runSupportedAnalysis(configured);
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.adcCount,count);
+    assert.equal(result.result.dutyCycle,duty);
+    assert.equal(result.result.firmwareExecuted,false);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Position 101%; Resolution 10 bit"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="PWM").endpoints=["mcu:D9"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Arduino temperature monitor converts sensor samples for an LCD result",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/064-arduino-temperature-monitor.adigun.json",import.meta.url)));
+  for(const celsius of [0,25,100]){
+    const configured=updateComponent(project,"sensor",{value:`Temperature ${celsius} C; Scale 10 mV/C; Offset 0 mV`});
+    const result=runSupportedAnalysis(configured);
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.firmwareExecuted,false);
+    assert.ok(Math.abs(result.result.displayTemperatureC-celsius)<0.5);
+    assert.match(result.result.displayText,/¬∞C$/);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"sensor",{value:"Temperature 130 C; Scale 10 mV/C; Offset 0 mV"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="SENSOR_OUT").endpoints=["sensor:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue ultrasonic ranger converts echo time and reports measurement boundaries",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/065-arduino-ultrasonic-ranger.adigun.json",import.meta.url)));
+  for(const [echoUs,expectedValid] of [[117,true],[5882,true],[23323,true],[25000,false]]){
+    const configured=updateComponent(project,"sensor",{value:`Echo ${echoUs} us; Minimum 20 mm; Maximum 4000 mm`});
+    const result=runSupportedAnalysis(configured);
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.measurementValid,expectedValid);
+    if(expectedValid)assert.match(result.result.displayText,/cm$/);
+    else assert.equal(result.result.displayText,"Out of range");
+    assert.equal(result.result.firmwareExecuted,false);
+  }
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="ECHO").endpoints=["sensor:ECHO"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Arduino servo maps potentiometer endpoints to pulse and angle",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/066-arduino-servo-control.adigun.json",import.meta.url)));
+  for(const [position,angle] of [[0,0],[50,90.08797653958944],[100,180]]){
+    const result=runSupportedAnalysis(updateComponent(project,"pot",{value:`Position ${position}%; Resolution 10 bit`}));
+    assert.equal(result.state,"complete",result.message);
+    assert.ok(Math.abs(result.result.angleDegrees-angle)<1e-10);
+    assert.equal(result.result.firmwareExecuted,false);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Position 101%; Resolution 10 bit"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="SERVO_PWM").endpoints=["mcu:D9"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Arduino stepper driver sequence maps CW/CCW pulses to motion",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/067-arduino-stepper-driver.adigun.json",import.meta.url)));
+  const run=value=>runSupportedAnalysis(updateComponent(project,"mcu",{value}));
+  const cw=run("Program Stepper; Step D3; DirectionPin D2; Steps 200; Direction CW; StepRate 200");
+  assert.equal(cw.state,"complete",cw.message);
+  assert.equal(cw.result.angularTravelDegrees,360);
+  assert.equal(cw.result.finalPositionDegrees,0);
+  assert.equal(cw.result.motionDurationSeconds,1);
+  const ccw=run("Program Stepper; Step D3; DirectionPin D2; Steps 50; Direction CCW; StepRate 100");
+  assert.equal(ccw.result.signedSteps,-50);
+  assert.equal(ccw.result.angularTravelDegrees,-90);
+  assert.deepEqual(ccw.result.phaseSequence[0].coils,[false,true,false,true]);
+  assert.equal(run("Program Stepper; Step D3; DirectionPin D2; Steps 200; Direction CW; StepRate 0").state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="MOTOR_A1").endpoints=["driver:A1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue ESP32 telemetry mock forms JSON locally without network transmission",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/068-esp32-telemetry-mock.adigun.json",import.meta.url)));
+  for(const celsius of [0,25,80]){
+    const configured=updateComponent(project,"sensor",{value:`Temperature ${celsius} C; Scale 10 mV/C; Offset 0 mV`});
+    const result=runSupportedAnalysis(configured);
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.adcResolutionBits,12);
+    assert.equal(result.result.transmitted,false);
+    assert.equal(result.result.firmwareExecuted,false);
+    assert.deepEqual(JSON.parse(result.result.payloadText),result.result.payload);
+    assert.equal(result.result.payload.device,"esp32-node-01");
+    assert.equal(result.result.payload.sequence,1);
+    assert.ok(Math.abs(result.result.payload.temperatureC-celsius)<0.1);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"sensor",{value:"Temperature 130 C; Scale 10 mV/C; Offset 0 mV"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="TX").endpoints=["esp32:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue Pico voltmeter estimates calibrated divider input at three points",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/069-pico-adc-voltmeter.adigun.json",import.meta.url)));
+  for(const voltage of [6,12,13]){
+    const result=runSupportedAnalysis(updateComponent(project,"vin",{value:`${voltage} V`}));
+    assert.equal(result.state,"complete",result.message);
+    assert.ok(Math.abs(result.result.estimatedInputVoltageV-voltage)<0.01);
+    assert.equal(result.result.adcResolutionBits,12);
+    assert.equal(result.result.firmwareExecuted,false);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"vin",{value:"14 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="ADC_MID").endpoints=["upper:2","lower:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue STM32 timer PWM computes frequency, duty, and LED load estimate",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/070-stm32-timer-pwm.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.frequencyHz,1000);
+  assert.equal(result.result.dutyCycle,0.499);
+  assert.ok(Math.abs(result.result.averageLedCurrentA-(1.3/330*0.499))<1e-12);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timer",{value:"ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 1000"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timer",{value:"ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 499"})).result.frequencyHz,1000);
+  const broken=structuredClone(project);
+  broken.nets.find(n=>n.id==="PWM_LED").endpoints=["timer:TIM1_CH1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue PIC ADC bargraph maps 10-bit readings to LED count",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/071-pic-adc-bargraph.adigun.json",import.meta.url)));
+  for(const [position,expectedCount] of [[0,0],[25,2],[50,5],[75,7],[100,10]]){
+    const result=runSupportedAnalysis(updateComponent(project,"pot",{value:"Position "+position+"%; Resolution 10 bit"}));
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.adcResolutionBits,10);
+    assert.equal(result.result.illuminatedSegments,expectedCount);
+    assert.equal(result.result.segments.filter(Boolean).length,expectedCount);
+    assert.equal(result.result.firmwareExecuted,false);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Position 101%; Resolution 10 bit"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="BAR_9").endpoints=["pic:BAR9"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue AVR IR receiver decodes NEC-like timing and flags invalid frames",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/072-avr-ir-receiver.adigun.json",import.meta.url)));
+  const valid=runSupportedAnalysis(project);
+  assert.equal(valid.state,"complete",valid.message);
+  assert.equal(valid.result.rawCode,"0x00FFA25D");
+  assert.equal(valid.result.address,"0x00");
+  assert.equal(valid.result.command,"0xA2");
+  assert.equal(valid.result.bitOrder,"LSB-first within each byte");
+  assert.equal(valid.result.frameDurationUs,67980);
+  assert.equal(valid.result.firmwareExecuted,false);
+  const badTiming=updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 7000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000"});
+  assert.equal(runSupportedAnalysis(badTiming).state,"blocked");
+  const badComplement=updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 00 A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000"});
+  assert.equal(runSupportedAnalysis(badComplement).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="IR_RX").endpoints=["receiver:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("workspace matches the approved simulator layout references",async()=>{
+  const html=await readFile(new URL("../index.html",import.meta.url),"utf8");
+  const app=await readFile(new URL("../app.js",import.meta.url),"utf8");
+  const styles=await readFile(new URL("../styles.css",import.meta.url),"utf8");
+  assert.match(html,/<details class="app-menu"/);
+  assert.match(html,/id="example-picker"/);
+  assert.match(html,/data-view="pcb"/);
+  assert.match(html,/id="result-dashboard"/);
+  assert.match(html,/data-mini-view="schematic"/);
+  assert.match(app,/function renderResultDashboard/);
+  assert.match(app,/examples\/070-stm32-timer-pwm\.adigun\.json/);
+  assert.match(styles,/canvas-area\.has-overview/);
+  assert.match(styles,/PCB placement preview/);
+});
+
+
+test("catalogue MCU watchdog resets to a safe state after an induced service stall",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/073-mcu-watchdog.adigun.json",import.meta.url)));
+  const valid=runSupportedAnalysis(project);
+  assert.equal(valid.state,"complete",valid.message);
+  assert.equal(valid.result.kind,"mcu-watchdog");
+  assert.equal(valid.result.timeoutMs,100);
+  assert.equal(valid.result.servicesAccepted,3);
+  assert.equal(valid.result.resetCount,1);
+  assert.equal(valid.result.resetAtMs,180);
+  assert.equal(valid.result.controllerState,"safe-reset");
+  assert.equal(valid.result.heartbeatHigh,false);
+  assert.equal(valid.result.displayText,"WATCHDOG RESET @ 180 ms");
+  assert.equal(valid.result.firmwareExecuted,false);
+
+  const healthy=updateComponent(project,"fixture",{value:"ServiceTimesMs 0,40,80,120,160,200,240; RunDurationMs 300"});
+  const healthyResult=runSupportedAnalysis(healthy);
+  assert.equal(healthyResult.state,"complete",healthyResult.message);
+  assert.equal(healthyResult.result.resetCount,0);
+  assert.equal(healthyResult.result.controllerState,"running");
+  assert.equal(healthyResult.result.heartbeatHigh,true);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project,"mcu",{value:"Program Watchdog state model; TimeoutMs 0"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="WDI").endpoints=["fixture:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue CAN node pair transfers a matching frame and verifies 60 ohm end termination",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/074-can-node-pair.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"can-node-pair");
+  assert.equal(result.result.identifier,"0x123");
+  assert.equal(result.result.dlc,2);
+  assert.deepEqual(result.result.dataBytes,["DE","AD"]);
+  assert.equal(result.result.bitrate,500000);
+  assert.equal(result.result.received,true);
+  assert.equal(result.result.acknowledged,true);
+  assert.equal(result.result.busTerminationOhm,60);
+  assert.equal(result.result.displayText,"RX 0x123 [DE AD] ¬∑ ACK");
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"rx-node",{value:"Role receive; FilterId 0x456"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"term-b",{value:"240 Œ©"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"frame",{value:"Identifier 0x123; DLC 2; Data DE AD; Bitrate 0"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="CAN_H").endpoints=["tx-xcvr:CANH","term-a:1","term-b:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue RS-485 polling returns only the addressed sensor and prevents collisions",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/075-rs485-sensor-network.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"rs485-addressed-poll");
+  assert.equal(result.result.pollAddress,"0x02");
+  assert.equal(result.result.respondingAddress,"0x02");
+  assert.equal(result.result.temperatureC,24.6);
+  assert.equal(result.result.respondingNodes,1);
+  assert.equal(result.result.silentNodes,1);
+  assert.equal(result.result.simultaneousDrivers,0);
+  assert.equal(result.result.busTerminationOhm,60);
+  assert.match(result.result.displayText,/other node silent/);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"node-1",{value:"Address 0x02; Baud 9600; EnablePolicy addressed-only"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"term-2",{value:"240 Œ©"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"poll",{value:"Address 0x03; Baud 9600"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="RS485_A").endpoints=["master-xcvr:A","xcvr-1:A","term-1:1","term-2:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue GPS RMC example validates NMEA checksum and displays decimal coordinates",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/076-gps-nmea-display.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"gnss-rmc");
+  assert.equal(result.result.sentenceType,"GPRMC");
+  assert.equal(result.result.checksum,"6A");
+  assert.equal(result.result.checksumValid,true);
+  assert.equal(result.result.fixStatus,"active");
+  assert.ok(Math.abs(result.result.latitude-48.1173)<1e-9);
+  assert.ok(Math.abs(result.result.longitude-11.516666666666667)<1e-9);
+  assert.equal(result.result.displayText,"48.11730, 11.51667");
+  assert.equal(result.result.firmwareExecuted,false);
+  const badChecksum=updateComponent(project,"gnss",{value:"Sentence $GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*00"});
+  assert.equal(runSupportedAnalysis(badChecksum).state,"blocked");
+  const noFix=updateComponent(project,"gnss",{value:"Sentence $GPRMC,123519,V,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*7D"});
+  assert.equal(runSupportedAnalysis(noFix).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="UART_RX").endpoints=["gnss:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue RFID reader grants allowlisted UID and denies unknown tags",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/077-rfid-access-reader.adigun.json",import.meta.url)));
+  const granted=runSupportedAnalysis(project);
+  assert.equal(granted.state,"complete",granted.message);
+  assert.equal(granted.result.kind,"rfid-access");
+  assert.equal(granted.result.uid,"04A1B2C3");
+  assert.equal(granted.result.allowed,true);
+  assert.equal(granted.result.accessState,"granted");
+  assert.equal(granted.result.lockOpen,true);
+  assert.equal(granted.result.lockOutput,1);
+  assert.equal(granted.result.authentication,"UID only; not secure");
+  assert.equal(granted.result.firmwareExecuted,false);
+  const unknown=runSupportedAnalysis(updateComponent(project,"tag",{value:"UID DEADBEEF"}));
+  assert.equal(unknown.state,"complete");
+  assert.equal(unknown.result.allowed,false);
+  assert.equal(unknown.result.accessState,"denied");
+  assert.equal(unknown.result.lockOpen,false);
+  assert.equal(unknown.result.lockOutput,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"controller",{value:"Allowlist invalid; UnlockState 1; DenyState 0"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="UID_DATA").endpoints=["reader:DATA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue NFC example displays a successful UID read and blocks read errors",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/078-nfc-uid-display.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"nfc-uid-display");
+  assert.equal(result.result.uid,"04A1B2C3");
+  assert.equal(result.result.displayText,"Tag UID: 04A1B2C3");
+  assert.equal(result.result.uidIsAuthentication,false);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"tag",{value:"UID 04A1B2C3; ReadStatus error"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="READER_DATA").endpoints=["reader:DATA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+
+test("catalogue EEPROM data logger wraps a full ring buffer and replays retained samples",async()=>{
+  const project=JSON.parse(await readFile(new URL("../examples/079-eeprom-data-logger.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"eeprom-ring-logger");
+  assert.equal(result.result.samplePeriodMs,100);
+  assert.equal(result.result.writeCycleMs,5);
+  assert.equal(result.result.capacity,3);
+  assert.equal(result.result.recordedSamples,5);
+  assert.equal(result.result.overwrittenRecords,2);
+  assert.equal(result.result.bufferWrapped,true);
+  assert.deepEqual(result.result.replayValues,[30,40,50]);
+  assert.deepEqual(result.result.replayTimesMs,[200,300,400]);
+  assert.match(result.result.displayText,/200 ms: 30 ¬∞C.*400 ms: 50 ¬∞C/);
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"eeprom",{value:"Capacity 0; WriteCycleMs 5; Mode circular"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Samples 10,broken,30; PeriodMs 100; Unit C"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SDA").endpoints=["controller:SDA","pull-sda:2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue low-power MCU sleeps between rising-edge interrupts and estimates supply current", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/080-low-power-sleep-wake.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",analysis.message);
+  assert.equal(analysis.result.kind,"low-power-sleep-wake");
+  assert.equal(analysis.result.durationMs,500);
+  assert.equal(analysis.result.wakeCount,2);
+  assert.deepEqual(analysis.result.events.map(event=>[event.timeMs,event.edge,event.woke]),[[100,"rising",true],[130,"falling",false],[400,"rising",true]]);
+  assert.equal(analysis.result.awakeTimeMs,40);
+  assert.equal(analysis.result.sleepTimeMs,460);
+  assert.equal(analysis.result.sleepCurrentUa,8);
+  assert.equal(analysis.result.runCurrentUa,5000);
+  assert.ok(Math.abs(analysis.result.averageSupplyCurrentUa-511.36)<1e-9);
+  assert.ok(Math.abs(analysis.result.energyMj-0.843744)<1e-9);
+  assert.equal(analysis.result.firmwareExecuted,false);
+  const noWake=runSupportedAnalysis(updateComponent(project,"interrupts",{value:"Events 100:falling; DurationMs 500"}));
+  assert.equal(noWake.state,"complete",noWake.message);
+  assert.equal(noWake.result.wakeCount,0);
+  assert.equal(noWake.result.averageSupplyCurrentUa,8);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"interrupts",{value:"Events 100:rise; DurationMs 500"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"mcu",{value:"RunCurrentUa 4; SleepCurrentUa 8; WakeDurationMs 20; WakeMode rising"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="INT").endpoints=["interrupts:INT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue BLE beacon encodes standard legacy advertising data fields", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/081-ble-beacon-configuration.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",analysis.message);
+  assert.equal(analysis.result.kind,"ble-beacon-config");
+  assert.equal(analysis.result.deviceNameUtf8Bytes,6);
+  assert.equal(analysis.result.flags,6);
+  assert.equal(analysis.result.serviceUuid,"0x180D");
+  assert.deepEqual(analysis.result.serviceUuidEncodedBytes,[0x0D,0x18]);
+  assert.equal(analysis.result.txPowerDbm,-4);
+  assert.deepEqual(analysis.result.payloadBytes,[0x02,0x01,0x06,0x03,0x03,0x0D,0x18,0x07,0x09,0x41,0x64,0x69,0x67,0x75,0x6E,0x02,0x0A,0xFC]);
+  assert.equal(analysis.result.payloadHex,"02 01 06 03 03 0D 18 07 09 41 64 69 67 75 6E 02 0A FC");
+  assert.equal(analysis.result.payloadLengthOctets,18);
+  assert.equal(analysis.result.legacyMaximumOctets,31);
+  assert.equal(analysis.result.radioTransmitted,false);
+  assert.equal(analysis.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Name Adigun12345678901234; Flags 0x06; ServiceUuid 0x180D; TxPowerDbm -4"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Name Adigun; Flags 0x100; ServiceUuid 0x180D; TxPowerDbm -4"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Name Adigun; Flags 0x06; ServiceUuid 180G; TxPowerDbm -4"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Name Adigun; Flags 0x06; ServiceUuid 0x180D; TxPowerDbm 200"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="RADIO_DATA").endpoints=["encoder:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue LoRa sensor encodes its payload and blocks sends over the configured duty budget", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/082-lora-sensor-node.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",analysis.message);
+  assert.equal(analysis.result.kind,"lora-sensor-node");
+  assert.equal(analysis.result.temperatureDeciC,246);
+  assert.deepEqual(analysis.result.payloadBytes,[1,7,0,42,0,246]);
+  assert.equal(analysis.result.payloadHex,"01 07 00 2A 00 F6");
+  assert.equal(analysis.result.payloadLengthOctets,6);
+  assert.equal(analysis.result.airtimeBudgetMs,600);
+  assert.equal(analysis.result.usedAirtimeMs,600);
+  assert.equal(analysis.result.dutyCyclePercent,1);
+  assert.equal(analysis.result.sentCount,6);
+  assert.equal(analysis.result.rejectedCount,2);
+  assert.deepEqual(analysis.result.schedule.map(item=>item.sent),[true,true,true,true,true,true,false,false]);
+  assert.equal(analysis.result.schedule[6].reason,"configured duty budget exhausted");
+  assert.equal(analysis.result.radioTransmitted,false);
+  assert.equal(analysis.result.regionalCompliance,"not evaluated");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"controller",{value:"NodeId 7; Sequence 42; Mode payload-v1; AirtimeMs 100; DutyWindowMs 60000; DutyLimitPercent 101; RequestsMs 0,9000"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"controller",{value:"NodeId 7; Sequence 42; Mode payload-v1; AirtimeMs -1; DutyWindowMs 60000; DutyLimitPercent 1; RequestsMs 0,9000"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="RADIO_DATA").endpoints=["controller:RADIO"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue GSM alarm notifier follows mocked AT steps and aborts on modem errors", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/083-gsm-alarm-notifier.adigun.json",import.meta.url)));
+  const success=runSupportedAnalysis(project);
+  assert.equal(success.state,"complete",success.message);
+  assert.equal(success.result.kind,"gsm-alarm-mock");
+  assert.deepEqual(success.result.commands,["AT","AT+CREG?","AT+CMGF=1",'AT+CMGS="TEST_ONLY"']);
+  assert.equal(success.result.commandsCompleted,4);
+  assert.equal(success.result.transactionState,"mock-modem-accepted");
+  assert.equal(success.result.messageBody,"TEMP_LIMIT_EXCEEDED");
+  assert.equal(success.result.modemAccepted,true);
+  assert.equal(success.result.deliveryConfirmed,false);
+  assert.equal(success.result.radioTransmitted,false);
+  const modemError=runSupportedAnalysis(updateComponent(project,"event",{value:"AlarmState active; Message TEMP_LIMIT_EXCEEDED; Responses OK|+CREG:0,1|ERROR|>; SendResult +CMGS:0|OK"}));
+  assert.equal(modemError.state,"complete");
+  assert.equal(modemError.result.transactionState,"aborted-modem-error");
+  assert.equal(modemError.result.failedCommand,"AT+CMGF=1");
+  assert.equal(modemError.result.messageBody,undefined);
+  assert.equal(modemError.result.radioTransmitted,false);
+  const sendError=runSupportedAnalysis(updateComponent(project,"event",{value:"AlarmState active; Message TEMP_LIMIT_EXCEEDED; Responses OK|+CREG:0,1|OK|>; SendResult ERROR|ERROR"}));
+  assert.equal(sendError.result.transactionState,"aborted-send-error");
+  const notRegistered=runSupportedAnalysis(updateComponent(project,"modem",{value:"Mode AT-mock; Registration searching"}));
+  assert.equal(notRegistered.result.transactionState,"aborted-not-registered");
+  const inactive=runSupportedAnalysis(updateComponent(project,"event",{value:"AlarmState inactive; Message TEMP_LIMIT_EXCEEDED; Responses OK|+CREG:0,1|OK|>; SendResult +CMGS:0|OK"}));
+  assert.equal(inactive.result.transactionState,"idle-no-alarm");
+  assert.equal(inactive.result.commands.length,0);
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="UART_TX").endpoints=["controller:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue Wi-Fi relay controller applies valid commands and fails safe offline", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/084-wifi-relay-controller.adigun.json",import.meta.url)));
+  const on=runSupportedAnalysis(project);
+  assert.equal(on.state,"complete",on.message);
+  assert.equal(on.result.kind,"wifi-relay-control");
+  assert.equal(on.result.transactionState,"applied-on");
+  assert.equal(on.result.relayEnergized,true);
+  assert.equal(on.result.coilCurrentMa,70);
+  assert.equal(on.result.physicalRelaySwitched,false);
+  assert.equal(on.result.networkTransmitted,false);
+  assert.match(on.result.authentication,/placeholder/);
+  const off=runSupportedAnalysis(updateComponent(project,"command",{value:"Command OFF; Token TEST_TOKEN"}));
+  assert.equal(off.result.transactionState,"applied-off");
+  assert.equal(off.result.relayEnergized,false);
+  const badToken=runSupportedAnalysis(updateComponent(project,"command",{value:"Command ON; Token WRONG"}));
+  assert.equal(badToken.result.transactionState,"denied-placeholder-token");
+  assert.equal(badToken.result.relayEnergized,false);
+  const offline=runSupportedAnalysis(updateComponent(project,"wifi",{value:"Mode local-mock; Link offline"}));
+  assert.equal(offline.result.transactionState,"offline-fail-safe");
+  assert.equal(offline.result.relayEnergized,false);
+  const overCurrent=runSupportedAnalysis(updateComponent(project,"driver",{value:"Mode ideal-switch; RequestedCoilCurrentMa 120; MaximumCurrentMa 100"}));
+  assert.equal(overCurrent.result.transactionState,"driver-current-limit");
+  assert.equal(overCurrent.result.relayEnergized,false);
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="DRIVE").endpoints=["controller:DRIVE"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue Ethernet sensor shows link transitions and builds a local mock frame", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/085-ethernet-sensor-node.adigun.json",import.meta.url)));
+  const frame=runSupportedAnalysis(project);
+  assert.equal(frame.state,"complete",frame.message);
+  assert.equal(frame.result.kind,"ethernet-sensor-frame");
+  assert.deepEqual(frame.result.linkTransitions,["down","negotiating","up"]);
+  assert.equal(frame.result.configurationState,"configured");
+  assert.equal(frame.result.transactionState,"frame-ready-local-only");
+  assert.equal(frame.result.etherType,"0x88B5");
+  assert.deepEqual(frame.result.headerBytes,[2,0,0,0,0,2,2,0,0,0,0,1,0x88,0xB5]);
+  assert.deepEqual(frame.result.payloadBytes,[1,1,0,42,0,246]);
+  assert.deepEqual(frame.result.frameBytes,[2,0,0,0,0,2,2,0,0,0,0,1,0x88,0xB5,1,1,0,42,0,246]);
+  assert.equal(frame.result.frameLengthOctets,20);
+  assert.equal(frame.result.packetTransmitted,false);
+  assert.equal(frame.result.fcsIncluded,false);
+  const noLink=runSupportedAnalysis(updateComponent(updateComponent(project,"config",{value:"LinkTransitions down>negotiating>down; Configuration configured; DeviceId 1; TemperatureC 24.6; Sequence 42"}),"phy",{value:"Mode mock; Link down"}));
+  assert.equal(noLink.result.transactionState,"waiting-for-link");
+  assert.deepEqual(noLink.result.frameBytes,[]);
+  const unconfigured=runSupportedAnalysis(updateComponent(project,"config",{value:"LinkTransitions down>negotiating>up; Configuration unconfigured; DeviceId 1; TemperatureC 24.6; Sequence 42"}));
+  assert.equal(unconfigured.result.transactionState,"waiting-for-configuration");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"config",{value:"LinkTransitions down>up; Configuration configured; DeviceId 1; TemperatureC 24.6; Sequence 42"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TX").endpoints=["controller:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue IR remote maps valid NEC-like keys to actions and rejects invalid pulses", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/086-ir-remote-actions.adigun.json",import.meta.url)));
+  const first=runSupportedAnalysis(project);
+  assert.equal(first.state,"complete",first.message);
+  assert.equal(first.result.kind,"ir-remote-action");
+  assert.equal(first.result.rawCode,"0x00FFA25D");
+  assert.equal(first.result.command,"0xA2");
+  assert.equal(first.result.action,"TOGGLE_LIGHT");
+  assert.equal(first.result.mapped,true);
+  assert.equal(first.result.actionExecuted,false);
+  const second=runSupportedAnalysis(updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 FF B2 4D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000"}));
+  assert.equal(second.result.action,"VOLUME_UP");
+  const unmapped=runSupportedAnalysis(updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 FF 44 BB; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000"}));
+  assert.equal(unmapped.result.action,"UNMAPPED");
+  assert.equal(unmapped.result.mapped,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 500; StopMarkUs 560; CarrierHz 38000"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"frame",{value:"Protocol NEC-like; Bytes 00 FF A2 00; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"decoder",{value:"Program Decode NEC-like and dispatch; Input INT0; Output ACTION; Tolerance 20%; Map A2=EXECUTE_UNKNOWN"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="DEMODULATED").endpoints=["receiver:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue FM front-end response peaks at its tuned center frequency", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/087-fm-front-end-response.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"fm-front-end-response");
+  assert.equal(result.result.centerFrequencyMHz,100);
+  assert.equal(result.result.peakFrequencyMHz,100);
+  assert.ok(Math.abs(result.result.peakResponseDb-12)<1e-9);
+  assert.ok(result.result.responsePoints.find(point=>point.frequencyMHz===88).totalGainDb<result.result.peakResponseDb);
+  assert.ok(result.result.responsePoints.find(point=>point.frequencyMHz===108).totalGainDb<result.result.peakResponseDb);
+  assert.equal(result.result.rfTransmitted,false);
+  assert.equal(result.result.demodulationModeled,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"sweep",{value:"FrequenciesMHz 80,94,98,100,102,106,108; AmplitudeV 0.01; Mode small-signal sweep"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"tuner",{value:"Mode bandpass; CenterMHz 100; Q 0"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TUNED_RF").endpoints=["tuner:RF_OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue RFID inventory fixture counts duplicate UIDs and slot collisions", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/088-rfid-inventory.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"rfid-inventory");
+  assert.equal(result.result.tagCount,5);
+  assert.equal(result.result.uniqueUidCount,4);
+  assert.equal(result.result.duplicateUidCount,1);
+  assert.equal(result.result.occupiedSlots,3);
+  assert.equal(result.result.collisionSlotCount,1);
+  assert.deepEqual(result.result.collisions,[{slot:3,uids:["04A1B2C3","DEADBEEF"],tagCount:3}]);
+  assert.equal(result.result.inventoryComplete,false);
+  assert.equal(result.result.rfTransmitted,false);
+  assert.equal(result.result.antiCollisionProtocolModeled,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"UIDs 04A1B2C3,INVALID; Slots 4"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"reader",{value:"Mode inventory; Band 13.56 MHz; Slots 8"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="RFID_DATA").endpoints=["reader:DATA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue I¬≤C level shifter translates open-drain lows bidirectionally", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/089-i2c-level-shifter.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"i2c-level-shifter");
+  assert.equal(result.result.lowRailV,3.3);
+  assert.equal(result.result.highRailV,5);
+  assert.equal(result.result.transitionCount,4);
+  assert.equal(result.result.lowSideDriveTransitions,2);
+  assert.equal(result.result.highSideDriveTransitions,2);
+  assert.equal(result.result.peakCombinedPullupSinkCurrentMa,3.3/4700*1000+5/4700*1000);
+  assert.equal(result.result.lowSideOvervoltage,false);
+  assert.equal(result.result.highSideOvervoltage,false);
+  assert.equal(result.result.bidirectionalTransitionsVerified,true);
+  assert.deepEqual(result.result.transitionTable.map(item=>[item.sdaLowVoltageV,item.sdaHighVoltageV,item.sclLowVoltageV,item.sclHighVoltageV]),[[3.3,5,0,0],[0,0,3.3,5],[3.3,5,0,0],[0,0,3.3,5]]);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"source-high",{value:"6 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"r-pull-sda-low",{value:"200 kŒ©"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SDA_HIGH").endpoints=["shifter:SDA_H","report:SDA_H"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue USB-UART console frames a known bidirectional byte stream", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/090-usb-uart-console.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"usb-uart-console");
+  assert.equal(result.result.baud,9600);
+  assert.equal(result.result.frameBits,10);
+  assert.deepEqual(result.result.txHex,["0x48","0x69"]);
+  assert.deepEqual(result.result.rxHex,["0x4F","0x4B"]);
+  assert.equal(result.result.txAscii,"Hi");
+  assert.equal(result.result.rxAscii,"OK");
+  assert.equal(result.result.txDurationSeconds,20/9600);
+  assert.equal(result.result.usbEnumerated,false);
+  assert.equal(result.result.hostContacted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"stream",{value:"Baud 9600; DataBits 8; Parity none; StopBits 1; TXBytes 4G; RXBytes 4F"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"stream",{value:"Baud 200000; DataBits 8; Parity none; StopBits 1; TXBytes 48; RXBytes 4F"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TX_HOST").endpoints=["stream:TX"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue electret microphone meter follows calibrated sine amplitudes", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/091-electret-microphone-meter.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"electret-mic-meter");
+  assert.equal(result.result.micBiasCurrentMa,0.5);
+  assert.ok(Math.abs(result.result.micSupplyVoltageV-3.9)<1e-12);
+  assert.equal(result.result.rectifiedPeakV,0.2);
+  assert.equal(result.result.ledSegmentsOn,10);
+  assert.deepEqual([1,5,10,20].map(level=>runSupportedAnalysis(updateComponent(project,"microphone",{value:"Imic 0.5 mA; Vsig "+level+" mV; f 1 kHz; Rs 2.2 kŒ©"})).result.ledSegmentsOn),[1,5,10,10]);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"microphone",{value:"Imic 0.5 mA; Vsig 10 mV; f 10 Hz; Rs 2.2 kŒ©"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"preamp",{value:"Gain 500"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="PREAMP_OUT").endpoints=["preamp:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue audio tone generator measures a coherent 1 kHz sine spectrum", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/092-audio-tone-generator.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"audio-tone-spectrum");
+  assert.equal(result.result.sampleCount,480);
+  assert.equal(result.result.positiveZeroCrossings,10);
+  assert.equal(result.result.negativeZeroCrossings,10);
+  assert.equal(result.result.measuredFrequencyHz,1000);
+  assert.ok(Math.abs(result.result.fundamentalAmplitudeV-1)<1e-12);
+  assert.ok(result.result.secondHarmonicAmplitudeV<1e-12);
+  assert.ok(result.result.thdPercent<1e-9);
+  assert.ok(Math.abs(result.result.minimumSampleV-1.5)<1e-12);
+  assert.ok(Math.abs(result.result.maximumSampleV-3.5)<1e-12);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Waveform sine; Frequency 10000 Hz; Amplitude 1 V; Offset 2.5 V; SampleRate 48000 Hz; Duration 10 ms"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Waveform sine; Frequency 1000 Hz; Amplitude 3 V; Offset 2.5 V; SampleRate 48000 Hz; Duration 10 ms"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="TONE_OUT").endpoints=["generator:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue guitar JFET buffer has high input impedance and bounded AC response", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/093-guitar-pedal-buffer.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"guitar-buffer-response");
+  assert.equal(result.result.inputImpedanceRatio,1000000/6800);
+  assert.equal(result.result.highInputImpedance,true);
+  assert.equal(result.result.unityGainInBand,true);
+  assert.ok(result.result.responsePoints[0].gainRatio<0.9);
+  assert.ok(result.result.responsePoints[1].gainRatio>0.9);
+  assert.ok(result.result.responsePoints[2].gainRatio>0.95&&result.result.responsePoints[2].gainRatio<1);
+  assert.ok(result.result.responsePoints.every(point=>point.outputPeakV<0.1));
+  assert.equal(runSupportedAnalysis(updateComponent(project,"buffer",{value:"Mode source follower; Rin 10 kŒ©; Rout 100 Œ©; Gain 0.98; Cin 100 pF"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"coupling-capacitor",{value:"0 F"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="BUFFER_OUT").endpoints=["buffer:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue simple mixer computes a resistor-weighted source sum without clipping", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/094-simple-audio-mixer.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"audio-summing-mixer");
+  assert.equal(result.result.sumNodeV,1.5);
+  assert.equal(result.result.outputV,1.5);
+  assert.equal(result.result.weight1,0.5);
+  assert.equal(result.result.weight2,0.5);
+  assert.equal(result.result.clipped,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"V1 1 V; V2 3 V"})).result.outputV,2);
+  const unequal=updateComponent(updateComponent(project,"fixture",{value:"V1 1 V; V2 3 V"}),"r2",{value:"20 kŒ©"});
+  assert.ok(Math.abs(runSupportedAnalysis(unequal).result.outputV-1.6666666666666667)<1e-12);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"V1 5 V; V2 5 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SUM").endpoints=["r1:2","r2:2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue PWM DAC tracks duty and ripple falls as PWM frequency rises", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/095-pwm-audio-dac.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"pwm-audio-dac");
+  assert.ok(Math.abs(result.result.averageOutputV-2.475247524752475)<1e-12);
+  assert.ok(result.result.rippleVpp>0&&result.result.rippleVpp<0.2);
+  assert.equal(result.result.tracksDutyCycle,true);
+  const low=runSupportedAnalysis(updateComponent(project,"settings",{value:"Frequency 100 Hz; Duty 50%; Vlogic 5 V"}));
+  const high=runSupportedAnalysis(updateComponent(project,"settings",{value:"Frequency 10000 Hz; Duty 50%; Vlogic 5 V"}));
+  assert.ok(low.result.rippleVpp>result.result.rippleVpp);
+  assert.ok(result.result.rippleVpp>high.result.rippleVpp);
+  assert.ok(Math.abs(runSupportedAnalysis(updateComponent(project,"settings",{value:"Frequency 1000 Hz; Duty 25%; Vlogic 5 V"})).result.averageOutputV-1.2376237623762376)<1e-12);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"settings",{value:"Frequency 1000 Hz; Duty 100%; Vlogic 5 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="FILTER_OUT").endpoints=["series:2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue digital volume control follows monotonic command steps under load", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/096-digital-volume-control.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"digital-volume-control");
+  const outputs=Array.from({length:11},(_,command)=>runSupportedAnalysis(updateComponent(project,"pot",{value:"Law linear; Rtotal 10 kŒ©; Steps 11; Command "+command+"; Rwiper 100 Œ©"})).result.outputPeakV);
+  assert.equal(outputs[0],0);
+  assert.ok(outputs.every((value,index)=>index===0||value>=outputs[index-1]));
+  assert.ok(outputs[10]>0.4);
+  assert.equal(result.result.command,5);
+  assert.equal(result.result.deviceProtocolModeled,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Law linear; Rtotal 10 kŒ©; Steps 11; Command 11; Rwiper 100 Œ©"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"pot",{value:"Law logarithmic; Rtotal 10 kŒ©; Steps 11; Command 5; Rwiper 100 Œ©"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="VOLUME_OUT").endpoints=["pot:W"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue RGB LED controller maps colour vectors to safe PWM channel currents", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/097-rgb-led-controller.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"rgb-pwm-controller");
+  assert.deepEqual(result.result.channelCodes,{R:255,G:128,B:0});
+  assert.equal(result.result.channels.R.dutyCyclePercent,100);
+  assert.equal(result.result.channels.B.averageCurrentMa,0);
+  assert.ok(result.result.channels.R.averageCurrentMa>13&&result.result.channels.R.averageCurrentMa<14);
+  assert.ok(result.result.channels.G.averageCurrentMa>4.5&&result.result.channels.G.averageCurrentMa<4.7);
+  assert.equal(result.result.cssColor,"rgb(255, 128, 0)");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"command",{value:"R 255; G 255; B 255; Frequency 1000 Hz"})).result.cssColor,"rgb(255, 255, 255)");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"command",{value:"R 255; G 0; B 0; Frequency 1000 Hz"})).result.totalAverageCurrentMa,result.result.channels.R.averageCurrentMa);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"command",{value:"R 256; G 0; B 0; Frequency 1000 Hz"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"r-red",{value:"100 Œ©"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="GREEN_OUT").endpoints=["controller:G_PWM"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue OLED status panel formats sensor values and handles missing sensors", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/098-oled-status-panel.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"oled-status-panel");
+  assert.equal(result.result.displayState,"ready");
+  assert.deepEqual(result.result.displayLines,["T:23.5C RH:48%","P:1013hPa READY"]);
+  assert.deepEqual(result.result.overflowLines,[]);
+  const missing=runSupportedAnalysis(updateComponent(project,"sensors",{value:"TemperatureC 23.5; PressureHpa 1013; Present T,P"}));
+  assert.equal(missing.state,"complete");
+  assert.equal(missing.result.displayState,"sensor-missing");
+  assert.deepEqual(missing.result.missingSensors,["Humidity"]);
+  assert.deepEqual(missing.result.displayLines,["SENSOR MISSING","Missing: Humidity"]);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"sensors",{value:"TemperatureC 100; HumidityPct 48; PressureHpa 1013; Present T,H,P"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="HUMIDITY").endpoints=["sensors:H"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue e-paper updater follows partial/full state sequences and power rules", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/099-epaper-display-updater.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"epaper-refresh");
+  assert.deepEqual(result.result.stateSequence,["WAKE","LOAD_PARTIAL_DIFF","PARTIAL_REFRESH","WAIT_BUSY","UPDATE_COMPLETE","RETURN_TO_SLEEP"]);
+  assert.equal(result.result.wakeOccurred,true);
+  assert.equal(result.result.estimatedDurationMs,875);
+  assert.equal(result.result.partialsSinceFullAfter,2);
+  const full=runSupportedAnalysis(updateComponent(project,"request",{value:"Refresh full; ChangedTiles 80; TotalTiles 100; BusyMs 1200; TimeoutMs 1500; PowerState awake; PanelPower on; PartialsSinceFull 4"}));
+  assert.equal(full.state,"complete",full.message);
+  assert.equal(full.result.stateSequence[1],"LOAD_FULL_FRAME");
+  assert.equal(full.result.partialsSinceFullAfter,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"request",{value:"Refresh partial; ChangedTiles 1; TotalTiles 100; BusyMs 800; TimeoutMs 1200; PowerState awake; PanelPower off; PartialsSinceFull 0"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"request",{value:"Refresh partial; ChangedTiles 30; TotalTiles 100; BusyMs 800; TimeoutMs 1200; PowerState awake; PanelPower on; PartialsSinceFull 0"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"request",{value:"Refresh partial; ChangedTiles 1; TotalTiles 100; BusyMs 1300; TimeoutMs 1200; PowerState awake; PanelPower on; PartialsSinceFull 0"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="PANEL_DATA").endpoints=["controller:DATA"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue seven-segment clock handles midnight rollover and invalid fixtures", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/100-seven-segment-clock.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"seven-segment-clock");
+  assert.equal(result.result.initialTime,"23:59:58");
+  assert.equal(result.result.outputTime,"00:00:01");
+  assert.deepEqual(result.result.digitValues,[0,0,0,0,0,1]);
+  assert.equal(result.result.midnightRollovers,1);
+  assert.equal(result.result.segmentVectors[5].segmentsOn.join(""),"bc");
+  assert.equal(result.result.firmwareExecuted,false);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Start 23:59:58; Ticks 86401; TickHz 1; Mode rising-edge"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Start 24:00:00; Ticks 1; TickHz 1; Mode rising-edge"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"clock",{value:"Mode 12h; Digits 6; Common cathode"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SEGMENTS").endpoints=["clock:SEG"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue buck converter reports bounded CCM average and ripple estimates", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/101-buck-converter-baseline.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"buck-converter");
+  assert.equal(result.result.inputVoltageV,12);
+  assert.equal(result.result.outputVoltageV,5.75);
+  assert.ok(Math.abs(result.result.loadCurrentA-5.75/24)<1e-12);
+  assert.ok(result.result.inductorRipplePpA>0);
+  assert.ok(result.result.outputRipplePpV>0);
+  assert.equal(result.result.conductionMode,"CCM");
+  assert.ok(Math.abs(result.result.powerBalanceW)<1e-12);
+  assert.ok(result.result.estimatedEfficiencyPercent>90&&result.result.estimatedEfficiencyPercent<100);
+  const line=runSupportedAnalysis(updateComponent(project,"source",{value:"14 V"}));
+  assert.equal(line.state,"complete");
+  assert.ok(line.result.outputVoltageV>result.result.outputVoltageV);
+  const load=runSupportedAnalysis(updateComponent(project,"load",{value:"12 Œ©"}));
+  assert.equal(load.state,"complete");
+  assert.ok(load.result.loadCurrentA>result.result.loadCurrentA);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Duty 90%; Frequency 100 kHz; MaxDuty 85%; MaxInput 60 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"240 Œ©"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SWITCH").endpoints=["controller:SW","inductor:1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue boost converter steps up in CCM and blocks duty, DCM, and wiring faults", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/102-boost-converter-baseline.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"boost-converter");
+  assert.equal(result.result.inputVoltageV,5);
+  assert.equal(result.result.outputVoltageV,9.5);
+  assert.ok(result.result.outputVoltageV>result.result.inputVoltageV);
+  assert.equal(result.result.loadCurrentA,9.5/100);
+  assert.equal(result.result.inputCurrentA,(9.5/100)/0.5);
+  assert.ok(Math.abs(result.result.powerBalanceW)<1e-12);
+  assert.equal(result.result.conductionMode,"CCM");
+  const line=runSupportedAnalysis(updateComponent(project,"source",{value:"6 V"}));
+  assert.equal(line.state,"complete");
+  assert.ok(line.result.outputVoltageV>result.result.outputVoltageV);
+  const load=runSupportedAnalysis(updateComponent(project,"load",{value:"50 Œ©"}));
+  assert.equal(load.state,"complete");
+  assert.ok(load.result.loadCurrentA>result.result.loadCurrentA);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Duty 90%; Frequency 100 kHz; MaxDuty 85%; MaxInput 60 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"1000 Œ©"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="VOUT").endpoints=["diode:K","capacitor:1","load:1","controller:VOUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue four-switch buck-boost selects buck, boost, and crossover operation", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/103-buck-boost-supply.adigun.json",import.meta.url)));
+  const nominal=runSupportedAnalysis(project);
+  assert.equal(nominal.state,"complete",nominal.message);
+  assert.equal(nominal.result.kind,"buckboost-converter");
+  assert.equal(nominal.result.mode,"buck");
+  assert.equal(nominal.result.outputVoltageV,9);
+  assert.equal(nominal.result.dutyCyclePercent,75);
+  assert.ok(Math.abs(nominal.result.powerBalanceW)<1e-12);
+  const boost=runSupportedAnalysis(updateComponent(project,"source",{value:"5 V"}));
+  assert.equal(boost.state,"complete",boost.message);
+  assert.equal(boost.result.mode,"boost");
+  assert.ok(boost.result.outputVoltageV>boost.result.inputVoltageV);
+  assert.ok(boost.result.dutyCyclePercent>0&&boost.result.dutyCyclePercent<100);
+  const crossover=runSupportedAnalysis(updateComponent(project,"source",{value:"9 V"}));
+  assert.equal(crossover.state,"complete",crossover.message);
+  assert.equal(crossover.result.mode,"crossover");
+  assert.equal(crossover.result.dutyCyclePercent,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"2 Œ©"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Target 0.2 V; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Target 9 V; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz"})).state,"complete");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Target 9 V; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz"})).state,"complete");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="ENERGY_PATH").endpoints=["controller:L1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue Li-ion charger estimates CC, CV taper, termination, and safety inhibits", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/104-liion-charger-concept.adigun.json",import.meta.url)));
+  const cc=runSupportedAnalysis(project);
+  assert.equal(cc.state,"complete",cc.message);
+  assert.equal(cc.result.kind,"liion-charge");
+  assert.equal(cc.result.phase,"CC");
+  assert.equal(cc.result.chargeCurrentA,0.5);
+  assert.equal(cc.result.inputVoltageV,5);
+  assert.equal(cc.result.hardwareModeled,false);
+  const cv=runSupportedAnalysis(updateComponent(project,"cell",{value:"CellState present; CellV 4.15 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV"}));
+  assert.equal(cv.state,"complete",cv.message);
+  assert.equal(cv.result.phase,"CV");
+  assert.ok(Math.abs(cv.result.chargeCurrentA-0.25)<1e-12);
+  const terminated=runSupportedAnalysis(updateComponent(project,"cell",{value:"CellState present; CellV 4.19 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV"}));
+  assert.equal(terminated.result.phase,"terminated");
+  assert.equal(terminated.result.chargeCurrentA,0);
+  const absent=runSupportedAnalysis(updateComponent(project,"cell",{value:"CellState absent; CellV 0 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV"}));
+  assert.equal(absent.state,"complete");
+  assert.equal(absent.result.phase,"no-cell");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"cell",{value:"CellState present; CellV 4.25 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 25; Efficiency 90%; Mode CC/CV"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"cell",{value:"CellState present; CellV 3.50 V; SetVoltage 4.20 V; ChargeCurrent 500 mA; TerminationCurrent 50 mA; TemperatureC 50; Efficiency 90%; Mode CC/CV"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"source",{value:"4.4 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="STATUS").endpoints=["charger:STATUS"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue three-cell BMS flags voltage faults and balance requests without actuating protection", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/105-bms-cell-monitor.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"bms-cell-monitor");
+  assert.ok(Math.abs(result.result.stackVoltageV-11.13)<1e-12);
+  assert.equal(result.result.faultState,"normal");
+  assert.deepEqual(result.result.cellsToBalance,[]);
+  assert.equal(result.result.balancingActuated,false);
+  const faults=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Cell1 3.70 V; Cell2 4.25 V; Cell3 2.80 V; Mode 3S"}));
+  assert.equal(faults.state,"complete");
+  assert.equal(faults.result.faultState,"over-and-under-voltage");
+  assert.deepEqual(faults.result.overVoltageCells,[2]);
+  assert.deepEqual(faults.result.underVoltageCells,[3]);
+  assert.deepEqual(faults.result.cellsToBalance,[1,2]);
+  const balance=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Cell1 3.70 V; Cell2 3.80 V; Cell3 3.71 V; Mode 3S"}));
+  assert.deepEqual(balance.result.cellsToBalance,[2]);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Cell1 3.70 V; Cell2 4.50 V; Cell3 3.71 V; Mode 3S"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"monitor",{value:"Mode 3S; OV 2.0 V; UV 3.0 V; BalanceDelta 0.03 V; MaxCell 4.35 V"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="CELL2").endpoints=["fixture:C2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue solar MPP sweep finds maximum sample and scales current with irradiance", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/106-solar-mppt-concept.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",result.message);
+  assert.equal(result.result.kind,"solar-mpp-sweep");
+  assert.equal(result.result.sampleCount,21);
+  assert.equal(result.result.maximumPowerPoint.voltageV,8);
+  assert.equal(result.result.maximumPowerPoint.currentA,0.9);
+  assert.equal(result.result.maximumPowerPoint.powerW,7.2);
+  assert.equal(result.result.trackingAlgorithmModeled,false);
+  const lowLight=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Voc 10 V; Isc 1 A; Vmp 8 V; Imp 0.9 A; Irradiance 30%; Mode piecewise-linear"}));
+  assert.equal(lowLight.state,"complete");
+  assert.equal(lowLight.result.maximumPowerPoint.currentA,0.27);
+  assert.equal(lowLight.result.maximumPowerPoint.powerW,2.16);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Voc 10 V; Isc 1 A; Vmp 10 V; Imp 0.9 A; Irradiance 100%; Mode piecewise-linear"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"controller",{value:"Mode sweep; Samples 2; Efficiency 95%; MaxVoc 24 V; MaxCurrent 5 A"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="PV_POS").endpoints=["fixture:PV+"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue USB-C sink selects requested profile, falls back to 5 V, and blocks invalid paths", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/107-usb-c-sink-concept.adigun.json",import.meta.url)));
+  const negotiated=runSupportedAnalysis(project);
+  assert.equal(negotiated.state,"complete",negotiated.message);
+  assert.equal(negotiated.result.kind,"usb-c-pd-sink");
+  assert.equal(negotiated.result.negotiationState,"contract");
+  assert.equal(negotiated.result.selectedVoltageV,12);
+  assert.equal(negotiated.result.loadCurrentA,1.2);
+  assert.ok(Math.abs(negotiated.result.loadPowerW-14.4)<1e-12);
+  assert.equal(negotiated.result.protocolSignalingModeled,false);
+
+  const fallback=runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"Profiles 5,9 V; Requested 12 V; Fault none; Mode pd-source"}));
+  assert.equal(fallback.state,"complete");
+  assert.equal(fallback.result.negotiationState,"fallback-5v");
+  assert.equal(fallback.result.selectedVoltageV,5);
+  assert.equal(fallback.result.loadCurrentA,0.5);
+
+  const ccOpen=runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"Profiles 5,9,12 V; Requested 12 V; Fault cc-open; Mode pd-source"}));
+  assert.equal(ccOpen.state,"complete");
+  assert.equal(ccOpen.result.negotiationState,"default-5v");
+  assert.equal(ccOpen.result.selectedVoltageV,5);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"1 Œ©"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"Profiles 5,7,12 V; Requested 12 V; Fault none; Mode pd-source"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="CC2").endpoints=["source-fixture:CC2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue USB-C source filters PDOs and models fallback, current limit, and OCP shutdown", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/108-usb-c-source-concept.adigun.json",import.meta.url)));
+  const normal=runSupportedAnalysis(project);
+  assert.equal(normal.state,"complete",normal.message);
+  assert.equal(normal.result.kind,"usb-c-pd-source");
+  assert.deepEqual(normal.result.advertisedProfiles.map(p=>p.voltageV),[5,9,12]);
+  assert.equal(normal.result.negotiationState,"contract");
+  assert.equal(normal.result.selectedVoltageV,12);
+  assert.equal(normal.result.outputVoltageV,12);
+  assert.equal(normal.result.loadCurrentA,1.2);
+  assert.equal(normal.result.protocolSignalingModeled,false);
+
+  const constrained=runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"PDOs 5 V@1.5 A,9 V@2 A,12 V@1.5 A; Request 12 V; MaxVoltage 12 V; MaxCurrent 2 A; MaxPower 10 W; Fault none; Mode source-fixture"}));
+  assert.equal(constrained.state,"complete");
+  assert.deepEqual(constrained.result.advertisedProfiles.map(p=>p.voltageV),[5]);
+  assert.equal(constrained.result.negotiationState,"fallback-5v");
+  assert.equal(constrained.result.outputVoltageV,5);
+
+  const limited=runSupportedAnalysis(updateComponent(project,"load",{value:"7 Œ©"}));
+  assert.equal(limited.state,"complete");
+  assert.equal(limited.result.negotiationState,"current-limited");
+  assert.equal(limited.result.loadCurrentA,1.5);
+  assert.equal(limited.result.outputVoltageV,10.5);
+
+  const overcurrent=runSupportedAnalysis(updateComponent(project,"load",{value:"1 Œ©"}));
+  assert.equal(overcurrent.state,"complete");
+  assert.equal(overcurrent.result.negotiationState,"overcurrent-shutdown");
+  assert.equal(overcurrent.result.outputEnabled,false);
+  assert.equal(overcurrent.result.outputVoltageV,0);
+  assert.equal(overcurrent.result.loadCurrentA,0);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project,"source-fixture",{value:"PDOs 5 V@1.5 A,7 V@2 A,12 V@1.5 A; Request 12 V; MaxVoltage 12 V; MaxCurrent 2 A; MaxPower 18 W; Fault none; Mode source-fixture"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="CC1").endpoints=["source-fixture:CC1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue PoE PD input corrects alternate feed polarity and checks DC/DC power", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/109-poe-pd-input.adigun.json",import.meta.url)));
+  const normal=runSupportedAnalysis(project);
+  assert.equal(normal.state,"complete",normal.message);
+  assert.equal(normal.result.kind,"poe-pd-input");
+  assert.equal(normal.result.rectifiedInputVoltageV,46.8);
+  assert.equal(normal.result.converterEnabled,true);
+  assert.equal(normal.result.outputVoltageV,12);
+  assert.equal(normal.result.loadCurrentA,0.5);
+  assert.equal(normal.result.loadPowerW,6);
+  assert.equal(normal.result.alternativeFeedPolarityCorrected,true);
+  assert.equal(normal.result.ieeePoEComplianceCertified,false);
+
+  for(const fixtureValue of [
+    "Voltage 48 V; Current 350 mA; ActiveFeed B; Polarity forward; Fault none; Mode poe-feed-fixture",
+    "Voltage 48 V; Current 350 mA; ActiveFeed A; Polarity reverse; Fault none; Mode poe-feed-fixture"
+  ]){
+    const alternate=runSupportedAnalysis(updateComponent(project,"poe-fixture",{value:fixtureValue}));
+    assert.equal(alternate.state,"complete");
+    assert.equal(alternate.result.converterEnabled,true);
+    assert.equal(alternate.result.outputVoltageV,12);
+  }
+
+  const powerLimited=runSupportedAnalysis(updateComponent(project,"converter",{value:"UVLO 37 V; MaxInput 57 V; Output 12 V; MaxPower 4 W; Efficiency 90%; Mode ideal-buck"}));
+  assert.equal(powerLimited.state,"complete");
+  assert.equal(powerLimited.result.converterEnabled,false);
+  assert.equal(powerLimited.result.outputVoltageV,0);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project,"poe-fixture",{value:"Voltage 48 V; Current 350 mA; ActiveFeed A; Polarity invalid; Fault none; Mode poe-feed-fixture"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="FEED_A1").endpoints=["poe-fixture:A1"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue constant-current LED driver regulates across load range and reports open LED", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/110-constant-current-led-driver.adigun.json",import.meta.url)));
+  for(const vf of [8,9,10.5]){
+    const result=runSupportedAnalysis(updateComponent(project,"led-string",{value:"Vf "+vf+" V; Open no; Mode led-string"}));
+    assert.equal(result.state,"complete",result.message);
+    assert.equal(result.result.regulationState,"regulated");
+    assert.equal(result.result.ledCurrentA,0.35);
+  }
+  const open=runSupportedAnalysis(updateComponent(project,"led-string",{value:"Vf 9 V; Open yes; Mode led-string"}));
+  assert.equal(open.state,"complete");
+  assert.equal(open.result.regulationState,"open-load");
+  assert.equal(open.result.ledCurrentA,0);
+  assert.match(open.result.warning,/open/i);
+
+  const lowHeadroom=runSupportedAnalysis(updateComponent(project,"led-string",{value:"Vf 10.8 V; Open no; Mode led-string"}));
+  assert.equal(lowHeadroom.state,"complete");
+  assert.equal(lowHeadroom.result.regulationState,"compliance-limited");
+  assert.ok(lowHeadroom.result.ledCurrentA<0.35);
+
+  assert.equal(runSupportedAnalysis(updateComponent(project,"sense",{value:"0.1 Œ©"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="LED_POS").endpoints=["driver:LED+"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue MOSFET half-bridge enforces dead time and prevents gate overlap", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/111-mosfet-half-bridge.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",JSON.stringify(result.validation?.errors??result));
+  assert.equal(result.result.kind,"mosfet-half-bridge");
+  assert.ok(Math.abs(result.result.periodS-10e-6)<1e-15);
+  assert.equal(result.result.deadTimeS,0.5e-6);
+  assert.equal(result.result.shootThrough,false);
+  assert.equal(result.result.gateSequence.length,4);
+  assert.ok(Math.abs(result.result.deadTimeFraction-0.1)<1e-12);
+  assert.ok(result.result.gateSequence.every(state=>!(state.highGateOn&&state.lowGateOn)));
+
+  const overlap=runSupportedAnalysis(updateComponent(project,"pwm",{value:"Period 10 us; HighDuty 46%; LowDuty 46%; DeadTime 0.5 us; Mode complementary"}));
+  assert.equal(overlap.state,"blocked");
+  const insufficientDead=runSupportedAnalysis(updateComponent(project,"pwm",{value:"Period 10 us; HighDuty 45%; LowDuty 45%; DeadTime 0.1 us; Mode complementary"}));
+  assert.equal(insufficientDead.state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"1 Œ©"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="GATE_L").endpoints=["driver:GL"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue IGBT inverter leg respects gate logic and fault interlock", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/112-igbt-inverter-leg.adigun.json",import.meta.url)));
+  const nominal=runSupportedAnalysis(project);
+  assert.equal(nominal.state,"complete",JSON.stringify(nominal.validation?.errors??nominal));
+  assert.equal(nominal.result.kind,"igbt-inverter-leg");
+  assert.equal(nominal.result.switchingState,"high-side-on");
+  assert.equal(nominal.result.highGateOn,true);
+  assert.equal(nominal.result.lowGateOn,false);
+  assert.equal(nominal.result.outputVoltageV,22.2);
+  assert.ok(Math.abs(nominal.result.loadCurrentA-1.85)<1e-12);
+  assert.equal(nominal.result.shootThrough,false);
+  const low=runSupportedAnalysis(updateComponent(project,"pwm",{value:"HighCommand off; LowCommand on; Fault none; Mode igbt-leg"}));
+  assert.equal(low.state,"complete");
+  assert.equal(low.result.switchingState,"low-side-on");
+  assert.equal(low.result.outputVoltageV,0);
+  assert.equal(low.result.loadCurrentA,0);
+  const conflict=runSupportedAnalysis(updateComponent(project,"pwm",{value:"HighCommand on; LowCommand on; Fault none; Mode igbt-leg"}));
+  assert.equal(conflict.state,"complete");
+  assert.equal(conflict.result.switchingState,"command-conflict");
+  assert.equal(conflict.result.highGateOn,false);
+  assert.equal(conflict.result.lowGateOn,false);
+  assert.equal(conflict.result.interlockActive,true);
+  for (const fault of ["desat","overcurrent"]) {
+    const tripped=runSupportedAnalysis(updateComponent(project,"pwm",{value:"HighCommand on; LowCommand off; Fault "+fault+"; Mode igbt-leg"}));
+    assert.equal(tripped.state,"complete");
+    assert.equal(tripped.result.switchingState,"fault-interlocked");
+    assert.equal(tripped.result.highGateOn,false);
+    assert.equal(tripped.result.lowGateOn,false);
+    assert.equal(tripped.result.loadCurrentA,0);
+  }
+  assert.equal(runSupportedAnalysis(updateComponent(project,"bridge",{value:"VceSat 1.8 V; MaxVoltage 20 V; MaxCurrent 20 A; Mode igbt-leg"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="GATE_L").endpoints=["driver:L_OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue TRIAC dimmer changes RMS output with phase angle and requires zero-cross sync", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/113-triac-ac-dimmer.adigun.json",import.meta.url)));
+  const nominal=runSupportedAnalysis(project);
+  assert.equal(nominal.state,"complete",JSON.stringify(nominal.validation?.errors??nominal));
+  assert.equal(nominal.result.kind,"triac-ac-dimmer");
+  assert.equal(nominal.result.zeroCrossLocked,true);
+  assert.equal(nominal.result.firingEnabled,true);
+  assert.ok(Math.abs(nominal.result.rmsFactor-Math.SQRT1_2)<1e-12);
+  assert.ok(nominal.result.lampVoltageRmsV>0);
+  assert.ok(nominal.result.lampCurrentRmsA>0);
+
+  const full=runSupportedAnalysis(updateComponent(project,"fixture",{value:"PhaseAngle 0 deg; Enable yes; Fault none; Mode phase-angle"}));
+  const later=runSupportedAnalysis(updateComponent(project,"fixture",{value:"PhaseAngle 120 deg; Enable yes; Fault none; Mode phase-angle"}));
+  assert.equal(full.state,"complete");
+  assert.equal(later.state,"complete");
+  assert.equal(full.result.rmsFactor,1);
+  assert.ok(later.result.rmsFactor<nominal.result.rmsFactor);
+  assert.ok(later.result.lampVoltageRmsV<nominal.result.lampVoltageRmsV);
+
+  const syncLoss=runSupportedAnalysis(updateComponent(project,"fixture",{value:"PhaseAngle 90 deg; Enable yes; Fault sync-loss; Mode phase-angle"}));
+  assert.equal(syncLoss.state,"complete");
+  assert.equal(syncLoss.result.zeroCrossLocked,false);
+  assert.equal(syncLoss.result.firingEnabled,false);
+  assert.equal(syncLoss.result.lampVoltageRmsV,0);
+  assert.equal(syncLoss.result.lampCurrentRmsA,0);
+
+  const disabled=runSupportedAnalysis(updateComponent(project,"fixture",{value:"PhaseAngle 45 deg; Enable no; Fault none; Mode phase-angle"}));
+  assert.equal(disabled.state,"complete");
+  assert.equal(disabled.result.firingEnabled,false);
+  assert.equal(disabled.result.lampVoltageRmsV,0);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"driver",{value:"MaxFrequency 55 Hz; MaxCurrent 2 A; Mode zero-cross-optotriac"})).state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="FIRE").endpoints=["driver:FIRE"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue SSR follows isolated control and models off leakage", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/114-ssr-ac-switch.adigun.json",import.meta.url)));
+  const off=runSupportedAnalysis(project);
+  assert.equal(off.state,"complete",JSON.stringify(off.validation?.errors??off));
+  assert.equal(off.result.kind,"ssr-ac-switch");
+  assert.equal(off.result.conducting,false);
+  assert.equal(off.result.loadState,"off-with-leakage");
+  assert.equal(off.result.offLeakageCurrentA,0.002);
+  assert.equal(off.result.loadVoltageRmsV,2);
+  assert.equal(off.result.loadPowerW,0.004);
+  assert.equal(off.result.physicalIsolationQualified,false);
+
+  const on=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Control on; Fault none; Mode ssr-control"}));
+  assert.equal(on.state,"complete");
+  assert.equal(on.result.conducting,true);
+  assert.equal(on.result.loadVoltageRmsV,118.5);
+  assert.equal(on.result.offLeakageCurrentA,0);
+  assert.ok(on.result.loadCurrentRmsA>0);
+
+  const stuckOpen=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Control on; Fault stuck-open; Mode ssr-control"}));
+  assert.equal(stuckOpen.state,"complete");
+  assert.equal(stuckOpen.result.conducting,false);
+  assert.equal(stuckOpen.result.offLeakageCurrentA,0.002);
+
+  const stuckOn=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Control off; Fault stuck-on; Mode ssr-control"}));
+  assert.equal(stuckOn.state,"complete");
+  assert.equal(stuckOn.result.conducting,true);
+
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="CONTROL").endpoints=["fixture:CONTROL"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue UPS maintains output after mains loss within battery hold-up window", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/115-ups-transfer.adigun.json",import.meta.url)));
+  const mains=runSupportedAnalysis(project);
+  assert.equal(mains.state,"complete",JSON.stringify(mains.validation?.errors??mains));
+  assert.equal(mains.result.kind,"ups-transfer");
+  assert.equal(mains.result.sourceSelected,"mains");
+  assert.equal(mains.result.outputVoltageV,12);
+  assert.equal(mains.result.loadPowerW,6);
+  assert.equal(mains.result.holdUpSatisfied,true);
+  assert.ok(mains.result.batteryChargeCurrentA>0);
+
+  const loss=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Mains no; BatteryVoltage 12 V; Capacity 2 Ah; SOC 80%; MinSOC 20%; HoldUp 10 min; Mode ups-fixture"}));
+  assert.equal(loss.state,"complete");
+  assert.equal(loss.result.mainsAvailable,false);
+  assert.equal(loss.result.sourceSelected,"battery");
+  assert.equal(loss.result.outputEnabled,true);
+  assert.equal(loss.result.outputVoltageV,12);
+  assert.equal(loss.result.batteryDischargeCurrentA,1/2);
+  assert.equal(loss.result.holdUpSatisfied,true);
+
+  const short=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Mains no; BatteryVoltage 12 V; Capacity 2 Ah; SOC 23%; MinSOC 20%; HoldUp 10 min; Mode ups-fixture"}));
+  assert.equal(short.state,"complete");
+  assert.equal(short.result.outputEnabled,true);
+  assert.equal(short.result.holdUpSatisfied,false);
+  assert.ok(short.result.estimatedHoldUpMin<10);
+
+  const depleted=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Mains no; BatteryVoltage 12 V; Capacity 2 Ah; SOC 20%; MinSOC 20%; HoldUp 10 min; Mode ups-fixture"}));
+  assert.equal(depleted.state,"complete");
+  assert.equal(depleted.result.sourceSelected,"none");
+  assert.equal(depleted.result.outputEnabled,false);
+  assert.equal(depleted.result.outputVoltageV,0);
+
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="UPS_OUT").endpoints=["diode:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue inverter reports target RMS and selected frequency through its LC filter", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/116-inverter-waveform.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",JSON.stringify(result.validation?.errors??result));
+  assert.equal(result.result.kind,"inverter-waveform");
+  assert.equal(result.result.outputFrequencyHz,50);
+  assert.equal(result.result.carrierFrequencyHz,10000);
+  assert.ok(result.result.filteredOutputVrms>16);
+  assert.ok(result.result.filteredOutputVrms<17);
+  assert.equal(result.result.targetMet,true);
+  assert.equal(result.result.hardwareWaveformModeled,false);
+
+  const lower=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Modulation 0.3; Fundamental 50 Hz; Carrier 10 kHz; TargetVrms 17 V; Tolerance 5%; Mode sine-pwm"}));
+  assert.equal(lower.state,"complete");
+  assert.ok(lower.result.filteredOutputVrms<result.result.filteredOutputVrms);
+  assert.equal(lower.result.targetMet,false);
+
+  const wrongFrequency=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Modulation 0.5; Fundamental 50 Hz; Carrier 100 Hz; TargetVrms 17 V; Tolerance 5%; Mode sine-pwm"}));
+  assert.equal(wrongFrequency.state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["inductor:2"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue electronic load draws commanded current steps within configured tolerance", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/117-electronic-load.adigun.json",import.meta.url)));
+  const result=runSupportedAnalysis(project);
+  assert.equal(result.state,"complete",JSON.stringify(result.validation?.errors??result));
+  assert.equal(result.result.kind,"electronic-load");
+  assert.equal(result.result.steps.length,3);
+  assert.deepEqual(result.result.steps.map(step=>step.requestedCurrentA),[0.1,0.5,1]);
+  assert.deepEqual(result.result.steps.map(step=>step.measuredCurrentA),[0.1,0.5,1]);
+  assert.ok(result.result.steps.every(step=>step.withinTolerance));
+  assert.equal(result.result.allStepsWithinTolerance,true);
+  assert.ok(Math.abs(result.result.steps[2].mosfetPowerW-11.9)<1e-12);
+  assert.equal(result.result.transientResponseModeled,false);
+
+  const moreSteps=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Setpoints 200 mA, 800 mA; Tolerance 1%; MaxDutVoltage 15 V; MaxCurrent 1.2 A; MaxPower 15 W; Mode current-steps"}));
+  assert.equal(moreSteps.state,"complete");
+  assert.deepEqual(moreSteps.result.steps.map(step=>step.measuredCurrentA),[0.2,0.8]);
+
+  const overVoltage=runSupportedAnalysis(updateComponent(project,"source",{value:"20 V"}));
+  assert.equal(overVoltage.state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="GATE").endpoints=["controller:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue hot-swap limits capacitor inrush and trips an overload", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/118-hotswap-protection.adigun.json",import.meta.url)));
+  const nominal=runSupportedAnalysis(project);
+  assert.equal(nominal.state,"complete",JSON.stringify(nominal.validation?.errors??nominal));
+  assert.equal(nominal.result.kind,"hotswap-protection");
+  assert.equal(nominal.result.outputEnabled,true);
+  assert.equal(nominal.result.inrushLimited,true);
+  assert.ok(Math.abs(nominal.result.rawInrushCurrentA-0.564)<1e-12);
+  assert.equal(nominal.result.inrushCurrentA,0.5);
+  assert.ok(Math.abs(nominal.result.estimatedChargeTimeS-0.02256)<1e-12);
+  assert.equal(nominal.result.overloadTrip,false);
+  assert.ok(nominal.result.loadCurrentA<1.1);
+
+  const overload=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Enabled yes; Fault none; RampTime 20 ms; CurrentLimit 0.5 A; OverloadLimit 0.8 A; MaxOutputPower 50 W; Mode hot-swap"}));
+  assert.equal(overload.state,"complete");
+  assert.equal(overload.result.overloadTrip,true);
+  assert.equal(overload.result.outputEnabled,false);
+  assert.equal(overload.result.outputVoltageV,0);
+
+  const disabled=runSupportedAnalysis(updateComponent(project,"fixture",{value:"Enabled no; Fault none; RampTime 20 ms; CurrentLimit 0.5 A; OverloadLimit 1.5 A; MaxOutputPower 50 W; Mode hot-swap"}));
+  assert.equal(disabled.state,"complete");
+  assert.equal(disabled.result.outputEnabled,false);
+
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="GATE").endpoints=["controller:GATE"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue Uno shield matches its header map and clears mechanical keep-outs", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/124-arduino-shield.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  assert.ok(drc.checks.includes("declared header map"));
+  assert.ok(drc.checks.includes("declared mechanical keep-outs"));
+  const headerPads=project.pcbFabrication.pads.filter(pad=>pad.headerGroup);
+  assert.equal(headerPads.length,32);
+  assert.deepEqual([...new Set(project.pcbFabrication.headerMap.flatMap(group=>group.pins.map(pin=>pin.function)).filter(pin=>pin!=="NC"))].includes("D9"),true);
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  for(const [name,content] of Object.entries(generated.files)){
+    const expected=await readFile(new URL("../examples/124-arduino-shield/expected/"+name,import.meta.url),"utf8");
+    assertTextSnapshot(content,expected,name);
+  }
+  const colliding=structuredClone(project);
+  colliding.pcbFabrication.pads.find(pad=>pad.reference==="R1").xMm=8;
+  assert.equal(validatePcbFabrication(colliding).status,"failed");
+});
+
+test("catalogue op-amp filter PCB preserves native netlist and matches fabrication snapshots", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/123-opamp-filter-pcb.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  assert.equal(analysis.result.kind,"active-low-pass");
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  assert.ok(drc.checks.includes("native/PCB netlist equivalence"));
+  const nativeNets=project.nets.map(net=>net.id).sort();
+  const pcbNets=[...new Set(project.pcbFabrication.pads.filter(pad=>pad.netId!=="NC").map(pad=>pad.netId))].sort();
+  assert.deepEqual(pcbNets,nativeNets);
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  for(const [name,content] of Object.entries(generated.files)){
+    const expected=await readFile(new URL("../examples/123-opamp-filter-pcb/expected/"+name,import.meta.url),"utf8");
+    assertTextSnapshot(content,expected,name);
+  }
+  const changed=structuredClone(project);
+  changed.pcbFabrication.pads.find(pad=>pad.reference==="U1"&&pad.number==="6").netId="INVERTING";
+  assert.equal(validatePcbFabrication(changed).status,"failed");
+});
+
+test("catalogue 555 timer PCB maps every routed net and matches fabrication snapshots", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/122-555-timer-pcb.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  assert.equal(analysis.result.kind,"ne555-astable");
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  assert.ok(drc.checks.includes("no unrouted physical nets"));
+  assert.ok(drc.checks.includes("all physical pads appear on copper paths"));
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  for(const [name,content] of Object.entries(generated.files)){
+    const expected=await readFile(new URL("../examples/122-555-timer-pcb/expected/"+name,import.meta.url),"utf8");
+    assertTextSnapshot(content,expected,name);
+  }
+  const unrouted=structuredClone(project);
+  unrouted.pcbFabrication.routes=unrouted.pcbFabrication.routes.filter(route=>route.netId!=="CONTROL");
+  assert.equal(validatePcbFabrication(unrouted).status,"failed");
+});
+
+test("catalogue single-sided LED PCB passes bounded DRC and matches fabrication snapshots", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/121-single-sided-led-pcb.adigun.json",import.meta.url)));
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  assert.deepEqual(drc.errors,[]);
+  assert.ok(drc.checks.includes("single copper layer"));
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  assert.deepEqual(Object.keys(generated.files).sort(),["BOM.csv","board-Edge_Cuts.gbr","board-F_Cu.gbr","board-PTH.drl"]);
+  for(const [name,content] of Object.entries(generated.files)){
+    const expected=await readFile(new URL("../examples/121-single-sided-led-pcb/expected/"+name,import.meta.url),"utf8");
+    assertTextSnapshot(content,expected,name);
+  }
+  const broken=structuredClone(project);
+  broken.pcbFabrication.routes[1].netId="GND";
+  assert.equal(validatePcbFabrication(broken).status,"failed");
+  assert.equal(exportPcbFabrication(broken).status,"blocked");
+});
+
+test("catalogue surge input clamps a transient and reports fuse warning/trip", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/120-surge-protection.adigun.json",import.meta.url)));
+  const nominal=runSupportedAnalysis(project);
+  assert.equal(nominal.state,"complete",JSON.stringify(nominal.validation?.errors??nominal));
+  assert.equal(nominal.result.kind,"surge-protected-input");
+  assert.equal(nominal.result.clampActive,true);
+  assert.equal(nominal.result.surgeCurrentA,3.6);
+  assert.ok(Math.abs(nominal.result.absorbedEnergyJ-0.0864)<1e-12);
+  assert.equal(nominal.result.fuseWarning,true);
+  assert.equal(nominal.result.fuseTripped,false);
+  assert.equal(nominal.result.outputEnabled,true);
+  assert.ok(Math.abs(nominal.result.filterTimeConstantS-0.001)<1e-12);
+  assert.ok(nominal.result.filteredSurgeOutputVoltageV>17.8&&nominal.result.filteredSurgeOutputVoltageV<17.9);
+
+  const tripped=runSupportedAnalysis(updateComponent(project,"fuse",{value:"I2t 0.01 A2s; HoldCurrent 2 A; MaxVoltage 60 V; Mode fuse"}));
+  assert.equal(tripped.state,"complete");
+  assert.equal(tripped.result.fuseTripped,true);
+  assert.equal(tripped.result.outputEnabled,false);
+  assert.equal(tripped.result.outputVoltageV,0);
+
+  const overEnergy=runSupportedAnalysis(updateComponent(project,"tvs",{value:"Vclamp 24 V; Emax 0.05 J; Mode single-pulse"}));
+  assert.equal(overEnergy.state,"complete");
+  assert.equal(overEnergy.result.tvsWithinEnergyLimit,false);
+
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="FUSED").endpoints=["fuse:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue reverse-polarity MOSFET protector passes forward input and blocks reverse polarity", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/119-reverse-polarity.adigun.json",import.meta.url)));
+  const forward=runSupportedAnalysis(project);
+  assert.equal(forward.state,"complete",JSON.stringify(forward.validation?.errors??forward));
+  assert.equal(forward.result.kind,"reverse-polarity-protection");
+  assert.equal(forward.result.inputPolarity,"forward");
+  assert.equal(forward.result.protectedOn,true);
+  assert.equal(forward.result.outputVoltageV,11.6);
+  assert.ok(Math.abs(forward.result.loadCurrentA-0.116)<1e-12);
+  assert.equal(forward.result.reverseBlocked,false);
+
+  const reverse=runSupportedAnalysis(updateComponent(project,"source",{value:"-12 V"}));
+  assert.equal(reverse.state,"complete");
+  assert.equal(reverse.result.inputPolarity,"reverse");
+  assert.equal(reverse.result.protectedOn,false);
+  assert.equal(reverse.result.reverseBlocked,true);
+  assert.equal(reverse.result.outputVoltageV,0);
+  assert.equal(reverse.result.loadCurrentA,0);
+
+  const overVoltage=runSupportedAnalysis(updateComponent(project,"source",{value:"36 V"}));
+  assert.equal(overVoltage.state,"blocked");
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="OUTPUT").endpoints=["protector:OUT"];
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+});
+
+test("catalogue USB-C breakout verifies its connector pin report, CC pull-downs, DRC and export snapshots", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/125-usbc-breakout.adigun.json",import.meta.url)));
+  const {createUsbCPinReport}=await import("../js/usb-c-pin-report.mjs");
+  assert.equal(validateProject(project).valid,true);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  assert.equal(analysis.result.kind,"usb-c-usb2-breakout");
+  assert.equal(analysis.result.cc1RdOhms,5100);
+  assert.equal(analysis.result.cc2RdOhms,5100);
+  assert.equal(analysis.result.connectorPinMapValid,true);
+  assert.equal(analysis.result.usbPowerDeliveryModeled,false);
+  assert.equal(project.components.find(part=>part.reference==="R1").value.startsWith("5.1 kŒ©"),true);
+  assert.equal(project.components.find(part=>part.reference==="R2").value.startsWith("5.1 kŒ©"),true);
+  assert.deepEqual(STARTER_LIBRARY.find(part=>part.id==="connector.usb-c-receptacle").pins,["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"]);
+  const report=createUsbCPinReport(project);
+  assert.equal(report.split("\r\n").length,19);
+  assert.ok(report.includes('"J1","A5","CC1","CC1"'));
+  assert.ok(report.includes('"J1","B5","CC2","CC2"'));
+  assert.ok(report.includes('"J1","A6","D+","USB_DP"'));
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  const expectedFiles={...generated.files,"Connector-Pin-Report.csv":report};
+  for(const [name,content] of Object.entries(expectedFiles)){
+    const expected=await readFile(new URL("../examples/125-usbc-breakout/expected/"+name,import.meta.url),"utf8");
+    assertTextSnapshot(content,expected,name);
+  }
+  const broken=structuredClone(project);
+  broken.pcbFabrication.connectorPinMap.find(pin=>pin.pin==="B5").netId="CC1";
+  assert.ok(createUsbCPinReport(broken).includes('"J1","B5","CC2","CC1"'));
+  broken.pcbFabrication.pads=broken.pcbFabrication.pads.filter(pad=>!(pad.reference==="J1"&&pad.pin==="A5"));
+  assert.equal(validatePcbFabrication(broken).status,"failed");
+});
+
+test("catalogue BME280 sensor breakout checks native/ERC subset, sensor wiring, BOM, placement, DRC and exports", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/126-bme280-breakout.adigun.json",import.meta.url)));
+  const {createPcbPlacementReport}=await import("../js/pcb-placement-report.mjs");
+  const electrical=validateProject(project);
+  assert.equal(electrical.valid,true,JSON.stringify(electrical.errors));
+  assert.equal(electrical.errors.length,0);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  assert.equal(analysis.result.kind,"bme280-i2c-sensor-breakout");
+  assert.equal(analysis.result.regulatedVoltageV,3.3);
+  assert.equal(analysis.result.i2cAddress,"0x76");
+  assert.equal(analysis.result.sensorPinMapValid,true);
+  assert.equal(analysis.result.sdaPullupOhms,4700);
+  assert.equal(analysis.result.sclPullupOhms,4700);
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  const generated=exportPcbFabrication(project);
+  assert.equal(generated.status,"passed");
+  const placement=createPcbPlacementReport(project);
+  const bom=generated.files["BOM.csv"];
+  for(const part of project.pcbFabrication.parts) {
+    assert.ok(bom.includes('"'+part.reference+'"'),part.reference);
+    assert.ok(placement.includes('"'+part.reference+'"'),part.reference);
+  }
+  const files={...generated.files,"Placement.csv":placement};
+  for(const [name,content] of Object.entries(files)){
+    const expected=await readFile(new URL("../examples/126-bme280-breakout/expected/"+name,import.meta.url),"utf8");
+    assertTextSnapshot(content,expected,name);
+  }
+  const broken=structuredClone(project);
+  broken.nets.find(net=>net.id==="SCL").endpoints=broken.nets.find(net=>net.id==="SCL").endpoints.filter(endpoint=>endpoint!=="bme:SCL");
+  assert.equal(runSupportedAnalysis(broken).state,"blocked");
+  const badPad=structuredClone(project);
+  badPad.pcbFabrication.pads.find(pad=>pad.reference==="U1"&&pad.number==="3").netId="SCL";
+  assert.equal(validatePcbFabrication(badPad).status,"failed");
+});
+
+test("catalogue relay module tests driver, relay pin map, contact isolation classes, BOM, placement and export", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/127-relay-module-pcb.adigun.json",import.meta.url)));
+  const {validateRelayModule,createRelayIsolationReport}=await import("../js/relay-module-checks.mjs");
+  const {createPcbPlacementReport}=await import("../js/pcb-placement-report.mjs");
+  const electrical=validateProject(project);
+  assert.equal(electrical.valid,true,JSON.stringify(electrical.errors));
+  assert.equal(electrical.errors.length,0);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete",JSON.stringify(analysis.validation?.errors??analysis));
+  assert.equal(analysis.result.kind,"low-voltage-relay-driver");
+  assert.equal(analysis.result.coilResistanceOhms,167);
+  assert.ok(Math.abs(analysis.result.coilCurrentA-(4.8/167))<1e-12);
+  assert.equal(analysis.result.flybackDiodeMapped,true);
+  assert.equal(analysis.result.contactLoadSimulation,false);
+  const relayPads=project.pcbFabrication.pads.filter(pad=>pad.reference==="K1");
+  assert.deepEqual(relayPads.map(pad=>pad.pin),["COIL1","COIL2","COM","NC","NO"]);
+  const drc=validatePcbFabrication(project);
+  assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
+  const isolation=validateRelayModule(project);
+  assert.equal(isolation.status,"passed",JSON.stringify(isolation.errors));
+  const fab=exportPcbFabrication(project);
+  assert.equal(fab.status,"passed");
+  const files={...fab.files,"Placement.csv":createPcbPlacementReport(project),"Relay-Isolation-Report.csv":createRelayIsolationReport(project)};
+  for(const part of project.pcbFabrication.parts){
+    assert.ok(files["BOM.csv"].includes('"'+part.reference+'"'),part.reference);
+    assert.ok(files["Placement.csv"].includes('"'+part.reference+'"'),part.reference);
+  }
+  assert.ok(files["Relay-Isolation-Report.csv"].includes('"COIL","CONTACT","3.2"'));
+  for(const [name,content] of Object.entries(files)){
+    const expected=await readFile(new URL("../examples/127-relay-module-pcb/expected/"+name,import.meta.url),"utf8");
+    assertTextSnapshot(content,expected,name);
+  }
+  const widened=structuredClone(project);
+  widened.pcbFabrication.netClassRules.find(rule=>rule.classA==="COIL"&&rule.classB==="CONTACT").clearanceMm=12;
+  assert.equal(validateRelayModule(widened).status,"failed");
+  const crossed=structuredClone(project);
+  crossed.pcbFabrication.routes.find(route=>route.netId==="COIL").pointsMm[1]=[30,16];
+  assert.equal(validateRelayModule(crossed).status,"failed");
+  assert.equal(validatePcbFabrication(crossed).status,"failed");
+});
+
+test("catalogue manufacturing export pack contains bounded fabrication files, a printable overview and verifiable SHA-256 checksums", async () => {
+  const {createHash}=await import("node:crypto");
+  const {createManufacturingExportPack}=await import("../js/manufacturing-export-pack.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/136-manufacturing-export-pack.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const pack=createManufacturingExportPack(project);
+  assert.equal(pack.status,"passed",JSON.stringify(pack.errors));
+  assert.equal(pack.drc.status,"passed");
+  for(const name of ["board-F_Cu.gbr","board-Edge_Cuts.gbr","board-PTH.drl","BOM.csv","Placement.csv","Assembly-Overview.pdf","Export-Manifest.json","SHA256SUMS.txt"])assert.ok(pack.files[name],name);
+  assert.ok(pack.files["Assembly-Overview.pdf"].startsWith("%PDF-1.4"));
+  assert.ok(pack.files["Assembly-Overview.pdf"].includes("%%EOF"));
+  for(const part of project.pcbFabrication.parts){assert.ok(pack.files["BOM.csv"].includes('"'+part.reference+'"'));assert.ok(pack.files["Placement.csv"].includes('"'+part.reference+'"'));}
+  const manifest=JSON.parse(pack.files["Export-Manifest.json"]);
+  assert.equal(manifest.projectId,project.id);
+  assert.equal(manifest.checks["BOM.csv"],createHash("sha256").update(pack.files["BOM.csv"]).digest("hex"));
+  const rows=pack.files["SHA256SUMS.txt"].trim().split("\n");
+  assert.equal(rows.length,Object.keys(pack.files).length-1);
+  for(const row of rows){const [,expected,name]=row.match(/^([a-f0-9]{64})  (.+)$/)??[];assert.ok(name,row);assert.equal(createHash("sha256").update(pack.files[name]).digest("hex"),expected,name);}
+  assert.equal(pack.checksums["Export-Manifest.json"],createHash("sha256").update(pack.files["Export-Manifest.json"]).digest("hex"));
+  const invalid=JSON.parse(JSON.stringify(project));invalid.pcbFabrication.routes[0].netId="MISSING";
+  assert.equal(createManufacturingExportPack(invalid).status,"blocked");
+});
+
+test("catalogue assembly variant board generates two BOMs and excludes DNP parts", async () => {
+  const {createManufacturingExportPack}=await import("../js/manufacturing-export-pack.mjs");
+  const {createAssemblyVariantBoms}=await import("../js/assembly-variant-bom.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/137-assembly-variant-board.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  assert.equal(validatePcbFabrication(project).status,"passed");
+  const variants=createAssemblyVariantBoms(project);
+  assert.equal(variants.status,"passed");
+  assert.deepEqual(Object.keys(variants.files),["BOM-basic.csv","BOM-indicator.csv"]);
+  assert.ok(!variants.files["BOM-basic.csv"].includes('"D1"'));
+  assert.ok(variants.files["BOM-indicator.csv"].includes('"D1"'));
+  assert.ok(variants.files["BOM-basic.csv"].includes('"R1"'));
+  assert.ok(variants.files["BOM-indicator.csv"].includes('"R1"'));
+  const pack=createManufacturingExportPack(project);
+  assert.equal(pack.status,"passed",JSON.stringify(pack.errors));
+  assert.ok(pack.files["BOM-basic.csv"]);
+  assert.ok(pack.files["BOM-indicator.csv"]);
+  assert.ok(pack.files["SHA256SUMS.txt"].includes("BOM-basic.csv"));
+  assert.ok(pack.files["SHA256SUMS.txt"].includes("BOM-indicator.csv"));
+  const broken=JSON.parse(JSON.stringify(project));broken.assemblyVariants[0].dnpReferences=["U99"];
+  assert.equal(createManufacturingExportPack(broken).status,"blocked");
+});
+
+test("catalogue DC voltmeter measures divider voltage with units, input loading and lead-placement checks", async () => {
+  const {analyzeDcVoltmeter}=await import("../js/dc-voltmeter-analysis.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/141-dc-voltmeter-use.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const reading=analyzeDcVoltmeter(project);
+  assert.equal(reading.state,"complete");
+  assert.equal(reading.result.kind,"dc-voltmeter");
+  assert.equal(reading.result.unit,"V");
+  assert.ok(Math.abs(reading.result.measuredVoltageV-5.9997)<0.001);
+  assert.equal(reading.result.positiveLeadNet,"VOUT");
+  assert.equal(reading.result.negativeLeadNet,"GND");
+  assert.equal(reading.result.inputResistanceOhms,10000000);
+  assert.equal(reading.result.loadingModeled,true);
+  const reversed=JSON.parse(JSON.stringify(project));reversed.instrument.positiveNet="GND";reversed.instrument.negativeNet="VOUT";
+  assert.ok(analyzeDcVoltmeter(reversed).result.measuredVoltageV<0);
+  const misplaced=JSON.parse(JSON.stringify(project));misplaced.instrument.positiveNet="VOUT";misplaced.instrument.negativeNet="VOUT";
+  assert.equal(analyzeDcVoltmeter(misplaced).state,"blocked");
+});
+
+test("catalogue DC ammeter measures series current with burden and rejects parallel placement", async () => {
+  const {analyzeDcAmmeter}=await import("../js/dc-ammeter-analysis.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/142-dc-ammeter-use.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const reading=analyzeDcAmmeter(project);
+  assert.equal(reading.state,"complete");
+  assert.equal(reading.result.kind,"dc-ammeter");
+  assert.equal(reading.result.unit,"A");
+  assert.ok(Math.abs(reading.result.displayMilliAmps-3)<0.001);
+  assert.equal(reading.result.seriesPlacementVerified,true);
+  assert.equal(reading.result.burdenResistanceOhms,0.1);
+  assert.ok(reading.result.burdenVoltageV>0);
+  const misplaced=JSON.parse(JSON.stringify(project));misplaced.instrument.terminals=["resistor-top-1:1","resistor-top-1:2"];
+  assert.equal(analyzeDcAmmeter(misplaced).state,"blocked");
+  const reversed=JSON.parse(JSON.stringify(project));reversed.instrument.terminals.reverse();
+  assert.ok(analyzeDcAmmeter(reversed).result.measuredCurrentA<0);
+});
+
+test("catalogue oscilloscope trigger locks edge and threshold and emits trace metadata", async () => {
+  const {captureTriggeredPulse}=await import("../js/oscilloscope-trigger.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/143-oscilloscope-trigger.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const capture=captureTriggeredPulse(project);
+  assert.equal(capture.state,"complete");
+  assert.equal(capture.result.kind,"oscilloscope-trigger");
+  assert.equal(capture.result.triggerLocked,true);
+  assert.equal(capture.result.triggerEdge,"rising");
+  assert.equal(capture.result.triggerLevelV,2.5);
+  assert.equal(capture.result.triggerTimeMs,0.25);
+  assert.equal(capture.result.sampleCount,101);
+  assert.ok(capture.result.samples.some(sample=>sample.voltageV===5));
+  const falling=JSON.parse(JSON.stringify(project));falling.oscilloscope.triggerEdge="falling";
+  assert.equal(captureTriggeredPulse(falling).result.triggerTimeMs,0.75);
+  const badLevel=JSON.parse(JSON.stringify(project));badLevel.oscilloscope.triggerLevelV=5;
+  assert.equal(captureTriggeredPulse(badLevel).state,"blocked");
+});
+
+test("catalogue two-channel phase measurement reports a known 90 degree offset and rejects mismatched sources", async () => {
+  const {measureTwoChannelPhase}=await import("../js/phase-measurement.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/144-two-channel-phase.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const measured=measureTwoChannelPhase(project);
+  assert.equal(measured.state,"complete");
+  assert.equal(measured.result.kind,"two-channel-phase");
+  assert.equal(measured.result.unit,"deg");
+  assert.ok(Math.abs(measured.result.phaseOffsetDeg-90)<1e-9);
+  assert.equal(measured.result.channelBLeadsChannelA,true);
+  assert.equal(measured.result.frequencyHz,1000);
+  assert.equal(measured.result.sampleCount,201);
+  const reversed=JSON.parse(JSON.stringify(project));reversed.phaseScope.channelB.phaseDeg=270;
+  assert.equal(measureTwoChannelPhase(reversed).result.phaseOffsetDeg,-90);
+  const mismatched=JSON.parse(JSON.stringify(project));mismatched.phaseScope.channelB.frequencyHz=1001;
+  assert.equal(measureTwoChannelPhase(mismatched).state,"blocked");
+});
+
+test("catalogue logic analyser captures labelled counter states and locks configured edge", async () => {
+  const {captureLogicAnalyzer}=await import("../js/logic-analyzer-capture.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/145-logic-analyzer-capture.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const capture=captureLogicAnalyzer(project);
+  assert.equal(capture.state,"complete");
+  assert.equal(capture.result.kind,"logic-analyzer-capture");
+  assert.equal(capture.result.triggerLocked,true);
+  assert.equal(capture.result.triggerChannel,"Q1");
+  assert.equal(capture.result.triggerEdge,"rising");
+  assert.equal(capture.result.triggerSampleIndex,2);
+  assert.equal(capture.result.sampleCount,16);
+  assert.deepEqual(capture.result.samples.map(sample=>sample.decodedCount),Array.from({length:16},(_,i)=>i));
+  assert.deepEqual(capture.result.samples[5].states,{Q0:1,Q1:0,Q2:1,Q3:0});
+  const invalid=JSON.parse(JSON.stringify(project));invalid.logicCapture.trigger.channel="Q9";
+  assert.equal(captureLogicAnalyzer(invalid).state,"blocked");
+});
+
+test("catalogue frequency counter measures periods accurately at multiple frequencies", async () => {
+  const {measureFrequency}=await import("../js/frequency-counter.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/146-frequency-counter.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  for(const expectedHz of [50,1000,10000]){
+    const input=JSON.parse(JSON.stringify(project));input.oscillator.periodMs=1000/expectedHz;
+    const reading=measureFrequency(input);
+    assert.equal(reading.state,"complete");
+    assert.equal(reading.result.unit,"Hz");
+    assert.ok(Math.abs(reading.result.measuredFrequencyHz-expectedHz)<1e-8);
+    assert.equal(reading.result.cyclesMeasured,8);
+    assert.ok(Math.abs(reading.result.measuredPeriodMs-1000/expectedHz)<1e-10);
+  }
+  const invalid=JSON.parse(JSON.stringify(project));invalid.oscillator.periodMs=0;
+  assert.equal(measureFrequency(invalid).state,"blocked");
+});
+
+test("catalogue RC Bode plot labels units and places the exact cutoff marker", async () => {
+  const {analyzeRcBode}=await import("../js/rc-bode-analysis.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/147-rc-bode-plot.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const plot=analyzeRcBode(project);
+  assert.equal(plot.state,"complete");
+  assert.equal(plot.result.kind,"rc-bode-plot");
+  assert.equal(plot.result.frequencyUnit,"Hz");
+  assert.equal(plot.result.magnitudeUnit,"dB");
+  assert.equal(plot.result.phaseUnit,"deg");
+  assert.equal(plot.result.pointCount,41);
+  const marker=plot.result.points[plot.result.cutoffIndex];
+  assert.equal(marker.frequencyHz,plot.result.cutoffHz);
+  assert.ok(Math.abs(marker.magnitudeDb+3.01029995664)<1e-9);
+  assert.ok(Math.abs(marker.phaseDeg+45)<1e-9);
+  const wrongTopology=JSON.parse(JSON.stringify(project));wrongTopology.nets.find(net=>net.id==="FILTER_OUT").endpoints=wrongTopology.nets.find(net=>net.id==="FILTER_OUT").endpoints.filter(endpoint=>endpoint!=="capacitor-1:1");
+  assert.equal(analyzeRcBode(wrongTopology).state,"blocked");
+});
+
+test("catalogue RLC pulse response shows ringing and warns when timestep undersamples it", async () => {
+  const {analyzeRlcStep}=await import("../js/rlc-transient.mjs");
+  const project=JSON.parse(await readFile(new URL("../examples/148-rlc-transient-response.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const supported=runSupportedAnalysis(project);assert.equal(supported.state,"complete");assert.equal(supported.result.kind,"rlc-step-response");
+  const result=analyzeRlcStep(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"rlc-step-response");
+  assert.equal(result.result.regime,"underdamped");
+  assert.ok(result.result.ringingVisible);
+  assert.ok(result.result.peakVoltageV>result.result.sourceVoltage);
+  assert.equal(result.warnings.length,0);
+  assert.ok(result.result.sampleCount>500);
+  const coarse=JSON.parse(JSON.stringify(project));coarse.rlcTransient.timeStepS=0.001;
+  const warned=analyzeRlcStep(coarse);
+  assert.equal(warned.state,"complete");
+  assert.ok(warned.warnings.some(warning=>warning.code==="TIMESTEP_RESOLUTION"));
+  const broken=JSON.parse(JSON.stringify(project));broken.nets.find(net=>net.id==="L_C").endpoints=broken.nets.find(net=>net.id==="L_C").endpoints.filter(endpoint=>endpoint!=="capacitor-1:1");
+  assert.equal(analyzeRlcStep(broken).state,"blocked");
+});
+
+test("catalogue parameter sweep analyzes three resistor values and reports the expected current trend", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/149-parameter-sweep.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const result=runParameterSweep(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"parameter-sweep");
+  assert.equal(result.result.sampleCount,3);
+  assert.deepEqual(result.result.points.map(point=>point.resistanceOhms),[220,330,470]);
+  assert.ok(Math.abs(result.result.points[0].currentA-(3/220))<1e-12);
+  assert.ok(Math.abs(result.result.points[1].currentA-(3/330))<1e-12);
+  assert.ok(Math.abs(result.result.points[2].currentA-(3/470))<1e-12);
+  assert.ok(result.result.points[0].currentA>result.result.points[1].currentA);
+  assert.ok(result.result.points[1].currentA>result.result.points[2].currentA);
+  const duplicate=JSON.parse(JSON.stringify(project));duplicate.parameterSweep.values=[220,330,330];
+  assert.equal(runParameterSweep(duplicate).state,"blocked");
+  const tooFew=JSON.parse(JSON.stringify(project));tooFew.parameterSweep.values=[220,330];
+  assert.equal(runParameterSweep(tooFew).state,"blocked");
+});
+
+test("catalogue Monte Carlo tolerance study is seeded, reproducible, and bounded", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/150-monte-carlo-tolerance-plan.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const first=runMonteCarloTolerance(project), repeat=runMonteCarloTolerance(project);
+  assert.equal(first.state,"complete");assert.deepEqual(first,repeat);
+  assert.equal(first.result.sampleCount,1000);assert.equal(first.result.seed,20261031);
+  assert.equal(first.result.histogram.reduce((sum,bin)=>sum+bin.count,0),1000);
+  assert.ok(first.result.minimum>=3/(330*1.05));assert.ok(first.result.maximum<=3/(330*0.95));
+  assert.ok(first.result.minimum<first.result.mean);assert.ok(first.result.mean<first.result.maximum);
+  const invalid=JSON.parse(JSON.stringify(project));invalid.monteCarloTolerance.seed=0;
+  assert.equal(runMonteCarloTolerance(invalid).state,"blocked");
+});
+
+test("catalogue thermal boundary reports dissipation without claiming a thermal model", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/151-thermal-warning-boundary.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const result=analyzeThermalWarningBoundary(project);
+  assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"thermal-warning-boundary");
+  assert.ok(Math.abs(result.result.resistorDissipationW-1.190082644628099)<1e-12);
+  assert.equal(result.result.ratingConcern,true);
+  assert.equal(result.result.thermalModel,"not-modeled");
+  assert.equal(result.result.temperatureRiseC,null);
+  assert.ok(result.warnings.some(warning=>warning.code==="THERMAL_MODEL_NOT_MODELED"));
+  assert.ok(result.warnings.some(warning=>warning.code==="POWER_RATING_EXCEEDED"));
+  const invalid=JSON.parse(JSON.stringify(project));invalid.thermalBoundary.ratedPowerW=0;
+  assert.equal(analyzeThermalWarningBoundary(invalid).state,"blocked");
+});
+
+test("catalogue convergence study returns actionable limits without fabricating solver output", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/152-convergence-failure-study.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=analyzeConvergenceStudy(project);
+  assert.equal(result.state,"blocked");
+  assert.equal(result.result,null);
+  assert.equal(result.diagnostics.solverIterations,null);
+  assert.equal(result.diagnostics.reportedElectricalResult,null);
+  assert.ok(result.errors.some(error=>error.code==="SPICE_SOLVER_UNAVAILABLE"));
+  assert.ok(result.errors.some(error=>error.code==="CONVERGENCE_NOT_ATTEMPTED"));
+  assert.match(result.errors[0].message,/SPICE operating-point solver/);
+  assert.ok(result.diagnostics.actions.some(action=>/series resistance/.test(action)));
+  const invalid=JSON.parse(JSON.stringify(project));invalid.convergenceStudy.fixture="unknown";
+  assert.equal(analyzeConvergenceStudy(invalid).state,"blocked");
+  assert.equal(analyzeConvergenceStudy(invalid).errors[0].code,"CONVERGENCE_FIXTURE_UNKNOWN");
+});
+
+test("catalogue floating-node diagnosis identifies the object to inspect", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/153-floating-node-diagnosis.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const result=diagnoseFloatingNode(project);
+  assert.equal(result.state,"blocked");
+  assert.equal(result.result,null);
+  assert.equal(result.errors[0].code,"FLOATING_DC_NODE");
+  assert.equal(result.diagnostics.netId,"FLOATING");
+  assert.deepEqual(result.diagnostics.jumpTarget,{instanceId:"capacitor-floating",netId:"FLOATING"});
+  assert.ok(result.diagnostics.suggestions.some(item=>/bias or bleed resistor/.test(item)));
+  const missing=JSON.parse(JSON.stringify(project));missing.nets=missing.nets.filter(net=>net.id!=="FLOATING");
+  assert.equal(diagnoseFloatingNode(missing).errors[0].code,"FLOATING_NODE_TARGET_MISSING");
+});
+
+test("catalogue short-circuit fixture blocks before simulation with no fabricated current", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/154-short-circuit-diagnosis.adigun.json",import.meta.url)));
+  const validation=validateProject(project);assert.equal(validation.valid,false);
+  assert.ok(validation.errors.some(error=>error.rule==="SOURCE_SHORT"));
+  const result=diagnoseSupplyShort(project);
+  assert.equal(result.state,"blocked");assert.equal(result.result,null);
+  assert.equal(result.diagnostics.analysisAttempted,false);
+  assert.equal(result.errors[0].code,"SUPPLY_SHORT_CIRCUIT");
+  assert.equal(result.diagnostics.netId,"SHORT");
+  assert.ok(result.diagnostics.suggestions.some(item=>/before energizing/.test(item)));
+  const safe=JSON.parse(JSON.stringify(project));safe.nets[0].endpoints=["source-1:+"];
+  assert.equal(diagnoseSupplyShort(safe).result.directSupplyShort,false);
+});
+
+test("catalogue missing-ground diagnosis blocks and identifies the reference rule", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/155-missing-ground-diagnosis.adigun.json",import.meta.url)));
+  const validation=validateProject(project);
+  assert.equal(validation.valid,true);
+  assert.ok(validation.warnings.some(warning=>warning.rule==="NO_REFERENCE"));
+  const result=diagnoseMissingGround(project);
+  assert.equal(result.state,"blocked");assert.equal(result.result,null);
+  assert.equal(result.diagnostics.ruleId,"NO_REFERENCE");
+  assert.equal(result.errors[0].code,"MISSING_GROUND_REFERENCE");
+  assert.ok(result.diagnostics.suggestions.length>=2);
+  const grounded=JSON.parse(JSON.stringify(project));grounded.components.push({instanceId:"ground-restored",libraryId:"ground.signal",reference:"GND2",value:"0 V"});
+  assert.equal(diagnoseMissingGround(grounded).result.referencePresent,true);
+});
+
+test("catalogue unavailable-model fixture is schematic-only and never simulates a fake model", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/156-model-unavailable-diagnosis.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=reportUnavailableModel(project);
+  assert.equal(result.state,"blocked");assert.equal(result.result,null);
+  assert.equal(result.diagnostics.analysisAttempted,false);
+  assert.equal(result.diagnostics.status,"unavailable");
+  assert.equal(result.diagnostics.displayMode,"schematic-only");
+  assert.equal(result.errors[0].code,"COMPONENT_MODEL_UNAVAILABLE");
+  assert.match(result.message,/shown in the schematic/);
+});
+
+test("catalogue net cross-probe preserves the same net ID across all design views", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/157-net-probe-cross-probe.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const result=runNetCrossProbe(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"net-cross-probe");
+  assert.equal(result.result.netId,"LED_A");assert.equal(result.result.sharedNetId,true);
+  assert.deepEqual(result.result.views,["breadboard","schematic","pcb"]);
+  assert.equal(result.result.endpointCount,2);
+  assert.equal(result.diagnostics.jumpTarget.netId,"LED_A");
+  const missing=JSON.parse(JSON.stringify(project));missing.crossProbe.netId="MISSING";
+  assert.equal(runNetCrossProbe(missing).state,"blocked");
+});
+
+test("catalogue component property audit accepts valid resistor edits and rejects unsafe ranges before history mutation", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/158-component-property-audit.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"complete");
+  const resistor=project.components.find(component=>component.reference==="R1");
+  assert.equal(validateComponentProperty(resistor,"220 Œ©").valid,true);
+  assert.equal(validateComponentProperty(resistor,"1 kŒ©").resistanceOhms,1000);
+  assert.equal(validateComponentProperty(resistor,"0 Œ©").valid,false);
+  assert.equal(validateComponentProperty(resistor,"1e15 Œ©").valid,false);
+  assert.equal(validateComponentProperty(resistor,"not a value").valid,false);
+  const app=await readFile(new URL("../app.js",import.meta.url),"utf8");
+  const submit=app.slice(app.indexOf('$("#component-form").addEventListener("submit"'),app.indexOf('$("#remove-component").addEventListener'));
+  assert.ok(submit.indexOf("validateComponentProperty")<submit.indexOf("captureHistory()"));
+  assert.ok(submit.indexOf("captureHistory()")<submit.indexOf("updateComponent("));
+  assert.match(app,/function undo\(/);assert.match(app,/function redo\(/);
+});
+
+test("catalogue simulation report exports reproducible RC settings, model version, results, and warnings", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/005-rc-step-response.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const analysis=runSupportedAnalysis(project);
+  assert.equal(analysis.state,"complete");
+  const report=createSimulationReport(project,analysis,{generatedAt:"2026-10-31T00:00:00.000Z"});
+  assert.equal(report.schema,"adigun-simulation-report/1");
+  assert.equal(report.simulation.settings.analysisKind,"rc-step-response");
+  assert.equal(report.simulation.modelVersion,"first-order-rc-step-v1");
+  assert.ok(report.simulation.settings.sampleCount>0);
+  assert.equal(report.result.kind,"rc-step-response");
+  assert.deepEqual(report.warnings,analysis.warnings??[]);
+  assert.ok(report.project.components.some(component=>component.reference==="R1"&&component.value==="1 kŒ©"));
+  const html=await readFile(new URL("../index.html",import.meta.url),"utf8");
+  assert.match(html,/id="export-simulation-report"/);
+});
+
+test("catalogue run lockfile selects the same RC model and detects project drift", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/160-reproducible-run-lockfile.adigun.json",import.meta.url)));
+  const manifest=JSON.parse(await readFile(new URL("../examples/manifest.json",import.meta.url)));
+  const entry=manifest.examples.find(example=>example.id==="160-reproducible-run-lockfile");
+  assert.equal(entry.lockfileFile,"examples/160-reproducible-run-lockfile/simulation.lock.json");
+  const lock=JSON.parse(await readFile(new URL("../examples/160-reproducible-run-lockfile/simulation.lock.json",import.meta.url)));
+  assert.deepEqual(createSimulationLockfile(project),lock);
+  const verified=verifySimulationLockfile(project,lock);
+  assert.equal(verified.matched,true);assert.equal(verified.actual.modelSelection.modelVersion,"first-order-rc-step-v1");
+  const drift=JSON.parse(JSON.stringify(project));drift.components.find(component=>component.reference==="R1").value="1.1 kŒ©";
+  assert.equal(verifySimulationLockfile(drift,lock).matched,false);
+  assert.equal(verifySimulationLockfile(drift,lock).errors[0].code,"RUN_LOCK_MISMATCH");
+  const html=await readFile(new URL("../index.html",import.meta.url),"utf8");assert.match(html,/data-action="verify-run-lock"/);
+});
+
+test("catalogue PLC motor seal-in holds on start and drops on stop or emergency stop", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/161-plc-start-stop-motor-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runPlcStartStopSequence(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"plc-start-stop-sequence");
+  assert.equal(result.result.frames[0].contactorEnergized,false);
+  assert.equal(result.result.frames[1].contactorEnergized,true);
+  assert.equal(result.result.frames[2].contactorEnergized,true);
+  assert.equal(result.result.frames[3].contactorEnergized,false);
+  assert.equal(result.result.frames[5].contactorEnergized,false);
+  assert.equal(result.result.sealInRetained,true);assert.equal(result.result.emergencyStopDropsOutput,true);
+  const invalid=JSON.parse(JSON.stringify(project));invalid.plcMotorSequence.frames[0].startPressed="false";
+  assert.equal(runPlcStartStopSequence(invalid).state,"blocked");
+});
+
+test("catalogue traffic-light sequence repeats safe timed states without opposing green", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/162-plc-traffic-light.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runTrafficLightSequence(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"traffic-light-fsm-sequence");
+  assert.equal(result.result.cycleCount,2);assert.equal(result.result.phaseCount,14);
+  assert.equal(result.result.totalDurationS,100);assert.equal(result.result.phases[0].northSouth,"red");
+  assert.ok(result.result.states.every(state=>!(state.northSouth==="green"&&state.eastWest==="green")));
+  assert.equal(result.result.opposingGreenConflict,false);
+  const unsafe=JSON.parse(JSON.stringify(project));unsafe.trafficLight.phases[0]={name:"unsafe",northSouth:"green",eastWest:"green",durationS:5};
+  assert.equal(runTrafficLightSequence(unsafe).state,"blocked");
+});
+
+test("catalogue tank controller applies low/high hysteresis across synthetic levels", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/163-plc-tank-level-controller.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runTankLevelController(project);assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"tank-level-hysteresis");assert.equal(result.result.sampleCount,10);assert.equal(result.result.pumpOnSamples,7);
+  assert.deepEqual(result.result.frames.map(frame=>frame.pumpOn),[true,true,true,true,true,false,false,false,true,true]);
+  const invalid=structuredClone(project);invalid.tankLevelController.highLevelPct=20;
+  assert.equal(runTankLevelController(invalid).state,"blocked");
+  const outOfRange=structuredClone(project);outOfRange.tankLevelController.levelSamples[0]=101;
+  assert.equal(runTankLevelController(outOfRange).state,"blocked");
+});
+
+test("catalogue conveyor counter counts rising photoeye edges and stops at target", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/164-plc-conveyor-counter.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runConveyorCounter(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"conveyor-edge-counter");
+  assert.equal(result.result.finalCount,3);assert.equal(result.result.stoppedAtEvent,7);assert.equal(result.result.motorStopped,true);
+  assert.deepEqual(result.result.frames.map(frame=>frame.count),[0,1,1,1,2,2,3,3,3,3]);
+  assert.deepEqual(result.result.frames.map(frame=>frame.risingEdge),[false,true,false,false,true,false,true,false,false,false]);
+  assert.deepEqual(result.result.frames.map(frame=>frame.motorRunning),[true,true,true,true,true,true,false,false,false,false]);
+  const invalid=structuredClone(project);invalid.conveyorCounter.targetCount=0;assert.equal(runConveyorCounter(invalid).state,"blocked");
+  const invalidSignal=structuredClone(project);invalidSignal.conveyorCounter.photoeyeEvents[0]=1;assert.equal(runConveyorCounter(invalidSignal).state,"blocked");
+});
+
+test("catalogue star-delta starter moves through exclusive outputs and transition dead time", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/165-star-delta-starter-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runStarDeltaStarter(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"star-delta-transition-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.mode),["star","star","transition","transition","delta","delta","stopped","star"]);
+  assert.equal(result.result.noOverlap,true);assert.ok(result.result.frames.every(frame=>!(frame.starEnergized&&frame.deltaEnergized)));
+  const invalid=structuredClone(project);invalid.starDeltaStarter.deadTimeMs=0;assert.equal(runStarDeltaStarter(invalid).state,"blocked");
+  const unordered=structuredClone(project);unordered.starDeltaStarter.events[2].atMs=10;assert.equal(runStarDeltaStarter(unordered).state,"blocked");
+});
+
+test("catalogue forward/reverse logic rejects an opposite-direction request until stopped", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/166-forward-reverse-motor-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runForwardReverseInterlock(project);assert.equal(result.state,"complete");
+  assert.deepEqual(result.result.frames.map(frame=>frame.direction),["forward","forward","forward","stopped","reverse","reverse","stopped"]);
+  assert.deepEqual(result.result.frames.map(frame=>frame.conflictRejected),[false,false,true,false,false,true,false]);
+  assert.equal(result.result.conflictRequestsRejected,2);assert.equal(result.result.noOverlap,true);
+  assert.ok(result.result.frames.every(frame=>!(frame.forwardEnergized&&frame.reverseEnergized)));
+  const invalid=structuredClone(project);invalid.forwardReverseMotor.events[0].request="both";assert.equal(runForwardReverseInterlock(invalid).state,"blocked");
+});
+
+test("catalogue E-stop latch rejects reset while tripped and needs separate restart", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/167-emergency-stop-safety-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runEmergencyStopConcept(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"emergency-stop-latched-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.loadEnabled),[true,false,false,false,false,true,false]);
+  assert.equal(result.result.frames[2].resetRejected,true);assert.equal(result.result.frames[4].latched,false);
+  assert.equal(result.result.unsafeResetRejected,true);assert.equal(result.result.restartRequiresNewStart,true);
+  const invalid=structuredClone(project);invalid.emergencyStopConcept.events[0].action="auto-restart";assert.equal(runEmergencyStopConcept(invalid).state,"blocked");
+});
+
+test("catalogue door interlock latches load off on guard opening", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/168-door-interlock-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runDoorInterlockConcept(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"door-interlock-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.loadEnabled),[true,false,false,false,false,true,false]);
+  assert.equal(result.result.frames[2].resetRejected,true);assert.equal(result.result.loadAlwaysDisabledWhenOpen,true);
+  assert.equal(result.result.resetRejectedWhenOpen,true);
+  const invalid=structuredClone(project);invalid.doorInterlock.events[0].action="bypass";assert.equal(runDoorInterlockConcept(invalid).state,"blocked");
+});
+
+test("catalogue temperature alarm latches at threshold and applies safe reset policy", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/169-temperature-alarm.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runTemperatureAlarm(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"latched-temperature-alarm");
+  assert.deepEqual(result.result.frames.map(frame=>frame.alarmLatched),[false,true,true,true,true,false,true]);
+  assert.equal(result.result.frames[3].resetRejected,true);assert.equal(result.result.resetRejected,true);
+  const invalid=structuredClone(project);invalid.temperatureAlarm.thresholdC=251;assert.equal(runTemperatureAlarm(invalid).state,"blocked");
+  const invalidSample=structuredClone(project);invalidSample.temperatureAlarm.samples[0].tempC=Infinity;assert.equal(runTemperatureAlarm(invalidSample).state,"blocked");
+});
+
+test("catalogue water leak alarm triggers on wet input and recovers on dry input", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/170-water-leak-alarm.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runWaterLeakAlarm(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"water-leak-alarm-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.alarmOn),[false,true,true,false,false,true,false]);
+  assert.equal(result.result.alarmEpisodes,2);assert.equal(result.result.dryRecoveryObserved,true);
+  const invalid=structuredClone(project);invalid.waterLeakAlarm.wetSamples[0]="wet";assert.equal(runWaterLeakAlarm(invalid).state,"blocked");
+});
+
+test("catalogue fan thermostat switches at hysteresis thresholds and retains state between them", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/171-fan-thermostat.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runFanThermostat(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"fan-thermostat-hysteresis");
+  assert.deepEqual(result.result.frames.map(frame=>frame.fanOn),[false,true,true,false,false,true,false]);
+  assert.equal(result.result.fanOnSamples,3);
+  const invalid=structuredClone(project);invalid.fanThermostat.fanOffC=31;assert.equal(runFanThermostat(invalid).state,"blocked");
+  const invalidSample=structuredClone(project);invalidSample.fanThermostat.samples[0]=151;assert.equal(runFanThermostat(invalidSample).state,"blocked");
+});
+
+test("catalogue PWM fan controller interpolates curve knots and clamps endpoints", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/172-pwm-fan-controller.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runPwmFanController(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"pwm-fan-duty-curve");
+  assert.deepEqual(result.result.frames.map(frame=>frame.dutyPercent),[0,0,20,40,70,100,100]);
+  const invalid=structuredClone(project);invalid.pwmFanController.curve[1].tempC=19;assert.equal(runPwmFanController(invalid).state,"blocked");
+  const invalidDuty=structuredClone(project);invalidDuty.pwmFanController.curve[1].dutyPercent=101;assert.equal(runPwmFanController(invalidDuty).state,"blocked");
+});
+
+test("catalogue night light switches the LED below its lux threshold", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/173-automatic-night-light.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runAutomaticNightLight(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"night-light-lux-threshold");
+  assert.deepEqual(result.result.frames.map(frame=>frame.ledOn),[true,true,true,false,false,true]);
+  assert.equal(result.result.ledOnSamples,4);
+  const invalid=structuredClone(project);invalid.automaticNightLight.luxSamples[0]=-1;assert.equal(runAutomaticNightLight(invalid).state,"blocked");
+});
+
+test("catalogue irrigation waters only when dry and permitted and fails off on sensor fault", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/174-smart-irrigation-model.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runSmartIrrigation(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"smart-irrigation-decision-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.watering),[true,false,false,false,false,true]);
+  assert.equal(result.result.faultsFailOff,true);assert.equal(result.result.sensorFaults,1);
+  const invalid=structuredClone(project);invalid.smartIrrigation.samples[3].sensorFault=false;assert.equal(runSmartIrrigation(invalid).state,"blocked");
+});
+
+test("catalogue garage door limit switches stop motion and reject opposite-direction commands", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/175-garage-door-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runGarageDoorConcept(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"garage-door-limit-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.mode),["opening","stopped","closing","closing","stopped","stopped","opening"]);
+  assert.equal(result.result.frames[3].conflictRejected,true);assert.equal(result.result.conflictingRequestsRejected,1);
+  assert.equal(result.result.noDriveOverlap,true);
+  const invalid=structuredClone(project);invalid.garageDoorConcept.events[0].action="reverse";assert.equal(runGarageDoorConcept(invalid).state,"blocked");
+});
+
+test("catalogue elevator scheduler preserves FIFO calls and ignores duplicate pending floor", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/176-elevator-call-queue.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runElevatorCallQueue(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"elevator-fifo-call-queue");
+  assert.deepEqual(result.result.frames.map(frame=>frame.queue),[[3],[3,2],[3,2],[2],[],[]]);
+  assert.deepEqual(result.result.dispatchedTargets,[3,2]);assert.equal(result.result.duplicateCallsIgnored,1);
+  const invalid=structuredClone(project);invalid.elevatorCallQueue.events[0].floor=6;assert.equal(runElevatorCallQueue(invalid).state,"blocked");
+});
+
+test("catalogue fire-alarm zone keeps alarm distinct from open/short trouble inputs", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/177-fire-alarm-zone-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runFireAlarmZone(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"fire-alarm-zone-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>[frame.fireAlarm,frame.troubleType]),[[false,null],[true,null],[false,"open-circuit"],[false,"short-circuit"],[false,null]]);
+  assert.equal(result.result.alarmSamples,1);assert.equal(result.result.openFaults,1);assert.equal(result.result.shortFaults,1);
+  const invalid=structuredClone(project);invalid.fireAlarmZone.samples[0].condition="unknown";assert.equal(runFireAlarmZone(invalid).state,"blocked");
+});
+
+test("catalogue access strike mock grants allowlisted IDs briefly and audits denials", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/178-access-control-strike-lock.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runAccessStrikeLock(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"access-strike-allowlist-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.decision),["granted","denied","denied","denied","granted"]);
+  assert.deepEqual(result.result.frames.map(frame=>frame.strikeUnlocked),[true,true,true,false,true]);
+  assert.equal(result.result.frames[1].unlockUntilMs,3000);assert.equal(result.result.mockAuditEvents.length,5);
+  const invalid=structuredClone(project);invalid.accessStrikeLock.unlockDurationMs=70000;assert.equal(runAccessStrikeLock(invalid).state,"blocked");
+});
+
+test("catalogue warehouse beacon maps occupancy and fault transitions to distinct outputs", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/179-warehouse-beacon-concept.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runWarehouseBeacon(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"warehouse-beacon-state-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>[frame.greenOn,frame.redOn,frame.amberOn,frame.buzzerOn]),[[true,false,false,false],[false,true,false,false],[false,false,true,true],[true,false,false,false]]);
+  assert.equal(result.result.transitionCount,3);assert.equal(result.result.oneStatusPerFrame,true);
+  const invalid=structuredClone(project);invalid.warehouseBeacon.samples[0]="unknown";assert.equal(runWarehouseBeacon(invalid).state,"blocked");
+});
+
+test("catalogue fault annunciator clears only after acknowledgement and inactive input", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/180-machine-fault-annunciator.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"unsupported");
+  const result=runMachineFaultAnnunciator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"machine-fault-latched-sequence");
+  assert.deepEqual(result.result.frames.map(frame=>frame.latchedFaults),[["F1"],["F1"],[],["F2"],["F2"],[]]);
+  assert.deepEqual(result.result.frames.map(frame=>frame.buzzerOn),[true,false,false,true,true,false]);
+  assert.equal(result.result.frames[4].faultLampOn,true);assert.equal(result.result.frames[5].healthyLampOn,true);
+  const invalid=structuredClone(project);invalid.machineFaultAnnunciator.events[0].activeFaults=["bad id"];assert.equal(runMachineFaultAnnunciator(invalid).state,"blocked");
+});
+
+test("catalogue breadboard wiring synchronizes component and net identities into schematic projection", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/181-breadboard-schematic-sync.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const componentIds=project.components.map(item=>item.instanceId).sort();
+  const breadboardEdit=disconnectPin(project,"resistor-1:2");
+  const wired=connectPins(breadboardEdit,"resistor-1:2","led-1:A");
+  assert.equal(validateProject(wired).valid,true);
+  const result=runBreadboardSchematicSync(wired);assert.equal(result.state,"complete");assert.equal(result.result.kind,"breadboard-schematic-structural-sync");
+  assert.equal(result.result.structurallyEqual,true);assert.deepEqual(result.result.componentIds,componentIds);
+  assert.ok(result.result.netIds.includes("N1"));assert.ok(result.result.netIds.includes("VCC"));assert.ok(result.result.netIds.includes("GND"));
+  assert.deepEqual(result.result.breadboard,result.result.schematic);
+});
+
+test("catalogue schematic-to-PCB projection preserves every 555 net endpoint in an illustrative pad map", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/182-schematic-pcb-sync.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"complete");
+  const result=runSchematicPcbSync(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"schematic-pcb-netlist-pad-sync");
+  assert.equal(result.result.mappingStatus,"illustrative-unverified");assert.equal(result.result.componentCount,9);assert.equal(result.result.netCount,7);
+  assert.equal(result.result.sourceEndpointCount,result.result.padEndpointCount);assert.equal(result.result.netlistPreserved,true);
+  const missing=structuredClone(project);missing.schematicPcbSync.padMap.pop();assert.equal(runSchematicPcbSync(missing).state,"blocked");
+  const duplicate=structuredClone(project);duplicate.schematicPcbSync.padMap[1].pad="1";assert.equal(runSchematicPcbSync(duplicate).state,"blocked");
+});
+test("catalogue three-view LED edit shares component identity and restores undo/redo snapshots", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/183-three-view-led-project.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  assert.deepEqual(getViewReconciliationIssues(project,"breadboard"),[]);assert.deepEqual(getViewReconciliationIssues(project,"schematic"),[]);
+  const pcbIssues=getViewReconciliationIssues(project,"pcb");assert.equal(pcbIssues.length,4);assert.ok(pcbIssues.some(issue=>issue.instanceId==="resistor-1"));
+  const result=runThreeViewLedHistory(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"three-view-led-sync-history");
+  assert.deepEqual(result.result.availableViews,["breadboard","schematic","pcb"]);assert.deepEqual(result.result.reconciliationByView,{breadboard:0,schematic:0,pcb:4});assert.equal(result.result.pcbReconciliation.length,4);
+  assert.equal(result.result.identitiesPreserved,true);assert.equal(result.result.sharedIdentity,true);assert.equal(result.result.historyRestored,true);assert.equal(result.result.redoRestored,true);
+  assert.equal(result.result.originalValue,"330 Œ©");assert.equal(result.result.editedValue,"470 Œ©");assert.equal(result.result.undoValue,"330 Œ©");assert.equal(result.result.redoValue,"470 Œ©");
+  const invalid=structuredClone(project);invalid.threeViewLedHistory.instanceId="missing";assert.equal(runThreeViewLedHistory(invalid).state,"blocked");
+});
+test("catalogue unsupported BGA package becomes a breadboard reconciliation item without placement", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/184-unsupported-breadboard-package.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);
+  const board=projectComponentsForView(project,"breadboard");assert.deepEqual(board.components,[]);assert.equal(board.reconciliationItems.length,1);assert.equal(board.reconciliationItems[0].instanceId,"bga");
+  const schematic=projectComponentsForView(project,"schematic");assert.equal(schematic.components.length,1);assert.deepEqual(schematic.reconciliationItems,[]);
+  const pcb=projectComponentsForView(project,"pcb");assert.equal(pcb.components.length,1);assert.deepEqual(pcb.reconciliationItems,[]);
+  const result=runUnsupportedBreadboardPackage(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"unsupported-breadboard-package-reconciliation");assert.equal(result.result.breadboardPlaced,false);
+  assert.equal(result.result.schematicPlaced,true);assert.equal(result.result.pcbPlaced,true);assert.equal(result.result.fabricationQualified,false);assert.equal(result.result.claimsManufacturable,false);
+  const invalid=structuredClone(project);invalid.unsupportedBreadboardPackage.instanceId="missing";assert.equal(runUnsupportedBreadboardPackage(invalid).state,"blocked");
+});
+test("catalogue missing-footprint workflow blocks PCB update and returns required resolution report", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/185-missing-footprint-workflow.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);assert.equal(runSupportedAnalysis(project).state,"complete");
+  const before=serializeProject(project),result=runMissingFootprintWorkflow(project);assert.equal(result.state,"complete");
+  assert.equal(result.result.kind,"missing-footprint-resolution-report");assert.equal(result.result.pcbUpdateBlocked,true);assert.equal(result.result.projectUnchanged,true);assert.equal(serializeProject(project),before);
+  assert.equal(result.result.missingFootprintCount,project.components.length);assert.equal(result.result.placedComponentCount,0);assert.equal(result.result.requiredReport.status,"required");
+  assert.ok(result.result.missingFootprints.some(item=>item.reference==="U1"&&item.part==="active.ne555"));assert.equal(result.result.requiredReport.blockedReferences.length,project.components.length);
+  assert.equal(result.result.requiredReport.resolutionOptions.length,3);assert.equal(result.result.automaticSubstitution,false);assert.equal(result.result.unverifiedFootprintsAssigned,false);
+  const invalid=structuredClone(project);invalid.missingFootprintWorkflow.targetView="breadboard";assert.equal(runMissingFootprintWorkflow(invalid).state,"blocked");
+});
+test("catalogue pin-incompatible substitution is previewed, blocked, and canceled without changing original", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/186-pin-incompatible-substitution.adigun.json",import.meta.url)));
+  assert.equal(validateProject(project).valid,true);const before=serializeProject(project);
+  const preview=createPartSubstitutionPreview(project);assert.equal(preview.state,"complete");assert.equal(preview.blocked,true);assert.equal(preview.sourcePart.pins.length,8);assert.equal(preview.candidate.pins.length,8);
+  assert.deepEqual(preview.sharedPinNames,[]);assert.equal(preview.unmappedUsedPins.length,8);assert.ok(preview.affectedNets.includes("TIMING"));
+  const canceled=cancelPartSubstitutionPreview(preview);assert.equal(canceled.cancelled,true);assert.equal(serializeProject(canceled.project),before);assert.equal(serializeProject(project),before);
+  const result=runPinIncompatibleSubstitution(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"pin-incompatible-substitution-preview");assert.equal(result.result.substitutionBlocked,true);assert.equal(result.result.previewCancelled,true);assert.equal(result.result.projectUnchanged,true);
+  assert.equal(result.result.originalLibraryId,"active.ne555");assert.equal(result.result.candidateLibraryId,"active.lm386-classab");assert.equal(result.result.unmappedUsedPins.length,8);
+});
+test("catalogue SI unit converter returns resistor, power, length, and rounded results", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/187-unit-conversion-calculator.adigun.json",import.meta.url)));
+  const result=runUnitConversionCalculator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"si-unit-conversion-cases");
+  assert.deepEqual(result.result.results.map(item=>item.convertedValue),[4700,0.25,0.125,1.23457]);
+  assert.deepEqual(result.result.results.map(item=>item.dimension),["resistance","power","length","resistance"]);
+  assert.deepEqual(convertEngineeringUnit(2.2,"kŒ©","Œ©"),{ok:true,value:2200,dimension:"resistance",fromUnit:"kŒ©",toUnit:"Œ©",precision:6});
+  assert.equal(convertEngineeringUnit(1,"kŒ©","mW").ok,false);assert.equal(convertEngineeringUnit(Infinity,"mm","m").ok,false);assert.equal(convertEngineeringUnit(1,"m","m",13).ok,false);
+  const invalid=structuredClone(project);invalid.unitConversionCalculator.cases[0].fromUnit="mW";assert.equal(runUnitConversionCalculator(invalid).state,"blocked");
+});
+test("catalogue resistor color-code reader decodes four/five-band values and rejects invalid bands", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/188-resistor-color-code-reader.adigun.json",import.meta.url)));
+  const result=runResistorColorCodeReader(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"resistor-color-code-cases");assert.equal(result.result.validCount,2);assert.equal(result.result.rejectedCount,2);
+  assert.equal(result.result.results[0].reading.resistanceOhms,4700);assert.equal(result.result.results[0].reading.tolerancePercent,5);
+  assert.equal(result.result.results[1].reading.resistanceOhms,1000);assert.equal(result.result.results[1].reading.tolerancePercent,1);
+  assert.equal(readResistorBands(["gold","brown","red","gold"]).valid,false);assert.equal(readResistorBands(["brown","black","pink","gold"]).valid,false);
+  assert.equal(readResistorBands(["yellow","violet","red","gold"]).formattedResistance,"4.7 kŒ©");assert.equal(readResistorBands(["brown","black","black","brown","brown"]).formattedResistance,"1 kŒ©");
+  const invalid=structuredClone(project);invalid.resistorColorCodeReader.cases=[];assert.equal(runResistorColorCodeReader(invalid).state,"blocked");
+});
+test("catalogue LED resistor calculator rounds upward to E12 and warns on resistor power", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/189-led-resistor-calculator.adigun.json",import.meta.url)));
+  const result=runLedResistorCalculator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"led-series-resistor-cases");
+  const [red,blue,power]=result.result.results;assert.ok(Math.abs(red.requiredResistanceOhms-130)<1e-9);assert.equal(red.recommendedResistanceOhms,150);assert.ok(red.estimatedCurrentmA<=red.targetCurrentmA);
+  assert.equal(blue.recommendedResistanceOhms,150);assert.ok(blue.estimatedCurrentmA<=blue.targetCurrentmA);
+  assert.equal(power.recommendedResistanceOhms,560);assert.ok(power.warnings.some(warning=>warning.code==="RESISTOR_POWER_EXCEEDED"));assert.equal(result.result.powerWarningCount,1);
+  assert.equal(calculateLedSeriesResistor({supplyVoltageV:2,ledForwardVoltageV:2,targetCurrentmA:10,resistorPowerRatingW:0.125}).ok,false);
+  const invalid=structuredClone(project);invalid.ledResistorCalculator.cases[0].targetCurrentmA=0;assert.equal(runLedResistorCalculator(invalid).state,"blocked");
+});
+test("catalogue voltage-divider calculator reports unloaded ratio and load-shift warning", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/190-voltage-divider-calculator.adigun.json",import.meta.url)));
+  const result=runVoltageDividerCalculator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"voltage-divider-cases");assert.equal(result.result.loadingWarningCount,1);
+  const [open,light,heavy]=result.result.results;assert.equal(open.unloadedOutputV,6);assert.equal(open.loadedOutputV,6);assert.equal(open.loadingChangePercent,0);
+  assert.ok(Math.abs(light.loadedOutputV-5.714285714285714)<1e-9);assert.ok(light.loadingChangePercent<5);
+  assert.equal(heavy.loadedOutputV,4);assert.ok(heavy.loadingChangePercent>30);assert.ok(heavy.warnings.some(warning=>warning.code==="DIVIDER_LOADING"));
+  assert.equal(calculateVoltageDivider({inputVoltageV:12,resistanceTopOhms:0,resistanceBottomOhms:10000}).ok,false);
+  assert.equal(calculateVoltageDivider({inputVoltageV:12,resistanceTopOhms:10000,resistanceBottomOhms:10000,loadResistanceOhms:0}).ok,false);
+  const invalid=structuredClone(project);invalid.voltageDividerCalculator.cases[0].inputVoltageV=0;assert.equal(runVoltageDividerCalculator(invalid).state,"blocked");
+});
+test("catalogue RC timing calculator handles decimal resistance and capacitance prefixes", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/191-rc-timing-calculator.adigun.json",import.meta.url)));
+  const result=runRcTimingCalculator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"rc-timing-cases");
+  const [a,b,c]=result.result.results;assert.ok(Math.abs(a.timeConstantSeconds-0.001)<1e-12);assert.ok(Math.abs(a.cutoffFrequencyHz-159.1549430919)<1e-8);
+  assert.ok(Math.abs(b.timeConstantSeconds-0.047)<1e-12);assert.ok(Math.abs(b.cutoffFrequencyHz-3.3862753849)<1e-8);
+  assert.ok(Math.abs(c.timeConstantSeconds-2.2e-6)<1e-15);assert.ok(Math.abs(c.cutoffFrequencyHz-72343.1559509)<1e-5);
+  assert.equal(calculateRcTiming({resistanceValue:0,resistanceUnit:"kŒ©",capacitanceValue:1,capacitanceUnit:"¬µF"}).ok,false);
+  assert.equal(calculateRcTiming({resistanceValue:1,resistanceUnit:"kŒ©",capacitanceValue:1,capacitanceUnit:"mŒ©"}).ok,false);
+  const invalid=structuredClone(project);invalid.rcTimingCalculator.cases[0].capacitanceValue=-1;assert.equal(runRcTimingCalculator(invalid).state,"blocked");
+});
+test("catalogue op-amp gain calculator covers both topologies and rejects zero or invalid resistors", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/192-op-amp-gain-calculator.adigun.json",import.meta.url)));
+  const result=runOpAmpGainCalculator(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"op-amp-gain-cases");
+  assert.deepEqual(result.result.results.map(item=>item.gain),[-10,10,2]);assert.equal(result.result.results[0].phaseInverted,true);assert.equal(result.result.results[1].phaseInverted,false);
+  assert.equal(calculateOpAmpGain({configuration:"inverting",inputResistanceOhms:0,feedbackResistanceOhms:10000}).ok,false);
+  assert.equal(calculateOpAmpGain({configuration:"non-inverting",feedbackResistanceOhms:-1,groundResistanceOhms:10000}).ok,false);
+  assert.equal(calculateOpAmpGain({configuration:"buffer",feedbackResistanceOhms:10000,groundResistanceOhms:10000}).ok,false);
+  const invalid=structuredClone(project);invalid.opAmpGainCalculator.cases[0].feedbackResistanceOhms=0;assert.equal(runOpAmpGainCalculator(invalid).state,"blocked");
+});
+test("catalogue PCB trace-width advisor provides scoped external/internal estimates and rejects invalid inputs", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/193-pcb-trace-width-advisor.adigun.json",import.meta.url)));
+  const result=runPcbTraceWidthAdvisor(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"pcb-trace-width-advisory");assert.match(result.result.standardLimitation,/IPC-2152/);
+  const [external,internal]=result.result.results;assert.ok(Math.abs(external.widthMm-0.7814374629)<1e-9);assert.ok(Math.abs(internal.widthMm-2.0328625490)<1e-9);assert.ok(internal.widthMm>external.widthMm);
+  assert.equal(calculatePcbTraceWidth({currentA:0,copperThicknessUm:35,temperatureRiseC:10,layerType:"external"}).ok,false);
+  assert.equal(calculatePcbTraceWidth({currentA:1,copperThicknessUm:-1,temperatureRiseC:10,layerType:"external"}).ok,false);
+  assert.equal(calculatePcbTraceWidth({currentA:1,copperThicknessUm:35,temperatureRiseC:10,layerType:"unknown"}).ok,false);
+  const invalid=structuredClone(project);invalid.pcbTraceWidthAdvisor.cases[0].temperatureRiseC=0;assert.equal(runPcbTraceWidthAdvisor(invalid).state,"blocked");
+});
+
+test("catalogue BOM export groups verified fields and leaves unsourced cost blank", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/194-bom-export-cost-placeholder.adigun.json",import.meta.url)));
+  const result=runBomExportPlaceholder(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"bom-cost-placeholder");
+  assert.equal(result.result.itemCount,4);assert.equal(result.result.rowCount,4);assert.equal(result.result.totalCost,null);
+  assert.ok(result.result.rows.every(row=>row.unitCost===null&&row.extendedCost===null));
+  const csv=exportBomCsv(buildBomReport(project));assert.equal(csv.ok,true);
+  assert.match(csv.csv,/"Unit Cost","Extended Cost","Currency","Price Source","Price As Of"/);
+  assert.ok(csv.csv.split("\r\n").filter(Boolean).every(line=>!line.includes("$0")&&!line.includes("\"0\"")));
+  const grouped=structuredClone(project);grouped.components.push({...structuredClone(project.components[1]),instanceId:"resistor-2",reference:"R, \"2\""});
+  const groupedReport=buildBomReport(grouped);const resistorRow=groupedReport.rows.find(row=>row.libraryId==="passive.resistor");
+  assert.equal(resistorRow.quantity,2);assert.equal(resistorRow.references,"R, \"2\", R1");
+  assert.match(exportBomCsv(groupedReport).csv,/"R, ""2"", R1"/);
+  const priced=structuredClone(project);priced.components[1].verifiedPrice={unitCost:0.12,currency:"EUR",source:"https://example.com/parts/resistor",asOf:"2026-10-30"};
+  const pricedReport=buildBomReport(priced);assert.equal(pricedReport.rows.find(row=>row.libraryId==="passive.resistor").extendedCost,0.12);assert.equal(pricedReport.totalCost,null);
+  const invalid=structuredClone(project);invalid.components[0].libraryId="unknown.part";assert.equal(runBomExportPlaceholder(invalid).state,"blocked");
+});
+test("catalogue Adigun BOT component explainer cites source fields and discloses unknowns", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/195-bot-explain-component.adigun.json",import.meta.url)));
+  const result=runBotComponentExplainer(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"bot-grounded-component-explanation");assert.equal(result.result.reference,"R1");
+  assert.ok(result.result.known.some(item=>item.field==="Configured value"&&item.value==="330 Œ©"&&item.source==="Native project"));
+  assert.ok(result.result.known.some(item=>item.field==="Library description"&&item.source==="Checked-in component library"));
+  assert.match(result.result.answer,/Sources: Native project and Checked-in component library/);
+  assert.ok(result.result.unknown.some(item=>/Manufacturer is not recorded/.test(item)));
+  assert.ok(result.result.unknown.some(item=>item.includes("Manufacturer part number (MPN) is not recorded.")));
+  assert.ok(result.result.unknown.some(item=>/datasheet link is not recorded/.test(item)));
+  assert.match(result.message,/no external AI or web lookup/i);
+  assert.equal(explainComponent(project,"missing-reference").ok,false);
+  const unsupported=structuredClone(project);unsupported.components[1].libraryId="unverified.part";assert.equal(explainComponent(unsupported,"R1").ok,false);
+});
+test("catalogue BOT floating-node repair preview validates separately and requires confirmation", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/196-bot-floating-node-repair-preview.adigun.json",import.meta.url)));
+  const before=JSON.stringify(project);const result=runBotFloatingNodeRepair(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"bot-floating-node-repair-preview");assert.equal(result.result.validationValid,true);assert.equal(result.result.applied,false);
+  assert.equal(JSON.stringify(project),before);assert.equal(result.preview.candidate.components.length,project.components.length+1);
+  assert.equal(result.preview.proposal.value,"1 MŒ©");assert.equal(result.preview.proposal.from,"FLOATING");assert.equal(result.preview.proposal.to,"GND");
+  assert.equal(applyBotFloatingNodeRepairPreview(project,result.preview,{confirmed:false}).applied,false);assert.equal(JSON.stringify(project),before);
+  const accepted=applyBotFloatingNodeRepairPreview(project,result.preview,{confirmed:true});assert.equal(accepted.applied,true);assert.equal(accepted.project.components.length,project.components.length+1);
+  const changed=structuredClone(project);changed.metadata.name+=" edited";const stale=applyBotFloatingNodeRepairPreview(changed,result.preview,{confirmed:true});assert.equal(stale.applied,false);assert.equal(stale.project,changed);
+  assert.equal(validateProject(accepted.project).valid,true);
+});
+test("catalogue BOT 12 V LED proposal validates separately and rejection preserves the project", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/197-bot-circuit-proposal.adigun.json",import.meta.url)));
+  const before=JSON.stringify(project);const result=runBotCircuitProposal(project);
+  assert.equal(result.state,"complete");assert.equal(result.result.kind,"bot-12v-led-circuit-proposal");assert.equal(result.result.applied,false);
+  assert.equal(result.preview.proposal.source,"12 V");assert.equal(result.preview.proposal.resistor,"1000 Œ©");
+  assert.ok(Math.abs(result.preview.proposal.estimatedCurrentA-0.01)<1e-12);assert.ok(Math.abs(result.preview.proposal.resistorDissipationW-0.1)<1e-12);
+  assert.equal(validateProject(result.preview.candidate).valid,true);assert.equal(runSupportedAnalysis(result.preview.candidate).state,"complete");
+  assert.equal(JSON.stringify(project),before);
+  const rejected=applyBotCircuitProposal(project,result.preview,{confirmed:false});assert.equal(rejected.applied,false);assert.equal(rejected.project,project);assert.equal(JSON.stringify(project),before);
+  const stale=structuredClone(project);stale.metadata.name+=" changed";assert.equal(applyBotCircuitProposal(stale,result.preview,{confirmed:true}).applied,false);
+  const accepted=applyBotCircuitProposal(project,result.preview,{confirmed:true});assert.equal(accepted.applied,true);assert.equal(accepted.project.components.find(item=>item.libraryId==="power.dc-source").value,"12 V");
+});
+test("catalogue four-language UI sweep covers translations, accessible names, and responsive overflow guards", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/198-four-language-ui-sweep.adigun.json",import.meta.url)));
+  const result=runFourLanguageUiSweep(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"four-language-ui-sweep");assert.equal(result.result.localeCount,4);assert.equal(result.result.missingTranslations,0);
+  const html=await readFile(new URL("../index.html",import.meta.url),"utf8");const css=await readFile(new URL("../styles.css",import.meta.url),"utf8");
+  const audit=auditUiSource(html,css);assert.equal(audit.passed,true,JSON.stringify(audit));assert.equal(audit.missingTranslations.length,0);assert.equal(audit.undeclaredKeys.length,0);assert.deepEqual(audit.unlabeledButtons,[]);assert.deepEqual(audit.unlabeledControls,[]);assert.deepEqual(audit.unlabeledImages,[]);assert.deepEqual(audit.failedGuards,[]);assert.equal(audit.renderedPixelCheck,false);
+});
+test("catalogue offline recovery restores the unsaved edit and preserves a manual export on storage failure", async () => {
+  const project=JSON.parse(await readFile(new URL("../examples/199-local-offline-recovery.adigun.json",import.meta.url)));
+  const original=serializeProject(project);const result=runOfflineRecoveryScenario(project);
+  assert.equal(result.state,"complete",result.message);assert.equal(result.result.kind,"offline-recovery-scenario");
+  assert.equal(result.result.editedValue,"470 Œ©");assert.equal(result.result.draftSaved,true);assert.equal(result.result.storageFallbackAvailable,true);assert.equal(result.result.silentLoss,false);
+  assert.equal(serializeProject(project),original);
+});
+test("catalogue release candidate passes build, import, edit, simulation, ERC/DRC, export, sync and BOT-preview gates", async () => {
+  const candidate=JSON.parse(await readFile(new URL("../examples/200-release-candidate-e2e.adigun.json",import.meta.url)));
+  const ids=["001-led-current-limiter","122-555-timer-pcb","182-schematic-pcb-sync","195-bot-explain-component"];
+  const projects=Object.fromEntries(await Promise.all(ids.map(async id=>[id,JSON.parse(await readFile(new URL("../examples/"+id+".adigun.json",import.meta.url)))])));
+  const result=runReleaseCandidateE2EFixtures({candidate,projects});
+  assert.equal(result.state,"complete",result.message);assert.equal(result.result.kind,"release-candidate-e2e");
+  assert.deepEqual(result.result.checks,{build:true,import:true,edit:true,simulation:true,erc:true,drc:true,export:true,schematicPcbSync:true,botPreview:true});
+  assert.equal(result.result.fixtureCount,4);assert.equal(result.result.pcbDrc,"passed");assert.equal(result.result.botMutation,false);
+});
+
+function makeProject() {
+ return {
+  metadata:{updatedAt:"2026-01-01T00:00:00.000Z"},
+  components:[{instanceId:"r1",position:{pcb:[100,100],schematic:[120,120]}},{instanceId:"d1",position:{pcb:[300,100]}}],
+  pcbFabrication:{
+   board:{widthMm:40,heightMm:20},
+   parts:[{instanceId:"r1",reference:"R1",footprint:"R_0603"},{instanceId:"d1",reference:"D1",footprint:"D_SOD-123"}],
+   pads:[
+    {instanceId:"r1",number:"1",netId:"VCC",xMm:5,yMm:5,technology:"through-hole",diameterMm:1},
+    {instanceId:"r1",number:"2",netId:"SIG",xMm:10,yMm:5,technology:"smd",widthMm:1,heightMm:1},
+    {instanceId:"d1",number:"1",netId:"SIG",xMm:20,yMm:10,technology:"through-hole",diameterMm:1}
+   ],
+   routes:[
+    {netId:"VCC",widthMm:.25,pointsMm:[[5,5],[6,5]]},
+    {netId:"SIG",widthMm:.25,pointsMm:[[10,5],[15,5],[20,10]]},
+    {netId:"GND",widthMm:.25,pointsMm:[[2,2],[2,3]]}
+   ]
+  }
+ };
+}
+test("PCB footprint movement keeps pad anchors and attached route endpoints together",()=>{
+ const project=makeProject(),before=structuredClone(project),result=movePcbFootprint(project,"r1",{x:2,y:-1});
+ assert.equal(result.status,"complete");assert.equal(result.movedPadCount,2);assert.equal(result.updatedRoutePoints,2);
+ assert.deepEqual(result.project.pcbFabrication.pads.slice(0,2).map(p=>[p.xMm,p.yMm]),[[7,4],[12,4]]);
+ assert.deepEqual(result.project.pcbFabrication.routes.map(r=>r.pointsMm),[[[7,4],[6,5]],[[12,4],[15,5],[20,10]],[[2,2],[2,3]]]);
+ assert.deepEqual(result.project.components[0].position,{pcb:[120.8,89.6],schematic:[120,120]});
+ assert.deepEqual(project,before,"the operation must not mutate the source project");
+});
+test("PCB footprint movement rejects board-edge overflow without changing the source",()=>{
+ const project=makeProject(),before=structuredClone(project),result=movePcbFootprint(project,"r1",{x:31,y:0});
+ assert.deepEqual(result,{status:"blocked",code:"OUT_OF_BOUNDS"});assert.deepEqual(project,before);
+});
+test("PCB footprint movement rejects invalid geometry and unknown footprints",()=>{
+ const project=makeProject();
+ assert.deepEqual(movePcbFootprint(project,"missing",{x:1,y:0}),{status:"blocked",code:"UNKNOWN_FOOTPRINT"});
+ assert.deepEqual(movePcbFootprint(project,"d1",{x:Number.NaN,y:0}),{status:"blocked",code:"INVALID_DELTA"});
+ project.pcbFabrication.pads.find(p=>p.instanceId==="r1").xMm=Number.NaN;
+ assert.deepEqual(movePcbFootprint(project,"r1",{x:1,y:0}),{status:"blocked",code:"INVALID_FOOTPRINT_GEOMETRY"});
+});
+test("PCB footprint movement reports unchanged for a zero delta",()=>{
+ const project=makeProject(),result=movePcbFootprint(project,"r1",{x:0,y:0});
+ assert.equal(result.status,"unchanged");assert.equal(result.project,project);
+});
