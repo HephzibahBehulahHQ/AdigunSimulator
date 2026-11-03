@@ -532,6 +532,9 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(coverageFile.ledger.total, 14);
   assert.equal(coverageFile.ledger.verified, 0);
   assert.equal(coverageFile.ledger.byStatus.candidate, 14);
+  const tiOrGate = ledger.records.find((record) => record.id === "ti.sn74hc32n");
+  assert.equal(tiOrGate.type, "Quad 2-input OR gate");
+  assert.equal(tiOrGate.typeCode, "F06");
   const readiness = getPartVerificationReadiness(ledger.records[0]);
   assert.equal(readiness.currentStatus, "candidate");
   assert.equal(readiness.verified, false);

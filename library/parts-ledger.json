@@ -1555,7 +1555,7 @@
       "manufacturerPartNumber": "SN74HC32N",
       "category": "Digital logic",
       "type": "Quad 2-input OR gate",
-      "typeCode": "F05",
+      "typeCode": "F06",
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
