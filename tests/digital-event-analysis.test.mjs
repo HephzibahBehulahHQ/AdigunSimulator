@@ -60,6 +60,34 @@ function makeDFlipFlopCircuit() {
   return { ...project, digitalEventSimulation: { stopTimeNs: 400, events: [], probeNets, initialStates: { U1: false } } };
 }
 
+function makeDecoderCircuit() {
+  let project = createEmptyProject({ name: "Two-to-four decoder event verification" });
+  for (const part of ["power.dc-source", "power.dc-source", "power.dc-source", "active.logic-decoder-2to4-ideal", "ground.signal", ...Array(6).fill("instrument.logic-probe")]) project = addComponent(project, part);
+  project = {
+    ...project,
+    components: project.components.map((part, index) => ({ ...part, reference: ["VCC", "A0", "A1", "U1", "GND", "PA0", "PA1", "PY0", "PY1", "PY2", "PY3"][index], value: index === 0 ? "5 V" : "0 V" }))
+  };
+  const pin = (reference, name) => `${project.components.find((part) => part.reference === reference).instanceId}:${name}`;
+  const connections = [
+    [pin("VCC", "+"), pin("U1", "VCC")],
+    [pin("VCC", "-"), pin("A0", "-")],
+    [pin("VCC", "-"), pin("A1", "-")],
+    [pin("VCC", "-"), pin("U1", "GND")],
+    [pin("VCC", "-"), pin("GND", "0")],
+    [pin("A0", "+"), pin("U1", "A0")],
+    [pin("A1", "+"), pin("U1", "A1")],
+    [pin("A0", "+"), pin("PA0", "IN")],
+    [pin("A1", "+"), pin("PA1", "IN")]
+  ];
+  for (let index = 0; index < 4; index += 1) connections.push([pin("U1", `Y${index}`), pin(`PY${index}`, "IN")]);
+  for (const [first, second] of connections) project = connectPins(project, first, second);
+  const probeNets = ["A0:+", "A1:+", "U1:Y0", "U1:Y1", "U1:Y2", "U1:Y3"].map((endpoint) => {
+    const [reference, terminal] = endpoint.split(":");
+    return project.nets.find((net) => net.endpoints.includes(pin(reference, terminal))).id;
+  });
+  return { ...project, digitalEventSimulation: { stopTimeNs: 40, events: [], probeNets } };
+}
+
 test("digital event engine evaluates full truth tables for AND, OR, XOR and NOR gates", () => {
   const operations = [
     ["active.logic-and-ideal", (a, b) => a && b],
@@ -79,6 +107,33 @@ test("digital event engine evaluates full truth tables for AND, OR, XOR and NOR 
       assert.equal(result.result.trace[project.digitalEventSimulation.probeNets[2]].at(-1).high, truth(a, b), libraryId);
       assert.equal(result.analysisSettings.timingModel, "zero-delay; simultaneous events atomic");
     }
+  }
+});
+
+test("digital event engine decodes all two-bit addresses with exactly one active-high output", () => {
+  const project = makeDecoderCircuit();
+  project.digitalEventSimulation.events = [
+    { timeNs: 10, sourceReference: "A0", high: true },
+    { timeNs: 20, sourceReference: "A1", high: true },
+    { timeNs: 30, sourceReference: "A0", high: false },
+    { timeNs: 40, sourceReference: "A1", high: false }
+  ];
+  const result = runProjectAnalysis(project);
+  assert.equal(result.state, "complete", result.message);
+  assert.ok(result.modelIds.includes("ideal-digital-decoder-2to4-v1"));
+  assert.match(result.message, /zero-delay.*active-high two-to-four decoder/i);
+  const traces = project.digitalEventSimulation.probeNets.map((net) => result.result.trace[net]);
+  assert.deepEqual(traces, [
+    [{ timeNs: 0, high: false }, { timeNs: 10, high: true }, { timeNs: 30, high: false }],
+    [{ timeNs: 0, high: false }, { timeNs: 20, high: true }, { timeNs: 40, high: false }],
+    [{ timeNs: 0, high: true }, { timeNs: 10, high: false }, { timeNs: 40, high: true }],
+    [{ timeNs: 0, high: false }, { timeNs: 10, high: true }, { timeNs: 20, high: false }],
+    [{ timeNs: 0, high: false }, { timeNs: 30, high: true }, { timeNs: 40, high: false }],
+    [{ timeNs: 0, high: false }, { timeNs: 20, high: true }, { timeNs: 30, high: false }]
+  ]);
+  for (const timeNs of [0, 10, 20, 30, 40]) {
+    const activeOutputs = traces.slice(2).filter((series) => series.filter((event) => event.timeNs <= timeNs).at(-1).high);
+    assert.equal(activeOutputs.length, 1, `one-hot output at ${timeNs} ns`);
   }
 });
 
