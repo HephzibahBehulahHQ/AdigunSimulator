@@ -88,6 +88,33 @@ function makeDecoderCircuit() {
   return { ...project, digitalEventSimulation: { stopTimeNs: 40, events: [], probeNets } };
 }
 
+function makeMuxCircuit(dataBits, address = 0) {
+  let project = createEmptyProject({ name: "Four-to-one multiplexer event verification" });
+  for (const part of [...Array(7).fill("power.dc-source"), "active.logic-mux4-ideal", "ground.signal", "instrument.logic-probe"]) project = addComponent(project, part);
+  const references = ["VCC", "D0", "D1", "D2", "D3", "S0", "S1", "U1", "GND", "PY"];
+  project = {
+    ...project,
+    components: project.components.map((part, index) => ({ ...part, reference: references[index], value: index === 0 ? "5 V" : index >= 1 && index <= 4 ? (dataBits[index - 1] ? "5 V" : "0 V") : index === 5 ? (address & 1 ? "5 V" : "0 V") : index === 6 ? (address & 2 ? "5 V" : "0 V") : "0 V" }))
+  };
+  const pin = (reference, name) => `${project.components.find((part) => part.reference === reference).instanceId}:${name}`;
+  const connections = [
+    [pin("VCC", "+"), pin("U1", "VCC")],
+    [pin("VCC", "-"), pin("U1", "GND")],
+    [pin("VCC", "-"), pin("GND", "0")],
+    [pin("S0", "+"), pin("U1", "S0")],
+    [pin("S1", "+"), pin("U1", "S1")],
+    [pin("U1", "Y"), pin("PY", "IN")]
+  ];
+  for (let index = 0; index < 4; index += 1) {
+    connections.push([pin("VCC", "-"), pin(`D${index}`, "-")]);
+    connections.push([pin(`D${index}`, "+"), pin("U1", `I${index}`)]);
+  }
+  for (const selector of ["S0", "S1"]) connections.push([pin("VCC", "-"), pin(selector, "-")]);
+  for (const [first, second] of connections) project = connectPins(project, first, second);
+  const probeNet = project.nets.find((net) => net.endpoints.includes(pin("U1", "Y"))).id;
+  return { ...project, digitalEventSimulation: { stopTimeNs: 40, events: [], probeNets: [probeNet] } };
+}
+
 test("digital event engine evaluates full truth tables for AND, OR, XOR and NOR gates", () => {
   const operations = [
     ["active.logic-and-ideal", (a, b) => a && b],
@@ -135,6 +162,36 @@ test("digital event engine decodes all two-bit addresses with exactly one active
     const activeOutputs = traces.slice(2).filter((series) => series.filter((event) => event.timeNs <= timeNs).at(-1).high);
     assert.equal(activeOutputs.length, 1, `one-hot output at ${timeNs} ns`);
   }
+});
+
+test("digital event engine multiplexer matches all 64 data and selector vectors", () => {
+  for (let dataMask = 0; dataMask < 16; dataMask += 1) {
+    const dataBits = [0, 1, 2, 3].map((bit) => Boolean(dataMask & (1 << bit)));
+    for (let address = 0; address < 4; address += 1) {
+      const project = makeMuxCircuit(dataBits, address);
+      const result = runProjectAnalysis(project);
+      assert.equal(result.state, "complete", result.message);
+      assert.equal(result.result.trace[project.digitalEventSimulation.probeNets[0]].at(-1).high, dataBits[address], `data=${dataMask.toString(2)} select=${address}`);
+      assert.ok(result.modelIds.includes("ideal-digital-mux4-v1"));
+    }
+  }
+});
+
+test("digital event engine records multiplexer output changes as address inputs change", () => {
+  const project = makeMuxCircuit([false, true, false, true]);
+  project.digitalEventSimulation.events = [
+    { timeNs: 10, sourceReference: "S0", high: true },
+    { timeNs: 20, sourceReference: "S1", high: true },
+    { timeNs: 30, sourceReference: "S0", high: false },
+    { timeNs: 40, sourceReference: "S1", high: false }
+  ];
+  const result = runProjectAnalysis(project);
+  assert.equal(result.state, "complete", result.message);
+  assert.deepEqual(result.result.trace[project.digitalEventSimulation.probeNets[0]], [
+    { timeNs: 0, high: false },
+    { timeNs: 10, high: true },
+    { timeNs: 30, high: false }
+  ]);
 });
 
 test("digital event queue sorts inputs and records only settled probe transitions", () => {

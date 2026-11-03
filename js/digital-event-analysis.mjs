@@ -9,7 +9,8 @@ const LOGIC_MODELS = new Map([
   ["active.logic-or-ideal", { kind: "gate", operation: "or", inputs: ["A", "B"], outputs: ["Y"] }],
   ["active.logic-xor-ideal", { kind: "gate", operation: "xor", inputs: ["A", "B"], outputs: ["Y"] }],
   ["active.logic-nor-ideal", { kind: "gate", operation: "nor", inputs: ["A", "B"], outputs: ["Y"] }],
-  ["active.logic-decoder-2to4-ideal", { kind: "decoder-2to4", inputs: ["A0", "A1"], outputs: ["Y0", "Y1", "Y2", "Y3"] }]
+  ["active.logic-decoder-2to4-ideal", { kind: "decoder-2to4", inputs: ["A0", "A1"], outputs: ["Y0", "Y1", "Y2", "Y3"] }],
+  ["active.logic-mux4-ideal", { kind: "mux4", inputs: ["I0", "I1", "I2", "I3", "S0", "S1"], outputs: ["Y"] }]
 ]);
 
 function voltage(value) {
@@ -46,7 +47,7 @@ export function runDigitalEventSimulation(project) {
   const supply = supplySources[0];
   const supplyVoltage = supply ? voltage(supply.value) : Number.NaN;
   if (supplySources.length !== 1 || !groundNet || !Number.isFinite(supplyVoltage) || supplyVoltage <= 0 || pinToNet.get(`${supply.instanceId}:-`) !== groundNet) {
-    return blocked("Connect one positive DC supply to every gate and D flip-flop VCC pin and connect its negative terminal to the shared signal ground.", validation);
+    return blocked("Connect one positive DC supply to every logic component and D flip-flop VCC pin and connect its negative terminal to the shared signal ground.", validation);
   }
   const thresholdLowV = supplyVoltage * 0.2;
   const thresholdHighV = supplyVoltage * 0.8;
@@ -149,6 +150,8 @@ export function runDigitalEventSimulation(project) {
         if (inputs.some((level) => level !== 0 && level !== 1)) continue;
         const outputs = model.kind === "decoder-2to4"
           ? model.outputNets.map((_, index) => Number(index === (inputs[0] | (inputs[1] << 1))))
+          : model.kind === "mux4"
+            ? [inputs[inputs[4] | (inputs[5] << 1)]]
           : [model.operation === "and" ? inputs[0] & inputs[1] : model.operation === "or" ? inputs[0] | inputs[1] : model.operation === "xor" ? inputs[0] ^ inputs[1] : Number(!(inputs[0] | inputs[1]))];
         model.outputNets.forEach((net, index) => {
           if (values.get(net) !== outputs[index]) { values.set(net, outputs[index]); changed = true; }
@@ -169,7 +172,7 @@ export function runDigitalEventSimulation(project) {
     return true;
   };
   const initial = evaluate();
-  if (!initial) return blocked("The gate network is floating, cyclic without a stable state, or has an unresolved input. No logic values were fabricated.", validation);
+  if (!initial) return blocked("The logic network is floating, cyclic without a stable state, or has an unresolved input. No logic values were fabricated.", validation);
   if (flipFlopModels.some((flipFlop) => initial.get(flipFlop.presetNet) !== 1 || initial.get(flipFlop.clearNet) !== 1)) return blocked("The D flip-flop preset and clear pins must remain at a defined inactive-high level; asynchronous controls are not modeled.", validation);
   if (!record(0, initial, true)) return blocked("Every probed net must resolve to a logic 0 or 1.", validation);
   const orderedEvents = [...events].sort((a, b) => a.timeNs - b.timeNs || a.sourceReference.localeCompare(b.sourceReference));
@@ -191,19 +194,19 @@ export function runDigitalEventSimulation(project) {
       }
     }
     if (flipFlopModels.length) values = evaluate();
-    if (!values || !record(timeNs, values)) return blocked(`The gate network did not settle to defined logic levels at ${timeNs} ns.`, validation);
+    if (!values || !record(timeNs, values)) return blocked(`The logic network did not settle to defined logic levels at ${timeNs} ns.`, validation);
   }
   return {
     state: "complete",
     engine: "Ideal digital discrete-event logic simulation",
     engineId: "adigun-digital-events",
     engineVersion: "1.0.0",
-    message: "Simulates deterministic zero-delay AND, OR, XOR, and NOR gates, an ideal active-high two-to-four decoder, and positive-edge D flip-flops with explicit initial state. D flip-flop PRE and CLR must remain inactive-high. Simultaneous input changes are applied atomically. Gate delay, setup/hold time, asynchronous controls, metastability, electrical loading, and analog voltage waveforms are not modeled.",
+    message: "Simulates deterministic zero-delay AND, OR, XOR, and NOR gates, an ideal active-high two-to-four decoder, a four-to-one multiplexer, and positive-edge D flip-flops with explicit initial state. D flip-flop PRE and CLR must remain inactive-high. Simultaneous input changes are applied atomically. Gate delay, setup/hold time, asynchronous controls, metastability, electrical loading, and analog voltage waveforms are not modeled.",
     validation,
     convergenceState: "settled",
     warnings: [],
     analysisSettings: { stopTimeNs, eventCount: events.length, probes, thresholdLowV, thresholdHighV, timingModel: "zero-delay; simultaneous events atomic" },
-    modelIds: [...new Set([...logicModels.map((model) => model.kind === "decoder-2to4" ? "ideal-digital-decoder-2to4-v1" : `ideal-digital-${model.operation}-v1`), ...(flipFlopModels.length ? ["ideal-positive-edge-d-flip-flop-v1"] : []), "ideal-dc-logic-input-v1"])],
+    modelIds: [...new Set([...logicModels.map((model) => model.kind === "decoder-2to4" ? "ideal-digital-decoder-2to4-v1" : model.kind === "mux4" ? "ideal-digital-mux4-v1" : `ideal-digital-${model.operation}-v1`), ...(flipFlopModels.length ? ["ideal-positive-edge-d-flip-flop-v1"] : []), "ideal-dc-logic-input-v1"])],
     timestamp: new Date().toISOString(),
     result: { kind: "digital-event-simulation", stopTimeNs, processedEvents: events.length, probeNets: probes, trace }
   };
