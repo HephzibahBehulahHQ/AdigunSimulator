@@ -8,6 +8,7 @@ const expected = {
   "microchip.atmega328p-pu": { count: 28, bodyLength: [34.544, 34.798], bodyWidth: [7.112, 7.493] },
   "ti.lm555p": { count: 8, bodyLength: [9.02, 10.16], bodyWidth: [6.10, 6.60] },
   "ti.sn74hc00n": { count: 14, bodyLength: { nominal: 19.30 }, bodyWidth: { nominal: 6.40 } },
+  "ti.sn74hc138n": { count: 16, bodyLength: { minimum: 18.92, maximum: 19.69 }, bodyWidth: { minimum: 6.10, maximum: 6.60 } },
   "microchip.mcp6002-i-p": { count: 8, bodyLength: { minimum: 8.8392, typical: 9.271, maximum: 10.16 }, bodyWidth: { minimum: 6.096, typical: 6.35, maximum: 7.112 } },
   "ti.lm7805ct-nopb": { count: 3, bodyLength: { minimum: 8.39, typical: 8.64, maximum: 8.89 }, bodyWidth: { minimum: 10.04, typical: 10.16, maximum: 10.54 }, rowPitch: null, padDiameter: 3.5, padDrill: 2.0, layout: "inline", overallLengthMax: 16.26 }
 };

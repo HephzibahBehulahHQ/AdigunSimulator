@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "ti.sn74hc138n",
+  "package": "Texas Instruments N / R-PDIP-T16",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -3.81,
+    "yMm": -8.89
+  },
+  "packageOutline": {
+    "bodyLengthMm": {
+      "minimum": 18.92,
+      "maximum": 19.69
+    },
+    "bodyWidthMm": {
+      "minimum": 6.1,
+      "maximum": 6.6
+    },
+    "overallLengthMaxMm": null,
+    "leadRowPitchMm": 7.62,
+    "leadPitchMm": 2.54,
+    "layout": "dual-row",
+    "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc138.pdf",
+    "drawing": "N (R-PDIP-T16), package outline drawing 4040049/E"
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.8,
+    "drillMm": 0.8,
+    "source": "AdigunSimulator CC0 educational default selected against the stated 0.53 mm maximum lead width; not a manufacturer land-pattern recommendation or fabrication rule."
+  },
+  "pads": [
+    {
+      "number": 1,
+      "xMm": -3.81,
+      "yMm": -8.89
+    },
+    {
+      "number": 2,
+      "xMm": -3.81,
+      "yMm": -6.3500000000000005
+    },
+    {
+      "number": 3,
+      "xMm": -3.81,
+      "yMm": -3.8100000000000005
+    },
+    {
+      "number": 4,
+      "xMm": -3.81,
+      "yMm": -1.2700000000000005
+    },
+    {
+      "number": 5,
+      "xMm": -3.81,
+      "yMm": 1.2699999999999996
+    },
+    {
+      "number": 6,
+      "xMm": -3.81,
+      "yMm": 3.8099999999999987
+    },
+    {
+      "number": 7,
+      "xMm": -3.81,
+      "yMm": 6.35
+    },
+    {
+      "number": 8,
+      "xMm": -3.81,
+      "yMm": 8.89
+    },
+    {
+      "number": 9,
+      "xMm": 3.81,
+      "yMm": 8.89
+    },
+    {
+      "number": 10,
+      "xMm": 3.81,
+      "yMm": 6.3500000000000005
+    },
+    {
+      "number": 11,
+      "xMm": 3.81,
+      "yMm": 3.8100000000000005
+    },
+    {
+      "number": 12,
+      "xMm": 3.81,
+      "yMm": 1.2700000000000005
+    },
+    {
+      "number": 13,
+      "xMm": 3.81,
+      "yMm": -1.2699999999999996
+    },
+    {
+      "number": 14,
+      "xMm": 3.81,
+      "yMm": -3.8099999999999987
+    },
+    {
+      "number": 15,
+      "xMm": 3.81,
+      "yMm": -6.35
+    },
+    {
+      "number": 16,
+      "xMm": 3.81,
+      "yMm": -8.89
+    }
+  ],
+  "limitations": [
+    "Generated from the published package outline and pin numbering; the manufacturer does not publish this generated pad artwork as an approved land pattern.",
+    "Check the exact physical part, finished-hole tolerance, annular ring, solder process, courtyard, board rules, and assembly constraints before use.",
+    "This asset is educational and has not passed independent footprint review or manufacturing DRC."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

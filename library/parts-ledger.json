@@ -1864,6 +1864,172 @@
         "assetPath": "library/assets/footprints/ti.sn74hc86n/footprint.json",
         "designNote": "The educational footprint uses the published package outline and conventional 2.54 mm lead pitch / 7.62 mm row spacing. Pad and drill sizes are CC0 defaults, not TI-recommended land pattern dimensions; independent physical review remains required."
       }
+    },
+    {
+      "id": "ti.sn74hc138n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC138N",
+      "category": "Digital logic",
+      "type": "3-to-8 line decoder/demultiplexer with active-low outputs",
+      "typeCode": "F21",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC138 3-Line To 8-Line Decoders/Demultiplexers datasheet (Rev. G)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc138.pdf",
+        "accessedAt": "2026-11-03",
+        "sha256": "795ac76468c240b976a632b6107738765800f7f672ad5b58925fbfb5f5064938",
+        "sha256Bytes": 1989229,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-03.md"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC138/part-details/SN74HC138N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc138.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-16",
+        "pinCount": 16,
+        "sourceUrl": "https://www.ti.com/product/SN74HC138/part-details/SN74HC138N"
+      },
+      "package": "PDIP-16",
+      "ratings": [
+        {
+          "name": "recommended supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "symbolPinMap": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "G2A_N",
+        "5": "G2B_N",
+        "6": "G1",
+        "7": "Y7_N",
+        "8": "GND",
+        "9": "Y6_N",
+        "10": "Y5_N",
+        "11": "Y4_N",
+        "12": "Y3_N",
+        "13": "Y2_N",
+        "14": "Y1_N",
+        "15": "Y0_N",
+        "16": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "input",
+        "3": "input",
+        "4": "input",
+        "5": "input",
+        "6": "input",
+        "7": "output",
+        "8": "power-in",
+        "9": "output",
+        "10": "output",
+        "11": "output",
+        "12": "output",
+        "13": "output",
+        "14": "output",
+        "15": "output",
+        "16": "power-in"
+      },
+      "modelStatus": "not-modelled",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "The simulator does not implement the SN74HC138 decoder truth table or its electrical timing, thresholds, output drive, loading, or supply current. This record cannot be inserted as a simulated device."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/SN74HC138/part-details/SN74HC138N",
+        "checkedAt": "2026-11-03",
+        "availabilityNote": "TI listed the orderable as active; the page showed out of stock at the time checked."
+      },
+      "warnings": [
+        "Unverified manufacturer-backed candidate; not a verified part or manufacturer-specific simulation model.",
+        "TI specifies three enable inputs and eight active-low outputs; unused inputs must be held at a defined logic level.",
+        "The ideal generic digital-event engine does not model this decoder, propagation delay, output loading, logic thresholds, or device power.",
+        "Verify supply, input levels, output loads, bypassing, pin orientation, and physical package fit against the TI datasheet before hardware use."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-16 through-hole package intended to straddle a solderless board center trench; verify exact trench and physical fit.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC138N 3-to-8 decoder",
+          "description": "Three address inputs select one of eight active-low outputs when all three enable inputs are active. The simulator does not model this IC."
+        },
+        "de": {
+          "name": "SN74HC138N 3-zu-8-Decoder",
+          "description": "Drei Adresseingänge wählen einen von acht aktiv niedrigen Ausgängen, wenn alle drei Freigabeeingänge aktiv sind. Der Simulator modelliert diesen IC nicht."
+        },
+        "yo": {
+          "name": "SN74HC138N decoder 3 sí 8",
+          "description": "Input address mẹ́ta yan ọkan lára output mẹ́jọ tó ń ṣiṣẹ́ low bí enable mẹ́tẹ̀ẹ̀ta bá ṣiṣẹ́. Simulator kò model IC yìí."
+        },
+        "pcm": {
+          "name": "SN74HC138N 3-to-8 decoder",
+          "description": "Three address input choose one of eight active-low output when all three enable input dey active. Simulator no model this IC."
+        }
+      },
+      "evidenceNote": "library/evidence/ti.sn74hc138n.md",
+      "notes": "TI lists the exact SN74HC138N PDIP-16 orderable as active; its product page showed out of stock when checked. Rev. G datasheet provides the 16-pin map, active-low outputs, recommended 2 V to 6 V supply, and -40 °C to +85 °C range. The TI N-package outline is recorded, but the generated CC0 pads remain educational defaults. The decoder model and independent electrical/physical review remain outstanding.",
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc138.pdf",
+        "drawing": "N (R-PDIP-T16), package outline drawing 4040049/E",
+        "assetPath": "library/assets/footprints/ti.sn74hc138n/footprint.json",
+        "designNote": "Pad diameter and drill are application-selected educational defaults, not sourced manufacturer recommendations."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14",
+        "15": "15",
+        "16": "16"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc138n/footprint.json",
+        "sha256": "d12a26530b04dd72d9b9bd5d8ae5823de37ea30771e31704a4c1ef2e83ff3bf2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc138n/symbol.svg",
+        "sha256": "9257c35b0a9ed7c239c6eb017e0c89a599e6dbe5e6a7649587af65ee65a3648b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     }
   ],
   "lastUpdated": "2026-11-03"

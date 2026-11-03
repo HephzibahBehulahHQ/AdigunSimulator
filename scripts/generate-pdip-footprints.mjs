@@ -38,6 +38,17 @@ const configs = [
     drawing: "N (PDIP-14), SN74HC00 device information table; nominal body size 19.30 × 6.40 mm"
   },
   {
+    partId: "ti.sn74hc138n",
+    manufacturer: "Texas Instruments",
+    package: "N / R-PDIP-T16",
+    pinCount: 16,
+    leadWidthMaxMm: 0.53,
+    bodyLengthMm: { minimum: 18.92, maximum: 19.69 },
+    bodyWidthMm: { minimum: 6.10, maximum: 6.60 },
+    sourceUrl: "https://www.ti.com/lit/ds/symlink/sn74hc138.pdf",
+    drawing: "N (R-PDIP-T16), package outline drawing 4040049/E"
+  },
+  {
     partId: "microchip.mcp6002-i-p",
     manufacturer: "Microchip",
     package: "P / 8-Lead PDIP, 300 mil body",
@@ -85,9 +96,12 @@ function makePads(pinCount, layout) {
   return pads;
 }
 
+const requestedPartId = process.argv[2];
+const selectedConfigs = requestedPartId ? configs.filter((config) => config.partId === requestedPartId) : configs;
+if (requestedPartId && selectedConfigs.length === 0) throw new Error(`No PDIP footprint configuration for ${requestedPartId}`);
 const ledger = JSON.parse(await readFile("library/parts-ledger.json", "utf8"));
 const taxonomy = JSON.parse(await readFile("library/component-types.json", "utf8"));
-for (const config of configs) {
+for (const config of selectedConfigs) {
   const record = ledger.records.find((item) => item.id === config.partId);
   if (!record) throw new Error(`Missing part ledger record: ${config.partId}`);
   const pads = makePads(config.pinCount, config.layout);
@@ -149,4 +163,4 @@ for (const config of configs) {
 
 await writeFile("library/parts-ledger.json", `${JSON.stringify(ledger, null, 2)}\n`, "utf8");
 await writeFile("library/parts-coverage.json", `${JSON.stringify(getLibraryCoverage(ledger, taxonomy), null, 2)}\n`, "utf8");
-process.stdout.write(`Generated ${configs.length} through-hole footprint candidates (${configs.map(({ pinCount }) => pinCount).join(" and ")} pins)\n`);
+process.stdout.write(`Generated ${selectedConfigs.length} through-hole footprint candidates (${selectedConfigs.map(({ pinCount }) => pinCount).join(" and ")} pins)\n`);
