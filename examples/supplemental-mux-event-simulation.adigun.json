@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "id": "8b63de18-18a4-47c8-91b2-a59b8ff047e5",
+  "metadata": {
+    "name": "Four-to-one multiplexer event simulation",
+    "locale": "en",
+    "createdAt": "2026-11-03T06:04:35.743Z",
+    "updatedAt": "2026-11-03T06:04:35.758Z"
+  },
+  "components": [
+    {
+      "instanceId": "290fed80-7c41-402a-a94c-93abcd50f86b",
+      "libraryId": "power.dc-source",
+      "reference": "VCC",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          48,
+          60
+        ],
+        "schematic": [
+          48,
+          60
+        ],
+        "pcb": [
+          48,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "fddedc94-daa7-4198-8b43-1aad1afe6004",
+      "libraryId": "power.dc-source",
+      "reference": "D0",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          120,
+          60
+        ],
+        "schematic": [
+          120,
+          60
+        ],
+        "pcb": [
+          120,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "c6ac8585-3400-4bcd-862b-042ccc77ef62",
+      "libraryId": "power.dc-source",
+      "reference": "D1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          192,
+          60
+        ],
+        "schematic": [
+          192,
+          60
+        ],
+        "pcb": [
+          192,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "a380e4fe-4644-439d-8e5a-80ef90955249",
+      "libraryId": "power.dc-source",
+      "reference": "D2",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          264,
+          60
+        ],
+        "schematic": [
+          264,
+          60
+        ],
+        "pcb": [
+          264,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "cdddbbc8-443d-4170-bc29-e1dcd8babb9b",
+      "libraryId": "power.dc-source",
+      "reference": "D3",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          336,
+          60
+        ],
+        "schematic": [
+          336,
+          60
+        ],
+        "pcb": [
+          336,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "a7fc906e-e011-477f-8922-8e00a273ec80",
+      "libraryId": "power.dc-source",
+      "reference": "S0",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          408,
+          60
+        ],
+        "schematic": [
+          408,
+          60
+        ],
+        "pcb": [
+          408,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "0b9e8e2d-040f-4588-8af1-5a5580b9a75a",
+      "libraryId": "power.dc-source",
+      "reference": "S1",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          480,
+          60
+        ],
+        "schematic": [
+          480,
+          60
+        ],
+        "pcb": [
+          480,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "b8c869ac-52f5-458c-8804-fa7dbdf51465",
+      "libraryId": "active.logic-mux4-ideal",
+      "reference": "U1",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          552,
+          60
+        ],
+        "schematic": [
+          552,
+          60
+        ],
+        "pcb": [
+          552,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "3e95e3ee-b425-4543-8f60-b78dcef42a59",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          48,
+          108
+        ],
+        "schematic": [
+          48,
+          108
+        ],
+        "pcb": [
+          48,
+          108
+        ]
+      }
+    },
+    {
+      "instanceId": "c984b358-b095-462a-b9c0-1e16781e9293",
+      "libraryId": "instrument.logic-probe",
+      "reference": "PS0",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          120,
+          108
+        ],
+        "schematic": [
+          120,
+          108
+        ],
+        "pcb": [
+          120,
+          108
+        ]
+      }
+    },
+    {
+      "instanceId": "2b94e966-3367-4da6-91d1-c643c7ad2411",
+      "libraryId": "instrument.logic-probe",
+      "reference": "PS1",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          192,
+          108
+        ],
+        "schematic": [
+          192,
+          108
+        ],
+        "pcb": [
+          192,
+          108
+        ]
+      }
+    },
+    {
+      "instanceId": "29b7450d-4515-4a9b-adde-9184de470308",
+      "libraryId": "instrument.logic-probe",
+      "reference": "PY",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          264,
+          108
+        ],
+        "schematic": [
+          264,
+          108
+        ],
+        "pcb": [
+          264,
+          108
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "N1",
+      "endpoints": [
+        "290fed80-7c41-402a-a94c-93abcd50f86b:+",
+        "b8c869ac-52f5-458c-8804-fa7dbdf51465:VCC"
+      ]
+    },
+    {
+      "id": "N2",
+      "endpoints": [
+        "290fed80-7c41-402a-a94c-93abcd50f86b:-",
+        "b8c869ac-52f5-458c-8804-fa7dbdf51465:GND",
+        "3e95e3ee-b425-4543-8f60-b78dcef42a59:0",
+        "fddedc94-daa7-4198-8b43-1aad1afe6004:-",
+        "c6ac8585-3400-4bcd-862b-042ccc77ef62:-",
+        "a380e4fe-4644-439d-8e5a-80ef90955249:-",
+        "cdddbbc8-443d-4170-bc29-e1dcd8babb9b:-",
+        "a7fc906e-e011-477f-8922-8e00a273ec80:-",
+        "0b9e8e2d-040f-4588-8af1-5a5580b9a75a:-"
+      ]
+    },
+    {
+      "id": "N3",
+      "endpoints": [
+        "a7fc906e-e011-477f-8922-8e00a273ec80:+",
+        "b8c869ac-52f5-458c-8804-fa7dbdf51465:S0",
+        "c984b358-b095-462a-b9c0-1e16781e9293:IN"
+      ]
+    },
+    {
+      "id": "N4",
+      "endpoints": [
+        "0b9e8e2d-040f-4588-8af1-5a5580b9a75a:+",
+        "b8c869ac-52f5-458c-8804-fa7dbdf51465:S1",
+        "2b94e966-3367-4da6-91d1-c643c7ad2411:IN"
+      ]
+    },
+    {
+      "id": "N5",
+      "endpoints": [
+        "b8c869ac-52f5-458c-8804-fa7dbdf51465:Y",
+        "29b7450d-4515-4a9b-adde-9184de470308:IN"
+      ]
+    },
+    {
+      "id": "N6",
+      "endpoints": [
+        "fddedc94-daa7-4198-8b43-1aad1afe6004:+",
+        "b8c869ac-52f5-458c-8804-fa7dbdf51465:I0"
+      ]
+    },
+    {
+      "id": "N7",
+      "endpoints": [
+        "c6ac8585-3400-4bcd-862b-042ccc77ef62:+",
+        "b8c869ac-52f5-458c-8804-fa7dbdf51465:I1"
+      ]
+    },
+    {
+      "id": "N8",
+      "endpoints": [
+        "a380e4fe-4644-439d-8e5a-80ef90955249:+",
+        "b8c869ac-52f5-458c-8804-fa7dbdf51465:I2"
+      ]
+    },
+    {
+      "id": "N9",
+      "endpoints": [
+        "cdddbbc8-443d-4170-bc29-e1dcd8babb9b:+",
+        "b8c869ac-52f5-458c-8804-fa7dbdf51465:I3"
+      ]
+    }
+  ],
+  "history": [],
+  "digitalEventSimulation": {
+    "stopTimeNs": 40,
+    "events": [
+      {
+        "timeNs": 10,
+        "sourceReference": "S0",
+        "high": true
+      },
+      {
+        "timeNs": 20,
+        "sourceReference": "S1",
+        "high": true
+      },
+      {
+        "timeNs": 30,
+        "sourceReference": "S0",
+        "high": false
+      },
+      {
+        "timeNs": 40,
+        "sourceReference": "S1",
+        "high": false
+      }
+    ],
+    "probeNets": [
+      "N3",
+      "N4",
+      "N5"
+    ]
+  }
+}

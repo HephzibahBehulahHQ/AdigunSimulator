@@ -145,7 +145,10 @@ test("digital event engine decodes all two-bit addresses with exactly one active
     { timeNs: 30, sourceReference: "A0", high: false },
     { timeNs: 40, sourceReference: "A1", high: false }
   ];
-  const result = runProjectAnalysis(project);
+  const response = handleSimulationWorkerMessage({ type: "run", requestId: 91, project });
+  assert.equal(response.type, "result");
+  assert.equal(response.requestId, 91);
+  const result = response.result;
   assert.equal(result.state, "complete", result.message);
   assert.ok(result.modelIds.includes("ideal-digital-decoder-2to4-v1"));
   assert.match(result.message, /zero-delay.*active-high two-to-four decoder/i);
@@ -192,6 +195,27 @@ test("digital event engine records multiplexer output changes as address inputs 
     { timeNs: 10, high: true },
     { timeNs: 30, high: false }
   ]);
+});
+
+test("supplemental native mux-event project matches its specified probe timeline", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/supplemental-mux-event-simulation.adigun.json", import.meta.url), "utf8"));
+  const registry = JSON.parse(await readFile(new URL("../examples/manifest.json", import.meta.url), "utf8"));
+  const example = registry.examples.find((item) => item.id === "supplemental-mux-event-simulation");
+  assert.equal(example.status, "planned");
+  assert.equal(example.acceptanceTest, "tests/digital-event-analysis.test.mjs: supplemental native mux-event project matches its specified probe timeline");
+  const response = handleSimulationWorkerMessage({ type: "run", requestId: 92, project });
+  assert.equal(response.type, "result");
+  assert.equal(response.requestId, 92);
+  const result = response.result;
+  assert.equal(result.state, "complete", result.message);
+  assert.equal(result.result.stopTimeNs, example.verification.expectedResult.stopTimeNs);
+  const observed = Object.fromEntries(project.digitalEventSimulation.probeNets.map((net, index) => {
+    const name = ["S0", "S1", "Y"][index];
+    return [name, result.result.trace[net].map(({ timeNs, high }) => [timeNs, high])];
+  }));
+  assert.deepEqual(observed, example.verification.expectedResult.transitions);
+  const readme = await readFile(new URL("../examples/project-readmes/supplemental-mux-event-simulation.md", import.meta.url), "utf8");
+  assert.match(readme, /Model boundary/);
 });
 
 test("digital event queue sorts inputs and records only settled probe transitions", () => {
