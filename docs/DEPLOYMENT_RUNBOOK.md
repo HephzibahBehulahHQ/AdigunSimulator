@@ -17,8 +17,9 @@ The only checked-in workflow is `.github/workflows/ci.yml`; it runs library vali
 ## Current release state checked 2026-11-03
 
 - PR #505 is a draft on `codex/rl-transient-acceptance`; its current head is not deployed.
-- GitHub Actions run #1234 passed for the PR head. Local validation also passed: 357 tests, `npm run check`, `npm run validate:library`, and `git diff --check`.
-- This PR adds generic simulator models that still require the independent electrical review above. The parts ledger contains 15 candidates and 0 verified parts; candidates do not count toward the 1,000-part target.
+- GitHub Actions run #1240 passed for the current PR head. Local validation also passed: 358 tests, `npm run check`, `npm run validate:library`, and `git diff --check`.
+- The digital event engine includes an ideal active-high 2-to-4 decoder with zero propagation delay; it does not model device-specific thresholds, timing, loading, or analog behavior. This generic model still requires the independent electrical review above before release.
+- The parts ledger contains 15 candidates and 0 verified parts; candidates do not count toward the 1,000-part target.
 - Do not infer that the draft is releasable from its passing checks or from the currently healthy production URL.
 
 
