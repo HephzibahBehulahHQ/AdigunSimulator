@@ -59,8 +59,10 @@ import { runOfflineRecoveryScenario } from "./offline-recovery-scenario.mjs";
 import { runLinearAcSweep } from "./linear-ac-analysis.mjs";
 import { runDigitalEventSimulation } from "./digital-event-analysis.mjs";
 import { runLinearRlcTransient } from "./linear-rlc-transient.mjs";
+import { runNonlinearDcOperatingPoint } from "./nonlinear-dc-analysis.mjs";
 
 export function runProjectAnalysis(project) {
+  if (project.shockleyDcOperatingPoint) return runNonlinearDcOperatingPoint(project);
   if (project.linearAcSweep) return runLinearAcSweep(project);
   if (project.linearRlcTransient) return runLinearRlcTransient(project);
   if (project.digitalEventSimulation) return runDigitalEventSimulation(project);

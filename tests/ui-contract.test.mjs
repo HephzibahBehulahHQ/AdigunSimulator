@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
-import { UI_KEYS, UI_LOCALES } from "../js/i18n.mjs";
+import { TRANSLATIONS, UI_KEYS, UI_LOCALES } from "../js/i18n.mjs";
 
 const indexFile = new URL("../index.html", import.meta.url);
 const appFile = new URL("../app.js", import.meta.url);
@@ -33,6 +33,32 @@ test("simulation controls expose a bounded linear RLC AC sweep through the worke
   assert.match(app, /result\.kind === "linear-ac-sweep"/);
 });
 
+test("generic diode and Ebers–Moll NPN/PNP DC operating point is selectable, bounded, and disclosed", async () => {
+  const [html, app, dispatcher, locales, docs] = await Promise.all([
+    readFile(indexFile, "utf8"), readFile(appFile, "utf8"), readFile(new URL("../js/analysis-dispatch.mjs", import.meta.url), "utf8"),
+    readFile(new URL("../js/i18n.mjs", import.meta.url), "utf8"), readFile(new URL("../docs/DELIVERY_GATES.md", import.meta.url), "utf8")
+  ]);
+  assert.match(html, /value="nonlinear-dc" data-i18n="analysisNonlinearDc"/);
+  assert.match(html, /examples\/supplemental-npn-ebers-moll-bias\.adigun\.json/);
+  assert.match(html, /generic Ebers–Moll NPN\/PNP BJTs/);
+  assert.match(html, /id="nonlinear-dc-temperature"/);
+  assert.match(app, /shockleyDcOperatingPoint/);
+  assert.match(app, /result\.kind === "nonlinear-dc-operating-point"/);
+  assert.match(app, /nonlinearKclAndConstraintResidual/);
+  assert.match(app, /nonlinearLinearResidual/);
+  assert.match(app, /result\.transistors\.map/);
+  assert.match(app, /const diodeTable = diodeRows \?/);
+  assert.match(app, /nonlinear-dc-controls/);
+  assert.match(dispatcher, /runNonlinearDcOperatingPoint/);
+  assert.ok(UI_KEYS.includes("exampleGenericNpnEbersMoll"));
+  for (const key of ["analysisNonlinearDc", "nonlinearJunctionTemperature", "nonlinearDcModelHelp", "nonlinearIterations", "nonlinearNodeVoltages", "nonlinearDiodeResults", "nonlinearJunctionVoltage", "nonlinearSeriesResistance", "nonlinearSeriesPower", "nonlinearTransistorResults", "nonlinearTransistorType", "nonlinearBaseCurrent"]) assert.match(locales, new RegExp(`${key}:`));
+  assert.match(app, /item\.junctionVoltageV/);
+  assert.match(app, /item\.seriesResistancePowerW/);
+  assert.match(docs, /generic Shockley/);
+  assert.match(docs, /Ebers–Moll NPN and PNP/);
+  assert.match(docs, /Neither generic model is a manufacturer-verified part model/);
+});
+
 test("simulation controls expose bounded digital event simulation and native-net probes", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   assert.match(html, /value="digital-events" data-i18n="analysisDigitalEvents"/);
@@ -54,24 +80,41 @@ test("simulation controls expose bounded linear RLC transient analysis and a loc
   assert.match(html, /id="transient-stop-seconds"/);
   assert.match(html, /id="transient-time-step"/);
   assert.match(html, /id="transient-output-net"/);
+  assert.match(html, /id="transient-initial-conditions"/);
+  assert.match(html, /aria-describedby="transient-initial-conditions-help"/);
   assert.match(app, /projectWithSelectedAnalysis\(state\.project, "linearRlcTransient", \{ stopSeconds:/);
+  assert.match(app, /initialConditions = JSON\.parse\(\$\("#transient-initial-conditions"\)\.value\)/);
   assert.match(app, /result\.kind === "linear-rlc-transient"/);
   assert.match(app, /projectWithSelectedAnalysis/);
-  for (const key of ["analysisLinearTransient", "transientStopSeconds", "transientTimeStep", "transientOutputNet", "transientSampleCount", "transientFinalVoltage", "transientResidual", "transientTraceLabel"]) assert.match(locales, new RegExp(`${key}:`));
+  for (const key of ["analysisLinearTransient", "transientStopSeconds", "transientTimeStep", "transientOutputNet", "transientInitialConditions", "transientInitialConditionsHelp", "transientSampleCount", "transientFinalVoltage", "transientResidual", "transientTraceLabel"]) assert.match(locales, new RegExp(`${key}:`));
 });
 
 test("header account and compact action controls flow without overlapping on narrow screens", async () => {
   const [html, css, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(new URL("../styles.css", import.meta.url), "utf8"), readFile(appFile, "utf8")]);
   const header = html.match(/<div class="header-actions"[\s\S]*?<\/div>/)?.[0] ?? "";
   assert.ok(header.indexOf("id=\"save-state\"") < header.indexOf("id=\"account-status\"") && header.indexOf("id=\"account-status\"") < header.indexOf("id=\"language\"") && header.indexOf("id=\"language\"") < header.indexOf("id=\"theme-toggle\"") && header.indexOf("id=\"theme-toggle\"") < header.indexOf("id=\"global-search-toggle\"") && header.indexOf("id=\"global-search-toggle\"") < header.indexOf("id=\"help-button\""));
-  assert.match(header, /id="account-status"[^>]*data-auth-state="guest"/);
-  assert.match(header, /title="Account · Guest \(sign-in unavailable\)"/);
+  assert.match(header, /<span id="account-status"[^>]*role="img"[^>]*data-auth-state="guest"/);
+  assert.doesNotMatch(header, /<button id="account-status"/);
+  assert.match(header, /data-i18n-title="accountGuestTooltip"/);
+  assert.match(header, /data-i18n-aria="accountGuestAria"/);
+  for (const locale of UI_LOCALES) {
+    assert.ok(TRANSLATIONS[locale].accountGuestTooltip, `${locale} is missing the guest-account tooltip`);
+    assert.ok(TRANSLATIONS[locale].accountGuestAria, `${locale} is missing the guest-account accessible name`);
+    assert.ok(TRANSLATIONS[locale].locale, `${locale} is missing the language-control label`);
+  }
+  assert.match(header, /id="account-status"[\s\S]*?<svg[^>]*aria-hidden="true" viewBox="0 0 24 24"><circle/);
+  assert.match(css, /\.icon-button \{[^}]*width:\s*2\.25rem[^}]*height:\s*2\.25rem/);
+  assert.match(css, /\.language-control \{[^}]*width:\s*2\.25rem[^}]*height:\s*2\.25rem/);
+  assert.match(css, /\.account-button\[data-auth-state="signed-in"\] \.account-status-dot \{ background:\s*var\(--good\); \}/);
+  assert.match(css, /\.account-button\[data-auth-state="guest"\] \.account-status-dot \{ background:\s*#8994a3; \}/);
   assert.match(css, /\.header-actions\s*\{[^}]*gap:\s*12px/);
   assert.match(css, /\.identity, \.header-actions,[\s\S]*?display: flex; align-items: center/);
   assert.doesNotMatch(css, /\.header-actions\s*\{[^}]*position:\s*absolute/);
   assert.doesNotMatch(css, /\.account-status-dot\s*\{[^}]*position:\s*absolute/);
   assert.match(css, /@media \(max-width: 800px\)[\s\S]*?\.header-actions\s*\{[^}]*flex-wrap:\s*wrap/);
   assert.match(css, /@media \(max-width: 520px\)[\s\S]*?\.header-actions \.save-state\s*\{\s*display:\s*none/);
+  assert.match(css, /\.command-bar\s*\{[^}]*flex-direction:\s*column/);
+  assert.match(css, /\.project-actions\s*\{[^}]*width:\s*100%[^}]*flex-wrap:\s*wrap/);
   assert.match(app, /global-search-toggle/);
   assert.match(app, /search\.hidden = !search\.hidden/);
 });
@@ -89,6 +132,8 @@ test("live Adigun BOT observes the current canvas and requires an explicit previ
   assert.match(html, /id="bot-suggestion-more"/);
   assert.match(html, /id="bot-preview-apply"/);
   assert.match(app, /botLiveCopilot\.notify\(state\.project/);
+  assert.match(app, /answerBotProductQuestion\(question, state\.project\.metadata\.locale\)/);
+  assert.match(app, /activateView\(productAnswer\.view\)/);
   assert.match(app, /dragging: Boolean\(state\.drag\)/);
   assert.match(app, /active\?\.matches\?\./);
   assert.match(app, /applyBotSuggestionPreview\(state\.project, currentBotPreview, \{ confirmed: true \}\)/);
@@ -202,8 +247,11 @@ test("PCB interactive routing is accessible, net-bound, localized, and uses the 
     readFile(new URL("../js/i18n.mjs", import.meta.url), "utf8")
   ]);
   assert.match(html, /id="pcb-route-mode"[^>]*data-tool="pcb-route"[^>]*aria-pressed="false"/);
+  assert.match(html, /id="pcb-route-layer-control"/);
+  assert.match(html, /id="pcb-route-layer"[^>]*data-i18n-aria="pcbRouteLayer"/);
   assert.match(html, /id="pcb-route-status" role="status" aria-live="polite"/);
-  assert.ok(app.includes("createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1) })"));
+  assert.ok(app.includes('layer: $("#pcb-route-layer").value'));
+  assert.match(app, /pcbCopperLayers\.includes\(option\.value\)/);
   assert.ok(app.includes("pcbPreviewPointToBoardMm(state.project, viewPoint)"));
   assert.match(app, /state.pcbRouteDraft = null;\s+state.pcbRouteHintKey = "pcbRouteReady"/);
   for (const locale of ["en", "de", "yo", "pcm"]) assert.match(translations, new RegExp(`Object\\.assign\\(TRANSLATIONS\\.${locale}, \\{ pcbRoute:`));
@@ -254,14 +302,14 @@ test("diagnostics tabs have an accessible target and a stateful handler", async 
   assert.match(app, /function exportPcbFiles/);
 });
 
-test("released example picker points only to tested registry projects", async () => {
+test("example picker points only to tested catalogue or explicit supplemental projects", async () => {
   const [html, app, manifestText] = await Promise.all([
     readFile(indexFile, "utf8"), readFile(appFile, "utf8"), readFile(new URL("../examples/manifest.json", import.meta.url), "utf8")
   ]);
   const manifest = JSON.parse(manifestText);
   const releasedFiles = manifest.examples.filter((example) => example.status === "released").map((example) => example.projectFile).sort();
   const pickerFiles = values(html, /<option\b[^>]*\bvalue="(examples\/[^"]+\.adigun\.json)"[^>]*>/g).sort();
-  assert.deepEqual(pickerFiles, releasedFiles);
+  assert.deepEqual(pickerFiles, [...releasedFiles, "examples/supplemental-npn-ebers-moll-bias.adigun.json"].sort());
   assert.match(app, /createSimulationWorkerRun\(project\)\.promise/);
   assert.match(app, /Loaded and validated/);
 });

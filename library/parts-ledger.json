@@ -1071,7 +1071,966 @@
         "assetPath": "library/assets/footprints/microchip.mcp6002-i-p/footprint.json",
         "designNote": "Pad diameter and drill are application-selected educational defaults, not sourced manufacturer recommendations."
       }
+    },
+    {
+      "id": "ti.sn74hc74n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC74N",
+      "category": "Digital logic",
+      "type": "Dual D-type flip-flop",
+      "typeCode": "F32",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC74 Dual D-Type Positive-Edge-Triggered Flip-Flops With Clear and Preset datasheet (Rev. F)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc74.pdf",
+        "accessedAt": "2026-11-03",
+        "sha256": "a4043d37d693a2997900a0542dd226b9b61285794f3c1a541adb99cc7dcb1ae2",
+        "sha256Bytes": 2256700,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-03.md"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC74/part-details/SN74HC74N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc74.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-14",
+        "pinCount": 14,
+        "sourceUrl": "https://www.ti.com/product/SN74HC74/part-details/SN74HC74N"
+      },
+      "package": "PDIP-14",
+      "ratings": [
+        {
+          "name": "recommended supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "symbolPinMap": {
+        "1": "1CLR",
+        "2": "1D",
+        "3": "1CLK",
+        "4": "1PRE",
+        "5": "1Q",
+        "6": "1QBAR",
+        "7": "GND",
+        "8": "2QBAR",
+        "9": "2Q",
+        "10": "2PRE",
+        "11": "2CLK",
+        "12": "2D",
+        "13": "2CLR",
+        "14": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "input",
+        "3": "input",
+        "4": "input",
+        "5": "output",
+        "6": "output",
+        "7": "power-in",
+        "8": "output",
+        "9": "output",
+        "10": "input",
+        "11": "input",
+        "12": "input",
+        "13": "input",
+        "14": "power-in"
+      },
+      "modelStatus": "ideal",
+      "simulationModel": {
+        "status": "ideal",
+        "reason": "Only the generic ideal positive-edge D flip-flop event mode is available. It does not model TI-specific logic thresholds, propagation delay, setup/hold, output drive, power, temperature behavior, or analog characteristics."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/SN74HC74/part-details/SN74HC74N",
+        "checkedAt": "2026-11-03"
+      },
+      "warnings": [
+        "Generic ideal D flip-flop events are not a manufacturer-verified SN74HC74N timing or electrical model.",
+        "Use a common supply and ground, and check TI input thresholds, output loading, clock timing, and asynchronous preset/clear requirements against the datasheet."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-14 through-hole package intended to straddle a solderless board center trench; confirm exact trench and physical package fit before use.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC74N dual D-type flip-flop",
+          "description": "Two independent positive-edge D flip-flops with asynchronous preset and clear in PDIP-14. The app uses a generic ideal event model and does not model TI-specific thresholds or timing."
+        },
+        "de": {
+          "name": "SN74HC74N mit zwei D-Flipflops",
+          "description": "Zwei unabhängige flankengesteuerte D-Flipflops mit asynchronem Setzen und Rücksetzen im PDIP-14-Gehäuse. Das App-Modell bildet keine TI-spezifischen Pegel oder Zeiten ab."
+        },
+        "yo": {
+          "name": "SN74HC74N D flip-flop méjì",
+          "description": "D flip-flop méjì tó ń gba clock edge pẹ̀lú preset àti clear, nínú PDIP-14. App náà lo ideal generic model; kò ṣe model threshold tàbí timing TI pàtó."
+        },
+        "pcm": {
+          "name": "SN74HC74N dual D flip-flop",
+          "description": "Two separate D flip-flops wey follow positive clock edge, with preset and clear, inside PDIP-14. App use generic ideal event model; e no model TI exact logic level or timing."
+        }
+      },
+      "evidenceNote": "library/evidence/ti.sn74hc74n.md",
+      "notes": "TI product page lists SN74HC74N as active and the datasheet documents its dual D flip-flop function, PDIP-14 package, pin map, supply, and temperature. Datasheet bytes, four-language descriptions, and CC0 educational symbol/footprint drafts are recorded. Human review, physical fit, and part-specific model validation remain open; not counted as verified.",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc74n/symbol.svg",
+        "sha256": "1719b520470c93a28c529206d6267747cd1fa7f88102e17f78d47f3b64794a61",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc74n/footprint.json",
+        "sha256": "e372714b78631d539cd52f16498654c80f22414ea25514cebc9110916125722f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc74.pdf",
+        "drawing": "N (PDIP-14), SN74HC74 device information table; nominal body size 19.30 × 6.40 mm",
+        "assetPath": "library/assets/footprints/ti.sn74hc74n/footprint.json",
+        "designNote": "2.54 mm pitch and 7.62 mm row spacing follow the educational PDIP-14 layout convention. Pad diameter and drill are CC0 defaults, not manufacturer land-pattern recommendations; physical review remains required."
+      }
+    },
+    {
+      "id": "ti.sn74hc14n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC14N",
+      "category": "Digital logic",
+      "type": "Hex Schmitt-trigger inverter",
+      "typeCode": "F10",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC14 Hex Inverters with Schmitt-Trigger Inputs datasheet (Rev. L)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc14.pdf",
+        "accessedAt": "2026-11-03",
+        "sha256": "24911ae018ad9bf6f8f069158b8689d0d941e3cde9f48924e2421276ae10e397",
+        "sha256Bytes": 2079245,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-03.md"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC14/part-details/SN74HC14N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/product/SN74HC14",
+          "kind": "manufacturer-family-product-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc14.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-14",
+        "pinCount": 14,
+        "sourceUrl": "https://www.ti.com/product/SN74HC14/part-details/SN74HC14N"
+      },
+      "package": "PDIP-14",
+      "ratings": [
+        {
+          "name": "recommended supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "symbolPinMap": {
+        "1": "1A",
+        "2": "1Y",
+        "3": "2A",
+        "4": "2Y",
+        "5": "3A",
+        "6": "3Y",
+        "7": "GND",
+        "8": "4Y",
+        "9": "4A",
+        "10": "5Y",
+        "11": "5A",
+        "12": "6Y",
+        "13": "6A",
+        "14": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "output",
+        "3": "input",
+        "4": "output",
+        "5": "input",
+        "6": "output",
+        "7": "power-in",
+        "8": "output",
+        "9": "input",
+        "10": "output",
+        "11": "input",
+        "12": "output",
+        "13": "input",
+        "14": "power-in"
+      },
+      "modelStatus": "not-modelled",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "The available generic digital gate mode does not model the SN74HC14's Schmitt trigger thresholds, hysteresis, propagation delays, supply current, output drive, or analog transfer behavior. Do not simulate this exact manufacturer's electrical behavior."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/SN74HC14/part-details/SN74HC14N",
+        "checkedAt": "2026-11-03"
+      },
+      "warnings": [
+        "This record is an unverified manufacturer-backed candidate, not a verified part or validated simulator model.",
+        "The generic logic gate model does not implement Schmitt hysteresis or TI-specific electrical thresholds and timing.",
+        "Check voltage, input transitions, output loading, decoupling, temperature, and pin orientation against the current TI datasheet before hardware use."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-14 through-hole package intended to straddle a solderless board center trench; verify the exact breadboard trench and physical package fit.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC14N hex Schmitt-trigger inverter",
+          "description": "Six inverters with Schmitt-trigger inputs in PDIP-14. The app does not model TI-specific hysteresis, thresholds, timing, or output drive."
+        },
+        "de": {
+          "name": "SN74HC14N Sechsfach-Schmitt-Trigger-Inverter",
+          "description": "Sechs Inverter mit Schmitt-Trigger-Eingängen im PDIP-14-Gehäuse. Das App-Modell bildet TI-spezifische Hysterese, Schaltschwellen, Zeiten und Ausgangstreiber nicht ab."
+        },
+        "yo": {
+          "name": "SN74HC14N inverter Schmitt-trigger mẹ́fà",
+          "description": "Inverter mẹ́fà tó ní Schmitt-trigger inputs nínú PDIP-14. App náà kò model hysteresis, thresholds, timing tàbí output drive TI pàtó."
+        },
+        "pcm": {
+          "name": "SN74HC14N hex Schmitt-trigger inverter",
+          "description": "Six inverter wey get Schmitt-trigger inputs inside PDIP-14. App no model TI exact hysteresis, switching levels, timing or output drive."
+        }
+      },
+      "evidenceNote": "library/evidence/ti.sn74hc14n.md",
+      "notes": "TI's exact orderable page identifies the active SN74HC14N PDIP-14 option; Rev. L datasheet provides device function, pin map, and operating ratings. PDF checksum and original CC0 educational symbol/footprint drafts are recorded. Exact Schmitt-trigger behavior is not modeled. Independent human review and physical package/footprint review remain open; this candidate is not counted as verified.",
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc14n/footprint.json",
+        "sha256": "6d80d362d832da047bce5d53d1b3f41d4d6390fe8f54160a8457614a248c44d6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc14.pdf",
+        "drawing": "N (PDIP-14), SNx4HC14 package information and outline; dimensions follow the TI N package drawing",
+        "assetPath": "library/assets/footprints/ti.sn74hc14n/footprint.json",
+        "designNote": "The 2.54 mm pitch and 7.62 mm row spacing follow the educational PDIP-14 layout. Pad diameter and drill are CC0 defaults, not TI land-pattern recommendations; independent physical fit review remains required."
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc14n/symbol.svg",
+        "sha256": "4fc71d72b6f3e3752b4719ec8db62b0e6e0e219da6bc068a1d359520a7dbcfd5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
+    },
+    {
+      "id": "ti.sn74hc08n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC08N",
+      "category": "Digital logic",
+      "type": "Quad 2-input AND gate",
+      "typeCode": "F04",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC08 Quadruple 2-Input AND Gates datasheet (Rev. J)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc08.pdf",
+        "accessedAt": "2026-11-03",
+        "sha256": "0d125beb415972726a34eb93fbb7ce093909319f4252593fab37a7e77541e363",
+        "sha256Bytes": 2048028,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-03.md"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC08/part-details/SN74HC08N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc08.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-14",
+        "pinCount": 14,
+        "sourceUrl": "https://www.ti.com/product/SN74HC08/part-details/SN74HC08N"
+      },
+      "package": "PDIP-14",
+      "ratings": [
+        {
+          "name": "recommended supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "symbolPinMap": {
+        "1": "1A",
+        "2": "1B",
+        "3": "1Y",
+        "4": "2A",
+        "5": "2B",
+        "6": "2Y",
+        "7": "GND",
+        "8": "3Y",
+        "9": "3A",
+        "10": "3B",
+        "11": "4Y",
+        "12": "4A",
+        "13": "4B",
+        "14": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "input",
+        "3": "output",
+        "4": "input",
+        "5": "input",
+        "6": "output",
+        "7": "power-in",
+        "8": "output",
+        "9": "input",
+        "10": "input",
+        "11": "output",
+        "12": "input",
+        "13": "input",
+        "14": "power-in"
+      },
+      "modelStatus": "ideal",
+      "simulationModel": {
+        "status": "ideal",
+        "reason": "Only the simulator generic ideal AND event model is available. It does not model TI-specific logic thresholds, switching delay, output current, output loading, supply current, power, or temperature behavior."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/SN74HC08/part-details/SN74HC08N",
+        "checkedAt": "2026-11-03"
+      },
+      "warnings": [
+        "Unverified manufacturer-backed candidate; not a verified part or manufacturer-specific simulation model.",
+        "The ideal event model omits TI-specific thresholds, propagation delay, output loading, supply current, and power.",
+        "Check supply, unused inputs, decoupling, logic thresholds, output load, and package orientation against the TI datasheet before hardware use."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-14 through-hole package intended to straddle a solderless board center trench; verify exact trench and physical fit.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC08N Quad 2-input AND gate",
+          "description": "Four AND gates in PDIP-14. The simulator uses an ideal logic event model and does not model TI-specific electrical timing or thresholds."
+        },
+        "de": {
+          "name": "SN74HC08N Vierfach-AND-Gatter",
+          "description": "Vier AND-Gatter im PDIP-14-Gehäuse. Das Simulatormodell bildet keine TI-spezifischen elektrischen Pegel oder Schaltzeiten ab."
+        },
+        "yo": {
+          "name": "SN74HC08N AND gate mẹ́rin",
+          "description": "Gate mẹ́rin tó ń ṣe AND nínú PDIP-14. Simulator náà lo ideal logic model; kò model electrical level tàbí timing TI pàtó."
+        },
+        "pcm": {
+          "name": "SN74HC08N four AND gates",
+          "description": "Four AND gate inside PDIP-14. Simulator use ideal logic event model; e no model TI exact electrical levels or timing."
+        }
+      },
+      "evidenceNote": "library/evidence/ti.sn74hc08n.md",
+      "notes": "TI manufacturer sources identify the exact active N-package orderable, device function, 14-pin package, pin map, recommended supply, and operating temperature. Datasheet checksum and CC0 educational assets are recorded. The exact device electrical model remains unimplemented; human and physical review are still required.",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc08n/symbol.svg",
+        "sha256": "2b13a0af54b99f3bcb67cf35b251f3baf185563a22cfe9a420d8771d25e1411e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc08n/footprint.json",
+        "sha256": "c2782c7a5e07a05c4d5f7a109503bfa25298bb2422a17451c5871a51101444cd",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc08.pdf",
+        "drawing": "N (PDIP-14) package outline; TI nominal body 19.30 mm × 6.40 mm",
+        "assetPath": "library/assets/footprints/ti.sn74hc08n/footprint.json",
+        "designNote": "The educational footprint uses the published package outline and conventional 2.54 mm lead pitch / 7.62 mm row spacing. Pad and drill sizes are CC0 defaults, not TI-recommended land pattern dimensions; independent physical review remains required."
+      }
+    },
+    {
+      "id": "ti.sn74hc32n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC32N",
+      "category": "Digital logic",
+      "type": "Quad 2-input OR gate",
+      "typeCode": "F06",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC32 Quadruple 2-Input OR Gates datasheet (Rev. F)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc32.pdf",
+        "accessedAt": "2026-11-03",
+        "sha256": "18adcf7e59d693f9857a32200c28faf72bc84ac64f619411001bececd4fa96f0",
+        "sha256Bytes": 2124679,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-03.md"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC32/part-details/SN74HC32N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc32.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-14",
+        "pinCount": 14,
+        "sourceUrl": "https://www.ti.com/product/SN74HC32/part-details/SN74HC32N"
+      },
+      "package": "PDIP-14",
+      "ratings": [
+        {
+          "name": "recommended supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "symbolPinMap": {
+        "1": "1A",
+        "2": "1B",
+        "3": "1Y",
+        "4": "2A",
+        "5": "2B",
+        "6": "2Y",
+        "7": "GND",
+        "8": "3Y",
+        "9": "3A",
+        "10": "3B",
+        "11": "4Y",
+        "12": "4A",
+        "13": "4B",
+        "14": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "input",
+        "3": "output",
+        "4": "input",
+        "5": "input",
+        "6": "output",
+        "7": "power-in",
+        "8": "output",
+        "9": "input",
+        "10": "input",
+        "11": "output",
+        "12": "input",
+        "13": "input",
+        "14": "power-in"
+      },
+      "modelStatus": "ideal",
+      "simulationModel": {
+        "status": "ideal",
+        "reason": "Only the simulator generic ideal OR event model is available. It does not model TI-specific logic thresholds, switching delay, output current, output loading, supply current, power, or temperature behavior."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/SN74HC32/part-details/SN74HC32N",
+        "checkedAt": "2026-11-03"
+      },
+      "warnings": [
+        "Unverified manufacturer-backed candidate; not a verified part or manufacturer-specific simulation model.",
+        "The ideal event model omits TI-specific thresholds, propagation delay, output loading, supply current, and power.",
+        "Check supply, unused inputs, decoupling, logic thresholds, output load, and package orientation against the TI datasheet before hardware use."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-14 through-hole package intended to straddle a solderless board center trench; verify exact trench and physical fit.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC32N Quad 2-input OR gate",
+          "description": "Four OR gates in PDIP-14. The simulator uses an ideal logic event model and does not model TI-specific electrical timing or thresholds."
+        },
+        "de": {
+          "name": "SN74HC32N Vierfach-OR-Gatter",
+          "description": "Vier OR-Gatter im PDIP-14-Gehäuse. Das Simulatormodell bildet keine TI-spezifischen elektrischen Pegel oder Schaltzeiten ab."
+        },
+        "yo": {
+          "name": "SN74HC32N OR gate mẹ́rin",
+          "description": "Gate mẹ́rin tó ń ṣe OR nínú PDIP-14. Simulator náà lo ideal logic model; kò model electrical level tàbí timing TI pàtó."
+        },
+        "pcm": {
+          "name": "SN74HC32N four OR gates",
+          "description": "Four OR gate inside PDIP-14. Simulator use ideal logic event model; e no model TI exact electrical levels or timing."
+        }
+      },
+      "evidenceNote": "library/evidence/ti.sn74hc32n.md",
+      "notes": "TI manufacturer sources identify the exact active N-package orderable, device function, 14-pin package, pin map, recommended supply, and operating temperature. Datasheet checksum and CC0 educational assets are recorded. The exact device electrical model remains unimplemented; human and physical review are still required.",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc32n/symbol.svg",
+        "sha256": "6a228a880f56b15fbd05e19aaee093e07e21fb1064022bdd89bee939065d9fd4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc32n/footprint.json",
+        "sha256": "68062941d3f77796b1cac66cabc3d8b4d493880afbebaa6fe52c35683f050c91",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc32.pdf",
+        "drawing": "N (PDIP-14) package outline; TI nominal body 19.30 mm × 6.40 mm",
+        "assetPath": "library/assets/footprints/ti.sn74hc32n/footprint.json",
+        "designNote": "The educational footprint uses the published package outline and conventional 2.54 mm lead pitch / 7.62 mm row spacing. Pad and drill sizes are CC0 defaults, not TI-recommended land pattern dimensions; independent physical review remains required."
+      }
+    },
+    {
+      "id": "ti.sn74hc86n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC86N",
+      "category": "Digital logic",
+      "type": "Quad 2-input XOR gate",
+      "typeCode": "F08",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC86 Quadruple 2-Input XOR Gates datasheet (Rev. F)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc86.pdf",
+        "accessedAt": "2026-11-03",
+        "sha256": "695a554fd72f6e9aaed4650af27c6ba419c6635bb241587f486c70fe564a3906",
+        "sha256Bytes": 2434800,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-03.md"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC86/part-details/SN74HC86N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc86.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-14",
+        "pinCount": 14,
+        "sourceUrl": "https://www.ti.com/product/SN74HC86/part-details/SN74HC86N"
+      },
+      "package": "PDIP-14",
+      "ratings": [
+        {
+          "name": "recommended supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "symbolPinMap": {
+        "1": "1A",
+        "2": "1B",
+        "3": "1Y",
+        "4": "2A",
+        "5": "2B",
+        "6": "2Y",
+        "7": "GND",
+        "8": "3Y",
+        "9": "3A",
+        "10": "3B",
+        "11": "4Y",
+        "12": "4A",
+        "13": "4B",
+        "14": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "input",
+        "3": "output",
+        "4": "input",
+        "5": "input",
+        "6": "output",
+        "7": "power-in",
+        "8": "output",
+        "9": "input",
+        "10": "input",
+        "11": "output",
+        "12": "input",
+        "13": "input",
+        "14": "power-in"
+      },
+      "modelStatus": "ideal",
+      "simulationModel": {
+        "status": "ideal",
+        "reason": "Only the simulator generic ideal XOR event model is available. It does not model TI-specific logic thresholds, switching delay, output current, output loading, supply current, power, or temperature behavior."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/SN74HC86/part-details/SN74HC86N",
+        "checkedAt": "2026-11-03"
+      },
+      "warnings": [
+        "Unverified manufacturer-backed candidate; not a verified part or manufacturer-specific simulation model.",
+        "The ideal event model omits TI-specific thresholds, propagation delay, output loading, supply current, and power.",
+        "Check supply, unused inputs, decoupling, logic thresholds, output load, and package orientation against the TI datasheet before hardware use."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-14 through-hole package intended to straddle a solderless board center trench; verify exact trench and physical fit.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC86N Quad 2-input XOR gate",
+          "description": "Four XOR gates in PDIP-14. The simulator uses an ideal logic event model and does not model TI-specific electrical timing or thresholds."
+        },
+        "de": {
+          "name": "SN74HC86N Vierfach-XOR-Gatter",
+          "description": "Vier XOR-Gatter im PDIP-14-Gehäuse. Das Simulatormodell bildet keine TI-spezifischen elektrischen Pegel oder Schaltzeiten ab."
+        },
+        "yo": {
+          "name": "SN74HC86N XOR gate mẹ́rin",
+          "description": "Gate mẹ́rin tó ń ṣe XOR nínú PDIP-14. Simulator náà lo ideal logic model; kò model electrical level tàbí timing TI pàtó."
+        },
+        "pcm": {
+          "name": "SN74HC86N four XOR gates",
+          "description": "Four XOR gate inside PDIP-14. Simulator use ideal logic event model; e no model TI exact electrical levels or timing."
+        }
+      },
+      "evidenceNote": "library/evidence/ti.sn74hc86n.md",
+      "notes": "TI manufacturer sources identify the exact active N-package orderable, device function, 14-pin package, pin map, recommended supply, and operating temperature. Datasheet checksum and CC0 educational assets are recorded. The exact device electrical model remains unimplemented; human and physical review are still required.",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc86n/symbol.svg",
+        "sha256": "173871d22595ef9306fa507c267908ce264d9e8926a26200d98433a7c9fbbf5b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc86n/footprint.json",
+        "sha256": "61e27a683a5d2e3985f8fd4fbffe653d7b0f6bde3b9211af10dfe7ebb36b829f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc86.pdf",
+        "drawing": "N (PDIP-14) package outline; TI nominal body 19.30 mm × 6.40 mm",
+        "assetPath": "library/assets/footprints/ti.sn74hc86n/footprint.json",
+        "designNote": "The educational footprint uses the published package outline and conventional 2.54 mm lead pitch / 7.62 mm row spacing. Pad and drill sizes are CC0 defaults, not TI-recommended land pattern dimensions; independent physical review remains required."
+      }
+    },
+    {
+      "id": "ti.sn74hc138n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC138N",
+      "category": "Digital logic",
+      "type": "3-to-8 line decoder/demultiplexer with active-low outputs",
+      "typeCode": "F21",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC138 3-Line To 8-Line Decoders/Demultiplexers datasheet (Rev. G)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc138.pdf",
+        "accessedAt": "2026-11-03",
+        "sha256": "795ac76468c240b976a632b6107738765800f7f672ad5b58925fbfb5f5064938",
+        "sha256Bytes": 1989229,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-03.md"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC138/part-details/SN74HC138N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc138.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-16",
+        "pinCount": 16,
+        "sourceUrl": "https://www.ti.com/product/SN74HC138/part-details/SN74HC138N"
+      },
+      "package": "PDIP-16",
+      "ratings": [
+        {
+          "name": "recommended supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "symbolPinMap": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "G2A_N",
+        "5": "G2B_N",
+        "6": "G1",
+        "7": "Y7_N",
+        "8": "GND",
+        "9": "Y6_N",
+        "10": "Y5_N",
+        "11": "Y4_N",
+        "12": "Y3_N",
+        "13": "Y2_N",
+        "14": "Y1_N",
+        "15": "Y0_N",
+        "16": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "input",
+        "3": "input",
+        "4": "input",
+        "5": "input",
+        "6": "input",
+        "7": "output",
+        "8": "power-in",
+        "9": "output",
+        "10": "output",
+        "11": "output",
+        "12": "output",
+        "13": "output",
+        "14": "output",
+        "15": "output",
+        "16": "power-in"
+      },
+      "modelStatus": "not-modelled",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "The simulator does not implement the SN74HC138 decoder truth table or its electrical timing, thresholds, output drive, loading, or supply current. This record cannot be inserted as a simulated device."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/SN74HC138/part-details/SN74HC138N",
+        "checkedAt": "2026-11-03",
+        "availabilityNote": "TI listed the orderable as active; the page showed out of stock at the time checked."
+      },
+      "warnings": [
+        "Unverified manufacturer-backed candidate; not a verified part or manufacturer-specific simulation model.",
+        "TI specifies three enable inputs and eight active-low outputs; unused inputs must be held at a defined logic level.",
+        "The ideal generic digital-event engine does not model this decoder, propagation delay, output loading, logic thresholds, or device power.",
+        "Verify supply, input levels, output loads, bypassing, pin orientation, and physical package fit against the TI datasheet before hardware use."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-16 through-hole package intended to straddle a solderless board center trench; verify exact trench and physical fit.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC138N 3-to-8 decoder",
+          "description": "Three address inputs select one of eight active-low outputs when all three enable inputs are active. The simulator does not model this IC."
+        },
+        "de": {
+          "name": "SN74HC138N 3-zu-8-Decoder",
+          "description": "Drei Adresseingänge wählen einen von acht aktiv niedrigen Ausgängen, wenn alle drei Freigabeeingänge aktiv sind. Der Simulator modelliert diesen IC nicht."
+        },
+        "yo": {
+          "name": "SN74HC138N decoder 3 sí 8",
+          "description": "Input address mẹ́ta yan ọkan lára output mẹ́jọ tó ń ṣiṣẹ́ low bí enable mẹ́tẹ̀ẹ̀ta bá ṣiṣẹ́. Simulator kò model IC yìí."
+        },
+        "pcm": {
+          "name": "SN74HC138N 3-to-8 decoder",
+          "description": "Three address input choose one of eight active-low output when all three enable input dey active. Simulator no model this IC."
+        }
+      },
+      "evidenceNote": "library/evidence/ti.sn74hc138n.md",
+      "notes": "TI lists the exact SN74HC138N PDIP-16 orderable as active; its product page showed out of stock when checked. Rev. G datasheet provides the 16-pin map, active-low outputs, recommended 2 V to 6 V supply, and -40 °C to +85 °C range. The TI N-package outline is recorded, but the generated CC0 pads remain educational defaults. The decoder model and independent electrical/physical review remain outstanding.",
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc138.pdf",
+        "drawing": "N (R-PDIP-T16), package outline drawing 4040049/E",
+        "assetPath": "library/assets/footprints/ti.sn74hc138n/footprint.json",
+        "designNote": "Pad diameter and drill are application-selected educational defaults, not sourced manufacturer recommendations."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14",
+        "15": "15",
+        "16": "16"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc138n/footprint.json",
+        "sha256": "d12a26530b04dd72d9b9bd5d8ae5823de37ea30771e31704a4c1ef2e83ff3bf2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc138n/symbol.svg",
+        "sha256": "9257c35b0a9ed7c239c6eb017e0c89a599e6dbe5e6a7649587af65ee65a3648b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     }
   ],
-  "lastUpdated": "2026-11-02"
+  "lastUpdated": "2026-11-03"
 }

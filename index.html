@@ -21,10 +21,10 @@
       </div>
       <div class="header-actions" aria-label="Account and application controls">
         <span class="save-state saved" id="save-state" aria-live="polite">Saved locally</span>
-        <button id="account-status" class="icon-button account-button" type="button" data-auth-state="guest" aria-label="Account: guest; sign-in is unavailable" title="Account · Guest (sign-in unavailable)">
+        <span id="account-status" class="icon-button account-button" role="img" data-auth-state="guest" aria-label="Account: guest; sign-in is unavailable" title="Account · Guest (sign-in unavailable)" data-i18n-aria="accountGuestAria" data-i18n-title="accountGuestTooltip">
           <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19c.5-3.1 2.8-5 6.5-5s6 1.9 6.5 5"/></svg><span class="account-status-dot" aria-hidden="true"></span>
-        </button>
-        <label class="language-control" title="Language"><span class="sr-only">Language</span><select id="language" aria-label="Language" title="Language"><option value="en">EN</option><option value="de">DE</option><option value="yo">YO</option><option value="pcm">PCM</option></select></label>
+        </span>
+        <label class="language-control" title="Language" data-i18n-title="locale"><span class="sr-only">Language</span><select id="language" aria-label="Language" title="Language" data-i18n-aria="locale"><option value="en">EN</option><option value="de">DE</option><option value="yo">YO</option><option value="pcm">PCM</option></select></label>
         <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch colour theme" title="Switch colour theme" data-i18n-aria="theme" data-i18n-title="theme">⚙</button>
         <button id="global-search-toggle" class="icon-button" type="button" aria-label="Show search" title="Show search" data-i18n-aria="searchGlobal" data-i18n-title="searchGlobal"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 5 5"/></svg></button>
         <label class="global-search" hidden><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Search components, tools, or help…" data-i18n-placeholder="searchGlobal" /></label>
@@ -113,6 +113,7 @@
             <option value="examples/029-window-comparator.adigun.json" data-i18n="exampleWindowComparator">Dual-comparator window indicator</option>
             <option value="examples/030-reference-buffer.adigun.json" data-i18n="exampleReferenceBuffer">Precision reference buffer</option>
             <option value="examples/031-transistor-common-emitter.adigun.json" data-i18n="exampleNpnCommonEmitter">NPN common-emitter amplifier</option>
+            <option value="examples/supplemental-npn-ebers-moll-bias.adigun.json" data-i18n="exampleGenericNpnEbersMoll">Generic NPN bias (Ebers–Moll)</option>
             <option value="examples/032-emitter-follower.adigun.json" data-i18n="exampleEmitterFollower">NPN emitter follower</option>
             <option value="examples/033-nmos-low-side-switch.adigun.json" data-i18n="exampleNmosLowSide">NMOS low-side inductive-load driver</option>
             <option value="examples/034-pmos-high-side-switch.adigun.json" data-i18n="examplePmosHighSide">P-MOS high-side switch</option>
@@ -334,6 +335,7 @@
           <button id="schematic-wire-mode" type="button" class="toolbar-button" aria-pressed="false" data-action="schematic-wire-mode"><span aria-hidden="true">⌁</span> <span data-i18n="schematicWireMode">Wire</span></button>
           <span id="schematic-wire-status" role="status" aria-live="polite"></span>
           <button id="pcb-route-mode" type="button" class="toolbar-button" data-tool="pcb-route" aria-pressed="false" aria-label="Interactive PCB routing" data-i18n-aria="pcbRouteAria" disabled><span aria-hidden="true">⌁</span> <span data-i18n="pcbRoute">Route</span></button>
+          <label id="pcb-route-layer-control" hidden><span data-i18n="pcbRouteLayer">Copper layer</span><select id="pcb-route-layer" aria-label="Routing copper layer" data-i18n-aria="pcbRouteLayer"><option value="F.Cu">F.Cu</option><option value="B.Cu">B.Cu</option></select></label>
           <span id="pcb-route-status" role="status" aria-live="polite"></span>
           <span class="toolbar-spacer"></span>
           <button type="button" class="toolbar-button" data-action="undo">↶ <span>Undo</span></button>
@@ -381,10 +383,15 @@
           <label for="simulation-analysis-mode" data-i18n="analysisMode">Analysis mode</label>
           <select id="simulation-analysis-mode">
             <option value="automatic" data-i18n="analysisAutomatic">Project-defined / automatic</option>
+            <option value="nonlinear-dc" data-i18n="analysisNonlinearDc">Nonlinear DC operating point (generic diode / NPN)</option>
             <option value="linear-ac" data-i18n="analysisLinearAcSweep">Linear RLC AC sweep</option>
             <option value="linear-transient" data-i18n="analysisLinearTransient">Linear RLC transient</option>
             <option value="digital-events" data-i18n="analysisDigitalEvents">Digital event simulation</option>
           </select>
+          <div id="nonlinear-dc-controls" class="ac-sweep-controls hidden">
+            <label><span data-i18n="nonlinearJunctionTemperature">Junction temperature (°C)</span><input id="nonlinear-dc-temperature" type="number" min="-100" max="200" step="any" value="25" /></label>
+            <p class="limit-note" data-i18n="nonlinearDcModelHelp">Generic Shockley diodes with optional series resistance and generic Ebers–Moll NPN/PNP BJTs; parameters are not manufacturer-verified.</p>
+          </div>
           <div id="ac-sweep-controls" class="ac-sweep-controls hidden">
             <label><span data-i18n="acStartHz">Start frequency (Hz)</span><input id="ac-start-hz" type="number" min="0.000001" step="any" value="10" /></label>
             <label><span data-i18n="acStopHz">Stop frequency (Hz)</span><input id="ac-stop-hz" type="number" min="0.000001" step="any" value="100000" /></label>
@@ -395,6 +402,8 @@
             <label><span data-i18n="transientStopSeconds">Stop time (s)</span><input id="transient-stop-seconds" type="number" min="0.000001" step="any" value="0.005" /></label>
             <label><span data-i18n="transientTimeStep">Time step (s)</span><input id="transient-time-step" type="number" min="0.000000001" step="any" value="0.00001" /></label>
             <label><span data-i18n="transientOutputNet">Output net</span><select id="transient-output-net"><option value="" data-i18n="acAutoOutputLabel">Automatic output net</option></select></label>
+            <label><span data-i18n="transientInitialConditions">Initial conditions (JSON)</span><textarea id="transient-initial-conditions" rows="3" spellcheck="false" aria-describedby="transient-initial-conditions-help">{"capacitorVoltagesV":{},"inductorCurrentsA":{}}</textarea></label>
+            <p id="transient-initial-conditions-help" class="limit-note" data-i18n="transientInitialConditionsHelp">Optional capacitorVoltagesV and inductorCurrentsA maps use component references; omitted values start at zero.</p>
           </div>
           <div id="digital-event-controls" class="digital-event-controls hidden">
             <label><span data-i18n="digitalStopTime">Stop time (ns)</span><input id="digital-stop-ns" type="number" min="0" max="1000000000" step="1" value="1000" /></label>

@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "id": "supplemental-npn-ebers-moll-bias",
+  "metadata": {
+    "name": "Generic NPN Common-Emitter Bias (Ebers–Moll)",
+    "locale": "en",
+    "createdAt": "2026-11-03T00:00:00.000Z",
+    "updatedAt": "2026-11-03T00:00:00.000Z"
+  },
+  "components": [
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          60,
+          142
+        ],
+        "schematic": [
+          95,
+          128
+        ],
+        "pcb": [
+          92,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "base-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RB",
+      "value": "220 kΩ",
+      "position": {
+        "breadboard": [
+          220,
+          90
+        ],
+        "schematic": [
+          220,
+          70
+        ],
+        "pcb": [
+          220,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "collector-resistor",
+      "libraryId": "passive.resistor",
+      "reference": "RC",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          360,
+          90
+        ],
+        "schematic": [
+          360,
+          70
+        ],
+        "pcb": [
+          360,
+          80
+        ]
+      }
+    },
+    {
+      "instanceId": "q1",
+      "libraryId": "active.npn-ebers-moll-generic",
+      "reference": "Q1",
+      "value": "Is=1e-14 A; alphaF=0.99; alphaR=0.5",
+      "position": {
+        "breadboard": [
+          455,
+          142
+        ],
+        "schematic": [
+          452,
+          128
+        ],
+        "pcb": [
+          408,
+          142
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          565,
+          192
+        ],
+        "schematic": [
+          564,
+          190
+        ],
+        "pcb": [
+          506,
+          192
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "base-resistor:1",
+        "collector-resistor:1"
+      ]
+    },
+    {
+      "id": "BASE",
+      "endpoints": [
+        "base-resistor:2",
+        "q1:B"
+      ]
+    },
+    {
+      "id": "COLLECTOR",
+      "endpoints": [
+        "collector-resistor:2",
+        "q1:C"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "source-1:-",
+        "q1:E",
+        "ground-1:0"
+      ]
+    }
+  ],
+  "history": [],
+  "shockleyDcOperatingPoint": {
+    "temperatureC": 25
+  }
+}

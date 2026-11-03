@@ -8537,6 +8537,33 @@
           },
           "scope": "supplemental",
           "readmeFile": "examples/project-readmes/supplemental-d-flip-flop-events.md"
+        },
+    {
+      "id": "supplemental-mux-event-simulation",
+      "title": "Four-to-one multiplexer event simulation",
+      "status": "planned",
+      "objective": "Run a deterministic event timeline through the generic four-to-one multiplexer and observe its output for each selector address.",
+      "acceptanceTest": "tests/digital-event-analysis.test.mjs: supplemental native mux-event project matches its specified probe timeline",
+      "testId": "digital-event-mux4-timeline",
+      "projectFile": "examples/supplemental-mux-event-simulation.adigun.json",
+      "safetyNote": "Educational ideal zero-delay multiplexer only. It omits propagation delay, metastability, electrical loading, physical logic-family limits, and manufacturer-specific behaviour.",
+      "verification": {
+        "status": "pending",
+        "engine": "Ideal digital discrete-event logic simulation",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "digital-event-engine-v1",
+        "expectedResult": {
+          "kind": "digital-event-simulation",
+          "stopTimeNs": 40,
+          "transitions": {
+            "S0": [[0, false], [10, true], [30, false]],
+            "S1": [[0, false], [20, true], [40, false]],
+            "Y": [[0, false], [10, true], [30, false]]
+          }
         }
+      },
+      "scope": "supplemental",
+      "readmeFile": "examples/project-readmes/supplemental-mux-event-simulation.md"
+    }
   ]
 }

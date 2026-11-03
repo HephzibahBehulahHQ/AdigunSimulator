@@ -5,11 +5,11 @@
     "componentTypes": 565
   },
   "ledger": {
-    "total": 9,
+    "total": 15,
     "verified": 0,
     "remaining": 1000,
     "byStatus": {
-      "candidate": 9,
+      "candidate": 15,
       "in-review": 0,
       "verified": 0,
       "rejected": 0
@@ -61,7 +61,7 @@
       {
         "code": "F",
         "declaredTypes": 67,
-        "partRecords": 1,
+        "partRecords": 7,
         "verifiedRecords": 0,
         "coveredTypes": 0,
         "missingTypes": 67
@@ -294,6 +294,66 @@
     },
     {
       "partId": "microchip.mcp6002-i-p",
+      "currentStatus": "candidate",
+      "readyForHumanReview": true,
+      "missingEvidenceCodes": [
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE"
+      ],
+      "evidenceBlockerCodes": []
+    },
+    {
+      "partId": "ti.sn74hc74n",
+      "currentStatus": "candidate",
+      "readyForHumanReview": true,
+      "missingEvidenceCodes": [
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE"
+      ],
+      "evidenceBlockerCodes": []
+    },
+    {
+      "partId": "ti.sn74hc14n",
+      "currentStatus": "candidate",
+      "readyForHumanReview": true,
+      "missingEvidenceCodes": [
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE"
+      ],
+      "evidenceBlockerCodes": []
+    },
+    {
+      "partId": "ti.sn74hc08n",
+      "currentStatus": "candidate",
+      "readyForHumanReview": true,
+      "missingEvidenceCodes": [
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE"
+      ],
+      "evidenceBlockerCodes": []
+    },
+    {
+      "partId": "ti.sn74hc32n",
+      "currentStatus": "candidate",
+      "readyForHumanReview": true,
+      "missingEvidenceCodes": [
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE"
+      ],
+      "evidenceBlockerCodes": []
+    },
+    {
+      "partId": "ti.sn74hc86n",
+      "currentStatus": "candidate",
+      "readyForHumanReview": true,
+      "missingEvidenceCodes": [
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE"
+      ],
+      "evidenceBlockerCodes": []
+    },
+    {
+      "partId": "ti.sn74hc138n",
       "currentStatus": "candidate",
       "readyForHumanReview": true,
       "missingEvidenceCodes": [

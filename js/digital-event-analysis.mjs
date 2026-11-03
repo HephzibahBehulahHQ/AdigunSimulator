@@ -4,11 +4,13 @@ const MAX_COMPONENTS = 64;
 const MAX_EVENTS = 2000;
 const MAX_STOP_NS = 1_000_000_000;
 const D_FLIP_FLOP = "active.logic-dff-ideal";
-const GATE_MODELS = new Map([
-  ["active.logic-and-ideal", { operation: "and", inputs: ["A", "B"] }],
-  ["active.logic-or-ideal", { operation: "or", inputs: ["A", "B"] }],
-  ["active.logic-xor-ideal", { operation: "xor", inputs: ["A", "B"] }],
-  ["active.logic-nor-ideal", { operation: "nor", inputs: ["A", "B"] }]
+const LOGIC_MODELS = new Map([
+  ["active.logic-and-ideal", { kind: "gate", operation: "and", inputs: ["A", "B"], outputs: ["Y"] }],
+  ["active.logic-or-ideal", { kind: "gate", operation: "or", inputs: ["A", "B"], outputs: ["Y"] }],
+  ["active.logic-xor-ideal", { kind: "gate", operation: "xor", inputs: ["A", "B"], outputs: ["Y"] }],
+  ["active.logic-nor-ideal", { kind: "gate", operation: "nor", inputs: ["A", "B"], outputs: ["Y"] }],
+  ["active.logic-decoder-2to4-ideal", { kind: "decoder-2to4", inputs: ["A0", "A1"], outputs: ["Y0", "Y1", "Y2", "Y3"] }],
+  ["active.logic-mux4-ideal", { kind: "mux4", inputs: ["I0", "I1", "I2", "I3", "S0", "S1"], outputs: ["Y"] }]
 ]);
 
 function voltage(value) {
@@ -29,23 +31,23 @@ export function runDigitalEventSimulation(project) {
   const config = project.digitalEventSimulation;
   if (!config || typeof config !== "object" || Array.isArray(config)) return blocked("A digital event simulation configuration is required.", validation);
   if (project.components.length > MAX_COMPONENTS) return blocked(`The bounded digital solver accepts at most ${MAX_COMPONENTS} components.`, validation);
-  const unsupported = project.components.find((part) => part.libraryId !== "power.dc-source" && !GATE_MODELS.has(part.libraryId) && ![D_FLIP_FLOP, "ground.signal", "instrument.logic-probe"].includes(part.libraryId));
+  const unsupported = project.components.find((part) => part.libraryId !== "power.dc-source" && !LOGIC_MODELS.has(part.libraryId) && ![D_FLIP_FLOP, "ground.signal", "instrument.logic-probe"].includes(part.libraryId));
   if (unsupported) return blocked(`${unsupported.reference} (${findLibraryPart(unsupported.libraryId)?.type ?? unsupported.libraryId}) has no model in this digital solver.`, validation, "unsupported");
   const pinToNet = new Map();
   for (const net of project.nets) for (const pin of net.endpoints) pinToNet.set(pin, net.id);
   const sources = project.components.filter((part) => part.libraryId === "power.dc-source");
-  const gates = project.components.filter((part) => GATE_MODELS.has(part.libraryId));
+  const logicParts = project.components.filter((part) => LOGIC_MODELS.has(part.libraryId));
   const flipFlops = project.components.filter((part) => part.libraryId === D_FLIP_FLOP);
   const grounds = project.components.filter((part) => part.libraryId === "ground.signal");
   const logicProbes = project.components.filter((part) => part.libraryId === "instrument.logic-probe");
-  if (!sources.length || (!gates.length && !flipFlops.length) || grounds.length !== 1) return blocked("Connect an ideal DC supply, at least one supported gate or D flip-flop, and exactly one signal ground.", validation);
+  if (!sources.length || (!logicParts.length && !flipFlops.length) || grounds.length !== 1) return blocked("Connect an ideal DC supply, at least one supported logic component or D flip-flop, and exactly one signal ground.", validation);
   const groundNet = pinToNet.get(`${grounds[0].instanceId}:0`);
-  const poweredParts = [...gates, ...flipFlops];
+  const poweredParts = [...logicParts, ...flipFlops];
   const supplySources = sources.filter((part) => poweredParts.some((item) => pinToNet.get(`${part.instanceId}:+`) === pinToNet.get(`${item.instanceId}:VCC`)));
   const supply = supplySources[0];
   const supplyVoltage = supply ? voltage(supply.value) : Number.NaN;
   if (supplySources.length !== 1 || !groundNet || !Number.isFinite(supplyVoltage) || supplyVoltage <= 0 || pinToNet.get(`${supply.instanceId}:-`) !== groundNet) {
-    return blocked("Connect one positive DC supply to every gate and D flip-flop VCC pin and connect its negative terminal to the shared signal ground.", validation);
+    return blocked("Connect one positive DC supply to every logic component and D flip-flop VCC pin and connect its negative terminal to the shared signal ground.", validation);
   }
   const thresholdLowV = supplyVoltage * 0.2;
   const thresholdHighV = supplyVoltage * 0.8;
@@ -64,14 +66,14 @@ export function runDigitalEventSimulation(project) {
     if (level === null) return blocked(`${source.reference} must be grounded and use a low (≤${thresholdLowV} V) or high (≥${thresholdHighV} V) ideal logic level within the supply range.`, validation);
     inputLevels.set(source.reference, level);
   }
-  const gateModels = gates.map((gate) => {
-    const model = GATE_MODELS.get(gate.libraryId);
-    const inputNets = model.inputs.map((pin) => pinToNet.get(`${gate.instanceId}:${pin}`));
-    const outputNet = pinToNet.get(`${gate.instanceId}:Y`);
-    if (inputNets.some((net) => !net) || !outputNet || pinToNet.get(`${gate.instanceId}:VCC`) !== pinToNet.get(`${supply.instanceId}:+`) || pinToNet.get(`${gate.instanceId}:GND`) !== groundNet) return null;
-    return { reference: gate.reference, operation: model.operation, inputNets, outputNet };
+  const logicModels = logicParts.map((part) => {
+    const model = LOGIC_MODELS.get(part.libraryId);
+    const inputNets = model.inputs.map((pin) => pinToNet.get(`${part.instanceId}:${pin}`));
+    const outputNets = model.outputs.map((pin) => pinToNet.get(`${part.instanceId}:${pin}`));
+    if (inputNets.some((net) => !net) || outputNets.some((net) => !net) || pinToNet.get(`${part.instanceId}:VCC`) !== pinToNet.get(`${supply.instanceId}:+`) || pinToNet.get(`${part.instanceId}:GND`) !== groundNet) return null;
+    return { reference: part.reference, ...model, inputNets, outputNets };
   });
-  if (gateModels.some((gate) => !gate)) return blocked("Each gate needs connected inputs, output, VCC, and common ground pins.", validation);
+  if (logicModels.some((model) => !model)) return blocked("Each supported logic component needs connected inputs, outputs, VCC, and common ground pins.", validation);
   const flipFlopModels = flipFlops.map((flipFlop) => {
     const pin = (name) => pinToNet.get(`${flipFlop.instanceId}:${name}`);
     const model = { reference: flipFlop.reference, dataNet: pin("D"), clockNet: pin("CLK"), qNet: pin("Q"), qBarNet: pin("QBAR"), presetNet: pin("PRE"), clearNet: pin("CLR") };
@@ -112,9 +114,11 @@ export function runDigitalEventSimulation(project) {
     if (!net || drivers.has(net)) return blocked(`Digital input net ${net ?? "(unconnected)"} has no unique source driver.`, validation);
     drivers.set(net, { kind: "input", reference: source.reference });
   }
-  for (const gate of gateModels) {
-    if (drivers.has(gate.outputNet)) return blocked(`Net ${gate.outputNet} has multiple digital drivers.`, validation);
-    drivers.set(gate.outputNet, { kind: "gate", reference: gate.reference });
+  for (const model of logicModels) {
+    for (const outputNet of model.outputNets) {
+      if (drivers.has(outputNet)) return blocked(`Net ${outputNet} has multiple digital drivers.`, validation);
+      drivers.set(outputNet, { kind: "logic", reference: model.reference });
+    }
   }
   for (const flipFlop of flipFlopModels) {
     for (const net of [flipFlop.qNet, flipFlop.qBarNet]) {
@@ -139,17 +143,23 @@ export function runDigitalEventSimulation(project) {
       values.set(flipFlop.qBarNet, Number(!q));
     }
     let settled = false;
-    for (let pass = 0; pass <= gateModels.length; pass += 1) {
+    for (let pass = 0; pass <= logicModels.length; pass += 1) {
       let changed = false;
-      for (const gate of gateModels) {
-        const [a, b] = gate.inputNets.map((net) => values.get(net));
-        if ((a !== 0 && a !== 1) || (b !== 0 && b !== 1)) continue;
-        const output = gate.operation === "and" ? a & b : gate.operation === "or" ? a | b : gate.operation === "xor" ? a ^ b : Number(!(a | b));
-        if (values.get(gate.outputNet) !== output) { values.set(gate.outputNet, output); changed = true; }
+      for (const model of logicModels) {
+        const inputs = model.inputNets.map((net) => values.get(net));
+        if (inputs.some((level) => level !== 0 && level !== 1)) continue;
+        const outputs = model.kind === "decoder-2to4"
+          ? model.outputNets.map((_, index) => Number(index === (inputs[0] | (inputs[1] << 1))))
+          : model.kind === "mux4"
+            ? [inputs[inputs[4] | (inputs[5] << 1)]]
+          : [model.operation === "and" ? inputs[0] & inputs[1] : model.operation === "or" ? inputs[0] | inputs[1] : model.operation === "xor" ? inputs[0] ^ inputs[1] : Number(!(inputs[0] | inputs[1]))];
+        model.outputNets.forEach((net, index) => {
+          if (values.get(net) !== outputs[index]) { values.set(net, outputs[index]); changed = true; }
+        });
       }
       if (!changed) { settled = true; break; }
     }
-    if (!settled || gateModels.some((gate) => values.get(gate.outputNet) !== 0 && values.get(gate.outputNet) !== 1)) return null;
+    if (!settled || logicModels.some((model) => model.outputNets.some((net) => values.get(net) !== 0 && values.get(net) !== 1))) return null;
     return values;
   };
   const record = (timeNs, values, force = false) => {
@@ -162,7 +172,7 @@ export function runDigitalEventSimulation(project) {
     return true;
   };
   const initial = evaluate();
-  if (!initial) return blocked("The gate network is floating, cyclic without a stable state, or has an unresolved input. No logic values were fabricated.", validation);
+  if (!initial) return blocked("The logic network is floating, cyclic without a stable state, or has an unresolved input. No logic values were fabricated.", validation);
   if (flipFlopModels.some((flipFlop) => initial.get(flipFlop.presetNet) !== 1 || initial.get(flipFlop.clearNet) !== 1)) return blocked("The D flip-flop preset and clear pins must remain at a defined inactive-high level; asynchronous controls are not modeled.", validation);
   if (!record(0, initial, true)) return blocked("Every probed net must resolve to a logic 0 or 1.", validation);
   const orderedEvents = [...events].sort((a, b) => a.timeNs - b.timeNs || a.sourceReference.localeCompare(b.sourceReference));
@@ -184,20 +194,21 @@ export function runDigitalEventSimulation(project) {
       }
     }
     if (flipFlopModels.length) values = evaluate();
-    if (!values || !record(timeNs, values)) return blocked(`The gate network did not settle to defined logic levels at ${timeNs} ns.`, validation);
+    if (!values || !record(timeNs, values)) return blocked(`The logic network did not settle to defined logic levels at ${timeNs} ns.`, validation);
   }
   return {
     state: "complete",
     engine: "Ideal digital discrete-event logic simulation",
     engineId: "adigun-digital-events",
     engineVersion: "1.0.0",
-    message: "Simulates deterministic zero-delay AND, OR, XOR, and NOR gates plus positive-edge D flip-flops with explicit initial state. D flip-flop PRE and CLR must remain inactive-high. Simultaneous input changes are applied atomically. Gate delay, setup/hold time, asynchronous controls, metastability, electrical loading, and analog voltage waveforms are not modeled.",
+    message: "Simulates deterministic zero-delay AND, OR, XOR, and NOR gates, an ideal active-high two-to-four decoder, a four-to-one multiplexer, and positive-edge D flip-flops with explicit initial state. D flip-flop PRE and CLR must remain inactive-high. Simultaneous input changes are applied atomically. Gate delay, setup/hold time, asynchronous controls, metastability, electrical loading, and analog voltage waveforms are not modeled.",
     validation,
     convergenceState: "settled",
     warnings: [],
     analysisSettings: { stopTimeNs, eventCount: events.length, probes, thresholdLowV, thresholdHighV, timingModel: "zero-delay; simultaneous events atomic" },
-    modelIds: [...new Set([...gateModels.map((gate) => `ideal-digital-${gate.operation}-v1`), ...(flipFlopModels.length ? ["ideal-positive-edge-d-flip-flop-v1"] : []), "ideal-dc-logic-input-v1"])],
+    modelIds: [...new Set([...logicModels.map((model) => model.kind === "decoder-2to4" ? "ideal-digital-decoder-2to4-v1" : model.kind === "mux4" ? "ideal-digital-mux4-v1" : `ideal-digital-${model.operation}-v1`), ...(flipFlopModels.length ? ["ideal-positive-edge-d-flip-flop-v1"] : []), "ideal-dc-logic-input-v1"])],
     timestamp: new Date().toISOString(),
     result: { kind: "digital-event-simulation", stopTimeNs, processedEvents: events.length, probeNets: probes, trace }
   };
 }
+

@@ -72,6 +72,7 @@ import { analyzeBotCanvas, applyBotSuggestionPreview, buildBotSuggestionPreview,
 import { runReleaseCandidateE2E } from "./js/release-candidate-e2e.mjs";
 import { createSimulationWorkerRun } from "./js/simulation-worker-client.mjs";
 import { getManufacturerPartEvidenceSummary, searchManufacturerParts } from "./js/part-catalogue.mjs";
+import { answerBotProductQuestion, getBotQuestionClarification, isBotProjectGoalStatement } from "./js/bot-product-help.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
@@ -159,14 +160,29 @@ function showBotWiringExplanation(target) {
 function answerBotQuestion() {
   const question = $("#bot-goal").value.trim();
   if (!question) return;
-  if (/\b(build|trying|project goal|purpose|designing|make a|create a)\b/i.test(question)) {
+  if (isBotProjectGoalStatement(question)) {
     botLiveCopilot.setGoal(question);
     $("#bot-response").textContent = `For this session, I will use this project goal: ${question}`;
   } else {
+    const productAnswer = answerBotProductQuestion(question, state.project.metadata.locale);
+    if (productAnswer?.action === "switch-view") {
+      activateView(productAnswer.view);
+      $("#bot-response").textContent = productAnswer.answer;
+      log(`[BOT] Switched to ${productAnswer.view} view at the user's request.`);
+      $("#bot-goal").blur();
+      notifyBotCanvas();
+      return;
+    }
+    if (productAnswer) {
+      $("#bot-response").textContent = productAnswer.answer;
+      $("#bot-goal").blur();
+      notifyBotCanvas();
+      return;
+    }
     const explanation = explainComponentWiring(state.project, state.selectedInstanceId);
     const findings = analyzeBotCanvas(state.project, { goal: botLiveCopilot.getGoal(), unconnectedSince: Object.fromEntries(botUnconnectedSince) });
     const grounded = findings[0]?.message ?? "The current native project has no detected missing gate input, unconnected gate output, missing gate rail, or shared logic output.";
-    $("#bot-response").textContent = explanation.ok ? `${explanation.answer} Live checks: ${grounded}` : `I can answer from current project wiring and the checked-in library only. ${grounded}`;
+    $("#bot-response").textContent = explanation.ok ? `${explanation.answer} Live checks: ${grounded}` : `I can answer from current project wiring and the checked-in library only. ${grounded} ${getBotQuestionClarification(state.project.metadata.locale)}`;
   }
   $("#bot-goal").blur();
   notifyBotCanvas();
@@ -566,6 +582,11 @@ function renderCanvas() {
   const hasPhysicalMap = Object.keys(state.project.breadboard?.pinHoles ?? {}).length > 0;
   const pcbData = state.project.pcbFabrication;
   const hasPcbData = isPcb && Boolean(pcbData?.board && Number.isFinite(pcbData.board.widthMm) && Number.isFinite(pcbData.board.heightMm) && Array.isArray(pcbData.parts) && Array.isArray(pcbData.pads) && Array.isArray(pcbData.routes));
+  const pcbRouteLayerSelect = $("#pcb-route-layer");
+  const pcbCopperLayers = pcbData?.board?.copperLayers ?? [];
+  $("#pcb-route-layer-control").hidden = !hasPcbData;
+  [...pcbRouteLayerSelect.options].forEach((option) => { option.disabled = !pcbCopperLayers.includes(option.value); });
+  if (!pcbCopperLayers.includes(pcbRouteLayerSelect.value)) pcbRouteLayerSelect.value = pcbCopperLayers.includes("F.Cu") ? "F.Cu" : (pcbCopperLayers[0] ?? "");
   const parts = isBreadboard && hasPhysicalMap
     ? breadboardPinMarkers(state.project)
     : hasPcbData ? "" : projection.components.map((component) => componentVisual(component, state.activeView)).join("");
@@ -662,11 +683,20 @@ function renderResultDashboard(analysis) {
     metrics.push([t("acPoints"), String(result.samples.length)], [t("acOutputNet"), result.outputNet ?? t("notRecorded")], [t("acStartHz"), `${result.startHz}–${result.stopHz} Hz`]);
     const rows = result.samples.map((sample) => `<tr><td>${Number(sample.frequencyHz.toPrecision(6))}</td><td>${sample.output ? Number(sample.output.magnitudeV.toPrecision(6)) : "—"}</td><td>${sample.output ? `${Number(sample.output.phaseDegrees.toPrecision(6))}°` : "—"}</td></tr>`).join("");
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearAcSweep"))}</figcaption><table class="result-table linear-ac-table"><thead><tr><th>${escape(t("acFrequencyHz"))}</th><th>${escape(t("acMagnitude"))}</th><th>${escape(t("acPhase"))}</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "nonlinear-dc-operating-point") {
+    metrics.push([t("nonlinearJunctionTemperature"), `${result.temperatureC} °C`], [t("nonlinearIterations"), String(result.iterations)], [t("nonlinearResidual"), result.nonlinearKclAndConstraintResidual.toExponential(2)], [t("nonlinearLinearResidual"), result.linearizedSolveResidual.toExponential(2)], [t("nonlinearPowerBalance"), `${result.powerBalanceW.toExponential(2)} W`]);
+    const nodeRows = Object.entries(result.nodeVoltages).map(([net, voltage]) => `<tr><td>${escape(net)}</td><td>${Number(voltage.toPrecision(7))} V</td></tr>`).join("");
+    const diodeRows = result.diodes.map((item) => `<tr><td>${escape(item.reference)}</td><td>${Number(item.voltage.toPrecision(7))} V</td><td>${Number(item.junctionVoltageV.toPrecision(7))} V</td><td>${Number((item.currentA * 1000).toPrecision(7))} mA</td><td>${Number(item.seriesResistanceOhm.toPrecision(6))} Ω</td><td>${Number((item.seriesResistancePowerW * 1000).toPrecision(7))} mW</td><td>${Number((item.powerW * 1000).toPrecision(7))} mW</td></tr>`).join("");
+    const diodeTable = diodeRows ? `<h4>${escape(t("nonlinearDiodeResults"))}</h4><table class="result-table"><thead><tr><th>${escape(t("reference"))}</th><th>${escape(t("nonlinearVoltage"))}</th><th>${escape(t("nonlinearJunctionVoltage"))}</th><th>${escape(t("nonlinearCurrent"))}</th><th>${escape(t("nonlinearSeriesResistance"))}</th><th>${escape(t("nonlinearSeriesPower"))}</th><th>${escape(t("nonlinearPower"))}</th></tr></thead><tbody>${diodeRows}</tbody></table>` : "";
+    const transistorRows = result.transistors.map((item) => `<tr><td>${escape(item.reference)}</td><td>${escape(item.type)}</td><td>${Number(item.vBE.toPrecision(7))} V</td><td>${Number((item.baseCurrentA * 1e6).toPrecision(7))} µA</td><td>${Number((item.collectorCurrentA * 1000).toPrecision(7))} mA</td><td>${Number((item.emitterCurrentA * 1000).toPrecision(7))} mA</td><td>${Number((item.powerW * 1000).toPrecision(7))} mW</td></tr>`).join("");
+    const transistorTable = transistorRows ? `<h4>${escape(t("nonlinearTransistorResults"))}</h4><table class="result-table"><thead><tr><th>${escape(t("reference"))}</th><th>${escape(t("nonlinearTransistorType"))}</th><th>${escape(t("nonlinearVbe"))}</th><th>${escape(t("nonlinearBaseCurrent"))}</th><th>${escape(t("nonlinearCollectorCurrent"))}</th><th>${escape(t("nonlinearEmitterCurrent"))}</th><th>${escape(t("nonlinearPower"))}</th></tr></thead><tbody>${transistorRows}</tbody></table>` : "";
+    waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisNonlinearDc"))}</figcaption><h4>${escape(t("nonlinearNodeVoltages"))}</h4><table class="result-table"><thead><tr><th>${escape(t("nonlinearNet"))}</th><th>${escape(t("nonlinearVoltage"))}</th></tr></thead><tbody>${nodeRows}</tbody></table>${diodeTable}${transistorTable}<p>${escape(analysis.message)}</p><p>${escape(analysis.warnings?.[0]?.message ?? "")}</p></figure>`;
   } else if (result.kind === "linear-rlc-transient") {
     const values = result.samples.map((sample) => sample.voltageV);
     const min = Math.min(0, ...values), max = Math.max(0, ...values), span = Math.max(max - min, 1e-12);
     const points = result.samples.filter((_, index) => index === 0 || index === result.samples.length - 1 || index % Math.max(1, Math.ceil(result.samples.length / 120)) === 0).map((sample) => `${(4 + sample.timeSeconds / result.stopSeconds * 592).toFixed(2)},${(92 - (sample.voltageV - min) / span * 80).toFixed(2)}`).join(" ");
-    metrics.push([t("transientSampleCount"), String(result.sampleCount)], [t("transientStopSeconds"), `${result.stopSeconds} s`], [t("transientOutputNet"), result.outputNet], [t("transientFinalVoltage"), `${values.at(-1).toPrecision(6)} V`], [t("transientResidual"), result.maximumRelativeResidual.toExponential(2)]);
+    const initialSummary = [...Object.entries(result.initialConditions.capacitorVoltageVByReference).map(([reference, value]) => `${reference}=${value} V`), ...Object.entries(result.initialConditions.inductorCurrentAByReference).map(([reference, value]) => `${reference}=${value} A`)].join("; ") || "0 V / 0 A";
+    metrics.push([t("transientSampleCount"), String(result.sampleCount)], [t("transientStopSeconds"), `${result.stopSeconds} s`], [t("transientOutputNet"), result.outputNet], [t("transientInitialConditions"), initialSummary], [t("transientFinalVoltage"), `${values.at(-1).toPrecision(6)} V`], [t("transientResidual"), result.maximumRelativeResidual.toExponential(2)]);
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearTransient"))} · ${escape(result.outputNet)}</figcaption><svg viewBox="0 0 600 110" role="img" aria-label="${escape(t("transientTraceLabel"))}"><path class="wave-axis" d="M4 92H596 M4 12V92"/><polyline class="wave-trace" points="${points}"/></svg><p>${escape(analysis.message)}</p><p>${escape(analysis.warnings?.[0]?.message ?? "")}</p></figure>`;
   } else if (result.kind === "digital-event-simulation") {
     const rows = Object.entries(result.trace).flatMap(([net, points]) => points.map((point) => ({ net, ...point }))).sort((a, b) => a.timeNs - b.timeNs || a.net.localeCompare(b.net));
@@ -987,7 +1017,7 @@ function renderOutput(validation = state.lastValidation ?? validateProject(state
   const isLog = state.activeOutput === "output";
   const showDashboard = isLog && state.lastAnalysis?.state === "complete";
   const issues = state.activeOutput === "errors" ? validation.errors : validation.warnings;
-  $(".output-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.output === state.activeOutput));
+  $$(".output-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.output === state.activeOutput));
   const dashboard = $("#result-dashboard");
   dashboard.classList.toggle("hidden", !showDashboard);
   $("#export-simulation-report").disabled = state.lastAnalysis?.state !== "complete";
@@ -1007,8 +1037,8 @@ function applyLocale() {
   const messages = TRANSLATIONS[locale] ?? TRANSLATIONS.en;
   document.documentElement.lang = locale;
   $$("[data-i18n]").forEach((node) => { node.textContent = messages[node.dataset.i18n] ?? TRANSLATIONS.en[node.dataset.i18n] ?? node.textContent; });
-  $("[data-i18n-placeholder]").forEach((node) => { node.placeholder = messages[node.dataset.i18nPlaceholder] ?? TRANSLATIONS.en[node.dataset.i18nPlaceholder] ?? node.placeholder; });
-  $("[data-i18n-alt]").forEach((node) => { node.alt = messages[node.dataset.i18nAlt] ?? TRANSLATIONS.en[node.dataset.i18nAlt] ?? node.alt; });
+  $$("[data-i18n-placeholder]").forEach((node) => { node.placeholder = messages[node.dataset.i18nPlaceholder] ?? TRANSLATIONS.en[node.dataset.i18nPlaceholder] ?? node.placeholder; });
+  $$("[data-i18n-alt]").forEach((node) => { node.alt = messages[node.dataset.i18nAlt] ?? TRANSLATIONS.en[node.dataset.i18nAlt] ?? node.alt; });
   $$("[data-i18n-aria]").forEach((node) => { node.setAttribute("aria-label", messages[node.dataset.i18nAria] ?? TRANSLATIONS.en[node.dataset.i18nAria] ?? node.getAttribute("aria-label")); });
   $$("[data-i18n-title]").forEach((node) => { node.title = messages[node.dataset.i18nTitle] ?? TRANSLATIONS.en[node.dataset.i18nTitle] ?? node.title; });
   $("#language").value = locale;
@@ -1080,6 +1110,7 @@ function projectWithSelectedAnalysis(project, key, config) {
   delete selected.linearAcSweep;
   delete selected.linearRlcTransient;
   delete selected.digitalEventSimulation;
+  delete selected.shockleyDcOperatingPoint;
   selected[key] = config;
   return selected;
 }
@@ -1127,8 +1158,14 @@ function runAnalysis(workerResult = null) {
     if (isAnalysisWorkerEligible(state.project)) {
       const analysisMode = $("#simulation-analysis-mode").value;
       let projectForAnalysis = state.project;
+      if (analysisMode === "nonlinear-dc") projectForAnalysis = projectWithSelectedAnalysis(state.project, "shockleyDcOperatingPoint", { temperatureC: Number($("#nonlinear-dc-temperature").value) });
       if (analysisMode === "linear-ac") projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearAcSweep", { startHz: Number($("#ac-start-hz").value), stopHz: Number($("#ac-stop-hz").value), pointsPerDecade: Number($("#ac-points-per-decade").value), outputNet: $("#ac-output-net").value || undefined });
-      if (analysisMode === "linear-transient") projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearRlcTransient", { stopSeconds: Number($("#transient-stop-seconds").value), timeStepSeconds: Number($("#transient-time-step").value), outputNet: $("#transient-output-net").value || undefined });
+      if (analysisMode === "linear-transient") {
+        let initialConditions;
+        try { initialConditions = JSON.parse($("#transient-initial-conditions").value); }
+        catch { state.lastAnalysis = { state: "blocked", engine: "Linear RLC transient configuration", message: "Initial conditions must be valid JSON." }; renderValidation(); return; }
+        projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearRlcTransient", { stopSeconds: Number($("#transient-stop-seconds").value), timeStepSeconds: Number($("#transient-time-step").value), outputNet: $("#transient-output-net").value || undefined, initialConditions });
+      }
       if (analysisMode === "digital-events") {
         let events, initialStates;
         try {
@@ -1223,7 +1260,7 @@ function runAnalysis(workerResult = null) {
       const { sourceVoltage, resistance, inductance, timeConstantS, samples } = result.result;
       log(`[RESULT] Vstep=${sourceVoltage.toFixed(3)} V, R=${resistance.toFixed(3)} Ω, L=${inductance.toExponential(3)} H, τ=${timeConstantS.toExponential(3)} s.`);
       for (const sample of samples) log(`[TRANSIENT] t=${sample.timeS.toExponential(3)} s, I=${(sample.currentA * 1000).toFixed(3)} mA, VL=${sample.inductorVoltage.toFixed(3)} V, PR=${(sample.resistorPowerW * 1000).toFixed(3)} mW`);
-    } else {
+    } else if (kind === "resistive-network") {
       const { sourceVoltage, sourceCurrentA, nodeVoltages, resistors } = result.result;
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Isource=${(sourceCurrentA * 1000).toFixed(3)} mA.`);
       for (const [node, voltage] of Object.entries(nodeVoltages)) log(`[NODE] ${node}=${voltage.toFixed(3)} V`);
@@ -1406,6 +1443,12 @@ function handlePcbRouteCanvasClick(event) {
     state.selectedInstanceId = pad.dataset.instanceId;
     if (pad.dataset.pcbNet === "NC") { showDialog(t("pcbMenu"), t("pcbRouteBlocked")); return true; }
     if (!state.pcbRouteDraft) {
+      const routePad = state.project.pcbFabrication.pads.find((item) => `${item.instanceId}:${item.pin}` === pad.dataset.pcbPad);
+      if ($("#pcb-route-layer").value === "B.Cu" && routePad?.technology !== "through-hole") {
+        state.pcbRouteHintKey = "pcbRouteBottomThroughHole";
+        renderCanvas();
+        return true;
+      }
       state.pcbRouteDraft = { startPad: pad.dataset.pcbPad, netId: pad.dataset.pcbNet, pointsMm: [[Number(pad.dataset.xMm), Number(pad.dataset.yMm)]] };
       state.pcbRouteHintKey = "pcbRouteWaypoint";
       render();
@@ -1417,7 +1460,7 @@ function handlePcbRouteCanvasClick(event) {
       renderCanvas();
       return true;
     }
-    const result = createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1) });
+    const result = createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1), layer: $("#pcb-route-layer").value });
     if (result.status === "complete") {
       captureHistory();
       state.project = result.project;
@@ -1433,9 +1476,9 @@ function handlePcbRouteCanvasClick(event) {
       state.pcbRouteHintKey = "pcbRouteReady";
       renderCanvas();
     } else {
-      state.pcbRouteHintKey = "pcbRouteBlocked";
+      state.pcbRouteHintKey = result.code === "BOTTOM_LAYER_REQUIRES_THROUGH_HOLE" ? "pcbRouteBottomThroughHole" : "pcbRouteBlocked";
       renderCanvas();
-      showDialog(t("pcbMenu"), `${t("pcbRouteBlocked")} (${result.code})`);
+      showDialog(t("pcbMenu"), `${t(state.pcbRouteHintKey)} (${result.code})`);
       log(`[PCB] Interactive route blocked: ${result.code}.`);
     }
     return true;
@@ -1871,8 +1914,10 @@ $("#language").addEventListener("change", (event) => {
   render();
 });
 $("#grid-toggle").addEventListener("change", renderCanvas);
+$("#pcb-route-layer").addEventListener("change", () => { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; renderCanvas(); });
 $("#run-simulation").addEventListener("click", () => runAnalysis());
 $("#simulation-analysis-mode").addEventListener("change", (event) => {
+  $("#nonlinear-dc-controls").classList.toggle("hidden", event.target.value !== "nonlinear-dc");
   $("#ac-sweep-controls").classList.toggle("hidden", event.target.value !== "linear-ac");
   $("#linear-transient-controls").classList.toggle("hidden", event.target.value !== "linear-transient");
   $("#digital-event-controls").classList.toggle("hidden", event.target.value !== "digital-events");
