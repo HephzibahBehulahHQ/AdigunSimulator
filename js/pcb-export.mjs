@@ -16,7 +16,8 @@ export function validatePcbFabrication(project) {
   if (!pcb || typeof pcb !== "object") return { status:"blocked", errors:["Project has no PCB fabrication data."], warnings };
   const { board, parts, pads, routes } = pcb;
   if (!board || !Number.isFinite(board.widthMm) || !Number.isFinite(board.heightMm) || board.widthMm <= 0 || board.heightMm <= 0) errors.push("Board dimensions must be positive millimetres.");
-  if (!Array.isArray(board?.copperLayers) || board.copperLayers.length !== 1 || board.copperLayers[0] !== "F.Cu") errors.push("This exporter supports a single F.Cu copper layer only.");
+  const supportedCopperLayers = ["F.Cu", "B.Cu"];
+  if (!Array.isArray(board?.copperLayers) || board.copperLayers.length < 1 || board.copperLayers.length > 2 || board.copperLayers[0] !== "F.Cu" || board.copperLayers.some((layer) => !supportedCopperLayers.includes(layer)) || new Set(board.copperLayers).size !== board.copperLayers.length) errors.push("Copper layers must be F.Cu, optionally followed by B.Cu.");
   if (!Array.isArray(parts) || !Array.isArray(pads) || !Array.isArray(routes)) return { status:"blocked", errors:[...errors,"Parts, pads, and routes must be arrays."], warnings };
   const components = new Map((project.components ?? []).map((component) => [component.instanceId,component]));
   const knownNets = new Map((project.nets ?? []).map((net) => [net.id,new Set(net.endpoints ?? [])]));
@@ -64,10 +65,12 @@ export function validatePcbFabrication(project) {
   }
   for (const route of routes) {
     if (!knownNets.has(route.netId) || !Array.isArray(route.pointsMm) || route.pointsMm.length < 2 || !Number.isFinite(route.widthMm) || route.widthMm <= 0) { errors.push(`Route for ${route.netId ?? "unknown net"} is incomplete.`); continue; }
-    if (route.layer !== "F.Cu") errors.push(`Route ${route.netId} is not on the supported F.Cu layer.`);
+    if (!supportedCopperLayers.includes(route.layer) || !Array.isArray(board?.copperLayers) || !board.copperLayers.includes(route.layer)) errors.push(`Route ${route.netId} is on an undeclared copper layer.`);
     for (const [x,y] of route.pointsMm) if (![x,y].every(Number.isFinite) || x < 0 || y < 0 || x > board.widthMm || y > board.heightMm) errors.push(`Route ${route.netId} leaves the board outline.`);
-    const endpoints = pads.filter((pad) => pad.netId===route.netId);
-    if (!endpoints.some((pad) => pointEqual(pad,route.pointsMm[0])) || !endpoints.some((pad) => pointEqual(pad,route.pointsMm.at(-1)))) errors.push(`Route ${route.netId} must terminate on pads belonging to that net.`);
+    const startEndpoint = pads.find((pad) => pad.netId===route.netId && pointEqual(pad,route.pointsMm[0]));
+    const endEndpoint = pads.find((pad) => pad.netId===route.netId && pointEqual(pad,route.pointsMm.at(-1)));
+    if (route.layer === "B.Cu" && [startEndpoint,endEndpoint].some((pad) => !pad || pad.technology !== "through-hole")) errors.push(`Route ${route.netId} on B.Cu must terminate on plated through-hole pads.`);
+    else if (!startEndpoint || !endEndpoint) errors.push(`Route ${route.netId} must terminate on pads belonging to that net.`);
   }
   const routedNets=new Set(routes.map((route)=>route.netId));
   const nativePhysicalNets=new Set((project.nets??[]).filter((net)=>(net.endpoints??[]).some((endpoint)=>partIds.has(endpoint.split(":")[0]))).map((net)=>net.id));
@@ -77,7 +80,7 @@ export function validatePcbFabrication(project) {
     const physicalPads=pads.filter((pad)=>pad.netId===net.id);
     if(physicalPads.length>=2&&!routedNets.has(net.id)) errors.push(`Net ${net.id} has physical pads but no copper route.`);
     for(const pad of physicalPads){
-      const covered=routes.some((route)=>route.netId===net.id&&route.pointsMm?.some((point)=>pointEqual(pad,point)));
+      const covered=routes.some((route)=>route.netId===net.id&&(route.layer==="F.Cu"||pad.technology==="through-hole")&&route.pointsMm?.some((point)=>pointEqual(pad,point)));
       if(!covered) errors.push(`Pad ${pad.reference}.${pad.number} on ${net.id} is not reached by its copper route.`);
     }
   }
@@ -99,20 +102,21 @@ export function validatePcbFabrication(project) {
     for(const route of routes)for(let i=1;i<(route.pointsMm??[]).length;i++)if(segmentHitsRect(route.pointsMm[i-1],route.pointsMm[i],keepout,route.widthMm/2)){errors.push(`Route ${route.netId} intersects keep-out ${keepout.id??"unnamed"}.`);break;}
   }
   if (!routes.length) errors.push("At least one routed copper net is required.");
-  return { status:errors.length ? "failed" : "passed", errors, warnings, checks:["board bounds","single copper layer","declared net-to-pad mapping","native/PCB netlist equivalence","connected routed endpoints","no unrouted physical nets","all physical pads appear on copper paths","inter-net pad clearance","through-hole drill dimensions","declared header map","declared mechanical keep-outs"] };
+  return { status:errors.length ? "failed" : "passed", errors, warnings, checks:["board bounds","supported F.Cu/B.Cu layers","declared net-to-pad mapping","native/PCB netlist equivalence","connected routed endpoints","no unrouted physical nets","all physical pads appear on copper paths","inter-net pad clearance","through-hole drill dimensions","declared header map","declared mechanical keep-outs"] };
 }
 
-function gerberFile(pcb, { outline=false }={}) {
+function gerberFile(pcb, { outline=false, layer="F.Cu" }={}) {
   const apertures = new Map();
   const apertureCode = (key, definition) => { if (!apertures.has(key)) apertures.set(key,{code:10+apertures.size,definition}); return apertures.get(key).code; };
-  const padDraws = outline ? [] : pcb.pads.map((pad) => {
+  const padDraws = outline ? [] : pcb.pads.filter((pad) => layer === "F.Cu" || pad.technology === "through-hole").map((pad) => {
     const key=pad.technology==="through-hole" ? `C:${round(pad.diameterMm)}` : `R:${round(pad.widthMm)}x${round(pad.heightMm)}`;
     const definition=pad.technology==="through-hole" ? `C,${round(pad.diameterMm)}` : `R,${round(pad.widthMm)}X${round(pad.heightMm)}`;
     return { pad, code:apertureCode(key,definition) };
   });
-  const traceDraws = outline ? [] : pcb.routes.map((route) => ({route,code:apertureCode(`C:${round(route.widthMm)}`,`C,${round(route.widthMm)}`)}));
+  const traceDraws = outline ? [] : pcb.routes.filter((route) => route.layer === layer).map((route) => ({route,code:apertureCode(`C:${round(route.widthMm)}`,`C,${round(route.widthMm)}`)}));
   const outlineCode = outline ? apertureCode("C:0.100","C,0.100") : null;
-  const lines=["G04 AdigunSimulator single-sided educational output; verify before manufacture*","%FSLAX46Y46*%","%MOMM*%","%IPPOS*%"];
+  const layerDescription=pcb.board.copperLayers.includes("B.Cu")?layer:"single-sided";
+  const lines=[`G04 AdigunSimulator ${layerDescription} educational output; verify before manufacture*`,`%FSLAX46Y46*%`,`%MOMM*%`,`%IPPOS*%`];
   for (const {code,definition} of apertures.values()) lines.push(`%ADD${code}${definition}*%`);
   if (outline) {
     lines.push(`D${outlineCode}*`,`X0000000000Y0000000000D02*`,`X${gerberCoord(pcb.board.widthMm)}Y0000000000D01*`,`X${gerberCoord(pcb.board.widthMm)}Y${gerberCoord(pcb.board.heightMm)}D01*`,`X0000000000Y${gerberCoord(pcb.board.heightMm)}D01*`,`X0000000000Y0000000000D01*`);
@@ -151,10 +155,12 @@ export function exportPcbFabrication(project) {
   const drc=validatePcbFabrication(project);
   if(drc.status!=="passed")return {status:"blocked",drc,files:{}};
   const pcb=project.pcbFabrication;
-  return {status:"passed",drc,files:{
-    "board-F_Cu.gbr":gerberFile(pcb),
+  const files={
+    "board-F_Cu.gbr":gerberFile(pcb,{layer:"F.Cu"}),
     "board-Edge_Cuts.gbr":gerberFile(pcb,{outline:true}),
     "board-PTH.drl":drillFile(pcb),
     "BOM.csv":bomFile(project,pcb)
-  }};
+  };
+  if(pcb.board.copperLayers.includes("B.Cu"))files["board-B_Cu.gbr"]=gerberFile(pcb,{layer:"B.Cu"});
+  return {status:"passed",drc,files};
 }

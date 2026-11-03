@@ -247,8 +247,11 @@ test("PCB interactive routing is accessible, net-bound, localized, and uses the 
     readFile(new URL("../js/i18n.mjs", import.meta.url), "utf8")
   ]);
   assert.match(html, /id="pcb-route-mode"[^>]*data-tool="pcb-route"[^>]*aria-pressed="false"/);
+  assert.match(html, /id="pcb-route-layer-control"/);
+  assert.match(html, /id="pcb-route-layer"[^>]*data-i18n-aria="pcbRouteLayer"/);
   assert.match(html, /id="pcb-route-status" role="status" aria-live="polite"/);
-  assert.ok(app.includes("createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1) })"));
+  assert.ok(app.includes('layer: $("#pcb-route-layer").value'));
+  assert.match(app, /pcbCopperLayers\.includes\(option\.value\)/);
   assert.ok(app.includes("pcbPreviewPointToBoardMm(state.project, viewPoint)"));
   assert.match(app, /state.pcbRouteDraft = null;\s+state.pcbRouteHintKey = "pcbRouteReady"/);
   for (const locale of ["en", "de", "yo", "pcm"]) assert.match(translations, new RegExp(`Object\\.assign\\(TRANSLATIONS\\.${locale}, \\{ pcbRoute:`));

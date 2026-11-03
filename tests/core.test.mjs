@@ -3782,7 +3782,7 @@ test("catalogue single-sided LED PCB passes bounded DRC and matches fabrication 
   const drc=validatePcbFabrication(project);
   assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
   assert.deepEqual(drc.errors,[]);
-  assert.ok(drc.checks.includes("single copper layer"));
+  assert.ok(drc.checks.includes("supported F.Cu/B.Cu layers"));
   const generated=exportPcbFabrication(project);
   assert.equal(generated.status,"passed");
   assert.deepEqual(Object.keys(generated.files).sort(),["BOM.csv","board-Edge_Cuts.gbr","board-F_Cu.gbr","board-PTH.drl"]);

@@ -582,6 +582,11 @@ function renderCanvas() {
   const hasPhysicalMap = Object.keys(state.project.breadboard?.pinHoles ?? {}).length > 0;
   const pcbData = state.project.pcbFabrication;
   const hasPcbData = isPcb && Boolean(pcbData?.board && Number.isFinite(pcbData.board.widthMm) && Number.isFinite(pcbData.board.heightMm) && Array.isArray(pcbData.parts) && Array.isArray(pcbData.pads) && Array.isArray(pcbData.routes));
+  const pcbRouteLayerSelect = $("#pcb-route-layer");
+  const pcbCopperLayers = pcbData?.board?.copperLayers ?? [];
+  $("#pcb-route-layer-control").hidden = !hasPcbData;
+  [...pcbRouteLayerSelect.options].forEach((option) => { option.disabled = !pcbCopperLayers.includes(option.value); });
+  if (!pcbCopperLayers.includes(pcbRouteLayerSelect.value)) pcbRouteLayerSelect.value = pcbCopperLayers.includes("F.Cu") ? "F.Cu" : (pcbCopperLayers[0] ?? "");
   const parts = isBreadboard && hasPhysicalMap
     ? breadboardPinMarkers(state.project)
     : hasPcbData ? "" : projection.components.map((component) => componentVisual(component, state.activeView)).join("");
@@ -1438,6 +1443,12 @@ function handlePcbRouteCanvasClick(event) {
     state.selectedInstanceId = pad.dataset.instanceId;
     if (pad.dataset.pcbNet === "NC") { showDialog(t("pcbMenu"), t("pcbRouteBlocked")); return true; }
     if (!state.pcbRouteDraft) {
+      const routePad = state.project.pcbFabrication.pads.find((item) => `${item.instanceId}:${item.pin}` === pad.dataset.pcbPad);
+      if ($("#pcb-route-layer").value === "B.Cu" && routePad?.technology !== "through-hole") {
+        state.pcbRouteHintKey = "pcbRouteBottomThroughHole";
+        renderCanvas();
+        return true;
+      }
       state.pcbRouteDraft = { startPad: pad.dataset.pcbPad, netId: pad.dataset.pcbNet, pointsMm: [[Number(pad.dataset.xMm), Number(pad.dataset.yMm)]] };
       state.pcbRouteHintKey = "pcbRouteWaypoint";
       render();
@@ -1449,7 +1460,7 @@ function handlePcbRouteCanvasClick(event) {
       renderCanvas();
       return true;
     }
-    const result = createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1) });
+    const result = createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1), layer: $("#pcb-route-layer").value });
     if (result.status === "complete") {
       captureHistory();
       state.project = result.project;
@@ -1465,9 +1476,9 @@ function handlePcbRouteCanvasClick(event) {
       state.pcbRouteHintKey = "pcbRouteReady";
       renderCanvas();
     } else {
-      state.pcbRouteHintKey = "pcbRouteBlocked";
+      state.pcbRouteHintKey = result.code === "BOTTOM_LAYER_REQUIRES_THROUGH_HOLE" ? "pcbRouteBottomThroughHole" : "pcbRouteBlocked";
       renderCanvas();
-      showDialog(t("pcbMenu"), `${t("pcbRouteBlocked")} (${result.code})`);
+      showDialog(t("pcbMenu"), `${t(state.pcbRouteHintKey)} (${result.code})`);
       log(`[PCB] Interactive route blocked: ${result.code}.`);
     }
     return true;
@@ -1903,6 +1914,7 @@ $("#language").addEventListener("change", (event) => {
   render();
 });
 $("#grid-toggle").addEventListener("change", renderCanvas);
+$("#pcb-route-layer").addEventListener("change", () => { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; renderCanvas(); });
 $("#run-simulation").addEventListener("click", () => runAnalysis());
 $("#simulation-analysis-mode").addEventListener("change", (event) => {
   $("#nonlinear-dc-controls").classList.toggle("hidden", event.target.value !== "nonlinear-dc");

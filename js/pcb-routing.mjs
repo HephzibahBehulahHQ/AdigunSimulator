@@ -49,13 +49,14 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
   const board = pcb?.board;
   if (!pcb || !board || !Array.isArray(pcb.parts) || !Array.isArray(pcb.pads) || !Array.isArray(pcb.routes)) return { status: "blocked", code: "NO_PCB_DATA" };
   if (![board.widthMm, board.heightMm, board.minimumClearanceMm].every(Number.isFinite) || board.widthMm <= 0 || board.heightMm <= 0 || board.minimumClearanceMm <= 0) return { status: "blocked", code: "INVALID_BOARD_RULES" };
-  if (!Array.isArray(board.copperLayers) || !board.copperLayers.includes(layer) || layer !== "F.Cu") return { status: "blocked", code: "UNSUPPORTED_COPPER_LAYER" };
+  if (!Array.isArray(board.copperLayers) || !board.copperLayers.includes(layer) || !["F.Cu", "B.Cu"].includes(layer)) return { status: "blocked", code: "UNSUPPORTED_COPPER_LAYER" };
 
   const getPad = (id) => pcb.pads.find((pad) => `${pad.instanceId}:${pad.pin}` === id);
   const from = getPad(startPad), to = getPad(endPad);
   if (!from || !to) return { status: "blocked", code: "UNKNOWN_PAD" };
   if (from.netId === "NC" || to.netId === "NC") return { status: "blocked", code: "NO_CONNECT_PAD" };
   if (from.netId !== to.netId) return { status: "blocked", code: "NET_MISMATCH" };
+  if (layer === "B.Cu" && [from, to].some((pad) => pad.technology !== "through-hole")) return { status: "blocked", code: "BOTTOM_LAYER_REQUIRES_THROUGH_HOLE" };
   const declaredNet = project.nets?.find((net) => net.id === from.netId);
   if (startPad === endPad || !declaredNet || !declaredNet.endpoints?.includes(startPad) || !declaredNet.endpoints?.includes(endPad)) return { status: "blocked", code: "INVALID_ROUTE_ENDPOINTS" };
   if (![from, to].every((pad) => pcb.parts.some((part) => part.instanceId === pad.instanceId))) return { status: "blocked", code: "UNKNOWN_FOOTPRINT" };
@@ -76,7 +77,7 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
   if (pointsMm.some((point, index) => index > 0 && pointDistance(point, pointsMm[index - 1]) <= epsilon)) return { status: "blocked", code: "ZERO_LENGTH_SEGMENT" };
 
   const clearance = clearanceFor(pcb, from.netId, board.minimumClearanceMm);
-  const otherPads = pcb.pads.filter((pad) => pad.netId !== from.netId && pad.netId !== "NC");
+  const otherPads = pcb.pads.filter((pad) => pad.netId !== from.netId && pad.netId !== "NC" && (layer === "F.Cu" || pad.technology === "through-hole"));
   const otherRoutes = pcb.routes.filter((route) => route.netId !== from.netId && route.layer === layer);
   const keepouts = pcb.keepouts ?? [];
   for (let i = 1; i < pointsMm.length; i++) {
