@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
-import { UI_KEYS, UI_LOCALES } from "../js/i18n.mjs";
+import { TRANSLATIONS, UI_KEYS, UI_LOCALES } from "../js/i18n.mjs";
 
 const indexFile = new URL("../index.html", import.meta.url);
 const appFile = new URL("../app.js", import.meta.url);
@@ -94,7 +94,13 @@ test("header account and compact action controls flow without overlapping on nar
   const header = html.match(/<div class="header-actions"[\s\S]*?<\/div>/)?.[0] ?? "";
   assert.ok(header.indexOf("id=\"save-state\"") < header.indexOf("id=\"account-status\"") && header.indexOf("id=\"account-status\"") < header.indexOf("id=\"language\"") && header.indexOf("id=\"language\"") < header.indexOf("id=\"theme-toggle\"") && header.indexOf("id=\"theme-toggle\"") < header.indexOf("id=\"global-search-toggle\"") && header.indexOf("id=\"global-search-toggle\"") < header.indexOf("id=\"help-button\""));
   assert.match(header, /id="account-status"[^>]*data-auth-state="guest"/);
-  assert.match(header, /title="Account · Guest \(sign-in unavailable\)"/);
+  assert.match(header, /data-i18n-title="accountGuestTooltip"/);
+  assert.match(header, /data-i18n-aria="accountGuestAria"/);
+  for (const locale of UI_LOCALES) {
+    assert.ok(TRANSLATIONS[locale].accountGuestTooltip, `${locale} is missing the guest-account tooltip`);
+    assert.ok(TRANSLATIONS[locale].accountGuestAria, `${locale} is missing the guest-account accessible name`);
+    assert.ok(TRANSLATIONS[locale].locale, `${locale} is missing the language-control label`);
+  }
   assert.match(header, /id="account-status"[\s\S]*?<svg[^>]*aria-hidden="true" viewBox="0 0 24 24"><circle/);
   assert.match(css, /\.icon-button \{[^}]*width:\s*2\.25rem[^}]*height:\s*2\.25rem/);
   assert.match(css, /\.language-control \{[^}]*width:\s*2\.25rem[^}]*height:\s*2\.25rem/);

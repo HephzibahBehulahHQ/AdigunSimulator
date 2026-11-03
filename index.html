@@ -21,10 +21,10 @@
       </div>
       <div class="header-actions" aria-label="Account and application controls">
         <span class="save-state saved" id="save-state" aria-live="polite">Saved locally</span>
-        <button id="account-status" class="icon-button account-button" type="button" data-auth-state="guest" aria-label="Account: guest; sign-in is unavailable" title="Account · Guest (sign-in unavailable)">
+        <button id="account-status" class="icon-button account-button" type="button" data-auth-state="guest" aria-label="Account: guest; sign-in is unavailable" title="Account · Guest (sign-in unavailable)" data-i18n-aria="accountGuestAria" data-i18n-title="accountGuestTooltip">
           <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19c.5-3.1 2.8-5 6.5-5s6 1.9 6.5 5"/></svg><span class="account-status-dot" aria-hidden="true"></span>
         </button>
-        <label class="language-control" title="Language"><span class="sr-only">Language</span><select id="language" aria-label="Language" title="Language"><option value="en">EN</option><option value="de">DE</option><option value="yo">YO</option><option value="pcm">PCM</option></select></label>
+        <label class="language-control" title="Language" data-i18n-title="locale"><span class="sr-only">Language</span><select id="language" aria-label="Language" title="Language" data-i18n-aria="locale"><option value="en">EN</option><option value="de">DE</option><option value="yo">YO</option><option value="pcm">PCM</option></select></label>
         <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch colour theme" title="Switch colour theme" data-i18n-aria="theme" data-i18n-title="theme">⚙</button>
         <button id="global-search-toggle" class="icon-button" type="button" aria-label="Show search" title="Show search" data-i18n-aria="searchGlobal" data-i18n-title="searchGlobal"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 5 5"/></svg></button>
         <label class="global-search" hidden><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Search components, tools, or help…" data-i18n-placeholder="searchGlobal" /></label>
