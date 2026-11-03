@@ -21,8 +21,8 @@ test("manufacturer evidence search returns exact records without promoting candi
 });
 
 test("manufacturer evidence browser provides a searchable review snapshot for every ledger record", () => {
-  assert.equal(MANUFACTURER_PART_RECORDS.length, 10);
-  assert.equal(searchManufacturerParts("Texas Instruments").length, 4);
+  assert.equal(MANUFACTURER_PART_RECORDS.length, 11);
+  assert.equal(searchManufacturerParts("Texas Instruments").length, 5);
   assert.equal(searchManufacturerParts("no-such-manufacturer-part").length, 0);
   assert.ok(MANUFACTURER_PART_RECORDS.every((record) => getManufacturerPartEvidenceSummary(record).verified === (record.verificationStatus === "verified")));
   const reviewReady = getManufacturerPartEvidenceSummary(MANUFACTURER_PART_RECORDS.find((record) => record.id === "ti.lm555p"));

@@ -1228,6 +1228,168 @@
         "assetPath": "library/assets/footprints/ti.sn74hc74n/footprint.json",
         "designNote": "2.54 mm pitch and 7.62 mm row spacing follow the educational PDIP-14 layout convention. Pad diameter and drill are CC0 defaults, not manufacturer land-pattern recommendations; physical review remains required."
       }
+    },
+    {
+      "id": "ti.sn74hc14n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC14N",
+      "category": "Digital logic",
+      "type": "Hex Schmitt-trigger inverter",
+      "typeCode": "F10",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC14 Hex Inverters with Schmitt-Trigger Inputs datasheet (Rev. L)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc14.pdf",
+        "accessedAt": "2026-11-03",
+        "sha256": "24911ae018ad9bf6f8f069158b8689d0d941e3cde9f48924e2421276ae10e397",
+        "sha256Bytes": 2079245,
+        "checksumEvidenceNote": "library/evidence/datasheet-checksums-2026-11-03.md"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC14/part-details/SN74HC14N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/product/SN74HC14",
+          "kind": "manufacturer-family-product-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc14.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-14",
+        "pinCount": 14,
+        "sourceUrl": "https://www.ti.com/product/SN74HC14/part-details/SN74HC14N"
+      },
+      "package": "PDIP-14",
+      "ratings": [
+        {
+          "name": "recommended supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "symbolPinMap": {
+        "1": "1A",
+        "2": "1Y",
+        "3": "2A",
+        "4": "2Y",
+        "5": "3A",
+        "6": "3Y",
+        "7": "GND",
+        "8": "4Y",
+        "9": "4A",
+        "10": "5Y",
+        "11": "5A",
+        "12": "6Y",
+        "13": "6A",
+        "14": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "output",
+        "3": "input",
+        "4": "output",
+        "5": "input",
+        "6": "output",
+        "7": "power-in",
+        "8": "output",
+        "9": "input",
+        "10": "output",
+        "11": "input",
+        "12": "output",
+        "13": "input",
+        "14": "power-in"
+      },
+      "modelStatus": "not-modelled",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "The available generic digital gate mode does not model the SN74HC14's Schmitt trigger thresholds, hysteresis, propagation delays, supply current, output drive, or analog transfer behavior. Do not simulate this exact manufacturer's electrical behavior."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/SN74HC14/part-details/SN74HC14N",
+        "checkedAt": "2026-11-03"
+      },
+      "warnings": [
+        "This record is an unverified manufacturer-backed candidate, not a verified part or validated simulator model.",
+        "The generic logic gate model does not implement Schmitt hysteresis or TI-specific electrical thresholds and timing.",
+        "Check voltage, input transitions, output loading, decoupling, temperature, and pin orientation against the current TI datasheet before hardware use."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-14 through-hole package intended to straddle a solderless board center trench; verify the exact breadboard trench and physical package fit.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC14N hex Schmitt-trigger inverter",
+          "description": "Six inverters with Schmitt-trigger inputs in PDIP-14. The app does not model TI-specific hysteresis, thresholds, timing, or output drive."
+        },
+        "de": {
+          "name": "SN74HC14N Sechsfach-Schmitt-Trigger-Inverter",
+          "description": "Sechs Inverter mit Schmitt-Trigger-Eingängen im PDIP-14-Gehäuse. Das App-Modell bildet TI-spezifische Hysterese, Schaltschwellen, Zeiten und Ausgangstreiber nicht ab."
+        },
+        "yo": {
+          "name": "SN74HC14N inverter Schmitt-trigger mẹ́fà",
+          "description": "Inverter mẹ́fà tó ní Schmitt-trigger inputs nínú PDIP-14. App náà kò model hysteresis, thresholds, timing tàbí output drive TI pàtó."
+        },
+        "pcm": {
+          "name": "SN74HC14N hex Schmitt-trigger inverter",
+          "description": "Six inverter wey get Schmitt-trigger inputs inside PDIP-14. App no model TI exact hysteresis, switching levels, timing or output drive."
+        }
+      },
+      "evidenceNote": "library/evidence/ti.sn74hc14n.md",
+      "notes": "TI's exact orderable page identifies the active SN74HC14N PDIP-14 option; Rev. L datasheet provides device function, pin map, and operating ratings. PDF checksum and original CC0 educational symbol/footprint drafts are recorded. Exact Schmitt-trigger behavior is not modeled. Independent human review and physical package/footprint review remain open; this candidate is not counted as verified.",
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc14n/footprint.json",
+        "sha256": "6d80d362d832da047bce5d53d1b3f41d4d6390fe8f54160a8457614a248c44d6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc14.pdf",
+        "drawing": "N (PDIP-14), SNx4HC14 package information and outline; dimensions follow the TI N package drawing",
+        "assetPath": "library/assets/footprints/ti.sn74hc14n/footprint.json",
+        "designNote": "The 2.54 mm pitch and 7.62 mm row spacing follow the educational PDIP-14 layout. Pad diameter and drill are CC0 defaults, not TI land-pattern recommendations; independent physical fit review remains required."
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc14n/symbol.svg",
+        "sha256": "4fc71d72b6f3e3752b4719ec8db62b0e6e0e219da6bc068a1d359520a7dbcfd5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     }
   ],
   "lastUpdated": "2026-11-02"
