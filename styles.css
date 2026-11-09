@@ -380,3 +380,106 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 #pcb-classes-dialog .pcb-class-actions { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; }
 #pcb-class-error { color: var(--red, #ff7589); }
 @media (max-width: 640px) { .pcb-classes-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Reference workstation: compact command rows and independently scrolling side rails. */
+.project-actions > .panel-toggle { flex: 0 0 2.25rem; padding: 0; }
+.panel-toggle[aria-expanded="true"] { border-color: #39859e; color: var(--cyan); }
+@media (min-width: 1121px) {
+  .workspace > .library-panel { grid-column: 1; grid-row: 1; }
+  .workspace > .canvas-area { grid-column: 2; grid-row: 1; }
+  .workspace > .inspector-panel { grid-column: 3; grid-row: 1; }
+  .workspace.left-panel-closed { grid-template-columns: 0 minmax(0, 1fr) 17.5rem; }
+  .workspace.right-panel-closed { grid-template-columns: 17.5rem minmax(0, 1fr) 0; }
+  .workspace.left-panel-closed.right-panel-closed { grid-template-columns: 0 minmax(0, 1fr) 0; }
+}
+@media (min-width: 801px) and (max-width: 1120px) {
+  .workspace > .library-panel { grid-column: 1; grid-row: 1; }
+  .workspace > .canvas-area { grid-column: 2; grid-row: 1; }
+  .workspace > .inspector-panel { grid-column: 1 / -1; grid-row: 2; }
+  .workspace.left-panel-closed { grid-template-columns: minmax(0, 1fr); }
+  .workspace.left-panel-closed > .canvas-area { grid-column: 1; }
+}
+.mini-canvas > .canvas-scene { inset: auto; left: 0; top: 0; width: 680px; height: 300px; transform-origin: 0 0; }
+.mini-canvas .placed-component { transform: none; }
+.schematic .placed-component { width: var(--symbol-width, 56px); min-width: var(--symbol-width, 56px); height: var(--symbol-height, 58px); min-height: var(--symbol-height, 58px); border-width: 0; }
+.schematic .placed-component.is-selected { outline: 1px solid var(--gold); }
+.schematic .schematic-symbol { width: var(--symbol-width, 56px); height: var(--symbol-height, 58px); }
+.schematic .placed-component .part-value { top: calc(var(--symbol-height, 58px) + 1px); }
+.schematic-symbol .controller-symbol-body { fill: #0a2030; }
+.schematic-symbol .controller-symbol-title { font-size: 13px; }
+.identity-header { min-height: 3.6rem; gap: .7rem; padding: .45rem .8rem; }
+.corporate-logo { width: 5.8rem; flex: 0 0 5.8rem; }
+.identity { gap: .55rem; }
+.identity-divider { height: 2.15rem; margin: 0 .1rem; }
+.identity h1 { font-size: 1.65rem; }
+.identity p { margin-top: .3rem; font-size: .58rem; }
+.identity p small { display: none; }
+.identity-header > .menu-buttons { flex: 1; justify-content: center; }
+.command-bar { min-height: 3.4rem; padding: .45rem .8rem; }
+.project-actions { width: 100%; gap: .5rem; }
+.project-actions > button { min-height: 2.25rem; padding: .4rem .8rem; }
+.project-actions .example-top-control { margin-left: auto; }
+.view-tabs { gap: 0; }
+.view-tab { border-radius: .2rem .2rem 0 0; min-height: 2.65rem; padding-inline: 1.3rem; }
+.view-tab.active { color: #69edff; background: #11344a; border-color: #28566d; border-bottom: 3px solid var(--cyan); font-weight: 700; }
+.canvas-toolbar { padding: .3rem .45rem; gap: .15rem; background: #0b2536; }
+.toolbar-button { padding: .35rem .45rem; font-size: .78rem; }
+.canvas-label { font-size: .65rem; }
+.category-filters { display: flex; gap: .25rem; overflow-x: auto; margin: 0 .5rem .35rem; padding-bottom: .25rem; }
+.category-filter { flex: 0 0 auto; width: auto; white-space: nowrap; padding: .3rem .5rem; }
+.component-list { display: block; padding: 0; }
+.library-category > summary { cursor: pointer; padding: .5rem .65rem; background: #102f44; color: #b2e6fa; font-size: .86rem; font-weight: 600; border-block: 1px solid #24485d; }
+.library-category > ul { list-style: none; padding: .2rem .4rem; }
+.component-item { gap: .65rem; padding: .4rem .5rem; }
+.component-item strong { font-size: .78rem; font-weight: 400; line-height: 1.4; }
+.component-item small { display: none; }
+.component-item:hover small, .component-item:focus-visible small, .component-item.selected small, .evidence-item small { display: block; }
+.component-icon { flex: 0 0 1.7rem; }
+.component-icon .schematic-symbol { width: 1.7rem; height: 1.7rem; }
+.inspector-content { min-height: 0; min-width: 0; }
+.bot-panel { position: static; width: auto; margin: 0; border-radius: 0; box-shadow: none; flex: 0 0 auto; max-height: 50%; display: flex; flex-direction: column; }
+.bot-panel header { flex: 0 0 auto; padding: .5rem .65rem; }
+.bot-panel header small { display: none; }
+.bot-panel .bot-orb { width: 1.5rem; height: 1.5rem; }
+.bot-panel > div { min-height: 0; overflow: auto; overscroll-behavior: contain; }
+.bot-panel.minimized header { border-bottom: 0; }
+#bot-collapse { width: 2rem; height: 2rem; }
+.site-footer { min-height: 2.3rem; padding: .35rem .8rem; font-size: .62rem; }
+.footer-identity { display: flex; gap: .55rem; flex-wrap: wrap; }
+.footer-links { gap: .35rem .6rem; }
+
+@media (min-width: 1121px) and (min-height: 700px) {
+  body { height: 100dvh; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; overflow: hidden; }
+  .workspace { min-height: 0; height: 100%; grid-template-columns: 17.5rem minmax(0, 1fr) 17.5rem; padding: .5rem; gap: .6rem; overflow: hidden; }
+  .library-panel { display: flex; flex-direction: column; min-height: 0; }
+  .library-panel > :not(.component-list) { flex: 0 0 auto; }
+  .library-panel .component-list { flex: 1 1 auto; min-height: 5rem; max-height: none; overflow: auto; overscroll-behavior: contain; }
+  .selected-library-part { max-height: 27%; overflow: auto; margin: .4rem; }
+  .inspector-panel { display: flex; flex-direction: column; min-height: 0; }
+  .inspector-panel > .panel-heading, .inspector-tabs { flex: 0 0 auto; }
+  .inspector-content { flex: 1 1 auto; overflow: auto; overscroll-behavior: contain; }
+  .canvas-area, .canvas-area.has-overview, .canvas-area:not(.has-overview), .canvas-area:has(> .design-canvas.pcb) { height: 100%; min-height: 0; align-self: stretch; grid-template-rows: auto auto minmax(12rem, 1fr) minmax(11rem, .6fr); }
+  .canvas-area.has-overview { grid-template-columns: minmax(0, 1.65fr) minmax(13rem, .95fr); }
+  .canvas-area > .design-canvas, .canvas-area.has-overview > .design-canvas, .canvas-area:not(.has-overview) > .design-canvas, .canvas-area:not(.has-overview) > .design-canvas.pcb { min-height: 0; height: 100%; aspect-ratio: auto; align-self: stretch; }
+  .canvas-area > .overview-row { min-height: 0; height: 100%; }
+  .output-panel { display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+  .output-tabs { flex: 0 0 auto; }
+  .result-dashboard, #output-log, #issue-list { min-height: 0; max-height: none; flex: 1; overflow: auto; }
+  .result-dashboard { align-content: start; }
+  .result-dashboard-body { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+}
+@media (max-width: 1120px), (max-height: 699px) {
+  .identity-header > .menu-buttons { flex: 1 0 100%; order: 2; justify-content: flex-start; }
+  .header-actions { margin-left: auto; }
+  .inspector-panel { display: flex; flex-direction: column; }
+  .inspector-content { max-height: 32rem; overflow: auto; }
+  .bot-panel { max-height: 25rem; }
+  .bot-panel > div { max-height: 20rem; }
+}
+@media (max-width: 520px) {
+  .corporate-logo { width: 4.5rem; flex-basis: 4.5rem; }
+  .identity h1 { font-size: 1.25rem; }
+  .identity-header > .menu-buttons { min-width: 0; }
+  .project-actions .example-top-control { margin-left: 0; }
+  .inspector-content { max-height: 28rem; }
+}

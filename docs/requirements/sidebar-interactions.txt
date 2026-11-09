@@ -1,0 +1,116 @@
+# Codex Prompt: Fix Sidebar Toggle Behavior + Component/Wire Interactions (AdigunSimulator)
+
+## Part 1 — Left (Components) & Right (Properties) Bars Must Not Destroy Canvas
+
+### Current bugs
+- Closing the left **Components** bar makes it disappear permanently until refresh.
+- Closing the right **Properties** bar does the same.
+- Closing either bar **collapses/disappears the canvas** — everything only returns after a page refresh.
+
+### Required behavior
+- Left and right bars are **independent, toggleable panels** — not tied to canvas mount/unmount.
+- Each bar can be **closed and reopened any time** without a page refresh.
+- The **canvas always stays mounted** in the middle and occupies ~**90% of the page** width when both bars are closed.
+- When a bar is open, it **opens inside its own shell/drawer** — it must **NOT overlay the canvas**.
+- The canvas must **resize/reflow** (not unmount, not disappear) when bars open or close.
+
+### Implementation notes
+- Lift `leftBarOpen` / `rightBarOpen` into a persistent UI store (Zustand/Context) — **do not** conditionally render the `<Canvas />` based on bar state.
+- Use CSS grid/flex layout, e.g.:
+  ```css
+  .app-shell { display: flex; height: 100vh; }
+  .left-bar  { width: 260px; transition: width .2s; overflow: hidden; }
+  .left-bar.closed  { width: 0; }
+  .canvas    { flex: 1; min-width: 0; }   /* takes remaining space, ~90% when both closed */
+  .right-bar { width: 300px; transition: width .2s; overflow: hidden; }
+  .right-bar.closed { width: 0; }
+  ```
+- Toggle buttons must live **outside** the drawers (e.g. in a slim rail or top bar) so they remain clickable when the bar is closed.
+- Never gate `<Canvas />` on `leftBarOpen && rightBarOpen`.
+- Remove any code that does `{leftBarOpen && <Canvas/>}` or resets canvas state on bar toggle.
+
+---
+
+## Part 2 — Click-to-Open / Mouse-Away-to-Close Menus
+
+Apply to **all** menus, icon content, and side-panel triggers.
+
+### Behavior
+- **Click** a menu item or icon → its content/panel opens.
+- **Move mouse away** from that element **and** its panel → it closes automatically (`onMouseLeave` with a small grace delay, e.g. 150–250 ms, so moving into the panel doesn't close it).
+- **Clicking another item** closes the currently open one and opens the new one — **only one open at a time** (single active key in state).
+- Keep it lightweight — **no heavy libraries**. Use `onClick`, `onMouseLeave`, and a `click-outside` handler (`mousedown` listener on `document` + `ref.contains(e.target)` check).
+- **Touch support**: tap item → open; tap outside → close. Skip mouse-away logic on touch (`pointerType === 'touch'`).
+
+### Suggested pattern
+```tsx
+const [openKey, setOpenKey] = useState<string | null>(null);
+const ref = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  const onDocDown = (e: MouseEvent) => {
+    if (ref.current && !ref.current.contains(e.target as Node)) setOpenKey(null);
+  };
+  document.addEventListener('mousedown', onDocDown);
+  return () => document.removeEventListener('mousedown', onDocDown);
+}, []);
+
+const toggle = (key: string) => setOpenKey(k => (k === key ? null : key));
+```
+Wrap each item + panel in one container, attach `onMouseLeave={() => setOpenKey(null)}` and use a timeout to allow moving into the panel.
+
+---
+
+## Part 3 — Component Drag/Drop, Edit, Move, Resize, Wire (Core Interactions)
+
+Currently components **cannot be dropped onto the canvas**, **cannot be wired**, and **cannot be edited**. Fix all of the following:
+
+### 3.1 Drag component from left bar → drop on canvas
+- Make each component item **draggable** (`draggable`, `onDragStart` setting `dataTransfer` with component type).
+- Canvas has `onDragOver` (preventDefault) and `onDrop` that reads the type and creates a node at the **cursor position converted to canvas coordinates** (account for pan/zoom).
+- Also support **click-to-add** as a fallback (tap component → adds to center of viewport).
+- After drop, the component is selected.
+
+### 3.2 Move / resize / edit on canvas
+- Each node is **selectable** (click) and **draggable** (drag to reposition) using the canvas drag system.
+- Show **selection handles** (corners/edges) → drag handles to resize.
+- **Double-click / Properties panel** edits:
+  - Description
+  - Modifications / model / part number
+  - Units
+  - Voltage (V)
+  - Current (A)
+  - Value / rating
+  - Any other component-specific fields
+- Changes update the node in the store and mark `isDirty = true`.
+
+### 3.3 Wire drawing (connect components)
+- **Click on a port** (pin) on component A → start a wire.
+- Move mouse → draw a live **rubber-band wire** following the cursor.
+- **Click on a port** on component B → complete the wire and persist it in the store.
+- `Esc` or right-click cancels an in-progress wire.
+- Wires must:
+  - Render as lines/paths on the canvas layer **behind** nodes.
+  - Update live when either endpoint node is moved or resized.
+  - Be selectable and **deletable** (`Delete` key or context menu).
+- Support **orthogonal/elbow** or **bezier** style — either is fine; be consistent.
+- Wire endpoint anchors = port coordinates in canvas space, so they must recompute on node move/resize.
+
+### Acceptance for Part 3
+- [ ] Drag a component from the left bar → it lands on the canvas at the drop point.
+- [ ] Selected component can be moved, resized, and edited (all listed fields).
+- [ ] Draw a wire from one component's port to another's port — wire renders and persists.
+- [ ] Moving a connected component moves its wires with it.
+- [ ] Delete removes the node and any attached wires.
+- [ ] All interactions work with mouse (and basic touch: tap-select, tap-port to wire).
+
+---
+
+## Global Rules
+- **Canvas never unmounts** on sidebar toggle.
+- **No page refresh** required to reopen bars.
+- Use a single UI store for `leftBarOpen`, `rightBarOpen`, `openMenuKey`, `selectedNodeIds`, `wires`, `nodes`.
+- Keep bundle light — no React Flow / heavy libs unless already installed; hand-rolled SVG/canvas interactions are fine.
+- All edits set `isDirty = true` (ties into the earlier unsaved-changes fix).
+
+Please implement Part 1 first (layout/toggle bug — highest priority, it's blocking work), then Part 2 (menu behavior), then Part 3 (drag/wire/edit) in that order.

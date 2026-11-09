@@ -5,7 +5,7 @@ import { runInNewContext } from "node:vm";
 import { TRANSLATIONS } from "../js/i18n.mjs";
 import { runProjectAnalysis } from "../js/analysis-dispatch.mjs";
 import { pcbCopperPads } from "../js/pcb-vias.mjs";
-import { CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera, canvasClientPoint } from "../js/canvas-camera.mjs";
+import { CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera, canvasClientPoint, canvasClientDelta } from "../js/canvas-camera.mjs";
 import { pcbPreviewPointToBoardMm } from "../js/pcb-preview.mjs";
 import { parseProject, serializeProject } from "../js/core.mjs";
 import { movePcbFootprint } from "../js/pcb-edit.mjs";
@@ -82,19 +82,24 @@ test("real canvas zoom and fit update the whole scene without changing the nativ
   const project = { id: "unchanged-project" };
   const state = { project, scale: 1, pan: { x: 25, y: -10 }, activeTool: "pcb-route" };
   const scene = { style: {} };
+  const previewScene = { style: {} };
   const nodes = { "#design-canvas": { clientWidth: 680, clientHeight: 300, querySelector: () => scene }, "#zoom-level": {}, '[data-tool="zoom-in"]': {}, '[data-tool="zoom-out"]': {} };
+  nodes["#schematic-mini"] = { clientWidth: 340, clientHeight: 240, querySelector: () => previewScene };
+  nodes["#pcb-mini"] = { clientWidth: 0, clientHeight: 0, querySelector: () => null };
   const start = source.indexOf("function applyCanvasCamera(");
   const end = source.indexOf("function renderCanvasFeedback(", start);
   const { apply, zoom } = runInNewContext(`${source.slice(start, end)}\n({apply:applyCanvasCamera,zoom:changeCanvasZoom})`, {
     state, $: (selector) => nodes[selector], CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera
   });
   apply();
+  assert.equal(previewScene.style.transform, "translate(0px, 45px) scale(0.5)");
   zoom("zoom-in");
   assert.equal(state.scale, 1.25);
   assert.equal(nodes["#zoom-level"].textContent, "125%");
   assert.match(scene.style.transform, /scale\(1\.25\)/);
   assert.equal(state.project, project);
   assert.equal(state.activeTool, "pcb-route");
+  assert.equal(previewScene.style.transform, "translate(0px, 45px) scale(0.5)", "preview uses one fixed transform independent of main-canvas zoom");
   for (let i = 0; i < 20; i++) zoom("zoom-in");
   assert.equal(state.scale, 8);
   assert.equal(nodes['[data-tool="zoom-in"]'].disabled, true);
@@ -104,6 +109,36 @@ test("real canvas zoom and fit update the whole scene without changing the nativ
   assert.equal(state.pan.y, 0);
   assert.equal(nodes['[data-tool="zoom-in"]'].disabled, false);
   assert.equal(state.project, project);
+});
+
+test("sidebar toggles preserve project, selection, camera and mounted canvas", () => {
+  const project = { id: "preserved" }, history = [{ project }], pan = { x: 12, y: -4 };
+  const state = { project, history, pan, selectedInstanceId: "R1", leftBarOpen: true, rightBarOpen: true };
+  const classes = () => ({ values: new Set(), toggle(name, enabled) { enabled ? this.values.add(name) : this.values.delete(name); } });
+  const nodes = { "#workspace": { classList: classes() }, ".library-panel": { classList: classes(), contains: () => true }, ".inspector-panel": { classList: classes(), contains: () => false } };
+  const buttons = { left: { expanded: "true", focused: false, setAttribute(key, value) { this.expanded = value; }, focus() { this.focused = true; } }, right: { expanded: "true", setAttribute(key, value) { this.expanded = value; } } };
+  const lookup = selector => nodes[selector] ?? buttons[selector.includes('"left"') ? "left" : "right"];
+  const set = uiFunction("setWorkspacePanel", "function rotateSelectedPcbFootprint", { state, $: lookup, $$: selector => [lookup(selector)], document: { activeElement: {} } });
+  set("left", false); set("right", false);
+  assert.equal(state.leftBarOpen, false); assert.equal(state.rightBarOpen, false);
+  assert.equal(buttons.left.expanded, "false"); assert.equal(buttons.left.focused, true);
+  assert.ok(nodes["#workspace"].classList.values.has("left-panel-closed"));
+  set("left", true); set("right", true);
+  assert.equal(state.leftBarOpen, true); assert.equal(state.rightBarOpen, true);
+  assert.equal(buttons.right.expanded, "true"); assert.equal(nodes["#workspace"].classList.values.size, 0);
+  assert.equal(state.project, project); assert.equal(state.history, history); assert.equal(state.pan, pan); assert.equal(state.selectedInstanceId, "R1");
+});
+
+test("a pointer click without dragging selects the component before replacing its canvas DOM", () => {
+  const project = { id: "untouched" };
+  const canvas = { releasePointerCapture() {}, querySelector: () => ({ getBoundingClientRect: () => ({ width:680,height:300 }) }) };
+  const state = { project, selectedInstanceId: "R1", drag: { mode: "move", pointerId: 7, instanceId: "U1", start: { x: 100, y: 100 }, canvas } };
+  let handler, inspector, renderedSelection;
+  const start = source.indexOf('document.addEventListener("pointerup"');
+  const end = source.indexOf('\n});', start) + 4;
+  runInNewContext(source.slice(start, end), { state, document: { addEventListener: (_, value) => { handler = value; } }, canvasClientDelta, setInspector: value => { inspector = value; }, renderCanvas: () => { renderedSelection = state.selectedInstanceId; }, captureHistory: () => { throw new Error("Selection must not edit history"); } });
+  handler({ pointerId:7, clientX:100, clientY:100 });
+  assert.equal(state.selectedInstanceId, "U1"); assert.equal(renderedSelection,"U1"); assert.equal(inspector,"component"); assert.equal(state.project,project); assert.equal(state.drag,null);
 });
 
 test("Escape closes an application menu and restores focus without consuming unrelated keys", () => {
