@@ -8,6 +8,17 @@ const indexFile = new URL("../index.html", import.meta.url);
 const appFile = new URL("../app.js", import.meta.url);
 const catalogueFile = new URL("../docs/EXAMPLE_CATALOGUE.md", import.meta.url);
 
+test("view tabs and compact canvas controls retain translated names when their visual text is hidden", async () => {
+  const html = await readFile(indexFile, "utf8");
+  const tags = html.match(/<button\b[^>]*(?:role="tab"|data-tool="(?:select|pan|zoom-in|zoom-out)"|id="schematic-wire-mode"|class="toolbar-button" data-action="(?:undo|redo)")[^>]*>/g);
+  assert.equal(tags.length, 10);
+  for (const tag of tags) {
+    const key = tag.match(/data-i18n-aria="([^"]+)"/)?.[1];
+    assert.ok(key, tag);
+    for (const locale of UI_LOCALES) assert.ok(TRANSLATIONS[locale][key], `${locale}: ${key}`);
+  }
+});
+
 function values(text, expression) {
   return [...text.matchAll(expression)].map((match) => match[1]);
 }

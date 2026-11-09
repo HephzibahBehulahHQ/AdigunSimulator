@@ -15,6 +15,73 @@ function uiFunction(name, nextName, globals) {
   return runInNewContext(`${source.slice(start, end)}\n${name}`, globals);
 }
 
+test("Escape closes an application menu and restores focus without consuming unrelated keys", () => {
+  let focused = 0, prevented = 0;
+  const menu = { open: true, querySelector: () => ({ focus: () => { focused++; } }) };
+  const handle = uiFunction("handleAppMenuKeydown", 'document.addEventListener("click"', {
+    document: { querySelector: () => menu.open ? menu : null }
+  });
+  const event = { key: "Escape", preventDefault: () => { prevented++; } };
+  assert.equal(handle({ ...event, key: "Enter" }), false);
+  assert.equal(menu.open, true);
+  assert.equal(handle(event), true);
+  assert.equal(menu.open, false);
+  assert.equal(focused, 1);
+  assert.equal(prevented, 1);
+  assert.equal(handle(event), false);
+});
+
+test("a delayed starter analysis cannot overwrite a newer interaction, edit, saved project or replacement", async () => {
+  for (const change of ["interaction", "edit", "saved", "replacement", "choice", "none"]) {
+    const state = { project: { id: "initial" } }, picker = {};
+    let finishAnalysis, analysisStarted, stored = null, replacements = 0;
+    const started = new Promise((resolve) => { analysisStarted = resolve; });
+    const pending = new Promise((resolve) => { finishAnalysis = resolve; });
+    const start = source.indexOf("async function loadStarterExample(");
+    const end = source.indexOf("\nrender();", start);
+    assert.ok(start >= 0 && end > start);
+    const load = runInNewContext(`${source.slice(start, end)}\nloadStarterExample`, {
+      state, initialProject: { project: state.project }, STORAGE_KEY: "test-project",
+      localStorage: { getItem: () => stored }, $: () => picker,
+      fetch: async () => ({ ok: true, text: async () => "starter" }),
+      parseProject: () => ({ id: "starter" }),
+      createSimulationWorkerRun: () => { analysisStarted(); return { promise: pending }; },
+      replaceProject: (project) => { replacements++; state.project = project; }, render() {}, log() {}
+    });
+    const loading = load();
+    await started;
+    if (change === "choice") picker.value = "user-selected-example";
+    if (change === "interaction") state.userInteracted = true;
+    if (change === "edit") state.dirty = true;
+    if (change === "saved") stored = "saved-project";
+    if (change === "replacement") state.project = { id: "other" };
+    finishAnalysis({ state: "complete" });
+    await loading;
+    assert.equal(replacements, change === "none" ? 1 : 0, change);
+    assert.equal(picker.value, change === "choice" ? "user-selected-example" : "examples/070-stm32-timer-pwm.adigun.json", change);
+    assert.equal(state.project.id, change === "none" ? "starter" : change === "replacement" ? "other" : "initial", change);
+  }
+});
+
+test("canvas feedback preserves the review disclosure and escapes project text outside the drawing", () => {
+  for (const locale of ["en", "de", "yo", "pcm"]) {
+    const nodes = Object.fromEntries(["canvas-view-label", "view-reconciliation", "view-reconciliation-summary", "view-reconciliation-items"].map((id) => [`#${id}`, { open: true }]));
+    const render = uiFunction("renderCanvasFeedback", "function renderCanvas(", {
+      $: (selector) => nodes[selector], t: (key) => TRANSLATIONS[locale][key],
+      escape: (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+    });
+    render([{ reference: "<R1>", reason: "<img src=x> & unmapped" }], TRANSLATIONS[locale].pcbStoredLayoutPreview);
+    assert.equal(nodes["#canvas-view-label"].textContent, TRANSLATIONS[locale].pcbStoredLayoutPreview);
+    assert.equal(nodes["#view-reconciliation"].hidden, false);
+    assert.equal(nodes["#view-reconciliation"].open, true);
+    assert.equal(nodes["#view-reconciliation-summary"].textContent, `${TRANSLATIONS[locale].viewReconciliationNeeded} (1)`);
+    assert.equal(nodes["#view-reconciliation-items"].innerHTML, "<li>&lt;R1&gt;: &lt;img src=x&gt; &amp; unmapped</li>");
+    render([], "New view");
+    assert.equal(nodes["#view-reconciliation"].hidden, true);
+    assert.equal(nodes["#view-reconciliation-items"].innerHTML, "");
+  }
+});
+
 test("Enter and Space select a PCB via through the real route interaction handler", () => {
   for (const key of ["Enter", " "]) {
     const state = { activeView: "pcb", activeTool: "pcb-route", project: { pcbFabrication: {

@@ -568,6 +568,13 @@ function commitBreadboardEdit(project, message) {
   log(message);
 }
 
+function renderCanvasFeedback(issues, label) {
+  $("#canvas-view-label").textContent = label;
+  $("#view-reconciliation").hidden = issues.length === 0;
+  $("#view-reconciliation-summary").textContent = `${t("viewReconciliationNeeded")} (${issues.length})`;
+  $("#view-reconciliation-items").innerHTML = issues.map((issue) => `<li>${escape(issue.reference)}: ${escape(issue.reason)}</li>`).join("");
+}
+
 function renderCanvas() {
   const canvas = $("#design-canvas");
   canvas.className = `design-canvas ${state.activeView} ${state.breadboardPlacementMode ? "is-placement-mode" : ""} ${state.schematicWireMode ? "is-wire-mode" : ""} ${state.activeTool === "pcb-route" ? "is-pcb-route-mode" : ""} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
@@ -596,9 +603,9 @@ function renderCanvas() {
     ? breadboardWireSvg(state.project)
     : isPcb ? (hasPcbData ? "" : pcbAirwireSvg(state.project, unavailable))
       : netSvg(state.project, state.activeView, unavailable);
-  const reconciliationNotice = issues.length ? `<div class="reconciliation-notice"><strong>Reconciliation needed</strong>${issues.map((issue) => `<span>${escape(issue.reference)}: ${escape(issue.reason)}</span>`).join("")}</div>` : "";
-  const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : (hasPcbData ? t("pcbStoredLayoutPreview") : t("pcbNoFootprintData"));
-  canvas.innerHTML = `<div class="canvas-label">${label}</div>${reconciliationNotice}<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${isPcb && hasPcbData ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData"), state.pcbRouteDraft) : surface}${wires}${parts}</div>`;
+  const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? t("schematicLayoutPreview") : (hasPcbData ? t("pcbStoredLayoutPreview") : t("pcbNoFootprintData"));
+  renderCanvasFeedback(issues, label);
+  canvas.innerHTML = `<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${isPcb && hasPcbData ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData"), state.pcbRouteDraft) : surface}${wires}${parts}</div>`;
   $("#schematic-wire-mode").setAttribute("aria-pressed", String(state.schematicWireMode));
   $("#schematic-wire-status").textContent = !state.schematicWireMode ? "" : state.schematicWireStart ? t("schematicWireNext") : t("schematicWireStart");
   $("#pcb-route-mode").disabled = !hasPcbData;
@@ -1510,7 +1517,18 @@ function handlePcbRouteKeydown(event) {
   return handlePcbRouteCanvasClick(event);
 }
 
+function handleAppMenuKeydown(event) {
+  if (event.key !== "Escape") return false;
+  const menu = document.querySelector(".app-menu[open]");
+  if (!menu) return false;
+  menu.open = false;
+  menu.querySelector("summary").focus();
+  event.preventDefault();
+  return true;
+}
+
 document.addEventListener("click", (event) => {
+  document.querySelectorAll(".app-menu[open]").forEach((menu) => { if (!menu.contains(event.target)) menu.open = false; });
   state.userInteracted = true;
   if (handlePcbRouteCanvasClick(event)) return;
   const libraryModeButton = event.target.closest("[data-library-mode]");
@@ -1595,6 +1613,7 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (handleAppMenuKeydown(event)) return;
   if (handlePcbRouteKeydown(event)) return;
   if (event.key === "Escape" && (state.breadboardPlacementMode || state.schematicWireMode || state.activeTool === "pcb-route")) {
     event.preventDefault();
@@ -2002,27 +2021,31 @@ $("#import-file").addEventListener("change", async (event) => {
   } finally { event.target.value = ""; }
 });
 
-render();
-if (state.recoveredDraft) log("[RECOVERY] Restored the latest unsaved project saved in this browser.");
-if (initialProject.fresh) {
+async function loadStarterExample() {
   const starterPath = "examples/070-stm32-timer-pwm.adigun.json";
   $("#example-picker").value = starterPath;
-  fetch(starterPath, { headers: { Accept: "application/json" } })
-    .then((response) => { if (!response.ok) throw new Error("Starter example unavailable."); return response.text(); })
-    .then(async (documentText) => {
-      if (state.userInteracted || state.dirty || localStorage.getItem(STORAGE_KEY) || state.project.id !== initialProject.project.id) return;
-      const project = parseProject(documentText);
-      const analysis = await createSimulationWorkerRun(project).promise;
-      if (analysis.state !== "complete") return;
-      replaceProject(project, { dirty: false });
-      state.selectedInstanceId = "resistor";
-      state.activeView = "breadboard";
-      state.activeInspector = "component";
-      state.lastAnalysis = analysis;
-      $("#example-picker").value = starterPath;
-      render();
-      log("[STARTER] Loaded the tested STM32 timer PWM sample.");
-    })
-    .catch(() => {});
+  const mayReplace = () => !state.userInteracted && !state.dirty && !localStorage.getItem(STORAGE_KEY) && state.project.id === initialProject.project.id && $("#example-picker").value === starterPath;
+  try {
+    const response = await fetch(starterPath, { headers: { Accept: "application/json" } });
+    if (!response.ok) return;
+    const documentText = await response.text();
+    if (!mayReplace()) return;
+    const project = parseProject(documentText);
+    const analysis = await createSimulationWorkerRun(project).promise;
+    // The user can choose another example or edit while the worker is running.
+    if (analysis.state !== "complete" || !mayReplace()) return;
+    replaceProject(project, { dirty: false });
+    state.selectedInstanceId = "resistor";
+    state.activeView = "breadboard";
+    state.activeInspector = "component";
+    state.lastAnalysis = analysis;
+    $("#example-picker").value = starterPath;
+    render();
+    log("[STARTER] Loaded the tested STM32 timer PWM sample.");
+  } catch { /* Keep the existing local project when the optional starter cannot load. */ }
 }
+
+render();
+if (state.recoveredDraft) log("[RECOVERY] Restored the latest unsaved project saved in this browser.");
+if (initialProject.fresh) loadStarterExample();
 

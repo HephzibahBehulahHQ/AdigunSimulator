@@ -58,3 +58,11 @@ The eight product milestones above remain the product-wide tracker; none is decl
 Finish-time estimates for the full product and this release remain undetermined while independent review and the outstanding product acceptance work are unresolved. Do not promote another implementation milestone to production or bypass these gates merely because automated checks pass.
 
 Excluded from this integration: the temporary local QA log, stored outside the repository. The five files imported from `main` are byte-identical to their upstream versions; no caches, credentials or unrelated project files are included.
+
+## Responsive workspace acceptance fixes — 2026-11-09
+
+- Fixed toolbar overflow, narrow inspector fields, inaccessible mobile library content and clipped application menus. Compact view/tool controls retain translated names; menu Escape restores focus.
+- Moved capability/mapping notices above the drawing and removed the incorrect CSS-generated "unrouted" PCB caption. Prevented delayed starter analysis from replacing a newer user choice or project state.
+- Browser evidence: 60 three-view shell cases, 24 mobile menu cases, 12 expanded-search cases and 20 library bounds cases passed across four locales. Keyboard disclosure/via routing, guest tooltip and default viewport checks passed without captured console errors. See `RESPONSIVE_ACCEPTANCE.md` for exact scope, reproduction and limitations.
+- Local checks: 384/384 tests, syntax and library validation passed. The first full run found an obsolete caption assertion; its corrected disclosure contract and the subsequent full suite passed. Final pushed commit and matching CI are recorded on PR #505.
+- Product milestones 1 and 8 remain incomplete. Broader workflows, touch/accessibility, visual-reference acceptance and independent electrical/release review remain required. Production promotion stays gated; this work does not mark the complete product or release checklist as finished.

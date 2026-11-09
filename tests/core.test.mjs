@@ -2562,7 +2562,7 @@ test("catalogue AVR IR receiver decodes NEC-like timing and flags invalid frames
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 
-test("workspace matches the approved simulator layout references",async()=>{
+test("workspace exposes menus, synchronized-view regions and DOM-based preview disclosures",async()=>{
   const html=await readFile(new URL("../index.html",import.meta.url),"utf8");
   const app=await readFile(new URL("../app.js",import.meta.url),"utf8");
   const styles=await readFile(new URL("../styles.css",import.meta.url),"utf8");
@@ -2574,7 +2574,9 @@ test("workspace matches the approved simulator layout references",async()=>{
   assert.match(app,/function renderResultDashboard/);
   assert.match(app,/examples\/070-stm32-timer-pwm\.adigun\.json/);
   assert.match(styles,/canvas-area\.has-overview/);
-  assert.match(styles,/PCB placement preview/);
+  assert.match(html,/id="canvas-view-label"/);
+  assert.match(app,/hasPcbData \? t\("pcbStoredLayoutPreview"\) : t\("pcbNoFootprintData"\)/);
+  assert.doesNotMatch(styles,/\.pcb::before\s*\{[^}]*content:/);
 });
 
 
