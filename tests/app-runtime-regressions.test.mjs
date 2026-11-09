@@ -265,12 +265,17 @@ test("completed STM32, timer, LED, and reactive results reach rendering without 
     let renders = 0;
     const state = { project };
     const log = [];
+    const feedback = [];
     const complete = uiFunction("runAnalysis", "async function verifyRunLockfile(", {
-      state, log: (line) => log.push(line), renderOutput: () => { renders += 1; }
+      state, log: (line) => log.push(line), renderOutput: () => { renders += 1; },
+      $: selector => { assert.equal(selector,"#feedback-live"); return {checked:true}; },
+      dcFeedback: {accept: (p,result)=>feedback.push([p,result])}
     });
     complete(analysis);
     assert.equal(renders, 1, file);
     assert.equal(state.lastAnalysis, analysis);
+    assert.equal(state.lastAnalysisProjectKey,JSON.stringify(project));
+    assert.deepEqual(feedback,[[project,analysis]]);
     assert.ok(log.some((line) => line.startsWith("[LIMIT]")), file);
   }
 });

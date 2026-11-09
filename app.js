@@ -9,6 +9,8 @@ import { routeSchematicConnection, schematicRoutePath } from "./js/schematic-rou
 import { startComponentPlacement, rotateComponentPlacement, positionComponentPlacement, placementComponent, placementOverlaps, firstFreeComponentPlacement, commitComponentPlacement, placementText } from "./js/component-placement.mjs";
 import { attachMenuDismissal } from "./js/menu-dismissal.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
+import { wireEdgeKey, voltageColor, currentMotion } from "./js/dc-wire-feedback.mjs";
+import { createLiveDcFeedback } from "./js/live-dc-feedback.mjs";
 import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
 import { pcbCopperPads } from "./js/pcb-vias.mjs";
 import { createPcbNetClassEditor } from "./js/pcb-net-class-controller.mjs";
@@ -96,6 +98,7 @@ const state = {
   currentProjectId: null,
   savedDisposition: "empty",
   lastAnalysis: null,
+  lastAnalysisProjectKey: null,
   selectedLibraryId: null,
   selectedEvidencePartId: null,
   libraryMode: "starter",
@@ -231,7 +234,29 @@ function applyBotSuggestion() {
   log("[BOT] Accepted a reviewed live preview. The change remains unsaved until the user saves it.");
 }
 
+const dcFeedback = createLiveDcFeedback({
+  run: project => createSimulationWorkerRun($("#simulation-analysis-mode").value === "nonlinear-dc" ? projectWithSelectedAnalysis(project,"shockleyDcOperatingPoint",{temperatureC:Number($("#nonlinear-dc-temperature").value)}) : project),
+  onResult: result => { state.lastAnalysis=result; state.lastAnalysisProjectKey=JSON.stringify(state.project); renderOutput(); },
+  onPaint: () => { renderCanvas(); renderFeedbackControls(); }
+});
+const FEEDBACK_MOTION_TEXT={en:["Device preference","Animate","Reduce motion"],de:["Geräteeinstellung","Animieren","Bewegung reduzieren"],yo:["Ètò ẹ̀rọ","Ṣe àwòrán ìṣàn","Dín ìṣípò kù"],pcm:["Device setting","Show movement","Reduce movement"]};
+const FEEDBACK_TEXT = {
+  en:["Live DC feedback","Current animation","Conventional current","Electron direction","Run a supported DC circuit to show calculated flow.","Updating calculated DC values…","DC flow · positive green, negative red, ground gray · speed is visual","Flow unavailable for this model or unresolved circuit."],
+  de:["Live-DC-Rückmeldung","Stromanimation","Technische Stromrichtung","Elektronenrichtung","Unterstützte DC-Schaltung für den Stromfluss berechnen.","DC-Messwerte werden aktualisiert…","DC-Fluss · positiv grün, negativ rot, Masse grau · visuelle Geschwindigkeit","Für dieses Modell oder die ungelöste Schaltung nicht verfügbar."],
+  yo:["Àbájáde DC lẹ́sẹ̀kẹsẹ̀","Àwòrán ìṣàn","Ìtọ́sọ́nà ìṣàn àṣà","Ìtọ́sọ́nà ẹlẹ́ktrọ́nì","Ṣiṣirò àyíká DC tí a ṣe àtìlẹ́yìn fún láti rí ìṣàn.","A ń tún iye DC ṣe…","Ìṣàn DC · rere aláwọ̀ ewé, òdì pupa, ilẹ̀ grẹ́yì · ìyára àwòrán","Ìṣàn kò sí fún àwòṣe tàbí àyíká tí a kò tíì yanjú."],
+  pcm:["Live DC feedback","Current movement","Normal current direction","Electron direction","Run supported DC circuit make calculated flow show.","DC values dey update…","DC flow · positive green, negative red, ground gray · speed na picture","Flow no dey for this model or circuit wey never solve."]
+};
+function renderFeedbackControls(){
+  const words=FEEDBACK_TEXT[state.project.metadata.locale]??FEEDBACK_TEXT.en, live=dcFeedback.read();
+  ["feedback-live-label","feedback-motion-label","feedback-conventional","feedback-electron"].forEach((id,i)=>{document.getElementById(id).textContent=words[i];});
+  $("#feedback-status").textContent=words[live.status==="updating"?5:live.status==="ready"?6:live.status==="idle"?4:7];
+  const motionWords=FEEDBACK_MOTION_TEXT[state.project.metadata.locale]??FEEDBACK_MOTION_TEXT.en;
+  [...$("#feedback-motion").options].forEach((option,i)=>{option.textContent=motionWords[i];});
+  $("#feedback-direction").setAttribute("aria-label",words[2]+" / "+words[3]);
+  $("#stop-simulation").disabled=!state.activeSimulation&&!live.active;
+}
 const projectSession = createProjectSession(state, { storage: () => localStorage, onReset: () => {
+  dcFeedback.stop(false);
   state.selectedWire = null; state.wireCursor = null; state.placement = null;
   setSimulationWorkerBusy(false);
   botLiveCopilot.dispose();
@@ -517,6 +542,7 @@ function netClass(netId) {
 }
 
 function netSvg(project, view, unavailable = new Set(), interactive = true) {
+  const feedback=view==="schematic"?dcFeedback.read().data:null;
   const componentsById = new Map(project.components.map((component) => [component.instanceId, component]));
   const endpointPoint = (endpoint) => {
     const [instanceId, ...pinParts] = String(endpoint).split(":");
@@ -534,9 +560,13 @@ function netSvg(project, view, unavailable = new Set(), interactive = true) {
     if (!route) return `<text class="unrouted-wire" x="${origin.x}" y="${origin.y - 13}">${escape(net.id)}: route blocked</text>`;
     previousRoutes.push({ net: net.id, route });
     const path = schematicRoutePath(route);
+    const measured=feedback?.wires?.[wireEdgeKey(net.id,first,second)];
+    const color=voltageColor(measured?.voltageV), motion=currentMotion(measured?.currentA,$("#feedback-direction").value==="electron");
+    const title=measured?`<title>${escape(net.id)}: ${measured.voltageV===null?"?":measured.voltageV.toPrecision(4)} V; ${measured.currentA===null?escape(measured.reason):measured.currentA.toPrecision(4)+" A (first → second)"}</title>`:"";
+    const flow=motion&&$("#feedback-motion").value!=="reduce"?`<path class="wire-flow" d="${path}" style="stroke:${color??"#72f4ed"};--flow-duration:${motion.durationSeconds}s;animation-direction:${motion.reverse?"reverse":"normal"}" data-current-a="${measured.currentA}" aria-hidden="true"/>`:"";
     const selected = state.selectedWire?.netId === net.id && state.selectedWire.first === first && state.selectedWire.second === second;
     const attrs = interactive ? `data-wire-first="${escape(first)}" data-wire-second="${escape(second)}" data-wire-net="${escape(net.id)}" role="button" tabindex="0" aria-label="${escape(net.id)}: ${escape(first)} → ${escape(second)}"` : "";
-    return `<path class="wire-crossing-gap" d="${path}"/><path class="wire-hit ${selected ? "selected-wire" : ""}" d="${path}" ${attrs}/><path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""} ${selected ? "selected-wire" : ""}" d="${path}" data-net="${escape(net.id)}"/>`;
+    return `<path class="wire-crossing-gap" d="${path}"/><path class="wire-hit ${selected ? "selected-wire" : ""}" d="${path}" ${attrs}>${title}</path><path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""} ${selected ? "selected-wire" : ""}" d="${path}" data-net="${escape(net.id)}" ${color?`style="stroke:${color};opacity:${measured.currentA===0?.45:.8}"`:""}/>${flow}`;
   })).join("");
   const terminals = view === "schematic" ? project.components.flatMap((component) => {
     if (unavailable.has(component.instanceId)) return [];
@@ -550,7 +580,8 @@ function netSvg(project, view, unavailable = new Set(), interactive = true) {
       const labelX = point.x + (side === "left" ? -4 : side === "right" ? 4 : 0);
       const anchor = side === "left" ? "end" : side === "right" ? "start" : "middle";
       const origin = state.schematicWireStart === endpoint ? "is-wire-origin" : "";
-      return `<g class="schematic-pin-terminal schematic-pin-target ${net ? netClass(net.id) : "net-signal"} ${origin}" data-schematic-endpoint="${escape(endpoint)}" ${interactive ? 'role="button" tabindex="0"' : ""} aria-label="${escape(endpoint)}"><circle class="schematic-pin-hit" cx="${point.x}" cy="${point.y}" r="8"/><circle class="schematic-pin-dot" cx="${point.x}" cy="${point.y}" r="2.4"/><text x="${labelX}" y="${point.y - 4}" text-anchor="${anchor}">${component.libraryId === "ground.signal" ? "" : escape(pin)}</text></g>`;
+      const voltage=net?feedback?.nodes?.[net.id]:null, nodeColor=voltageColor(voltage);
+      return `<g class="schematic-pin-terminal schematic-pin-target ${net ? netClass(net.id) : "net-signal"} ${origin}" data-schematic-endpoint="${escape(endpoint)}" ${interactive ? 'role="button" tabindex="0"' : ""} aria-label="${escape(endpoint)}">${nodeColor?`<title>${escape(endpoint)}: ${voltage.toPrecision(4)} V</title>`:""}<circle class="schematic-pin-hit" cx="${point.x}" cy="${point.y}" r="8"/><circle class="schematic-pin-dot" cx="${point.x}" cy="${point.y}" r="2.4" ${nodeColor?`style="fill:${nodeColor};stroke:${nodeColor}"`:""}/><text x="${labelX}" y="${point.y - 4}" text-anchor="${anchor}">${component.libraryId === "ground.signal" ? "" : escape(pin)}</text></g>`;
     });
   }).join("") : "";
   let draft = "";
@@ -781,9 +812,12 @@ function renderCanvasFeedback(issues, label) {
 }
 
 function renderCanvas() {
+  dcFeedback.observe(state.project);
+  renderFeedbackControls();
   const canvas = $("#design-canvas");
   canvas.className = `design-canvas ${state.activeView} ${state.breadboardPlacementMode ? "is-placement-mode" : ""} ${state.schematicWireMode ? "is-wire-mode" : ""} ${state.activeTool === "pcb-route" ? "is-pcb-route-mode" : ""} ${$("#grid-toggle").checked ? "grid-enabled" : ""}`;
   const canvasArea = document.querySelector(".canvas-area");
+  canvasArea.classList.toggle("feedback-animate",$("#feedback-motion").value==="animate");
   canvasArea.classList.toggle("has-overview", state.activeView === "breadboard");
   document.querySelectorAll("[data-mini-view]").forEach((panel) => { panel.hidden = panel.dataset.miniView !== "schematic" || state.activeView !== "breadboard"; });
   canvas.setAttribute("aria-label", `${state.activeView} representation. Select a component to inspect it.`);
@@ -1344,6 +1378,7 @@ function setSimulationWorkerBusy(busy) {
 }
 
 function stopSimulation() {
+  dcFeedback.stop();
   const run = state.activeSimulation;
   if (!run) return;
   state.activeSimulation = null;
@@ -1356,6 +1391,7 @@ function stopSimulation() {
 }
 
 function runAnalysis(workerResult = null) {
+  if(workerResult===null)dcFeedback.stop();
   if(workerResult === null && state.project.releaseCandidateE2E){
     validateAndReport();
     state.lastAnalysis={state:"running",engine:"Release-candidate end-to-end suite",message:"Loading checked-in acceptance fixtures.",result:null};
@@ -1430,6 +1466,8 @@ function runAnalysis(workerResult = null) {
   }
   const result = workerResult;
   state.lastAnalysis = result;
+  state.lastAnalysisProjectKey=JSON.stringify(state.project);
+  if($("#feedback-live").checked)dcFeedback.accept(state.project,result);
   if (result.state === "complete") {
     const { kind } = result.result;
     log(`[ANALYSIS] ${result.engine}`);
@@ -2250,6 +2288,10 @@ $("#language").addEventListener("change", (event) => {
   render();
 });
 $("#grid-toggle").addEventListener("change", renderCanvas);
+$("#feedback-live").addEventListener("change",()=>{if(!$("#feedback-live").checked)dcFeedback.stop();else if(state.lastAnalysis?.state==="complete"&&state.lastAnalysisProjectKey===JSON.stringify(state.project))dcFeedback.accept(state.project,state.lastAnalysis);});
+$("#feedback-motion").addEventListener("change",renderCanvas);
+$("#feedback-direction").addEventListener("change",renderCanvas);
+window.addEventListener("pagehide",()=>dcFeedback.stop(false));
 $("#pcb-route-layer").addEventListener("change", () => { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; renderCanvas(); });
 $("#run-simulation").addEventListener("click", () => runAnalysis());
 $("#simulation-analysis-mode").addEventListener("change", (event) => {
