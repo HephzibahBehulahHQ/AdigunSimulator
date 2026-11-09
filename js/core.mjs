@@ -1,4 +1,5 @@
 import { reviewTestPointCoverage } from "./test-point-coverage.mjs";
+import { ADDITIONAL_LOGIC_PARTS } from "./logic-gates.mjs";
 import { netEdges, splitNetEdges } from "./net-edges.mjs";
 import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs";
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
@@ -9,6 +10,7 @@ const UI_LOCALES_FOR_PROJECT = Object.freeze(["en", "de", "yo", "pcm"]);
 const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistance: 34 });
 
 export const STARTER_LIBRARY = Object.freeze([
+  ...ADDITIONAL_LOGIC_PARTS,
   { id: "relay.omron-g5v1-dc5", category: "Active", type: "Omron G5V-1 DC5 SPDT relay", prefix: "K", pins: ["COIL1","COIL2","COM","NC","NO"], defaultValue: "5 V; 167 Ω; 1 A at 24 VDC resistive", simulation: "bounded-relay-driver", status: "manufacturer identified; board footprint template", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "diode.rectifier-1n4007", category: "Active", type: "1N4007 axial rectifier diode", prefix: "D", pins: ["A","K"], defaultValue: "1 A; 1000 V; axial", simulation: "flyback protection", status: "manufacturer family identified", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.screw-terminal-3", category: "Connectors", type: "3-position screw terminal block", prefix: "J", pins: ["1","2","3"], defaultValue: "Through-hole; generic footprint", simulation: "schematic/PCB only", status: "generic", views: { breadboard: false, schematic: true, pcb: true } },

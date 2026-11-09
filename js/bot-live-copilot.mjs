@@ -1,6 +1,7 @@
 import { addComponent, connectPins, findLibraryPart, validateProject } from "./core.mjs";
+import { LOGIC_GATES as GATE_DEFINITIONS } from "./logic-gates.mjs";
 
-const LOGIC_GATES = new Set(["active.logic-and-ideal", "active.logic-or-ideal", "active.logic-xor-ideal", "active.logic-nor-ideal"]);
+const LOGIC_GATES = new Set(Object.keys(GATE_DEFINITIONS));
 const LOGIC_OUTPUTS = new Set(["Y", "Q", "QBAR", "OUT"]);
 
 function projectFingerprint(project) {

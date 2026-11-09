@@ -1,0 +1,143 @@
+# Codex Prompt: Animation, Live Simulation Feedback & Freeform Wiring (AdigunSimulator)
+
+> **Note to Codex:** The code snippets below are **suggestions only** — starting points, not mandates. If you already have (or prefer) a better architecture for any part, **ignore the snippet and implement your way**. Likewise, if any of these items are already done or in progress, skip them and focus on what is genuinely missing. Priorities at the bottom.
+
+---
+
+## Part A — Top-bar Controls: Fun, Animated, Sci-Fi Look
+
+Recreate the **Run / Pause / Stop / Step / Reset** buttons with a playful, animated sci-fi aesthetic (think glowing HUD buttons, not flat grey).
+
+### Behavior
+- **Run** → simulation advances; button pulses/glows green.
+- **Pause** → freezes the sim; button glows amber; the last frame stays on screen.
+- **Stop** → ends sim, resets time, clears flow animation; button flashes red briefly then returns to idle.
+- **Step** → advances one tick; brief click ripple.
+- **Reset** → clears state, resets all voltages/currents to zero.
+
+### Suggested approach (ignore if you have a better one)
+- Use CSS keyframes on SVG `<button>` wrappers: `@keyframes pulse`, `glow`, `ripple`.
+- State machine: `idle | running | paused | stopped` in the sim store.
+- Each transition triggers the right animation class; keep animation durations < 250 ms so it feels snappy, not laggy.
+- Keep animation **optional** via a `reducedMotion` setting (accessibility).
+
+```tsx
+// Suggestion only
+const state = useSimStore(s => s.status); // idle | running | paused | stopped
+<button className={`sim-btn sim-btn--${state}`} onClick={run}>▶</button>
+```
+
+---
+
+## Part B — Live Current/Voltage Flow Visualization on Wires
+
+When a circuit **runs**, show the **actual flow of current and voltage** along the wires in **color and motion**. This is the "wow" feature — make it fun.
+
+### Requirements
+- **Current**: animated **moving dots / dashes** along each wire, speed proportional to current magnitude (higher current → faster dots). Direction follows conventional current (respect the IEC/electron-flow setting from the top options menu).
+- **Voltage**: color the **nodes** and optionally the wire gradient — green = positive relative to ground, red = negative, gray = ground (matching Falstad convention).
+- **Zero current**: wire shows no animation (static, dimmed).
+- **Live update**: when the user **changes any component value** (resistance, voltage, capacitance…), the flow speed/color **updates immediately** — no need to hit Run again.
+- **Animated everywhere**: wires, and where sensible, through components (e.g. a resistor can flash current through it).
+
+### Suggested approach (suggestion only)
+- Represent each wire as an SVG `<path>` in a "flow layer" above the static wire layer.
+- Use `stroke-dasharray` + `stroke-dashoffset` animated with `requestAnimationFrame` (or CSS `@keyframes` for constant speed) — dash offset increments each frame based on current magnitude.
+- Color via `stroke` computed from computed voltage/current per wire segment.
+- Recompute node voltages / branch currents in the sim loop (e.g. modified nodal analysis, or your existing solver). Push results to a `simResults` store slice; the canvas subscribes and paints.
+
+```tsx
+// Suggestion only — do NOT copy blindly
+const speed = Math.min(40, Math.abs(current) * 8); // px per frame
+requestAnimationFrame(() => setOffset(o => o - speed));
+```
+
+```css
+.wire-flow { stroke-dasharray: 6 10; stroke-linecap: round; }
+```
+
+- Make it **fun**: glow filter (`<filter><feGaussianBlur/>`), trailing fade, slight easing. Add a "sparkle" burst when current first starts flowing. Keep performance in mind (thousands of wires → cap animation to visible viewport).
+
+---
+
+## Part C — Freeform Wiring (Draw Any Shape, Stop & Continue, Crossovers)
+
+Wires must be fully user-controlled. They should **not** be fixed straight/orthogonal lines only.
+
+### Requirements
+
+1. **Freeform drawing**
+   - Start at a pin → click to place waypoints → finish at another pin. Any number of bends.
+   - The wire is a polyline (or bezier) that the user can **reshape at any time**.
+   - Rubber-band preview follows the cursor while drawing.
+
+2. **Stop & continue**
+   - User can pause drawing mid-way (press `Esc` or right-click → "Pause") — wire is saved as a **dangling wire** (endpoint = cursor).
+   - Later, click the dangling endpoint → drawing resumes from exactly where they stopped.
+   - Same for editing existing wires: click a wire → it shows draggable **waypoints**; drag any waypoint to reshape.
+   - Add/remove waypoints: double-click on a segment to insert; `Alt`+click a waypoint to delete.
+
+3. **Crossover / non-connected crossing**
+   - When a wire passes over another wire **without a junction**, show a **crossing hop** (the "bridge"/"jump" arc) — a clear visual that these are NOT electrically connected.
+   - Standard schematic convention: a small semicircle arc where one wire hops over the other. This is the "short that they are not connected" the user asked for.
+   - If the user wants an **electrical junction**, they must explicitly click a **junction dot** button (or right-click → "Add junction"). Only then is a filled dot drawn and the net merged.
+   - Detection: in the render pass, for each pair of wire segments that geometrically cross, if neither has an explicit junction at that point → render one side as an arc hop.
+
+4. **Wire editing**
+   - Select a wire → properties bar shows its net/current/voltage + handles to move waypoints.
+   - Delete wire (`Delete`), split wire (`S`?), merge two dangling wires by clicking their endpoints together.
+
+### Suggested approach (suggestion only)
+- Store wires as `{ id, fromPin, toPin?, points: [{x,y}, ...], junctions: Set<segIndex> }`.
+- Render using `<polyline>` for the base wire, plus `<path>` arcs for crossing hops computed per frame (cache until geometry changes).
+- Waypoints are draggable via pointer events on small circles drawn only in selection.
+- Snap to grid optionally; snap to pins strongly (highlight target pin when hovering).
+
+```ts
+// Suggestion only
+type Wire = {
+  id: string;
+  fromPin: PinRef;
+  toPin?: PinRef;
+  points: Point[];       // waypoints between endpoints
+  junctionAt?: PinRef[]; // explicit junctions
+};
+```
+
+- Crossover detection can be done lazily in the renderer: iterate wire pairs, use segment-segment intersection; if found and no junction → paint arc on the older wire.
+
+---
+
+## Part D — Live Reactivity When Variables Change
+
+> "As we regulate or change the variable, let there be changes." — This must hold everywhere.
+
+- Any edit in the **Properties bar** (value, voltage, resistance, capacitance, description, etc.) → simulation result updates **immediately**, even while running.
+- Any drag/resize/move on canvas → the sim result for affected nets updates.
+- Changing values while **paused** should also show the updated steady-state (e.g. run one solver step silently to preview).
+- Flow animation speed/color updates with the new values instantly.
+
+Ties into the existing `updateComponent` path + sim results store.
+
+---
+
+## Priorities (do in this order)
+
+1. **Part B (live flow animation + color)** — this is the headline "fun" feature; make it visible and delightful.
+2. **Part A (animated Run/Pause/Stop HUD)** — quick win, big vibe improvement.
+3. **Part C (freeform wiring + crossover hops)** — this is the biggest behavioral fix (wires currently rigid and crossings unclear).
+4. **Part D (live reactivity)** — mostly wiring the store to the solver; ensure no regressions.
+
+Anything already implemented → skip. If you have a cleaner design for any of these, **use yours**. These snippets are just sketches to save you time, not requirements.
+
+---
+
+## Acceptance Criteria
+- [ ] Run/Pause/Stop/Step/Reset buttons are **animated** with idle/running/paused/stopped visual states.
+- [ ] Simulating a circuit shows **moving flow animation** along wires, speed reflecting current, color reflecting voltage.
+- [ ] Changing a component value updates the **flow and voltages instantly**, without pressing Run.
+- [ ] Wires can be drawn **freeform with any number of bends**; waypoints are editable.
+- [ ] Drawing can be **paused and resumed** from the exact stopping point.
+- [ ] Crossing wires that are **not** joined show a clear **crossover hop (bridge)** — no accidental junctions.
+- [ ] Explicit junction is required to connect crossing wires; a filled dot appears only then.
+- [ ] No page refresh required at any point; bars/canvas stay independent.

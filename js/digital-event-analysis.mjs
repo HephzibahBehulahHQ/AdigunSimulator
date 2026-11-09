@@ -1,14 +1,12 @@
 import { findLibraryPart, validateProject } from "./core.mjs";
+import { LOGIC_GATES, evaluateLogicGate } from "./logic-gates.mjs";
 
 const MAX_COMPONENTS = 64;
 const MAX_EVENTS = 2000;
 const MAX_STOP_NS = 1_000_000_000;
 const D_FLIP_FLOP = "active.logic-dff-ideal";
 const LOGIC_MODELS = new Map([
-  ["active.logic-and-ideal", { kind: "gate", operation: "and", inputs: ["A", "B"], outputs: ["Y"] }],
-  ["active.logic-or-ideal", { kind: "gate", operation: "or", inputs: ["A", "B"], outputs: ["Y"] }],
-  ["active.logic-xor-ideal", { kind: "gate", operation: "xor", inputs: ["A", "B"], outputs: ["Y"] }],
-  ["active.logic-nor-ideal", { kind: "gate", operation: "nor", inputs: ["A", "B"], outputs: ["Y"] }],
+  ...Object.entries(LOGIC_GATES).map(([id, gate]) => [id, { kind: "gate", operation: gate.operation, inputs: gate.inputs, outputs: ["Y"] }]),
   ["active.logic-decoder-2to4-ideal", { kind: "decoder-2to4", inputs: ["A0", "A1"], outputs: ["Y0", "Y1", "Y2", "Y3"] }],
   ["active.logic-mux4-ideal", { kind: "mux4", inputs: ["I0", "I1", "I2", "I3", "S0", "S1"], outputs: ["Y"] }]
 ]);
@@ -152,7 +150,7 @@ export function runDigitalEventSimulation(project) {
           ? model.outputNets.map((_, index) => Number(index === (inputs[0] | (inputs[1] << 1))))
           : model.kind === "mux4"
             ? [inputs[inputs[4] | (inputs[5] << 1)]]
-          : [model.operation === "and" ? inputs[0] & inputs[1] : model.operation === "or" ? inputs[0] | inputs[1] : model.operation === "xor" ? inputs[0] ^ inputs[1] : Number(!(inputs[0] | inputs[1]))];
+          : [evaluateLogicGate(model.operation, inputs)];
         model.outputNets.forEach((net, index) => {
           if (values.get(net) !== outputs[index]) { values.set(net, outputs[index]); changed = true; }
         });
@@ -201,7 +199,7 @@ export function runDigitalEventSimulation(project) {
     engine: "Ideal digital discrete-event logic simulation",
     engineId: "adigun-digital-events",
     engineVersion: "1.0.0",
-    message: "Simulates deterministic zero-delay AND, OR, XOR, and NOR gates, an ideal active-high two-to-four decoder, a four-to-one multiplexer, and positive-edge D flip-flops with explicit initial state. D flip-flop PRE and CLR must remain inactive-high. Simultaneous input changes are applied atomically. Gate delay, setup/hold time, asynchronous controls, metastability, electrical loading, and analog voltage waveforms are not modeled.",
+    message: "Simulates deterministic zero-delay AND, OR, XOR, NOR, NAND, NOT, and XNOR gates, an ideal active-high two-to-four decoder, a four-to-one multiplexer, and positive-edge D flip-flops with explicit initial state. D flip-flop PRE and CLR must remain inactive-high. Simultaneous input changes are applied atomically. Gate delay, setup/hold time, asynchronous controls, metastability, electrical loading, and analog voltage waveforms are not modeled.",
     validation,
     convergenceState: "settled",
     warnings: [],

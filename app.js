@@ -398,7 +398,7 @@ function componentVisual(component, view) {
   const x = component.position?.[view]?.[0] ?? 120;
   const y = component.position?.[view]?.[1] ?? 120;
   const className = component.libraryId.replaceAll(".", "-");
-  const symbol = view === "schematic" ? renderSchematicSymbol(part) : null;
+  const symbol = view === "schematic" ? renderSchematicSymbol(part, component) : null;
   const symbolSize = view === "schematic" ? schematicGeometry(component) : schematicSymbolSize(component.libraryId);
   const body = symbol ?? `<span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span>`;
   return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px;--symbol-width:${symbolSize.width}px;--symbol-height:${symbolSize.height}px;--symbol-rotation:${symbolSize.rotation ?? 0}deg" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value" title="${escape(component.value)}">${escape(component.value)}</span></button>`;
