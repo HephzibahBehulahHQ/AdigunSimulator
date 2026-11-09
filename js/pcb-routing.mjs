@@ -1,3 +1,4 @@
+import { boardDefinitionErrors, minimumPcbTraceWidth } from "./pcb-board.mjs";
 import { segmentPadGap, padOnLayer, netPairClearance } from "./pcb-copper.mjs";
 import { pcbCopperPads, validatePcbVias } from "./pcb-vias.mjs";
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -44,7 +45,7 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
   const pcb = project?.pcbFabrication;
   const board = pcb?.board;
   if (!pcb || !board || !Array.isArray(pcb.parts) || !Array.isArray(pcb.pads) || !Array.isArray(pcb.routes)) return { status: "blocked", code: "NO_PCB_DATA" };
-  if (![board.widthMm, board.heightMm, board.minimumClearanceMm].every(Number.isFinite) || board.widthMm <= 0 || board.heightMm <= 0 || board.minimumClearanceMm <= 0) return { status: "blocked", code: "INVALID_BOARD_RULES" };
+  if (boardDefinitionErrors(board).length) return { status: "blocked", code: "INVALID_BOARD_RULES" };
   if (!Array.isArray(board.copperLayers) || !board.copperLayers.includes(layer) || !["F.Cu", "B.Cu"].includes(layer)) return { status: "blocked", code: "UNSUPPORTED_COPPER_LAYER" };
 
   if (validatePcbVias(pcb, new Set((project.nets ?? []).map((net) => net.id))).length) return { status: "blocked", code: "INVALID_EXISTING_GEOMETRY" };
@@ -60,7 +61,7 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
   if (![from, to].every((pad) => pad.isVia || pcb.parts.some((part) => part.instanceId === pad.instanceId))) return { status: "blocked", code: "UNKNOWN_FOOTPRINT" };
 
   const netClass = (pcb.netClasses ?? []).find((item) => item.netIds?.includes(from.netId));
-  const minimumWidth = Number(netClass?.minimumWidthMm ?? netClass?.traceWidthMm ?? board.minimumTraceWidthMm ?? 0.25);
+  const minimumWidth = minimumPcbTraceWidth(pcb, from.netId, 0.25);
   const traceWidth = widthMm === undefined ? minimumWidth : Number(widthMm);
   if (!Number.isFinite(minimumWidth) || minimumWidth <= 0 || !Number.isFinite(traceWidth) || traceWidth + epsilon < minimumWidth) return { status: "blocked", code: "TRACE_WIDTH_BELOW_MINIMUM" };
   if (pcb.pads.some((pad) => !Number.isFinite(pad.xMm) || !Number.isFinite(pad.yMm) || !Number.isFinite(padRadius(pad)) || padRadius(pad) <= 0)) return { status: "blocked", code: "INVALID_EXISTING_GEOMETRY" };

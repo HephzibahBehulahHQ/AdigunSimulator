@@ -7,7 +7,7 @@ This tracker records evidence-backed progress against the product requirements. 
 | 1. Product foundation and project safety | Local-first project format, save/import/export, explicit reopen, clean session lifecycle, responsive workspace, four interface locales, and disclosed scope limits pass automated checks and representative browser workflows. | In progress. Automated and localization contracts exist; representative browser/accessibility acceptance remains outstanding. |
 | 2. Circuit editing and synchronized views | Breadboard, schematic, and PCB share project identity and nets; supported component placement/wiring edits synchronize across views; invalid and unsupported mappings are surfaced. | In progress. Shared identity/net model is implemented; broader edit synchronization and browser acceptance remain open. |
 | 3. Bounded simulation and instruments | Each advertised model has an explicit model boundary, reproducible examples, numerical tests, cancellation/resource limits, and independent engineering review before release. | In progress. Multiple bounded analyses are tested; general SPICE, broad mixed-signal behavior, and independent review remain unavailable. |
-| 4. PCB routing and fabrication preview | Supported layer/endpoint rules, net/clearance/keep-out checks, export integrity, and documented limitations are tested; production use additionally requires independent electrical and manufacturing review. | In progress; release pending. Stored vias support inspector editing and two-layer routing/export; quarter-turn footprint placement and shared camera/history are tested. Twelve new via regressions bring the local suite to 412/412. Full board/rule setup, package assets and independent manufacturing review remain open. |
+| 4. PCB routing and fabrication preview | Supported layer/endpoint rules, net/clearance/keep-out checks, export integrity, and documented limitations are tested; production use additionally requires independent electrical and manufacturing review. | In progress; release pending. Stored vias support inspector editing and two-layer routing/export; quarter-turn footprint placement and shared camera/history are tested. Rectangular one/two-layer board setup and board-wide trace/clearance rules are now editable and tested; full stackup/outline/net-class editors, package assets and independent manufacturing review remain open. |
 | 5. Real component library | Reach 1,000 parts counted only after authoritative datasheet/checksum, exact MPN/package/lifecycle, audited pin/pad mapping, model/licence status, and named dated review are present. Taxonomy types and candidates are reported separately. | In progress. The ledger has 565 taxonomy types, 15 candidates, and 0 verified parts; target completion is 1,000 verified parts. |
 | 6. Ready-made project catalogue | Each of the 200 projects has a native project, stable test ID, automated acceptance result, engine/model/library evidence, BOM where applicable, and proportionate safety note. | In progress. Catalogue coverage exists; completion requires per-project evidence under the release gate, not count alone. |
 | 7. Adigun BOT and optional accounts | Local deterministic help stays grounded in checked-in project/library data; any external AI requires separate approval. Authentication remains optional until identity, privacy, retention, incident, deployment, and budget decisions are approved. | Local BOT capability exists. External AI and account/cloud features are gated on product-owner decisions. |
@@ -16,8 +16,8 @@ This tracker records evidence-backed progress against the product requirements. 
 ## Current branch verification
 
 - Branch: `codex/rl-transient-acceptance`.
-- Last synchronized checkpoint before the latest work: `4b5ac361f8fa6d42b3c36c0fbc9a1482b95c32ae` (PCB quarter-turn placement).
-- Required automated checks at that head: 400 tests passed; syntax check, library validation, and `git diff --check` passed; GitHub Actions run #1259 passed. Local and remote branch identities were rechecked on 2026-11-09. Later checkpoint evidence is recorded below and final matching-head CI is recorded on PR #505.
+- Last synchronized checkpoint before the latest work: `2165b10924875875e5681c9ce1aacea47a39301d` (empty canvas lifecycle).
+- Required automated checks at that head: 422 tests passed; syntax check, library validation, and `git diff --check` passed; GitHub Actions run #1261 passed. Local and remote branch identities were rechecked on 2026-11-09. Later checkpoint evidence is recorded below and final matching-head CI is recorded on PR #505.
 - Deployment: not performed. The checked-in deployment runbook requires a non-draft review path, current-head checks, independent electrical review, and approved release safeguards before merge/deployment.
 
 Update this tracker when a milestone's evidence changes. Do not count candidates as verified parts, planned examples as released projects, or an illustrative PCB export as manufacturing approval.
@@ -115,3 +115,16 @@ See `PCB_VIA_EDIT_ACCEPTANCE.md` for scope and limitations. Product milestones 2
 | Production promotion | Independent reviews, protected merge and exact Pages deployment pass. | Pending; draft PR #505 has no submitted reviews. No deployment performed. |
 
 See `CANVAS_SESSION_ACCEPTANCE.md`. This supersedes automatic recovery/startup behavior described in older checkpoints; the recovery example is an isolated storage test, not session restoration. Broad product milestones remain open.
+
+
+## Board setup and shared rules checkpoint — 2026-11-09
+
+| Category / checkpoint | Completion criterion | Evidence |
+| --- | --- | --- |
+| Board setup | Create/edit rectangular board dimensions, thickness, F.Cu/F.Cu+B.Cu layers, minimum trace width and clearance without moving copper or changing nets. | Automated native-document tests and browser empty/populated-board editing passed. |
+| Geometry/layer safeguards | Reject clipped copper/obstacles/mechanical allowances and layer removal that strands routes/vias/zones; preserve unsupported multilayer plans. | Automated geometry/layer tests passed; browser unsafe shrink and single-layer conversion were blocked. |
+| Rule/export integrity | Apply the strictest board/class trace width; reject violating copper at export and report actual board settings. | Routing/export tests passed; browser stricter-width export blocked and Undo restored passing checks. |
+| UI/history and checks | Localized accessible form, no-op/cancel/rejection safety, history, native export and required checks pass. | New-board Undo/Redo, eight locale/width cases, Escape and downloaded native board settings verified; 432/432 tests and matching-head CI evidence recorded on PR #505. |
+| Production promotion | Independent reviews, protected merge and exact Pages deployment pass. | Pending; PR #505 remains draft. No production deployment performed. |
+
+See `PCB_BOARD_SETUP_ACCEPTANCE.md`. This advances milestones 2 and 4; it does not complete the professional PCB or product specification.

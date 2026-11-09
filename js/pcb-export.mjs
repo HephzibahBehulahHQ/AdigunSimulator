@@ -1,3 +1,4 @@
+import { boardDefinitionErrors, boardGeometryErrors, minimumPcbTraceWidth } from "./pcb-board.mjs";
 import { auditPcbCopper, netPairClearance, disconnectedPcbNets } from "./pcb-copper.mjs";
 import { pcbCopperPads, validatePcbVias } from "./pcb-vias.mjs";
 const round = (value) => Number(Number(value).toFixed(6)).toString();
@@ -19,6 +20,8 @@ export function validatePcbFabrication(project) {
   if (!pcb || typeof pcb !== "object") return { status:"blocked", errors:["Project has no PCB fabrication data."], warnings };
   const { board, parts, routes } = pcb;
   if (!board || !Number.isFinite(board.widthMm) || !Number.isFinite(board.heightMm) || board.widthMm <= 0 || board.heightMm <= 0) return { status:"blocked", errors:["Board dimensions must be positive millimetres."], warnings };
+  errors.push(...boardDefinitionErrors(board));
+  if (errors.length) return { status: "blocked", errors, warnings };
   const supportedCopperLayers = ["F.Cu", "B.Cu"];
   if (!Array.isArray(board?.copperLayers) || board.copperLayers.length < 1 || board.copperLayers.length > 2 || board.copperLayers[0] !== "F.Cu" || board.copperLayers.some((layer) => !supportedCopperLayers.includes(layer)) || new Set(board.copperLayers).size !== board.copperLayers.length) errors.push("Copper layers must be F.Cu, optionally followed by B.Cu.");
   if (!Array.isArray(parts) || !Array.isArray(pcb.pads) || !Array.isArray(routes)) return { status:"blocked", errors:[...errors,"Parts, pads, and routes must be arrays."], warnings };
@@ -27,6 +30,7 @@ export function validatePcbFabrication(project) {
   const pads = pcbCopperPads(pcb);
   const copperIssues = auditPcbCopper(pcb);
   if (copperIssues.some((issue) => ["invalid-geometry", "work-limit"].includes(issue.type))) return { status:"blocked", errors:[...errors,"Copper clearance audit blocked: invalid or excessive geometry."], warnings };
+  errors.push(...boardGeometryErrors(pcb));
   const components = new Map((project.components ?? []).map((component) => [component.instanceId,component]));
   const knownNets = new Map((project.nets ?? []).map((net) => [net.id,new Set(net.endpoints ?? [])]));
   const partIds = new Set();
@@ -76,6 +80,8 @@ export function validatePcbFabrication(project) {
   }
   for (const route of routes) {
     if (!knownNets.has(route.netId) || !Array.isArray(route.pointsMm) || route.pointsMm.length < 2 || route.pointsMm.some((point) => !Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite)) || !Number.isFinite(route.widthMm) || route.widthMm <= 0) { errors.push(`Route for ${route.netId ?? "unknown net"} is incomplete.`); continue; }
+    const requiredWidth = minimumPcbTraceWidth(pcb, route.netId);
+    if (!Number.isFinite(requiredWidth) || route.widthMm + 1e-9 < requiredWidth) errors.push(`Route ${route.netId} violates the board/net-class minimum trace width (${requiredWidth} mm).`);
     if (!supportedCopperLayers.includes(route.layer) || !Array.isArray(board?.copperLayers) || !board.copperLayers.includes(route.layer)) errors.push(`Route ${route.netId} is on an undeclared copper layer.`);
     for (const [x,y] of route.pointsMm) if (![x,y].every(Number.isFinite) || x < 0 || y < 0 || x > board.widthMm || y > board.heightMm) errors.push(`Route ${route.netId} leaves the board outline.`);
     const startEndpoint = pads.find((pad) => pad.netId===route.netId && pointEqual(pad,route.pointsMm[0]));
