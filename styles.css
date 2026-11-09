@@ -32,6 +32,18 @@ button:focus-visible, input:focus-visible, select:focus-visible, .placed-compone
 .wire-layer .wire-flow { fill:none; stroke-width:3.4; stroke-linecap:round; stroke-dasharray:2 14; pointer-events:none; animation:dc-current-flow var(--flow-duration,1s) linear infinite; filter:drop-shadow(0 0 1.5px currentColor); }
 .canvas-area.feedback-animate .wire-flow { animation-name:dc-current-flow; animation-duration:var(--flow-duration,1s); animation-timing-function:linear; animation-iteration-count:infinite; }
 @keyframes dc-current-flow { to { stroke-dashoffset:-16; } }
+.canvas-area.simulation-paused .wire-flow { animation-play-state:paused; }
+.simulation-hud { display:flex; align-items:center; flex-wrap:wrap; gap:.35rem; min-width:0; }
+.simulation-hud .sim-button { display:inline-flex; align-items:center; justify-content:center; gap:.4rem; min-height:2.25rem; padding:.4rem .65rem; border:1px solid #225b73; border-radius:.35rem; background:linear-gradient(135deg,#0a2d40,#091a2d); color:#b9e9f6; transition:box-shadow .18s,border-color .18s; }
+.simulation-hud .sim-button:disabled { opacity:.4; }
+.simulation-hud .sim-button:active:not(:disabled) { animation:hud-press .18s ease-out; }
+.simulation-hud[data-playback="running"] #hud-run { color:#67ffbe; border-color:#35d392; box-shadow:0 0 11px #26dd8150; animation:hud-press .2s ease-out; }
+.simulation-hud[data-playback="paused"] #hud-pause { color:#ffd98a; border-color:#ffc15b; box-shadow:0 0 11px #ffc15b45; opacity:1; }
+.simulation-hud[data-playback="stopped"] #hud-stop { animation:hud-stop .2s ease-out; }
+#simulation-time { font-size:.7rem; color:var(--muted); min-width:0; max-width:100%; overflow-wrap:anywhere; }
+@keyframes hud-press { from { box-shadow:0 0 0 4px #59e8fb66; } to { box-shadow:0 0 0 0 transparent; } }
+@keyframes hud-stop { from { color:#ff8c9b; border-color:#ff536d; box-shadow:0 0 16px #ff536d88; } to { box-shadow:0 0 0 transparent; } }
+@media (prefers-reduced-motion:reduce) { .simulation-hud .sim-button { animation:none!important; transition:none; } }
 @media (prefers-reduced-motion:reduce) { .wire-layer .wire-flow { animation:none; } }
 .schematic-symbol .symbol-stroke { fill:none; stroke:#d8e8f5; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 .schematic-symbol .symbol-fill { fill:#d8e8f5; stroke:#d8e8f5; stroke-width:1.2; stroke-linejoin:round; }
@@ -535,4 +547,60 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
   .identity-header > .menu-buttons { min-width: 0; }
   .project-actions .example-top-control { margin-left: 0; }
   .inspector-content { max-height: 28rem; }
+}
+
+/* Two command rows below the brand header: project commands, then view/canvas tools. */
+.project-actions { flex-wrap: nowrap; align-items: center; }
+.project-actions > button { flex: 0 0 auto; }
+.example-menu { margin-left: auto; flex: 0 0 auto; }
+.example-menu > summary { border: 1px solid var(--border); min-height: 2.25rem; }
+.example-menu .app-menu-popover { left: auto; right: 0; width: min(27rem, calc(100vw - 2rem)); }
+.example-menu[open] .app-menu-popover { display: grid; }
+.example-menu .example-top-control { min-width: 0; margin: 0; }
+.example-menu .example-top-control select { width: 100%; flex: 1; }
+.workspace-navigation { grid-column: 1 / -1; display: flex; align-items: center; min-width: 0; gap: .4rem; border-bottom: 1px solid var(--border); overflow-x: auto; }
+.workspace-navigation .view-tabs { flex: 1 0 auto; min-width: 0; overflow: visible; }
+.workspace-navigation .view-tab { padding-inline: .65rem; font-size: .8rem; white-space: nowrap; }
+.workspace-navigation .canvas-toolbar { flex: 0 0 auto; flex-wrap: nowrap; border: 0; border-radius: 0; padding: 0; min-height: 2.65rem; }
+.workspace-navigation .toolbar-button { width: 1.8rem; min-height: 2rem; padding: .2rem; font-size: 1rem; }
+.workspace-navigation .toolbar-button > span:not([aria-hidden]), #pcb-route-layer-control > span { display: none; }
+.workspace-navigation #zoom-level { min-width: 2.5rem; font-size: .65rem; }
+.workspace-navigation #pcb-route-layer-control { padding: 0; }
+.workspace-navigation #pcb-route-layer { width: 4rem; padding: .25rem; }
+.workspace-navigation:has(+ .design-canvas:not(.pcb)) #pcb-route-mode,
+.workspace-navigation:has(+ .design-canvas:not(.pcb)) [data-action="pcb-via-new"],
+.workspace-navigation:has(+ .design-canvas.pcb) #schematic-wire-mode { display: none; }
+.canvas-area, .canvas-area:not(.has-overview), .canvas-area.has-overview, .canvas-area:has(> .design-canvas.pcb) { grid-template-rows: auto minmax(25rem, 1fr) auto; }
+.canvas-area > .design-canvas, .canvas-area.has-overview > .design-canvas { grid-row: 2; }
+.canvas-area.has-overview > .overview-row { grid-row: 2; }
+.canvas-area > .output-panel, .canvas-area.has-overview > .output-panel { grid-row: 3; grid-column: 1 / -1; }
+.simulation-hud { flex-shrink: 0; padding: .4rem .5rem; border-bottom: 1px solid var(--border); }
+.simulation-hud .sim-button { min-height: 2rem; font-size: .75rem; }
+.workspace-status { flex-shrink: 0; padding: .2rem .5rem; color: var(--muted); font-size: .65rem; }
+.workspace-status > span:empty { display: none; }
+.workspace-status .canvas-label { margin: 0; }
+#simulation-form .feedback-controls { margin-bottom: .75rem; gap: .5rem; }
+.schematic .placed-component, #design-canvas.schematic .placed-component:is(:hover, .is-selected) { background: transparent; box-shadow: none; border-radius: 0; }
+@media (max-width: 1120px) {
+  .canvas-area.has-overview { grid-template-rows: auto minmax(22rem, 1fr) 13rem auto; }
+  .canvas-area.has-overview > .overview-row { grid-row: 3; }
+  .canvas-area.has-overview > .output-panel { grid-row: 4; }
+}
+@media (min-width: 1121px) and (min-height: 700px) {
+  .canvas-area, .canvas-area:not(.has-overview), .canvas-area.has-overview, .canvas-area:has(> .design-canvas.pcb) { grid-template-rows: auto minmax(12rem, 1fr) minmax(13rem, .65fr); }
+}
+@media (max-width: 700px) {
+  .project-actions { gap: .25rem; }
+  .project-actions > button { width: 2rem; min-height: 2rem; padding: .25rem; font-size: 0; }
+  .project-actions > button > span { font-size: 0; }
+  .project-actions > button::before { font-size: 1.05rem; }
+  .project-actions > [data-action="new-project"]::before { content: "＋"; }
+  .project-actions > [data-action="import-project"]::before { content: "▱"; }
+  .project-actions > [data-action="save"]::before { content: "▣"; }
+  .project-actions > [data-action="validate"]::before { content: "✓"; }
+  .project-actions > [data-action="run-simulation"]::before { content: "▶"; }
+  .project-actions > .panel-toggle { flex-basis: 2rem; }
+  .example-menu > summary { font-size: .7rem; padding: .4rem; }
+  .workspace-navigation { gap: .1rem; }
+  .workspace-navigation .view-tab { padding-inline: .5rem; }
 }

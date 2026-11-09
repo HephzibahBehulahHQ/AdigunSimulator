@@ -10,8 +10,10 @@ const catalogueFile = new URL("../docs/EXAMPLE_CATALOGUE.md", import.meta.url);
 
 test("view tabs and compact canvas controls retain translated names when their visual text is hidden", async () => {
   const html = await readFile(indexFile, "utf8");
-  const tags = html.match(/<button\b[^>]*(?:role="tab"|data-tool="(?:select|pan|zoom-in|zoom-out|fit)"|id="schematic-wire-mode"|class="toolbar-button" data-action="(?:undo|redo)")[^>]*>/g);
-  assert.equal(tags.length, 11);
+  const tags = html.match(/<button\b[^>]*(?:role="tab"|data-tool="(?:select|pan|zoom-in|zoom-out|fit)"|id="schematic-wire-mode")[^>]*>/g);
+  assert.equal(tags.length, 9);
+  // Undo/redo remain named commands in Edit; their duplicate canvas buttons were removed.
+  for(const action of ['undo','redo']) assert.match(html,new RegExp(`data-action="${action}" data-i18n="${action}"`));
   for (const tag of tags) {
     const key = tag.match(/data-i18n-aria="([^"]+)"/)?.[1];
     assert.ok(key, tag);

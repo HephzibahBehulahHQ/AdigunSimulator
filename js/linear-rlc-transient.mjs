@@ -150,6 +150,7 @@ export function runLinearRlcTransient(project) {
   const capacitorState = new Map(capacitors.map(({ item }) => [item.instanceId, { voltage: initialConditions.capacitorVoltages[item.reference] ?? 0, current: 0 }]));
   const inductorState = new Map(inductors.map(({ item }) => [item.instanceId, { voltage: 0, current: initialConditions.inductorCurrents[item.reference] ?? 0 }]));
   const samples = [];
+  const feedbackLayout = { groundNet, nets: netIds, branches: [...resistors, ...capacitors, ...inductors, ...sources].map(({item}) => ({ instanceId:item.instanceId, reference:item.reference, pins:item.libraryId==="power.dc-source"?["+","-"]:["1","2"] })) };
   let maximumResidual = 0;
   for (let step = 1; step <= steps; step += 1) {
     const matrix = new Float64Array(size * size), rhs = new Float64Array(size);
@@ -186,13 +187,19 @@ export function runLinearRlcTransient(project) {
       state.current = timeStepSeconds / (2 * value) * (voltage + state.voltage) + state.current;
       state.voltage = voltage;
     }
-    samples.push({ timeSeconds: step * timeStepSeconds, voltageV: solved.x[node.get(outputNet)] });
+    const branchCurrents = [
+      ...resistors.map(({item,value})=>(voltageOf(item,"1")-voltageOf(item,"2"))/value),
+      ...capacitors.map(({item})=>capacitorState.get(item.instanceId).current),
+      ...inductors.map(({item})=>inductorState.get(item.instanceId).current),
+      ...sources.map(({item})=>solved.x[sourceIndexes.get(item.instanceId)])
+    ];
+    samples.push({ timeSeconds: step * timeStepSeconds, voltageV: solved.x[node.get(outputNet)], nodeVoltages:netIds.map(id=>solved.x[node.get(id)]), branchCurrents });
   }
   return {
     state: "complete", engine: "Linear RLC transient modified nodal analysis",
     message: "Bounded linear RLC transient solved with trapezoidal companion models. DC sources step instantaneously at t=0; unspecified capacitor voltages and inductor currents start at zero.",
     errors: [], warnings: [{ code: "LINEAR_RLC_MODEL_LIMITS", message: "Ideal sources and passive RLC parts only; no ESR, parasitics, nonlinear devices, source rise time, impulsive-current detail, thermal model, or general SPICE." }],
-    validation,
+    validation, feedbackLayout,
     result: { kind: "linear-rlc-transient", outputNet, stopSeconds, timeStepSeconds, sampleCount: samples.length, integration: "trapezoidal companion model", initialConditions: { capacitorVoltageVByReference: Object.fromEntries(capacitors.map(({ item }) => [item.reference, initialConditions.capacitorVoltages[item.reference] ?? 0])), inductorCurrentAByReference: Object.fromEntries(inductors.map(({ item }) => [item.reference, initialConditions.inductorCurrents[item.reference] ?? 0])) }, maximumRelativeResidual: maximumResidual, modelIds: ["linear-rlc-trapezoidal-transient-v1"], samples }
   };
 }

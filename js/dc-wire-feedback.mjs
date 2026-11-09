@@ -27,7 +27,9 @@ export function buildDcWireFeedback(project, analysis) {
   const setNode = (c,p,v) => { const id=net(c,p); if(id && Number.isFinite(v)) nodes[id]=v; };
   const source = byType("power.dc-source");
   for(const c of byType("ground.signal")) terminal(c,"0",0);
-  if (result.kind === "led-current-limiter" && source.length===1 && byType("passive.resistor").length===1 && byType("diode.led-red").length===1 && project.components.length===4) {
+  if (result.kind === "linear-rlc-frame" && result.terminalCurrents) {
+    for(const [pin,current] of Object.entries(result.terminalCurrents)) if(Number.isFinite(current))currents.set(pin,current);
+  } else if (result.kind === "led-current-limiter" && source.length===1 && byType("passive.resistor").length===1 && byType("diode.led-red").length===1 && project.components.length===4) {
     const v=source[0],r=byType("passive.resistor")[0],d=byType("diode.led-red")[0];
     const supply=net(v,"+"),ground=net(v,"-"),anode=net(d,"A");
     if(!supply || !ground || !anode || net(d,"K")!==ground || !["1","2"].some(p=>net(r,p)===supply) || !["1","2"].some(p=>net(r,p)===anode)) return unavailable("Model topology does not match solved LED circuit.");
@@ -66,5 +68,5 @@ export function buildDcWireFeedback(project, analysis) {
       wires[wireEdgeKey(n.id,first,second)]={voltageV:Number.isFinite(nodes[n.id])?nodes[n.id]:null,currentA,reason:!known?"Unmeasured terminal":!balanced?"KCL mismatch":!unique?"Ideal wire loop: current split is indeterminate":null};
     }
   }
-  return {available:true,kind:result.kind,nodes,wires,reason:"DC operating point; motion indicates current magnitude, not physical carrier speed."};
+  return {available:true,kind:result.kind,nodes,wires,reason:`${result.kind==="linear-rlc-frame"?"Calculated transient sample":"DC operating point"}; motion indicates current magnitude, not physical carrier speed.`};
 }

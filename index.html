@@ -53,6 +53,8 @@
           <button type="button" data-action="validate" data-i18n="runValidation">Run validation</button>
           <button type="button" data-inspector="simulation" data-i18n="simulationControl">Simulation Control</button>
           <button type="button" data-inspector="project" data-i18n="project">Project</button>
+          <label><input id="grid-toggle" type="checkbox" checked /> <span data-i18n="grid">Grid</span></label>
+          <label><input id="snap-toggle" type="checkbox" checked /> <span data-i18n="snap">Snap</span></label>
         </div></details>
         <details class="app-menu" name="application-menu"><summary data-i18n="helpMenu">Help</summary><div class="app-menu-popover">
           <button type="button" data-action="help" data-i18n="implementationStatus">Implementation status</button>
@@ -77,9 +79,10 @@
         <button class="secondary-button" type="button" data-action="import-project" data-i18n="open">Open</button>
         <button class="secondary-button" type="button" data-action="save" data-i18n="save">Save</button>
         <button class="secondary-button" type="button" data-action="validate" data-i18n="validate">Validate</button>
-        <button class="run-button toolbar-run" type="button" data-action="run-simulation" data-i18n="runCalculation">Run</button>
+        <button class="run-button toolbar-run" type="button" data-action="run-simulation"><span aria-hidden="true">▶</span> <span data-i18n="runCalculation">Run</span></button>
         <button class="icon-button panel-toggle" type="button" data-panel-toggle="left" aria-controls="components-panel" aria-expanded="true" aria-label="Components" title="Components" data-i18n-aria="components" data-i18n-title="components"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></button>
         <button class="icon-button panel-toggle" type="button" data-panel-toggle="right" aria-controls="properties-panel" aria-expanded="true" aria-label="Properties" title="Properties" data-i18n-aria="properties" data-i18n-title="properties"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></svg></button>
+        <details class="app-menu example-menu" name="application-menu"><summary data-i18n="exampleSelector">Example</summary><div class="app-menu-popover">
         <label class="example-top-control"><span data-i18n="exampleSelector">Example</span><select id="example-picker">
             <option value="" data-i18n="chooseExample">Choose an example</option>
             <option value="examples/001-led-current-limiter.adigun.json">LED current limiter</option>
@@ -296,6 +299,7 @@
 <option value="examples/supplemental-rl-low-pass.adigun.json">Supplemental: RL low-pass filter</option>
           </select></label>
         <button id="load-example" class="secondary-button load-example-top" type="button" data-i18n="loadSelectedExample">Load example</button>
+        </div></details>
         </div>
     </nav>
     <main id="workspace" class="workspace">
@@ -328,6 +332,7 @@
       </aside>
 
       <section class="canvas-area" aria-label="Circuit design workspace">
+        <div class="workspace-navigation">
         <div class="view-tabs" role="tablist" aria-label="Circuit representations">
           <button class="view-tab active" role="tab" aria-selected="true" data-view="breadboard" aria-label="Breadboard View" data-i18n-aria="breadboard">▦ <span data-i18n="breadboard">Breadboard View</span></button>
           <button class="view-tab" role="tab" aria-selected="false" data-view="schematic" aria-label="Schematic View" data-i18n-aria="schematic">⌘ <span data-i18n="schematic">Schematic View</span></button>
@@ -340,31 +345,17 @@
           <strong id="zoom-level">100%</strong>
           <button type="button" class="toolbar-button" data-tool="zoom-in" aria-label="Zoom in" data-i18n-aria="zoomIn">+ <span data-i18n="zoomIn">Zoom in</span></button>
           <button type="button" class="toolbar-button" data-tool="fit" aria-label="Fit view" data-i18n-aria="fitView">⤢ <span data-i18n="fitView">Fit view</span></button>
-          <label><input id="snap-toggle" type="checkbox" checked /> <span data-i18n="snap">Snap</span></label>
-          <label><input id="grid-toggle" type="checkbox" checked /> <span data-i18n="grid">Grid</span></label>
+
+
           <button id="schematic-wire-mode" aria-label="Wire" data-i18n-aria="schematicWireMode" type="button" class="toolbar-button" aria-pressed="false" data-action="schematic-wire-mode"><span aria-hidden="true">⌁</span> <span data-i18n="schematicWireMode">Wire</span></button>
-          <span id="schematic-wire-status" role="status" aria-live="polite"></span>
-          <span id="placement-status" role="status" aria-live="polite"></span>
-          <div class="feedback-controls">
-            <label><input id="feedback-live" type="checkbox" checked /><span id="feedback-live-label">Live DC feedback</span></label>
-            <label><span id="feedback-motion-label">Current animation</span><select id="feedback-motion"><option value="system">Device preference</option><option value="animate">Animate</option><option value="reduce">Reduce motion</option></select></label>
-            <select id="feedback-direction" aria-label="Current direction"><option id="feedback-conventional" value="conventional">Conventional current</option><option id="feedback-electron" value="electron">Electron direction</option></select>
-            <span id="feedback-status" role="status" aria-live="polite"></span>
-          </div>
+
+
           <button id="pcb-route-mode" type="button" class="toolbar-button" data-tool="pcb-route" aria-pressed="false" aria-label="Interactive PCB routing" data-i18n-aria="pcbRouteAria" disabled><span aria-hidden="true">⌁</span> <span data-i18n="pcbRoute">Route</span></button>
           <label id="pcb-route-layer-control" hidden><span data-i18n="pcbRouteLayer">Copper layer</span><select id="pcb-route-layer" aria-label="Routing copper layer" data-i18n-aria="pcbRouteLayer"><option value="F.Cu">F.Cu</option><option value="B.Cu">B.Cu</option></select></label>
-          <span id="pcb-route-status" role="status" aria-live="polite"></span>
+
           <button type="button" class="toolbar-button" data-action="pcb-via-new" aria-label="New via" data-i18n-aria="pcbViaNew" disabled><span aria-hidden="true">⦿</span> <span data-i18n="pcbViaNew">New via</span></button>
-          <span class="toolbar-spacer"></span>
-          <button type="button" class="toolbar-button" data-action="undo" aria-label="Undo" data-i18n-aria="undo">↶ <span data-i18n="undo">Undo</span></button>
-          <button type="button" class="toolbar-button" data-action="redo" aria-label="Redo" data-i18n-aria="redo">↷ <span data-i18n="redo">Redo</span></button>
-          <div class="canvas-feedback">
-            <p id="canvas-view-label" class="canvas-label"></p>
-            <details id="view-reconciliation" class="reconciliation-notice" hidden>
-              <summary id="view-reconciliation-summary"></summary>
-              <ul id="view-reconciliation-items"></ul>
-            </details>
-          </div>
+
+        </div>
         </div>
         <div id="design-canvas" class="design-canvas grid-enabled" tabindex="0" aria-label="Breadboard representation. Select a component to inspect it."></div>
         <div class="overview-row" aria-label="Synchronized view overview">
@@ -373,6 +364,27 @@
         </div>
         <section class="output-panel panel" aria-label="Diagnostics and analysis output">
           <div class="output-tabs"><button id="export-simulation-report" class="secondary-button report-export" type="button" data-i18n="exportSimulationReport" disabled>Export Report</button><button class="output-tab active" type="button" data-output="output" data-i18n="simulationOutput">Simulation Output</button><button class="output-tab" type="button" data-output="errors"><span data-i18n="errors">Errors</span> (<span id="error-count">0</span>)</button><button class="output-tab" type="button" data-output="warnings"><span data-i18n="warnings">Warnings</span> (<span id="warning-count">0</span>)</button></div>
+        <div id="simulation-hud" class="simulation-hud" role="group" aria-label="Simulation playback controls" data-playback="idle">
+          <button id="hud-run" class="run-button toolbar-run sim-button" type="button" data-action="run-simulation"><span aria-hidden="true">▶</span><span data-i18n="runCalculation">Run</span></button>
+          <button id="hud-pause" class="sim-button" type="button" data-action="pause-simulation" disabled><span aria-hidden="true">Ⅱ</span><span>Pause</span></button>
+          <button id="hud-stop" class="sim-button" type="button" data-action="stop-simulation" disabled><span aria-hidden="true">■</span><span>Stop</span></button>
+          <button id="hud-step" class="sim-button" type="button" data-action="step-simulation" disabled><span aria-hidden="true">▸│</span><span>Step</span></button>
+          <button id="hud-reset" class="sim-button" type="button" data-action="reset-simulation"><span aria-hidden="true">↻</span><span>Reset</span></button>
+          <output id="simulation-time" aria-live="off">Idle · t=0 s</output>
+        </div>
+
+          <div class="workspace-status">
+          <span id="schematic-wire-status" role="status" aria-live="polite"></span>
+          <span id="placement-status" role="status" aria-live="polite"></span>
+          <span id="pcb-route-status" role="status" aria-live="polite"></span>
+          <div class="canvas-feedback">
+            <p id="canvas-view-label" class="canvas-label"></p>
+            <details id="view-reconciliation" class="reconciliation-notice" hidden>
+              <summary id="view-reconciliation-summary"></summary>
+              <ul id="view-reconciliation-items"></ul>
+            </details>
+          </div>
+          </div>
           <div id="result-dashboard" class="result-dashboard hidden" aria-live="polite"></div>
           <pre id="output-log" tabindex="0">[READY] Local project created. Run is available for the documented analytical DC topologies only.</pre>
           <pre id="issue-list" class="hidden" tabindex="0" aria-live="polite"></pre>
@@ -428,6 +440,13 @@
           <button class="outline-button" type="submit" data-i18n="applyProject">Apply project settings</button>
         </form>
         <section id="simulation-form" class="simulation-control hidden">
+          <div class="feedback-controls">
+            <label><input id="feedback-live" type="checkbox" checked /><span id="feedback-live-label">Live DC feedback</span></label>
+            <label><span id="feedback-motion-label">Current animation</span><select id="feedback-motion"><option value="system">Device preference</option><option value="animate">Animate</option><option value="reduce">Reduce motion</option></select></label>
+            <select id="feedback-direction" aria-label="Current direction"><option id="feedback-conventional" value="conventional">Conventional current</option><option id="feedback-electron" value="electron">Electron direction</option></select>
+            <span id="feedback-status" role="status" aria-live="polite"></span>
+          </div>
+
           <h3 data-i18n="simulationControl">Simulation Control</h3>
           <p data-i18n="availableAnalysis">Available analyses: LED current limiter and unloaded two-resistor voltage divider.</p>
           <label for="simulation-analysis-mode" data-i18n="analysisMode">Analysis mode</label>
