@@ -1,3 +1,4 @@
+import { readPcbNetClasses } from "./pcb-net-classes.mjs";
 import { pcbCopperPads, validatePcbVias } from "./pcb-vias.mjs";
 const EPS = 1e-9;
 export function pointSegmentDistance(point, a, b) {
@@ -23,12 +24,12 @@ export function segmentPadGap(a, b, pad) {
 }
 export const padOnLayer = (pad, layer) => layer === "F.Cu" || (layer === "B.Cu" && pad.technology === "through-hole");
 export function netPairClearance(pcb, a, b) {
-  const classes = (net) => (pcb.netClasses ?? []).filter((item) => item.netIds?.includes(net));
-  const first = classes(a), second = classes(b);
-  const names = (items) => items.map((item) => item.id ?? item.name);
-  const aa = names(first), bb = names(second);
-  const rules = (pcb.netClassRules ?? []).filter((rule) => (aa.includes(rule.classA) && bb.includes(rule.classB)) || (aa.includes(rule.classB) && bb.includes(rule.classA)));
-  return Math.max(pcb.board.minimumClearanceMm, ...[...first, ...second, ...rules].map((item) => item.minimumClearanceMm ?? item.clearanceMm).filter(Number.isFinite));
+  const policy = readPcbNetClasses(pcb);
+  if (policy.errors.length) return Infinity;
+  const first = policy.classes.filter(item=>item.netIds.includes(a)), second = policy.classes.filter(item=>item.netIds.includes(b));
+  const aa = first.map(item=>item.id), bb = second.map(item=>item.id);
+  const rules = policy.rules.filter(rule=>(aa.includes(rule.classA)&&bb.includes(rule.classB))||(aa.includes(rule.classB)&&bb.includes(rule.classA)));
+  return Math.max(pcb.board.minimumClearanceMm, ...[...first,...second,...rules].map(item=>item.minimumClearanceMm).filter(Number.isFinite));
 }
 
 /** Copper-only audit: round traces, circular plated pads, axis-aligned rectangular top pads. */
@@ -38,6 +39,7 @@ export function auditPcbCopper(pcb) {
     || pcb.pads.some((pad) => !pad || ![pad.xMm, pad.yMm].every(Number.isFinite) || (pad.technology === "through-hole" ? !Number.isFinite(pad.diameterMm) || pad.diameterMm <= 0 : pad.technology !== "smd" || ![pad.widthMm, pad.heightMm].every((n) => Number.isFinite(n) && n > 0)))
     || pcb.routes.some((route) => !route || !["F.Cu", "B.Cu"].includes(route.layer) || !Number.isFinite(route.widthMm) || route.widthMm <= 0 || !Array.isArray(route.pointsMm) || route.pointsMm.length < 2 || !route.pointsMm.every(point))) return [{ type: "invalid-geometry" }];
   if (validatePcbVias(pcb).length) return [{ type: "invalid-geometry" }];
+  if (readPcbNetClasses(pcb).errors.length) return [{ type: "invalid-rules" }];
   const pads = pcbCopperPads(pcb);
   const segments = pcb.routes.reduce((sum, route) => sum + route.pointsMm.length - 1, 0);
   if ((segments + pads.length) ** 2 > 2_000_000) return [{ type: "work-limit" }];

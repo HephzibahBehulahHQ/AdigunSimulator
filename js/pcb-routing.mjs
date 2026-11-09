@@ -1,3 +1,4 @@
+import { readPcbNetClasses } from "./pcb-net-classes.mjs";
 import { boardDefinitionErrors, minimumPcbTraceWidth } from "./pcb-board.mjs";
 import { segmentPadGap, padOnLayer, netPairClearance } from "./pcb-copper.mjs";
 import { pcbCopperPads, validatePcbVias } from "./pcb-vias.mjs";
@@ -48,6 +49,7 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
   if (boardDefinitionErrors(board).length) return { status: "blocked", code: "INVALID_BOARD_RULES" };
   if (!Array.isArray(board.copperLayers) || !board.copperLayers.includes(layer) || !["F.Cu", "B.Cu"].includes(layer)) return { status: "blocked", code: "UNSUPPORTED_COPPER_LAYER" };
 
+  if (readPcbNetClasses(pcb, new Set((project.nets ?? []).map(net=>net.id))).errors.length) return { status: "blocked", code: "INVALID_NET_CLASS_RULES" };
   if (validatePcbVias(pcb, new Set((project.nets ?? []).map((net) => net.id))).length) return { status: "blocked", code: "INVALID_EXISTING_GEOMETRY" };
   const pads = pcbCopperPads(pcb);
   const getPad = (id) => pads.find((pad) => `${pad.instanceId}:${pad.pin}` === id);
@@ -103,7 +105,7 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
       || route.pointsMm.every((point, index) => pointDistance(point, pointsMm.at(-1 - index)) <= epsilon);
   };
   if (pcb.routes.some(identical)) return { status: "unchanged", project };
-  next.pcbFabrication.routes.push({ netId: from.netId, ...(netClass?.id ? { netClassId: netClass.id } : {}), layer, widthMm: traceWidth, pointsMm });
+  next.pcbFabrication.routes.push({ netId: from.netId, ...(netClass ? { netClassId: netClass.id ?? netClass.name } : {}), layer, widthMm: traceWidth, pointsMm });
   next.metadata = { ...next.metadata, updatedAt: new Date().toISOString() };
   return { status: "complete", project: next, netId: from.netId, layer, widthMm: traceWidth, pointsMm };
 }

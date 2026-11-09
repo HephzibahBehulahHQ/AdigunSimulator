@@ -5,6 +5,7 @@ import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
 import { pcbCopperPads } from "./js/pcb-vias.mjs";
+import { createPcbNetClassEditor } from "./js/pcb-net-class-controller.mjs";
 import { createPcbBoardEditor } from "./js/pcb-board-controller.mjs";
 import { createPcbViaEditor } from "./js/pcb-via-controller.mjs";
 import { movePcbFootprint } from "./js/pcb-edit.mjs";
@@ -124,6 +125,7 @@ const escape = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) =>
 const t = (key) => translate(state.project.metadata.locale, key);
 const pcbViaEditor = createPcbViaEditor({ state, $, $$, t, escape, renderCanvas, render, activateView, captureHistory, validateAndReport, showDialog, log });
 const pcbBoardEditor = createPcbBoardEditor({ state, $, $$, t, captureHistory, render, activateView, log });
+const pcbNetClassEditor = createPcbNetClassEditor({ state, $, $$, t, escape, captureHistory, render, activateView, log });
 const botUnconnectedSince = new Map(state.project.components.map((item) => [item.instanceId, Date.now()]));
 let currentBotFinding = null;
 let currentBotPreview = null;
@@ -1477,6 +1479,7 @@ function rotateSelectedPcbFootprint(degrees) {
 }
 
 function handleAction(action) {
+  if (pcbNetClassEditor.action(action)) return;
   if (pcbBoardEditor.action(action)) return;
   if (pcbViaEditor.action(action)) return;
   if (action === "pcb-rotate-left") rotateSelectedPcbFootprint(-90);

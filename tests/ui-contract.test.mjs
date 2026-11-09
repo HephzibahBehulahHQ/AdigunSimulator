@@ -292,11 +292,12 @@ test("the approved corporate logo, official links, and current-year footer are p
 });
 
 test("application menus expose working workspace commands and design views", async () => {
-  const [html, app, viaController, boardController] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8"), readFile(new URL("../js/pcb-via-controller.mjs", import.meta.url), "utf8"), readFile(new URL("../js/pcb-board-controller.mjs", import.meta.url), "utf8")]);
+  const [html, app, viaController, boardController, classController] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8"), readFile(new URL("../js/pcb-via-controller.mjs", import.meta.url), "utf8"), readFile(new URL("../js/pcb-board-controller.mjs", import.meta.url), "utf8"), readFile(new URL("../js/pcb-net-class-controller.mjs", import.meta.url), "utf8")]);
   const actions = [...new Set(values(html, /data-action="([^"]+)"/g))];
-  for (const action of actions) assert.ok(action === "pcb-board-setup" ? boardController.includes(`name !== "${action}"`) : action.startsWith("pcb-via-") ? viaController.includes(`name === "${action}"`) : app.includes(`action === "${action}"`), `Missing action handler: ${action}`);
+  for (const action of actions) assert.ok(action === "pcb-net-classes" ? classController.includes(`name!=="${action}"`) : action === "pcb-board-setup" ? boardController.includes(`name !== "${action}"`) : action.startsWith("pcb-via-") ? viaController.includes(`name === "${action}"`) : app.includes(`action === "${action}"`), `Missing action handler: ${action}`);
   assert.match(app, /pcbViaEditor\.action\(action\)/);
   assert.match(app, /pcbBoardEditor\.action\(action\)/);
+  assert.match(app, /pcbNetClassEditor\.action\(action\)/);
   for (const menu of ["fileMenu", "editMenu", "simulationMenu", "pcbMenu", "toolsMenu", "helpMenu"]) {
     assert.match(html, new RegExp(`<details[^>]*><summary data-i18n="${menu}"`));
   }

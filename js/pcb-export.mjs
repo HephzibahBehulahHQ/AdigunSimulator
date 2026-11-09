@@ -1,3 +1,4 @@
+import { readPcbNetClasses } from "./pcb-net-classes.mjs";
 import { boardDefinitionErrors, boardGeometryErrors, minimumPcbTraceWidth } from "./pcb-board.mjs";
 import { auditPcbCopper, netPairClearance, disconnectedPcbNets } from "./pcb-copper.mjs";
 import { pcbCopperPads, validatePcbVias } from "./pcb-vias.mjs";
@@ -25,6 +26,8 @@ export function validatePcbFabrication(project) {
   const supportedCopperLayers = ["F.Cu", "B.Cu"];
   if (!Array.isArray(board?.copperLayers) || board.copperLayers.length < 1 || board.copperLayers.length > 2 || board.copperLayers[0] !== "F.Cu" || board.copperLayers.some((layer) => !supportedCopperLayers.includes(layer)) || new Set(board.copperLayers).size !== board.copperLayers.length) errors.push("Copper layers must be F.Cu, optionally followed by B.Cu.");
   if (!Array.isArray(parts) || !Array.isArray(pcb.pads) || !Array.isArray(routes)) return { status:"blocked", errors:[...errors,"Parts, pads, and routes must be arrays."], warnings };
+  const policyErrors = readPcbNetClasses(pcb, new Set((project.nets ?? []).map(net=>net.id))).errors;
+  if (policyErrors.length) return { status: "blocked", errors: [...errors, ...policyErrors], warnings };
   const viaErrors = validatePcbVias(pcb, new Set((project.nets ?? []).map((net) => net.id)));
   if (viaErrors.length) return { status:"blocked", errors:[...errors, ...viaErrors], warnings };
   const pads = pcbCopperPads(pcb);

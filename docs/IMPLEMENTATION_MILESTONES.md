@@ -1,5 +1,7 @@
 # AdigunSimulator implementation milestones
 
+The three owner-reaffirmed interface targets are mandatory acceptance criteria; see `VISUAL_TARGET_ACCEPTANCE.md`. Their final rendered comparison remains open independently of incremental releases.
+
 This tracker records evidence-backed progress against the product requirements. A milestone is complete only when its criteria pass on the reviewed branch; a green unit-test suite alone does not establish browser acceptance, electrical validation, or production readiness.
 
 | Milestone | Verifiable completion criteria | Current state |
@@ -11,7 +13,7 @@ This tracker records evidence-backed progress against the product requirements. 
 | 5. Real component library | Reach 1,000 parts counted only after authoritative datasheet/checksum, exact MPN/package/lifecycle, audited pin/pad mapping, model/licence status, and named dated review are present. Taxonomy types and candidates are reported separately. | In progress. The ledger has 565 taxonomy types, 15 candidates, and 0 verified parts; target completion is 1,000 verified parts. |
 | 6. Ready-made project catalogue | Each of the 200 projects has a native project, stable test ID, automated acceptance result, engine/model/library evidence, BOM where applicable, and proportionate safety note. | In progress. Catalogue coverage exists; completion requires per-project evidence under the release gate, not count alone. |
 | 7. Adigun BOT and optional accounts | Local deterministic help stays grounded in checked-in project/library data; any external AI requires separate approval. Authentication remains optional until identity, privacy, retention, incident, deployment, and budget decisions are approved. | Local BOT capability exists. External AI and account/cloud features are gated on product-owner decisions. |
-| 8. Release quality and production | Automated checks and representative browser, responsive, keyboard, accessibility, privacy/security, independent electrical, rollback, monitoring, and deployment approvals pass. Merge through the normal protected PR path; verify the Pages commit and live release. | Blocked for this branch. CI is green, but PR #505 remains draft and independent electrical/release approvals are not evidenced. No deployment is claimed. |
+| 8. Release quality and production | Automated checks and representative browser, responsive, keyboard, accessibility, privacy/security, independent electrical, rollback, monitoring, and deployment approvals pass. Merge through the normal protected PR path; verify the Pages commit and live release. | Owner review and merge/deployment authorization received on 2026-11-09. Exact-head checks, normal PR merge and Pages/live verification are required; final execution evidence is recorded on PR #505. Full product acceptance remains open. |
 
 ## Current branch verification
 
@@ -128,3 +130,16 @@ See `CANVAS_SESSION_ACCEPTANCE.md`. This supersedes automatic recovery/startup b
 | Production promotion | Independent reviews, protected merge and exact Pages deployment pass. | Pending; PR #505 remains draft. No production deployment performed. |
 
 See `PCB_BOARD_SETUP_ACCEPTANCE.md`. This advances milestones 2 and 4; it does not complete the professional PCB or product specification.
+
+
+## Net classes and owner-authorized release checkpoint — 2026-11-09
+
+| Category | Completion criterion | Evidence |
+| --- | --- | --- |
+| Class editing | Create/rename/edit/remove classes and reassign nets without moving copper or changing native connectivity; retain Undo/Redo. | Model/controller tests and browser create/rename/remove/history passed. |
+| Pair rules and compatibility | Edit/remove symmetric or same-class pair rules; preserve legacy id/name formats and optional metadata; block invalid rules. | Tests cover both formats, same-net exclusion, duplicate/unknown rules, numeric rejection and four existing manufacturing packs. |
+| Shared enforcement | Board/class/pair floors govern routing, DRC and export; no invalid-data bypass or unbounded report loop. | Width/clearance, malformed-input and workload tests passed; browser 10 mm pair rule blocked fabrication and Undo restored passing checks. |
+| UI/release validation | Four locales, desktop/mobile layouts and required checks pass; commit and synchronize. | Eight browser layout cases passed; 442/442 tests, syntax/library checks passed. Final SHA/CI on PR #505. |
+| Publish | Owner-reviewed release uses ordinary PR merge and matching Pages/live checks. | Explicit owner authorization received; final execution result recorded on PR #505. |
+
+See `PCB_NET_CLASS_ACCEPTANCE.md`. Remaining stackup/outline/via-rule, library verification, broader simulator and production-acceptance requirements stay in the original goal.

@@ -57,6 +57,7 @@
           <button type="button" data-view="schematic" data-i18n="schematic">Schematic View</button>
           <button type="button" data-view="pcb" data-i18n="pcb">PCB View</button>
           <button type="button" data-action="pcb-drc" data-i18n="runPcbChecks">Run PCB checks</button>
+          <button type="button" data-action="pcb-net-classes" data-i18n="pcbNetClasses">Net Classes &amp; Rules</button>
           <button type="button" data-action="pcb-board-setup" data-i18n="pcbBoardSetup">Board Setup</button>
           <button type="button" data-action="pcb-via-new" data-i18n="pcbViaNew" disabled>New via</button>
           <button type="button" data-action="pcb-export" data-i18n="exportPcbFiles">Export Gerber / drill / BOM</button>
@@ -522,6 +523,30 @@
     </section>
 
     <input id="import-file" type="file" accept="application/json,.json,.adigun" hidden />
+    <dialog id="pcb-classes-dialog" aria-labelledby="pcb-classes-title" aria-describedby="pcb-classes-note">
+      <h2 id="pcb-classes-title" data-i18n="pcbNetClasses">Net Classes &amp; Rules</h2>
+      <p id="pcb-classes-note" data-i18n="pcbClassNote">Applying membership moves selected nets from other classes. Removing a class removes its pair rules; unassigned nets use board rules. Copper does not move. Undo reverses each applied edit.</p>
+      <section class="pcb-classes-grid">
+        <form id="pcb-class-form">
+          <label><span data-i18n="pcbClassChoose">Class</span><select id="pcb-class-picker" autofocus></select></label>
+          <label><span data-i18n="pcbClassName">Class name</span><input id="pcb-class-name" maxlength="64" required /></label>
+          <label><span data-i18n="pcbBoardTraceWidth">Minimum trace width (mm)</span><input id="pcb-class-width" type="number" min="0.001" step="any" required /></label>
+          <label><span data-i18n="pcbBoardClearance">Minimum clearance (mm)</span><input id="pcb-class-clearance" type="number" min="0" step="any" required /></label>
+          <fieldset class="pcb-net-members"><legend data-i18n="pcbClassMembers">Member nets</legend><section id="pcb-class-members"></section></fieldset>
+          <div class="pcb-class-actions"><button id="pcb-class-apply" class="gold-button" type="submit" data-i18n="pcbClassApply">Apply class</button><button id="pcb-class-remove" class="secondary-button" type="button" data-i18n="pcbClassRemove">Remove class</button></div>
+        </form>
+        <form id="pcb-rule-form">
+          <label><span data-i18n="pcbRuleChoose">Pair rule</span><select id="pcb-rule-picker"></select></label>
+          <label><span data-i18n="pcbRuleFirst">First class</span><select id="pcb-rule-a" required></select></label>
+          <label><span data-i18n="pcbRuleSecond">Second class</span><select id="pcb-rule-b" required></select></label>
+          <label><span data-i18n="pcbRuleClearance">Pair clearance (mm)</span><input id="pcb-rule-clearance" type="number" min="0" step="any" required /></label>
+          <p data-i18n="pcbRuleNote">The stricter board, class and pair limits apply. A same-class rule checks different nets, never a net against itself. Changed rules can block fabrication until violations are corrected.</p>
+          <div class="pcb-class-actions"><button id="pcb-rule-apply" class="gold-button" type="submit" data-i18n="pcbRuleApply">Apply pair rule</button><button id="pcb-rule-remove" class="secondary-button" type="button" data-i18n="pcbRuleRemove">Remove pair rule</button></div>
+        </form>
+      </section>
+      <p id="pcb-class-error" role="alert"></p><p id="pcb-class-result" role="status"></p>
+      <button id="pcb-classes-close" class="secondary-button" type="button" data-i18n="close">Close</button>
+    </dialog>
     <dialog id="pcb-board-dialog" aria-labelledby="pcb-board-title" aria-describedby="pcb-board-note">
       <form id="pcb-board-form">
         <h2 id="pcb-board-title" data-i18n="pcbBoardSetup">Board Setup</h2>
