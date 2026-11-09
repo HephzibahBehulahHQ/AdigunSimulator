@@ -6,6 +6,7 @@ import { editComponentField, editCustomProperties } from "./js/component-edit.mj
 import { createComponentPropertiesUi } from "./js/component-properties-ui.mjs";
 import { netEdges, removeNetEdge } from "./js/net-edges.mjs";
 import { routeSchematicConnection, schematicRoutePath } from "./js/schematic-routing.mjs";
+import { startComponentPlacement, rotateComponentPlacement, positionComponentPlacement, placementComponent, placementOverlaps, firstFreeComponentPlacement, commitComponentPlacement, placementText } from "./js/component-placement.mjs";
 import { attachMenuDismissal } from "./js/menu-dismissal.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
@@ -108,6 +109,7 @@ const state = {
   activeOutput: "output",
   selectedNetId: null,
   selectedWire: null,
+  placement: null,
   wireCursor: null,
   activeTool: "select",
   pan: { x: 0, y: 0 },
@@ -230,7 +232,7 @@ function applyBotSuggestion() {
 }
 
 const projectSession = createProjectSession(state, { storage: () => localStorage, onReset: () => {
-  state.selectedWire = null; state.wireCursor = null;
+  state.selectedWire = null; state.wireCursor = null; state.placement = null;
   setSimulationWorkerBusy(false);
   botLiveCopilot.dispose();
   botLiveCopilot.setGoal("");
@@ -437,11 +439,17 @@ function placeLibraryComponent(libraryId, point = null) {
   if (!part) return;
   // PCB land patterns must come from native package data, never an arbitrary dropped symbol.
   const view = state.activeView === "pcb" || !part.views?.[state.activeView] ? "schematic" : state.activeView;
+  if (!point && view === "schematic") {
+    const free = firstFreeComponentPlacement(state.project, libraryId);
+    if (!free) { showDialog(placementText(state.project.metadata.locale,"draw"),placementText(state.project.metadata.locale,"noRoom")); return; }
+    point = free.point;
+  }
   let project = addComponent(state.project, libraryId);
   const id = project.components.at(-1).instanceId;
   if (point) project = moveComponent(project, id, view, point, { snap: $("#snap-toggle").checked });
   captureHistory();
   state.project = project;
+  state.placement = null;
   state.selectedInstanceId = id;
   state.selectedWire = null;
   state.dirty = true;
@@ -450,6 +458,44 @@ function placeLibraryComponent(libraryId, point = null) {
   setInspector("component");
   activateView(view);
   render();
+}
+
+function beginComponentPlacement(libraryId) {
+  const draft = startComponentPlacement(libraryId);
+  state.schematicWireMode = false; state.schematicWireStart = null; state.wireCursor = null;
+  state.activeTool = "select"; state.selectedWire = null;
+  activateView("schematic");
+  state.placement = draft;
+  renderCanvas();
+}
+
+function placementGhost() {
+  if (!state.placement?.point || state.activeView !== "schematic") return "";
+  const part = findLibraryPart(state.placement.libraryId), item = placementComponent(state.placement);
+  const {width,height,rotation} = item.geometry.schematic, [x,y] = item.position.schematic;
+  const blocked = placementOverlaps(state.project,state.placement);
+  return `<div class="placement-ghost ${blocked ? "placement-blocked" : ""}" aria-hidden="true" style="left:${x}px;top:${y}px;--symbol-width:${width}px;--symbol-height:${height}px;--symbol-rotation:${rotation}deg">${renderSchematicSymbol(part)}<span>${escape(part.type)}</span></div>`;
+}
+
+function updatePlacementPreview(point = null) {
+  $("#draw-components").textContent = placementText(state.project.metadata.locale,"draw");
+  if (point && state.placement) state.placement = positionComponentPlacement(state.placement,point,$("#snap-toggle").checked);
+  const scene = $("#design-canvas .canvas-scene");
+  scene?.querySelector(".placement-ghost")?.remove();
+  scene?.insertAdjacentHTML("beforeend",placementGhost());
+  $("#design-canvas").classList.toggle("is-placement-mode",Boolean(state.placement));
+  const key = placementOverlaps(state.project,state.placement) ? "blocked" : "ready";
+  $("#placement-status").textContent = state.placement ? placementText(state.project.metadata.locale,key) : "";
+}
+
+function finishComponentPlacement(point) {
+  const draft = positionComponentPlacement(state.placement,point,$("#snap-toggle").checked);
+  if (!draft) return;
+  if (placementOverlaps(state.project,draft)) { state.placement=draft; updatePlacementPreview(); return; }
+  const result = commitComponentPlacement(state.project,draft);
+  captureHistory(); state.project=result.project; state.selectedInstanceId=result.instanceId;
+  state.placement=null; state.dirty=true; state.lastValidation=null;
+  setInspector("component"); render();
 }
 
 function deleteSelectedWire() {
@@ -512,7 +558,7 @@ function netSvg(project, view, unavailable = new Set(), interactive = true) {
     const point = endpointPoint(state.schematicWireStart);
     if (point) draft = `<path class="wire-draft" d="M${point.x} ${point.y} L${state.wireCursor[0]} ${state.wireCursor[1]}"/>`;
   }
-  return `<svg class="wire-layer schematic-wire-layer" viewBox="0 0 680 300" ${interactive ? 'aria-label="Schematic wires and pins"' : 'aria-hidden="true"'}>${paths}${draft}${terminals}</svg>`;
+  return `<svg class="wire-layer schematic-wire-layer" viewBox="0 0 680 300" ${interactive ? 'aria-label="Schematic wires and pins"' : 'aria-hidden="true"'}>${paths}${draft}</svg><svg class="wire-layer schematic-terminal-layer" viewBox="0 0 680 300" ${interactive ? 'aria-label="Component terminals"' : 'aria-hidden="true"'}>${terminals}</svg>`;
 }
 
 
@@ -766,6 +812,7 @@ function renderCanvas() {
   renderCanvasFeedback(issues, label);
   canvas.innerHTML = `<div class="canvas-scene">${isPcb && hasPcbData ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData"), state.pcbRouteDraft) : surface}${wires}${parts}${resizeHandle()}</div>`;
   applyCanvasCamera();
+  updatePlacementPreview();
   ["select", "pan"].forEach((tool) => {
     const button = $(`[data-tool="${tool}"]`);
     button.classList.toggle("active", state.activeTool === tool);
@@ -1543,7 +1590,7 @@ function exportPcbFiles() {
 function activateView(view) {
   state.activeView = view;
   if (view !== "breadboard") state.breadboardPlacementMode = false;
-  if (view !== "schematic") { state.schematicWireMode = false; state.schematicWireStart = null; }
+  if (view !== "schematic") { state.placement = null; state.schematicWireMode = false; state.schematicWireStart = null; }
   if (view !== "pcb") { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; if (["pcb-route", "pcb-via"].includes(state.activeTool)) state.activeTool = "select"; }
   $$(".view-tab").forEach((tab) => { const active = tab.dataset.view === view; tab.classList.toggle("active", active); tab.setAttribute("aria-selected", String(active)); });
   renderCanvas();
@@ -1610,6 +1657,7 @@ function handleAction(action) {
   if (action === "run-simulation") runAnalysis();
   if (action === "stop-simulation") stopSimulation();
   if (action === "schematic-wire-mode") {
+    state.placement = null;
     if (state.schematicWireMode) { state.schematicWireMode = false; state.schematicWireStart = null; }
     else { activateView("schematic"); state.schematicWireMode = true; state.schematicWireStart = null; }
     render();
@@ -1740,6 +1788,11 @@ document.addEventListener("click", (event) => {
   const suppressCanvasClick = state.suppressCanvasClick;
   state.suppressCanvasClick = false;
   if (suppressCanvasClick && event.target.closest("#design-canvas")) return;
+  if (state.placement && event.target.closest("#design-canvas")) {
+    const point = canvasClientPoint({ x:event.clientX, y:event.clientY }, $("#design-canvas .canvas-scene").getBoundingClientRect());
+    if (point) finishComponentPlacement(point);
+    return;
+  }
   document.querySelectorAll(".app-menu[open]").forEach((menu) => { if (!menu.contains(event.target)) menu.open = false; });
   if (pcbViaEditor.click(event)) return;
   if (handlePcbRouteCanvasClick(event)) return;
@@ -1804,7 +1857,7 @@ document.addEventListener("click", (event) => {
   }
   if (event.target.closest(".app-menu-popover")) event.target.closest("details").open = false;
   const libraryButton = event.target.closest("[data-library-id]");
-  if (libraryButton) { state.selectedLibraryId = libraryButton.dataset.libraryId; renderLibrary(); }
+  if (libraryButton) { state.selectedLibraryId = libraryButton.dataset.libraryId; renderLibrary(); beginComponentPlacement(state.selectedLibraryId); }
   const categoryButton = event.target.closest("[data-category]");
   if (categoryButton) {
     state.activeCategory = categoryButton.dataset.category;
@@ -1821,6 +1874,7 @@ document.addEventListener("click", (event) => {
   if (outputTab) { state.activeOutput = outputTab.dataset.output; renderOutput(); }
   const tool = event.target.closest("[data-tool]");
   if (tool) {
+    if (["select", "pan", "pcb-route"].includes(tool.dataset.tool)) state.placement = null;
     if (["zoom-in", "zoom-out", "fit"].includes(tool.dataset.tool)) { changeCanvasZoom(tool.dataset.tool); return; }
     if (["select", "pan"].includes(tool.dataset.tool)) { state.activeTool = tool.dataset.tool; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
     if (tool.dataset.tool === "pcb-route") {
@@ -1838,6 +1892,14 @@ document.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (document.querySelector("dialog[open]")) return;
+  if (state.placement && event.key === "Escape") {
+    event.preventDefault(); state.placement=null; updatePlacementPreview(); return;
+  }
+  if (state.placement && event.key.toLowerCase() === "r" && !event.target.closest?.("input, textarea, select, [contenteditable=true]")) {
+    event.preventDefault(); state.placement=rotateComponentPlacement(state.placement);
+    if (state.placement.point) state.placement=positionComponentPlacement(state.placement,state.placement.point,$("#snap-toggle").checked);
+    updatePlacementPreview(); return;
+  }
   if (handleAppMenuKeydown(event)) return;
   if (pcbViaEditor.keydown(event)) return;
   if (handlePcbRouteKeydown(event)) return;
@@ -1926,7 +1988,7 @@ document.addEventListener("keydown", (event) => {
 
 document.addEventListener("pointerdown", (event) => {
   const canvas = event.target.closest("#design-canvas");
-  if (!canvas || event.button !== 0) return;
+  if (!canvas || event.button !== 0 || state.placement) return;
   const component = event.target.closest(".placed-component");
   const pcbFootprint = state.activeView === "pcb" && state.activeTool === "select" ? event.target.closest(".pcb-footprint-hit") : null;
   const point = { x: event.clientX, y: event.clientY };
@@ -1961,6 +2023,10 @@ document.addEventListener("pointerdown", (event) => {
 });
 
 document.addEventListener("pointermove", (event) => {
+  if (state.placement && event.target.closest?.("#design-canvas")) {
+    updatePlacementPreview(canvasClientPoint({ x:event.clientX,y:event.clientY }, $("#design-canvas .canvas-scene").getBoundingClientRect()));
+    return;
+  }
   if (state.schematicWireMode && state.schematicWireStart && event.target.closest?.("#design-canvas")) {
     state.wireCursor = canvasClientPoint({ x: event.clientX, y: event.clientY }, $("#design-canvas .canvas-scene").getBoundingClientRect());
     renderCanvas();
@@ -2277,9 +2343,15 @@ const componentPropertiesUi = createComponentPropertiesUi({
 });
 render();
 
+$("#draw-components").addEventListener("click", () => {
+  document.querySelectorAll(".app-menu[open]").forEach(menu => { menu.open=false; });
+  state.libraryMode="starter"; setWorkspacePanel("left",true); renderLibrary(); $("#component-search").focus();
+});
+
 document.addEventListener("dragstart", event => {
   const part = event.target.closest?.("[data-library-id]");
   if (!part || !findLibraryPart(part.dataset.libraryId)) return;
+  state.placement=null; updatePlacementPreview();
   event.dataTransfer.setData("application/x-adigun-component", part.dataset.libraryId);
   event.dataTransfer.effectAllowed = "copy";
 });
@@ -2295,6 +2367,7 @@ $("#design-canvas").addEventListener("drop", event => {
   if (point) placeLibraryComponent(id, point);
 });
 $("#design-canvas").addEventListener("contextmenu", event => {
+  if (state.placement) { event.preventDefault(); state.placement=null; updatePlacementPreview(); return; }
   if (!state.schematicWireMode) return;
   event.preventDefault(); state.schematicWireMode = false; state.schematicWireStart = null; state.wireCursor = null; renderCanvas();
 });
