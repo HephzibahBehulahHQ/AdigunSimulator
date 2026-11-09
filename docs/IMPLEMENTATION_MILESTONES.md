@@ -16,8 +16,8 @@ This tracker records evidence-backed progress against the product requirements. 
 ## Current branch verification
 
 - Branch: `codex/rl-transient-acceptance`.
-- Last verified implementation head: `e94b3e5573d5f72b54c4c47bec12f10a10390313` (copper integrity and layout repair).
-- Required automated checks at that head: 380 tests passed; syntax check, library validation, and `git diff --check` passed; GitHub Actions run #1255 passed. Local and remote branch identities were rechecked on 2026-11-09.
+- Last synchronized checkpoint before the latest work: `bb634ee7a1de44d89d770a31ea7719877b02efb4` (shared canvas camera and edit history).
+- Required automated checks at that head: 393 tests passed; syntax check, library validation, and `git diff --check` passed; GitHub Actions run #1258 passed. Local and remote branch identities were rechecked on 2026-11-09. Later checkpoint evidence is recorded below and final matching-head CI is recorded on PR #505.
 - Deployment: not performed. The checked-in deployment runbook requires a non-draft review path, current-head checks, independent electrical review, and approved release safeguards before merge/deployment.
 
 Update this tracker when a milestone's evidence changes. Do not count candidates as verified parts, planned examples as released projects, or an illustrative PCB export as manufacturing approval.
@@ -78,3 +78,15 @@ Excluded from this integration: the temporary local QA log, stored outside the r
 | Production promotion | Required independent reviews, protected merge and exact-commit Pages/browser verification pass. | Not performed: draft PR #505 has no reviews; release prerequisites remain unmet. |
 
 See `CANVAS_CAMERA_ACCEPTANCE.md` for measured results, reproducible checks, exclusions and remaining scope. The product-wide milestones remain open; the delivery checkpoint remains four of five only after matching-head synchronization/CI. These changes do not establish full visual, touch, electrical or manufacturing acceptance.
+
+## PCB quarter-turn placement checkpoint — 2026-11-09
+
+| Category / checkpoint | Completion criterion | Evidence |
+| --- | --- | --- |
+| Placement geometry | Rotate stored SMD/through-hole pads and same-net attached vertices without altering net identity or other-view placement; reject unsupported geometry and board overflow. | Automated quarter/inverse/four-turn, precise pad extent, immutable rejection and net-preservation tests pass. |
+| UI and document integrity | Localized controls create one undoable edit, retain native orientation and report that orientation in placement CSV. | Browser right/left rotation, Undo/Redo and native export passed; eight locale/width cases passed. |
+| Copper safeguard | Editing may reveal violations; a failed DRC must prevent fabrication output. | Rotated USB-C R1 produced two clearance failures; browser and automated export both blocked. |
+| Validation and synchronization | Full suite, syntax/library checks, reviewed staging and matching local/GitHub commit with successful CI. | Local 400/400 tests and required checks passed; final push/equality/CI evidence is recorded on PR #505 after synchronization. |
+| Production promotion | Independent electrical/release review, protected merge and exact-commit Pages/browser verification pass. | Not performed: PR #505 remains draft without submitted reviews. |
+
+See `PCB_ROTATION_ACCEPTANCE.md` for the relative-angle convention, checks, exclusions and remaining placement capabilities. This advances product milestones 2 and 4; neither milestone is fully accepted. The five-item delivery checklist is distinct from whole-product completion.

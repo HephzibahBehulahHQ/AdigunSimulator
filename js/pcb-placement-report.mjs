@@ -8,7 +8,9 @@ export function createPcbPlacementReport(project){
     const x=pads.reduce((sum,pad)=>sum+pad.xMm,0)/pads.length;
     const y=pads.reduce((sum,pad)=>sum+pad.yMm,0)/pads.length;
     const component=components.get(part.instanceId);
-    rows.push([part.reference,component?.value??"",part.footprint,part.technology,x.toFixed(3),y.toFixed(3),"0"]);
+    const rotation = part.rotationDeg === undefined ? 0 : part.rotationDeg;
+    if (!Number.isInteger(rotation) || rotation < 0 || rotation >= 360 || rotation % 90 !== 0) throw new Error(`Invalid PCB rotation for ${part.reference}.`);
+    rows.push([part.reference,component?.value??"",part.footprint,part.technology,x.toFixed(3),y.toFixed(3),String(rotation)]);
   }
   return rows.map((row)=>row.map(q).join(",")).join("\r\n")+"\r\n";
 }

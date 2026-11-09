@@ -379,6 +379,10 @@
           <p><span data-i18n="pcbFootprintPosition">Pad centroid (mm)</span>: <strong id="pcb-footprint-position">—</strong></p>
           <p><span data-i18n="pcbFootprintPadCount">Pads</span>: <strong id="pcb-footprint-pad-count">—</strong></p>
           <p><span data-i18n="pcbFootprintRouteCount">Routes on connected nets</span>: <strong id="pcb-footprint-route-count">—</strong></p>
+          <p><span data-i18n="pcbFootprintRotation">Rotation from initial layout (clockwise)</span>: <strong id="pcb-footprint-rotation">0°</strong></p>
+          <button type="button" class="outline-button" data-action="pcb-rotate-left" data-i18n="pcbRotateLeft">Rotate 90° left</button>
+          <button type="button" class="outline-button" data-action="pcb-rotate-right" data-i18n="pcbRotateRight">Rotate 90° right</button>
+          <p class="muted" data-i18n="pcbRotateNote">Turns pads and attached trace vertices around the pad centroid. Run PCB checks after editing.</p>
         </section>
         <form id="project-form" class="property-form hidden">
           <label><span data-i18n="projectName">Project name</span> <input id="project-name" required /></label>

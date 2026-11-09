@@ -34,6 +34,7 @@ export function validatePcbFabrication(project) {
     if (!components.has(part.instanceId)) errors.push(`PCB part ${part.reference ?? part.instanceId} has no matching project component.`);
     if (partIds.has(part.instanceId)) errors.push(`PCB component ${part.reference ?? part.instanceId} is listed more than once.`);
     partIds.add(part.instanceId);
+    if (part.rotationDeg !== undefined && (!Number.isInteger(part.rotationDeg) || part.rotationDeg < 0 || part.rotationDeg >= 360 || part.rotationDeg % 90 !== 0)) errors.push(`PCB part ${part.reference ?? part.instanceId} has an invalid quarter-turn rotation.`);
     if (!part.footprint || !["through-hole","smd"].includes(part.technology)) errors.push(`PCB part ${part.reference ?? part.instanceId} needs a package and supported technology.`);
   }
   const padKeys = new Set();

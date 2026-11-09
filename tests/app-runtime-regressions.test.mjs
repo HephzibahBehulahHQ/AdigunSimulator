@@ -9,6 +9,7 @@ import { CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera, canvasClientPoint } 
 import { pcbPreviewPointToBoardMm } from "../js/pcb-preview.mjs";
 import { parseProject, serializeProject } from "../js/core.mjs";
 import { movePcbFootprint } from "../js/pcb-edit.mjs";
+import { rotatePcbFootprint } from "../js/pcb-rotate.mjs";
 
 const source = await readFile(new URL("../app.js", import.meta.url), "utf8");
 // Execute the actual UI functions with small DOM boundaries, not copies of their logic.
@@ -32,6 +33,37 @@ test("the real Undo/Redo functions round-trip a fractional PCB move and preserve
   assert.deepEqual(state.project.nets, original.nets);
   actions.undo();
   assert.deepEqual(state.project.pcbFabrication, original.pcbFabrication);
+});
+
+test("PCB rotation UI commits once, clears a draft, supports Undo/Redo and preserves rejected edits", async () => {
+  const original = parseProject(await readFile(new URL("../examples/125-usbc-breakout.adigun.json", import.meta.url), "utf8"));
+  const state = { project: original, activeView: "pcb", activeTool: "pcb-route", pcbRouteDraft: { pointsMm: [[1, 2]] }, history: [], future: [] };
+  let dialogs = 0, validations = 0;
+  const globals = { state, rotatePcbFootprint, parseProject, serializeProject, render() {}, log() {}, t: (k) => k,
+    selectedComponent: () => state.project.components.find((c) => c.instanceId === "rd1"),
+    captureHistory: () => { state.history.push(serializeProject(state.project)); state.future = []; },
+    validateAndReport: () => { validations++; }, showDialog: () => { dialogs++; } };
+  const rotate = uiFunction("rotateSelectedPcbFootprint", "function handleAction(", globals);
+  rotate(90);
+  assert.equal(state.history.length, 1);
+  assert.equal(state.activeTool, "select");
+  assert.equal(state.pcbRouteDraft, null);
+  assert.equal(state.dirty, true);
+  assert.equal(state.recoveryActive, true);
+  assert.equal(validations, 1);
+  const rotated = structuredClone(state.project);
+  const start = source.indexOf("function replaceProject("), end = source.indexOf("function updateSaveState(", start);
+  const actions = runInNewContext(`${source.slice(start, end)}\n({undo,redo})`, globals);
+  actions.undo(); assert.deepEqual(state.project.pcbFabrication, original.pcbFabrication);
+  actions.redo(); assert.deepEqual(state.project.pcbFabrication, rotated.pcbFabrication);
+  assert.deepEqual(state.project.nets, original.nets);
+  const before = JSON.stringify(state);
+  rotate(45);
+  assert.equal(dialogs, 1);
+  assert.equal(JSON.stringify(state), before);
+  state.activeView = "schematic";
+  rotate(90);
+  assert.equal(state.project.pcbFabrication.parts.find((p) => p.instanceId === "rd1").rotationDeg, 90);
 });
 
 test("rejected history snapshots leave the current project and both history stacks intact", () => {

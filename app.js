@@ -6,6 +6,7 @@ import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
 import { pcbCopperPads } from "./js/pcb-vias.mjs";
 import { movePcbFootprint } from "./js/pcb-edit.mjs";
+import { rotatePcbFootprint } from "./js/pcb-rotate.mjs";
 import { createPcbRoute } from "./js/pcb-routing.mjs";
 import { CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera, canvasClientPoint, canvasClientDelta } from "./js/canvas-camera.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
@@ -673,6 +674,7 @@ function renderInspector() {
   $("#pcb-footprint-position").textContent = centroid ? centroid.map((value) => value.toFixed(2)).join(", ") : "—";
   $("#pcb-footprint-pad-count").textContent = String(pcbPads.length);
   $("#pcb-footprint-route-count").textContent = String(pcbRoutes.length);
+  $("#pcb-footprint-rotation").textContent = `${pcbPart?.rotationDeg ?? 0}°`;
   $("#component-form").classList.toggle("hidden", state.activeInspector === "project");
   $("#project-form").classList.toggle("hidden", state.activeInspector !== "project");
   $("#simulation-form").classList.remove("hidden");
@@ -1416,7 +1418,32 @@ function setInspector(tab) {
   renderInspector();
 }
 
+function rotateSelectedPcbFootprint(degrees) {
+  const component = selectedComponent();
+  if (state.activeView !== "pcb" || !component) return;
+  const result = rotatePcbFootprint(state.project, component.instanceId, degrees);
+  if (result.status === "blocked") {
+    showDialog(t("pcbMenu"), result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : t("pcbRotateBlocked"));
+    log(`[PCB] Rotation blocked: ${result.code}.`);
+    return;
+  }
+  if (result.status !== "complete") return;
+  captureHistory();
+  state.project = result.project;
+  state.dirty = true;
+  state.recoveryActive = true;
+  state.lastValidation = null;
+  state.pcbRouteDraft = null;
+  state.pcbRouteHintKey = null;
+  state.activeTool = "select";
+  render();
+  validateAndReport();
+  log(`[PCB] ${component.reference}: ${result.rotationDeg}° clockwise from initial layout; ${result.updatedRoutePoints} attached trace point(s) updated. Run PCB checks before export.`);
+}
+
 function handleAction(action) {
+  if (action === "pcb-rotate-left") rotateSelectedPcbFootprint(-90);
+  if (action === "pcb-rotate-right") rotateSelectedPcbFootprint(90);
   if (action === "new-project") {
     if (state.dirty && !confirm("Create a new project? Unsaved local changes can still be exported first.")) return;
     state.history = [];
