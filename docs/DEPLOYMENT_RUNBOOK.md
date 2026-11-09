@@ -4,7 +4,11 @@
 
 The production URL is [adigunsimulator.hephzibahbehulah.com](https://adigunsimulator.hephzibahbehulah.com/). The repository's `CNAME` names that host, and DNS resolves it to `hephzibahbehulahhq.github.io`. The repository's latest successful GitHub deployment observed on 2026-11-03 used environment `github-pages`, ref `main`, commit `3e940fe1ba2b8882a25ebd149477db5604a31bc9`; its deployment status was `success`. The live URL returned HTTP 200 during that check.
 
-The only checked-in workflow is `.github/workflows/ci.yml`; it runs library validation, the test suite, and syntax checks. It does not deploy. Production publishing is handled by the repository's GitHub Pages deployment associated with `main`.
+The Pages settings were inspected on 2026-11-09: source is **GitHub Actions**, custom domain is the host above, and HTTPS is enforced. Only a verification workflow existed, explaining why merging PR #505 did not publish the new commit. No Pages settings or protections were changed.
+
+The repaired `.github/workflows/ci.yml` runs library validation, the test suite, syntax checks and `npm run build -- <new-output-directory>`. Pull requests validate packaging without deploying. Successful pushes to `main` upload the static artifact and run the dependent `deploy` job in the existing `github-pages` environment with only `pages: write` and `id-token: write`. Pages actions are pinned to their inspected release commits; environment rules remain enforced.
+
+The builder copies committed runtime files from an explicit public-path/extension allowlist, excludes hidden/untracked files and development directories, rejects links and refuses to overwrite existing output. It writes `release.json` containing the exact source commit, allowing live deployment identity verification. The workflow follows the [official GitHub Pages custom workflow guidance](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
 ## Release procedure
 
