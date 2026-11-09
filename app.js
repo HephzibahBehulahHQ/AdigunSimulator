@@ -1,12 +1,18 @@
-import { STARTER_LIBRARY, addComponent, createProject, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
+import { STARTER_LIBRARY, addComponent, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
+import { pcbCopperPads } from "./js/pcb-vias.mjs";
+import { createPcbNetClassEditor } from "./js/pcb-net-class-controller.mjs";
+import { createPcbBoardEditor } from "./js/pcb-board-controller.mjs";
+import { createPcbViaEditor } from "./js/pcb-via-controller.mjs";
 import { movePcbFootprint } from "./js/pcb-edit.mjs";
+import { rotatePcbFootprint } from "./js/pcb-rotate.mjs";
 import { createPcbRoute } from "./js/pcb-routing.mjs";
-import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
+import { CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera, canvasClientPoint, canvasClientDelta } from "./js/canvas-camera.mjs";
+import { PROJECT_STORAGE_KEY, createProjectSession, confirmProjectReplacement } from "./js/project-session.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
 
@@ -72,25 +78,23 @@ import { analyzeBotCanvas, applyBotSuggestionPreview, buildBotSuggestionPreview,
 import { runReleaseCandidateE2E } from "./js/release-candidate-e2e.mjs";
 import { createSimulationWorkerRun } from "./js/simulation-worker-client.mjs";
 import { getManufacturerPartEvidenceSummary, searchManufacturerParts } from "./js/part-catalogue.mjs";
+import { answerBotProductQuestion, getBotQuestionClarification, isBotProjectGoalStatement } from "./js/bot-product-help.mjs";
 
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
 
-const STORAGE_KEY = "adigun-simulator.project.v1";
-const RECOVERY_KEY = "adigun-simulator.recovery.v1";
-const initialProject = loadProject();
+const STORAGE_KEY = PROJECT_STORAGE_KEY;
 
 const state = {
-  project: initialProject.project,
-  recoveredDraft: initialProject.recovered,
+  project: createEmptyProject(),
+  currentProjectId: null,
+  savedDisposition: "empty",
   lastAnalysis: null,
-  userInteracted: false,
-  recoveryActive: initialProject.recovered,
   selectedLibraryId: null,
   selectedEvidencePartId: null,
   libraryMode: "starter",
   activeCategory: "All",
-  selectedInstanceId: "resistor-1",
+  selectedInstanceId: null,
   activeView: "breadboard",
   activeInspector: "component",
   activeOutput: "output",
@@ -101,7 +105,7 @@ const state = {
   scale: 1,
   history: [],
   future: [],
-  dirty: initialProject.recovered,
+  dirty: false,
   botUnsavedOnly: false,
   lastValidation: null,
   breadboardSyncPreview: null,
@@ -109,6 +113,8 @@ const state = {
   schematicWireMode: false,
   schematicWireStart: null,
   pcbRouteDraft: null,
+  pcbSelectedViaId: null,
+  pcbViaDraft: null,
   pcbRouteHintKey: null,
   activeSimulation: null
 };
@@ -117,6 +123,9 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const escape = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
 const t = (key) => translate(state.project.metadata.locale, key);
+const pcbViaEditor = createPcbViaEditor({ state, $, $$, t, escape, renderCanvas, render, activateView, captureHistory, validateAndReport, showDialog, log });
+const pcbBoardEditor = createPcbBoardEditor({ state, $, $$, t, captureHistory, render, activateView, log });
+const pcbNetClassEditor = createPcbNetClassEditor({ state, $, $$, t, escape, captureHistory, render, activateView, log });
 const botUnconnectedSince = new Map(state.project.components.map((item) => [item.instanceId, Date.now()]));
 let currentBotFinding = null;
 let currentBotPreview = null;
@@ -159,14 +168,29 @@ function showBotWiringExplanation(target) {
 function answerBotQuestion() {
   const question = $("#bot-goal").value.trim();
   if (!question) return;
-  if (/\b(build|trying|project goal|purpose|designing|make a|create a)\b/i.test(question)) {
+  if (isBotProjectGoalStatement(question)) {
     botLiveCopilot.setGoal(question);
     $("#bot-response").textContent = `For this session, I will use this project goal: ${question}`;
   } else {
+    const productAnswer = answerBotProductQuestion(question, state.project.metadata.locale);
+    if (productAnswer?.action === "switch-view") {
+      activateView(productAnswer.view);
+      $("#bot-response").textContent = productAnswer.answer;
+      log(`[BOT] Switched to ${productAnswer.view} view at the user's request.`);
+      $("#bot-goal").blur();
+      notifyBotCanvas();
+      return;
+    }
+    if (productAnswer) {
+      $("#bot-response").textContent = productAnswer.answer;
+      $("#bot-goal").blur();
+      notifyBotCanvas();
+      return;
+    }
     const explanation = explainComponentWiring(state.project, state.selectedInstanceId);
     const findings = analyzeBotCanvas(state.project, { goal: botLiveCopilot.getGoal(), unconnectedSince: Object.fromEntries(botUnconnectedSince) });
     const grounded = findings[0]?.message ?? "The current native project has no detected missing gate input, unconnected gate output, missing gate rail, or shared logic output.";
-    $("#bot-response").textContent = explanation.ok ? `${explanation.answer} Live checks: ${grounded}` : `I can answer from current project wiring and the checked-in library only. ${grounded}`;
+    $("#bot-response").textContent = explanation.ok ? `${explanation.answer} Live checks: ${grounded}` : `I can answer from current project wiring and the checked-in library only. ${grounded} ${getBotQuestionClarification(state.project.metadata.locale)}`;
   }
   $("#bot-goal").blur();
   notifyBotCanvas();
@@ -195,25 +219,52 @@ function applyBotSuggestion() {
   log("[BOT] Accepted a reviewed live preview. The change remains unsaved until the user saves it.");
 }
 
-function loadProject() {
+const projectSession = createProjectSession(state, { storage: () => localStorage, onReset: () => {
+  setSimulationWorkerBusy(false);
+  botLiveCopilot.dispose();
+  botLiveCopilot.setGoal("");
+  $("#bot-goal").value = "";
+  renderBotFinding(null);
+  lastBotHover = null;
+  $("#output-log").textContent = "";
+  $("#issue-list").textContent = "";
+  $("#example-picker").value = "";
+  $("#simulation-analysis-mode").value = "automatic";
+  for (const id of ["#nonlinear-dc-controls", "#ac-sweep-controls", "#linear-transient-controls", "#digital-event-controls"]) $(id).classList.add("hidden");
+  render();
+} });
+
+function confirmDiscardChanges() {
+  return confirmProjectReplacement({ state, dialog: $("#unsaved-dialog") });
+}
+
+async function resetCanvas() {
+  // Invalidate earlier file/example requests even if this reset is later cancelled.
+  projectSession.invalidateLoads();
+  if (!await confirmDiscardChanges()) return;
+  projectSession.reset();
+  log("[NEW] Created a blank circuit project.");
+}
+
+async function openSavedProject() {
+  const isCurrent = projectSession.beginLoad();
   try {
-    const recovery = readRecoveryDraft(localStorage, RECOVERY_KEY);
-    if (recovery) return { project: recovery.project, recovered: true, fresh: false };
     const stored = localStorage.getItem(STORAGE_KEY);
-    return { project: stored ? parseProject(stored) : createProject(), recovered: false, fresh: !stored };
-  } catch {
-    return { project: createProject(), recovered: false, fresh: false };
-  }
+    if (!stored) return showDialog(t("openSavedProject"), t("noSavedProject"));
+    const project = parseProject(stored);
+    if (!await confirmDiscardChanges() || !isCurrent()) return;
+    projectSession.reset(project, { saved: "local", currentProjectId: project.id });
+    log("[OPENED] Explicitly reopened the project saved in this browser.");
+  } catch (error) { showDialog(t("openSavedProject"), error.message); }
 }
 
 function saveLocal() {
-  localStorage.setItem(STORAGE_KEY, serializeProject(state.project));
-  clearRecoveryDraft(localStorage, RECOVERY_KEY);
-  state.recoveryActive = false;
-  state.dirty = false;
-  state.botUnsavedOnly = false;
-  updateSaveState();
-  log("[SAVED] Project stored locally in this browser.");
+  try {
+    localStorage.setItem(STORAGE_KEY, serializeProject(state.project));
+    projectSession.markSaved("local");
+    updateSaveState();
+    log("[SAVED] Project stored locally in this browser.");
+  } catch (error) { showDialog(t("save"), error.message); }
 }
 
 function captureHistory() {
@@ -221,7 +272,6 @@ function captureHistory() {
   state.history.push(serializeProject(state.project));
   if (state.history.length > 30) state.history.shift();
   state.future = [];
-  state.recoveryActive = true;
   state.botUnsavedOnly = false;
 }
 
@@ -229,30 +279,38 @@ function replaceProject(project, { dirty = true } = {}) {
   state.lastAnalysis = null;
   state.project = project;
   state.selectedInstanceId = project.components[0]?.instanceId ?? null;
+  state.pcbSelectedViaId = null;
+  state.pcbViaDraft = null;
   state.dirty = dirty;
-  state.recoveryActive = dirty;
-  if (!dirty) clearRecoveryDraft(localStorage, RECOVERY_KEY);
   render();
 }
 
 function undo() {
   if (!state.history.length) return log("[INFO] There is no earlier local edit to undo.");
+  let restored;
+  try { restored = parseProject(state.history.at(-1)); }
+  catch (error) { showDialog(t("undo"), error.message); log(`[UNDO BLOCKED] ${error.message}`); return; }
   state.botUnsavedOnly = false;
   state.future.push(serializeProject(state.project));
-  replaceProject(parseProject(state.history.pop()));
+  state.history.pop();
+  replaceProject(restored);
   log("[UNDO] Restored the previous local project state.");
 }
 
 function redo() {
   if (!state.future.length) return log("[INFO] There is no later local edit to redo.");
+  let restored;
+  try { restored = parseProject(state.future.at(-1)); }
+  catch (error) { showDialog(t("redo"), error.message); log(`[REDO BLOCKED] ${error.message}`); return; }
   state.botUnsavedOnly = false;
   state.history.push(serializeProject(state.project));
-  replaceProject(parseProject(state.future.pop()));
+  state.future.pop();
+  replaceProject(restored);
   log("[REDO] Restored the next local project state.");
 }
 
 function updateSaveState() {
-  $("#save-state").textContent = state.dirty ? "Unsaved changes" : "Saved locally";
+  $("#save-state").textContent = state.dirty ? t("unsavedChanges") : t(state.savedDisposition === "local" ? "savedLocally" : state.savedDisposition === "export" ? "projectExported" : "emptyProject");
   $("#save-state").classList.toggle("saved", !state.dirty);
 }
 
@@ -544,11 +602,40 @@ function commitBreadboardEdit(project, message) {
   captureHistory();
   state.project = { ...project, metadata: { ...project.metadata, updatedAt: new Date().toISOString() } };
   state.dirty = true;
-  state.recoveryActive = true;
   state.lastValidation = null;
   render();
   validateAndReport();
   log(message);
+}
+
+function applyCanvasCamera() {
+  const canvas = $("#design-canvas"), scene = canvas.querySelector(".canvas-scene");
+  const camera = createCanvasCamera(canvas.clientWidth, canvas.clientHeight, state.scale, state.pan);
+  if (!scene || !camera) return null;
+  state.scale = camera.zoom;
+  state.pan = camera.pan;
+  scene.style.transform = `translate(${camera.x}px, ${camera.y}px) scale(${camera.scale})`;
+  $("#zoom-level").textContent = `${Math.round(camera.zoom * 100)}%`;
+  $('[data-tool="zoom-in"]').disabled = camera.zoom >= CANVAS_ZOOM.max;
+  $('[data-tool="zoom-out"]').disabled = camera.zoom <= CANVAS_ZOOM.min;
+  return camera;
+}
+
+function changeCanvasZoom(tool) {
+  const current = applyCanvasCamera();
+  if (!current) return;
+  const next = tool === "fit" ? createCanvasCamera(current.width, current.height)
+    : zoomCanvasCamera(current, current.zoom * (tool === "zoom-in" ? CANVAS_ZOOM.step : 1 / CANVAS_ZOOM.step));
+  state.scale = next.zoom;
+  state.pan = next.pan;
+  applyCanvasCamera();
+}
+
+function renderCanvasFeedback(issues, label) {
+  $("#canvas-view-label").textContent = label;
+  $("#view-reconciliation").hidden = issues.length === 0;
+  $("#view-reconciliation-summary").textContent = `${t("viewReconciliationNeeded")} (${issues.length})`;
+  $("#view-reconciliation-items").innerHTML = issues.map((issue) => `<li>${escape(issue.reference)}: ${escape(issue.reason)}</li>`).join("");
 }
 
 function renderCanvas() {
@@ -566,6 +653,11 @@ function renderCanvas() {
   const hasPhysicalMap = Object.keys(state.project.breadboard?.pinHoles ?? {}).length > 0;
   const pcbData = state.project.pcbFabrication;
   const hasPcbData = isPcb && Boolean(pcbData?.board && Number.isFinite(pcbData.board.widthMm) && Number.isFinite(pcbData.board.heightMm) && Array.isArray(pcbData.parts) && Array.isArray(pcbData.pads) && Array.isArray(pcbData.routes));
+  const pcbRouteLayerSelect = $("#pcb-route-layer");
+  const pcbCopperLayers = pcbData?.board?.copperLayers ?? [];
+  $("#pcb-route-layer-control").hidden = !hasPcbData;
+  [...pcbRouteLayerSelect.options].forEach((option) => { option.disabled = !pcbCopperLayers.includes(option.value); });
+  if (!pcbCopperLayers.includes(pcbRouteLayerSelect.value)) pcbRouteLayerSelect.value = pcbCopperLayers.includes("F.Cu") ? "F.Cu" : (pcbCopperLayers[0] ?? "");
   const parts = isBreadboard && hasPhysicalMap
     ? breadboardPinMarkers(state.project)
     : hasPcbData ? "" : projection.components.map((component) => componentVisual(component, state.activeView)).join("");
@@ -574,14 +666,22 @@ function renderCanvas() {
     ? breadboardWireSvg(state.project)
     : isPcb ? (hasPcbData ? "" : pcbAirwireSvg(state.project, unavailable))
       : netSvg(state.project, state.activeView, unavailable);
-  const reconciliationNotice = issues.length ? `<div class="reconciliation-notice"><strong>Reconciliation needed</strong>${issues.map((issue) => `<span>${escape(issue.reference)}: ${escape(issue.reason)}</span>`).join("")}</div>` : "";
-  const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? "Shared project net layout — not a standards-complete schematic editor." : (hasPcbData ? t("pcbStoredLayoutPreview") : t("pcbNoFootprintData"));
-  canvas.innerHTML = `<div class="canvas-label">${label}</div>${reconciliationNotice}<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${isPcb && hasPcbData ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData"), state.pcbRouteDraft) : surface}${wires}${parts}</div>`;
+  const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? t("schematicLayoutPreview") : (hasPcbData ? t("pcbStoredLayoutPreview") : t("pcbNoFootprintData"));
+  renderCanvasFeedback(issues, label);
+  canvas.innerHTML = `<div class="canvas-scene">${isPcb && hasPcbData ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData"), state.pcbRouteDraft) : surface}${wires}${parts}</div>`;
+  applyCanvasCamera();
+  ["select", "pan"].forEach((tool) => {
+    const button = $(`[data-tool="${tool}"]`);
+    button.classList.toggle("active", state.activeTool === tool);
+    button.setAttribute("aria-pressed", String(state.activeTool === tool));
+  });
   $("#schematic-wire-mode").setAttribute("aria-pressed", String(state.schematicWireMode));
   $("#schematic-wire-status").textContent = !state.schematicWireMode ? "" : state.schematicWireStart ? t("schematicWireNext") : t("schematicWireStart");
   $("#pcb-route-mode").disabled = !hasPcbData;
   $("#pcb-route-mode").setAttribute("aria-pressed", String(state.activeTool === "pcb-route"));
   $("#pcb-route-status").textContent = state.activeTool !== "pcb-route" ? "" : t(state.pcbRouteHintKey ?? (state.pcbRouteDraft ? "pcbRouteWaypoint" : "pcbRouteStart"));
+  canvas.classList.toggle("is-pcb-via-mode", state.activeTool === "pcb-via");
+  pcbViaEditor.refresh();
   $$('[data-tool]').forEach((button) => button.classList.toggle("active", button.dataset.tool === state.activeTool));
   const miniSchematic = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "schematic").length).map((component) => componentVisual(component, "schematic")).join("");
   const miniPcb = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "pcb").length).map((component) => componentVisual(component, "pcb")).join("");
@@ -606,6 +706,7 @@ function renderInspector() {
   $("#pcb-footprint-position").textContent = centroid ? centroid.map((value) => value.toFixed(2)).join(", ") : "—";
   $("#pcb-footprint-pad-count").textContent = String(pcbPads.length);
   $("#pcb-footprint-route-count").textContent = String(pcbRoutes.length);
+  $("#pcb-footprint-rotation").textContent = `${pcbPart?.rotationDeg ?? 0}°`;
   $("#component-form").classList.toggle("hidden", state.activeInspector === "project");
   $("#project-form").classList.toggle("hidden", state.activeInspector !== "project");
   $("#simulation-form").classList.remove("hidden");
@@ -662,11 +763,20 @@ function renderResultDashboard(analysis) {
     metrics.push([t("acPoints"), String(result.samples.length)], [t("acOutputNet"), result.outputNet ?? t("notRecorded")], [t("acStartHz"), `${result.startHz}–${result.stopHz} Hz`]);
     const rows = result.samples.map((sample) => `<tr><td>${Number(sample.frequencyHz.toPrecision(6))}</td><td>${sample.output ? Number(sample.output.magnitudeV.toPrecision(6)) : "—"}</td><td>${sample.output ? `${Number(sample.output.phaseDegrees.toPrecision(6))}°` : "—"}</td></tr>`).join("");
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearAcSweep"))}</figcaption><table class="result-table linear-ac-table"><thead><tr><th>${escape(t("acFrequencyHz"))}</th><th>${escape(t("acMagnitude"))}</th><th>${escape(t("acPhase"))}</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
+  } else if (result.kind === "nonlinear-dc-operating-point") {
+    metrics.push([t("nonlinearJunctionTemperature"), `${result.temperatureC} °C`], [t("nonlinearIterations"), String(result.iterations)], [t("nonlinearResidual"), result.nonlinearKclAndConstraintResidual.toExponential(2)], [t("nonlinearLinearResidual"), result.linearizedSolveResidual.toExponential(2)], [t("nonlinearPowerBalance"), `${result.powerBalanceW.toExponential(2)} W`]);
+    const nodeRows = Object.entries(result.nodeVoltages).map(([net, voltage]) => `<tr><td>${escape(net)}</td><td>${Number(voltage.toPrecision(7))} V</td></tr>`).join("");
+    const diodeRows = result.diodes.map((item) => `<tr><td>${escape(item.reference)}</td><td>${Number(item.voltage.toPrecision(7))} V</td><td>${Number(item.junctionVoltageV.toPrecision(7))} V</td><td>${Number((item.currentA * 1000).toPrecision(7))} mA</td><td>${Number(item.seriesResistanceOhm.toPrecision(6))} Ω</td><td>${Number((item.seriesResistancePowerW * 1000).toPrecision(7))} mW</td><td>${Number((item.powerW * 1000).toPrecision(7))} mW</td></tr>`).join("");
+    const diodeTable = diodeRows ? `<h4>${escape(t("nonlinearDiodeResults"))}</h4><table class="result-table"><thead><tr><th>${escape(t("reference"))}</th><th>${escape(t("nonlinearVoltage"))}</th><th>${escape(t("nonlinearJunctionVoltage"))}</th><th>${escape(t("nonlinearCurrent"))}</th><th>${escape(t("nonlinearSeriesResistance"))}</th><th>${escape(t("nonlinearSeriesPower"))}</th><th>${escape(t("nonlinearPower"))}</th></tr></thead><tbody>${diodeRows}</tbody></table>` : "";
+    const transistorRows = result.transistors.map((item) => `<tr><td>${escape(item.reference)}</td><td>${escape(item.type)}</td><td>${Number(item.vBE.toPrecision(7))} V</td><td>${Number((item.baseCurrentA * 1e6).toPrecision(7))} µA</td><td>${Number((item.collectorCurrentA * 1000).toPrecision(7))} mA</td><td>${Number((item.emitterCurrentA * 1000).toPrecision(7))} mA</td><td>${Number((item.powerW * 1000).toPrecision(7))} mW</td></tr>`).join("");
+    const transistorTable = transistorRows ? `<h4>${escape(t("nonlinearTransistorResults"))}</h4><table class="result-table"><thead><tr><th>${escape(t("reference"))}</th><th>${escape(t("nonlinearTransistorType"))}</th><th>${escape(t("nonlinearVbe"))}</th><th>${escape(t("nonlinearBaseCurrent"))}</th><th>${escape(t("nonlinearCollectorCurrent"))}</th><th>${escape(t("nonlinearEmitterCurrent"))}</th><th>${escape(t("nonlinearPower"))}</th></tr></thead><tbody>${transistorRows}</tbody></table>` : "";
+    waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisNonlinearDc"))}</figcaption><h4>${escape(t("nonlinearNodeVoltages"))}</h4><table class="result-table"><thead><tr><th>${escape(t("nonlinearNet"))}</th><th>${escape(t("nonlinearVoltage"))}</th></tr></thead><tbody>${nodeRows}</tbody></table>${diodeTable}${transistorTable}<p>${escape(analysis.message)}</p><p>${escape(analysis.warnings?.[0]?.message ?? "")}</p></figure>`;
   } else if (result.kind === "linear-rlc-transient") {
     const values = result.samples.map((sample) => sample.voltageV);
     const min = Math.min(0, ...values), max = Math.max(0, ...values), span = Math.max(max - min, 1e-12);
     const points = result.samples.filter((_, index) => index === 0 || index === result.samples.length - 1 || index % Math.max(1, Math.ceil(result.samples.length / 120)) === 0).map((sample) => `${(4 + sample.timeSeconds / result.stopSeconds * 592).toFixed(2)},${(92 - (sample.voltageV - min) / span * 80).toFixed(2)}`).join(" ");
-    metrics.push([t("transientSampleCount"), String(result.sampleCount)], [t("transientStopSeconds"), `${result.stopSeconds} s`], [t("transientOutputNet"), result.outputNet], [t("transientFinalVoltage"), `${values.at(-1).toPrecision(6)} V`], [t("transientResidual"), result.maximumRelativeResidual.toExponential(2)]);
+    const initialSummary = [...Object.entries(result.initialConditions.capacitorVoltageVByReference).map(([reference, value]) => `${reference}=${value} V`), ...Object.entries(result.initialConditions.inductorCurrentAByReference).map(([reference, value]) => `${reference}=${value} A`)].join("; ") || "0 V / 0 A";
+    metrics.push([t("transientSampleCount"), String(result.sampleCount)], [t("transientStopSeconds"), `${result.stopSeconds} s`], [t("transientOutputNet"), result.outputNet], [t("transientInitialConditions"), initialSummary], [t("transientFinalVoltage"), `${values.at(-1).toPrecision(6)} V`], [t("transientResidual"), result.maximumRelativeResidual.toExponential(2)]);
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearTransient"))} · ${escape(result.outputNet)}</figcaption><svg viewBox="0 0 600 110" role="img" aria-label="${escape(t("transientTraceLabel"))}"><path class="wave-axis" d="M4 92H596 M4 12V92"/><polyline class="wave-trace" points="${points}"/></svg><p>${escape(analysis.message)}</p><p>${escape(analysis.warnings?.[0]?.message ?? "")}</p></figure>`;
   } else if (result.kind === "digital-event-simulation") {
     const rows = Object.entries(result.trace).flatMap(([net, points]) => points.map((point) => ({ net, ...point }))).sort((a, b) => a.timeNs - b.timeNs || a.net.localeCompare(b.net));
@@ -678,7 +788,7 @@ function renderResultDashboard(analysis) {
     waveform='<figure class="result-waveform"><figcaption>Release candidate · build through export</figcaption><table class="result-table"><thead><tr><th>Gate</th><th>Result</th></tr></thead><tbody>'+rows+'</tbody></table><p>BOT cites local project/library fields; PCB export is illustrative, not manufacturing approval.</p></figure>';
   } else if (result.kind === "offline-recovery-scenario") {
     metrics.push(["Draft restored",result.draftSaved?"Yes":"No"],["Storage fallback",result.storageFallbackAvailable?"Native export valid":"Unavailable"],["Recovered edit",result.editedValue],["Silent loss",result.silentLoss?"Detected":"None"]);
-    waveform='<figure class="result-waveform"><figcaption>Local offline recovery · simulated storage interruption</figcaption><p>Unsaved edit restored from a versioned draft. When browser storage is unavailable, use <strong>File → Export</strong> before closing.</p><p>CI uses an in-memory storage mock; real browser quota and crash behavior are outside this test.</p></figure>';
+    waveform='<figure class="result-waveform"><figcaption>Storage recovery fixture · not application session restore</figcaption><p>This explicit test fixture restores an edit in simulated storage. The application itself always boots empty. When browser storage is unavailable, use <strong>File → Export</strong> before closing.</p><p>CI uses an in-memory storage mock; real browser quota and crash behavior are outside this test.</p></figure>';
   } else if (result.kind === "four-language-ui-sweep") {
     metrics.push(["Locales",result.locales.join(" · ")],["Declared interface keys",String(result.declaredKeyCount)],["Missing translations",String(result.missingTranslations)],["Rendered pixel check",result.renderedPixelCheck?"Measured":"Not claimed"]);
     waveform='<figure class="result-waveform"><figcaption>Four-language UI source audit</figcaption><p>Translation coverage: '+(result.missingTranslations===0?"complete":"incomplete")+'. Static accessibility and responsive overflow contracts run in the automated catalogue test.</p><p>No rendered pixel measurement is claimed by this source audit.</p></figure>';
@@ -987,7 +1097,7 @@ function renderOutput(validation = state.lastValidation ?? validateProject(state
   const isLog = state.activeOutput === "output";
   const showDashboard = isLog && state.lastAnalysis?.state === "complete";
   const issues = state.activeOutput === "errors" ? validation.errors : validation.warnings;
-  $(".output-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.output === state.activeOutput));
+  $$(".output-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.output === state.activeOutput));
   const dashboard = $("#result-dashboard");
   dashboard.classList.toggle("hidden", !showDashboard);
   $("#export-simulation-report").disabled = state.lastAnalysis?.state !== "complete";
@@ -1007,8 +1117,8 @@ function applyLocale() {
   const messages = TRANSLATIONS[locale] ?? TRANSLATIONS.en;
   document.documentElement.lang = locale;
   $$("[data-i18n]").forEach((node) => { node.textContent = messages[node.dataset.i18n] ?? TRANSLATIONS.en[node.dataset.i18n] ?? node.textContent; });
-  $("[data-i18n-placeholder]").forEach((node) => { node.placeholder = messages[node.dataset.i18nPlaceholder] ?? TRANSLATIONS.en[node.dataset.i18nPlaceholder] ?? node.placeholder; });
-  $("[data-i18n-alt]").forEach((node) => { node.alt = messages[node.dataset.i18nAlt] ?? TRANSLATIONS.en[node.dataset.i18nAlt] ?? node.alt; });
+  $$("[data-i18n-placeholder]").forEach((node) => { node.placeholder = messages[node.dataset.i18nPlaceholder] ?? TRANSLATIONS.en[node.dataset.i18nPlaceholder] ?? node.placeholder; });
+  $$("[data-i18n-alt]").forEach((node) => { node.alt = messages[node.dataset.i18nAlt] ?? TRANSLATIONS.en[node.dataset.i18nAlt] ?? node.alt; });
   $$("[data-i18n-aria]").forEach((node) => { node.setAttribute("aria-label", messages[node.dataset.i18nAria] ?? TRANSLATIONS.en[node.dataset.i18nAria] ?? node.getAttribute("aria-label")); });
   $$("[data-i18n-title]").forEach((node) => { node.title = messages[node.dataset.i18nTitle] ?? TRANSLATIONS.en[node.dataset.i18nTitle] ?? node.title; });
   $("#language").value = locale;
@@ -1040,9 +1150,6 @@ function render() {
   renderValidation();
   $("#bot-repair-apply").hidden = !state.project.botRepairPreview;
   $("#bot-proposal-apply").hidden = !state.project.botCircuitProposal;
-  if (state.dirty && state.recoveryActive && !state.botUnsavedOnly && !writeRecoveryDraft(localStorage, RECOVERY_KEY, state.project)) {
-    log("[RECOVERY] The browser could not store a local recovery draft. Export important work before closing this tab.");
-  }
   updateSaveState();
   notifyBotCanvas();
 }
@@ -1080,6 +1187,7 @@ function projectWithSelectedAnalysis(project, key, config) {
   delete selected.linearAcSweep;
   delete selected.linearRlcTransient;
   delete selected.digitalEventSimulation;
+  delete selected.shockleyDcOperatingPoint;
   selected[key] = config;
   return selected;
 }
@@ -1108,13 +1216,16 @@ function runAnalysis(workerResult = null) {
     state.lastAnalysis={state:"running",engine:"Release-candidate end-to-end suite",message:"Loading checked-in acceptance fixtures.",result:null};
     renderOutput();
     notifyBotCanvas();
+    const isCurrent = projectSession.beginLoad();
     runReleaseCandidateE2E(state.project).then(result=>{
+      if (!isCurrent()) return;
       state.lastAnalysis=result;
       notifyBotCanvas();
       if(result.state==="complete")log("[E2E] All release-candidate gates passed.");
       else log("[E2E] "+(result.errors?.[0]?.message??result.message));
       renderOutput();
     }).catch(error=>{
+      if (!isCurrent()) return;
       state.lastAnalysis={state:"blocked",engine:"Release-candidate end-to-end suite",message:error instanceof Error?error.message:"The workflow failed.",errors:[],warnings:[],result:null};
       notifyBotCanvas();
       renderOutput();
@@ -1127,8 +1238,14 @@ function runAnalysis(workerResult = null) {
     if (isAnalysisWorkerEligible(state.project)) {
       const analysisMode = $("#simulation-analysis-mode").value;
       let projectForAnalysis = state.project;
+      if (analysisMode === "nonlinear-dc") projectForAnalysis = projectWithSelectedAnalysis(state.project, "shockleyDcOperatingPoint", { temperatureC: Number($("#nonlinear-dc-temperature").value) });
       if (analysisMode === "linear-ac") projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearAcSweep", { startHz: Number($("#ac-start-hz").value), stopHz: Number($("#ac-stop-hz").value), pointsPerDecade: Number($("#ac-points-per-decade").value), outputNet: $("#ac-output-net").value || undefined });
-      if (analysisMode === "linear-transient") projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearRlcTransient", { stopSeconds: Number($("#transient-stop-seconds").value), timeStepSeconds: Number($("#transient-time-step").value), outputNet: $("#transient-output-net").value || undefined });
+      if (analysisMode === "linear-transient") {
+        let initialConditions;
+        try { initialConditions = JSON.parse($("#transient-initial-conditions").value); }
+        catch { state.lastAnalysis = { state: "blocked", engine: "Linear RLC transient configuration", message: "Initial conditions must be valid JSON." }; renderValidation(); return; }
+        projectForAnalysis = projectWithSelectedAnalysis(state.project, "linearRlcTransient", { stopSeconds: Number($("#transient-stop-seconds").value), timeStepSeconds: Number($("#transient-time-step").value), outputNet: $("#transient-output-net").value || undefined, initialConditions });
+      }
       if (analysisMode === "digital-events") {
         let events, initialStates;
         try {
@@ -1223,7 +1340,7 @@ function runAnalysis(workerResult = null) {
       const { sourceVoltage, resistance, inductance, timeConstantS, samples } = result.result;
       log(`[RESULT] Vstep=${sourceVoltage.toFixed(3)} V, R=${resistance.toFixed(3)} Ω, L=${inductance.toExponential(3)} H, τ=${timeConstantS.toExponential(3)} s.`);
       for (const sample of samples) log(`[TRANSIENT] t=${sample.timeS.toExponential(3)} s, I=${(sample.currentA * 1000).toFixed(3)} mA, VL=${sample.inductorVoltage.toFixed(3)} V, PR=${(sample.resistorPowerW * 1000).toFixed(3)} mW`);
-    } else {
+    } else if (kind === "resistive-network") {
       const { sourceVoltage, sourceCurrentA, nodeVoltages, resistors } = result.result;
       log(`[RESULT] Vsource=${sourceVoltage.toFixed(3)} V, Isource=${(sourceCurrentA * 1000).toFixed(3)} mA.`);
       for (const [node, voltage] of Object.entries(nodeVoltages)) log(`[NODE] ${node}=${voltage.toFixed(3)} V`);
@@ -1288,13 +1405,19 @@ function exportBomCsvFile() {
 }
 
 function exportProject() {
-  const blob = new Blob([serializeProject(state.project)], { type: "application/json" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = `${state.project.metadata.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "adigun-project"}.adigun.json`;
-  link.click();
-  URL.revokeObjectURL(link.href);
-  log("[EXPORTED] Native project JSON downloaded.");
+  let url;
+  try {
+    const blob = new Blob([serializeProject(state.project)], { type: "application/json" });
+    const link = document.createElement("a");
+    url = URL.createObjectURL(blob);
+    link.href = url;
+    link.download = `${state.project.metadata.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "adigun-project"}.adigun.json`;
+    link.click();
+    projectSession.markSaved("export");
+    updateSaveState();
+    log("[EXPORTED] Native project download handed to the browser. Check your downloads for the saved file.");
+  } catch (error) { showDialog(t("export"), error.message); }
+  finally { if (url) setTimeout(() => URL.revokeObjectURL(url), 1500); }
 }
 
 function runPcbChecks() {
@@ -1322,7 +1445,7 @@ function activateView(view) {
   state.activeView = view;
   if (view !== "breadboard") state.breadboardPlacementMode = false;
   if (view !== "schematic") { state.schematicWireMode = false; state.schematicWireStart = null; }
-  if (view !== "pcb") { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; if (state.activeTool === "pcb-route") state.activeTool = "select"; }
+  if (view !== "pcb") { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; if (["pcb-route", "pcb-via"].includes(state.activeTool)) state.activeTool = "select"; }
   $$(".view-tab").forEach((tab) => { const active = tab.dataset.view === view; tab.classList.toggle("active", active); tab.setAttribute("aria-selected", String(active)); });
   renderCanvas();
 }
@@ -1333,15 +1456,36 @@ function setInspector(tab) {
   renderInspector();
 }
 
-function handleAction(action) {
-  if (action === "new-project") {
-    if (state.dirty && !confirm("Create a new project? Unsaved local changes can still be exported first.")) return;
-    state.history = [];
-    state.future = [];
-    state.lastValidation = null;
-    replaceProject(createEmptyProject({ locale: state.project.metadata.locale }));
-    log("[NEW] Created a blank circuit project.");
+function rotateSelectedPcbFootprint(degrees) {
+  const component = selectedComponent();
+  if (state.activeView !== "pcb" || !component) return;
+  const result = rotatePcbFootprint(state.project, component.instanceId, degrees);
+  if (result.status === "blocked") {
+    showDialog(t("pcbMenu"), result.code === "OUT_OF_BOUNDS" ? t("pcbMoveOutOfBounds") : t("pcbRotateBlocked"));
+    log(`[PCB] Rotation blocked: ${result.code}.`);
+    return;
   }
+  if (result.status !== "complete") return;
+  captureHistory();
+  state.project = result.project;
+  state.dirty = true;
+  state.lastValidation = null;
+  state.pcbRouteDraft = null;
+  state.pcbRouteHintKey = null;
+  state.activeTool = "select";
+  render();
+  validateAndReport();
+  log(`[PCB] ${component.reference}: ${result.rotationDeg}° clockwise from initial layout; ${result.updatedRoutePoints} attached trace point(s) updated. Run PCB checks before export.`);
+}
+
+function handleAction(action) {
+  if (pcbNetClassEditor.action(action)) return;
+  if (pcbBoardEditor.action(action)) return;
+  if (pcbViaEditor.action(action)) return;
+  if (action === "pcb-rotate-left") rotateSelectedPcbFootprint(-90);
+  if (action === "pcb-rotate-right") rotateSelectedPcbFootprint(90);
+  if (action === "new-project" || action === "close-project") void resetCanvas();
+  if (action === "open-saved-project") void openSavedProject();
   if (action === "import-project") $("#import-file").click();
   if (action === "save") saveLocal();
   if (action === "export") exportProject();
@@ -1388,7 +1532,6 @@ function handleAction(action) {
     state.project = next;
     state.breadboardSyncPreview = null;
     state.dirty = true;
-    state.recoveryActive = true;
     state.lastValidation = null;
     render();
     validateAndReport();
@@ -1406,6 +1549,12 @@ function handlePcbRouteCanvasClick(event) {
     state.selectedInstanceId = pad.dataset.instanceId;
     if (pad.dataset.pcbNet === "NC") { showDialog(t("pcbMenu"), t("pcbRouteBlocked")); return true; }
     if (!state.pcbRouteDraft) {
+      const routePad = pcbCopperPads(state.project.pcbFabrication).find((item) => `${item.instanceId}:${item.pin}` === pad.dataset.pcbPad);
+      if ($("#pcb-route-layer").value === "B.Cu" && routePad?.technology !== "through-hole") {
+        state.pcbRouteHintKey = "pcbRouteBottomThroughHole";
+        renderCanvas();
+        return true;
+      }
       state.pcbRouteDraft = { startPad: pad.dataset.pcbPad, netId: pad.dataset.pcbNet, pointsMm: [[Number(pad.dataset.xMm), Number(pad.dataset.yMm)]] };
       state.pcbRouteHintKey = "pcbRouteWaypoint";
       render();
@@ -1417,12 +1566,11 @@ function handlePcbRouteCanvasClick(event) {
       renderCanvas();
       return true;
     }
-    const result = createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1) });
+    const result = createPcbRoute(state.project, { startPad: state.pcbRouteDraft.startPad, endPad: pad.dataset.pcbPad, waypoints: state.pcbRouteDraft.pointsMm.slice(1), layer: $("#pcb-route-layer").value });
     if (result.status === "complete") {
       captureHistory();
       state.project = result.project;
       state.dirty = true;
-      state.recoveryActive = true;
       state.lastValidation = null;
       state.pcbRouteDraft = null;
       state.pcbRouteHintKey = "pcbRouteReady";
@@ -1433,9 +1581,9 @@ function handlePcbRouteCanvasClick(event) {
       state.pcbRouteHintKey = "pcbRouteReady";
       renderCanvas();
     } else {
-      state.pcbRouteHintKey = "pcbRouteBlocked";
+      state.pcbRouteHintKey = result.code === "BOTTOM_LAYER_REQUIRES_THROUGH_HOLE" ? "pcbRouteBottomThroughHole" : "pcbRouteBlocked";
       renderCanvas();
-      showDialog(t("pcbMenu"), `${t("pcbRouteBlocked")} (${result.code})`);
+      showDialog(t("pcbMenu"), `${t(state.pcbRouteHintKey)} (${result.code})`);
       log(`[PCB] Interactive route blocked: ${result.code}.`);
     }
     return true;
@@ -1445,7 +1593,7 @@ function handlePcbRouteCanvasClick(event) {
   if (!svg || !state.pcbRouteDraft) return false;
   const rect = svg.getBoundingClientRect();
   if (!rect.width || !rect.height) return true;
-  const viewPoint = [(event.clientX - rect.left) * 680 / rect.width, (event.clientY - rect.top) * 300 / rect.height];
+  const viewPoint = canvasClientPoint({ x: event.clientX, y: event.clientY }, rect);
   const point = pcbPreviewPointToBoardMm(state.project, viewPoint);
   const board = state.project.pcbFabrication?.board;
   if (!point || point[0] < 0 || point[1] < 0 || point[0] > board.widthMm || point[1] > board.heightMm) {
@@ -1461,8 +1609,24 @@ function handlePcbRouteCanvasClick(event) {
   return true;
 }
 
+function handlePcbRouteKeydown(event) {
+  if (!["Enter", " "].includes(event.key) || !event.target.closest?.("[data-pcb-pad]")) return false;
+  return handlePcbRouteCanvasClick(event);
+}
+
+function handleAppMenuKeydown(event) {
+  if (event.key !== "Escape") return false;
+  const menu = document.querySelector(".app-menu[open]");
+  if (!menu) return false;
+  menu.open = false;
+  menu.querySelector("summary").focus();
+  event.preventDefault();
+  return true;
+}
+
 document.addEventListener("click", (event) => {
-  state.userInteracted = true;
+  document.querySelectorAll(".app-menu[open]").forEach((menu) => { if (!menu.contains(event.target)) menu.open = false; });
+  if (pcbViaEditor.click(event)) return;
   if (handlePcbRouteCanvasClick(event)) return;
   const libraryModeButton = event.target.closest("[data-library-mode]");
   if (libraryModeButton) {
@@ -1494,7 +1658,6 @@ document.addEventListener("click", (event) => {
       state.schematicWireMode = false;
       state.schematicWireStart = null;
       state.dirty = true;
-      state.recoveryActive = true;
       state.lastValidation = null;
       render();
       validateAndReport();
@@ -1529,16 +1692,13 @@ document.addEventListener("click", (event) => {
   if (outputTab) { state.activeOutput = outputTab.dataset.output; renderOutput(); }
   const tool = event.target.closest("[data-tool]");
   if (tool) {
-    if (tool.dataset.tool === "zoom-in") state.scale = Math.min(1.5, state.scale + 0.1);
-    if (tool.dataset.tool === "zoom-out") state.scale = Math.max(0.6, state.scale - 0.1);
+    if (["zoom-in", "zoom-out", "fit"].includes(tool.dataset.tool)) { changeCanvasZoom(tool.dataset.tool); return; }
     if (["select", "pan"].includes(tool.dataset.tool)) { state.activeTool = tool.dataset.tool; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
     if (tool.dataset.tool === "pcb-route") {
       if (state.activeTool === "pcb-route") { state.activeTool = "select"; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
       else { activateView("pcb"); state.activeTool = "pcb-route"; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
     }
     $$("[data-tool]").forEach((button) => button.classList.toggle("active", button === tool && !["zoom-in", "zoom-out"].includes(tool.dataset.tool)));
-    $("#zoom-level").textContent = `${Math.round(state.scale * 100)}%`;
-    $("#design-canvas").style.setProperty("--canvas-scale", state.scale);
     if (["select", "pan", "pcb-route"].includes(tool.dataset.tool)) renderCanvas();
   }
   const collapse = event.target.closest("[data-collapse]");
@@ -1546,6 +1706,10 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (document.querySelector("dialog[open]")) return;
+  if (handleAppMenuKeydown(event)) return;
+  if (pcbViaEditor.keydown(event)) return;
+  if (handlePcbRouteKeydown(event)) return;
   if (event.key === "Escape" && (state.breadboardPlacementMode || state.schematicWireMode || state.activeTool === "pcb-route")) {
     event.preventDefault();
     state.breadboardPlacementMode = false;
@@ -1587,7 +1751,6 @@ document.addEventListener("keydown", (event) => {
       captureHistory();
       state.project = result.project;
       state.dirty = true;
-      state.recoveryActive = true;
       state.lastValidation = null;
       render();
       validateAndReport();
@@ -1620,7 +1783,6 @@ document.addEventListener("keydown", (event) => {
     state.project = removeComponent(state.project, component.instanceId);
     state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
     state.dirty = true;
-  state.recoveryActive = true;
     state.lastValidation = null;
     render();
     validateAndReport();
@@ -1634,6 +1796,12 @@ document.addEventListener("pointerdown", (event) => {
   const component = event.target.closest(".placed-component");
   const pcbFootprint = state.activeView === "pcb" && state.activeTool === "select" ? event.target.closest(".pcb-footprint-hit") : null;
   const point = { x: event.clientX, y: event.clientY };
+  if (state.activeTool === "pan") {
+    state.drag = { mode: "pan", pointerId: event.pointerId, start: point, startPan: { ...state.pan }, canvas };
+    canvas.setPointerCapture?.(event.pointerId);
+    event.preventDefault();
+    return;
+  }
   if (pcbFootprint) {
     const svg = pcbFootprint.ownerSVGElement;
     state.drag = { mode: "move-pcb", pointerId: event.pointerId, instanceId: pcbFootprint.dataset.pcbFootprint, start: point, svg, canvas };
@@ -1648,10 +1816,6 @@ document.addEventListener("pointerdown", (event) => {
     canvas.setPointerCapture?.(event.pointerId);
     return;
   }
-  if (!component && state.activeTool === "pan") {
-    state.drag = { mode: "pan", pointerId: event.pointerId, start: point, startPan: { ...state.pan }, canvas };
-    canvas.setPointerCapture?.(event.pointerId);
-  }
 });
 
 document.addEventListener("pointermove", (event) => {
@@ -1659,9 +1823,8 @@ document.addEventListener("pointermove", (event) => {
   const deltaX = event.clientX - state.drag.start.x;
   const deltaY = event.clientY - state.drag.start.y;
   if (state.drag.mode === "pan") {
-    state.pan = { x: Math.max(-120, Math.min(120, state.drag.startPan.x + deltaX)), y: Math.max(-80, Math.min(80, state.drag.startPan.y + deltaY)) };
-    const scene = $("#design-canvas .canvas-scene");
-    if (scene) { scene.style.setProperty("--pan-x", `${state.pan.x}px`); scene.style.setProperty("--pan-y", `${state.pan.y}px`); }
+    state.pan = { x: state.drag.startPan.x + deltaX, y: state.drag.startPan.y + deltaY };
+    applyCanvasCamera();
     return;
   }
   if (state.drag.mode === "move-pcb") {
@@ -1674,11 +1837,10 @@ document.addEventListener("pointermove", (event) => {
     if (group) group.setAttribute("transform", `translate(${viewX} ${viewY})`);
     return;
   }
-  const rect = state.drag.canvas.getBoundingClientRect();
-  const scaleX = 680 / rect.width;
-  const scaleY = 300 / rect.height;
-  const x = state.drag.startPosition[0] + (deltaX * scaleX);
-  const y = state.drag.startPosition[1] + (deltaY * scaleY);
+  const delta = canvasClientDelta({ x: deltaX, y: deltaY }, state.drag.canvas.querySelector(".canvas-scene").getBoundingClientRect());
+  if (!delta) return;
+  const x = state.drag.startPosition[0] + delta.x;
+  const y = state.drag.startPosition[1] + delta.y;
   const visual = state.drag.canvas.querySelector(`[data-instance-id="${CSS.escape(state.drag.instanceId)}"]`);
   if (visual) { visual.style.setProperty("--x", `${x}px`); visual.style.setProperty("--y", `${y}px`); }
 });
@@ -1688,7 +1850,8 @@ document.addEventListener("pointercancel", (event) => {
   const drag = state.drag;
   state.drag = null;
   drag.canvas.releasePointerCapture?.(event.pointerId);
-  if (drag.mode === "move-pcb") renderCanvas();
+  if (drag.mode === "pan") state.pan = drag.startPan;
+  renderCanvas();
 });
 
 document.addEventListener("pointerup", (event) => {
@@ -1708,7 +1871,6 @@ document.addEventListener("pointerup", (event) => {
       captureHistory();
       state.project = result.project;
       state.dirty = true;
-      state.recoveryActive = true;
       state.lastValidation = null;
       render();
       validateAndReport();
@@ -1724,14 +1886,14 @@ document.addEventListener("pointerup", (event) => {
     return;
   }
   if (drag.mode !== "move") return;
-  const rect = drag.canvas.getBoundingClientRect();
-  const x = drag.startPosition[0] + ((event.clientX - drag.start.x) * (680 / rect.width));
-  const y = drag.startPosition[1] + ((event.clientY - drag.start.y) * (300 / rect.height));
+  const delta = canvasClientDelta({ x: event.clientX - drag.start.x, y: event.clientY - drag.start.y }, drag.canvas.querySelector(".canvas-scene").getBoundingClientRect());
+  if (!delta || Math.hypot(delta.x, delta.y) < 0.001) { renderCanvas(); return; }
+  const x = drag.startPosition[0] + delta.x;
+  const y = drag.startPosition[1] + delta.y;
   captureHistory();
   state.project = moveComponent(state.project, drag.instanceId, state.activeView, [x, y], { snap: $("#snap-toggle").checked });
   state.selectedInstanceId = drag.instanceId;
   state.dirty = true;
-  state.recoveryActive = true;
   state.lastValidation = null;
   render();
 });
@@ -1744,7 +1906,6 @@ $("#add-component").addEventListener("click", () => {
   state.project = addComponent(state.project, state.selectedLibraryId);
   state.selectedInstanceId = state.project.components.at(-1).instanceId;
   state.dirty = true;
-  state.recoveryActive = true;
   log(`[ADD] Added ${selectedComponent().reference} from the starter generic library.`);
   render();
 });
@@ -1757,7 +1918,6 @@ $("#component-form").addEventListener("submit", (event) => {
   captureHistory();
   state.project = updateComponent(state.project, component.instanceId, { reference: $("#property-reference").value.trim(), value: $("#property-value").value.trim() });
   state.dirty = true;
-  state.recoveryActive = true;
   validateAndReport();
   render();
 });
@@ -1772,7 +1932,6 @@ $("#remove-component").addEventListener("click", () => {
   }
   state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
   state.dirty = true;
-  state.recoveryActive = true;
   state.lastValidation = null;
   render();
   validateAndReport();
@@ -1784,7 +1943,6 @@ $("#connection-form").addEventListener("submit", (event) => {
     captureHistory();
     state.project = connectPins(state.project, $("#connection-first").value, $("#connection-second").value);
     state.dirty = true;
-  state.recoveryActive = true;
     state.lastValidation = null;
     render();
     validateAndReport();
@@ -1851,7 +2009,6 @@ $("#net-list").addEventListener("click", (event) => {
   captureHistory();
   state.project = disconnectPin(state.project, button.dataset.endpoint);
   state.dirty = true;
-  state.recoveryActive = true;
   state.lastValidation = null;
   render();
   validateAndReport();
@@ -1861,18 +2018,18 @@ $("#project-form").addEventListener("submit", (event) => {
   captureHistory();
   state.project = { ...state.project, metadata: { ...state.project.metadata, name: $("#project-name").value.trim(), updatedAt: new Date().toISOString() } };
   state.dirty = true;
-  state.recoveryActive = true;
   render();
 });
 $("#language").addEventListener("change", (event) => {
   state.project = { ...state.project, metadata: { ...state.project.metadata, locale: event.target.value } };
   state.dirty = true;
-  state.recoveryActive = true;
   render();
 });
 $("#grid-toggle").addEventListener("change", renderCanvas);
+$("#pcb-route-layer").addEventListener("change", () => { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; renderCanvas(); });
 $("#run-simulation").addEventListener("click", () => runAnalysis());
 $("#simulation-analysis-mode").addEventListener("change", (event) => {
+  $("#nonlinear-dc-controls").classList.toggle("hidden", event.target.value !== "nonlinear-dc");
   $("#ac-sweep-controls").classList.toggle("hidden", event.target.value !== "linear-ac");
   $("#linear-transient-controls").classList.toggle("hidden", event.target.value !== "linear-transient");
   $("#digital-event-controls").classList.toggle("hidden", event.target.value !== "digital-events");
@@ -1881,25 +2038,26 @@ $("#run-validation").addEventListener("click", validateAndReport);
 $("#export-simulation-report").addEventListener("click", exportSimulationReport);
 $("#load-example").addEventListener("click", async () => {
   const path = $("#example-picker").value;
+  if (!path) return;
+  const isCurrent = projectSession.beginLoad();
   try {
     const response = await fetch(path, { headers: { Accept: "application/json" } });
     if (!response.ok) throw new Error(`The example request returned ${response.status}.`);
     const project = parseProject(await response.text());
+    if (!isCurrent()) return;
     const analysis = project.releaseCandidateE2E
       ? await runReleaseCandidateE2E(project)
       : await createSimulationWorkerRun(project).promise;
     if (analysis.state !== "complete") throw new Error("The selected example does not pass its supported analysis check.");
-    if (state.dirty && !confirm("Replace the current project with this released example? Export unsaved work first if you need it.")) return;
-    state.history = [];
-    state.future = [];
-    state.lastValidation = null;
-    state.activeOutput = "output";
-    replaceProject(project, { dirty: false });
+    if (!isCurrent() || !await confirmDiscardChanges() || !isCurrent()) return;
+    projectSession.reset(project, { dirty: true });
     state.lastAnalysis = analysis;
+    $("#example-picker").value = path;
     state.selectedInstanceId = project.components.find((item) => item.libraryId === "passive.resistor")?.instanceId ?? project.components[0]?.instanceId ?? null;
     render();
     log(`[EXAMPLE] Loaded and validated ${project.metadata.name}.`);
   } catch (error) {
+    if (!isCurrent()) return;
     showDialog("Example unavailable", error instanceof Error ? error.message : "The selected example could not be loaded.");
   }
 });
@@ -1937,40 +2095,26 @@ $("#bot-proposal-apply").addEventListener("click", confirmBotCircuitProposal);
 $("#import-file").addEventListener("change", async (event) => {
   const [file] = event.target.files;
   if (!file) return;
+  const isCurrent = projectSession.beginLoad();
   try {
     const importedProject = parseProject(await file.text());
-    if (state.dirty && !confirm("Replace the current project with this imported file? Export unsaved work first if you need it.")) return;
-    captureHistory();
-    state.lastValidation = null;
-    state.activeOutput = "output";
-    replaceProject(importedProject, { dirty: false });
+    if (!isCurrent() || !await confirmDiscardChanges() || !isCurrent()) return;
+    projectSession.reset(importedProject, { dirty: true });
     log(`[IMPORTED] ${file.name} loaded after schema validation.`);
   } catch (error) {
+    if (!isCurrent()) return;
     showDialog("Import blocked", error instanceof Error ? error.message : "The selected file is not a supported project.");
   } finally { event.target.value = ""; }
 });
 
+// Boot is deliberately empty; only explicit Open/Example actions load a design.
+projectSession.clearTransient();
 render();
-if (state.recoveredDraft) log("[RECOVERY] Restored the latest unsaved project saved in this browser.");
-if (initialProject.fresh) {
-  const starterPath = "examples/070-stm32-timer-pwm.adigun.json";
-  $("#example-picker").value = starterPath;
-  fetch(starterPath, { headers: { Accept: "application/json" } })
-    .then((response) => { if (!response.ok) throw new Error("Starter example unavailable."); return response.text(); })
-    .then(async (documentText) => {
-      if (state.userInteracted || state.dirty || localStorage.getItem(STORAGE_KEY) || state.project.id !== initialProject.project.id) return;
-      const project = parseProject(documentText);
-      const analysis = await createSimulationWorkerRun(project).promise;
-      if (analysis.state !== "complete") return;
-      replaceProject(project, { dirty: false });
-      state.selectedInstanceId = "resistor";
-      state.activeView = "breadboard";
-      state.activeInspector = "component";
-      state.lastAnalysis = analysis;
-      $("#example-picker").value = starterPath;
-      render();
-      log("[STARTER] Loaded the tested STM32 timer PWM sample.");
-    })
-    .catch(() => {});
-}
-
+const canvasResizeObserver = new ResizeObserver(applyCanvasCamera);
+canvasResizeObserver.observe($("#design-canvas"));
+projectSession.install(window, { onLeave: (event) => {
+  const simulation = state.activeSimulation;
+  state.activeSimulation = null;
+  simulation?.cancel();
+  if (!event.persisted) canvasResizeObserver.disconnect();
+} });

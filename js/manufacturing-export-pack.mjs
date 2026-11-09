@@ -53,7 +53,7 @@ export function createManufacturingExportPack(project){
   const fileHashes={};
   for(const name of Object.keys(files).sort())fileHashes[name]=sha256(files[name]);
   const pcb=project.pcbFabrication;
-  const manifest={format:"AdigunSimulator educational manufacturing export pack",schemaVersion:1,projectId:project.id,projectName:project.metadata.name,board:{widthMm:pcb.board.widthMm,heightMm:pcb.board.heightMm,thicknessMm:pcb.board.thicknessMm,copperLayers:pcb.board.copperLayers},checks:fileHashes,limitations:["Bounded single-copper-layer educational export only.","Not a general Gerber/Excellon implementation or fabrication approval.","Footprints, stackup, drill data, placement, assembly, DRC and manufacturing rules require independent review."]};
+  const manifest={format:"AdigunSimulator educational manufacturing export pack",schemaVersion:1,projectId:project.id,projectName:project.metadata.name,board:{widthMm:pcb.board.widthMm,heightMm:pcb.board.heightMm,thicknessMm:pcb.board.thicknessMm,copperLayers:pcb.board.copperLayers,minimumClearanceMm:pcb.board.minimumClearanceMm,minimumTraceWidthMm:pcb.board.minimumTraceWidthMm},checks:fileHashes,limitations:["Bounded one/two-copper-layer educational export only.","Not a general Gerber/Excellon implementation or fabrication approval.","Footprints, stackup, drill data, placement, assembly, DRC and manufacturing rules require independent review."]};
   files["Export-Manifest.json"]=JSON.stringify(manifest,null,2)+"\n";
   fileHashes["Export-Manifest.json"]=sha256(files["Export-Manifest.json"]);
   files["SHA256SUMS.txt"]=Object.keys(fileHashes).sort().map(name=>fileHashes[name]+"  "+name).join("\n")+"\n";

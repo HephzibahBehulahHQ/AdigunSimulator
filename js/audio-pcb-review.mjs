@@ -11,7 +11,6 @@ export function reviewAudioAmplifierPcb(project) {
   if (!fab) return { status: "failed", checks: [{ id: "fabrication-data", status: "fail", detail: "PCB fabrication data is missing." }] };
 
   const classes = new Map((fab.netClasses ?? []).map((item) => [item.id, item]));
-  const routeByNet = new Map((fab.routes ?? []).map((route) => [route.netId, route]));
   const routeNetIds = (fab.routes ?? []).map((route) => route.netId);
   const declaredClassNets = (fab.netClasses ?? []).flatMap((item) => item.netIds ?? []);
   check("net-class-coverage", new Set(declaredClassNets).size === declaredClassNets.length && [...new Set(routeNetIds)].every((id) => declaredClassNets.includes(id)) && declaredClassNets.every((id) => routeNetIds.includes(id)), "Each routed net is covered exactly once by a declared class.");
@@ -20,9 +19,9 @@ export function reviewAudioAmplifierPcb(project) {
     return Boolean(cls && cls.netIds.includes(route.netId) && route.widthMm >= cls.traceWidthMm);
   }), "Every route uses its net class and meets its declared minimum width.");
 
-  const groundRoute = routeByNet.get("GND");
+  const groundRoutes = (fab.routes ?? []).filter((route) => route.netId === "GND");
   const star = fab.groundRoutingReview?.starPointMm;
-  check("star-point", Array.isArray(star) && groundRoute?.pointsMm?.some((point) => Math.hypot(point[0] - star[0], point[1] - star[1]) <= EPSILON), "Declared star point occurs on the ground route.");
+  check("star-point", Array.isArray(star) && groundRoutes.some((route) => route.pointsMm?.some((point) => Math.hypot(point[0] - star[0], point[1] - star[1]) <= EPSILON)), "Declared star point occurs on the ground route.");
   check("ground-review-checklist", fab.groundRoutingReview?.checklist?.length === 5 && fab.groundRoutingReview.checklist.every((item) => item.status === "pass"), "All five grounding and routing review items pass.");
 
   const requiredGround = [["V1","-"],["V2","-"],["U1","GND"],["U1","MINUS_INPUT"],["C1","-"],["C2","1"],["C5","-"],["C7","2"],["J1","GND"],["J2","SPK-"]];

@@ -20,11 +20,11 @@
         </div>
       </div>
       <div class="header-actions" aria-label="Account and application controls">
-        <span class="save-state saved" id="save-state" aria-live="polite">Saved locally</span>
-        <button id="account-status" class="icon-button account-button" type="button" data-auth-state="guest" aria-label="Account: guest; sign-in is unavailable" title="Account · Guest (sign-in unavailable)">
+        <span class="save-state saved" id="save-state" aria-live="polite">Empty project</span>
+        <span id="account-status" class="icon-button account-button" role="img" data-auth-state="guest" aria-label="Account: guest; sign-in is unavailable" title="Account · Guest (sign-in unavailable)" data-i18n-aria="accountGuestAria" data-i18n-title="accountGuestTooltip">
           <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19c.5-3.1 2.8-5 6.5-5s6 1.9 6.5 5"/></svg><span class="account-status-dot" aria-hidden="true"></span>
-        </button>
-        <label class="language-control" title="Language"><span class="sr-only">Language</span><select id="language" aria-label="Language" title="Language"><option value="en">EN</option><option value="de">DE</option><option value="yo">YO</option><option value="pcm">PCM</option></select></label>
+        </span>
+        <label class="language-control" title="Language" data-i18n-title="locale"><span class="sr-only">Language</span><select id="language" aria-label="Language" title="Language" data-i18n-aria="locale"><option value="en">EN</option><option value="de">DE</option><option value="yo">YO</option><option value="pcm">PCM</option></select></label>
         <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch colour theme" title="Switch colour theme" data-i18n-aria="theme" data-i18n-title="theme">⚙</button>
         <button id="global-search-toggle" class="icon-button" type="button" aria-label="Show search" title="Show search" data-i18n-aria="searchGlobal" data-i18n-title="searchGlobal"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 5 5"/></svg></button>
         <label class="global-search" hidden><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Search components, tools, or help…" data-i18n-placeholder="searchGlobal" /></label>
@@ -34,35 +34,40 @@
 
     <nav class="command-bar" aria-label="Application commands">
       <div class="menu-buttons" aria-label="Application menus">
-        <details class="app-menu"><summary data-i18n="fileMenu">File</summary><div class="app-menu-popover">
+        <details class="app-menu" name="application-menu"><summary data-i18n="fileMenu">File</summary><div class="app-menu-popover">
           <button type="button" data-action="new-project" data-i18n="newProject">New Project</button>
           <button type="button" data-action="import-project" data-i18n="open">Open</button>
+          <button type="button" data-action="open-saved-project" data-i18n="openSavedProject">Open saved project</button>
+          <button type="button" data-action="close-project" data-i18n="closeProject">Close Project</button>
           <button type="button" data-action="save" data-i18n="save">Save</button>
           <button type="button" data-action="export" data-i18n="export">Export</button>
           <button type="button" data-action="bom-export" data-i18n="exportBomCsv">Export BOM CSV</button>
         </div></details>
-        <details class="app-menu"><summary data-i18n="editMenu">Edit</summary><div class="app-menu-popover">
+        <details class="app-menu" name="application-menu"><summary data-i18n="editMenu">Edit</summary><div class="app-menu-popover">
           <button type="button" data-action="undo" data-i18n="undo">Undo</button>
           <button type="button" data-action="redo" data-i18n="redo">Redo</button>
         </div></details>
-        <details class="app-menu"><summary data-i18n="simulationMenu">Simulation</summary><div class="app-menu-popover">
+        <details class="app-menu" name="application-menu"><summary data-i18n="simulationMenu">Simulation</summary><div class="app-menu-popover">
           <button type="button" data-action="run-simulation" data-i18n="runCalculation">Run calculation</button>
           <button type="button" data-action="verify-run-lock" data-i18n="verifyRunLock">Verify Run Lock</button>
           <button type="button" data-action="validate" data-i18n="validate">Validate</button>
         </div></details>
-        <details class="app-menu"><summary data-i18n="pcbMenu">PCB</summary><div class="app-menu-popover">
+        <details class="app-menu" name="application-menu"><summary data-i18n="pcbMenu">PCB</summary><div class="app-menu-popover">
           <button type="button" data-view="breadboard" data-i18n="breadboard">Breadboard View</button>
           <button type="button" data-view="schematic" data-i18n="schematic">Schematic View</button>
           <button type="button" data-view="pcb" data-i18n="pcb">PCB View</button>
           <button type="button" data-action="pcb-drc" data-i18n="runPcbChecks">Run PCB checks</button>
+          <button type="button" data-action="pcb-net-classes" data-i18n="pcbNetClasses">Net Classes &amp; Rules</button>
+          <button type="button" data-action="pcb-board-setup" data-i18n="pcbBoardSetup">Board Setup</button>
+          <button type="button" data-action="pcb-via-new" data-i18n="pcbViaNew" disabled>New via</button>
           <button type="button" data-action="pcb-export" data-i18n="exportPcbFiles">Export Gerber / drill / BOM</button>
         </div></details>
-        <details class="app-menu"><summary data-i18n="toolsMenu">Tools</summary><div class="app-menu-popover">
+        <details class="app-menu" name="application-menu"><summary data-i18n="toolsMenu">Tools</summary><div class="app-menu-popover">
           <button type="button" data-action="validate" data-i18n="runValidation">Run validation</button>
           <button type="button" data-inspector="simulation" data-i18n="simulationControl">Simulation Control</button>
           <button type="button" data-inspector="project" data-i18n="project">Project</button>
         </div></details>
-        <details class="app-menu"><summary data-i18n="helpMenu">Help</summary><div class="app-menu-popover">
+        <details class="app-menu" name="application-menu"><summary data-i18n="helpMenu">Help</summary><div class="app-menu-popover">
           <button type="button" data-action="help" data-i18n="implementationStatus">Implementation status</button>
         </div></details>
       </div>
@@ -73,6 +78,7 @@
         <button class="secondary-button" type="button" data-action="validate" data-i18n="validate">Validate</button>
         <button class="run-button toolbar-run" type="button" data-action="run-simulation" data-i18n="runCalculation">Run</button>
         <label class="example-top-control"><span data-i18n="exampleSelector">Example</span><select id="example-picker">
+            <option value="" data-i18n="chooseExample">Choose an example</option>
             <option value="examples/001-led-current-limiter.adigun.json">LED current limiter</option>
             <option value="examples/002-two-led-polarity-indicator.adigun.json">Two-LED polarity indicator</option>
             <option value="examples/002-dc-voltage-divider.adigun.json">DC voltage divider</option>
@@ -113,6 +119,7 @@
             <option value="examples/029-window-comparator.adigun.json" data-i18n="exampleWindowComparator">Dual-comparator window indicator</option>
             <option value="examples/030-reference-buffer.adigun.json" data-i18n="exampleReferenceBuffer">Precision reference buffer</option>
             <option value="examples/031-transistor-common-emitter.adigun.json" data-i18n="exampleNpnCommonEmitter">NPN common-emitter amplifier</option>
+            <option value="examples/supplemental-npn-ebers-moll-bias.adigun.json" data-i18n="exampleGenericNpnEbersMoll">Generic NPN bias (Ebers–Moll)</option>
             <option value="examples/032-emitter-follower.adigun.json" data-i18n="exampleEmitterFollower">NPN emitter follower</option>
             <option value="examples/033-nmos-low-side-switch.adigun.json" data-i18n="exampleNmosLowSide">NMOS low-side inductive-load driver</option>
             <option value="examples/034-pmos-high-side-switch.adigun.json" data-i18n="examplePmosHighSide">P-MOS high-side switch</option>
@@ -319,25 +326,35 @@
 
       <section class="canvas-area" aria-label="Circuit design workspace">
         <div class="view-tabs" role="tablist" aria-label="Circuit representations">
-          <button class="view-tab active" role="tab" aria-selected="true" data-view="breadboard">▦ <span data-i18n="breadboard">Breadboard View</span></button>
-          <button class="view-tab" role="tab" aria-selected="false" data-view="schematic">⌘ <span data-i18n="schematic">Schematic View</span></button>
-          <button class="view-tab" role="tab" aria-selected="false" data-view="pcb">▣ <span data-i18n="pcb">PCB View</span></button>
+          <button class="view-tab active" role="tab" aria-selected="true" data-view="breadboard" aria-label="Breadboard View" data-i18n-aria="breadboard">▦ <span data-i18n="breadboard">Breadboard View</span></button>
+          <button class="view-tab" role="tab" aria-selected="false" data-view="schematic" aria-label="Schematic View" data-i18n-aria="schematic">⌘ <span data-i18n="schematic">Schematic View</span></button>
+          <button class="view-tab" role="tab" aria-selected="false" data-view="pcb" aria-label="PCB View" data-i18n-aria="pcb">▣ <span data-i18n="pcb">PCB View</span></button>
         </div>
         <div class="canvas-toolbar" aria-label="Canvas toolbar">
-          <button type="button" class="toolbar-button active" data-tool="select" aria-pressed="true">↖ <span data-i18n="select">Select</span></button>
-          <button type="button" class="toolbar-button" data-tool="pan" aria-pressed="false">✥ <span data-i18n="pan">Pan</span></button>
-          <button type="button" class="toolbar-button" data-tool="zoom-out">− <span data-i18n="zoomOut">Zoom out</span></button>
+          <button type="button" class="toolbar-button active" data-tool="select" aria-label="Select" data-i18n-aria="select" aria-pressed="true">↖ <span data-i18n="select">Select</span></button>
+          <button type="button" class="toolbar-button" data-tool="pan" aria-label="Pan" data-i18n-aria="pan" aria-pressed="false">✥ <span data-i18n="pan">Pan</span></button>
+          <button type="button" class="toolbar-button" data-tool="zoom-out" aria-label="Zoom out" data-i18n-aria="zoomOut">− <span data-i18n="zoomOut">Zoom out</span></button>
           <strong id="zoom-level">100%</strong>
-          <button type="button" class="toolbar-button" data-tool="zoom-in">+ <span data-i18n="zoomIn">Zoom in</span></button>
+          <button type="button" class="toolbar-button" data-tool="zoom-in" aria-label="Zoom in" data-i18n-aria="zoomIn">+ <span data-i18n="zoomIn">Zoom in</span></button>
+          <button type="button" class="toolbar-button" data-tool="fit" aria-label="Fit view" data-i18n-aria="fitView">⤢ <span data-i18n="fitView">Fit view</span></button>
           <label><input id="snap-toggle" type="checkbox" checked /> <span data-i18n="snap">Snap</span></label>
           <label><input id="grid-toggle" type="checkbox" checked /> <span data-i18n="grid">Grid</span></label>
-          <button id="schematic-wire-mode" type="button" class="toolbar-button" aria-pressed="false" data-action="schematic-wire-mode"><span aria-hidden="true">⌁</span> <span data-i18n="schematicWireMode">Wire</span></button>
+          <button id="schematic-wire-mode" aria-label="Wire" data-i18n-aria="schematicWireMode" type="button" class="toolbar-button" aria-pressed="false" data-action="schematic-wire-mode"><span aria-hidden="true">⌁</span> <span data-i18n="schematicWireMode">Wire</span></button>
           <span id="schematic-wire-status" role="status" aria-live="polite"></span>
           <button id="pcb-route-mode" type="button" class="toolbar-button" data-tool="pcb-route" aria-pressed="false" aria-label="Interactive PCB routing" data-i18n-aria="pcbRouteAria" disabled><span aria-hidden="true">⌁</span> <span data-i18n="pcbRoute">Route</span></button>
+          <label id="pcb-route-layer-control" hidden><span data-i18n="pcbRouteLayer">Copper layer</span><select id="pcb-route-layer" aria-label="Routing copper layer" data-i18n-aria="pcbRouteLayer"><option value="F.Cu">F.Cu</option><option value="B.Cu">B.Cu</option></select></label>
           <span id="pcb-route-status" role="status" aria-live="polite"></span>
+          <button type="button" class="toolbar-button" data-action="pcb-via-new" aria-label="New via" data-i18n-aria="pcbViaNew" disabled><span aria-hidden="true">⦿</span> <span data-i18n="pcbViaNew">New via</span></button>
           <span class="toolbar-spacer"></span>
-          <button type="button" class="toolbar-button" data-action="undo">↶ <span>Undo</span></button>
-          <button type="button" class="toolbar-button" data-action="redo">↷ <span>Redo</span></button>
+          <button type="button" class="toolbar-button" data-action="undo" aria-label="Undo" data-i18n-aria="undo">↶ <span data-i18n="undo">Undo</span></button>
+          <button type="button" class="toolbar-button" data-action="redo" aria-label="Redo" data-i18n-aria="redo">↷ <span data-i18n="redo">Redo</span></button>
+          <div class="canvas-feedback">
+            <p id="canvas-view-label" class="canvas-label"></p>
+            <details id="view-reconciliation" class="reconciliation-notice" hidden>
+              <summary id="view-reconciliation-summary"></summary>
+              <ul id="view-reconciliation-items"></ul>
+            </details>
+          </div>
         </div>
         <div id="design-canvas" class="design-canvas grid-enabled" tabindex="0" aria-label="Breadboard representation. Select a component to inspect it."></div>
         <div class="overview-row" aria-label="Synchronized view overview">
@@ -369,6 +386,27 @@
           <p><span data-i18n="pcbFootprintPosition">Pad centroid (mm)</span>: <strong id="pcb-footprint-position">—</strong></p>
           <p><span data-i18n="pcbFootprintPadCount">Pads</span>: <strong id="pcb-footprint-pad-count">—</strong></p>
           <p><span data-i18n="pcbFootprintRouteCount">Routes on connected nets</span>: <strong id="pcb-footprint-route-count">—</strong></p>
+          <p><span data-i18n="pcbFootprintRotation">Rotation from initial layout (clockwise)</span>: <strong id="pcb-footprint-rotation">0°</strong></p>
+          <button type="button" class="outline-button" data-action="pcb-rotate-left" data-i18n="pcbRotateLeft">Rotate 90° left</button>
+          <button type="button" class="outline-button" data-action="pcb-rotate-right" data-i18n="pcbRotateRight">Rotate 90° right</button>
+          <p class="muted" data-i18n="pcbRotateNote">Turns pads and attached trace vertices around the pad centroid. Run PCB checks after editing.</p>
+        </section>
+        <section id="pcb-via-editor" class="simulation-control hidden">
+          <h3 data-i18n="pcbViaTitle">Plated via editor</h3>
+          <p id="pcb-via-hint" class="muted" role="status"></p>
+          <form id="pcb-via-form" class="property-form">
+            <fieldset id="pcb-via-fields" class="via-fields">
+              <label><span data-i18n="pcbViaChoose">Via</span><select id="pcb-via-picker"></select></label>
+              <label><span data-i18n="pcbViaNet">Via net</span><select id="pcb-via-net" data-via-field="netId" required></select></label>
+              <label><span data-i18n="pcbViaX">Via X (mm)</span><input id="pcb-via-x" data-via-field="xMm" type="number" step="any" min="0" required /></label>
+              <label><span data-i18n="pcbViaY">Via Y (mm)</span><input id="pcb-via-y" data-via-field="yMm" type="number" step="any" min="0" required /></label>
+              <label for="pcb-via-diameter"><span data-i18n="pcbViaDiameter">Copper diameter (mm)</span><input id="pcb-via-diameter" data-via-field="diameterMm" type="number" step="any" min="0.001" required /></label>
+              <label for="pcb-via-drill"><span data-i18n="pcbViaDrill">Drill diameter (mm)</span><input id="pcb-via-drill" data-via-field="drillMm" type="number" step="any" min="0.001" required /></label>
+              <button id="pcb-via-pick" type="button" class="outline-button" data-action="pcb-via-pick" aria-pressed="false" data-i18n="pcbViaPick">Pick board position</button>
+              <button type="submit" class="outline-button" data-i18n="pcbViaSave">Save via</button>
+              <button id="pcb-via-remove" type="button" class="outline-button danger" data-action="pcb-via-remove" data-i18n="pcbViaRemove" disabled>Remove via</button>
+            </fieldset>
+          </form>
         </section>
         <form id="project-form" class="property-form hidden">
           <label><span data-i18n="projectName">Project name</span> <input id="project-name" required /></label>
@@ -381,10 +419,15 @@
           <label for="simulation-analysis-mode" data-i18n="analysisMode">Analysis mode</label>
           <select id="simulation-analysis-mode">
             <option value="automatic" data-i18n="analysisAutomatic">Project-defined / automatic</option>
+            <option value="nonlinear-dc" data-i18n="analysisNonlinearDc">Nonlinear DC operating point (generic diode / NPN)</option>
             <option value="linear-ac" data-i18n="analysisLinearAcSweep">Linear RLC AC sweep</option>
             <option value="linear-transient" data-i18n="analysisLinearTransient">Linear RLC transient</option>
             <option value="digital-events" data-i18n="analysisDigitalEvents">Digital event simulation</option>
           </select>
+          <div id="nonlinear-dc-controls" class="ac-sweep-controls hidden">
+            <label><span data-i18n="nonlinearJunctionTemperature">Junction temperature (°C)</span><input id="nonlinear-dc-temperature" type="number" min="-100" max="200" step="any" value="25" /></label>
+            <p class="limit-note" data-i18n="nonlinearDcModelHelp">Generic Shockley diodes with optional series resistance and generic Ebers–Moll NPN/PNP BJTs; parameters are not manufacturer-verified.</p>
+          </div>
           <div id="ac-sweep-controls" class="ac-sweep-controls hidden">
             <label><span data-i18n="acStartHz">Start frequency (Hz)</span><input id="ac-start-hz" type="number" min="0.000001" step="any" value="10" /></label>
             <label><span data-i18n="acStopHz">Stop frequency (Hz)</span><input id="ac-stop-hz" type="number" min="0.000001" step="any" value="100000" /></label>
@@ -395,6 +438,8 @@
             <label><span data-i18n="transientStopSeconds">Stop time (s)</span><input id="transient-stop-seconds" type="number" min="0.000001" step="any" value="0.005" /></label>
             <label><span data-i18n="transientTimeStep">Time step (s)</span><input id="transient-time-step" type="number" min="0.000000001" step="any" value="0.00001" /></label>
             <label><span data-i18n="transientOutputNet">Output net</span><select id="transient-output-net"><option value="" data-i18n="acAutoOutputLabel">Automatic output net</option></select></label>
+            <label><span data-i18n="transientInitialConditions">Initial conditions (JSON)</span><textarea id="transient-initial-conditions" rows="3" spellcheck="false" aria-describedby="transient-initial-conditions-help">{"capacitorVoltagesV":{},"inductorCurrentsA":{}}</textarea></label>
+            <p id="transient-initial-conditions-help" class="limit-note" data-i18n="transientInitialConditionsHelp">Optional capacitorVoltagesV and inductorCurrentsA maps use component references; omitted values start at zero.</p>
           </div>
           <div id="digital-event-controls" class="digital-event-controls hidden">
             <label><span data-i18n="digitalStopTime">Stop time (ns)</span><input id="digital-stop-ns" type="number" min="0" max="1000000000" step="1" value="1000" /></label>
@@ -478,6 +523,59 @@
     </section>
 
     <input id="import-file" type="file" accept="application/json,.json,.adigun" hidden />
+    <dialog id="pcb-classes-dialog" aria-labelledby="pcb-classes-title" aria-describedby="pcb-classes-note">
+      <h2 id="pcb-classes-title" data-i18n="pcbNetClasses">Net Classes &amp; Rules</h2>
+      <p id="pcb-classes-note" data-i18n="pcbClassNote">Applying membership moves selected nets from other classes. Removing a class removes its pair rules; unassigned nets use board rules. Copper does not move. Undo reverses each applied edit.</p>
+      <section class="pcb-classes-grid">
+        <form id="pcb-class-form">
+          <label><span data-i18n="pcbClassChoose">Class</span><select id="pcb-class-picker" autofocus></select></label>
+          <label><span data-i18n="pcbClassName">Class name</span><input id="pcb-class-name" maxlength="64" required /></label>
+          <label><span data-i18n="pcbBoardTraceWidth">Minimum trace width (mm)</span><input id="pcb-class-width" type="number" min="0.001" step="any" required /></label>
+          <label><span data-i18n="pcbBoardClearance">Minimum clearance (mm)</span><input id="pcb-class-clearance" type="number" min="0" step="any" required /></label>
+          <fieldset class="pcb-net-members"><legend data-i18n="pcbClassMembers">Member nets</legend><section id="pcb-class-members"></section></fieldset>
+          <div class="pcb-class-actions"><button id="pcb-class-apply" class="gold-button" type="submit" data-i18n="pcbClassApply">Apply class</button><button id="pcb-class-remove" class="secondary-button" type="button" data-i18n="pcbClassRemove">Remove class</button></div>
+        </form>
+        <form id="pcb-rule-form">
+          <label><span data-i18n="pcbRuleChoose">Pair rule</span><select id="pcb-rule-picker"></select></label>
+          <label><span data-i18n="pcbRuleFirst">First class</span><select id="pcb-rule-a" required></select></label>
+          <label><span data-i18n="pcbRuleSecond">Second class</span><select id="pcb-rule-b" required></select></label>
+          <label><span data-i18n="pcbRuleClearance">Pair clearance (mm)</span><input id="pcb-rule-clearance" type="number" min="0" step="any" required /></label>
+          <p data-i18n="pcbRuleNote">The stricter board, class and pair limits apply. A same-class rule checks different nets, never a net against itself. Changed rules can block fabrication until violations are corrected.</p>
+          <div class="pcb-class-actions"><button id="pcb-rule-apply" class="gold-button" type="submit" data-i18n="pcbRuleApply">Apply pair rule</button><button id="pcb-rule-remove" class="secondary-button" type="button" data-i18n="pcbRuleRemove">Remove pair rule</button></div>
+        </form>
+      </section>
+      <p id="pcb-class-error" role="alert"></p><p id="pcb-class-result" role="status"></p>
+      <button id="pcb-classes-close" class="secondary-button" type="button" data-i18n="close">Close</button>
+    </dialog>
+    <dialog id="pcb-board-dialog" aria-labelledby="pcb-board-title" aria-describedby="pcb-board-note">
+      <form id="pcb-board-form">
+        <h2 id="pcb-board-title" data-i18n="pcbBoardSetup">Board Setup</h2>
+        <p id="pcb-board-note" data-i18n="pcbBoardNote">Rectangular one/two-layer board. Dimensions do not scale or move components. Rules are design limits, not manufacturing approval.</p>
+        <div class="board-field-grid">
+          <label><span data-i18n="pcbBoardWidth">Width (mm)</span><input id="pcb-board-width" data-board-field="widthMm" type="number" min="0.001" step="any" required autofocus /></label>
+          <label><span data-i18n="pcbBoardHeight">Height (mm)</span><input id="pcb-board-height" data-board-field="heightMm" type="number" min="0.001" step="any" required /></label>
+          <label><span data-i18n="pcbBoardThickness">Thickness (mm)</span><input id="pcb-board-thickness" data-board-field="thicknessMm" type="number" min="0.001" step="any" required /></label>
+          <label><span data-i18n="pcbBoardLayers">Copper layers</span><select id="pcb-board-layers" data-board-field="copperLayers" required><option value="F.Cu">F.Cu</option><option value="F.Cu,B.Cu">F.Cu + B.Cu</option></select></label>
+          <label><span data-i18n="pcbBoardClearance">Minimum clearance (mm)</span><input id="pcb-board-clearance" data-board-field="minimumClearanceMm" type="number" min="0.001" step="any" required /></label>
+          <label><span data-i18n="pcbBoardTraceWidth">Minimum trace width (mm)</span><input id="pcb-board-trace-width" data-board-field="minimumTraceWidthMm" type="number" min="0.001" step="any" required /></label>
+        </div>
+        <p id="pcb-board-error" role="alert"></p>
+        <div class="board-dialog-actions">
+          <button id="pcb-board-cancel" type="button" class="secondary-button" data-i18n="pcbBoardCancel">Cancel</button>
+          <button type="submit" class="gold-button" data-i18n="pcbBoardApply">Apply board setup</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="unsaved-dialog" aria-labelledby="unsaved-title" aria-describedby="unsaved-message">
+      <form method="dialog">
+        <h2 id="unsaved-title" data-i18n="unsavedChanges">Unsaved changes</h2>
+        <p id="unsaved-message" data-i18n="discardProjectPrompt">You have unsaved changes. Are you sure you want to close this project?</p>
+        <div class="dialog-actions">
+          <button class="secondary-button" value="cancel" autofocus data-i18n="keepEditing">Keep editing</button>
+          <button class="gold-button" value="discard" data-i18n="discardChanges">Discard changes</button>
+        </div>
+      </form>
+    </dialog>
     <dialog id="status-dialog"><div><h2 id="dialog-title">Status</h2><p id="dialog-message"></p><button id="dialog-close" class="gold-button" type="button" data-i18n="close">Close</button></div></dialog>
     <footer class="site-footer">
       <div class="footer-identity"><strong>HEPHZIBAH BEHULAH</strong><span>AdigunSimulator · HB Elektroniker</span></div>

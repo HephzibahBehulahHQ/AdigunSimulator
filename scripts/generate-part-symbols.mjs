@@ -37,8 +37,11 @@ function renderSymbol(record) {
 }
 
 const ledger = JSON.parse(await readFile(ledgerPath, "utf8"));
+const requestedPartId = process.argv[2];
+const selectedRecords = requestedPartId ? ledger.records.filter((record) => record.id === requestedPartId) : ledger.records;
+if (requestedPartId && selectedRecords.length === 0) throw new Error(`No part record for ${requestedPartId}`);
 const generated = [];
-for (const record of ledger.records) {
+for (const record of selectedRecords) {
   if (!record.symbolPinMap || !record.packageEvidence?.package) continue;
   const relativePath = `library/assets/parts/${record.id}/symbol.svg`;
   const filePath = join(root, relativePath);

@@ -522,24 +522,40 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(validatePartLedger(ledger, taxonomy).valid, true);
   assert.equal(validatePartsManifest(manifest, taxonomy, ledger).valid, true);
   const coverage = getLedgerCoverage(ledger);
-  assert.equal(coverage.total, 9);
+  assert.equal(coverage.total, 15);
   assert.equal(coverage.verified, 0);
-  assert.equal(coverage.byStatus.candidate, 9);
+  assert.equal(coverage.byStatus.candidate, 15);
   assert.equal(coverage.remaining, 1000);
   assert.deepEqual(getLibraryCoverage(ledger, taxonomy), coverageFile);
   assert.equal(coverageFile.taxonomy.totalTypes, 565);
   assert.equal(coverageFile.taxonomy.categories.length, 15);
-  assert.equal(coverageFile.ledger.total, 9);
+  assert.equal(coverageFile.ledger.total, 15);
   assert.equal(coverageFile.ledger.verified, 0);
-  assert.equal(coverageFile.ledger.byStatus.candidate, 9);
+  assert.equal(coverageFile.ledger.byStatus.candidate, 15);
+  const tiOrGate = ledger.records.find((record) => record.id === "ti.sn74hc32n");
+  assert.equal(tiOrGate.type, "Quad 2-input OR gate");
+  assert.equal(tiOrGate.typeCode, "F06");
+  const tiDecoder = ledger.records.find((record) => record.id === "ti.sn74hc138n");
+  assert.equal(tiDecoder.typeCode, "F21");
+  assert.equal(tiDecoder.symbolPinMap["7"], "Y7_N");
+  assert.equal(tiDecoder.symbolPinMap["16"], "VCC");
+  assert.equal(tiDecoder.modelStatus, "not-modelled");
+  assert.equal(getPartVerificationReadiness(tiDecoder).readyForHumanReview, true);
   const readiness = getPartVerificationReadiness(ledger.records[0]);
   assert.equal(readiness.currentStatus, "candidate");
   assert.equal(readiness.verified, false);
   assert.equal(readiness.readyForHumanReview, true);
   assert.equal(readiness.requiresHumanReview, true);
   assert.ok(readiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
-  assert.equal(coverageFile.reviewQueue.length, 9);
-  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId).sort(), ["microchip.atmega328p-pu", "microchip.mcp6002-i-p", "ti.lm555p", "ti.lm7805ct-nopb", "ti.sn74hc00n"]);
+  assert.equal(coverageFile.reviewQueue.length, 15);
+  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId).sort(), ["microchip.atmega328p-pu", "microchip.mcp6002-i-p", "ti.lm555p", "ti.lm7805ct-nopb", "ti.sn74hc00n", "ti.sn74hc08n", "ti.sn74hc138n", "ti.sn74hc14n", "ti.sn74hc32n", "ti.sn74hc74n", "ti.sn74hc86n"]);
+  const flipFlop = ledger.records.find((record) => record.id === "ti.sn74hc74n");
+  assert.equal(flipFlop.manufacturerPartNumber, "SN74HC74N");
+  assert.equal(flipFlop.typeCode, "F32");
+  assert.equal(flipFlop.verificationStatus, "candidate");
+  assert.equal(flipFlop.datasheet.sha256, "a4043d37d693a2997900a0542dd226b9b61285794f3c1a541adb99cc7dcb1ae2");
+  assert.deepEqual(flipFlop.symbolPinMap, { "1":"1CLR", "2":"1D", "3":"1CLK", "4":"1PRE", "5":"1Q", "6":"1QBAR", "7":"GND", "8":"2QBAR", "9":"2Q", "10":"2PRE", "11":"2CLK", "12":"2D", "13":"2CLR", "14":"VCC" });
+  assert.equal(getPartVerificationReadiness(flipFlop).readyForHumanReview, true);
 });
 
 test("verified parts require complete datasheet, package, pin, model, license, safety, and translation evidence", () => {
@@ -1564,10 +1580,10 @@ test("released examples carry a native project, acceptance test, safety scope, a
       assert.ok(comparedFields > 0, `${item.id} expected result does not overlap analysis output fields`);
     }
   }
-  assert.equal(getExampleCoverage(registry).total, 212);
+  assert.equal(getExampleCoverage(registry).total, 213);
   assert.equal(getExampleCoverage(registry).released, 200);
   assert.equal(getExampleCoverage(registry).supplemental, 10);
-  assert.equal(getExampleCoverage(registry).planned, 2);
+  assert.equal(getExampleCoverage(registry).planned, 3);
   assert.equal(getExampleCoverage(registry).remaining, 0);
   const catalogue = registry.examples.filter((item) => item.status === "released" && item.scope === "catalogue");
   assert.deepEqual(catalogue.map((item) => item.catalogueIndex), [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200]);
@@ -2546,7 +2562,7 @@ test("catalogue AVR IR receiver decodes NEC-like timing and flags invalid frames
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 
-test("workspace matches the approved simulator layout references",async()=>{
+test("workspace exposes menus, synchronized-view regions and DOM-based preview disclosures",async()=>{
   const html=await readFile(new URL("../index.html",import.meta.url),"utf8");
   const app=await readFile(new URL("../app.js",import.meta.url),"utf8");
   const styles=await readFile(new URL("../styles.css",import.meta.url),"utf8");
@@ -2556,9 +2572,11 @@ test("workspace matches the approved simulator layout references",async()=>{
   assert.match(html,/id="result-dashboard"/);
   assert.match(html,/data-mini-view="schematic"/);
   assert.match(app,/function renderResultDashboard/);
-  assert.match(app,/examples\/070-stm32-timer-pwm\.adigun\.json/);
+  assert.match(html,/examples\/070-stm32-timer-pwm\.adigun\.json/);
   assert.match(styles,/canvas-area\.has-overview/);
-  assert.match(styles,/PCB placement preview/);
+  assert.match(html,/id="canvas-view-label"/);
+  assert.match(app,/hasPcbData \? t\("pcbStoredLayoutPreview"\) : t\("pcbNoFootprintData"\)/);
+  assert.doesNotMatch(styles,/\.pcb::before\s*\{[^}]*content:/);
 });
 
 
@@ -3766,7 +3784,7 @@ test("catalogue single-sided LED PCB passes bounded DRC and matches fabrication 
   const drc=validatePcbFabrication(project);
   assert.equal(drc.status,"passed",JSON.stringify(drc.errors));
   assert.deepEqual(drc.errors,[]);
-  assert.ok(drc.checks.includes("single copper layer"));
+  assert.ok(drc.checks.includes("supported F.Cu/B.Cu layers"));
   const generated=exportPcbFabrication(project);
   assert.equal(generated.status,"passed");
   assert.deepEqual(Object.keys(generated.files).sort(),["BOM.csv","board-Edge_Cuts.gbr","board-F_Cu.gbr","board-PTH.drl"]);
@@ -4775,7 +4793,7 @@ test("PCB footprint movement keeps pad anchors and attached route endpoints toge
  assert.equal(result.status,"complete");assert.equal(result.movedPadCount,2);assert.equal(result.updatedRoutePoints,2);
  assert.deepEqual(result.project.pcbFabrication.pads.slice(0,2).map(p=>[p.xMm,p.yMm]),[[7,4],[12,4]]);
  assert.deepEqual(result.project.pcbFabrication.routes.map(r=>r.pointsMm),[[[7,4],[6,5]],[[12,4],[15,5],[20,10]],[[2,2],[2,3]]]);
- assert.deepEqual(result.project.components[0].position,{pcb:[120.8,89.6],schematic:[120,120]});
+ assert.deepEqual(result.project.components[0].position,{pcb:[121,90],schematic:[120,120]});
  assert.deepEqual(project,before,"the operation must not mutate the source project");
 });
 test("PCB footprint movement rejects board-edge overflow without changing the source",()=>{

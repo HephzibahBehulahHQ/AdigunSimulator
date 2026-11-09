@@ -97,3 +97,44 @@ test("a manual route on the released single-sided PCB example remains checkable 
   assert.equal(project.pcbFabrication.routes.length, 3);
 });
 
+test("two-layer boards route bottom copper between plated pads and export separate Gerbers", async () => {
+  const singleSided = JSON.parse(await readFile(new URL("../examples/121-single-sided-led-pcb.adigun.json", import.meta.url), "utf8"));
+  const blocked = structuredClone(singleSided);
+  blocked.pcbFabrication.board.copperLayers = ["F.Cu", "B.Cu"];
+  assert.equal(createPcbRoute(blocked, { startPad: "resistor-1:2", endPad: "led-1:A", layer: "B.Cu" }).code, "BOTTOM_LAYER_REQUIRES_THROUGH_HOLE");
+
+  const crossingTopSmd = structuredClone(singleSided);
+  crossingTopSmd.pcbFabrication.board.copperLayers = ["F.Cu", "B.Cu"];
+  for (const id of ["resistor-1:2", "led-1:A"]) {
+    const pad = crossingTopSmd.pcbFabrication.pads.find((item) => `${item.instanceId}:${item.pin}` === id);
+    pad.technology = "through-hole";
+    pad.diameterMm = 1.2;
+    pad.drillMm = 0.6;
+  }
+  const topOnlySmd = crossingTopSmd.pcbFabrication.pads.find((pad) => pad.instanceId === "led-1" && pad.pin === "K");
+  topOnlySmd.xMm = 20;
+  topOnlySmd.yMm = 8;
+  assert.equal(createPcbRoute(crossingTopSmd, { startPad: "resistor-1:2", endPad: "led-1:A", waypoints: [[20, 8]], layer: "B.Cu" }).status, "complete");
+
+  const project = structuredClone(singleSided);
+  project.pcbFabrication.board.copperLayers = ["F.Cu", "B.Cu"];
+  project.pcbFabrication.parts.forEach((part) => { part.technology = "through-hole"; });
+  project.pcbFabrication.pads.forEach((pad) => {
+    if (pad.technology !== "smd") return;
+    pad.technology = "through-hole";
+    pad.diameterMm = 1.2;
+    pad.drillMm = 0.6;
+    delete pad.widthMm;
+    delete pad.heightMm;
+  });
+  const result = createPcbRoute(project, { startPad: "resistor-1:2", endPad: "led-1:A", waypoints: [[20, 11]], layer: "B.Cu" });
+  assert.equal(result.status, "complete");
+  assert.equal(result.layer, "B.Cu");
+  assert.equal(validatePcbFabrication(result.project).status, "passed");
+  const exported = exportPcbFabrication(result.project);
+  assert.equal(exported.status, "passed");
+  assert.ok(exported.files["board-F_Cu.gbr"]);
+  assert.match(exported.files["board-B_Cu.gbr"], /X0020000000Y0011000000D01/);
+  assert.match(exported.files["board-B_Cu.gbr"], /B\.Cu educational output/);
+});
+

@@ -1,5 +1,5 @@
 "Check","Status","Detail"
-"net-class-assignment","pass","Every copper net has exactly one declared class and route."
+"net-class-assignment","pass","Every copper net has exactly one declared class and at least one route."
 "high-current-widths","pass","VIN, SW, VOUT and GND meet the example's declared trace-width floor."
 "layout-checklist","pass","All declared switcher layout review items are marked passed."
 "input-bypass-placement","pass","Input bypass pads are placed near regulator input and return."

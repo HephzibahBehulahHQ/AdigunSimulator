@@ -17,4 +17,8 @@ The test compares the generated files byte-for-byte:
 
 ## Limits
 
-The op-amp is an ideal circuit model. The SOIC pinout and all other package names are generic and are not tied to a verified orderable part. The bounded DRC does not assess track crossings, trace capacity, stability, noise, solder-mask/paste/silkscreen or manufacturer-specific rules. Verify the selected amplifier datasheet, supply rails, footprint drawings, board files and BOM before assembly.
+The op-amp is an ideal circuit model. The SOIC pinout and all other package names are generic and are not tied to a verified orderable part. The bounded DRC does not assess trace capacity, stability, noise, solder-mask/paste/silkscreen or manufacturer-specific rules. Verify the selected amplifier datasheet, supply rails, footprint drawings, board files and BOM before assembly.
+
+## Copper repair verification
+
+The stored routes now pass same-layer trace-to-trace, trace-to-pad (including no-connect pads), pad clearance, applicable net-class spacing, and connected-copper checks. These geometric checks do not establish manufacturer approval, current capacity or signal integrity.

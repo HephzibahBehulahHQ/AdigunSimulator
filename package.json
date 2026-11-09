@@ -4,12 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "node scripts/serve.mjs",
     "test": "node --test tests/*.test.mjs",
     "generate:pdip-footprints": "node scripts/generate-pdip-footprints.mjs",
     "generate:sot23-footprint": "node scripts/generate-sot23-footprint.mjs",
     "generate:part-symbols": "node scripts/generate-part-symbols.mjs",
     "validate:library": "node scripts/validate-part-ledger.mjs",
-    "check": "node --check app.js && node --check js/core.mjs && node --check js/i18n.mjs && node --check js/part-catalogue.mjs && node --check js/linear-ac-analysis.mjs && node --check js/digital-event-analysis.mjs && node --check js/linear-rlc-transient.mjs && node --check js/bot-live-copilot.mjs && node --check js/analysis-dispatch.mjs && node --check js/simulation-worker.mjs && node --check js/simulation-worker-client.mjs && node --check scripts/generate-part-symbols.mjs && node --check scripts/generate-pdip-footprints.mjs && node --check scripts/generate-sot23-footprint.mjs && node --check scripts/part-asset-integrity.mjs"
+    "check": "node --check js/pcb-net-classes.mjs && node --check js/pcb-net-class-controller.mjs && node --check js/net-class-rule-review.mjs && node --check js/pcb-board.mjs && node --check js/pcb-board-controller.mjs && node --check js/project-session.mjs && node --check js/pcb-via-edit.mjs && node --check js/pcb-via-controller.mjs && node --check js/pcb-rotate.mjs && node --check js/canvas-camera.mjs && node --check js/pcb-copper.mjs && node --check js/pcb-vias.mjs && node --check js/pcb-export.mjs && node --check js/pcb-routing.mjs && node --check js/pcb-preview.mjs && node --check app.js && node --check js/core.mjs && node --check js/i18n.mjs && node --check js/part-catalogue.mjs && node --check js/linear-ac-analysis.mjs && node --check js/digital-event-analysis.mjs && node --check js/linear-rlc-transient.mjs && node --check js/nonlinear-dc-analysis.mjs && node --check js/bot-live-copilot.mjs && node --check js/bot-product-help.mjs && node --check js/analysis-dispatch.mjs && node --check js/simulation-worker.mjs && node --check js/simulation-worker-client.mjs && node --check scripts/generate-part-symbols.mjs && node --check scripts/generate-pdip-footprints.mjs && node --check scripts/generate-sot23-footprint.mjs && node --check scripts/part-asset-integrity.mjs"
   }
 }
 

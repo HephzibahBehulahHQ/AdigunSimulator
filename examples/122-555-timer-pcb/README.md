@@ -17,4 +17,8 @@ The checked-in expected files are compared byte-for-byte by the project test:
 
 ## Limits
 
-The component packages are generic footprints, not manufacturer-verified parts. These simple checks do not evaluate trace crossings, impedance, trace current, thermal rise, solder-mask/paste/silkscreen, detailed annular rings, or manufacturer-specific rules. Confirm the selected timer, polarities, footprint drawings, clearances and all production files with your PCB manufacturer before fabrication.
+The component packages are generic footprints, not manufacturer-verified parts. These simple checks do not evaluate impedance, trace current, thermal rise, solder-mask/paste/silkscreen, detailed annular rings, or manufacturer-specific rules. Confirm the selected timer, polarities, footprint drawings, clearances and all production files with your PCB manufacturer before fabrication.
+
+## Copper repair verification
+
+The stored routes now pass same-layer trace-to-trace, trace-to-pad (including no-connect pads), pad clearance, applicable net-class spacing, and connected-copper checks. These geometric checks do not establish manufacturer approval, current capacity or signal integrity.

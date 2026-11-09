@@ -18,4 +18,8 @@ Tests run the native project pin/ERC subset, a bounded topology check, single-si
 
 ## Limits
 
-This project verifies declared connectivity and selected component values; it does not simulate BME280 readings, I²C transactions, regulator thermal behavior, sensor accuracy, controlled impedance, complete copper crossings or manufacturer-specific fabrication rules. The displayed BME280 land pattern is a generic template and must be checked against the official package drawing before fabrication. Confirm VIN source limits, TLV700 dissipation, capacitor ratings, bus pull-up loading, assembly orientation and actual parts. It is not a production-certified module.
+This project verifies declared connectivity and selected component values; it does not simulate BME280 readings, I²C transactions, regulator thermal behavior, sensor accuracy, controlled impedance, manufacturer-specific fabrication rules. The displayed BME280 land pattern is a generic template and must be checked against the official package drawing before fabrication. Confirm VIN source limits, TLV700 dissipation, capacitor ratings, bus pull-up loading, assembly orientation and actual parts. It is not a production-certified module.
+
+## Copper repair verification
+
+The stored routes now pass same-layer trace-to-trace, trace-to-pad (including no-connect pads), pad clearance, applicable net-class spacing, and connected-copper checks. These geometric checks do not establish manufacturer approval, current capacity or signal integrity.

@@ -171,7 +171,8 @@
       "heightMm": 20,
       "thicknessMm": 1.6,
       "copperLayers": [
-        "F.Cu"
+        "F.Cu",
+        "B.Cu"
       ],
       "minimumClearanceMm": 0.15
     },
@@ -505,6 +506,21 @@
     ],
     "routes": [
       {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            7.25,
+            6
+          ],
+          [
+            7.25,
+            4.3
+          ]
+        ]
+      },
+      {
         "netId": "VBUS",
         "layer": "F.Cu",
         "widthMm": 0.3,
@@ -514,20 +530,38 @@
             6
           ],
           [
+            7.75,
+            3.7
+          ]
+        ]
+      },
+      {
+        "netId": "VBUS",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
             10.25,
             6
           ],
           [
-            7.75,
-            7.5
-          ],
-          [
             10.25,
-            7.5
+            3.7
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            10.75,
+            6
           ],
           [
-            38,
-            3
+            10.75,
+            4.3
           ]
         ]
       },
@@ -538,80 +572,86 @@
         "pointsMm": [
           [
             7.25,
-            6
-          ],
-          [
-            10.75,
-            6
+            7.5
           ],
           [
             7.25,
+            9.2
+          ]
+        ]
+      },
+      {
+        "netId": "VBUS",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            7.75,
             7.5
           ],
+          [
+            7.75,
+            9.8
+          ]
+        ]
+      },
+      {
+        "netId": "VBUS",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            10.25,
+            7.5
+          ],
+          [
+            10.25,
+            9.8
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
           [
             10.75,
             7.5
           ],
           [
-            19,
-            9
-          ],
-          [
-            19,
-            13
-          ],
-          [
-            38,
-            7
+            10.75,
+            9.2
           ]
         ]
       },
       {
-        "netId": "CC1",
+        "netId": "GND",
         "layer": "F.Cu",
-        "widthMm": 0.18,
+        "widthMm": 0.3,
         "pointsMm": [
           [
-            8.25,
-            6
+            19,
+            9
           ],
           [
-            17,
+            20,
             9
           ]
         ]
       },
       {
-        "netId": "CC2",
+        "netId": "GND",
         "layer": "F.Cu",
-        "widthMm": 0.18,
+        "widthMm": 0.3,
         "pointsMm": [
           [
-            8.25,
-            7.5
-          ],
-          [
-            17,
+            19,
             13
-          ]
-        ]
-      },
-      {
-        "netId": "USB_DP",
-        "layer": "F.Cu",
-        "widthMm": 0.18,
-        "pointsMm": [
-          [
-            8.75,
-            6
           ],
           [
-            8.75,
-            7.5
-          ],
-          [
-            38,
-            11
+            20,
+            13
           ]
         ]
       },
@@ -627,10 +667,343 @@
           [
             9.25,
             7.5
+          ]
+        ]
+      },
+      {
+        "netId": "USB_DP",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            8.75,
+            6
+          ],
+          [
+            8.75,
+            7.5
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            20,
+            9
+          ],
+          [
+            20,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "VBUS",
+        "layer": "B.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            10.25,
+            3.7
+          ],
+          [
+            7.75,
+            3.7
+          ]
+        ]
+      },
+      {
+        "netId": "VBUS",
+        "layer": "B.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            10.25,
+            9.8
+          ],
+          [
+            7.75,
+            9.8
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            10.75,
+            9.2
+          ],
+          [
+            10.75,
+            4.3
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            10.75,
+            4.3
+          ],
+          [
+            7.25,
+            4.3
+          ]
+        ]
+      },
+      {
+        "netId": "CC2",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            8.25,
+            7.5
+          ],
+          [
+            8.35,
+            8.15
+          ],
+          [
+            9.95,
+            10.15
+          ],
+          [
+            10.15,
+            10.25
+          ],
+          [
+            17,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "VBUS",
+        "layer": "B.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            10.25,
+            3.7
+          ],
+          [
+            10.95,
+            3.75
+          ],
+          [
+            11.25,
+            4.05
+          ],
+          [
+            11.25,
+            9.45
+          ],
+          [
+            10.85,
+            9.75
+          ],
+          [
+            10.25,
+            9.8
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            10.75,
+            9.2
+          ],
+          [
+            7.25,
+            9.2
+          ]
+        ]
+      },
+      {
+        "netId": "CC1",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            8.25,
+            6
+          ],
+          [
+            8.35,
+            5.35
+          ],
+          [
+            9.95,
+            3.35
+          ],
+          [
+            10.15,
+            3.25
+          ],
+          [
+            10.45,
+            3.25
+          ],
+          [
+            14.35,
+            6
+          ],
+          [
+            17,
+            9
+          ]
+        ]
+      },
+      {
+        "netId": "VBUS",
+        "layer": "B.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            10.25,
+            3.7
+          ],
+          [
+            38,
+            3
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            20,
+            9
+          ],
+          [
+            9.95,
+            10.35
+          ],
+          [
+            7.55,
+            10.35
+          ],
+          [
+            7.25,
+            10.05
+          ],
+          [
+            7.25,
+            9.55
+          ],
+          [
+            7.65,
+            9.25
+          ],
+          [
+            10.75,
+            9.2
+          ]
+        ]
+      },
+      {
+        "netId": "USB_DM",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            9.25,
+            7.5
+          ],
+          [
+            9.35,
+            6.85
+          ],
+          [
+            9.55,
+            6.75
+          ],
+          [
+            11.05,
+            6.75
+          ],
+          [
+            16.85,
+            9.85
           ],
           [
             38,
             15
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            38,
+            7
+          ],
+          [
+            20,
+            9
+          ]
+        ]
+      },
+      {
+        "netId": "USB_DP",
+        "layer": "F.Cu",
+        "widthMm": 0.18,
+        "pointsMm": [
+          [
+            8.75,
+            7.5
+          ],
+          [
+            8.65,
+            6.85
+          ],
+          [
+            8.45,
+            6.75
+          ],
+          [
+            6.95,
+            6.75
+          ],
+          [
+            6.85,
+            6.55
+          ],
+          [
+            6.75,
+            4.15
+          ],
+          [
+            7.55,
+            3.25
+          ],
+          [
+            10.55,
+            2.85
+          ],
+          [
+            38,
+            11
           ]
         ]
       }
@@ -772,6 +1145,88 @@
         "netId": "NC",
         "purpose": "No shield-to-ground bond in this template",
         "instanceId": "usb"
+      }
+    ],
+    "vias": [
+      {
+        "id": "J1-A1",
+        "netId": "GND",
+        "xMm": 7.25,
+        "yMm": 4.3,
+        "diameterMm": 0.4,
+        "drillMm": 0.2
+      },
+      {
+        "id": "J1-A4",
+        "netId": "VBUS",
+        "xMm": 7.75,
+        "yMm": 3.7,
+        "diameterMm": 0.4,
+        "drillMm": 0.2
+      },
+      {
+        "id": "J1-A9",
+        "netId": "VBUS",
+        "xMm": 10.25,
+        "yMm": 3.7,
+        "diameterMm": 0.4,
+        "drillMm": 0.2
+      },
+      {
+        "id": "J1-A12",
+        "netId": "GND",
+        "xMm": 10.75,
+        "yMm": 4.3,
+        "diameterMm": 0.4,
+        "drillMm": 0.2
+      },
+      {
+        "id": "J1-B1",
+        "netId": "GND",
+        "xMm": 7.25,
+        "yMm": 9.2,
+        "diameterMm": 0.4,
+        "drillMm": 0.2
+      },
+      {
+        "id": "J1-B4",
+        "netId": "VBUS",
+        "xMm": 7.75,
+        "yMm": 9.8,
+        "diameterMm": 0.4,
+        "drillMm": 0.2
+      },
+      {
+        "id": "J1-B9",
+        "netId": "VBUS",
+        "xMm": 10.25,
+        "yMm": 9.8,
+        "diameterMm": 0.4,
+        "drillMm": 0.2
+      },
+      {
+        "id": "J1-B12",
+        "netId": "GND",
+        "xMm": 10.75,
+        "yMm": 9.2,
+        "diameterMm": 0.4,
+        "drillMm": 0.2
+      },
+      {
+        "id": "R1-2",
+        "netId": "GND",
+        "xMm": 20,
+        "yMm": 9,
+        "diameterMm": 0.4,
+        "drillMm": 0.2
+      },
+      {
+        "id": "R2-2",
+        "netId": "GND",
+        "xMm": 20,
+        "yMm": 13,
+        "diameterMm": 0.4,
+        "drillMm": 0.2
       }
     ]
   }
