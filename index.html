@@ -345,6 +345,12 @@
           <button id="schematic-wire-mode" aria-label="Wire" data-i18n-aria="schematicWireMode" type="button" class="toolbar-button" aria-pressed="false" data-action="schematic-wire-mode"><span aria-hidden="true">⌁</span> <span data-i18n="schematicWireMode">Wire</span></button>
           <span id="schematic-wire-status" role="status" aria-live="polite"></span>
           <span id="placement-status" role="status" aria-live="polite"></span>
+          <div class="feedback-controls">
+            <label><input id="feedback-live" type="checkbox" checked /><span id="feedback-live-label">Live DC feedback</span></label>
+            <label><span id="feedback-motion-label">Current animation</span><select id="feedback-motion"><option value="system">Device preference</option><option value="animate">Animate</option><option value="reduce">Reduce motion</option></select></label>
+            <select id="feedback-direction" aria-label="Current direction"><option id="feedback-conventional" value="conventional">Conventional current</option><option id="feedback-electron" value="electron">Electron direction</option></select>
+            <span id="feedback-status" role="status" aria-live="polite"></span>
+          </div>
           <button id="pcb-route-mode" type="button" class="toolbar-button" data-tool="pcb-route" aria-pressed="false" aria-label="Interactive PCB routing" data-i18n-aria="pcbRouteAria" disabled><span aria-hidden="true">⌁</span> <span data-i18n="pcbRoute">Route</span></button>
           <label id="pcb-route-layer-control" hidden><span data-i18n="pcbRouteLayer">Copper layer</span><select id="pcb-route-layer" aria-label="Routing copper layer" data-i18n-aria="pcbRouteLayer"><option value="F.Cu">F.Cu</option><option value="B.Cu">B.Cu</option></select></label>
           <span id="pcb-route-status" role="status" aria-live="polite"></span>
