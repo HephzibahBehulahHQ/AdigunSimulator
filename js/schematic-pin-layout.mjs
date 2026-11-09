@@ -1,4 +1,5 @@
-// Generic visual pin anchors for the editor's named component pins.
+import { SCHEMATIC_PRIMITIVES } from "./schematic-primitives.mjs";
+// Visual anchors for the editor's named electrical terminals.
 // Pin order here defines schematic placement only; it does not assert physical package pin numbers.
 export function schematicSymbolSize(libraryId) {
   return libraryId === "active.stm32-timer-ideal" ? { width: 124, height: 130 } : { width: 56, height: 58 };
@@ -25,6 +26,13 @@ function basePinPoint(component, pins, pin) {
   if (index < 0) return null;
   const [x = 120, y = 120] = component.position?.schematic ?? [];
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  const primitive = SCHEMATIC_PRIMITIVES[component.libraryId];
+  if (primitive) {
+    const point = primitive.pins[pin];
+    const size = schematicSymbolSize(component.libraryId);
+    // Preserve the native default footprint of old drawings; users can resize it.
+    return point ? { x: x + point[0] * size.width / primitive.width, y: y + point[1] * size.height / primitive.height, side: point[2] } : null;
+  }
   if (component.libraryId === "ground.signal") return { x: x + 28, y: y + 6, side: "top" };
   if (component.libraryId === "active.stm32-timer-ideal") {
     const positions = { VCC: [0, 26, "left"], GND: [0, 104, "left"], TIM1_CH1: [124, 65, "right"] };

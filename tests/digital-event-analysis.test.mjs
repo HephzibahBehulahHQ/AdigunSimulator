@@ -25,7 +25,10 @@ function makeAndCircuit(libraryId = "active.logic-and-ideal") {
     [pin("VA", "+"), pin("PA", "IN")],
     [pin("VB", "+"), pin("PB", "IN")],
     [pin("U1", "Y"), pin("PY", "IN")]
-  ]) project = connectPins(project, first, second);
+  ]) {
+    if (libraryId === "active.logic-not-ideal" && second === pin("U1", "B")) continue;
+    project = connectPins(project, first, second);
+  }
   const probes = ["VA:+", "VB:+", "U1:Y"].map((endpoint) => project.nets.find((net) => net.endpoints.includes(pin(...endpoint.split(":")))).id);
   return { ...project, digitalEventSimulation: { stopTimeNs: 500, events: [], probeNets: probes } };
 }
@@ -115,12 +118,15 @@ function makeMuxCircuit(dataBits, address = 0) {
   return { ...project, digitalEventSimulation: { stopTimeNs: 40, events: [], probeNets: [probeNet] } };
 }
 
-test("digital event engine evaluates full truth tables for AND, OR, XOR and NOR gates", () => {
+test("digital event engine evaluates complete truth tables for all seven Boolean gates", () => {
   const operations = [
     ["active.logic-and-ideal", (a, b) => a && b],
     ["active.logic-or-ideal", (a, b) => a || b],
     ["active.logic-xor-ideal", (a, b) => a !== b],
-    ["active.logic-nor-ideal", (a, b) => !a && !b]
+    ["active.logic-nor-ideal", (a, b) => !a && !b],
+    ["active.logic-nand-ideal", (a, b) => !(a && b)],
+    ["active.logic-not-ideal", a => !a],
+    ["active.logic-xnor-ideal", (a, b) => a === b]
   ];
   for (const [libraryId, truth] of operations) {
     for (const [a, b] of [[false, false], [false, true], [true, false], [true, true]]) {
