@@ -1,0 +1,65 @@
+Here is a much deeper, highly specific prompt for Codex. I have broken down the visual, structural, and functional elements from your images to ensure the AI understands the exact aesthetic and technical depth required.
+
+***
+
+**PROMPT FOR CODEX:**
+
+**CONTINUATION OF ONGOING TASK: DEEP DIVE INTO RAW CIRCUIT RENDERING & SIMULATION UI**
+
+This is a mandatory directive. We are fundamentally changing the visual architecture of our project to reflect raw, authentic, functional electronic schematics. Review the following deep analysis of our target aesthetic and functional requirements. **This is a strict mandate, not a suggestion.**
+
+### 1. THE "RAW & REAL" VISUAL MANDATE (What to remove)
+You must strip away all modern UI "card" aesthetics. 
+*   **NO Drop Shadows:** Zero box-shadows on any component, node, or line.
+*   **NO Containers:** Do not place components or circuit sections inside rounded rectangles, background boxes, or cards. The circuits must float directly on the dark background.
+*   **NO Overlays:** Do not put UI panels over the circuit. 
+*   **NO 3D/Skeuomorphism:** Resistors must be simple zig-zag lines, capacitors must be two parallel lines, ICs must be clean rectangular blocks. Look at the images: the components are entirely flat, utilizing crisp, high-contrast lines.
+
+### 2. DETAILED COMPONENT & LAYOUT SPECIFICATIONS
+You must replicate the exact layout and component representation seen in the reference images. 
+
+*   **The Canvas & Colors:** 
+    *   Background: Deep, dark charcoal/black.
+    *   Wires: High-contrast white/light gray. When "active," wires can show a glowing green/red dot pattern (like the moving dots in Image 1 and 2).
+    *   Components: Red for capacitors, distinct line-art for resistors.
+*   **The RC High-Pass Filter (Image 1):**
+    *   Left side: An AC voltage source (circle with a sine wave inside) with a text label directly above it (e.g., "39.9Hz").
+    *   Top wiring connecting to a 10µF capacitor.
+    *   A T-junction leading to a 35Ω resistor going straight down to a ground symbol.
+    *   A continuing line to the right labeled "out".
+    *   **Crucial Detail:** The bottom scope. It shows a dark grid, a green sine wave, and real-time simulation data in the bottom corners (e.g., "Max=5 V", "t = 102.695ms", "time step = 5 µs").
+*   **The 555 Timer Circuit (Image 2):**
+    *   A central, clearly defined rectangular block labeled "555 Timer" with explicitly labeled pins inside the box (`Vcc`, `dis`, `tr`, `th`, `ctl`, `gnd`, `out`, `rst`).
+    *   A complex network of resistors on the left (27k, 39k, 120k) forming a voltage divider.
+    *   A 10k resistor connecting to the `dis` pin.
+    *   A 200nF capacitor at the bottom connecting to the `tr` and `th` pins and ground.
+    *   A green, glowing trace showing current flow.
+    *   **Crucial Detail:** The bottom scope showing a sharp sawtooth waveform with a dark grid background.
+
+### 3. MENU AND NAVIGATION ARCHITECTURE (Image 3, 4, 5)
+The UI must feature a top navigation bar with a dropdown menu system exactly like the one shown. 
+
+*   **Top Menu Bar:** File, Edit, Draw, Scopes, Options, Tools, Circuits.
+*   **The "Circuits" Dropdown Structure:** Implement this exact hierarchy:
+    *   **Basics:** (Ohm's Law, Resistors, Capacitor, Inductor, Voltage Divider, etc.)
+    *   **A/C Circuits:** (Capacitor, Inductor, Caps of Various Capacitances, Caps w/ Various Frequencies, Impedances of Same Magnitude, Series Resonance, Parallel Resonance).
+    *   **Passive Filters:** (Low-pass, High-pass, etc.)
+    *   **Diodes / Op-Amps / Transistors / MOSFETs:** (MOSFETs must include: n-MOSFET, p-MOSFET, Switch, Source Follower, **Current Source**, Current Ramp, Current Mirror, Common-Source Amplifier, CMOS Inverter, etc.)
+    *   **555 Timer Chip**
+    *   **Logic Families / Combinational Logic / Sequential Logic**
+*   **Sub-menus:** Notice the right-pointing arrows. Hovering over "MOSFETs" must open a secondary menu to the right, just like in the image.
+
+### 4. THE GOLD STANDARD REFERENCE: FALSTAD SIMULATOR
+You must use **Falstad Circuit Simulator** as your absolute benchmark for both the visual aesthetic and the functional behavior.
+*   **URL:** `https://www.falstad.com/circuit/`
+*   **Why?** Because Falstad renders circuits exactly like this: raw, with no enclosing boxes, using simple line art, moving dots to indicate current flow, and integrated bottom scopes. 
+*   **Action:** Study the source code or rendering logic of Falstad (if accessible) or analyze its visual output. Replicate the "wire routing" (orthogonal lines, no diagonal wires), the node dots, and the component placement.
+
+### 5. SUMMARY OF EXECUTION
+Stop rendering UI cards. Start rendering **Schematics**. 
+*   Draw nodes as small circles.
+*   Draw wires as straight orthogonal lines.
+*   Use standard electrical symbols.
+*   Put an oscilloscope graph at the bottom of the workspace.
+*   Ensure the current flow is animated or represented by colored dots on the wires.
+*   **Verify that every single component mentioned in this prompt and shown in the images is fully supported and rendered without any shadows, boxes, or overlays.**

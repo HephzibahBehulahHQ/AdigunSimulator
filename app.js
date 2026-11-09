@@ -99,6 +99,7 @@ const state = {
   savedDisposition: "empty",
   lastAnalysis: null,
   lastAnalysisProjectKey: null,
+  feedbackConfig: null,
   selectedLibraryId: null,
   selectedEvidencePartId: null,
   libraryMode: "starter",
@@ -235,16 +236,16 @@ function applyBotSuggestion() {
 }
 
 const dcFeedback = createLiveDcFeedback({
-  run: project => createSimulationWorkerRun($("#simulation-analysis-mode").value === "nonlinear-dc" ? projectWithSelectedAnalysis(project,"shockleyDcOperatingPoint",{temperatureC:Number($("#nonlinear-dc-temperature").value)}) : project),
+  run: project => createSimulationWorkerRun(state.feedbackConfig?projectWithSelectedAnalysis(project,state.feedbackConfig.key,state.feedbackConfig.value):project),
   onResult: result => { state.lastAnalysis=result; state.lastAnalysisProjectKey=JSON.stringify(state.project); renderOutput(); },
-  onPaint: () => { renderCanvas(); renderFeedbackControls(); }
+  onPaint: event => { if(event?.frameOnly)paintSimulationFrame();else renderCanvas(); renderFeedbackControls(); }
 });
 const FEEDBACK_MOTION_TEXT={en:["Device preference","Animate","Reduce motion"],de:["Geräteeinstellung","Animieren","Bewegung reduzieren"],yo:["Ètò ẹ̀rọ","Ṣe àwòrán ìṣàn","Dín ìṣípò kù"],pcm:["Device setting","Show movement","Reduce movement"]};
 const FEEDBACK_TEXT = {
-  en:["Live DC feedback","Current animation","Conventional current","Electron direction","Run a supported DC circuit to show calculated flow.","Updating calculated DC values…","DC flow · positive green, negative red, ground gray · speed is visual","Flow unavailable for this model or unresolved circuit."],
-  de:["Live-DC-Rückmeldung","Stromanimation","Technische Stromrichtung","Elektronenrichtung","Unterstützte DC-Schaltung für den Stromfluss berechnen.","DC-Messwerte werden aktualisiert…","DC-Fluss · positiv grün, negativ rot, Masse grau · visuelle Geschwindigkeit","Für dieses Modell oder die ungelöste Schaltung nicht verfügbar."],
-  yo:["Àbájáde DC lẹ́sẹ̀kẹsẹ̀","Àwòrán ìṣàn","Ìtọ́sọ́nà ìṣàn àṣà","Ìtọ́sọ́nà ẹlẹ́ktrọ́nì","Ṣiṣirò àyíká DC tí a ṣe àtìlẹ́yìn fún láti rí ìṣàn.","A ń tún iye DC ṣe…","Ìṣàn DC · rere aláwọ̀ ewé, òdì pupa, ilẹ̀ grẹ́yì · ìyára àwòrán","Ìṣàn kò sí fún àwòṣe tàbí àyíká tí a kò tíì yanjú."],
-  pcm:["Live DC feedback","Current movement","Normal current direction","Electron direction","Run supported DC circuit make calculated flow show.","DC values dey update…","DC flow · positive green, negative red, ground gray · speed na picture","Flow no dey for this model or circuit wey never solve."]
+  en:["Live feedback","Current animation","Conventional current","Electron direction","Run a supported DC circuit to show calculated flow.","Updating calculated DC values…","DC flow · positive green, negative red, ground gray · speed is visual","Flow unavailable for this model or unresolved circuit."],
+  de:["Live-Rückmeldung","Stromanimation","Technische Stromrichtung","Elektronenrichtung","Unterstützte DC-Schaltung für den Stromfluss berechnen.","DC-Messwerte werden aktualisiert…","DC-Fluss · positiv grün, negativ rot, Masse grau · visuelle Geschwindigkeit","Für dieses Modell oder die ungelöste Schaltung nicht verfügbar."],
+  yo:["Àbájáde lẹ́sẹ̀kẹsẹ̀","Àwòrán ìṣàn","Ìtọ́sọ́nà ìṣàn àṣà","Ìtọ́sọ́nà ẹlẹ́ktrọ́nì","Ṣiṣirò àyíká DC tí a ṣe àtìlẹ́yìn fún láti rí ìṣàn.","A ń tún iye DC ṣe…","Ìṣàn DC · rere aláwọ̀ ewé, òdì pupa, ilẹ̀ grẹ́yì · ìyára àwòrán","Ìṣàn kò sí fún àwòṣe tàbí àyíká tí a kò tíì yanjú."],
+  pcm:["Live feedback","Current movement","Normal current direction","Electron direction","Run supported DC circuit make calculated flow show.","DC values dey update…","DC flow · positive green, negative red, ground gray · speed na picture","Flow no dey for this model or circuit wey never solve."]
 };
 function renderFeedbackControls(){
   const words=FEEDBACK_TEXT[state.project.metadata.locale]??FEEDBACK_TEXT.en, live=dcFeedback.read();
@@ -254,9 +255,51 @@ function renderFeedbackControls(){
   [...$("#feedback-motion").options].forEach((option,i)=>{option.textContent=motionWords[i];});
   $("#feedback-direction").setAttribute("aria-label",words[2]+" / "+words[3]);
   $("#stop-simulation").disabled=!state.activeSimulation&&!live.active;
+  renderSimulationHud();
+}
+const SIM_HUD_TEXT={
+  en:["Pause","Stop","Step","Reset","Running","Paused","Stopped","Idle","Complete","Calculated transient playback","DC steady state","Run a linear transient calculation to step through samples."],
+  de:["Pause","Stopp","Schritt","Zurücksetzen","Läuft","Pausiert","Gestoppt","Bereit","Abgeschlossen","Berechneter Transientenverlauf","DC-Arbeitspunkt","Zuerst eine lineare Transientenberechnung für Einzelschritte ausführen."],
+  yo:["Dá dúró díẹ̀","Dá dúró","Ìgbésẹ̀","Tún bẹ̀rẹ̀","Ń ṣiṣẹ́","Dúró díẹ̀","Ti dá dúró","Ṣetán","Parí","Àfihàn àbájáde ìṣirò àkókò","Ipò DC tó dúró","Ṣe ìṣirò àkókò kí o tó tẹ̀lé àwọn ìgbésẹ̀."],
+  pcm:["Pause","Stop","Step","Reset","E dey run","E pause","E stop","Ready","Complete","Calculated transient playback","DC steady state","Run linear transient calculation before you step through samples."]
+};
+function renderSimulationHud(){
+  const live=dcFeedback.read(), words=SIM_HUD_TEXT[state.project.metadata.locale]??SIM_HUD_TEXT.en, busy=Boolean(state.activeSimulation);
+  const hud=$("#simulation-hud");hud.dataset.playback=busy?"running":live.playback;
+  ["pause","stop","step","reset"].forEach((name,i)=>{const button=$(`#hud-${name}`);button.querySelector("span:last-child").textContent=words[i];button.title=name==="step"&&live.kind!=="transient"?words[11]:words[i];});
+  $("#hud-pause").disabled=busy||live.playback!=="running"||!live.active;
+  $("#hud-step").disabled=busy||live.status!=="ready"||live.kind!=="transient"||live.sampleIndex>=live.sampleCount-1;
+  for(const button of $$('[data-action="stop-simulation"]'))button.disabled=!busy&&!live.active;
+  const label=words[({running:4,paused:5,stopped:6,idle:7,complete:8})[live.playback]??7];
+  $("#simulation-time").textContent=live.kind==="transient"?`${label} · t=${live.timeSeconds.toPrecision(4)} s · ${live.sampleIndex+1}/${live.sampleCount} · ${live.speed.toPrecision(3)}×`:live.kind==="dc"?`${label} · ${words[10]}`:`${busy?words[4]:label} · t=0 s`;
+  $("#simulation-time").title=live.kind==="transient"?words[9]:live.kind==="dc"?words[10]:words[11];
+  document.querySelector(".canvas-area").classList.toggle("simulation-paused",["paused","complete"].includes(live.playback));
+  if(live.kind==="transient"&&live.status==="ready")$("#feedback-status").textContent=words[9]+" · t="+live.timeSeconds.toPrecision(4)+" s";
+}
+function paintSimulationFrame(){
+  const data=dcFeedback.read().data, electron=$("#feedback-direction").value==="electron";
+  for(const hit of $$(".schematic-wire-layer .wire-hit[data-feedback-net]")){
+    const {feedbackNet:wireNet,feedbackFirst:wireFirst,feedbackSecond:wireSecond}=hit.dataset, base=hit.nextElementSibling;
+    const measured=data?.wires?.[wireEdgeKey(wireNet,wireFirst,wireSecond)], color=voltageColor(measured?.voltageV), motion=currentMotion(measured?.currentA,electron);
+    if(color)base.style.stroke=color;else base.style.removeProperty("stroke");
+    base.style.opacity=measured?.currentA===0?".45":".8";
+    const title=hit.querySelector("title");if(title&&measured)title.textContent=`${wireNet}: ${measured.voltageV?.toPrecision(4)??"?"} V; ${Number.isFinite(measured.currentA)?measured.currentA.toPrecision(4)+" A":measured.reason}`;
+    let flow=base.nextElementSibling?.classList.contains("wire-flow")?base.nextElementSibling:null;
+    if(!motion||$("#feedback-motion").value==="reduce"){flow?.remove();continue;}
+    if(!flow){flow=document.createElementNS("http://www.w3.org/2000/svg","path");flow.setAttribute("class","wire-flow");flow.setAttribute("d",base.getAttribute("d"));flow.setAttribute("aria-hidden","true");base.after(flow);}
+    flow.style.stroke=color??"#72f4ed";flow.style.setProperty("--flow-duration",motion.durationSeconds+"s");flow.style.animationDirection=motion.reverse?"reverse":"normal";flow.dataset.currentA=String(measured.currentA);
+  }
+  const netByPin=new Map(state.project.nets.flatMap(net=>net.endpoints.map(pin=>[pin,net.id])));
+  for(const target of $$(".schematic-pin-terminal[data-schematic-endpoint]")){
+    const voltage=data?.nodes?.[netByPin.get(target.dataset.schematicEndpoint)],color=voltageColor(voltage),dot=target.querySelector(".schematic-pin-dot");
+    if(color){dot.style.fill=color;dot.style.stroke=color;const title=target.querySelector("title");if(title)title.textContent=`${target.dataset.schematicEndpoint}: ${voltage.toPrecision(4)} V`;}
+    else{dot.style.removeProperty("fill");dot.style.removeProperty("stroke");}
+  }
+  renderSimulationHud();
 }
 const projectSession = createProjectSession(state, { storage: () => localStorage, onReset: () => {
   dcFeedback.stop(false);
+  state.feedbackConfig=null;
   state.selectedWire = null; state.wireCursor = null; state.placement = null;
   setSimulationWorkerBusy(false);
   botLiveCopilot.dispose();
@@ -566,7 +609,7 @@ function netSvg(project, view, unavailable = new Set(), interactive = true) {
     const flow=motion&&$("#feedback-motion").value!=="reduce"?`<path class="wire-flow" d="${path}" style="stroke:${color??"#72f4ed"};--flow-duration:${motion.durationSeconds}s;animation-direction:${motion.reverse?"reverse":"normal"}" data-current-a="${measured.currentA}" aria-hidden="true"/>`:"";
     const selected = state.selectedWire?.netId === net.id && state.selectedWire.first === first && state.selectedWire.second === second;
     const attrs = interactive ? `data-wire-first="${escape(first)}" data-wire-second="${escape(second)}" data-wire-net="${escape(net.id)}" role="button" tabindex="0" aria-label="${escape(net.id)}: ${escape(first)} → ${escape(second)}"` : "";
-    return `<path class="wire-crossing-gap" d="${path}"/><path class="wire-hit ${selected ? "selected-wire" : ""}" d="${path}" ${attrs}>${title}</path><path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""} ${selected ? "selected-wire" : ""}" d="${path}" data-net="${escape(net.id)}" ${color?`style="stroke:${color};opacity:${measured.currentA===0?.45:.8}"`:""}/>${flow}`;
+    return `<path class="wire-crossing-gap" d="${path}"/><path class="wire-hit ${selected ? "selected-wire" : ""}" d="${path}" data-feedback-net="${escape(net.id)}" data-feedback-first="${escape(first)}" data-feedback-second="${escape(second)}" ${attrs}>${title}</path><path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""} ${selected ? "selected-wire" : ""}" d="${path}" data-net="${escape(net.id)}" ${color?`style="stroke:${color};opacity:${measured.currentA===0?.45:.8}"`:""}/>${flow}`;
   })).join("");
   const terminals = view === "schematic" ? project.components.flatMap((component) => {
     if (unavailable.has(component.instanceId)) return [];
@@ -1321,6 +1364,7 @@ function renderLinearTransientOutputOptions() {
 
 function render() {
   applyLocale();
+  for(const button of $$(".canvas-toolbar button, .project-actions > button"))button.title=button.getAttribute("aria-label")||button.textContent.trim();
   renderAcSweepOutputOptions();
   renderLinearTransientOutputOptions();
   renderLibrary();
@@ -1375,6 +1419,7 @@ function setSimulationWorkerBusy(busy) {
   for (const button of $$('[data-action="run-simulation"]')) button.disabled = busy;
   $("#run-simulation").disabled = busy;
   $("#stop-simulation").disabled = !busy;
+  renderSimulationHud();
 }
 
 function stopSimulation() {
@@ -1443,6 +1488,8 @@ function runAnalysis(workerResult = null) {
         }
       }
       const projectSnapshot = JSON.stringify(state.project);
+      const feedbackKey=({"nonlinear-dc":"shockleyDcOperatingPoint","linear-transient":"linearRlcTransient"})[analysisMode];
+      state.feedbackConfig=feedbackKey?{key:feedbackKey,value:structuredClone(projectForAnalysis[feedbackKey])}:null;
       const run = createSimulationWorkerRun(projectForAnalysis);
       state.activeSimulation = run;
       state.lastAnalysis = { state: "running", engine: "Worker-isolated bounded analysis", message: "Running the supported analysis in a background worker." };
@@ -1692,8 +1739,11 @@ function handleAction(action) {
   if (action === "validate") validateAndReport();
   if (action === "undo") undo();
   if (action === "redo") redo();
-  if (action === "run-simulation") runAnalysis();
+  if (action === "run-simulation") { if(dcFeedback.canResume(state.project))dcFeedback.resume();else runAnalysis(); }
   if (action === "stop-simulation") stopSimulation();
+  if (action === "pause-simulation") dcFeedback.pause();
+  if (action === "step-simulation") dcFeedback.step();
+  if (action === "reset-simulation") { stopSimulation();state.lastAnalysis=null;state.lastAnalysisProjectKey=null;renderOutput();renderSimulationHud(); }
   if (action === "schematic-wire-mode") {
     state.placement = null;
     if (state.schematicWireMode) { state.schematicWireMode = false; state.schematicWireStart = null; }
@@ -2293,8 +2343,10 @@ $("#feedback-motion").addEventListener("change",renderCanvas);
 $("#feedback-direction").addEventListener("change",renderCanvas);
 window.addEventListener("pagehide",()=>dcFeedback.stop(false));
 $("#pcb-route-layer").addEventListener("change", () => { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; renderCanvas(); });
-$("#run-simulation").addEventListener("click", () => runAnalysis());
+$("#run-simulation").addEventListener("click", () => handleAction("run-simulation"));
+for(const input of $$("#nonlinear-dc-controls input, #ac-sweep-controls input, #ac-sweep-controls select, #linear-transient-controls input, #linear-transient-controls select, #linear-transient-controls textarea, #digital-event-controls input, #digital-event-controls select, #digital-event-controls textarea"))["input","change"].forEach(event=>input.addEventListener(event,()=>{stopSimulation();state.lastAnalysisProjectKey=null;}));
 $("#simulation-analysis-mode").addEventListener("change", (event) => {
+  stopSimulation();state.lastAnalysisProjectKey=null;
   $("#nonlinear-dc-controls").classList.toggle("hidden", event.target.value !== "nonlinear-dc");
   $("#ac-sweep-controls").classList.toggle("hidden", event.target.value !== "linear-ac");
   $("#linear-transient-controls").classList.toggle("hidden", event.target.value !== "linear-transient");
