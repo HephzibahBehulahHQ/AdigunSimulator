@@ -66,3 +66,15 @@ Excluded from this integration: the temporary local QA log, stored outside the r
 - Browser evidence: 60 three-view shell cases, 24 mobile menu cases, 12 expanded-search cases and 20 library bounds cases passed across four locales. Keyboard disclosure/via routing, guest tooltip and default viewport checks passed without captured console errors. See `RESPONSIVE_ACCEPTANCE.md` for exact scope, reproduction and limitations.
 - Local checks: 384/384 tests, syntax and library validation passed. The first full run found an obsolete caption assertion; its corrected disclosure contract and the subsequent full suite passed. Final pushed commit and matching CI are recorded on PR #505.
 - Product milestones 1 and 8 remain incomplete. Broader workflows, touch/accessibility, visual-reference acceptance and independent electrical/release review remain required. Production promotion stays gated; this work does not mark the complete product or release checklist as finished.
+
+## Shared camera and edit-history checkpoint — 2026-11-09
+
+| Category / checkpoint | Completion criterion | Evidence |
+| --- | --- | --- |
+| Workspace camera | Scale/pan all geometry together; keep coordinate conversion reversible and offer a bounded Fit reset. | Six three-view/viewport zoom cases, pointer pan and eight localized Fit checks passed. |
+| Editor integrity | Keep schematic terminals aligned and preserve native schema, physical pads, nets and history across zoomed edits. | Schematic alignment and drag/Undo/Redo passed; PCB keyboard/pointer edits and native export parsing passed. |
+| Routing interaction | Empty board space accepts a zoomed waypoint and Escape discards its draft. | B.Cu via-start, center waypoint and cancellation passed; automated snap/bounds checks passed. |
+| Required checks and synchronization | Full suite, syntax/library checks and reviewed staging pass; pushed branch matches local with successful current-head CI. | Local 393/393 tests, syntax and library validation passed. Final commit/equality/CI evidence is recorded on PR #505 after push. |
+| Production promotion | Required independent reviews, protected merge and exact-commit Pages/browser verification pass. | Not performed: draft PR #505 has no reviews; release prerequisites remain unmet. |
+
+See `CANVAS_CAMERA_ACCEPTANCE.md` for measured results, reproducible checks, exclusions and remaining scope. The product-wide milestones remain open; the delivery checkpoint remains four of five only after matching-head synchronization/CI. These changes do not establish full visual, touch, electrical or manufacturing acceptance.

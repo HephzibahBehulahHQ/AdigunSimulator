@@ -5,6 +5,10 @@ import { runInNewContext } from "node:vm";
 import { TRANSLATIONS } from "../js/i18n.mjs";
 import { runProjectAnalysis } from "../js/analysis-dispatch.mjs";
 import { pcbCopperPads } from "../js/pcb-vias.mjs";
+import { CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera, canvasClientPoint } from "../js/canvas-camera.mjs";
+import { pcbPreviewPointToBoardMm } from "../js/pcb-preview.mjs";
+import { parseProject, serializeProject } from "../js/core.mjs";
+import { movePcbFootprint } from "../js/pcb-edit.mjs";
 
 const source = await readFile(new URL("../app.js", import.meta.url), "utf8");
 // Execute the actual UI functions with small DOM boundaries, not copies of their logic.
@@ -14,6 +18,62 @@ function uiFunction(name, nextName, globals) {
   assert.ok(start >= 0 && end > start);
   return runInNewContext(`${source.slice(start, end)}\n${name}`, globals);
 }
+
+test("the real Undo/Redo functions round-trip a fractional PCB move and preserve native nets", async () => {
+  const original = parseProject(await readFile(new URL("../examples/125-usbc-breakout.adigun.json", import.meta.url), "utf8"));
+  const moved = movePcbFootprint(original, "rd1", { x: 0.5, y: 0 }).project;
+  const state = { project: moved, history: [serializeProject(original)], future: [] };
+  const start = source.indexOf("function replaceProject("), end = source.indexOf("function updateSaveState(", start);
+  const actions = runInNewContext(`${source.slice(start, end)}\n({undo,redo})`, { state, parseProject, serializeProject, render() {}, log() {}, t: (k) => k, showDialog: (title, message) => assert.fail(message) });
+  actions.undo();
+  assert.deepEqual(state.project.pcbFabrication, original.pcbFabrication);
+  actions.redo();
+  assert.deepEqual(state.project.pcbFabrication, moved.pcbFabrication);
+  assert.deepEqual(state.project.nets, original.nets);
+  actions.undo();
+  assert.deepEqual(state.project.pcbFabrication, original.pcbFabrication);
+});
+
+test("rejected history snapshots leave the current project and both history stacks intact", () => {
+  for (const direction of ["undo", "redo"]) {
+    const state = { project: { id: "preserved" }, history: ['{"invalid":"previous"}'], future: ['{"invalid":"next"}'], botUnsavedOnly: true };
+    const before = JSON.stringify(state);
+    let dialogs = 0;
+    const start = source.indexOf("function replaceProject("), end = source.indexOf("function updateSaveState(", start);
+    const actions = runInNewContext(`${source.slice(start, end)}\n({undo,redo})`, { state, parseProject, serializeProject, render() {}, log() {}, t: (k) => k, showDialog: () => { dialogs++; } });
+    actions[direction]();
+    assert.equal(dialogs, 1);
+    assert.equal(JSON.stringify(state), before);
+  }
+});
+
+test("real canvas zoom and fit update the whole scene without changing the native project or tool", () => {
+  const project = { id: "unchanged-project" };
+  const state = { project, scale: 1, pan: { x: 25, y: -10 }, activeTool: "pcb-route" };
+  const scene = { style: {} };
+  const nodes = { "#design-canvas": { clientWidth: 680, clientHeight: 300, querySelector: () => scene }, "#zoom-level": {}, '[data-tool="zoom-in"]': {}, '[data-tool="zoom-out"]': {} };
+  const start = source.indexOf("function applyCanvasCamera(");
+  const end = source.indexOf("function renderCanvasFeedback(", start);
+  const { apply, zoom } = runInNewContext(`${source.slice(start, end)}\n({apply:applyCanvasCamera,zoom:changeCanvasZoom})`, {
+    state, $: (selector) => nodes[selector], CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera
+  });
+  apply();
+  zoom("zoom-in");
+  assert.equal(state.scale, 1.25);
+  assert.equal(nodes["#zoom-level"].textContent, "125%");
+  assert.match(scene.style.transform, /scale\(1\.25\)/);
+  assert.equal(state.project, project);
+  assert.equal(state.activeTool, "pcb-route");
+  for (let i = 0; i < 20; i++) zoom("zoom-in");
+  assert.equal(state.scale, 8);
+  assert.equal(nodes['[data-tool="zoom-in"]'].disabled, true);
+  zoom("fit");
+  assert.equal(state.scale, 1);
+  assert.equal(state.pan.x, 0);
+  assert.equal(state.pan.y, 0);
+  assert.equal(nodes['[data-tool="zoom-in"]'].disabled, false);
+  assert.equal(state.project, project);
+});
 
 test("Escape closes an application menu and restores focus without consuming unrelated keys", () => {
   let focused = 0, prevented = 0;
@@ -103,6 +163,28 @@ test("Enter and Space select a PCB via through the real route interaction handle
     state.activeTool = "select";
     assert.equal(activate(event), false);
   }
+});
+
+test("route board clicks use zoomed coordinates, snap to millimetres and reject points outside the board", async () => {
+  const project = parseProject(await readFile(new URL("../examples/125-usbc-breakout.adigun.json", import.meta.url), "utf8"));
+  const state = { activeView: "pcb", activeTool: "pcb-route", project, pcbRouteDraft: { pointsMm: [[2, 3]] } };
+  const rect = { left: 100, top: 80, width: 1020, height: 450 };
+  const svg = { getBoundingClientRect: () => rect };
+  const click = uiFunction("handlePcbRouteCanvasClick", "function handlePcbRouteKeydown(", {
+    state, canvasClientPoint, pcbPreviewPointToBoardMm, $: () => ({ checked: true }), renderCanvas() {}
+  });
+  const event = (worldX, worldY) => ({ clientX: rect.left + worldX * 1.5, clientY: rect.top + worldY * 1.5,
+    target: { closest: (selector) => selector === "#design-canvas" ? {} : selector === ".pcb-preview-svg" ? svg : null } });
+  const before = serializeProject(project);
+  assert.equal(click(event(434, 223)), true);
+  assert.deepEqual(state.pcbRouteDraft.pointsMm.at(-1), [30, 17]);
+  assert.equal(state.pcbRouteHintKey, "pcbRouteWaypoint");
+  click(event(434, 223));
+  assert.equal(state.pcbRouteDraft.pointsMm.length, 2);
+  click(event(20, 20));
+  assert.equal(state.pcbRouteHintKey, "pcbRouteBlocked");
+  assert.equal(state.pcbRouteDraft.pointsMm.length, 2);
+  assert.equal(serializeProject(project), before);
 });
 
 test("localization updates every placeholder and image alt without aborting startup", () => {

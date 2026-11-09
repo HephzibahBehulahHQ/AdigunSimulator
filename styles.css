@@ -243,7 +243,6 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .canvas-area { align-self: start; }
 .canvas-area:has(> .design-canvas.pcb) { grid-template-rows: auto auto auto auto; }
 .canvas-area:not(.has-overview) > .design-canvas.pcb { min-height: 0; aspect-ratio: 680 / 300; align-self: start; }
-.schematic .placed-component { min-width: 4.2rem; }
 .schematic .part-body { border-radius: .18rem; background: #10263b; }
 .schematic .passive-resistor .part-body { color: #f0bd77; background: transparent; border-color: #e0ad70; }
 .schematic .diode-led-red .part-body { color: #ff7272; background: #371923; }
@@ -346,3 +345,12 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 @media (max-width: 520px) {
   .identity { flex-wrap: wrap; }
 }
+
+/* The main canvas uses one 680 x 300 world for SVG and HTML geometry. */
+#design-canvas > .canvas-scene { inset: auto; left: 0; top: 0; width: 680px; height: 300px; transform-origin: 0 0; }
+#design-canvas .placed-component { left: var(--x); top: var(--y); transform: none; }
+#design-canvas.schematic .placed-component { border: 0; }
+#design-canvas.schematic .placed-component:is(:hover, .is-selected) { box-shadow: 0 0 0 1px var(--gold); }
+
+/* Empty board space must receive route-waypoint clicks through the passive SVG. */
+.is-pcb-route-mode .pcb-board-outline { pointer-events: all; }

@@ -7,6 +7,7 @@ import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } fro
 import { pcbCopperPads } from "./js/pcb-vias.mjs";
 import { movePcbFootprint } from "./js/pcb-edit.mjs";
 import { createPcbRoute } from "./js/pcb-routing.mjs";
+import { CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera, canvasClientPoint, canvasClientDelta } from "./js/canvas-camera.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
@@ -254,17 +255,25 @@ function replaceProject(project, { dirty = true } = {}) {
 
 function undo() {
   if (!state.history.length) return log("[INFO] There is no earlier local edit to undo.");
+  let restored;
+  try { restored = parseProject(state.history.at(-1)); }
+  catch (error) { showDialog(t("undo"), error.message); log(`[UNDO BLOCKED] ${error.message}`); return; }
   state.botUnsavedOnly = false;
   state.future.push(serializeProject(state.project));
-  replaceProject(parseProject(state.history.pop()));
+  state.history.pop();
+  replaceProject(restored);
   log("[UNDO] Restored the previous local project state.");
 }
 
 function redo() {
   if (!state.future.length) return log("[INFO] There is no later local edit to redo.");
+  let restored;
+  try { restored = parseProject(state.future.at(-1)); }
+  catch (error) { showDialog(t("redo"), error.message); log(`[REDO BLOCKED] ${error.message}`); return; }
   state.botUnsavedOnly = false;
   state.history.push(serializeProject(state.project));
-  replaceProject(parseProject(state.future.pop()));
+  state.future.pop();
+  replaceProject(restored);
   log("[REDO] Restored the next local project state.");
 }
 
@@ -568,6 +577,29 @@ function commitBreadboardEdit(project, message) {
   log(message);
 }
 
+function applyCanvasCamera() {
+  const canvas = $("#design-canvas"), scene = canvas.querySelector(".canvas-scene");
+  const camera = createCanvasCamera(canvas.clientWidth, canvas.clientHeight, state.scale, state.pan);
+  if (!scene || !camera) return null;
+  state.scale = camera.zoom;
+  state.pan = camera.pan;
+  scene.style.transform = `translate(${camera.x}px, ${camera.y}px) scale(${camera.scale})`;
+  $("#zoom-level").textContent = `${Math.round(camera.zoom * 100)}%`;
+  $('[data-tool="zoom-in"]').disabled = camera.zoom >= CANVAS_ZOOM.max;
+  $('[data-tool="zoom-out"]').disabled = camera.zoom <= CANVAS_ZOOM.min;
+  return camera;
+}
+
+function changeCanvasZoom(tool) {
+  const current = applyCanvasCamera();
+  if (!current) return;
+  const next = tool === "fit" ? createCanvasCamera(current.width, current.height)
+    : zoomCanvasCamera(current, current.zoom * (tool === "zoom-in" ? CANVAS_ZOOM.step : 1 / CANVAS_ZOOM.step));
+  state.scale = next.zoom;
+  state.pan = next.pan;
+  applyCanvasCamera();
+}
+
 function renderCanvasFeedback(issues, label) {
   $("#canvas-view-label").textContent = label;
   $("#view-reconciliation").hidden = issues.length === 0;
@@ -605,7 +637,13 @@ function renderCanvas() {
       : netSvg(state.project, state.activeView, unavailable);
   const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? t("schematicLayoutPreview") : (hasPcbData ? t("pcbStoredLayoutPreview") : t("pcbNoFootprintData"));
   renderCanvasFeedback(issues, label);
-  canvas.innerHTML = `<div class="canvas-scene" style="--pan-x:${state.pan.x}px;--pan-y:${state.pan.y}px">${isPcb && hasPcbData ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData"), state.pcbRouteDraft) : surface}${wires}${parts}</div>`;
+  canvas.innerHTML = `<div class="canvas-scene">${isPcb && hasPcbData ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData"), state.pcbRouteDraft) : surface}${wires}${parts}</div>`;
+  applyCanvasCamera();
+  ["select", "pan"].forEach((tool) => {
+    const button = $(`[data-tool="${tool}"]`);
+    button.classList.toggle("active", state.activeTool === tool);
+    button.setAttribute("aria-pressed", String(state.activeTool === tool));
+  });
   $("#schematic-wire-mode").setAttribute("aria-pressed", String(state.schematicWireMode));
   $("#schematic-wire-status").textContent = !state.schematicWireMode ? "" : state.schematicWireStart ? t("schematicWireNext") : t("schematicWireStart");
   $("#pcb-route-mode").disabled = !hasPcbData;
@@ -1496,7 +1534,7 @@ function handlePcbRouteCanvasClick(event) {
   if (!svg || !state.pcbRouteDraft) return false;
   const rect = svg.getBoundingClientRect();
   if (!rect.width || !rect.height) return true;
-  const viewPoint = [(event.clientX - rect.left) * 680 / rect.width, (event.clientY - rect.top) * 300 / rect.height];
+  const viewPoint = canvasClientPoint({ x: event.clientX, y: event.clientY }, rect);
   const point = pcbPreviewPointToBoardMm(state.project, viewPoint);
   const board = state.project.pcbFabrication?.board;
   if (!point || point[0] < 0 || point[1] < 0 || point[0] > board.widthMm || point[1] > board.heightMm) {
@@ -1596,16 +1634,13 @@ document.addEventListener("click", (event) => {
   if (outputTab) { state.activeOutput = outputTab.dataset.output; renderOutput(); }
   const tool = event.target.closest("[data-tool]");
   if (tool) {
-    if (tool.dataset.tool === "zoom-in") state.scale = Math.min(1.5, state.scale + 0.1);
-    if (tool.dataset.tool === "zoom-out") state.scale = Math.max(0.6, state.scale - 0.1);
+    if (["zoom-in", "zoom-out", "fit"].includes(tool.dataset.tool)) { changeCanvasZoom(tool.dataset.tool); return; }
     if (["select", "pan"].includes(tool.dataset.tool)) { state.activeTool = tool.dataset.tool; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
     if (tool.dataset.tool === "pcb-route") {
       if (state.activeTool === "pcb-route") { state.activeTool = "select"; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
       else { activateView("pcb"); state.activeTool = "pcb-route"; state.pcbRouteDraft = null; state.pcbRouteHintKey = null; }
     }
     $$("[data-tool]").forEach((button) => button.classList.toggle("active", button === tool && !["zoom-in", "zoom-out"].includes(tool.dataset.tool)));
-    $("#zoom-level").textContent = `${Math.round(state.scale * 100)}%`;
-    $("#design-canvas").style.setProperty("--canvas-scale", state.scale);
     if (["select", "pan", "pcb-route"].includes(tool.dataset.tool)) renderCanvas();
   }
   const collapse = event.target.closest("[data-collapse]");
@@ -1703,6 +1738,12 @@ document.addEventListener("pointerdown", (event) => {
   const component = event.target.closest(".placed-component");
   const pcbFootprint = state.activeView === "pcb" && state.activeTool === "select" ? event.target.closest(".pcb-footprint-hit") : null;
   const point = { x: event.clientX, y: event.clientY };
+  if (state.activeTool === "pan") {
+    state.drag = { mode: "pan", pointerId: event.pointerId, start: point, startPan: { ...state.pan }, canvas };
+    canvas.setPointerCapture?.(event.pointerId);
+    event.preventDefault();
+    return;
+  }
   if (pcbFootprint) {
     const svg = pcbFootprint.ownerSVGElement;
     state.drag = { mode: "move-pcb", pointerId: event.pointerId, instanceId: pcbFootprint.dataset.pcbFootprint, start: point, svg, canvas };
@@ -1717,10 +1758,6 @@ document.addEventListener("pointerdown", (event) => {
     canvas.setPointerCapture?.(event.pointerId);
     return;
   }
-  if (!component && state.activeTool === "pan") {
-    state.drag = { mode: "pan", pointerId: event.pointerId, start: point, startPan: { ...state.pan }, canvas };
-    canvas.setPointerCapture?.(event.pointerId);
-  }
 });
 
 document.addEventListener("pointermove", (event) => {
@@ -1728,9 +1765,8 @@ document.addEventListener("pointermove", (event) => {
   const deltaX = event.clientX - state.drag.start.x;
   const deltaY = event.clientY - state.drag.start.y;
   if (state.drag.mode === "pan") {
-    state.pan = { x: Math.max(-120, Math.min(120, state.drag.startPan.x + deltaX)), y: Math.max(-80, Math.min(80, state.drag.startPan.y + deltaY)) };
-    const scene = $("#design-canvas .canvas-scene");
-    if (scene) { scene.style.setProperty("--pan-x", `${state.pan.x}px`); scene.style.setProperty("--pan-y", `${state.pan.y}px`); }
+    state.pan = { x: state.drag.startPan.x + deltaX, y: state.drag.startPan.y + deltaY };
+    applyCanvasCamera();
     return;
   }
   if (state.drag.mode === "move-pcb") {
@@ -1743,11 +1779,10 @@ document.addEventListener("pointermove", (event) => {
     if (group) group.setAttribute("transform", `translate(${viewX} ${viewY})`);
     return;
   }
-  const rect = state.drag.canvas.getBoundingClientRect();
-  const scaleX = 680 / rect.width;
-  const scaleY = 300 / rect.height;
-  const x = state.drag.startPosition[0] + (deltaX * scaleX);
-  const y = state.drag.startPosition[1] + (deltaY * scaleY);
+  const delta = canvasClientDelta({ x: deltaX, y: deltaY }, state.drag.canvas.querySelector(".canvas-scene").getBoundingClientRect());
+  if (!delta) return;
+  const x = state.drag.startPosition[0] + delta.x;
+  const y = state.drag.startPosition[1] + delta.y;
   const visual = state.drag.canvas.querySelector(`[data-instance-id="${CSS.escape(state.drag.instanceId)}"]`);
   if (visual) { visual.style.setProperty("--x", `${x}px`); visual.style.setProperty("--y", `${y}px`); }
 });
@@ -1757,7 +1792,8 @@ document.addEventListener("pointercancel", (event) => {
   const drag = state.drag;
   state.drag = null;
   drag.canvas.releasePointerCapture?.(event.pointerId);
-  if (drag.mode === "move-pcb") renderCanvas();
+  if (drag.mode === "pan") state.pan = drag.startPan;
+  renderCanvas();
 });
 
 document.addEventListener("pointerup", (event) => {
@@ -1793,9 +1829,10 @@ document.addEventListener("pointerup", (event) => {
     return;
   }
   if (drag.mode !== "move") return;
-  const rect = drag.canvas.getBoundingClientRect();
-  const x = drag.startPosition[0] + ((event.clientX - drag.start.x) * (680 / rect.width));
-  const y = drag.startPosition[1] + ((event.clientY - drag.start.y) * (300 / rect.height));
+  const delta = canvasClientDelta({ x: event.clientX - drag.start.x, y: event.clientY - drag.start.y }, drag.canvas.querySelector(".canvas-scene").getBoundingClientRect());
+  if (!delta || Math.hypot(delta.x, delta.y) < 0.001) { renderCanvas(); return; }
+  const x = drag.startPosition[0] + delta.x;
+  const y = drag.startPosition[1] + delta.y;
   captureHistory();
   state.project = moveComponent(state.project, drag.instanceId, state.activeView, [x, y], { snap: $("#snap-toggle").checked });
   state.selectedInstanceId = drag.instanceId;
@@ -2046,6 +2083,7 @@ async function loadStarterExample() {
 }
 
 render();
+new ResizeObserver(applyCanvasCamera).observe($("#design-canvas"));
 if (state.recoveredDraft) log("[RECOVERY] Restored the latest unsaved project saved in this browser.");
 if (initialProject.fresh) loadStarterExample();
 

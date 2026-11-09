@@ -15,7 +15,7 @@ export function movePcbFootprint(project,instanceId,deltaMm){
  const next=clone(project);let updatedRoutePoints=0;
  next.pcbFabrication.pads=next.pcbFabrication.pads.map(p=>p.instanceId===instanceId?{...p,xMm:p.xMm+dx,yMm:p.yMm+dy}:p);
  next.pcbFabrication.routes=next.pcbFabrication.routes.map(route=>{const anchors=byNet.get(route.netId)??[];if(!anchors.length)return route;let changed=false;const pointsMm=(route.pointsMm??[]).map(pt=>{if(!Array.isArray(pt)||pt.length!==2||!anchors.some(a=>close(a,pt)))return pt;changed=true;updatedRoutePoints++;return[pt[0]+dx,pt[1]+dy];});return changed?{...route,pointsMm}:route;});
- const scale=getPcbPreviewScale(board),i=next.components.findIndex(c=>c.instanceId===instanceId);if(i>=0&&scale){const c=next.components[i],[x=120,y=120]=c.position?.pcb??[];next.components[i]={...c,position:{...c.position,pcb:[x+dx*scale,y+dy*scale]}};}
+ const scale=getPcbPreviewScale(board),i=next.components.findIndex(c=>c.instanceId===instanceId);if(i>=0&&scale){const c=next.components[i],[x=120,y=120]=c.position?.pcb??[];next.components[i]={...c,position:{...c.position,pcb:[Math.round(x+dx*scale),Math.round(y+dy*scale)]}};}
  if(next.metadata)next.metadata={...next.metadata,updatedAt:new Date().toISOString()};return{status:"complete",project:next,movedPadCount:pads.length,updatedRoutePoints};
 }
 

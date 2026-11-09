@@ -4793,7 +4793,7 @@ test("PCB footprint movement keeps pad anchors and attached route endpoints toge
  assert.equal(result.status,"complete");assert.equal(result.movedPadCount,2);assert.equal(result.updatedRoutePoints,2);
  assert.deepEqual(result.project.pcbFabrication.pads.slice(0,2).map(p=>[p.xMm,p.yMm]),[[7,4],[12,4]]);
  assert.deepEqual(result.project.pcbFabrication.routes.map(r=>r.pointsMm),[[[7,4],[6,5]],[[12,4],[15,5],[20,10]],[[2,2],[2,3]]]);
- assert.deepEqual(result.project.components[0].position,{pcb:[120.8,89.6],schematic:[120,120]});
+ assert.deepEqual(result.project.components[0].position,{pcb:[121,90],schematic:[120,120]});
  assert.deepEqual(project,before,"the operation must not mutate the source project");
 });
 test("PCB footprint movement rejects board-edge overflow without changing the source",()=>{
