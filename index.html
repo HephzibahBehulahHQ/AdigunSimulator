@@ -376,12 +376,15 @@
         <div class="inspector-tabs" role="tablist"><button class="inspector-tab active" type="button" data-inspector="component" data-i18n="component">Component</button><button class="inspector-tab" type="button" data-inspector="project" data-i18n="project">Project</button><button class="inspector-tab" type="button" data-inspector="simulation" data-i18n="simulation">Simulation</button></div>
         <div class="inspector-content">
         <form id="component-form" class="property-form">
-          <label><span data-i18n="type">Type</span> <input id="property-type" readonly /></label>
-          <label><span data-i18n="reference">Reference</span> <input id="property-reference" required /></label>
-          <label><span data-i18n="value">Value</span> <input id="property-value" required /></label>
-          <label><span data-i18n="libraryStatus">Library status</span> <input id="property-status" readonly /></label>
-          <button class="outline-button" type="submit" data-i18n="applyProperties">Apply properties</button>
-          <button id="remove-component" class="secondary-button" type="button" data-i18n="removeComponent" disabled>Remove component</button>
+          <p id="component-empty">Select a component on the canvas to edit its properties.</p>
+          <label data-component-content><span data-i18n="type">Type</span> <input id="property-type" readonly /></label>
+          <label data-component-content><span data-i18n="reference">Reference</span> <input id="property-reference" data-component-field="reference" aria-describedby="component-property-error" maxlength="64" required /></label>
+          <label data-component-content><span data-i18n="value">Value</span> <input id="property-value" data-component-field="value" aria-describedby="component-property-error" maxlength="4000" required /></label>
+          <label data-component-content><span data-i18n="libraryStatus">Library status</span> <input id="property-status" readonly /></label>
+          <div id="component-schema-fields" data-component-content></div>
+          <p id="component-property-error" role="status" aria-live="polite"></p>
+          <button class="outline-button" type="submit" data-component-content data-i18n="applyProperties">Apply properties</button>
+          <button id="remove-component" class="secondary-button" type="button" data-component-content data-i18n="removeComponent" disabled>Remove component</button>
         </form>
         <section id="pcb-footprint-details" class="simulation-control hidden" aria-live="polite">
           <h3 data-i18n="pcbFootprintProperties">PCB footprint</h3>

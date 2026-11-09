@@ -1,4 +1,5 @@
 import { reviewTestPointCoverage } from "./test-point-coverage.mjs";
+import { netEdges, splitNetEdges } from "./net-edges.mjs";
 import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs";
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
 import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
@@ -445,10 +446,12 @@ export function connectPins(project, firstEndpoint, secondEndpoint) {
   const secondNet = next.nets.find((net) => net.endpoints.includes(secondEndpoint));
   if (firstNet && firstNet === secondNet) return next;
   if (firstNet && secondNet) {
+    if (firstNet.connections || secondNet.connections) firstNet.connections = [...netEdges(firstNet), ...netEdges(secondNet), [firstEndpoint, secondEndpoint]];
     firstNet.endpoints = [...new Set([...firstNet.endpoints, ...secondNet.endpoints])];
     next.nets = next.nets.filter((net) => net !== secondNet);
   } else if (firstNet || secondNet) {
     const target = firstNet ?? secondNet;
+    if (target.connections) target.connections.push([firstEndpoint, secondEndpoint]);
     const endpointToAdd = firstNet ? secondEndpoint : firstEndpoint;
     target.endpoints.push(endpointToAdd);
   } else {
@@ -464,6 +467,11 @@ export function disconnectPin(project, pinEndpoint) {
   const next = clone(project);
   const net = next.nets.find((item) => item.endpoints.includes(pinEndpoint));
   if (!net) return next;
+  if (net.connections) {
+    next.nets = next.nets.flatMap(item => item === net ? splitNetEdges(net, net.connections.filter(edge => !edge.includes(pinEndpoint)), new Set(next.nets.map(item => item.id))) : [item]);
+    next.metadata.updatedAt = new Date().toISOString();
+    return next;
+  }
   net.endpoints = net.endpoints.filter((item) => item !== pinEndpoint);
   if (net.endpoints.length < 2) next.nets = next.nets.filter((item) => item !== net);
   next.metadata.updatedAt = new Date().toISOString();
@@ -474,7 +482,9 @@ export function removeComponent(project, instanceId) {
   if (!project.components.some((item) => item.instanceId === instanceId)) throw new Error(`Component not found: ${instanceId}`);
   const next = clone(project);
   next.components = next.components.filter((item) => item.instanceId !== instanceId);
+  const usedNetIds = new Set(next.nets.map(net => net.id));
   next.nets = next.nets.flatMap((net) => {
+    if (net.connections) return splitNetEdges(net, net.connections.filter(edge => edge.every(endpoint => !endpoint.startsWith(`${instanceId}:`))), usedNetIds);
     const endpoints = net.endpoints.filter((item) => !item.startsWith(`${instanceId}:`));
     return endpoints.length >= 2 ? [{ ...net, endpoints }] : [];
   });
@@ -504,6 +514,11 @@ export function validateProject(project) {
     ids.add(item.instanceId);
     if (typeof item.reference !== "string" || !item.reference.trim() || references.has(item.reference)) errors.push({ rule: "REFERENCE", message: `Reference designators must be unique (${item.reference || "unnamed"}).` });
     references.add(item.reference);
+    const geometry = item.geometry?.schematic;
+    if (geometry && (!Number.isFinite(geometry.width) || geometry.width < 28 || geometry.width > 240 || !Number.isFinite(geometry.height) || geometry.height < 29 || geometry.height > 180 || !Number.isFinite(geometry.rotation) || Math.abs(geometry.rotation) > 360)) errors.push({ rule: "SYMBOL_GEOMETRY", message: `${item.reference} has invalid schematic geometry.` });
+    if (item.properties !== undefined && (!item.properties || typeof item.properties !== "object" || Array.isArray(item.properties))) errors.push({ rule: "COMPONENT_PROPERTIES", message: `${item.reference} properties must be an object.` });
+    const custom = item.properties?.custom;
+    if (custom !== undefined && (!Array.isArray(custom) || custom.length > 30 || custom.some(row => !row || typeof row.key !== "string" || !row.key.trim() || row.key.length > 64 || typeof row.value !== "string" || row.value.length > 4000) || new Set(custom.map(row => row.key.trim())).size !== custom.length)) errors.push({ rule: "CUSTOM_PROPERTIES", message: `${item.reference} has invalid custom fields.` });
     if (!findLibraryPart(item.libraryId)) warnings.push({ rule: "UNLOCKED_LIBRARY", message: `${item.reference || "Component"} is not in the starter library.` });
     for (const view of DESIGN_VIEWS) {
       const position = item.position?.[view];
@@ -537,6 +552,11 @@ export function validateProject(project) {
     else if (netIds.has(net.id)) errors.push({ rule: "DUPLICATE_NET_ID", message: `Net identifier ${net.id} is used more than once.` });
     netIds.add(net.id);
     if (!Array.isArray(net.endpoints)) { errors.push({ rule: "NET_ENDPOINTS_ARRAY", message: `Net ${net.id || "unnamed"} endpoints must be an array.` }); continue; }
+    if (net.connections !== undefined) {
+      const validEdges = Array.isArray(net.connections) && net.connections.length <= 5000 && net.connections.every(edge => Array.isArray(edge) && edge.length === 2 && edge[0] !== edge[1] && edge.every(pin => net.endpoints.includes(pin)));
+      const groups = validEdges ? splitNetEdges(net, net.connections, new Set(nets.map(item => item?.id))) : [];
+      if (!validEdges || groups.length !== 1 || groups[0].endpoints.length !== net.endpoints.length) errors.push({ rule: "NET_CONNECTIONS", message: `Net ${net.id} wire connections must form one connected graph containing its endpoints.` });
+    }
     if (net.endpoints.length < 2) warnings.push({ rule: "NET_ENDPOINTS", message: `Net ${net.id || "unnamed"} has fewer than two endpoints.` });
     const localEndpoints = new Set();
     for (const endpoint of net.endpoints ?? []) {

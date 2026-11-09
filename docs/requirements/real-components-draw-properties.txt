@@ -1,0 +1,252 @@
+Codex Prompt: Real Components, Draw Menu, Full Properties — Modeled on Falstad & EveryCircuit (AdigunSimulator)
+Reference
+Study these two sites (real, not dummy components):
+
+Falstad Circuit Simulator — https://www.falstad.com/circuit/
+
+Right-click any component → "Edit" to modify it.
+
+Hover a component → shows description + live state (voltage/current) in the status corner.
+
+Component list is a real library (resistors, capacitors, inductors, sources, switches, transistors, diodes, logic gates, 555, op-amps, transformers, relays, meters, etc.).
+
+EveryCircuit — https://everycircuit.com/app
+
+Left "Components" panel with categorized, real component library (see list below).
+
+Draw a component, place it, then click it → properties panel on the right shows all editable fields (value, units, etc.).
+
+Animated voltage/current visualization on wires and nodes.
+
+Part 1 — Real Component Library (not dummy)
+Replace all placeholder components with a real, categorized library mirroring EveryCircuit/Falstad. Minimum set:
+
+Independent sources
+
+Voltage source (DC)
+
+Current source (DC)
+
+Sine voltage source
+
+Ground
+
+Resistive
+
+Resistor
+
+Potentiometer
+
+Lamp (bulb)
+
+DC motor
+
+Reactive
+
+Capacitor
+
+Polarized capacitor
+
+Inductor
+
+Transformer
+
+Center-tapped transformer
+
+Switches
+
+SPST switch
+
+SPDT switch
+
+NO pushbutton
+
+NC pushbutton
+
+Relay
+
+Amplifiers
+
+Operational amplifier (op-amp)
+
+VCVS, VCCS, CCVS, CCCS (controlled sources)
+
+Diodes
+
+Diode
+
+Zener diode
+
+LED
+
+RGB LED
+
+7-segment display
+
+Transistors
+
+NPN, PNP, NMOS, PMOS
+
+Logic
+
+Clock, Toggle
+
+AND, OR, NOT, NAND, NOR, XOR, XNOR
+
+SR NOR latch, SR NAND latch
+
+D, T, JK flip-flops
+
+Integrated circuits
+
+555 timer
+
+Binary-to-7-segment
+
+Counter
+
+ADC, DAC
+
+Meters
+
+Voltmeter, Ammeter, Ohmmeter
+
+Each component has:
+
+A real SVG symbol (standard IEC/ANSI schematic symbol).
+
+Real electrical model (Ohm's law for R, Q=CV for C, V=L·di/dt for L, Shockley diode, Ebers-Moll/Gummel-Poon simplified for BJTs, square-law for MOSFETs, ideal op-amp with GBW, etc.) so it can actually simulate.
+
+Ports/pins with proper names (e.g. resistor has 1,2; op-amp has +,-,out,V+,V-; transistor has B,C,E).
+
+Editable parameters exposed in a schema (see Part 4).
+
+Load the library from a single registry file, e.g. src/components/library/index.ts — do not hardcode inside UI.
+
+Part 2 — Draw Menu → Place Components on Canvas (Falstad-style)
+Add a "Draw" button in the top menu bar (and/or a + Component in the left Components bar).
+
+Flow
+User clicks Draw (or opens the Components bar and picks a category).
+
+A searchable list of thousands of component names appears (grouped by category, with search box at top).
+
+User clicks a component name.
+
+The cursor enters placement mode — a ghost symbol follows the mouse over the canvas.
+
+User clicks on the canvas → component is placed at that point, snapped to grid.
+
+Component is auto-selected → Properties bar populates with its full spec (Part 4).
+
+Esc cancels placement mode. 
+R
+ rotates before placing.
+
+Rules
+Only one placement mode at a time.
+
+The list must be searchable and scrollable (thousands of entries — virtualize the list if needed).
+
+Works on mouse and touch (tap component → tap canvas to place).
+
+Part 3 — Top Menu Bar, Left Component Bar, Right Properties Bar (match Falstad/EveryCircuit layout)
+Top menu bar
+File: New, Open, Save, Export
+
+Edit: Undo, Redo, Cut, Copy, Paste, Delete
+
+Draw: opens the component search list (Part 2)
+
+Simulate: Run/Pause, Reset, Step, Time-step settings
+
+View: Toggle grid, Toggle animation, Zoom
+
+Scope: waveform viewer
+
+Options: IEC vs ANSI symbols, conventional vs electron current (everyCircuit setting)
+
+Help: shortcuts, about
+
+Left Components bar
+Categorized, collapsible sections (sources, resistive, reactive, switches, diodes, transistors, logic, ICs, meters, …).
+
+Search box at top.
+
+Each item shows real symbol + name.
+
+Click → starts placement mode (Part 2). Draggable as an alternative.
+
+Panel is toggleable (per the earlier fix — never destroys the canvas).
+
+Right Properties bar
+Shows the selected component's full spec (Part 4).
+
+Empty state: "Select a component to edit its properties."
+
+Toggleable, independent of canvas.
+
+Auto-opens when a component is selected/placed.
+
+Canvas
+Always mounted, centered, occupies ~90% width when both bars are closed.
+
+Grid + snap, pan (space-drag or middle-drag), zoom (wheel/pinch).
+
+Shows animated current (yellow dots) and voltage coloring (green/red/gray) — toggleable.
+
+Part 4 — Properties Bar: Full Spec for Selected Component
+When any component is selected (on placement or on click), the right bar shows every editable variable for that type, driven by a schema. Example for a resistor:
+
+text
+Resistor R1
+──────────────
+Reference     [R1]
+Description   [............]
+Resistance    [ 1000 ] Ω
+Tolerance     [ 5 ] %
+Power rating  [ 0.25 ] W
+Voltage       [ 5.00 ] V   (live)
+Current       [ 5.00 ] mA  (live)
+Power         [ 25.0 ] mW  (live)
+Position X    [ 120 ] px
+Position Y    [ 240 ] px
+Rotation      [ 0 ] °
+Part number   [ RC0603FR-071KL ]
+Notes         [ ........... ]
+Field types supported:
+
+text, number (with units: Ω, F, H, V, A, W, Hz, %, °C…), select, textarea, boolean, range (e.g. potentiometer slider 0–100%), color, key-value (custom vars).
+
+Also show live simulation values (V, I, P) that update in real time while the sim runs — read-only, refreshed each tick.
+
+For multi-pin parts (op-amp, transistor), show per-pin sections if relevant (e.g. transistor β, Vbe; MOSFET Vth, K).
+
+Two-way binding
+Editing in the bar → canvas updates live (label on component, geometry, symbol state).
+
+Moving/resizing on canvas → X/Y/rotation fields update live.
+
+All edits set isDirty = true and go into undo history.
+
+Use a single updateComponent(id, patch) action so canvas + bar share one code path.
+
+Part 5 — Wiring (must actually work)
+Click a pin → start wire; move mouse → rubber-band follows cursor; click another pin → wire completes.
+
+Wires render behind nodes, update when nodes move/resize, are selectable, deletable.
+
+Orthogonal or bezier routing, consistent style.
+
+Wires carry current animation during simulation (yellow moving dots) and voltage color when enabled.
+
+Acceptance Criteria
+□ Left bar lists real, categorized components (at least the set above) with real schematic symbols — no dummies.
+□ Clicking Draw (or a component in the left bar) opens a searchable list of thousands of component names.
+□ Picking a name enters placement mode; clicking on canvas places it.
+□ Placed/selected component immediately shows its full spec in the right Properties bar with all editable variables (value, units, voltage, current, tolerance, part number, position, rotation, custom vars…).
+□ Editing any field updates the canvas live; moving/resizing on canvas updates the fields live.
+□ Wires can be drawn pin-to-pin and persist; moving connected parts moves wires.
+□ Top menu bar contains File / Edit / Draw / Simulate / View / Scope / Options.
+□ Left bar, right bar, and canvas are independent — toggling bars never hides or unmounts the canvas.
+□ Layout, symbol style, and property panel behavior visibly match the reference sites (Falstad + EveryCircuit).

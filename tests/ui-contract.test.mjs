@@ -219,7 +219,7 @@ test("schematic wire tool connects named pins through the shared project net mod
   assert.match(html, /data-action="schematic-wire-mode"/);
   assert.match(html, /id="schematic-wire-status"/);
   assert.match(app, /data-schematic-endpoint=/);
-  assert.match(app, /schematicPinTarget && state\.schematicWireMode && state\.activeView === "schematic"/);
+  assert.match(app, /schematicPinTarget && state\.activeTool === "select" && state\.activeView === "schematic"/);
   assert.match(app, /connectPins\(state\.project, state\.schematicWireStart, endpoint\)/);
 });
 
@@ -245,7 +245,7 @@ test("PCB stored footprints can be moved through the synchronized pad and route 
   assert.match(edit, /OUT_OF_BOUNDS/);
   assert.match(preview, /tabindex="0"/);
   assert.match(app, /pcbFootprintTarget && state\.activeView === "pcb"/);
-  assert.match(app, /state\.selectedInstanceId = drag\.instanceId;\s+setInspector\("component"\);\s+if \(result\.status === "complete"\)/);
+  assert.match(app, /state\.selectedInstanceId = drag\.instanceId;\s+state\.selectedWire = null;\s+setInspector\("component"\);\s+if \(result\.status === "complete"\)/);
   assert.match(app, /document\.addEventListener\("pointercancel"/);
   assert.match(html, /id="pcb-footprint-details"/);
   assert.match(app, /pcb-footprint-pad-count/);

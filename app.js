@@ -1,7 +1,11 @@
 import { STARTER_LIBRARY, addComponent, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
-import { schematicPinPoint, schematicSymbolSize } from "./js/schematic-pin-layout.mjs";
+import { schematicPinPoint, schematicSymbolSize, schematicGeometry } from "./js/schematic-pin-layout.mjs";
+import { editComponentField, editCustomProperties } from "./js/component-edit.mjs";
+import { createComponentPropertiesUi } from "./js/component-properties-ui.mjs";
+import { netEdges, removeNetEdge } from "./js/net-edges.mjs";
+import { routeSchematicConnection, schematicRoutePath } from "./js/schematic-routing.mjs";
 import { attachMenuDismissal } from "./js/menu-dismissal.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
@@ -103,6 +107,8 @@ const state = {
   openMenuKey: null,
   activeOutput: "output",
   selectedNetId: null,
+  selectedWire: null,
+  wireCursor: null,
   activeTool: "select",
   pan: { x: 0, y: 0 },
   drag: null,
@@ -224,6 +230,7 @@ function applyBotSuggestion() {
 }
 
 const projectSession = createProjectSession(state, { storage: () => localStorage, onReset: () => {
+  state.selectedWire = null; state.wireCursor = null;
   setSimulationWorkerBusy(false);
   botLiveCopilot.dispose();
   botLiveCopilot.setGoal("");
@@ -265,6 +272,7 @@ async function openSavedProject() {
 function saveLocal() {
   try {
     localStorage.setItem(STORAGE_KEY, serializeProject(state.project));
+    componentPropertiesUi.resetSession();
     projectSession.markSaved("local");
     updateSaveState();
     log("[SAVED] Project stored locally in this browser.");
@@ -272,6 +280,7 @@ function saveLocal() {
 }
 
 function captureHistory() {
+  componentPropertiesUi.resetSession();
   state.lastAnalysis = null;
   state.history.push(serializeProject(state.project));
   if (state.history.length > 30) state.history.shift();
@@ -282,7 +291,8 @@ function captureHistory() {
 function replaceProject(project, { dirty = true } = {}) {
   state.lastAnalysis = null;
   state.project = project;
-  state.selectedInstanceId = project.components[0]?.instanceId ?? null;
+  state.selectedInstanceId = project.components.some(item => item.instanceId === state.selectedInstanceId) ? state.selectedInstanceId : project.components[0]?.instanceId ?? null;
+  state.selectedWire = null; state.wireCursor = null;
   state.pcbSelectedViaId = null;
   state.pcbViaDraft = null;
   state.dirty = dirty;
@@ -363,7 +373,7 @@ function renderLibrary() {
   const categoryOrder = [...categoryLabels.keys(), ...new Set(matching.map(part => part.category))];
   const categories = [...new Set(categoryOrder)].filter(category => matching.some(part => part.category === category));
   const partRow = (part) => `
-    <li><button type="button" class="component-item ${part.id === state.selectedLibraryId ? "selected" : ""}" data-library-id="${escape(part.id)}">
+    <li><button type="button" class="component-item ${part.id === state.selectedLibraryId ? "selected" : ""}" data-library-id="${escape(part.id)}" draggable="true">
       <span class="component-icon" aria-hidden="true">${renderSchematicSymbol(part) ?? "◇"}</span><span><strong>${escape(part.type)}</strong><small>${escape(part.defaultValue)} · ${escape(part.simulation)}</small></span>
     </button></li>`;
   $("#component-list").innerHTML = categories.map((category, index) => {
@@ -387,14 +397,71 @@ function componentVisual(component, view) {
   const y = component.position?.[view]?.[1] ?? 120;
   const className = component.libraryId.replaceAll(".", "-");
   const symbol = view === "schematic" ? renderSchematicSymbol(part) : null;
-  const symbolSize = schematicSymbolSize(component.libraryId);
+  const symbolSize = view === "schematic" ? schematicGeometry(component) : schematicSymbolSize(component.libraryId);
   const body = symbol ?? `<span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span>`;
-  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px;--symbol-width:${symbolSize.width}px;--symbol-height:${symbolSize.height}px" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value" title="${escape(component.value)}">${escape(component.value)}</span></button>`;
+  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px;--symbol-width:${symbolSize.width}px;--symbol-height:${symbolSize.height}px;--symbol-rotation:${symbolSize.rotation ?? 0}deg" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value" title="${escape(component.value)}">${escape(component.value)}</span></button>`;
 }
 
 function componentCenter(component, view) {
   const [x = 120, y = 120] = component.position?.[view] ?? [];
   return { x: x + 28, y: y + 29 };
+}
+
+function resizeHandle() {
+  const component = selectedComponent();
+  if (!component || state.activeView !== "schematic" || state.activeTool !== "select" || state.schematicWireMode) return "";
+  const geometry = schematicGeometry(component), [x, y] = component.position.schematic;
+  return `<div class="component-selection" style="left:${x}px;top:${y}px;width:${geometry.width}px;height:${geometry.height}px"><button type="button" class="component-resize" data-resize-instance="${escape(component.instanceId)}" aria-label="Resize ${escape(component.reference)}" title="Resize ${escape(component.reference)}"></button></div>`;
+}
+
+function commitComponentEdit(next, capture = true) {
+  if (JSON.stringify(next.components) === JSON.stringify(state.project.components)) return;
+  if (capture) captureHistory();
+  state.project = next;
+  state.lastAnalysis = null;
+  state.lastValidation = null;
+  state.dirty = true;
+  renderCanvas();
+  renderInspector();
+  updateSaveState();
+  renderValidation();
+  notifyBotCanvas();
+}
+
+function updateNodeProps(instanceId, key, value, capture = true) {
+  commitComponentEdit(editComponentField(state.project, instanceId, key, value), capture);
+}
+
+function placeLibraryComponent(libraryId, point = null) {
+  const part = findLibraryPart(libraryId);
+  if (!part) return;
+  // PCB land patterns must come from native package data, never an arbitrary dropped symbol.
+  const view = state.activeView === "pcb" || !part.views?.[state.activeView] ? "schematic" : state.activeView;
+  let project = addComponent(state.project, libraryId);
+  const id = project.components.at(-1).instanceId;
+  if (point) project = moveComponent(project, id, view, point, { snap: $("#snap-toggle").checked });
+  captureHistory();
+  state.project = project;
+  state.selectedInstanceId = id;
+  state.selectedWire = null;
+  state.dirty = true;
+  state.lastValidation = null;
+  state.activeView = view;
+  setInspector("component");
+  activateView(view);
+  render();
+}
+
+function deleteSelectedWire() {
+  if (!state.selectedWire) return false;
+  const { netId, first, second } = state.selectedWire;
+  const next = removeNetEdge(state.project, netId, first, second);
+  if (next !== state.project) {
+    captureHistory(); state.project = next; state.dirty = true; state.lastValidation = null;
+  }
+  state.selectedWire = null; state.selectedNetId = null;
+  render();
+  return true;
 }
 
 function netClass(netId) {
@@ -403,7 +470,7 @@ function netClass(netId) {
   return "net-signal";
 }
 
-function netSvg(project, view, unavailable = new Set()) {
+function netSvg(project, view, unavailable = new Set(), interactive = true) {
   const componentsById = new Map(project.components.map((component) => [component.instanceId, component]));
   const endpointPoint = (endpoint) => {
     const [instanceId, ...pinParts] = String(endpoint).split(":");
@@ -413,16 +480,18 @@ function netSvg(project, view, unavailable = new Set()) {
     const part = findLibraryPart(component.libraryId);
     return part ? schematicPinPoint(component, part.pins, pinParts.join(":")) : null;
   };
-  const paths = project.nets.flatMap((net) => {
-    const points = net.endpoints.map((endpoint) => ({ endpoint, point: endpointPoint(endpoint) })).filter((item) => item.point);
-    if (points.length < 2) return [];
-    const origin = points[0].point;
-    const path = points.slice(1).map(({ point }) => {
-      const bendX = Math.round((origin.x + point.x) / 2);
-      return `M${origin.x} ${origin.y} H${bendX} V${point.y} H${point.x}`;
-    }).join(" ");
-    return [`<path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""}" d="${path}" data-net="${escape(net.id)}"/>`];
-  }).join("");
+  const previousRoutes = [];
+  const paths = project.nets.flatMap(net => netEdges(net).map(([first, second]) => {
+    const origin = endpointPoint(first), point = endpointPoint(second);
+    if (!origin || !point) return "";
+    const route = routeSchematicConnection(project.components.filter(component => !unavailable.has(component.instanceId)), findLibraryPart, first, second, previousRoutes.filter(item => item.net !== net.id).map(item => item.route), netClass(net.id) === "net-ground" ? "bottom" : netClass(net.id) === "net-power" ? "top" : null);
+    if (!route) return `<text class="unrouted-wire" x="${origin.x}" y="${origin.y - 13}">${escape(net.id)}: route blocked</text>`;
+    previousRoutes.push({ net: net.id, route });
+    const path = schematicRoutePath(route);
+    const selected = state.selectedWire?.netId === net.id && state.selectedWire.first === first && state.selectedWire.second === second;
+    const attrs = interactive ? `data-wire-first="${escape(first)}" data-wire-second="${escape(second)}" data-wire-net="${escape(net.id)}" role="button" tabindex="0" aria-label="${escape(net.id)}: ${escape(first)} → ${escape(second)}"` : "";
+    return `<path class="wire-crossing-gap" d="${path}"/><path class="wire-hit ${selected ? "selected-wire" : ""}" d="${path}" ${attrs}/><path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""} ${selected ? "selected-wire" : ""}" d="${path}" data-net="${escape(net.id)}"/>`;
+  })).join("");
   const terminals = view === "schematic" ? project.components.flatMap((component) => {
     if (unavailable.has(component.instanceId)) return [];
     const pins = findLibraryPart(component.libraryId)?.pins ?? [];
@@ -432,13 +501,18 @@ function netSvg(project, view, unavailable = new Set()) {
       if (!point) return "";
       const net = project.nets.find((item) => item.endpoints.includes(endpoint));
       const side = point.side;
-      const labelX = point.x + (side === "left" ? -4 : 4);
-      const anchor = side === "left" ? "end" : "start";
+      const labelX = point.x + (side === "left" ? -4 : side === "right" ? 4 : 0);
+      const anchor = side === "left" ? "end" : side === "right" ? "start" : "middle";
       const origin = state.schematicWireStart === endpoint ? "is-wire-origin" : "";
-      return `<g class="schematic-pin-terminal schematic-pin-target ${net ? netClass(net.id) : "net-signal"} ${origin}" data-schematic-endpoint="${escape(endpoint)}" aria-label="${escape(endpoint)}"><circle class="schematic-pin-hit" cx="${point.x}" cy="${point.y}" r="8"/><circle class="schematic-pin-dot" cx="${point.x}" cy="${point.y}" r="2.4"/><text x="${labelX}" y="${point.y - 4}" text-anchor="${anchor}">${escape(pin)}</text></g>`;
+      return `<g class="schematic-pin-terminal schematic-pin-target ${net ? netClass(net.id) : "net-signal"} ${origin}" data-schematic-endpoint="${escape(endpoint)}" ${interactive ? 'role="button" tabindex="0"' : ""} aria-label="${escape(endpoint)}"><circle class="schematic-pin-hit" cx="${point.x}" cy="${point.y}" r="8"/><circle class="schematic-pin-dot" cx="${point.x}" cy="${point.y}" r="2.4"/><text x="${labelX}" y="${point.y - 4}" text-anchor="${anchor}">${component.libraryId === "ground.signal" ? "" : escape(pin)}</text></g>`;
     });
   }).join("") : "";
-  return `<svg class="wire-layer schematic-wire-layer" viewBox="0 0 680 300" aria-hidden="true">${paths}${terminals}</svg>`;
+  let draft = "";
+  if (interactive && state.schematicWireStart && state.wireCursor) {
+    const point = endpointPoint(state.schematicWireStart);
+    if (point) draft = `<path class="wire-draft" d="M${point.x} ${point.y} L${state.wireCursor[0]} ${state.wireCursor[1]}"/>`;
+  }
+  return `<svg class="wire-layer schematic-wire-layer" viewBox="0 0 680 300" ${interactive ? 'aria-label="Schematic wires and pins"' : 'aria-hidden="true"'}>${paths}${draft}${terminals}</svg>`;
 }
 
 
@@ -681,7 +755,7 @@ function renderCanvas() {
   [...pcbRouteLayerSelect.options].forEach((option) => { option.disabled = !pcbCopperLayers.includes(option.value); });
   if (!pcbCopperLayers.includes(pcbRouteLayerSelect.value)) pcbRouteLayerSelect.value = pcbCopperLayers.includes("F.Cu") ? "F.Cu" : (pcbCopperLayers[0] ?? "");
   const parts = isBreadboard && hasPhysicalMap
-    ? breadboardPinMarkers(state.project)
+    ? breadboardPinMarkers(state.project) + projection.components.filter(component => !Object.keys(state.project.breadboard.pinHoles).some(endpoint => endpoint.startsWith(`${component.instanceId}:`))).map(component => componentVisual(component, "breadboard")).join("")
     : hasPcbData ? "" : projection.components.map((component) => componentVisual(component, state.activeView)).join("");
   const surface = isBreadboard ? breadboardBoardSvg(state.project) : isPcb ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData")) : "";
   const wires = isBreadboard
@@ -690,7 +764,7 @@ function renderCanvas() {
       : netSvg(state.project, state.activeView, unavailable);
   const label = state.activeView === "breadboard" ? (hasPhysicalMap ? t("breadboardPhysicalMapLabel") : t("breadboardNoPhysicalMapLabel")) : state.activeView === "schematic" ? t("schematicLayoutPreview") : (hasPcbData ? t("pcbStoredLayoutPreview") : t("pcbNoFootprintData"));
   renderCanvasFeedback(issues, label);
-  canvas.innerHTML = `<div class="canvas-scene">${isPcb && hasPcbData ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData"), state.pcbRouteDraft) : surface}${wires}${parts}</div>`;
+  canvas.innerHTML = `<div class="canvas-scene">${isPcb && hasPcbData ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData"), state.pcbRouteDraft) : surface}${wires}${parts}${resizeHandle()}</div>`;
   applyCanvasCamera();
   ["select", "pan"].forEach((tool) => {
     const button = $(`[data-tool="${tool}"]`);
@@ -707,7 +781,7 @@ function renderCanvas() {
   $$('[data-tool]').forEach((button) => button.classList.toggle("active", button.dataset.tool === state.activeTool));
   const miniSchematic = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "schematic").length).map((component) => componentVisual(component, "schematic")).join("");
   const miniPcb = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "pcb").length).map((component) => componentVisual(component, "pcb")).join("");
-  $("#schematic-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "schematic", new Set(getViewReconciliationIssues(state.project, "schematic").map((issue) => issue.instanceId)))}${miniSchematic}</div>`;
+  $("#schematic-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "schematic", new Set(getViewReconciliationIssues(state.project, "schematic").map((issue) => issue.instanceId)), false)}${miniSchematic}</div>`;
   $("#pcb-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "pcb", new Set(getViewReconciliationIssues(state.project, "pcb").map((issue) => issue.instanceId)))}${miniPcb}</div>`;
   applyMiniCanvasCamera();
 }
@@ -716,8 +790,8 @@ function renderInspector() {
   const component = selectedComponent();
   const part = component && findLibraryPart(component.libraryId);
   $("#property-type").value = part?.type ?? "No component selected";
-  $("#property-reference").value = component?.reference ?? "";
-  $("#property-value").value = component?.value ?? "";
+  if (document.activeElement !== $("#property-reference")) $("#property-reference").value = component?.reference ?? "";
+  if (document.activeElement !== $("#property-value")) $("#property-value").value = component?.value ?? "";
   $("#property-status").value = part?.status ?? "Unresolved library part";
   const pcbPart = state.project.pcbFabrication?.parts?.find((item) => item.instanceId === component?.instanceId);
   const pcbPads = state.project.pcbFabrication?.pads?.filter((item) => item.instanceId === component?.instanceId) ?? [];
@@ -738,6 +812,7 @@ function renderInspector() {
   $("#project-locale").value = state.project.metadata.locale;
   $("#component-form button").disabled = !component;
   $("#remove-component").disabled = !component;
+  componentPropertiesUi.render();
   renderConnections();
   renderBreadboardControls();
 }
@@ -1436,6 +1511,7 @@ function exportProject() {
     link.href = url;
     link.download = `${state.project.metadata.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "adigun-project"}.adigun.json`;
     link.click();
+    componentPropertiesUi.resetSession();
     projectSession.markSaved("export");
     updateSaveState();
     log("[EXPORTED] Native project download handed to the browser. Check your downloads for the saved file.");
@@ -1471,6 +1547,7 @@ function activateView(view) {
   if (view !== "pcb") { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; if (["pcb-route", "pcb-via"].includes(state.activeTool)) state.activeTool = "select"; }
   $$(".view-tab").forEach((tab) => { const active = tab.dataset.view === view; tab.classList.toggle("active", active); tab.setAttribute("aria-selected", String(active)); });
   renderCanvas();
+  renderInspector();
 }
 
 function setInspector(tab) {
@@ -1660,6 +1737,9 @@ function handleAppMenuKeydown(event) {
 
 
 document.addEventListener("click", (event) => {
+  const suppressCanvasClick = state.suppressCanvasClick;
+  state.suppressCanvasClick = false;
+  if (suppressCanvasClick && event.target.closest("#design-canvas")) return;
   document.querySelectorAll(".app-menu[open]").forEach((menu) => { if (!menu.contains(event.target)) menu.open = false; });
   if (pcbViaEditor.click(event)) return;
   if (handlePcbRouteCanvasClick(event)) return;
@@ -1683,10 +1763,14 @@ document.addEventListener("click", (event) => {
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (action) handleAction(action);
   const schematicPinTarget = event.target.closest("[data-schematic-endpoint]");
-  if (schematicPinTarget && state.schematicWireMode && state.activeView === "schematic") {
+  if (schematicPinTarget && state.activeTool === "select" && state.activeView === "schematic") {
+    state.schematicWireMode = true;
     const endpoint = schematicPinTarget.dataset.schematicEndpoint;
-    if (!state.schematicWireStart) { state.schematicWireStart = endpoint; renderCanvas(); return; }
+    if (!state.schematicWireStart) { state.schematicWireStart = endpoint; state.wireCursor = null; state.selectedWire = null; renderCanvas(); return; }
     if (state.schematicWireStart === endpoint) { state.schematicWireStart = null; renderCanvas(); return; }
+    if (state.project.nets.some(net => net.endpoints.includes(state.schematicWireStart) && net.endpoints.includes(endpoint))) {
+      state.schematicWireStart = null; state.schematicWireMode = false; state.wireCursor = null; renderCanvas(); return;
+    }
     try {
       captureHistory();
       state.project = connectPins(state.project, state.schematicWireStart, endpoint);
@@ -1701,6 +1785,16 @@ document.addEventListener("click", (event) => {
       showDialog(t("schematic"), error instanceof Error ? error.message : t("schematicWireFailed"));
     }
     return;
+  }
+  const wire = event.target.closest("[data-wire-net]");
+  if (wire && !state.schematicWireMode && state.activeTool === "select") {
+    state.selectedWire = { netId: wire.dataset.wireNet, first: wire.dataset.wireFirst, second: wire.dataset.wireSecond };
+    state.selectedNetId = wire.dataset.wireNet; state.selectedInstanceId = null;
+    renderCanvas(); renderInspector(); return;
+  }
+  if (event.target.closest("#design-canvas") && !event.target.closest("[data-instance-id], [data-schematic-endpoint], [data-wire-net], [data-resize-instance], [data-pcb-pad]") && !(state.breadboardPlacementMode && event.target.closest("[data-breadboard-hole]"))) {
+    state.selectedInstanceId = null; state.selectedWire = null; state.selectedNetId = null;
+    renderCanvas(); renderInspector();
   }
   const holeTarget = event.target.closest("[data-breadboard-hole]");
   if (holeTarget && state.breadboardPlacementMode && state.activeView === "breadboard") {
@@ -1718,7 +1812,7 @@ document.addEventListener("click", (event) => {
     renderLibrary();
   }
   const instanceButton = event.target.closest("[data-instance-id]");
-  if (instanceButton) { state.selectedInstanceId = instanceButton.dataset.instanceId; setInspector("component"); render(); showBotWiringExplanation(state.selectedInstanceId); }
+  if (instanceButton) { state.selectedWire = null; state.selectedInstanceId = instanceButton.dataset.instanceId; setInspector("component"); render(); showBotWiringExplanation(state.selectedInstanceId); }
   const viewButton = event.target.closest("[data-view]");
   if (viewButton) activateView(viewButton.dataset.view);
   const inspector = event.target.closest("[data-inspector]");
@@ -1801,6 +1895,8 @@ document.addEventListener("keydown", (event) => {
     }
     return;
   }
+  const schematicTarget = event.target.closest?.("[data-schematic-endpoint], [data-wire-net]");
+  if (schematicTarget && ["Enter", " "].includes(event.key)) { event.preventDefault(); schematicTarget.dispatchEvent(new MouseEvent("click", { bubbles: true })); return; }
   const target = event.target;
   const editingText = target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
   const modifier = event.ctrlKey || event.metaKey;
@@ -1813,6 +1909,7 @@ document.addEventListener("keydown", (event) => {
   if (modifier && key === "y") { event.preventDefault(); redo(); return; }
   if (modifier && key === "s") { event.preventDefault(); saveLocal(); return; }
   if (!editingText && (event.key === "Delete" || event.key === "Backspace")) {
+    if (deleteSelectedWire()) { event.preventDefault(); return; }
     const component = selectedComponent();
     if (!component) return;
     event.preventDefault();
@@ -1829,7 +1926,7 @@ document.addEventListener("keydown", (event) => {
 
 document.addEventListener("pointerdown", (event) => {
   const canvas = event.target.closest("#design-canvas");
-  if (!canvas) return;
+  if (!canvas || event.button !== 0) return;
   const component = event.target.closest(".placed-component");
   const pcbFootprint = state.activeView === "pcb" && state.activeTool === "select" ? event.target.closest(".pcb-footprint-hit") : null;
   const point = { x: event.clientX, y: event.clientY };
@@ -1846,16 +1943,28 @@ document.addEventListener("pointerdown", (event) => {
     event.preventDefault();
     return;
   }
+  const handle = event.target.closest("[data-resize-instance]");
+  if (handle && state.activeView === "schematic" && state.activeTool === "select") {
+    const item = selectedComponent(); if (!item) return;
+    state.drag = { mode: "resize", pointerId: event.pointerId, instanceId: item.instanceId, start: point, startGeometry: schematicGeometry(item), startProject: state.project, startDirty: state.dirty, canvas };
+    canvas.setPointerCapture?.(event.pointerId); event.preventDefault(); return;
+  }
   if (component && state.activeTool === "select") {
     const item = state.project.components.find((candidate) => candidate.instanceId === component.dataset.instanceId);
     if (!item) return;
-    state.drag = { mode: "move", pointerId: event.pointerId, instanceId: item.instanceId, start: point, startPosition: [...item.position[state.activeView]], canvas };
+    state.drag = { mode: "move", pointerId: event.pointerId, instanceId: item.instanceId, start: point, startPosition: [...item.position[state.activeView]], startProject: state.project, startDirty: state.dirty, canvas };
+    canvas.setPointerCapture?.(event.pointerId);
+    event.preventDefault();
     canvas.setPointerCapture?.(event.pointerId);
     return;
   }
 });
 
 document.addEventListener("pointermove", (event) => {
+  if (state.schematicWireMode && state.schematicWireStart && event.target.closest?.("#design-canvas")) {
+    state.wireCursor = canvasClientPoint({ x: event.clientX, y: event.clientY }, $("#design-canvas .canvas-scene").getBoundingClientRect());
+    renderCanvas();
+  }
   if (!state.drag || event.pointerId !== state.drag.pointerId) return;
   const deltaX = event.clientX - state.drag.start.x;
   const deltaY = event.clientY - state.drag.start.y;
@@ -1876,24 +1985,33 @@ document.addEventListener("pointermove", (event) => {
   }
   const delta = canvasClientDelta({ x: deltaX, y: deltaY }, state.drag.canvas.querySelector(".canvas-scene").getBoundingClientRect());
   if (!delta) return;
-  const x = state.drag.startPosition[0] + delta.x;
-  const y = state.drag.startPosition[1] + delta.y;
-  const visual = state.drag.canvas.querySelector(`[data-instance-id="${CSS.escape(state.drag.instanceId)}"]`);
-  if (visual) { visual.style.setProperty("--x", `${x}px`); visual.style.setProperty("--y", `${y}px`); }
+  if (state.drag.mode === "resize") {
+    const width = Math.min(240, Math.max(28, state.drag.startGeometry.width + delta.x));
+    const height = Math.min(180, Math.max(29, state.drag.startGeometry.height + delta.y));
+    state.project = editComponentField(editComponentField(state.drag.startProject, state.drag.instanceId, "width", width), state.drag.instanceId, "height", height);
+  } else {
+    state.project = moveComponent(state.drag.startProject, state.drag.instanceId, state.activeView, [state.drag.startPosition[0] + delta.x, state.drag.startPosition[1] + delta.y], { snap: $("#snap-toggle").checked });
+  }
+  state.selectedInstanceId = state.drag.instanceId;
+  state.dirty = true;
+  renderCanvas(); renderInspector(); updateSaveState();
 });
 
 document.addEventListener("pointercancel", (event) => {
   if (!state.drag || event.pointerId !== state.drag.pointerId) return;
   const drag = state.drag;
   state.drag = null;
+  state.suppressCanvasClick = false;
   drag.canvas.releasePointerCapture?.(event.pointerId);
   if (drag.mode === "pan") state.pan = drag.startPan;
-  renderCanvas();
+  if (drag.startProject) { state.project = drag.startProject; state.dirty = drag.startDirty; }
+  renderCanvas(); renderInspector(); updateSaveState();
 });
 
 document.addEventListener("pointerup", (event) => {
   if (!state.drag || event.pointerId !== state.drag.pointerId) return;
   const drag = state.drag;
+  state.suppressCanvasClick = true;
   state.drag = null;
   drag.canvas.releasePointerCapture?.(event.pointerId);
   if (drag.mode === "move-pcb") {
@@ -1904,6 +2022,7 @@ document.addEventListener("pointerup", (event) => {
     if ($("#snap-toggle").checked) { delta.x = Math.round(delta.x * 2) / 2; delta.y = Math.round(delta.y * 2) / 2; }
     const result = movePcbFootprint(state.project, drag.instanceId, delta);
     state.selectedInstanceId = drag.instanceId;
+  state.selectedWire = null;
     setInspector("component");
     if (result.status === "complete") {
       captureHistory();
@@ -1923,16 +2042,24 @@ document.addEventListener("pointerup", (event) => {
     }
     return;
   }
+  if (drag.mode === "resize") {
+    const next = state.project;
+    state.project = drag.startProject; state.dirty = drag.startDirty;
+    commitComponentEdit(next); renderInspector(); return;
+  }
   if (drag.mode !== "move") return;
   const delta = canvasClientDelta({ x: event.clientX - drag.start.x, y: event.clientY - drag.start.y }, drag.canvas.querySelector(".canvas-scene").getBoundingClientRect());
   state.selectedInstanceId = drag.instanceId;
+  state.selectedWire = null;
   setInspector("component");
-  if (!delta || Math.hypot(delta.x, delta.y) < 0.001) { renderCanvas(); return; }
+  if (!delta || Math.hypot(delta.x, delta.y) < 0.001) { if (drag.startProject) { state.project = drag.startProject; state.dirty = drag.startDirty; } renderCanvas(); renderInspector(); updateSaveState(); return; }
   const x = drag.startPosition[0] + delta.x;
   const y = drag.startPosition[1] + delta.y;
+  if (drag.startProject) { state.project = drag.startProject; state.dirty = drag.startDirty; }
   captureHistory();
   state.project = moveComponent(state.project, drag.instanceId, state.activeView, [x, y], { snap: $("#snap-toggle").checked });
   state.selectedInstanceId = drag.instanceId;
+  state.selectedWire = null;
   state.dirty = true;
   state.lastValidation = null;
   render();
@@ -1940,27 +2067,17 @@ document.addEventListener("pointerup", (event) => {
 
 $("#component-search").addEventListener("input", renderLibrary);
 $("#global-search").addEventListener("input", (event) => { $("#component-search").value = event.target.value; renderLibrary(); });
-$("#add-component").addEventListener("click", () => {
-  if (!state.selectedLibraryId) return;
-  captureHistory();
-  state.project = addComponent(state.project, state.selectedLibraryId);
-  state.selectedInstanceId = state.project.components.at(-1).instanceId;
-  setInspector("component");
-  state.dirty = true;
-  log(`[ADD] Added ${selectedComponent().reference} from the starter generic library.`);
-  render();
-});
+$("#add-component").addEventListener("click", () => placeLibraryComponent(state.selectedLibraryId));
 $("#component-form").addEventListener("submit", (event) => {
   event.preventDefault();
   const component = selectedComponent();
   if (!component) return;
-  const propertyCheck=validateComponentProperty(component,$("#property-value").value);
-  if(!propertyCheck.valid){showDialog("Property not applied",propertyCheck.errors.map(error=>error.message).join("\\n"));log(`[PROPERTY] ${component.reference} edit blocked: ${propertyCheck.errors[0].code}.`);return;}
-  captureHistory();
-  state.project = updateComponent(state.project, component.instanceId, { reference: $("#property-reference").value.trim(), value: $("#property-value").value.trim() });
-  state.dirty = true;
-  validateAndReport();
-  render();
+  try {
+    const referenced = editComponentField(state.project, component.instanceId, "reference", $("#property-reference").value);
+    const next = editComponentField(referenced, component.instanceId, "value", $("#property-value").value);
+    commitComponentEdit(next);
+    validateAndReport();
+  } catch (error) { $("#component-property-error").textContent = error.message; }
 });
 $("#remove-component").addEventListener("click", () => {
   const component = selectedComponent();
@@ -2154,7 +2271,34 @@ $("#import-file").addEventListener("change", async (event) => {
 
 // Boot is deliberately empty; only explicit Open/Example actions load a design.
 projectSession.clearTransient();
+const componentPropertiesUi = createComponentPropertiesUi({
+  form: $("#component-form"), getState: () => state, commit: updateNodeProps,
+  customCommit: (id, rows, capture) => commitComponentEdit(editCustomProperties(state.project, id, rows), capture)
+});
 render();
+
+document.addEventListener("dragstart", event => {
+  const part = event.target.closest?.("[data-library-id]");
+  if (!part || !findLibraryPart(part.dataset.libraryId)) return;
+  event.dataTransfer.setData("application/x-adigun-component", part.dataset.libraryId);
+  event.dataTransfer.effectAllowed = "copy";
+});
+$("#design-canvas").addEventListener("dragover", event => {
+  if (![...event.dataTransfer.types].includes("application/x-adigun-component")) return;
+  event.preventDefault(); event.dataTransfer.dropEffect = "copy";
+});
+$("#design-canvas").addEventListener("drop", event => {
+  const id = event.dataTransfer.getData("application/x-adigun-component");
+  if (!findLibraryPart(id)) return;
+  event.preventDefault();
+  const point = canvasClientPoint({ x: event.clientX, y: event.clientY }, $("#design-canvas .canvas-scene").getBoundingClientRect());
+  if (point) placeLibraryComponent(id, point);
+});
+$("#design-canvas").addEventListener("contextmenu", event => {
+  if (!state.schematicWireMode) return;
+  event.preventDefault(); state.schematicWireMode = false; state.schematicWireStart = null; state.wireCursor = null; renderCanvas();
+});
+
 const menuDismissal = attachMenuDismissal($$(".app-menu"), { onActiveChange: key => { state.openMenuKey = key; } });
 window.addEventListener("pagehide", event => { if (event.persisted) menuDismissal.clearPending(); else menuDismissal.dispose(); });
 
