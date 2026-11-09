@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { schematicPinPoint } from "../js/schematic-pin-layout.mjs";
+import { schematicPinPoint, schematicSymbolSize } from "../js/schematic-pin-layout.mjs";
 
 const component = { position: { schematic: [100, 80] } };
 
@@ -19,4 +19,15 @@ test("multi-pin terminals are split into stable, ordered left and right banks", 
 test("unknown pins and malformed component positions do not produce invented anchors", () => {
   assert.equal(schematicPinPoint(component, ["A", "K"], "NC"), null);
   assert.equal(schematicPinPoint({ position: { schematic: ["x", 4] } }, ["A"], "A"), null);
+});
+
+// Native pin names remain unchanged while the controller gets enough room for legible labels.
+test("STM32 timer block anchors match its larger symbol without changing net endpoints", () => {
+  const timer = { libraryId: "active.stm32-timer-ideal", position: { schematic: [175,60] } };
+  const pins = ["VCC", "GND", "TIM1_CH1"];
+  assert.deepEqual(schematicSymbolSize(timer.libraryId), { width:124, height:130 });
+  assert.deepEqual(schematicPinPoint(timer,pins,"VCC"), {x:175,y:86,side:"left"});
+  assert.deepEqual(schematicPinPoint(timer,pins,"GND"), {x:175,y:164,side:"left"});
+  assert.deepEqual(schematicPinPoint(timer,pins,"TIM1_CH1"), {x:299,y:125,side:"right"});
+  assert.equal(schematicPinPoint(timer,pins,"PA0"),null);
 });

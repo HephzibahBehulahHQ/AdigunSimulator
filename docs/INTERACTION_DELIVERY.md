@@ -1,0 +1,14 @@
+# Interaction delivery — 2026-11-09
+
+The owner's supplied sidebar/menu/interaction instructions are retained unchanged in `requirements/sidebar-interactions.txt`. The subsequent right-bar property-binding request is part of the same active goal. Implement in the requested order; do not treat existing partial functions as completed acceptance.
+
+| Stage | Required evidence | Current evidence |
+| --- | --- | --- |
+| 1. Independent sidebars | Persistent reopen controls; canvas remains mounted and reflows; selection, project and camera survive close/reopen. | UI state now owns both flags; external translated controls remain reachable; grid placement is explicit. Browser close/reopen preserved five nodes, R1 selection and 125% zoom. Both closed gave a 1244.8 px canvas in a 1280 px viewport. Mobile retained a 345.6 px canvas in 360 px client width without overflow. |
+| 2. Transient menus | Exclusive click opening; outside/Escape dismissal; mouse-only grace period; no touch dismissal from pointer departure; cleanup. | Native details and existing outside/Escape behavior retained; new 200 ms controller, active key and lifecycle cleanup pass targeted tests. Mouse-away behavior is unit tested; native pointer-hover acceptance remains to be exercised where supported. |
+| 3. Component/wire interactions | Palette drop with camera conversion, touch add, selection, move, resize handles, anchored rubber-band wires, cancel/delete and history. | Existing component move, click-add and pin wiring are partial. Found and fixed zero-distance pointer clicks replacing canvas DOM before selection: U1 now selects and reopens Properties. Palette drop, resize and full wire interaction acceptance remain open. |
+| 4. Schema-driven Properties | Applicable identity/electrical/part/geometry/custom fields update the selected node live, reflect canvas edits, protect invalid input, mark dirty and support Undo/Redo; empty state and reopen preserve selection. | Existing reference/value submit is insufficient. Complete schema registry, unified mutation path and live binding remain open. Multi-selection is optional. |
+
+Docked sidebars remain independent and persistent until explicitly closed; transient command menus use exclusive mouse-away dismissal. This resolves the attachment's broad “all panels” wording without contradicting its requirement that both sidebars remain independently usable. Native select controls and unsaved-work confirmation dialogs retain their browser/confirmation behavior; they must not silently disappear during editing.
+
+Geometry controls must preserve pin/wire alignment and actual PCB pad/package constraints. Electrical inputs must map to supported model parameters; annotations and ratings must not be represented as simulated behavior when the engine does not support them. Component evidence, verified-part status and physical safety claims remain unchanged.

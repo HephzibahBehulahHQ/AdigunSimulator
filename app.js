@@ -1,7 +1,8 @@
 import { STARTER_LIBRARY, addComponent, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
-import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
+import { schematicPinPoint, schematicSymbolSize } from "./js/schematic-pin-layout.mjs";
+import { attachMenuDismissal } from "./js/menu-dismissal.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
 import { pcbCopperPads } from "./js/pcb-vias.mjs";
@@ -97,6 +98,9 @@ const state = {
   selectedInstanceId: null,
   activeView: "breadboard",
   activeInspector: "component",
+  leftBarOpen: true,
+  rightBarOpen: true,
+  openMenuKey: null,
   activeOutput: "output",
   selectedNetId: null,
   activeTool: "select",
@@ -354,10 +358,18 @@ function renderLibrary() {
   $("#component-list").setAttribute("aria-label", t("starterLibraryMode"));
   $("#add-component").hidden = false;
   const matching = STARTER_LIBRARY.filter((part) => (state.activeCategory === "All" || part.category === state.activeCategory) && `${part.type} ${part.id} ${part.category}`.toLowerCase().includes(query));
-  $("#component-list").innerHTML = matching.map((part) => `
+  const expandedCategories = new Map($$(".library-category").map(group => [group.dataset.categoryGroup, group.open]));
+  const categoryLabels = new Map($$(".category-filter").map(button => [button.dataset.category, button.textContent]));
+  const categoryOrder = [...categoryLabels.keys(), ...new Set(matching.map(part => part.category))];
+  const categories = [...new Set(categoryOrder)].filter(category => matching.some(part => part.category === category));
+  const partRow = (part) => `
     <li><button type="button" class="component-item ${part.id === state.selectedLibraryId ? "selected" : ""}" data-library-id="${escape(part.id)}">
-      <span class="component-icon">◇</span><span><strong>${escape(part.type)}</strong><small>${escape(part.defaultValue)} · ${escape(part.simulation)}</small></span>
-    </button></li>`).join("") || `<li class="empty-list">${escape(t("libraryHelp"))}</li>`;
+      <span class="component-icon" aria-hidden="true">${renderSchematicSymbol(part) ?? "◇"}</span><span><strong>${escape(part.type)}</strong><small>${escape(part.defaultValue)} · ${escape(part.simulation)}</small></span>
+    </button></li>`;
+  $("#component-list").innerHTML = categories.map((category, index) => {
+    const open = query || state.activeCategory !== "All" || (expandedCategories.get(category) ?? index < 3);
+    return `<li><details class="library-category" data-category-group="${escape(category)}" ${open ? "open" : ""}><summary>${escape(categoryLabels.get(category) ?? category)}</summary><ul>${matching.filter(part => part.category === category).map(partRow).join("")}</ul></details></li>`;
+  }).join("") || `<li class="empty-list">${escape(t("libraryHelp"))}</li>`;
   const part = findLibraryPart(state.selectedLibraryId);
   $("#selected-part-type").textContent = part ? part.type : t("selectComponent");
   $("#selected-part-name").textContent = part ? part.id : t("noPartSelected");
@@ -375,8 +387,9 @@ function componentVisual(component, view) {
   const y = component.position?.[view]?.[1] ?? 120;
   const className = component.libraryId.replaceAll(".", "-");
   const symbol = view === "schematic" ? renderSchematicSymbol(part) : null;
+  const symbolSize = schematicSymbolSize(component.libraryId);
   const body = symbol ?? `<span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span>`;
-  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value">${escape(component.value)}</span></button>`;
+  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px;--symbol-width:${symbolSize.width}px;--symbol-height:${symbolSize.height}px" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value" title="${escape(component.value)}">${escape(component.value)}</span></button>`;
 }
 
 function componentCenter(component, view) {
@@ -609,6 +622,7 @@ function commitBreadboardEdit(project, message) {
 }
 
 function applyCanvasCamera() {
+  applyMiniCanvasCamera();
   const canvas = $("#design-canvas"), scene = canvas.querySelector(".canvas-scene");
   const camera = createCanvasCamera(canvas.clientWidth, canvas.clientHeight, state.scale, state.pan);
   if (!scene || !camera) return null;
@@ -619,6 +633,14 @@ function applyCanvasCamera() {
   $('[data-tool="zoom-in"]').disabled = camera.zoom >= CANVAS_ZOOM.max;
   $('[data-tool="zoom-out"]').disabled = camera.zoom <= CANVAS_ZOOM.min;
   return camera;
+}
+
+function applyMiniCanvasCamera() {
+  for (const id of ["#schematic-mini", "#pcb-mini"]) {
+    const canvas = $(id), scene = canvas.querySelector(".canvas-scene");
+    const camera = createCanvasCamera(canvas.clientWidth, canvas.clientHeight);
+    if (scene && camera) scene.style.transform = `translate(${camera.x}px, ${camera.y}px) scale(${camera.scale})`;
+  }
 }
 
 function changeCanvasZoom(tool) {
@@ -687,6 +709,7 @@ function renderCanvas() {
   const miniPcb = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "pcb").length).map((component) => componentVisual(component, "pcb")).join("");
   $("#schematic-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "schematic", new Set(getViewReconciliationIssues(state.project, "schematic").map((issue) => issue.instanceId)))}${miniSchematic}</div>`;
   $("#pcb-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "pcb", new Set(getViewReconciliationIssues(state.project, "pcb").map((issue) => issue.instanceId)))}${miniPcb}</div>`;
+  applyMiniCanvasCamera();
 }
 
 function renderInspector() {
@@ -1451,9 +1474,20 @@ function activateView(view) {
 }
 
 function setInspector(tab) {
+  setWorkspacePanel("right", true);
   state.activeInspector = tab;
   $$(".inspector-tab").forEach((button) => button.classList.toggle("active", button.dataset.inspector === tab));
   renderInspector();
+}
+
+function setWorkspacePanel(side, open) {
+  if (!["left", "right"].includes(side)) return;
+  const panel = $(side === "left" ? ".library-panel" : ".inspector-panel");
+  state[side === "left" ? "leftBarOpen" : "rightBarOpen"] = Boolean(open);
+  panel.classList.toggle("collapsed", !open);
+  $("#workspace").classList.toggle(`${side}-panel-closed`, !open);
+  $$(`[data-panel-toggle="${side}"]`).forEach(button => button.setAttribute("aria-expanded", String(Boolean(open))));
+  if (!open && panel.contains(document.activeElement)) $(`[data-panel-toggle="${side}"]`).focus();
 }
 
 function rotateSelectedPcbFootprint(degrees) {
@@ -1624,6 +1658,7 @@ function handleAppMenuKeydown(event) {
   return true;
 }
 
+
 document.addEventListener("click", (event) => {
   document.querySelectorAll(".app-menu[open]").forEach((menu) => { if (!menu.contains(event.target)) menu.open = false; });
   if (pcbViaEditor.click(event)) return;
@@ -1683,7 +1718,7 @@ document.addEventListener("click", (event) => {
     renderLibrary();
   }
   const instanceButton = event.target.closest("[data-instance-id]");
-  if (instanceButton) { state.selectedInstanceId = instanceButton.dataset.instanceId; render(); showBotWiringExplanation(state.selectedInstanceId); }
+  if (instanceButton) { state.selectedInstanceId = instanceButton.dataset.instanceId; setInspector("component"); render(); showBotWiringExplanation(state.selectedInstanceId); }
   const viewButton = event.target.closest("[data-view]");
   if (viewButton) activateView(viewButton.dataset.view);
   const inspector = event.target.closest("[data-inspector]");
@@ -1702,7 +1737,9 @@ document.addEventListener("click", (event) => {
     if (["select", "pan", "pcb-route"].includes(tool.dataset.tool)) renderCanvas();
   }
   const collapse = event.target.closest("[data-collapse]");
-  if (collapse) document.querySelector(`.${collapse.dataset.collapse}`).classList.toggle("collapsed");
+  if (collapse) setWorkspacePanel(collapse.dataset.collapse === "library-panel" ? "left" : "right", false);
+  const panelToggle = event.target.closest("[data-panel-toggle]");
+  if (panelToggle) { const side = panelToggle.dataset.panelToggle; setWorkspacePanel(side, !state[side === "left" ? "leftBarOpen" : "rightBarOpen"]); }
 });
 
 document.addEventListener("keydown", (event) => {
@@ -1867,6 +1904,7 @@ document.addEventListener("pointerup", (event) => {
     if ($("#snap-toggle").checked) { delta.x = Math.round(delta.x * 2) / 2; delta.y = Math.round(delta.y * 2) / 2; }
     const result = movePcbFootprint(state.project, drag.instanceId, delta);
     state.selectedInstanceId = drag.instanceId;
+    setInspector("component");
     if (result.status === "complete") {
       captureHistory();
       state.project = result.project;
@@ -1887,6 +1925,8 @@ document.addEventListener("pointerup", (event) => {
   }
   if (drag.mode !== "move") return;
   const delta = canvasClientDelta({ x: event.clientX - drag.start.x, y: event.clientY - drag.start.y }, drag.canvas.querySelector(".canvas-scene").getBoundingClientRect());
+  state.selectedInstanceId = drag.instanceId;
+  setInspector("component");
   if (!delta || Math.hypot(delta.x, delta.y) < 0.001) { renderCanvas(); return; }
   const x = drag.startPosition[0] + delta.x;
   const y = drag.startPosition[1] + delta.y;
@@ -1905,6 +1945,7 @@ $("#add-component").addEventListener("click", () => {
   captureHistory();
   state.project = addComponent(state.project, state.selectedLibraryId);
   state.selectedInstanceId = state.project.components.at(-1).instanceId;
+  setInspector("component");
   state.dirty = true;
   log(`[ADD] Added ${selectedComponent().reference} from the starter generic library.`);
   render();
@@ -2072,7 +2113,11 @@ $("#global-search").addEventListener("keydown", (event) => {
   if (event.key === "Escape") { $(".global-search").hidden = true; $("#global-search-toggle").focus(); }
 });
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
-$("#bot-collapse").addEventListener("click", () => $("#bot").classList.toggle("minimized"));
+$("#bot-collapse").addEventListener("click", () => {
+  const minimized = $("#bot").classList.toggle("minimized");
+  $("#bot-collapse").setAttribute("aria-expanded", String(!minimized));
+  $("#bot-collapse").textContent = minimized ? "+" : "−";
+});
 $("#bot-form").addEventListener("submit", (event) => { event.preventDefault(); answerBotFromSelection(); });
 $("#bot-question-form").addEventListener("submit", (event) => { event.preventDefault(); answerBotQuestion(); });
 $("#bot-live-toggle").addEventListener("change", (event) => {
@@ -2110,8 +2155,12 @@ $("#import-file").addEventListener("change", async (event) => {
 // Boot is deliberately empty; only explicit Open/Example actions load a design.
 projectSession.clearTransient();
 render();
+const menuDismissal = attachMenuDismissal($$(".app-menu"), { onActiveChange: key => { state.openMenuKey = key; } });
+window.addEventListener("pagehide", event => { if (event.persisted) menuDismissal.clearPending(); else menuDismissal.dispose(); });
+
 const canvasResizeObserver = new ResizeObserver(applyCanvasCamera);
 canvasResizeObserver.observe($("#design-canvas"));
+canvasResizeObserver.observe($("#schematic-mini"));
 projectSession.install(window, { onLeave: (event) => {
   const simulation = state.activeSimulation;
   state.activeSimulation = null;
