@@ -7,7 +7,7 @@ This tracker records evidence-backed progress against the product requirements. 
 | 1. Product foundation and project safety | Local-first project format, save/import/export/recovery, responsive workspace, four interface locales, and disclosed scope limits pass automated checks and representative browser workflows. | In progress. Automated and localization contracts exist; representative browser/accessibility acceptance remains outstanding. |
 | 2. Circuit editing and synchronized views | Breadboard, schematic, and PCB share project identity and nets; supported component placement/wiring edits synchronize across views; invalid and unsupported mappings are surfaced. | In progress. Shared identity/net model is implemented; broader edit synchronization and browser acceptance remain open. |
 | 3. Bounded simulation and instruments | Each advertised model has an explicit model boundary, reproducible examples, numerical tests, cancellation/resource limits, and independent engineering review before release. | In progress. Multiple bounded analyses are tested; general SPICE, broad mixed-signal behavior, and independent review remain unavailable. |
-| 4. PCB routing and fabrication preview | Supported layer/endpoint rules, net/clearance/keep-out checks, export integrity, and documented limitations are tested; production use additionally requires independent electrical and manufacturing review. | Implementation advanced; release pending. Nine existing PCB layouts were repaired after a new copper audit found shorts/clearance failures missed by the old checks. Stored plated vias now support F.Cu/B.Cu continuity and export. Local suite: 380/380. See the copper repair evidence below; no standards-complete DRC or manufacturing approval is claimed. |
+| 4. PCB routing and fabrication preview | Supported layer/endpoint rules, net/clearance/keep-out checks, export integrity, and documented limitations are tested; production use additionally requires independent electrical and manufacturing review. | In progress; release pending. Stored vias support inspector editing and two-layer routing/export; quarter-turn footprint placement and shared camera/history are tested. Twelve new via regressions bring the local suite to 412/412. Full board/rule setup, package assets and independent manufacturing review remain open. |
 | 5. Real component library | Reach 1,000 parts counted only after authoritative datasheet/checksum, exact MPN/package/lifecycle, audited pin/pad mapping, model/licence status, and named dated review are present. Taxonomy types and candidates are reported separately. | In progress. The ledger has 565 taxonomy types, 15 candidates, and 0 verified parts; target completion is 1,000 verified parts. |
 | 6. Ready-made project catalogue | Each of the 200 projects has a native project, stable test ID, automated acceptance result, engine/model/library evidence, BOM where applicable, and proportionate safety note. | In progress. Catalogue coverage exists; completion requires per-project evidence under the release gate, not count alone. |
 | 7. Adigun BOT and optional accounts | Local deterministic help stays grounded in checked-in project/library data; any external AI requires separate approval. Authentication remains optional until identity, privacy, retention, incident, deployment, and budget decisions are approved. | Local BOT capability exists. External AI and account/cloud features are gated on product-owner decisions. |
@@ -16,8 +16,8 @@ This tracker records evidence-backed progress against the product requirements. 
 ## Current branch verification
 
 - Branch: `codex/rl-transient-acceptance`.
-- Last synchronized checkpoint before the latest work: `bb634ee7a1de44d89d770a31ea7719877b02efb4` (shared canvas camera and edit history).
-- Required automated checks at that head: 393 tests passed; syntax check, library validation, and `git diff --check` passed; GitHub Actions run #1258 passed. Local and remote branch identities were rechecked on 2026-11-09. Later checkpoint evidence is recorded below and final matching-head CI is recorded on PR #505.
+- Last synchronized checkpoint before the latest work: `4b5ac361f8fa6d42b3c36c0fbc9a1482b95c32ae` (PCB quarter-turn placement).
+- Required automated checks at that head: 400 tests passed; syntax check, library validation, and `git diff --check` passed; GitHub Actions run #1259 passed. Local and remote branch identities were rechecked on 2026-11-09. Later checkpoint evidence is recorded below and final matching-head CI is recorded on PR #505.
 - Deployment: not performed. The checked-in deployment runbook requires a non-draft review path, current-head checks, independent electrical review, and approved release safeguards before merge/deployment.
 
 Update this tracker when a milestone's evidence changes. Do not count candidates as verified parts, planned examples as released projects, or an illustrative PCB export as manufacturing approval.
@@ -90,3 +90,15 @@ See `CANVAS_CAMERA_ACCEPTANCE.md` for measured results, reproducible checks, exc
 | Production promotion | Independent electrical/release review, protected merge and exact-commit Pages/browser verification pass. | Not performed: PR #505 remains draft without submitted reviews. |
 
 See `PCB_ROTATION_ACCEPTANCE.md` for the relative-angle convention, checks, exclusions and remaining placement capabilities. This advances product milestones 2 and 4; neither milestone is fully accepted. The five-item delivery checklist is distinct from whole-product completion.
+
+## Plated via editing checkpoint — 2026-11-09
+
+| Category / checkpoint | Completion criterion | Evidence |
+| --- | --- | --- |
+| Via model | Create/move/resize/remove with unchanged canonical nets; apply bounds, copper, keep-out, drill and stack guards. | Automated mutation/rejection tests and native round trips pass; same-net trace-interior anchors follow moves on both layers. |
+| Editor workflow | Localized inspector, transformed coordinate picker, safe keyboard selection/removal and single-edit history work. | Browser CRUD, Undo/Redo, 125% picking and component-preserving Delete passed; eight locale/width cases passed. |
+| Routing/export integrity | New vias can be routed; isolated or conflicting geometry must not fabricate. | Browser isolated-via export blocked; routed/moved via passed bounded DRC. Automated output includes both copper flashes and drill, excluding the via from BOM. |
+| Validation and synchronization | Required checks pass; reviewed commit is pushed, local/remote heads match and current-head CI passes. | Local 412/412 tests, syntax and library validation passed; final synchronization/CI evidence is recorded on PR #505. |
+| Production promotion | Independent electrical/release review, protected merge and exact-commit Pages/browser verification pass. | Not performed: PR #505 remains draft without reviews. |
+
+See `PCB_VIA_EDIT_ACCEPTANCE.md` for scope and limitations. Product milestones 2 and 4 remain open; this is bounded implementation progress, not full product or manufacturing acceptance.

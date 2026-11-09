@@ -5,6 +5,7 @@ import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
 import { pcbCopperPads } from "./js/pcb-vias.mjs";
+import { createPcbViaEditor } from "./js/pcb-via-controller.mjs";
 import { movePcbFootprint } from "./js/pcb-edit.mjs";
 import { rotatePcbFootprint } from "./js/pcb-rotate.mjs";
 import { createPcbRoute } from "./js/pcb-routing.mjs";
@@ -113,6 +114,8 @@ const state = {
   schematicWireMode: false,
   schematicWireStart: null,
   pcbRouteDraft: null,
+  pcbSelectedViaId: null,
+  pcbViaDraft: null,
   pcbRouteHintKey: null,
   activeSimulation: null
 };
@@ -121,6 +124,7 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const escape = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
 const t = (key) => translate(state.project.metadata.locale, key);
+const pcbViaEditor = createPcbViaEditor({ state, $, $$, t, escape, renderCanvas, render, activateView, captureHistory, validateAndReport, showDialog, log });
 const botUnconnectedSince = new Map(state.project.components.map((item) => [item.instanceId, Date.now()]));
 let currentBotFinding = null;
 let currentBotPreview = null;
@@ -248,6 +252,8 @@ function replaceProject(project, { dirty = true } = {}) {
   state.lastAnalysis = null;
   state.project = project;
   state.selectedInstanceId = project.components[0]?.instanceId ?? null;
+  state.pcbSelectedViaId = null;
+  state.pcbViaDraft = null;
   state.dirty = dirty;
   state.recoveryActive = dirty;
   if (!dirty) clearRecoveryDraft(localStorage, RECOVERY_KEY);
@@ -650,6 +656,8 @@ function renderCanvas() {
   $("#pcb-route-mode").disabled = !hasPcbData;
   $("#pcb-route-mode").setAttribute("aria-pressed", String(state.activeTool === "pcb-route"));
   $("#pcb-route-status").textContent = state.activeTool !== "pcb-route" ? "" : t(state.pcbRouteHintKey ?? (state.pcbRouteDraft ? "pcbRouteWaypoint" : "pcbRouteStart"));
+  canvas.classList.toggle("is-pcb-via-mode", state.activeTool === "pcb-via");
+  pcbViaEditor.refresh();
   $$('[data-tool]').forEach((button) => button.classList.toggle("active", button.dataset.tool === state.activeTool));
   const miniSchematic = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "schematic").length).map((component) => componentVisual(component, "schematic")).join("");
   const miniPcb = state.project.components.filter((component) => !getViewReconciliationIssues({ components: [component] }, "pcb").length).map((component) => componentVisual(component, "pcb")).join("");
@@ -1407,7 +1415,7 @@ function activateView(view) {
   state.activeView = view;
   if (view !== "breadboard") state.breadboardPlacementMode = false;
   if (view !== "schematic") { state.schematicWireMode = false; state.schematicWireStart = null; }
-  if (view !== "pcb") { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; if (state.activeTool === "pcb-route") state.activeTool = "select"; }
+  if (view !== "pcb") { state.pcbRouteDraft = null; state.pcbRouteHintKey = null; if (["pcb-route", "pcb-via"].includes(state.activeTool)) state.activeTool = "select"; }
   $$(".view-tab").forEach((tab) => { const active = tab.dataset.view === view; tab.classList.toggle("active", active); tab.setAttribute("aria-selected", String(active)); });
   renderCanvas();
 }
@@ -1442,6 +1450,7 @@ function rotateSelectedPcbFootprint(degrees) {
 }
 
 function handleAction(action) {
+  if (pcbViaEditor.action(action)) return;
   if (action === "pcb-rotate-left") rotateSelectedPcbFootprint(-90);
   if (action === "pcb-rotate-right") rotateSelectedPcbFootprint(90);
   if (action === "new-project") {
@@ -1595,6 +1604,7 @@ function handleAppMenuKeydown(event) {
 document.addEventListener("click", (event) => {
   document.querySelectorAll(".app-menu[open]").forEach((menu) => { if (!menu.contains(event.target)) menu.open = false; });
   state.userInteracted = true;
+  if (pcbViaEditor.click(event)) return;
   if (handlePcbRouteCanvasClick(event)) return;
   const libraryModeButton = event.target.closest("[data-library-mode]");
   if (libraryModeButton) {
@@ -1676,6 +1686,7 @@ document.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (handleAppMenuKeydown(event)) return;
+  if (pcbViaEditor.keydown(event)) return;
   if (handlePcbRouteKeydown(event)) return;
   if (event.key === "Escape" && (state.breadboardPlacementMode || state.schematicWireMode || state.activeTool === "pcb-route")) {
     event.preventDefault();

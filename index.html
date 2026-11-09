@@ -55,6 +55,7 @@
           <button type="button" data-view="schematic" data-i18n="schematic">Schematic View</button>
           <button type="button" data-view="pcb" data-i18n="pcb">PCB View</button>
           <button type="button" data-action="pcb-drc" data-i18n="runPcbChecks">Run PCB checks</button>
+          <button type="button" data-action="pcb-via-new" data-i18n="pcbViaNew" disabled>New via</button>
           <button type="button" data-action="pcb-export" data-i18n="exportPcbFiles">Export Gerber / drill / BOM</button>
         </div></details>
         <details class="app-menu" name="application-menu"><summary data-i18n="toolsMenu">Tools</summary><div class="app-menu-popover">
@@ -338,6 +339,7 @@
           <button id="pcb-route-mode" type="button" class="toolbar-button" data-tool="pcb-route" aria-pressed="false" aria-label="Interactive PCB routing" data-i18n-aria="pcbRouteAria" disabled><span aria-hidden="true">⌁</span> <span data-i18n="pcbRoute">Route</span></button>
           <label id="pcb-route-layer-control" hidden><span data-i18n="pcbRouteLayer">Copper layer</span><select id="pcb-route-layer" aria-label="Routing copper layer" data-i18n-aria="pcbRouteLayer"><option value="F.Cu">F.Cu</option><option value="B.Cu">B.Cu</option></select></label>
           <span id="pcb-route-status" role="status" aria-live="polite"></span>
+          <button type="button" class="toolbar-button" data-action="pcb-via-new" aria-label="New via" data-i18n-aria="pcbViaNew" disabled><span aria-hidden="true">⦿</span> <span data-i18n="pcbViaNew">New via</span></button>
           <span class="toolbar-spacer"></span>
           <button type="button" class="toolbar-button" data-action="undo" aria-label="Undo" data-i18n-aria="undo">↶ <span data-i18n="undo">Undo</span></button>
           <button type="button" class="toolbar-button" data-action="redo" aria-label="Redo" data-i18n-aria="redo">↷ <span data-i18n="redo">Redo</span></button>
@@ -383,6 +385,23 @@
           <button type="button" class="outline-button" data-action="pcb-rotate-left" data-i18n="pcbRotateLeft">Rotate 90° left</button>
           <button type="button" class="outline-button" data-action="pcb-rotate-right" data-i18n="pcbRotateRight">Rotate 90° right</button>
           <p class="muted" data-i18n="pcbRotateNote">Turns pads and attached trace vertices around the pad centroid. Run PCB checks after editing.</p>
+        </section>
+        <section id="pcb-via-editor" class="simulation-control hidden">
+          <h3 data-i18n="pcbViaTitle">Plated via editor</h3>
+          <p id="pcb-via-hint" class="muted" role="status"></p>
+          <form id="pcb-via-form" class="property-form">
+            <fieldset id="pcb-via-fields" class="via-fields">
+              <label><span data-i18n="pcbViaChoose">Via</span><select id="pcb-via-picker"></select></label>
+              <label><span data-i18n="pcbViaNet">Via net</span><select id="pcb-via-net" data-via-field="netId" required></select></label>
+              <label><span data-i18n="pcbViaX">Via X (mm)</span><input id="pcb-via-x" data-via-field="xMm" type="number" step="any" min="0" required /></label>
+              <label><span data-i18n="pcbViaY">Via Y (mm)</span><input id="pcb-via-y" data-via-field="yMm" type="number" step="any" min="0" required /></label>
+              <label for="pcb-via-diameter"><span data-i18n="pcbViaDiameter">Copper diameter (mm)</span><input id="pcb-via-diameter" data-via-field="diameterMm" type="number" step="any" min="0.001" required /></label>
+              <label for="pcb-via-drill"><span data-i18n="pcbViaDrill">Drill diameter (mm)</span><input id="pcb-via-drill" data-via-field="drillMm" type="number" step="any" min="0.001" required /></label>
+              <button id="pcb-via-pick" type="button" class="outline-button" data-action="pcb-via-pick" aria-pressed="false" data-i18n="pcbViaPick">Pick board position</button>
+              <button type="submit" class="outline-button" data-i18n="pcbViaSave">Save via</button>
+              <button id="pcb-via-remove" type="button" class="outline-button danger" data-action="pcb-via-remove" data-i18n="pcbViaRemove" disabled>Remove via</button>
+            </fieldset>
+          </form>
         </section>
         <form id="project-form" class="property-form hidden">
           <label><span data-i18n="projectName">Project name</span> <input id="project-name" required /></label>

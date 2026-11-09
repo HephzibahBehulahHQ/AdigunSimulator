@@ -292,9 +292,10 @@ test("the approved corporate logo, official links, and current-year footer are p
 });
 
 test("application menus expose working workspace commands and design views", async () => {
-  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  const [html, app, viaController] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8"), readFile(new URL("../js/pcb-via-controller.mjs", import.meta.url), "utf8")]);
   const actions = [...new Set(values(html, /data-action="([^"]+)"/g))];
-  for (const action of actions) assert.match(app, new RegExp(`action === "${action}"`));
+  for (const action of actions) assert.ok(action.startsWith("pcb-via-") ? viaController.includes(`name === "${action}"`) : app.includes(`action === "${action}"`), `Missing action handler: ${action}`);
+  assert.match(app, /pcbViaEditor\.action\(action\)/);
   for (const menu of ["fileMenu", "editMenu", "simulationMenu", "pcbMenu", "toolsMenu", "helpMenu"]) {
     assert.match(html, new RegExp(`<details[^>]*><summary data-i18n="${menu}"`));
   }
