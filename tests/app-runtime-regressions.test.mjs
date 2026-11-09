@@ -49,7 +49,6 @@ test("PCB rotation UI commits once, clears a draft, supports Undo/Redo and prese
   assert.equal(state.activeTool, "select");
   assert.equal(state.pcbRouteDraft, null);
   assert.equal(state.dirty, true);
-  assert.equal(state.recoveryActive, true);
   assert.equal(validations, 1);
   const rotated = structuredClone(state.project);
   const start = source.indexOf("function replaceProject("), end = source.indexOf("function updateSaveState(", start);
@@ -123,37 +122,6 @@ test("Escape closes an application menu and restores focus without consuming unr
   assert.equal(handle(event), false);
 });
 
-test("a delayed starter analysis cannot overwrite a newer interaction, edit, saved project or replacement", async () => {
-  for (const change of ["interaction", "edit", "saved", "replacement", "choice", "none"]) {
-    const state = { project: { id: "initial" } }, picker = {};
-    let finishAnalysis, analysisStarted, stored = null, replacements = 0;
-    const started = new Promise((resolve) => { analysisStarted = resolve; });
-    const pending = new Promise((resolve) => { finishAnalysis = resolve; });
-    const start = source.indexOf("async function loadStarterExample(");
-    const end = source.indexOf("\nrender();", start);
-    assert.ok(start >= 0 && end > start);
-    const load = runInNewContext(`${source.slice(start, end)}\nloadStarterExample`, {
-      state, initialProject: { project: state.project }, STORAGE_KEY: "test-project",
-      localStorage: { getItem: () => stored }, $: () => picker,
-      fetch: async () => ({ ok: true, text: async () => "starter" }),
-      parseProject: () => ({ id: "starter" }),
-      createSimulationWorkerRun: () => { analysisStarted(); return { promise: pending }; },
-      replaceProject: (project) => { replacements++; state.project = project; }, render() {}, log() {}
-    });
-    const loading = load();
-    await started;
-    if (change === "choice") picker.value = "user-selected-example";
-    if (change === "interaction") state.userInteracted = true;
-    if (change === "edit") state.dirty = true;
-    if (change === "saved") stored = "saved-project";
-    if (change === "replacement") state.project = { id: "other" };
-    finishAnalysis({ state: "complete" });
-    await loading;
-    assert.equal(replacements, change === "none" ? 1 : 0, change);
-    assert.equal(picker.value, change === "choice" ? "user-selected-example" : "examples/070-stm32-timer-pwm.adigun.json", change);
-    assert.equal(state.project.id, change === "none" ? "starter" : change === "replacement" ? "other" : "initial", change);
-  }
-});
 
 test("canvas feedback preserves the review disclosure and escapes project text outside the drawing", () => {
   for (const locale of ["en", "de", "yo", "pcm"]) {

@@ -2572,7 +2572,7 @@ test("workspace exposes menus, synchronized-view regions and DOM-based preview d
   assert.match(html,/id="result-dashboard"/);
   assert.match(html,/data-mini-view="schematic"/);
   assert.match(app,/function renderResultDashboard/);
-  assert.match(app,/examples\/070-stm32-timer-pwm\.adigun\.json/);
+  assert.match(html,/examples\/070-stm32-timer-pwm\.adigun\.json/);
   assert.match(styles,/canvas-area\.has-overview/);
   assert.match(html,/id="canvas-view-label"/);
   assert.match(app,/hasPcbData \? t\("pcbStoredLayoutPreview"\) : t\("pcbNoFootprintData"\)/);

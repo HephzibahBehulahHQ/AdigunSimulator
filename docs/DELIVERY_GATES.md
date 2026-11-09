@@ -37,7 +37,7 @@ The selectable linear RLC transient analysis uses bounded modified nodal analysi
 ## Required quality evidence before a production release
 
 1. Automated unit, schema, serialization, localization and UI-contract tests pass in continuous integration.
-2. Representative browser tests cover keyboard operation, mouse/touch layout edits, import/export, local recovery, four-language overflow, accessibility and responsive layouts.
+2. Representative browser tests cover keyboard operation, mouse/touch layout edits, import/export, explicit saved-project reopening, empty startup and dirty-navigation protection, four-language overflow, accessibility and responsive layouts.
 3. Every released example has its result matrix and the exact engine/model/library-lock evidence recorded.
 4. Independent electrical review signs off on any part promoted to verified and any new simulator model.
 5. Security/privacy review is complete before enabling authentication, cloud sync, AI, telemetry or external data sources.

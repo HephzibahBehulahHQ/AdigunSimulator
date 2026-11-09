@@ -1,4 +1,4 @@
-import { STARTER_LIBRARY, addComponent, createProject, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
+import { STARTER_LIBRARY, addComponent, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
@@ -10,7 +10,7 @@ import { movePcbFootprint } from "./js/pcb-edit.mjs";
 import { rotatePcbFootprint } from "./js/pcb-rotate.mjs";
 import { createPcbRoute } from "./js/pcb-routing.mjs";
 import { CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera, canvasClientPoint, canvasClientDelta } from "./js/canvas-camera.mjs";
-import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
+import { PROJECT_STORAGE_KEY, createProjectSession, confirmProjectReplacement } from "./js/project-session.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
 
@@ -81,21 +81,18 @@ import { answerBotProductQuestion, getBotQuestionClarification, isBotProjectGoal
 const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
 
-const STORAGE_KEY = "adigun-simulator.project.v1";
-const RECOVERY_KEY = "adigun-simulator.recovery.v1";
-const initialProject = loadProject();
+const STORAGE_KEY = PROJECT_STORAGE_KEY;
 
 const state = {
-  project: initialProject.project,
-  recoveredDraft: initialProject.recovered,
+  project: createEmptyProject(),
+  currentProjectId: null,
+  savedDisposition: "empty",
   lastAnalysis: null,
-  userInteracted: false,
-  recoveryActive: initialProject.recovered,
   selectedLibraryId: null,
   selectedEvidencePartId: null,
   libraryMode: "starter",
   activeCategory: "All",
-  selectedInstanceId: "resistor-1",
+  selectedInstanceId: null,
   activeView: "breadboard",
   activeInspector: "component",
   activeOutput: "output",
@@ -106,7 +103,7 @@ const state = {
   scale: 1,
   history: [],
   future: [],
-  dirty: initialProject.recovered,
+  dirty: false,
   botUnsavedOnly: false,
   lastValidation: null,
   breadboardSyncPreview: null,
@@ -218,25 +215,52 @@ function applyBotSuggestion() {
   log("[BOT] Accepted a reviewed live preview. The change remains unsaved until the user saves it.");
 }
 
-function loadProject() {
+const projectSession = createProjectSession(state, { storage: () => localStorage, onReset: () => {
+  setSimulationWorkerBusy(false);
+  botLiveCopilot.dispose();
+  botLiveCopilot.setGoal("");
+  $("#bot-goal").value = "";
+  renderBotFinding(null);
+  lastBotHover = null;
+  $("#output-log").textContent = "";
+  $("#issue-list").textContent = "";
+  $("#example-picker").value = "";
+  $("#simulation-analysis-mode").value = "automatic";
+  for (const id of ["#nonlinear-dc-controls", "#ac-sweep-controls", "#linear-transient-controls", "#digital-event-controls"]) $(id).classList.add("hidden");
+  render();
+} });
+
+function confirmDiscardChanges() {
+  return confirmProjectReplacement({ state, dialog: $("#unsaved-dialog") });
+}
+
+async function resetCanvas() {
+  // Invalidate earlier file/example requests even if this reset is later cancelled.
+  projectSession.invalidateLoads();
+  if (!await confirmDiscardChanges()) return;
+  projectSession.reset();
+  log("[NEW] Created a blank circuit project.");
+}
+
+async function openSavedProject() {
+  const isCurrent = projectSession.beginLoad();
   try {
-    const recovery = readRecoveryDraft(localStorage, RECOVERY_KEY);
-    if (recovery) return { project: recovery.project, recovered: true, fresh: false };
     const stored = localStorage.getItem(STORAGE_KEY);
-    return { project: stored ? parseProject(stored) : createProject(), recovered: false, fresh: !stored };
-  } catch {
-    return { project: createProject(), recovered: false, fresh: false };
-  }
+    if (!stored) return showDialog(t("openSavedProject"), t("noSavedProject"));
+    const project = parseProject(stored);
+    if (!await confirmDiscardChanges() || !isCurrent()) return;
+    projectSession.reset(project, { saved: "local", currentProjectId: project.id });
+    log("[OPENED] Explicitly reopened the project saved in this browser.");
+  } catch (error) { showDialog(t("openSavedProject"), error.message); }
 }
 
 function saveLocal() {
-  localStorage.setItem(STORAGE_KEY, serializeProject(state.project));
-  clearRecoveryDraft(localStorage, RECOVERY_KEY);
-  state.recoveryActive = false;
-  state.dirty = false;
-  state.botUnsavedOnly = false;
-  updateSaveState();
-  log("[SAVED] Project stored locally in this browser.");
+  try {
+    localStorage.setItem(STORAGE_KEY, serializeProject(state.project));
+    projectSession.markSaved("local");
+    updateSaveState();
+    log("[SAVED] Project stored locally in this browser.");
+  } catch (error) { showDialog(t("save"), error.message); }
 }
 
 function captureHistory() {
@@ -244,7 +268,6 @@ function captureHistory() {
   state.history.push(serializeProject(state.project));
   if (state.history.length > 30) state.history.shift();
   state.future = [];
-  state.recoveryActive = true;
   state.botUnsavedOnly = false;
 }
 
@@ -255,8 +278,6 @@ function replaceProject(project, { dirty = true } = {}) {
   state.pcbSelectedViaId = null;
   state.pcbViaDraft = null;
   state.dirty = dirty;
-  state.recoveryActive = dirty;
-  if (!dirty) clearRecoveryDraft(localStorage, RECOVERY_KEY);
   render();
 }
 
@@ -285,7 +306,7 @@ function redo() {
 }
 
 function updateSaveState() {
-  $("#save-state").textContent = state.dirty ? "Unsaved changes" : "Saved locally";
+  $("#save-state").textContent = state.dirty ? t("unsavedChanges") : t(state.savedDisposition === "local" ? "savedLocally" : state.savedDisposition === "export" ? "projectExported" : "emptyProject");
   $("#save-state").classList.toggle("saved", !state.dirty);
 }
 
@@ -577,7 +598,6 @@ function commitBreadboardEdit(project, message) {
   captureHistory();
   state.project = { ...project, metadata: { ...project.metadata, updatedAt: new Date().toISOString() } };
   state.dirty = true;
-  state.recoveryActive = true;
   state.lastValidation = null;
   render();
   validateAndReport();
@@ -764,7 +784,7 @@ function renderResultDashboard(analysis) {
     waveform='<figure class="result-waveform"><figcaption>Release candidate · build through export</figcaption><table class="result-table"><thead><tr><th>Gate</th><th>Result</th></tr></thead><tbody>'+rows+'</tbody></table><p>BOT cites local project/library fields; PCB export is illustrative, not manufacturing approval.</p></figure>';
   } else if (result.kind === "offline-recovery-scenario") {
     metrics.push(["Draft restored",result.draftSaved?"Yes":"No"],["Storage fallback",result.storageFallbackAvailable?"Native export valid":"Unavailable"],["Recovered edit",result.editedValue],["Silent loss",result.silentLoss?"Detected":"None"]);
-    waveform='<figure class="result-waveform"><figcaption>Local offline recovery · simulated storage interruption</figcaption><p>Unsaved edit restored from a versioned draft. When browser storage is unavailable, use <strong>File → Export</strong> before closing.</p><p>CI uses an in-memory storage mock; real browser quota and crash behavior are outside this test.</p></figure>';
+    waveform='<figure class="result-waveform"><figcaption>Storage recovery fixture · not application session restore</figcaption><p>This explicit test fixture restores an edit in simulated storage. The application itself always boots empty. When browser storage is unavailable, use <strong>File → Export</strong> before closing.</p><p>CI uses an in-memory storage mock; real browser quota and crash behavior are outside this test.</p></figure>';
   } else if (result.kind === "four-language-ui-sweep") {
     metrics.push(["Locales",result.locales.join(" · ")],["Declared interface keys",String(result.declaredKeyCount)],["Missing translations",String(result.missingTranslations)],["Rendered pixel check",result.renderedPixelCheck?"Measured":"Not claimed"]);
     waveform='<figure class="result-waveform"><figcaption>Four-language UI source audit</figcaption><p>Translation coverage: '+(result.missingTranslations===0?"complete":"incomplete")+'. Static accessibility and responsive overflow contracts run in the automated catalogue test.</p><p>No rendered pixel measurement is claimed by this source audit.</p></figure>';
@@ -1126,9 +1146,6 @@ function render() {
   renderValidation();
   $("#bot-repair-apply").hidden = !state.project.botRepairPreview;
   $("#bot-proposal-apply").hidden = !state.project.botCircuitProposal;
-  if (state.dirty && state.recoveryActive && !state.botUnsavedOnly && !writeRecoveryDraft(localStorage, RECOVERY_KEY, state.project)) {
-    log("[RECOVERY] The browser could not store a local recovery draft. Export important work before closing this tab.");
-  }
   updateSaveState();
   notifyBotCanvas();
 }
@@ -1195,13 +1212,16 @@ function runAnalysis(workerResult = null) {
     state.lastAnalysis={state:"running",engine:"Release-candidate end-to-end suite",message:"Loading checked-in acceptance fixtures.",result:null};
     renderOutput();
     notifyBotCanvas();
+    const isCurrent = projectSession.beginLoad();
     runReleaseCandidateE2E(state.project).then(result=>{
+      if (!isCurrent()) return;
       state.lastAnalysis=result;
       notifyBotCanvas();
       if(result.state==="complete")log("[E2E] All release-candidate gates passed.");
       else log("[E2E] "+(result.errors?.[0]?.message??result.message));
       renderOutput();
     }).catch(error=>{
+      if (!isCurrent()) return;
       state.lastAnalysis={state:"blocked",engine:"Release-candidate end-to-end suite",message:error instanceof Error?error.message:"The workflow failed.",errors:[],warnings:[],result:null};
       notifyBotCanvas();
       renderOutput();
@@ -1381,13 +1401,19 @@ function exportBomCsvFile() {
 }
 
 function exportProject() {
-  const blob = new Blob([serializeProject(state.project)], { type: "application/json" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = `${state.project.metadata.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "adigun-project"}.adigun.json`;
-  link.click();
-  URL.revokeObjectURL(link.href);
-  log("[EXPORTED] Native project JSON downloaded.");
+  let url;
+  try {
+    const blob = new Blob([serializeProject(state.project)], { type: "application/json" });
+    const link = document.createElement("a");
+    url = URL.createObjectURL(blob);
+    link.href = url;
+    link.download = `${state.project.metadata.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "adigun-project"}.adigun.json`;
+    link.click();
+    projectSession.markSaved("export");
+    updateSaveState();
+    log("[EXPORTED] Native project download handed to the browser. Check your downloads for the saved file.");
+  } catch (error) { showDialog(t("export"), error.message); }
+  finally { if (url) setTimeout(() => URL.revokeObjectURL(url), 1500); }
 }
 
 function runPcbChecks() {
@@ -1439,7 +1465,6 @@ function rotateSelectedPcbFootprint(degrees) {
   captureHistory();
   state.project = result.project;
   state.dirty = true;
-  state.recoveryActive = true;
   state.lastValidation = null;
   state.pcbRouteDraft = null;
   state.pcbRouteHintKey = null;
@@ -1453,14 +1478,8 @@ function handleAction(action) {
   if (pcbViaEditor.action(action)) return;
   if (action === "pcb-rotate-left") rotateSelectedPcbFootprint(-90);
   if (action === "pcb-rotate-right") rotateSelectedPcbFootprint(90);
-  if (action === "new-project") {
-    if (state.dirty && !confirm("Create a new project? Unsaved local changes can still be exported first.")) return;
-    state.history = [];
-    state.future = [];
-    state.lastValidation = null;
-    replaceProject(createEmptyProject({ locale: state.project.metadata.locale }));
-    log("[NEW] Created a blank circuit project.");
-  }
+  if (action === "new-project" || action === "close-project") void resetCanvas();
+  if (action === "open-saved-project") void openSavedProject();
   if (action === "import-project") $("#import-file").click();
   if (action === "save") saveLocal();
   if (action === "export") exportProject();
@@ -1507,7 +1526,6 @@ function handleAction(action) {
     state.project = next;
     state.breadboardSyncPreview = null;
     state.dirty = true;
-    state.recoveryActive = true;
     state.lastValidation = null;
     render();
     validateAndReport();
@@ -1547,7 +1565,6 @@ function handlePcbRouteCanvasClick(event) {
       captureHistory();
       state.project = result.project;
       state.dirty = true;
-      state.recoveryActive = true;
       state.lastValidation = null;
       state.pcbRouteDraft = null;
       state.pcbRouteHintKey = "pcbRouteReady";
@@ -1603,7 +1620,6 @@ function handleAppMenuKeydown(event) {
 
 document.addEventListener("click", (event) => {
   document.querySelectorAll(".app-menu[open]").forEach((menu) => { if (!menu.contains(event.target)) menu.open = false; });
-  state.userInteracted = true;
   if (pcbViaEditor.click(event)) return;
   if (handlePcbRouteCanvasClick(event)) return;
   const libraryModeButton = event.target.closest("[data-library-mode]");
@@ -1636,7 +1652,6 @@ document.addEventListener("click", (event) => {
       state.schematicWireMode = false;
       state.schematicWireStart = null;
       state.dirty = true;
-      state.recoveryActive = true;
       state.lastValidation = null;
       render();
       validateAndReport();
@@ -1685,6 +1700,7 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (document.querySelector("dialog[open]")) return;
   if (handleAppMenuKeydown(event)) return;
   if (pcbViaEditor.keydown(event)) return;
   if (handlePcbRouteKeydown(event)) return;
@@ -1729,7 +1745,6 @@ document.addEventListener("keydown", (event) => {
       captureHistory();
       state.project = result.project;
       state.dirty = true;
-      state.recoveryActive = true;
       state.lastValidation = null;
       render();
       validateAndReport();
@@ -1762,7 +1777,6 @@ document.addEventListener("keydown", (event) => {
     state.project = removeComponent(state.project, component.instanceId);
     state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
     state.dirty = true;
-  state.recoveryActive = true;
     state.lastValidation = null;
     render();
     validateAndReport();
@@ -1851,7 +1865,6 @@ document.addEventListener("pointerup", (event) => {
       captureHistory();
       state.project = result.project;
       state.dirty = true;
-      state.recoveryActive = true;
       state.lastValidation = null;
       render();
       validateAndReport();
@@ -1875,7 +1888,6 @@ document.addEventListener("pointerup", (event) => {
   state.project = moveComponent(state.project, drag.instanceId, state.activeView, [x, y], { snap: $("#snap-toggle").checked });
   state.selectedInstanceId = drag.instanceId;
   state.dirty = true;
-  state.recoveryActive = true;
   state.lastValidation = null;
   render();
 });
@@ -1888,7 +1900,6 @@ $("#add-component").addEventListener("click", () => {
   state.project = addComponent(state.project, state.selectedLibraryId);
   state.selectedInstanceId = state.project.components.at(-1).instanceId;
   state.dirty = true;
-  state.recoveryActive = true;
   log(`[ADD] Added ${selectedComponent().reference} from the starter generic library.`);
   render();
 });
@@ -1901,7 +1912,6 @@ $("#component-form").addEventListener("submit", (event) => {
   captureHistory();
   state.project = updateComponent(state.project, component.instanceId, { reference: $("#property-reference").value.trim(), value: $("#property-value").value.trim() });
   state.dirty = true;
-  state.recoveryActive = true;
   validateAndReport();
   render();
 });
@@ -1916,7 +1926,6 @@ $("#remove-component").addEventListener("click", () => {
   }
   state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
   state.dirty = true;
-  state.recoveryActive = true;
   state.lastValidation = null;
   render();
   validateAndReport();
@@ -1928,7 +1937,6 @@ $("#connection-form").addEventListener("submit", (event) => {
     captureHistory();
     state.project = connectPins(state.project, $("#connection-first").value, $("#connection-second").value);
     state.dirty = true;
-  state.recoveryActive = true;
     state.lastValidation = null;
     render();
     validateAndReport();
@@ -1995,7 +2003,6 @@ $("#net-list").addEventListener("click", (event) => {
   captureHistory();
   state.project = disconnectPin(state.project, button.dataset.endpoint);
   state.dirty = true;
-  state.recoveryActive = true;
   state.lastValidation = null;
   render();
   validateAndReport();
@@ -2005,13 +2012,11 @@ $("#project-form").addEventListener("submit", (event) => {
   captureHistory();
   state.project = { ...state.project, metadata: { ...state.project.metadata, name: $("#project-name").value.trim(), updatedAt: new Date().toISOString() } };
   state.dirty = true;
-  state.recoveryActive = true;
   render();
 });
 $("#language").addEventListener("change", (event) => {
   state.project = { ...state.project, metadata: { ...state.project.metadata, locale: event.target.value } };
   state.dirty = true;
-  state.recoveryActive = true;
   render();
 });
 $("#grid-toggle").addEventListener("change", renderCanvas);
@@ -2027,25 +2032,26 @@ $("#run-validation").addEventListener("click", validateAndReport);
 $("#export-simulation-report").addEventListener("click", exportSimulationReport);
 $("#load-example").addEventListener("click", async () => {
   const path = $("#example-picker").value;
+  if (!path) return;
+  const isCurrent = projectSession.beginLoad();
   try {
     const response = await fetch(path, { headers: { Accept: "application/json" } });
     if (!response.ok) throw new Error(`The example request returned ${response.status}.`);
     const project = parseProject(await response.text());
+    if (!isCurrent()) return;
     const analysis = project.releaseCandidateE2E
       ? await runReleaseCandidateE2E(project)
       : await createSimulationWorkerRun(project).promise;
     if (analysis.state !== "complete") throw new Error("The selected example does not pass its supported analysis check.");
-    if (state.dirty && !confirm("Replace the current project with this released example? Export unsaved work first if you need it.")) return;
-    state.history = [];
-    state.future = [];
-    state.lastValidation = null;
-    state.activeOutput = "output";
-    replaceProject(project, { dirty: false });
+    if (!isCurrent() || !await confirmDiscardChanges() || !isCurrent()) return;
+    projectSession.reset(project, { dirty: true });
     state.lastAnalysis = analysis;
+    $("#example-picker").value = path;
     state.selectedInstanceId = project.components.find((item) => item.libraryId === "passive.resistor")?.instanceId ?? project.components[0]?.instanceId ?? null;
     render();
     log(`[EXAMPLE] Loaded and validated ${project.metadata.name}.`);
   } catch (error) {
+    if (!isCurrent()) return;
     showDialog("Example unavailable", error instanceof Error ? error.message : "The selected example could not be loaded.");
   }
 });
@@ -2083,45 +2089,26 @@ $("#bot-proposal-apply").addEventListener("click", confirmBotCircuitProposal);
 $("#import-file").addEventListener("change", async (event) => {
   const [file] = event.target.files;
   if (!file) return;
+  const isCurrent = projectSession.beginLoad();
   try {
     const importedProject = parseProject(await file.text());
-    if (state.dirty && !confirm("Replace the current project with this imported file? Export unsaved work first if you need it.")) return;
-    captureHistory();
-    state.lastValidation = null;
-    state.activeOutput = "output";
-    replaceProject(importedProject, { dirty: false });
+    if (!isCurrent() || !await confirmDiscardChanges() || !isCurrent()) return;
+    projectSession.reset(importedProject, { dirty: true });
     log(`[IMPORTED] ${file.name} loaded after schema validation.`);
   } catch (error) {
+    if (!isCurrent()) return;
     showDialog("Import blocked", error instanceof Error ? error.message : "The selected file is not a supported project.");
   } finally { event.target.value = ""; }
 });
 
-async function loadStarterExample() {
-  const starterPath = "examples/070-stm32-timer-pwm.adigun.json";
-  $("#example-picker").value = starterPath;
-  const mayReplace = () => !state.userInteracted && !state.dirty && !localStorage.getItem(STORAGE_KEY) && state.project.id === initialProject.project.id && $("#example-picker").value === starterPath;
-  try {
-    const response = await fetch(starterPath, { headers: { Accept: "application/json" } });
-    if (!response.ok) return;
-    const documentText = await response.text();
-    if (!mayReplace()) return;
-    const project = parseProject(documentText);
-    const analysis = await createSimulationWorkerRun(project).promise;
-    // The user can choose another example or edit while the worker is running.
-    if (analysis.state !== "complete" || !mayReplace()) return;
-    replaceProject(project, { dirty: false });
-    state.selectedInstanceId = "resistor";
-    state.activeView = "breadboard";
-    state.activeInspector = "component";
-    state.lastAnalysis = analysis;
-    $("#example-picker").value = starterPath;
-    render();
-    log("[STARTER] Loaded the tested STM32 timer PWM sample.");
-  } catch { /* Keep the existing local project when the optional starter cannot load. */ }
-}
-
+// Boot is deliberately empty; only explicit Open/Example actions load a design.
+projectSession.clearTransient();
 render();
-new ResizeObserver(applyCanvasCamera).observe($("#design-canvas"));
-if (state.recoveredDraft) log("[RECOVERY] Restored the latest unsaved project saved in this browser.");
-if (initialProject.fresh) loadStarterExample();
-
+const canvasResizeObserver = new ResizeObserver(applyCanvasCamera);
+canvasResizeObserver.observe($("#design-canvas"));
+projectSession.install(window, { onLeave: (event) => {
+  const simulation = state.activeSimulation;
+  state.activeSimulation = null;
+  simulation?.cancel();
+  if (!event.persisted) canvasResizeObserver.disconnect();
+} });

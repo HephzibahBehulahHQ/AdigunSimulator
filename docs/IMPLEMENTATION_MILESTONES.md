@@ -4,7 +4,7 @@ This tracker records evidence-backed progress against the product requirements. 
 
 | Milestone | Verifiable completion criteria | Current state |
 | --- | --- | --- |
-| 1. Product foundation and project safety | Local-first project format, save/import/export/recovery, responsive workspace, four interface locales, and disclosed scope limits pass automated checks and representative browser workflows. | In progress. Automated and localization contracts exist; representative browser/accessibility acceptance remains outstanding. |
+| 1. Product foundation and project safety | Local-first project format, save/import/export, explicit reopen, clean session lifecycle, responsive workspace, four interface locales, and disclosed scope limits pass automated checks and representative browser workflows. | In progress. Automated and localization contracts exist; representative browser/accessibility acceptance remains outstanding. |
 | 2. Circuit editing and synchronized views | Breadboard, schematic, and PCB share project identity and nets; supported component placement/wiring edits synchronize across views; invalid and unsupported mappings are surfaced. | In progress. Shared identity/net model is implemented; broader edit synchronization and browser acceptance remain open. |
 | 3. Bounded simulation and instruments | Each advertised model has an explicit model boundary, reproducible examples, numerical tests, cancellation/resource limits, and independent engineering review before release. | In progress. Multiple bounded analyses are tested; general SPICE, broad mixed-signal behavior, and independent review remain unavailable. |
 | 4. PCB routing and fabrication preview | Supported layer/endpoint rules, net/clearance/keep-out checks, export integrity, and documented limitations are tested; production use additionally requires independent electrical and manufacturing review. | In progress; release pending. Stored vias support inspector editing and two-layer routing/export; quarter-turn footprint placement and shared camera/history are tested. Twelve new via regressions bring the local suite to 412/412. Full board/rule setup, package assets and independent manufacturing review remain open. |
@@ -102,3 +102,16 @@ See `PCB_ROTATION_ACCEPTANCE.md` for the relative-angle convention, checks, excl
 | Production promotion | Independent electrical/release review, protected merge and exact-commit Pages/browser verification pass. | Not performed: PR #505 remains draft without reviews. |
 
 See `PCB_VIA_EDIT_ACCEPTANCE.md` for scope and limitations. Product milestones 2 and 4 remain open; this is bounded implementation progress, not full product or manufacturing acceptance.
+
+
+## Empty canvas lifecycle checkpoint — 2026-11-09
+
+| Category / checkpoint | Completion criterion | Evidence |
+| --- | --- | --- |
+| Session isolation | Boot/New/Close are blank; selection, camera, history, drafts and pending work reset without deleting manual saves. | Automated session and stale-import tests; browser New, clean reload, close/new tab and saved reopen passed. |
+| Unsaved protection | Only dirty work requests native unload confirmation; cancelled leave preserves data; in-app cancellation preserves the design. | Lifecycle event tests pass. Browser Keep editing/Escape passed; native prompt acceptance is still unverified in this browser automation. |
+| Save/load compatibility | Imports/examples remain dirty; successful local save/native export clears dirty; failures preserve protection. | Actual-handler tests and browser import, Save, native download and explicit saved reopen passed. |
+| Localization and validation | Required checks pass and localized modal buttons fit desktop/mobile. | Eight locale/width browser cases passed; final full-suite, synchronization and CI evidence recorded in PR #505. |
+| Production promotion | Independent reviews, protected merge and exact Pages deployment pass. | Pending; draft PR #505 has no submitted reviews. No deployment performed. |
+
+See `CANVAS_SESSION_ACCEPTANCE.md`. This supersedes automatic recovery/startup behavior described in older checkpoints; the recovery example is an isolated storage test, not session restoration. Broad product milestones remain open.

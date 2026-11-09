@@ -353,21 +353,23 @@ test("keyboard shortcuts expose undo, redo, save, and selection removal", async 
   assert.match(app, /const editingText = target instanceof HTMLElement/);
 });
 
-test("project import validates and confirms replacement before capturing or replacing state", async () => {
+test("project import validates and confirms before resetting to an unsaved session", async () => {
   const app = await readFile(appFile, "utf8");
   const parser = app.indexOf("const importedProject = parseProject(await file.text())");
-  const confirmation = app.indexOf('if (state.dirty && !confirm("Replace the current project with this imported file?', parser);
-  const capture = app.indexOf("captureHistory();", confirmation);
-  const replacement = app.indexOf("replaceProject(importedProject, { dirty: false })", capture);
-  assert.ok(parser >= 0 && parser < confirmation && confirmation < capture && capture < replacement);
+  const confirmation = app.indexOf('!await confirmDiscardChanges()', parser);
+  const replacement = app.indexOf("projectSession.reset(importedProject, { dirty: true })", confirmation);
+  assert.ok(parser >= 0 && parser < confirmation && confirmation < replacement);
   assert.match(app.slice(app.indexOf('catch (error)', parser), app.indexOf('finally { event.target.value', parser)), /Import blocked/);
 });
 
-test("unsaved edits write a local recovery draft and successful saves clear it", async () => {
+test("boot is empty and transient snapshots are never hydrated by the app", async () => {
   const source = await readFile(new URL("../app.js", import.meta.url), "utf8");
-  assert.match(source, /writeRecoveryDraft\(localStorage, RECOVERY_KEY, state\.project\)/);
-  assert.match(source, /clearRecoveryDraft\(localStorage, RECOVERY_KEY\)/);
-  assert.match(source, /Restored the latest unsaved project saved in this browser/);
+  assert.ok(source.includes("project: createEmptyProject()"));
+  assert.ok(source.includes("projectSession.install(window"));
+  for (const removed of ["loadStarterExample", "initialProject", "readRecoveryDraft", "writeRecoveryDraft", "function loadProject"]) assert.equal(source.includes(removed), false, removed);
+  const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  for (const action of ["open-saved-project", "close-project"]) assert.ok(html.includes(`data-action="${action}"`));
+  assert.ok(html.includes('id="unsaved-dialog"'));
 });
 
 test("the published example catalogue retains all 200 individually specified acceptance rows", async () => {
