@@ -16,8 +16,8 @@ This tracker records evidence-backed progress against the product requirements. 
 ## Current branch verification
 
 - Branch: `codex/rl-transient-acceptance`.
-- PCB milestone baseline: `b9a4e5e7ca2e97960fd3150b286924c714b96501`; consult the branch for subsequent commits.
-- Required automated checks: 362 tests passed; syntax check, library validation, and `git diff --check` passed; GitHub Actions run #1248 passed.
+- Last verified implementation head: `e94b3e5573d5f72b54c4c47bec12f10a10390313` (copper integrity and layout repair).
+- Required automated checks at that head: 380 tests passed; syntax check, library validation, and `git diff --check` passed; GitHub Actions run #1255 passed. Local and remote branch identities were rechecked on 2026-11-09.
 - Deployment: not performed. The checked-in deployment runbook requires a non-draft review path, current-head checks, independent electrical review, and approved release safeguards before merge/deployment.
 
 Update this tracker when a milestone's evidence changes. Do not count candidates as verified parts, planned examples as released projects, or an illustrative PCB export as manufacturing approval.
@@ -42,3 +42,19 @@ Update this tracker when a milestone's evidence changes. Do not count candidates
 | Production release | Current-head CI, independent review and the documented protected release path pass; deployment commit and live page are verified. | Not performed. PR #505 is draft and has no reviews; production release prerequisites remain unmet. |
 
 The previous PCB milestone evidence did not cover stored trace crossings. Its apparent clearance success was incomplete; this audit adds that missing gate and repairs the affected fixtures. See `PCB_COPPER_RULES.md` for supported geometry and remaining limits. The temporary offline fixture-routing helper and verification logs live outside the product repository and are excluded from delivery. No general autorouter is advertised.
+
+## Requirements integration and release checklist — 2026-11-09
+
+The eight product milestones above remain the product-wide tracker; none is declared fully accepted. The five items below track this delivery request only, not a percentage of the entire simulator specification.
+
+| Delivery item | Completion criterion | Evidence at preparation |
+| --- | --- | --- |
+| Repository audit | Confirm official remote, branch, local changes, diff and existing CI before edits. | Clean branch at `e94b3e5`; matching GitHub head; CI #1255 passed; no uncommitted files to exclude. |
+| Requirements integration | Preserve the owner's latest specification, instructions and three visual targets without rewriting history or source text. | Merge `main` at `d5e2ae5e7ea2c6f8b0d1fe590e1533174e462f66`; `Plangoals.md`, `AGENTS.md` and target PNGs retain their upstream bytes. No application code changes in this integration. |
+| Required validation | Library validation, full tests and syntax checks pass for the integrated tree. | Local suite 380/380; library and syntax checks pass. Edited-document whitespace checks pass; the owner's specification retains its original Markdown line breaks and trailing blank line. Matching CI evidence is recorded on PR #505. |
+| GitHub synchronization | A normal two-parent merge commit is pushed; local and remote heads match; current-head CI passes. | Final commit and CI evidence are recorded on PR #505 after synchronization. |
+| Production release | Independent electrical/release review and representative browser acceptance pass; normal PR merge and Pages deployment succeed for the merged commit. | Pending. PR #505 remains draft with no reviews. Latest Pages deployment is still `3e940fe1ba2b8882a25ebd149477db5604a31bc9`; its recorded status is success and the live URL returns HTTP 200. These checks do not establish deployment of this branch. |
+
+Finish-time estimates for the full product and this release remain undetermined while independent review and the outstanding product acceptance work are unresolved. Do not promote another implementation milestone to production or bypass these gates merely because automated checks pass.
+
+Excluded from this integration: the temporary local QA log, stored outside the repository. The five files imported from `main` are byte-identical to their upstream versions; no caches, credentials or unrelated project files are included.
