@@ -27,7 +27,7 @@ export function createProjectSession(state, { storage, onReset = () => {} } = {}
     Object.assign(state, {
       project, currentProjectId, dirty, savedDisposition: saved,
       selectedInstanceId: null, selectedLibraryId: null, selectedEvidencePartId: null,
-      selectedNetId: null, history: [], future: [], pan: { x: 0, y: 0 }, scale: 1,
+      selectedNetId: null, selectedWire: null, wireCursor: null, placement: null, history: [], future: [], pan: { x: 0, y: 0 }, scale: 1,
       drag: null, activeTool: "select", activeView: "breadboard",
       activeInspector: "component", activeOutput: "output", lastAnalysis: null,
       lastValidation: null, botUnsavedOnly: false, breadboardSyncPreview: null,

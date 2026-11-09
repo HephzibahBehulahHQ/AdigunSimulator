@@ -29,7 +29,7 @@ test("reset removes all project/history/selection/view/draft state while preserv
   assert.equal(state.project.pcbFabrication, undefined);
   assert.deepEqual(state.history, []); assert.deepEqual(state.future, []);
   assert.deepEqual(state.pan, { x: 0, y: 0 }); assert.equal(state.scale, 1);
-  for (const key of ["selectedInstanceId", "selectedNetId", "drag", "activeSimulation", "pcbViaDraft", "pcbRouteDraft", "schematicWireStart", "breadboardSyncPreview", "lastAnalysis"]) assert.equal(state[key], null, key);
+  for (const key of ["selectedInstanceId", "selectedNetId", "selectedWire", "wireCursor", "placement", "drag", "activeSimulation", "pcbViaDraft", "pcbRouteDraft", "schematicWireStart", "breadboardSyncPreview", "lastAnalysis"]) assert.equal(state[key], null, key);
   assert.equal(cancelled, 1); assert.equal(state.activeView, "breadboard");
   assert.equal(records.get(PROJECT_STORAGE_KEY), saved);
   assert.equal(records.get("theme"), "dark");

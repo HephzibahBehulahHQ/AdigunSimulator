@@ -407,7 +407,8 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .schematic .placed-component .part-value { top: calc(var(--symbol-height, 58px) + 1px); }
 .schematic .placed-component { transform: none; }
 .schematic .schematic-symbol { transform: rotate(var(--symbol-rotation, 0deg)); transform-origin: center; }
-.design-canvas .schematic-wire-layer { z-index: 4; }
+.design-canvas .schematic-wire-layer { z-index: 1; }
+.design-canvas .schematic-terminal-layer { z-index: 4; }
 .design-canvas.schematic .schematic-pin-hit { pointer-events: all; cursor: crosshair; }
 .schematic .wire-layer .wire-hit { stroke: transparent; stroke-width: 12; pointer-events: stroke; cursor: pointer; filter: none; }
 .schematic .wire-layer .selected-wire:not(.wire-hit) { stroke: var(--gold); stroke-width: 3; }
@@ -436,6 +437,15 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .schematic .schematic-pin-hit { fill: transparent; stroke: none; }
 .schematic .schematic-pin-terminal circle.schematic-pin-hit { fill: transparent; stroke: none; }
 .property-form > label[data-component-content], #component-schema-fields > label { display: grid; grid-template-columns: minmax(0, .42fr) minmax(0, .58fr); align-items: center; gap: .5rem; }
+.draw-menu-button { border: 0; background: transparent; color: var(--ivory); padding: .5rem .6rem; font: inherit; cursor: pointer; border-radius: .25rem; }
+.draw-menu-button:hover, .draw-menu-button:focus-visible { background: var(--navy-3); outline: 1px solid var(--cyan); }
+#placement-status { color: var(--cyan); font-size: .75rem; flex-basis: 100%; }
+#placement-status:empty { display: none; }
+.is-placement-mode { cursor: crosshair; }
+.placement-ghost { position: absolute; z-index: 6; width: var(--symbol-width); height: var(--symbol-height); pointer-events: none; color: var(--cyan); opacity: .65; outline: 1px dashed var(--cyan); }
+.placement-ghost span { position: absolute; top: calc(var(--symbol-height) + 3px); left: 50%; transform: translateX(-50%); max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 9px; }
+.placement-ghost.placement-blocked { color: #ff7272; outline-color: #ff7272; background: rgb(255 114 114 / 15%); }
+@media(max-width:520px) { .draw-menu-button { padding: .45rem .5rem; font-size: .72rem; } }
 .schematic .ground-signal .part-reference { top: 36px; }
 .schematic .ground-signal .part-value { display: none; }
 .schematic .placed-component .part-reference { font-size: 10px; font-weight: 600; white-space: nowrap; }
