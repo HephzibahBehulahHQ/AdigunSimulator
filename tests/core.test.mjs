@@ -4319,8 +4319,9 @@ test("catalogue component property audit accepts valid resistor edits and reject
   assert.equal(validateComponentProperty(resistor,"not a value").valid,false);
   const app=await readFile(new URL("../app.js",import.meta.url),"utf8");
   const submit=app.slice(app.indexOf('$("#component-form").addEventListener("submit"'),app.indexOf('$("#remove-component").addEventListener'));
-  assert.ok(submit.indexOf("validateComponentProperty")<submit.indexOf("captureHistory()"));
-  assert.ok(submit.indexOf("captureHistory()")<submit.indexOf("updateComponent("));
+  assert.ok(submit.indexOf("editComponentField(")<submit.indexOf("commitComponentEdit("));
+  const editModule=await readFile(new URL("../js/component-edit.mjs",import.meta.url),"utf8");
+  assert.ok(editModule.indexOf("validateComponentProperty(component, value)") < editModule.indexOf("return updateComponent(project, id, { value })"));
   assert.match(app,/function undo\(/);assert.match(app,/function redo\(/);
 });
 

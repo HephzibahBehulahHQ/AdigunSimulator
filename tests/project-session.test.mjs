@@ -118,7 +118,7 @@ test("actual Save clears dirty only after storage succeeds and remains explicitl
   for (const fail of [false, true]) {
     const { state, storage, records, session } = setup(); let errors = 0;
     if (fail) storage.setItem = () => { throw new Error("quota"); };
-    const save = realFunction("saveLocal", "function captureHistory", { state, localStorage: storage, STORAGE_KEY: PROJECT_STORAGE_KEY, serializeProject, projectSession: session, updateSaveState() {}, log() {}, t: (key) => key, showDialog: () => errors++ });
+    const save = realFunction("saveLocal", "function captureHistory", { state, localStorage: storage, STORAGE_KEY: PROJECT_STORAGE_KEY, serializeProject, projectSession: session, componentPropertiesUi: { resetSession() {} }, updateSaveState() {}, log() {}, t: (key) => key, showDialog: () => errors++ });
     save(); assert.equal(state.dirty, fail); assert.equal(errors, Number(fail));
     if (!fail) { assert.equal(state.currentProjectId, state.project.id); assert.equal(parseProject(records.get(PROJECT_STORAGE_KEY)).id, state.project.id); }
   }
@@ -128,7 +128,7 @@ test("actual native export clears dirty only after successful browser handoff", 
   for (const fail of [false, true]) {
     const { state, session } = setup(); let errors = 0, clicked = 0, revoked = 0;
     const link = { click() { if (fail) throw new Error("download unavailable"); clicked++; } };
-    const exportProject = realFunction("exportProject", "\nfunction ", { state, projectSession: session, serializeProject, Blob, document: { createElement: () => link }, URL: { createObjectURL: () => "blob:test", revokeObjectURL: () => revoked++ }, setTimeout: (fn) => fn(), updateSaveState() {}, log() {}, t: (key) => key, showDialog: () => errors++ });
+    const exportProject = realFunction("exportProject", "\nfunction ", { state, projectSession: session, componentPropertiesUi: { resetSession() {} }, serializeProject, Blob, document: { createElement: () => link }, URL: { createObjectURL: () => "blob:test", revokeObjectURL: () => revoked++ }, setTimeout: (fn) => fn(), updateSaveState() {}, log() {}, t: (key) => key, showDialog: () => errors++ });
     exportProject(); assert.equal(state.dirty, fail); assert.equal(errors, Number(fail)); assert.equal(clicked, Number(!fail)); assert.equal(revoked, 1);
   }
 });
@@ -139,7 +139,7 @@ test("actual import remains dirty and cannot complete after a newer reset", asyn
     let handler, finishRead;
     const start = source.indexOf('$("#import-file").addEventListener("change"');
     const end = source.indexOf("// Boot is deliberately empty", start);
-    runInNewContext(source.slice(start, end), { $: () => ({ addEventListener: (_, fn) => { handler = fn; } }), state, projectSession: session, parseProject, confirmDiscardChanges: async () => true, log() {}, showDialog: (_, message) => assert.fail(message) });
+    runInNewContext(source.slice(start, end), { $: () => ({ addEventListener: (_, fn) => { handler = fn; } }), state, projectSession: session, componentPropertiesUi: { resetSession() {} }, parseProject, confirmDiscardChanges: async () => true, log() {}, showDialog: (_, message) => assert.fail(message) });
     const imported = createProject();
     const event = { target: { files: [{ name: "fixture.json", text: () => new Promise((resolve) => { finishRead = resolve; }) }], value: "fixture" } };
     const loading = handler(event);
