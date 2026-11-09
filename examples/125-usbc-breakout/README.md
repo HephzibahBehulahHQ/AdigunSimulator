@@ -8,14 +8,21 @@ The USB-IF Type-C specification defines the CC Rd sink resistor as 5.1 kΩ ±20%
 
 ## Checks and expected outputs
 
-The test verifies the complete declared connector map, independent CC resistors, no native/PCB netlist mismatch, bounded single-layer DRC and byte-identical exports:
+The test verifies the complete declared connector map, independent CC resistors, no native/PCB netlist mismatch, bounded two-layer DRC and byte-identical exports:
 
 - `Connector-Pin-Report.csv`
 - `board-F_Cu.gbr`
+- `board-B_Cu.gbr`
 - `board-Edge_Cuts.gbr`
 - `board-PTH.drl`
 - `BOM.csv`
 
 ## Limits
 
-The selected manufacturer part is identified, and its pin functions follow the USB-C specification. This repo's connector pad coordinates are a generic instructional template; verify the official package drawing and land pattern against the exact ordering code before assembly. DRC is bounded and does not establish trace-crossing, controlled impedance, USB signal integrity, current/thermal limits, ESD protection, shield strategy, USB-IF compliance or production readiness. This is a USB 2.0 sink breakout with 5 V VBUS; it does not implement USB Power Delivery or negotiate higher voltages.
+The selected manufacturer part is identified, and its pin functions follow the USB-C specification. This repo's connector pad coordinates are a generic instructional template; verify the official package drawing and land pattern against the exact ordering code before assembly. DRC is bounded and does not establish controlled impedance, USB signal integrity, current/thermal limits, ESD protection, shield strategy, USB-IF compliance or production readiness. This is a USB 2.0 sink breakout with 5 V VBUS; it does not implement USB Power Delivery or negotiate higher voltages.
+
+## Copper repair verification
+
+The stored routes now pass same-layer trace-to-trace, trace-to-pad (including no-connect pads), pad clearance, applicable net-class spacing, and connected-copper checks. These geometric checks do not establish manufacturer approval, current capacity or signal integrity.
+
+Ten explicitly stored 0.4 mm copper / 0.2 mm drill plated vias carry power and ground between F.Cu and B.Cu. Signal and CC routing stays on F.Cu; the board is now a two-layer educational layout. Via dimensions and annular rings still require approval from the selected fabricator.

@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { runInNewContext } from "node:vm";
 import { TRANSLATIONS } from "../js/i18n.mjs";
 import { runProjectAnalysis } from "../js/analysis-dispatch.mjs";
+import { pcbCopperPads } from "../js/pcb-vias.mjs";
 
 const source = await readFile(new URL("../app.js", import.meta.url), "utf8");
 // Execute the actual UI functions with small DOM boundaries, not copies of their logic.
@@ -13,6 +14,29 @@ function uiFunction(name, nextName, globals) {
   assert.ok(start >= 0 && end > start);
   return runInNewContext(`${source.slice(start, end)}\n${name}`, globals);
 }
+
+test("Enter and Space select a PCB via through the real route interaction handler", () => {
+  for (const key of ["Enter", " "]) {
+    const state = { activeView: "pcb", activeTool: "pcb-route", project: { pcbFabrication: {
+      pads: [], vias: [{ id: "test", netId: "VCC", xMm: 2, yMm: 3, diameterMm: 0.6, drillMm: 0.3 }]
+    } } };
+    const pad = { dataset: { pcbPad: "@via:test", pcbNet: "VCC", xMm: "2", yMm: "3" } };
+    let prevented = 0;
+    const event = { key, target: { closest: (selector) => ["[data-pcb-pad]", "#design-canvas"].includes(selector) ? pad : null }, preventDefault: () => { prevented++; }, stopPropagation() {} };
+    const start = source.indexOf("function handlePcbRouteCanvasClick(");
+    const end = source.indexOf('document.addEventListener("click"', start);
+    const activate = runInNewContext(`${source.slice(start, end)}\nhandlePcbRouteKeydown`, {
+      state, pcbCopperPads, $: () => ({ value: "B.Cu" }), render() {}, log() {}
+    });
+    assert.equal(activate(event), true);
+    assert.equal(state.pcbRouteDraft.startPad, "@via:test");
+    assert.equal(JSON.stringify(state.pcbRouteDraft.pointsMm), "[[2,3]]");
+    assert.equal(prevented, 1);
+    assert.equal(activate({ ...event, key: "ArrowRight" }), false);
+    state.activeTool = "select";
+    assert.equal(activate(event), false);
+  }
+});
 
 test("localization updates every placeholder and image alt without aborting startup", () => {
   for (const locale of ["en", "de", "yo", "pcm"]) {

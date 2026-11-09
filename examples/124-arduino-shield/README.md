@@ -17,4 +17,8 @@ The bounded DRC checks native-net equivalence, every mapped physical pad, routed
 
 ## Limits
 
-The stored outline and header coordinates are an educational template and have not been overlaid against the current official CAD archive or tested with a physical Arduino revision. The keep-out boxes are conservative placeholders. The checks do not cover trace crossings, board contour details, annular rings, power/current limits, solder-mask/paste/silkscreen, connector stack height or manufacturer-specific rules. Confirm exact fit and the selected stackable headers against the official CAD files and the physical board before fabrication.
+The stored outline and header coordinates are an educational template and have not been overlaid against the current official CAD archive or tested with a physical Arduino revision. The keep-out boxes are conservative placeholders. The checks do not cover board contour details, annular rings, power/current limits, solder-mask/paste/silkscreen, connector stack height or manufacturer-specific rules. Confirm exact fit and the selected stackable headers against the official CAD files and the physical board before fabrication.
+
+## Copper repair verification
+
+The stored routes now pass same-layer trace-to-trace, trace-to-pad (including no-connect pads), pad clearance, applicable net-class spacing, and connected-copper checks. These geometric checks do not establish manufacturer approval, current capacity or signal integrity.

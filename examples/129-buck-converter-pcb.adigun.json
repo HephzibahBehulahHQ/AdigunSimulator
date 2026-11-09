@@ -650,30 +650,6 @@
     ],
     "routes": [
       {
-        "netId": "VIN",
-        "netClassId": "POWER_IN",
-        "layer": "F.Cu",
-        "widthMm": 1.5,
-        "pointsMm": [
-          [
-            5,
-            8
-          ],
-          [
-            10,
-            8
-          ],
-          [
-            17,
-            8
-          ],
-          [
-            24,
-            8
-          ]
-        ]
-      },
-      {
         "netId": "SW",
         "netClassId": "SWITCH_NODE",
         "layer": "F.Cu",
@@ -694,34 +670,50 @@
         ]
       },
       {
-        "netId": "VOUT",
-        "netClassId": "POWER_OUT",
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
         "layer": "F.Cu",
         "widthMm": 1.5,
         "pointsMm": [
           [
-            31.62,
+            10,
+            13
+          ],
+          [
+            5,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "VIN",
+        "netClassId": "POWER_IN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            10,
             8
           ],
           [
-            42,
-            13
+            5,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "VIN",
+        "netClassId": "POWER_IN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            17,
+            8
           ],
           [
-            36.54,
-            20
-          ],
-          [
-            47,
-            13
-          ],
-          [
-            57,
-            13
-          ],
-          [
-            50,
-            24
+            10,
+            8
           ]
         ]
       },
@@ -732,9 +724,109 @@
         "widthMm": 1.5,
         "pointsMm": [
           [
-            5,
+            42,
+            18
+          ],
+          [
+            47,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            29.08,
+            8
+          ],
+          [
+            29.875,
+            6.625
+          ],
+          [
+            30.625,
+            5.875
+          ],
+          [
+            31.875,
+            5.625
+          ],
+          [
+            33.125,
+            6.375
+          ],
+          [
+            34.16,
+            7.875
+          ],
+          [
+            34.16,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            29.08,
+            14
+          ],
+          [
+            29.08,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            17,
             13
           ],
+          [
+            22.625,
+            6.125
+          ],
+          [
+            24.625,
+            5.625
+          ],
+          [
+            27.375,
+            5.875
+          ],
+          [
+            28.375,
+            6.625
+          ],
+          [
+            28.875,
+            8.125
+          ],
+          [
+            29.08,
+            14
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
           [
             10,
             13
@@ -742,54 +834,258 @@
           [
             17,
             13
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            52.54,
+            24
           ],
           [
-            24,
+            57,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "netClassId": "POWER_OUT",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            42,
             13
           ],
           [
-            29.08,
-            14
-          ],
+            47,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "VIN",
+        "netClassId": "POWER_IN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
           [
-            29.08,
-            16
-          ],
-          [
-            34.16,
-            16
-          ],
-          [
-            34.16,
+            17,
             8
           ],
           [
-            29.08,
+            3.875,
+            10.875
+          ],
+          [
+            2.875,
+            12.125
+          ],
+          [
+            2.625,
+            13.125
+          ],
+          [
+            3.375,
+            14.625
+          ],
+          [
+            5,
+            15.375
+          ],
+          [
+            17.625,
+            15.125
+          ],
+          [
+            19.875,
+            13.125
+          ],
+          [
+            24,
             8
-          ],
-          [
-            32,
-            16
-          ],
-          [
-            39,
-            20
-          ],
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "netClassId": "POWER_OUT",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
           [
             42,
-            18
+            13
           ],
+          [
+            36.54,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
           [
             47,
             18
           ],
           [
-            57,
-            18
+            52.375,
+            23.375
           ],
           [
             52.54,
             24
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "netClassId": "POWER_OUT",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            47,
+            13
+          ],
+          [
+            57,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            34.16,
+            8
+          ],
+          [
+            34.375,
+            20.875
+          ],
+          [
+            34.875,
+            21.625
+          ],
+          [
+            36.54,
+            22.375
+          ],
+          [
+            37.875,
+            21.875
+          ],
+          [
+            42,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "netClassId": "POWER_OUT",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            47,
+            13
+          ],
+          [
+            58.375,
+            16.125
+          ],
+          [
+            59.125,
+            17.125
+          ],
+          [
+            59.375,
+            19.125
+          ],
+          [
+            53.625,
+            25.875
+          ],
+          [
+            51.875,
+            26.125
+          ],
+          [
+            50.375,
+            24.875
+          ],
+          [
+            50,
+            24
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "netClassId": "POWER_OUT",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            31.62,
+            8
+          ],
+          [
+            32.375,
+            21.625
+          ],
+          [
+            33.625,
+            23.375
+          ],
+          [
+            36.125,
+            24.375
+          ],
+          [
+            53.125,
+            26.125
+          ],
+          [
+            54.625,
+            24.875
+          ],
+          [
+            59.125,
+            18.875
+          ],
+          [
+            59.375,
+            17.875
+          ],
+          [
+            58.625,
+            16.375
+          ],
+          [
+            57,
+            15.625
+          ],
+          [
+            42,
+            13
           ]
         ]
       }

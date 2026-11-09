@@ -1,7 +1,10 @@
+import { auditPcbCopper, netPairClearance, disconnectedPcbNets } from "./pcb-copper.mjs";
+import { pcbCopperPads, validatePcbVias } from "./pcb-vias.mjs";
 const round = (value) => Number(Number(value).toFixed(6)).toString();
 const gerberCoord = (value) => String(Math.round(value * 1_000_000)).padStart(10,"0");
-const pointEqual = (a,b) => Math.hypot(a.xMm-b[0],a.yMm-b[1]) <= 0.001;
+const pointEqual = (a,b) => Array.isArray(b) && b.length === 2 && b.every(Number.isFinite) && Math.hypot(a.xMm-b[0],a.yMm-b[1]) <= 0.001;
 function segmentHitsRect(a,b,rect,padding=0){
+  if (![a,b].every((point) => Array.isArray(point) && point.length === 2 && point.every(Number.isFinite))) return false;
   const x0=rect.xMm-padding,y0=rect.yMm-padding,x1=rect.xMm+rect.widthMm+padding,y1=rect.yMm+rect.heightMm+padding;
   const dx=b[0]-a[0],dy=b[1]-a[1],p=[-dx,dx,-dy,dy],q=[a[0]-x0,x1-a[0],a[1]-y0,y1-a[1]];
   let t0=0,t1=1;
@@ -14,11 +17,16 @@ export function validatePcbFabrication(project) {
   const warnings = [];
   const pcb = project?.pcbFabrication;
   if (!pcb || typeof pcb !== "object") return { status:"blocked", errors:["Project has no PCB fabrication data."], warnings };
-  const { board, parts, pads, routes } = pcb;
-  if (!board || !Number.isFinite(board.widthMm) || !Number.isFinite(board.heightMm) || board.widthMm <= 0 || board.heightMm <= 0) errors.push("Board dimensions must be positive millimetres.");
+  const { board, parts, routes } = pcb;
+  if (!board || !Number.isFinite(board.widthMm) || !Number.isFinite(board.heightMm) || board.widthMm <= 0 || board.heightMm <= 0) return { status:"blocked", errors:["Board dimensions must be positive millimetres."], warnings };
   const supportedCopperLayers = ["F.Cu", "B.Cu"];
   if (!Array.isArray(board?.copperLayers) || board.copperLayers.length < 1 || board.copperLayers.length > 2 || board.copperLayers[0] !== "F.Cu" || board.copperLayers.some((layer) => !supportedCopperLayers.includes(layer)) || new Set(board.copperLayers).size !== board.copperLayers.length) errors.push("Copper layers must be F.Cu, optionally followed by B.Cu.");
-  if (!Array.isArray(parts) || !Array.isArray(pads) || !Array.isArray(routes)) return { status:"blocked", errors:[...errors,"Parts, pads, and routes must be arrays."], warnings };
+  if (!Array.isArray(parts) || !Array.isArray(pcb.pads) || !Array.isArray(routes)) return { status:"blocked", errors:[...errors,"Parts, pads, and routes must be arrays."], warnings };
+  const viaErrors = validatePcbVias(pcb, new Set((project.nets ?? []).map((net) => net.id)));
+  if (viaErrors.length) return { status:"blocked", errors:[...errors, ...viaErrors], warnings };
+  const pads = pcbCopperPads(pcb);
+  const copperIssues = auditPcbCopper(pcb);
+  if (copperIssues.some((issue) => ["invalid-geometry", "work-limit"].includes(issue.type))) return { status:"blocked", errors:[...errors,"Copper clearance audit blocked: invalid or excessive geometry."], warnings };
   const components = new Map((project.components ?? []).map((component) => [component.instanceId,component]));
   const knownNets = new Map((project.nets ?? []).map((net) => [net.id,new Set(net.endpoints ?? [])]));
   const partIds = new Set();
@@ -31,6 +39,7 @@ export function validatePcbFabrication(project) {
   const padKeys = new Set();
   for (const pad of pads) {
     const key = `${pad.instanceId}:${pad.pin}`;
+    if (pad.isVia) continue; // Via geometry/net/bounds were validated above; no fictitious component pin.
     if (!components.has(pad.instanceId) || !partIds.has(pad.instanceId)) errors.push(`Pad ${pad.reference ?? key} has no listed PCB component.`);
     if (padKeys.has(key)) errors.push(`Pad ${pad.reference ?? key} is duplicated.`);
     padKeys.add(key);
@@ -59,12 +68,13 @@ export function validatePcbFabrication(project) {
   };
   for (let i=0;i<pads.length;i++) for (let j=i+1;j<pads.length;j++) {
     const a=pads[i],b=pads[j];
-    if (a.netId===b.netId) continue;
+    if (a.netId===b.netId && a.netId!=="NC") continue;
     const spacing=padGap(a,b);
-    if (spacing + 1e-9 < clearance) errors.push(`Copper pads ${a.reference}.${a.number} and ${b.reference}.${b.number} violate ${round(clearance)} mm clearance.`);
+    const required = netPairClearance(pcb, a.netId, b.netId);
+    if (spacing + 1e-9 < required) errors.push(`Copper pads ${a.reference}.${a.number} and ${b.reference}.${b.number} violate ${round(required)} mm clearance.`);
   }
   for (const route of routes) {
-    if (!knownNets.has(route.netId) || !Array.isArray(route.pointsMm) || route.pointsMm.length < 2 || !Number.isFinite(route.widthMm) || route.widthMm <= 0) { errors.push(`Route for ${route.netId ?? "unknown net"} is incomplete.`); continue; }
+    if (!knownNets.has(route.netId) || !Array.isArray(route.pointsMm) || route.pointsMm.length < 2 || route.pointsMm.some((point) => !Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite)) || !Number.isFinite(route.widthMm) || route.widthMm <= 0) { errors.push(`Route for ${route.netId ?? "unknown net"} is incomplete.`); continue; }
     if (!supportedCopperLayers.includes(route.layer) || !Array.isArray(board?.copperLayers) || !board.copperLayers.includes(route.layer)) errors.push(`Route ${route.netId} is on an undeclared copper layer.`);
     for (const [x,y] of route.pointsMm) if (![x,y].every(Number.isFinite) || x < 0 || y < 0 || x > board.widthMm || y > board.heightMm) errors.push(`Route ${route.netId} leaves the board outline.`);
     const startEndpoint = pads.find((pad) => pad.netId===route.netId && pointEqual(pad,route.pointsMm[0]));
@@ -101,14 +111,21 @@ export function validatePcbFabrication(project) {
     }
     for(const route of routes)for(let i=1;i<(route.pointsMm??[]).length;i++)if(segmentHitsRect(route.pointsMm[i-1],route.pointsMm[i],keepout,route.widthMm/2)){errors.push(`Route ${route.netId} intersects keep-out ${keepout.id??"unnamed"}.`);break;}
   }
+  for (const issue of copperIssues) {
+    if (issue.type === "invalid-geometry" || issue.type === "work-limit") { errors.push(`Copper clearance audit blocked: ${issue.type}.`); continue; }
+    const route = routes[issue.routeIndex];
+    const target = issue.type === "trace-pad" ? `pad ${pads[issue.padIndex].reference}.${pads[issue.padIndex].number}` : `route ${routes[issue.otherRouteIndex].netId}`;
+    errors.push(`Copper route ${route.netId} on ${route.layer} violates ${round(issue.requiredMm)} mm clearance to ${target} (gap ${round(issue.gapMm)} mm).`);
+  }
   if (!routes.length) errors.push("At least one routed copper net is required.");
-  return { status:errors.length ? "failed" : "passed", errors, warnings, checks:["board bounds","supported F.Cu/B.Cu layers","declared net-to-pad mapping","native/PCB netlist equivalence","connected routed endpoints","no unrouted physical nets","all physical pads appear on copper paths","inter-net pad clearance","through-hole drill dimensions","declared header map","declared mechanical keep-outs"] };
+  for (const net of disconnectedPcbNets(pcb)) errors.push(`Net ${net} has disconnected copper groups.`);
+  return { status:errors.length ? "failed" : "passed", errors, warnings, checks:["board bounds","supported F.Cu/B.Cu layers","declared net-to-pad mapping","native/PCB netlist equivalence","connected routed endpoints","no unrouted physical nets","all physical pads appear on copper paths","inter-net pad clearance","trace-to-pad clearance including no-connect pads","same-layer trace-to-trace clearance","net-class pair clearances","through-hole drill dimensions","declared header map","declared mechanical keep-outs"] };
 }
 
 function gerberFile(pcb, { outline=false, layer="F.Cu" }={}) {
   const apertures = new Map();
   const apertureCode = (key, definition) => { if (!apertures.has(key)) apertures.set(key,{code:10+apertures.size,definition}); return apertures.get(key).code; };
-  const padDraws = outline ? [] : pcb.pads.filter((pad) => layer === "F.Cu" || pad.technology === "through-hole").map((pad) => {
+  const padDraws = outline ? [] : pcbCopperPads(pcb).filter((pad) => layer === "F.Cu" || pad.technology === "through-hole").map((pad) => {
     const key=pad.technology==="through-hole" ? `C:${round(pad.diameterMm)}` : `R:${round(pad.widthMm)}x${round(pad.heightMm)}`;
     const definition=pad.technology==="through-hole" ? `C,${round(pad.diameterMm)}` : `R,${round(pad.widthMm)}X${round(pad.heightMm)}`;
     return { pad, code:apertureCode(key,definition) };
@@ -132,7 +149,7 @@ function gerberFile(pcb, { outline=false, layer="F.Cu" }={}) {
 }
 
 function drillFile(pcb) {
-  const holes=pcb.pads.filter((pad)=>pad.technology==="through-hole").sort((a,b)=>a.drillMm-b.drillMm||a.reference.localeCompare(b.reference)||String(a.number).localeCompare(String(b.number)));
+  const holes=pcbCopperPads(pcb).filter((pad)=>pad.technology==="through-hole").sort((a,b)=>a.drillMm-b.drillMm||a.reference.localeCompare(b.reference)||String(a.number).localeCompare(String(b.number)));
   const sizes=[...new Set(holes.map((pad)=>pad.drillMm))];
   const lines=["M48","; AdigunSimulator educational Excellon drill output","METRIC,TZ"];
   sizes.forEach((size,index)=>lines.push(`T${String(index+1).padStart(2,"0")}C${round(size)}`));

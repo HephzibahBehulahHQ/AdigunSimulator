@@ -236,6 +236,9 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .canvas-area.has-overview [data-mini-view="pcb"] { display: none; }
 .canvas-area.has-overview .mini-canvas { min-height: 0; }
 .canvas-area:not(.has-overview) > .design-canvas { min-height: 29rem; }
+.canvas-area { align-self: start; }
+.canvas-area:has(> .design-canvas.pcb) { grid-template-rows: auto auto auto auto; }
+.canvas-area:not(.has-overview) > .design-canvas.pcb { min-height: 0; aspect-ratio: 680 / 300; align-self: start; }
 .schematic .placed-component { min-width: 4.2rem; }
 .schematic .part-body { border-radius: .18rem; background: #10263b; }
 .schematic .passive-resistor .part-body { color: #f0bd77; background: transparent; border-color: #e0ad70; }

@@ -4,6 +4,7 @@ import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPac
 import { schematicPinPoint } from "./js/schematic-pin-layout.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
+import { pcbCopperPads } from "./js/pcb-vias.mjs";
 import { movePcbFootprint } from "./js/pcb-edit.mjs";
 import { createPcbRoute } from "./js/pcb-routing.mjs";
 import { clearRecoveryDraft, readRecoveryDraft, writeRecoveryDraft } from "./js/recovery-storage.mjs";
@@ -1443,7 +1444,7 @@ function handlePcbRouteCanvasClick(event) {
     state.selectedInstanceId = pad.dataset.instanceId;
     if (pad.dataset.pcbNet === "NC") { showDialog(t("pcbMenu"), t("pcbRouteBlocked")); return true; }
     if (!state.pcbRouteDraft) {
-      const routePad = state.project.pcbFabrication.pads.find((item) => `${item.instanceId}:${item.pin}` === pad.dataset.pcbPad);
+      const routePad = pcbCopperPads(state.project.pcbFabrication).find((item) => `${item.instanceId}:${item.pin}` === pad.dataset.pcbPad);
       if ($("#pcb-route-layer").value === "B.Cu" && routePad?.technology !== "through-hole") {
         state.pcbRouteHintKey = "pcbRouteBottomThroughHole";
         renderCanvas();
@@ -1502,6 +1503,11 @@ function handlePcbRouteCanvasClick(event) {
   state.pcbRouteHintKey = "pcbRouteWaypoint";
   renderCanvas();
   return true;
+}
+
+function handlePcbRouteKeydown(event) {
+  if (!["Enter", " "].includes(event.key) || !event.target.closest?.("[data-pcb-pad]")) return false;
+  return handlePcbRouteCanvasClick(event);
 }
 
 document.addEventListener("click", (event) => {
@@ -1589,6 +1595,7 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (handlePcbRouteKeydown(event)) return;
   if (event.key === "Escape" && (state.breadboardPlacementMode || state.schematicWireMode || state.activeTool === "pcb-route")) {
     event.preventDefault();
     state.breadboardPlacementMode = false;

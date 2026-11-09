@@ -501,38 +501,54 @@
     ],
     "routes": [
       {
-        "netId": "VCC",
-        "netClassId": "CONTROL",
+        "netId": "COIL",
+        "netClassId": "COIL",
         "layer": "F.Cu",
-        "widthMm": 0.35,
+        "widthMm": 0.45,
         "pointsMm": [
           [
-            5,
-            7
+            14.54,
+            25
+          ],
+          [
+            15.875,
+            17.875
           ],
           [
             17,
-            7
-          ],
-          [
-            17,
-            20
+            16
           ]
         ]
       },
       {
-        "netId": "GND",
-        "netClassId": "CONTROL",
+        "netId": "COIL",
+        "netClassId": "COIL",
         "layer": "F.Cu",
-        "widthMm": 0.35,
+        "widthMm": 0.45,
         "pointsMm": [
           [
-            5,
-            11
+            17,
+            16
           ],
           [
-            17.08,
-            25
+            17,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "LOAD_NC",
+        "netClassId": "CONTACT",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            29,
+            12
+          ],
+          [
+            45,
+            12
           ]
         ]
       },
@@ -569,22 +585,34 @@
         ]
       },
       {
-        "netId": "COIL",
-        "netClassId": "COIL",
+        "netId": "GND",
+        "netClassId": "CONTROL",
         "layer": "F.Cu",
-        "widthMm": 0.45,
+        "widthMm": 0.35,
         "pointsMm": [
           [
-            17,
-            12
-          ],
-          [
-            14.54,
+            17.08,
             25
           ],
           [
-            17,
-            16
+            15.125,
+            26.375
+          ],
+          [
+            11.375,
+            26.375
+          ],
+          [
+            10.625,
+            25.375
+          ],
+          [
+            10.125,
+            18.375
+          ],
+          [
+            5,
+            11
           ]
         ]
       },
@@ -605,18 +633,42 @@
         ]
       },
       {
-        "netId": "LOAD_NC",
-        "netClassId": "CONTACT",
+        "netId": "VCC",
+        "netClassId": "CONTROL",
         "layer": "F.Cu",
-        "widthMm": 0.75,
+        "widthMm": 0.35,
         "pointsMm": [
           [
-            29,
-            12
+            17,
+            20
           ],
           [
-            45,
-            12
+            18.375,
+            16.375
+          ],
+          [
+            18.375,
+            9.875
+          ],
+          [
+            17,
+            7
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "netClassId": "CONTROL",
+        "layer": "F.Cu",
+        "widthMm": 0.35,
+        "pointsMm": [
+          [
+            17,
+            7
+          ],
+          [
+            5,
+            7
           ]
         ]
       },
@@ -627,11 +679,11 @@
         "widthMm": 0.75,
         "pointsMm": [
           [
-            29,
+            45,
             17
           ],
           [
-            45,
+            29,
             17
           ]
         ]

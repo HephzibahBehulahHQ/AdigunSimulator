@@ -1,3 +1,5 @@
+import { segmentPadGap, padOnLayer, netPairClearance } from "./pcb-copper.mjs";
+import { pcbCopperPads, validatePcbVias } from "./pcb-vias.mjs";
 const clone = (value) => JSON.parse(JSON.stringify(value));
 const epsilon = 1e-9;
 const pointDistance = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
@@ -38,12 +40,6 @@ function padRadius(pad) {
     : Math.hypot(Number(pad.widthMm), Number(pad.heightMm)) / 2;
 }
 
-function clearanceFor(pcb, netId, boardClearance) {
-  const netClass = (pcb.netClasses ?? []).find((item) => item.netIds?.includes(netId));
-  const rules = (pcb.netClassRules ?? []).filter((rule) => netClass && (rule.classA === netClass.name || rule.classB === netClass.name));
-  return Math.max(boardClearance, ...rules.map((rule) => Number(rule.minimumClearanceMm)).filter(Number.isFinite));
-}
-
 export function createPcbRoute(project, { startPad, endPad, waypoints = [], layer = "F.Cu", widthMm } = {}) {
   const pcb = project?.pcbFabrication;
   const board = pcb?.board;
@@ -51,18 +47,20 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
   if (![board.widthMm, board.heightMm, board.minimumClearanceMm].every(Number.isFinite) || board.widthMm <= 0 || board.heightMm <= 0 || board.minimumClearanceMm <= 0) return { status: "blocked", code: "INVALID_BOARD_RULES" };
   if (!Array.isArray(board.copperLayers) || !board.copperLayers.includes(layer) || !["F.Cu", "B.Cu"].includes(layer)) return { status: "blocked", code: "UNSUPPORTED_COPPER_LAYER" };
 
-  const getPad = (id) => pcb.pads.find((pad) => `${pad.instanceId}:${pad.pin}` === id);
+  if (validatePcbVias(pcb, new Set((project.nets ?? []).map((net) => net.id))).length) return { status: "blocked", code: "INVALID_EXISTING_GEOMETRY" };
+  const pads = pcbCopperPads(pcb);
+  const getPad = (id) => pads.find((pad) => `${pad.instanceId}:${pad.pin}` === id);
   const from = getPad(startPad), to = getPad(endPad);
   if (!from || !to) return { status: "blocked", code: "UNKNOWN_PAD" };
   if (from.netId === "NC" || to.netId === "NC") return { status: "blocked", code: "NO_CONNECT_PAD" };
   if (from.netId !== to.netId) return { status: "blocked", code: "NET_MISMATCH" };
   if (layer === "B.Cu" && [from, to].some((pad) => pad.technology !== "through-hole")) return { status: "blocked", code: "BOTTOM_LAYER_REQUIRES_THROUGH_HOLE" };
   const declaredNet = project.nets?.find((net) => net.id === from.netId);
-  if (startPad === endPad || !declaredNet || !declaredNet.endpoints?.includes(startPad) || !declaredNet.endpoints?.includes(endPad)) return { status: "blocked", code: "INVALID_ROUTE_ENDPOINTS" };
-  if (![from, to].every((pad) => pcb.parts.some((part) => part.instanceId === pad.instanceId))) return { status: "blocked", code: "UNKNOWN_FOOTPRINT" };
+  if (startPad === endPad || !declaredNet || (!from.isVia && !declaredNet.endpoints?.includes(startPad)) || (!to.isVia && !declaredNet.endpoints?.includes(endPad))) return { status: "blocked", code: "INVALID_ROUTE_ENDPOINTS" };
+  if (![from, to].every((pad) => pad.isVia || pcb.parts.some((part) => part.instanceId === pad.instanceId))) return { status: "blocked", code: "UNKNOWN_FOOTPRINT" };
 
   const netClass = (pcb.netClasses ?? []).find((item) => item.netIds?.includes(from.netId));
-  const minimumWidth = Number(netClass?.minimumWidthMm ?? board.minimumTraceWidthMm ?? 0.25);
+  const minimumWidth = Number(netClass?.minimumWidthMm ?? netClass?.traceWidthMm ?? board.minimumTraceWidthMm ?? 0.25);
   const traceWidth = widthMm === undefined ? minimumWidth : Number(widthMm);
   if (!Number.isFinite(minimumWidth) || minimumWidth <= 0 || !Number.isFinite(traceWidth) || traceWidth + epsilon < minimumWidth) return { status: "blocked", code: "TRACE_WIDTH_BELOW_MINIMUM" };
   if (pcb.pads.some((pad) => !Number.isFinite(pad.xMm) || !Number.isFinite(pad.yMm) || !Number.isFinite(padRadius(pad)) || padRadius(pad) <= 0)) return { status: "blocked", code: "INVALID_EXISTING_GEOMETRY" };
@@ -76,18 +74,17 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
   if (pointsMm.some((point) => !point.every(Number.isFinite) || point[0] < traceWidth / 2 || point[1] < traceWidth / 2 || point[0] > board.widthMm - traceWidth / 2 || point[1] > board.heightMm - traceWidth / 2)) return { status: "blocked", code: "ROUTE_OUT_OF_BOUNDS" };
   if (pointsMm.some((point, index) => index > 0 && pointDistance(point, pointsMm[index - 1]) <= epsilon)) return { status: "blocked", code: "ZERO_LENGTH_SEGMENT" };
 
-  const clearance = clearanceFor(pcb, from.netId, board.minimumClearanceMm);
-  const otherPads = pcb.pads.filter((pad) => pad.netId !== from.netId && pad.netId !== "NC" && (layer === "F.Cu" || pad.technology === "through-hole"));
+  const otherPads = pads.filter((pad) => pad.netId !== from.netId && padOnLayer(pad, layer));
   const otherRoutes = pcb.routes.filter((route) => route.netId !== from.netId && route.layer === layer);
   const keepouts = pcb.keepouts ?? [];
   for (let i = 1; i < pointsMm.length; i++) {
     const a = pointsMm[i - 1], b = pointsMm[i];
     for (const pad of otherPads) {
-      const required = clearance + traceWidth / 2 + padRadius(pad);
-      if (pointSegmentDistance([Number(pad.xMm), Number(pad.yMm)], a, b) + epsilon < required) return { status: "blocked", code: "PAD_CLEARANCE" };
+      const required = netPairClearance(pcb, from.netId, pad.netId) + traceWidth / 2;
+      if (segmentPadGap(a, b, pad) + epsilon < required) return { status: "blocked", code: "PAD_CLEARANCE" };
     }
     for (const route of otherRoutes) {
-      const required = clearance + (traceWidth + Number(route.widthMm)) / 2;
+      const required = netPairClearance(pcb, from.netId, route.netId) + (traceWidth + Number(route.widthMm)) / 2;
       for (let j = 1; j < (route.pointsMm ?? []).length; j++) {
         if (segmentDistance(a, b, route.pointsMm[j - 1], route.pointsMm[j]) + epsilon < required) return { status: "blocked", code: "ROUTE_CLEARANCE" };
       }
@@ -105,7 +102,7 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
       || route.pointsMm.every((point, index) => pointDistance(point, pointsMm.at(-1 - index)) <= epsilon);
   };
   if (pcb.routes.some(identical)) return { status: "unchanged", project };
-  next.pcbFabrication.routes.push({ netId: from.netId, layer, widthMm: traceWidth, pointsMm });
+  next.pcbFabrication.routes.push({ netId: from.netId, ...(netClass?.id ? { netClassId: netClass.id } : {}), layer, widthMm: traceWidth, pointsMm });
   next.metadata = { ...next.metadata, updatedAt: new Date().toISOString() };
   return { status: "complete", project: next, netId: from.netId, layer, widthMm: traceWidth, pointsMm };
 }
