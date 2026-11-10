@@ -280,3 +280,11 @@ test("completed STM32, timer, LED, and reactive results reach rendering without 
     assert.ok(log.some((line) => line.startsWith("[LIMIT]")), file);
   }
 });
+
+
+test("completed DC feedback refreshes wire and junction inspector measurements without a transient frame",()=>{
+  const start=source.indexOf('const dcFeedback = createLiveDcFeedback('),end=source.indexOf('const FEEDBACK_MOTION_TEXT',start);let callbacks;const calls=[];
+  vmRun(source.slice(start,end),{createLiveDcFeedback:options=>{callbacks=options;return {};},renderCanvas:()=>calls.push('canvas'),wireUi:{paintMeasurements:()=>calls.push('measurements')},renderFeedbackControls:()=>calls.push('controls'),paintSimulationFrame:()=>calls.push('frame')});
+  callbacks.onPaint({frameOnly:false});assert.deepEqual(calls,['canvas','measurements','controls']);calls.length=0;
+  callbacks.onPaint({frameOnly:true});assert.deepEqual(calls,['frame','controls']);
+});
