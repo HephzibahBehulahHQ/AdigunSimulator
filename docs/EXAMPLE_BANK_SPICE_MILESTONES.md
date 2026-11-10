@@ -4,8 +4,8 @@ Approved follow-up, 2026-11-10. Preserve the existing Example menu and native pr
 
 | Milestone | Completion evidence | State |
 | --- | --- | --- |
-| Example coverage audit | 216 native files audited; examples/index.json records all findings | Complete locally; release verification in PR |
-| Example navigation | Search plus Type, Level, Category and PCB filters in existing Example menu; paging/mobile checks | Complete locally; release verification in PR |
+| Example coverage audit | 216 native files audited; examples/index.json records all findings | Deployed and production-verified in PR #520 |
+| Example navigation | Search plus Type, Level, Category and PCB filters in existing Example menu; paging/mobile checks | Deployed and production-verified in PR #520 |
 | PCB coverage | 27 stored layouts render; six compatible LED layouts restored; 189 projects still need layout/package decisions | Partial |
 | SPICE integration | Licensed reproducible engine build; worker adapter, model provenance, convergence/cancellation and reference-deck tests | Pending |
 | Comparator realism | Identified manufacturer part/model; documented and tested hysteresis, bias/offset, delay, output loading, supply limits, temperature and tolerances within model coverage | Pending |
@@ -16,4 +16,4 @@ The requested target is 1,000,000+ distinct advanced circuits. Current counts mu
 
 The existing comparator text describes model limitations, not a solver failure. Keep that disclosure until a replacement is validated. SPICE alone does not guarantee that every device or battery parameter is modeled. Ladder instructions, instruments, grounds and test sources do not have inherent PCB packages; do not invent physical footprints or claim every conceptual example is a fabrication-ready board.
 
-Complete and publish the already implemented ladder/canvas milestone before these follow-ups, preserving the deployed oscilloscope repair.
+Ladder/canvas work is deployed in PR #519; scope fixes are deployed in PRs #518, #520 and #521. The owner requested a pause on 2026-11-10; resume from HANDOFF_2026-11-10.md.
