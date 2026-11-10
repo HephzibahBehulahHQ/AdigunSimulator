@@ -1,6 +1,7 @@
 import { reviewTestPointCoverage } from "./test-point-coverage.mjs";
 import { ADDITIONAL_LOGIC_PARTS } from "./logic-gates.mjs";
-import { netEdges, splitNetEdges } from "./net-edges.mjs";
+import { netEdges, splitNetEdges, pruneSchematicWires } from "./net-edges.mjs";
+import { validateSchematicWires } from "./schematic-wire-data.mjs";
 import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs";
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
 import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
@@ -444,6 +445,7 @@ export function connectPins(project, firstEndpoint, secondEndpoint) {
     if (!part?.pins.includes(pin)) throw new Error(`Unknown component pin: ${pinEndpoint}`);
   }
   const next = clone(project);
+  if(next.schematicWires?.length)next.nets=next.nets.map(n=>({...n,connections:netEdges(n)}));
   const firstNet = next.nets.find((net) => net.endpoints.includes(firstEndpoint));
   const secondNet = next.nets.find((net) => net.endpoints.includes(secondEndpoint));
   if (firstNet && firstNet === secondNet) return next;
@@ -472,12 +474,12 @@ export function disconnectPin(project, pinEndpoint) {
   if (net.connections) {
     next.nets = next.nets.flatMap(item => item === net ? splitNetEdges(net, net.connections.filter(edge => !edge.includes(pinEndpoint)), new Set(next.nets.map(item => item.id))) : [item]);
     next.metadata.updatedAt = new Date().toISOString();
-    return next;
+    return pruneSchematicWires(next);
   }
   net.endpoints = net.endpoints.filter((item) => item !== pinEndpoint);
   if (net.endpoints.length < 2) next.nets = next.nets.filter((item) => item !== net);
   next.metadata.updatedAt = new Date().toISOString();
-  return next;
+  return pruneSchematicWires(next);
 }
 
 export function removeComponent(project, instanceId) {
@@ -491,7 +493,7 @@ export function removeComponent(project, instanceId) {
     return endpoints.length >= 2 ? [{ ...net, endpoints }] : [];
   });
   next.metadata.updatedAt = new Date().toISOString();
-  return next;
+  return pruneSchematicWires(next);
 }
 
 export function validateProject(project) {
@@ -592,6 +594,7 @@ export function validateProject(project) {
   if (components.length && !components.some((item) => item?.libraryId === "ground.signal")) {
     warnings.push({ rule: "NO_REFERENCE", message: "The project has no signal-ground reference component." });
   }
+  errors.push(...validateSchematicWires(project,pin=>{const [id,terminal]=pin.split(":");const c=components.find(c=>c?.instanceId===id);return Boolean(c&&findLibraryPart(c.libraryId)?.pins.includes(terminal));}));
   return { errors, warnings, valid: errors.length === 0 };
 }
 

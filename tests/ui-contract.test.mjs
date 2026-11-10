@@ -221,8 +221,9 @@ test("schematic wire tool connects named pins through the shared project net mod
   assert.match(html, /data-action="schematic-wire-mode"/);
   assert.match(html, /id="schematic-wire-status"/);
   assert.match(app, /data-schematic-endpoint=/);
-  assert.match(app, /schematicPinTarget && state\.activeTool === "select" && state\.activeView === "schematic"/);
-  assert.match(app, /connectPins\(state\.project, state\.schematicWireStart, endpoint\)/);
+  assert.match(app, /createSchematicWireUi/);
+  assert.match(app, /wireUi\.click\(event\)/);
+  // Real pin-to-pin, pause/resume and history behavior is exercised by schematic-wire-ui.test.mjs.
 });
 
 test("PCB view renders stored fabrication geometry and labels absent footprint data", async () => {

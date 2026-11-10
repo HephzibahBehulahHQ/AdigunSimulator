@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
-import { runInNewContext } from "node:vm";
+import { runInNewContext as vmRun } from "node:vm";
+const runInNewContext=(code,globals)=>vmRun(code,{wireUi:{reset(){},pointerDown:()=>false,pointerMove:()=>false,pointerEnd:()=>false,keydown:()=>false},...globals});
 import { TRANSLATIONS } from "../js/i18n.mjs";
 import { runProjectAnalysis } from "../js/analysis-dispatch.mjs";
 import { pcbCopperPads } from "../js/pcb-vias.mjs";
@@ -25,7 +26,7 @@ test("the real Undo/Redo functions round-trip a fractional PCB move and preserve
   const moved = movePcbFootprint(original, "rd1", { x: 0.5, y: 0 }).project;
   const state = { project: moved, history: [serializeProject(original)], future: [] };
   const start = source.indexOf("function replaceProject("), end = source.indexOf("function updateSaveState(", start);
-  const actions = runInNewContext(`${source.slice(start, end)}\n({undo,redo})`, { state, parseProject, serializeProject, render() {}, log() {}, t: (k) => k, showDialog: (title, message) => assert.fail(message) });
+  const actions = runInNewContext(`${source.slice(start, end)}\n({undo,redo})`, { state, wireUi:{reset(){}}, parseProject, serializeProject, render() {}, log() {}, t: (k) => k, showDialog: (title, message) => assert.fail(message) });
   actions.undo();
   assert.deepEqual(state.project.pcbFabrication, original.pcbFabrication);
   actions.redo();
@@ -71,7 +72,7 @@ test("rejected history snapshots leave the current project and both history stac
     const before = JSON.stringify(state);
     let dialogs = 0;
     const start = source.indexOf("function replaceProject("), end = source.indexOf("function updateSaveState(", start);
-    const actions = runInNewContext(`${source.slice(start, end)}\n({undo,redo})`, { state, parseProject, serializeProject, render() {}, log() {}, t: (k) => k, showDialog: () => { dialogs++; } });
+    const actions = runInNewContext(`${source.slice(start, end)}\n({undo,redo})`, { state, wireUi:{reset(){}}, parseProject, serializeProject, render() {}, log() {}, t: (k) => k, showDialog: () => { dialogs++; } });
     actions[direction]();
     assert.equal(dialogs, 1);
     assert.equal(JSON.stringify(state), before);

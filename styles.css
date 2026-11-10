@@ -604,3 +604,16 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
   .workspace-navigation { gap: .1rem; }
   .workspace-navigation .view-tab { padding-inline: .5rem; }
 }
+
+/* Native freeform wires: no extra navigation row or electrical junction at crossings. */
+.wire-layer .dangling-wire { fill:none; stroke:#e8c374; stroke-width:2; pointer-events:none; }
+.wire-layer .wire-open-end { fill:var(--navy); stroke:#e8c374; stroke-width:2; pointer-events:all; cursor:crosshair; }
+.wire-layer .wire-waypoint { fill:var(--navy); stroke:var(--cyan); stroke-width:1.5; pointer-events:all; cursor:move; }
+.wire-layer .wire-waypoint:focus, .wire-layer .wire-open-end:focus { outline:2px solid var(--gold); }
+.wire-panel-actions { display:flex; flex-wrap:wrap; gap:.35rem; }
+.wire-panel-actions button { border:1px solid var(--border); border-radius:.25rem; padding:.4rem; background:var(--navy-2); color:var(--ivory); }
+.wire-point-list { max-height:18rem; overflow:auto; }
+.wire-point-list > div { display:grid; grid-template-columns:1.4rem minmax(0,1fr) minmax(0,1fr); gap:.4rem; align-items:center; padding:.25rem 0; }
+.wire-point-list label { display:flex; gap:.25rem; align-items:center; min-width:0; }
+.wire-point-list input { min-width:0; width:100%; padding:.25rem; background:var(--navy); color:var(--ivory); border:1px solid var(--border); }
+.wire-properties p, .wire-properties output { overflow-wrap:anywhere; font-size:.75rem; }
