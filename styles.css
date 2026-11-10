@@ -754,3 +754,11 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .wire-point-list label { display:flex; gap:.25rem; align-items:center; min-width:0; }
 .wire-point-list input { min-width:0; width:100%; padding:.25rem; background:var(--navy); color:var(--ivory); border:1px solid var(--border); }
 .wire-properties p, .wire-properties output { overflow-wrap:anywhere; font-size:.75rem; }
+
+.example-filters { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+#example-browser label { display:flex; flex-direction:column; gap:4px; min-width:0; font-size:.75rem; }
+#example-browser input,#example-browser select { width:100%; min-width:0; }
+.example-query { margin-bottom:8px; }
+.example-pages { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:8px; }
+.example-pages output,.example-coverage { font-size:.72rem; color:var(--muted); overflow-wrap:anywhere; }
+.example-coverage:empty { display:none; }

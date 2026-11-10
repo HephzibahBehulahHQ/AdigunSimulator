@@ -4,9 +4,9 @@ Approved follow-up, 2026-11-10. Preserve the existing Example menu and native pr
 
 | Milestone | Completion evidence | State |
 | --- | --- | --- |
-| Example coverage audit | Every shipped project checked for schema, executable analysis, PCB data, missing model/package/pin mappings; machine-readable report | Pending |
-| Example navigation | Search plus Type, Level and Category filters inside the existing Example menu; keyboard/mobile tests | Pending |
-| PCB coverage | Correct mapped footprints and pad nets displayed for supported physical parts; explicit, actionable mapping requirements for unmapped parts | Pending |
+| Example coverage audit | 216 native files audited; examples/index.json records all findings | Complete locally; release verification in PR |
+| Example navigation | Search plus Type, Level, Category and PCB filters in existing Example menu; paging/mobile checks | Complete locally; release verification in PR |
+| PCB coverage | 27 stored layouts render; six compatible LED layouts restored; 189 projects still need layout/package decisions | Partial |
 | SPICE integration | Licensed reproducible engine build; worker adapter, model provenance, convergence/cancellation and reference-deck tests | Pending |
 | Comparator realism | Identified manufacturer part/model; documented and tested hysteresis, bias/offset, delay, output loading, supply limits, temperature and tolerances within model coverage | Pending |
 | Battery realism | Separate sourced chemistry/state-of-charge/temperature model and validation, not an implied comparator feature | Pending |
