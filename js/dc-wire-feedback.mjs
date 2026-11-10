@@ -42,6 +42,16 @@ export function buildDcWireFeedback(project, analysis) {
     if(middle.length!==1) return unavailable("Model topology does not match solved divider.");
     nodes[middle[0].id]=result.outputVoltage;
     for(const r of byType("passive.resistor")) branch(r,"1","2",Math.sign(nodes[net(r,"1")]-nodes[net(r,"2")])*result.currentA);
+  } else if(result.kind==='battery-discharge-monitor'&&source.length===1&&byType('active.comparator-ideal').length===1&&byType('passive.resistor').length===3&&byType('diode.led-red').length===1&&project.components.length===7){
+    const v=source[0],u=byType('active.comparator-ideal')[0],d=byType('diode.led-red')[0],rs=byType('passive.resistor');
+    const supply=net(v,'+'),ground=net(v,'-'),sense=net(u,'SENSE'),output=net(u,'OUT'),anode=net(d,'A');
+    const between=(r,a,b)=>[net(r,'1'),net(r,'2')].sort().join('|')===[a,b].sort().join('|');
+    if(![supply,ground,sense,output,anode].every(Boolean)||net(u,'VCC')!==supply||net(u,'GND')!==ground||net(d,'K')!==ground||!rs.some(r=>between(r,supply,sense))||!rs.some(r=>between(r,sense,ground))||!rs.some(r=>between(r,output,anode)))return unavailable('Comparator topology does not match the calculated battery monitor.');
+    setNode(v,'+',result.batteryVoltage);setNode(v,'-',0);setNode(u,'SENSE',result.senseVoltage);setNode(u,'OUT',result.comparatorOutputVoltage);
+    setNode(d,'A',result.comparatorOutputVoltage-result.ledCurrentA*result.ledResistance);
+    branch(v,'+','-',-result.sourceCurrentA);branch(d,'A','K',result.ledCurrentA);
+    terminal(u,'VCC',result.ledCurrentA);terminal(u,'GND',0);terminal(u,'SENSE',0);terminal(u,'OUT',-result.ledCurrentA);
+    for(const r of rs)branch(r,'1','2',Math.sign(nodes[net(r,'1')]-nodes[net(r,'2')])*(between(r,output,anode)?result.ledCurrentA:result.dividerCurrentA));
   } else if (result.nodeVoltages && ["resistive-network","multi-source-resistive-network","linear-dc-mna-network","nonlinear-dc-operating-point"].includes(result.kind)) {
     for(const r of result.resistors??[]) branch(byRef.get(r.reference),"1","2",r.currentA);
     for(const d of result.diodes??[]) branch(byRef.get(d.reference),"A","K",d.currentA);

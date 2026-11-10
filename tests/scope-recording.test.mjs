@@ -38,3 +38,15 @@ test('scope uses whole viewport boundaries, including menus and side panels',asy
  const moved=fitScopeWindow({x:10,y:8,width:380,height:240},bounds);assert.equal(moved.x,10);assert.equal(moved.y,8);
  const mobile=fitScopeWindow({x:1200,y:900,width:600,height:500},{x:4,y:4,width:352,height:792});assert.equal(mobile.width,352);assert.ok(mobile.y+mobile.height<=796);
 });
+test('battery comparator exposes actual solved DC nodes in the scope above and below its trip point',async()=>{
+ const p=await load('006-battery-discharge-monitor');
+ for(const voltage of [9,6]){
+  p.components.find(c=>c.libraryId==='power.dc-source').value=voltage+' V';
+  const a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);assert.equal(a.state,'complete');assert.equal(timeline.kind,'dc');
+  const u=p.components.find(c=>c.libraryId==='active.comparator-ideal'),output=p.nets.find(n=>n.endpoints.includes(u.instanceId+':OUT')).id,sense=p.nets.find(n=>n.endpoints.includes(u.instanceId+':SENSE')).id;
+  const live={status:'ready',kind:'dc',sampleIndex:0,data:timeline.frame(0)};
+  const trace=scopeTrace(p,a,live,output);assert.equal(trace.kind,'dc');assert.equal(trace.voltage,a.result.comparatorOutputVoltage);assert.equal(live.data.nodes[sense],a.result.senseVoltage);assert.equal(trace.model,'Ideal comparator DC estimate');
+  assert.deepEqual(trace.points,[[0,voltage===9?0:6],[1,voltage===9?0:6]]);
+  assert.ok(Object.values(live.data.wires).every(w=>w.reason===null));assert.equal(scopeTrace(p,a,{...live,status:'updating'},output),null);
+ }
+});

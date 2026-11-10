@@ -1,3 +1,5 @@
+import { parseExampleProject, canLoadExampleAnalysis } from './js/example-loading.mjs';
+import { createExampleBrowser } from './js/example-bank-ui.mjs';
 import { createDesignTools } from "./js/design-tools-ui.mjs";
 import { createCanvasExperience } from './js/canvas-experience.mjs';
 import { ladderSettings, ladderUiText, ladderValueLabel } from './js/ladder-components.mjs';
@@ -315,8 +317,9 @@ const wireUi = createSchematicWireUi({
   getFeedback:()=>dcFeedback.read().data, onError:message=>showDialog(t("schematic"),message)
 });
 const designTools = createDesignTools({document,window,getState:()=>state,getLive:()=>dcFeedback.read(),getRoute:()=>wireUi.selectedRoute(),commit:next=>{captureHistory();state.project=next;state.dirty=true;state.lastValidation=null;},render});
+const exampleBrowser=createExampleBrowser({document,fetch:(...args)=>fetch(...args),getLocale:()=>state.project.metadata.locale,translate:t});
 const canvasExperience=createCanvasExperience({document,window,getLocale:()=>state.project.metadata.locale});
-window.addEventListener("pagehide",event=>{if(!event.persisted){designTools.dispose();canvasExperience.dispose();}});
+window.addEventListener("pagehide",event=>{if(!event.persisted){designTools.dispose();canvasExperience.dispose();exampleBrowser.dispose();}});
 const projectSession = createProjectSession(state, { storage: () => localStorage, onReset: () => {
   dcFeedback.stop(false);
   designTools.reset();
@@ -1400,6 +1403,7 @@ function renderLinearTransientOutputOptions() {
 
 function render() {
   applyLocale();
+  if(typeof exampleBrowser!=="undefined")exampleBrowser.paint();
   for(const button of $$("[data-editor-label]"))button.textContent=editorMenuText(state.project.metadata.locale,button.dataset.editorLabel);
   if(typeof designTools!=="undefined")designTools.paint();
   const drawContent=$("#draw-menu-content");
@@ -2386,12 +2390,12 @@ $("#load-example").addEventListener("click", async () => {
   try {
     const response = await fetch(path, { headers: { Accept: "application/json" } });
     if (!response.ok) throw new Error(`The example request returned ${response.status}.`);
-    const project = parseProject(await response.text());
+    const project = parseExampleProject(await response.text(),path);
     if (!isCurrent()) return;
     const analysis = project.releaseCandidateE2E
       ? await runReleaseCandidateE2E(project)
       : await createSimulationWorkerRun(project).promise;
-    if (analysis.state !== "complete") throw new Error("The selected example does not pass its supported analysis check.");
+    if (!canLoadExampleAnalysis(path,analysis)) throw new Error("The selected example does not pass its supported analysis check.");
     if (!isCurrent() || !await confirmDiscardChanges() || !isCurrent()) return;
     projectSession.reset(project, { dirty: true });
     state.lastAnalysis = analysis;
