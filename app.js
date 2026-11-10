@@ -252,14 +252,15 @@ const dcFeedback = createLiveDcFeedback({
 });
 const FEEDBACK_MOTION_TEXT={en:["Device preference","Animate","Reduce motion"],de:["Geräteeinstellung","Animieren","Bewegung reduzieren"],yo:["Ètò ẹ̀rọ","Ṣe àwòrán ìṣàn","Dín ìṣípò kù"],pcm:["Device setting","Show movement","Reduce movement"]};
 const FEEDBACK_TEXT = {
-  en:["Live feedback","Current animation","Conventional current","Electron direction","Run a supported DC circuit to show calculated flow.","Updating calculated DC values…","DC flow · positive green, negative red, ground gray · speed is visual","Flow unavailable for this model or unresolved circuit."],
-  de:["Live-Rückmeldung","Stromanimation","Technische Stromrichtung","Elektronenrichtung","Unterstützte DC-Schaltung für den Stromfluss berechnen.","DC-Messwerte werden aktualisiert…","DC-Fluss · positiv grün, negativ rot, Masse grau · visuelle Geschwindigkeit","Für dieses Modell oder die ungelöste Schaltung nicht verfügbar."],
-  yo:["Àbájáde lẹ́sẹ̀kẹsẹ̀","Àwòrán ìṣàn","Ìtọ́sọ́nà ìṣàn àṣà","Ìtọ́sọ́nà ẹlẹ́ktrọ́nì","Ṣiṣirò àyíká DC tí a ṣe àtìlẹ́yìn fún láti rí ìṣàn.","A ń tún iye DC ṣe…","Ìṣàn DC · rere aláwọ̀ ewé, òdì pupa, ilẹ̀ grẹ́yì · ìyára àwòrán","Ìṣàn kò sí fún àwòṣe tàbí àyíká tí a kò tíì yanjú."],
-  pcm:["Live feedback","Current movement","Normal current direction","Electron direction","Run supported DC circuit make calculated flow show.","DC values dey update…","DC flow · positive green, negative red, ground gray · speed na picture","Flow no dey for this model or circuit wey never solve."]
+  en:["Canvas feedback","Current animation","Conventional current","Electron direction","Run a supported DC circuit to show calculated flow.","Updating calculated DC values…","DC flow · positive green, negative red, ground gray · speed is visual","Flow unavailable for this model or unresolved circuit."],
+  de:["Rückmeldung im Zeichenbereich","Stromanimation","Technische Stromrichtung","Elektronenrichtung","Unterstützte DC-Schaltung für den Stromfluss berechnen.","DC-Messwerte werden aktualisiert…","DC-Fluss · positiv grün, negativ rot, Masse grau · visuelle Geschwindigkeit","Für dieses Modell oder die ungelöste Schaltung nicht verfügbar."],
+  yo:["Àbájáde lórí kánfásì","Àwòrán ìṣàn","Ìtọ́sọ́nà ìṣàn àṣà","Ìtọ́sọ́nà ẹlẹ́ktrọ́nì","Ṣiṣirò àyíká DC tí a ṣe àtìlẹ́yìn fún láti rí ìṣàn.","A ń tún iye DC ṣe…","Ìṣàn DC · rere aláwọ̀ ewé, òdì pupa, ilẹ̀ grẹ́yì · ìyára àwòrán","Ìṣàn kò sí fún àwòṣe tàbí àyíká tí a kò tíì yanjú."],
+  pcm:["Canvas feedback","Current movement","Normal current direction","Electron direction","Run supported DC circuit make calculated flow show.","DC values dey update…","DC flow · positive green, negative red, ground gray · speed na picture","Flow no dey for this model or circuit wey never solve."]
 };
 function renderFeedbackControls(){
   const words=FEEDBACK_TEXT[state.project.metadata.locale]??FEEDBACK_TEXT.en, live=dcFeedback.read();
   ["feedback-live-label","feedback-motion-label","feedback-conventional","feedback-electron"].forEach((id,i)=>{document.getElementById(id).textContent=words[i];});
+  $("#feedback-status").hidden=!$("#feedback-live").checked;
   $("#feedback-status").textContent=words[live.status==="updating"?5:live.status==="ready"?6:live.status==="idle"?4:7];
   const motionWords=FEEDBACK_MOTION_TEXT[state.project.metadata.locale]??FEEDBACK_MOTION_TEXT.en;
   [...$("#feedback-motion").options].forEach((option,i)=>{option.textContent=motionWords[i];});
@@ -288,7 +289,7 @@ function renderSimulationHud(){
   if(typeof designTools!=="undefined")designTools.paint();
 }
 function paintSimulationFrame(){
-  const data=dcFeedback.read().data, electron=$("#feedback-direction").value==="electron";
+  const data=$("#feedback-live").checked?dcFeedback.read().data:null, electron=$("#feedback-direction").value==="electron";
   for(const node of $$('#design-canvas [data-instance-id]'))node.classList.toggle('ladder-energized',data?.blocks?.[node.dataset.instanceId]?.on===true);
   for(const hit of $$(".schematic-wire-layer .wire-hit[data-feedback-net]")){
     const {feedbackNet:wireNet,feedbackFirst:wireFirst,feedbackSecond:wireSecond}=hit.dataset, base=hit.nextElementSibling;
@@ -613,7 +614,7 @@ function netClass(netId) {
 }
 
 function netSvg(project, view, unavailable = new Set(), interactive = true) {
-  const feedback=view==="schematic"?dcFeedback.read().data:null;
+  const feedback=view==="schematic"&&$("#feedback-live").checked?dcFeedback.read().data:null;
   const componentsById = new Map(project.components.map((component) => [component.instanceId, component]));
   const endpointPoint = (endpoint) => {
     const [instanceId, ...pinParts] = String(endpoint).split(":");
@@ -1558,7 +1559,8 @@ function runAnalysis(workerResult = null) {
   const result = workerResult;
   state.lastAnalysis = result;
   state.lastAnalysisProjectKey=JSON.stringify(state.project);
-  if($("#feedback-live").checked)dcFeedback.accept(state.project,result);
+  // Playback and the scope are independent of optional canvas highlighting.
+  dcFeedback.accept(state.project,result);
   if (result.state === "complete") {
     const { kind } = result.result;
     log(`[ANALYSIS] ${result.engine}`);
@@ -2367,7 +2369,7 @@ $("#language").addEventListener("change", (event) => {
   render();
 });
 $("#grid-toggle").addEventListener("change", renderCanvas);
-$("#feedback-live").addEventListener("change",()=>{if(!$("#feedback-live").checked)dcFeedback.stop();else if(state.lastAnalysis?.state==="complete"&&state.lastAnalysisProjectKey===JSON.stringify(state.project))dcFeedback.accept(state.project,state.lastAnalysis);});
+$("#feedback-live").addEventListener("change",()=>{renderCanvas();wireUi.paintMeasurements();});
 $("#feedback-motion").addEventListener("change",renderCanvas);
 $("#feedback-direction").addEventListener("change",renderCanvas);
 window.addEventListener("pagehide",()=>dcFeedback.stop(false));

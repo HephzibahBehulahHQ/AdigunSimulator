@@ -529,6 +529,7 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .scope-controls { display:flex; gap:8px; font-size:11px; flex:0 0 auto; }
 .scope-controls label { display:flex; align-items:center; gap:4px; min-width:0; }
 .scope-controls select { max-width:8rem; min-width:0; padding:2px; font-size:11px; }
+.scope-hint { flex:0 0 auto; margin:4px 0; font-size:11px; line-height:1.3; color:#a8dbe8; }
 .scope-chart { flex:1; min-height:0; overflow:hidden; }
 .scope-chart svg { width:100%; height:100%; }
 .scope-grid { stroke:#245067; stroke-width:.6; fill:none; }

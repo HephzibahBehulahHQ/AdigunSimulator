@@ -258,7 +258,7 @@ test("diagnostic tab selection updates all tabs and renders an empty error list"
   assert.equal(elements["#issue-list"].textContent, "[ERRORS] None.");
 });
 
-test("completed STM32, timer, LED, and reactive results reach rendering without resistor-network assumptions", async () => {
+test("completed results feed playback even when canvas feedback is disabled", async () => {
   for (const file of ["070-stm32-timer-pwm", "021-555-astable-blinker", "001-led-current-limiter", "005-rc-step-response", "006-rl-step-response"]) {
     const project = JSON.parse(await readFile(new URL(`../examples/${file}.adigun.json`, import.meta.url), "utf8"));
     const analysis = runProjectAnalysis(project);
@@ -269,7 +269,7 @@ test("completed STM32, timer, LED, and reactive results reach rendering without 
     const feedback = [];
     const complete = uiFunction("runAnalysis", "async function verifyRunLockfile(", {
       state, log: (line) => log.push(line), renderOutput: () => { renders += 1; },
-      $: selector => { assert.equal(selector,"#feedback-live"); return {checked:true}; },
+      $: selector => { assert.equal(selector,"#feedback-live"); return {checked:false}; },
       dcFeedback: {accept: (p,result)=>feedback.push([p,result])}
     });
     complete(analysis);
@@ -287,4 +287,12 @@ test("completed DC feedback refreshes wire and junction inspector measurements w
   vmRun(source.slice(start,end),{createLiveDcFeedback:options=>{callbacks=options;return {};},renderCanvas:()=>calls.push('canvas'),wireUi:{paintMeasurements:()=>calls.push('measurements')},renderFeedbackControls:()=>calls.push('controls'),paintSimulationFrame:()=>calls.push('frame')});
   callbacks.onPaint({frameOnly:false});assert.deepEqual(calls,['canvas','measurements','controls']);calls.length=0;
   callbacks.onPaint({frameOnly:true});assert.deepEqual(calls,['frame','controls']);
+});
+
+
+test("canvas feedback toggle redraws without stopping or restarting scope playback",()=>{
+  const start=source.indexOf('$("#feedback-live").addEventListener("change"'),end=source.indexOf('\n',start);
+  let change;const calls=[];
+  vmRun(source.slice(start,end),{$:()=>({addEventListener:(_,fn)=>{change=fn;}}),renderCanvas:()=>calls.push('canvas'),wireUi:{paintMeasurements:()=>calls.push('measurements')},dcFeedback:{stop:()=>assert.fail('must not stop playback'),accept:()=>assert.fail('must not restart playback')}});
+  change();assert.deepEqual(calls,['canvas','measurements']);
 });

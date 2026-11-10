@@ -6,7 +6,45 @@ import {runProjectAnalysis} from '../js/analysis-dispatch.mjs';
 import {analyticalScopeRecording} from '../js/analytical-scope-recording.mjs';
 import {createFeedbackTimeline} from '../js/simulation-feedback-timeline.mjs';
 import {scopeChannels,scopeTrace,fitScopeWindow} from '../js/oscilloscope-data.mjs';
+import {scopeExplanation} from '../js/scope-readout.mjs';
 const load=async name=>JSON.parse(await readFile(new URL('../examples/'+name+'.adigun.json',import.meta.url),'utf8'));
+
+test('LED current limiter has a constant DC trace and explains why it does not oscillate',async()=>{
+ const p=await load('001-led-current-limiter'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
+ const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0};
+ for(const [channel,voltage] of [['VCC',5],['LED_A',2],['GND',0]]){
+  const trace=scopeTrace(p,a,live,channel);assert.equal(trace.voltage,voltage);assert.deepEqual(trace.points,[[0,voltage],[1,voltage]]);
+  assert.match(scopeExplanation({analysis:a,live,trace}),/Steady DC.*horizontal/);
+ }
+});
+
+test('unconfigured RC/RL examples expose their actual model curve and pin-mapped nodes',async()=>{
+ for(const name of ['005-rc-step-response','006-rl-step-response','011-rc-charge-discharge']){
+  const p=await load(name),before=JSON.stringify(p),a=runProjectAnalysis(p),r=a.result,record=a.scopeRecording,timeline=createFeedbackTimeline(p,a);
+  assert.equal(JSON.stringify(p),before);assert.equal(record.samples.length,501);assert.equal(timeline.length,501);
+  const field=r.kind==='rl-step-response'?'inductorVoltage':'capacitorVoltage';
+  for(const sample of r.samples){const actual=record.samples.find(s=>Math.abs(s.timeSeconds-sample.timeS)<1e-12);assert.ok(actual);assert.ok(Math.abs(actual.nodeVoltages[record.preferredNet]-sample[field])<1e-12);}
+  const live={status:'ready',kind:'transient',data:timeline.frame(100),sampleIndex:100};
+  const trace=scopeTrace(p,a,live,record.preferredNet);assert.equal(trace.points.length,101);assert.equal(trace.voltage,record.samples[100].nodeVoltages[record.preferredNet]);
+  assert.equal(scopeExplanation({analysis:a,live,trace}),'');
+  assert.equal(analyticalScopeRecording(p,{...a,state:'blocked'}),null);
+  const invalid=structuredClone(p);invalid.nets=invalid.nets.filter(n=>n.id!==record.preferredNet);assert.equal(analyticalScopeRecording(invalid,a),null);
+ }
+});
+
+test('RC discharge retains the charged initial voltage and grounded switch common',async()=>{
+ const p=await load('011-rc-charge-discharge');p.components.find(c=>c.libraryId==='input.spdt-switch').value='Discharge (B)';
+ const a=runProjectAnalysis(p),record=a.scopeRecording;
+ assert.equal(a.result.mode,'discharge');assert.equal(record.samples[0].nodeVoltages.RC_NODE,5);assert.equal(record.samples[0].nodeVoltages.SW_COM,0);
+ assert.ok(Math.abs(record.samples.at(-1).nodeVoltages.RC_NODE-5*Math.exp(-5))<1e-12);
+});
+
+test('scope distinguishes not run, stopped, failed and non-recording calculations in four languages',()=>{
+ for(const locale of ['en','de','yo','pcm']){
+  const a=scopeExplanation({locale,live:{status:'idle'}}),b=scopeExplanation({locale,live:{playback:'stopped'}}),c=scopeExplanation({locale,analysis:{state:'blocked',message:'Source short'},live:{status:'unsupported'}}),d=scopeExplanation({locale,analysis:{state:'complete',engine:'BOM report'},live:{status:'unsupported'}});
+  assert.equal(new Set([a,b,c,d]).size,4);assert.match(c,/Source short/);assert.match(d,/BOM report/);
+ }
+});
 
 test('reported missing-footprint circuit preserves its report and provides actual ideal 555 output timing',async()=>{
  const p=await load('185-missing-footprint-workflow'),before=JSON.stringify(p),a=runProjectAnalysis(p),r=a.scopeRecording;
