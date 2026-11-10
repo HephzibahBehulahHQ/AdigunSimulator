@@ -374,6 +374,7 @@
         </div>
 
           <div class="workspace-status">
+          <span id="wire-crossing-notice" role="alert" hidden></span>
           <span id="schematic-wire-status" role="status" aria-live="polite"></span>
           <span id="placement-status" role="status" aria-live="polite"></span>
           <span id="pcb-route-status" role="status" aria-live="polite"></span>
@@ -406,6 +407,7 @@
           <button class="outline-button" type="submit" data-component-content data-i18n="applyProperties">Apply properties</button>
           <button id="remove-component" class="secondary-button" type="button" data-component-content data-i18n="removeComponent" disabled>Remove component</button>
         </form>
+        <section id="wire-properties" class="simulation-control wire-properties" hidden aria-label="Wire properties"></section>
         <section id="pcb-footprint-details" class="simulation-control hidden" aria-live="polite">
           <h3 data-i18n="pcbFootprintProperties">PCB footprint</h3>
           <p><span data-i18n="pcbFootprintPackage">Package</span>: <strong id="pcb-footprint-package">—</strong></p>

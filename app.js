@@ -1,10 +1,12 @@
+import { createSchematicWireUi } from "./js/schematic-wire-ui.mjs";
+import { createCrossingPainter } from "./js/wire-crossings.mjs";
 import { STARTER_LIBRARY, addComponent, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { schematicPinPoint, schematicSymbolSize, schematicGeometry } from "./js/schematic-pin-layout.mjs";
 import { editComponentField, editCustomProperties } from "./js/component-edit.mjs";
 import { createComponentPropertiesUi } from "./js/component-properties-ui.mjs";
-import { netEdges, removeNetEdge } from "./js/net-edges.mjs";
+import { netEdges, removeNetEdge, pruneSchematicWires } from "./js/net-edges.mjs";
 import { routeSchematicConnection, schematicRoutePath } from "./js/schematic-routing.mjs";
 import { startComponentPlacement, rotateComponentPlacement, positionComponentPlacement, placementComponent, placementOverlaps, firstFreeComponentPlacement, commitComponentPlacement, placementText } from "./js/component-placement.mjs";
 import { attachMenuDismissal } from "./js/menu-dismissal.mjs";
@@ -296,9 +298,17 @@ function paintSimulationFrame(){
     else{dot.style.removeProperty("fill");dot.style.removeProperty("stroke");}
   }
   renderSimulationHud();
+  wireUi.paintMeasurements();
 }
+const wireUi = createSchematicWireUi({
+  getState:()=>state, canvas:$("#design-canvas"), panel:$("#wire-properties"), crossingNotice:$("#wire-crossing-notice"), snap:()=>$("#snap-toggle").checked,
+  commit:(next,before)=>{state.project=before;captureHistory();state.project=next;state.dirty=true;state.lastValidation=null;},
+  render:()=>{renderCanvas();renderInspector();renderValidation();updateSaveState();}, showInspector:()=>setInspector("component"),
+  getFeedback:()=>dcFeedback.read().data, onError:message=>showDialog(t("schematic"),message)
+});
 const projectSession = createProjectSession(state, { storage: () => localStorage, onReset: () => {
   dcFeedback.stop(false);
+  wireUi.reset();
   state.feedbackConfig=null;
   state.selectedWire = null; state.wireCursor = null; state.placement = null;
   setSimulationWorkerBusy(false);
@@ -359,6 +369,7 @@ function captureHistory() {
 }
 
 function replaceProject(project, { dirty = true } = {}) {
+  wireUi.reset();
   state.lastAnalysis = null;
   state.project = project;
   state.selectedInstanceId = project.components.some(item => item.instanceId === state.selectedInstanceId) ? state.selectedInstanceId : project.components[0]?.instanceId ?? null;
@@ -567,6 +578,7 @@ function finishComponentPlacement(point) {
 }
 
 function deleteSelectedWire() {
+  if(wireUi.deleteSelected())return true;
   if (!state.selectedWire) return false;
   const { netId, first, second } = state.selectedWire;
   const next = removeNetEdge(state.project, netId, first, second);
@@ -595,14 +607,14 @@ function netSvg(project, view, unavailable = new Set(), interactive = true) {
     const part = findLibraryPart(component.libraryId);
     return part ? schematicPinPoint(component, part.pins, pinParts.join(":")) : null;
   };
-  const previousRoutes = [];
+  const previousRoutes = [], crossingPainter=createCrossingPainter(), nativeRoutes=view==="schematic"?wireUi.routes(project,unavailable):null;
   const paths = project.nets.flatMap(net => netEdges(net).map(([first, second]) => {
     const origin = endpointPoint(first), point = endpointPoint(second);
     if (!origin || !point) return "";
-    const route = routeSchematicConnection(project.components.filter(component => !unavailable.has(component.instanceId)), findLibraryPart, first, second, previousRoutes.filter(item => item.net !== net.id).map(item => item.route), netClass(net.id) === "net-ground" ? "bottom" : netClass(net.id) === "net-power" ? "top" : null);
+    const route = nativeRoutes ? nativeRoutes.find(r=>r.netId===net.id&&r.first===first&&r.second===second)?.points?.map(([x,y])=>({x,y})) : routeSchematicConnection(project.components.filter(component => !unavailable.has(component.instanceId)), findLibraryPart, first, second, previousRoutes.filter(item => item.net !== net.id).map(item => item.route), netClass(net.id) === "net-ground" ? "bottom" : netClass(net.id) === "net-power" ? "top" : null);
     if (!route) return `<text class="unrouted-wire" x="${origin.x}" y="${origin.y - 13}">${escape(net.id)}: route blocked</text>`;
     previousRoutes.push({ net: net.id, route });
-    const path = schematicRoutePath(route);
+    const path = crossingPainter.path(route.map(p=>[p.x,p.y]));
     const measured=feedback?.wires?.[wireEdgeKey(net.id,first,second)];
     const color=voltageColor(measured?.voltageV), motion=currentMotion(measured?.currentA,$("#feedback-direction").value==="electron");
     const title=measured?`<title>${escape(net.id)}: ${measured.voltageV===null?"?":measured.voltageV.toPrecision(4)} V; ${measured.currentA===null?escape(measured.reason):measured.currentA.toPrecision(4)+" A (first → second)"}</title>`:"";
@@ -627,12 +639,8 @@ function netSvg(project, view, unavailable = new Set(), interactive = true) {
       return `<g class="schematic-pin-terminal schematic-pin-target ${net ? netClass(net.id) : "net-signal"} ${origin}" data-schematic-endpoint="${escape(endpoint)}" ${interactive ? 'role="button" tabindex="0"' : ""} aria-label="${escape(endpoint)}">${nodeColor?`<title>${escape(endpoint)}: ${voltage.toPrecision(4)} V</title>`:""}<circle class="schematic-pin-hit" cx="${point.x}" cy="${point.y}" r="8"/><circle class="schematic-pin-dot" cx="${point.x}" cy="${point.y}" r="2.4" ${nodeColor?`style="fill:${nodeColor};stroke:${nodeColor}"`:""}/><text x="${labelX}" y="${point.y - 4}" text-anchor="${anchor}">${component.libraryId === "ground.signal" ? "" : escape(pin)}</text></g>`;
     });
   }).join("") : "";
-  let draft = "";
-  if (interactive && state.schematicWireStart && state.wireCursor) {
-    const point = endpointPoint(state.schematicWireStart);
-    if (point) draft = `<path class="wire-draft" d="M${point.x} ${point.y} L${state.wireCursor[0]} ${state.wireCursor[1]}"/>`;
-  }
-  return `<svg class="wire-layer schematic-wire-layer" viewBox="0 0 680 300" ${interactive ? 'aria-label="Schematic wires and pins"' : 'aria-hidden="true"'}>${paths}${draft}</svg><svg class="wire-layer schematic-terminal-layer" viewBox="0 0 680 300" ${interactive ? 'aria-label="Component terminals"' : 'aria-hidden="true"'}>${terminals}</svg>`;
+  const draft = view==="schematic"?wireUi.extraPaths(project,interactive,crossingPainter):"", handles=view==="schematic"?wireUi.handles(project,interactive):"";
+  return `<svg class="wire-layer schematic-wire-layer" viewBox="0 0 680 300" ${interactive ? 'aria-label="Schematic wires and pins"' : 'aria-hidden="true"'}>${paths}${draft}</svg><svg class="wire-layer schematic-terminal-layer" viewBox="0 0 680 300" ${interactive ? 'aria-label="Component terminals"' : 'aria-hidden="true"'}>${terminals}${handles}</svg>`;
 }
 
 
@@ -937,6 +945,8 @@ function renderInspector() {
   $("#component-form button").disabled = !component;
   $("#remove-component").disabled = !component;
   componentPropertiesUi.render();
+  wireUi.renderPanel();
+  if(!$("#wire-properties").hidden)$("#component-form").classList.add("hidden");
   renderConnections();
   renderBreadboardControls();
 }
@@ -1673,6 +1683,7 @@ function exportPcbFiles() {
   log("[PCB EXPORT] Downloaded the Gerber, drill, BOM, placement, assembly overview, manifest, and SHA-256 checksum pack.");
 }
 function activateView(view) {
+  if(view!=="schematic"&&state.schematicWireMode)wireUi.pause();
   state.activeView = view;
   if (view !== "breadboard") state.breadboardPlacementMode = false;
   if (view !== "schematic") { state.placement = null; state.schematicWireMode = false; state.schematicWireStart = null; }
@@ -1744,12 +1755,7 @@ function handleAction(action) {
   if (action === "pause-simulation") dcFeedback.pause();
   if (action === "step-simulation") dcFeedback.step();
   if (action === "reset-simulation") { stopSimulation();state.lastAnalysis=null;state.lastAnalysisProjectKey=null;renderOutput();renderSimulationHud(); }
-  if (action === "schematic-wire-mode") {
-    state.placement = null;
-    if (state.schematicWireMode) { state.schematicWireMode = false; state.schematicWireStart = null; }
-    else { activateView("schematic"); state.schematicWireMode = true; state.schematicWireStart = null; }
-    render();
-  }
+  if (action === "schematic-wire-mode") {state.placement=null;activateView("schematic");wireUi.toggle();}
   if (action === "breadboard-placement-mode") {
     if (state.breadboardPlacementMode) { state.breadboardPlacementMode = false; render(); return; }
     if (!$("#breadboard-pin").value) return showDialog(t("breadboardEditor"), t("breadboardSelectPinFirst"));
@@ -1772,7 +1778,7 @@ function handleAction(action) {
       renderBreadboardControls();
       return showDialog(t("breadboardSyncReview"), t("breadboardSyncStale"));
     }
-    const next = { ...state.project, nets: preview.nets, metadata: { ...state.project.metadata, updatedAt: new Date().toISOString() } };
+    const next = pruneSchematicWires({ ...state.project, nets: preview.nets, metadata: { ...state.project.metadata, updatedAt: new Date().toISOString() } });
     const validation = validateProject(next);
     if (!validation.valid) return showDialog(t("breadboardSyncReview"), validation.errors.map((issue) => issue.message).join(" "));
     captureHistory();
@@ -1876,6 +1882,7 @@ document.addEventListener("click", (event) => {
   const suppressCanvasClick = state.suppressCanvasClick;
   state.suppressCanvasClick = false;
   if (suppressCanvasClick && event.target.closest("#design-canvas")) return;
+  if(wireUi.click(event))return;
   if (state.placement && event.target.closest("#design-canvas")) {
     const point = canvasClientPoint({ x:event.clientX, y:event.clientY }, $("#design-canvas .canvas-scene").getBoundingClientRect());
     if (point) finishComponentPlacement(point);
@@ -1903,36 +1910,6 @@ document.addEventListener("click", (event) => {
   }
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (action) handleAction(action);
-  const schematicPinTarget = event.target.closest("[data-schematic-endpoint]");
-  if (schematicPinTarget && state.activeTool === "select" && state.activeView === "schematic") {
-    state.schematicWireMode = true;
-    const endpoint = schematicPinTarget.dataset.schematicEndpoint;
-    if (!state.schematicWireStart) { state.schematicWireStart = endpoint; state.wireCursor = null; state.selectedWire = null; renderCanvas(); return; }
-    if (state.schematicWireStart === endpoint) { state.schematicWireStart = null; renderCanvas(); return; }
-    if (state.project.nets.some(net => net.endpoints.includes(state.schematicWireStart) && net.endpoints.includes(endpoint))) {
-      state.schematicWireStart = null; state.schematicWireMode = false; state.wireCursor = null; renderCanvas(); return;
-    }
-    try {
-      captureHistory();
-      state.project = connectPins(state.project, state.schematicWireStart, endpoint);
-      state.schematicWireMode = false;
-      state.schematicWireStart = null;
-      state.dirty = true;
-      state.lastValidation = null;
-      render();
-      validateAndReport();
-      log(`[SCHEMATIC] Connected ${endpoint} to the selected pin in the shared netlist.`);
-    } catch (error) {
-      showDialog(t("schematic"), error instanceof Error ? error.message : t("schematicWireFailed"));
-    }
-    return;
-  }
-  const wire = event.target.closest("[data-wire-net]");
-  if (wire && !state.schematicWireMode && state.activeTool === "select") {
-    state.selectedWire = { netId: wire.dataset.wireNet, first: wire.dataset.wireFirst, second: wire.dataset.wireSecond };
-    state.selectedNetId = wire.dataset.wireNet; state.selectedInstanceId = null;
-    renderCanvas(); renderInspector(); return;
-  }
   if (event.target.closest("#design-canvas") && !event.target.closest("[data-instance-id], [data-schematic-endpoint], [data-wire-net], [data-resize-instance], [data-pcb-pad]") && !(state.breadboardPlacementMode && event.target.closest("[data-breadboard-hole]"))) {
     state.selectedInstanceId = null; state.selectedWire = null; state.selectedNetId = null;
     renderCanvas(); renderInspector();
@@ -1989,6 +1966,7 @@ document.addEventListener("keydown", (event) => {
     updatePlacementPreview(); return;
   }
   if (handleAppMenuKeydown(event)) return;
+  if(wireUi.keydown(event))return;
   if (pcbViaEditor.keydown(event)) return;
   if (handlePcbRouteKeydown(event)) return;
   if (event.key === "Escape" && (state.breadboardPlacementMode || state.schematicWireMode || state.activeTool === "pcb-route")) {
@@ -2075,6 +2053,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("pointerdown", (event) => {
+  if(wireUi.pointerDown(event))return;
   const canvas = event.target.closest("#design-canvas");
   if (!canvas || event.button !== 0 || state.placement) return;
   const component = event.target.closest(".placed-component");
@@ -2111,14 +2090,12 @@ document.addEventListener("pointerdown", (event) => {
 });
 
 document.addEventListener("pointermove", (event) => {
+  if(wireUi.pointerMove(event))return;
   if (state.placement && event.target.closest?.("#design-canvas")) {
     updatePlacementPreview(canvasClientPoint({ x:event.clientX,y:event.clientY }, $("#design-canvas .canvas-scene").getBoundingClientRect()));
     return;
   }
-  if (state.schematicWireMode && state.schematicWireStart && event.target.closest?.("#design-canvas")) {
-    state.wireCursor = canvasClientPoint({ x: event.clientX, y: event.clientY }, $("#design-canvas .canvas-scene").getBoundingClientRect());
-    renderCanvas();
-  }
+
   if (!state.drag || event.pointerId !== state.drag.pointerId) return;
   const deltaX = event.clientX - state.drag.start.x;
   const deltaY = event.clientY - state.drag.start.y;
@@ -2152,6 +2129,7 @@ document.addEventListener("pointermove", (event) => {
 });
 
 document.addEventListener("pointercancel", (event) => {
+  if(wireUi.pointerEnd(event,true))return;
   if (!state.drag || event.pointerId !== state.drag.pointerId) return;
   const drag = state.drag;
   state.drag = null;
@@ -2163,6 +2141,7 @@ document.addEventListener("pointercancel", (event) => {
 });
 
 document.addEventListener("pointerup", (event) => {
+  if(wireUi.pointerEnd(event))return;
   if (!state.drag || event.pointerId !== state.drag.pointerId) return;
   const drag = state.drag;
   state.suppressCanvasClick = true;
@@ -2463,7 +2442,7 @@ $("#design-canvas").addEventListener("drop", event => {
 $("#design-canvas").addEventListener("contextmenu", event => {
   if (state.placement) { event.preventDefault(); state.placement=null; updatePlacementPreview(); return; }
   if (!state.schematicWireMode) return;
-  event.preventDefault(); state.schematicWireMode = false; state.schematicWireStart = null; state.wireCursor = null; renderCanvas();
+  event.preventDefault(); wireUi.pause();
 });
 
 const menuDismissal = attachMenuDismissal($$(".app-menu"), { onActiveChange: key => { state.openMenuKey = key; } });

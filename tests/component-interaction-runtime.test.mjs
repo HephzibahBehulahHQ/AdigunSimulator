@@ -6,7 +6,7 @@ import { createEmptyProject, createProject, findLibraryPart, addComponent, moveC
 import { canvasClientPoint, canvasClientDelta } from "../js/canvas-camera.mjs";
 import { editComponentField } from "../js/component-edit.mjs";
 const source = await readFile(new URL("../app.js",import.meta.url),"utf8");
-function listener(marker,globals) { const start=source.indexOf(marker),end=source.indexOf("\n});",start)+4; assert.ok(start>=0 && end>start); runInNewContext(source.slice(start,end),globals); }
+function listener(marker,globals) { const start=source.indexOf(marker),end=source.indexOf("\n});",start)+4; assert.ok(start>=0 && end>start); runInNewContext(source.slice(start,end),{wireUi:{pointerDown:()=>false,pointerMove:()=>false,pointerEnd:()=>false,keydown:()=>false,reset(){}},...globals}); }
 function uiFunction(name,next,globals) {const start=source.indexOf(`function ${name}(`),end=source.indexOf(next,start);return runInNewContext(`${source.slice(start,end)};${name}`,globals);}
 
 test("palette drop converts the actual transformed scene coordinates and rejects unrelated transfer data",()=>{
