@@ -45,14 +45,22 @@
           <button type="button" data-action="open-saved-project" data-i18n="openSavedProject">Open saved project</button>
           <button type="button" data-action="close-project" data-i18n="closeProject">Close Project</button>
           <button type="button" data-action="save" data-i18n="save">Save</button>
-          <button type="button" data-action="export" data-i18n="export">Export</button>
+          <button type="button" data-action="export" data-editor-label="saveAs">Save as file…</button>
+          <button type="button" data-action="print-project" data-editor-label="print">Print current view…</button>
           <button type="button" data-action="bom-export" data-i18n="exportBomCsv">Export BOM CSV</button>
         </div></details>
         <details class="app-menu" name="application-menu"><summary data-i18n="editMenu">Edit</summary><div class="app-menu-popover">
           <button type="button" data-action="undo" data-i18n="undo">Undo</button>
           <button type="button" data-action="redo" data-i18n="redo">Redo</button>
+          <hr />
+          <button type="button" data-action="transform-rotateLeft" data-editor-label="rotateLeft" disabled>Rotate 90° left</button>
+          <button type="button" data-action="transform-rotateRight" data-editor-label="rotateRight" disabled>Rotate 90° right</button>
+          <button type="button" data-action="transform-mirrorX" data-editor-label="mirrorX" disabled>Mirror horizontally</button>
+          <button type="button" data-action="transform-mirrorY" data-editor-label="mirrorY" disabled>Mirror vertically</button>
+          <button type="button" data-action="transform-resetOrientation" data-editor-label="resetOrientation" disabled>Reset orientation</button>
+          <button type="button" data-action="delete-selection" data-editor-label="delete">Delete selection</button>
         </div></details>
-        <button id="draw-components" class="draw-menu-button" type="button">Draw</button>
+        <details id="draw-menu" class="app-menu draw-menu" name="application-menu"><summary id="draw-components">Draw</summary><div id="draw-menu-content" class="app-menu-popover draw-popover"></div></details>
         <details class="app-menu" name="application-menu"><summary data-i18n="simulationMenu">Simulation</summary><div class="app-menu-popover">
           <button type="button" data-action="run-simulation" data-i18n="runCalculation">Run calculation</button>
           <button type="button" data-action="verify-run-lock" data-i18n="verifyRunLock">Verify Run Lock</button>

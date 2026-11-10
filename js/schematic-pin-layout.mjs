@@ -6,17 +6,20 @@ export function schematicSymbolSize(libraryId) {
 }
 export function schematicGeometry(component) {
   const size = schematicSymbolSize(component?.libraryId), saved = component?.geometry?.schematic;
-  return { width: Number.isFinite(saved?.width) && saved.width >= 28 && saved.width <= 240 ? saved.width : size.width, height: Number.isFinite(saved?.height) && saved.height >= 29 && saved.height <= 180 ? saved.height : size.height, rotation: Number.isFinite(saved?.rotation) ? saved.rotation % 360 : 0 };
+  return { ...(saved?.mirrorX ? { mirrorX:true } : {}), ...(saved?.mirrorY ? { mirrorY:true } : {}), width: Number.isFinite(saved?.width) && saved.width >= 28 && saved.width <= 240 ? saved.width : size.width, height: Number.isFinite(saved?.height) && saved.height >= 29 && saved.height <= 180 ? saved.height : size.height, rotation: Number.isFinite(saved?.rotation) ? saved.rotation % 360 : 0 };
 }
 export function schematicPinPoint(component, pins, pin) {
   const base = basePinPoint(component, pins, pin);
   if (!base || !component.geometry?.schematic) return base;
   const [x = 120, y = 120] = component.position?.schematic ?? [];
   const original = schematicSymbolSize(component.libraryId), geometry = schematicGeometry(component);
-  const dx = (base.x - x) * geometry.width / original.width - geometry.width / 2;
-  const dy = (base.y - y) * geometry.height / original.height - geometry.height / 2;
+  const dx = ((base.x - x) * geometry.width / original.width - geometry.width / 2) * (geometry.mirrorX ? -1 : 1);
+  const dy = ((base.y - y) * geometry.height / original.height - geometry.height / 2) * (geometry.mirrorY ? -1 : 1);
   const radians = geometry.rotation * Math.PI / 180;
-  const sides = ["right", "bottom", "left", "top"], sideIndex = sides.indexOf(base.side);
+  let baseSide=base.side;
+  if(geometry.mirrorX)baseSide=({left:"right",right:"left"})[baseSide]??baseSide;
+  if(geometry.mirrorY)baseSide=({top:"bottom",bottom:"top"})[baseSide]??baseSide;
+  const sides = ["right", "bottom", "left", "top"], sideIndex = sides.indexOf(baseSide);
   const side = sides[((sideIndex + Math.round(geometry.rotation / 90)) % 4 + 4) % 4];
   return { ...base, side, x: x + geometry.width / 2 + dx * Math.cos(radians) - dy * Math.sin(radians), y: y + geometry.height / 2 + dx * Math.sin(radians) + dy * Math.cos(radians) };
 }

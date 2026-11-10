@@ -9,6 +9,7 @@ import { createComponentPropertiesUi } from "./js/component-properties-ui.mjs";
 import { netEdges, removeNetEdge, pruneSchematicWires } from "./js/net-edges.mjs";
 import { routeSchematicConnection, schematicRoutePath } from "./js/schematic-routing.mjs";
 import { startComponentPlacement, rotateComponentPlacement, positionComponentPlacement, placementComponent, placementOverlaps, firstFreeComponentPlacement, commitComponentPlacement, placementText } from "./js/component-placement.mjs";
+import { attachDrawMenu, drawMenuMarkup, editorMenuText, transformSchematicComponent, printProjectView } from "./js/editor-menu-tools.mjs";
 import { attachMenuDismissal, dismissMenuCommand } from "./js/menu-dismissal.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { junctionRouteSegments } from "./js/schematic-junction-graph.mjs";
@@ -481,7 +482,7 @@ function componentVisual(component, view) {
   const symbol = view === "schematic" ? renderSchematicSymbol(part, component) : null;
   const symbolSize = view === "schematic" ? schematicGeometry(component) : schematicSymbolSize(component.libraryId);
   const body = symbol ?? `<span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span>`;
-  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px;--symbol-width:${symbolSize.width}px;--symbol-height:${symbolSize.height}px;--symbol-rotation:${symbolSize.rotation ?? 0}deg" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value" title="${escape(component.value)}">${escape(component.value)}</span></button>`;
+  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px;--symbol-width:${symbolSize.width}px;--symbol-height:${symbolSize.height}px;--symbol-rotation:${symbolSize.rotation ?? 0}deg;--symbol-mirror-x:${symbolSize.mirrorX ? -1 : 1};--symbol-mirror-y:${symbolSize.mirrorY ? -1 : 1}" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value" title="${escape(component.value)}">${escape(component.value)}</span></button>`;
 }
 
 function componentCenter(component, view) {
@@ -925,6 +926,7 @@ function renderCanvas() {
 
 function renderInspector() {
   const component = selectedComponent();
+  for(const button of $$('[data-action^="transform-"]'))button.disabled=!component || (state.activeView!=="schematic" && !(state.activeView==="pcb" && button.dataset.action.startsWith("transform-rotate")));
   const part = component && findLibraryPart(component.libraryId);
   $("#property-type").value = part?.type ?? "No component selected";
   if (document.activeElement !== $("#property-reference")) $("#property-reference").value = component?.reference ?? "";
@@ -1379,6 +1381,9 @@ function renderLinearTransientOutputOptions() {
 
 function render() {
   applyLocale();
+  for(const button of $$("[data-editor-label]"))button.textContent=editorMenuText(state.project.metadata.locale,button.dataset.editorLabel);
+  const drawContent=$("#draw-menu-content");
+  if(drawContent.dataset.locale!==state.project.metadata.locale){drawContent.innerHTML=drawMenuMarkup(state.project.metadata.locale);drawContent.dataset.locale=state.project.metadata.locale;}
   for(const button of $$(".canvas-toolbar button, .project-actions > button"))button.title=button.getAttribute("aria-label")||button.textContent.trim();
   renderAcSweepOutputOptions();
   renderLinearTransientOutputOptions();
@@ -1738,6 +1743,16 @@ function rotateSelectedPcbFootprint(degrees) {
 }
 
 function handleAction(action) {
+  if(action.startsWith("transform-")){
+    const key=action.slice(10),component=selectedComponent();if(!component)return;
+    if(state.activeView==="pcb" && ["rotateLeft","rotateRight"].includes(key)){rotateSelectedPcbFootprint(key==="rotateLeft"?-90:90);return;}
+    if(state.activeView!=="schematic")return;
+    try{commitComponentEdit(transformSchematicComponent(state.project,component.instanceId,key));}
+    catch(error){showDialog(t("editMenu"),error.message==="TRANSFORM_SPACE"?editorMenuText(state.project.metadata.locale,"transformBlocked"):error.message);}
+    return;
+  }
+  if(action === "delete-selection"){deleteCanvasSelection();return;}
+  if(action === "print-project"){printProjectView({document,window,project:state.project,view:state.activeView,viewLabel:t(state.activeView)});return;}
   if (pcbNetClassEditor.action(action)) return;
   if (pcbBoardEditor.action(action)) return;
   if (pcbViaEditor.action(action)) return;
@@ -2042,10 +2057,14 @@ document.addEventListener("keydown", (event) => {
   if (modifier && key === "y") { event.preventDefault(); redo(); return; }
   if (modifier && key === "s") { event.preventDefault(); saveLocal(); return; }
   if (!editingText && (event.key === "Delete" || event.key === "Backspace")) {
-    if (deleteSelectedWire()) { event.preventDefault(); return; }
+    event.preventDefault(); deleteCanvasSelection();
+  }
+});
+
+function deleteCanvasSelection(){
+    if (deleteSelectedWire()) return;
     const component = selectedComponent();
     if (!component) return;
-    event.preventDefault();
     captureHistory();
     state.project = removeComponent(state.project, component.instanceId);
     state.selectedInstanceId = state.project.components[0]?.instanceId ?? null;
@@ -2054,8 +2073,7 @@ document.addEventListener("keydown", (event) => {
     render();
     validateAndReport();
     log(`[REMOVE] Removed ${component.reference} and cleaned its net endpoints.`);
-  }
-});
+}
 
 document.addEventListener("pointerdown", (event) => {
   if(wireUi.pointerDown(event))return;
@@ -2422,10 +2440,8 @@ const componentPropertiesUi = createComponentPropertiesUi({
 });
 render();
 
-$("#draw-components").addEventListener("click", () => {
-  document.querySelectorAll(".app-menu[open]").forEach(menu => { menu.open=false; });
-  state.libraryMode="starter"; setWorkspacePanel("left",true); renderLibrary(); $("#component-search").focus();
-});
+const disposeDrawMenu=attachDrawMenu($("#draw-menu"),beginComponentPlacement);
+window.addEventListener("pagehide",event=>{if(!event.persisted)disposeDrawMenu();});
 
 document.addEventListener("dragstart", event => {
   const part = event.target.closest?.("[data-library-id]");

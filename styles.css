@@ -426,7 +426,7 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .schematic .schematic-symbol { width: var(--symbol-width, 56px); height: var(--symbol-height, 58px); }
 .schematic .placed-component .part-value { top: calc(var(--symbol-height, 58px) + 1px); }
 .schematic .placed-component { transform: none; }
-.schematic .schematic-symbol { transform: rotate(var(--symbol-rotation, 0deg)); transform-origin: center; }
+.schematic .schematic-symbol { transform: rotate(var(--symbol-rotation, 0deg)) scale(var(--symbol-mirror-x,1),var(--symbol-mirror-y,1)); transform-origin: center; }
 .design-canvas .schematic-wire-layer { z-index: 1; }
 .design-canvas .schematic-terminal-layer { z-index: 4; }
 .design-canvas.schematic .schematic-pin-hit { pointer-events: all; cursor: crosshair; }
@@ -459,6 +459,34 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .property-form > label[data-component-content], #component-schema-fields > label { display: grid; grid-template-columns: minmax(0, .42fr) minmax(0, .58fr); align-items: center; gap: .5rem; }
 .draw-menu-button { border: 0; background: transparent; color: var(--ivory); padding: .5rem .6rem; font: inherit; cursor: pointer; border-radius: .25rem; }
 .draw-menu-button:hover, .draw-menu-button:focus-visible { background: var(--navy-3); outline: 1px solid var(--cyan); }
+.draw-menu .draw-popover { width:560px; max-width:calc(100vw - 2rem); padding:.6rem; }
+.draw-hint { margin:0 0 .5rem; max-width:100%; font-size:.75rem; color:var(--muted); }
+.draw-groups { position:relative; min-height:350px; }
+.draw-category > summary { width:36%; box-sizing:border-box; padding:.65rem .45rem; cursor:pointer; overflow-wrap:anywhere; font-size:.8rem; }
+.draw-category[open] > summary { background:#154667; color:var(--cyan); }
+.draw-category > .draw-parts { position:absolute; left:37%; right:0; top:0; bottom:0; overflow:auto; border-left:1px solid var(--border); padding-left:.4rem; }
+.draw-parts button { display:flex; align-items:center; gap:.6rem; width:100%; min-height:44px; text-align:left; white-space:normal; }
+.draw-parts button > span:first-child { flex:0 0 36px; }
+.draw-parts .schematic-symbol { width:32px; height:32px; }
+.draw-category > summary:focus-visible { outline:2px solid var(--cyan); outline-offset:-2px; }
+@media(max-width:640px) {
+  .command-bar .draw-menu .draw-popover { position:fixed; left:1rem; right:1rem; top:auto; width:auto; max-height:65vh; overflow:auto; }
+  .draw-category > summary { width:100%; }
+  .draw-category > .draw-parts { position:static; max-height:240px; margin-left:1rem; }
+  .draw-groups { min-height:0; }
+}
+#project-print { display:none; }
+@media print {
+  @page { size:landscape; margin:12mm; }
+  body { display:block !important; height:auto !important; overflow:visible !important; background:white !important; color:#111 !important; }
+  body:has(#project-print) > :not(#project-print) { display:none !important; }
+  #project-print { display:block; color:#111; font:12pt system-ui,sans-serif; }
+  #project-print h1 { font-size:18pt; margin:0 0 4mm; }
+  .print-canvas { position:relative; width:680px; height:300px; background:#071d2c; print-color-adjust:exact; -webkit-print-color-adjust:exact; overflow:visible; break-inside:avoid; }
+  .print-canvas > .canvas-scene { width:680px; height:300px; transform:none !important; }
+  .print-canvas .placed-component { outline:none !important; box-shadow:none !important; border-color:transparent !important; background:transparent !important; }
+  .print-canvas .wire-current-flow { animation:none !important; }
+}
 #placement-status { color: var(--cyan); font-size: .75rem; flex-basis: 100%; }
 #placement-status:empty { display: none; }
 .is-placement-mode { cursor: crosshair; }
