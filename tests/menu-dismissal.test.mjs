@@ -60,3 +60,10 @@ test("ordinary menu commands close, while selects, inputs and labels retain thei
   }
   dismissMenuCommand({closest:()=>null});
 });
+
+test("Edit form stays open during pointer departure and closes only on its command",()=>{
+  const f=fixture(),menu=f.menus[0];menu.dataset.menuDismiss='form';menu.open=true;f.emit(0,'toggle');
+  f.emit(0,'pointerleave',{pointerType:'mouse'});assert.equal(f.tasks.size,0);assert.equal(menu.open,true);
+  const popover={closest:()=>menu};dismissMenuCommand({closest:s=>s==='.app-menu-popover'?popover:false});assert.equal(menu.open,true);
+  dismissMenuCommand({closest:s=>s==='.app-menu-popover'?popover:true});assert.equal(menu.open,false);
+});

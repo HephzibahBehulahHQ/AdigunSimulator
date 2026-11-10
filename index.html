@@ -49,7 +49,7 @@
           <button type="button" data-action="print-project" data-editor-label="print">Print current view…</button>
           <button type="button" data-action="bom-export" data-i18n="exportBomCsv">Export BOM CSV</button>
         </div></details>
-        <details class="app-menu" name="application-menu"><summary data-i18n="editMenu">Edit</summary><div class="app-menu-popover">
+        <details class="app-menu" data-menu-dismiss="form" name="application-menu"><summary data-i18n="editMenu">Edit</summary><div class="app-menu-popover">
           <button type="button" data-action="undo" data-i18n="undo">Undo</button>
           <button type="button" data-action="redo" data-i18n="redo">Redo</button>
           <hr />
@@ -59,9 +59,11 @@
           <button type="button" data-action="transform-mirrorY" data-editor-label="mirrorY" disabled>Mirror vertically</button>
           <button type="button" data-action="transform-resetOrientation" data-editor-label="resetOrientation" disabled>Reset orientation</button>
           <button type="button" data-action="delete-selection" data-editor-label="delete">Delete selection</button>
+          <hr /><section id="wire-style-menu" aria-label="Wire customization"></section>
         </div></details>
         <details id="draw-menu" class="app-menu draw-menu" name="application-menu"><summary id="draw-components">Draw</summary><div id="draw-menu-content" class="app-menu-popover draw-popover"></div></details>
         <details class="app-menu" name="application-menu"><summary data-i18n="simulationMenu">Simulation</summary><div class="app-menu-popover">
+          <button type="button" data-action="oscilloscope" data-design-label="16">Oscilloscope</button>
           <button type="button" data-action="run-simulation" data-i18n="runCalculation">Run calculation</button>
           <button type="button" data-action="verify-run-lock" data-i18n="verifyRunLock">Verify Run Lock</button>
           <button type="button" data-action="validate" data-i18n="validate">Validate</button>
@@ -77,6 +79,7 @@
           <button type="button" data-action="pcb-export" data-i18n="exportPcbFiles">Export Gerber / drill / BOM</button>
         </div></details>
         <details class="app-menu" name="application-menu"><summary data-i18n="toolsMenu">Tools</summary><div class="app-menu-popover">
+          <button type="button" data-action="color-palette" data-design-label="8">Color Palette</button>
           <button type="button" data-action="validate" data-i18n="runValidation">Run validation</button>
           <button type="button" data-inspector="simulation" data-i18n="simulationControl">Simulation Control</button>
           <button type="button" data-inspector="project" data-i18n="project">Project</button>

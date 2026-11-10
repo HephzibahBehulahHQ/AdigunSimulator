@@ -1,3 +1,5 @@
+import { createDesignTools } from "./js/design-tools-ui.mjs";
+import { wirePaint } from "./js/project-appearance.mjs";
 import { createSchematicWireUi } from "./js/schematic-wire-ui.mjs";
 import { createCrossingPainter } from "./js/wire-crossings.mjs";
 import { STARTER_LIBRARY, addComponent, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
@@ -279,13 +281,14 @@ function renderSimulationHud(){
   $("#simulation-time").title=live.kind==="transient"?words[9]:live.kind==="dc"?words[10]:words[11];
   document.querySelector(".canvas-area").classList.toggle("simulation-paused",["paused","complete"].includes(live.playback));
   if(live.kind==="transient"&&live.status==="ready")$("#feedback-status").textContent=words[9]+" · t="+live.timeSeconds.toPrecision(4)+" s";
+  if(typeof designTools!=="undefined")designTools.paint();
 }
 function paintSimulationFrame(){
   const data=dcFeedback.read().data, electron=$("#feedback-direction").value==="electron";
   for(const hit of $$(".schematic-wire-layer .wire-hit[data-feedback-net]")){
     const {feedbackNet:wireNet,feedbackFirst:wireFirst,feedbackSecond:wireSecond}=hit.dataset, base=hit.nextElementSibling;
     const measured=data?.wires?.[wireEdgeKey(wireNet,wireFirst,wireSecond)], color=voltageColor(measured?.voltageV), motion=currentMotion(measured?.currentA,electron);
-    if(color)base.style.stroke=color;else base.style.removeProperty("stroke");
+    if(base.dataset.customColor||color)base.style.stroke=base.dataset.customColor||color;else base.style.removeProperty("stroke");
     base.style.opacity=measured?.currentA===0?".45":".8";
     const title=hit.querySelector("title");if(title&&measured)title.textContent=`${wireNet}: ${measured.voltageV?.toPrecision(4)??"?"} V; ${Number.isFinite(measured.currentA)?measured.currentA.toPrecision(4)+" A":measured.reason}`;
     let flow=base.nextElementSibling?.classList.contains("wire-flow")?base.nextElementSibling:null;
@@ -308,8 +311,11 @@ const wireUi = createSchematicWireUi({
   render:()=>{renderCanvas();renderInspector();renderValidation();updateSaveState();}, showInspector:()=>setInspector("component"),
   getFeedback:()=>dcFeedback.read().data, onError:message=>showDialog(t("schematic"),message)
 });
+const designTools = createDesignTools({document,window,getState:()=>state,getLive:()=>dcFeedback.read(),getRoute:()=>wireUi.selectedRoute(),commit:next=>{captureHistory();state.project=next;state.dirty=true;state.lastValidation=null;},render});
+window.addEventListener("pagehide",event=>{if(!event.persisted)designTools.dispose();});
 const projectSession = createProjectSession(state, { storage: () => localStorage, onReset: () => {
   dcFeedback.stop(false);
+  designTools.reset();
   wireUi.reset();
   state.feedbackConfig=null;
   state.selectedWire = null; state.wireCursor = null; state.placement = null;
@@ -619,14 +625,14 @@ function netSvg(project, view, unavailable = new Set(), interactive = true) {
     previousRoutes.push({ net: net.id, route });
     const segments=native?junctionRouteSegments(project,native):[{points:route.map(p=>[p.x,p.y]),measurementFirst:first,measurementSecond:second}];
     return segments.map(segment=>{
-    const path = crossingPainter.path(segment.points);
+    const path = crossingPainter.path(segment.points), custom=wirePaint(project,native??{first,second});
     const measured=feedback?.wires?.[wireEdgeKey(net.id,segment.measurementFirst,segment.measurementSecond)];
     const color=voltageColor(measured?.voltageV), motion=currentMotion(measured?.currentA,$("#feedback-direction").value==="electron");
     const title=measured?`<title>${escape(net.id)}: ${measured.voltageV===null?"?":measured.voltageV.toPrecision(4)} V; ${measured.currentA===null?escape(measured.reason):measured.currentA.toPrecision(4)+" A (first → second)"}</title>`:"";
     const flow=motion&&$("#feedback-motion").value!=="reduce"?`<path class="wire-flow" d="${path}" style="stroke:${color??"#72f4ed"};--flow-duration:${motion.durationSeconds}s;animation-direction:${motion.reverse?"reverse":"normal"}" data-current-a="${measured.currentA}" aria-hidden="true"/>`:"";
     const selected = state.selectedWire?.netId === net.id && state.selectedWire.first === first && state.selectedWire.second === second;
     const attrs = interactive ? `${native?.wireId?`data-wire-id="${escape(native.wireId)}" `:""}data-wire-first="${escape(first)}" data-wire-second="${escape(second)}" data-wire-net="${escape(net.id)}" role="button" tabindex="0" aria-label="${escape(net.id)}: ${escape(first)} → ${escape(second)}"` : "";
-    return `<path class="wire-crossing-gap" d="${path}"/><path class="wire-hit ${selected ? "selected-wire" : ""}" d="${path}" data-feedback-net="${escape(net.id)}" data-feedback-first="${escape(segment.measurementFirst)}" data-feedback-second="${escape(segment.measurementSecond)}" ${attrs}>${title}</path><path class="${second===null?"dangling-wire":netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""} ${selected ? "selected-wire" : ""}" d="${path}" data-net="${escape(net.id)}" ${color?`style="stroke:${color};opacity:${measured.currentA===0?.45:.8}"`:""}/>${flow}`;
+    return `<path class="wire-crossing-gap" d="${path}"/><path class="wire-hit ${selected ? "selected-wire" : ""}" d="${path}" data-feedback-net="${escape(net.id)}" data-feedback-first="${escape(segment.measurementFirst)}" data-feedback-second="${escape(segment.measurementSecond)}" ${attrs}>${title}</path><path class="${second===null?"dangling-wire":netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""} ${selected ? "selected-wire" : ""}" d="${path}" data-net="${escape(net.id)}" data-custom-color="${custom.color??""}" style="${custom.color||color?`stroke:${custom.color??color};`:""}${custom.width?`stroke-width:${custom.width};`:""}${color?`opacity:${measured.currentA===0?.45:.8}`:""}"/>${flow}`;
     }).join("");
   }).join("");
   const terminals = view === "schematic" ? project.components.flatMap((component) => {
@@ -922,6 +928,7 @@ function renderCanvas() {
   $("#schematic-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "schematic", new Set(getViewReconciliationIssues(state.project, "schematic").map((issue) => issue.instanceId)), false)}${miniSchematic}</div>`;
   $("#pcb-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "pcb", new Set(getViewReconciliationIssues(state.project, "pcb").map((issue) => issue.instanceId)))}${miniPcb}</div>`;
   applyMiniCanvasCamera();
+  if(typeof designTools!=="undefined")designTools.paint();
 }
 
 function renderInspector() {
@@ -1382,6 +1389,7 @@ function renderLinearTransientOutputOptions() {
 function render() {
   applyLocale();
   for(const button of $$("[data-editor-label]"))button.textContent=editorMenuText(state.project.metadata.locale,button.dataset.editorLabel);
+  if(typeof designTools!=="undefined")designTools.paint();
   const drawContent=$("#draw-menu-content");
   if(drawContent.dataset.locale!==state.project.metadata.locale){drawContent.innerHTML=drawMenuMarkup(state.project.metadata.locale);drawContent.dataset.locale=state.project.metadata.locale;}
   for(const button of $$(".canvas-toolbar button, .project-actions > button"))button.title=button.getAttribute("aria-label")||button.textContent.trim();
@@ -1743,6 +1751,7 @@ function rotateSelectedPcbFootprint(degrees) {
 }
 
 function handleAction(action) {
+  if (action === "color-palette" || action === "oscilloscope") { designTools.action(action); return; }
   if(action.startsWith("transform-")){
     const key=action.slice(10),component=selectedComponent();if(!component)return;
     if(state.activeView==="pcb" && ["rotateLeft","rotateRight"].includes(key)){rotateSelectedPcbFootprint(key==="rotateLeft"?-90:90);return;}

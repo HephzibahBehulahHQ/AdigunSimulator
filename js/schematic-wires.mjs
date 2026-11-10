@@ -11,9 +11,9 @@ const xy=p=>[p.x,p.y];
 export function checkedWireProject(project){const next={...project,metadata:{...project.metadata,updatedAt:new Date().toISOString()}};const errors=validateSchematicWires(next,p=>Boolean(wirePinPoint(next,p)));if(errors.length)throw new Error(errors[0].message);return next;}
 function updated(project,wires){return checkedWireProject({...project,schematicWires:wires});}
 const nextId=project=>{let i=1;while(project.schematicWires?.some(w=>w.id===`W${i}`))i++;return `W${i}`;};
-export function storeSchematicWire(project,{id,from,to=null,waypoints=[],end,netHint}){
-  const existing=(project.schematicWires??[]).find(w=>to!==null&&wirePairKey(w.from,w.to)===wirePairKey(from,to));
-  const wire={id:id??existing?.id??nextId(project),from,to,waypoints:waypoints.map(p=>snapWirePoint(p))};if(to===null){wire.end=snapWirePoint(end);if(netHint)wire.netHint=netHint;}
+export function storeSchematicWire(project,{id,from,to=null,waypoints=[],end,netHint,appearance}){
+  const existing=(project.schematicWires??[]).find(w=>w.id===id)||(project.schematicWires??[]).find(w=>to!==null&&wirePairKey(w.from,w.to)===wirePairKey(from,to));
+  const wire={id:id??existing?.id??nextId(project),from,to,waypoints:waypoints.map(p=>snapWirePoint(p))};if(appearance??existing?.appearance)wire.appearance={...(appearance??existing.appearance)};if(to===null){wire.end=snapWirePoint(end);if(netHint)wire.netHint=netHint;}
   return updated(project,[...(project.schematicWires??[]).filter(w=>w.id!==wire.id&&w.id!==existing?.id),wire]);
 }
 export function finishSchematicWire(project,draft,to){
@@ -73,9 +73,9 @@ export function splitSchematicWire(project,route){
   if(length<24)throw new Error("Wire segment is too short to create two separately selectable open endpoints.");
   const a=route.points[index],b=route.points[index+1],at=t=>a.map((v,i)=>v+(b[i]-v)*t);
   let next=removeNetEdge(project,route.netId,route.first,route.second);
-  next=storeSchematicWire(next,{from:route.first,netHint:route.netId,waypoints:route.points.slice(1,index+1),end:at(.5-8/length)});
+  next=storeSchematicWire(next,{from:route.first,appearance:project.schematicWires?.find(w=>w.id===route.wireId)?.appearance,netHint:route.netId,waypoints:route.points.slice(1,index+1),end:at(.5-8/length)});
   const left=next.schematicWires.at(-1);
-  next=storeSchematicWire(next,{from:route.second,netHint:route.netId,waypoints:route.points.slice(index+1,-1).reverse(),end:at(.5+8/length)});
+  next=storeSchematicWire(next,{from:route.second,appearance:project.schematicWires?.find(w=>w.id===route.wireId)?.appearance,netHint:route.netId,waypoints:route.points.slice(index+1,-1).reverse(),end:at(.5+8/length)});
   const right=next.schematicWires.at(-1),junctions=(project.schematicJunctions??[]).map(j=>({...j,wires:j.wires.flatMap(id=>id!==route.wireId?[id]:[left,right].filter(w=>w.waypoints.some(p=>sameJunctionPoint(p,j.point))).map(w=>w.id))})).filter(j=>j.wires.length>1);
   return checkedWireProject(reconcileSchematicJunctions(next,junctions));
 }
