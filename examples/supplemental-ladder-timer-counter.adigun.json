@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "id": "supplemental-ladder-timer-counter",
+  "metadata": {
+    "name": "Ladder: timed pulse counter",
+    "locale": "en",
+    "createdAt": "2026-11-10T02:22:25.735Z",
+    "updatedAt": "2026-11-10T02:22:25.735Z"
+  },
+  "components": [
+    {
+      "instanceId": "I1",
+      "reference": "I1",
+      "libraryId": "plc.input",
+      "value": "tag PULSE; state 0; events 100:1,200:0,300:1,400:0,500:1,600:0",
+      "position": {
+        "schematic": [
+          38,
+          80
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "T1",
+      "reference": "T1",
+      "libraryId": "plc.ton",
+      "value": "tag DELAYED; presetMs 30",
+      "position": {
+        "schematic": [
+          188,
+          80
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "C1",
+      "reference": "C1",
+      "libraryId": "plc.ctu",
+      "value": "tag COUNTED; preset 3",
+      "position": {
+        "schematic": [
+          338,
+          70
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "I2",
+      "reference": "I2",
+      "libraryId": "plc.input",
+      "value": "tag RESET; state 0; events 800:1",
+      "position": {
+        "schematic": [
+          188,
+          260
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "K1",
+      "reference": "K1",
+      "libraryId": "plc.coil",
+      "value": "tag DONE; initial 0",
+      "position": {
+        "schematic": [
+          488,
+          100
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "N",
+      "reference": "N",
+      "libraryId": "plc.rail-right",
+      "value": "0",
+      "position": {
+        "schematic": [
+          600,
+          100
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "PULSE",
+      "endpoints": [
+        "I1:Q",
+        "T1:IN"
+      ]
+    },
+    {
+      "id": "DELAYED",
+      "endpoints": [
+        "T1:Q",
+        "C1:CU"
+      ]
+    },
+    {
+      "id": "RESET",
+      "endpoints": [
+        "I2:Q",
+        "C1:RESET"
+      ]
+    },
+    {
+      "id": "DONE",
+      "endpoints": [
+        "C1:Q",
+        "K1:L"
+      ]
+    },
+    {
+      "id": "RETURN",
+      "endpoints": [
+        "K1:R",
+        "N:L"
+      ]
+    }
+  ],
+  "history": [],
+  "ladderSimulation": {
+    "scanMs": 10,
+    "durationMs": 1000
+  },
+  "notes": "Three input pulses each pass a 30 ms TON. CTU reaches preset 3 at 530 ms, energizing DONE. RESET at 800 ms clears counter/output. Boolean scan model only."
+}

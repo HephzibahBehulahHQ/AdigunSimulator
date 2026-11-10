@@ -25,7 +25,7 @@ export function componentFields(component, view = "schematic") {
   ];
   const numeric = COMPONENT_SCHEMAS[component.libraryId];
   if (numeric) fields.splice(1, 0, { key: "valueNumber", label: numeric.label, type: "number", section: "Electrical model" }, { key: "valueUnit", label: "Unit", type: "select", options: numeric.units, section: "Electrical model" });
-  else if (String(component.value).includes(";")) {
+  else if (String(component.value).includes(";") || component.libraryId.startsWith('plc.')) {
     fields.splice(1, 0, ...String(component.value).split(";").flatMap((segment,index) => {
       const match = segment.trim().match(/^(\S+)\s+(.+)$/);
       return match ? [{ key: `modelSegment${index}`, label: match[1], type: "text", section: "Electrical model" }] : [];

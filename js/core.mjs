@@ -1,5 +1,6 @@
 import { reviewTestPointCoverage } from "./test-point-coverage.mjs";
 import { ADDITIONAL_LOGIC_PARTS } from "./logic-gates.mjs";
+import { LADDER_PARTS, LADDER_MODELS, ladderParameters, ladderSettings } from "./ladder-components.mjs";
 import { netEdges, splitNetEdges, pruneSchematicWires } from "./net-edges.mjs";
 import { validateProjectPalette } from "./project-appearance.mjs";
 import { validateSchematicWires } from "./schematic-wire-data.mjs";
@@ -13,6 +14,7 @@ const CANVAS_LIMITS = Object.freeze({ x: [28, 604], y: [48, 244], overlapDistanc
 
 export const STARTER_LIBRARY = Object.freeze([
   ...ADDITIONAL_LOGIC_PARTS,
+  ...LADDER_PARTS,
   { id: "relay.omron-g5v1-dc5", category: "Active", type: "Omron G5V-1 DC5 SPDT relay", prefix: "K", pins: ["COIL1","COIL2","COM","NC","NO"], defaultValue: "5 V; 167 Ω; 1 A at 24 VDC resistive", simulation: "bounded-relay-driver", status: "manufacturer identified; board footprint template", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "diode.rectifier-1n4007", category: "Active", type: "1N4007 axial rectifier diode", prefix: "D", pins: ["A","K"], defaultValue: "1 A; 1000 V; axial", simulation: "flyback protection", status: "manufacturer family identified", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.screw-terminal-3", category: "Connectors", type: "3-position screw terminal block", prefix: "J", pins: ["1","2","3"], defaultValue: "Through-hole; generic footprint", simulation: "schematic/PCB only", status: "generic", views: { breadboard: false, schematic: true, pcb: true } },
@@ -401,7 +403,7 @@ export function addComponent(project, libraryId) {
     instanceId: cryptoSafeId(),
     libraryId,
     reference: nextReference(project, libraryId),
-    value: part.defaultValue,
+    value: libraryId.startsWith('plc.') ? part.defaultValue.replace(/tag \w+/, 'tag '+nextReference(project,libraryId)) : part.defaultValue,
     position: positions
   };
   return { ...project, components: [...project.components, item], metadata: { ...project.metadata, updatedAt: new Date().toISOString() } };
@@ -592,10 +594,12 @@ export function validateProject(project) {
       if (sourceIsShorted) errors.push({ rule: "SOURCE_SHORT", message: `${item.reference} positive and negative pins are connected to the same net.` });
     }
   }
-  if (components.length && !components.some((item) => item?.libraryId === "ground.signal")) {
+  if (components.length && !components.every(item=>LADDER_MODELS[item?.libraryId]) && !components.some((item) => item?.libraryId === "ground.signal")) {
     warnings.push({ rule: "NO_REFERENCE", message: "The project has no signal-ground reference component." });
   }
   errors.push(...validateProjectPalette(project));
+  for(const c of components)if(LADDER_MODELS[c?.libraryId]){try{ladderParameters(c);}catch(error){errors.push({rule:'LADDER_PARAMETER',message:`${c.reference}: ${error.message}`});}}
+  if(project.ladderSimulation!==undefined){try{ladderSettings(project.ladderSimulation,components.length,(project.nets??[]).length);}catch(error){errors.push({rule:'LADDER_RECORDING',message:error.message});}}
   errors.push(...validateSchematicWires(project,pin=>{const [id,terminal]=pin.split(":");const c=components.find(c=>c?.instanceId===id);return Boolean(c&&findLibraryPart(c.libraryId)?.pins.includes(terminal));}));
   return { errors, warnings, valid: errors.length === 0 };
 }

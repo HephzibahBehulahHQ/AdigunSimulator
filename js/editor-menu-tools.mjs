@@ -11,21 +11,30 @@ const labels={
   pcm:['Print this view…','Save as file…','Turn 90° left','Turn 90° right','Mirror left to right','Mirror up to down','Reset direction','Delete selection','Power & Ground','Passive','Diodes & LEDs','Transistors & ICs','Logic gates','Switches','Instruments','Choose component, then click canvas. Escape go cancel.','Wire','This change need free space inside canvas.']
 };
 const keys=['print','saveAs','rotateLeft','rotateRight','mirrorX','mirrorY','resetOrientation','delete','power','passive','diodes','active','logic','switches','instruments','drawHint','wire','transformBlocked'];
-export const editorMenuText=(locale,key)=>(labels[locale]??labels.en)[keys.indexOf(key)]??key;
+const extraLabels={en:{plc:'PLC & Ladder',search:'Search Draw components',count:'matching components'},de:{plc:'SPS & Kontaktplan',search:'Zeichenbauteile suchen',count:'passende Bauteile'},yo:{plc:'PLC àti Ladder',search:'Wá ẹ̀yà fún àwòrán',count:'ẹ̀yà tó bá mu'},pcm:{plc:'PLC & Ladder',search:'Find Draw components',count:'matching components'}};
+export const editorMenuText=(locale,key)=>(extraLabels[locale]??extraLabels.en)[key]??(labels[locale]??labels.en)[keys.indexOf(key)]??key;
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 export function drawGroups(){
-  const groups=new Map(['power','passive','diodes','active','logic','switches','instruments'].map(key=>[key,[]]));
+  const groups=new Map(['power','passive','diodes','active','logic','switches','instruments','plc'].map(key=>[key,[]]));
   for(const part of STARTER_LIBRARY){
     // Offer native terminal-aware symbols, never a generic fallback box or a new part claim.
     if(!part.views?.schematic||(!SCHEMATIC_PRIMITIVES[part.id]&&part.id!=='active.stm32-timer-ideal'))continue;
-    const key=/^(power|ground)\./.test(part.id)?'power':part.id.startsWith('passive.')?'passive':part.id.startsWith('diode.')?'diodes':part.id.startsWith('active.logic-')?'logic':part.id.startsWith('input.')?'switches':part.id.startsWith('instrument.')?'instruments':'active';
+    const key=part.id.startsWith('plc.')?'plc':/^(power|ground)\./.test(part.id)?'power':part.id.startsWith('passive.')?'passive':part.id.startsWith('diode.')?'diodes':part.id.startsWith('active.logic-')?'logic':part.id.startsWith('input.')?'switches':part.id.startsWith('instrument.')?'instruments':'active';
     groups.get(key).push(part);
   }
   return [...groups].filter(([,parts])=>parts.length).map(([key,parts])=>({key,parts}));
 }
+export function drawSearchGroups(query=''){
+  const terms=String(query).trim().toLowerCase().split(/\s+/).filter(Boolean);
+  return drawGroups().map(g=>({...g,parts:g.parts.filter(p=>terms.every(t=>`${p.type} ${p.id} ${p.category} ${p.pins.join(' ')}`.toLowerCase().includes(t)))})).filter(g=>g.parts.length);
+}
+function groupMarkup(locale,query=''){
+  const groups=drawSearchGroups(query),count=groups.reduce((n,g)=>n+g.parts.length,0);
+  return `<output class="draw-count" aria-live="polite">${count} ${escape(editorMenuText(locale,'count'))}</output>`+groups.map(({key,parts},i)=>`<details class="draw-category" ${i===0||query?'open':''}><summary>${escape(editorMenuText(locale,key))} (${parts.length})</summary><div class="draw-parts">${parts.slice(0,48).map(part=>`<button type="button" data-draw-part="${escape(part.id)}" title="${escape(part.status??part.type)}"><span aria-hidden="true">${renderSchematicSymbol(part)}</span><span>${escape(part.type)}</span></button>`).join('')}${parts.length>48?'<p>48 / '+parts.length+' · '+escape(editorMenuText(locale,'search'))+'</p>':''}</div></details>`).join('');
+}
 export function drawMenuMarkup(locale){
-  return `<p class="draw-hint">${escape(editorMenuText(locale,'drawHint'))}</p><button type="button" data-action="schematic-wire-mode">⌁ ${escape(editorMenuText(locale,'wire'))}</button><div class="draw-groups">${drawGroups().map(({key,parts},i)=>`<details class="draw-category" ${i===0?'open':''}><summary>${escape(editorMenuText(locale,key))}</summary><div class="draw-parts">${parts.map(part=>`<button type="button" data-draw-part="${escape(part.id)}" title="${escape(part.status??part.type)}"><span aria-hidden="true">${renderSchematicSymbol(part)}</span><span>${escape(part.type)}</span></button>`).join('')}</div></details>`).join('')}</div>`;
+  return `<p class="draw-hint">${escape(editorMenuText(locale,'drawHint'))}</p><input type="search" data-draw-search data-locale="${escape(locale)}" aria-label="${escape(editorMenuText(locale,'search'))}" placeholder="${escape(editorMenuText(locale,'search'))}" maxlength="100"/><button type="button" data-action="schematic-wire-mode">⌁ ${escape(editorMenuText(locale,'wire'))}</button><div class="draw-groups">${groupMarkup(locale)}</div>`;
 }
 export function attachDrawMenu(menu,onChoose){
   const open=group=>menu.querySelectorAll('.draw-category').forEach(other=>{other.open=other===group;});
@@ -36,8 +45,9 @@ export function attachDrawMenu(menu,onChoose){
     if(part){menu.open=false;onChoose(part.dataset.drawPart);}
   };
   const hover=event=>{const group=event.target.closest?.('.draw-category');if(group&&event.pointerType==='mouse')open(group);};
-  menu.addEventListener('click',click);menu.addEventListener('pointerover',hover);
-  return ()=>{menu.removeEventListener('click',click);menu.removeEventListener('pointerover',hover);};
+  const search=event=>{if(event.target.matches?.('[data-draw-search]'))menu.querySelector('.draw-groups').innerHTML=groupMarkup(event.target.dataset.locale,event.target.value);};
+  menu.addEventListener('click',click);menu.addEventListener('pointerover',hover);menu.addEventListener('input',search);
+  return ()=>{menu.removeEventListener('click',click);menu.removeEventListener('pointerover',hover);menu.removeEventListener('input',search);};
 }
 
 export function transformSchematicComponent(project,id,action){

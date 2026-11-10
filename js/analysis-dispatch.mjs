@@ -1,3 +1,4 @@
+import { runLadderSimulation } from './ladder-simulation.mjs';
 
 import { runSupportedAnalysis } from "./core.mjs";
 import { analyticalScopeRecording } from './analytical-scope-recording.mjs';
@@ -71,6 +72,7 @@ export function runProjectAnalysis(project) {
   return {...primary,...(electrical!==primary&&electrical.state==='complete'?{scopeElectrical:electrical}:{}),...(recording?{scopeRecording:recording}:{})};
 }
 function runPrimaryAnalysis(project) {
+  if(project.components?.some(c=>c.libraryId?.startsWith('plc.')))return runLadderSimulation(project);
   if (project.shockleyDcOperatingPoint) return runNonlinearDcOperatingPoint(project);
   if (project.linearAcSweep) return runLinearAcSweep(project);
   if (project.linearRlcTransient) return runLinearRlcTransient(project);

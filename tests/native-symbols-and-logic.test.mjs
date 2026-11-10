@@ -17,7 +17,7 @@ test("every primitive has the exact native terminal set, a distinct glyph and bo
     assert.ok(svg.includes(`data-symbol-kind="${spec.kind}"`), id);
     assert.doesNotMatch(svg, /pin placement is editorial|NaN|undefined/, id);
     const size=schematicSymbolSize(id);
-    assert.deepEqual(size, { width:56, height:58 }, "preserve existing document layout dimensions");
+    assert.deepEqual(size, id.startsWith('plc.')?{width:spec.width,height:spec.height}:{width:56,height:58}, "preserve existing layouts; new ladder blocks use their native dimensions");
     for (const pin of part.pins) {
       const [x,y,side] = spec.pins[pin];
       assert.ok(x >= 0 && x <= spec.width && y >= 0 && y <= spec.height, `${id}.${pin}`);

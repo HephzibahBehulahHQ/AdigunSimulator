@@ -326,7 +326,7 @@ test("example picker points only to tested catalogue or explicit supplemental pr
   const manifest = JSON.parse(manifestText);
   const releasedFiles = manifest.examples.filter((example) => example.status === "released").map((example) => example.projectFile).sort();
   const pickerFiles = values(html, /<option\b[^>]*\bvalue="(examples\/[^"]+\.adigun\.json)"[^>]*>/g).sort();
-  assert.deepEqual(pickerFiles, [...releasedFiles, "examples/supplemental-npn-ebers-moll-bias.adigun.json"].sort());
+  assert.deepEqual(pickerFiles, [...releasedFiles, "examples/supplemental-npn-ebers-moll-bias.adigun.json", "examples/supplemental-ladder-seal-in.adigun.json", "examples/supplemental-ladder-timer-counter.adigun.json"].sort());
   assert.match(app, /createSimulationWorkerRun\(project\)\.promise/);
   assert.match(app, /Loaded and validated/);
 });

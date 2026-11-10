@@ -1,4 +1,6 @@
 import { createDesignTools } from "./js/design-tools-ui.mjs";
+import { createCanvasExperience } from './js/canvas-experience.mjs';
+import { ladderSettings, ladderUiText, ladderValueLabel } from './js/ladder-components.mjs';
 import { wirePaint } from "./js/project-appearance.mjs";
 import { createSchematicWireUi } from "./js/schematic-wire-ui.mjs";
 import { createCrossingPainter } from "./js/wire-crossings.mjs";
@@ -285,6 +287,7 @@ function renderSimulationHud(){
 }
 function paintSimulationFrame(){
   const data=dcFeedback.read().data, electron=$("#feedback-direction").value==="electron";
+  for(const node of $$('#design-canvas [data-instance-id]'))node.classList.toggle('ladder-energized',data?.blocks?.[node.dataset.instanceId]?.on===true);
   for(const hit of $$(".schematic-wire-layer .wire-hit[data-feedback-net]")){
     const {feedbackNet:wireNet,feedbackFirst:wireFirst,feedbackSecond:wireSecond}=hit.dataset, base=hit.nextElementSibling;
     const measured=data?.wires?.[wireEdgeKey(wireNet,wireFirst,wireSecond)], color=voltageColor(measured?.voltageV), motion=currentMotion(measured?.currentA,electron);
@@ -299,7 +302,7 @@ function paintSimulationFrame(){
   const netByPin=new Map(state.project.nets.flatMap(net=>net.endpoints.map(pin=>[pin,net.id])));
   for(const target of $$(".schematic-pin-terminal[data-schematic-endpoint]")){
     const voltage=data?.nodes?.[netByPin.get(target.dataset.schematicEndpoint)],color=voltageColor(voltage),dot=target.querySelector(".schematic-pin-dot");
-    if(color){dot.style.fill=color;dot.style.stroke=color;const title=target.querySelector("title");if(title)title.textContent=`${target.dataset.schematicEndpoint}: ${voltage.toPrecision(4)} V`;}
+    if(color){dot.style.fill=color;dot.style.stroke=color;const title=target.querySelector("title");if(title)title.textContent=`${target.dataset.schematicEndpoint}: ${data?.units==='logic'?voltage+' logic':voltage.toPrecision(4)+' V'}`;}
     else{dot.style.removeProperty("fill");dot.style.removeProperty("stroke");}
   }
   renderSimulationHud();
@@ -312,10 +315,12 @@ const wireUi = createSchematicWireUi({
   getFeedback:()=>dcFeedback.read().data, onError:message=>showDialog(t("schematic"),message)
 });
 const designTools = createDesignTools({document,window,getState:()=>state,getLive:()=>dcFeedback.read(),getRoute:()=>wireUi.selectedRoute(),commit:next=>{captureHistory();state.project=next;state.dirty=true;state.lastValidation=null;},render});
-window.addEventListener("pagehide",event=>{if(!event.persisted)designTools.dispose();});
+const canvasExperience=createCanvasExperience({document,window,getLocale:()=>state.project.metadata.locale});
+window.addEventListener("pagehide",event=>{if(!event.persisted){designTools.dispose();canvasExperience.dispose();}});
 const projectSession = createProjectSession(state, { storage: () => localStorage, onReset: () => {
   dcFeedback.stop(false);
   designTools.reset();
+  canvasExperience.reset();
   wireUi.reset();
   state.feedbackConfig=null;
   state.selectedWire = null; state.wireCursor = null; state.placement = null;
@@ -488,7 +493,7 @@ function componentVisual(component, view) {
   const symbol = view === "schematic" ? renderSchematicSymbol(part, component) : null;
   const symbolSize = view === "schematic" ? schematicGeometry(component) : schematicSymbolSize(component.libraryId);
   const body = symbol ?? `<span class="part-body">${component.libraryId === "diode.led-red" ? "●" : component.libraryId === "power.dc-source" ? "+ −" : component.libraryId === "ground.signal" ? "⏚" : component.libraryId === "passive.resistor" ? "▥" : "▣"}</span>`;
-  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px;--symbol-width:${symbolSize.width}px;--symbol-height:${symbolSize.height}px;--symbol-rotation:${symbolSize.rotation ?? 0}deg;--symbol-mirror-x:${symbolSize.mirrorX ? -1 : 1};--symbol-mirror-y:${symbolSize.mirrorY ? -1 : 1}" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value" title="${escape(component.value)}">${escape(component.value)}</span></button>`;
+  return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px;--symbol-width:${symbolSize.width}px;--symbol-height:${symbolSize.height}px;--symbol-rotation:${symbolSize.rotation ?? 0}deg;--symbol-mirror-x:${symbolSize.mirrorX ? -1 : 1};--symbol-mirror-y:${symbolSize.mirrorY ? -1 : 1}" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value" title="${escape(component.value)}">${escape(component.libraryId.startsWith('plc.')?ladderValueLabel(component):component.value)}</span></button>`;
 }
 
 function componentCenter(component, view) {
@@ -648,7 +653,7 @@ function netSvg(project, view, unavailable = new Set(), interactive = true) {
       const anchor = side === "left" ? "end" : side === "right" ? "start" : "middle";
       const origin = state.schematicWireStart === endpoint ? "is-wire-origin" : "";
       const voltage=net?feedback?.nodes?.[net.id]:null, nodeColor=voltageColor(voltage);
-      return `<g class="schematic-pin-terminal schematic-pin-target ${net ? netClass(net.id) : "net-signal"} ${origin}" data-schematic-endpoint="${escape(endpoint)}" ${interactive ? 'role="button" tabindex="0"' : ""} aria-label="${escape(endpoint)}">${nodeColor?`<title>${escape(endpoint)}: ${voltage.toPrecision(4)} V</title>`:""}<circle class="schematic-pin-hit" cx="${point.x}" cy="${point.y}" r="8"/><circle class="schematic-pin-dot" cx="${point.x}" cy="${point.y}" r="2.4" ${nodeColor?`style="fill:${nodeColor};stroke:${nodeColor}"`:""}/><text x="${labelX}" y="${point.y - 4}" text-anchor="${anchor}">${component.libraryId === "ground.signal" ? "" : escape(pin)}</text></g>`;
+      return `<g class="schematic-pin-terminal schematic-pin-target ${net ? netClass(net.id) : "net-signal"} ${origin}" data-schematic-endpoint="${escape(endpoint)}" ${interactive ? 'role="button" tabindex="0"' : ""} aria-label="${escape(endpoint)}">${nodeColor?`<title>${escape(endpoint)}: ${dcFeedback.read().data?.units==='logic'?voltage+' logic':voltage.toPrecision(4)+' V'}</title>`:""}<circle class="schematic-pin-hit" cx="${point.x}" cy="${point.y}" r="8"/><circle class="schematic-pin-dot" cx="${point.x}" cy="${point.y}" r="2.4" ${nodeColor?`style="fill:${nodeColor};stroke:${nodeColor}"`:""}/><text x="${labelX}" y="${point.y - 4}" text-anchor="${anchor}">${component.libraryId === "ground.signal" ? "" : escape(pin)}</text></g>`;
     });
   }).join("") : "";
   const draft = view==="schematic"?wireUi.extraPaths(project,interactive,crossingPainter):"", handles=view==="schematic"?wireUi.handles(project,interactive):"";
@@ -928,6 +933,7 @@ function renderCanvas() {
   $("#schematic-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "schematic", new Set(getViewReconciliationIssues(state.project, "schematic").map((issue) => issue.instanceId)), false)}${miniSchematic}</div>`;
   $("#pcb-mini").innerHTML = `<div class="canvas-scene">${netSvg(state.project, "pcb", new Set(getViewReconciliationIssues(state.project, "pcb").map((issue) => issue.instanceId)))}${miniPcb}</div>`;
   applyMiniCanvasCamera();
+  if(typeof canvasExperience!=="undefined")canvasExperience.paint();
   if(typeof designTools!=="undefined")designTools.paint();
 }
 
@@ -986,6 +992,9 @@ function renderConnections() {
     $("#digital-events-json").value = JSON.stringify(state.project.digitalEventSimulation?.events ?? [], null, 2);
     $("#digital-initial-states").value = JSON.stringify(state.project.digitalEventSimulation?.initialStates ?? {}, null, 2);
   }
+  $('#ladder-controls').hidden=!state.project.components.some(c=>c.libraryId.startsWith('plc.'));
+  for(const node of $$('[data-ladder-label]'))node.textContent=ladderUiText(state.project.metadata.locale,Number(node.dataset.ladderLabel));
+  if(!['ladder-scan-ms','ladder-duration-ms'].includes(document.activeElement?.id)){$('#ladder-scan-ms').value=state.project.ladderSimulation?.scanMs??10;$('#ladder-duration-ms').value=state.project.ladderSimulation?.durationMs??2000;}
   $("#net-list").innerHTML = state.project.nets.map((net) => `
     <li><button type="button" class="net-select ${net.id === state.selectedNetId ? "active" : ""}" data-net-id="${escape(net.id)}" aria-pressed="${net.id === state.selectedNetId}">${escape(net.id)}</button><ul>${net.endpoints.map((item) => `<li>${escape(item)} <button type="button" class="disconnect-pin" data-endpoint="${escape(item)}" aria-label="${escape(t("disconnect"))} ${escape(item)}">×</button></li>`).join("")}</ul></li>`).join("") || `<li>${escape(t("noConnectedNets"))}</li>`;
 }
@@ -1005,7 +1014,10 @@ function renderResultDashboard(analysis) {
   const result = analysis.result ?? {};
   const metrics = [];
   let waveform = "";
-  if (result.kind === "linear-ac-sweep") {
+  if(result.kind==='ladder-scan'){
+    metrics.push(['Instructions',String(result.instructionCount)],['Scan',result.scanMs+' ms'],['Recorded scans',String(result.samples.length)]);
+    waveform='<div class="ladder-results"><p>Logical scan · output tags update together; contact feedback takes one scan. No physical current or motor model.</p><table><thead><tr><th>Output / tag</th><th>Final bit</th></tr></thead><tbody>'+Object.entries(result.samples.at(-1).bits).map(([tag,value])=>`<tr><td>${escape(tag)}</td><td>${value}</td></tr>`).join('')+'</tbody></table></div>';
+  } else if (result.kind === "linear-ac-sweep") {
     metrics.push([t("acPoints"), String(result.samples.length)], [t("acOutputNet"), result.outputNet ?? t("notRecorded")], [t("acStartHz"), `${result.startHz}–${result.stopHz} Hz`]);
     const rows = result.samples.map((sample) => `<tr><td>${Number(sample.frequencyHz.toPrecision(6))}</td><td>${sample.output ? Number(sample.output.magnitudeV.toPrecision(6)) : "—"}</td><td>${sample.output ? `${Number(sample.output.phaseDegrees.toPrecision(6))}°` : "—"}</td></tr>`).join("");
     waveform = `<figure class="result-waveform"><figcaption>${escape(t("analysisLinearAcSweep"))}</figcaption><table class="result-table linear-ac-table"><thead><tr><th>${escape(t("acFrequencyHz"))}</th><th>${escape(t("acMagnitude"))}</th><th>${escape(t("acPhase"))}</th></tr></thead><tbody>${rows}</tbody></table></figure>`;
@@ -1751,6 +1763,8 @@ function rotateSelectedPcbFootprint(degrees) {
 }
 
 function handleAction(action) {
+  if(action === "ladder-settings"){try{const config=ladderSettings({scanMs:Number($('#ladder-scan-ms').value),durationMs:Number($('#ladder-duration-ms').value)},state.project.components.length,state.project.nets.length);commitComponentEdit({...state.project,ladderSimulation:config,metadata:{...state.project.metadata,updatedAt:new Date().toISOString()}});}catch(error){showDialog(ladderUiText(state.project.metadata.locale,0),error.message);}return;}
+  if(action === "canvas-experience"){canvasExperience.action();return;}
   if (action === "color-palette" || action === "oscilloscope") { designTools.action(action); return; }
   if(action.startsWith("transform-")){
     const key=action.slice(10),component=selectedComponent();if(!component)return;

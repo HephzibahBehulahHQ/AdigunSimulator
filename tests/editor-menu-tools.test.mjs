@@ -11,7 +11,7 @@ import { editComponentField } from '../js/component-edit.mjs';
 
 test('Draw offers actual native symbols, grouped with accessible choices in four languages',()=>{
   const groups=drawGroups(),parts=groups.flatMap(g=>g.parts);
-  assert.equal(groups.length,7);assert.equal(new Set(parts.map(p=>p.id)).size,parts.length);
+  assert.equal(groups.length,8);assert.equal(new Set(parts.map(p=>p.id)).size,parts.length);
   assert.ok(parts.some(p=>p.id==='passive.resistor'));assert.ok(parts.some(p=>p.id==='active.logic-and-ideal'));
   for(const p of parts)assert.ok(SCHEMATIC_PRIMITIVES[p.id]||p.id==='active.stm32-timer-ideal');
   for(const locale of ['en','de','yo','pcm']){

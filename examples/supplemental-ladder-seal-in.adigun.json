@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "id": "supplemental-ladder-seal-in",
+  "metadata": {
+    "name": "Ladder: start / stop seal-in",
+    "locale": "en",
+    "createdAt": "2026-11-10T02:22:25.733Z",
+    "updatedAt": "2026-11-10T02:22:25.733Z"
+  },
+  "components": [
+    {
+      "instanceId": "L",
+      "reference": "L",
+      "libraryId": "plc.rail-left",
+      "value": "1",
+      "position": {
+        "schematic": [
+          38,
+          130
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "STOP",
+      "reference": "STOP",
+      "libraryId": "plc.contact-nc",
+      "value": "tag STOP; state 0; events 700:1",
+      "position": {
+        "schematic": [
+          143,
+          130
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "START",
+      "reference": "START",
+      "libraryId": "plc.contact-no",
+      "value": "tag START; state 0; events 100:1,200:0",
+      "position": {
+        "schematic": [
+          263,
+          80
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "HOLD",
+      "reference": "HOLD",
+      "libraryId": "plc.contact-no",
+      "value": "tag MOTOR; state 0; events -",
+      "position": {
+        "schematic": [
+          263,
+          220
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "K1",
+      "reference": "K1",
+      "libraryId": "plc.coil",
+      "value": "tag MOTOR; initial 0",
+      "position": {
+        "schematic": [
+          435,
+          130
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "instanceId": "N",
+      "reference": "N",
+      "libraryId": "plc.rail-right",
+      "value": "0",
+      "position": {
+        "schematic": [
+          563,
+          130
+        ],
+        "breadboard": [
+          100,
+          100
+        ],
+        "pcb": [
+          100,
+          100
+        ]
+      }
+    }
+  ],
+  "nets": [
+    {
+      "id": "RAIL",
+      "endpoints": [
+        "L:Q",
+        "STOP:L"
+      ]
+    },
+    {
+      "id": "ENABLE",
+      "endpoints": [
+        "STOP:R",
+        "START:L",
+        "HOLD:L"
+      ]
+    },
+    {
+      "id": "RUN",
+      "endpoints": [
+        "START:R",
+        "HOLD:R",
+        "K1:L"
+      ]
+    },
+    {
+      "id": "RETURN",
+      "endpoints": [
+        "K1:R",
+        "N:L"
+      ]
+    }
+  ],
+  "history": [],
+  "ladderSimulation": {
+    "scanMs": 10,
+    "durationMs": 1000
+  },
+  "notes": "Boolean ladder instruction study. START at 100 ms energizes MOTOR; release at 200 ms holds via previous-scan MOTOR contact. STOP at 700 ms drops output. No physical motor, mains or certified safety model."
+}
