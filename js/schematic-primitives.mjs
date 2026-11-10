@@ -1,4 +1,5 @@
 import { LOGIC_GATES } from "./logic-gates.mjs";
+import { LADDER_MODELS, ladderSymbolSpec } from "./ladder-components.mjs";
 
 // Drawing coordinates are shared with the wire router. Native terminal names never
 // change when a drawing is rotated/resized. Package and breadboard maps are separate.
@@ -33,4 +34,5 @@ define(["passive.transformer-ideal"], "transformer", { PRI1: [6, 14, "left"], PR
 define(["active.opamp-ideal"], "opamp", { "+": [6, 30, "left"], "-": [6, 60, "left"], OUT: [90, 45, "right"], VCC: [48, 6, "top"], VEE: [48, 84, "bottom"] }, 96, 90);
 define(["instrument.voltmeter"], "voltmeter", two("+", "-"));
 for (const [id, gate] of Object.entries(LOGIC_GATES)) define([id], gate.operation, { A: [6, gate.inputs.length === 1 ? 45 : 31, "left"], ...(gate.inputs.length === 2 ? { B: [6, 59, "left"] } : {}), Y: [90, 45, "right"], VCC: [48, 6, "top"], GND: [48, 84, "bottom"] }, 96, 90);
+for(const id of Object.keys(LADDER_MODELS))primitives[id]=Object.freeze(ladderSymbolSpec(id));
 export const SCHEMATIC_PRIMITIVES = Object.freeze(primitives);

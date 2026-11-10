@@ -80,6 +80,7 @@
         </div></details>
         <details class="app-menu" name="application-menu"><summary data-i18n="toolsMenu">Tools</summary><div class="app-menu-popover">
           <button type="button" data-action="color-palette" data-design-label="8">Color Palette</button>
+          <button type="button" data-action="canvas-experience">Canvas experience</button>
           <button type="button" data-action="validate" data-i18n="runValidation">Run validation</button>
           <button type="button" data-inspector="simulation" data-i18n="simulationControl">Simulation Control</button>
           <button type="button" data-inspector="project" data-i18n="project">Project</button>
@@ -313,6 +314,8 @@
             <option value="examples/200-release-candidate-e2e.adigun.json" data-i18n="exampleReleaseCandidateE2E">Release candidate end-to-end</option>
 
 <option value="examples/supplemental-rl-low-pass.adigun.json">Supplemental: RL low-pass filter</option>
+<option value="examples/supplemental-ladder-seal-in.adigun.json">Ladder: start / stop seal-in</option>
+<option value="examples/supplemental-ladder-timer-counter.adigun.json">Ladder: timed pulse counter</option>
           </select></label>
         <button id="load-example" class="secondary-button load-example-top" type="button" data-i18n="loadSelectedExample">Load example</button>
         </div></details>
@@ -479,6 +482,7 @@
             <label><span data-i18n="nonlinearJunctionTemperature">Junction temperature (°C)</span><input id="nonlinear-dc-temperature" type="number" min="-100" max="200" step="any" value="25" /></label>
             <p class="limit-note" data-i18n="nonlinearDcModelHelp">Generic Shockley diodes with optional series resistance and generic Ebers–Moll NPN/PNP BJTs; parameters are not manufacturer-verified.</p>
           </div>
+          <fieldset id="ladder-controls" hidden><legend data-ladder-label="0">Ladder recording</legend><label><span data-ladder-label="1">Scan period (ms)</span><input id="ladder-scan-ms" type="number" min="1" max="60000" step="1"/></label><label><span data-ladder-label="2">Record duration (ms)</span><input id="ladder-duration-ms" type="number" min="1" max="60000" step="1"/></label><button type="button" data-action="ladder-settings" data-ladder-label="3">Apply recording settings</button></fieldset>
           <div id="ac-sweep-controls" class="ac-sweep-controls hidden">
             <label><span data-i18n="acStartHz">Start frequency (Hz)</span><input id="ac-start-hz" type="number" min="0.000001" step="any" value="10" /></label>
             <label><span data-i18n="acStopHz">Stop frequency (Hz)</span><input id="ac-stop-hz" type="number" min="0.000001" step="any" value="100000" /></label>

@@ -476,6 +476,32 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
   .draw-groups { min-height:0; }
 }
 #project-print { display:none; }
+.ladder-pin-text { font:6px system-ui,sans-serif; fill:currentColor; }
+.placed-component.ladder-energized .schematic-symbol { filter:drop-shadow(0 0 3px #3be2bd); color:#5fffd0; }
+.draw-count { grid-column:1/-1; font-size:.7rem; color:var(--muted); }
+[data-draw-search] { width:100%; max-width:100%; margin:.25rem 0; }
+.ladder-results { max-height:14rem; overflow:auto; }
+#ladder-controls { margin:.6rem 0; padding:.5rem; border:1px solid var(--border); }
+#ladder-controls[hidden] { display:none; }
+.design-canvas::after { content:''; pointer-events:none; position:absolute; inset:-25% 0; opacity:0; background:repeating-linear-gradient(0deg,transparent 0 80px,#63d8f8 81px,transparent 83px 160px); }
+.design-canvas.ambient-moving::after { opacity:.035; animation:ambient-grid-drift 24s linear infinite; }
+@keyframes ambient-grid-drift { to { transform:translateY(160px); } }
+.tutorial-companion { position:absolute; right:8px; bottom:8px; z-index:9; pointer-events:none; display:flex; align-items:flex-end; gap:6px; max-width:calc(100% - 16px); }
+.tutorial-companion[hidden],.tutorial-card[hidden] { display:none; }
+.tutorial-companion button { pointer-events:auto; }
+.tutorial-toggle { width:42px; height:40px; padding:3px; border:1px solid #277894; border-radius:12px; background:#0a2436dd; }
+.tutorial-toggle svg { width:100%; height:100%; fill:#092f43; stroke:#64d7ee; stroke-width:1.6; }
+.ambient-moving .tutorial-toggle svg { animation:tutorial-hover 4s ease-in-out infinite alternate; }
+@keyframes tutorial-hover { to { transform:translateY(-3px); } }
+.tutorial-card { width:230px; max-width:calc(100% - 48px); pointer-events:auto; color:#d9edf6; background:#0a2436f7; border:1px solid #277894; border-radius:6px; padding:9px; font-size:11px; }
+.tutorial-card p { margin:.4rem 0; line-height:1.5; }
+.tutorial-card button { font-size:11px; margin:2px; padding:4px; }
+.tutorial-target { outline:2px solid #e5bd52!important; outline-offset:2px; }
+#canvas-experience-dialog { max-width:min(28rem,calc(100vw - 2rem)); }
+#canvas-experience-dialog label { display:flex; gap:.7rem; align-items:center; margin:1rem 0; }
+#canvas-experience-dialog input { width:auto; }
+@media (prefers-reduced-motion:reduce) { .design-canvas::after,.tutorial-toggle svg { animation:none!important; } }
+@media print { .tutorial-companion,.design-canvas::after,.scope-window { display:none!important; } }
 #wire-style-menu { width:17rem; max-width:100%; }
 #wire-style-menu fieldset { display:grid; gap:.4rem; margin:0; padding:.4rem; border:1px solid var(--border); }
 #wire-style-menu label { display:flex; justify-content:space-between; align-items:center; gap:.5rem; font-size:.75rem; }

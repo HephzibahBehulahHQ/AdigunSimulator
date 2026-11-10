@@ -1,4 +1,5 @@
 import { SCHEMATIC_PRIMITIVES } from "./schematic-primitives.mjs";
+import { renderLadderSymbol } from './ladder-components.mjs';
 const path = d => `<path class="symbol-stroke" d="${d}"/>`;
 const fill = d => `<path class="symbol-fill" d="${d}"/>`;
 const text = (x, y, value) => `<text class="symbol-text" x="${x}" y="${y}">${value}</text>`;
@@ -6,6 +7,7 @@ const circle = (x, y, radius) => `<circle class="symbol-stroke" cx="${x}" cy="${
 export function renderPrimitiveSymbol(part, component) {
   const spec = SCHEMATIC_PRIMITIVES[part.id];
   if (!spec || part.pins.length !== Object.keys(spec.pins).length || part.pins.some(pin => !spec.pins[pin])) return null;
+  if(spec.kind==='ladder')return renderLadderSymbol(part.id);
   const lead = (pin, d) => `<path class="symbol-stroke" data-symbol-pin="${pin}" d="M${spec.pins[pin][0]} ${spec.pins[pin][1]} ${d}"/>`;
   const pair = (a, b, left = "H19", right = "H37") => lead(a, left) + lead(b, right);
   const kind = spec.kind, value = component?.value ?? part.defaultValue ?? "";

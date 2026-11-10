@@ -97,6 +97,7 @@ export function createSchematicWireUi({getState,canvas,panel,snap,commit,render,
    svg+=choices().candidates.slice(0,64).map((c,i)=>`<circle class="junction-candidate" cx="${c.point[0]}" cy="${c.point[1]}" r="7" data-junction-choice="${i}" role="button" tabindex="0" aria-label="${escape(jtext(1)+' '+(i+1))}"/>`).join('');return svg;
  }
  function paintMeasurements(){const r=selectedRoute(),j=selectedJunction(),out=panel.querySelector('[data-wire-measurement]');if(!out||(!r&&!j))return;const data=getFeedback();
+   if(data?.units==='logic'){const wire=j?state().project.schematicWires.find(w=>w.id===j.wires[0]):null,net=j?state().project.nets.find(n=>n.endpoints.includes(wire.from))?.id:r.netId;out.textContent=`${net??''} · Logic ${data.nodes?.[net]??'—'}`;return;}
    if(j){const wire=state().project.schematicWires.find(w=>w.id===j.wires[0]),net=state().project.nets.find(n=>n.endpoints.includes(wire.from)),v=data?.nodes?.[net?.id];out.textContent=`${net?.id??''} · V=${Number.isFinite(v)?v.toPrecision(4):'—'} V · ${jtext(5)}: ${j.wires.length}`;return;}
    const voltage=data?.nodes?.[r.netId],segments=junctionRouteSegments(state().project,r),values=segments.map(s=>data?.wires?.[wireEdgeKey(r.netId,s.measurementFirst,s.measurementSecond)]?.currentA);
    out.textContent=`${r.netId??text(9)} · V=${Number.isFinite(voltage)?voltage.toPrecision(4):'—'} V · I=${values.map(n=>Number.isFinite(n)?n.toPrecision(4):'—').join(' / ')} A`;

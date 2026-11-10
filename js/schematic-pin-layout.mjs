@@ -2,6 +2,7 @@ import { SCHEMATIC_PRIMITIVES } from "./schematic-primitives.mjs";
 // Visual anchors for the editor's named electrical terminals.
 // Pin order here defines schematic placement only; it does not assert physical package pin numbers.
 export function schematicSymbolSize(libraryId) {
+  if(libraryId?.startsWith('plc.')&&SCHEMATIC_PRIMITIVES[libraryId]){const {width,height}=SCHEMATIC_PRIMITIVES[libraryId];return {width,height};}
   return libraryId === "active.stm32-timer-ideal" ? { width: 124, height: 130 } : { width: 56, height: 58 };
 }
 export function schematicGeometry(component) {

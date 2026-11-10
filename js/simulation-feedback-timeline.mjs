@@ -7,6 +7,10 @@ export function createFeedbackTimeline(project, analysis) {
   }
   analysis=analysis?.scopeElectrical??analysis;
   const result=analysis?.result, layout=analysis?.feedbackLayout;
+  if(analysis?.state==='complete'&&result?.kind==='ladder-scan'){
+    const samples=result.samples;if(!Array.isArray(samples)||!samples.length||samples.length>2000)return null;
+    return {kind:'transient',length:samples.length,time:i=>samples[i]?.timeSeconds??0,frame:i=>{const sample=samples[i];return sample?{available:true,units:'logic',nodes:sample.nets,wires:{},blocks:sample.blocks}:null;}};
+  }
   if(analysis?.state==="complete" && result?.kind==="linear-rlc-transient") {
     const samples=result.samples;
     if(!layout || !Array.isArray(layout.nets) || !Array.isArray(layout.branches) || !Array.isArray(samples) || !samples.length || samples.length>2000)return null;

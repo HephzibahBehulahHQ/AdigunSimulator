@@ -1,3 +1,4 @@
+import { LADDER_MODELS, ladderParameters } from './ladder-components.mjs';
 const MIN_RESISTANCE_OHMS=0.01;
 const MAX_RESISTANCE_OHMS=1e9;
 function parseResistance(value) {
@@ -8,6 +9,7 @@ function parseResistance(value) {
   return Number(match[1])*multiplier;
 }
 export function validateComponentProperty(component,value) {
+  if(LADDER_MODELS[component?.libraryId]){try{ladderParameters({...component,value});return {valid:true,errors:[]};}catch(error){return {valid:false,errors:[{code:'LADDER_PARAMETER',message:error.message}]};}}
   if(component?.libraryId!=="passive.resistor")return {valid:true,errors:[]};
   const resistanceOhms=parseResistance(value);
   if(!Number.isFinite(resistanceOhms)||resistanceOhms<MIN_RESISTANCE_OHMS||resistanceOhms>MAX_RESISTANCE_OHMS)return {valid:false,errors:[{code:"RESISTANCE_RANGE",message:"Enter a finite resistance from 0.01 Ω through 1 GΩ."}]};
