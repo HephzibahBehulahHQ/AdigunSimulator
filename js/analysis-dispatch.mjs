@@ -1,5 +1,6 @@
 
 import { runSupportedAnalysis } from "./core.mjs";
+import { analyticalScopeRecording } from './analytical-scope-recording.mjs';
 import { analyzeDcVoltmeter } from "./dc-voltmeter-analysis.mjs";
 import { analyzeDcAmmeter } from "./dc-ammeter-analysis.mjs";
 import { captureTriggeredPulse } from "./oscilloscope-trigger.mjs";
@@ -62,6 +63,14 @@ import { runLinearRlcTransient } from "./linear-rlc-transient.mjs";
 import { runNonlinearDcOperatingPoint } from "./nonlinear-dc-analysis.mjs";
 
 export function runProjectAnalysis(project) {
+  const primary=runPrimaryAnalysis(project);
+  if(primary.state!=='complete')return primary;
+  // Workflow reports remain intact; a supported electrical analysis supplies the scope.
+  const electrical=['missing-footprint-resolution-report','schematic-pcb-netlist-pad-sync'].includes(primary.result?.kind) ? runSupportedAnalysis(project) : primary;
+  const recording=analyticalScopeRecording(project,electrical);
+  return {...primary,...(electrical!==primary&&electrical.state==='complete'?{scopeElectrical:electrical}:{}),...(recording?{scopeRecording:recording}:{})};
+}
+function runPrimaryAnalysis(project) {
   if (project.shockleyDcOperatingPoint) return runNonlinearDcOperatingPoint(project);
   if (project.linearAcSweep) return runLinearAcSweep(project);
   if (project.linearRlcTransient) return runLinearRlcTransient(project);

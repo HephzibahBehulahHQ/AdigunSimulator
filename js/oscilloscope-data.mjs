@@ -1,11 +1,13 @@
 // The scope only displays solver output. No decorative/generated waveform fallback.
 export function scopeChannels(project,analysis,live){
   if(live.status!=='ready'||!live.data?.available)return [];
+  if(analysis?.scopeRecording)return [analysis.scopeRecording.preferredNet,...Object.keys(live.data.nodes).filter(n=>n!==analysis.scopeRecording.preferredNet)];
   if(live.kind==='transient')return analysis?.feedbackLayout?.nets?.filter(n=>project.nets.some(x=>x.id===n))??[];
   return Object.keys(live.data.nodes).filter(n=>Number.isFinite(live.data.nodes[n]));
 }
 export function scopeTrace(project,analysis,live,channel){
   if(!scopeChannels(project,analysis,live).includes(channel))return null;
+  if(analysis?.scopeRecording){const record=analysis.scopeRecording,samples=record.samples.slice(0,live.sampleIndex+1);if(!samples.length)return null;return {kind:'transient',model:record.model,voltage:samples.at(-1).nodeVoltages[channel],time:samples.at(-1).timeSeconds,duration:record.samples.at(-1).timeSeconds,points:samples.map(s=>[s.timeSeconds,s.nodeVoltages[channel]])};}
   if(live.kind==='dc')return {kind:'dc',voltage:live.data.nodes[channel],time:0,points:[[0,live.data.nodes[channel]],[1,live.data.nodes[channel]]],duration:1};
   const result=analysis?.result,index=analysis?.feedbackLayout?.nets?.indexOf(channel);
   if(result?.kind!=='linear-rlc-transient'||!Array.isArray(result.samples)||result.samples.length>2000||index<0)return null;

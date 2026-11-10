@@ -493,6 +493,7 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .design-canvas.custom-palette .schematic-symbol .symbol-fill { fill:var(--project-component); stroke:var(--project-component); }
 .scope-window { position:fixed; z-index:25; display:flex; flex-direction:column; box-sizing:border-box; overflow:hidden; border:1px solid #287b9b; border-radius:8px; background:#071c2def; color:#d8e8f5; box-shadow:0 6px 24px #0008; }
 .scope-window[hidden] { display:none; }
+.scope-window { z-index:60; }
 #wire-style-menu p[hidden] { display:none; }
 .scope-window header { display:flex; align-items:center; gap:4px; flex:0 0 36px; background:#12324c; }
 .scope-window button { color:inherit; border:0; background:transparent; min-width:32px; min-height:30px; }
