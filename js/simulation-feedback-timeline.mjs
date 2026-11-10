@@ -1,6 +1,11 @@
 import { buildDcWireFeedback } from "./dc-wire-feedback.mjs";
 
 export function createFeedbackTimeline(project, analysis) {
+  const record=analysis?.scopeRecording;
+  if(record?.kind==='analytical-output-recording'&&Array.isArray(record.samples)&&record.samples.length>0&&record.samples.length<=2000){
+    return {kind:'transient',length:record.samples.length,time:i=>record.samples[i]?.timeSeconds??0,frame:i=>{const sample=record.samples[i];return sample?{available:true,nodes:sample.nodeVoltages,wires:{},model:record.model}:null;}};
+  }
+  analysis=analysis?.scopeElectrical??analysis;
   const result=analysis?.result, layout=analysis?.feedbackLayout;
   if(analysis?.state==="complete" && result?.kind==="linear-rlc-transient") {
     const samples=result.samples;

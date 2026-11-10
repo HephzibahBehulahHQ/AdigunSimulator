@@ -43,7 +43,7 @@ export function createDesignTools({document,window,getState,getLive,getRoute,com
  const paletteInput=e=>{if(e.target.matches('input[type=color]'))palette.querySelector(`[data-hex="${e.target.name}"]`).value=e.target.value;else if(e.target.dataset.hex&&/^#[0-9a-f]{6}$/i.test(e.target.value))palette.querySelector(`[name="${e.target.dataset.hex}"]`).value=e.target.value;};
  const paletteSubmit=e=>{e.preventDefault();try{const colors=Object.fromEntries(Object.keys(DEFAULT_PALETTE).map(k=>[k,palette.querySelector(`[data-hex="${k}"]`).value]));commit(editProjectPalette(getState().project,{name:palette.querySelector('[name=paletteName]').value,colors}));palette.close();render();}catch(error){palette.querySelector('output').textContent=error.message;}};
  palette.addEventListener('input',paletteInput);palette.querySelector('form').addEventListener('submit',paletteSubmit);palette.querySelector('[data-palette-cancel]').addEventListener('click',()=>palette.close());
- function bounds(){const r=canvas.getBoundingClientRect(),nav=$('.command-bar').getBoundingClientRect(),x=Math.max(4,r.left+4),y=Math.max(4,r.top+4,nav.bottom+4);return {x,y,width:Math.max(1,Math.min(window.innerWidth-4,r.right-4)-x),height:Math.max(1,Math.min(window.innerHeight-4,r.bottom-4)-y)};}
+ function bounds(){return {x:4,y:4,width:Math.max(1,window.innerWidth-8),height:Math.max(1,window.innerHeight-8)};}
  function position(){
    if(!visible)return;const limit=bounds();scope.hidden=limit.width<120||limit.height<80;if(scope.hidden)return;
    box=fitScopeWindow(box,limit);Object.assign(scope.style,{left:box.x+'px',top:box.y+'px',width:box.width+'px',height:box.height+'px'});scope.classList.toggle('minimized',box.minimized);
@@ -56,12 +56,12 @@ export function createDesignTools({document,window,getState,getLive,getRoute,com
    if(!visible)return;position();if(scope.hidden||box.minimized)return;
    const live=getLive(),channels=scopeChannels(state.project,state.lastAnalysis,live),select=query('.scope-channel');
    if([...select.options].map(o=>o.value).join('\0')!==channels.join('\0')){select.replaceChildren(...channels.map(n=>{const option=document.createElement('option');option.value=n;option.textContent=n;return option;}));}
-   if(!channels.includes(channel))channel=channels.find(n=>/out/i.test(n))??channels.find(n=>! /^(0|gnd|ground)$/i.test(n))??channels[0]??'';select.value=channel;
+   if(!channels.includes(channel))channel=state.lastAnalysis?.scopeRecording?.preferredNet??channels.find(n=>/out/i.test(n))??channels.find(n=>! /^(0|gnd|ground)$/i.test(n))??channels[0]??'';select.value=channel;
    const trace=scopeTrace(state.project,state.lastAnalysis,live,channel),chart=query('.scope-chart'),status=query('.scope-status');
-   if(!trace){chart.replaceChildren();status.textContent=live.status==='updating'?text(33):text(24);return;}
+   if(!trace){chart.replaceChildren();status.textContent=live.status==='updating'?text(33):live.playback==='stopped'?text(32)+' · '+text(24):state.lastAnalysis?.state==='complete'?`${state.lastAnalysis.engine}: no voltage recording is available for this model.`:text(24);return;}
    const p=scopePlot(trace,Number(query('.scope-scale').value)),label=text(({running:29,paused:30,complete:31,stopped:32})[live.playback]??32);
    chart.innerHTML=`<svg viewBox="0 0 500 210" role="img" aria-label="${text(16)}"><defs><clipPath id="scope-trace-clip"><rect x="40" y="24" width="440" height="156"/></clipPath></defs>${Array.from({length:9},(_,i)=>`<path class="scope-grid" d="M40 ${24+i*19.5}H480"/>`).join('')}${Array.from({length:11},(_,i)=>`<path class="scope-grid" d="M${40+i*44} 24V180"/>`).join('')}<text x="4" y="26">${p.max.toPrecision(3)} V</text><text x="4" y="180">${p.min.toPrecision(3)} V</text><path class="scope-trace" clip-path="url(#scope-trace-clip)" d="${p.path}"/><path class="scope-cursor" d="M${p.cursorX} 24V180"/><text x="40" y="202">0</text><text x="380" y="202">${trace.kind==='dc'?'DC':(trace.duration*1000).toPrecision(4)+' ms'}</text></svg>`;
-   status.textContent=`${label} · ${text(trace.kind==='dc'?26:25)} · ${trace.voltage.toPrecision(4)} V${trace.kind==='dc'?'':' · '+(trace.time*1000).toPrecision(4)+' ms'}${p.clipped?' · '+text(27):''}`;
+   status.textContent=`${label} · ${trace.model??text(trace.kind==='dc'?26:25)} · ${trace.voltage.toPrecision(4)} V${trace.kind==='dc'?'':' · '+(trace.time*1000).toPrecision(4)+' ms'}${p.clipped?' · '+text(27):''}`;
  }
  query('.scope-channel').addEventListener('change',()=>{channel=query('.scope-channel').value;paint();});query('.scope-scale').addEventListener('change',paint);
  query('.scope-close').addEventListener('click',close);query('.scope-minimize').addEventListener('click',()=>{box.minimized=!box.minimized;box.height=box.minimized?38:240;position();paint();});
@@ -73,7 +73,7 @@ export function createDesignTools({document,window,getState,getLive,getRoute,com
  window.addEventListener('resize',position);window.addEventListener('scroll',position,true);
  function action(name){
    if(name==='color-palette'){syncLabels();const p=getState().project.palette??{name:'Project',colors:DEFAULT_PALETTE};palette.querySelector('[name=paletteName]').value=p.name;for(const k of Object.keys(DEFAULT_PALETTE)){palette.querySelector(`[name="${k}"]`).value=p.colors[k];palette.querySelector(`[data-hex="${k}"]`).value=p.colors[k];}palette.querySelector('output').textContent='';palette.showModal();return true;}
-   if(name==='oscilloscope'){syncLabels();canvas.scrollIntoView({block:'center'});visible=true;channel=getRoute()?.netId??channel;const b=bounds();box={...box,x:b.x+8,y:b.y+8};position();paint();query('.scope-move').focus();return true;}
+   if(name==='oscilloscope'){syncLabels();if(!visible){const r=canvas.getBoundingClientRect();box={...box,x:Math.max(12,r.left+12),y:Math.max(12,r.top+12)};}visible=true;channel=getRoute()?.netId??channel;position();paint();query('.scope-move').focus();return true;}
    return false;
  }
  syncLabels();
