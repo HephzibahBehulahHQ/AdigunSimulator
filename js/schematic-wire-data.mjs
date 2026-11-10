@@ -1,3 +1,4 @@
+import { validateWireAppearance } from "./project-appearance.mjs";
 import { netEdges } from "./net-edges.mjs";
 import { sameJunctionPoint } from "./schematic-junction-graph.mjs";
 
@@ -12,6 +13,7 @@ export function validateSchematicWires(project,pinExists) {
   for(const w of project.schematicWires){
     if(!w||typeof w!=="object"||typeof w.id!=="string"||!w.id.trim()||w.id.length>100||ids.has(w.id)){fail("Each schematic wire needs a unique identifier.");continue;}
     ids.add(w.id);
+    if(!validateWireAppearance(w.appearance))fail(`Wire ${w.id} has invalid color, area or AWG annotations.`);
     if(w.netHint!==undefined&&(typeof w.netHint!=="string"||!w.netHint.trim()||w.netHint.length>200))fail(`Wire ${w.id} has an invalid original net name.`);
     if(typeof w.from!=="string"||!pinExists(w.from)||!(w.to===null||typeof w.to==="string"&&pinExists(w.to)&&w.to!==w.from))fail(`Wire ${w.id} references an unknown or identical terminal.`);
     if(!Array.isArray(w.waypoints)||w.waypoints.length>512||!w.waypoints.every(wirePointValid))fail(`Wire ${w.id} needs at most 512 finite drawing-coordinate waypoints.`);

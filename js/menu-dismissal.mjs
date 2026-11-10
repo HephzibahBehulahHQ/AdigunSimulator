@@ -9,7 +9,7 @@ export function attachMenuDismissal(menus, { onActiveChange = () => {}, schedule
   const cleanups = [], pending = new Map(), completed = new Set(), outside = new Set();
   const clear = menu => { if (pending.has(menu)) { cancel(pending.get(menu)); pending.delete(menu); } };
   const report = () => onActiveChange(menus.findIndex(menu => menu.open) < 0 ? null : menus.findIndex(menu => menu.open));
-  const deferred = menu => menu.dataset?.menuDismiss === "after-use";
+  const deferred = menu => ["after-use", "form"].includes(menu.dataset?.menuDismiss);
   const dismiss = menu => {
     clear(menu);
     if (!menu.open || !outside.has(menu) || (deferred(menu) && !completed.has(menu))) return;

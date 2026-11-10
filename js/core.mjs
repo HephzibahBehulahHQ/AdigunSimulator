@@ -1,6 +1,7 @@
 import { reviewTestPointCoverage } from "./test-point-coverage.mjs";
 import { ADDITIONAL_LOGIC_PARTS } from "./logic-gates.mjs";
 import { netEdges, splitNetEdges, pruneSchematicWires } from "./net-edges.mjs";
+import { validateProjectPalette } from "./project-appearance.mjs";
 import { validateSchematicWires } from "./schematic-wire-data.mjs";
 import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs";
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
@@ -594,6 +595,7 @@ export function validateProject(project) {
   if (components.length && !components.some((item) => item?.libraryId === "ground.signal")) {
     warnings.push({ rule: "NO_REFERENCE", message: "The project has no signal-ground reference component." });
   }
+  errors.push(...validateProjectPalette(project));
   errors.push(...validateSchematicWires(project,pin=>{const [id,terminal]=pin.split(":");const c=components.find(c=>c?.instanceId===id);return Boolean(c&&findLibraryPart(c.libraryId)?.pins.includes(terminal));}));
   return { errors, warnings, valid: errors.length === 0 };
 }
