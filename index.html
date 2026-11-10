@@ -12,13 +12,32 @@
     <a class="skip-link" href="#workspace" data-i18n="skipToWorkspace">Skip to workspace</a>
     <header class="identity-header">
       <div class="identity">
+        <div class="corporate-brand">
         <img class="corporate-logo" src="assets/brand/hephzibah-behulah-official.jpg" alt="Official Hephzibah Behulah corporate logo" data-i18n-alt="corporateLogoAlt" />
+          <div class="corporate-wordmark"><strong>Hephzibah Behulah</strong><span>GLOBAL</span></div>
+        </div>
+        <div class="identity-divider" aria-hidden="true"></div>
+        <div class="division-brand"><strong>HB Elektroniker</strong><small data-i18n="divisionTagline">Electrical · Automation · Training</small></div>
         <div class="identity-divider" aria-hidden="true"></div>
         <div class="product-brand">
           <h1>Adigun<span>Simulator</span></h1>
-          <p>BY HB ELEKTRONIKER <small data-i18n="productTagline">Design · Analyze · Prototype</small></p>
+          <p data-i18n="productTagline">Design · Analyze · Prototype</p>
         </div>
       </div>
+      <div class="header-actions" aria-label="Account and application controls">
+        <span class="save-state saved" id="save-state" aria-live="polite">Empty project</span>
+        <span id="account-status" class="icon-button account-button" role="img" data-auth-state="guest" aria-label="Account: guest; sign-in is unavailable" title="Account · Guest (sign-in unavailable)" data-i18n-aria="accountGuestAria" data-i18n-title="accountGuestTooltip">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19c.5-3.1 2.8-5 6.5-5s6 1.9 6.5 5"/></svg><span class="account-status-dot" aria-hidden="true"></span>
+        </span>
+        <label class="language-control" title="Language" data-i18n-title="locale"><span class="sr-only">Language</span><select id="language" aria-label="Language" title="Language" data-i18n-aria="locale"><option value="en">EN</option><option value="de">DE</option><option value="yo">YO</option><option value="pcm">PCM</option></select></label>
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch colour theme" title="Switch colour theme" data-i18n-aria="theme" data-i18n-title="theme">⚙</button>
+        <button id="global-search-toggle" class="icon-button" type="button" aria-label="Show search" title="Show search" data-i18n-aria="searchGlobal" data-i18n-title="searchGlobal"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 5 5"/></svg></button>
+        <label class="global-search" hidden><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Search components, tools, or help…" data-i18n-placeholder="searchGlobal" /></label>
+        <button id="help-button" class="icon-button" type="button" aria-label="Open implementation status" title="Open implementation status" data-i18n-aria="help" data-i18n-title="help">?</button>
+      </div>
+    </header>
+
+    <nav class="command-bar" aria-label="Application commands">
       <div class="menu-buttons" aria-label="Application menus">
         <details class="app-menu" name="application-menu"><summary data-i18n="fileMenu">File</summary><div class="app-menu-popover">
           <button type="button" data-action="new-project" data-i18n="newProject">New Project</button>
@@ -60,20 +79,6 @@
           <button type="button" data-action="help" data-i18n="implementationStatus">Implementation status</button>
         </div></details>
       </div>
-      <div class="header-actions" aria-label="Account and application controls">
-        <span class="save-state saved" id="save-state" aria-live="polite">Empty project</span>
-        <span id="account-status" class="icon-button account-button" role="img" data-auth-state="guest" aria-label="Account: guest; sign-in is unavailable" title="Account · Guest (sign-in unavailable)" data-i18n-aria="accountGuestAria" data-i18n-title="accountGuestTooltip">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19c.5-3.1 2.8-5 6.5-5s6 1.9 6.5 5"/></svg><span class="account-status-dot" aria-hidden="true"></span>
-        </span>
-        <label class="language-control" title="Language" data-i18n-title="locale"><span class="sr-only">Language</span><select id="language" aria-label="Language" title="Language" data-i18n-aria="locale"><option value="en">EN</option><option value="de">DE</option><option value="yo">YO</option><option value="pcm">PCM</option></select></label>
-        <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch colour theme" title="Switch colour theme" data-i18n-aria="theme" data-i18n-title="theme">⚙</button>
-        <button id="global-search-toggle" class="icon-button" type="button" aria-label="Show search" title="Show search" data-i18n-aria="searchGlobal" data-i18n-title="searchGlobal"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 5 5"/></svg></button>
-        <label class="global-search" hidden><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Search components, tools, or help…" data-i18n-placeholder="searchGlobal" /></label>
-        <button id="help-button" class="icon-button" type="button" aria-label="Open implementation status" title="Open implementation status" data-i18n-aria="help" data-i18n-title="help">?</button>
-      </div>
-    </header>
-
-    <nav class="command-bar" aria-label="Application commands">
       <div class="project-actions">
         <button class="secondary-button" type="button" data-action="new-project" data-i18n="newProject">New Project</button>
         <button class="secondary-button" type="button" data-action="import-project" data-i18n="open">Open</button>
@@ -82,7 +87,7 @@
         <button class="run-button toolbar-run" type="button" data-action="run-simulation"><span aria-hidden="true">▶</span> <span data-i18n="runCalculation">Run</span></button>
         <button class="icon-button panel-toggle" type="button" data-panel-toggle="left" aria-controls="components-panel" aria-expanded="true" aria-label="Components" title="Components" data-i18n-aria="components" data-i18n-title="components"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></button>
         <button class="icon-button panel-toggle" type="button" data-panel-toggle="right" aria-controls="properties-panel" aria-expanded="true" aria-label="Properties" title="Properties" data-i18n-aria="properties" data-i18n-title="properties"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></svg></button>
-        <details class="app-menu example-menu" name="application-menu"><summary data-i18n="exampleSelector">Example</summary><div class="app-menu-popover">
+        <details class="app-menu example-menu" data-menu-dismiss="after-use" name="application-menu"><summary data-i18n="exampleSelector">Example</summary><div class="app-menu-popover">
         <label class="example-top-control"><span data-i18n="exampleSelector">Example</span><select id="example-picker">
             <option value="" data-i18n="chooseExample">Choose an example</option>
             <option value="examples/001-led-current-limiter.adigun.json">LED current limiter</option>
