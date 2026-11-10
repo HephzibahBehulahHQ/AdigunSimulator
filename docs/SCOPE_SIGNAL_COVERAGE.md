@@ -7,3 +7,5 @@ The unconfigured RC step, RL step and switched RC examples already computed firs
 The scope distinguishes not-yet-run, stopped, failed and completed calculations without a voltage recording. Failed calculations include their actual reason; unsupported models do not receive fabricated waveforms. Whole-viewport dragging and native save/load flows are unchanged.
 
 Validation: targeted tests cover LED VCC/LED_A/GND constant traces, original RC/RL numerical checkpoints, discharge initial conditions and switch common, rejected net mappings, stale/blocked calculations, scope playback and four-language explanations. Release and browser evidence is recorded in the pull request.
+
+A second reproduced bug linked the entire playback engine to the Live feedback checkbox. With that checkbox off, successful calculations left Pause, Stop and Step disabled and the scope blank. The renamed Canvas feedback checkbox now controls only canvas voltage/current highlighting. Run always supplies the playback engine and scope; switching canvas feedback no longer stops or restarts a recording. Step remains unavailable for DC because there are no time samples to advance.
