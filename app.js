@@ -9,7 +9,7 @@ import { createComponentPropertiesUi } from "./js/component-properties-ui.mjs";
 import { netEdges, removeNetEdge, pruneSchematicWires } from "./js/net-edges.mjs";
 import { routeSchematicConnection, schematicRoutePath } from "./js/schematic-routing.mjs";
 import { startComponentPlacement, rotateComponentPlacement, positionComponentPlacement, placementComponent, placementOverlaps, firstFreeComponentPlacement, commitComponentPlacement, placementText } from "./js/component-placement.mjs";
-import { attachMenuDismissal } from "./js/menu-dismissal.mjs";
+import { attachMenuDismissal, dismissMenuCommand } from "./js/menu-dismissal.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
 import { wireEdgeKey, voltageColor, currentMotion } from "./js/dc-wire-feedback.mjs";
 import { createLiveDcFeedback } from "./js/live-dc-feedback.mjs";
@@ -1920,7 +1920,7 @@ document.addEventListener("click", (event) => {
     if (placed) { state.breadboardPlacementMode = false; render(); }
     return;
   }
-  if (event.target.closest(".app-menu-popover")) event.target.closest("details").open = false;
+  dismissMenuCommand(event.target);
   const libraryButton = event.target.closest("[data-library-id]");
   if (libraryButton) { state.selectedLibraryId = libraryButton.dataset.libraryId; renderLibrary(); beginComponentPlacement(state.selectedLibraryId); }
   const categoryButton = event.target.closest("[data-category]");
@@ -2353,6 +2353,7 @@ $("#load-example").addEventListener("click", async () => {
     state.selectedInstanceId = project.components.find((item) => item.libraryId === "passive.resistor")?.instanceId ?? project.components[0]?.instanceId ?? null;
     render();
     log(`[EXAMPLE] Loaded and validated ${project.metadata.name}.`);
+    menuDismissal.complete($(".example-menu"));
   } catch (error) {
     if (!isCurrent()) return;
     showDialog("Example unavailable", error instanceof Error ? error.message : "The selected example could not be loaded.");
