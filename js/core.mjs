@@ -5168,7 +5168,7 @@ function analyseResistiveNetwork(project, { source, resistors, ground, validatio
     const nodeB = netByEndpoint.get(endpoint(resistor, "2"));
     if (!Number.isFinite(resistance) || resistance <= 0) return { state: "blocked", message: `${resistor.reference} needs a numeric positive resistance.`, validation };
     if (!nodeA || !nodeB) return { state: "blocked", message: `${resistor.reference} must connect both pins to named project nets.`, validation };
-    if (nodeA === nodeB) return { state: "blocked", message: `${resistor.reference} is shorted by connecting both terminals to ${nodeA}.`, validation };
+    // A bypassed positive resistor has zero voltage/current; its nodal stamps cancel.
     branches.push({ reference: resistor.reference, nodeA, nodeB, resistance });
   }
   const nodes = [...new Set(branches.flatMap((branch) => [branch.nodeA, branch.nodeB]))]
@@ -5247,7 +5247,7 @@ function analyseMultiSourceResistiveNetwork(project, { sources, currentSources, 
     const nodeB = netByEndpoint.get(endpoint(resistor, "2"));
     if (!Number.isFinite(resistance) || resistance <= 0) return { state: "blocked", message: `${resistor.reference} needs a numeric positive resistance.`, validation };
     if (!nodeA || !nodeB) return { state: "blocked", message: `${resistor.reference} must connect both terminals to named project nets.`, validation };
-    if (nodeA === nodeB) return { state: "blocked", message: `${resistor.reference} is shorted by connecting both terminals to ${nodeA}.`, validation };
+    // A bypassed positive resistor has zero voltage/current; its nodal stamps cancel.
     resistorBranches.push({ reference: resistor.reference, nodeA, nodeB, resistance });
   }
 

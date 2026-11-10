@@ -1,4 +1,4 @@
-import { netEdges } from "./net-edges.mjs";
+import { junctionElectricalEdges } from "./schematic-junction-graph.mjs";
 
 export const wireEdgeKey = (net, first, second) => JSON.stringify([net, first, second]);
 export function voltageColor(voltage) {
@@ -53,7 +53,8 @@ export function buildDcWireFeedback(project, analysis) {
 
   const wires={};
   for(const n of project.nets) {
-    const edges=netEdges(n), known=n.endpoints.every(p=>currents.has(p));
+    const edges=junctionElectricalEdges(project,n), known=n.endpoints.every(p=>currents.has(p));
+    for(const p of edges.flat())if(p.startsWith('@junction/')||p.startsWith('@open/'))currents.set(p,0);
     const neighbours=new Map();
     edges.forEach(([a,b],index)=>{for(const [from,to] of [[a,b],[b,a]]){if(!neighbours.has(from))neighbours.set(from,[]);neighbours.get(from).push({to,index});}});
     const balance=n.endpoints.reduce((sum,p)=>sum+(currents.get(p)??0),0);

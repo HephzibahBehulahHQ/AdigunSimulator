@@ -11,6 +11,7 @@ import { routeSchematicConnection, schematicRoutePath } from "./js/schematic-rou
 import { startComponentPlacement, rotateComponentPlacement, positionComponentPlacement, placementComponent, placementOverlaps, firstFreeComponentPlacement, commitComponentPlacement, placementText } from "./js/component-placement.mjs";
 import { attachMenuDismissal, dismissMenuCommand } from "./js/menu-dismissal.mjs";
 import { renderSchematicSymbol } from "./js/schematic-symbols.mjs";
+import { junctionRouteSegments } from "./js/schematic-junction-graph.mjs";
 import { wireEdgeKey, voltageColor, currentMotion } from "./js/dc-wire-feedback.mjs";
 import { createLiveDcFeedback } from "./js/live-dc-feedback.mjs";
 import { renderPcbPreviewSvg, getPcbPreviewScale, pcbPreviewPointToBoardMm } from "./js/pcb-preview.mjs";
@@ -240,7 +241,7 @@ function applyBotSuggestion() {
 const dcFeedback = createLiveDcFeedback({
   run: project => createSimulationWorkerRun(state.feedbackConfig?projectWithSelectedAnalysis(project,state.feedbackConfig.key,state.feedbackConfig.value):project),
   onResult: result => { state.lastAnalysis=result; state.lastAnalysisProjectKey=JSON.stringify(state.project); renderOutput(); },
-  onPaint: event => { if(event?.frameOnly)paintSimulationFrame();else renderCanvas(); renderFeedbackControls(); }
+  onPaint: event => { if(event?.frameOnly)paintSimulationFrame();else {renderCanvas();wireUi.paintMeasurements();} renderFeedbackControls(); }
 });
 const FEEDBACK_MOTION_TEXT={en:["Device preference","Animate","Reduce motion"],de:["Geräteeinstellung","Animieren","Bewegung reduzieren"],yo:["Ètò ẹ̀rọ","Ṣe àwòrán ìṣàn","Dín ìṣípò kù"],pcm:["Device setting","Show movement","Reduce movement"]};
 const FEEDBACK_TEXT = {
@@ -608,21 +609,25 @@ function netSvg(project, view, unavailable = new Set(), interactive = true) {
     return part ? schematicPinPoint(component, part.pins, pinParts.join(":")) : null;
   };
   const previousRoutes = [], crossingPainter=createCrossingPainter(), nativeRoutes=view==="schematic"?wireUi.routes(project,unavailable):null;
-  const paths = project.nets.flatMap(net => netEdges(net).map(([first, second]) => {
-    const origin = endpointPoint(first), point = endpointPoint(second);
+  const entries=nativeRoutes?nativeRoutes.map(native=>({net:{id:native.netId??"Open"},first:native.first,second:native.second,native})):project.nets.flatMap(net=>netEdges(net).map(([first,second])=>({net,first,second})));
+  const paths = entries.map(({net,first,second,native}) => {
+    const origin = endpointPoint(first), point = second===null?native?.points?.at(-1):endpointPoint(second);
     if (!origin || !point) return "";
-    const route = nativeRoutes ? nativeRoutes.find(r=>r.netId===net.id&&r.first===first&&r.second===second)?.points?.map(([x,y])=>({x,y})) : routeSchematicConnection(project.components.filter(component => !unavailable.has(component.instanceId)), findLibraryPart, first, second, previousRoutes.filter(item => item.net !== net.id).map(item => item.route), netClass(net.id) === "net-ground" ? "bottom" : netClass(net.id) === "net-power" ? "top" : null);
+    const route = nativeRoutes ? native?.points?.map(([x,y])=>({x,y})) : routeSchematicConnection(project.components.filter(component => !unavailable.has(component.instanceId)), findLibraryPart, first, second, previousRoutes.filter(item => item.net !== net.id).map(item => item.route), netClass(net.id) === "net-ground" ? "bottom" : netClass(net.id) === "net-power" ? "top" : null);
     if (!route) return `<text class="unrouted-wire" x="${origin.x}" y="${origin.y - 13}">${escape(net.id)}: route blocked</text>`;
     previousRoutes.push({ net: net.id, route });
-    const path = crossingPainter.path(route.map(p=>[p.x,p.y]));
-    const measured=feedback?.wires?.[wireEdgeKey(net.id,first,second)];
+    const segments=native?junctionRouteSegments(project,native):[{points:route.map(p=>[p.x,p.y]),measurementFirst:first,measurementSecond:second}];
+    return segments.map(segment=>{
+    const path = crossingPainter.path(segment.points);
+    const measured=feedback?.wires?.[wireEdgeKey(net.id,segment.measurementFirst,segment.measurementSecond)];
     const color=voltageColor(measured?.voltageV), motion=currentMotion(measured?.currentA,$("#feedback-direction").value==="electron");
     const title=measured?`<title>${escape(net.id)}: ${measured.voltageV===null?"?":measured.voltageV.toPrecision(4)} V; ${measured.currentA===null?escape(measured.reason):measured.currentA.toPrecision(4)+" A (first → second)"}</title>`:"";
     const flow=motion&&$("#feedback-motion").value!=="reduce"?`<path class="wire-flow" d="${path}" style="stroke:${color??"#72f4ed"};--flow-duration:${motion.durationSeconds}s;animation-direction:${motion.reverse?"reverse":"normal"}" data-current-a="${measured.currentA}" aria-hidden="true"/>`:"";
     const selected = state.selectedWire?.netId === net.id && state.selectedWire.first === first && state.selectedWire.second === second;
-    const attrs = interactive ? `data-wire-first="${escape(first)}" data-wire-second="${escape(second)}" data-wire-net="${escape(net.id)}" role="button" tabindex="0" aria-label="${escape(net.id)}: ${escape(first)} → ${escape(second)}"` : "";
-    return `<path class="wire-crossing-gap" d="${path}"/><path class="wire-hit ${selected ? "selected-wire" : ""}" d="${path}" data-feedback-net="${escape(net.id)}" data-feedback-first="${escape(first)}" data-feedback-second="${escape(second)}" ${attrs}>${title}</path><path class="${netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""} ${selected ? "selected-wire" : ""}" d="${path}" data-net="${escape(net.id)}" ${color?`style="stroke:${color};opacity:${measured.currentA===0?.45:.8}"`:""}/>${flow}`;
-  })).join("");
+    const attrs = interactive ? `${native?.wireId?`data-wire-id="${escape(native.wireId)}" `:""}data-wire-first="${escape(first)}" data-wire-second="${escape(second)}" data-wire-net="${escape(net.id)}" role="button" tabindex="0" aria-label="${escape(net.id)}: ${escape(first)} → ${escape(second)}"` : "";
+    return `<path class="wire-crossing-gap" d="${path}"/><path class="wire-hit ${selected ? "selected-wire" : ""}" d="${path}" data-feedback-net="${escape(net.id)}" data-feedback-first="${escape(segment.measurementFirst)}" data-feedback-second="${escape(segment.measurementSecond)}" ${attrs}>${title}</path><path class="${second===null?"dangling-wire":netClass(net.id)} ${net.id === state.selectedNetId ? "is-net-highlight" : ""} ${selected ? "selected-wire" : ""}" d="${path}" data-net="${escape(net.id)}" ${color?`style="stroke:${color};opacity:${measured.currentA===0?.45:.8}"`:""}/>${flow}`;
+    }).join("");
+  }).join("");
   const terminals = view === "schematic" ? project.components.flatMap((component) => {
     if (unavailable.has(component.instanceId)) return [];
     const pins = findLibraryPart(component.libraryId)?.pins ?? [];

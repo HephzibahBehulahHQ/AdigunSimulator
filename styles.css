@@ -610,6 +610,10 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .wire-layer .wire-open-end { fill:var(--navy); stroke:#e8c374; stroke-width:2; pointer-events:all; cursor:crosshair; }
 .wire-layer .wire-waypoint { fill:var(--navy); stroke:var(--cyan); stroke-width:1.5; pointer-events:all; cursor:move; }
 .wire-layer .wire-waypoint:focus, .wire-layer .wire-open-end:focus { outline:2px solid var(--gold); }
+.wire-layer .schematic-junction { fill:#d8e8f5; stroke:var(--navy); stroke-width:1.5; pointer-events:all; cursor:move; }
+.wire-layer .schematic-junction:is(:focus,.is-selected) { stroke:var(--cyan); stroke-width:2; }
+.wire-layer .junction-candidate { fill:var(--navy); stroke:var(--gold); stroke-width:2; stroke-dasharray:3 2; pointer-events:all; cursor:crosshair; }
+.wire-layer .junction-candidate:focus { outline:2px solid var(--gold); }
 .wire-panel-actions { display:flex; flex-wrap:wrap; gap:.35rem; }
 .wire-panel-actions button { border:1px solid var(--border); border-radius:.25rem; padding:.4rem; background:var(--navy-2); color:var(--ivory); }
 .wire-point-list { max-height:18rem; overflow:auto; }
