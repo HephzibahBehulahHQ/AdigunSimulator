@@ -12,6 +12,8 @@
 
 Breadboard, schematic, and PCB views use one native project. A pin connection is stored once in the project's nets and appears in each supported view. A missing footprint or unsupported representation is reported instead of being fabricated.
 
+In PCB view, focus a stored plated via and use the arrow keys to move it. With Snap on, each move is 0.5 mm; with Snap off, each move is 0.1 mm. Accepted moves use the same board, copper-clearance, and keep-out checks as the via editor and can be undone. A blocked move leaves the via unchanged. These controls do not establish manufacturing approval.
+
 ## Running supported analyses
 
 Choose a supported analysis mode, review its configured inputs and stated model limits, then run it. Results come from the named bounded model. AdigunSimulator is not a general SPICE replacement and does not certify electrical safety or manufacturability.

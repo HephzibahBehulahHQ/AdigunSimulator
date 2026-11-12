@@ -77,6 +77,23 @@ export function createPcbViaEditor({ state, $, $$, t, escape, renderCanvas, rend
     return true;
   }
   function keydown(event) {
+    const nudge = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[event.key];
+    if (nudge && state.activeView === "pcb" && state.activeTool === "select") {
+      const target = event.target.closest?.("#design-canvas .pcb-via");
+      const id = target?.dataset.pcbPad?.startsWith("@via:") ? target.dataset.pcbPad.slice(5) : null;
+      const via = state.project.pcbFabrication?.vias?.find((item) => item.id === id);
+      if (!via) return false;
+      event.preventDefault();
+      const step = $("#snap-toggle").checked ? 0.5 : 0.1;
+      const moved = savePcbVia(state.project, {
+        ...via,
+        xMm: Math.round((Number(via.xMm) + nudge[0] * step) * 1000) / 1000,
+        yMm: Math.round((Number(via.yMm) + nudge[1] * step) * 1000) / 1000,
+      });
+      commit(moved);
+      if (moved.status === "complete") $$("#design-canvas .pcb-via").find((element) => element.dataset.pcbPad === `@via:${id}`)?.focus();
+      return true;
+    }
     if (["Delete", "Backspace"].includes(event.key) && state.activeView === "pcb" && state.activeTool === "select") {
       const target = event.target.closest?.("#design-canvas .pcb-via");
       if (target) { event.preventDefault(); commit(removePcbVia(state.project, target.dataset.pcbPad.slice(5)), true); return true; }
