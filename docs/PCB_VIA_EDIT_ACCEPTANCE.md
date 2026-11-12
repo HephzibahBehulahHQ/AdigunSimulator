@@ -36,6 +36,8 @@ Focused vias now support arrow-key nudging through the guarded native via editor
 
 In PCB Select mode, primary-pointer dragging moves a via through the guarded `savePcbVia` path. The canvas previews only accepted coordinates; a completed move creates one history entry, while Escape/pointer cancellation and blocked board/copper/keep-out drops restore the original project. Click selection remains available, pointer capture keeps an active drag attached to the canvas, and `touch-action:none` prevents the browser from taking over via gestures. Snap rounds positions to 0.5 mm; with Snap off, coordinates are rounded to 0.001 mm. Controller tests cover preview, one-entry history, unchanged nets, cancellation, and blocked drops. Browser verification remains open.
 
+Small vias retain their electrical copper and drill dimensions while rendering a transparent 12 px minimum pointer target. Hover and keyboard focus reveal a cyan halo for that target to make the drag affordance easier to find.
+
 ## Reproduction and remaining work
 
 1. Run `npm run dev -- --port=4177`, load example 125 and open PCB → New via. Use the values above to create, resize, move and remove a via; exercise Undo/Redo.
