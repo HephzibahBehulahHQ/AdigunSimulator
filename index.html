@@ -50,4 +50,617 @@
           <button type="button" data-action="print-project" data-editor-label="print">Print current view…</button>
           <button type="button" data-action="bom-export" data-i18n="exportBomCsv">Export BOM CSV</button>
         </div></details>
-        <details class="app-menu" data-menu-dismiss="form" name="application-menu"><summary 
+        <details class="app-menu" data-menu-dismiss="form" name="application-menu"><summary data-i18n="editMenu">Edit</summary><div class="app-menu-popover">
+          <button type="button" data-action="undo" data-i18n="undo">Undo</button>
+          <button type="button" data-action="redo" data-i18n="redo">Redo</button>
+          <hr />
+          <button type="button" data-action="transform-rotateLeft" data-editor-label="rotateLeft" disabled>Rotate 90° left</button>
+          <button type="button" data-action="transform-rotateRight" data-editor-label="rotateRight" disabled>Rotate 90° right</button>
+          <button type="button" data-action="transform-mirrorX" data-editor-label="mirrorX" disabled>Mirror horizontally</button>
+          <button type="button" data-action="transform-mirrorY" data-editor-label="mirrorY" disabled>Mirror vertically</button>
+          <button type="button" data-action="transform-resetOrientation" data-editor-label="resetOrientation" disabled>Reset orientation</button>
+          <button type="button" data-action="delete-selection" data-editor-label="delete">Delete selection</button>
+          <hr /><section id="wire-style-menu" aria-label="Wire customization"></section>
+        </div></details>
+        <details id="draw-menu" class="app-menu draw-menu" name="application-menu"><summary id="draw-components">Draw</summary><div id="draw-menu-content" class="app-menu-popover draw-popover"></div></details>
+        <details class="app-menu" name="application-menu"><summary data-i18n="simulationMenu">Simulation</summary><div class="app-menu-popover">
+          <button type="button" data-action="oscilloscope" data-design-label="16">Oscilloscope</button>
+          <button type="button" data-action="run-simulation" data-i18n="runCalculation">Run calculation</button>
+          <button type="button" data-action="verify-run-lock" data-i18n="verifyRunLock">Verify Run Lock</button>
+          <button type="button" data-action="validate" data-i18n="validate">Validate</button>
+        </div></details>
+        <details class="app-menu" name="application-menu"><summary data-i18n="pcbMenu">PCB</summary><div class="app-menu-popover">
+          <button type="button" data-view="breadboard" data-i18n="breadboard">Breadboard View</button>
+          <button type="button" data-view="schematic" data-i18n="schematic">Schematic View</button>
+          <button type="button" data-view="pcb" data-i18n="pcb">PCB View</button>
+          <button type="button" data-action="pcb-drc" data-i18n="runPcbChecks">Run PCB checks</button>
+          <button type="button" data-action="pcb-net-classes" data-i18n="pcbNetClasses">Net Classes &amp; Rules</button>
+          <button type="button" data-action="pcb-board-setup" data-i18n="pcbBoardSetup">Board Setup</button>
+          <button type="button" data-action="pcb-via-new" data-i18n="pcbViaNew" disabled>New via</button>
+          <button type="button" data-action="pcb-export" data-i18n="exportPcbFiles">Export Gerber / drill / BOM</button>
+        </div></details>
+        <details class="app-menu" name="application-menu"><summary data-i18n="toolsMenu">Tools</summary><div class="app-menu-popover">
+          <button type="button" data-action="color-palette" data-design-label="8">Color Palette</button>
+          <button type="button" data-action="canvas-experience">Canvas experience</button>
+          <button type="button" data-action="validate" data-i18n="runValidation">Run validation</button>
+          <button type="button" data-inspector="simulation" data-i18n="simulationControl">Simulation Control</button>
+          <button type="button" data-inspector="project" data-i18n="project">Project</button>
+          <label><input id="grid-toggle" type="checkbox" checked /> <span data-i18n="grid">Grid</span></label>
+          <label><input id="snap-toggle" type="checkbox" checked /> <span data-i18n="snap">Snap</span></label>
+        </div></details>
+        <details class="app-menu" name="application-menu"><summary data-i18n="helpMenu">Help</summary><div class="app-menu-popover">
+          <button type="button" data-action="help" data-i18n="implementationStatus">Implementation status</button>
+        </div></details>
+      </div>
+      <div class="project-actions">
+        <button class="secondary-button" type="button" data-action="new-project" data-i18n="newProject">New Project</button>
+        <button class="secondary-button" type="button" data-action="import-project" data-i18n="open">Open</button>
+        <button class="secondary-button" type="button" data-action="save" data-i18n="save">Save</button>
+        <button class="secondary-button" type="button" data-action="validate" data-i18n="validate">Validate</button>
+        <button class="run-button toolbar-run" type="button" data-action="run-simulation"><span aria-hidden="true">▶</span> <span data-i18n="runCalculation">Run</span></button>
+        <button class="icon-button panel-toggle" type="button" data-panel-toggle="left" aria-controls="components-panel" aria-expanded="true" aria-label="Components" title="Components" data-i18n-aria="components" data-i18n-title="components"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></button>
+        <button class="icon-button panel-toggle" type="button" data-panel-toggle="right" aria-controls="properties-panel" aria-expanded="true" aria-label="Properties" title="Properties" data-i18n-aria="properties" data-i18n-title="properties"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></svg></button>
+        <details class="app-menu example-menu" data-menu-dismiss="after-use" name="application-menu"><summary data-i18n="exampleSelector">Example</summary><div class="app-menu-popover">
+        <div id="example-browser"></div>
+        <label class="example-top-control"><span data-i18n="exampleSelector">Example</span><select id="example-picker">
+            <option value="" data-i18n="chooseExample">Choose an example</option>
+            <option value="examples/001-led-current-limiter.adigun.json">LED current limiter</option>
+            <option value="examples/002-two-led-polarity-indicator.adigun.json">Two-LED polarity indicator</option>
+            <option value="examples/002-dc-voltage-divider.adigun.json">DC voltage divider</option>
+            <option value="examples/003-pushbutton-led.adigun.json">5 V pushbutton LED with pull-down</option>
+            <option value="examples/004-latching-led-switch.adigun.json">Latching LED switch</option>
+            <option value="examples/005-pwm-led-dimmer.adigun.json" data-i18n="examplePwmLedDimmer">5 V PWM LED dimmer</option>
+            <option value="examples/006-battery-discharge-monitor.adigun.json" data-i18n="exampleBatteryDischargeMonitor">9 V battery discharge monitor</option>
+            <option value="examples/007-linear-regulated-supply.adigun.json" data-i18n="exampleLinearSupply">5 V linear supply with rectifier and regulator</option>
+            <option value="examples/008-usb-powered-led.adigun.json" data-i18n="exampleUsbLed">USB-powered LED with PTC</option>
+            <option value="examples/009-solar-garden-light.adigun.json" data-i18n="exampleSolarGardenLight">Solar garden light day/night model</option>
+            <option value="examples/010-supercapacitor-hold-up.adigun.json" data-i18n="exampleSupercapHoldUp">Supercapacitor hold-up after power loss</option>
+            <option value="examples/003-led-current-limiter-9v.adigun.json">9 V LED current limiter</option>
+            <option value="examples/004-parallel-resistor-load.adigun.json">5 V parallel resistor load</option>
+            <option value="examples/005-rc-step-response.adigun.json">5 V RC step response</option>
+            <option value="examples/006-rl-step-response.adigun.json">5 V RL step response</option>
+            <option value="examples/007-led-current-limiter-12v.adigun.json">12 V LED current limiter</option>
+            <option value="examples/008-led-current-limiter-3v3.adigun.json">3.3 V LED current limiter</option>
+            <option value="examples/009-dc-voltage-divider-3k-1k.adigun.json">9 V divider 3 kΩ / 1 kΩ</option>
+            <option value="examples/010-parallel-load-12v.adigun.json">12 V parallel resistor load</option>
+            <option value="examples/011-rc-charge-discharge.adigun.json">RC charge and discharge</option>
+            <option value="examples/012-rc-low-pass.adigun.json">RC low-pass filter</option>
+            <option value="examples/013-rc-high-pass.adigun.json">RC high-pass filter</option>
+            <option value="examples/014-passive-tone-control.adigun.json" data-i18n="examplePassiveToneControl">Passive treble-cut tone control</option>
+            <option value="examples/015-bridge-rectifier.adigun.json" data-i18n="exampleBridgeRectifier">Full-wave bridge rectifier</option>
+            <option value="examples/016-smoothing-capacitor.adigun.json" data-i18n="exampleSmoothingCapacitor">Rectifier smoothing capacitor</option>
+            <option value="examples/017-zener-shunt-regulator.adigun.json" data-i18n="exampleZenerShuntRegulator">Zener shunt regulator</option>
+            <option value="examples/018-tvs-surge-clamp.adigun.json" data-i18n="exampleTvsSurgeClamp">TVS surge clamp</option>
+            <option value="examples/019-ntc-temperature-divider.adigun.json" data-i18n="exampleNtcTemperatureDivider">NTC temperature divider</option>
+            <option value="examples/020-ldr-night-light.adigun.json" data-i18n="exampleLdrNightLight">LDR comparator night light</option>
+            <option value="examples/021-555-astable-blinker.adigun.json" data-i18n="exampleNe555Astable">555 astable LED blinker</option>
+            <option value="examples/022-555-monostable.adigun.json" data-i18n="exampleNe555Monostable">555 monostable LED pulse</option>
+            <option value="examples/023-556-dual-timer.adigun.json" data-i18n="exampleNe556DualTimer">NE556 dual timer: two independent astables</option>
+            <option value="examples/024-opamp-noninverting.adigun.json" data-i18n="exampleOpAmpNonInverting">Op-amp non-inverting amplifier</option>
+            <option value="examples/025-opamp-inverting.adigun.json" data-i18n="exampleOpAmpInverting">Op-amp inverting amplifier</option>
+            <option value="examples/026-opamp-voltage-follower.adigun.json" data-i18n="exampleOpAmpVoltageFollower">Op-amp voltage follower</option>
+            <option value="examples/027-comparator-threshold.adigun.json" data-i18n="exampleComparatorThreshold">Comparator threshold indicator</option>
+            <option value="examples/028-schmitt-trigger.adigun.json" data-i18n="exampleSchmittTrigger">Schmitt trigger hysteresis</option>
+            <option value="examples/029-window-comparator.adigun.json" data-i18n="exampleWindowComparator">Dual-comparator window indicator</option>
+            <option value="examples/030-reference-buffer.adigun.json" data-i18n="exampleReferenceBuffer">Precision reference buffer</option>
+            <option value="examples/031-transistor-common-emitter.adigun.json" data-i18n="exampleNpnCommonEmitter">NPN common-emitter amplifier</option>
+            <option value="examples/supplemental-npn-ebers-moll-bias.adigun.json" data-i18n="exampleGenericNpnEbersMoll">Generic NPN bias (Ebers–Moll)</option>
+            <option value="examples/032-emitter-follower.adigun.json" data-i18n="exampleEmitterFollower">NPN emitter follower</option>
+            <option value="examples/033-nmos-low-side-switch.adigun.json" data-i18n="exampleNmosLowSide">NMOS low-side inductive-load driver</option>
+            <option value="examples/034-pmos-high-side-switch.adigun.json" data-i18n="examplePmosHighSide">P-MOS high-side switch</option>
+            <option value="examples/035-npn-relay-driver.adigun.json" data-i18n="exampleNpnRelayDriver">NPN relay-coil driver with flyback</option>
+            <option value="examples/036-hbridge-dc-motor.adigun.json" data-i18n="exampleHbridgeMotor">Four-switch H-bridge DC motor driver</option>
+            <option value="examples/037-electret-audio-preamp.adigun.json" data-i18n="exampleElectretAudioPreamp">Electret microphone audio preamplifier</option>
+            <option value="examples/038-audio-power-amplifier.adigun.json" data-i18n="exampleAudioPowerAmplifier">Generic audio power amplifier and speaker model</option>
+            <option value="examples/039-active-low-pass.adigun.json" data-i18n="exampleActiveLowPass">Active low-pass filter</option>
+            <option value="examples/040-wien-bridge-oscillator.adigun.json" data-i18n="exampleWienOscillator">Wien bridge oscillator</option>
+            <option value="examples/041-and-gate-truth-table.adigun.json" data-i18n="exampleAndGate">Two-input AND gate truth table</option>
+            <option value="examples/042-or-gate-truth-table.adigun.json" data-i18n="exampleOrGate">Two-input OR gate truth table</option>
+            <option value="examples/043-xor-parity-checker.adigun.json" data-i18n="exampleXorParity">Two-input XOR odd-parity checker</option>
+            <option value="examples/044-sr-latch-nor.adigun.json" data-i18n="exampleSrLatchNor">Cross-coupled NOR SR latch</option>
+            <option value="examples/045-d-flip-flop-register.adigun.json" data-i18n="exampleDFlipFlop">Positive-edge D flip-flop register</option>
+            <option value="examples/046-jk-toggle-divider.adigun.json" data-i18n="exampleJkToggleDivider">JK flip-flop toggle divider</option>
+            <option value="examples/047-four-bit-binary-counter.adigun.json" data-i18n="exampleFourBitCounter">Four-bit binary counter</option>
+            <option value="examples/048-bcd-counter-display.adigun.json" data-i18n="exampleBcdDisplay">BCD counter and seven-segment display</option>
+            <option value="examples/049-traffic-light-fsm.adigun.json" data-i18n="exampleTrafficLightFsm">Traffic-light state machine</option>
+            <option value="examples/050-debounced-digital-input.adigun.json" data-i18n="exampleDebouncedInput">Debounced digital input</option>
+            <option value="examples/051-shift-register-led-chaser.adigun.json" data-i18n="exampleShiftRegisterChaser">Shift-register LED chaser</option>
+            <option value="examples/052-multiplexer-selector.adigun.json" data-i18n="exampleMultiplexerSelector">Four-to-one multiplexer selector</option>
+            <option value="examples/053-decoder-controlled-leds.adigun.json" data-i18n="exampleDecoderLeds">Two-to-four decoder-controlled LEDs</option>
+            <option value="examples/054-priority-encoder.adigun.json" data-i18n="examplePriorityEncoder">Four-input priority encoder</option>
+            <option value="examples/055-alu-add-subtract.adigun.json" data-i18n="exampleAluAddSubtract">Four-bit ALU add/subtract</option>
+            <option value="examples/056-uart-transmitter.adigun.json" data-i18n="exampleUartTransmitter">UART transmitter 8N1</option>
+            <option value="examples/057-uart-receiver.adigun.json" data-i18n="exampleUartReceiver">UART receiver 8N1</option>
+            <option value="examples/058-i2c-sensor-read.adigun.json" data-i18n="exampleI2cSensorRead">I²C sensor register read</option>
+            <option value="examples/059-spi-display.adigun.json" data-i18n="exampleSpiDisplay">SPI mode-0 display transfer</option>
+            <option value="examples/060-eeprom-data-logger.adigun.json" data-i18n="exampleEepromDataLogger">I²C EEPROM sample write and read-back</option>
+            <option value="examples/061-arduino-blink.adigun.json" data-i18n="exampleArduinoBlink">Uno-class D13 blink behavior</option>
+            <option value="examples/062-arduino-button-debounce.adigun.json" data-i18n="exampleArduinoButtonDebounce">Uno-class debounced button toggle</option>
+            <option value="examples/063-arduino-pwm-dimmer.adigun.json" data-i18n="exampleArduinoPwmDimmer">Uno-class potentiometer PWM dimmer</option>
+            <option value="examples/064-arduino-temperature-monitor.adigun.json" data-i18n="exampleArduinoTemperatureMonitor">Uno-class temperature monitor with LCD output</option>
+            <option value="examples/065-arduino-ultrasonic-ranger.adigun.json" data-i18n="exampleArduinoUltrasonicRanger">Uno-class ultrasonic ranger and OLED result</option>
+            <option value="examples/066-arduino-servo-control.adigun.json" data-i18n="exampleArduinoServoControl">Uno-class potentiometer servo sweep</option>
+            <option value="examples/067-arduino-stepper-driver.adigun.json" data-i18n="exampleArduinoStepperDriver">Uno-class bipolar stepper driver</option>
+            <option value="examples/068-esp32-telemetry-mock.adigun.json" data-i18n="exampleEsp32TelemetryMock">ESP32 temperature telemetry payload mock</option>
+            <option value="examples/069-pico-adc-voltmeter.adigun.json" data-i18n="examplePicoAdcVoltmeter">Pico ADC divider voltmeter with OLED</option>
+                        <option value="examples/070-stm32-timer-pwm.adigun.json" data-i18n="exampleStm32TimerPwm">STM32 timer PWM LED load</option>
+            <option value="examples/071-pic-adc-bargraph.adigun.json" data-i18n="examplePicAdcBargraph">PIC-class ADC LED bargraph</option>
+            <option value="examples/072-avr-ir-receiver.adigun.json" data-i18n="exampleAvrIrReceiver">AVR NEC-like IR receiver</option>
+            <option value="examples/073-mcu-watchdog.adigun.json" data-i18n="exampleMcuWatchdog">MCU watchdog stall recovery</option>
+            <option value="examples/074-can-node-pair.adigun.json" data-i18n="exampleCanNodePair">CAN node pair with ACK</option>
+            <option value="examples/075-rs485-sensor-network.adigun.json" data-i18n="exampleRs485SensorNetwork">Addressed RS-485 sensor network</option>
+            <option value="examples/076-gps-nmea-display.adigun.json" data-i18n="exampleGpsNmeaDisplay">GPS NMEA coordinate display</option>
+            <option value="examples/077-rfid-access-reader.adigun.json" data-i18n="exampleRfidAccessReader">RFID UID allowlist lock demonstration</option>
+            <option value="examples/078-nfc-uid-display.adigun.json" data-i18n="exampleNfcUidDisplay">NFC UID safe display</option>
+            <option value="examples/079-eeprom-data-logger.adigun.json" data-i18n="exampleEepromRingLogger">EEPROM circular data logger</option>
+            <option value="examples/080-low-power-sleep-wake.adigun.json" data-i18n="exampleLowPowerSleepWake">Low-power sleep and interrupt wake</option>
+            <option value="examples/081-ble-beacon-configuration.adigun.json" data-i18n="exampleBleBeaconConfiguration">BLE beacon advertising data configuration</option>
+            <option value="examples/082-lora-sensor-node.adigun.json" data-i18n="exampleLoraSensorNode">LoRa temperature sensor node</option>
+            <option value="examples/083-gsm-alarm-notifier.adigun.json" data-i18n="exampleGsmAlarmNotifier">GSM alarm notifier mock</option>
+            <option value="examples/084-wifi-relay-controller.adigun.json" data-i18n="exampleWifiRelayController">Local Wi-Fi relay controller fail-safe mock</option>
+            <option value="examples/085-ethernet-sensor-node.adigun.json" data-i18n="exampleEthernetSensorNode">Ethernet sensor node link and frame mock</option>
+            <option value="examples/086-ir-remote-actions.adigun.json" data-i18n="exampleIrRemoteActions">NEC-like IR remote action decoder</option>
+            <option value="examples/087-fm-front-end-response.adigun.json" data-i18n="exampleFmFrontEnd">FM radio front-end response concept</option>
+            <option value="examples/088-rfid-inventory.adigun.json" data-i18n="exampleRfidInventory">RFID inventory and slot collision fixture</option>
+            <option value="examples/089-i2c-level-shifter.adigun.json" data-i18n="exampleI2cLevelShifter">Bidirectional I²C bus level shifter</option>
+            <option value="examples/090-usb-uart-console.adigun.json" data-i18n="exampleUsbUartConsole">USB-UART console known byte stream</option>
+            <option value="examples/091-electret-microphone-meter.adigun.json" data-i18n="exampleElectretMicMeter">Electret microphone audio level meter</option>
+            <option value="examples/092-audio-tone-generator.adigun.json" data-i18n="exampleAudioToneGenerator">Audio tone generator and spectrum check</option>
+            <option value="examples/093-guitar-pedal-buffer.adigun.json" data-i18n="exampleGuitarPedalBuffer">Guitar pickup high-impedance buffer</option>
+            <option value="examples/094-simple-audio-mixer.adigun.json" data-i18n="exampleSimpleAudioMixer">Two-source weighted audio mixer</option>
+            <option value="examples/095-pwm-audio-dac.adigun.json" data-i18n="examplePwmAudioDac">PWM audio DAC RC filter concept</option>
+            <option value="examples/096-digital-volume-control.adigun.json" data-i18n="exampleDigitalVolumeControl">Digital potentiometer audio volume control</option>
+            <option value="examples/097-rgb-led-controller.adigun.json" data-i18n="exampleRgbLedController">RGB LED PWM colour controller</option>
+            <option value="examples/098-oled-status-panel.adigun.json" data-i18n="exampleOledStatusPanel">OLED sensor status panel</option>
+            <option value="examples/099-epaper-display-updater.adigun.json" data-i18n="exampleEpaperDisplayUpdater">E-paper display updater</option>
+            <option value="examples/100-seven-segment-clock.adigun.json" data-i18n="exampleSevenSegmentClock">Seven-segment clock</option>
+            <option value="examples/101-buck-converter-baseline.adigun.json" data-i18n="exampleBuckConverter">Buck converter baseline</option>
+            <option value="examples/102-boost-converter-baseline.adigun.json" data-i18n="exampleBoostConverter">Boost converter baseline</option>
+            <option value="examples/103-buck-boost-supply.adigun.json" data-i18n="exampleBuckBoostSupply">Buck-boost supply</option>
+            <option value="examples/104-liion-charger-concept.adigun.json" data-i18n="exampleLiionCharger">Li-ion charger concept</option>
+            <option value="examples/105-bms-cell-monitor.adigun.json" data-i18n="exampleBmsCellMonitor">BMS cell monitor</option>
+            <option value="examples/106-solar-mppt-concept.adigun.json" data-i18n="exampleSolarMppSweep">Solar MPPT concept</option>
+            <option value="examples/107-usb-c-sink-concept.adigun.json" data-i18n="exampleUsbCSink">USB-C sink profile concept</option>
+            <option value="examples/108-usb-c-source-concept.adigun.json" data-i18n="exampleUsbCSource">USB-C source profile concept</option>
+            <option value="examples/109-poe-pd-input.adigun.json" data-i18n="examplePoePdInput">PoE powered-device input</option>
+            <option value="examples/110-constant-current-led-driver.adigun.json" data-i18n="exampleCcLedDriver">Constant-current LED driver</option>
+            <option value="examples/111-mosfet-half-bridge.adigun.json" data-i18n="exampleMosfetHalfBridge">MOSFET half-bridge</option>
+            <option value="examples/112-igbt-inverter-leg.adigun.json" data-i18n="exampleIgbtInverterLeg">IGBT inverter leg</option>
+            <option value="examples/113-triac-ac-dimmer.adigun.json" data-i18n="exampleTriacAcDimmer">TRIAC AC dimmer concept</option>
+            <option value="examples/114-ssr-ac-switch.adigun.json" data-i18n="exampleSsrAcSwitch">SSR AC load switch</option>
+            <option value="examples/115-ups-transfer.adigun.json" data-i18n="exampleUpsTransfer">Battery-powered UPS</option>
+            <option value="examples/116-inverter-waveform.adigun.json" data-i18n="exampleInverterWaveform">Inverter waveform concept</option>
+            <option value="examples/117-electronic-load.adigun.json" data-i18n="exampleElectronicLoad">Electronic load</option>
+            <option value="examples/118-hotswap-protection.adigun.json" data-i18n="exampleHotSwapProtection">Hot-swap input protection</option>
+            <option value="examples/119-reverse-polarity.adigun.json" data-i18n="exampleReversePolarity">Reverse-polarity protection</option>
+            <option value="examples/120-surge-protection.adigun.json" data-i18n="exampleSurgeProtectedInput">Surge-protected input</option>
+            <option value="examples/121-single-sided-led-pcb.adigun.json" data-i18n="exampleSingleSidedLedPcb">Single-sided LED PCB</option>
+            <option value="examples/122-555-timer-pcb.adigun.json" data-i18n="example555TimerPcb">555 timer PCB</option>
+            <option value="examples/123-opamp-filter-pcb.adigun.json" data-i18n="exampleOpAmpFilterPcb">Op-amp filter PCB</option>
+            <option value="examples/124-arduino-shield.adigun.json" data-i18n="exampleArduinoShield">Arduino Uno R3 shield</option>
+            <option value="examples/125-usbc-breakout.adigun.json" data-i18n="exampleUsbCBreakout">USB-C USB 2.0 breakout</option>
+            <option value="examples/126-bme280-breakout.adigun.json" data-i18n="exampleBme280Breakout">BME280 I²C sensor breakout</option>
+            <option value="examples/127-relay-module-pcb.adigun.json" data-i18n="exampleRelayModulePcb">Low-voltage relay module PCB</option>
+            <option value="examples/128-audio-amplifier-pcb.adigun.json" data-i18n="exampleAudioAmplifierPcb">Low-voltage LM386 audio amplifier PCB</option>
+            <option value="examples/129-buck-converter-pcb.adigun.json" data-i18n="exampleBuckConverterPcb">12 V to 5 V buck converter PCB</option>
+            <option value="examples/130-four-layer-mcu-board-plan.adigun.json" data-i18n="exampleFourLayerMcuPlan">Four-layer STM32 MCU board plan</option>
+            <option value="examples/131-usb-differential-pair-demo.adigun.json" data-i18n="exampleUsbDifferentialPair">USB Full-Speed differential pair demo</option>
+            <option value="examples/132-qfn-footprint-validation.adigun.json" data-i18n="exampleQfnFootprintValidation">QFN footprint validation — exposed thermal pad</option>
+            <option value="examples/133-bga-escape-concept.adigun.json" data-i18n="exampleBgaEscapeConcept">BGA escape concept — capability disclosure</option>
+            <option value="examples/134-panel-mount-controller.adigun.json" data-i18n="examplePanelMountController">Panel-mount controller mechanical plan</option>
+            <option value="examples/135-mcu-test-point-coverage.adigun.json" data-i18n="exampleMcuTestPointCoverage">STM32 MCU board test-point coverage</option>
+            <option value="examples/136-manufacturing-export-pack.adigun.json" data-i18n="exampleManufacturingExportPack">Single-sided PCB manufacturing export pack</option>
+            <option value="examples/137-assembly-variant-board.adigun.json" data-i18n="exampleAssemblyVariantBoard">LED assembly variant board</option>
+            <option value="examples/138-net-class-rule-demo.adigun.json" data-i18n="exampleNetClassRuleDemo">Power and signal net-class rule demo</option>
+            <option value="examples/139-copper-zone-demo.adigun.json" data-i18n="exampleCopperZoneDemo">Ground copper-zone refill demo</option>
+            <option value="examples/140-pcb-schematic-reconciliation.adigun.json" data-i18n="examplePcbSchematicReconciliation">PCB to schematic reconciliation</option>
+            <option value="examples/141-dc-voltmeter-use.adigun.json" data-i18n="exampleDcVoltmeterUse">DC voltmeter use</option>
+            <option value="examples/142-dc-ammeter-use.adigun.json" data-i18n="exampleDcAmmeterUse">DC ammeter use</option>
+            <option value="examples/143-oscilloscope-trigger.adigun.json" data-i18n="exampleOscilloscopeTrigger">Oscilloscope trigger</option>
+            <option value="examples/144-two-channel-phase.adigun.json" data-i18n="exampleTwoChannelPhase">Two-channel phase measurement</option>
+            <option value="examples/145-logic-analyzer-capture.adigun.json" data-i18n="exampleLogicAnalyzerCapture">Logic analyser capture</option>
+            <option value="examples/146-frequency-counter.adigun.json" data-i18n="exampleFrequencyCounter">Frequency counter</option>
+            <option value="examples/147-rc-bode-plot.adigun.json" data-i18n="exampleRcBodePlot">RC low-pass Bode plot</option>
+            <option value="examples/148-rlc-transient-response.adigun.json" data-i18n="exampleRlcTransientResponse">Transient RLC pulse response</option>
+            <option value="examples/149-parameter-sweep.adigun.json" data-i18n="exampleParameterSweep">LED current parameter sweep</option>
+            <option value="examples/150-monte-carlo-tolerance-plan.adigun.json" data-i18n="exampleMonteCarloTolerance">Monte Carlo resistor tolerance</option>
+            <option value="examples/151-thermal-warning-boundary.adigun.json" data-i18n="exampleThermalWarningBoundary">Thermal warning boundary</option>
+            <option value="examples/152-convergence-failure-study.adigun.json" data-i18n="exampleConvergenceFailureStudy">Convergence failure study</option>
+            <option value="examples/153-floating-node-diagnosis.adigun.json" data-i18n="exampleFloatingNodeDiagnosis">Floating-node diagnosis</option>
+            <option value="examples/154-short-circuit-diagnosis.adigun.json" data-i18n="exampleShortCircuitDiagnosis">Short-circuit diagnosis</option>
+            <option value="examples/155-missing-ground-diagnosis.adigun.json" data-i18n="exampleMissingGroundDiagnosis">Missing-ground diagnosis</option>
+            <option value="examples/156-model-unavailable-diagnosis.adigun.json" data-i18n="exampleModelUnavailableDiagnosis">Model-unavailable diagnosis</option>
+            <option value="examples/157-net-probe-cross-probe.adigun.json" data-i18n="exampleNetProbeCrossProbe">Net-probe cross-probe</option>
+            <option value="examples/158-component-property-audit.adigun.json" data-i18n="exampleComponentPropertyAudit">Component property audit</option>
+            <option value="examples/159-simulation-report-export.adigun.json" data-i18n="exampleSimulationReportExport">Simulation report export</option>
+            <option value="examples/160-reproducible-run-lockfile.adigun.json" data-i18n="exampleReproducibleRunLockfile">Reproducible run lockfile</option>
+            <option value="examples/161-plc-start-stop-motor-concept.adigun.json" data-i18n="examplePlcStartStopMotorConcept">PLC start/stop motor concept</option>
+            <option value="examples/162-plc-traffic-light.adigun.json" data-i18n="examplePlcTrafficLight">PLC traffic light</option>
+            <option value="examples/163-plc-tank-level-controller.adigun.json" data-i18n="examplePlcTankLevelController">PLC tank-level controller</option>
+            <option value="examples/164-plc-conveyor-counter.adigun.json" data-i18n="examplePlcConveyorCounter">PLC conveyor counter</option>
+            <option value="examples/165-star-delta-starter-concept.adigun.json" data-i18n="examplePlcStarDeltaStarter">Star-delta starter concept</option>
+            <option value="examples/166-forward-reverse-motor-concept.adigun.json" data-i18n="examplePlcForwardReverseMotor">Forward/reverse motor concept</option>
+            <option value="examples/167-emergency-stop-safety-concept.adigun.json" data-i18n="examplePlcEmergencyStopConcept">Emergency-stop latch concept</option>
+            <option value="examples/168-door-interlock-concept.adigun.json" data-i18n="examplePlcDoorInterlockConcept">Door interlock concept</option>
+            <option value="examples/169-temperature-alarm.adigun.json" data-i18n="exampleTemperatureAlarm">Temperature alarm</option>
+            <option value="examples/170-water-leak-alarm.adigun.json" data-i18n="exampleWaterLeakAlarm">Water leak alarm</option>
+            <option value="examples/171-fan-thermostat.adigun.json" data-i18n="exampleFanThermostat">Fan thermostat</option>
+            <option value="examples/172-pwm-fan-controller.adigun.json" data-i18n="examplePwmFanController">PWM fan controller</option>
+            <option value="examples/173-automatic-night-light.adigun.json" data-i18n="exampleAutomaticNightLight">Automatic night light</option>
+            <option value="examples/174-smart-irrigation-model.adigun.json" data-i18n="exampleSmartIrrigation">Smart irrigation model</option>
+            <option value="examples/175-garage-door-concept.adigun.json" data-i18n="exampleGarageDoorConcept">Garage-door concept</option>
+            <option value="examples/176-elevator-call-queue.adigun.json" data-i18n="exampleElevatorCallQueue">Elevator call logic concept</option>
+            <option value="examples/177-fire-alarm-zone-concept.adigun.json" data-i18n="exampleFireAlarmZone">Fire-alarm zone concept</option>
+            <option value="examples/178-access-control-strike-lock.adigun.json" data-i18n="exampleAccessStrikeLock">Access-control strike lock</option>
+            <option value="examples/179-warehouse-beacon-concept.adigun.json" data-i18n="exampleWarehouseBeacon">Warehouse beacon concept</option>
+            <option value="examples/180-machine-fault-annunciator.adigun.json" data-i18n="exampleMachineFaultAnnunciator">Machine fault annunciator</option>
+            <option value="examples/181-breadboard-schematic-sync.adigun.json" data-i18n="exampleBreadboardSchematicSync">Breadboard-to-schematic sync</option>
+            <option value="examples/182-schematic-pcb-sync.adigun.json" data-i18n="exampleSchematicPcbSync">Schematic-to-PCB sync</option>
+            <option value="examples/183-three-view-led-project.adigun.json" data-i18n="exampleThreeViewLedProject">Three-view LED project</option>
+            <option value="examples/184-unsupported-breadboard-package.adigun.json" data-i18n="exampleUnsupportedBreadboardPackage">Unsupported breadboard package</option>
+            <option value="examples/185-missing-footprint-workflow.adigun.json" data-i18n="exampleMissingFootprintWorkflow">Missing-footprint workflow</option>
+            <option value="examples/186-pin-incompatible-substitution.adigun.json" data-i18n="examplePinIncompatibleSubstitution">Pin-incompatible substitution</option>
+            <option value="examples/187-unit-conversion-calculator.adigun.json" data-i18n="exampleUnitConversionCalculator">Unit conversion calculator</option>
+            <option value="examples/188-resistor-color-code-reader.adigun.json" data-i18n="exampleResistorColorCodeReader">Resistor colour-code reader</option>
+            <option value="examples/189-led-resistor-calculator.adigun.json" data-i18n="exampleLedResistorCalculator">LED series-resistor calculator</option>
+            <option value="examples/190-voltage-divider-calculator.adigun.json" data-i18n="exampleVoltageDividerCalculator">Voltage-divider calculator</option>
+            <option value="examples/191-rc-timing-calculator.adigun.json" data-i18n="exampleRcTimingCalculator">RC timing calculator</option>
+            <option value="examples/192-op-amp-gain-calculator.adigun.json" data-i18n="exampleOpAmpGainCalculator">Op-amp gain calculator</option>
+            <option value="examples/193-pcb-trace-width-advisor.adigun.json" data-i18n="examplePcbTraceWidthAdvisor">PCB trace-width advisor</option>
+            <option value="examples/194-bom-export-cost-placeholder.adigun.json" data-i18n="exampleBomExportCostPlaceholder">BOM export and cost placeholder</option>
+            <option value="examples/195-bot-explain-component.adigun.json" data-i18n="exampleBotExplainComponent">Adigun BOT explains a component</option>
+            <option value="examples/196-bot-floating-node-repair-preview.adigun.json" data-i18n="exampleBotFloatingNodeRepair">Adigun BOT floating-node repair preview</option>
+            <option value="examples/197-bot-circuit-proposal.adigun.json" data-i18n="exampleBotCircuitProposal">Adigun BOT 12 V LED circuit proposal</option>
+            <option value="examples/198-four-language-ui-sweep.adigun.json" data-i18n="exampleFourLanguageUiSweep">Four-language UI sweep</option>
+            <option value="examples/199-local-offline-recovery.adigun.json" data-i18n="exampleLocalOfflineRecovery">Local offline recovery</option>
+            <option value="examples/200-release-candidate-e2e.adigun.json" data-i18n="exampleReleaseCandidateE2E">Release candidate end-to-end</option>
+
+<option value="examples/supplemental-rl-low-pass.adigun.json">Supplemental: RL low-pass filter</option>
+<option value="examples/supplemental-ladder-seal-in.adigun.json">Ladder: start / stop seal-in</option>
+<option value="examples/supplemental-ladder-timer-counter.adigun.json">Ladder: timed pulse counter</option>
+          </select></label>
+        <button id="load-example" class="secondary-button load-example-top" type="button" data-i18n="loadSelectedExample">Load example</button>
+        </div></details>
+        </div>
+    </nav>
+    <main id="workspace" class="workspace">
+      <aside id="components-panel" class="library-panel panel" aria-label="Components library">
+        <div class="panel-heading"><h2 data-i18n="components">Components</h2><button class="panel-close" type="button" aria-label="Collapse component library" data-i18n-aria="collapseLibrary" data-collapse="library-panel">×</button></div>
+        <div class="library-mode-tabs" role="group" aria-label="Component catalogue" data-i18n-aria="componentCatalogueLabel">
+          <button class="library-mode active" type="button" aria-pressed="true" data-library-mode="starter" data-i18n="starterLibraryMode">Starter parts</button>
+          <button class="library-mode" type="button" aria-pressed="false" data-library-mode="evidence" data-i18n="manufacturerEvidenceMode">Manufacturer evidence</button>
+        </div>
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="component-search" type="search" placeholder="Search starter library…" data-i18n-placeholder="searchLibrary" /></label>
+        <div id="library-status" class="library-note" data-i18n="libraryNotice">Starter generic library — not the verified 1,000-part catalogue.</div>
+        <div id="category-filters" class="category-filters" role="group" aria-label="Component categories" data-i18n-aria="componentCategories">
+          <button type="button" class="category-filter active" data-category="All" data-i18n="allComponents">All Components</button>
+          <button type="button" class="category-filter" data-category="Power & Ground" data-i18n="powerGround">Power &amp; Ground</button>
+          <button type="button" class="category-filter" data-category="Passive" data-i18n="passive">Passive</button>
+          <button type="button" class="category-filter" data-category="Active" data-i18n="active">Active</button>
+          <button type="button" class="category-filter" data-category="Inputs" data-i18n="inputs">Inputs</button>
+          <button type="button" class="category-filter" data-category="Instruments" data-i18n="instruments">Instruments</button>
+          <button type="button" class="category-filter" data-category="Connectors" data-i18n="connectors">Connectors</button>
+          <button type="button" class="category-filter" data-category="Protection" data-i18n="protection">Protection</button>
+          <button type="button" class="category-filter" data-category="Sensors" data-i18n="sensors">Sensors</button>
+        </div>
+        <ul id="component-list" class="component-list" aria-label="Starter components"></ul>
+        <section class="selected-library-part" aria-live="polite">
+          <p id="selected-part-type">Select a component</p>
+          <strong id="selected-part-name">No part selected</strong>
+          <span id="selected-part-detail">Search the available starter library.</span>
+          <button id="add-component" class="outline-button" type="button" disabled data-i18n="addToProject">Add to project</button>
+        </section>
+      </aside>
+
+      <section class="canvas-area" aria-label="Circuit design workspace">
+        <div class="workspace-navigation">
+        <div class="view-tabs" role="tablist" aria-label="Circuit representations">
+          <button class="view-tab active" role="tab" aria-selected="true" data-view="breadboard" aria-label="Breadboard View" data-i18n-aria="breadboard">▦ <span data-i18n="breadboard">Breadboard View</span></button>
+          <button class="view-tab" role="tab" aria-selected="false" data-view="schematic" aria-label="Schematic View" data-i18n-aria="schematic">⌘ <span data-i18n="schematic">Schematic View</span></button>
+          <button class="view-tab" role="tab" aria-selected="false" data-view="pcb" aria-label="PCB View" data-i18n-aria="pcb">▣ <span data-i18n="pcb">PCB View</span></button>
+        </div>
+        <div class="canvas-toolbar" aria-label="Canvas toolbar">
+          <button type="button" class="toolbar-button active" data-tool="select" aria-label="Select" data-i18n-aria="select" aria-pressed="true">↖ <span data-i18n="select">Select</span></button>
+          <button type="button" class="toolbar-button" data-tool="pan" aria-label="Pan" data-i18n-aria="pan" aria-pressed="false">✥ <span data-i18n="pan">Pan</span></button>
+          <button type="button" class="toolbar-button" data-tool="zoom-out" aria-label="Zoom out" data-i18n-aria="zoomOut">− <span data-i18n="zoomOut">Zoom out</span></button>
+          <strong id="zoom-level">100%</strong>
+          <button type="button" class="toolbar-button" data-tool="zoom-in" aria-label="Zoom in" data-i18n-aria="zoomIn">+ <span data-i18n="zoomIn">Zoom in</span></button>
+          <button type="button" class="toolbar-button" data-tool="fit" aria-label="Fit view" data-i18n-aria="fitView">⤢ <span data-i18n="fitView">Fit view</span></button>
+
+
+          <button id="schematic-wire-mode" aria-label="Wire" data-i18n-aria="schematicWireMode" type="button" class="toolbar-button" aria-pressed="false" data-action="schematic-wire-mode"><span aria-hidden="true">⌁</span> <span data-i18n="schematicWireMode">Wire</span></button>
+
+
+          <button id="pcb-route-mode" type="button" class="toolbar-button" data-tool="pcb-route" aria-pressed="false" aria-label="Interactive PCB routing" data-i18n-aria="pcbRouteAria" disabled><span aria-hidden="true">⌁</span> <span data-i18n="pcbRoute">Route</span></button>
+          <label id="pcb-route-layer-control" hidden><span data-i18n="pcbRouteLayer">Copper layer</span><select id="pcb-route-layer" aria-label="Routing copper layer" data-i18n-aria="pcbRouteLayer"><option value="F.Cu">F.Cu</option><option value="B.Cu">B.Cu</option></select></label>
+
+          <button type="button" class="toolbar-button" data-action="pcb-via-new" aria-label="New via" data-i18n-aria="pcbViaNew" disabled><span aria-hidden="true">⦿</span> <span data-i18n="pcbViaNew">New via</span></button>
+
+        </div>
+        </div>
+        <div id="design-canvas" class="design-canvas grid-enabled" tabindex="0" aria-label="Breadboard representation. Select a component to inspect it."></div>
+        <div class="overview-row" aria-label="Synchronized view overview">
+          <section class="mini-view" data-mini-view="schematic"><div class="mini-heading"><strong data-i18n="schematic">Schematic View</strong><button type="button" data-view="schematic" aria-label="Maximize schematic view" data-i18n-aria="maximizeSchematic">↗</button></div><div id="schematic-mini" class="mini-canvas schematic"></div></section>
+          <section class="mini-view" data-mini-view="pcb"><div class="mini-heading"><strong data-i18n="pcb">PCB View</strong><button type="button" data-view="pcb" aria-label="Maximize PCB view" data-i18n-aria="maximizePcb">↗</button></div><div id="pcb-mini" class="mini-canvas"></div></section>
+        </div>
+        <section class="output-panel panel" aria-label="Diagnostics and analysis output">
+          <div class="output-tabs"><button id="export-simulation-report" class="secondary-button report-export" type="button" data-i18n="exportSimulationReport" disabled>Export Report</button><button class="output-tab active" type="button" data-output="output" data-i18n="simulationOutput">Simulation Output</button><button class="output-tab" type="button" data-output="errors"><span data-i18n="errors">Errors</span> (<span id="error-count">0</span>)</button><button class="output-tab" type="button" data-output="warnings"><span data-i18n="warnings">Warnings</span> (<span id="warning-count">0</span>)</button></div>
+        <div id="simulation-hud" class="simulation-hud" role="group" aria-label="Simulation playback controls" data-playback="idle">
+          <button id="hud-run" class="run-button toolbar-run sim-button" type="button" data-action="run-simulation"><span aria-hidden="true">▶</span><span data-i18n="runCalculation">Run</span></button>
+          <button id="hud-pause" class="sim-button" type="button" data-action="pause-simulation" disabled><span aria-hidden="true">Ⅱ</span><span>Pause</span></button>
+          <button id="hud-stop" class="sim-button" type="button" data-action="stop-simulation" disabled><span aria-hidden="true">■</span><span>Stop</span></button>
+          <button id="hud-step" class="sim-button" type="button" data-action="step-simulation" disabled><span aria-hidden="true">▸│</span><span>Step</span></button>
+          <button id="hud-reset" class="sim-button" type="button" data-action="reset-simulation"><span aria-hidden="true">↻</span><span>Reset</span></button>
+          <output id="simulation-time" aria-live="off">Idle · t=0 s</output>
+        </div>
+
+          <div class="workspace-status">
+          <span id="wire-crossing-notice" role="alert" hidden></span>
+          <span id="schematic-wire-status" role="status" aria-live="polite"></span>
+          <span id="placement-status" role="status" aria-live="polite"></span>
+          <span id="pcb-route-status" role="status" aria-live="polite"></span>
+          <div class="canvas-feedback">
+            <p id="canvas-view-label" class="canvas-label"></p>
+            <details id="view-reconciliation" class="reconciliation-notice" hidden>
+              <summary id="view-reconciliation-summary"></summary>
+              <ul id="view-reconciliation-items"></ul>
+            </details>
+          </div>
+          </div>
+          <div id="result-dashboard" class="result-dashboard hidden" aria-live="polite"></div>
+          <pre id="output-log" tabindex="0">[READY] Local project created. Run is available for the documented analytical DC topologies only.</pre>
+          <pre id="issue-list" class="hidden" tabindex="0" aria-live="polite"></pre>
+        </section>
+      </section>
+
+      <aside id="properties-panel" class="inspector-panel panel" aria-label="Properties and simulation controls">
+        <div class="panel-heading"><h2 data-i18n="properties">Properties</h2><button class="panel-close" type="button" aria-label="Collapse properties" data-i18n-aria="collapseProperties" data-collapse="inspector-panel">×</button></div>
+        <div class="inspector-tabs" role="tablist"><button class="inspector-tab active" type="button" data-inspector="component" data-i18n="component">Component</button><button class="inspector-tab" type="button" data-inspector="project" data-i18n="project">Project</button><button class="inspector-tab" type="button" data-inspector="simulation" data-i18n="simulation">Simulation</button></div>
+        <div class="inspector-content">
+        <form id="component-form" class="property-form">
+          <p id="component-empty">Select a component on the canvas to edit its properties.</p>
+          <label data-component-content><span data-i18n="type">Type</span> <input id="property-type" readonly /></label>
+          <label data-component-content><span data-i18n="reference">Reference</span> <input id="property-reference" data-component-field="reference" aria-describedby="component-property-error" maxlength="64" required /></label>
+          <label data-component-content><span data-i18n="value">Value</span> <input id="property-value" data-component-field="value" aria-describedby="component-property-error" maxlength="4000" required /></label>
+          <label data-component-content><span data-i18n="libraryStatus">Library status</span> <input id="property-status" readonly /></label>
+          <div id="component-schema-fields" data-component-content></div>
+          <p id="component-property-error" role="status" aria-live="polite"></p>
+          <button class="outline-button" type="submit" data-component-content data-i18n="applyProperties">Apply properties</button>
+          <button id="remove-component" class="secondary-button" type="button" data-component-content data-i18n="removeComponent" disabled>Remove component</button>
+        </form>
+        <section id="wire-properties" class="simulation-control wire-properties" hidden aria-label="Wire properties"></section>
+        <section id="pcb-footprint-details" class="simulation-control hidden" aria-live="polite">
+          <h3 data-i18n="pcbFootprintProperties">PCB footprint</h3>
+          <p><span data-i18n="pcbFootprintPackage">Package</span>: <strong id="pcb-footprint-package">—</strong></p>
+          <p><span data-i18n="pcbFootprintPosition">Pad centroid (mm)</span>: <strong id="pcb-footprint-position">—</strong></p>
+          <p><span data-i18n="pcbFootprintPadCount">Pads</span>: <strong id="pcb-footprint-pad-count">—</strong></p>
+          <p><span data-i18n="pcbFootprintRouteCount">Routes on connected nets</span>: <strong id="pcb-footprint-route-count">—</strong></p>
+          <p><span data-i18n="pcbFootprintRotation">Rotation from initial layout (clockwise)</span>: <strong id="pcb-footprint-rotation">0°</strong></p>
+          <button type="button" class="outline-button" data-action="pcb-rotate-left" data-i18n="pcbRotateLeft">Rotate 90° left</button>
+          <button type="button" class="outline-button" data-action="pcb-rotate-right" data-i18n="pcbRotateRight">Rotate 90° right</button>
+          <p class="muted" data-i18n="pcbRotateNote">Turns pads and attached trace vertices around the pad centroid. Run PCB checks after editing.</p>
+        </section>
+        <section id="pcb-via-editor" class="simulation-control hidden">
+          <h3 data-i18n="pcbViaTitle">Plated via editor</h3>
+          <p id="pcb-via-hint" class="muted" role="status"></p>
+          <form id="pcb-via-form" class="property-form">
+            <fieldset id="pcb-via-fields" class="via-fields">
+              <label><span data-i18n="pcbViaChoose">Via</span><select id="pcb-via-picker"></select></label>
+              <label><span data-i18n="pcbViaNet">Via net</span><select id="pcb-via-net" data-via-field="netId" required></select></label>
+              <label><span data-i18n="pcbViaX">Via X (mm)</span><input id="pcb-via-x" data-via-field="xMm" type="number" step="any" min="0" required /></label>
+              <label><span data-i18n="pcbViaY">Via Y (mm)</span><input id="pcb-via-y" data-via-field="yMm" type="number" step="any" min="0" required /></label>
+              <label for="pcb-via-diameter"><span data-i18n="pcbViaDiameter">Copper diameter (mm)</span><input id="pcb-via-diameter" data-via-field="diameterMm" type="number" step="any" min="0.001" required /></label>
+              <label for="pcb-via-drill"><span data-i18n="pcbViaDrill">Drill diameter (mm)</span><input id="pcb-via-drill" data-via-field="drillMm" type="number" step="any" min="0.001" required /></label>
+              <button id="pcb-via-pick" type="button" class="outline-button" data-action="pcb-via-pick" aria-pressed="false" data-i18n="pcbViaPick">Pick board position</button>
+              <button type="submit" class="outline-button" data-i18n="pcbViaSave">Save via</button>
+              <button id="pcb-via-remove" type="button" class="outline-button danger" data-action="pcb-via-remove" data-i18n="pcbViaRemove" disabled>Remove via</button>
+            </fieldset>
+          </form>
+        </section>
+        <form id="project-form" class="property-form hidden">
+          <label><span data-i18n="projectName">Project name</span> <input id="project-name" required /></label>
+          <label><span data-i18n="locale">Locale</span> <input id="project-locale" readonly /></label>
+          <button class="outline-button" type="submit" data-i18n="applyProject">Apply project settings</button>
+        </form>
+        <section id="simulation-form" class="simulation-control hidden">
+          <div class="feedback-controls">
+            <label><input id="feedback-live" type="checkbox" checked /><span id="feedback-live-label">Live DC feedback</span></label>
+            <label><span id="feedback-motion-label">Current animation</span><select id="feedback-motion"><option value="system">Device preference</option><option value="animate">Animate</option><option value="reduce">Reduce motion</option></select></label>
+            <select id="feedback-direction" aria-label="Current direction"><option id="feedback-conventional" value="conventional">Conventional current</option><option id="feedback-electron" value="electron">Electron direction</option></select>
+            <span id="feedback-status" role="status" aria-live="polite"></span>
+          </div>
+
+          <h3 data-i18n="simulationControl">Simulation Control</h3>
+          <p data-i18n="availableAnalysis">Available analyses: LED current limiter and unloaded two-resistor voltage divider.</p>
+          <label for="simulation-analysis-mode" data-i18n="analysisMode">Analysis mode</label>
+          <select id="simulation-analysis-mode">
+            <option value="automatic" data-i18n="analysisAutomatic">Project-defined / automatic</option>
+            <option value="nonlinear-dc" data-i18n="analysisNonlinearDc">Nonlinear DC operating point (generic diode / NPN)</option>
+            <option value="linear-ac" data-i18n="analysisLinearAcSweep">Linear RLC AC sweep</option>
+            <option value="linear-transient" data-i18n="analysisLinearTransient">Linear RLC transient</option>
+            <option value="digital-events" data-i18n="analysisDigitalEvents">Digital event simulation</option>
+          </select>
+          <div id="nonlinear-dc-controls" class="ac-sweep-controls hidden">
+            <label><span data-i18n="nonlinearJunctionTemperature">Junction temperature (°C)</span><input id="nonlinear-dc-temperature" type="number" min="-100" max="200" step="any" value="25" /></label>
+            <p class="limit-note" data-i18n="nonlinearDcModelHelp">Generic Shockley diodes with optional series resistance and generic Ebers–Moll NPN/PNP BJTs; parameters are not manufacturer-verified.</p>
+          </div>
+          <fieldset id="ladder-controls" hidden><legend data-ladder-label="0">Ladder recording</legend><label><span data-ladder-label="1">Scan period (ms)</span><input id="ladder-scan-ms" type="number" min="1" max="60000" step="1"/></label><label><span data-ladder-label="2">Record duration (ms)</span><input id="ladder-duration-ms" type="number" min="1" max="60000" step="1"/></label><button type="button" data-action="ladder-settings" data-ladder-label="3">Apply recording settings</button></fieldset>
+          <div id="ac-sweep-controls" class="ac-sweep-controls hidden">
+            <label><span data-i18n="acStartHz">Start frequency (Hz)</span><input id="ac-start-hz" type="number" min="0.000001" step="any" value="10" /></label>
+            <label><span data-i18n="acStopHz">Stop frequency (Hz)</span><input id="ac-stop-hz" type="number" min="0.000001" step="any" value="100000" /></label>
+            <label><span data-i18n="acPointsPerDecade">Points per decade</span><input id="ac-points-per-decade" type="number" min="1" max="50" step="1" value="12" /></label>
+            <label><span data-i18n="acOutputNet">Output net</span><select id="ac-output-net"><option value="" data-i18n="acAutoOutputLabel">Automatic output net</option></select></label>
+          </div>
+          <div id="linear-transient-controls" class="ac-sweep-controls hidden">
+            <label><span data-i18n="transientStopSeconds">Stop time (s)</span><input id="transient-stop-seconds" type="number" min="0.000001" step="any" value="0.005" /></label>
+            <label><span data-i18n="transientTimeStep">Time step (s)</span><input id="transient-time-step" type="number" min="0.000000001" step="any" value="0.00001" /></label>
+            <label><span data-i18n="transientOutputNet">Output net</span><select id="transient-output-net"><option value="" data-i18n="acAutoOutputLabel">Automatic output net</option></select></label>
+            <label><span data-i18n="transientInitialConditions">Initial conditions (JSON)</span><textarea id="transient-initial-conditions" rows="3" spellcheck="false" aria-describedby="transient-initial-conditions-help">{"capacitorVoltagesV":{},"inductorCurrentsA":{}}</textarea></label>
+            <p id="transient-initial-conditions-help" class="limit-note" data-i18n="transientInitialConditionsHelp">Optional capacitorVoltagesV and inductorCurrentsA maps use component references; omitted values start at zero.</p>
+          </div>
+          <div id="digital-event-controls" class="digital-event-controls hidden">
+            <label><span data-i18n="digitalStopTime">Stop time (ns)</span><input id="digital-stop-ns" type="number" min="0" max="1000000000" step="1" value="1000" /></label>
+            <label><span data-i18n="digitalInputEvents">Input events (JSON)</span><textarea id="digital-events-json" rows="5" spellcheck="false" aria-describedby="digital-events-help">[]</textarea></label>
+            <p id="digital-events-help" class="limit-note" data-i18n="digitalInputEventsHelp">Example: [{"timeNs":100,"sourceReference":"VA","high":true}]</p>
+            <label><span data-i18n="digitalInitialStates">Initial D flip-flop states (JSON)</span><textarea id="digital-initial-states" rows="3" spellcheck="false">{}</textarea></label>
+            <p class="limit-note" data-i18n="digitalInitialStatesHelp">Provide one Boolean state per D flip-flop, e.g. {"U1":false}.</p>
+            <label><span data-i18n="digitalProbeNets">Probe nets</span><select id="digital-probe-nets" multiple size="4"></select></label>
+          </div>
+          <button id="run-simulation" class="run-button" type="button">▶ <span data-i18n="runCalculation">Run calculation</span></button>
+          <button id="stop-simulation" class="secondary-button" type="button" data-action="stop-simulation" disabled>■ <span data-i18n="stopSimulation">Stop</span></button>
+          <p class="limit-note" data-i18n="simulationLimit">Digital gates and D flip-flops use zero delay; asynchronous controls, mixed-signal and general SPICE are unavailable.</p>
+        </section>
+        <section class="simulation-control">
+          <h3 data-i18n="validation">Validation</h3>
+          <button id="run-validation" class="outline-button" type="button" data-i18n="runValidation">Run validation</button>
+          <p id="validation-summary" class="limit-note">Run validation to inspect project issues.</p>
+        </section>
+        <section class="simulation-control workspace-notes">
+          <h3 data-i18n="workspaceNotes">Notes</h3>
+          <p id="workspace-notes" data-i18n="modelNotes">Results use bounded ideal models. Firmware, physical device limits, and manufacturing checks are only included where explicitly stated.</p>
+          <p class="limit-note" data-i18n="morePlannedExamples">All 200 catalogue projects are released; ten supplemental studies are also available.</p>
+        </section>
+        <section class="simulation-control connection-control">
+          <h3 data-i18n="electricalConnections">Electrical connections</h3>
+          <form id="connection-form" class="connection-form">
+            <label for="connection-first" data-i18n="firstPin">First pin</label><select id="connection-first" required></select>
+            <label for="connection-second" data-i18n="secondPin">Second pin</label><select id="connection-second" required></select>
+            <button class="outline-button" type="submit" data-i18n="connectPins">Connect pins</button>
+          </form>
+          <ul id="net-list" class="net-list" aria-live="polite"></ul>
+
+        <section class="breadboard-controls" aria-labelledby="breadboard-editor-heading">
+          <h3 id="breadboard-editor-heading" data-i18n="breadboardEditor">Physical breadboard</h3>
+          <p id="breadboard-status" role="status" aria-live="polite"></p>
+          <button id="breadboard-sync-review" class="outline-button" type="button" data-action="breadboard-sync-review" data-i18n="breadboardSyncReview">Preview schematic sync</button>
+          <p id="breadboard-sync-summary" role="status" aria-live="polite" data-i18n="breadboardSyncDefault">Preview how physical wiring would update the shared netlist.</p>
+          <ul id="breadboard-sync-net-list" class="breadboard-sync-net-list" aria-live="polite"></ul>
+          <button id="breadboard-sync-apply" class="outline-button" type="button" data-action="breadboard-sync-apply" data-i18n="breadboardSyncApply" hidden disabled>Apply reviewed netlist</button>
+          <p class="package-note" data-i18n="breadboardPackageNote">Generic resistor, capacitor, axial diode, LED, and TO-92 body drawings are illustrative, not manufacturer-specific footprints.</p>
+          <datalist id="breadboard-hole-options"></datalist>
+          <form id="breadboard-pin-form" class="connection-form">
+            <label for="breadboard-pin" data-i18n="breadboardComponentPin">Component pin</label>
+            <select id="breadboard-pin" required></select>
+            <label for="breadboard-hole" data-i18n="breadboardHole">Breadboard hole</label>
+            <input id="breadboard-hole" list="breadboard-hole-options" placeholder="A1–J30, TP1–BM30" pattern="([A-Ja-j]([1-9]|[12][0-9]|30)|(TP|TM|BP|BM|tp|tm|bp|bm)([1-9]|[12][0-9]|30))" required />
+            <button class="outline-button" type="submit" data-i18n="breadboardAssignPin">Place pin</button>
+          </form>
+          <button class="outline-button" type="button" id="breadboard-placement-mode" class="outline-button" type="button" aria-pressed="false" data-action="breadboard-placement-mode" data-i18n="breadboardClickPlace">Click a hole to place selected pin</button>
+          <ul id="breadboard-placement-list" class="breadboard-list" aria-live="polite"></ul>
+          <form id="breadboard-jumper-form" class="connection-form">
+            <label for="breadboard-jumper-from" data-i18n="breadboardJumperFrom">Jumper from hole</label>
+            <input id="breadboard-jumper-from" list="breadboard-hole-options" placeholder="A1–J30, TP1–BM30" pattern="([A-Ja-j]([1-9]|[12][0-9]|30)|(TP|TM|BP|BM|tp|tm|bp|bm)([1-9]|[12][0-9]|30))" required />
+            <label for="breadboard-jumper-to" data-i18n="breadboardJumperTo">Jumper to hole</label>
+            <input id="breadboard-jumper-to" list="breadboard-hole-options" placeholder="A1–J30, TP1–BM30" pattern="([A-Ja-j]([1-9]|[12][0-9]|30)|(TP|TM|BP|BM|tp|tm|bp|bm)([1-9]|[12][0-9]|30))" required />
+            <button class="outline-button" type="submit" data-i18n="breadboardAddJumper">Add jumper</button>
+          </form>
+          <ul id="breadboard-jumper-list" class="breadboard-list" aria-live="polite"></ul>
+        </section>
+
+        </section>
+        </div>
+    <section id="bot" class="bot-panel minimized" aria-label="Adigun BOT">
+      <header><span class="bot-orb" aria-hidden="true">◉</span><div><strong>Adigun BOT</strong><small data-i18n="botAssistant">Local project explainer</small></div><button id="bot-collapse" type="button" aria-label="Adigun BOT" aria-expanded="false" aria-controls="bot-content">+</button></header>
+      <div id="bot-content">
+        <p><strong data-i18n="botGroundedMode">Local facts mode</strong> <span data-i18n="botGroundedPrivacy">Answers use only the selected component and checked-in library fields; unknown details are stated.</span></p>
+        <label class="bot-live-toggle"><input id="bot-live-toggle" type="checkbox" checked /><span data-i18n="botLiveLabel">Live co-pilot</span></label>
+        <label class="bot-goal-label" for="bot-goal" data-i18n="botGoalLabel">Project goal (this session)</label>
+        <form id="bot-question-form" class="bot-input"><input id="bot-goal" maxlength="240" autocomplete="off" data-i18n-placeholder="botQuestionPlaceholder" placeholder="What are you building or asking?" /><button type="submit" data-i18n="botAskButton">Ask</button></form>
+        <section id="bot-suggestion" class="bot-suggestion" aria-live="polite" hidden>
+          <strong id="bot-suggestion-title"></strong><p id="bot-suggestion-message"></p><p id="bot-suggestion-detail" hidden></p>
+          <div class="bot-suggestion-actions"><button id="bot-suggestion-accept" type="button" data-i18n="botSuggestionAccept">Preview</button><button id="bot-suggestion-dismiss" type="button" data-i18n="botSuggestionDismiss">Dismiss</button><button id="bot-suggestion-more" type="button" data-i18n="botTellMore">Tell me more</button></div>
+          <div id="bot-suggestion-preview" class="bot-preview" hidden><p id="bot-preview-summary"></p><button id="bot-preview-apply" type="button" data-i18n="botPreviewApply">Apply preview</button><button id="bot-preview-cancel" type="button" data-i18n="botPreviewCancel">Cancel</button></div>
+        </section>
+        <form id="bot-form"><button type="submit" aria-label="Explain selected component" data-i18n-aria="botExplainButton" data-i18n="botExplainButton">Explain selected component</button></form>
+        <button id="bot-repair-apply" type="button" hidden data-i18n="botRepairApply">Review and apply repair preview</button><button id="bot-proposal-apply" type="button" hidden data-i18n="botProposalApply">Review and apply circuit proposal</button>
+        <p id="bot-response" role="status" aria-live="polite" data-i18n="botResponseDefault">Select a component and ask Adigun BOT for a source-grounded explanation.</p>
+      </div>
+    </section>
+      </aside>
+    </main>
+
+    <input id="import-file" type="file" accept="application/json,.json,.adigun" hidden />
+    <dialog id="pcb-classes-dialog" aria-labelledby="pcb-classes-title" aria-describedby="pcb-classes-note">
+      <h2 id="pcb-classes-title" data-i18n="pcbNetClasses">Net Classes &amp; Rules</h2>
+      <p id="pcb-classes-note" data-i18n="pcbClassNote">Applying membership moves selected nets from other classes. Removing a class removes its pair rules; unassigned nets use board rules. Copper does not move. Undo reverses each applied edit.</p>
+      <section class="pcb-classes-grid">
+        <form id="pcb-class-form">
+          <label><span data-i18n="pcbClassChoose">Class</span><select id="pcb-class-picker" autofocus></select></label>
+          <label><span data-i18n="pcbClassName">Class name</span><input id="pcb-class-name" maxlength="64" required /></label>
+          <label><span data-i18n="pcbBoardTraceWidth">Minimum trace width (mm)</span><input id="pcb-class-width" type="number" min="0.001" step="any" required /></label>
+          <label><span data-i18n="pcbBoardClearance">Minimum clearance (mm)</span><input id="pcb-class-clearance" type="number" min="0" step="any" required /></label>
+          <fieldset class="pcb-net-members"><legend data-i18n="pcbClassMembers">Member nets</legend><section id="pcb-class-members"></section></fieldset>
+          <div class="pcb-class-actions"><button id="pcb-class-apply" class="gold-button" type="submit" data-i18n="pcbClassApply">Apply class</button><button id="pcb-class-remove" class="secondary-button" type="button" data-i18n="pcbClassRemove">Remove class</button></div>
+        </form>
+        <form id="pcb-rule-form">
+          <label><span data-i18n="pcbRuleChoose">Pair rule</span><select id="pcb-rule-picker"></select></label>
+          <label><span data-i18n="pcbRuleFirst">First class</span><select id="pcb-rule-a" required></select></label>
+          <label><span data-i18n="pcbRuleSecond">Second class</span><select id="pcb-rule-b" required></select></label>
+          <label><span data-i18n="pcbRuleClearance">Pair clearance (mm)</span><input id="pcb-rule-clearance" type="number" min="0" step="any" required /></label>
+          <p data-i18n="pcbRuleNote">The stricter board, class and pair limits apply. A same-class rule checks different nets, never a net against itself. Changed rules can block fabrication until violations are corrected.</p>
+          <div class="pcb-class-actions"><button id="pcb-rule-apply" class="gold-button" type="submit" data-i18n="pcbRuleApply">Apply pair rule</button><button id="pcb-rule-remove" class="secondary-button" type="button" data-i18n="pcbRuleRemove">Remove pair rule</button></div>
+        </form>
+      </section>
+      <p id="pcb-class-error" role="alert"></p><p id="pcb-class-result" role="status"></p>
+      <button id="pcb-classes-close" class="secondary-button" type="button" data-i18n="close">Close</button>
+    </dialog>
+    <dialog id="pcb-board-dialog" aria-labelledby="pcb-board-title" aria-describedby="pcb-board-note">
+      <form id="pcb-board-form">
+        <h2 id="pcb-board-title" data-i18n="pcbBoardSetup">Board Setup</h2>
+        <p id="pcb-board-note" data-i18n="pcbBoardNote">Rectangular one/two-layer board. Dimensions do not scale or move components. Rules are design limits, not manufacturing approval.</p>
+        <div class="board-field-grid">
+          <label><span data-i18n="pcbBoardWidth">Width (mm)</span><input id="pcb-board-width" data-board-field="widthMm" type="number" min="0.001" step="any" required autofocus /></label>
+          <label><span data-i18n="pcbBoardHeight">Height (mm)</span><input id="pcb-board-height" data-board-field="heightMm" type="number" min="0.001" step="any" required /></label>
+          <label><span data-i18n="pcbBoardThickness">Thickness (mm)</span><input id="pcb-board-thickness" data-board-field="thicknessMm" type="number" min="0.001" step="any" required /></label>
+          <label><span data-i18n="pcbBoardLayers">Copper layers</span><select id="pcb-board-layers" data-board-field="copperLayers" required><option value="F.Cu">F.Cu</option><option value="F.Cu,B.Cu">F.Cu + B.Cu</option></select></label>
+          <label><span data-i18n="pcbBoardClearance">Minimum clearance (mm)</span><input id="pcb-board-clearance" data-board-field="minimumClearanceMm" type="number" min="0.001" step="any" required /></label>
+          <label><span data-i18n="pcbBoardTraceWidth">Minimum trace width (mm)</span><input id="pcb-board-trace-width" data-board-field="minimumTraceWidthMm" type="number" min="0.001" step="any" required /></label>
+        </div>
+        <p id="pcb-board-error" role="alert"></p>
+        <div class="board-dialog-actions">
+          <button id="pcb-board-cancel" type="button" class="secondary-button" data-i18n="pcbBoardCancel">Cancel</button>
+          <button type="submit" class="gold-button" data-i18n="pcbBoardApply">Apply board setup</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="unsaved-dialog" aria-labelledby="unsaved-title" aria-describedby="unsaved-message">
+      <form method="dialog">
+        <h2 id="unsaved-title" data-i18n="unsavedChanges">Unsaved changes</h2>
+        <p id="unsaved-message" data-i18n="discardProjectPrompt">You have unsaved changes. Are you sure you want to close this project?</p>
+        <div class="dialog-actions">
+          <button class="secondary-button" value="cancel" autofocus data-i18n="keepEditing">Keep editing</button>
+          <button class="gold-button" value="discard" data-i18n="discardChanges">Discard changes</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="recent-project-dialog" aria-labelledby="recent-project-title">
+      <form method="dialog">
+        <h2 id="recent-project-title" data-i18n="openRecentProject">Open Recent…</h2>
+        <p data-i18n="recentProjectHelp">Projects saved in this browser appear here.</p>
+        <label for="recent-project-picker" data-i18n="recentProjectLabel">Recent projects</label>
+        <select id="recent-project-picker"></select>
+        <div class="dialog-actions">
+          <button type="submit" class="secondary-button" value="cancel" data-i18n="pcbBoardCancel">Cancel</button>
+          <button id="recent-project-open" type="button" class="gold-button" data-i18n="open">Open</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="status-dialog"><div><h2 id="dialog-title">Status</h2><p id="dialog-message"></p><button id="dialog-close" class="gold-button" type="button" data-i18n="close">Close</button></div></dialog>
+    <footer class="site-footer">
+      <div class="footer-identity"><strong>HEPHZIBAH BEHULAH</strong><span>AdigunSimulator · HB Elektroniker</span></div>
+      <nav class="footer-links" aria-label="Official company links" data-i18n-aria="officialLinks">
+        <a href="https://hephzibahbehulah.com/" target="_blank" rel="noopener noreferrer" data-i18n="corporateWebsite">Corporate website</a>
+        <a href="https://github.com/HephzibahBehulahHQ/AdigunSimulator/blob/main/README.md" target="_blank" rel="noopener noreferrer" data-i18n="documentation">Documentation</a>
+        <a href="https://github.com/HephzibahBehulahHQ/AdigunSimulator/issues" target="_blank" rel="noopener noreferrer" data-i18n="support">Support</a>
+        <a href="https://www.facebook.com/Hephzibahbehulah/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://x.com/HephzibaBehulah" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://www.instagram.com/hephzibahbehulah" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.tiktok.com/@hephzibahbhehulah" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="https://www.linkedin.com/in/isaacoluwoleadigun/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn personal profile" data-i18n-aria="linkedinPersonalProfile"><span>LinkedIn</span> <small data-i18n="personalProfile">(personal profile)</small></a>
+      </nav>
+      <small>© <span id="copyright-year"></span> Hephzibah Behulah. <span data-i18n="allRightsReserved">All rights reserved.</span></small>
+    </footer>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
+
