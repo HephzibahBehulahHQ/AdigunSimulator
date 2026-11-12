@@ -11,6 +11,8 @@ import { STARTER_LIBRARY, addComponent, connectPins, createEmptyProject, disconn
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
 import { createAccountClient, createAccountSession } from "./js/account-auth.mjs";
 import { createAccountUi } from "./js/account-ui.mjs";
+import { createCloudProjectStore } from "./js/cloud-projects.mjs";
+import { createCloudProjectsUi } from "./js/cloud-projects-ui.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { schematicPinPoint, schematicSymbolSize, schematicGeometry } from "./js/schematic-pin-layout.mjs";
 import { editComponentField, editCustomProperties } from "./js/component-edit.mjs";
@@ -474,7 +476,7 @@ function redo() {
 }
 
 function updateSaveState() {
-  $("#save-state").textContent = state.dirty ? t("unsavedChanges") : t(state.savedDisposition === "local" ? "savedLocally" : state.savedDisposition === "export" ? "projectExported" : "emptyProject");
+  $("#save-state").textContent = state.dirty ? t("unsavedChanges") : t(state.savedDisposition === "cloud" ? "savedToCloud" : state.savedDisposition === "local" ? "savedLocally" : state.savedDisposition === "export" ? "projectExported" : "emptyProject");
   $("#save-state").classList.toggle("saved", !state.dirty);
 }
 
@@ -2593,18 +2595,48 @@ const componentPropertiesUi = createComponentPropertiesUi({
 render();
 
 let accountUi;
-const accountSession = createAccountSession(createAccountClient(), {
+const accountClient = createAccountClient();
+const accountSession = createAccountSession(accountClient, {
   onState: accountState => accountUi?.renderState(accountState),
   getRedirectUrl: () => `${window.location.origin}${window.location.pathname}`
+});
+const cloudProjectsUi = createCloudProjectsUi({
+  document,
+  account: accountSession,
+  store: createCloudProjectStore(accountClient, { getUserId: () => accountSession.state.user?.id }),
+  translate,
+  getLocale: () => state.project.metadata.locale,
+  getProject: () => state.project,
+  onSaved: () => {
+    projectSession.markSaved("cloud");
+    updateSaveState();
+    log("[CLOUD SAVED] The current project was explicitly saved to your account.");
+  },
+  onOpenDocument: async (documentData, { source, version }) => {
+    let project;
+    try { project = parseProject(JSON.stringify(documentData)); }
+    catch { showDialog(t("cloudProjectsTitle"), t("cloudInvalidProject")); return; }
+    const isCurrent = projectSession.beginLoad();
+    if (!await confirmDiscardChanges() || !isCurrent()) return;
+    projectSession.reset(project, { saved: "cloud", currentProjectId: project.id });
+    componentPropertiesUi.resetSession();
+    updateSaveState();
+    log(source === "cloud-revision"
+      ? `[CLOUD OPENED] Opened version ${version} as a local working copy; cloud data was not changed.`
+      : `[CLOUD OPENED] Opened cloud project version ${version}.`);
+  }
 });
 accountUi = createAccountUi({
   document,
   account: accountSession,
   translate,
-  getLocale: () => state.project.metadata.locale
+  getLocale: () => state.project.metadata.locale,
+  onCloudSave: () => cloudProjectsUi.openSaveDialog?.(),
+  onCloudManage: () => cloudProjectsUi.openManager?.(),
+  onAccountState: accountState => cloudProjectsUi.renderState(accountState)
 });
 void accountSession.initialize();
-window.addEventListener("pagehide", () => accountUi.dispose(), { once: true });
+window.addEventListener("pagehide", () => { accountUi.dispose(); cloudProjectsUi.dispose(); }, { once: true });
 
 const disposeDrawMenu=attachDrawMenu($("#draw-menu"),beginComponentPlacement);
 window.addEventListener("pagehide",event=>{if(!event.persisted)disposeDrawMenu();});

@@ -623,10 +623,25 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .account-message { min-height: 1.2em; margin: .75rem 0 0; color: var(--muted); font-size: .8rem; line-height: 1.45; }
 .account-message:empty { display: none; }
 #account-session p { overflow-wrap: anywhere; }
+#account-session { display: grid; gap: .55rem; }
+.account-cloud-actions { display: grid; gap: .45rem; }
 #account-submit { width: 100%; margin-top: .25rem; }
+#cloud-save-dialog, #cloud-projects-dialog, #cloud-delete-dialog { width: min(36rem, calc(100vw - 2rem)); max-width: 36rem; padding: 1.1rem; border: 1px solid var(--border); border-radius: .6rem; color: var(--ivory); background: var(--navy-2); box-shadow: var(--shadow); }
+#cloud-save-dialog::backdrop, #cloud-projects-dialog::backdrop, #cloud-delete-dialog::backdrop { background: rgb(2 8 16 / 72%); }
+#cloud-save-dialog form, #cloud-delete-dialog form, .cloud-projects-content { display: grid; gap: .7rem; }
+#cloud-save-dialog h2, #cloud-projects-dialog h2, #cloud-delete-dialog h2 { margin: 0; font-size: 1.05rem; }
+#cloud-save-dialog p, #cloud-projects-dialog p, #cloud-delete-dialog p { margin: 0; color: var(--muted); font-size: .82rem; line-height: 1.5; }
+#cloud-projects-dialog label { color: var(--muted); font-size: .78rem; }
+#cloud-project-picker, #cloud-revision-picker { width: 100%; min-width: 0; padding: .55rem; border: 1px solid var(--border); border-radius: .35rem; color: var(--ivory); background: var(--navy); }
+.cloud-project-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .5rem; }
+.danger-button { padding: .52rem .7rem; border: 1px solid #9a3a43; border-radius: .35rem; color: #fff; background: #762b36; }
+.danger-button:hover:not(:disabled) { background: #953440; }
+.danger-button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 @media (max-width: 520px) {
   .account-dialog { padding: .85rem; }
   .account-form-links { align-items: flex-start; flex-direction: column; }
+  #cloud-save-dialog, #cloud-projects-dialog, #cloud-delete-dialog { padding: .85rem; }
+  .cloud-project-actions { align-items: stretch; flex-direction: column; }
 }
 
 @media (min-width: 1121px) and (min-height: 700px) {
