@@ -27,7 +27,7 @@ if (JSON.stringify(coverage) !== JSON.stringify(checkedCoverage)) {
 
 const errors = checks.flatMap((check) => check.errors ?? []);
 if (errors.length) {
-  for (const error of errors) console.error(`${error.code}: ${error.message}`);
+  for (const error of errors) console.error(`${error.code}${error.partId ? ` [${error.partId}]` : ""}: ${error.message}`);
   process.exitCode = 1;
 } else {
   console.log(JSON.stringify({
