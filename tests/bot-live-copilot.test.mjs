@@ -34,6 +34,16 @@ test("live analyzer grounds missing gate input and disconnected output findings 
   assert.ok(!findings.some((item) => item.kind === "missing-gate-rails"));
 });
 
+test("live analyzer reports open VCC/GND pins on non-gate parts from the checked-in library", () => {
+  const project = createEmptyProject({ name: "Unpowered comparator" });
+  const withComparator = addComponent(project, "active.comparator-ideal");
+  const finding = analyzeBotCanvas(withComparator).find((item) => item.kind === "missing-supply-pins");
+  assert.equal(finding.reference, "U1");
+  assert.equal(finding.pins, "VCC and GND");
+  assert.equal(finding.action, null);
+  assert.match(finding.detail, /cannot choose a supply voltage or infer a ground connection/);
+});
+
 test("ambiguous circuit asks for the project goal and uses an explicitly supplied goal", () => {
   const project = gateProject();
   assert.ok(analyzeBotCanvas(project).some((item) => item.kind === "goal-question"));

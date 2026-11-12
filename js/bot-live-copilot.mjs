@@ -43,14 +43,14 @@ export function analyzeBotCanvas(project, { goal = "", now = Date.now(), unconne
     const part = findLibraryPart(component.libraryId);
     if (!part) continue;
     const connectedPins = part.pins.filter((pin) => endpointNets.has(`${component.instanceId}:${pin}`));
+    const missingRails = ["VCC", "GND"].filter((pin) => part.pins.includes(pin) && !endpointNets.has(`${component.instanceId}:${pin}`));
+    if (missingRails.length) findings.push({ id: `missing-supply-pins:${component.instanceId}`, kind: "missing-supply-pins", reference: component.reference, pins: missingRails.join(" and "), action: null, priority: 80, title: `${component.reference} has unconnected supply pins`, message: `The native project has no net on ${missingRails.join(" and ")}. What supply and ground did you intend?`, detail: "The Bot cannot choose a supply voltage or infer a ground connection. Use the component wiring controls, then validate the project." });
     if (LOGIC_GATES.has(component.libraryId)) {
       const inputPins = ["A", "B"].filter((pin) => part.pins.includes(pin));
       const openInputs = inputPins.filter((pin) => !endpointNets.has(`${component.instanceId}:${pin}`));
       if (openInputs.length === 1 && inputPins.length === 2) {
         findings.push({ id: `missing-gate-input:${component.instanceId}:${openInputs[0]}`, kind: "missing-gate-input", reference: component.reference, pin: openInputs[0], action: "add-input-switch", priority: 90, title: `${component.reference} has an open ${openInputs[0]} input`, message: `One input of this two-input gate is wired and ${openInputs[0]} is open. Add a pushbutton at that input?`, detail: "The preview will add a pushbutton and connect one terminal to the selected gate input. Its other terminal remains open so you can choose the intended signal source; no logic level or circuit purpose is guessed." });
       }
-      const missingRails = ["VCC", "GND"].filter((pin) => part.pins.includes(pin) && !endpointNets.has(`${component.instanceId}:${pin}`));
-      if (missingRails.length) findings.push({ id: `missing-gate-rails:${component.instanceId}`, kind: "missing-gate-rails", reference: component.reference, pins: missingRails.join(" and "), action: null, priority: 80, title: `${component.reference} has unconnected supply pins`, message: `The native project has no net on ${missingRails.join(" and ")}. What supply and ground did you intend?`, detail: "The Bot cannot choose a supply voltage or infer a ground connection. Use the component wiring controls, then validate the project." });
       const outputPins = part.pins.filter((pin) => LOGIC_OUTPUTS.has(pin));
       for (const pin of outputPins.filter((name) => !endpointNets.has(`${component.instanceId}:${name}`))) {
         findings.push({ id: `unobserved-gate-output:${component.instanceId}:${pin}`, kind: "unobserved-gate-output", reference: component.reference, pin, action: "add-logic-probe", priority: 70, title: `${component.reference}.${pin} has no connected net`, message: `This gate output is not connected to another pin. Add a logic probe to observe it?`, detail: "An unloaded logic output is not automatically an electrical fault. The suggested probe only makes the output observable; it does not add a load or drive the net." });
