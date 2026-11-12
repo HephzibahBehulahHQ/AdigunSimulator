@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 1480)
+Total output lines: 65
+
 import { findLibraryPart } from "./core.mjs";
 import { MANUFACTURER_PART_RECORDS } from "./part-catalogue.mjs";
 
@@ -29,21 +32,7 @@ export function explainComponent(project, target) {
   const datasheet = evidence?.datasheet;
   const known = [
     { field: "Reference", value: component.reference, source: "Native project" },
-    { field: "Configured value", value: component.value || "Not set", source: "Native project" },
-    { field: "Library description", value: part.type, source: "Checked-in component library" },
-    { field: "Library pins", value: Array.isArray(part.pins) ? part.pins.join(", ") : "Not recorded", source: "Checked-in component library" },
-    { field: "Manufacturer", value: evidence?.manufacturer ?? "Not recorded", source: manufacturerSource },
-    { field: "Manufacturer part number", value: evidence?.manufacturerPartNumber ?? "Not recorded", source: manufacturerSource },
-    { field: "Physical package", value: evidence?.packageEvidence?.package ?? evidence?.package ?? "Not recorded", source: manufacturerSource },
-    { field: "Lifecycle", value: evidence?.lifecycle ?? "Not recorded", source: manufacturerSource },
-    { field: "Evidence review status", value: evidence?.verificationStatus ?? "Not recorded", source: "Checked-in manufacturer evidence ledger" },
-    { field: "Manufacturer datasheet", value: datasheet?.url ? `${datasheet.title ?? "Datasheet"}: ${datasheet.url}` : "Not recorded", source: datasheet?.url ?? "Checked-in manufacturer evidence ledger" },
-    { field: "Datasheet pin-number map", value: displayPinMap(evidence), source: datasheet?.url ?? "Checked-in manufacturer evidence ledger" },
-    { field: "Supported views", value: ["breadboard", "schematic", "pcb"].filter((view) => part.views?.[view]).join(", ") || "None recorded", source: "Checked-in component library" },
-    { field: "Simulation model", value: part.simulation ?? "None declared", source: "Checked-in component library" },
-    { field: "Library status", value: part.status ?? "Not recorded", source: "Checked-in component library" }
-  ];
-  const answer = `For ${component.reference}, the project records ${component.value || "no configured value"}; the checked-in library describes it as ${part.type}. Library status: ${part.status ?? "not recorded"}; simulation model: ${part.simulation ?? "none declared"}. Manufacturer evidence: ${evidence?.manufacturer ?? "not recorded"}; MPN ${evidence?.manufacturerPartNumber ?? "not recorded"}; package ${evidence?.packageEvidence?.package ?? evidence?.package ?? "not recorded"}; review status ${evidence?.verificationStatus ?? "not recorded"}. ${datasheet?.url ? `Datasheet: ${datasheet.url}.` : "No manufacturer datasheet URL is recorded."} ${unknown.length ? `Unknown: ${unknown.join(" ")}` : "These identity and evidence fields are copied from the checked-in ledger; the status does not imply independent review."}`;
+    { field: "Confi…480 tokens truncated…-in component library. Manufacturer evidence lookup: checked-in manufacturer evidence ledger. Library status: ${part.status ?? "not recorded"}; simulation model: ${part.simulation ?? "none declared"}. Manufacturer evidence: ${evidence?.manufacturer ?? "not recorded"}; MPN ${evidence?.manufacturerPartNumber ?? "not recorded"}; package ${evidence?.packageEvidence?.package ?? evidence?.package ?? "not recorded"}; review status ${evidence?.verificationStatus ?? "not recorded"}. ${datasheet?.url ? `Datasheet: ${datasheet.url}.` : "No manufacturer datasheet URL is recorded."} ${unknown.length ? `Unknown: ${unknown.join(" ")}` : "These identity and evidence fields are copied from the checked-in ledger; the status does not imply independent review."}`;
   return {
     ok: true,
     kind: "bot-grounded-component-explanation",
@@ -62,3 +51,4 @@ export function runBotComponentExplainer(project) {
   if (!explanation.ok) return { state: "blocked", engine: "Adigun BOT local component explainer", message: explanation.error, errors: [{ code: "BOT_COMPONENT_UNKNOWN", message: explanation.error }], warnings: [], result: null };
   return { state: "complete", engine: "Adigun BOT local component explainer", message: explanation.scope, errors: [], warnings: explanation.unknown.map((message) => ({ code: "BOT_FIELD_UNKNOWN", message })), result: explanation };
 }
+
