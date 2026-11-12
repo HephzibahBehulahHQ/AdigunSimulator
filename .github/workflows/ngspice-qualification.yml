@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
+      - uses: actions/checkout@v4
+
       - name: Install upstream build prerequisites
         run: |
           sudo apt-get update
@@ -40,5 +42,13 @@ jobs:
           cd build
           ../configure --with-ngshared --enable-cider --prefix="$RUNNER_TEMP/ngspice-install"
           make -j2
-          test -n "$(find . -type f -path '*/.libs/libngspice.so*' -print -quit)"
+          NGSPICE_LIBRARY="$(find . -type f -path '*/.libs/libngspice.so*' -print -quit)"
+          test -n "$NGSPICE_LIBRARY"
+          NGSPICE_LIBRARY_DIR="$(dirname "$NGSPICE_LIBRARY")"
+          cc -I "$GITHUB_WORKSPACE/ngspice/src/include" \
+            "$GITHUB_WORKSPACE/tests/ngspice/native-smoke.c" \
+            -L "$NGSPICE_LIBRARY_DIR" -Wl,-rpath,"$NGSPICE_LIBRARY_DIR" \
+            -lngspice -lm -o "$RUNNER_TEMP/ngspice-native-smoke"
+          "$RUNNER_TEMP/ngspice-native-smoke" \
+            "$GITHUB_WORKSPACE/tests/ngspice/resistor-divider.cir"
 
