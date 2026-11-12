@@ -40,7 +40,7 @@ Small vias retain their electrical copper and drill dimensions while rendering a
 
 ### Live browser verification — 2026-11-12
 
-On the production site, loaded example 125 without saving and created a temporary VBUS via at (25,17) mm. Clicking the via focused it; with Snap enabled, ArrowRight moved it to (25.5,17). Dragging moved it to (26,17). Three Ctrl+Z actions reversed the drag, keyboard move, and creation in order, restoring the example's original ten vias. Reload returned the app to its empty-project startup state. A right-arrow move on crowded via J1-A4 was separately rejected with `COPPER_CLEARANCE`. Valid keyboard and pointer edits, ordered Undo, and the copper-clearance guard are now browser-verified; touch/device gestures and Escape/pointer cancellation remain unverified.
+On the production site, loaded example 125 without saving and created a temporary VBUS via at (25,17) mm. Clicking the via focused it; with Snap enabled, ArrowRight moved it to (25.5,17). Dragging moved it to (26,17). Three Ctrl+Z actions reversed the drag, keyboard move, and creation in order, restoring the example's original ten vias. Reload returned the app to its empty-project startup state. A right-arrow move on crowded via J1-A4 was separately rejected with `COPPER_CLEARANCE`. Valid keyboard and pointer edits, ordered Undo, and the copper-clearance guard are now browser-verified. With Snap off, ArrowDown moved y=17.0 to 17.1 mm; Ctrl+Z restored y=17.0 and the next Undo removed the temporary via. Touch/device gestures and Escape/pointer cancellation remain unverified.
 
 ## Reproduction and remaining work
 
