@@ -1,298 +1,1 @@
-import assert from "node:assert/strict";
-import test from "node:test";
-import { readFile } from "node:fs/promises";
-import { runInNewContext as vmRun } from "node:vm";
-const runInNewContext=(code,globals)=>vmRun(code,{wireUi:{reset(){},pointerDown:()=>false,pointerMove:()=>false,pointerEnd:()=>false,keydown:()=>false},...globals});
-import { TRANSLATIONS } from "../js/i18n.mjs";
-import { runProjectAnalysis } from "../js/analysis-dispatch.mjs";
-import { pcbCopperPads } from "../js/pcb-vias.mjs";
-import { CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera, canvasClientPoint, canvasClientDelta } from "../js/canvas-camera.mjs";
-import { pcbPreviewPointToBoardMm } from "../js/pcb-preview.mjs";
-import { parseProject, serializeProject } from "../js/core.mjs";
-import { movePcbFootprint } from "../js/pcb-edit.mjs";
-import { rotatePcbFootprint } from "../js/pcb-rotate.mjs";
-
-const source = await readFile(new URL("../app.js", import.meta.url), "utf8");
-// Execute the actual UI functions with small DOM boundaries, not copies of their logic.
-function uiFunction(name, nextName, globals) {
-  const start = source.indexOf(`function ${name}(`);
-  const end = source.indexOf(nextName, start);
-  assert.ok(start >= 0 && end > start);
-  return runInNewContext(`${source.slice(start, end)}\n${name}`, globals);
-}
-
-test("the real Undo/Redo functions round-trip a fractional PCB move and preserve native nets", async () => {
-  const original = parseProject(await readFile(new URL("../examples/125-usbc-breakout.adigun.json", import.meta.url), "utf8"));
-  const moved = movePcbFootprint(original, "rd1", { x: 0.5, y: 0 }).project;
-  const state = { project: moved, history: [serializeProject(original)], future: [] };
-  const start = source.indexOf("function replaceProject("), end = source.indexOf("function updateSaveState(", start);
-  const actions = runInNewContext(`${source.slice(start, end)}\n({undo,redo})`, { state, wireUi:{reset(){}}, parseProject, serializeProject, render() {}, log() {}, t: (k) => k, showDialog: (title, message) => assert.fail(message) });
-  actions.undo();
-  assert.deepEqual(state.project.pcbFabrication, original.pcbFabrication);
-  actions.redo();
-  assert.deepEqual(state.project.pcbFabrication, moved.pcbFabrication);
-  assert.deepEqual(state.project.nets, original.nets);
-  actions.undo();
-  assert.deepEqual(state.project.pcbFabrication, original.pcbFabrication);
-});
-
-test("PCB rotation UI commits once, clears a draft, supports Undo/Redo and preserves rejected edits", async () => {
-  const original = parseProject(await readFile(new URL("../examples/125-usbc-breakout.adigun.json", import.meta.url), "utf8"));
-  const state = { project: original, activeView: "pcb", activeTool: "pcb-route", pcbRouteDraft: { pointsMm: [[1, 2]] }, history: [], future: [] };
-  let dialogs = 0, validations = 0;
-  const globals = { state, rotatePcbFootprint, parseProject, serializeProject, render() {}, log() {}, t: (k) => k,
-    selectedComponent: () => state.project.components.find((c) => c.instanceId === "rd1"),
-    captureHistory: () => { state.history.push(serializeProject(state.project)); state.future = []; },
-    validateAndReport: () => { validations++; }, showDialog: () => { dialogs++; } };
-  const rotate = uiFunction("rotateSelectedPcbFootprint", "function handleAction(", globals);
-  rotate(90);
-  assert.equal(state.history.length, 1);
-  assert.equal(state.activeTool, "select");
-  assert.equal(state.pcbRouteDraft, null);
-  assert.equal(state.dirty, true);
-  assert.equal(validations, 1);
-  const rotated = structuredClone(state.project);
-  const start = source.indexOf("function replaceProject("), end = source.indexOf("function updateSaveState(", start);
-  const actions = runInNewContext(`${source.slice(start, end)}\n({undo,redo})`, globals);
-  actions.undo(); assert.deepEqual(state.project.pcbFabrication, original.pcbFabrication);
-  actions.redo(); assert.deepEqual(state.project.pcbFabrication, rotated.pcbFabrication);
-  assert.deepEqual(state.project.nets, original.nets);
-  const before = JSON.stringify(state);
-  rotate(45);
-  assert.equal(dialogs, 1);
-  assert.equal(JSON.stringify(state), before);
-  state.activeView = "schematic";
-  rotate(90);
-  assert.equal(state.project.pcbFabrication.parts.find((p) => p.instanceId === "rd1").rotationDeg, 90);
-});
-
-test("rejected history snapshots leave the current project and both history stacks intact", () => {
-  for (const direction of ["undo", "redo"]) {
-    const state = { project: { id: "preserved" }, history: ['{"invalid":"previous"}'], future: ['{"invalid":"next"}'], botUnsavedOnly: true };
-    const before = JSON.stringify(state);
-    let dialogs = 0;
-    const start = source.indexOf("function replaceProject("), end = source.indexOf("function updateSaveState(", start);
-    const actions = runInNewContext(`${source.slice(start, end)}\n({undo,redo})`, { state, wireUi:{reset(){}}, parseProject, serializeProject, render() {}, log() {}, t: (k) => k, showDialog: () => { dialogs++; } });
-    actions[direction]();
-    assert.equal(dialogs, 1);
-    assert.equal(JSON.stringify(state), before);
-  }
-});
-
-test("real canvas zoom and fit update the whole scene without changing the native project or tool", () => {
-  const project = { id: "unchanged-project" };
-  const state = { project, scale: 1, pan: { x: 25, y: -10 }, activeTool: "pcb-route" };
-  const scene = { style: {} };
-  const previewScene = { style: {} };
-  const nodes = { "#design-canvas": { clientWidth: 680, clientHeight: 300, querySelector: () => scene }, "#zoom-level": {}, '[data-tool="zoom-in"]': {}, '[data-tool="zoom-out"]': {} };
-  nodes["#schematic-mini"] = { clientWidth: 340, clientHeight: 240, querySelector: () => previewScene };
-  nodes["#pcb-mini"] = { clientWidth: 0, clientHeight: 0, querySelector: () => null };
-  const start = source.indexOf("function applyCanvasCamera(");
-  const end = source.indexOf("function renderCanvasFeedback(", start);
-  const { apply, zoom } = runInNewContext(`${source.slice(start, end)}\n({apply:applyCanvasCamera,zoom:changeCanvasZoom})`, {
-    state, $: (selector) => nodes[selector], CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera
-  });
-  apply();
-  assert.equal(previewScene.style.transform, "translate(0px, 45px) scale(0.5)");
-  zoom("zoom-in");
-  assert.equal(state.scale, 1.25);
-  assert.equal(nodes["#zoom-level"].textContent, "125%");
-  assert.match(scene.style.transform, /scale\(1\.25\)/);
-  assert.equal(state.project, project);
-  assert.equal(state.activeTool, "pcb-route");
-  assert.equal(previewScene.style.transform, "translate(0px, 45px) scale(0.5)", "preview uses one fixed transform independent of main-canvas zoom");
-  for (let i = 0; i < 20; i++) zoom("zoom-in");
-  assert.equal(state.scale, 8);
-  assert.equal(nodes['[data-tool="zoom-in"]'].disabled, true);
-  zoom("fit");
-  assert.equal(state.scale, 1);
-  assert.equal(state.pan.x, 0);
-  assert.equal(state.pan.y, 0);
-  assert.equal(nodes['[data-tool="zoom-in"]'].disabled, false);
-  assert.equal(state.project, project);
-});
-
-test("sidebar toggles preserve project, selection, camera and mounted canvas", () => {
-  const project = { id: "preserved" }, history = [{ project }], pan = { x: 12, y: -4 };
-  const state = { project, history, pan, selectedInstanceId: "R1", leftBarOpen: true, rightBarOpen: true };
-  const classes = () => ({ values: new Set(), toggle(name, enabled) { enabled ? this.values.add(name) : this.values.delete(name); } });
-  const nodes = { "#workspace": { classList: classes() }, ".library-panel": { classList: classes(), contains: () => true }, ".inspector-panel": { classList: classes(), contains: () => false } };
-  const buttons = { left: { expanded: "true", focused: false, setAttribute(key, value) { this.expanded = value; }, focus() { this.focused = true; } }, right: { expanded: "true", setAttribute(key, value) { this.expanded = value; } } };
-  const lookup = selector => nodes[selector] ?? buttons[selector.includes('"left"') ? "left" : "right"];
-  const set = uiFunction("setWorkspacePanel", "function rotateSelectedPcbFootprint", { state, $: lookup, $$: selector => [lookup(selector)], document: { activeElement: {} } });
-  set("left", false); set("right", false);
-  assert.equal(state.leftBarOpen, false); assert.equal(state.rightBarOpen, false);
-  assert.equal(buttons.left.expanded, "false"); assert.equal(buttons.left.focused, true);
-  assert.ok(nodes["#workspace"].classList.values.has("left-panel-closed"));
-  set("left", true); set("right", true);
-  assert.equal(state.leftBarOpen, true); assert.equal(state.rightBarOpen, true);
-  assert.equal(buttons.right.expanded, "true"); assert.equal(nodes["#workspace"].classList.values.size, 0);
-  assert.equal(state.project, project); assert.equal(state.history, history); assert.equal(state.pan, pan); assert.equal(state.selectedInstanceId, "R1");
-});
-
-test("a pointer click without dragging selects the component before replacing its canvas DOM", () => {
-  const project = { id: "untouched" };
-  const canvas = { releasePointerCapture() {}, querySelector: () => ({ getBoundingClientRect: () => ({ width:680,height:300 }) }) };
-  const state = { project, selectedInstanceId: "R1", drag: { mode: "move", pointerId: 7, instanceId: "U1", start: { x: 100, y: 100 }, canvas } };
-  let handler, inspector, renderedSelection;
-  const start = source.indexOf('document.addEventListener("pointerup"');
-  const end = source.indexOf('\n});', start) + 4;
-  runInNewContext(source.slice(start, end), { pcbViaEditor: { pointerEnd: () => false }, state, document: { addEventListener: (_, value) => { handler = value; } }, canvasClientDelta, setInspector: value => { inspector = value; }, renderInspector() {}, updateSaveState() {}, renderCanvas: () => { renderedSelection = state.selectedInstanceId; }, captureHistory: () => { throw new Error("Selection must not edit history"); } });
-  handler({ pointerId:7, clientX:100, clientY:100 });
-  assert.equal(state.selectedInstanceId, "U1"); assert.equal(renderedSelection,"U1"); assert.equal(inspector,"component"); assert.equal(state.project,project); assert.equal(state.drag,null);
-});
-
-test("Escape closes an application menu and restores focus without consuming unrelated keys", () => {
-  let focused = 0, prevented = 0;
-  const menu = { open: true, querySelector: () => ({ focus: () => { focused++; } }) };
-  const handle = uiFunction("handleAppMenuKeydown", 'document.addEventListener("click"', {
-    document: { querySelector: () => menu.open ? menu : null }
-  });
-  const event = { key: "Escape", preventDefault: () => { prevented++; } };
-  assert.equal(handle({ ...event, key: "Enter" }), false);
-  assert.equal(menu.open, true);
-  assert.equal(handle(event), true);
-  assert.equal(menu.open, false);
-  assert.equal(focused, 1);
-  assert.equal(prevented, 1);
-  assert.equal(handle(event), false);
-});
-
-
-test("canvas feedback preserves the review disclosure and escapes project text outside the drawing", () => {
-  for (const locale of ["en", "de", "yo", "pcm"]) {
-    const nodes = Object.fromEntries(["canvas-view-label", "view-reconciliation", "view-reconciliation-summary", "view-reconciliation-items"].map((id) => [`#${id}`, { open: true }]));
-    const render = uiFunction("renderCanvasFeedback", "function renderCanvas(", {
-      $: (selector) => nodes[selector], t: (key) => TRANSLATIONS[locale][key],
-      escape: (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
-    });
-    render([{ reference: "<R1>", reason: "<img src=x> & unmapped" }], TRANSLATIONS[locale].pcbStoredLayoutPreview);
-    assert.equal(nodes["#canvas-view-label"].textContent, TRANSLATIONS[locale].pcbStoredLayoutPreview);
-    assert.equal(nodes["#view-reconciliation"].hidden, false);
-    assert.equal(nodes["#view-reconciliation"].open, true);
-    assert.equal(nodes["#view-reconciliation-summary"].textContent, `${TRANSLATIONS[locale].viewReconciliationNeeded} (1)`);
-    assert.equal(nodes["#view-reconciliation-items"].innerHTML, "<li>&lt;R1&gt;: &lt;img src=x&gt; &amp; unmapped</li>");
-    render([], "New view");
-    assert.equal(nodes["#view-reconciliation"].hidden, true);
-    assert.equal(nodes["#view-reconciliation-items"].innerHTML, "");
-  }
-});
-
-test("Enter and Space select a PCB via through the real route interaction handler", () => {
-  for (const key of ["Enter", " "]) {
-    const state = { activeView: "pcb", activeTool: "pcb-route", project: { pcbFabrication: {
-      pads: [], vias: [{ id: "test", netId: "VCC", xMm: 2, yMm: 3, diameterMm: 0.6, drillMm: 0.3 }]
-    } } };
-    const pad = { dataset: { pcbPad: "@via:test", pcbNet: "VCC", xMm: "2", yMm: "3" } };
-    let prevented = 0;
-    const event = { key, target: { closest: (selector) => ["[data-pcb-pad]", "#design-canvas"].includes(selector) ? pad : null }, preventDefault: () => { prevented++; }, stopPropagation() {} };
-    const start = source.indexOf("function handlePcbRouteCanvasClick(");
-    const end = source.indexOf('document.addEventListener("click"', start);
-    const activate = runInNewContext(`${source.slice(start, end)}\nhandlePcbRouteKeydown`, {
-      state, pcbCopperPads, $: () => ({ value: "B.Cu" }), render() {}, log() {}
-    });
-    assert.equal(activate(event), true);
-    assert.equal(state.pcbRouteDraft.startPad, "@via:test");
-    assert.equal(JSON.stringify(state.pcbRouteDraft.pointsMm), "[[2,3]]");
-    assert.equal(prevented, 1);
-    assert.equal(activate({ ...event, key: "ArrowRight" }), false);
-    state.activeTool = "select";
-    assert.equal(activate(event), false);
-  }
-});
-
-test("route board clicks use zoomed coordinates, snap to millimetres and reject points outside the board", async () => {
-  const project = parseProject(await readFile(new URL("../examples/125-usbc-breakout.adigun.json", import.meta.url), "utf8"));
-  const state = { activeView: "pcb", activeTool: "pcb-route", project, pcbRouteDraft: { pointsMm: [[2, 3]] } };
-  const rect = { left: 100, top: 80, width: 1020, height: 450 };
-  const svg = { getBoundingClientRect: () => rect };
-  const click = uiFunction("handlePcbRouteCanvasClick", "function handlePcbRouteKeydown(", {
-    state, canvasClientPoint, pcbPreviewPointToBoardMm, $: () => ({ checked: true }), renderCanvas() {}
-  });
-  const event = (worldX, worldY) => ({ clientX: rect.left + worldX * 1.5, clientY: rect.top + worldY * 1.5,
-    target: { closest: (selector) => selector === "#design-canvas" ? {} : selector === ".pcb-preview-svg" ? svg : null } });
-  const before = serializeProject(project);
-  assert.equal(click(event(434, 223)), true);
-  assert.deepEqual(state.pcbRouteDraft.pointsMm.at(-1), [30, 17]);
-  assert.equal(state.pcbRouteHintKey, "pcbRouteWaypoint");
-  click(event(434, 223));
-  assert.equal(state.pcbRouteDraft.pointsMm.length, 2);
-  click(event(20, 20));
-  assert.equal(state.pcbRouteHintKey, "pcbRouteBlocked");
-  assert.equal(state.pcbRouteDraft.pointsMm.length, 2);
-  assert.equal(serializeProject(project), before);
-});
-
-test("localization updates every placeholder and image alt without aborting startup", () => {
-  for (const locale of ["en", "de", "yo", "pcm"]) {
-    const placeholders = [0, 1].map(() => ({ dataset: { i18nPlaceholder: "locale" }, placeholder: "old" }));
-    const images = [0, 1].map(() => ({ dataset: { i18nAlt: "corporateLogoAlt" }, alt: "old" }));
-    const language = {};
-    const document = { documentElement: {} };
-    const elements = { "[data-i18n-placeholder]": placeholders, "[data-i18n-alt]": images };
-    const apply = uiFunction("applyLocale", "function renderAcSweepOutputOptions(", {
-      state: { project: { metadata: { locale } } }, document, TRANSLATIONS,
-      $: (selector) => selector === "#language" ? language : elements[selector]?.[0],
-      $$: (selector) => elements[selector] ?? []
-    });
-    apply();
-    assert.equal(document.documentElement.lang, locale);
-    assert.equal(language.value, locale);
-    placeholders.forEach((element) => assert.equal(element.placeholder, TRANSLATIONS[locale].locale));
-    images.forEach((element) => assert.equal(element.alt, TRANSLATIONS[locale].corporateLogoAlt));
-  }
-});
-
-test("diagnostic tab selection updates all tabs and renders an empty error list", () => {
-  const makeElement = (dataset = {}) => ({ dataset, classes: {}, classList: { toggle(name, active) { this.owner.classes[name] = active; } } });
-  const elements = Object.fromEntries(["#result-dashboard", "#export-simulation-report", "#workspace-notes", "#output-log", "#issue-list"].map((id) => [id, makeElement()]));
-  const tabs = ["output", "errors", "warnings"].map((output) => makeElement({ output }));
-  [...Object.values(elements), ...tabs].forEach((element) => { element.classList.owner = element; });
-  const render = uiFunction("renderOutput", "function applyLocale(", {
-    state: { activeOutput: "errors", lastAnalysis: null },
-    $: (selector) => selector === ".output-tab" ? tabs[0] : elements[selector],
-    $$: (selector) => selector === ".output-tab" ? tabs : []
-  });
-  render({ errors: [], warnings: [] });
-  assert.deepEqual(tabs.map((tab) => tab.classes.active), [false, true, false]);
-  assert.equal(elements["#issue-list"].textContent, "[ERRORS] None.");
-});
-
-test("completed results feed playback even when canvas feedback is disabled", async () => {
-  for (const file of ["070-stm32-timer-pwm", "021-555-astable-blinker", "001-led-current-limiter", "005-rc-step-response", "006-rl-step-response"]) {
-    const project = JSON.parse(await readFile(new URL(`../examples/${file}.adigun.json`, import.meta.url), "utf8"));
-    const analysis = runProjectAnalysis(project);
-    assert.equal(analysis.state, "complete", file);
-    let renders = 0;
-    const state = { project };
-    const log = [];
-    const feedback = [];
-    const complete = uiFunction("runAnalysis", "async function verifyRunLockfile(", {
-      state, log: (line) => log.push(line), renderOutput: () => { renders += 1; },
-      $: selector => { assert.equal(selector,"#feedback-live"); return {checked:false}; },
-      dcFeedback: {accept: (p,result)=>feedback.push([p,result])}
-    });
-    complete(analysis);
-    assert.equal(renders, 1, file);
-    assert.equal(state.lastAnalysis, analysis);
-    assert.equal(state.lastAnalysisProjectKey,JSON.stringify(project));
-    assert.deepEqual(feedback,[[project,analysis]]);
-    assert.ok(log.some((line) => line.startsWith("[LIMIT]")), file);
-  }
-});
-
-
-test("completed DC feedback refreshes wire and junction inspector measurements without a transient frame",()=>{
-  const start=source.indexOf('const dcFeedback = createLiveDcFeedback('),end=source.indexOf('const FEEDBACK_MOTION_TEXT',start);let callbacks;const calls=[];
-  vmRun(source.slice(start,end),{createLiveDcFeedback:options=>{callbacks=options;return {};},renderCanvas:()=>calls.push('canvas'),wireUi:{paintMeasurements:()=>calls.push('measurements')},renderFeedbackControls:()=>calls.push('controls'),paintSimulationFrame:()=>calls.push('frame')});
-  callbacks.onPaint({frameOnly:false});assert.deepEqual(calls,['canvas','measurements','controls']);calls.length=0;
-  callbacks.onPaint({frameOnly:true});assert.deepEqual(calls,['frame','controls']);
-});
-
-
-test("canvas feedback toggle redraws without stopping or restarting scope playback",()=>{
-  const start=source.indexOf('$("#feedback-live").addEventListener("change"'),end=source.indexOf('\n',start);
-  let change;const calls=[];
-  vmRun(source.slice(start,end),{$:()=>({addEventListener:(_,fn)=>{change=fn;}}),renderCanvas:()=>calls.push('canvas'),wireUi:{paintMeasurements:()=>calls.push('measurements')},dcFeedback:{stop:()=>assert.fail('must not stop playback'),accept:()=>assert.fail('must not restart playback')}});
-  change();assert.deepEqual(calls,['canvas','measurements']);
-});
+YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éíëÍ½N‹Z–‹­¦ëeŠw¬Õ¥µÁ½ÉÐ…ÍÍ•ÉÐ™É½´€‰¹½‘”é…ÍÍ•ÉÐ½ÍÑÉ¥Ðˆì)¥µÁ½ÉÐÑ•ÍÐ™É½´€‰¹½‘”éÑ•ÍÐˆì)¥µÁ½ÉÐìÉ•…‘¥±”ô™É½´€‰¹½‘”é™Ì½ÁÉ½µ¥Í•Ìˆì)¥µÁ½ÉÐìÉÕ¹%¹9•Ý½¹Ñ•áÐ…ÌÙµIÕ¸ô™É½´€‰¹½‘”éÙ´ˆì)½¹ÍÐÉÕ¹%¹9•Ý½¹Ñ•áÐô¡½‘”±±½‰…±Ì¤ôùÙµIÕ¸¡½‘”±íÝ¥É•U¤éíÉ•Í•Ð ¥íô±Á½¥¹Ñ•É½Ý¸è ¤ôù™…±Í”±Á½¥¹Ñ•É5½Ù”è ¤ôù™…±Í”±Á½¥¹Ñ•É¹è ¤ôù™…±Í”±­•å‘½Ý¸è ¤ôù™…±Í•ô°¸¸¹±½‰…±Íô¤ì)¥µÁ½ÉÐìQI9M1Q%=9Lô™É½´€ˆ¸¸½©Ì½¤Äá¸¹µ©Ìˆì)¥µÁ½ÉÐìÉÕ¹AÉ½©•Ñ¹…±åÍ¥Ìô™É½´€ˆ¸¸½©Ì½…¹…±åÍ¥Ìµ‘¥ÍÁ…Ñ ¹µ©Ìˆì)¥µÁ½ÉÐìÁ‰½ÁÁ•ÉA…‘Ìô™É½´€ˆ¸¸½©Ì½ÁˆµÙ¥…Ì¹µ©Ìˆì)¥µÁ½ÉÐì9YM}i==4°É•…Ñ•…¹Ù…Í…µ•É„°é½½µ…¹Ù…Í…µ•É„°…¹Ù…Í±¥•¹ÑA½¥¹Ð°…¹Ù…Í±¥•¹Ñ•±Ñ„ô™É½´€ˆ¸¸½©Ì½…¹Ù…Ìµ…µ•É„¹µ©Ìˆì)¥µÁ½ÉÐìÁ‰AÉ•Ù¥•ÝA½¥¹ÑQ½	½…É‘5´ô™É½´€ˆ¸¸½©Ì½ÁˆµÁÉ•Ù¥•Ü¹µ©Ìˆì)¥µÁ½ÉÐìÁ…ÉÍ•AÉ½©•Ð°Í•É¥…±¥é•AÉ½©•Ðô™É½´€ˆ¸¸½©Ì½½É”¹µ©Ìˆì)¥µÁ½ÉÐìµ½Ù•A‰½½ÑÁÉ¥¹Ðô™É½´€ˆ¸¸½©Ì½Áˆµ•‘¥Ð¹µ©Ìˆì)¥µÁ½ÉÐìÉ½Ñ…Ñ•A‰½½ÑÁÉ¥¹Ðô™É½´€ˆ¸¸½©Ì½ÁˆµÉ½Ñ…Ñ”¹µ©Ìˆì()½¹ÍÐÍ½ÕÉ”€ô…Ý…¥ÐÉ•…‘¥±”¡¹•ÜUI0 ˆ¸¸½…ÁÀ¹©Ìˆ°¥µÁ½ÉÐ¹µ•Ñ„¹ÕÉ°¤°€‰ÕÑ˜àˆ¤ì(¼¼á•ÕÑ”Ñ¡”…ÑÕ…°U$™Õ¹Ñ¥½¹ÌÝ¥Ñ Íµ…±°=4‰½Õ¹‘…É¥•Ì°¹½Ð½Á¥•Ì½˜Ñ¡•¥È±½¥Œ¸)™Õ¹Ñ¥½¸Õ¥Õ¹Ñ¥½¸¡¹…µ”°¹•áÑ9…µ”°±½‰…±Ì¤ì(€½¹ÍÐÍÑ…ÉÐ€ôÍ½ÕÉ”¹¥¹‘•á=˜¡™Õ¹Ñ¥½¸€‘í¹…µ•ô¡€¤ì(€½¹ÍÐ•¹€ôÍ½ÕÉ”¹¥¹‘•á=˜¡¹•áÑ9…µ”°ÍÑ…ÉÐ¤ì(€…ÍÍ•ÉÐ¹½¬¡ÍÑ…ÉÐ€øô€À€˜˜•¹€øÍÑ…ÉÐ¤ì(€É•ÑÕÉ¸ÉÕ¹%¹9•Ý½¹Ñ•áÐ¡€‘íÍ½ÕÉ”¹Í±¥”¡ÍÑ…ÉÐ°•¹¥õq¸‘í¹…µ•õ€°±½‰…±Ì¤ì)ô()Ñ•ÍÐ ‰Ñ¡”É•…°U¹‘¼½I•‘¼™Õ¹Ñ¥½¹ÌÉ½Õ¹µÑÉ¥À„™É…Ñ¥½¹…°Aµ½Ù”…¹ÁÉ•Í•ÉÙ”¹…Ñ¥Ù”¹•ÑÌˆ°…Íå¹Œ€ ¤€ôøì(€½¹ÍÐ½É¥¥¹…°€ôÁ…ÉÍ•AÉ½©•Ð¡…Ý…¥ÐÉ•…‘¥±”¡¹•ÜUI0 ˆ¸¸½•á…µÁ±•Ì¼ÄÈÔµÕÍ‰Œµ‰É•…­½ÕÐ¹…‘¥Õ¸¹©Í½¸ˆ°¥µÁ½ÉÐ¹µ•Ñ„¹ÕÉ°¤°€‰ÕÑ˜àˆ¤¤ì(€½¹ÍÐµ½Ù•€ôµ½Ù•A‰½½ÑÁÉ¥¹Ð¡½É¥¥¹…°°€‰ÉÄˆ°ìàè€À¸Ô°äè€Àô¤¹ÁÉ½©•Ðì(€½¹ÍÐÍÑ…Ñ”€ôìÁÉ½©•Ðèµ½Ù•°¡¥ÍÑ½ÉäèmÍ•É¥…±¥é•AÉ½©•Ð¡½É¥¥¹…°¥t°™ÕÑÕÉ”èmtôì(€½¹ÍÐÍÑ…ÉÐ€ôÍ½ÕÉ”¹¥¹‘•á=˜ ‰™Õ¹Ñ¥½¸É•Á±…•AÉ½©•Ð ˆ¤°•¹€ôÍ½ÕÉ”¹¥¹‘•á=˜ ‰™Õ¹Ñ¥½¸ÕÁ‘…Ñ•M…Ù•MÑ…Ñ” ˆ°ÍÑ…ÉÐ¤ì(€½¹ÍÐ…Ñ¥½¹Ì€ôÉÕ¹%¹9•Ý½¹Ñ•áÐ¡€‘íÍ½ÕÉ”¹Í±¥”¡ÍÑ…ÉÐ°•¹¥õq¸¡íÕ¹‘¼±É•‘½ô¥€°ìÍÑ…Ñ”°Ý¥É•U¤éíÉ•Í•Ð ¥íõô°Á…ÉÍ•AÉ½©•Ð°Í•É¥…±¥é•AÉ½©•Ð°É•¹‘•È ¤íô°±½œ ¤íô°Ðè€¡¬¤€ôø¬°Í¡½Ý¥…±½œè€¡Ñ¥Ñ±”°µ•ÍÍ…”¤€ôø…ÍÍ•ÉÐ¹™…¥°¡µ•ÍÍ…”¤ô¤ì(€…Ñ¥½¹Ì¹Õ¹‘¼ ¤ì(€…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð¹Á‰…‰É¥…Ñ¥½¸°½É¥¥¹…°¹Á‰…‰É¥…Ñ¥½¸¤ì(€…Ñ¥½¹Ì¹É•‘¼ ¤ì(€…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð¹Á‰…‰É¥…Ñ¥½¸°µ½Ù•¹Á‰…‰É¥…Ñ¥½¸¤ì(€…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð¹¹•ÑÌ°½É¥¥¹…°¹¹•ÑÌ¤ì(€…Ñ¥½¹Ì¹Õ¹‘¼ ¤ì(€…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð¹Á‰…‰É¥…Ñ¥½¸°½É¥¥¹…°¹Á‰…‰É¥…Ñ¥½¸¤ì)ô¤ì()Ñ•ÍÐ ‰AÉ½Ñ…Ñ¥½¸U$½µµ¥ÑÌ½¹”°±•…ÉÌ„‘É…™Ð°ÍÕÁÁ½ÉÑÌU¹‘¼½I•‘¼…¹ÁÉ•Í•ÉÙ•ÌÉ•©•Ñ••‘¥ÑÌˆ°…Íå¹Œ€ ¤€ôøì(€½¹ÍÐ½É¥¥¹…°€ôÁ…ÉÍ•AÉ½©•Ð¡…Ý…¥ÐÉ•…‘¥±”¡¹•ÜUI0 ˆ¸¸½•á…µÁ±•Ì¼ÄÈÔµÕÍ‰Œµ‰É•…­½ÕÐ¹…‘¥Õ¸¹©Í½¸ˆ°¥µÁ½ÉÐ¹µ•Ñ„¹ÕÉ°¤°€‰ÕÑ˜àˆ¤¤ì(€½¹ÍÐÍÑ…Ñ”€ôìÁÉ½©•Ðè½É¥¥¹…°°…Ñ¥Ù•Y¥•Üè€‰Áˆˆ°…Ñ¥Ù•Q½½°è€‰ÁˆµÉ½ÕÑ”ˆ°Á‰I½ÕÑ•É…™ÐèìÁ½¥¹ÑÍ5´èmlÄ°€Éutô°¡¥ÍÑ½Éäèmt°™ÕÑÕÉ”èmtôì(€±•Ð‘¥…±½Ì€ô€À°Ù…±¥‘…Ñ¥½¹Ì€ô€Àì(€½¹ÍÐ±½‰…±Ì€ôìÍÑ…Ñ”°É½Ñ…Ñ•A‰½½ÑÁÉ¥¹Ð°Á…ÉÍ•AÉ½©•Ð°Í•É¥…±¥é•AÉ½©•Ð°É•¹‘•È ¤íô°±½œ ¤íô°Ðè€¡¬¤€ôø¬°(€€€Í•±•Ñ•‘½µÁ½¹•¹Ðè€ ¤€ôøÍÑ…Ñ”¹ÁÉ½©•Ð¹½µÁ½¹•¹ÑÌ¹™¥¹ ¡Œ¤€ôøŒ¹¥¹ÍÑ…¹•%€ôôô€‰ÉÄˆ¤°(€€€…ÁÑÕÉ•!¥ÍÑ½Éäè€ ¤€ôøìÍÑ…Ñ”¹¡¥ÍÑ½Éä¹ÁÕÍ ¡Í•É¥…±¥é•AÉ½©•Ð¡ÍÑ…Ñ”¹ÁÉ½©•Ð¤¤ìÍÑ…Ñ”¹™ÕÑÕÉ”€ômtìô°(€€€Ù…±¥‘…Ñ•¹‘I•Á½ÉÐè€ ¤€ôøìÙ…±¥‘…Ñ¥½¹Ì¬¬ìô°Í¡½Ý¥…±½œè€ ¤€ôøì‘¥…±½Ì¬¬ìôôì(€½¹ÍÐÉ½Ñ…Ñ”€ôÕ¥Õ¹Ñ¥½¸ ‰É½Ñ…Ñ•M•±•Ñ•‘A‰½½ÑÁÉ¥¹Ðˆ°€‰™Õ¹Ñ¥½¸¡…¹‘±•Ñ¥½¸ ˆ°±½‰…±Ì¤ì(€É½Ñ…Ñ” äÀ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹¡¥ÍÑ½Éä¹±•¹Ñ °€Ä¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹…Ñ¥Ù•Q½½°°€‰Í•±•Ðˆ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Á‰I½ÕÑ•É…™Ð°¹Õ±°¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹‘¥ÉÑä°ÑÉÕ”¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡Ù…±¥‘…Ñ¥½¹Ì°€Ä¤ì(€½¹ÍÐÉ½Ñ…Ñ•€ôÍÑÉÕÑÕÉ•‘±½¹”¡ÍÑ…Ñ”¹ÁÉ½©•Ð¤ì(€½¹ÍÐÍÑ…ÉÐ€ôÍ½ÕÉ”¹¥¹‘•á=˜ ‰™Õ¹Ñ¥½¸É•Á±…•AÉ½©•Ð ˆ¤°•¹€ôÍ½ÕÉ”¹¥¹‘•á=˜ ‰™Õ¹Ñ¥½¸ÕÁ‘…Ñ•M…Ù•MÑ…Ñ” ˆ°ÍÑ…ÉÐ¤ì(€½¹ÍÐ…Ñ¥½¹Ì€ôÉÕ¹%¹9•Ý½¹Ñ•áÐ¡€‘íÍ½ÕÉ”¹Í±¥”¡ÍÑ…ÉÐ°•¹¥õq¸¡íÕ¹‘¼±É•‘½ô¥€°±½‰…±Ì¤ì(€…Ñ¥½¹Ì¹Õ¹‘¼ ¤ì…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð¹Á‰…‰É¥…Ñ¥½¸°½É¥¥¹…°¹Á‰…‰É¥…Ñ¥½¸¤ì(€…Ñ¥½¹Ì¹É•‘¼ ¤ì…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð¹Á‰…‰É¥…Ñ¥½¸°É½Ñ…Ñ•¹Á‰…‰É¥…Ñ¥½¸¤ì(€…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð¹¹•ÑÌ°½É¥¥¹…°¹¹•ÑÌ¤ì(€½¹ÍÐ‰•™½É”€ô)M=8¹ÍÑÉ¥¹¥™ä¡ÍÑ…Ñ”¤ì(€É½Ñ…Ñ” ÐÔ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡‘¥…±½Ì°€Ä¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡)M=8¹ÍÑÉ¥¹¥™ä¡ÍÑ…Ñ”¤°‰•™½É”¤ì(€ÍÑ…Ñ”¹…Ñ¥Ù•Y¥•Ü€ô€‰Í¡•µ…Ñ¥Œˆì(€É½Ñ…Ñ” äÀ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð¹Á‰…‰É¥…Ñ¥½¸¹Á…ÉÑÌ¹™¥¹ ¡À¤€ôøÀ¹¥¹ÍÑ…¹•%€ôôô€‰ÉÄˆ¤¹É½Ñ…Ñ¥½¹•œ°€äÀ¤ì)ô¤ì()Ñ•ÍÐ ‰É•©•Ñ•¡¥ÍÑ½ÉäÍ¹…ÁÍ¡½ÑÌ±•…Ù”Ñ¡”ÕÉÉ•¹ÐÁÉ½©•Ð…¹‰½Ñ ¡¥ÍÑ½ÉäÍÑ…­Ì¥¹Ñ…Ðˆ°€ ¤€ôøì(€™½È€¡½¹ÍÐ‘¥É•Ñ¥½¸½˜l‰Õ¹‘¼ˆ°€‰É•‘¼‰t¤ì(€€€½¹ÍÐÍÑ…Ñ”€ôìÁÉ½©•Ðèì¥è€‰ÁÉ•Í•ÉÙ•ˆô°¡¥ÍÑ½Éäèlì‰¥¹Ù…±¥ˆè‰ÁÉ•Ù¥½ÕÌ‰ôt°™ÕÑÕÉ”èlì‰¥¹Ù…±¥ˆè‰¹•áÐ‰ôt°‰½ÑU¹Í…Ù•‘=¹±äèÑÉÕ”ôì(€€€½¹ÍÐ‰•™½É”€ô)M=8¹ÍÑÉ¥¹¥™ä¡ÍÑ…Ñ”¤ì(€€€±•Ð‘¥…±½Ì€ô€Àì(€€€½¹ÍÐÍÑ…ÉÐ€ôÍ½ÕÉ”¹¥¹‘•á=˜ ‰™Õ¹Ñ¥½¸É•Á±…•AÉ½©•Ð ˆ¤°•¹€ôÍ½ÕÉ”¹¥¹‘•á=˜ ‰™Õ¹Ñ¥½¸ÕÁ‘…Ñ•M…Ù•MÑ…Ñ” ˆ°ÍÑ…ÉÐ¤ì(€€€½¹ÍÐ…Ñ¥½¹Ì€ôÉÕ¹%¹9•Ý½¹Ñ•áÐ¡€‘íÍ½ÕÉ”¹Í±¥”¡ÍÑ…ÉÐ°•¹¥õq¸¡íÕ¹‘¼±É•‘½ô¥€°ìÍÑ…Ñ”°Ý¥É•U¤éíÉ•Í•Ð ¥íõô°Á…ÉÍ•AÉ½©•Ð°Í•É¥…±¥é•AÉ½©•Ð°É•¹‘•È ¤íô°±½œ ¤íô°Ðè€¡¬¤€ôø¬°Í¡½Ý¥…±½œè€ ¤€ôøì‘¥…±½Ì¬¬ìôô¤ì(€€€…Ñ¥½¹Ím‘¥É•Ñ¥½¹t ¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡‘¥…±½Ì°€Ä¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡)M=8¹ÍÑÉ¥¹¥™ä¡ÍÑ…Ñ”¤°‰•™½É”¤ì(€ô)ô¤ì()Ñ•ÍÐ ‰É•…°…¹Ù…Ìé½½´…¹™¥ÐÕÁ‘…Ñ”Ñ¡”Ý¡½±”Í•¹”Ý¥Ñ¡½ÕÐ¡…¹¥¹œÑ¡”¹…Ñ¥Ù”ÁÉ½©•Ð½ÈÑ½½°ˆ°€ ¤€ôøì(€½¹ÍÐÁÉ½©•Ð€ôì¥è€‰Õ¹¡…¹•µÁÉ½©•Ðˆôì(€½¹ÍÐÍÑ…Ñ”€ôìÁÉ½©•Ð°Í…±”è€Ä°Á…¸èìàè€ÈÔ°äè€´ÄÀô°…Ñ¥Ù•Q½½°è€‰ÁˆµÉ½ÕÑ”ˆôì(€½¹ÍÐÍ•¹”€ôìÍÑå±”èíôôì(€½¹ÍÐÁÉ•Ù¥•ÝM•¹”€ôìÍÑå±”èíôôì(€½¹ÍÐ¹½‘•Ì€ôì€ˆ‘•Í¥¸µ…¹Ù…Ìˆèì±¥•¹Ñ]¥‘Ñ è€ØàÀ°±¥•¹Ñ!•¥¡Ðè€ÌÀÀ°ÅÕ•ÉåM•±•Ñ½Èè€ ¤€ôøÍ•¹”ô°€ˆé½½´µ±•Ù•°ˆèíô°€m‘…Ñ„µÑ½½°ô‰é½½´µ¥¸‰tœèíô°€m‘…Ñ„µÑ½½°ô‰é½½´µ½ÕÐ‰tœèíôôì(€¹½‘•ÍlˆÍ¡•µ…Ñ¥Œµµ¥¹¤‰t€ôì±¥•¹Ñ]¥‘Ñ è€ÌÐÀ°±¥•¹Ñ!•¥¡Ðè€ÈÐÀ°ÅÕ•ÉåM•±•Ñ½Èè€ ¤€ôøÁÉ•Ù¥•ÝM•¹”ôì(€¹½‘•ÍlˆÁˆµµ¥¹¤‰t€ôì±¥•¹Ñ]¥‘Ñ è€À°±¥•¹Ñ!•¥¡Ðè€À°ÅÕ•ÉåM•±•Ñ½Èè€ ¤€ôø¹Õ±°ôì(€½¹ÍÐÍÑ…ÉÐ€ôÍ½ÕÉ”¹¥¹‘•á=˜ ‰™Õ¹Ñ¥½¸…ÁÁ±å…¹Ù…Í…µ•É„ ˆ¤ì(€½¹ÍÐ•¹€ôÍ½ÕÉ”¹¥¹‘•á=˜ ‰™Õ¹Ñ¥½¸É•¹‘•É…¹Ù…Í••‘‰…¬ ˆ°ÍÑ…ÉÐ¤ì(€½¹ÍÐì…ÁÁ±ä°é½½´ô€ôÉÕ¹%¹9•Ý½¹Ñ•áÐ¡€‘íÍ½ÕÉ”¹Í±¥”¡ÍÑ…ÉÐ°•¹¥õq¸¡í…ÁÁ±äé…ÁÁ±å…¹Ù…Í…µ•É„±é½½´é¡…¹•…¹Ù…Íi½½µô¥€°ì(€€€ÍÑ…Ñ”°€è€¡Í•±•Ñ½È¤€ôø¹½‘•ÍmÍ•±•Ñ½Ét°9YM}i==4°É•…Ñ•…¹Ù…Í…µ•É„°é½½µ…¹Ù…Í…µ•É„(€ô¤ì(€…ÁÁ±ä ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÁÉ•Ù¥•ÝM•¹”¹ÍÑå±”¹ÑÉ…¹Í™½É´°€‰ÑÉ…¹Í±…Ñ” ÁÁà°€ÐÕÁà¤Í…±” À¸Ô¤ˆ¤ì(€é½½´ ‰é½½´µ¥¸ˆ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Í…±”°€Ä¸ÈÔ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•Ílˆé½½´µ±•Ù•°‰t¹Ñ•áÑ½¹Ñ•¹Ð°€ˆÄÈÔ”ˆ¤ì(€…ÍÍ•ÉÐ¹µ…Ñ ¡Í•¹”¹ÍÑå±”¹ÑÉ…¹Í™½É´°€½Í…±•p Åp¸ÈÕp¤¼¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð°ÁÉ½©•Ð¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹…Ñ¥Ù•Q½½°°€‰ÁˆµÉ½ÕÑ”ˆ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÁÉ•Ù¥•ÝM•¹”¹ÍÑå±”¹ÑÉ…¹Í™½É´°€‰ÑÉ…¹Í±…Ñ” ÁÁà°€ÐÕÁà¤Í…±” À¸Ô¤ˆ°€‰ÁÉ•Ù¥•ÜÕÍ•Ì½¹”™¥á•ÑÉ…¹Í™½É´¥¹‘•Á•¹‘•¹Ð½˜µ…¥¸µ…¹Ù…Ìé½½´ˆ¤ì(€™½È€¡±•Ð¤€ô€Àì¤€ð€ÈÀì¤¬¬¤é½½´ ‰é½½´µ¥¸ˆ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Í…±”°€à¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•Ílm‘…Ñ„µÑ½½°ô‰é½½´µ¥¸‰tt¹‘¥Í…‰±•°ÑÉÕ”¤ì(€é½½´ ‰™¥Ðˆ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Í…±”°€Ä¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Á…¸¹à°€À¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Á…¸¹ä°€À¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•Ílm‘…Ñ„µÑ½½°ô‰é½½´µ¥¸‰tt¹‘¥Í…‰±•°™…±Í”¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð°ÁÉ½©•Ð¤ì)ô¤ì()Ñ•ÍÐ ‰Í¥‘•‰…ÈÑ½±•ÌÁÉ•Í•ÉÙ”ÁÉ½©•Ð°Í•±•Ñ¥½¸°…µ•É„…¹µ½Õ¹Ñ•…¹Ù…Ìˆ°€ ¤€ôøì(€½¹ÍÐÁÉ½©•Ð€ôì¥è€‰ÁÉ•Í•ÉÙ•ˆô°¡¥ÍÑ½Éä€ômìÁÉ½©•Ðõt°Á…¸€ôìàè€ÄÈ°äè€´Ðôì(€½¹ÍÐÍÑ…Ñ”€ôìÁÉ½©•Ð°¡¥ÍÑ½Éä°Á…¸°Í•±•Ñ•‘%¹ÍÑ…¹•%è€‰HÄˆ°±•™Ñ	…É=Á•¸èÑÉÕ”°É¥¡Ñ	…É=Á•¸èÑÉÕ”ôì(€½¹ÍÐ±…ÍÍ•Ì€ô€ ¤€ôø€¡ìÙ…±Õ•Ìè¹•ÜM•Ð ¤°Ñ½±”¡¹…µ”°•¹…‰±•¤ì•¹…‰±•€üÑ¡¥Ì¹Ù…±Õ•Ì¹…‘¡¹…µ”¤€èÑ¡¥Ì¹Ù…±Õ•Ì¹‘•±•Ñ”¡¹…µ”¤ìôô¤ì(€½¹ÍÐ¹½‘•Ì€ôì€ˆÝ½É­ÍÁ…”ˆèì±…ÍÍ1¥ÍÐè±…ÍÍ•Ì ¤ô°€ˆ¹±¥‰É…ÉäµÁ…¹•°ˆèì±…ÍÍ1¥ÍÐè±…ÍÍ•Ì ¤°½¹Ñ…¥¹Ìè€ ¤€ôøÑÉÕ”ô°€ˆ¹¥¹ÍÁ•Ñ½ÈµÁ…¹•°ˆèì±…ÍÍ1¥ÍÐè±…ÍÍ•Ì ¤°½¹Ñ…¥¹Ìè€ ¤€ôø™…±Í”ôôì(€½¹ÍÐ‰ÕÑÑ½¹Ì€ôì±•™Ðèì•áÁ…¹‘•è€‰ÑÉÕ”ˆ°™½ÕÍ•è™…±Í”°Í•ÑÑÑÉ¥‰ÕÑ”¡­•ä°Ù…±Õ”¤ìÑ¡¥Ì¹•áÁ…¹‘•€ôÙ…±Õ”ìô°™½ÕÌ ¤ìÑ¡¥Ì¹™½ÕÍ•€ôÑÉÕ”ìôô°É¥¡Ðèì•áÁ…¹‘•è€‰ÑÉÕ”ˆ°Í•ÑÑÑÉ¥‰ÕÑ”¡­•ä°Ù…±Õ”¤ìÑ¡¥Ì¹•áÁ…¹‘•€ôÙ…±Õ”ìôôôì(€½¹ÍÐ±½½­ÕÀ€ôÍ•±•Ñ½È€ôø¹½‘•ÍmÍ•±•Ñ½Ét€üü‰ÕÑÑ½¹ÍmÍ•±•Ñ½È¹¥¹±Õ‘•Ì œ‰±•™Ðˆœ¤€ü€‰±•™Ðˆ€è€‰É¥¡Ð‰tì(€½¹ÍÐÍ•Ð€ôÕ¥Õ¹Ñ¥½¸ ‰Í•Ñ]½É­ÍÁ…•A…¹•°ˆ°€‰™Õ¹Ñ¥½¸É½Ñ…Ñ•M•±•Ñ•‘A‰½½ÑÁÉ¥¹Ðˆ°ìÍÑ…Ñ”°€è±½½­ÕÀ°€èÍ•±•Ñ½È€ôøm±½½­ÕÀ¡Í•±•Ñ½È¥t°‘½Õµ•¹Ðèì…Ñ¥Ù•±•µ•¹Ðèíôôô¤ì(€Í•Ð ‰±•™Ðˆ°™…±Í”¤ìÍ•Ð ‰É¥¡Ðˆ°™…±Í”¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹±•™Ñ	…É=Á•¸°™…±Í”¤ì…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹É¥¡Ñ	…É=Á•¸°™…±Í”¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡‰ÕÑÑ½¹Ì¹±•™Ð¹•áÁ…¹‘•°€‰™…±Í”ˆ¤ì…ÍÍ•ÉÐ¹•ÅÕ…°¡‰ÕÑÑ½¹Ì¹±•™Ð¹™½ÕÍ•°ÑÉÕ”¤ì(€…ÍÍ•ÉÐ¹½¬¡¹½‘•ÍlˆÝ½É­ÍÁ…”‰t¹±…ÍÍ1¥ÍÐ¹Ù…±Õ•Ì¹¡…Ì ‰±•™ÐµÁ…¹•°µ±½Í•ˆ¤¤ì(€Í•Ð ‰±•™Ðˆ°ÑÉÕ”¤ìÍ•Ð ‰É¥¡Ðˆ°ÑÉÕ”¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹±•™Ñ	…É=Á•¸°ÑÉÕ”¤ì…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹É¥¡Ñ	…É=Á•¸°ÑÉÕ”¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡‰ÕÑÑ½¹Ì¹É¥¡Ð¹•áÁ…¹‘•°€‰ÑÉÕ”ˆ¤ì…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•ÍlˆÝ½É­ÍÁ…”‰t¹±…ÍÍ1¥ÍÐ¹Ù…±Õ•Ì¹Í¥é”°€À¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹ÁÉ½©•Ð°ÁÉ½©•Ð¤ì…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹¡¥ÍÑ½Éä°¡¥ÍÑ½Éä¤ì…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Á…¸°Á…¸¤ì…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Í•±•Ñ•‘%¹ÍÑ…¹•%°€‰HÄˆ¤ì)ô¤ì()Ñ•ÍÐ ‰„Á½¥¹Ñ•È±¥¬Ý¥Ñ¡½ÕÐ‘É…¥¹œÍ•±•ÑÌÑ¡”½µÁ½¹•¹Ð‰•™½É”É•Á±…¥¹œ¥ÑÌ…¹Ù…Ì=4ˆ°€ ¤€ôøì(€½¹ÍÐÁÉ½©•Ð€ôì¥è€‰Õ¹Ñ½Õ¡•ˆôì(€½¹ÍÐ…¹Ù…Ì€ôìÉ•±•…Í•A½¥¹Ñ•ËÍ½¶‰žËkºwµçl(€…ÍÍ•ÉÐ¹•ÅÕ…°¡™½ÕÍ•°€Ä¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÁÉ•Ù•¹Ñ•°€Ä¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡¡…¹‘±”¡•Ù•¹Ð¤°™…±Í”¤ì)ô¤ì(()Ñ•ÍÐ ‰…¹Ù…Ì™••‘‰…¬ÁÉ•Í•ÉÙ•ÌÑ¡”É•Ù¥•Ü‘¥Í±½ÍÕÉ”…¹•Í…Á•ÌÁÉ½©•ÐÑ•áÐ½ÕÑÍ¥‘”Ñ¡”‘É…Ý¥¹œˆ°€ ¤€ôøì(€™½È€¡½¹ÍÐ±½…±”½˜l‰•¸ˆ°€‰‘”ˆ°€‰å¼ˆ°€‰Á´‰t¤ì(€€€½¹ÍÐ¹½‘•Ì€ô=‰©•Ð¹™É½µ¹ÑÉ¥•Ì¡l‰…¹Ù…ÌµÙ¥•Üµ±…‰•°ˆ°€‰Ù¥•ÜµÉ•½¹¥±¥…Ñ¥½¸ˆ°€‰Ù¥•ÜµÉ•½¹¥±¥…Ñ¥½¸µÍÕµµ…Éäˆ°€‰Ù¥•ÜµÉ•½¹¥±¥…Ñ¥½¸µ¥Ñ•µÌ‰t¹µ…À ¡¥¤€ôøm€Œ‘í¥‘õ€°ì½Á•¸èÑÉÕ”õt¤¤ì(€€€½¹ÍÐÉ•¹‘•È€ôÕ¥Õ¹Ñ¥½¸ ‰É•¹‘•É…¹Ù…Í••‘‰…¬ˆ°€‰™Õ¹Ñ¥½¸É•¹‘•É…¹Ù…Ì ˆ°ì(€€€€€€è€¡Í•±•Ñ½È¤€ôø¹½‘•ÍmÍ•±•Ñ½Ét°Ðè€¡­•ä¤€ôøQI9M1Q%=9Mm±½…±•um­•åt°(€€€€€•Í…Á”è€¡Ù…±Õ”¤€ôøMÑÉ¥¹œ¡Ù…±Õ”¤¹É•Á±…•±° ˆ˜ˆ°€ˆ™…µÀìˆ¤¹É•Á±…•±° ˆðˆ°€ˆ™±Ðìˆ¤¹É•Á±…•±° ˆøˆ°€ˆ™Ðìˆ¤(€€€ô¤ì(€€€É•¹‘•È¡mìÉ•™•É•¹”è€ˆñHÄøˆ°É•…Í½¸è€ˆñ¥µœÍÉŒõàø€˜Õ¹µ…ÁÁ•ˆõt°QI9M1Q%=9Mm±½…±•t¹Á‰MÑ½É•‘1…å½ÕÑAÉ•Ù¥•Ü¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•Ílˆ…¹Ù…ÌµÙ¥•Üµ±…‰•°‰t¹Ñ•áÑ½¹Ñ•¹Ð°QI9M1Q%=9Mm±½…±•t¹Á‰MÑ½É•‘1…å½ÕÑAÉ•Ù¥•Ü¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•ÍlˆÙ¥•ÜµÉ•½¹¥±¥…Ñ¥½¸‰t¹¡¥‘‘•¸°™…±Í”¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•ÍlˆÙ¥•ÜµÉ•½¹¥±¥…Ñ¥½¸‰t¹½Á•¸°ÑÉÕ”¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•ÍlˆÙ¥•ÜµÉ•½¹¥±¥…Ñ¥½¸µÍÕµµ…Éä‰t¹Ñ•áÑ½¹Ñ•¹Ð°€‘íQI9M1Q%=9Mm±½…±•t¹Ù¥•ÝI•½¹¥±¥…Ñ¥½¹9••‘•‘ô€ Ä¥€¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•ÍlˆÙ¥•ÜµÉ•½¹¥±¥…Ñ¥½¸µ¥Ñ•µÌ‰t¹¥¹¹•É!Q50°€ˆñ±¤ø™±ÐíHÄ™Ðìè€™±Ðí¥µœÍÉŒõà™Ðì€™…µÀìÕ¹µ…ÁÁ•ð½±¤øˆ¤ì(€€€É•¹‘•È¡mt°€‰9•ÜÙ¥•Üˆ¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•ÍlˆÙ¥•ÜµÉ•½¹¥±¥…Ñ¥½¸‰t¹¡¥‘‘•¸°ÑÉÕ”¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡¹½‘•ÍlˆÙ¥•ÜµÉ•½¹¥±¥…Ñ¥½¸µ¥Ñ•µÌ‰t¹¥¹¹•É!Q50°€ˆˆ¤ì(€ô)ô¤ì()Ñ•ÍÐ ‰¹Ñ•È…¹MÁ…”Í•±•Ð„AÙ¥„Ñ¡É½Õ Ñ¡”É•…°É½ÕÑ”¥¹Ñ•É…Ñ¥½¸¡…¹‘±•Èˆ°€ ¤€ôøì(€™½È€¡½¹ÍÐ­•ä½˜l‰¹Ñ•Èˆ°€ˆ€‰t¤ì(€€€½¹ÍÐÍÑ…Ñ”€ôì…Ñ¥Ù•Y¥•Üè€‰Áˆˆ°…Ñ¥Ù•Q½½°è€‰ÁˆµÉ½ÕÑ”ˆ°ÁÉ½©•ÐèìÁ‰…‰É¥…Ñ¥½¸èì(€€€€€Á…‘Ìèmt°Ù¥…Ìèmì¥è€‰Ñ•ÍÐˆ°¹•Ñ%è€‰Yˆ°á5´è€È°å5´è€Ì°‘¥…µ•Ñ•É5´è€À¸Ø°‘É¥±±5´è€À¸Ìõt(€€€ôôôì(€€€½¹ÍÐÁ…€ôì‘…Ñ…Í•ÐèìÁ‰A…è€‰Ù¥„éÑ•ÍÐˆ°Á‰9•Ðè€‰Yˆ°á5´è€ˆÈˆ°å5´è€ˆÌˆôôì(€€€±•ÐÁÉ•Ù•¹Ñ•€ô€Àì(€€€½¹ÍÐ•Ù•¹Ð€ôì­•ä°Ñ…É•Ðèì±½Í•ÍÐè€¡Í•±•Ñ½È¤€ôøl‰m‘…Ñ„µÁˆµÁ…‘tˆ°€ˆ‘•Í¥¸µ…¹Ù…Ì‰t¹¥¹±Õ‘•Ì¡Í•±•Ñ½È¤€üÁ…€è¹Õ±°ô°ÁÉ•Ù•¹Ñ•™…Õ±Ðè€ ¤€ôøìÁÉ•Ù•¹Ñ•¬¬ìô°ÍÑ½ÁAÉ½Á……Ñ¥½¸ ¤íôôì(€€€½¹ÍÐÍÑ…ÉÐ€ôÍ½ÕÉ”¹¥¹‘•á=˜ ‰™Õ¹Ñ¥½¸¡…¹‘±•A‰I½ÕÑ•…¹Ù…Í±¥¬ ˆ¤ì(€€€½¹ÍÐ•¹€ôÍ½ÕÉ”¹¥¹‘•á=˜ ‘½Õµ•¹Ð¹…‘‘Ù•¹Ñ1¥ÍÑ•¹•È ‰±¥¬ˆœ°ÍÑ…ÉÐ¤ì(€€€½¹ÍÐ…Ñ¥Ù…Ñ”€ôÉÕ¹%¹9•Ý½¹Ñ•áÐ¡€‘íÍ½ÕÉ”¹Í±¥”¡ÍÑ…ÉÐ°•¹¥õq¹¡…¹‘±•A‰I½ÕÑ•-•å‘½Ý¹€°ì(€€€€€ÍÑ…Ñ”°Á‰½ÁÁ•ÉA…‘Ì°€è€ ¤€ôø€¡ìÙ…±Õ”è€‰¹Ôˆô¤°É•¹‘•È ¤íô°±½œ ¤íô(€€€ô¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡…Ñ¥Ù…Ñ”¡•Ù•¹Ð¤°ÑÉÕ”¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Á‰I½ÕÑ•É…™Ð¹ÍÑ…ÉÑA…°€‰Ù¥„éÑ•ÍÐˆ¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡)M=8¹ÍÑÉ¥¹¥™ä¡ÍÑ…Ñ”¹Á‰I½ÕÑ•É…™Ð¹Á½¥¹ÑÍ5´¤°€‰mlÈ°Íutˆ¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÁÉ•Ù•¹Ñ•°€Ä¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡…Ñ¥Ù…Ñ”¡ì€¸¸¹•Ù•¹Ð°­•äè€‰ÉÉ½ÝI¥¡Ðˆô¤°™…±Í”¤ì(€€€ÍÑ…Ñ”¹…Ñ¥Ù•Q½½°€ô€‰Í•±•Ðˆì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡…Ñ¥Ù…Ñ”¡•Ù•¹Ð¤°™…±Í”¤ì(€ô)ô¤ì()Ñ•ÍÐ ‰É½ÕÑ”‰½…É±¥­ÌÕÍ”é½½µ•½½É‘¥¹…Ñ•Ì°Í¹…ÀÑ¼µ¥±±¥µ•ÑÉ•Ì…¹É•©•ÐÁ½¥¹ÑÌ½ÕÑÍ¥‘”Ñ¡”‰½…Éˆ°…Íå¹Œ€ ¤€ôøì(€½¹ÍÐÁÉ½©•Ð€ôÁ…ÉÍ•AÉ½©•Ð¡…Ý…¥ÐÉ•…‘¥±”¡¹•ÜUI0 ˆ¸¸½•á…µÁ±•Ì¼ÄÈÔµÕÍ‰Œµ‰É•…­½ÕÐ¹…‘¥Õ¸¹©Í½¸ˆ°¥µÁ½ÉÐ¹µ•Ñ„¹ÕÉ°¤°€‰ÕÑ˜àˆ¤¤ì(€½¹ÍÐÍÑ…Ñ”€ôì…Ñ¥Ù•Y¥•Üè€‰Áˆˆ°…Ñ¥Ù•Q½½°è€‰ÁˆµÉ½ÕÑ”ˆ°ÁÉ½©•Ð°Á‰I½ÕÑ•É…™ÐèìÁ½¥¹ÑÍ5´èmlÈ°€Íutôôì(€½¹ÍÐÉ•Ð€ôì±•™Ðè€ÄÀÀ°Ñ½Àè€àÀ°Ý¥‘Ñ è€ÄÀÈÀ°¡•¥¡Ðè€ÐÔÀôì(€½¹ÍÐÍÙœ€ôì•Ñ	½Õ¹‘¥¹±¥•¹ÑI•Ðè€ ¤€ôøÉ•Ðôì(€½¹ÍÐ±¥¬€ôÕ¥Õ¹Ñ¥½¸ ‰¡…¹‘±•A‰I½ÕÑ•…¹Ù…Í±¥¬ˆ°€‰™Õ¹Ñ¥½¸¡…¹‘±•A‰I½ÕÑ•-•å‘½Ý¸ ˆ°ì(€€€ÍÑ…Ñ”°…¹Ù…Í±¥•¹ÑA½¥¹Ð°Á‰AÉ•Ù¥•ÝA½¥¹ÑQ½	½…É‘5´°€è€ ¤€ôø€¡ì¡•­•èÑÉÕ”ô¤°É•¹‘•É…¹Ù…Ì ¤íô(€ô¤ì(€½¹ÍÐ•Ù•¹Ð€ô€¡Ý½É±‘`°Ý½É±‘d¤€ôø€¡ì±¥•¹Ñ`èÉ•Ð¹±•™Ð€¬Ý½É±‘`€¨€Ä¸Ô°±¥•¹ÑdèÉ•Ð¹Ñ½À€¬Ý½É±‘d€¨€Ä¸Ô°(€€€Ñ…É•Ðèì±½Í•ÍÐè€¡Í•±•Ñ½È¤€ôøÍ•±•Ñ½È€ôôô€ˆ‘•Í¥¸µ…¹Ù…Ìˆ€üíô€èÍ•±•Ñ½È€ôôô€ˆ¹ÁˆµÁÉ•Ù¥•ÜµÍÙœˆ€üÍÙœ€è¹Õ±°ôô¤ì(€½¹ÍÐ‰•™½É”€ôÍ•É¥…±¥é•AÉ½©•Ð¡ÁÉ½©•Ð¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡±¥¬¡•Ù•¹Ð ÐÌÐ°€ÈÈÌ¤¤°ÑÉÕ”¤ì(€…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡ÍÑ…Ñ”¹Á‰I½ÕÑ•É…™Ð¹Á½¥¹ÑÍ5´¹…Ð ´Ä¤°lÌÀ°€ÄÝt¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Á‰I½ÕÑ•!¥¹Ñ-•ä°€‰Á‰I½ÕÑ•]…åÁ½¥¹Ðˆ¤ì(€±¥¬¡•Ù•¹Ð ÐÌÐ°€ÈÈÌ¤¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Á‰I½ÕÑ•É…™Ð¹Á½¥¹ÑÍ5´¹±•¹Ñ °€È¤ì(€±¥¬¡•Ù•¹Ð ÈÀ°€ÈÀ¤¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Á‰I½ÕÑ•!¥¹Ñ-•ä°€‰Á‰I½ÕÑ•	±½­•ˆ¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹Á‰I½ÕÑ•É…™Ð¹Á½¥¹ÑÍ5´¹±•¹Ñ °€È¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡Í•É¥…±¥é•AÉ½©•Ð¡ÁÉ½©•Ð¤°‰•™½É”¤ì)ô¤ì()Ñ•ÍÐ ‰±½…±¥é…Ñ¥½¸ÕÁ‘…Ñ•Ì•Ù•ÉäÁ±…•¡½±‘•È…¹¥µ…”…±ÐÝ¥Ñ¡½ÕÐ…‰½ÉÑ¥¹œÍÑ…ÉÑÕÀˆ°€ ¤€ôøì(€™½È€¡½¹ÍÐ±½…±”½˜l‰•¸ˆ°€‰‘”ˆ°€‰å¼ˆ°€‰Á´‰t¤ì(€€€½¹ÍÐÁ±…•¡½±‘•ÉÌ€ôlÀ°€Åt¹µ…À  ¤€ôø€¡ì‘…Ñ…Í•Ðèì¤Äá¹A±…•¡½±‘•Èè€‰±½…±”ˆô°Á±…•¡½±‘•Èè€‰½±ˆô¤¤ì(€€€½¹ÍÐ¥µ…•Ì€ôlÀ°€Åt¹µ…À  ¤€ôø€¡ì‘…Ñ…Í•Ðèì¤Äá¹±Ðè€‰½ÉÁ½É…Ñ•1½½±Ðˆô°…±Ðè€‰½±ˆô¤¤ì(€€€½¹ÍÐ±…¹Õ…”€ôíôì(€€€½¹ÍÐ‘½Õµ•¹Ð€ôì‘½Õµ•¹Ñ±•µ•¹Ðèíôôì(€€€½¹ÍÐ•±•µ•¹ÑÌ€ôì€‰m‘…Ñ„µ¤Äá¸µÁ±…•¡½±‘•ÉtˆèÁ±…•¡½±‘•ÉÌ°€‰m‘…Ñ„µ¤Äá¸µ…±Ñtˆè¥µ…•Ìôì(€€€½¹ÍÐ…ÁÁ±ä€ôÕ¥Õ¹Ñ¥½¸ ‰…ÁÁ±å1½…±”ˆ°€‰™Õ¹Ñ¥½¸É•¹‘•ÉMÝ••Á=ÕÑÁÕÑ=ÁÑ¥½¹Ì ˆ°ì(€€€€€ÍÑ…Ñ”èìÁÉ½©•Ðèìµ•Ñ…‘…Ñ„èì±½…±”ôôô°‘½Õµ•¹Ð°QI9M1Q%=9L°(€€€€€€è€¡Í•±•Ñ½È¤€ôøÍ•±•Ñ½È€ôôô€ˆ±…¹Õ…”ˆ€ü±…¹Õ…”€è•±•µ•¹ÑÍmÍ•±•Ñ½Étü¹lÁt°(€€€€€€è€¡Í•±•Ñ½È¤€ôø•±•µ•¹ÑÍmÍ•±•Ñ½Ét€üümt(€€€ô¤ì(€€€…ÁÁ±ä ¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡‘½Õµ•¹Ð¹‘½Õµ•¹Ñ±•µ•¹Ð¹±…¹œ°±½…±”¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡±…¹Õ…”¹Ù…±Õ”°±½…±”¤ì(€€€Á±…•¡½±‘•ÉÌ¹™½É…  ¡•±•µ•¹Ð¤€ôø…ÍÍ•ÉÐ¹•ÅÕ…°¡•±•µ•¹Ð¹Á±…•¡½±‘•È°QI9M1Q%=9Mm±½…±•t¹±½…±”¤¤ì(€€€¥µ…•Ì¹™½É…  ¡•±•µ•¹Ð¤€ôø…ÍÍ•ÉÐ¹•ÅÕ…°¡•±•µ•¹Ð¹…±Ð°QI9M1Q%=9Mm±½…±•t¹½ÉÁ½É…Ñ•1½½±Ð¤¤ì(€ô)ô¤ì()Ñ•ÍÐ ‰‘¥…¹½ÍÑ¥ŒÑ…ˆÍ•±•Ñ¥½¸ÕÁ‘…Ñ•Ì…±°Ñ…‰Ì…¹É•¹‘•ÉÌ…¸•µÁÑä•ÉÉ½È±¥ÍÐˆ°€ ¤€ôøì(€½¹ÍÐµ…­•±•µ•¹Ð€ô€¡‘…Ñ…Í•Ð€ôíô¤€ôø€¡ì‘…Ñ…Í•Ð°±…ÍÍ•Ìèíô°±…ÍÍ1¥ÍÐèìÑ½±”¡¹…µ”°…Ñ¥Ù”¤ìÑ¡¥Ì¹½Ý¹•È¹±…ÍÍ•Ím¹…µ•t€ô…Ñ¥Ù”ìôôô¤ì(€½¹ÍÐ•±•µ•¹ÑÌ€ô=‰©•Ð¹™É½µ¹ÑÉ¥•Ì¡lˆÉ•ÍÕ±Ðµ‘…Í¡‰½…Éˆ°€ˆ•áÁ½ÉÐµÍ¥µÕ±…Ñ¥½¸µÉ•Á½ÉÐˆ°€ˆÝ½É­ÍÁ…”µ¹½Ñ•Ìˆ°€ˆ½ÕÑÁÕÐµ±½œˆ°€ˆ¥ÍÍÕ”µ±¥ÍÐ‰t¹µ…À ¡¥¤€ôøm¥°µ…­•±•µ•¹Ð ¥t¤¤ì(€½¹ÍÐÑ…‰Ì€ôl‰½ÕÑÁÕÐˆ°€‰•ÉÉ½ÉÌˆ°€‰Ý…É¹¥¹Ì‰t¹µ…À ¡½ÕÑÁÕÐ¤€ôøµ…­•±•µ•¹Ð¡ì½ÕÑÁÕÐô¤¤ì(€l¸¸¹=‰©•Ð¹Ù…±Õ•Ì¡•±•µ•¹ÑÌ¤°€¸¸¹Ñ…‰Ít¹™½É…  ¡•±•µ•¹Ð¤€ôøì•±•µ•¹Ð¹±…ÍÍ1¥ÍÐ¹½Ý¹•È€ô•±•µ•¹Ðìô¤ì(€½¹ÍÐÉ•¹‘•È€ôÕ¥Õ¹Ñ¥½¸ ‰É•¹‘•É=ÕÑÁÕÐˆ°€‰™Õ¹Ñ¥½¸…ÁÁ±å1½…±” ˆ°ì(€€€ÍÑ…Ñ”èì…Ñ¥Ù•=ÕÑÁÕÐè€‰•ÉÉ½ÉÌˆ°±…ÍÑ¹…±åÍ¥Ìè¹Õ±°ô°(€€€€è€¡Í•±•Ñ½È¤€ôøÍ•±•Ñ½È€ôôô€ˆ¹½ÕÑÁÕÐµÑ…ˆˆ€üÑ…‰ÍlÁt€è•±•µ•¹ÑÍmÍ•±•Ñ½Ét°(€€€€è€¡Í•±•Ñ½È¤€ôøÍ•±•Ñ½È€ôôô€ˆ¹½ÕÑÁÕÐµÑ…ˆˆ€üÑ…‰Ì€èmt(€ô¤ì(€É•¹‘•È¡ì•ÉÉ½ÉÌèmt°Ý…É¹¥¹Ìèmtô¤ì(€…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡Ñ…‰Ì¹µ…À ¡Ñ…ˆ¤€ôøÑ…ˆ¹±…ÍÍ•Ì¹…Ñ¥Ù”¤°m™…±Í”°ÑÉÕ”°™…±Í•t¤ì(€…ÍÍ•ÉÐ¹•ÅÕ…°¡•±•µ•¹ÑÍlˆ¥ÍÍÕ”µ±¥ÍÐ‰t¹Ñ•áÑ½¹Ñ•¹Ð°€‰mII=IMt9½¹”¸ˆ¤ì)ô¤ì()Ñ•ÍÐ ‰½µÁ±•Ñ•É•ÍÕ±ÑÌ™••Á±…å‰…¬•Ù•¸Ý¡•¸…¹Ù…Ì™••‘‰…¬¥Ì‘¥Í…‰±•ˆ°…Íå¹Œ€ ¤€ôøì(€™½È€¡½¹ÍÐ™¥±”½˜lˆÀÜÀµÍÑ´ÌÈµÑ¥µ•ÈµÁÝ´ˆ°€ˆÀÈÄ´ÔÔÔµ…ÍÑ…‰±”µ‰±¥¹­•Èˆ°€ˆÀÀÄµ±•µÕÉÉ•¹Ðµ±¥µ¥Ñ•Èˆ°€ˆÀÀÔµÉŒµÍÑ•ÀµÉ•ÍÁ½¹Í”ˆ°€ˆÀÀØµÉ°µÍÑ•ÀµÉ•ÍÁ½¹Í”‰t¤ì(€€€½¹ÍÐÁÉ½©•Ð€ô)M=8¹Á…ÉÍ”¡…Ý…¥ÐÉ•…‘¥±”¡¹•ÜUI0¡€¸¸½•á…µÁ±•Ì¼‘í™¥±•ô¹…‘¥Õ¸¹©Í½¹€°¥µÁ½ÉÐ¹µ•Ñ„¹ÕÉ°¤°€‰ÕÑ˜àˆ¤¤ì(€€€½¹ÍÐ…¹…±åÍ¥Ì€ôÉÕ¹AÉ½©•Ñ¹…±åÍ¥Ì¡ÁÉ½©•Ð¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡…¹…±åÍ¥Ì¹ÍÑ…Ñ”°€‰½µÁ±•Ñ”ˆ°™¥±”¤ì(€€€±•ÐÉ•¹‘•ÉÌ€ô€Àì(€€€½¹ÍÐÍÑ…Ñ”€ôìÁÉ½©•Ðôì(€€€½¹ÍÐ±½œ€ômtì(€€€½¹ÍÐ™••‘‰…¬€ômtì(€€€½¹ÍÐ½µÁ±•Ñ”€ôÕ¥Õ¹Ñ¥½¸ ‰ÉÕ¹¹…±åÍ¥Ìˆ°€‰…Íå¹Œ™Õ¹Ñ¥½¸Ù•É¥™åIÕ¹1½­™¥±” ˆ°ì(€€€€€ÍÑ…Ñ”°±½œè€¡±¥¹”¤€ôø±½œ¹ÁÕÍ ¡±¥¹”¤°É•¹‘•É=ÕÑÁÕÐè€ ¤€ôøìÉ•¹‘•ÉÌ€¬ô€Äìô°(€€€€€€èÍ•±•Ñ½È€ôøì…ÍÍ•ÉÐ¹•ÅÕ…°¡Í•±•Ñ½È°ˆ™••‘‰…¬µ±¥Ù”ˆ¤ìÉ•ÑÕÉ¸í¡•­•é™…±Í•ôìô°(€€€€€‘••‘‰…¬èí…•ÁÐè€¡À±É•ÍÕ±Ð¤ôù™••‘‰…¬¹ÁÕÍ ¡mÀ±É•ÍÕ±Ñt¥ô(€€€ô¤ì(€€€½µÁ±•Ñ”¡…¹…±åÍ¥Ì¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡É•¹‘•ÉÌ°€Ä°™¥±”¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹±…ÍÑ¹…±åÍ¥Ì°…¹…±åÍ¥Ì¤ì(€€€…ÍÍ•ÉÐ¹•ÅÕ…°¡ÍÑ…Ñ”¹±…ÍÑ¹…±åÍ¥ÍAÉ½©•Ñ-•ä±)M=8¹ÍÑÉ¥¹¥™ä¡ÁÉ½©•Ð¤¤ì(€€€…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡™••‘‰…¬±mmÁÉ½©•Ð±…¹…±åÍ¥Íut¤ì(€€€…ÍÍ•ÉÐ¹½¬¡±½œ¹Í½µ” ¡±¥¹”¤€ôø±¥¹”¹ÍÑ…ÉÑÍ]¥Ñ  ‰m1%5%Qtˆ¤¤°™¥±”¤ì(€ô)ô¤ì(()Ñ•ÍÐ ‰½µÁ±•Ñ•™••‘‰…¬É•™É•Í¡•ÌÝ¥É”…¹©Õ¹Ñ¥½¸¥¹ÍÁ•Ñ½Èµ•…ÍÕÉ•µ•¹ÑÌÝ¥Ñ¡½ÕÐ„ÑÉ…¹Í¥•¹Ð™É…µ”ˆ° ¤ôùì(€½¹ÍÐÍÑ…ÉÐõÍ½ÕÉ”¹¥¹‘•á=˜ ½¹ÍÐ‘••‘‰…¬€ôÉ•…Ñ•1¥Ù•••‘‰…¬ œ¤±•¹õÍ½ÕÉ”¹¥¹‘•á=˜ ½¹ÍÐ	-}5=Q%=9}QaPœ±ÍÑ…ÉÐ¤í±•Ð…±±‰…­Ìí½¹ÍÐ…±±Ìõmtì(€ÙµIÕ¸¡Í½ÕÉ”¹Í±¥”¡ÍÑ…ÉÐ±•¹¤±íÉ•…Ñ•1¥Ù•••‘‰…¬é½ÁÑ¥½¹Ìôùí…±±‰…­Ìõ½ÁÑ¥½¹ÌíÉ•ÑÕÉ¸íôíô±É•¹‘•É…¹Ù…Ìè ¤ôù…±±Ì¹ÁÕÍ  …¹Ù…Ìœ¤±Ý¥É•U¤éíÁ…¥¹Ñ5•…ÍÕÉ•µ•¹ÑÌè ¤ôù…±±Ì¹ÁÕÍ  µ•…ÍÕÉ•µ•¹ÑÌœ¥ô±É•¹‘•É••‘‰…­½¹ÑÉ½±Ìè ¤ôù…±±Ì¹ÁÕÍ  ½¹ÑÉ½±Ìœ¤±Á…¥¹ÑM¥µÕ±…Ñ¥½¹É…µ”è ¤ôù…±±Ì¹ÁÕÍ  ™É…µ”œ¥ô¤ì(€…±±‰…­Ì¹½¹A…¥¹Ð¡í™É…µ•=¹±äé™…±Í•ô¤í…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡…±±Ì±l…¹Ù…Ìœ°µ•…ÍÕÉ•µ•¹ÑÌœ°½¹ÑÉ½±Ìt¤í…±±Ì¹±•¹Ñ ôÀì(€…±±‰…­Ì¹½¹A…¥¹Ð¡í™É…µ•=¹±äéÑÉÕ•ô¤í…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡…±±Ì±l™É…µ”œ°½¹ÑÉ½±Ìt¤ì)ô¤ì(()Ñ•ÍÐ ‰…¹Ù…Ì™••‘‰…¬Ñ½±”É•‘É…ÝÌÝ¥Ñ¡½ÕÐÍÑ½ÁÁ¥¹œ½ÈÉ•ÍÑ…ÉÑ¥¹œÍ½Á”Á±…å‰…¬ˆ° ¤ôùì(€½¹ÍÐÍÑ…ÉÐõÍ½ÕÉ”¹¥¹‘•á=˜ œ ˆ™••‘‰…¬µ±¥Ù”ˆ¤¹…‘‘Ù•¹Ñ1¥ÍÑ•¹•È ‰¡…¹”ˆœ¤±•¹õÍ½ÕÉ”¹¥¹‘•á=˜ q¸œ±ÍÑ…ÉÐ¤ì(€±•Ð¡…¹”í½¹ÍÐ…±±Ìõmtì(€ÙµIÕ¸¡Í½ÕÉ”¹Í±¥”¡ÍÑ…ÉÐ±•¹¤±ìè ¤ôø¡í…‘‘Ù•¹Ñ1¥ÍÑ•¹•Èè¡|±™¸¤ôùí¡…¹”õ™¸íõô¤±É•¹‘•É…¹Ù…Ìè ¤ôù…±±Ì¹ÁÕÍ  …¹Ù…Ìœ¤±Ý¥É•U¤éíÁ…¥¹Ñ5•…ÍÕÉ•µ•¹ÑÌè ¤ôù…±±Ì¹ÁÕÍ  µ•…ÍÕÉ•µ•¹ÑÌœ¥ô±‘••‘‰…¬éíÍÑ½Àè ¤ôù…ÍÍ•ÉÐ¹™…¥° µÕÍÐ¹½ÐÍÑ½ÀÁ±…å‰…¬œ¤±…•ÁÐè ¤ôù…ÍÍ•ÉÐ¹™…¥° µÕÍÐ¹½ÐÉ•ÍÑ…ÉÐÁ±…å‰…¬œ¥õô¤ì(€¡…¹” ¤í…ÍÍ•ÉÐ¹‘••ÁÅÕ…°¡…±±Ì±l…¹Ù…Ìœ°µ•…ÍÕÉ•µ•¹ÑÌt¤ì)ô¤ì(
