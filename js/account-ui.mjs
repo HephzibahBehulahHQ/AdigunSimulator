@@ -39,8 +39,7 @@ export function createAccountUi({ document, account, translate, getLocale, onClo
     if (passwordUpdate) email.value = account.state.user?.email ?? email.value;
   }
 
-  function renderState(state) {
-    if (state.event === "PASSWORD_RECOVERY") mode = "password-recovery";
+  function renderSession(state) {
     const passwordUpdate = mode === "password-recovery";
     const signedIn = state.status === "signed-in" && !passwordUpdate;
     const guest = state.status === "guest";
@@ -55,23 +54,28 @@ export function createAccountUi({ document, account, translate, getLocale, onClo
     } else if (state.status === "unavailable") {
       setMessage(t("accountUnavailable"));
     }
-    if (passwordUpdate && state.status === "signed-in") {
-      sessionPanel.hidden = true;
-      form.hidden = false;
-      email.disabled = true;
-      if (!dialog.open) dialog.showModal();
-      renderMode();
-      password.focus();
-    }
     cloudSave.hidden = state.status !== "signed-in";
     cloudManage.hidden = state.status !== "signed-in";
     onAccountState(state);
+  }
+
+  function renderState(state) {
+    if (state.event === "PASSWORD_RECOVERY") mode = "password-recovery";
+    renderSession(state);
+    if (mode !== "password-recovery" || state.status !== "signed-in") return;
+    sessionPanel.hidden = true;
+    form.hidden = false;
+    email.disabled = true;
+    if (!dialog.open) dialog.showModal();
+    renderMode();
+    password.focus();
   }
 
   button.addEventListener("click", () => {
     setMessage("");
     mode = "sign-in";
     renderMode();
+    renderSession(account.state);
     dialog.showModal();
     if (account.state.status !== "signed-in") email.focus();
   });
