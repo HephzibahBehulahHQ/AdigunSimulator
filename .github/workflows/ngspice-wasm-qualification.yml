@@ -51,7 +51,8 @@ jobs:
           cd build-wasm
           emconfigure ../configure \
             --host=wasm32-unknown-emscripten \
-            --with-ngshared --with-readline=no --with-fftw3=no \
+            --with-ngshared --disable-shared --enable-static \
+            --with-readline=no --with-fftw3=no \
             --disable-openmp --disable-osdi --disable-debug
           emmake make -j2
 
