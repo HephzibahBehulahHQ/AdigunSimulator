@@ -51,6 +51,14 @@ test("Adigun BOT does not invent a manufacturer record for an unmatched part num
   assert.equal(answerBotProductQuestion("What is UNKNOWN-12345?"), null);
 });
 
+test("Adigun BOT resolves an exact manufacturer ledger ID to its recorded part", () => {
+  const result = answerBotProductQuestion("Explain the manufacturer record ti.lm555p");
+  assert.equal(result.action, "answer");
+  assert.match(result.answer, /Checked-in manufacturer record for LM555P/);
+  assert.match(result.answer, /Texas Instruments/);
+  assert.match(result.answer, /candidate/i);
+});
+
 test("project goals are remembered only from explicit goal statements", () => {
   assert.equal(isBotProjectGoalStatement("I want to build a 12 V motor controller"), true);
   assert.equal(isBotProjectGoalStatement("My project goal is a sensor alarm"), true);
