@@ -47,6 +47,9 @@ test("sourced candidate pin maps stay explicit and do not imply verified models 
     "5": "CONT", "6": "THRES", "7": "DISCH", "8": "VCC"
   });
   assert.equal(timer.packageEvidence.package, "PDIP-8");
+  assert.equal(timer.manufacturerPartNumber, "LM555CN/NOPB");
+  assert.ok(timer.manufacturerSources.some(source => source.url === "https://www.ti.com/product/LM555/part-details/LM555CN/NOPB"));
+  assert.equal(timer.lifecycle, "active");
   assert.equal(timer.verificationStatus, "candidate");
   const timerReadiness = getPartVerificationReadiness(timer);
   assert.ok(!timerReadiness.missingEvidenceCodes.includes("RATINGS_UNITS"));
