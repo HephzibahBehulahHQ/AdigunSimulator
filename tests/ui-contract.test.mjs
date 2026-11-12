@@ -368,6 +368,13 @@ test("net list supports cross-view probing and accessible selection state", asyn
   assert.match(css, /\.wire-layer \.is-net-highlight/);
 });
 
+test("hidden account sections stay hidden despite their layout display rules", async () => {
+  const css = await readFile(new URL("../styles.css", import.meta.url), "utf8");
+  assert.match(css, /\[hidden\]\s*\{\s*display:\s*none\s*!important;\s*\}/);
+  assert.match(css, /\.account-form\s*\{\s*display:\s*grid/);
+  assert.match(css, /#account-session\s*\{\s*display:\s*grid/);
+});
+
 test("keyboard shortcuts expose undo, redo, save, and selection removal", async () => {
   const app = await readFile(appFile, "utf8");
   assert.match(app, /modifier && key === "z"/);
