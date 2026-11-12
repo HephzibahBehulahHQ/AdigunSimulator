@@ -20,6 +20,8 @@ export function createCloudProjectsUi({ document, account, store, translate, get
   let selectedRevision = null;
   let pendingDelete = null;
   let busy = false;
+  let activeUserId = account.state.status === "signed-in" ? account.state.user?.id ?? null : null;
+  let sessionGeneration = 0;
 
   const t = key => translate(getLocale(), key);
   const signedIn = () => account.state.status === "signed-in";
@@ -62,14 +64,16 @@ export function createCloudProjectsUi({ document, account, store, translate, get
 
   async function refresh() {
     ensureSignedIn();
+    const generation = sessionGeneration;
     setBusy(true);
     setMessage(managerMessage, "cloudLoading");
     try {
       const records = await store.list();
+      if (generation !== sessionGeneration || !signedIn()) return;
       renderProjectOptions(records);
       setMessage(managerMessage, records.length ? "cloudProjectsLoaded" : "cloudNoProjects");
-    } catch { setMessage(managerMessage, "cloudRequestFailed"); }
-    finally { setBusy(false); }
+    } catch { if (generation === sessionGeneration) setMessage(managerMessage, "cloudRequestFailed"); }
+    finally { if (generation === sessionGeneration) setBusy(false); }
   }
 
   async function chooseProject() {
@@ -80,9 +84,11 @@ export function createCloudProjectsUi({ document, account, store, translate, get
     openRevisionButton.disabled = true;
     deleteButton.disabled = busy || !selectedProject;
     if (!selectedProject) return;
+    const generation = sessionGeneration;
     setBusy(true);
     try {
       const revisions = await store.revisions(selectedProject);
+      if (generation !== sessionGeneration || !signedIn()) return;
       for (const revision of revisions) {
         const option = document.createElement("option");
         option.value = revision.id;
@@ -91,8 +97,15 @@ export function createCloudProjectsUi({ document, account, store, translate, get
       }
       selectedRevision = revisionPicker.value || null;
       setMessage(managerMessage, revisions.length ? "cloudVersionsLoaded" : "cloudNoRevisions");
-    } catch { setMessage(managerMessage, "cloudRequestFailed"); }
-    finally { setBusy(false); openCurrentButton.disabled = !selectedProject; openRevisionButton.disabled = !selectedRevision; deleteButton.disabled = !selectedProject; }
+    } catch { if (generation === sessionGeneration) setMessage(managerMessage, "cloudRequestFailed"); }
+    finally {
+      if (generation === sessionGeneration) {
+        setBusy(false);
+        openCurrentButton.disabled = !selectedProject;
+        openRevisionButton.disabled = !selectedRevision;
+        deleteButton.disabled = !selectedProject;
+      }
+    }
   }
 
   function openSaveDialog() {
@@ -106,13 +119,17 @@ export function createCloudProjectsUi({ document, account, store, translate, get
   saveConfirm.addEventListener("click", async event => {
     event.preventDefault();
     if (busy) return;
+    let generation = sessionGeneration;
     try {
       ensureSignedIn();
+      generation = sessionGeneration;
       setBusy(true);
       const saved = await store.save(getProject());
+      if (generation !== sessionGeneration || !signedIn()) return;
       onSaved(saved);
       setMessage(saveMessage, "cloudProjectSaved");
     } catch (error) {
+      if (generation !== sessionGeneration) return;
       saveMessage.textContent = error?.message === "This project exceeds the cloud save size limit."
         ? t("cloudSizeLimit")
         : error?.message === "Cloud project names must contain 1 to 100 characters."
@@ -120,7 +137,7 @@ export function createCloudProjectsUi({ document, account, store, translate, get
           : error?.message?.includes("project limit")
             ? t("cloudProjectLimit")
             : t("cloudRequestFailed");
-    } finally { setBusy(false); }
+    } finally { if (generation === sessionGeneration) setBusy(false); }
   });
 
   function openManager() {
@@ -143,27 +160,33 @@ export function createCloudProjectsUi({ document, account, store, translate, get
 
   openCurrentButton.addEventListener("click", async () => {
     if (!selectedProject || busy) return;
+    let generation = sessionGeneration;
     setBusy(true);
     try {
       ensureSignedIn();
+      generation = sessionGeneration;
       const record = await store.get(selectedProject);
+      if (generation !== sessionGeneration || !signedIn()) return;
       if (!record) return setMessage(managerMessage, "cloudProjectMissing");
       await onOpenDocument(record.data, { source: "cloud", version: record.version });
-    } catch { setMessage(managerMessage, "cloudRequestFailed"); }
-    finally { setBusy(false); }
+    } catch { if (generation === sessionGeneration) setMessage(managerMessage, "cloudRequestFailed"); }
+    finally { if (generation === sessionGeneration) setBusy(false); }
   });
 
   openRevisionButton.addEventListener("click", async () => {
     if (!selectedProject || !selectedRevision || busy) return;
+    let generation = sessionGeneration;
     setBusy(true);
     try {
       ensureSignedIn();
+      generation = sessionGeneration;
       const versions = await store.revisions(selectedProject);
+      if (generation !== sessionGeneration || !signedIn()) return;
       const record = versions.find(item => item.id === selectedRevision);
       if (!record) return setMessage(managerMessage, "cloudProjectMissing");
       await onOpenDocument(record.data, { source: "cloud-revision", version: record.version });
-    } catch { setMessage(managerMessage, "cloudRequestFailed"); }
-    finally { setBusy(false); }
+    } catch { if (generation === sessionGeneration) setMessage(managerMessage, "cloudRequestFailed"); }
+    finally { if (generation === sessionGeneration) setBusy(false); }
   });
 
   deleteButton.addEventListener("click", () => {
@@ -176,16 +199,19 @@ export function createCloudProjectsUi({ document, account, store, translate, get
   deleteConfirm.addEventListener("click", async event => {
     event.preventDefault();
     if (!pendingDelete || busy) return;
+    let generation = sessionGeneration;
     setBusy(true);
     try {
       ensureSignedIn();
+      generation = sessionGeneration;
       await store.remove(pendingDelete);
+      if (generation !== sessionGeneration || !signedIn()) return;
       pendingDelete = null;
       if (deleteDialog.open) deleteDialog.close();
       setMessage(managerMessage, "cloudProjectDeleted");
       await refresh();
-    } catch { setMessage(managerMessage, "cloudRequestFailed"); }
-    finally { setBusy(false); }
+    } catch { if (generation === sessionGeneration) setMessage(managerMessage, "cloudRequestFailed"); }
+    finally { if (generation === sessionGeneration) setBusy(false); }
   });
 
   for (const button of closeButtons) button.addEventListener("click", () => button.closest("dialog")?.close());
@@ -194,6 +220,15 @@ export function createCloudProjectsUi({ document, account, store, translate, get
     openSaveDialog,
     openManager,
     renderState(state) {
+      const userId = state.status === "signed-in" ? state.user?.id ?? null : null;
+      if (userId !== activeUserId) {
+        activeUserId = userId;
+        sessionGeneration += 1;
+        pendingDelete = null;
+        setBusy(false);
+        renderProjectOptions([]);
+        closeDialogs();
+      }
       if (state.status !== "signed-in") closeDialogs();
     },
     dispose() {

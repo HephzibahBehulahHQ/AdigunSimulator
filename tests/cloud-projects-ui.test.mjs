@@ -75,3 +75,36 @@ test("cloud UI requires sign-in, makes each upload explicit, loads versions, and
   assert.equal(elements.get("#cloud-projects-dialog").open, false);
   ui.dispose();
 });
+
+test("cloud project results from a previous account cannot replace the current account list", async () => {
+  const ids = ["#account-cloud-save", "#account-cloud-manage", "#cloud-save-dialog", "#cloud-save-name", "#cloud-save-message", "#cloud-save-confirm", "#cloud-projects-dialog", "#cloud-project-picker", "#cloud-revision-picker", "#cloud-projects-message", "#cloud-open-current", "#cloud-open-revision", "#cloud-delete-project", "#cloud-delete-dialog", "#cloud-delete-name", "#cloud-delete-confirm", "#cloud-refresh"];
+  const elements = new Map(ids.map(id => [id, new Element()]));
+  const document = { querySelector: selector => elements.get(selector), querySelectorAll: () => [], createElement: () => new Element() };
+  let session = { status: "signed-in", user: { id: "owner-a" } };
+  const pendingLists = [];
+  const store = { list: () => new Promise(resolve => pendingLists.push(resolve)) };
+  const ui = createCloudProjectsUi({
+    document, account: { get state() { return session; } }, store,
+    translate: (_locale, key) => key, getLocale: () => "en", getProject: () => null,
+    onOpenDocument: async () => {}
+  });
+
+  ui.openManager();
+  assert.equal(pendingLists.length, 1);
+  ui.renderState({ status: "guest" });
+  session = { status: "signed-in", user: { id: "owner-b" } };
+  ui.renderState(session);
+  ui.openManager();
+  assert.equal(pendingLists.length, 2);
+
+  pendingLists[1]([{ id: "project-b", name: "Account B project", version: 1, updated_at: "2026-11-13T12:00:00Z" }]);
+  await sleepTurn();
+  const picker = elements.get("#cloud-project-picker");
+  assert.ok(picker.options.some(option => option.textContent.startsWith("Account B project")));
+
+  pendingLists[0]([{ id: "project-a", name: "Account A project", version: 1, updated_at: "2026-11-13T11:00:00Z" }]);
+  await sleepTurn();
+  assert.ok(picker.options.some(option => option.textContent.startsWith("Account B project")));
+  assert.ok(!picker.options.some(option => option.textContent.startsWith("Account A project")));
+  ui.dispose();
+});
