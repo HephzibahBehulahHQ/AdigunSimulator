@@ -4,19 +4,22 @@ import { getPartVerificationReadiness } from "./part-ledger.mjs";
 export const MANUFACTURER_PART_RECORDS = Object.freeze(ledger.records.map((record) => Object.freeze(record)));
 
 export function searchManufacturerParts(query = "") {
-  const normalized = String(query).trim().toLocaleLowerCase();
-  if (!normalized) return MANUFACTURER_PART_RECORDS;
-  return MANUFACTURER_PART_RECORDS.filter((record) => [
-    record.id,
-    record.manufacturer,
-    record.manufacturerPartNumber,
-    record.category,
-    record.type,
-    record.package,
-    record.packageEvidence?.package,
-    record.lifecycle,
-    record.verificationStatus
-  ].filter(Boolean).join(" ").toLocaleLowerCase().includes(normalized));
+  const terms = String(query).trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) return MANUFACTURER_PART_RECORDS;
+  return MANUFACTURER_PART_RECORDS.filter((record) => {
+    const searchableText = [
+      record.id,
+      record.manufacturer,
+      record.manufacturerPartNumber,
+      record.category,
+      record.type,
+      record.package,
+      record.packageEvidence?.package,
+      record.lifecycle,
+      record.verificationStatus
+    ].filter(Boolean).join(" ").toLocaleLowerCase();
+    return terms.every((term) => searchableText.includes(term));
+  });
 }
 
 export function getManufacturerPartEvidenceSummary(record) {
