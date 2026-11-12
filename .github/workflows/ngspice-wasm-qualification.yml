@@ -55,7 +55,8 @@ jobs:
             --disable-openmp --disable-osdi --disable-xspice --disable-debug
           emmake make -j2 LDFLAGS="--preload-file $GITHUB_WORKSPACE/tests/ngspice/resistor-divider-batch.cir@/resistor-divider-batch.cir"
 
-          NGSPICE_WASM="$(find . -type f \\( -name 'ngspice' -o -name 'ngspice.js' \\) -print -quit)"
+          NGSPICE_WASM="$(find . -type f -name 'ngspice' -print -quit)"
+          if [ -z "$NGSPICE_WASM" ]; then NGSPICE_WASM="$(find . -type f -name 'ngspice.js' -print -quit)"; fi
           file "$NGSPICE_WASM"
           test -n "$NGSPICE_WASM"
           OUTPUT="$RUNNER_TEMP/ngspice-wasm-output.log"
