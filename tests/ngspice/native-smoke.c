@@ -7,12 +7,19 @@
 
 int main(int argc, char **argv) {
     char source_command[4096];
-    char vector_name[] = "v(out)";
+    char *vector_name;
+    char *expected_end;
     pvector_info output;
-    double measured;
+    double measured, expected;
 
-    if (argc != 2) {
-        fprintf(stderr, "usage: %s <netlist>\n", argv[0]);
+    if (argc != 4) {
+        fprintf(stderr, "usage: %s <netlist> <vector> <expected-value>\n", argv[0]);
+        return 2;
+    }
+    vector_name = argv[2];
+    expected = strtod(argv[3], &expected_end);
+    if (expected_end == argv[3] || *expected_end != '\0' || !isfinite(expected)) {
+        fputs("expected operating-point value must be finite\n", stderr);
         return 2;
     }
     if (snprintf(source_command, sizeof source_command, "source %s", argv[1]) >=
@@ -25,7 +32,7 @@ int main(int argc, char **argv) {
         return 1;
     }
     if (ngSpice_Command(source_command) != 0 || ngSpice_Command("op") != 0) {
-        fputs("ngspice failed to load or solve the resistor-divider netlist\n", stderr);
+        fputs("ngspice failed to load or solve the operating-point netlist\n", stderr);
         return 1;
     }
 
@@ -35,11 +42,11 @@ int main(int argc, char **argv) {
         return 1;
     }
     measured = output->v_realdata[output->v_length - 1];
-    if (!isfinite(measured) || fabs(measured - 5.0) > 1e-9) {
-        fprintf(stderr, "expected v(out)=5 V, received %.12g V\n", measured);
+    if (!isfinite(measured) || fabs(measured - expected) > 1e-9) {
+        fprintf(stderr, "expected %s=%.12g V, received %.12g V\n", vector_name, expected, measured);
         return 1;
     }
-    printf("native ngspice operating-point smoke passed: v(out)=%.12g V\n", measured);
+    printf("native ngspice operating-point smoke passed: %s=%.12g V\n", vector_name, measured);
     return 0;
 }
 
