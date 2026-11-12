@@ -14,7 +14,9 @@ function verifiedPrice(component) {
   if (typeof price.unitCost !== "number" || !Number.isFinite(price.unitCost) || price.unitCost < 0) return null;
   if (typeof price.currency !== "string" || !/^[A-Z]{3}$/.test(price.currency)) return null;
   if (typeof price.source !== "string" || !/^https:\/\//.test(price.source)) return null;
-  if (typeof price.asOf !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(price.asOf) || Number.isNaN(Date.parse(price.asOf))) return null;
+  if (typeof price.asOf !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(price.asOf)) return null;
+  const asOfDate = new Date(`${price.asOf}T00:00:00.000Z`);
+  if (!Number.isFinite(asOfDate.getTime()) || asOfDate.toISOString().slice(0, 10) !== price.asOf) return null;
   return { unitCost: price.unitCost, currency: price.currency, source: price.source, asOf: price.asOf };
 }
 
