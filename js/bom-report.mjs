@@ -46,7 +46,7 @@ export function buildBomReport(project) {
   }
   const rows = [...grouped.values()].map((row) => ({
     ...row,
-    references: row.references.sort().join(", "),
+    references: row.references.sort((a, b) => a.localeCompare(b, "en", { numeric: true }) || (a < b ? -1 : a > b ? 1 : 0)).join(", "),
     extendedCost: row.unitCost === null ? null : Number((row.unitCost * row.quantity).toFixed(6))
   }));
   const currencies = new Set(rows.filter((row) => row.unitCost !== null).map((row) => row.currency));
