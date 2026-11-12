@@ -6,7 +6,6 @@ on:
     paths:
       - .github/workflows/ngspice-qualification.yml
   push:
-    branches: [main]
     paths:
       - .github/workflows/ngspice-qualification.yml
 
