@@ -1,17 +1,15 @@
-name: Qualify pinned ngspice WebAssembly build
+name: Qualify pinned ngspice WebAssembly batch analysis
 
 on:
   workflow_dispatch:
   pull_request:
     paths:
       - .github/workflows/ngspice-wasm-qualification.yml
-      - tests/ngspice/native-smoke.c
-      - tests/ngspice/resistor-divider.cir
+      - tests/ngspice/resistor-divider-batch.cir
   push:
     paths:
       - .github/workflows/ngspice-wasm-qualification.yml
-      - tests/ngspice/native-smoke.c
-      - tests/ngspice/resistor-divider.cir
+      - tests/ngspice/resistor-divider-batch.cir
 
 permissions:
   contents: read
@@ -51,18 +49,13 @@ jobs:
           cd build-wasm
           emconfigure ../configure \
             --host=wasm32-unknown-emscripten \
-            --with-ngshared --disable-shared --enable-static \
+            --disable-shared --enable-static \
             --with-readline=no --with-fftw3=no \
             --disable-openmp --disable-osdi --disable-debug
-          emmake make -j2
+          emmake make -j2 LDFLAGS="--preload-file $GITHUB_WORKSPACE/tests/ngspice/resistor-divider-batch.cir@/resistor-divider-batch.cir"
 
-          NGSPICE_ARCHIVE="$(find . -type f -path '*/.libs/libngspice.a' -print -quit)"
-          test -n "$NGSPICE_ARCHIVE"
-          emcc -O2 -sALLOW_MEMORY_GROWTH=1 -sEXIT_RUNTIME=1 -sENVIRONMENT=node \
-            -I "$GITHUB_WORKSPACE/upstream/src/include" \
-            "$GITHUB_WORKSPACE/tests/ngspice/native-smoke.c" \
-            "$NGSPICE_ARCHIVE" -lm \
-            --preload-file "$GITHUB_WORKSPACE/tests/ngspice/resistor-divider.cir@/resistor-divider.cir" \
-            -o "$RUNNER_TEMP/ngspice-wasm-smoke.js"
-          node "$RUNNER_TEMP/ngspice-wasm-smoke.js" /resistor-divider.cir
-
+          NGSPICE_WASM="$(find . -type f -name 'ngspice.js' -print -quit)"
+          test -n "$NGSPICE_WASM"
+          OUTPUT="$RUNNER_TEMP/ngspice-wasm-output.log"
+          node "$NGSPICE_WASM" -b -o /dev/stdout /resistor-divider-batch.cir 2>&1 | tee "$OUTPUT"
+          grep -Eiq 'v\(out\)[[:space:]]*=[[:space:]]*5\.0*([eE][+]0+)?' "$OUTPUT"
