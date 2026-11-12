@@ -149,13 +149,17 @@ test("live Adigun BOT observes the current canvas and requires an explicit previ
   assert.match(app, /activateView\(productAnswer\.view\)/);
   assert.match(app, /dragging: Boolean\(state\.drag\)/);
   assert.match(app, /active\?\.matches\?\./);
-  assert.match(app, /applyBotSuggestionPreview\(state\.project, currentBotPreview, \{ confirmed: true \}\)/);
+  assert.match(app, /applyBotSuggestionPreview\(state\.project, preview, \{ confirmed: true \}\)/);
+  assert.match(app, /recordBotAuditEvent\(\{ type: "preview-prepared"/);
+  assert.match(app, /recordBotAuditEvent\(\{ type: "preview-cancelled"/);
+  assert.match(app, /recordBotAuditEvent\(\{ type: "suggestion-dismissed"/);
   assert.match(app, /Use Undo to roll back/);
   assert.match(bot, /rateLimitMs = 25000/);
   assert.match(bot, /debounceMs = 650/);
   assert.match(bot, /validateProject\(preview\.candidate\)/);
   assert.match(help, /## Table of contents[\s\S]*\[The live co-pilot\]/);
   assert.match(help, /## The live co-pilot/);
+  assert.match(help, /Output panel records when a suggestion is dismissed/);
   assert.match(help, /does not call an external AI service/i);
 });
 
@@ -384,4 +388,5 @@ test("the published example catalogue retains all 200 individually specified acc
   assert.deepEqual(rows, Array.from({ length: 200 }, (_, index) => index + 1));
   assert.match(catalogue, /row specifies[\s\S]*implemented or passed/i);
 });
+
 
