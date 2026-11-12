@@ -78,4 +78,4 @@ jobs:
           node "./$NGSPICE_NODE" -b /resistor-divider-batch.cir 2>&1 | tee "$OUTPUT"
           grep -Eiq 'v\(out\)[[:space:]]*=[[:space:]]*5\.0*([eE][+]0+)?' "$OUTPUT"
           node "./$NGSPICE_NODE" -b /exported-current-source.cir 2>&1 | tee -a "$OUTPUT"
-          grep -Eiq 'v\(n1\)[[:space:]]*=[[:space:]]*(10\.0*([eE][+]0+)?|1\.0*[eE][+]0*1)' "$OUTPUT"
+          grep -Eiq 'v\(n1\)[[:space:]]*=[[:space:]]*(10\.0*([eE][+]0+)?|1\.0*[eE][+]0*1)|^[[:space:]]*n1[[:space:]]+(10\.0*([eE][+]0+)?|1\.0*[eE][+]0*1)([[:space:]]|$)' "$OUTPUT"
