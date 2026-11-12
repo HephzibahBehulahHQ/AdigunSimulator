@@ -137,7 +137,7 @@ test("a pointer click without dragging selects the component before replacing it
   let handler, inspector, renderedSelection;
   const start = source.indexOf('document.addEventListener("pointerup"');
   const end = source.indexOf('\n});', start) + 4;
-  runInNewContext(source.slice(start, end), { state, document: { addEventListener: (_, value) => { handler = value; } }, canvasClientDelta, setInspector: value => { inspector = value; }, renderInspector() {}, updateSaveState() {}, renderCanvas: () => { renderedSelection = state.selectedInstanceId; }, captureHistory: () => { throw new Error("Selection must not edit history"); } });
+  runInNewContext(source.slice(start, end), { pcbViaEditor: { pointerEnd: () => false }, state, document: { addEventListener: (_, value) => { handler = value; } }, canvasClientDelta, setInspector: value => { inspector = value; }, renderInspector() {}, updateSaveState() {}, renderCanvas: () => { renderedSelection = state.selectedInstanceId; }, captureHistory: () => { throw new Error("Selection must not edit history"); } });
   handler({ pointerId:7, clientX:100, clientY:100 });
   assert.equal(state.selectedInstanceId, "U1"); assert.equal(renderedSelection,"U1"); assert.equal(inspector,"component"); assert.equal(state.project,project); assert.equal(state.drag,null);
 });

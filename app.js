@@ -2115,6 +2115,7 @@ function deleteCanvasSelection(){
 }
 
 document.addEventListener("pointerdown", (event) => {
+  if (pcbViaEditor.pointerDown(event)) return;
   if(wireUi.pointerDown(event))return;
   const canvas = event.target.closest("#design-canvas");
   if (!canvas || event.button !== 0 || state.placement) return;
@@ -2152,6 +2153,7 @@ document.addEventListener("pointerdown", (event) => {
 });
 
 document.addEventListener("pointermove", (event) => {
+  if (pcbViaEditor.pointerMove(event)) return;
   if(wireUi.pointerMove(event))return;
   if (state.placement && event.target.closest?.("#design-canvas")) {
     updatePlacementPreview(canvasClientPoint({ x:event.clientX,y:event.clientY }, $("#design-canvas .canvas-scene").getBoundingClientRect()));
@@ -2191,6 +2193,7 @@ document.addEventListener("pointermove", (event) => {
 });
 
 document.addEventListener("pointercancel", (event) => {
+  if (pcbViaEditor.pointerEnd(event, true)) return;
   if(wireUi.pointerEnd(event,true))return;
   if (!state.drag || event.pointerId !== state.drag.pointerId) return;
   const drag = state.drag;
@@ -2203,6 +2206,7 @@ document.addEventListener("pointercancel", (event) => {
 });
 
 document.addEventListener("pointerup", (event) => {
+  if (pcbViaEditor.pointerEnd(event)) return;
   if(wireUi.pointerEnd(event))return;
   if (!state.drag || event.pointerId !== state.drag.pointerId) return;
   const drag = state.drag;

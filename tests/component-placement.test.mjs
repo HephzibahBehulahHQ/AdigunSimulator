@@ -37,7 +37,7 @@ test("collision rejection preserves the project and Add finds separate space for
 test("actual hover handler converts camera coordinates into a preview without a project edit",async()=>{
   const source=await readFile(new URL("../app.js",import.meta.url),"utf8"),start=source.indexOf('document.addEventListener("pointermove"'),end=source.indexOf("\n});",start)+4;
   const project=createEmptyProject(),state={placement:startComponentPlacement("passive.resistor"),project};let handler,preview;
-  runInNewContext(source.slice(start,end),{wireUi:{pointerMove:()=>false},state,document:{addEventListener:(_,fn)=>handler=fn},canvasClientPoint,$:()=>({getBoundingClientRect:()=>({left:100,top:50,width:1360,height:600})}),updatePlacementPreview:point=>preview=point});
+  runInNewContext(source.slice(start,end),{pcbViaEditor:{pointerMove:()=>false},wireUi:{pointerMove:()=>false},state,document:{addEventListener:(_,fn)=>handler=fn},canvasClientPoint,$:()=>({getBoundingClientRect:()=>({left:100,top:50,width:1360,height:600})}),updatePlacementPreview:point=>preview=point});
   handler({target:{closest:()=>true},clientX:500,clientY:350});assert.deepEqual(preview,[200,150]);assert.equal(state.project,project);assert.equal(project.components.length,0);
 });
 
