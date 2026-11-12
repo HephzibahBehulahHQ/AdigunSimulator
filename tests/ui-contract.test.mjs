@@ -160,6 +160,8 @@ test("live Adigun BOT observes the current canvas and requires an explicit previ
   assert.match(help, /## Table of contents[\s\S]*\[The live co-pilot\]/);
   assert.match(help, /## The live co-pilot/);
   assert.match(help, /Output panel records when a suggestion is dismissed/);
+  assert.match(help, /exact listed MPN or ledger ID/);
+  assert.match(help, /A candidate is not a verified part/);
   assert.match(help, /does not call an external AI service/i);
 });
 
