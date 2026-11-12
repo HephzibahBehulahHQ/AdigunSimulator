@@ -3,6 +3,7 @@ import { canvasClientPoint } from "./canvas-camera.mjs";
 import { pcbPreviewPointToBoardMm } from "./pcb-preview.mjs";
 
 export function createPcbViaEditor({ state, $, $$, t, escape, renderCanvas, render, activateView, captureHistory, validateAndReport, showDialog, log }) {
+  let drag = null;
   function refresh() {
     const pcb = state.project.pcbFabrication, board = pcb?.board;
     const enabled = Boolean(Array.isArray(board?.copperLayers) && board.copperLayers.length === 2 && board.copperLayers[0] === "F.Cu" && board.copperLayers[1] === "B.Cu");
@@ -76,7 +77,71 @@ export function createPcbViaEditor({ state, $, $$, t, escape, renderCanvas, rend
     $("#pcb-via-x").focus();
     return true;
   }
+  function pointerDown(event) {
+    if (state.activeView !== "pcb" || state.activeTool !== "select" || event.button !== 0) return false;
+    const target = event.target.closest?.("#design-canvas .pcb-via");
+    if (!target) return false;
+    const id = target.dataset.pcbPad?.startsWith("@via:") ? target.dataset.pcbPad.slice(5) : null;
+    const via = state.project.pcbFabrication?.vias?.find((item) => item.id === id);
+    const canvas = target.closest?.("#design-canvas"), svg = target.ownerSVGElement;
+    if (!via || !canvas || !svg) return false;
+    state.pcbSelectedViaId = id;
+    state.selectedInstanceId = null;
+    drag = { id, via, pointerId: event.pointerId, start: { x: event.clientX, y: event.clientY }, before: state.project, dirty: state.dirty, canvas, rect: svg.getBoundingClientRect(), moved: false };
+    canvas.setPointerCapture?.(event.pointerId);
+    event.preventDefault?.();
+    return true;
+  }
+  function pointFromPointer(active, event) {
+    const viewPoint = canvasClientPoint({ x: event.clientX, y: event.clientY }, active.rect);
+    const point = pcbPreviewPointToBoardMm(active.before, viewPoint);
+    if (!point) return null;
+    if ($("#snap-toggle").checked) { point[0] = Math.round(point[0] * 2) / 2; point[1] = Math.round(point[1] * 2) / 2; }
+    else { point[0] = Math.round(point[0] * 1000) / 1000; point[1] = Math.round(point[1] * 1000) / 1000; }
+    return point;
+  }
+  function pointerMove(event) {
+    if (!drag || drag.pointerId !== event.pointerId) return false;
+    if (!drag.moved && Math.hypot(event.clientX - drag.start.x, event.clientY - drag.start.y) < 4) return true;
+    drag.moved = true;
+    const point = pointFromPointer(drag, event);
+    if (!point) return true;
+    const result = savePcbVia(drag.before, { ...drag.via, xMm: point[0], yMm: point[1] });
+    if (result.status === "complete") {
+      state.project = result.project;
+      state.dirty = true;
+      renderCanvas();
+    }
+    return true;
+  }
+  function pointerEnd(event, cancelled = false) {
+    if (!drag || drag.pointerId !== event.pointerId) return false;
+    const active = drag;
+    drag = null;
+    active.canvas.releasePointerCapture?.(event.pointerId);
+    if (!active.moved) {
+      if (!cancelled) {
+        state.suppressCanvasClick = true;
+        select(active.id);
+        $$("#design-canvas .pcb-via").find((element) => element.dataset.pcbPad === `@via:${active.id}`)?.focus();
+      }
+      return true;
+    }
+    state.suppressCanvasClick = !cancelled;
+    state.project = active.before;
+    state.dirty = active.dirty;
+    if (cancelled) { render(); return true; }
+    const point = pointFromPointer(active, event);
+    const result = point ? savePcbVia(active.before, { ...active.via, xMm: point[0], yMm: point[1] }) : { status: "blocked", code: "INVALID_COORDINATE" };
+    if (result.status === "complete") commit(result);
+    else {
+      render();
+      if (result.status === "blocked") showDialog(t("pcbViaTitle"), `${t("pcbViaBlocked")} (${result.code})${result.errors?.length ? "\n" + result.errors.join("\n") : ""}`);
+    }
+    return true;
+  }
   function keydown(event) {
+    if (event.key === "Escape" && drag) { event.preventDefault(); pointerEnd({ pointerId: drag.pointerId }, true); return true; }
     const nudge = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[event.key];
     if (nudge && state.activeView === "pcb" && state.activeTool === "select") {
       const target = event.target.closest?.("#design-canvas .pcb-via");
@@ -115,5 +180,5 @@ export function createPcbViaEditor({ state, $, $$, t, escape, renderCanvas, rend
     const values = Object.fromEntries($$("[data-via-field]").map((field) => [field.dataset.viaField, field.dataset.viaField === "netId" ? field.value : Number(field.value)]));
     commit(savePcbVia(state.project, { ...values, id: state.pcbSelectedViaId }));
   });
-  return { refresh, click, keydown, action };
+  return { refresh, click, keydown, action, pointerDown, pointerMove, pointerEnd };
 }

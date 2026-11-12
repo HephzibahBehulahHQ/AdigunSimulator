@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { createPcbViaEditor } from "../js/pcb-via-controller.mjs";
 import { savePcbVia } from "../js/pcb-via-edit.mjs";
+import { getPcbPreviewScale } from "../js/pcb-preview.mjs";
 import { parseProject, serializeProject } from "../js/core.mjs";
 
 async function harness() {
@@ -15,14 +16,25 @@ async function harness() {
     const e = key === "netId" ? $("#pcb-via-net") : key === "xMm" ? $("#pcb-via-x") : element();
     e.dataset.viaField = key; return e;
   });
-  const viaTarget = element(); viaTarget.dataset.pcbPad = "@via:J1-A4";
+  const rect = { left: 100, top: 80, width: 1020, height: 450 };
+  const svg = { getBoundingClientRect: () => rect };
+  const captures = [];
+  const canvas = { setPointerCapture: (id) => captures.push(`set:${id}`), releasePointerCapture: (id) => captures.push(`release:${id}`) };
+  const viaTarget = element(); viaTarget.dataset.pcbPad = "@via:J1-A4"; viaTarget.ownerSVGElement = svg;
+  viaTarget.closest = (selector) => selector === "#design-canvas" ? canvas : selector === "#design-canvas .pcb-via" ? viaTarget : null;
   const button = element();
   const $$ = (selector) => selector === "[data-via-field]" ? fields : selector === "#design-canvas .pcb-via" ? [viaTarget] : selector === '[data-action="pcb-via-new"]' ? [button] : [];
   const editor = createPcbViaEditor({ state, $, $$, t: (key) => key, escape: (text) => String(text).replaceAll("<", "&lt;").replaceAll('"', "&quot;"), renderCanvas: () => editor.refresh(), render: () => editor.refresh(), activateView: (view) => { state.activeView = view; }, captureHistory: () => history.push(serializeProject(state.project)), validateAndReport() {}, showDialog: (title, text) => dialogs.push({ title, text }), log() {} });
   editor.refresh();
   const fill = (values) => fields.forEach((field) => { if (field.dataset.viaField in values) { field.value = String(values[field.dataset.viaField]); $("#pcb-via-form").events.input({ target: field }); } });
   const submit = () => $("#pcb-via-form").events.submit({ preventDefault() {} });
-  return { editor, state, nodes, history, dialogs, fields, fill, submit, viaTarget, button, $ };
+  return { editor, state, nodes, history, dialogs, fields, fill, submit, viaTarget, button, $, rect, captures, canvas };
+}
+
+function clientAt(project, xMm, yMm, rect) {
+  const board = project.pcbFabrication.board, scale = getPcbPreviewScale(board);
+  const x0 = (680 - board.widthMm * scale) / 2, y0 = (300 - board.heightMm * scale) / 2;
+  return { clientX: rect.left + (x0 + xMm * scale) * rect.width / 680, clientY: rect.top + (y0 + yMm * scale) * rect.height / 300 };
 }
 
 test("via inspector submits real edits once and rejected edits preserve the native project and history", async () => {
@@ -112,4 +124,57 @@ test("arrow keys nudge a focused via by the documented snap increment and retain
   assert.equal(h.editor.keydown({ key: "ArrowLeft", target: { closest: () => h.viaTarget }, preventDefault() {} }), false);
   assert.deepEqual(h.state.project.pcbFabrication.vias.at(-1), moved);
   assert.equal(h.history.length, 2);
+});
+
+test("pointer drag previews a via move and commits one guarded, undoable edit", async () => {
+  const h = await harness();
+  const created = savePcbVia(h.state.project, { netId: "VBUS", xMm: 25, yMm: 17, diameterMm: 0.6, drillMm: 0.3 });
+  h.state.project = created.project; h.viaTarget.dataset.pcbPad = `@via:${created.viaId}`; h.editor.refresh();
+  const original = h.state.project, beforeNets = structuredClone(original.nets);
+  h.$("#snap-toggle").checked = true;
+  const from = clientAt(original, 25, 17, h.rect), to = clientAt(original, 25.5, 17.5, h.rect);
+  const target = { closest: (selector) => selector === "#design-canvas .pcb-via" ? h.viaTarget : selector === "#design-canvas" ? h.canvas : null };
+  assert.equal(h.editor.pointerDown({ ...from, button: 0, pointerId: 4, target, preventDefault() {} }), true);
+  assert.equal(h.editor.pointerMove({ ...from, clientX: from.clientX + 1, pointerId: 4 }), true);
+  assert.equal(h.state.project, original); assert.equal(h.history.length, 0);
+  assert.equal(h.editor.pointerMove({ ...to, pointerId: 4 }), true);
+  assert.equal(h.state.project.pcbFabrication.vias.find((via) => via.id === created.viaId).xMm, 25.5);
+  assert.equal(h.history.length, 0);
+  assert.equal(h.editor.pointerEnd({ ...to, pointerId: 4 }), true);
+  const moved = h.state.project.pcbFabrication.vias.find((via) => via.id === created.viaId);
+  assert.deepEqual([moved.xMm, moved.yMm], [25.5, 17.5]);
+  assert.equal(h.history.length, 1); assert.deepEqual(parseProject(h.history[0]), original);
+  assert.deepEqual(h.state.project.nets, beforeNets); assert.equal(h.state.suppressCanvasClick, true);
+  assert.deepEqual(h.captures, ["set:4", "release:4"]);
+});
+
+test("via drag cancellation restores the original project and blocked drops do not create history", async () => {
+  const h = await harness();
+  const created = savePcbVia(h.state.project, { netId: "VBUS", xMm: 25, yMm: 17, diameterMm: 0.6, drillMm: 0.3 });
+  h.state.project = created.project; h.viaTarget.dataset.pcbPad = `@via:${created.viaId}`; h.editor.refresh();
+  const original = h.state.project;
+  const from = clientAt(original, 25, 17, h.rect), to = clientAt(original, 25.5, 17.5, h.rect);
+  const target = { closest: (selector) => selector === "#design-canvas .pcb-via" ? h.viaTarget : selector === "#design-canvas" ? h.canvas : null };
+  h.editor.pointerDown({ ...from, button: 0, pointerId: 5, target, preventDefault() {} });
+  h.editor.pointerMove({ ...to, pointerId: 5 });
+  assert.equal(h.editor.keydown({ key: "Escape", preventDefault() {} }), true);
+  assert.equal(h.state.project, original); assert.equal(h.history.length, 0);
+  const outside = { clientX: h.rect.left + h.rect.width + 40, clientY: from.clientY };
+  h.editor.pointerDown({ ...from, button: 0, pointerId: 6, target, preventDefault() {} });
+  h.editor.pointerMove({ ...outside, pointerId: 6 });
+  assert.equal(h.editor.pointerEnd({ ...outside, pointerId: 6 }), true);
+  assert.equal(h.state.project, original); assert.equal(h.history.length, 0);
+  assert.equal(h.dialogs.length, 1);
+});
+
+test("a via pointer click selects it without creating a move history entry", async () => {
+  const h = await harness(), project = h.state.project;
+  const point = clientAt(project, 7.75, 3.7, h.rect);
+  const target = { closest: (selector) => selector === "#design-canvas .pcb-via" ? h.viaTarget : selector === "#design-canvas" ? h.canvas : null };
+  assert.equal(h.editor.pointerDown({ ...point, button: 0, pointerId: 7, target, preventDefault() {} }), true);
+  assert.equal(h.editor.pointerEnd({ ...point, pointerId: 7 }), true);
+  assert.equal(h.state.pcbSelectedViaId, "J1-A4");
+  assert.equal(h.viaTarget.attributes["aria-pressed"], "true");
+  assert.equal(h.viaTarget.focused, true);
+  assert.equal(h.state.project, project); assert.equal(h.history.length, 0);
 });
