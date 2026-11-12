@@ -1,0 +1,68 @@
+name: Qualify pinned ngspice WebAssembly batch analysis
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/ngspice-wasm-qualification.yml
+      - tests/ngspice/resistor-divider-batch.cir
+  push:
+    paths:
+      - .github/workflows/ngspice-wasm-qualification.yml
+      - tests/ngspice/resistor-divider-batch.cir
+
+permissions:
+  contents: read
+
+jobs:
+  wasm-divider-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install upstream build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y autoconf automake bison build-essential flex libtool
+
+      - name: Build and run the pinned engine as WebAssembly
+        env:
+          NGSPICE_COMMIT: a80f6e3e95d51534905b1f23410a951802666656
+          EMSDK_VERSION: 3.1.64
+        run: |
+          git clone --depth=1 https://github.com/emscripten-core/emsdk.git "$RUNNER_TEMP/emsdk"
+          "$RUNNER_TEMP/emsdk/emsdk" install "$EMSDK_VERSION"
+          "$RUNNER_TEMP/emsdk/emsdk" activate "$EMSDK_VERSION"
+          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
+          emcc --version
+
+          git init upstream
+          git -C upstream remote add origin https://git.code.sf.net/p/ngspice/ngspice
+          git -C upstream fetch --depth=1 origin "$NGSPICE_COMMIT"
+          git -C upstream checkout --detach FETCH_HEAD
+          test "$(git -C upstream rev-parse HEAD)" = "$NGSPICE_COMMIT"
+
+          cd upstream
+          ./autogen.sh
+          mkdir build-wasm
+          cd build-wasm
+          # ngspice 47 retains an XSPICE-only enum in a disabled-XSPICE switch branch.
+          CFLAGS="-O2 -DOPT_ENH_RSHUNT=9999" emconfigure ../configure \
+            --host=wasm32-unknown-emscripten \
+            --disable-shared --enable-static \
+            --with-readline=no --with-fftw3=no \
+            --disable-openmp --disable-osdi --disable-xspice --disable-debug
+          emmake make -j2 LDFLAGS="--preload-file $GITHUB_WORKSPACE/tests/ngspice/resistor-divider-batch.cir@/resistor-divider-batch.cir"
+
+          NGSPICE_WASM="$(find . -type f -name 'ngspice' -print -quit)"
+          if [ -z "$NGSPICE_WASM" ]; then NGSPICE_WASM="$(find . -type f -name 'ngspice.js' -print -quit)"; fi
+          file "$NGSPICE_WASM"
+          test -n "$NGSPICE_WASM"
+          NGSPICE_DIRECTORY="$(dirname "$NGSPICE_WASM")"
+          NGSPICE_NODE="$(basename "$NGSPICE_WASM").cjs"
+          cp "$NGSPICE_WASM" "$NGSPICE_DIRECTORY/$NGSPICE_NODE"
+          OUTPUT="$RUNNER_TEMP/ngspice-wasm-output.log"
+          cd "$NGSPICE_DIRECTORY"
+          node "./$NGSPICE_NODE" -b /resistor-divider-batch.cir 2>&1 | tee "$OUTPUT"
+          grep -Eiq 'v\(out\)[[:space:]]*=[[:space:]]*5\.0*([eE][+]0+)?' "$OUTPUT"
