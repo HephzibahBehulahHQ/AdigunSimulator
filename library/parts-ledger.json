@@ -5,7 +5,7 @@
     {
       "id": "ti.lm555p",
       "manufacturer": "Texas Instruments",
-      "manufacturerPartNumber": "LM555P",
+      "manufacturerPartNumber": "LM555CN/NOPB",
       "category": "Active components",
       "type": "555 timer",
       "lifecycle": "active",
@@ -20,7 +20,7 @@
       },
       "manufacturerSources": [
         {
-          "url": "https://www.ti.com/product/LM555",
+          "url": "https://www.ti.com/product/LM555/part-details/LM555CN/NOPB",
           "kind": "manufacturer-product-page"
         },
         {
@@ -31,7 +31,7 @@
       "packageEvidence": {
         "package": "PDIP-8",
         "pinCount": 8,
-        "sourceUrl": "https://www.ti.com/product/LM555"
+        "sourceUrl": "https://www.ti.com/product/LM555/part-details/LM555CN/NOPB"
       },
       "package": "PDIP-8",
       "symbolPinMap": {
@@ -105,11 +105,11 @@
         }
       },
       "lifecycleEvidence": {
-        "sourceUrl": "https://www.ti.com/product/LM555",
-        "checkedAt": "2026-11-02"
+        "sourceUrl": "https://www.ti.com/product/LM555/part-details/LM555CN/NOPB",
+        "checkedAt": "2026-11-12"
       },
       "evidenceNote": "library/evidence/ti.lm555p.md",
-      "notes": "TI identifies LM555 as active and lists an 8-pin PDIP package. Datasheet pin numbers and logical functions are recorded; physical pad geometry, licensed symbol/footprint assets, checksum, validated device model, full required metadata, and independent human review remain incomplete. Not counted as verified.",
+      "notes": "TI identifies orderable part LM555CN/NOPB as active production in an 8-pin PDIP package. The stable internal record ID ti.lm555p is retained for project compatibility. Datasheet pin functions and CC0 candidate assets are recorded; the footprint's application-selected pad/drill defaults still require independent physical-fit and electrical review. The specific device is not modeled and this record remains unverified.",
       "typeCode": "E45",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.lm555p/symbol.svg",

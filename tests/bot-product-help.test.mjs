@@ -54,7 +54,7 @@ test("Adigun BOT does not invent a manufacturer record for an unmatched part num
 test("Adigun BOT resolves an exact manufacturer ledger ID to its recorded part", () => {
   const result = answerBotProductQuestion("Explain the manufacturer record ti.lm555p");
   assert.equal(result.action, "answer");
-  assert.match(result.answer, /Checked-in manufacturer record for LM555P/);
+  assert.match(result.answer, /Checked-in manufacturer record for LM555CN\/NOPB/);
   assert.match(result.answer, /Texas Instruments/);
   assert.match(result.answer, /candidate/i);
 });
