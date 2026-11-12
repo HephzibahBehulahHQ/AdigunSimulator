@@ -5,9 +5,19 @@ on:
   pull_request:
     paths:
       - .github/workflows/ngspice-qualification.yml
+      - js/core.mjs
+      - js/spice-netlist.mjs
+      - scripts/generate-spice-current-source-smoke.mjs
+      - tests/ngspice/native-smoke.c
+      - tests/ngspice/resistor-divider.cir
   push:
     paths:
       - .github/workflows/ngspice-qualification.yml
+      - js/core.mjs
+      - js/spice-netlist.mjs
+      - scripts/generate-spice-current-source-smoke.mjs
+      - tests/ngspice/native-smoke.c
+      - tests/ngspice/resistor-divider.cir
 
 permissions:
   contents: read
@@ -18,6 +28,13 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Generate current-source smoke deck with the app exporter
+        run: node scripts/generate-spice-current-source-smoke.mjs "$RUNNER_TEMP/exported-current-source.cir"
 
       - name: Install upstream build prerequisites
         run: |
@@ -50,5 +67,7 @@ jobs:
             -L "$NGSPICE_LIBRARY_DIR" -Wl,-rpath,"$NGSPICE_LIBRARY_DIR" \
             -lngspice -lm -o "$RUNNER_TEMP/ngspice-native-smoke"
           "$RUNNER_TEMP/ngspice-native-smoke" \
-            "$GITHUB_WORKSPACE/tests/ngspice/resistor-divider.cir"
+            "$GITHUB_WORKSPACE/tests/ngspice/resistor-divider.cir" "v(out)" 5
+          "$RUNNER_TEMP/ngspice-native-smoke" \
+            "$RUNNER_TEMP/exported-current-source.cir" "v(n1)" 10
 
