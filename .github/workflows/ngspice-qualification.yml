@@ -1,0 +1,45 @@
+name: Qualify pinned ngspice native build
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/ngspice-qualification.yml
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/ngspice-qualification.yml
+
+permissions:
+  contents: read
+
+jobs:
+  native-shared-library:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Install upstream build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y autoconf automake bison build-essential flex libtool
+
+      - name: Fetch and verify the reviewed ngspice revision
+        env:
+          NGSPICE_COMMIT: a80f6e3e95d51534905b1f23410a951802666656
+        run: |
+          git init ngspice
+          git -C ngspice remote add origin https://git.code.sf.net/p/ngspice/ngspice
+          git -C ngspice fetch --depth=1 origin "$NGSPICE_COMMIT"
+          git -C ngspice checkout --detach FETCH_HEAD
+          test "$(git -C ngspice rev-parse HEAD)" = "$NGSPICE_COMMIT"
+
+      - name: Build the upstream shared library without installing or publishing it
+        working-directory: ngspice
+        run: |
+          ./autogen.sh
+          mkdir build
+          cd build
+          ../configure --with-ngshared --enable-cider --prefix="$RUNNER_TEMP/ngspice-install"
+          make -j2
+          test -n "$(find . -type f -path '*/.libs/libngspice.so*' -print -quit)"
+
