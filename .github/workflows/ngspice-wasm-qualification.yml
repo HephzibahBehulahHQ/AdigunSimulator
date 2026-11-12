@@ -59,6 +59,8 @@ jobs:
           if [ -z "$NGSPICE_WASM" ]; then NGSPICE_WASM="$(find . -type f -name 'ngspice.js' -print -quit)"; fi
           file "$NGSPICE_WASM"
           test -n "$NGSPICE_WASM"
+          NGSPICE_NODE="${NGSPICE_WASM}.cjs"
+          cp "$NGSPICE_WASM" "$NGSPICE_NODE"
           OUTPUT="$RUNNER_TEMP/ngspice-wasm-output.log"
-          node "$NGSPICE_WASM" -b /resistor-divider-batch.cir 2>&1 | tee "$OUTPUT"
+          node "$NGSPICE_NODE" -b /resistor-divider-batch.cir 2>&1 | tee "$OUTPUT"
           grep -Eiq 'v\(out\)[[:space:]]*=[[:space:]]*5\.0*([eE][+]0+)?' "$OUTPUT"
