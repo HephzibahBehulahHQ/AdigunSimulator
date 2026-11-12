@@ -166,7 +166,7 @@ function renderBotFinding(finding) {
   $("#bot-suggestion-detail").hidden = true;
   currentBotPreview = null;
   if (!finding) return;
-  const messageKeys = { "missing-gate-input": "botMissingInputMessage", "unobserved-gate-output": "botOutputMessage", "goal-question": "botGoalQuestionMessage", "unwired-component": "botUnwiredMessage", "missing-gate-rails": "botRailsMessage", "driver-conflict": "botConflictMessage" };
+  const messageKeys = { "missing-gate-input": "botMissingInputMessage", "unobserved-gate-output": "botOutputMessage", "goal-question": "botGoalQuestionMessage", "unwired-component": "botUnwiredMessage", "missing-gate-rails": "botRailsMessage", "missing-supply-pins": "botRailsMessage", "driver-conflict": "botConflictMessage" };
   const key = messageKeys[finding.kind] ?? "botGoalQuestionMessage";
   const message = t(key).replaceAll("{reference}", finding.reference ?? "").replaceAll("{pin}", finding.pin ?? "").replaceAll("{pins}", finding.pins ?? "").replaceAll("{net}", finding.net ?? "").replaceAll("{drivers}", finding.drivers ?? "");
   $("#bot-suggestion-title").textContent = t("botSuggestionHeading");

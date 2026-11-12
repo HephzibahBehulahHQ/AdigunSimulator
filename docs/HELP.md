@@ -18,7 +18,7 @@ Choose a supported analysis mode, review its configured inputs and stated model 
 
 ## The live co-pilot
 
-Adigun BOT's live co-pilot is a local, deterministic analyzer. It reads the current native-project components, library pin definitions, and net endpoints. It can point out an open input on supported two-input gates, an unconnected gate output that could be observed with a logic probe, unconnected gate supply pins, multiple recognized gate outputs on one net, and parts that have remained entirely unwired for five seconds. It asks about the project goal when it cannot identify a clear path. Hovering over or selecting a component shows its current connected peers and open pins.
+Adigun BOT's live co-pilot is a local, deterministic analyzer. It reads the current native-project components, library pin definitions, and net endpoints. It can point out an open input on supported two-input gates, an unconnected gate output that could be observed with a logic probe, unconnected VCC/GND pins on library parts that define those pins, multiple recognized gate outputs on one net, and parts that have remained entirely unwired for five seconds. It asks about the project goal when it cannot identify a clear path. Hovering over or selecting a component shows its current connected peers and open pins.
 
 Use the **Live co-pilot** checkbox in the Adigun BOT panel to turn proactive checks on or off. Enter a goal or question in the panel and select **Ask**; a project goal is remembered for this browser session only. Checks are debounced, limited to one suggestion every 25 seconds, and paused while you type, drag, or run a simulation. Dismissed findings are suppressed temporarily.
 
