@@ -376,6 +376,7 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .is-pcb-route-mode .pcb-board-outline { pointer-events: all; }
 .is-pcb-via-mode .pcb-board-outline { pointer-events: all; cursor: crosshair; }
 .pcb-via { cursor: grab; touch-action: none; }
+.pcb-via-hit-target { fill: transparent; pointer-events: all; }
 .pcb-via:active { cursor: grabbing; }
 .pcb-via.is-selected .pcb-pad-through-hole { stroke: var(--cyan); stroke-width: 2; }
 .via-fields { display: grid; gap: .65rem; min-width: 0; margin: 0; padding: 0; border: 0; }
