@@ -52,6 +52,22 @@ function makeSeriesRlcCircuit(config = {}) {
   };
 }
 
+function makeHighResistanceCircuit() {
+  let project = createEmptyProject({ name: "High impedance transient verification" });
+  for (const id of ["power.dc-source", "passive.resistor", "ground.signal"]) project = addComponent(project, id);
+  const pin = (reference, terminal) => `${project.components.find((item) => item.reference === reference).instanceId}:${terminal}`;
+  for (const [a, b] of [
+    [pin("V1", "+"), pin("R1", "1")], [pin("R1", "2"), pin("V1", "-")],
+    [pin("GND1", "0"), pin("V1", "-")]
+  ]) project = connectPins(project, a, b);
+  const outputNet = project.nets.find((net) => net.endpoints.includes(pin("R1", "1"))).id;
+  return {
+    ...project,
+    components: project.components.map((item) => item.reference === "V1" ? { ...item, value: "5 V" } : item.reference === "R1" ? { ...item, value: "10000000000000000 Ω" } : item),
+    linearRlcTransient: { stopSeconds: 0.002, timeStepSeconds: 0.001, outputNet }
+  };
+}
+
 test("linear RLC transient MNA matches an RC step response from zero initial energy", () => {
   const result = runProjectAnalysis(makeRcCircuit());
   assert.equal(result.state, "complete", result.message);
@@ -106,6 +122,14 @@ test("linear RLC transient rejects non-integral step counts and incompatible eng
   const badUnits = makeRcCircuit();
   badUnits.components = badUnits.components.map((part) => part.reference === "C1" ? { ...part, value: "1 mH" } : part);
   assert.equal(runProjectAnalysis(badUnits).state, "blocked");
+});
+
+test("linear RLC transient solves high-impedance MNA pivots", () => {
+  const result = runProjectAnalysis(makeHighResistanceCircuit());
+  assert.equal(result.state, "complete", result.message);
+  assert.equal(result.result.samples.length, 2);
+  assert.ok(Math.abs(result.result.samples[0].voltageV - 5) < 1e-12);
+  assert.ok(Math.abs(result.result.samples[0].branchCurrents[0] - 5e-16) < 1e-28);
 });
 
 test("linear RLC transient accepts finite initial capacitor voltage and inductor current by reference", () => {

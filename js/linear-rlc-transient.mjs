@@ -56,7 +56,7 @@ function solve(matrix, rhs, size) {
       const score = Math.abs(a[row * size + column]);
       if (score > largest) { largest = score; pivot = row; }
     }
-    if (!(largest > Number.EPSILON) || !Number.isFinite(largest)) return null;
+    if (!(largest > 0) || !Number.isFinite(largest)) return null;
     if (pivot !== column) {
       for (let item = column; item < size; item += 1) [a[column * size + item], a[pivot * size + item]] = [a[pivot * size + item], a[column * size + item]];
       [b[column], b[pivot]] = [b[pivot], b[column]];
