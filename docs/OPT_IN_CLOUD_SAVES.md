@@ -20,4 +20,4 @@
 
 - The UI shows generic cloud errors and does not place project JSON or database responses in application logs. The application has no automated breach alert or incident-notification workflow.
 - For suspected unauthorized access, the operator must use the Supabase dashboard to restrict the affected account or Auth access, review available Auth/database security logs and advisories, and notify affected users through the organization's approved support channel. This is a manual response procedure, not an automated control.
-- Production rollout requires the versioned SQL migration to be applied before the Cloud actions are enabled. Verify RLS, cascaded deletion, the 10-project/5-version limits, and the live release marker after deployment.
+- Production rollout completed on 2026-11-12: migration `opt_in_cloud_projects` was applied to the shared Supabase project before deployment; both simulator-namespaced tables have RLS enabled with owner policies, and the production release marker reports commit `d498597`. Automated checks cover the 10-project/5-prior-version limits and account/project deletion cascades. Broader authenticated browser verification remains open.
