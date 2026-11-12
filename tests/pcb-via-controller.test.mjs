@@ -167,6 +167,20 @@ test("via drag cancellation restores the original project and blocked drops do n
   assert.equal(h.dialogs.length, 1);
 });
 
+test("pointer cancellation restores the original via and releases pointer capture without history", async () => {
+  const h = await harness();
+  const created = savePcbVia(h.state.project, { netId: "VBUS", xMm: 25, yMm: 17, diameterMm: 0.6, drillMm: 0.3 });
+  h.state.project = created.project; h.state.dirty = true; h.viaTarget.dataset.pcbPad = `@via:${created.viaId}`; h.editor.refresh();
+  const original = h.state.project, from = clientAt(original, 25, 17, h.rect), to = clientAt(original, 25.5, 17.5, h.rect);
+  const target = { closest: (selector) => selector === "#design-canvas .pcb-via" ? h.viaTarget : selector === "#design-canvas" ? h.canvas : null };
+  h.editor.pointerDown({ ...from, button: 0, pointerId: 8, target, preventDefault() {} });
+  h.editor.pointerMove({ ...to, pointerId: 8 });
+  assert.notEqual(h.state.project, original);
+  assert.equal(h.editor.pointerEnd({ pointerId: 8 }, true), true);
+  assert.equal(h.state.project, original); assert.equal(h.state.dirty, true); assert.equal(h.history.length, 0);
+  assert.deepEqual(h.captures, ["set:8", "release:8"]);
+});
+
 test("a via pointer click selects it without creating a move history entry", async () => {
   const h = await harness(), project = h.state.project;
   const point = clientAt(project, 7.75, 3.7, h.rect);
