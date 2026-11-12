@@ -42,6 +42,16 @@ test('actual waypoint pointer handlers preview without history, cancel safely, a
  down();h.ui.pointerMove({pointerId:7,clientX:135,clientY:145});h.ui.pointerEnd({pointerId:7});assert.equal(h.history.length,count+1);assert.equal(h.history.at(-1),before);assert.deepEqual(h.state.project.schematicWires[0].waypoints[0],[135,145]);
 });
 
+test('non-primary pointers cannot start or replace an active schematic wire drag',async()=>{
+ const h=await setup(),route=resolveSchematicWires(h.state.project)[0];h.click('[data-schematic-endpoint]',{schematicEndpoint:route.first});h.click('empty');h.click('[data-schematic-endpoint]',{schematicEndpoint:route.second});
+ const r=resolveSchematicWires(h.state.project)[0];h.click('[data-wire-net], [data-wire-id]',{wireNet:r.netId,wireFirst:r.first,wireSecond:r.second});
+ const target=h.target('[data-wire-waypoint]',{wireWaypoint:'0'}),before=serializeProject(h.state.project),count=h.history.length;let prevented=false;
+ assert.equal(h.ui.pointerDown({target,button:0,pointerId:8,isPrimary:false,preventDefault(){prevented=true;}}),true);assert.equal(prevented,true);assert.equal(serializeProject(h.state.project),before);assert.equal(h.history.length,count);
+ assert.equal(h.ui.pointerDown({target,button:0,pointerId:9,isPrimary:true,preventDefault(){}}),true);h.ui.pointerMove({pointerId:9,clientX:140,clientY:160});
+ assert.equal(h.ui.pointerDown({target,button:0,pointerId:10,isPrimary:false,preventDefault(){}}),true);assert.equal(h.ui.pointerMove({pointerId:10,clientX:200,clientY:200}),false);assert.equal(h.ui.pointerEnd({pointerId:10}),false);
+ assert.equal(h.ui.pointerEnd({pointerId:9}),true);assert.equal(h.history.length,count+1);assert.deepEqual(h.state.project.schematicWires[0].waypoints[0],[140,160]);
+});
+
 
 test('actual junction controls create one native edit, move all branches, and delete reversibly',async()=>{
  const h=await setup('./fixtures/junction-divider.adigun.json'),r=resolveSchematicWires(h.state.project).find(r=>r.wireId==='W1');
