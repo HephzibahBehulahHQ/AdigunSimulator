@@ -2,9 +2,9 @@
 
 ## Current release boundary
 
-The current application is a local-first static workspace. It stores projects in the browser and supports native import/export. It does not create accounts, upload projects, call an external AI model, collect telemetry, or connect to a manufacturer. Adigun BOT currently provides deterministic local component explanations and live canvas suggestions grounded in native project nets and checked-in library pins.
+The current application is a local-first static workspace with optional email accounts and explicit cloud saves. Guest projects remain in browser storage; signing in does not upload a project. Signed-in users can explicitly save a native project to their owner-scoped cloud library and open saved projects or retained revisions. Adigun BOT provides deterministic local component explanations and live canvas suggestions grounded in native project nets and checked-in library pins; it does not call an external AI model. The application does not collect telemetry or connect to a manufacturer.
 
-Authentication is intentionally out of scope until product ownership confirms an identity provider, roles, retained data, deletion policy, privacy notice, deployment topology, incident contact, and budget. The local co-pilot does not require sign-in and does not auto-save; accepted previews modify only the unsaved working copy and can be rolled back with Undo. Any future external AI, account, or cloud service requires separate approval and testing.
+Email authentication and opt-in cloud saves are released features. Cloud documents are limited to 10 projects per account and 1.4 MB per project; the latest five previous versions are retained. Owner-only row-level security protects cloud records, project deletion removes its revisions, and account deletion cascades to cloud data. Edits after an explicit save remain local until saved again. Guests can continue editing and saving locally without signing in. The local co-pilot does not require sign-in or auto-save; accepted previews modify only the unsaved working copy and can be rolled back with Undo. Any expansion to external AI, broader account data, automatic cloud synchronization, telemetry, or external data sources requires separate approval and testing.
 
 ## Component evidence gate
 
@@ -40,7 +40,7 @@ The selectable linear RLC transient analysis uses bounded modified nodal analysi
 2. Representative browser tests cover keyboard operation, mouse/touch layout edits, import/export, explicit saved-project reopening, empty startup and dirty-navigation protection, four-language overflow, accessibility and responsive layouts.
 3. Every released example has its result matrix and the exact engine/model/library-lock evidence recorded.
 4. Independent electrical review signs off on any part promoted to verified and any new simulator model.
-5. Security/privacy review is complete before enabling authentication, cloud sync, AI, telemetry or external data sources.
+5. Security/privacy review is required before expanding the released email-auth and owner-only cloud-save scope or enabling automatic synchronization, external AI, telemetry, or external data sources.
 6. Deployment, rollback and monitoring plans are approved before publishing a public service.
 
 No automated test suite justifies a claim of zero defects. Release notes must state the actual test evidence, known limitations and unresolved risk.
