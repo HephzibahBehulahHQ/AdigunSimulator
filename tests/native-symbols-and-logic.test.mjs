@@ -70,5 +70,5 @@ test("NAND followed by NOT solves as AND on a real saved netlist with atomic inp
   assert.equal(JSON.stringify(project),saved);
   const broken=JSON.parse(saved);broken.nets=broken.nets.map(n=>({...n,endpoints:n.endpoints.filter(e=>e!==pin("INV","VCC")),connections:n.connections?.filter(edge=>!edge.includes(pin("INV","VCC")))}));
   assert.notEqual(runProjectAnalysis(broken).state,"complete");
-  assert.ok(analyzeBotCanvas(broken).some(f=>f.kind==="missing-gate-rails"&&f.reference==="INV"));
+  assert.ok(analyzeBotCanvas(broken).some(f=>f.kind==="missing-supply-pins"&&f.reference==="INV"));
 });
