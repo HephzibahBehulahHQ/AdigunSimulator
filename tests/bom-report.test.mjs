@@ -5,12 +5,12 @@ import { buildBomReport } from "../js/bom-report.mjs";
 
 const fixture = JSON.parse(await readFile(new URL("../examples/194-bom-export-cost-placeholder.adigun.json", import.meta.url), "utf8"));
 
-function priceReport(asOf) {
+function priceReport(asOf, source = "https://example.com/parts/resistor") {
   const project = structuredClone(fixture);
   project.components[0].verifiedPrice = {
     unitCost: 0.12,
     currency: "EUR",
-    source: "https://example.com/parts/resistor",
+    source,
     asOf
   };
   return buildBomReport(project);
@@ -37,4 +37,15 @@ test("BOM references use numeric designator order", () => {
   );
   const resistorRow = buildBomReport(project).rows.find((row) => row.libraryId === "passive.resistor");
   assert.equal(resistorRow.references, "R1, R2, R10");
+});
+
+test("BOM price evidence requires a parseable HTTPS source without credentials", () => {
+  for (const source of ["https://", "https://bad host.example/part", "http://example.com/part", "https://user:secret@example.com/part"]) {
+    const report = priceReport("2026-10-30", source);
+    assert.equal(report.ok, true);
+    assert.equal(report.rows[0].unitCost, null, source);
+    assert.equal(report.totalCost, null, source);
+  }
+  const valid = priceReport("2026-10-30", "https://example.com/parts/resistor");
+  assert.equal(valid.rows[0].priceSource, "https://example.com/parts/resistor");
 });

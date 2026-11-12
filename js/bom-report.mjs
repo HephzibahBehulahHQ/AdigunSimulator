@@ -13,11 +13,14 @@ function verifiedPrice(component) {
   if (!price || typeof price !== "object") return null;
   if (typeof price.unitCost !== "number" || !Number.isFinite(price.unitCost) || price.unitCost < 0) return null;
   if (typeof price.currency !== "string" || !/^[A-Z]{3}$/.test(price.currency)) return null;
-  if (typeof price.source !== "string" || !/^https:\/\//.test(price.source)) return null;
+  if (typeof price.source !== "string") return null;
+  let source;
+  try { source = new URL(price.source); } catch { return null; }
+  if (source.protocol !== "https:" || !source.hostname || source.username || source.password) return null;
   if (typeof price.asOf !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(price.asOf)) return null;
   const asOfDate = new Date(`${price.asOf}T00:00:00.000Z`);
   if (!Number.isFinite(asOfDate.getTime()) || asOfDate.toISOString().slice(0, 10) !== price.asOf) return null;
-  return { unitCost: price.unitCost, currency: price.currency, source: price.source, asOf: price.asOf };
+  return { unitCost: price.unitCost, currency: price.currency, source: source.href, asOf: price.asOf };
 }
 
 export function buildBomReport(project) {
