@@ -30,6 +30,8 @@ Adigun BOT does not call an external AI service, infer real component ratings, d
 
 You can also ask Adigun BOT how to start a project, run a supported analysis, use the parts panel, save or export, or change the interface language. It can switch directly to Breadboard, Schematic, or PCB view when asked to open or show that view. These answers use checked-in product guidance and disclose the current simulation, parts, and PCB limits; they do not call an external model or change circuit data.
 
+For a manufacturer-part lookup, include an exact listed MPN or ledger ID. Adigun BOT returns recorded identity, package, lifecycle, evidence and simulation status, and source URLs; include “pin map” to request the ledger's numbered signal map. A candidate is not a verified part, and its ledger record does not prove simulator integration or model fidelity. Unmatched identifiers do not produce an invented manufacturer record.
+
 ## Saving and undoing changes
 
 Project edits remain in the working copy until the user saves or exports them. Undo restores the previous project state. The Bot does not auto-save or upload project data.
