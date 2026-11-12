@@ -88,6 +88,7 @@ import { projectComponentsForView } from "./js/view-projection.mjs";
 
 import { exportBomCsv, runBomExportPlaceholder } from "./js/bom-report.mjs";
 import { explainComponent } from "./js/bot-component-explainer.mjs";
+import { formatBotAuditEvent } from "./js/bot-audit-log.mjs";
 import { applyBotFloatingNodeRepairPreview, runBotFloatingNodeRepair } from "./js/bot-floating-node-repair.mjs";
 import { applyBotCircuitProposal, runBotCircuitProposal } from "./js/bot-circuit-proposal.mjs";
 import { analyzeBotCanvas, applyBotSuggestionPreview, buildBotSuggestionPreview, createBotLiveCopilot, explainComponentWiring } from "./js/bot-live-copilot.mjs";
@@ -191,6 +192,11 @@ function showBotWiringExplanation(target) {
   if (result.ok) $("#bot-response").textContent = result.answer;
 }
 
+function recordBotAuditEvent(event) {
+  const message = formatBotAuditEvent(event);
+  if (message) log(message);
+}
+
 function answerBotQuestion() {
   const question = $("#bot-goal").value.trim();
   if (!question) return;
@@ -225,24 +231,28 @@ function answerBotQuestion() {
 function prepareBotSuggestionPreview() {
   if (!currentBotFinding) return;
   if (!currentBotFinding.action || currentBotFinding.action === "ask-goal") { $("#bot-goal").focus(); return; }
-  const preview = buildBotSuggestionPreview(state.project, currentBotFinding);
-  if (!preview.ok) { $("#bot-response").textContent = preview.error; return; }
+  const finding = currentBotFinding;
+  const preview = buildBotSuggestionPreview(state.project, finding);
+  if (!preview.ok) { $("#bot-response").textContent = preview.error; recordBotAuditEvent({ type: "preview-blocked", findingId: finding.id, action: finding.action }); return; }
   currentBotPreview = preview;
   $("#bot-preview-summary").textContent = `${preview.summary} Nothing is saved automatically.`;
   $("#bot-suggestion-preview").hidden = false;
+  recordBotAuditEvent({ type: "preview-prepared", findingId: finding.id, action: finding.action });
 }
 
 function applyBotSuggestion() {
   if (!currentBotPreview) return;
-  const outcome = applyBotSuggestionPreview(state.project, currentBotPreview, { confirmed: true });
-  if (!outcome.ok) { $("#bot-response").textContent = outcome.message; $("#bot-suggestion-preview").hidden = true; currentBotPreview = null; return; }
+  const preview = currentBotPreview;
+  const action = currentBotFinding?.action ?? "reviewed-action";
+  const outcome = applyBotSuggestionPreview(state.project, preview, { confirmed: true });
+  if (!outcome.ok) { $("#bot-response").textContent = outcome.message; $("#bot-suggestion-preview").hidden = true; currentBotPreview = null; recordBotAuditEvent({ type: "preview-apply-blocked", findingId: preview.findingId, action }); return; }
   captureHistory();
   state.botUnsavedOnly = true;
   state.dirty = true;
   replaceProject(outcome.project);
   renderBotFinding(null);
   $("#bot-response").textContent = `${outcome.message} Use Undo to roll back this accepted change; save manually when ready.`;
-  log("[BOT] Accepted a reviewed live preview. The change remains unsaved until the user saves it.");
+  recordBotAuditEvent({ type: "preview-applied", findingId: preview.findingId, action });
 }
 
 const dcFeedback = createLiveDcFeedback({
@@ -2434,10 +2444,10 @@ $("#bot-live-toggle").addEventListener("change", (event) => {
   $("#bot-response").textContent = event.target.checked ? "Live checks are on. Suggestions use current project connections and library pin data." : "Live co-pilot is off. You can still ask Adigun BOT to explain the selected part.";
 });
 $("#bot-suggestion-accept").addEventListener("click", prepareBotSuggestionPreview);
-$("#bot-suggestion-dismiss").addEventListener("click", () => { if (currentBotFinding) botLiveCopilot.dismiss(currentBotFinding.id); renderBotFinding(null); });
+$("#bot-suggestion-dismiss").addEventListener("click", () => { if (currentBotFinding) { const finding = currentBotFinding; botLiveCopilot.dismiss(finding.id); recordBotAuditEvent({ type: "suggestion-dismissed", findingId: finding.id }); } renderBotFinding(null); });
 $("#bot-suggestion-more").addEventListener("click", () => { const detail = $("#bot-suggestion-detail"); detail.hidden = !detail.hidden; });
 $("#bot-preview-apply").addEventListener("click", applyBotSuggestion);
-$("#bot-preview-cancel").addEventListener("click", () => { currentBotPreview = null; $("#bot-suggestion-preview").hidden = true; });
+$("#bot-preview-cancel").addEventListener("click", () => { if (currentBotPreview) recordBotAuditEvent({ type: "preview-cancelled", findingId: currentBotPreview.findingId, action: currentBotFinding?.action }); currentBotPreview = null; $("#bot-suggestion-preview").hidden = true; });
 document.addEventListener("focusout", (event) => { if (event.target.closest("#bot-content")) setTimeout(notifyBotCanvas, 0); });
 document.addEventListener("pointerover", (event) => {
   const target = event.target.closest("[data-instance-id]");
@@ -2508,3 +2518,4 @@ projectSession.install(window, { onLeave: (event) => {
   simulation?.cancel();
   if (!event.persisted) canvasResizeObserver.disconnect();
 } });
+
