@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { searchGlobalActions } from "../js/global-search.mjs";
+import { isGlobalSearchShortcut, searchGlobalActions } from "../js/global-search.mjs";
 
 const actions = [
   { id: "save", label: "Save project", keywords: "file local" },
@@ -17,4 +17,11 @@ test("global search finds tools and help by any order of query terms", () => {
 test("global search ignores blank queries and requires every term", () => {
   assert.deepEqual(searchGlobalActions(actions, "  "), []);
   assert.deepEqual(searchGlobalActions(actions, "save PCB"), []);
+});
+
+test("global search shortcut accepts Ctrl or Command K without Alt", () => {
+  assert.equal(isGlobalSearchShortcut({ ctrlKey: true, metaKey: false, altKey: false, key: "k" }), true);
+  assert.equal(isGlobalSearchShortcut({ ctrlKey: false, metaKey: true, altKey: false, key: "K" }), true);
+  assert.equal(isGlobalSearchShortcut({ ctrlKey: false, metaKey: false, altKey: false, key: "k" }), false);
+  assert.equal(isGlobalSearchShortcut({ ctrlKey: true, metaKey: false, altKey: true, key: "k" }), false);
 });

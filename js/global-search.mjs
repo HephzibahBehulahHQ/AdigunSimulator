@@ -6,3 +6,7 @@ export function searchGlobalActions(actions, query = "") {
     return terms.every((term) => searchableText.includes(term));
   });
 }
+
+export function isGlobalSearchShortcut(event) {
+  return Boolean((event.ctrlKey || event.metaKey) && !event.altKey && String(event.key).toLowerCase() === "k");
+}
