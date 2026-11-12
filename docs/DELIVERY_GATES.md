@@ -45,4 +45,3 @@ The selectable linear RLC transient analysis uses bounded modified nodal analysi
 
 No automated test suite justifies a claim of zero defects. Release notes must state the actual test evidence, known limitations and unresolved risk.
 
-
