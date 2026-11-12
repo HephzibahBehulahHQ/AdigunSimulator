@@ -89,6 +89,7 @@ import { projectComponentsForView } from "./js/view-projection.mjs";
 
 
 import { exportBomCsv, runBomExportPlaceholder } from "./js/bom-report.mjs";
+import { exportSpiceNetlist } from "./js/spice-netlist.mjs";
 import { explainComponent } from "./js/bot-component-explainer.mjs";
 import { formatBotAuditEvent } from "./js/bot-audit-log.mjs";
 import { applyBotFloatingNodeRepairPreview, runBotFloatingNodeRepair } from "./js/bot-floating-node-repair.mjs";
@@ -1729,6 +1730,18 @@ function exportBomCsvFile() {
   log("[BOM] Exported verified project/library fields; prices without source evidence are blank.");
 }
 
+function exportSpiceNetlistFile() {
+  const exported = exportSpiceNetlist(state.project);
+  if (!exported.ok) { showDialog(t("exportSpiceNetlist"), exported.error); return; }
+  const name = state.project.metadata.name.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "adigun-project";
+  const blob = new Blob([exported.netlist], { type: "text/plain;charset=utf-8" }), url = URL.createObjectURL(blob), link = document.createElement("a");
+  link.href = url;
+  link.download = `${name}-ideal-spice.cir`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+  log("[SPICE] Exported supported generic ideal sources and passive components; analysis directives and manufacturer models are not included.");
+}
+
 function exportProject() {
   let url;
   try {
@@ -1843,6 +1856,7 @@ function handleAction(action) {
   if (action === "save") saveLocal();
   if (action === "export") exportProject();
   if (action === "bom-export") exportBomCsvFile();
+  if (action === "spice-export") exportSpiceNetlistFile();
   if (action === "verify-run-lock") verifyRunLockfile();
   if (action === "pcb-drc") runPcbChecks();
   if (action === "pcb-export") exportPcbFiles();

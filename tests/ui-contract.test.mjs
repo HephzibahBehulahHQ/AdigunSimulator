@@ -34,6 +34,13 @@ test("the interface references only declared translation keys and exposes four l
   assert.deepEqual(values(languageSelect, /<option value="([^"]+)">/g), UI_LOCALES);
 });
 
+test("File exposes the localized ideal SPICE netlist exporter", async () => {
+  const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
+  assert.match(html, /data-action="spice-export" data-i18n="exportSpiceNetlist"/);
+  assert.match(app, /action === "spice-export"\) exportSpiceNetlistFile\(\)/);
+  for (const locale of UI_LOCALES) assert.ok(TRANSLATIONS[locale].exportSpiceNetlist, `${locale} translation missing`);
+});
+
 test("simulation controls expose a bounded linear RLC AC sweep through the worker", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   assert.match(html, /id="simulation-analysis-mode"/);
