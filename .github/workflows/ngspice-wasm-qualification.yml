@@ -60,5 +60,5 @@ jobs:
           file "$NGSPICE_WASM"
           test -n "$NGSPICE_WASM"
           OUTPUT="$RUNNER_TEMP/ngspice-wasm-output.log"
-          node "$NGSPICE_WASM" -b -o /dev/stdout /resistor-divider-batch.cir 2>&1 | tee "$OUTPUT"
+          node "$NGSPICE_WASM" -b /resistor-divider-batch.cir 2>&1 | tee "$OUTPUT"
           grep -Eiq 'v\(out\)[[:space:]]*=[[:space:]]*5\.0*([eE][+]0+)?' "$OUTPUT"
