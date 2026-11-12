@@ -379,6 +379,7 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .pcb-via-hit-target { fill: transparent; pointer-events: all; }
 .pcb-via:hover .pcb-via-hit-target,
 .pcb-via:focus-visible .pcb-via-hit-target { fill: rgba(34, 211, 238, .14); stroke: var(--cyan); stroke-width: 1; }
+.pcb-via.is-selected .pcb-via-hit-target { fill: rgba(34, 211, 238, .22); stroke: var(--cyan); stroke-width: 1.2; }
 .pcb-via:active { cursor: grabbing; }
 .pcb-via.is-selected .pcb-pad-through-hole { stroke: var(--cyan); stroke-width: 2; }
 .via-fields { display: grid; gap: .65rem; min-width: 0; margin: 0; padding: 0; border: 0; }
