@@ -49,3 +49,19 @@ test("BOM price evidence requires a parseable HTTPS source without credentials",
   const valid = priceReport("2026-10-30", "https://example.com/parts/resistor");
   assert.equal(valid.rows[0].priceSource, "https://example.com/parts/resistor");
 });
+
+test("BOM costs stay unavailable when multiplication overflows", () => {
+  const project = structuredClone(fixture);
+  project.components[0].verifiedPrice = {
+    unitCost: 1e308,
+    currency: "EUR",
+    source: "https://example.com/parts/resistor",
+    asOf: "2026-10-30"
+  };
+  project.components.push({ ...structuredClone(project.components[0]), instanceId: "resistor-2", reference: "R2" });
+
+  const report = buildBomReport(project);
+  const pricedRow = report.rows.find((row) => row.libraryId === project.components[0].libraryId);
+  assert.equal(pricedRow.extendedCost, null);
+  assert.equal(report.totalCost, null);
+});
