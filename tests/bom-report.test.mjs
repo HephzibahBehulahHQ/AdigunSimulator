@@ -28,3 +28,13 @@ test("BOM price evidence accepts real dates and rejects calendar-normalized date
     assert.equal(report.totalCost, null, invalidDate);
   }
 });
+
+test("BOM references use numeric designator order", () => {
+  const project = structuredClone(fixture);
+  project.components.push(
+    { ...structuredClone(project.components[1]), instanceId: "resistor-2", reference: "R2" },
+    { ...structuredClone(project.components[1]), instanceId: "resistor-10", reference: "R10" }
+  );
+  const resistorRow = buildBomReport(project).rows.find((row) => row.libraryId === "passive.resistor");
+  assert.equal(resistorRow.references, "R1, R2, R10");
+});
