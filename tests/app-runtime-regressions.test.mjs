@@ -156,6 +156,31 @@ test("the document pointercancel handler routes via cancellation before other dr
   assert.deepEqual(received, { actual: event, cancelled: true });
 });
 
+test("general canvas drags reject secondary pointers and cannot be replaced mid-drag", () => {
+  const start = source.indexOf('document.addEventListener("pointerdown"');
+  const end = source.indexOf("\n});", start) + 4;
+  assert.ok(start >= 0 && end > start);
+  const captures = [], canvas = { setPointerCapture: (id) => captures.push(id) };
+  const target = { closest: (selector) => selector === "#design-canvas" ? canvas : null };
+  function dispatch(state, event) {
+    let handler;
+    runInNewContext(source.slice(start, end), {
+      pcbViaEditor: { pointerDown: () => false }, wireUi: { pointerDown: () => false }, state,
+      document: { addEventListener: (name, callback) => { assert.equal(name, "pointerdown"); handler = callback; } }
+    });
+    let prevented = false;
+    handler({ target, button: 0, ...event, preventDefault: () => { prevented = true; } });
+    return prevented;
+  }
+  const idle = { activeTool: "pan", placement: null, drag: null };
+  assert.equal(dispatch(idle, { pointerId: 1, isPrimary: false }), true);
+  assert.equal(idle.drag, null); assert.deepEqual(captures, []);
+  const activeDrag = { mode: "pan", pointerId: 2 };
+  const active = { activeTool: "pan", placement: null, drag: activeDrag };
+  assert.equal(dispatch(active, { pointerId: 3, isPrimary: false }), true);
+  assert.equal(active.drag, activeDrag); assert.deepEqual(captures, []);
+});
+
 test("Escape closes an application menu and restores focus without consuming unrelated keys", () => {
   let focused = 0, prevented = 0;
   const menu = { open: true, querySelector: () => ({ focus: () => { focused++; } }) };
