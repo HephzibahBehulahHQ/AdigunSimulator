@@ -1,4 +1,5 @@
 import { parseExampleProject, canLoadExampleAnalysis } from './js/example-loading.mjs';
+import { searchGlobalActions } from "./js/global-search.mjs";
 import { createExampleBrowser } from './js/example-bank-ui.mjs';
 import { createDesignTools } from "./js/design-tools-ui.mjs";
 import { createCanvasExperience } from './js/canvas-experience.mjs';
@@ -2266,7 +2267,40 @@ document.addEventListener("pointerup", (event) => {
 });
 
 $("#component-search").addEventListener("input", renderLibrary);
-$("#global-search").addEventListener("input", (event) => { $("#component-search").value = event.target.value; renderLibrary(); });
+function globalSearchActions() {
+  return [...document.querySelectorAll("button[data-action], button[data-view], #help-button")]
+    .filter((button) => !button.disabled)
+    .map((element) => ({
+      element,
+      label: element.getAttribute("aria-label") || element.title || element.textContent.trim(),
+      keywords: element.dataset.globalSearchTerms || ""
+    }))
+    .filter((action) => action.label);
+}
+function activateGlobalSearchAction(query) {
+  const normalized = query.trim().toLocaleLowerCase();
+  const match = searchGlobalActions(globalSearchActions(), query).find((action) => action.label.toLocaleLowerCase() === normalized);
+  if (!match) return false;
+  $("#global-search").value = "";
+  $("#global-search-actions").replaceChildren();
+  $("#component-search").value = "";
+  renderLibrary();
+  $(".global-search").hidden = true;
+  $("#global-search-toggle").setAttribute("aria-expanded", "false");
+  match.element.click();
+  return true;
+}
+$("#global-search").addEventListener("input", (event) => {
+  const query = event.target.value;
+  $("#component-search").value = query;
+  renderLibrary();
+  const matches = searchGlobalActions(globalSearchActions(), query);
+  $("#global-search-actions").replaceChildren(...matches.map((action) => {
+    const option = document.createElement("option");
+    option.value = action.label;
+    return option;
+  }));
+});
 $("#add-component").addEventListener("click", () => placeLibraryComponent(state.selectedLibraryId));
 $("#component-form").addEventListener("submit", (event) => {
   event.preventDefault();
@@ -2434,8 +2468,16 @@ $("#global-search-toggle").addEventListener("click", () => {
   if (!search.hidden) $("#global-search").focus();
 });
 $("#global-search").addEventListener("keydown", (event) => {
-  if (event.key === "Escape") { $(".global-search").hidden = true; $("#global-search-toggle").focus(); }
+  if (event.key === "Escape") {
+    $(".global-search").hidden = true;
+    $("#global-search-toggle").setAttribute("aria-expanded", "false");
+    $("#global-search-toggle").focus();
+  }
+  if (event.key === "Enter") {
+    if (activateGlobalSearchAction(event.currentTarget.value)) event.preventDefault();
+  }
 });
+$("#global-search").addEventListener("change", (event) => activateGlobalSearchAction(event.currentTarget.value));
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#bot-collapse").addEventListener("click", () => {
   const minimized = $("#bot").classList.toggle("minimized");
