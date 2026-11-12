@@ -17,10 +17,10 @@ This tracker records evidence-backed progress against the product requirements. 
 
 ## Current branch and production verification — 2026-11-12
 
-- Branch: `main`; local and `origin/main` are synchronized at `9043151ba26ae797e2856d7f7ff5908c03abc361` with a clean worktree.
-- PR #547 adds a regression for the actual document-level `pointercancel` handler routing cancellation to the via editor. Its exact-head CI run #1365 passed; push run #1366 passed both test and deploy jobs.
-- Production `/release.json` reports commit `9043151ba26ae797e2856d7f7ff5908c03abc361` and 674 deployed files. Live browser evidence and its remaining limits are recorded in `PCB_VIA_EDIT_ACCEPTANCE.md`.
-- Pointer-cancel restoration and handler dispatch now have automated controller and runtime coverage. Live browser cancellation and touch/device acceptance remain open; incremental deployment does not complete the broader product release gates.
+- Branch: `main`; local and `origin/main` are synchronized at `210654ace88be1189ab053eb19bdce1397701db8` with a clean worktree.
+- PR #553 enables manufacturer evidence search to match all whitespace-separated query terms. Exact-head CI run #1377 passed; push run #1378 passed tests and GitHub Pages deployment.
+- Production `/release.json` reports commit `210654ace88be1189ab053eb19bdce1397701db8` and 674 deployed files.
+- Earlier PR #547 added automated coverage for document-level `pointercancel` routing to the via editor. Live browser cancellation and touch/device acceptance remain open; incremental deployment does not complete the broader product release gates.
 
 Update this tracker when a milestone's evidence changes. Do not count candidates as verified parts, planned examples as released projects, or an illustrative PCB export as manufacturing approval.
 
