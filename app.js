@@ -1,5 +1,5 @@
 import { parseExampleProject, canLoadExampleAnalysis } from './js/example-loading.mjs';
-import { searchGlobalActions } from "./js/global-search.mjs";
+import { isGlobalSearchShortcut, searchGlobalActions } from "./js/global-search.mjs";
 import { createExampleBrowser } from './js/example-bank-ui.mjs';
 import { createDesignTools } from "./js/design-tools-ui.mjs";
 import { createCanvasExperience } from './js/canvas-experience.mjs';
@@ -2017,6 +2017,15 @@ document.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (document.querySelector("dialog[open]")) return;
+  if (isGlobalSearchShortcut(event)) {
+    const editable = event.target.closest?.("input, textarea, select, [contenteditable='true']");
+    if (!editable || event.target.id === "global-search") {
+      event.preventDefault();
+      if ($(".global-search").hidden) $("#global-search-toggle").click();
+      else $("#global-search").focus();
+      return;
+    }
+  }
   if (state.placement && event.key === "Escape") {
     event.preventDefault(); state.placement=null; updatePlacementPreview(); return;
   }
