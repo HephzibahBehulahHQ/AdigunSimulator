@@ -113,13 +113,19 @@ test("header account and compact action controls flow without overlapping on nar
   const [html, css, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(new URL("../styles.css", import.meta.url), "utf8"), readFile(appFile, "utf8")]);
   const header = html.match(/<div class="header-actions"[\s\S]*?<\/div>/)?.[0] ?? "";
   assert.ok(header.indexOf("id=\"save-state\"") < header.indexOf("id=\"account-status\"") && header.indexOf("id=\"account-status\"") < header.indexOf("id=\"language\"") && header.indexOf("id=\"language\"") < header.indexOf("id=\"theme-toggle\"") && header.indexOf("id=\"theme-toggle\"") < header.indexOf("id=\"global-search-toggle\"") && header.indexOf("id=\"global-search-toggle\"") < header.indexOf("id=\"help-button\""));
-  assert.match(header, /<span id="account-status"[^>]*role="img"[^>]*data-auth-state="guest"/);
-  assert.doesNotMatch(header, /<button id="account-status"/);
+  assert.match(header, /<button id="account-status"[^>]*data-auth-state="loading"[^>]*aria-haspopup="dialog"/);
+  assert.match(html, /<dialog id="account-dialog"[^>]*aria-labelledby="account-title"/);
+  assert.match(html, /id="account-intro"/);
+  assert.match(html, /id="account-form"/);
+  assert.match(html, /id="account-sign-out"/);
   assert.match(header, /data-i18n-title="accountGuestTooltip"/);
   assert.match(header, /data-i18n-aria="accountGuestAria"/);
   for (const locale of UI_LOCALES) {
     assert.ok(TRANSLATIONS[locale].accountGuestTooltip, `${locale} is missing the guest-account tooltip`);
     assert.ok(TRANSLATIONS[locale].accountGuestAria, `${locale} is missing the guest-account accessible name`);
+    assert.ok(TRANSLATIONS[locale].accountIntro, `${locale} is missing account data-use disclosure`);
+    assert.ok(TRANSLATIONS[locale].accountSubmitSignUp, `${locale} is missing account creation text`);
+    assert.ok(TRANSLATIONS[locale].accountSignOut, `${locale} is missing account sign-out text`);
     assert.ok(TRANSLATIONS[locale].locale, `${locale} is missing the language-control label`);
   }
   assert.match(header, /id="account-status"[\s\S]*?<svg[^>]*aria-hidden="true" viewBox="0 0 24 24"><circle/);
