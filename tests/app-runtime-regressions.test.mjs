@@ -142,6 +142,20 @@ test("a pointer click without dragging selects the component before replacing it
   assert.equal(state.selectedInstanceId, "U1"); assert.equal(renderedSelection,"U1"); assert.equal(inspector,"component"); assert.equal(state.project,project); assert.equal(state.drag,null);
 });
 
+test("the document pointercancel handler routes via cancellation before other drag handlers", () => {
+  const start = source.indexOf('document.addEventListener("pointercancel"');
+  const end = source.indexOf("\n});", start) + 4;
+  assert.ok(start >= 0 && end > start);
+  const event = { pointerId: 42 };
+  let received;
+  runInNewContext(source.slice(start, end), {
+    pcbViaEditor: { pointerEnd: (actual, cancelled) => { received = { actual, cancelled }; return true; } },
+    wireUi: { pointerEnd: () => assert.fail("Via cancellation must be handled before schematic wire drags") },
+    document: { addEventListener: (name, handler) => { assert.equal(name, "pointercancel"); handler(event); } }
+  });
+  assert.deepEqual(received, { actual: event, cancelled: true });
+});
+
 test("Escape closes an application menu and restores focus without consuming unrelated keys", () => {
   let focused = 0, prevented = 0;
   const menu = { open: true, querySelector: () => ({ focus: () => { focused++; } }) };
