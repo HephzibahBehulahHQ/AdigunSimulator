@@ -18,10 +18,10 @@ export function explainComponent(project, target) {
   const evidence = MANUFACTURER_RECORDS_BY_ID.get(component.libraryId);
   const unknown = [];
   if (!evidence) unknown.push("No manufacturer evidence record is registered for this library entry.");
-  if (!evidence?.manufacturer) unknown.push("Manufacturer is not recorded in the evidence ledger.");
-  if (!evidence?.manufacturerPartNumber) unknown.push("Manufacturer part number (MPN) is not recorded in the evidence ledger.");
+  if (!evidence?.manufacturer) unknown.push("Manufacturer is not recorded in this library entry.");
+  if (!evidence?.manufacturerPartNumber) unknown.push("Manufacturer part number (MPN) is not recorded.");
   if (!evidence?.packageEvidence?.package && !evidence?.package) unknown.push("Physical package is not recorded in the evidence ledger.");
-  if (!evidence?.datasheet?.url) unknown.push("A manufacturer datasheet URL is not recorded in the evidence ledger.");
+  if (!evidence?.datasheet?.url) unknown.push("A verified datasheet link is not recorded.");
   if (!evidence?.verificationStatus) unknown.push("Evidence review status is not recorded in the evidence ledger.");
 
   const manufacturerSource = evidence?.manufacturerSources?.find((source) => source.kind === "manufacturer-product-page")?.url
