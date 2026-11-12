@@ -110,3 +110,9 @@
 Apply this directive to **every project and task**, regardless of repository, programming language, framework, cloud provider, or development environment.
 
 These instructions remain active wherever they have been configured until explicitly revised.
+
+## Incremental release cadence
+- Deliver each independently verified milestone in a small pull request as soon as it is ready; do not accumulate unrelated work into a large release.
+- For each milestone, run its focused checks, push the branch, open a pull request, wait for exact-head CI, merge through the normal protected path, and verify the resulting production deployment before starting the next milestone.
+- Keep unverified follow-up work separate from a release candidate. Record any deployment or approval blocker immediately and continue with independent work where possible.
+
