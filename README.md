@@ -16,7 +16,9 @@ The surge-protected-input example estimates one source-resistance-limited pulse,
 
 It does **not** yet claim a 1,000 verified-part library, general SPICE simulation, arbitrary nonlinear or multi-element reactive/transient analysis, PCB manufacturing readiness, physical hardware safety, cloud project synchronization, or an AI service. Unsupported actions are disclosed in the interface rather than simulated.
 
-Optional email sign-in is provided by Supabase Auth. Guest editing and browser-local project saves remain available without an account. Signing in alone does not upload a project; the opt-in cloud-save workflow is being delivered separately and is not available yet.
+Optional email sign-in is provided by Supabase Auth. Guest editing and browser-local project saves remain available without an account. Signing in alone never uploads a project. A signed-in user can explicitly save the current native project to the AdigunSimulator cloud or open a saved project/version from the Account dialog.
+
+Cloud saves use AdigunSimulator-specific Supabase tables with owner-only row-level security. A project is uploaded only after the user confirms **Save project to cloud**; later edits remain local until saved again. Each account can store up to 10 cloud projects, each document is limited to 1.4 MB, and the latest 5 previous versions are retained. Cloud documents remain until the owner deletes them; deleting a project also deletes its versions. The browser-local copy is unaffected. Auth account deletion cascades to cloud documents. The feature adds no AI processing or paid-plan change; it shares the existing Supabase Free project quota.
 
 ## Run locally
 

@@ -1,4 +1,4 @@
-export function createAccountUi({ document, account, translate, getLocale }) {
+export function createAccountUi({ document, account, translate, getLocale, onCloudSave = () => {}, onCloudManage = () => {}, onAccountState = () => {} }) {
   const button = document.querySelector("#account-status");
   const dialog = document.querySelector("#account-dialog");
   const form = document.querySelector("#account-form");
@@ -13,6 +13,8 @@ export function createAccountUi({ document, account, translate, getLocale }) {
   const sessionPanel = document.querySelector("#account-session");
   const sessionEmail = document.querySelector("#account-session-email");
   const signOut = document.querySelector("#account-sign-out");
+  const cloudSave = document.querySelector("#account-cloud-save");
+  const cloudManage = document.querySelector("#account-cloud-manage");
   const message = document.querySelector("#account-message");
   let mode = "sign-in";
   let busy = false;
@@ -61,6 +63,9 @@ export function createAccountUi({ document, account, translate, getLocale }) {
       renderMode();
       password.focus();
     }
+    cloudSave.hidden = state.status !== "signed-in";
+    cloudManage.hidden = state.status !== "signed-in";
+    onAccountState(state);
   }
 
   button.addEventListener("click", () => {
@@ -93,6 +98,8 @@ export function createAccountUi({ document, account, translate, getLocale }) {
     } catch (error) { setMessage(error.message || t("accountAuthError")); }
     finally { setBusy(false); }
   });
+  cloudSave.addEventListener("click", () => onCloudSave());
+  cloudManage.addEventListener("click", () => onCloudManage());
   form.addEventListener("submit", async event => {
     event.preventDefault();
     if (busy) return;

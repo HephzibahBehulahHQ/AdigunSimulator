@@ -669,6 +669,10 @@
       <p id="account-intro" class="account-intro" data-i18n="accountIntro">Your email is used for sign-in and password recovery. Signing in does not upload your circuit; each cloud save will require your choice.</p>
       <section id="account-session" hidden aria-live="polite">
         <p><span data-i18n="accountLoggedIn">Signed in as</span> <strong id="account-session-email"></strong></p>
+        <div class="account-cloud-actions">
+          <button id="account-cloud-save" class="gold-button" type="button" data-i18n="cloudSaveCurrent">Save current project to cloud</button>
+          <button id="account-cloud-manage" class="secondary-button" type="button" data-i18n="cloudManage">Manage cloud projects</button>
+        </div>
         <button id="account-sign-out" class="secondary-button" type="button" data-i18n="accountSignOut">Sign out</button>
       </section>
       <form id="account-form" class="account-form">
@@ -689,6 +693,47 @@
         </div>
       </form>
       <p id="account-message" class="account-message" role="status" aria-live="polite"></p>
+    </dialog>
+    <dialog id="cloud-save-dialog" aria-labelledby="cloud-save-title" aria-describedby="cloud-save-disclosure">
+      <form method="dialog">
+        <h2 id="cloud-save-title" data-i18n="cloudSaveTitle">Save to AdigunSimulator cloud</h2>
+        <p id="cloud-save-disclosure" data-i18n="cloudSaveDisclosure">Only this project is uploaded when you choose Save. Cloud documents stay until you delete them; up to 5 prior versions are retained. Each account can save up to 10 projects.</p>
+        <p><strong id="cloud-save-name"></strong></p>
+        <p id="cloud-save-message" role="status" aria-live="polite"></p>
+        <div class="dialog-actions">
+          <button type="button" class="secondary-button" data-cloud-close data-i18n="pcbBoardCancel">Cancel</button>
+          <button id="cloud-save-confirm" type="button" class="gold-button" data-i18n="cloudSaveConfirm">Save project to cloud</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="cloud-projects-dialog" aria-labelledby="cloud-projects-title" aria-describedby="cloud-projects-help">
+      <div class="cloud-projects-content">
+        <h2 id="cloud-projects-title" data-i18n="cloudProjectsTitle">AdigunSimulator cloud projects</h2>
+        <p id="cloud-projects-help" data-i18n="cloudProjectsHelp">Cloud documents remain until you delete them. Up to 5 previous versions are kept. Deleting a project also deletes its saved versions; a local copy on this device is unaffected.</p>
+        <label for="cloud-project-picker" data-i18n="cloudProjectLabel">Cloud projects</label>
+        <select id="cloud-project-picker"></select>
+        <label for="cloud-revision-picker" data-i18n="cloudRevisionLabel">Previous versions</label>
+        <select id="cloud-revision-picker"></select>
+        <p id="cloud-projects-message" role="status" aria-live="polite"></p>
+        <div class="cloud-project-actions">
+          <button id="cloud-refresh" class="secondary-button" type="button" data-i18n="cloudRefresh">Refresh list</button>
+          <button id="cloud-open-current" class="gold-button" type="button" data-i18n="cloudOpenCurrent">Open current version</button>
+          <button id="cloud-open-revision" class="secondary-button" type="button" data-i18n="cloudOpenRevision">Open selected version</button>
+          <button id="cloud-delete-project" class="danger-button" type="button" data-i18n="cloudDelete">Delete cloud project</button>
+          <button class="secondary-button" type="button" data-cloud-close data-i18n="cloudClose">Close</button>
+        </div>
+      </div>
+    </dialog>
+    <dialog id="cloud-delete-dialog" aria-labelledby="cloud-delete-title" aria-describedby="cloud-delete-prompt">
+      <form method="dialog">
+        <h2 id="cloud-delete-title" data-i18n="cloudDeleteTitle">Delete cloud project?</h2>
+        <p id="cloud-delete-prompt" data-i18n="cloudDeletePrompt">This permanently deletes the cloud project and all of its saved versions. The local copy on this device remains.</p>
+        <p><strong id="cloud-delete-name"></strong></p>
+        <div class="dialog-actions">
+          <button type="button" class="secondary-button" data-cloud-close data-i18n="pcbBoardCancel">Cancel</button>
+          <button id="cloud-delete-confirm" type="button" class="danger-button" data-i18n="cloudDeleteConfirm">Delete project and versions</button>
+        </div>
+      </form>
     </dialog>
     <script type="module" src="app.js"></script>
   </body>
