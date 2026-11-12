@@ -118,10 +118,51 @@ test("actual Save clears dirty only after storage succeeds and remains explicitl
   for (const fail of [false, true]) {
     const { state, storage, records, session } = setup(); let errors = 0;
     if (fail) storage.setItem = () => { throw new Error("quota"); };
-    const save = realFunction("saveLocal", "function captureHistory", { state, localStorage: storage, STORAGE_KEY: PROJECT_STORAGE_KEY, serializeProject, projectSession: session, componentPropertiesUi: { resetSession() {} }, updateSaveState() {}, log() {}, t: (key) => key, showDialog: () => errors++ });
+    const save = realFunction("saveLocal", "function captureHistory", { state, localStorage: storage, STORAGE_KEY: PROJECT_STORAGE_KEY, serializeProject, recentProjects: { save: async () => {} }, projectSession: session, componentPropertiesUi: { resetSession() {} }, updateSaveState() {}, log() {}, t: (key) => key, showDialog: () => errors++ });
     save(); assert.equal(state.dirty, fail); assert.equal(errors, Number(fail));
     if (!fail) { assert.equal(state.currentProjectId, state.project.id); assert.equal(parseProject(records.get(PROJECT_STORAGE_KEY)).id, state.project.id); }
   }
+});
+
+test("recent-history storage failure does not invalidate the primary local save", async () => {
+  const { state, storage, session } = setup();
+  const messages = [];
+  const save = realFunction("saveLocal", "function captureHistory", {
+    state, localStorage: storage, STORAGE_KEY: PROJECT_STORAGE_KEY, serializeProject,
+    recentProjects: { save: async () => { throw new Error("IndexedDB unavailable"); } },
+    projectSession: session, componentPropertiesUi: { resetSession() {} }, updateSaveState() {},
+    log: (message) => messages.push(message), t: (key) => key, showDialog: () => assert.fail("Primary save should succeed")
+  });
+  save();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(state.dirty, false);
+  assert.ok(storage.getItem(PROJECT_STORAGE_KEY));
+  assert.ok(messages.some((message) => message.includes("RECENTS") && message.includes("IndexedDB unavailable")));
+});
+
+test("recent project opening respects discard confirmation and restores the saved snapshot", async () => {
+  const { state } = setup();
+  const original = state.project;
+  const savedProject = createProject();
+  let closed = false, confirms = false;
+  const record = { id: savedProject.id, name: "Recent test", savedAt: 1, serialized: serializeProject(savedProject) };
+  const start = source.indexOf("async function openSelectedRecentProject("), end = source.indexOf("function saveLocal", start);
+  assert.ok(start >= 0 && end > start);
+  const open = runInNewContext(`${source.slice(start, end)}\nopenSelectedRecentProject`, {
+    $: (selector) => selector === "#recent-project-picker" ? { value: savedProject.id } : { close: () => { closed = true; } },
+    projectSession: { beginLoad: () => () => true, reset: (project, options) => { state.project = project; state.dirty = options.saved !== "local"; state.currentProjectId = options.currentProjectId; } },
+    recentProjects: { get: async (id) => id === record.id ? record : null, save: async () => {} },
+    parseProject, confirmDiscardChanges: async () => confirms,
+    componentPropertiesUi: { resetSession() {} }, log() {}, t: (key) => key, showDialog: () => assert.fail("Unexpected recent-project dialog")
+  });
+  await open();
+  assert.equal(closed, true);
+  assert.equal(state.project, original);
+  confirms = true;
+  await open();
+  assert.equal(state.project.id, savedProject.id);
+  assert.equal(state.currentProjectId, savedProject.id);
+  assert.equal(state.dirty, false);
 });
 
 test("actual native export clears dirty only after successful browser handoff", () => {

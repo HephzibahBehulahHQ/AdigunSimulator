@@ -42,6 +42,7 @@
         <details class="app-menu" name="application-menu"><summary data-i18n="fileMenu">File</summary><div class="app-menu-popover">
           <button type="button" data-action="new-project" data-i18n="newProject">New Project</button>
           <button type="button" data-action="import-project" data-i18n="open">Open</button>
+          <button type="button" data-action="open-recent-project" data-i18n="openRecentProject">Open Recent…</button>
           <button type="button" data-action="open-saved-project" data-i18n="openSavedProject">Open saved project</button>
           <button type="button" data-action="close-project" data-i18n="closeProject">Close Project</button>
           <button type="button" data-action="save" data-i18n="save">Save</button>
@@ -629,6 +630,18 @@
         <div class="dialog-actions">
           <button class="secondary-button" value="cancel" autofocus data-i18n="keepEditing">Keep editing</button>
           <button class="gold-button" value="discard" data-i18n="discardChanges">Discard changes</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="recent-project-dialog" aria-labelledby="recent-project-title">
+      <form method="dialog">
+        <h2 id="recent-project-title" data-i18n="openRecentProject">Open Recent…</h2>
+        <p data-i18n="recentProjectHelp">Projects saved in this browser appear here.</p>
+        <label for="recent-project-picker" data-i18n="recentProjectLabel">Recent projects</label>
+        <select id="recent-project-picker"></select>
+        <div class="dialog-actions">
+          <button type="submit" class="secondary-button" value="cancel" data-i18n="pcbBoardCancel">Cancel</button>
+          <button id="recent-project-open" type="button" class="gold-button" data-i18n="open">Open</button>
         </div>
       </form>
     </dialog>

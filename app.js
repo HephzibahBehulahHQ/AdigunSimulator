@@ -32,6 +32,7 @@ import { rotatePcbFootprint } from "./js/pcb-rotate.mjs";
 import { createPcbRoute } from "./js/pcb-routing.mjs";
 import { CANVAS_ZOOM, createCanvasCamera, zoomCanvasCamera, canvasClientPoint, canvasClientDelta } from "./js/canvas-camera.mjs";
 import { PROJECT_STORAGE_KEY, createProjectSession, confirmProjectReplacement } from "./js/project-session.mjs";
+import { createRecentProjectStore } from "./js/recent-projects.mjs";
 import { exportPcbFabrication, validatePcbFabrication } from "./js/pcb-export.mjs";
 import { createManufacturingExportPack } from "./js/manufacturing-export-pack.mjs";
 
@@ -104,6 +105,7 @@ const yearLabel = document.querySelector("#copyright-year");
 if (yearLabel) yearLabel.textContent = String(new Date().getFullYear());
 
 const STORAGE_KEY = PROJECT_STORAGE_KEY;
+const recentProjects = createRecentProjectStore();
 
 const state = {
   project: createEmptyProject(),
@@ -373,13 +375,49 @@ async function openSavedProject() {
     const project = parseProject(stored);
     if (!await confirmDiscardChanges() || !isCurrent()) return;
     projectSession.reset(project, { saved: "local", currentProjectId: project.id });
+    recentProjects.save(project, stored).catch((error) => log(`[RECENTS] ${error.message}`));
     log("[OPENED] Explicitly reopened the project saved in this browser.");
   } catch (error) { showDialog(t("openSavedProject"), error.message); }
 }
 
+async function openRecentProjectsDialog() {
+  try {
+    const records = await recentProjects.list();
+    const picker = $("#recent-project-picker");
+    picker.replaceChildren(...records.map((record) => {
+      const option = document.createElement("option");
+      option.value = record.id;
+      option.textContent = `${record.name} · ${new Date(record.savedAt).toLocaleString()}`;
+      return option;
+    }));
+    if (!records.length) return showDialog(t("openRecentProject"), t("noRecentProjects"));
+    $("#recent-project-dialog").showModal();
+  } catch (error) { showDialog(t("openRecentProject"), error.message); }
+}
+
+async function openSelectedRecentProject() {
+  const id = $("#recent-project-picker").value;
+  if (!id) return;
+  $("#recent-project-dialog").close();
+  const isCurrent = projectSession.beginLoad();
+  try {
+    const record = await recentProjects.get(id);
+    if (!record || !isCurrent()) return;
+    const project = parseProject(record.serialized);
+    if (!await confirmDiscardChanges() || !isCurrent()) return;
+    projectSession.reset(project, { saved: "local", currentProjectId: project.id });
+    componentPropertiesUi.resetSession();
+    recentProjects.save(project, record.serialized).catch((error) => log(`[RECENTS] ${error.message}`));
+    log(`[OPENED] Reopened recent local project “${record.name}”.`);
+  } catch (error) { showDialog(t("openRecentProject"), error.message); }
+}
+
 function saveLocal() {
   try {
-    localStorage.setItem(STORAGE_KEY, serializeProject(state.project));
+    const project = state.project;
+    const serialized = serializeProject(project);
+    localStorage.setItem(STORAGE_KEY, serialized);
+    recentProjects.save(project, serialized).catch((error) => log(`[RECENTS] ${error.message}`));
     componentPropertiesUi.resetSession();
     projectSession.markSaved("local");
     updateSaveState();
@@ -1800,6 +1838,7 @@ function handleAction(action) {
   if (action === "pcb-rotate-right") rotateSelectedPcbFootprint(90);
   if (action === "new-project" || action === "close-project") void resetCanvas();
   if (action === "open-saved-project") void openSavedProject();
+  if (action === "open-recent-project") void openRecentProjectsDialog();
   if (action === "import-project") $("#import-file").click();
   if (action === "save") saveLocal();
   if (action === "export") exportProject();
@@ -2488,6 +2527,7 @@ $("#global-search").addEventListener("keydown", (event) => {
 });
 $("#global-search").addEventListener("change", (event) => activateGlobalSearchAction(event.currentTarget.value));
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
+$("#recent-project-open").addEventListener("click", () => { void openSelectedRecentProject(); });
 $("#bot-collapse").addEventListener("click", () => {
   const minimized = $("#bot").classList.toggle("minimized");
   $("#bot-collapse").setAttribute("aria-expanded", String(!minimized));
