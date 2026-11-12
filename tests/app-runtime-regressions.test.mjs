@@ -156,6 +156,36 @@ test("the document pointercancel handler routes via cancellation before other dr
   assert.deepEqual(received, { actual: event, cancelled: true });
 });
 
+test("canceling a canvas component move restores the project and releases only its pointer", () => {
+  const start = source.indexOf('document.addEventListener("pointercancel"');
+  const end = source.indexOf("\n});", start) + 4;
+  assert.ok(start >= 0 && end > start);
+  const originalProject = { id: "before" }, previewProject = { id: "preview" };
+  const released = [], rendered = [];
+  const state = { project: previewProject, dirty: true, suppressCanvasClick: true,
+    drag: { mode: "move", pointerId: 42, startProject: originalProject, startDirty: false,
+      canvas: { releasePointerCapture: id => released.push(id) } } };
+  let handler;
+  runInNewContext(source.slice(start, end), {
+    state, pcbViaEditor: { pointerEnd: () => false }, wireUi: { pointerEnd: () => false },
+    document: { addEventListener: (name, callback) => { assert.equal(name, "pointercancel"); handler = callback; } },
+    renderCanvas: () => rendered.push("canvas"), renderInspector: () => rendered.push("inspector"), updateSaveState: () => rendered.push("save")
+  });
+
+  handler({ pointerId: 7 });
+  assert.equal(state.drag.pointerId, 42, "an unrelated pointer cannot cancel the active edit");
+  assert.equal(state.project, previewProject);
+  assert.deepEqual(released, []);
+
+  handler({ pointerId: 42 });
+  assert.equal(state.drag, null);
+  assert.equal(state.project, originalProject);
+  assert.equal(state.dirty, false);
+  assert.equal(state.suppressCanvasClick, false);
+  assert.deepEqual(released, [42]);
+  assert.deepEqual(rendered, ["canvas", "inspector", "save"]);
+});
+
 test("general canvas drags reject secondary pointers and cannot be replaced mid-drag", () => {
   const start = source.indexOf('document.addEventListener("pointerdown"');
   const end = source.indexOf("\n});", start) + 4;
