@@ -47,7 +47,8 @@ jobs:
           ./autogen.sh
           mkdir build-wasm
           cd build-wasm
-          emconfigure ../configure \
+          # ngspice 47 retains an XSPICE-only enum in a disabled-XSPICE switch branch.
+          CFLAGS="-DOPT_ENH_RSHUNT=9999" emconfigure ../configure \
             --host=wasm32-unknown-emscripten \
             --disable-shared --enable-static \
             --with-readline=no --with-fftw3=no \
