@@ -1,0 +1,67 @@
+name: Qualify pinned ngspice WebAssembly build
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/ngspice-wasm-qualification.yml
+      - tests/ngspice/native-smoke.c
+      - tests/ngspice/resistor-divider.cir
+  push:
+    paths:
+      - .github/workflows/ngspice-wasm-qualification.yml
+      - tests/ngspice/native-smoke.c
+      - tests/ngspice/resistor-divider.cir
+
+permissions:
+  contents: read
+
+jobs:
+  wasm-divider-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install upstream build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y autoconf automake bison build-essential flex libtool
+
+      - name: Build and run the pinned engine as WebAssembly
+        env:
+          NGSPICE_COMMIT: a80f6e3e95d51534905b1f23410a951802666656
+          EMSDK_VERSION: 3.1.64
+        run: |
+          git clone --depth=1 https://github.com/emscripten-core/emsdk.git "$RUNNER_TEMP/emsdk"
+          "$RUNNER_TEMP/emsdk/emsdk" install "$EMSDK_VERSION"
+          "$RUNNER_TEMP/emsdk/emsdk" activate "$EMSDK_VERSION"
+          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
+          emcc --version
+
+          git init upstream
+          git -C upstream remote add origin https://git.code.sf.net/p/ngspice/ngspice
+          git -C upstream fetch --depth=1 origin "$NGSPICE_COMMIT"
+          git -C upstream checkout --detach FETCH_HEAD
+          test "$(git -C upstream rev-parse HEAD)" = "$NGSPICE_COMMIT"
+
+          cd upstream
+          ./autogen.sh
+          mkdir build-wasm
+          cd build-wasm
+          emconfigure ../configure \
+            --host=wasm32-unknown-emscripten \
+            --with-ngshared --with-readline=no --with-fftw3=no \
+            --disable-openmp --disable-osdi --disable-debug
+          emmake make -j2
+
+          NGSPICE_ARCHIVE="$(find . -type f -path '*/.libs/libngspice.a' -print -quit)"
+          test -n "$NGSPICE_ARCHIVE"
+          emcc -O2 -sALLOW_MEMORY_GROWTH=1 -sEXIT_RUNTIME=1 -sENVIRONMENT=node \
+            -I "$GITHUB_WORKSPACE/upstream/src/include" \
+            "$GITHUB_WORKSPACE/tests/ngspice/native-smoke.c" \
+            "$NGSPICE_ARCHIVE" -lm \
+            --preload-file "$GITHUB_WORKSPACE/tests/ngspice/resistor-divider.cir@/resistor-divider.cir" \
+            -o "$RUNNER_TEMP/ngspice-wasm-smoke.js"
+          node "$RUNNER_TEMP/ngspice-wasm-smoke.js" /resistor-divider.cir
+
