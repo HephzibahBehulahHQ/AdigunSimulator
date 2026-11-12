@@ -38,6 +38,8 @@ For a manufacturer-part lookup, include an exact listed MPN or ledger ID. Adigun
 
 Project edits remain in the working copy until the user saves or exports them. Undo restores the previous project state. The Bot does not auto-save or upload project data.
 
+Use **File → Export ideal SPICE netlist** to download a `.cir` file for projects containing only connected ideal DC voltage sources, resistors, capacitors, inductors, and a signal-ground reference. Unsupported components or invalid values block export. The file contains generic ideal element cards only; it has no analysis command, manufacturer device model, or simulation result. Run it separately in a compatible SPICE engine and review the model assumptions before relying on its output.
+
 ## Known limits
 
 Supported simulations, component evidence, PCB checks, and exports are bounded by the implementation status and delivery gates in this repository. A generic symbol, candidate part, analytical example, or educational PCB check is not manufacturer verification or production certification.
