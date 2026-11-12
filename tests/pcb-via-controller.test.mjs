@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { createPcbViaEditor } from "../js/pcb-via-controller.mjs";
+import { savePcbVia } from "../js/pcb-via-edit.mjs";
 import { parseProject, serializeProject } from "../js/core.mjs";
 
 async function harness() {
@@ -85,4 +86,30 @@ test("Delete on a via removes only that via and never the previously selected co
   assert.equal(prevented, true); assert.equal(h.history.length, 1);
   assert.equal(h.state.project.pcbFabrication.vias.some((v) => v.id === "J1-A4"), false);
   assert.deepEqual(h.state.project.components, components); assert.deepEqual(h.state.project.nets, nets);
+});
+
+test("arrow keys nudge a focused via by the documented snap increment and retain one history entry per move", async () => {
+  const h = await harness();
+  const before = structuredClone(h.state.project);
+  const created = savePcbVia(h.state.project, { netId: "VBUS", xMm: 25, yMm: 17, diameterMm: 0.6, drillMm: 0.3 });
+  assert.equal(created.status, "complete");
+  h.state.project = created.project;
+  h.viaTarget.dataset.pcbPad = `@via:${created.viaId}`;
+  h.$("#snap-toggle").checked = true;
+  let prevented = false;
+  assert.equal(h.editor.keydown({ key: "ArrowRight", target: { closest: () => h.viaTarget }, preventDefault: () => { prevented = true; } }), true);
+  assert.equal(prevented, true);
+  assert.equal(h.state.project.pcbFabrication.vias.at(-1).xMm, 25.5);
+  assert.equal(h.history.length, 1);
+  assert.equal(h.viaTarget.focused, true);
+  h.$("#snap-toggle").checked = false;
+  assert.equal(h.editor.keydown({ key: "ArrowDown", target: { closest: () => h.viaTarget }, preventDefault() {} }), true);
+  assert.equal(h.state.project.pcbFabrication.vias.at(-1).yMm, 17.1);
+  assert.equal(h.history.length, 2);
+  assert.deepEqual(h.state.project.nets, before.nets);
+  const moved = structuredClone(h.state.project.pcbFabrication.vias.at(-1));
+  h.state.activeTool = "pcb-route";
+  assert.equal(h.editor.keydown({ key: "ArrowLeft", target: { closest: () => h.viaTarget }, preventDefault() {} }), false);
+  assert.deepEqual(h.state.project.pcbFabrication.vias.at(-1), moved);
+  assert.equal(h.history.length, 2);
 });
