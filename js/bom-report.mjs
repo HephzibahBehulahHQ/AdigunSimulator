@@ -8,6 +8,10 @@ function csvCell(value) {
   return '"' + safe.replaceAll('"', '""') + '"';
 }
 
+function roundedCost(value) {
+  return Number.isFinite(value) ? Number(value.toFixed(6)) : null;
+}
+
 function verifiedPrice(component) {
   const price = component?.verifiedPrice;
   if (!price || typeof price !== "object") return null;
@@ -50,11 +54,11 @@ export function buildBomReport(project) {
   const rows = [...grouped.values()].map((row) => ({
     ...row,
     references: row.references.sort((a, b) => a.localeCompare(b, "en", { numeric: true }) || (a < b ? -1 : a > b ? 1 : 0)).join(", "),
-    extendedCost: row.unitCost === null ? null : Number((row.unitCost * row.quantity).toFixed(6))
+    extendedCost: row.unitCost === null ? null : roundedCost(row.unitCost * row.quantity)
   }));
   const currencies = new Set(rows.filter((row) => row.unitCost !== null).map((row) => row.currency));
   const totalCost = rows.length && rows.every((row) => row.extendedCost !== null) && currencies.size === 1
-    ? Number(rows.reduce((sum, row) => sum + row.extendedCost, 0).toFixed(6))
+    ? roundedCost(rows.reduce((sum, row) => sum + row.extendedCost, 0))
     : null;
   return { ok: true, rows, totalCost, currency: currencies.size === 1 ? [...currencies][0] : null };
 }
