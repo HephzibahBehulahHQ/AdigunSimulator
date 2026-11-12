@@ -148,6 +148,26 @@ test("pointer drag previews a via move and commits one guarded, undoable edit", 
   assert.deepEqual(h.captures, ["set:4", "release:4"]);
 });
 
+test("non-primary pointers cannot start or replace an active via drag", async () => {
+  const h = await harness();
+  const created = savePcbVia(h.state.project, { netId: "VBUS", xMm: 25, yMm: 17, diameterMm: 0.6, drillMm: 0.3 });
+  h.state.project = created.project; h.viaTarget.dataset.pcbPad = `@via:${created.viaId}`; h.editor.refresh();
+  const original = h.state.project, from = clientAt(original, 25, 17, h.rect), to = clientAt(original, 25.5, 17.5, h.rect);
+  const target = { closest: (selector) => selector === "#design-canvas .pcb-via" ? h.viaTarget : selector === "#design-canvas" ? h.canvas : null };
+  let prevented = false;
+  assert.equal(h.editor.pointerDown({ ...from, button: 0, pointerId: 9, isPrimary: false, target, preventDefault() { prevented = true; } }), true);
+  assert.equal(prevented, true); assert.deepEqual(h.captures, []);
+  assert.equal(h.editor.pointerDown({ ...from, button: 0, pointerId: 10, isPrimary: true, target, preventDefault() {} }), true);
+  assert.equal(h.editor.pointerMove({ ...to, pointerId: 10 }), true);
+  assert.equal(h.editor.pointerDown({ ...from, button: 0, pointerId: 11, isPrimary: false, target, preventDefault() {} }), true);
+  assert.equal(h.editor.pointerMove({ ...to, pointerId: 11 }), false);
+  assert.equal(h.editor.pointerEnd({ ...to, pointerId: 11 }), false);
+  assert.equal(h.editor.pointerEnd({ ...to, pointerId: 10 }), true);
+  const moved = h.state.project.pcbFabrication.vias.find((via) => via.id === created.viaId);
+  assert.deepEqual([moved.xMm, moved.yMm], [25.5, 17.5]);
+  assert.equal(h.history.length, 1); assert.deepEqual(h.captures, ["set:10", "release:10"]);
+});
+
 test("via drag cancellation restores the original project and blocked drops do not create history", async () => {
   const h = await harness();
   const created = savePcbVia(h.state.project, { netId: "VBUS", xMm: 25, yMm: 17, diameterMm: 0.6, drillMm: 0.3 });

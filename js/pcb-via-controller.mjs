@@ -78,9 +78,11 @@ export function createPcbViaEditor({ state, $, $$, t, escape, renderCanvas, rend
     return true;
   }
   function pointerDown(event) {
+    if (drag) { event.preventDefault?.(); return true; }
     if (state.activeView !== "pcb" || state.activeTool !== "select" || event.button !== 0) return false;
     const target = event.target.closest?.("#design-canvas .pcb-via");
     if (!target) return false;
+    if (event.isPrimary === false) { event.preventDefault?.(); return true; }
     const id = target.dataset.pcbPad?.startsWith("@via:") ? target.dataset.pcbPad.slice(5) : null;
     const via = state.project.pcbFabrication?.vias?.find((item) => item.id === id);
     const canvas = target.closest?.("#design-canvas"), svg = target.ownerSVGElement;
