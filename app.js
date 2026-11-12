@@ -2119,6 +2119,7 @@ document.addEventListener("pointerdown", (event) => {
   if(wireUi.pointerDown(event))return;
   const canvas = event.target.closest("#design-canvas");
   if (!canvas || event.button !== 0 || state.placement) return;
+  if (state.drag || event.isPrimary === false) { event.preventDefault?.(); return; }
   const component = event.target.closest(".placed-component");
   const pcbFootprint = state.activeView === "pcb" && state.activeTool === "select" ? event.target.closest(".pcb-footprint-hit") : null;
   const point = { x: event.clientX, y: event.clientY };
