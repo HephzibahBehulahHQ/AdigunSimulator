@@ -17,6 +17,20 @@ function makeCircuit() {
   };
 }
 
+function makeCurrentCircuit() {
+  let project = createEmptyProject({ name: "Current source export" });
+  for (const id of ["power.dc-current-source", "passive.resistor", "ground.signal"]) project = addComponent(project, id);
+  const pin = (reference, terminal) => `${project.components.find((part) => part.reference === reference).instanceId}:${terminal}`;
+  for (const [a, b] of [
+    [pin("I1", "+"), pin("R1", "1")], [pin("R1", "2"), pin("I1", "-")],
+    [pin("GND1", "0"), pin("I1", "-")]
+  ]) project = connectPins(project, a, b);
+  return {
+    ...project,
+    components: project.components.map((part) => part.reference === "I1" ? { ...part, value: "10 mA" } : part.reference === "R1" ? { ...part, value: "1 kΩ" } : part)
+  };
+}
+
 test("SPICE export writes connected ideal source, resistor and capacitor cards in SI units", () => {
   const result = exportSpiceNetlist(makeCircuit());
   assert.equal(result.ok, true, result.error);
@@ -34,6 +48,27 @@ test("SPICE export preserves a negative DC source value", () => {
   const result = exportSpiceNetlist(project);
   assert.equal(result.ok, true, result.error);
   assert.match(result.netlist, /V1 N1 0 -5\n/);
+});
+
+test("SPICE export maps positive ideal current from the app's minus pin to plus pin", () => {
+  const result = exportSpiceNetlist(makeCurrentCircuit());
+  assert.equal(result.ok, true, result.error);
+  assert.match(result.netlist, /I1 0 N1 0\.01\n/);
+  assert.match(result.netlist, /R1 N1 0 1000\n/);
+});
+
+test("SPICE export preserves negative current-source polarity and microampere prefixes", () => {
+  const project = makeCurrentCircuit();
+  project.components = project.components.map((part) => part.reference === "I1" ? { ...part, value: "-2.5 µA" } : part);
+  const result = exportSpiceNetlist(project);
+  assert.equal(result.ok, true, result.error);
+  assert.match(result.netlist, /I1 0 N1 -0\.0000025\n/);
+});
+
+test("SPICE export blocks nonzero source values that underflow to zero", () => {
+  const project = makeCurrentCircuit();
+  project.components = project.components.map((part) => part.reference === "I1" ? { ...part, value: "1e-9999 A" } : part);
+  assert.match(exportSpiceNetlist(project).error, /finite A value/);
 });
 
 test("SPICE export requires at least one supported circuit element", () => {
