@@ -26,9 +26,9 @@
       </div>
       <div class="header-actions" aria-label="Account and application controls">
         <span class="save-state saved" id="save-state" aria-live="polite">Empty project</span>
-        <span id="account-status" class="icon-button account-button" role="img" data-auth-state="guest" aria-label="Account: guest; sign-in is unavailable" title="Account · Guest (sign-in unavailable)" data-i18n-aria="accountGuestAria" data-i18n-title="accountGuestTooltip">
+        <button id="account-status" class="icon-button account-button" type="button" data-auth-state="loading" aria-haspopup="dialog" aria-controls="account-dialog" aria-label="Account: guest; sign in or create an account" title="Account · Guest · Sign in or create an account" data-i18n-aria="accountGuestAria" data-i18n-title="accountGuestTooltip">
           <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19c.5-3.1 2.8-5 6.5-5s6 1.9 6.5 5"/></svg><span class="account-status-dot" aria-hidden="true"></span>
-        </span>
+        </button>
         <label class="language-control" title="Language" data-i18n-title="locale"><span class="sr-only">Language</span><select id="language" aria-label="Language" title="Language" data-i18n-aria="locale"><option value="en">EN</option><option value="de">DE</option><option value="yo">YO</option><option value="pcm">PCM</option></select></label>
         <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch colour theme" title="Switch colour theme" data-i18n-aria="theme" data-i18n-title="theme">⚙</button>
         <button id="global-search-toggle" class="icon-button" type="button" aria-label="Show search" title="Show search" aria-controls="global-search" aria-expanded="false" aria-keyshortcuts="Control+k Meta+k" data-i18n-aria="searchGlobal" data-i18n-title="searchGlobal"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 5 5"/></svg></button>
@@ -661,6 +661,35 @@
       </nav>
       <small>© <span id="copyright-year"></span> Hephzibah Behulah. <span data-i18n="allRightsReserved">All rights reserved.</span></small>
     </footer>
+    <dialog id="account-dialog" class="account-dialog" aria-labelledby="account-title">
+      <div class="account-dialog-header">
+        <h2 id="account-title" data-i18n="accountDialogTitle">AdigunSimulator account</h2>
+        <button class="secondary-button" type="button" data-account-close data-i18n="accountClose">Close</button>
+      </div>
+      <p id="account-intro" class="account-intro" data-i18n="accountIntro">Your email is used for sign-in and password recovery. Signing in does not upload your circuit; each cloud save will require your choice.</p>
+      <section id="account-session" hidden aria-live="polite">
+        <p><span data-i18n="accountLoggedIn">Signed in as</span> <strong id="account-session-email"></strong></p>
+        <button id="account-sign-out" class="secondary-button" type="button" data-i18n="accountSignOut">Sign out</button>
+      </section>
+      <form id="account-form" class="account-form">
+        <label for="account-email" data-i18n="accountEmailLabel">Email address</label>
+        <input id="account-email" name="email" type="email" autocomplete="email" required />
+        <div id="account-password-row">
+          <label for="account-password" data-i18n="accountPasswordLabel">Password</label>
+          <input id="account-password" name="password" type="password" autocomplete="current-password" required />
+        </div>
+        <div id="account-password-confirm-row" hidden>
+          <label for="account-password-confirm" data-i18n="accountConfirmPasswordLabel">Confirm password</label>
+          <input id="account-password-confirm" name="password-confirm" type="password" autocomplete="new-password" />
+        </div>
+        <button id="account-submit" class="gold-button" type="submit" data-i18n="accountSubmitSignIn">Sign in</button>
+        <div class="account-form-links">
+          <button id="account-mode-toggle" class="text-button" type="button" data-i18n="accountModeSignUp">Create an account</button>
+          <button id="account-forgot" class="text-button" type="button" data-i18n="accountForgotPassword">Forgot password?</button>
+        </div>
+      </form>
+      <p id="account-message" class="account-message" role="status" aria-live="polite"></p>
+    </dialog>
     <script type="module" src="app.js"></script>
   </body>
 </html>

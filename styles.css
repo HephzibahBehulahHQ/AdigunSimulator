@@ -609,6 +609,26 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .footer-identity { display: flex; gap: .55rem; flex-wrap: wrap; }
 .footer-links { gap: .35rem .6rem; }
 
+.account-dialog { width: min(28rem, calc(100vw - 2rem)); max-width: 28rem; padding: 1.1rem; border: 1px solid var(--border); border-radius: .6rem; color: var(--ivory); background: var(--navy-2); box-shadow: var(--shadow); }
+.account-dialog::backdrop { background: rgb(2 8 16 / 72%); }
+.account-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.account-dialog-header h2 { margin: 0; font-size: 1.05rem; }
+.account-intro { color: var(--muted); font-size: .82rem; line-height: 1.5; }
+.account-form { display: grid; gap: .55rem; }
+.account-form label { display: block; margin: .25rem 0; color: var(--muted); font-size: .78rem; }
+.account-form input { width: 100%; min-width: 0; padding: .58rem .65rem; border: 1px solid var(--border); border-radius: .35rem; color: var(--ivory); background: #0c1828; }
+.account-form input:focus-visible, .account-dialog button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.account-form-links { display: flex; justify-content: space-between; gap: .6rem; }
+.text-button { padding: .35rem 0; border: 0; color: var(--cyan); background: transparent; text-decoration: underline; text-underline-offset: .15em; }
+.account-message { min-height: 1.2em; margin: .75rem 0 0; color: var(--muted); font-size: .8rem; line-height: 1.45; }
+.account-message:empty { display: none; }
+#account-session p { overflow-wrap: anywhere; }
+#account-submit { width: 100%; margin-top: .25rem; }
+@media (max-width: 520px) {
+  .account-dialog { padding: .85rem; }
+  .account-form-links { align-items: flex-start; flex-direction: column; }
+}
+
 @media (min-width: 1121px) and (min-height: 700px) {
   body { height: 100dvh; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; overflow: hidden; }
   .workspace { min-height: 0; height: 100%; grid-template-columns: 17.5rem minmax(0, 1fr) 17.5rem; padding: .5rem; gap: .6rem; overflow: hidden; }

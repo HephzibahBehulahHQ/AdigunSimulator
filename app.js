@@ -9,6 +9,8 @@ import { createSchematicWireUi } from "./js/schematic-wire-ui.mjs";
 import { createCrossingPainter } from "./js/wire-crossings.mjs";
 import { STARTER_LIBRARY, addComponent, connectPins, createEmptyProject, disconnectPin, findLibraryPart, getViewReconciliationIssues, moveComponent, removeComponent, parseProject, serializeProject, updateComponent, validateProject } from "./js/core.mjs";
 import { TRANSLATIONS, translate } from "./js/i18n.mjs";
+import { createAccountClient, createAccountSession } from "./js/account-auth.mjs";
+import { createAccountUi } from "./js/account-ui.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { schematicPinPoint, schematicSymbolSize, schematicGeometry } from "./js/schematic-pin-layout.mjs";
 import { editComponentField, editCustomProperties } from "./js/component-edit.mjs";
@@ -2478,6 +2480,7 @@ $("#language").addEventListener("change", (event) => {
   state.project = { ...state.project, metadata: { ...state.project.metadata, locale: event.target.value } };
   state.dirty = true;
   render();
+  accountUi?.refreshLocale();
 });
 $("#grid-toggle").addEventListener("change", renderCanvas);
 $("#feedback-live").addEventListener("change",()=>{renderCanvas();wireUi.paintMeasurements();});
@@ -2588,6 +2591,20 @@ const componentPropertiesUi = createComponentPropertiesUi({
   customCommit: (id, rows, capture) => commitComponentEdit(editCustomProperties(state.project, id, rows), capture)
 });
 render();
+
+let accountUi;
+const accountSession = createAccountSession(createAccountClient(), {
+  onState: accountState => accountUi?.renderState(accountState),
+  getRedirectUrl: () => `${window.location.origin}${window.location.pathname}`
+});
+accountUi = createAccountUi({
+  document,
+  account: accountSession,
+  translate,
+  getLocale: () => state.project.metadata.locale
+});
+void accountSession.initialize();
+window.addEventListener("pagehide", () => accountUi.dispose(), { once: true });
 
 const disposeDrawMenu=attachDrawMenu($("#draw-menu"),beginComponentPlacement);
 window.addEventListener("pagehide",event=>{if(!event.persisted)disposeDrawMenu();});
