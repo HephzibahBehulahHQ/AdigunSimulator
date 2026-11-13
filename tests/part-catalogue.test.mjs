@@ -95,3 +95,11 @@ test("1N4148 datasheet checksum is recorded without promoting the family candida
   assert.equal(record.verificationStatus, "candidate");
   assert.equal(getManufacturerPartEvidenceSummary(record).readyForHumanReview, false);
 });
+
+test("SN74HC02N datasheet checksum is recorded without promoting the candidate", () => {
+  const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "ti.sn74hc02n");
+  assert.match(record.datasheet.sha256, /^[a-f0-9]{64}$/);
+  assert.equal(record.datasheet.sha256Bytes, 2497827);
+  assert.equal(record.verificationStatus, "candidate");
+  assert.equal(getManufacturerPartEvidenceSummary(record).readyForHumanReview, true);
+});

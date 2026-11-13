@@ -548,7 +548,7 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(readiness.requiresHumanReview, true);
   assert.ok(readiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
   assert.equal(coverageFile.reviewQueue.length, 17);
-  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId).sort(), ["microchip.atmega328p-pu", "microchip.mcp6002-i-p", "ti.lm555p", "ti.lm7805ct-nopb", "ti.sn74hc00n", "ti.sn74hc08n", "ti.sn74hc138n", "ti.sn74hc14n", "ti.sn74hc32n", "ti.sn74hc74n", "ti.sn74hc86n"]);
+  assert.deepEqual(coverageFile.reviewQueue.filter(item => item.readyForHumanReview).map(item => item.partId).sort(), ["microchip.atmega328p-pu", "microchip.mcp6002-i-p", "ti.lm555p", "ti.lm7805ct-nopb", "ti.sn74hc00n", "ti.sn74hc02n", "ti.sn74hc08n", "ti.sn74hc138n", "ti.sn74hc14n", "ti.sn74hc32n", "ti.sn74hc74n", "ti.sn74hc86n"]);
   const flipFlop = ledger.records.find((record) => record.id === "ti.sn74hc74n");
   assert.equal(flipFlop.manufacturerPartNumber, "SN74HC74N");
   assert.equal(flipFlop.typeCode, "F32");

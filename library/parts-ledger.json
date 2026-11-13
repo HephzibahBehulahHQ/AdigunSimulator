@@ -2498,7 +2498,10 @@
       "datasheet": {
         "title": "SNx4HC02 Quadruple 2-Input NOR Gates datasheet (Rev. G)",
         "url": "https://www.ti.com/lit/ds/symlink/sn74hc02.pdf",
-        "accessedAt": "2026-11-13"
+        "accessedAt": "2026-11-13",
+        "sha256": "f64ad49f1186e95c8acfd054d85689416cce3077e8ba8d245997bb677022f3ef",
+        "sha256Bytes": 2497827,
+        "checksumEvidenceNote": "library/evidence/ti.sn74hc02n.md"
       },
       "manufacturerSources": [
         {
