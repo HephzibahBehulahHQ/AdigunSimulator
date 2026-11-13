@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 124" role="img" aria-labelledby="title description" data-license="CC0-1.0">
+<title id="title">1N4148 family diode symbol</title>
+<desc id="description">Schematic diode symbol with anode on the left and cathode bar on the right. The 1 and 2 connection identifiers are assigned by the application and are not physical package lead numbers.</desc>
+<style>text{font:13px Arial,sans-serif;fill:#111}.wire,.bar{stroke:#111;stroke-width:3;fill:none}.body{stroke:#111;stroke-width:2;fill:#fff}</style>
+<g data-pin="1" data-electrical-type="passive"><path class="wire" d="M24 62H103"/><text x="28" y="53" text-anchor="start" data-pin-label-for="1">A</text><text x="94" y="81" text-anchor="end" class="pin-number">1</text></g>
+<path class="body" d="M103 35L157 62L103 89Z"/>
+<path class="bar" d="M160 34V90"/>
+<g data-pin="2" data-electrical-type="passive"><path class="wire" d="M160 62H276"/><text x="272" y="53" text-anchor="end" data-pin-label-for="2">K</text><text x="167" y="81" text-anchor="start" class="pin-number">2</text></g>
+<text x="150" y="116" text-anchor="middle" style="font:11px Arial,sans-serif;fill:#444">Schematic connection IDs only</text>
+</svg>
