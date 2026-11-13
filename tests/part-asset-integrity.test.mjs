@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { validatePartAssetIntegrity } from "../scripts/part-asset-integrity.mjs";
 
@@ -81,4 +82,12 @@ test("part asset integrity ties generated symbol labels and footprint pads to le
   misnumbered.symbolPinLabels = { "2": "IN" };
   const numberResult = await validatePartAssetIntegrity({ records: [misnumbered] }, readAsset);
   assert.ok(numberResult.errors.some((issue) => issue.code === "SYMBOL_VISIBLE_LABEL_ASSET"));
+});
+
+test("all ledger-mapped visible symbol labels match their source SVG assets", async () => {
+  const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url), "utf8"));
+  const records = ledger.records.filter((record) => record.symbolPinLabels);
+  const result = await validatePartAssetIntegrity({ records }, (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8"));
+  assert.equal(records.length, 5);
+  assert.deepEqual(result, { valid: true, errors: [] });
 });
