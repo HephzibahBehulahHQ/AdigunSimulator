@@ -917,7 +917,7 @@
       },
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bss138bk/symbol.svg",
-        "sha256": "e2ad1b784aef42738d4fc388775226cc0a4fed8017e1ad368df019a6eca6d876",
+        "sha256": "2b49c144e01b7a0d9446ccb2e87e98cd49c3a3307256108a2b872b31dfd8f4f0",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
@@ -1216,7 +1216,7 @@
       "notes": "TI product page lists SN74HC74N as active and the datasheet documents its dual D flip-flop function, PDIP-14 package, pin map, supply, and temperature. Datasheet bytes, four-language descriptions, and CC0 educational symbol/footprint drafts are recorded. Human review, physical fit, and part-specific model validation remain open; not counted as verified.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc74n/symbol.svg",
-        "sha256": "42d55b3f1bfb67bb36b198b91ced3069a9fa91b0ebfd9aee54458443207a2abe",
+        "sha256": "14354756bd7504dce73bab2b3a72dd0d3c776d85434bbd3646a859ddc96580ce",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
