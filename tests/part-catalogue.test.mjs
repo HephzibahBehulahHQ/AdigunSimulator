@@ -111,3 +111,14 @@ test("SN74HC04N datasheet checksum is recorded without promoting the candidate",
   assert.equal(record.verificationStatus, "candidate");
   assert.equal(getManufacturerPartEvidenceSummary(record).readyForHumanReview, true);
 });
+
+test("2N3904 datasheet checksum is recorded without promoting the candidate", () => {
+  const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "onsemi.2n3904bu");
+  assert.equal(record.datasheet.sha256, "e2b2147b6e9608cc592e7178204f50ca65aaf5fe0dbcb5f30ed2d737ab7a4214");
+  assert.equal(record.datasheet.sha256Bytes, 324812);
+  assert.equal(record.verificationStatus, "candidate");
+  const summary = getManufacturerPartEvidenceSummary(record);
+  assert.equal(summary.readyForHumanReview, false);
+  assert.ok(summary.evidenceBlockerCodes.length > 0);
+  assert.ok(!summary.evidenceBlockerCodes.includes("DATASHEET_CHECKSUM"));
+});

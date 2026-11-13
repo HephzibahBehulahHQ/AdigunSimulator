@@ -570,7 +570,10 @@
       "datasheet": {
         "title": "2N3904 NPN General-Purpose Amplifier datasheet",
         "url": "https://www.onsemi.com/download/data-sheet/pdf/2n3904-d.pdf",
-        "accessedAt": "2026-11-02"
+        "accessedAt": "2026-11-13",
+        "sha256": "e2b2147b6e9608cc592e7178204f50ca65aaf5fe0dbcb5f30ed2d737ab7a4214",
+        "sha256Bytes": 324812,
+        "checksumEvidenceNote": "library/evidence/onsemi.2n3904bu.md"
       },
       "manufacturerSources": [
         {
