@@ -352,13 +352,10 @@
       "currentStatus": "candidate",
       "readyForHumanReview": false,
       "missingEvidenceCodes": [
-        "DATASHEET_CHECKSUM",
         "REVIEWER_IDENTITY",
         "REVIEW_DATE"
       ],
-      "evidenceBlockerCodes": [
-        "DATASHEET_CHECKSUM"
-      ]
+      "evidenceBlockerCodes": []
     }
   ]
 }
