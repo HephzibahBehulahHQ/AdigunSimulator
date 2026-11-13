@@ -46,3 +46,8 @@ The simulator does not model this exact TI device. Do not present generic NOR be
 - Keep manufacturer-specific simulation disabled unless a sourced, licensed, bounded model and expected-result fixtures are added.
 - Obtain a named independent reviewer and date before changing verification status.
 
+
+
+## Datasheet checksum
+
+On 2026-11-13 the linked TI datasheet was downloaded over HTTPS from ti.com. The response had content type application/pdf and contained 2,497,827 bytes. SHA-256: `f64ad49f1186e95c8acfd054d85689416cce3077e8ba8d245997bb677022f3ef`. The downloaded PDF bytes are not included in the repository; the digest is retained as evidence. This checksum does not satisfy independent pin-map review, a reviewed footprint, or a named reviewer; the record remains unverified.
