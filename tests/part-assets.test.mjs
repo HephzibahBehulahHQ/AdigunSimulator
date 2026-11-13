@@ -2,6 +2,20 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { renderPartSymbol } from "../scripts/part-symbol-renderer.mjs";
+
+test("part symbol renderer binds visible labels to their pin numbers", () => {
+  const svg = renderPartSymbol({
+    manufacturerPartNumber: "EXAMPLE & DEVICE",
+    type: "two-pin test part",
+    packageEvidence: { package: "PDIP-2" },
+    symbolPinMap: { "1": "IN&", "2": "OUT" },
+    pinElectricalTypes: { "1": "input", "2": "output" }
+  });
+  assert.match(svg, /data-pin-label-for="1">IN&amp;<\/text>/);
+  assert.match(svg, /data-pin-label-for="2">OUT<\/text>/);
+  assert.match(svg, /<title id="title">EXAMPLE &amp; DEVICE pin-map symbol<\/title>/);
+});
 
 test("generated manufacturer pin-map symbols match ledger hashes and CC0 licensing", async () => {
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url)));
