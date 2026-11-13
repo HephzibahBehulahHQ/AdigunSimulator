@@ -422,3 +422,11 @@ test("mobile component category filters wrap and retain touch-sized controls", a
   assert.match(mobile[0], /min-height:\s*44px/);
   assert.match(mobile[0], /white-space:\s*normal/);
 });
+
+test("mobile command menus retain touch-sized targets", async () => {
+  const styles = await readFile(new URL("../styles.css", import.meta.url), "utf8");
+  const mobile = styles.match(/@media \(max-width:700px\) \{([\s\S]*?)\n\}/);
+  assert.ok(mobile, "mobile command bar rules are present");
+  assert.match(mobile[1], /\.command-bar > \.menu-buttons > \.app-menu > summary, \.command-bar \.draw-menu-button \{[^}]*min-height:44px/);
+  assert.match(mobile[1], /display:flex; align-items:center/);
+});
