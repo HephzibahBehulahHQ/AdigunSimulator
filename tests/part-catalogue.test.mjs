@@ -40,8 +40,8 @@ test("SN74HC04N footprint remains an unverified educational candidate", () => {
   assert.equal(record.modelStatus, "not-modelled");
   assert.equal(record.footprintAsset.designStatus, "educational-candidate");
   assert.equal(Object.keys(record.footprintPadMap).length, 14);
-  assert.equal(summary.readyForHumanReview, false);
-  assert.ok(summary.evidenceBlockerCodes.includes("DATASHEET_CHECKSUM"));
+  assert.equal(summary.readyForHumanReview, true);
+  assert.deepEqual(summary.evidenceBlockerCodes, []);
 });
 
 test("SN74HC02N educational footprint preserves the pin map and candidate status", () => {
