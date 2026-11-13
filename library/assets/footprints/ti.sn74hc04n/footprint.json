@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "ti.sn74hc04n",
+  "package": "Texas Instruments N / R-PDIP-T14 (NFF0014A)",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -3.81,
+    "yMm": -7.62
+  },
+  "packageOutline": {
+    "bodyLengthMm": {
+      "nominal": 19.3
+    },
+    "bodyWidthMm": {
+      "nominal": 6.4
+    },
+    "overallLengthMaxMm": null,
+    "leadRowPitchMm": 7.62,
+    "leadPitchMm": 2.54,
+    "layout": "dual-row",
+    "sourceUrl": "https://www.ti.com/lit/ml/mpdi093/mpdi093.pdf",
+    "drawing": "NFF0014A / N14A (Rev. G), R-PDIP-T14. TI identifies SN74HC04N as PDIP-14 with 19.30 mm × 6.40 mm nominal body."
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.8,
+    "drillMm": 0.8,
+    "source": "AdigunSimulator CC0 educational defaults: 1.8 mm pad and 0.8 mm drill. These are not TI land-pattern recommendations; physical fit is not reviewed."
+  },
+  "pads": [
+    {
+      "number": 1,
+      "xMm": -3.81,
+      "yMm": -7.62
+    },
+    {
+      "number": 2,
+      "xMm": -3.81,
+      "yMm": -5.08
+    },
+    {
+      "number": 3,
+      "xMm": -3.81,
+      "yMm": -2.54
+    },
+    {
+      "number": 4,
+      "xMm": -3.81,
+      "yMm": 0
+    },
+    {
+      "number": 5,
+      "xMm": -3.81,
+      "yMm": 2.54
+    },
+    {
+      "number": 6,
+      "xMm": -3.81,
+      "yMm": 5.079999999999999
+    },
+    {
+      "number": 7,
+      "xMm": -3.81,
+      "yMm": 7.62
+    },
+    {
+      "number": 8,
+      "xMm": 3.81,
+      "yMm": 7.62
+    },
+    {
+      "number": 9,
+      "xMm": 3.81,
+      "yMm": 5.08
+    },
+    {
+      "number": 10,
+      "xMm": 3.81,
+      "yMm": 2.54
+    },
+    {
+      "number": 11,
+      "xMm": 3.81,
+      "yMm": 0
+    },
+    {
+      "number": 12,
+      "xMm": 3.81,
+      "yMm": -2.54
+    },
+    {
+      "number": 13,
+      "xMm": 3.81,
+      "yMm": -5.079999999999999
+    },
+    {
+      "number": 14,
+      "xMm": 3.81,
+      "yMm": -7.62
+    }
+  ],
+  "limitations": [
+    "Generated educational through-hole layout using the TI N-package dimensions and the project’s conventional 2.54 mm DIP-14 pad grid.",
+    "The manufacturer does not publish this generated pad artwork as an approved land pattern; pad and drill dimensions are CC0 educational defaults.",
+    "Confirm the exact physical part, lead span, finished-hole tolerance, annular ring, solder process, courtyard, and board rules before use.",
+    "This asset has not passed independent footprint review or manufacturing DRC."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

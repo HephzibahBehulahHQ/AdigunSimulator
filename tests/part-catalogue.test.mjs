@@ -32,3 +32,14 @@ test("manufacturer evidence browser provides a searchable review snapshot for ev
   assert.equal(reviewReady.evidenceBlocked, false);
   assert.equal(reviewReady.verified, false);
 });
+
+test("SN74HC04N footprint remains an unverified educational candidate", () => {
+  const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "ti.sn74hc04n");
+  const summary = getManufacturerPartEvidenceSummary(record);
+  assert.equal(record.verificationStatus, "candidate");
+  assert.equal(record.modelStatus, "not-modelled");
+  assert.equal(record.footprintAsset.designStatus, "educational-candidate");
+  assert.equal(Object.keys(record.footprintPadMap).length, 14);
+  assert.equal(summary.readyForHumanReview, false);
+  assert.ok(summary.evidenceBlockerCodes.includes("DATASHEET_CHECKSUM"));
+});
