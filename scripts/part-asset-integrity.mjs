@@ -81,6 +81,9 @@ export async function validatePartAssetIntegrity(ledger, readAsset) {
             && (!record.pinElectricalTypes?.[number] || pins[number].electricalType === record.pinElectricalTypes[number]));
         if (!matches) errors.push({ code: "SYMBOL_PIN_MAP_ASSET", partId: record.id, message: "Symbol pin numbers, labels, or electrical types do not match the ledger." });
       }
+      if (asset.label === "symbol" && (!record.symbolPinMap || !record.symbolPinLabels)) {
+        errors.push({ code: "SYMBOL_VISIBLE_LABEL_MAP_REQUIRED", partId: record.id, message: "Every symbol asset must declare pin mappings and visible pin labels." });
+      }
       if (asset.label === "symbol" && record.symbolPinLabels) {
         const labels = symbolPinLabels(text);
         const expected = record.symbolPinLabels;
