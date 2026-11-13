@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "onsemi.2n3904bu",
+  "package": "onsemi TO-92-3 Case 135AN (straight leads)",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -1.27,
+    "yMm": 0
+  },
+  "packageOutline": {
+    "bodyWidthMm": {
+      "min": 4.32,
+      "max": 5.2
+    },
+    "bodyHeightMm": {
+      "min": 4.32,
+      "max": 5.33
+    },
+    "overallHeightMm": {
+      "min": 13.2,
+      "max": 15.62
+    },
+    "leadPitchMm": 1.27,
+    "leadSpanMm": 2.54,
+    "layout": "single-row",
+    "sourceUrl": "https://www.onsemi.com/download/data-sheet/pdf/2n3904-d.pdf",
+    "drawing": "TO-92 3, Case 135AN, Issue O. Dimensions are from the onsemi mechanical outline; pin center span and pitch follow the numbered lead drawing."
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.8,
+    "drillMm": 0.8,
+    "source": "AdigunSimulator CC0 educational defaults. onsemi does not specify this generated board pad/drill pattern; manufacturing review is required."
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -1.27,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": 0,
+      "yMm": 0
+    },
+    {
+      "number": "3",
+      "xMm": 1.27,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Generated through-hole pattern maps the datasheet's lead numbers to one row at the 2.54 mm pin 1 to pin 3 span (1.27 mm adjacent pitch).",
+    "Pad diameter (1.8 mm) and drill (0.8 mm) are application-selected CC0 defaults, not onsemi land-pattern recommendations.",
+    "Check lead forming, body orientation, drilled-hole tolerance, annular ring, courtyard, and manufacturing rules against the physical component and fabricator before use.",
+    "This educational asset has not passed independent physical fit review or manufacturing DRC."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
