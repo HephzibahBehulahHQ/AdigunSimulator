@@ -14,7 +14,7 @@ const ledger = () => ({ records: [{
 }] });
 
 const mappedAssets = () => {
-  const svg = `<svg><g data-pin="1" data-electrical-type="input"><path/><text>IN</text><text class="pin-number">1</text></g></svg>\n`;
+  const svg = `<svg><g data-pin="1" data-electrical-type="input"><path/><text data-pin-label-for="1">IN</text><text class="pin-number">1</text></g></svg>\n`;
   const footprint = `${JSON.stringify({ partId: "example.part", pads: [{ number: "2", xMm: 0, yMm: 0 }] })}\n`;
   return {
     svg,
@@ -26,6 +26,7 @@ const mappedAssets = () => {
         sha256: createHash("sha256").update(svg).digest("hex")
       },
       symbolPinMap: { "1": "IN" },
+      symbolPinLabels: { "1": "IN" },
       pinElectricalTypes: { "1": "input" },
       footprintAsset: {
         sourceUrl: "https://raw.githubusercontent.com/example/repo/main/library/assets/footprints/example.part/footprint.json",
@@ -70,4 +71,14 @@ test("part asset integrity ties generated symbol labels and footprint pads to le
   const result = await validatePartAssetIntegrity({ records: [mismatched] }, readAsset);
   assert.ok(result.errors.some((issue) => issue.code === "SYMBOL_PIN_MAP_ASSET"));
   assert.ok(result.errors.some((issue) => issue.code === "FOOTPRINT_PAD_MAP_ASSET"));
+
+  const mislabeled = structuredClone(fixture.record);
+  const mislabeledSvg = fixture.svg.replace(">IN<", ">OUT<");
+  const labelResult = await validatePartAssetIntegrity({ records: [mislabeled] }, async (path) => path.endsWith("symbol.svg") ? mislabeledSvg : fixture.footprint);
+  assert.ok(labelResult.errors.some((issue) => issue.code === "SYMBOL_VISIBLE_LABEL_ASSET"));
+
+  const misnumbered = structuredClone(fixture.record);
+  misnumbered.symbolPinLabels = { "2": "IN" };
+  const numberResult = await validatePartAssetIntegrity({ records: [misnumbered] }, readAsset);
+  assert.ok(numberResult.errors.some((issue) => issue.code === "SYMBOL_VISIBLE_LABEL_ASSET"));
 });
