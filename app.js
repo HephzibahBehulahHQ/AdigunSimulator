@@ -391,6 +391,22 @@ async function openSavedProject() {
   } catch (error) { showDialog(t("openSavedProject"), error.message); }
 }
 
+function deleteSavedProject() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) return showDialog(t("deleteSavedProject"), t("noSavedProject"));
+    const project = parseProject(stored);
+    if (!confirm(`${t("deleteSavedProjectPrompt")}\n\n${project.metadata.name}`)) return;
+    localStorage.removeItem(STORAGE_KEY);
+    if (state.savedDisposition === "local" && state.currentProjectId === project.id) {
+      state.dirty = true;
+      updateSaveState();
+    }
+    log("[SAVED COPY REMOVED] Recent snapshots remain available.");
+    showDialog(t("deleteSavedProject"), t("savedProjectDeleted"));
+  } catch (error) { showDialog(t("deleteSavedProject"), error.message); }
+}
+
 function populateRecentProjectPicker(records) {
   const picker = $("#recent-project-picker");
   picker.replaceChildren(...records.map((record) => {
@@ -1891,6 +1907,7 @@ function handleAction(action) {
   if (action === "pcb-rotate-right") rotateSelectedPcbFootprint(90);
   if (action === "new-project" || action === "close-project") void resetCanvas();
   if (action === "open-saved-project") void openSavedProject();
+  if (action === "delete-saved-project") deleteSavedProject();
   if (action === "open-recent-project") void openRecentProjectsDialog();
   if (action === "import-project") $("#import-file").click();
   if (action === "save") saveLocal();
