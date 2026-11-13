@@ -21,6 +21,17 @@ function symbolPins(svg) {
   return Object.keys(pins).length ? pins : null;
 }
 
+function symbolPinLabels(svg) {
+  const labels = {};
+  for (const match of svg.matchAll(/<text\b([^>]*)>([\s\S]*?)<\/text>/g)) {
+    const number = match[1].match(/\bdata-pin-label-for="([^"]+)"/)?.[1];
+    if (!number) continue;
+    if (Object.hasOwn(labels, number)) return null;
+    labels[number] = decodeXml(match[2].replace(/<[^>]*>/g, "").trim());
+  }
+  return Object.keys(labels).length ? labels : null;
+}
+
 function footprintPads(json) {
   try {
     const footprint = JSON.parse(json);
@@ -69,6 +80,14 @@ export async function validatePartAssetIntegrity(ledger, readAsset) {
           && Object.entries(record.symbolPinMap).every(([number, name]) => pins[number]?.name === String(name)
             && (!record.pinElectricalTypes?.[number] || pins[number].electricalType === record.pinElectricalTypes[number]));
         if (!matches) errors.push({ code: "SYMBOL_PIN_MAP_ASSET", partId: record.id, message: "Symbol pin numbers, labels, or electrical types do not match the ledger." });
+      }
+      if (asset.label === "symbol" && record.symbolPinLabels) {
+        const labels = symbolPinLabels(text);
+        const expected = record.symbolPinLabels;
+        const matches = labels && Object.keys(expected).length === Object.keys(record.symbolPinMap ?? {}).length
+          && Object.entries(expected).every(([number, label]) => Object.hasOwn(record.symbolPinMap ?? {}, number)
+            && labels[number] === String(label));
+        if (!matches) errors.push({ code: "SYMBOL_VISIBLE_LABEL_ASSET", partId: record.id, message: "Visible symbol pin labels do not match their declared pin numbers and ledger labels." });
       }
       if (asset.label === "footprint" && record.footprintPadMap) {
         const footprint = footprintPads(text);
