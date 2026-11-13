@@ -856,6 +856,11 @@
         "2": "Source",
         "3": "Drain"
       },
+      "symbolPinLabels": {
+        "1": "1 G",
+        "2": "2 S",
+        "3": "3 D"
+      },
       "pinElectricalTypes": {
         "1": "input",
         "2": "passive",
@@ -912,7 +917,7 @@
       },
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bss138bk/symbol.svg",
-        "sha256": "6a0d3d52487f9980824cdea56b5f0a5993aaf2fbfc064b3922a44d27f9fc7cc2",
+        "sha256": "e2ad1b784aef42738d4fc388775226cc0a4fed8017e1ad368df019a6eca6d876",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
@@ -1135,6 +1140,22 @@
         "13": "2CLR",
         "14": "VCC"
       },
+      "symbolPinLabels": {
+        "1": "1CLR",
+        "2": "1D",
+        "3": "1CLK",
+        "4": "1PRE",
+        "5": "1Q",
+        "6": "1QBAR",
+        "7": "GND",
+        "8": "2QBAR",
+        "9": "2Q",
+        "10": "2PRE",
+        "11": "2CLK",
+        "12": "2D",
+        "13": "2CLR",
+        "14": "VCC"
+      },
       "pinElectricalTypes": {
         "1": "input",
         "2": "input",
@@ -1195,7 +1216,7 @@
       "notes": "TI product page lists SN74HC74N as active and the datasheet documents its dual D flip-flop function, PDIP-14 package, pin map, supply, and temperature. Datasheet bytes, four-language descriptions, and CC0 educational symbol/footprint drafts are recorded. Human review, physical fit, and part-specific model validation remain open; not counted as verified.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc74n/symbol.svg",
-        "sha256": "e86d4b9d3fd82cac103abdc310d8089644454ffc43e82c339b422dfcd883645d",
+        "sha256": "42d55b3f1bfb67bb36b198b91ced3069a9fa91b0ebfd9aee54458443207a2abe",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
