@@ -2,7 +2,7 @@
 
 Internal record ID: `ti.lm555p` (retained for project compatibility)
 
-Review state: candidate; independent technical review not recorded
+Review state: in-review queue; independent technical review not completed or recorded
 
 Manufacturer identity/package checked: 2026-11-12
 
@@ -40,5 +40,5 @@ The pin types describe intended circuit roles; they are not a substitute for a v
 - Review electrical limits and the educational footprint defaults for the intended use; the app still has no validated LM555-specific model.
 - Record the independent reviewer's name and review date after that review occurs.
 
-The evidence validator reports no structural evidence blockers beyond the missing reviewer identity and date. This is a review-ready candidate, not a completed human review; it remains excluded from the verified-part count.
+The evidence validator reports no structural evidence blockers beyond the missing reviewer identity and date. The record is queued for independent human review; it remains unverified and excluded from the verified-part count until that review is completed and recorded.
 

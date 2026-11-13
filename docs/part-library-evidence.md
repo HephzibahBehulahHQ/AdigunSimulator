@@ -21,3 +21,5 @@ npm test
 
 Keep candidate/in-review counts separate from verified parts. The target of 1,000 does not justify promoting a record while evidence or independent human review is missing.
 
+`candidate` means source evidence is still being assembled. `in-review` means the evidence gate is complete and the record is queued for independent human review; it does not mean that review has happened. Only `verified` records with a named reviewer and dated review count toward the target or become insertable manufacturer parts.
+

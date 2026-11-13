@@ -28,6 +28,7 @@ test("manufacturer evidence browser provides a searchable review snapshot for ev
   assert.equal(searchManufacturerParts("no-such-manufacturer-part").length, 0);
   assert.ok(MANUFACTURER_PART_RECORDS.every((record) => getManufacturerPartEvidenceSummary(record).verified === (record.verificationStatus === "verified")));
   const reviewReady = getManufacturerPartEvidenceSummary(MANUFACTURER_PART_RECORDS.find((record) => record.id === "ti.lm555p"));
+  assert.equal(reviewReady.status, "in-review");
   assert.equal(reviewReady.readyForHumanReview, true);
   assert.equal(reviewReady.evidenceBlocked, false);
   assert.equal(reviewReady.verified, false);

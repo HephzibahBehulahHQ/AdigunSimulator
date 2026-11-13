@@ -9,8 +9,8 @@
     "verified": 0,
     "remaining": 1000,
     "byStatus": {
-      "candidate": 17,
-      "in-review": 0,
+      "candidate": 16,
+      "in-review": 1,
       "verified": 0,
       "rejected": 0
     }
@@ -144,7 +144,7 @@
   "reviewQueue": [
     {
       "partId": "ti.lm555p",
-      "currentStatus": "candidate",
+      "currentStatus": "in-review",
       "readyForHumanReview": true,
       "missingEvidenceCodes": [
         "REVIEWER_IDENTITY",
