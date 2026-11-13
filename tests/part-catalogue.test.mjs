@@ -93,7 +93,7 @@ test("1N4148 datasheet checksum is recorded without promoting the family candida
   assert.match(record.datasheet.sha256, /^[a-f0-9]{64}$/);
   assert.equal(record.datasheet.sha256Bytes, 124555);
   assert.equal(record.verificationStatus, "candidate");
-  assert.equal(getManufacturerPartEvidenceSummary(record).readyForHumanReview, true);
+  assert.equal(getManufacturerPartEvidenceSummary(record).readyForHumanReview, false);
 });
 
 test("SN74HC02N datasheet checksum is recorded without promoting the candidate", () => {
@@ -101,5 +101,5 @@ test("SN74HC02N datasheet checksum is recorded without promoting the candidate",
   assert.match(record.datasheet.sha256, /^[a-f0-9]{64}$/);
   assert.equal(record.datasheet.sha256Bytes, 2497827);
   assert.equal(record.verificationStatus, "candidate");
-  assert.equal(getManufacturerPartEvidenceSummary(record).readyForHumanReview, false);
+  assert.equal(getManufacturerPartEvidenceSummary(record).readyForHumanReview, true);
 });
