@@ -513,7 +513,7 @@ test("layout positions must be numeric, safe, and within canvas bounds", () => {
   assert.ok(validateProject(outside).errors.some((issue) => issue.rule === "LAYOUT_BOUNDS"));
 });
 
-test("part ledger preserves candidate status until complete real-part evidence is reviewed", async () => {
+test("part ledger queues complete evidence for human review without marking it verified", async () => {
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url)));
   const taxonomy = JSON.parse(await readFile(new URL("../library/component-types.json", import.meta.url)));
   const manifest = JSON.parse(await readFile(new URL("../library/parts-manifest.json", import.meta.url)));
@@ -524,14 +524,16 @@ test("part ledger preserves candidate status until complete real-part evidence i
   const coverage = getLedgerCoverage(ledger);
   assert.equal(coverage.total, 17);
   assert.equal(coverage.verified, 0);
-  assert.equal(coverage.byStatus.candidate, 17);
+  assert.equal(coverage.byStatus.candidate, 16);
+  assert.equal(coverage.byStatus["in-review"], 1);
   assert.equal(coverage.remaining, 1000);
   assert.deepEqual(getLibraryCoverage(ledger, taxonomy), coverageFile);
   assert.equal(coverageFile.taxonomy.totalTypes, 565);
   assert.equal(coverageFile.taxonomy.categories.length, 15);
   assert.equal(coverageFile.ledger.total, 17);
   assert.equal(coverageFile.ledger.verified, 0);
-  assert.equal(coverageFile.ledger.byStatus.candidate, 17);
+  assert.equal(coverageFile.ledger.byStatus.candidate, 16);
+  assert.equal(coverageFile.ledger.byStatus["in-review"], 1);
   const tiOrGate = ledger.records.find((record) => record.id === "ti.sn74hc32n");
   assert.equal(tiOrGate.type, "Quad 2-input OR gate");
   assert.equal(tiOrGate.typeCode, "F06");
@@ -542,7 +544,7 @@ test("part ledger preserves candidate status until complete real-part evidence i
   assert.equal(tiDecoder.modelStatus, "not-modelled");
   assert.equal(getPartVerificationReadiness(tiDecoder).readyForHumanReview, true);
   const readiness = getPartVerificationReadiness(ledger.records[0]);
-  assert.equal(readiness.currentStatus, "candidate");
+  assert.equal(readiness.currentStatus, "in-review");
   assert.equal(readiness.verified, false);
   assert.equal(readiness.readyForHumanReview, true);
   assert.equal(readiness.requiresHumanReview, true);

@@ -50,13 +50,15 @@ test("sourced candidate pin maps stay explicit and do not imply verified models 
   assert.equal(timer.manufacturerPartNumber, "LM555CN/NOPB");
   assert.ok(timer.manufacturerSources.some(source => source.url === "https://www.ti.com/product/LM555/part-details/LM555CN/NOPB"));
   assert.equal(timer.lifecycle, "active");
-  assert.equal(timer.verificationStatus, "candidate");
+  assert.equal(timer.verificationStatus, "in-review");
   const timerReadiness = getPartVerificationReadiness(timer);
   assert.ok(!timerReadiness.missingEvidenceCodes.includes("RATINGS_UNITS"));
   assert.ok(!timerReadiness.missingEvidenceCodes.includes("BREADBOARD_COMPATIBILITY"));
   assert.ok(!timerReadiness.missingEvidenceCodes.includes("TRANSLATIONS"));
   assert.ok(!timerReadiness.missingEvidenceCodes.includes("FOOTPRINT_ASSET_EVIDENCE"));
   assert.ok(timerReadiness.missingEvidenceCodes.includes("REVIEW_DATE"));
+  assert.ok(timerReadiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
+  assert.equal(timerReadiness.readyForHumanReview, true);
   assert.equal(timerReadiness.verified, false);
   assert.deepEqual(amplifier.symbolPinMap, {
     "1": "OUT1", "2": "IN1-", "3": "IN1+", "4": "VCC-",

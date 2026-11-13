@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-02",
+  "updatedAt": "2026-11-13",
   "records": [
     {
       "id": "ti.lm555p",
@@ -9,7 +9,7 @@
       "category": "Active components",
       "type": "555 timer",
       "lifecycle": "active",
-      "verificationStatus": "candidate",
+      "verificationStatus": "in-review",
       "datasheet": {
         "title": "LM555 Timer datasheet (Rev. D)",
         "url": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
@@ -2673,5 +2673,5 @@
       }
     }
   ],
-  "lastUpdated": "2026-11-03"
+  "lastUpdated": "2026-11-13"
 }

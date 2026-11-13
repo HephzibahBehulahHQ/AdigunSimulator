@@ -56,7 +56,7 @@ test("Adigun BOT resolves an exact manufacturer ledger ID to its recorded part",
   assert.equal(result.action, "answer");
   assert.match(result.answer, /Checked-in manufacturer record for LM555CN\/NOPB/);
   assert.match(result.answer, /Texas Instruments/);
-  assert.match(result.answer, /candidate/i);
+  assert.match(result.answer, /evidence status in-review/i);
 });
 
 test("project goals are remembered only from explicit goal statements", () => {
