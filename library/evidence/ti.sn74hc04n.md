@@ -34,7 +34,7 @@ Electrical types are project interpretations of the datasheet pin functions.
 
 ## Asset and simulation limits
 
-The SVG is original generic pin-map artwork dedicated under CC0 1.0. Its labels and pin numbers are machine-linked to the ledger map. No physical footprint is supplied yet. The exact PDF bytes were not captured for a checksum. The record remains a candidate and is not counted as verified.
+The SVG is original generic pin-map artwork dedicated under CC0 1.0. Its labels and pin numbers are machine-linked to the ledger map. An educational candidate footprint is supplied; it is not a TI land pattern. The exact PDF bytes were not captured for a checksum. The record remains a candidate and is not counted as verified.
 
 The simulator does not model this exact TI device. Do not present generic inverter behavior as an SN74HC04N electrical simulation. TI says unused inputs must be tied to VCC or GND; unused outputs may be left unconnected.
 
@@ -45,3 +45,10 @@ The simulator does not model this exact TI device. Do not present generic invert
 - Capture the datasheet bytes and SHA-256.
 - Keep manufacturer-specific simulation disabled unless a sourced, licensed, bounded model and expected-result fixtures are added.
 - Obtain a named independent reviewer and date before changing verification status.
+
+## Candidate package footprint
+
+The educational footprint uses the TI NFF0014A / N14A (R-PDIP-T14) mechanical drawing and the SN74HC04N orderable page. The TI drawing specifies .100-inch (2.54 mm) lead pitch. The 7.62 mm row spacing follows the project DIP layout convention. Pad diameter (1.8 mm) and drill (0.8 mm) are application-selected CC0 defaults, not TI recommendations. No independent physical fit or board-manufacturing review has been completed; the footprint remains educational-candidate only.
+
+- [TI NFF0014A / N14A mechanical drawing](https://www.ti.com/lit/ml/mpdi093/mpdi093.pdf)
+- [TI SN74HC04N orderable page](https://www.ti.com/product/SN74HC04/part-details/SN74HC04N)
