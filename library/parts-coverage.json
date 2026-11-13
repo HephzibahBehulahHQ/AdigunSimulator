@@ -350,7 +350,7 @@
     {
       "partId": "ti.sn74hc02n",
       "currentStatus": "candidate",
-      "readyForHumanReview": false,
+      "readyForHumanReview": true,
       "missingEvidenceCodes": [
         "REVIEWER_IDENTITY",
         "REVIEW_DATE"
