@@ -805,3 +805,18 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .example-pages { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:8px; }
 .example-pages output,.example-coverage { font-size:.72rem; color:var(--muted); overflow-wrap:anywhere; }
 .example-coverage:empty { display:none; }
+
+
+@media (max-width: 520px) {
+  .category-filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow-x: visible;
+  }
+  .category-filter {
+    min-height: 44px;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+  }
+}
