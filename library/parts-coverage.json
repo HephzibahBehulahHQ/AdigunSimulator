@@ -191,7 +191,6 @@
       "readyForHumanReview": false,
       "missingEvidenceCodes": [
         "BREADBOARD_COMPATIBILITY",
-        "DATASHEET_CHECKSUM",
         "LIFECYCLE_EVIDENCE",
         "LIMITS_AND_ALTERNATES",
         "RATINGS_UNITS",
@@ -202,7 +201,6 @@
       ],
       "evidenceBlockerCodes": [
         "BREADBOARD_COMPATIBILITY",
-        "DATASHEET_CHECKSUM",
         "LIFECYCLE_EVIDENCE",
         "LIMITS_AND_ALTERNATES",
         "RATINGS_UNITS",
