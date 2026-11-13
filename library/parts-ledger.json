@@ -585,6 +585,22 @@
         "13": "4B",
         "14": "VCC"
       },
+      "symbolPinLabels": {
+        "1": "1A",
+        "2": "1B",
+        "3": "1Y",
+        "4": "2A",
+        "5": "2B",
+        "6": "2Y",
+        "7": "GND",
+        "8": "3Y",
+        "9": "3A",
+        "10": "3B",
+        "11": "4Y",
+        "12": "4A",
+        "13": "4B",
+        "14": "VCC"
+      },
       "pinElectricalTypes": {
         "1": "input",
         "2": "input",
@@ -645,7 +661,7 @@
       "notes": "TI lists SN74HC00N as an active PDIP-14 orderable part with four independent two-input NAND gates. Datasheet pin names, pin numbers, SHA-256, ratings, translations, and a CC0 educational footprint proposal are recorded. The footprint and breadboard fit need physical review, device behavior is not modeled, and an independent human reviewer has not approved this record; not counted as verified.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc00n/symbol.svg",
-        "sha256": "3820b47b5fb28bfd8b66486434a7659190246dac02679a115fa5dc19797d0fde",
+        "sha256": "c5795fb06cf3c9002be30d8348564d0b1877429e84a5c1b8a02d0f0c729eef4f",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
@@ -746,6 +762,11 @@
         "2": "GND",
         "3": "OUTPUT"
       },
+      "symbolPinLabels": {
+        "1": "INPUT",
+        "2": "GND",
+        "3": "OUTPUT"
+      },
       "pinElectricalTypes": {
         "1": "power-in",
         "2": "power-in",
@@ -796,7 +817,7 @@
       "notes": "TI identifies LM7805CT/NOPB as a TO-220 part. The record includes sourced pin functions, datasheet checksum, operating ranges, limitations, four-language descriptions, and a CC0 educational footprint proposal. Physical fit, heat and board review, and independent human approval remain open; not counted as verified.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.lm7805ct-nopb/symbol.svg",
-        "sha256": "5b2a23f7cb8f06b378cc13a3d170e7e71695c61b705e7cbe004e858c7f8d1857",
+        "sha256": "7b56ea814ebe45feffbc5f15fe830de3fdab82a863557c86742f58b1e4185904",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
@@ -1001,6 +1022,16 @@
         "7": "OUTB",
         "8": "VDD"
       },
+      "symbolPinLabels": {
+        "1": "OUTA",
+        "2": "INA-",
+        "3": "INA+",
+        "4": "VSS",
+        "5": "INB+",
+        "6": "INB-",
+        "7": "OUTB",
+        "8": "VDD"
+      },
       "pinElectricalTypes": {
         "1": "analog",
         "2": "analog",
@@ -1074,7 +1105,7 @@
       "notes": "Microchip lists exact part MCP6002-I/P as an in-production 8-pin PDIP dual op amp. The datasheet pin map, operating range, and SHA-256 are recorded. Licensed symbol/footprint assets, physical pad map, validated model, complete evidence and human review remain incomplete; not counted as verified.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.mcp6002-i-p/symbol.svg",
-        "sha256": "da6d4377184b5e759b7c54adbfe9f78add544f9b2de08cac8073fcdbfec6d174",
+        "sha256": "5c18205e178f4f2087275f81e5d0cfc079a3bd49eeb04e9f035ab5f4cbfb00c5",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
