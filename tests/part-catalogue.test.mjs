@@ -70,3 +70,12 @@ test("LM358DT educational SO8 footprint maps all pins and discloses design defau
   assert.equal(record.footprintEvidence.sourceUrl, "https://www.st.com/resource/en/datasheet/lm358.pdf");
   assert.match(record.footprintEvidence.designNote, /does not publish the generated land pattern/);
 });
+
+test("1N4148 family symbol uses application connection IDs without claiming package lead numbers", () => {
+  const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "nexperia.1n4148");
+  assert.equal(record.verificationStatus, "candidate");
+  assert.deepEqual(record.symbolPinMap, { "1": "A", "2": "K" });
+  assert.deepEqual(record.symbolPinLabels, { "1": "A", "2": "K" });
+  assert.equal(record.packageEvidence.package, "SOD27 (DO-35)");
+  assert.match(record.warnings[0], /do not represent manufacturer physical lead numbers/);
+});
