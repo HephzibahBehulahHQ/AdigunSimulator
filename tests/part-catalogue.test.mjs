@@ -87,3 +87,11 @@ test("1N4148 family footprint documents its application-selected pitch and pad I
   assert.deepEqual(record.footprintPadMap, { "1": "1", "2": "2" });
   assert.match(record.footprintEvidence.designNote, /not a datasheet-defined footprint/);
 });
+
+test("1N4148 datasheet checksum is recorded without promoting the family candidate", () => {
+  const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "nexperia.1n4148");
+  assert.match(record.datasheet.sha256, /^[a-f0-9]{64}$/);
+  assert.equal(record.datasheet.sha256Bytes, 124555);
+  assert.equal(record.verificationStatus, "candidate");
+  assert.equal(getManufacturerPartEvidenceSummary(record).readyForHumanReview, false);
+});
