@@ -21,6 +21,19 @@ function uiFunction(name, nextName, globals) {
   return runInNewContext(`${source.slice(start, end)}\n${name}`, globals);
 }
 
+test("active design identity follows the loaded project independently of the example picker", () => {
+  const nodes = {
+    "#save-state": { textContent: "", classList: { toggle(name, enabled) { this[name] = enabled; } } },
+    "#active-project-name": { textContent: "" }
+  };
+  const state = { project: { metadata: { name: "Recovered Board Draft" } }, dirty: false, savedDisposition: "local" };
+  const update = uiFunction("updateSaveState", "function selectedComponent(", { state, $: selector => nodes[selector], t: key => `translated:${key}` });
+  update();
+  assert.equal(nodes["#active-project-name"].textContent, "Recovered Board Draft");
+  assert.equal(nodes["#save-state"].textContent, "translated:savedLocally");
+  assert.equal(nodes["#save-state"].classList.saved, true);
+});
+
 test("the real Undo/Redo functions round-trip a fractional PCB move and preserve native nets", async () => {
   const original = parseProject(await readFile(new URL("../examples/125-usbc-breakout.adigun.json", import.meta.url), "utf8"));
   const moved = movePcbFootprint(original, "rd1", { x: 0.5, y: 0 }).project;

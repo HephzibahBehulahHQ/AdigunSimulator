@@ -570,6 +570,8 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .schematic-symbol .controller-symbol-body { fill: #0a2030; }
 .schematic-symbol .controller-symbol-title { font-size: 13px; }
 .identity-header { min-height: 3.6rem; gap: .7rem; padding: .45rem .8rem; }
+.active-design { display:inline-flex; align-items:baseline; gap:.35rem; min-width:0; max-width:15rem; color:var(--muted); font-size:.68rem; }
+.active-design strong { overflow:hidden; color:var(--ivory); font-size:inherit; text-overflow:ellipsis; white-space:nowrap; }
 .corporate-logo { width: 5.8rem; flex: 0 0 5.8rem; }
 .identity { gap: .55rem; }
 .identity-divider { height: 2.15rem; margin: 0 .1rem; }
@@ -790,6 +792,7 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
   .product-brand { grid-column:1 / -1; }
   .identity .product-brand h1 { font-size:1.35rem; }
   .identity-header .header-actions { width:100%; justify-content:flex-end; }
+  .active-design { order:-1; flex:1 0 100%; max-width:none; margin-right:auto; font-size:.72rem; }
   .command-bar > .menu-buttons { flex-wrap:wrap; gap:0; padding:0 .35rem; }
   .command-bar > .menu-buttons > .app-menu > summary, .command-bar .draw-menu-button { display:flex; align-items:center; min-height:44px; padding:.4rem .45rem; font-size:.7rem; }
   .command-bar > .project-actions { padding:.4rem .5rem; }

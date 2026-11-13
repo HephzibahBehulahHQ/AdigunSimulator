@@ -477,6 +477,7 @@ function redo() {
 
 function updateSaveState() {
   $("#save-state").textContent = state.dirty ? t("unsavedChanges") : t(state.savedDisposition === "cloud" ? "savedToCloud" : state.savedDisposition === "local" ? "savedLocally" : state.savedDisposition === "export" ? "projectExported" : "emptyProject");
+  $("#active-project-name").textContent = state.project.metadata.name;
   $("#save-state").classList.toggle("saved", !state.dirty);
 }
 
