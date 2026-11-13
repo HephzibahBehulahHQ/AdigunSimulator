@@ -391,18 +391,47 @@ async function openSavedProject() {
   } catch (error) { showDialog(t("openSavedProject"), error.message); }
 }
 
+function populateRecentProjectPicker(records) {
+  const picker = $("#recent-project-picker");
+  picker.replaceChildren(...records.map((record) => {
+    const option = document.createElement("option");
+    option.value = record.id;
+    option.textContent = `${record.name} · ${new Date(record.savedAt).toLocaleString()}`;
+    return option;
+  }));
+  picker.value = records[0]?.id ?? "";
+  picker.disabled = records.length === 0;
+  $("#recent-project-open").disabled = !picker.value;
+  $("#recent-project-remove").disabled = !picker.value;
+  return picker;
+}
+
 async function openRecentProjectsDialog() {
   try {
     const records = await recentProjects.list();
-    const picker = $("#recent-project-picker");
-    picker.replaceChildren(...records.map((record) => {
-      const option = document.createElement("option");
-      option.value = record.id;
-      option.textContent = `${record.name} · ${new Date(record.savedAt).toLocaleString()}`;
-      return option;
-    }));
+    populateRecentProjectPicker(records);
+    $("#recent-project-status").hidden = true;
     if (!records.length) return showDialog(t("openRecentProject"), t("noRecentProjects"));
     $("#recent-project-dialog").showModal();
+  } catch (error) { showDialog(t("openRecentProject"), error.message); }
+}
+
+async function removeSelectedRecentProject() {
+  const id = $("#recent-project-picker").value;
+  if (!id) return;
+  try {
+    const record = await recentProjects.get(id);
+    if (!record) return void openRecentProjectsDialog();
+    if (!confirm(`${t("removeRecentProjectPrompt")}\n\n${record.name}`)) return;
+    await recentProjects.delete(id);
+    const records = await recentProjects.list();
+    populateRecentProjectPicker(records);
+    const status = $("#recent-project-status");
+    status.textContent = records.length
+      ? t("recentProjectRemoved")
+      : `${t("recentProjectRemoved")} ${t("noRecentProjects")}`;
+    status.hidden = false;
+    $("#recent-project-picker").disabled = records.length === 0;
   } catch (error) { showDialog(t("openRecentProject"), error.message); }
 }
 
@@ -2554,6 +2583,12 @@ $("#global-search").addEventListener("keydown", (event) => {
 $("#global-search").addEventListener("change", (event) => activateGlobalSearchAction(event.currentTarget.value));
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#recent-project-open").addEventListener("click", () => { void openSelectedRecentProject(); });
+$("#recent-project-picker").addEventListener("change", () => {
+  const enabled = Boolean($("#recent-project-picker").value);
+  $("#recent-project-open").disabled = !enabled;
+  $("#recent-project-remove").disabled = !enabled;
+});
+$("#recent-project-remove").addEventListener("click", () => { void removeSelectedRecentProject(); });
 $("#bot-collapse").addEventListener("click", () => {
   const minimized = $("#bot").classList.toggle("minimized");
   $("#bot-collapse").setAttribute("aria-expanded", String(!minimized));

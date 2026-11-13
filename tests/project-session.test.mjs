@@ -165,6 +165,43 @@ test("recent project opening respects discard confirmation and restores the save
   assert.equal(state.dirty, false);
 });
 
+test("removing a recent project requires confirmation and leaves other saved copies untouched", async () => {
+  const picker = { value: "recent-1", replaceChildren(...options) { this.options = options; } };
+  const openButton = { disabled: false }, removeButton = { disabled: false }, status = { hidden: true, textContent: "" };
+  const record = { id: "recent-1", name: "Local draft", savedAt: 1, serialized: "snapshot" };
+  let confirmed = false, deleted = false;
+  const recentProjects = {
+    async get(id) { return id === record.id && !deleted ? record : null; },
+    async delete(id) { assert.equal(id, record.id); deleted = true; },
+    async list() { return deleted ? [] : [record]; }
+  };
+  const selectors = {
+    "#recent-project-picker": picker,
+    "#recent-project-open": openButton,
+    "#recent-project-remove": removeButton,
+    "#recent-project-status": status
+  };
+  const start = source.indexOf("function populateRecentProjectPicker("), end = source.indexOf("async function openSelectedRecentProject(", start);
+  assert.ok(start >= 0 && end > start);
+  const remove = runInNewContext(`${source.slice(start, end)}\nremoveSelectedRecentProject`, {
+    $: selector => selectors[selector], recentProjects,
+    document: { createElement: () => ({}) }, confirm: () => confirmed,
+    t: key => key, showDialog: () => assert.fail("Unexpected removal error")
+  });
+
+  await remove();
+  assert.equal(deleted, false);
+  confirmed = true;
+  await remove();
+  assert.equal(deleted, true);
+  assert.equal(picker.value, "");
+  assert.equal(picker.disabled, true);
+  assert.equal(openButton.disabled, true);
+  assert.equal(removeButton.disabled, true);
+  assert.equal(status.hidden, false);
+  assert.match(status.textContent, /recentProjectRemoved/);
+});
+
 test("actual native export clears dirty only after successful browser handoff", () => {
   for (const fail of [false, true]) {
     const { state, session } = setup(); let errors = 0, clicked = 0, revoked = 0;

@@ -641,8 +641,10 @@
         <p data-i18n="recentProjectHelp">Projects saved in this browser appear here.</p>
         <label for="recent-project-picker" data-i18n="recentProjectLabel">Recent projects</label>
         <select id="recent-project-picker"></select>
+        <p id="recent-project-status" role="status" aria-live="polite" hidden></p>
         <div class="dialog-actions">
           <button type="submit" class="secondary-button" value="cancel" data-i18n="pcbBoardCancel">Cancel</button>
+          <button id="recent-project-remove" type="button" class="danger-button" data-i18n="removeRecentProject" disabled>Remove from Recent</button>
           <button id="recent-project-open" type="button" class="gold-button" data-i18n="open">Open</button>
         </div>
       </form>

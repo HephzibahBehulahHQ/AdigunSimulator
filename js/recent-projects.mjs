@@ -59,6 +59,17 @@ export function createRecentProjectStore(indexedDBRef = globalThis.indexedDB) {
         request.onsuccess = () => resolve(request.result ?? null);
         request.onerror = () => reject(request.error ?? new Error("Recent project could not be read."));
       });
+    },
+    async delete(id) {
+      if (typeof id !== "string" || !id) throw new TypeError("A recent project ID is required.");
+      const db = await database();
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction("projects", "readwrite");
+        transaction.objectStore("projects").delete(id);
+        transaction.oncomplete = () => resolve();
+        transaction.onerror = () => reject(transaction.error ?? new Error("Recent project could not be removed."));
+        transaction.onabort = () => reject(transaction.error ?? new Error("Recent project removal was cancelled."));
+      });
     }
   });
 }

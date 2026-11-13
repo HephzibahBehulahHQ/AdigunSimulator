@@ -65,4 +65,9 @@ test("recent project storage reopens snapshots and retains only the newest eight
   assert.equal(recent[0].id, `project-${MAX_RECENT_PROJECTS + 1}`);
   assert.equal(await store.get("project-0"), null);
   assert.equal(JSON.parse((await store.get("project-9")).serialized).id, "project-9");
+  await store.delete("project-9");
+  assert.equal(await store.get("project-9"), null);
+  assert.equal((await store.list()).length, MAX_RECENT_PROJECTS - 1);
+  await store.delete("missing-project");
+  await assert.rejects(store.delete(""), /recent project ID is required/);
 });
