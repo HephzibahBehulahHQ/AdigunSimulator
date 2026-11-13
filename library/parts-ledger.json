@@ -507,8 +507,36 @@
         "reason": "No licensed or validated model is attached to this ledger record. Do not infer reverse recovery or transient behavior from the generic ideal-diode model."
       },
       "evidenceNote": "library/evidence/nexperia.1n4148.md",
-      "notes": "Nexperia's product page states glass-diode manufacturing and sales have transferred to Tak Cheong under Nexperia license. This record remains a family-level candidate: exact Tak Cheong orderable identity, lifecycle status, datasheet checksum, licensed symbol/footprint assets, pin-pad map, model, and human review are unresolved.",
-      "typeCode": "C01"
+      "notes": "Nexperia's product page states glass-diode manufacturing and sales have transferred to Tak Cheong under Nexperia license. This record remains a family-level candidate: exact Tak Cheong orderable identity, lifecycle status, datasheet checksum, licensed symbol/footprint assets, pin-pad map, model, and human review are unresolved. Nexperia's family datasheet describes an axial SOD27 (DO-35) package and marks the cathode with a band; application schematic connection IDs 1/2 are not physical lead numbers. Exact Tak Cheong orderable identification and production status remain unresolved.",
+      "typeCode": "C01",
+      "package": "SOD27 (DO-35), axial two-lead package (family-level evidence)",
+      "packageEvidence": {
+        "package": "SOD27 (DO-35)",
+        "pinCount": 2,
+        "sourceUrl": "https://www.nexperia.com/product/1N4148"
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "warnings": [
+        "The symbol's numbered connection IDs are application-assigned and do not represent manufacturer physical lead numbers.",
+        "The simulator does not model this exact diode's reverse recovery, leakage, or operating limits."
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.1n4148/symbol.svg",
+        "sha256": "a081cb695bfda36c77e63c2b38afbc5d6463b58e11cbbb457d6c459063f35f66",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     },
     {
       "id": "onsemi.2n3904bu",
