@@ -196,14 +196,9 @@
         "FOOTPRINT_PAD_MAP",
         "LIFECYCLE_EVIDENCE",
         "LIMITS_AND_ALTERNATES",
-        "PACKAGE_EVIDENCE",
-        "PIN_ELECTRICAL_TYPES",
-        "PIN_MAP_ALIGNMENT",
         "RATINGS_UNITS",
         "REVIEWER_IDENTITY",
         "REVIEW_DATE",
-        "SYMBOL_ASSET_EVIDENCE",
-        "SYMBOL_PIN_MAP",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
       ],
@@ -214,12 +209,7 @@
         "FOOTPRINT_PAD_MAP",
         "LIFECYCLE_EVIDENCE",
         "LIMITS_AND_ALTERNATES",
-        "PACKAGE_EVIDENCE",
-        "PIN_ELECTRICAL_TYPES",
-        "PIN_MAP_ALIGNMENT",
         "RATINGS_UNITS",
-        "SYMBOL_ASSET_EVIDENCE",
-        "SYMBOL_PIN_MAP",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
       ]
