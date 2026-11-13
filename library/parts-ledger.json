@@ -1373,6 +1373,22 @@
         "13": "6A",
         "14": "VCC"
       },
+      "symbolPinLabels": {
+        "1": "1A",
+        "2": "1Y",
+        "3": "2A",
+        "4": "2Y",
+        "5": "3A",
+        "6": "3Y",
+        "7": "GND",
+        "8": "4Y",
+        "9": "4A",
+        "10": "5Y",
+        "11": "5A",
+        "12": "6Y",
+        "13": "6A",
+        "14": "VCC"
+      },
       "pinElectricalTypes": {
         "1": "input",
         "2": "output",
@@ -1463,7 +1479,7 @@
       },
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc14n/symbol.svg",
-        "sha256": "4fc71d72b6f3e3752b4719ec8db62b0e6e0e219da6bc068a1d359520a7dbcfd5",
+        "sha256": "1851184f176b9b6606126d4f9eedd8849479ed2cbcbc3e6672ac4eb61c795dcc",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
@@ -1516,6 +1532,22 @@
         }
       ],
       "symbolPinMap": {
+        "1": "1A",
+        "2": "1B",
+        "3": "1Y",
+        "4": "2A",
+        "5": "2B",
+        "6": "2Y",
+        "7": "GND",
+        "8": "3Y",
+        "9": "3A",
+        "10": "3B",
+        "11": "4Y",
+        "12": "4A",
+        "13": "4B",
+        "14": "VCC"
+      },
+      "symbolPinLabels": {
         "1": "1A",
         "2": "1B",
         "3": "1Y",
@@ -1592,7 +1624,7 @@
       "notes": "TI manufacturer sources identify the exact active N-package orderable, device function, 14-pin package, pin map, recommended supply, and operating temperature. Datasheet checksum and CC0 educational assets are recorded. The exact device electrical model remains unimplemented; human and physical review are still required.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc08n/symbol.svg",
-        "sha256": "2b13a0af54b99f3bcb67cf35b251f3baf185563a22cfe9a420d8771d25e1411e",
+        "sha256": "d71545558fa6cd20257a09447b4e9d99f08f897cfcf575858f1356fb7cc248cd",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
@@ -1689,6 +1721,22 @@
         "13": "4B",
         "14": "VCC"
       },
+      "symbolPinLabels": {
+        "1": "1A",
+        "2": "1B",
+        "3": "1Y",
+        "4": "2A",
+        "5": "2B",
+        "6": "2Y",
+        "7": "GND",
+        "8": "3Y",
+        "9": "3A",
+        "10": "3B",
+        "11": "4Y",
+        "12": "4A",
+        "13": "4B",
+        "14": "VCC"
+      },
       "pinElectricalTypes": {
         "1": "input",
         "2": "input",
@@ -1750,7 +1798,7 @@
       "notes": "TI manufacturer sources identify the exact active N-package orderable, device function, 14-pin package, pin map, recommended supply, and operating temperature. Datasheet checksum and CC0 educational assets are recorded. The exact device electrical model remains unimplemented; human and physical review are still required.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc32n/symbol.svg",
-        "sha256": "6a228a880f56b15fbd05e19aaee093e07e21fb1064022bdd89bee939065d9fd4",
+        "sha256": "a2ec133734dfc0f2dca19ebf8b8d0b1369629e7ae0ab095292ecfe34b0da6fa3",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
