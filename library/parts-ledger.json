@@ -2360,12 +2360,41 @@
         }
       },
       "evidenceNote": "library/evidence/ti.sn74hc04n.md",
-      "notes": "TI identifies the exact SN74HC04N orderable as active in PDIP-14; the Rev. H datasheet provides the six-channel function, 14-pin map, 2 V to 6 V supply range, and -40 °C to +85 °C operating range. The original CC0 symbol is an educational candidate. A datasheet checksum, package footprint, exact-device simulation model, independent human review, and physical fit review are not yet recorded; this part remains unverified.",
+      "notes": "TI identifies the exact SN74HC04N orderable as active in PDIP-14; the Rev. H datasheet provides the six-channel function, 14-pin map, 2 V to 6 V supply range, and -40 °C to +85 °C operating range. The original CC0 symbol and educational candidate footprint are recorded; the footprint is not a manufacturer land pattern. A datasheet checksum, exact-device simulation model, independent human review, and physical fit review remain outstanding, so this record is unverified.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc04n/symbol.svg",
         "sha256": "8bad9c72b406e8da4851bababdb2b87f6fbd9a5af5a63ba9c6701dd2f1bd053a",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc04n/footprint.json",
+        "sha256": "2434f90fd661e150b598d731fed8f130dd957c4d53f6c4d1c4b5d94b20e8753d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ml/mpdi093/mpdi093.pdf",
+        "drawing": "NFF0014A / N14A (Rev. G), R-PDIP-T14 mechanical drawing; TI orderable product page identifies SN74HC04N as 14-pin PDIP.",
+        "assetPath": "library/assets/footprints/ti.sn74hc04n/footprint.json",
+        "designNote": "The asset uses TI's package family dimensions and the .100-inch (2.54 mm) lead pitch. The 7.62 mm row spacing follows the educational DIP layout; pad diameter and drill are CC0 application-selected defaults, not TI land-pattern recommendations. Independent physical fit review remains required."
       }
     }
   ],
