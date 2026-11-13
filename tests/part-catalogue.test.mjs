@@ -61,3 +61,12 @@ test("2N3904BU educational footprint follows onsemi lead numbering", () => {
   assert.deepEqual(record.footprintPadMap, { "1": "1", "2": "2", "3": "3" });
   assert.match(record.footprintEvidence.designNote, /not an onsemi board land pattern/);
 });
+
+test("LM358DT educational SO8 footprint maps all pins and discloses design defaults", () => {
+  const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "st.lm358dt");
+  assert.equal(record.verificationStatus, "candidate");
+  assert.equal(record.footprintAsset.designStatus, "educational-candidate");
+  assert.deepEqual(record.footprintPadMap, Object.fromEntries(Array.from({ length: 8 }, (_, index) => [String(index + 1), String(index + 1)])));
+  assert.equal(record.footprintEvidence.sourceUrl, "https://www.st.com/resource/en/datasheet/lm358.pdf");
+  assert.match(record.footprintEvidence.designNote, /does not publish the generated land pattern/);
+});
