@@ -791,7 +791,7 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
   .identity .product-brand h1 { font-size:1.35rem; }
   .identity-header .header-actions { width:100%; justify-content:flex-end; }
   .command-bar > .menu-buttons { flex-wrap:wrap; gap:0; padding:0 .35rem; }
-  .command-bar > .menu-buttons > .app-menu > summary, .command-bar .draw-menu-button { padding:.4rem .45rem; font-size:.7rem; }
+  .command-bar > .menu-buttons > .app-menu > summary, .command-bar .draw-menu-button { display:flex; align-items:center; min-height:44px; padding:.4rem .45rem; font-size:.7rem; }
   .command-bar > .project-actions { padding:.4rem .5rem; }
 }
 .wire-point-list label { display:flex; gap:.25rem; align-items:center; min-width:0; }
