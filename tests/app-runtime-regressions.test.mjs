@@ -34,6 +34,23 @@ test("active design identity follows the loaded project independently of the exa
   assert.equal(nodes["#save-state"].classList.saved, true);
 });
 
+test("project replacement clears the example picker and refreshes its dependent controls", () => {
+  const events = [];
+  const picker = {
+    value: "examples/001-led-current-limiter.adigun.json",
+    dispatchEvent(event) { events.push({ type: event.type, bubbles: event.bubbles }); return true; }
+  };
+  const clear = uiFunction("clearExampleSelection", "function confirmDiscardChanges", {
+    $: selector => selector === "#example-picker" ? picker : null,
+    Event
+  });
+
+  clear();
+
+  assert.equal(picker.value, "");
+  assert.deepEqual(events, [{ type: "change", bubbles: true }]);
+});
+
 test("the real Undo/Redo functions round-trip a fractional PCB move and preserve native nets", async () => {
   const original = parseProject(await readFile(new URL("../examples/125-usbc-breakout.adigun.json", import.meta.url), "utf8"));
   const moved = movePcbFootprint(original, "rd1", { x: 0.5, y: 0 }).project;

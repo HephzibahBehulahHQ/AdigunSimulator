@@ -354,11 +354,17 @@ const projectSession = createProjectSession(state, { storage: () => localStorage
   lastBotHover = null;
   $("#output-log").textContent = "";
   $("#issue-list").textContent = "";
-  $("#example-picker").value = "";
+  clearExampleSelection();
   $("#simulation-analysis-mode").value = "automatic";
   for (const id of ["#nonlinear-dc-controls", "#ac-sweep-controls", "#linear-transient-controls", "#digital-event-controls"]) $(id).classList.add("hidden");
   render();
 } });
+
+function clearExampleSelection() {
+  const picker = $("#example-picker");
+  picker.value = "";
+  picker.dispatchEvent(new Event("change", { bubbles: true }));
+}
 
 function confirmDiscardChanges() {
   return confirmProjectReplacement({ state, dialog: $("#unsaved-dialog") });
