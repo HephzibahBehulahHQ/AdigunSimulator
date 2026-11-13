@@ -1956,7 +1956,7 @@
       "notes": "TI manufacturer sources identify the exact active N-package orderable, device function, 14-pin package, pin map, recommended supply, and operating temperature. Datasheet checksum and CC0 educational assets are recorded. The exact device electrical model remains unimplemented; human and physical review are still required.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc86n/symbol.svg",
-        "sha256": "173871d22595ef9306fa507c267908ce264d9e8926a26200d98433a7c9fbbf5b",
+        "sha256": "8edf5a2212b6c343ed1ed58e16e8d04c3c1d198ccea40701eaf39d48802e3d83",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
@@ -1988,6 +1988,22 @@
         "drawing": "N (PDIP-14) package outline; TI nominal body 19.30 mm × 6.40 mm",
         "assetPath": "library/assets/footprints/ti.sn74hc86n/footprint.json",
         "designNote": "The educational footprint uses the published package outline and conventional 2.54 mm lead pitch / 7.62 mm row spacing. Pad and drill sizes are CC0 defaults, not TI-recommended land pattern dimensions; independent physical review remains required."
+      },
+      "symbolPinLabels": {
+        "1": "1A",
+        "2": "1B",
+        "3": "1Y",
+        "4": "2A",
+        "5": "2B",
+        "6": "2Y",
+        "7": "GND",
+        "8": "3Y",
+        "9": "3A",
+        "10": "3B",
+        "11": "4Y",
+        "12": "4A",
+        "13": "4B",
+        "14": "VCC"
       }
     },
     {
@@ -2151,9 +2167,27 @@
       },
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc138n/symbol.svg",
-        "sha256": "9257c35b0a9ed7c239c6eb017e0c89a599e6dbe5e6a7649587af65ee65a3648b",
+        "sha256": "3a15e0f2d7801991b4074f1d3f4f0d844e81d7ed27a076783408e845b5b37a86",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "G2A_N",
+        "5": "G2B_N",
+        "6": "G1",
+        "7": "Y7_N",
+        "8": "GND",
+        "9": "Y6_N",
+        "10": "Y5_N",
+        "11": "Y4_N",
+        "12": "Y3_N",
+        "13": "Y2_N",
+        "14": "Y1_N",
+        "15": "Y0_N",
+        "16": "VCC"
       }
     }
   ],
