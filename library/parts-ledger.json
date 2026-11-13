@@ -257,7 +257,7 @@
       "category": "Programmable controllers",
       "type": "8-bit microcontroller",
       "lifecycle": "in production",
-      "verificationStatus": "candidate",
+      "verificationStatus": "in-review",
       "datasheet": {
         "title": "ATmega328P datasheet, 7810D-AVR-01/15",
         "url": "https://ww1.microchip.com/downloads/en/devicedoc/atmel-7810-automotive-microcontrollers-atmega328p_datasheet.pdf",
@@ -397,7 +397,7 @@
         }
       },
       "evidenceNote": "library/evidence/microchip.atmega328p-pu.md",
-      "notes": "Microchip lists ATMEGA328P-PU as an available-to-order 28-pin SPDIP part with -40 °C to +85 °C range. Datasheet pin map and checksum are recorded. Firmware execution, licensed footprint/symbol assets beyond the generated pin map, complete safety review, and human verification remain incomplete; not counted as verified.",
+      "notes": "Microchip lists ATMEGA328P-PU as an available-to-order 28-pin SPDIP part with -40 °C to +85 °C range. Datasheet pin map and checksum are recorded. The record is queued for independent human review; firmware execution, independent package fit, safety review, reviewer identity, and review date remain incomplete. It is not counted as verified.",
       "typeCode": "G01",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.atmega328p-pu/symbol.svg",

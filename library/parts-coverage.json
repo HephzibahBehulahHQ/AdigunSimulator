@@ -9,8 +9,8 @@
     "verified": 0,
     "remaining": 1000,
     "byStatus": {
-      "candidate": 16,
-      "in-review": 1,
+      "candidate": 15,
+      "in-review": 2,
       "verified": 0,
       "rejected": 0
     }
@@ -177,7 +177,7 @@
     },
     {
       "partId": "microchip.atmega328p-pu",
-      "currentStatus": "candidate",
+      "currentStatus": "in-review",
       "readyForHumanReview": true,
       "missingEvidenceCodes": [
         "REVIEWER_IDENTITY",

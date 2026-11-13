@@ -47,7 +47,7 @@ test("PDIP candidate footprints have source-based outlines, unique pin maps, and
     const readiness = getPartVerificationReadiness(record);
     assert.equal(readiness.readyForHumanReview, true);
     assert.ok(readiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
-    assert.equal(record.verificationStatus, record.id === "ti.lm555p" ? "in-review" : "candidate");
+    assert.equal(record.verificationStatus, ["ti.lm555p", "microchip.atmega328p-pu"].includes(record.id) ? "in-review" : "candidate");
 
     if (facts.layout === "inline") continue;
     const rowCount = facts.count / 2;
