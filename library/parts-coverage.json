@@ -192,11 +192,8 @@
       "missingEvidenceCodes": [
         "BREADBOARD_COMPATIBILITY",
         "DATASHEET_CHECKSUM",
-        "FOOTPRINT_ASSET_EVIDENCE",
-        "FOOTPRINT_PAD_MAP",
         "LIFECYCLE_EVIDENCE",
         "LIMITS_AND_ALTERNATES",
-        "PIN_MAP_ALIGNMENT",
         "RATINGS_UNITS",
         "REVIEWER_IDENTITY",
         "REVIEW_DATE",
@@ -206,11 +203,8 @@
       "evidenceBlockerCodes": [
         "BREADBOARD_COMPATIBILITY",
         "DATASHEET_CHECKSUM",
-        "FOOTPRINT_ASSET_EVIDENCE",
-        "FOOTPRINT_PAD_MAP",
         "LIFECYCLE_EVIDENCE",
         "LIMITS_AND_ALTERNATES",
-        "PIN_MAP_ALIGNMENT",
         "RATINGS_UNITS",
         "TRANSLATIONS",
         "VERIFIED_EVIDENCE"
