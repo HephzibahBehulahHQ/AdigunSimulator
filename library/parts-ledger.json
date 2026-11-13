@@ -378,7 +378,7 @@
       "typeCode": "G01",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.atmega328p-pu/symbol.svg",
-        "sha256": "8be3d8815995ed0c98c2ed46d605c2a21ef857117abdb4f9c6249e9f19b5e290",
+        "sha256": "2215d08a6d55626286433ab4c61c574508d60cfc53174c4fb3e0ddb3de4f5e62",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
@@ -424,6 +424,36 @@
         "drawing": "28P3, DS40002061A, package drawing page 640",
         "assetPath": "library/assets/footprints/microchip.atmega328p-pu/footprint.json",
         "designNote": "Pad diameter and drill are application-selected educational defaults, not sourced manufacturer recommendations."
+      },
+      "symbolPinLabels": {
+        "1": "PC6/RESET",
+        "2": "PD0/RXD",
+        "3": "PD1/TXD",
+        "4": "PD2/INT0",
+        "5": "PD3/INT1/OC2B",
+        "6": "PD4/T0/XCK",
+        "7": "VCC",
+        "8": "GND",
+        "9": "PB6/XTAL1/TOSC1",
+        "10": "PB7/XTAL2/TOSC2",
+        "11": "PD5/T1/OC0B",
+        "12": "PD6/AIN0/OC0A",
+        "13": "PD7/AIN1",
+        "14": "PB0/ICP1/CLKO",
+        "15": "PB1/OC1A",
+        "16": "PB2/SS/OC1B",
+        "17": "PB3/MOSI/OC2A",
+        "18": "PB4/MISO",
+        "19": "PB5/SCK",
+        "20": "AVCC",
+        "21": "AREF",
+        "22": "GND",
+        "23": "PC0/ADC0",
+        "24": "PC1/ADC1",
+        "25": "PC2/ADC2",
+        "26": "PC3/ADC3",
+        "27": "PC4/ADC4/SDA",
+        "28": "PC5/ADC5/SCL"
       }
     },
     {
