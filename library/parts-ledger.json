@@ -536,6 +536,23 @@
         "sha256": "a081cb695bfda36c77e63c2b38afbc5d6463b58e11cbbb457d6c459063f35f66",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.1n4148/footprint.json",
+        "sha256": "ce81de78763a1778fda2e9b84f4ac5f584fb2fcd27918a95cbf0f57bf4f69db7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf",
+        "drawing": "SOD27 (DO-35) package outline. The axial package has two leads; the datasheet does not specify a fixed board pad pitch.",
+        "assetPath": "library/assets/footprints/nexperia.1n4148/footprint.json",
+        "designNote": "The 7.62 mm pitch is an application-selected layout convention, not a datasheet-defined footprint. Pad/drill dimensions are CC0 application defaults; pad 1/2 are schematic connection IDs mapped to anode/cathode, not manufacturer physical pin numbers."
       }
     },
     {
