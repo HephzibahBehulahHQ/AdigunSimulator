@@ -52,3 +52,12 @@ test("SN74HC02N educational footprint preserves the pin map and candidate status
   assert.deepEqual(record.footprintPadMap, Object.fromEntries(Array.from({ length: 14 }, (_, index) => [String(index + 1), String(index + 1)])));
   assert.match(record.footprintEvidence.designNote, /not TI land-pattern recommendations/);
 });
+
+test("2N3904BU educational footprint follows onsemi lead numbering", () => {
+  const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "onsemi.2n3904bu");
+  assert.equal(record.verificationStatus, "candidate");
+  assert.equal(record.footprintAsset.designStatus, "educational-candidate");
+  assert.deepEqual(record.symbolPinMap, { "1": "Emitter", "2": "Base", "3": "Collector" });
+  assert.deepEqual(record.footprintPadMap, { "1": "1", "2": "2", "3": "3" });
+  assert.match(record.footprintEvidence.designNote, /not an onsemi board land pattern/);
+});
