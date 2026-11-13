@@ -490,7 +490,10 @@
       "datasheet": {
         "title": "1N4148; 1N4448 high-speed diodes product data sheet",
         "url": "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf",
-        "accessedAt": "2026-11-02"
+        "accessedAt": "2026-11-13",
+        "sha256": "cc5a33f31a2690a270cc8961b33a9d412dac473e2cfe77faa16ef79502f56400",
+        "sha256Bytes": 124555,
+        "checksumEvidenceNote": "library/evidence/nexperia.1n4148.md"
       },
       "manufacturerSources": [
         {
