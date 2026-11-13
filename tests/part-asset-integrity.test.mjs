@@ -4,14 +4,16 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { validatePartAssetIntegrity } from "../scripts/part-asset-integrity.mjs";
 
-const bytes = "<svg>candidate</svg>\n";
+const bytes = "<svg><g data-pin=\"1\" data-electrical-type=\"input\"><path/><text data-pin-label-for=\"1\">IN</text><text class=\"pin-number\">1</text></g></svg>\n";
 const hash = createHash("sha256").update(bytes).digest("hex");
 const ledger = () => ({ records: [{
   id: "example.part",
   symbolAsset: {
     sourceUrl: "https://raw.githubusercontent.com/example/repo/main/library/assets/parts/example.part/symbol.svg",
     sha256: hash
-  }
+  },
+  symbolPinMap: { "1": "IN" },
+  symbolPinLabels: { "1": "IN" }
 }] });
 
 const mappedAssets = () => {
@@ -58,6 +60,14 @@ test("part asset integrity blocks missing assets, unsafe paths, and checksum dri
   missing.records[0].id = "../escape";
   const blocked = await validatePartAssetIntegrity(missing, async () => { throw new Error("missing"); });
   assert.ok(blocked.errors.some((issue) => issue.code === "ASSET_PATH"));
+});
+
+test("part asset integrity requires pin and visible-label maps for every symbol asset", async () => {
+  const missingMaps = ledger();
+  delete missingMaps.records[0].symbolPinMap;
+  delete missingMaps.records[0].symbolPinLabels;
+  const result = await validatePartAssetIntegrity(missingMaps, async () => bytes);
+  assert.ok(result.errors.some((issue) => issue.code === "SYMBOL_VISIBLE_LABEL_MAP_REQUIRED"));
 });
 
 test("part asset integrity ties generated symbol labels and footprint pads to ledger maps", async () => {
