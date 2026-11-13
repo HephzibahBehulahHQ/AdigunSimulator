@@ -1,6 +1,6 @@
 # Microchip ATmega328P-PU evidence review
 
-Review state: candidate; not verified  
+Review state: queued for independent human review; review not completed
 Evidence checked: 2026-11-02
 
 ## Primary manufacturer evidence
@@ -24,5 +24,5 @@ The datasheet specifies a 2.7 V to 5.5 V supply range for the ATmega328P and giv
 - Obtain and license a processor/firmware model, validate representative programs, or keep firmware behavior explicitly unmodeled.
 - Complete power, clock, and reset use notes, warnings, alternatives, and independent technical review.
 
-The record remains a candidate and is excluded from the verified-part count.
+The evidence gate is complete and the record is queued for independent human review. Reviewer identity and review date remain unrecorded; no human review is claimed, and the record remains excluded from the verified-part count.
 

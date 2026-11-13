@@ -84,6 +84,12 @@ test("sourced candidate pin maps stay explicit and do not imply verified models 
   assert.equal(avr.symbolPinMap["20"], "AVCC");
   assert.equal(avr.symbolPinMap["28"], "PC5/ADC5/SCL");
   assert.equal(avr.simulationModel.status, "not-modelled");
+  assert.equal(avr.verificationStatus, "in-review");
+  const avrReadiness = getPartVerificationReadiness(avr);
+  assert.equal(avrReadiness.verified, false);
+  assert.equal(avrReadiness.readyForHumanReview, true);
+  assert.ok(avrReadiness.missingEvidenceCodes.includes("REVIEWER_IDENTITY"));
+  assert.ok(avrReadiness.missingEvidenceCodes.includes("REVIEW_DATE"));
   assert.equal(getPartVerificationReadiness(avr).verified, false);
   assert.match(timer.datasheet.sha256, /^[a-f0-9]{64}$/);
   assert.equal(timer.datasheet.sha256Bytes, 1221961);
