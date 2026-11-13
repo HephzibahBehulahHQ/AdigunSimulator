@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "nexperia.1n4148",
+  "package": "Nexperia 1N4148 family SOD27 (DO-35), axial two-lead",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -3.81,
+    "yMm": 0
+  },
+  "packageOutline": {
+    "bodyDiameterMm": {
+      "maximum": 1.85
+    },
+    "bodyLengthMm": {
+      "maximum": 4.25
+    },
+    "minimumLeadLengthMm": 25.4,
+    "leadCount": 2,
+    "layout": "axial",
+    "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf",
+    "drawing": "SOD27 (DO-35) package outline. The datasheet specifies lead dimensions and length but does not define a fixed board pitch."
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.8,
+    "drillMm": 0.8,
+    "source": "AdigunSimulator CC0 educational defaults. The 7.62 mm pitch is a board-layout convention selected by the application; it is not specified as a manufacturer footprint."
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -3.81,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": 3.81,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "The 7.62 mm pad center spacing is an application-selected layout convention; axial lead spacing depends on lead forming and is not fixed by the datasheet.",
+    "Pad diameter (1.8 mm) and drill (0.8 mm) are application-selected CC0 defaults, not manufacturer land-pattern recommendations.",
+    "Pad 1 and pad 2 are application-assigned connection IDs mapped to anode and cathode; the manufacturer does not give physical lead numbers for the axial diode.",
+    "Confirm lead forming, cathode-band orientation, finished-hole tolerance, annular ring, and board-fabrication rules before use.",
+    "This educational asset has not passed independent physical fit review or manufacturing DRC."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
