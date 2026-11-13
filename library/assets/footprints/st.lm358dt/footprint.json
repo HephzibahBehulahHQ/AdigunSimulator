@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-surface-mount-footprint",
+  "partId": "st.lm358dt",
+  "package": "ST SO8, 8-lead gull-wing",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -2.81,
+    "yMm": 1.905
+  },
+  "packageOutline": {
+    "bodyLengthMm": {
+      "min": 4.8,
+      "nominal": 4.9,
+      "max": 5
+    },
+    "bodyWidthMm": {
+      "min": 3.8,
+      "nominal": 3.9,
+      "max": 4
+    },
+    "overallLeadSpanMm": {
+      "min": 5.8,
+      "nominal": 6,
+      "max": 6.2
+    },
+    "leadPitchMm": 1.27,
+    "leadWidthMm": {
+      "min": 0.28,
+      "nominal": 0.38,
+      "max": 0.48
+    },
+    "leadRowCenterSpacingMm": {
+      "nominal": 5.62,
+      "derived": true
+    },
+    "layout": "dual-row",
+    "sourceUrl": "https://www.st.com/resource/en/datasheet/lm358.pdf",
+    "drawing": "SO8 package outline and Table 4 mechanical data, DocID2163 Rev. 15. Row center spacing is derived from typical E (6.00 mm) less typical lead width b (0.38 mm); confirm on physical device."
+  },
+  "padPattern": {
+    "shape": "rounded-rectangle",
+    "lengthMm": 1.55,
+    "widthMm": 0.65,
+    "source": "Educational application defaults. ST's linked SO8 drawing specifies the component outline and lead dimensions but does not provide a recommended SO8 land pattern in this datasheet."
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -2.81,
+      "yMm": 1.905,
+      "shape": "rounded-rectangle",
+      "lengthMm": 1.55,
+      "widthMm": 0.65
+    },
+    {
+      "number": "2",
+      "xMm": -2.81,
+      "yMm": 0.635,
+      "shape": "rounded-rectangle",
+      "lengthMm": 1.55,
+      "widthMm": 0.65
+    },
+    {
+      "number": "3",
+      "xMm": -2.81,
+      "yMm": -0.635,
+      "shape": "rounded-rectangle",
+      "lengthMm": 1.55,
+      "widthMm": 0.65
+    },
+    {
+      "number": "4",
+      "xMm": -2.81,
+      "yMm": -1.905,
+      "shape": "rounded-rectangle",
+      "lengthMm": 1.55,
+      "widthMm": 0.65
+    },
+    {
+      "number": "5",
+      "xMm": 2.81,
+      "yMm": -1.905,
+      "shape": "rounded-rectangle",
+      "lengthMm": 1.55,
+      "widthMm": 0.65
+    },
+    {
+      "number": "6",
+      "xMm": 2.81,
+      "yMm": -0.635,
+      "shape": "rounded-rectangle",
+      "lengthMm": 1.55,
+      "widthMm": 0.65
+    },
+    {
+      "number": "7",
+      "xMm": 2.81,
+      "yMm": 0.635,
+      "shape": "rounded-rectangle",
+      "lengthMm": 1.55,
+      "widthMm": 0.65
+    },
+    {
+      "number": "8",
+      "xMm": 2.81,
+      "yMm": 1.905,
+      "shape": "rounded-rectangle",
+      "lengthMm": 1.55,
+      "widthMm": 0.65
+    }
+  ],
+  "limitations": [
+    "Pad row spacing is derived from nominal package dimensions and is not a replacement for a manufacturer-approved land pattern.",
+    "Copper pad length (1.55 mm) and width (0.65 mm) are application-selected educational defaults, not ST recommendations.",
+    "Validate paste-mask, solder-mask, courtyard, reflow profile, placement tolerance, and IPC/fabricator rules before board manufacture.",
+    "This asset has not passed independent footprint review or manufacturing DRC."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
