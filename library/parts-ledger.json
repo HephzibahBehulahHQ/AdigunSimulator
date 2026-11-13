@@ -550,6 +550,24 @@
         "sha256": "227241d6aedf30ee66379ef55f144fdfaf03954775341f0641a05b6b3d4f4d7f",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/onsemi.2n3904bu/footprint.json",
+        "sha256": "18258f488f94b88637c4bd91b2b25dd49a84c202505d35c62aaa7cf200d7d54e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.onsemi.com/download/data-sheet/pdf/2n3904-d.pdf",
+        "drawing": "TO-92 3 Case 135AN, Issue O. The drawing numbers leads 1, 2, 3 and specifies the lead span; onsemi identifies the orderable 2N3904BU as TO-92-3.",
+        "assetPath": "library/assets/footprints/onsemi.2n3904bu/footprint.json",
+        "designNote": "Pad numbering follows the onsemi case drawing (1=Emitter, 2=Base, 3=Collector); adjacent pad pitch is 1.27 mm across a 2.54 mm pin 1 to pin 3 span. Pad/drill sizes are CC0 application defaults, not an onsemi board land pattern."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
       }
     },
     {
