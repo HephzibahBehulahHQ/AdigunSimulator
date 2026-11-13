@@ -32,3 +32,7 @@ The first full run exposed an old source-contract assertion that required the mi
 3. Run `npm test`, `npm run check` and `npm run validate:library`. Consult PR #505 for the pushed commit and matching GitHub Actions result.
 
 Remaining acceptance includes real touch gestures, additional browsers and assistive technologies, broader project edit/import/export/recovery workflows, complete reference-image comparison and independent electrical/release review. These checks do not establish physical breadboard mapping for this USB-C fixture or manufacturing validity. The current example picker is a load choice and can differ from a recovered project's identity; recovery-selection presentation needs a separate follow-up. No new production deployment is claimed. QA logs remain outside the repository and are excluded from the commit.
+
+## Active project identity follow-up — 2026-11-13
+
+PR #599 adds a separate active-design label that updates from the loaded native project, so the example picker remains visibly a load choice. A runtime regression covers a recovered project name; after deployment, production browser verification showed the initial project name and the name change after loading the LED current-limiter example. This check does not establish crash-recovery restoration or broader touch/accessibility acceptance.
