@@ -516,8 +516,8 @@
         "sourceUrl": "https://www.nexperia.com/product/1N4148"
       },
       "symbolPinMap": {
-        "1": "Anode",
-        "2": "Cathode"
+        "1": "A",
+        "2": "K"
       },
       "symbolPinLabels": {
         "1": "A",
