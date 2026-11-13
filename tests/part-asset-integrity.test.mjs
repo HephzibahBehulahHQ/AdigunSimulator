@@ -98,6 +98,6 @@ test("all ledger-mapped visible symbol labels match their source SVG assets", as
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url), "utf8"));
   const records = ledger.records.filter((record) => record.symbolPinLabels);
   const result = await validatePartAssetIntegrity({ records }, (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8"));
-  assert.equal(records.length, 14);
+  assert.equal(records.length, 15);
   assert.deepEqual(result, { valid: true, errors: [] });
 });
