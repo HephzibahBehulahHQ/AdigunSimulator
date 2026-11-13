@@ -2396,6 +2396,154 @@
         "assetPath": "library/assets/footprints/ti.sn74hc04n/footprint.json",
         "designNote": "The asset uses TI's package family dimensions and the .100-inch (2.54 mm) lead pitch. The 7.62 mm row spacing follows the educational DIP layout; pad diameter and drill are CC0 application-selected defaults, not TI land-pattern recommendations. Independent physical fit review remains required."
       }
+    },
+    {
+      "id": "ti.sn74hc02n",
+      "manufacturer": "Texas Instruments",
+      "manufacturerPartNumber": "SN74HC02N",
+      "category": "Digital logic",
+      "type": "Quad 2-input NOR gate",
+      "typeCode": "F07",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "SNx4HC02 Quadruple 2-Input NOR Gates datasheet (Rev. G)",
+        "url": "https://www.ti.com/lit/ds/symlink/sn74hc02.pdf",
+        "accessedAt": "2026-11-13"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.ti.com/product/SN74HC02/part-details/SN74HC02N",
+          "kind": "manufacturer-orderable-part-page"
+        },
+        {
+          "url": "https://www.ti.com/product/SN74HC02",
+          "kind": "manufacturer-family-product-page"
+        },
+        {
+          "url": "https://www.ti.com/lit/ds/symlink/sn74hc02.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "PDIP-14",
+        "pinCount": 14,
+        "sourceUrl": "https://www.ti.com/product/SN74HC02/part-details/SN74HC02N"
+      },
+      "package": "PDIP-14",
+      "ratings": [
+        {
+          "name": "recommended supply voltage",
+          "minimum": 2,
+          "maximum": 6,
+          "unit": "V"
+        },
+        {
+          "name": "operating temperature",
+          "minimum": -40,
+          "maximum": 85,
+          "unit": "°C"
+        }
+      ],
+      "symbolPinMap": {
+        "1": "1Y",
+        "2": "1A",
+        "3": "1B",
+        "4": "2Y",
+        "5": "2A",
+        "6": "2B",
+        "7": "GND",
+        "8": "3A",
+        "9": "3B",
+        "10": "3Y",
+        "11": "4A",
+        "12": "4B",
+        "13": "4Y",
+        "14": "VCC"
+      },
+      "symbolPinLabels": {
+        "1": "1Y",
+        "2": "1A",
+        "3": "1B",
+        "4": "2Y",
+        "5": "2A",
+        "6": "2B",
+        "7": "GND",
+        "8": "3A",
+        "9": "3B",
+        "10": "3Y",
+        "11": "4A",
+        "12": "4B",
+        "13": "4Y",
+        "14": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "output",
+        "2": "input",
+        "3": "input",
+        "4": "output",
+        "5": "input",
+        "6": "input",
+        "7": "power-in",
+        "8": "input",
+        "9": "input",
+        "10": "output",
+        "11": "input",
+        "12": "input",
+        "13": "output",
+        "14": "power-in"
+      },
+      "modelStatus": "not-modelled",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "The generic digital engine does not reproduce TI-specific input thresholds, propagation delay, output drive, supply current, or temperature behavior. The four-channel manufacturer device is not simulated."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.ti.com/product/SN74HC02/part-details/SN74HC02N",
+        "checkedAt": "2026-11-13",
+        "availabilityNote": "TI lists SN74HC02N as active; the orderable page reported out of stock at the time checked."
+      },
+      "warnings": [
+        "Unverified manufacturer-backed candidate; not counted as a verified part or manufacturer-specific model.",
+        "Four independent NOR gates are in the device; verify unused-input termination against the datasheet before hardware use.",
+        "The digital engine does not model TI-specific thresholds, propagation delay, output loading, power, or temperature behavior.",
+        "Verify supply, input transitions, output loads, decoupling, pin orientation, and physical package fit against the current datasheet before hardware use."
+      ],
+      "alternates": [],
+      "breadboard": {
+        "compatible": true,
+        "adapter": "PDIP-14 through-hole package is intended to straddle a solderless board center trench; verify exact package and board fit before use.",
+        "operatingLimits": [
+          "TI recommended supply: 2 V to 6 V",
+          "TI operating temperature: -40 °C to +85 °C"
+        ]
+      },
+      "translations": {
+        "en": {
+          "name": "SN74HC02N quad NOR gate",
+          "description": "Four independent 2-input NOR gates in PDIP-14. This application does not model TI-specific electrical behavior."
+        },
+        "de": {
+          "name": "SN74HC02N Vierfach-NOR-Gatter",
+          "description": "Vier unabhängige 2-Eingang-NOR-Gatter im PDIP-14-Gehäuse. Diese Anwendung modelliert kein TI-spezifisches elektrisches Verhalten."
+        },
+        "yo": {
+          "name": "SN74HC02N NOR gate mẹ́rin",
+          "description": "NOR gate mẹ́rin tó ní input méjì kọ̀ọ̀kan nínú PDIP-14. App yìí kò model ìṣesí itanna TI pàtó."
+        },
+        "pcm": {
+          "name": "SN74HC02N four NOR gate",
+          "description": "Four 2-input NOR gates inside PDIP-14. This app no model TI exact electrical behaviour."
+        }
+      },
+      "evidenceNote": "library/evidence/ti.sn74hc02n.md",
+      "notes": "TI identifies the exact SN74HC02N orderable as active in PDIP-14; the Rev. G datasheet provides the four-gate function, 14-pin map, 2 V to 6 V supply range, and -40 °C to +85 °C operating range. The original CC0 symbol is an educational candidate. A datasheet checksum, package footprint, exact-device simulation model, independent human review, and physical fit review are not yet recorded; this part remains unverified.",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.sn74hc02n/symbol.svg",
+        "sha256": "f6147c8bc7013a14b0e7b0f43aa007b859ddd75076a88afa928b34922d268d7f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
     }
   ],
   "lastUpdated": "2026-11-03"

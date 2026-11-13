@@ -5,11 +5,11 @@
     "componentTypes": 565
   },
   "ledger": {
-    "total": 16,
+    "total": 17,
     "verified": 0,
     "remaining": 1000,
     "byStatus": {
-      "candidate": 16,
+      "candidate": 17,
       "in-review": 0,
       "verified": 0,
       "rejected": 0
@@ -61,7 +61,7 @@
       {
         "code": "F",
         "declaredTypes": 67,
-        "partRecords": 8,
+        "partRecords": 9,
         "verifiedRecords": 0,
         "coveredTypes": 0,
         "missingTypes": 67
@@ -373,6 +373,25 @@
       ],
       "evidenceBlockerCodes": [
         "DATASHEET_CHECKSUM"
+      ]
+    },
+    {
+      "partId": "ti.sn74hc02n",
+      "currentStatus": "candidate",
+      "readyForHumanReview": false,
+      "missingEvidenceCodes": [
+        "DATASHEET_CHECKSUM",
+        "FOOTPRINT_ASSET_EVIDENCE",
+        "FOOTPRINT_PAD_MAP",
+        "PIN_MAP_ALIGNMENT",
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE"
+      ],
+      "evidenceBlockerCodes": [
+        "DATASHEET_CHECKSUM",
+        "FOOTPRINT_ASSET_EVIDENCE",
+        "FOOTPRINT_PAD_MAP",
+        "PIN_MAP_ALIGNMENT"
       ]
     }
   ]
