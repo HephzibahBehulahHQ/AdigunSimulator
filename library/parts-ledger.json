@@ -2543,6 +2543,35 @@
         "sha256": "f6147c8bc7013a14b0e7b0f43aa007b859ddd75076a88afa928b34922d268d7f",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/ti.sn74hc02n/footprint.json",
+        "sha256": "8005600dbe7d3680221ee44073eeebeabe05f22289d6d856e344cd5573009d9e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.ti.com/lit/ml/mpdi093/mpdi093.pdf",
+        "drawing": "NFF0014A / N14A (Rev. G), R-PDIP-T14; TI lists SN74HC02N as PDIP-14, 19.30 mm × 6.40 mm nominal body.",
+        "assetPath": "library/assets/footprints/ti.sn74hc02n/footprint.json",
+        "designNote": "TI N-package body dimensions and 2.54 mm lead pitch are recorded. The 7.62 mm row spacing follows the educational DIP layout; pad/drill dimensions are CC0 application defaults, not TI land-pattern recommendations. Independent physical fit review remains required."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14"
       }
     }
   ],

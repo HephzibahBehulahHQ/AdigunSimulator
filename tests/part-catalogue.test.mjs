@@ -43,3 +43,12 @@ test("SN74HC04N footprint remains an unverified educational candidate", () => {
   assert.equal(summary.readyForHumanReview, false);
   assert.ok(summary.evidenceBlockerCodes.includes("DATASHEET_CHECKSUM"));
 });
+
+test("SN74HC02N educational footprint preserves the pin map and candidate status", () => {
+  const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "ti.sn74hc02n");
+  assert.equal(record.verificationStatus, "candidate");
+  assert.equal(record.footprintAsset.designStatus, "educational-candidate");
+  assert.equal(Object.keys(record.footprintPadMap).length, 14);
+  assert.deepEqual(record.footprintPadMap, Object.fromEntries(Array.from({ length: 14 }, (_, index) => [String(index + 1), String(index + 1)])));
+  assert.match(record.footprintEvidence.designNote, /not TI land-pattern recommendations/);
+});
