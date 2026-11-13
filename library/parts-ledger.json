@@ -44,6 +44,16 @@
         "7": "DISCH",
         "8": "VCC"
       },
+      "symbolPinLabels": {
+        "1": "GND",
+        "2": "TRIG",
+        "3": "OUT",
+        "4": "RESET",
+        "5": "CONT",
+        "6": "THRES",
+        "7": "DISCH",
+        "8": "VCC"
+      },
       "pinElectricalTypes": {
         "1": "power-in",
         "2": "input",
@@ -113,7 +123,7 @@
       "typeCode": "E45",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/ti.lm555p/symbol.svg",
-        "sha256": "7721e9034fd78bf6738d5bc37db8a6c61a064af42caa455b58738f8ef7c640f8",
+        "sha256": "80b8557038e9260a34786ed0959ba4d3a409cf3cec7868cbfa7ff39560126e43",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
@@ -179,6 +189,16 @@
         "7": "OUT2",
         "8": "VCC+"
       },
+      "symbolPinLabels": {
+        "1": "OUT1",
+        "2": "IN1-",
+        "3": "IN1+",
+        "4": "VCC-",
+        "5": "IN2+",
+        "6": "IN2-",
+        "7": "OUT2",
+        "8": "VCC+"
+      },
       "pinElectricalTypes": {
         "1": "analog",
         "2": "analog",
@@ -202,7 +222,7 @@
       "typeCode": "E01",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/st.lm358dt/symbol.svg",
-        "sha256": "edbe879ac4d8ae410053992bfe1e0e2dc11bd290ea81063ec20d2e13d435d4db",
+        "sha256": "af3106262552dccd5a91e7d65d38d11758be4eff83b18f220a969575fcb4f4c0",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
@@ -479,6 +499,11 @@
         "2": "Base",
         "3": "Collector"
       },
+      "symbolPinLabels": {
+        "1": "Emitter",
+        "2": "Base",
+        "3": "Collector"
+      },
       "pinElectricalTypes": {
         "1": "passive",
         "2": "input",
@@ -492,7 +517,7 @@
       "notes": "The onsemi datasheet identifies TO-92-3 lead functions as emitter, base, and collector on pins 1, 2, and 3. The exact BU orderable identity/lifecycle, datasheet checksum, licensed symbol/footprint assets, physical footprint pad map, validated model and human review remain incomplete; not counted as verified.",
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/onsemi.2n3904bu/symbol.svg",
-        "sha256": "d155ce5095db860b2c83ed20050f1bd85c7f20b30edec47bfc71e0d405e348b5",
+        "sha256": "227241d6aedf30ee66379ef55f144fdfaf03954775341f0641a05b6b3d4f4d7f",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
