@@ -412,3 +412,13 @@ test("the published example catalogue retains all 200 individually specified acc
 });
 
 
+
+test("mobile component category filters wrap and retain touch-sized controls", async () => {
+  const styles = await readFile(new URL("../styles.css", import.meta.url), "utf8");
+  const mobile = styles.match(/@media \(max-width: 520px\) \{\s*\.category-filters \{[^}]+\}\s*\.category-filter \{[^}]+\}\s*\}/);
+  assert.ok(mobile, "mobile category filter rules are present");
+  assert.match(mobile[0], /grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
+  assert.match(mobile[0], /overflow-x:\s*visible/);
+  assert.match(mobile[0], /min-height:\s*44px/);
+  assert.match(mobile[0], /white-space:\s*normal/);
+});
