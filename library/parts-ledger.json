@@ -225,6 +225,29 @@
         "sha256": "af3106262552dccd5a91e7d65d38d11758be4eff83b18f220a969575fcb4f4c0",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/st.lm358dt/footprint.json",
+        "sha256": "a6f1592006cf43a451f418134d8cfb5c50015c3ce9804edcc0fa31bba1a1a646",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.st.com/resource/en/datasheet/lm358.pdf",
+        "drawing": "SO8 package outline and Table 4 mechanical data, DocID2163 Rev. 15; exact LM358DT order code is listed as SO8.",
+        "assetPath": "library/assets/footprints/st.lm358dt/footprint.json",
+        "designNote": "ST specifies SO8 body dimensions, 1.27 mm lead pitch, overall lead span, and lead width. The 5.62 mm row-center distance is derived from typical outer span less typical lead width. Pad geometry is application-selected education defaults; ST does not publish the generated land pattern here."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
       }
     },
     {
