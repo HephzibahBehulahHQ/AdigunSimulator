@@ -2321,7 +2321,10 @@
       "datasheet": {
         "title": "SNx4HC04 Hex Inverters datasheet (Rev. H)",
         "url": "https://www.ti.com/lit/ds/symlink/sn74hc04.pdf",
-        "accessedAt": "2026-11-13"
+        "accessedAt": "2026-11-13",
+        "sha256": "a48266c5ce3f22a87a30cd78b0fdb80e99820220534b215a11a9b67a35f41101",
+        "sha256Bytes": 2153970,
+        "checksumEvidenceNote": "library/evidence/ti.sn74hc04n.md"
       },
       "manufacturerSources": [
         {
