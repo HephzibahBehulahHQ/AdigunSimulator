@@ -202,6 +202,56 @@ test("removing a recent project requires confirmation and leaves other saved cop
   assert.match(status.textContent, /recentProjectRemoved/);
 });
 
+test("deleting the saved project copy confirms, preserves Recent snapshots, and dirties its open project", () => {
+  const project = createProject();
+  const storage = new Map([[PROJECT_STORAGE_KEY, serializeProject(project)]]);
+  const recentSnapshots = [{ id: project.id, serialized: serializeProject(project) }];
+  const state = { project, currentProjectId: project.id, savedDisposition: "local", dirty: false };
+  let confirmed = false, updates = 0;
+  const messages = [];
+  const start = source.indexOf("function deleteSavedProject("), end = source.indexOf("function populateRecentProjectPicker(", start);
+  assert.ok(start >= 0 && end > start);
+  const remove = runInNewContext(`${source.slice(start, end)}\ndeleteSavedProject`, {
+    state, STORAGE_KEY: PROJECT_STORAGE_KEY, localStorage: {
+      getItem: key => storage.get(key) ?? null,
+      removeItem: key => storage.delete(key)
+    }, parseProject, confirm: prompt => { messages.push(prompt); return confirmed; },
+    updateSaveState: () => updates++, log: value => messages.push(value),
+    t: key => key, showDialog: (title, body) => messages.push({ title, body })
+  });
+
+  remove();
+  assert.equal(storage.has(PROJECT_STORAGE_KEY), true);
+  assert.equal(state.dirty, false);
+  assert.equal(updates, 0);
+  confirmed = true;
+  remove();
+  assert.equal(storage.has(PROJECT_STORAGE_KEY), false);
+  assert.equal(state.dirty, true);
+  assert.equal(updates, 1);
+  assert.equal(recentSnapshots.length, 1);
+  assert.ok(messages[1].includes("deleteSavedProjectPrompt"));
+  assert.ok(messages[1].includes(project.metadata.name));
+  assert.ok(messages.some(message => message?.body === "savedProjectDeleted"));
+});
+
+test("deleting a local saved copy does not dirty a different or cloud-saved open project", () => {
+  const saved = createProject(), open = createProject();
+  const storage = new Map([[PROJECT_STORAGE_KEY, serializeProject(saved)]]);
+  const state = { project: open, currentProjectId: open.id, savedDisposition: "cloud", dirty: false };
+  let updates = 0;
+  const start = source.indexOf("function deleteSavedProject("), end = source.indexOf("function populateRecentProjectPicker(", start);
+  const remove = runInNewContext(`${source.slice(start, end)}\ndeleteSavedProject`, {
+    state, STORAGE_KEY: PROJECT_STORAGE_KEY, localStorage: { getItem: key => storage.get(key), removeItem: key => storage.delete(key) },
+    parseProject, confirm: () => true, updateSaveState: () => updates++, log() {},
+    t: key => key, showDialog() {}
+  });
+  remove();
+  assert.equal(storage.has(PROJECT_STORAGE_KEY), false);
+  assert.equal(state.dirty, false);
+  assert.equal(updates, 0);
+});
+
 test("actual native export clears dirty only after successful browser handoff", () => {
   for (const fail of [false, true]) {
     const { state, session } = setup(); let errors = 0, clicked = 0, revoked = 0;

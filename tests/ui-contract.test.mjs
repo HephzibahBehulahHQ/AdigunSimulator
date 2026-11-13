@@ -399,7 +399,7 @@ test("boot is empty and transient snapshots are never hydrated by the app", asyn
   assert.ok(source.includes("projectSession.install(window"));
   for (const removed of ["loadStarterExample", "initialProject", "readRecoveryDraft", "writeRecoveryDraft", "function loadProject"]) assert.equal(source.includes(removed), false, removed);
   const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
-  for (const action of ["open-saved-project", "close-project"]) assert.ok(html.includes(`data-action="${action}"`));
+  for (const action of ["open-saved-project", "delete-saved-project", "close-project"]) assert.ok(html.includes(`data-action="${action}"`));
   assert.ok(html.includes('id="unsaved-dialog"'));
 });
 
