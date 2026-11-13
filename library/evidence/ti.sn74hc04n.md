@@ -34,7 +34,7 @@ Electrical types are project interpretations of the datasheet pin functions.
 
 ## Asset and simulation limits
 
-The SVG is original generic pin-map artwork dedicated under CC0 1.0. Its labels and pin numbers are machine-linked to the ledger map. An educational candidate footprint is supplied; it is not a TI land pattern. The exact PDF bytes were not captured for a checksum. The record remains a candidate and is not counted as verified.
+The SVG is original generic pin-map artwork dedicated under CC0 1.0. Its labels and pin numbers are machine-linked to the ledger map. An educational candidate footprint is supplied; it is not a TI land pattern. The official TI PDF response was downloaded over HTTPS on 2026-11-13 with content type application/pdf and a `%PDF-` signature. The downloaded file contained 2,153,970 bytes; SHA-256: `a48266c5ce3f22a87a30cd78b0fdb80e99820220534b215a11a9b67a35f41101`. The PDF bytes are not included in the repository. The record remains a candidate and is not counted as verified.
 
 The simulator does not model this exact TI device. Do not present generic inverter behavior as an SN74HC04N electrical simulation. TI says unused inputs must be tied to VCC or GND; unused outputs may be left unconnected.
 
@@ -42,7 +42,6 @@ The simulator does not model this exact TI device. Do not present generic invert
 
 - Independently compare the symbol pin map with the current datasheet and a physical part.
 - Create and review a source-traceable N-package footprint before claiming PCB support.
-- Capture the datasheet bytes and SHA-256.
 - Keep manufacturer-specific simulation disabled unless a sourced, licensed, bounded model and expected-result fixtures are added.
 - Obtain a named independent reviewer and date before changing verification status.
 

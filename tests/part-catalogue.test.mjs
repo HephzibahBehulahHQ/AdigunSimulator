@@ -40,8 +40,8 @@ test("SN74HC04N footprint remains an unverified educational candidate", () => {
   assert.equal(record.modelStatus, "not-modelled");
   assert.equal(record.footprintAsset.designStatus, "educational-candidate");
   assert.equal(Object.keys(record.footprintPadMap).length, 14);
-  assert.equal(summary.readyForHumanReview, false);
-  assert.ok(summary.evidenceBlockerCodes.includes("DATASHEET_CHECKSUM"));
+  assert.equal(summary.readyForHumanReview, true);
+  assert.deepEqual(summary.evidenceBlockerCodes, []);
 });
 
 test("SN74HC02N educational footprint preserves the pin map and candidate status", () => {
@@ -100,6 +100,14 @@ test("SN74HC02N datasheet checksum is recorded without promoting the candidate",
   const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "ti.sn74hc02n");
   assert.match(record.datasheet.sha256, /^[a-f0-9]{64}$/);
   assert.equal(record.datasheet.sha256Bytes, 2497827);
+  assert.equal(record.verificationStatus, "candidate");
+  assert.equal(getManufacturerPartEvidenceSummary(record).readyForHumanReview, true);
+});
+
+test("SN74HC04N datasheet checksum is recorded without promoting the candidate", () => {
+  const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "ti.sn74hc04n");
+  assert.equal(record.datasheet.sha256, "a48266c5ce3f22a87a30cd78b0fdb80e99820220534b215a11a9b67a35f41101");
+  assert.equal(record.datasheet.sha256Bytes, 2153970);
   assert.equal(record.verificationStatus, "candidate");
   assert.equal(getManufacturerPartEvidenceSummary(record).readyForHumanReview, true);
 });
