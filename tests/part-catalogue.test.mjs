@@ -79,3 +79,11 @@ test("1N4148 family symbol uses application connection IDs without claiming pack
   assert.equal(record.packageEvidence.package, "SOD27 (DO-35)");
   assert.match(record.warnings[0], /do not represent manufacturer physical lead numbers/);
 });
+
+test("1N4148 family footprint documents its application-selected pitch and pad IDs", () => {
+  const record = MANUFACTURER_PART_RECORDS.find((part) => part.id === "nexperia.1n4148");
+  assert.equal(record.verificationStatus, "candidate");
+  assert.equal(record.footprintAsset.designStatus, "educational-candidate");
+  assert.deepEqual(record.footprintPadMap, { "1": "1", "2": "2" });
+  assert.match(record.footprintEvidence.designNote, /not a datasheet-defined footprint/);
+});
