@@ -2,6 +2,12 @@ export function hasCurrentScopeAnalysis(state) {
   return Boolean(state?.lastAnalysis && state.lastAnalysisProjectKey && state.lastAnalysisProjectKey === JSON.stringify(state.project));
 }
 
+export function recordScopeAnalysis(state, result, repaint) {
+  state.lastAnalysis = result;
+  state.lastAnalysisProjectKey = JSON.stringify(state.project);
+  repaint();
+}
+
 export function createScopeLauncher({ document, canvas, onOpen }) {
   const button = document.createElement("button");
   button.type = "button";

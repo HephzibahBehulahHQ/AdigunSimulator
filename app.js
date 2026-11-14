@@ -2,6 +2,7 @@ import { parseExampleProject, canLoadExampleAnalysis } from './js/example-loadin
 import { isGlobalSearchShortcut, searchGlobalActions } from "./js/global-search.mjs";
 import { createExampleBrowser } from './js/example-bank-ui.mjs';
 import { createDesignTools } from "./js/design-tools-ui.mjs";
+import { recordScopeAnalysis } from "./js/scope-launcher.mjs";
 import { createCanvasExperience } from './js/canvas-experience.mjs';
 import { ladderSettings, ladderUiText, ladderValueLabel } from './js/ladder-components.mjs';
 import { wirePaint } from "./js/project-appearance.mjs";
@@ -266,7 +267,7 @@ function applyBotSuggestion() {
 
 const dcFeedback = createLiveDcFeedback({
   run: project => createSimulationWorkerRun(state.feedbackConfig?projectWithSelectedAnalysis(project,state.feedbackConfig.key,state.feedbackConfig.value):project),
-  onResult: result => { state.lastAnalysis=result; state.lastAnalysisProjectKey=JSON.stringify(state.project); renderOutput(); },
+  onResult: result => { recordScopeAnalysis(state,result,()=>designTools.paint()); renderOutput(); },
   onPaint: event => { if(event?.frameOnly)paintSimulationFrame();else {renderCanvas();wireUi.paintMeasurements();} renderFeedbackControls(); }
 });
 const FEEDBACK_MOTION_TEXT={en:["Device preference","Animate","Reduce motion"],de:["Geräteeinstellung","Animieren","Bewegung reduzieren"],yo:["Ètò ẹ̀rọ","Ṣe àwòrán ìṣàn","Dín ìṣípò kù"],pcm:["Device setting","Show movement","Reduce movement"]};
@@ -1666,8 +1667,7 @@ function runAnalysis(workerResult = null) {
     }
   }
   const result = workerResult;
-  state.lastAnalysis = result;
-  state.lastAnalysisProjectKey=JSON.stringify(state.project);
+  recordScopeAnalysis(state,result,()=>designTools.paint());
   // Playback and the scope are independent of optional canvas highlighting.
   dcFeedback.accept(state.project,result);
   if (result.state === "complete") {

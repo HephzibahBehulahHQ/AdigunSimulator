@@ -357,24 +357,28 @@ test("diagnostic tab selection updates all tabs and renders an empty error list"
   assert.equal(elements["#issue-list"].textContent, "[ERRORS] None.");
 });
 
-test("completed results feed playback even when canvas feedback is disabled", async () => {
-  for (const file of ["070-stm32-timer-pwm", "021-555-astable-blinker", "001-led-current-limiter", "005-rc-step-response", "006-rl-step-response"]) {
+test("completed results feed playback and repaint the scope launcher even when canvas feedback is disabled", async () => {
+  for (const file of ["070-stm32-timer-pwm", "021-555-astable-blinker", "001-led-current-limiter", "004-parallel-resistor-load", "005-rc-step-response", "006-rl-step-response"]) {
     const project = JSON.parse(await readFile(new URL(`../examples/${file}.adigun.json`, import.meta.url), "utf8"));
     const analysis = runProjectAnalysis(project);
     assert.equal(analysis.state, "complete", file);
     let renders = 0;
+    let scopePaints = 0;
     const state = { project };
     const log = [];
     const feedback = [];
     const complete = uiFunction("runAnalysis", "async function verifyRunLockfile(", {
       state, log: (line) => log.push(line), renderOutput: () => { renders += 1; },
       $: selector => { assert.equal(selector,"#feedback-live"); return {checked:false}; },
-      dcFeedback: {accept: (p,result)=>feedback.push([p,result])}
+      dcFeedback: {accept: (p,result)=>feedback.push([p,result])},
+      recordScopeAnalysis: (target,result,repaint) => { target.lastAnalysis=result;target.lastAnalysisProjectKey=JSON.stringify(target.project);repaint(); },
+      designTools: {paint:()=>{scopePaints+=1;}}
     });
     complete(analysis);
     assert.equal(renders, 1, file);
     assert.equal(state.lastAnalysis, analysis);
     assert.equal(state.lastAnalysisProjectKey,JSON.stringify(project));
+    assert.equal(scopePaints,1,file);
     assert.deepEqual(feedback,[[project,analysis]]);
     assert.ok(log.some((line) => line.startsWith("[LIMIT]")), file);
   }
