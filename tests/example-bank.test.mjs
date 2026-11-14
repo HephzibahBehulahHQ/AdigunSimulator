@@ -25,12 +25,22 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,27);assert.equal(index.summary.withoutStoredPcb,189);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,28);assert.equal(index.summary.withoutStoredPcb,188);assert.deepEqual(index.summary.unexpectedFailures,[]);
+});
+test('PWM LED dimmer carries a source-backed physical PCB map without changing its ideal analysis',async()=>{
+ const entry=index.entries.find(item=>item.file==='005-pwm-led-dimmer.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/005-pwm-led-dimmer.adigun.json',import.meta.url),'utf8'));
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,4);assert.equal(entry.pcbPads,10);
+ assert.equal(validatePcbFabrication(project).status,'passed');
+ assert.equal(runProjectAnalysis(project).result.kind,'pwm-led-average');
+ assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="mosfet-1"/);
+ assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','D1','Q1']);
+ assert.match(project.pcbFabrication.fabricationNotes.at(-1),/not a manufacturing DRC/);
 });
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,27);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,28);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

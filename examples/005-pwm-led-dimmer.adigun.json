@@ -168,5 +168,344 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 40,
+      "heightMm": 30,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-103-07-T-S_1x03_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-103-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s"
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "footprint": "NEOHM_CFR25J330R_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J330R",
+        "sourceUrl": "https://www.te.com/en/product-1623931-7.html"
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "footprint": "Vishay_TLHR5400_LED_D5.0mm_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "TLHR5400",
+        "sourceUrl": "https://www.vishay.com/docs/83012/tlhg540.pdf"
+      },
+      {
+        "instanceId": "mosfet-1",
+        "reference": "Q1",
+        "footprint": "Nexperia_BSS138BK_SOT23-3_TO-236AB",
+        "technology": "smd",
+        "manufacturer": "Nexperia",
+        "manufacturerPartNumber": "BSS138BK",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BSS138BK.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "VCC",
+        "xMm": 4,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "PWM",
+        "number": "2",
+        "bridgeEndpoint": "pwm-1:+",
+        "netId": "GATE",
+        "xMm": 4,
+        "yMm": 10.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "3",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 13.08,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 12,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "LED_A",
+        "xMm": 22,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "netId": "LED_A",
+        "xMm": 28,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "netId": "LED_K",
+        "xMm": 30.54,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mosfet-1",
+        "reference": "Q1",
+        "pin": "G",
+        "number": "1",
+        "netId": "GATE",
+        "xMm": 24.925,
+        "yMm": 15,
+        "technology": "smd",
+        "widthMm": 1.7,
+        "heightMm": 0.7
+      },
+      {
+        "instanceId": "mosfet-1",
+        "reference": "Q1",
+        "pin": "S",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 27.075,
+        "yMm": 15.95,
+        "technology": "smd",
+        "widthMm": 0.6,
+        "heightMm": 1
+      },
+      {
+        "instanceId": "mosfet-1",
+        "reference": "Q1",
+        "pin": "D",
+        "number": "3",
+        "netId": "LED_K",
+        "xMm": 27.075,
+        "yMm": 14.05,
+        "technology": "smd",
+        "widthMm": 0.6,
+        "heightMm": 1
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            8
+          ],
+          [
+            12,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "LED_A",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22,
+            8
+          ],
+          [
+            28,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "LED_K",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            30.54,
+            8
+          ],
+          [
+            35,
+            8
+          ],
+          [
+            35,
+            14.05
+          ],
+          [
+            27.075,
+            14.05
+          ]
+        ]
+      },
+      {
+        "netId": "GATE",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            4,
+            10.54
+          ],
+          [
+            6,
+            10.54
+          ],
+          [
+            6,
+            20
+          ],
+          [
+            24.925,
+            20
+          ],
+          [
+            24.925,
+            15
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            13.08
+          ],
+          [
+            4,
+            23
+          ],
+          [
+            27.075,
+            23
+          ],
+          [
+            27.075,
+            15.95
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-103-07-T-S",
+        "package": "1x03 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "PWM/GATE",
+          "3": "GND"
+        },
+        "limitations": [
+          "Header mounting drill and annular-ring dimensions are layout choices and must be checked against the selected fabrication process."
+        ]
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J330R",
+        "package": "CFR25 axial, 330 Ω, 5%, 0.33 W",
+        "sourceUrl": "https://www.te.com/en/product-1623931-7.html",
+        "limitations": [
+          "10 mm lead-center spacing is a board layout choice; the resistor is rated from its cited manufacturer product data."
+        ]
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "TLHR5400",
+        "package": "5 mm red through-hole LED",
+        "sourceUrl": "https://www.vishay.com/docs/83012/tlhg540.pdf",
+        "pinMapping": {
+          "1": "Anode",
+          "2": "Cathode"
+        }
+      },
+      {
+        "reference": "Q1",
+        "manufacturer": "Nexperia",
+        "manufacturerPartNumber": "BSS138BK",
+        "package": "SOT23-3 (TO-236AB)",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BSS138BK.pdf",
+        "pinMapping": {
+          "1": "Gate",
+          "2": "Source",
+          "3": "Drain"
+        },
+        "footprintSource": "library/assets/footprints/nexperia.bss138bk/footprint.json",
+        "limitations": [
+          "Manufacturer pad dimensions are used; center coordinates are reconstructed from the data-sheet drawing and require independent review. The simulation remains the generic ideal MOSFET switch and is not a BSS138BK electrical model."
+        ]
+      }
+    ],
+    "fabricationNotes": [
+      "External interface J1 pin order is VCC, PWM input, GND.",
+      "The GND symbol and ideal V1/PWM1 sources are simulation objects; J1 is their physical board interface.",
+      "This stored preview and educational Gerber output are not a manufacturing DRC or a qualified fabrication release. Independently review pad coordinates, clearances, connector drilling, polarity, assembly, and the physical BSS138BK behavior before ordering."
+    ]
+  }
 }

@@ -4,7 +4,9 @@ The existing Example menu now contains search, Type, Level, Category and PCB cov
 
 The reproducible audit covers every one of the 216 native project files. It records 211 completed bounded analyses/workflow reports and five intentionally blocked fault lessons. These counts do not mean 211 general SPICE simulations. All five fault lessons can now load for inspection; the short-circuit lesson retains its blocking electrical error. Other invalid imports remain rejected.
 
-Stored PCB layouts increased from 21 to 27. Six projects with exactly the same native component identities, types and nets as the existing single-sided LED board now reuse that compatible layout:
+Stored PCB layouts increased from 27 to 28 with a source-backed physical map for Example 005 — 5 V PWM LED Dimmer. Its board records the Samtec 3-pin external interface, NEOHM CFR25 resistor, Vishay 5 mm LED, and Nexperia BSS138BK package and pins. The existing ideal MOSFET simulation remains explicitly separate from the physical MOSFET; the reconstructed SOT23 pad centers and educational PCB output still require independent fabrication review.
+
+Six earlier projects with exactly the same native component identities, types and nets as the existing single-sided LED board reuse that compatible layout:
 
 - 001 LED current limiter
 - 003 9 V LED current limiter
@@ -15,7 +17,7 @@ Stored PCB layouts increased from 21 to 27. Six projects with exactly the same n
 
 The reused board contains the existing two-pin terminal block, resistor 0805 and LED 0805 package templates, six pads and stored routes. PCB validation passed and electrical/workflow results were unchanged. These are package templates, not newly verified manufacturer parts or fabrication certification.
 
-**189 projects still lack stored PCB layouts.** The menu exposes that fact before loading, including unmapped references. Logical instructions, test sources and ideal functional blocks cannot be assigned invented physical packages. The audit distinguishes missing data from rendering failures: every stored layout renders footprint groups. It does not claim board completeness, electrical correctness or manufacturing approval for all projects.
+**188 projects still lack stored PCB layouts.** The menu exposes that fact before loading, including unmapped references. Logical instructions, test sources and ideal functional blocks cannot be assigned invented physical packages. The audit distinguishes missing data from rendering failures: every stored layout renders footprint groups. It does not claim board completeness, electrical correctness or manufacturing approval for all projects.
 
 The battery-discharge comparator now exposes its calculated DC supply, sense, output and LED node voltages to the floating scope and current feedback. Tests cover 9 V and 6 V inputs above/below its existing threshold. A DC signal is a flat trace; no oscillation is invented. The scope explicitly identifies this as an ideal comparator DC estimate. Existing 555/PWM recordings and full-viewport dragging remain unchanged.
 

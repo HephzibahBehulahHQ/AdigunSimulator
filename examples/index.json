@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 27,
-    "withoutStoredPcb": 189,
+    "withStoredPcb": 28,
+    "withoutStoredPcb": 188,
     "unexpectedFailures": []
   },
   "entries": [
@@ -246,34 +246,18 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "6b7bfd35a1e2be3e4436555cdf7dfa478a25787416625141913f6bdb072d4319",
+      "sha256": "f7c1f0677f29a17c3a3a2c12557ec5fc24a7475ec33ecdb4f9d6c10e528f1550",
       "components": 6,
       "analysis": "complete",
       "engine": "Analytical PWM LED average-current model",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 10,
+      "pcbRoutes": 5,
       "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
         {
           "reference": "PWM1",
           "libraryId": "power.pwm-source"
-        },
-        {
-          "reference": "Q1",
-          "libraryId": "active.nmos-switch"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
         },
         {
           "reference": "GND",

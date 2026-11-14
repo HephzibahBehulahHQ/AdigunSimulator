@@ -6,7 +6,7 @@ Approved follow-up, 2026-11-10. Preserve the existing Example menu and native pr
 | --- | --- | --- |
 | Example coverage audit | 216 native files audited; examples/index.json records all findings | Deployed and production-verified in PR #520 |
 | Example navigation | Search plus Type, Level, Category and PCB filters in existing Example menu; paging/mobile checks | Deployed and production-verified in PR #520 |
-| PCB coverage | 27 stored layouts render; six compatible LED layouts restored; 189 projects still need layout/package decisions | Partial |
+| PCB coverage | 28 stored layouts render, including sourced physical mappings for 5 V PWM LED Dimmer; 188 projects still need layout/package decisions | Partial |
 | SPICE integration | Licensed reproducible engine build; worker adapter, model provenance, convergence/cancellation and reference-deck tests | Pinned native and WebAssembly builds qualify the resistor-divider fixture and an exporter-generated ideal current-source deck with a CI-added `.op` directive; app integration, release licensing/package, cancellation, limits and broader reference decks remain pending |
 | Comparator realism | Identified manufacturer part/model; documented and tested hysteresis, bias/offset, delay, output loading, supply limits, temperature and tolerances within model coverage | Pending |
 | Battery realism | Separate sourced chemistry/state-of-charge/temperature model and validation, not an implied comparator feature | Pending |
