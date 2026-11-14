@@ -1,18 +1,441 @@
 {
   "schemaVersion": 1,
   "id": "example-004-parallel-resistor-load",
-  "metadata": { "name": "5 V Parallel Resistor Load", "locale": "en", "createdAt": "2026-10-31T00:00:00.000Z", "updatedAt": "2026-10-31T00:00:00.000Z" },
+  "metadata": {
+    "name": "5 V Parallel Resistor Load",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-10-31T00:00:00.000Z"
+  },
   "components": [
-    { "instanceId": "source-1", "libraryId": "power.dc-source", "reference": "V1", "value": "5 V", "position": { "breadboard": [60, 142], "schematic": [95, 128], "pcb": [92, 130] } },
-    { "instanceId": "resistor-top-1", "libraryId": "passive.resistor", "reference": "R1", "value": "1 kΩ", "position": { "breadboard": [250, 122], "schematic": [260, 112], "pcb": [244, 112] } },
-    { "instanceId": "resistor-bottom-1", "libraryId": "passive.resistor", "reference": "R2", "value": "1 kΩ", "position": { "breadboard": [425, 118], "schematic": [438, 118], "pcb": [418, 118] } },
-    { "instanceId": "resistor-branch-1", "libraryId": "passive.resistor", "reference": "R3", "value": "1 kΩ", "position": { "breadboard": [425, 205], "schematic": [438, 205], "pcb": [418, 205] } },
-    { "instanceId": "ground-1", "libraryId": "ground.signal", "reference": "GND", "value": "0 V", "position": { "breadboard": [600, 175], "schematic": [600, 175], "pcb": [550, 175] } }
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.dc-source",
+      "reference": "V1",
+      "value": "5 V",
+      "position": {
+        "breadboard": [
+          60,
+          142
+        ],
+        "schematic": [
+          95,
+          128
+        ],
+        "pcb": [
+          92,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-top-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          250,
+          122
+        ],
+        "schematic": [
+          260,
+          112
+        ],
+        "pcb": [
+          244,
+          112
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-bottom-1",
+      "libraryId": "passive.resistor",
+      "reference": "R2",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          425,
+          118
+        ],
+        "schematic": [
+          438,
+          118
+        ],
+        "pcb": [
+          418,
+          118
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-branch-1",
+      "libraryId": "passive.resistor",
+      "reference": "R3",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          425,
+          205
+        ],
+        "schematic": [
+          438,
+          205
+        ],
+        "pcb": [
+          418,
+          205
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          600,
+          175
+        ],
+        "schematic": [
+          600,
+          175
+        ],
+        "pcb": [
+          550,
+          175
+        ]
+      }
+    }
   ],
   "nets": [
-    { "id": "VCC", "endpoints": ["source-1:+", "resistor-top-1:1"] },
-    { "id": "MID", "endpoints": ["resistor-top-1:2", "resistor-bottom-1:1", "resistor-branch-1:1"] },
-    { "id": "GND", "endpoints": ["resistor-bottom-1:2", "resistor-branch-1:2", "source-1:-", "ground-1:0"] }
+    {
+      "id": "VCC",
+      "endpoints": [
+        "source-1:+",
+        "resistor-top-1:1"
+      ]
+    },
+    {
+      "id": "MID",
+      "endpoints": [
+        "resistor-top-1:2",
+        "resistor-bottom-1:1",
+        "resistor-branch-1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "resistor-bottom-1:2",
+        "resistor-branch-1:2",
+        "source-1:-",
+        "ground-1:0"
+      ]
+    }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 36,
+      "heightMm": 30,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "resistor-top-1",
+        "reference": "R1",
+        "footprint": "NEOHM_CFR25J1K0_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J1K0",
+        "sourceUrl": "https://www.te.com/usa-en/product-2-1623930-9.html"
+      },
+      {
+        "instanceId": "resistor-bottom-1",
+        "reference": "R2",
+        "footprint": "NEOHM_CFR25J1K0_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J1K0",
+        "sourceUrl": "https://www.te.com/usa-en/product-2-1623930-9.html"
+      },
+      {
+        "instanceId": "resistor-branch-1",
+        "reference": "R3",
+        "footprint": "NEOHM_CFR25J1K0_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J1K0",
+        "sourceUrl": "https://www.te.com/usa-en/product-2-1623930-9.html"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "VCC",
+        "xMm": 4,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 10.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "resistor-top-1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 12,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-top-1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "MID",
+        "xMm": 22,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-bottom-1",
+        "reference": "R2",
+        "pin": "1",
+        "number": "1",
+        "netId": "MID",
+        "xMm": 12,
+        "yMm": 16,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-bottom-1",
+        "reference": "R2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 22,
+        "yMm": 16,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-branch-1",
+        "reference": "R3",
+        "pin": "1",
+        "number": "1",
+        "netId": "MID",
+        "xMm": 12,
+        "yMm": 22,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-branch-1",
+        "reference": "R3",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 22,
+        "yMm": 22,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            8
+          ],
+          [
+            12,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "MID",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22,
+            8
+          ],
+          [
+            24,
+            8
+          ],
+          [
+            24,
+            13
+          ],
+          [
+            12,
+            13
+          ],
+          [
+            12,
+            16
+          ]
+        ]
+      },
+      {
+        "netId": "MID",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            12,
+            16
+          ],
+          [
+            12,
+            22
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22,
+            16
+          ],
+          [
+            22,
+            22
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            10.54
+          ],
+          [
+            4,
+            27
+          ],
+          [
+            18,
+            27
+          ],
+          [
+            18,
+            16
+          ],
+          [
+            22,
+            16
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        },
+        "limitations": [
+          "Selected drill size and annular-ring dimensions are layout choices and require fabrication-rule review."
+        ]
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J1K0",
+        "package": "CFR25 axial, 1 kΩ, 5%, 0.33 W",
+        "sourceUrl": "https://www.te.com/usa-en/product-2-1623930-9.html",
+        "limitations": [
+          "10 mm lead-center spacing is a board layout choice."
+        ]
+      },
+      {
+        "reference": "R2",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J1K0",
+        "package": "CFR25 axial, 1 kΩ, 5%, 0.33 W",
+        "sourceUrl": "https://www.te.com/usa-en/product-2-1623930-9.html",
+        "limitations": [
+          "10 mm lead-center spacing is a board layout choice."
+        ]
+      },
+      {
+        "reference": "R3",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J1K0",
+        "package": "CFR25 axial, 1 kΩ, 5%, 0.33 W",
+        "sourceUrl": "https://www.te.com/usa-en/product-2-1623930-9.html",
+        "limitations": [
+          "10 mm lead-center spacing is a board layout choice."
+        ]
+      }
+    ],
+    "fabricationNotes": [
+      "V1 is an external 5 V bench supply connected through J1; GND is the shared return, not an extra physical component.",
+      "R1, R2 and R3 are three instances of the cited 1 kΩ resistor. The board keeps each native project net and endpoint.",
+      "The PCB is a stored educational layout. Independently review drill sizes, lead spacing, clearances, copper, polarity and fabrication rules before manufacture."
+    ]
+  }
 }
