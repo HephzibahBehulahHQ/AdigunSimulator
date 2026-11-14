@@ -4,6 +4,15 @@ export function analyticalDcScopeRecording(project,analysis){
  if(analysis?.state!=="complete")return null;
  const r=analysis.result,components=project.components,netOf=(c,pin)=>project.nets.find(n=>n.endpoints.includes(`${c?.instanceId}:${pin}`))?.id;
  const byType=id=>components.filter(c=>c.libraryId===id),source=byType("power.dc-source")[0],ground=byType("ground.signal")[0];
+ if(r?.kind==="resistive-network"){
+  const sources=byType("power.dc-source"),grounds=byType("ground.signal"),resistors=byType("passive.resistor"),nodes=r.nodeVoltages,netIds=new Set(project.nets.map(net=>net.id));
+  if(sources.length!==1||grounds.length!==1||resistors.length<1||r.resistors?.length!==resistors.length||!nodes||typeof nodes!=="object")return null;
+  const positive=netOf(sources[0],"+"),negative=netOf(sources[0],"-"),groundNet=netOf(grounds[0],"0"),sourceVoltage=r.sourceVoltage;
+  if(!positive||!negative||negative!==groundNet||positive===negative||!Number.isFinite(sourceVoltage)||!Object.keys(nodes).length||Object.entries(nodes).some(([net,value])=>!netIds.has(net)||!Number.isFinite(value)))return null;
+  const tolerance=Math.max(1,Math.abs(sourceVoltage))*1e-9;
+  if(!Object.hasOwn(nodes,positive)||!Object.hasOwn(nodes,negative)||Math.abs((nodes[positive]-nodes[negative])-sourceVoltage)>tolerance)return null;
+  return {kind:"analytical-dc-output",model:"Resistive network DC solution",nodes:{...nodes}};
+ }
  if(r?.kind==="led-polarity-indicator"){
   const reds=byType("diode.led-red"),greens=byType("diode.led-green"),red=reds[0],green=greens[0],resistors=byType("passive.resistor"),resistorResult=ref=>r.resistorResults?.find(item=>item.reference===ref);
   if(byType("power.dc-source").length!==1||byType("ground.signal").length!==1||reds.length!==1||greens.length!==1||resistors.length!==2)return null;
