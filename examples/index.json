@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 29,
-    "withoutStoredPcb": 187,
+    "withStoredPcb": 30,
+    "withoutStoredPcb": 186,
     "unexpectedFailures": []
   },
   "entries": [
@@ -36,27 +36,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "73eb9529bd8c27fc4d36c9f03f3bda89b6489c130670c2f50a4b9c89b3eb7d59",
+      "sha256": "568ffa64f0ea97f2a72abaec7e9dd610d54effe10f0bb54a101337d9cd2c8b72",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical DC voltage-divider calculation",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
+      "pcbStatus": "stored",
+      "pcbParts": 3,
+      "pcbPads": 6,
+      "pcbRoutes": 3,
       "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
         {
           "reference": "GND",
           "libraryId": "ground.signal"
