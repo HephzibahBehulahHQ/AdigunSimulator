@@ -215,16 +215,16 @@
       "value": "5.76 V DC output; external load connection",
       "position": {
         "breadboard": [
-          700,
-          130
+          580,
+          220
         ],
         "schematic": [
-          700,
-          130
+          580,
+          220
         ],
         "pcb": [
-          700,
-          130
+          580,
+          220
         ]
       }
     }
@@ -941,7 +941,8 @@
         },
         "limitations": [
           "Pad size and 1.2 mm drill are project layout choices based on TI's lead envelope; board-house drill, annular-ring, thermal and electrical review is required before fabrication.",
-          "The tab's thermal mounting is not included in this two-dimensional board model."
+          "The tab's thermal mounting is not included in this two-dimensional board model.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
         ]
       },
       {
@@ -955,7 +956,8 @@
           "2": "GND"
         },
         "limitations": [
-          "The 12 mm lead spacing is a board layout choice for formed axial leads; maintain body clearance to the inductor and regulator."
+          "The 12 mm lead spacing is a board layout choice for formed axial leads; maintain body clearance to the inductor and regulator.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
         ]
       },
       {
@@ -969,7 +971,8 @@
           "2": "VOUT"
         },
         "limitations": [
-          "Bourns rates current and saturation as typical values; this analytical example is not a thermal or saturation qualification."
+          "Bourns rates current and saturation as typical values; this analytical example is not a thermal or saturation qualification.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
         ]
       },
       {
@@ -983,7 +986,8 @@
           "2": "GND"
         },
         "limitations": [
-          "The datasheet's high-frequency ripple rating is 555 mA; the present average/ripple estimate does not model capacitor ESR or lifetime."
+          "The datasheet's high-frequency ripple rating is 555 mA; the present average/ripple estimate does not model capacitor ESR or lifetime.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
         ]
       },
       {
@@ -997,7 +1001,8 @@
           "2": "GND"
         },
         "limitations": [
-          "The 25.4 mm lead span is a project layout choice for straight axial leads; verify resistor temperature and airflow in the actual enclosure."
+          "The 25.4 mm lead span is a project layout choice for straight axial leads; verify resistor temperature and airflow in the actual enclosure.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
         ]
       },
       {
@@ -1011,7 +1016,8 @@
           "2": "FB"
         },
         "limitations": [
-          "10 mm lead spacing is a board layout choice; verify the exact ordering code against the supplier listing."
+          "10 mm lead spacing is a board layout choice; verify the exact ordering code against the supplier listing.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
         ]
       },
       {
@@ -1025,7 +1031,8 @@
           "2": "GND"
         },
         "limitations": [
-          "10 mm lead spacing is a board layout choice; verify the exact ordering code against the supplier listing."
+          "10 mm lead spacing is a board layout choice; verify the exact ordering code against the supplier listing.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
         ]
       },
       {
@@ -1086,43 +1093,6 @@
       }
     ],
     "netClassRules": [],
-    "keepouts": [],
-    "powerLayoutReview": {
-      "declaredInputVoltageV": 12,
-      "declaredOutputVoltageV": 5.7564,
-      "declaredLayoutCurrentLimitA": 0.3,
-      "checklist": [
-        {
-          "id": "input-connector",
-          "label": "VIN/GND input connector pads are identified and wired to the regulator input and return",
-          "status": "pass"
-        },
-        {
-          "id": "switch-loop",
-          "label": "Switch-node path is limited to U1 SW, D1 cathode, and L1 input",
-          "status": "pass"
-        },
-        {
-          "id": "output-path",
-          "label": "L1 output feeds C1, RLOAD, feedback divider, and J2 with the declared high-current width",
-          "status": "pass"
-        },
-        {
-          "id": "feedback",
-          "label": "U1 FB senses the RFB1/RFB2 midpoint between VOUT and GND",
-          "status": "pass"
-        },
-        {
-          "id": "return",
-          "label": "Input, diode, capacitor, load, divider, and output returns share GND",
-          "status": "pass"
-        },
-        {
-          "id": "device-rating",
-          "label": "Bourns inductor typical Irms and Isat exceed the estimated current envelope",
-          "status": "pass"
-        }
-      ]
-    }
+    "keepouts": []
   }
 }
