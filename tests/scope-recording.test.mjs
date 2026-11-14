@@ -18,6 +18,17 @@ test('LED current limiter has a constant DC trace and explains why it does not o
  }
 });
 
+test('polarity indicator, pushbutton LED and latching LED expose only their solved DC nodes',async()=>{
+ const cases=[['002-two-led-polarity-indicator','RED_A',2],['003-pushbutton-led','LED_A',0],['004-latching-led-switch','LED_A',2]];
+ for(const [name,probe,expected] of cases){const p=await load(name),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);assert.equal(a.state,'complete',name);assert.equal(timeline?.kind,'dc',name);const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},trace=scopeTrace(p,a,live,probe);assert.equal(trace?.kind,'dc',name);assert.equal(trace.voltage,expected,name);assert.equal(trace.points[0][1],trace.points[1][1],name);}
+ const push=await load('003-pushbutton-led');push.components.find(c=>c.libraryId==='input.pushbutton').value='Pressed';const pressed=runProjectAnalysis(push),timeline=createFeedbackTimeline(push,pressed),ledA=push.nets.find(n=>n.endpoints.includes('led-1:A')).id;assert.equal(timeline?.frame(0).nodes[ledA],2);assert.ok(pressed.result.ledCurrentA>0);
+ const latched=await load('004-latching-led-switch');latched.components.find(c=>c.libraryId==='input.spdt-switch').value='Position B';const off=runProjectAnalysis(latched),offTimeline=createFeedbackTimeline(latched,off),offLedA=latched.nets.find(n=>n.endpoints.includes('led-1:A')).id;assert.equal(offTimeline?.frame(0).nodes[offLedA],0);assert.equal(off.result.ledCurrentA,0);
+});
+
+test('invalid wiring blocks DC scope records and retains the model repair message',async()=>{
+ const p=await load('003-pushbutton-led');p.nets=p.nets.map(n=>({...n,endpoints:n.endpoints.filter(e=>e!=='switch-1:1')})).filter(n=>n.endpoints.length);const analysis=runProjectAnalysis(p);assert.notEqual(analysis.state,'complete');assert.match(analysis.message,/Wire source positive through the pushbutton/);assert.equal(createFeedbackTimeline(p,analysis),null);
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);
