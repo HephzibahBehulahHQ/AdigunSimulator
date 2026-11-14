@@ -14,7 +14,7 @@ import { createAccountClient, createAccountSession } from "./js/account-auth.mjs
 import { createAccountUi } from "./js/account-ui.mjs";
 import { createCloudProjectStore } from "./js/cloud-projects.mjs";
 import { createCloudProjectsUi } from "./js/cloud-projects-ui.mjs";
-import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
+import { BREADBOARD_MODEL, breadboardModelFor, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { renderNucleoG031K8Breadboard } from "./js/nucleo-g031k8.mjs";
 import { schematicPinPoint, schematicSymbolSize, schematicGeometry } from "./js/schematic-pin-layout.mjs";
 import { editComponentField, editCustomProperties } from "./js/component-edit.mjs";
@@ -794,17 +794,24 @@ function pcbAirwireSvg(project, unavailable = new Set()) {
 }
 
 function breadboardBoardSvg(project) {
-  const holes = breadboardHoleIds().map((id) => {
-    const { x, y } = breadboardHolePoint(id);
+  const model = breadboardModelFor(project?.breadboard?.model);
+  const holes = breadboardHoleIds(model).map((id) => {
+    const { x, y } = breadboardHolePoint(id, model);
     const rail = /^(TP|TM|BP|BM)/.test(id);
     return `<g class="board-hole-target" data-breadboard-hole="${id}" role="button" aria-label="Place selected component pin at ${id}" tabindex="-1"><circle class="board-hole-hit" cx="${x}" cy="${y}" r="7"/><circle class="board-hole ${rail ? "rail-hole" : ""}" cx="${x}" cy="${y}" r="${rail ? 3.1 : 2.1}"/></g>`;
   }).join("");
-  return `<svg class="breadboard-art" viewBox="0 0 680 300" preserveAspectRatio="none" role="img" aria-label="Generic thirty-column breadboard with 300 terminal holes, 120 rail holes and four split rails">
+  const railStart = breadboardHolePoint("TP1", model).x;
+  const railEnd = breadboardHolePoint(`TP${model.railColumns}`, model).x;
+  const railBreakStart = model.railSegmentLength ? breadboardHolePoint(`TP${model.railSegmentLength}`, model).x : railEnd;
+  const railBreakEnd = model.railSegmentLength ? breadboardHolePoint(`TP${model.railSegmentLength + 1}`, model).x : railEnd;
+  const railPath = (y) => model.railsContinuous ? `M${railStart} ${y} H${railEnd}` : `M${railStart} ${y} H${railBreakStart} M${railBreakEnd} ${y} H${railEnd}`;
+  const railBreak = model.railsContinuous ? "" : `<path class="board-rail-break" d="M340 49 V73 M340 227 V251"/>`;
+  return `<svg class="breadboard-art" viewBox="0 0 680 300" preserveAspectRatio="none" role="img" aria-label="${escape(model.manufacturerPartNumber ?? "Legacy breadboard")} with ${model.terminalHoleCount} terminal holes, ${model.railHoleCount} rail holes and ${model.railsContinuous ? "continuous" : "split"} rails">
     <rect class="board-plate" x="34" y="38" width="612" height="224" rx="13"/>
     <path class="board-trench" d="M48 151 H632"/>
-    <path class="board-rail-positive" d="M54 54 H330 M350 54 H626 M54 232 H330 M350 232 H626"/>
-    <path class="board-rail-negative" d="M54 68 H330 M350 68 H626 M54 246 H330 M350 246 H626"/>
-    <path class="board-rail-break" d="M340 49 V73 M340 227 V251"/>
+    <path class="board-rail-positive" d="${railPath(54)} ${railPath(232)}"/>
+    <path class="board-rail-negative" d="${railPath(68)} ${railPath(246)}"/>
+    ${railBreak}
     <g class="board-hole-field">${holes}</g>
     ${breadboardPackageSvg(project)}
     <g class="board-markings"><text x="39" y="58">+</text><text x="39" y="72">−</text><text x="39" y="236">+</text><text x="39" y="250">−</text><text x="340" y="158">CENTER TRENCH</text></g>
@@ -872,15 +879,16 @@ function breadboardPackageSvg(project) {
 function breadboardWireSvg(project) {
   const config = project.breadboard;
   if (!config || !Array.isArray(config.jumpers)) return "";
+  const model = breadboardModelFor(config.model);
   const netByEndpoint = new Map();
   for (const net of project.nets ?? []) for (const endpoint of net.endpoints ?? []) netByEndpoint.set(endpoint, net.id);
   const netForHole = (hole) => {
-    const endpoint = Object.entries(config.pinHoles ?? {}).find(([, assigned]) => normalizeBreadboardHole(assigned) === hole)?.[0];
+    const endpoint = Object.entries(config.pinHoles ?? {}).find(([, assigned]) => normalizeBreadboardHole(assigned, model) === hole)?.[0];
     return endpoint ? netByEndpoint.get(endpoint) : undefined;
   };
   const paths = config.jumpers.map((jumper, index) => {
-    const from = normalizeBreadboardHole(jumper.from), to = normalizeBreadboardHole(jumper.to);
-    const start = from && breadboardHolePoint(from), end = to && breadboardHolePoint(to);
+    const from = normalizeBreadboardHole(jumper.from, model), to = normalizeBreadboardHole(jumper.to, model);
+    const start = from && breadboardHolePoint(from, model), end = to && breadboardHolePoint(to, model);
     if (!start || !end) return "";
     const netId = netForHole(from) ?? netForHole(to);
     const highlight = netId && netId === state.selectedNetId ? " is-net-highlight" : "";
@@ -893,13 +901,14 @@ function breadboardWireSvg(project) {
 function breadboardPinMarkers(project) {
   const config = project.breadboard;
   if (!config?.pinHoles) return "";
+  const model = breadboardModelFor(config.model);
   const netByEndpoint = new Map();
   for (const net of project.nets ?? []) for (const endpoint of net.endpoints ?? []) netByEndpoint.set(endpoint, net.id);
   return Object.entries(config.pinHoles).map(([endpoint, rawHole]) => {
-    const hole = normalizeBreadboardHole(rawHole), split = endpoint.indexOf(":");
+    const hole = normalizeBreadboardHole(rawHole, model), split = endpoint.indexOf(":");
     const component = project.components.find((item) => item.instanceId === endpoint.slice(0, split));
     if (!hole || !component) return "";
-    const pin = endpoint.slice(split + 1), part = findLibraryPart(component.libraryId), point = breadboardHolePoint(hole);
+    const pin = endpoint.slice(split + 1), part = findLibraryPart(component.libraryId), point = breadboardHolePoint(hole, model);
     const netId = netByEndpoint.get(endpoint);
     const selected = component.instanceId === state.selectedInstanceId ? " selected" : "";
     const netSelected = netId && netId === state.selectedNetId ? " is-net-highlight" : "";
@@ -916,7 +925,7 @@ function breadboardSyncFingerprint(project) {
 function renderBreadboardControls() {
   const config = state.project.breadboard;
   const pinSelect = $("#breadboard-pin");
-  const holes = breadboardHoleIds();
+  const holes = breadboardHoleIds(breadboardModelFor(config?.model));
   const previous = pinSelect.value;
   const options = state.project.components.flatMap((component) => {
     const part = findLibraryPart(component.libraryId);
@@ -2172,7 +2181,7 @@ document.addEventListener("keydown", (event) => {
   }
   const holeTarget = event.target.closest?.("[data-breadboard-hole]");
   if (holeTarget && state.breadboardPlacementMode) {
-    const holeIds = breadboardHoleIds();
+    const holeIds = breadboardHoleIds(breadboardModelFor(state.project.breadboard?.model));
     const index = holeIds.indexOf(holeTarget.dataset.breadboardHole);
     if (["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(event.key)) {
       event.preventDefault();
@@ -2508,14 +2517,15 @@ $("#connection-form").addEventListener("submit", (event) => {
 });
 
 function assignBreadboardPin(endpoint, hole) {
-  const normalizedHole = normalizeBreadboardHole(hole);
+  const current = state.project.breadboard ?? { model: BREADBOARD_MODEL.id, pinHoles: {}, jumpers: [] };
+  const model = breadboardModelFor(current.model);
+  const normalizedHole = normalizeBreadboardHole(hole, model);
   if (!endpoint || !normalizedHole) return showDialog(t("breadboardEditor"), t("breadboardInvalidHole"));
   const [instanceId, ...pinParts] = endpoint.split(":");
   const pin = pinParts.join(":");
   const component = state.project.components.find((item) => item.instanceId === instanceId);
   if (!component || !findLibraryPart(component.libraryId)?.pins.includes(pin)) return showDialog(t("breadboardEditor"), t("breadboardUnknownPin"));
-  const current = state.project.breadboard ?? { model: BREADBOARD_MODEL.id, pinHoles: {}, jumpers: [] };
-  const next = { ...state.project, breadboard: { ...current, model: BREADBOARD_MODEL.id, pinHoles: { ...(current.pinHoles ?? {}), [endpoint]: normalizedHole }, jumpers: current.jumpers ?? [] } };
+  const next = { ...state.project, breadboard: { ...current, pinHoles: { ...(current.pinHoles ?? {}), [endpoint]: normalizedHole }, jumpers: current.jumpers ?? [] } };
   commitBreadboardEdit(next, `[BREADBOARD] Placed ${endpoint} at ${normalizedHole}.`);
   return true;
 }
@@ -2535,11 +2545,12 @@ $("#breadboard-placement-list").addEventListener("click", (event) => {
 });
 $("#breadboard-jumper-form").addEventListener("submit", (event) => {
   event.preventDefault();
-  const from = normalizeBreadboardHole($("#breadboard-jumper-from").value);
-  const to = normalizeBreadboardHole($("#breadboard-jumper-to").value);
-  if (!from || !to || from === to) return showDialog(t("breadboardEditor"), t("breadboardInvalidJumper"));
   const current = state.project.breadboard ?? { model: BREADBOARD_MODEL.id, pinHoles: {}, jumpers: [] };
-  const next = { ...state.project, breadboard: { ...current, model: BREADBOARD_MODEL.id, pinHoles: current.pinHoles ?? {}, jumpers: [...(current.jumpers ?? []), { from, to }] } };
+  const model = breadboardModelFor(current.model);
+  const from = normalizeBreadboardHole($("#breadboard-jumper-from").value, model);
+  const to = normalizeBreadboardHole($("#breadboard-jumper-to").value, model);
+  if (!from || !to || from === to) return showDialog(t("breadboardEditor"), t("breadboardInvalidJumper"));
+  const next = { ...state.project, breadboard: { ...current, pinHoles: current.pinHoles ?? {}, jumpers: [...(current.jumpers ?? []), { from, to }] } };
   $("#breadboard-jumper-from").value = "";
   $("#breadboard-jumper-to").value = "";
   commitBreadboardEdit(next, `[BREADBOARD] Added physical jumper ${from}–${to}.`);

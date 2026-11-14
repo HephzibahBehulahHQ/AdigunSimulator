@@ -36,15 +36,15 @@ The simulator blocks the supported LM2596 estimate when these required connectio
 
 **PCB:** The current project records nine source-backed physical part entries, 21 pads, and 17 routes. The PCB DRC and manufacturing export checks passed in the PCB remediation release. GND and SCOPE1 are explicitly virtual in the PCB view. These records do not qualify the breadboard view.
 
-**Breadboard:** Not accepted. The current generic 400-point board has no assigned pin holes or jumpers. Diagnostics reports 21 missing physical pin assignments and names them by component reference. Only GND and SCOPE1 are declared virtual. No breadboard wiring print has been generated and visually inspected.
+**Breadboard:** Not accepted. The selected board is the source-backed BusBoard BB400: 30 terminal columns, 2.54 mm hole pitch, and four continuous 25-hole rails. The layout currently has no assigned pin holes or jumpers. Diagnostics reports 21 missing physical pin assignments and names them by component reference. Only GND and SCOPE1 are declared virtual. A one-page breadboard print was generated and visually inspected; it shows unmapped parts and no physical wiring, so it fails acceptance.
 
-The TI package drawing for U1 specifies four lead intervals of 1.45–1.96 mm; the generic breadboard model uses a 2.54 mm grid. This pitch difference means a direct pin-to-hole map is not verified. A sourced/measured adapter or another documented physical layout is required before claiming U1 is correctly placed on this breadboard. Do not silently bend leads or invent an adapter footprint.
+The TI package drawing for U1 specifies adjacent lead intervals of 1.45–1.96 mm and lead widths of 0.76–1.02 mm. The BB400 has 2.54 mm hole pitch and is specified for 0.4–0.7 mm insertion wire. A direct pin-to-hole map is not verified. A sourced/measured adapter or another documented physical layout is required before claiming U1 is correctly placed on this breadboard. Do not silently bend leads or invent an adapter footprint.
 
-**Schematic:** The native project contains the labeled LM2596 nets above. A schematic print/export still needs to be generated and inspected against the native project.
+**Schematic:** Production run after the schematic reflow showed 19 routed wire segments and zero blocked wires. A one-page schematic print was generated and visually inspected against the native project.
 
-**Scope:** The estimate is analytical and may provide model-backed scope data. Runtime verification that Run opens the floating scope launcher and that the plotted values match the current project remains outstanding.
+**Scope:** Production Run completed, exposed the floating scope launcher, and opened a scope with model-backed VOUT/GND/VIN traces. The scope identifies the bounded LM2596 output-ripple model and its limits; browser page errors were zero.
 
-**Print and manufacturing files:** The PCB’s fabrication output is separate from the three visual print formats. Breadboard and schematic print artifacts, plus visual review of all three formats, remain outstanding. Do not treat a mocked print call as a reviewed artifact.
+**PCB and print:** The live board shows nine mapped footprints, 21 pads, and 17 copper routes across two layers (9 front, 8 back); GND and SCOPE1 are explicitly virtual. Its one-page print was generated and visually inspected. The PCB fabrication output remains separate from the three visual print formats. Do not treat a print image as fabrication sign-off.
 
 ## Model limits
 
@@ -52,6 +52,6 @@ The estimate uses steady-state buck volt-second balance, CCM inductor ripple, an
 
 ## Acceptance status — 2026-11-14
 
-**Not accepted.** PCB physical data and diagnostics have been improved, but the breadboard map is incomplete and the runtime oscilloscope launcher and required view print artifacts have not yet been visually verified. Continue with this example until the remaining evidence is complete or a specific unsupported physical capability and its resolution are documented.
+**Not accepted.** The schematic, scope, PCB view, and all three one-page visual prints have been checked. The breadboard map remains empty and its print visibly fails the physical-placement and wiring gate. The documented next step is a verified physical solution for U1, then source-backed placements and jumpers for the remaining breadboard interfaces and components. Continue with this example until the breadboard is physically coherent or a specific unsupported capability and its resolution are documented.
 
-The all-project acceptance gate is in [AGENTS.md](../../AGENTS.md). TI mechanical/package reference: [LM2596 datasheet, mechanical data NEB0005E](https://www.ti.com/lit/ds/symlink/lm2596.pdf).
+The all-project acceptance gate is in [AGENTS.md](../../AGENTS.md). References: [BusBoard BB400 datasheet](https://www.busboard.com/documents/datasheets/BPS-DAT-%28BB400%29-Datasheet.pdf) and [TI LM2596 datasheet, mechanical data NEB0005E](https://www.ti.com/lit/ds/symlink/lm2596.pdf).
