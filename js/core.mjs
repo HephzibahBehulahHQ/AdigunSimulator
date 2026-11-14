@@ -587,15 +587,15 @@ export function validateProject(project) {
     const part = findLibraryPart(item.libraryId);
     if (!part) continue;
     for (const pin of part.pins) {
-      if (!endpointOwners.has(endpoint(item, pin))) warnings.push({ rule: "UNCONNECTED_PIN", message: `${item.reference} pin ${pin} is not connected to a project net.` });
+      if (!endpointOwners.has(endpoint(item, pin))) warnings.push({ rule: "UNCONNECTED_PIN", message: `${item.reference} pin ${pin} is not connected to a project net.`, fix: `Connect ${item.reference} pin ${pin} to the intended net with a schematic wire, then validate and run again.` });
     }
     if (item.libraryId === "power.dc-source") {
       const sourceIsShorted = nets.some((net) => Array.isArray(net?.endpoints) && net.endpoints.includes(endpoint(item, "+")) && net.endpoints.includes(endpoint(item, "-")));
-      if (sourceIsShorted) errors.push({ rule: "SOURCE_SHORT", message: `${item.reference} positive and negative pins are connected to the same net.` });
+      if (sourceIsShorted) errors.push({ rule: "SOURCE_SHORT", message: `${item.reference} positive and negative pins are connected to the same net.`, fix: `Separate ${item.reference} positive and return nets, then inspect each connected branch before running again.` });
     }
   }
   if (components.length && !components.every(item=>LADDER_MODELS[item?.libraryId]) && !components.some((item) => item?.libraryId === "ground.signal")) {
-    warnings.push({ rule: "NO_REFERENCE", message: "The project has no signal-ground reference component." });
+    warnings.push({ rule: "NO_REFERENCE", message: "The project has no signal-ground reference component.", fix: "For ground-referenced DC analysis, add a signal-ground symbol to the intended return node. Keep an intentionally floating design only when the selected model supports that reference scheme." });
   }
   errors.push(...validateProjectPalette(project));
   for(const c of components)if(LADDER_MODELS[c?.libraryId]){try{ladderParameters(c);}catch(error){errors.push({rule:'LADDER_PARAMETER',message:`${c.reference}: ${error.message}`});}}
