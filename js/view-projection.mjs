@@ -1,8 +1,27 @@
-import { getViewReconciliationIssues, validateProject } from "./core.mjs";
+import { findLibraryPart, getViewReconciliationIssues, validateProject } from "./core.mjs";
 
 export function projectComponentsForView(project,view) {
   const reconciliationItems=getViewReconciliationIssues(project,view),excluded=new Set(reconciliationItems.map(item=>item.instanceId));
   return {components:(project?.components??[]).filter(component=>!excluded.has(component.instanceId)),reconciliationItems};
+}
+
+// A project-specific mapping satisfies the display view only when every library pin
+// has an explicit location. Generic capability flags never create pads or holes.
+export function unresolvedComponentsForDisplay(project,view) {
+ return getViewReconciliationIssues(project,view).filter(issue=>{
+  const component=project?.components?.find(item=>item.instanceId===issue.instanceId),part=component&&findLibraryPart(component.libraryId);
+  if(!component||!part?.pins?.length)return true;
+  if(view==='breadboard'){
+   const holes=project.breadboard?.pinHoles??{};
+   return !part.pins.every(pin=>typeof holes[`${component.instanceId}:${pin}`]==='string'&&holes[`${component.instanceId}:${pin}`].length>0);
+  }
+  if(view==='pcb'){
+   const fabrication=project.pcbFabrication,physicalPart=fabrication?.parts?.find(item=>item.instanceId===component.instanceId);
+   const mappedPads=fabrication?.pads?.filter(pad=>pad.instanceId===component.instanceId)??[];
+   return !(physicalPart?.footprint&&physicalPart?.manufacturerPartNumber&&physicalPart?.sourceUrl&&mappedPads.length>=part.pins.length);
+  }
+  return true;
+ });
 }
 
 export function runUnsupportedBreadboardPackage(project) {
