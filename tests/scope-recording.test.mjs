@@ -37,6 +37,14 @@ test('USB LED, NTC divider and LDR examples expose measured analytical DC output
  assert.equal(bright.result.ledOn,false);assert.ok(Math.abs(timeline?.frame(0).nodes[ledA])<1e-9);
 });
 
+test('digital event projects expose sampled pin transitions as logic-level scope traces',async()=>{
+ for(const name of ['supplemental-digital-event-simulation','supplemental-mux-event-simulation','supplemental-d-flip-flop-events']){
+  const p=await load(name),analysis=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,analysis);assert.equal(analysis.state,'complete',name);assert.equal(analysis.scopeRecording.units,'logic',name);assert.equal(timeline.kind,'transient',name);
+  const channel=analysis.result.probeNets[0],live={status:'ready',kind:'transient',sampleIndex:timeline.length-1,data:timeline.frame(timeline.length-1)},trace=scopeTrace(p,analysis,live,channel);assert.equal(trace.units,'logic',name);assert.equal(trace.duration,analysis.result.stopTimeNs*1e-9,name);
+  assert.ok(trace.points.every(([time,value])=>Number.isFinite(time)&&[0,1].includes(value)),name);assert.ok(trace.points.some((point,index)=>index>0&&point[0]===trace.points[index-1][0]&&point[1]!==trace.points[index-1][1]),name);
+ }
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);
