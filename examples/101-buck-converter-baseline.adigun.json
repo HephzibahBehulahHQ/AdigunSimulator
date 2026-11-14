@@ -1182,6 +1182,16 @@
   },
   "breadboard": {
     "model": "generic-400-30",
+    "mappingNotes": [
+      {
+        "instanceId": "controller",
+        "reference": "U1",
+        "view": "breadboard",
+        "reason": "TI's NEB0005E TO-220 drawing specifies adjacent lead intervals of 1.45–1.96 mm and lead widths of 0.76–1.02 mm. This generic board model has no sourced hole-pitch/contact specification, and no adapter is mapped for U1.",
+        "fix": "Identify the exact solderless board, then source or design a five-pin interposer that maps the LM2596 leads to its contacts; verify pin fit and current path before assigning an adapter-backed hole map.",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm2596.pdf"
+      }
+    ],
     "pinHoles": {},
     "jumpers": [],
     "nonPhysicalItems": [
