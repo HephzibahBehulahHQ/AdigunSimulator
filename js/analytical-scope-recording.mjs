@@ -13,6 +13,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
  if(['rc-low-pass','rc-high-pass','rl-low-pass','passive-tone-control'].includes(kind))return frequencyResponseRecording(project,r);
  if(kind==='active-low-pass')return activeLowPassRecording(project,r);
+ if(kind==='npn-common-emitter')return commonEmitterRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
  if(!timer)return null;
@@ -118,6 +119,29 @@ function frequencyResponseRecording(project,r){
  return {kind:'analytical-output-recording',model:`${kind} steady-state sine at ${frequency} Hz (frequency-domain estimate, not transient simulation)`,preferredNet:output,samples};
 }
 
+
+
+function commonEmitterRecording(project,r){
+ const sources=project.components.filter(c=>c.libraryId==='power.dc-source'),inputs=project.components.filter(c=>c.libraryId==='power.ac-source'),transistors=project.components.filter(c=>c.libraryId==='active.npn-small-signal'),resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),capacitors=project.components.filter(c=>c.libraryId==='passive.capacitor'),grounds=project.components.filter(c=>c.libraryId==='ground.signal');
+ if(sources.length!==1||inputs.length!==1||transistors.length!==1||resistors.length!==4||capacitors.length!==2||grounds.length!==1||!Array.isArray(r.sineTrace)||r.sineTrace.length!==9)return null;
+ const net=(c,p)=>project.nets.find(n=>n.endpoints.includes(`${c.instanceId}:${p}`))?.id,[supplySource,inputSource,transistor,ground]=[sources[0],inputs[0],transistors[0],grounds[0]],between=(c,a,b)=>net(c,'1')===a&&net(c,'2')===b||net(c,'2')===a&&net(c,'1')===b;
+ const gnd=net(ground,'0'),vcc=net(supplySource,'+'),base=net(transistor,'B'),collector=net(transistor,'C'),emitter=net(transistor,'E'),input=net(inputSource,'+');
+ if(!gnd||!vcc||!base||!collector||!emitter||!input||net(supplySource,'-')!==gnd||net(inputSource,'-')!==gnd)return null;
+ const biasTop=resistors.find(c=>between(c,vcc,base)),biasBottom=resistors.find(c=>c!==biasTop&&between(c,base,gnd)),collectorRes=resistors.find(c=>c!==biasTop&&c!==biasBottom&&between(c,vcc,collector)),emitterRes=resistors.find(c=>c!==biasTop&&c!==biasBottom&&c!==collectorRes&&between(c,emitter,gnd)),load=resistors.find(c=>![biasTop,biasBottom,collectorRes,emitterRes].includes(c));
+ const inputCap=capacitors.find(c=>[net(c,'1'),net(c,'2')].includes(input)&&[net(c,'1'),net(c,'2')].includes(base)),outputCap=capacitors.find(c=>c!==inputCap&&[net(c,'1'),net(c,'2')].includes(collector)),output=inputCap&&outputCap?(net(outputCap,'1')===collector?net(outputCap,'2'):net(outputCap,'1')):null;
+ if(!biasTop||!biasBottom||!collectorRes||!emitterRes||!inputCap||!outputCap||!output||!between(load,output,gnd)||!([net(inputCap,'1'),net(inputCap,'2')].includes(input)&&[net(inputCap,'1'),net(inputCap,'2')].includes(base)))return null;
+ const supplyMatch=String(supplySource.value??'').trim().match(/^([\\d.eE+-]+)\\s*(m?V)$/),supplyVoltage=supplyMatch?Number(supplyMatch[1])*(supplyMatch[2]==='mV'?.001:1):NaN;
+ if(!Number.isFinite(supplyVoltage)||!Number.isFinite(r.baseVoltageV)||!Number.isFinite(r.emitterVoltageV)||!Number.isFinite(r.collectorVoltageV)||!Number.isFinite(r.frequencyHz)||r.frequencyHz<=0||!Number.isFinite(r.inputAmplitudeV)||!Number.isFinite(r.gainVPerV))return null;
+ let previous=-Infinity;
+ for(let i=0;i<r.sineTrace.length;i++){
+  const sample=r.sineTrace[i],expectedInput=r.inputAmplitudeV*Math.sin(2*Math.PI*r.frequencyHz*sample.timeS),expectedOutput=r.gainVPerV*expectedInput;
+  if(![sample.timeS,sample.inputV,sample.outputV,sample.collectorVoltageV].every(Number.isFinite)||sample.timeS<=previous||Math.abs(sample.inputV-expectedInput)>1e-9||Math.abs(sample.outputV-expectedOutput)>1e-9||Math.abs(sample.collectorVoltageV-(r.collectorVoltageV+sample.outputV))>1e-9)return null;
+  previous=sample.timeS;
+ }
+ if(r.sineTrace[0].timeS!==0||Math.abs(r.sineTrace.at(-1).timeS-1/r.frequencyHz)>1e-9)return null;
+ const samples=r.sineTrace.map(sample=>({timeSeconds:sample.timeS,nodeVoltages:{[gnd]:0,[vcc]:supplyVoltage,[input]:sample.inputV,[base]:r.baseVoltageV+sample.inputV,[emitter]:r.emitterVoltageV,[collector]:sample.collectorVoltageV,[output]:sample.outputV}}));
+ return {kind:'analytical-output-recording',model:`NPN common-emitter midband sine at ${r.frequencyHz} Hz (ideal small-signal estimate, not transient simulation)`,preferredNet:output,samples};
+}
 
 function supercapHoldUpRecording(project,r){
  const source=project.components.filter(c=>c.libraryId==='power.dc-source'),diodes=project.components.filter(c=>c.libraryId==='diode.schottky'),capacitors=project.components.filter(c=>c.libraryId==='passive.supercapacitor'),resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),grounds=project.components.filter(c=>c.libraryId==='ground.signal');
