@@ -135,3 +135,8 @@ test('battery comparator exposes actual solved DC nodes in the scope above and b
   assert.ok(Object.values(live.data.wires).every(w=>w.reason===null));assert.equal(scopeTrace(p,a,{...live,status:'updating'},output),null);
  }
 });
+
+test('RC, RL and tone-control frequency responses produce labeled steady-state sine estimates',async()=>{
+ const cases=[['012-rc-low-pass','FILTER_OUT'],['013-rc-high-pass','HP_OUT'],['014-passive-tone-control','OUTPUT'],['supplemental-rl-low-pass','FILTER_OUT']];
+ for(const [name,net] of cases){const p=await load(name),analysis=runProjectAnalysis(p),record=analysis.scopeRecording;assert.equal(analysis.state,'complete',name);assert.ok(record,name);assert.equal(record.preferredNet,net,name);assert.match(record.model,/frequency-domain estimate, not transient simulation/,name);const trace=scopeTrace(p,analysis,{status:'ready',kind:'transient',sampleIndex:record.samples.length-1,data:{available:true,nodes:record.samples.at(-1).nodeVoltages}},net);assert.equal(trace.kind,'transient',name);assert.ok(trace.points.length>400,name);assert.ok(trace.points.some(([,v])=>v>0),name);assert.ok(trace.points.some(([,v])=>v<0),name);}
+});

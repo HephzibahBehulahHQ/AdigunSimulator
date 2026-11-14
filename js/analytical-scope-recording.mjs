@@ -6,6 +6,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
+ if(['rc-low-pass','rc-high-pass','rl-low-pass','passive-tone-control'].includes(kind))return frequencyResponseRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
  if(!timer)return null;
@@ -75,3 +76,39 @@ function firstOrderRecording(project,r){
  });
  return {kind:'analytical-output-recording',model:inductive?'Ideal RL step response':`Ideal RC ${discharge?'discharge':'charge'} response`,preferredNet:output,samples};
 }
+
+// Reconstruct a steady-state sine from the response point the analytical model
+// actually solved. This is a frequency-domain estimate, not a transient solve.
+function frequencyResponseRecording(project,r){
+ const kind=r.kind,source=project.components.filter(c=>c.libraryId==='power.ac-source'),grounds=project.components.filter(c=>c.libraryId==='ground.signal');
+ if(source.length!==1||grounds.length!==1)return null;
+ const inputPart=source[0],input=project.nets.find(n=>n.endpoints.includes(`${inputPart.instanceId}:+`))?.id,returnNet=project.nets.find(n=>n.endpoints.includes(`${inputPart.instanceId}:-`))?.id,ground=project.nets.find(n=>n.endpoints.includes(`${grounds[0].instanceId}:0`))?.id;
+ if(!input||!returnNet||returnNet!==ground)return null;
+ const response=Array.isArray(r.samples)?r.samples:Array.isArray(r.response)?r.response:[];
+ const cutoff=r.cutoffHz,point=response.filter(s=>[s.frequencyHz,s.gain,s.phaseRad,s.inputAmplitudeV??r.inputAmplitudeV,s.outputAmplitudeV].every(Number.isFinite)&&s.frequencyHz>0).sort((a,b)=>Math.abs(Math.log(a.frequencyHz/cutoff))-Math.abs(Math.log(b.frequencyHz/cutoff)))[0];
+ if(!Number.isFinite(cutoff)||cutoff<=0||!point)return null;
+ const net=(component,pin)=>project.nets.find(n=>n.endpoints.includes(`${component.instanceId}:${pin}`))?.id;
+ let output;
+ if(kind==='rc-low-pass'){
+  const resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),caps=project.components.filter(c=>c.libraryId==='passive.capacitor');
+  if(resistors.length!==1||caps.length!==1||net(resistors[0],'1')!==input||net(resistors[0],'2')!==net(caps[0],'1')||net(caps[0],'2')!==returnNet)return null;
+  output=net(caps[0],'1');
+ }else if(kind==='rc-high-pass'){
+  const resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),caps=project.components.filter(c=>c.libraryId==='passive.capacitor');
+  if(resistors.length!==1||caps.length!==1||net(caps[0],'1')!==input||net(caps[0],'2')!==net(resistors[0],'1')||net(resistors[0],'2')!==returnNet)return null;
+  output=net(resistors[0],'1');
+ }else if(kind==='rl-low-pass'){
+  const resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),inductors=project.components.filter(c=>c.libraryId==='passive.inductor');
+  if(resistors.length!==1||inductors.length!==1||net(resistors[0],'1')!==input||net(resistors[0],'2')!==net(inductors[0],'1')||net(inductors[0],'2')!==returnNet)return null;
+  output=net(inductors[0],'1');
+ }else{
+  const pot=project.components.find(c=>c.libraryId==='passive.potentiometer'),cap=project.components.find(c=>c.libraryId==='passive.capacitor'),load=project.components.find(c=>c.libraryId==='passive.resistor');
+  if(!pot||!cap||!load||net(pot,'1')!==input||net(pot,'2')!==net(cap,'1')||net(pot,'2')!==net(load,'1')||net(cap,'2')!==returnNet||net(load,'2')!==returnNet)return null;
+  output=net(pot,'2');
+ }
+ const inputAmplitude=point.inputAmplitudeV??r.inputAmplitudeV,outputAmplitude=point.outputAmplitudeV??inputAmplitude*point.gain,frequency=point.frequencyHz,phase=point.phaseRad;
+ if(!output||!Number.isFinite(inputAmplitude)||inputAmplitude<0||!Number.isFinite(outputAmplitude)||outputAmplitude<0||!Number.isFinite(phase))return null;
+ const duration=4/frequency,samples=Array.from({length:481},(_,i)=>{const timeSeconds=duration*i/480,angle=2*Math.PI*frequency*timeSeconds;return {timeSeconds,nodeVoltages:{[returnNet]:0,[input]:inputAmplitude*Math.sin(angle),[output]:outputAmplitude*Math.sin(angle+phase)}};});
+ return {kind:'analytical-output-recording',model:`${kind} steady-state sine at ${frequency} Hz (frequency-domain estimate, not transient simulation)`,preferredNet:output,samples};
+}
+
