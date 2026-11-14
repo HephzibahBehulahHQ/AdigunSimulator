@@ -9,6 +9,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='rlc-step-response')return rlcStepRecording(project,r);
  if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
  if(['bridge-rectifier-waveform','bridge-smoothing-capacitor'].includes(kind))return rectifierWaveformRecording(project,r);
+ if(kind==='tvs-pulse-clamp')return tvsPulseRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
  if(['rc-low-pass','rc-high-pass','rl-low-pass','passive-tone-control'].includes(kind))return frequencyResponseRecording(project,r);
  if(kind==='active-low-pass')return activeLowPassRecording(project,r);
@@ -184,4 +185,21 @@ function rectifierWaveformRecording(project,r){
  for(const sample of r.waveform){if(!Number.isFinite(sample.timeS)||sample.timeS<=previous||!Number.isFinite(sample.inputVoltage)||!Number.isFinite(sample.outputVoltage)||(smooth&&!Number.isFinite(sample.rectifiedVoltage)))return null;previous=sample.timeS;}
  const samples=r.waveform.map(sample=>({timeSeconds:sample.timeS,nodeVoltages:{[returnNet]:0,[output]:sample.outputVoltage}}));
  return {kind:'analytical-output-recording',model:`${smooth?'Bridge smoothing-capacitor':'Bridge rectifier'} output waveform (analytical model samples)`,preferredNet:output,samples};
+}
+
+function tvsPulseRecording(project,r){
+ const sources=project.components.filter(c=>c.libraryId==='power.dc-source'),resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),tvs=project.components.filter(c=>c.libraryId==='protection.tvs-ideal'),grounds=project.components.filter(c=>c.libraryId==='ground.signal');
+ if(sources.length!==1||resistors.length!==2||tvs.length!==1||grounds.length!==1)return null;
+ const net=(c,pin)=>project.nets.find(n=>n.endpoints.includes(`${c.instanceId}:${pin}`))?.id,[source,clamp,ground]=[sources[0],tvs[0],grounds[0]],input=net(source,'+'),returnNet=net(source,'-'),output=net(clamp,'K'),series=resistors.find(c=>net(c,'1')===input&&net(c,'2')===output),load=resistors.find(c=>c!==series&&net(c,'1')===output&&net(c,'2')===returnNet);
+ if(!input||!returnNet||!output||!series||!load||net(clamp,'A')!==returnNet||net(ground,'0')!==returnNet)return null;
+ const {idleVoltage,pulseVoltage,pulseWidthS,idleOutputVoltage,pulseOutputVoltage}=r;
+ if(![idleVoltage,pulseVoltage,pulseWidthS,idleOutputVoltage,pulseOutputVoltage].every(Number.isFinite)||idleVoltage<0||pulseVoltage<=idleVoltage||pulseWidthS<=0||pulseOutputVoltage<0||pulseOutputVoltage===idleOutputVoltage)return null;
+ const samples=[
+  {timeSeconds:0,nodeVoltages:{[returnNet]:0,[input]:idleVoltage,[output]:idleOutputVoltage}},
+  {timeSeconds:0,nodeVoltages:{[returnNet]:0,[input]:pulseVoltage,[output]:pulseOutputVoltage}},
+  {timeSeconds:pulseWidthS,nodeVoltages:{[returnNet]:0,[input]:pulseVoltage,[output]:pulseOutputVoltage}},
+  {timeSeconds:pulseWidthS,nodeVoltages:{[returnNet]:0,[input]:idleVoltage,[output]:idleOutputVoltage}},
+  {timeSeconds:2*pulseWidthS,nodeVoltages:{[returnNet]:0,[input]:idleVoltage,[output]:idleOutputVoltage}}
+ ];
+ return {kind:'analytical-output-recording',model:'TVS ideal rectangular pulse clamp (rise time and recovery dynamics omitted)',preferredNet:output,samples};
 }
