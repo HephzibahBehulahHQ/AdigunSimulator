@@ -45,7 +45,7 @@ test("LM2596 buck reports its incomplete breadboard map without hiding unresolve
  assert.match(diagnostic.message,/U1:.*1\.45.*1\.96/);
  assert.match(diagnostic.fix,/five-pin interposer/i);
  assert.ok(diagnostic.details.some(detail=>detail.code==="BREADBOARD_PART_MAPPING"&&detail.reference==="U1"));
- assert.match(diagnostic.message,/D1:.*1\\.20–1\\.30 mm leads.*0\\.4–0\\.7 mm insertion wire/i);
+ assert.match(diagnostic.message,/D1:.*1\.20–1\.30 mm leads.*0\.4–0\.7 mm insertion wire/i);
  assert.match(diagnostic.fix,/3 A circuit path/i);
  assert.ok(diagnostic.details.some(detail=>detail.code==="BREADBOARD_PART_MAPPING"&&detail.reference==="D1"&&detail.sourceUrl==="https://www.onsemi.com/pub/Collateral/1N5820-D.PDF"));
  assert.equal(diagnostic.details[0].endpoints.length,21);
