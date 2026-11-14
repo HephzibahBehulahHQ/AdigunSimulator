@@ -4917,7 +4917,7 @@
       "type": "Power",
       "level": "Advanced",
       "category": "Conversion and protection",
-      "sha256": "9a0b0d236570f82c507c7880ee3af9b4b6c2cb846caf60ac2a1e6042ce085925",
+      "sha256": "16581c2fef5e8844775eb8f98d7bac4f9cd31d71d03dfeebf3d31ab736aa56fe",
       "components": 14,
       "analysis": "complete",
       "engine": "TI LM2577-ADJ boost reference CCM average and ripple estimate",
