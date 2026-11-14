@@ -1,9 +1,13 @@
+Warning: truncated output (original token count: 1461)
+Total output lines: 66
+
 // Sample existing successful analytical models. These are ideal output estimates,
 // not fabricated measurements or a substitute for nonlinear transient simulation.
 export function analyticalScopeRecording(project,analysis){
  if(analysis?.state!=='complete')return null;
  const r=analysis.result,kind=r?.kind;
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
+ if(kind==='pwm-led-average')return pwmGateRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
  if(!timer)return null;
@@ -20,6 +24,12 @@ export function analyticalScopeRecording(project,analysis){
   return {timeSeconds,nodeVoltages:{[ground]:0,[power]:voltage,[output]:high?voltage:0}};
  });
  return {kind:'analytical-output-recording',model:kind==='stm32-timer-pwm'?'Ideal STM32 PWM output':'Ideal 555 output timing',preferredNet:output,samples};
+}
+
+// This is the model's ideal PWM control input, not a simulated MOSFET/LED output.
+function pwmGateRecording(project,r){
+ const p…261 tokens truncated…nds=>{const phase=((timeSeconds%period)+period)%period;return {timeSeconds,nodeVoltages:{[ground]:0,[gate]:duty===1||(duty>0&&phase<period*duty)?voltage:0}};});
+ return {kind:'analytical-output-recording',model:'Ideal PWM gate drive (analytical control input; power stage not transient-simulated)',preferredNet:gate,samples};
 }
 
 // Evaluate the same successful first-order model at display resolution. Preserve
@@ -48,3 +58,4 @@ function firstOrderRecording(project,r){
  });
  return {kind:'analytical-output-recording',model:inductive?'Ideal RL step response':`Ideal RC ${discharge?'discharge':'charge'} response`,preferredNet:output,samples};
 }
+

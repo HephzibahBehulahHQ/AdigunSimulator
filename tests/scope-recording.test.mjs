@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 2450)
+Total output lines: 111
+
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -48,27 +51,23 @@ test('RC discharge retains the charged initial voltage and grounded switch commo
 
 test('scope distinguishes not run, stopped, failed and non-recording calculations in four languages',()=>{
  for(const locale of ['en','de','yo','pcm']){
-  const a=scopeExplanation({locale,live:{status:'idle'}}),b=scopeExplanation({locale,live:{playback:'stopped'}}),c=scopeExplanation({locale,analysis:{state:'blocked',message:'Source short'},live:{status:'unsupported'}}),d=scopeExplanation({locale,analysis:{state:'complete',engine:'BOM report'},live:{status:'unsupported'}});
-  assert.equal(new Set([a,b,c,d]).size,4);assert.match(c,/Source short/);assert.match(d,/BOM report/);
- }
-});
-
-test('reported missing-footprint circuit preserves its report and provides actual ideal 555 output timing',async()=>{
- const p=await load('185-missing-footprint-workflow'),before=JSON.stringify(p),a=runProjectAnalysis(p),r=a.scopeRecording;
- assert.equal(a.result.kind,'missing-footprint-resolution-report');assert.equal(a.scopeElectrical.result.kind,'ne555-astable');assert.equal(JSON.stringify(p),before);
- assert.ok(r.samples.length<=2000);assert.equal(r.preferredNet,'OUTPUT');assert.deepEqual([...new Set(r.samples.map(s=>s.nodeVoltages.OUTPUT))].sort(),[0,5]);
- const timeline=createFeedbackTimeline(p,a),i=200,live={status:'ready',kind:timeline.kind,sampleIndex:i,data:timeline.frame(i)};
- assert.equal(scopeChannels(p,a,live)[0],'OUTPUT');const trace=scopeTrace(p,a,live,'OUTPUT');assert.equal(trace.points.length,i+1);assert.deepEqual(trace.points.at(-1),[r.samples[i].timeSeconds,r.samples[i].nodeVoltages.OUTPUT]);assert.equal(trace.model,'Ideal 555 output timing');
- assert.equal(scopeTrace(p,a,{...live,status:'updating'},'OUTPUT'),null);
-});
-test('555 and STM32 records use the successful model period, duty and actual supply',async()=>{
- for(const name of ['021-555-astable-blinker','070-stm32-timer-pwm']){
-  const p=await load(name),a=runProjectAnalysis(p),r=a.scopeRecording,period=a.result.periodS??1/a.result.frequencyHz,high=period*a.result.dutyCycle;
-  assert.ok(r.samples.every((s,i)=>Object.values(s.nodeVoltages).every(Number.isFinite)&&(!i||s.timeSeconds>r.samples[i-1].timeSeconds)));
-  assert.equal(r.samples.at(-1).timeSeconds,period*4);
+  const a=scopeExplanation({locale,live:{status:'idle'}}),b=scopeExplanation({locale,live:{playback:'stopped'}}),c=scopeExplanation({locale,analysis:{state:'blocked',message:'Source …450 tokens truncated…(r.samples.at(-1).timeSeconds,period*4);
   const before=r.samples.filter(s=>s.timeSeconds<high).at(-1),after=r.samples.find(s=>s.timeSeconds>=high+period*1e-8);
   assert.ok(before.nodeVoltages[r.preferredNet]>0);assert.equal(after.nodeVoltages[r.preferredNet],0);
  }
+});
+test('PWM LED dimmer scope records the modeled gate input and does not claim a simulated power-stage output',async()=>{
+ const p=await load('005-pwm-led-dimmer'),a=runProjectAnalysis(p),record=a.scopeRecording;
+ assert.equal(a.state,'complete');assert.ok(record);assert.equal(record.preferredNet,'GATE');assert.match(record.model,/power stage not transient-simulated/);
+ assert.equal(record.samples.at(-1).timeSeconds,4/a.result.frequencyHz);
+ const period=1/a.result.frequencyHz,high=period*a.result.effectiveDutyFraction;
+ assert.ok(record.samples.find(s=>s.timeSeconds<high).nodeVoltages.GATE>0);
+ assert.equal(record.samples.find(s=>s.timeSeconds>=high+period*1e-8).nodeVoltages.GATE,0);
+ const timeline=createFeedbackTimeline(p,a);assert.equal(timeline.kind,'transient');
+ const live={status:'ready',kind:'transient',sampleIndex:timeline.length-1,data:timeline.frame(timeline.length-1)};
+ const trace=scopeTrace(p,a,live,'GATE');assert.equal(trace.kind,'transient');assert.ok(trace.points.some(([,v])=>v===0));assert.ok(trace.points.some(([,v])=>v===a.result.gateHighVoltage));
+ const disconnected=structuredClone(p);disconnected.nets=disconnected.nets.map(n=>({...n,endpoints:n.endpoints.filter(e=>e!=='mosfet-1:G')})).filter(n=>n.endpoints.length>0);
+ assert.equal(analyticalScopeRecording(disconnected,a),null);
 });
 test('monostable trigger state and model rejection cannot invent a periodic waveform',async()=>{
  const p=await load('022-555-monostable'),a=runProjectAnalysis(p),r=a.scopeRecording;
@@ -95,3 +94,4 @@ test('battery comparator exposes actual solved DC nodes in the scope above and b
   assert.ok(Object.values(live.data.wires).every(w=>w.reason===null));assert.equal(scopeTrace(p,a,{...live,status:'updating'},output),null);
  }
 });
+
