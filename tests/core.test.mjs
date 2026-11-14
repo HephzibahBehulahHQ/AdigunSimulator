@@ -3246,7 +3246,8 @@ test("catalogue LM2596 adjustable buck reports bounded CCM average and ripple es
   assert.equal(runSupportedAnalysis(updateComponent(project,"rfb-top",{value:"100 kΩ"})).state,"blocked");
   assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"240 Ω"})).state,"blocked");
   const broken=structuredClone(project);
-  broken.nets.find(net=>net.id==="SWITCH").endpoints=["controller:SW","inductor:1"];
+  broken.nets.find(net=>net.id==="SWITCH").endpoints=["controller:SW","inductor:2"];
+  broken.nets.find(net=>net.id==="VIN").endpoints.push("diode:A");
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 
