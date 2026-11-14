@@ -1,4 +1,5 @@
 import { reviewTestPointCoverage } from "./test-point-coverage.mjs";
+import { analyseLm2577Boost } from "./lm2577-boost-analysis.mjs";
 import { ADDITIONAL_LOGIC_PARTS } from "./logic-gates.mjs";
 import { LADDER_PARTS, LADDER_MODELS, ladderParameters, ladderSettings } from "./ladder-components.mjs";
 import { netEdges, splitNetEdges, pruneSchematicWires } from "./net-edges.mjs";
@@ -205,6 +206,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.buck-converter-report", category: "Output", type: "Buck converter CCM operating-point report", prefix: "SCOPE", pins: ["VOUT", "GND"], defaultValue: "Average CCM report", simulation: "analytical-buck-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.boost-operating-point-fixture", category: "Inputs", type: "Boost converter operating-point fixture", prefix: "CFG", pins: ["CTRL", "VCC", "GND"], defaultValue: "Duty 50%; Frequency 100 kHz; MaxDuty 85%; MaxInput 60 V", simulation: "fixture-boost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.boost-average-controller", category: "Active", type: "Ideal asynchronous boost average-model controller", prefix: "U", pins: ["VIN", "SW", "CTRL", "VOUT", "GND"], defaultValue: "Mode asynchronous; MaxDuty 85%; MaxInput 60 V", simulation: "analytical-boost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.ti-lm2577-adjustable", category: "Active", type: "Texas Instruments LM2577T-ADJ/NOPB boost regulator", prefix: "U", pins: ["VIN", "SW", "GND", "FB", "COMP"], defaultValue: "LM2577T-ADJ/NOPB; 3.5–40 V input; 1.23 V reference; 52 kHz; 3 A switch", simulation: "bounded-lm2577-boost-average", status: "Texas Instruments source-backed device and pin map; project PCB records carry package evidence", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "connector.boost-output-2", category: "Connectors", type: "2-position boost output terminal", prefix: "J", pins: ["VOUT", "GND"], defaultValue: "Phoenix Contact 1757242; 5.08 mm pitch", simulation: "schematic/pcb-only", status: "Phoenix Contact source-backed terminal", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "output.boost-converter-report", category: "Output", type: "Boost converter CCM operating-point report", prefix: "SCOPE", pins: ["VOUT", "GND"], defaultValue: "Average CCM report", simulation: "analytical-boost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.buckboost-target-fixture", category: "Inputs", type: "Non-inverting buck-boost target and load fixture", prefix: "CFG", pins: ["SET", "VCC", "GND"], defaultValue: "Target 9 V; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz", simulation: "fixture-buckboost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.buckboost-four-switch-average", category: "Active", type: "Ideal four-switch non-inverting buck-boost average controller", prefix: "U", pins: ["VIN", "SET", "L1", "L2", "GND"], defaultValue: "Mode non-inverting four-switch; MaxInput 24 V; MaxCurrent 2 A; Efficiency 95%; Frequency 100 kHz", simulation: "analytical-buckboost-average", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -1010,6 +1013,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const buckReports = project.components.filter((item) => item.libraryId === "output.buck-converter-report");
   const boostFixtures = project.components.filter((item) => item.libraryId === "input.boost-operating-point-fixture");
   const boostControllers = project.components.filter((item) => item.libraryId === "active.boost-average-controller");
+  const lm2577BoostControllers = project.components.filter((item) => item.libraryId === "active.ti-lm2577-adjustable");
   const boostReports = project.components.filter((item) => item.libraryId === "output.boost-converter-report");
   const buckboostFixtures = project.components.filter((item) => item.libraryId === "input.buckboost-target-fixture");
   const buckboostControllers = project.components.filter((item) => item.libraryId === "active.buckboost-four-switch-average");
@@ -1364,6 +1368,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (buckboostFixtures.length === 1 && buckboostControllers.length === 1 && buckboostReports.length === 1 && source.length === 1 && inductor.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseBuckBoostConverter(project, { source: source[0], fixture: buckboostFixtures[0], controller: buckboostControllers[0], inductor: inductor[0], capacitor: capacitor[0], load: resistor[0], report: buckboostReports[0], ground: ground[0], validation });
   }
+  if (lm2577BoostControllers.length === 1 || project.components.some((item) => item.libraryId === "connector.boost-output-2")) return analyseLm2577Boost(project, { validation });
   if (boostFixtures.length === 1 && boostControllers.length === 1 && boostReports.length === 1 && source.length === 1 && inductor.length === 1 && schottkyDiodes.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseBoostConverter(project, { source: source[0], fixture: boostFixtures[0], controller: boostControllers[0], inductor: inductor[0], diode: schottkyDiodes[0], capacitor: capacitor[0], load: resistor[0], report: boostReports[0], ground: ground[0], validation });
   }
