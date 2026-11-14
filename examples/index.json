@@ -4892,7 +4892,7 @@
       "type": "Power",
       "level": "Advanced",
       "category": "Conversion and protection",
-      "sha256": "95562551ccb74b57b4365c27a4209f2eb5296ce01655b66beddf195e6517f407",
+      "sha256": "0f171dd45558414a4081d0edb8aba268ea6dafb4e5810784505a60b98e0f54bb",
       "components": 9,
       "analysis": "complete",
       "engine": "Asynchronous buck CCM average and triangular-ripple estimate",
