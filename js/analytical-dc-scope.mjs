@@ -38,6 +38,15 @@ export function analyticalDcScopeRecording(project,analysis){
   if(!Number.isFinite(r.batteryVoltage)||!Number.isFinite(r.gateVoltage)||!Number.isFinite(r.ldrResistance)||r.ldrResistance<=0||typeof r.mosfetConducting!=="boolean"||typeof r.ledOn!=="boolean")return null;
   return {kind:"analytical-dc-output",model:"Solar garden light operating-point estimate (battery and LDR gate nodes)",nodes:{[returnNet]:0,[batteryPositive]:r.batteryVoltage,[gate]:r.gateVoltage}};
  }
+ if(r?.kind==="battery-discharge-monitor"){
+  const sources=byType("power.dc-source"),comparators=byType("active.comparator-ideal"),resistors=byType("passive.resistor"),leds=byType("diode.led-red"),grounds=byType("ground.signal");
+  if(sources.length!==1||comparators.length!==1||resistors.length!==3||leds.length!==1||grounds.length!==1)return null;
+  const [supply,comparator,led,groundPart]=[sources[0],comparators[0],leds[0],grounds[0]],n=(c,pin)=>netOf(c,pin),sourceNet=n(supply,"+"),returnNet=n(supply,"-"),sense=n(comparator,"SENSE"),alarm=n(comparator,"OUT"),ledA=n(led,"A");
+  const upper=resistors.find(c=>n(c,"1")===sourceNet&&n(c,"2")===sense),lower=resistors.find(c=>c!==upper&&n(c,"1")===sense&&n(c,"2")===returnNet),series=resistors.find(c=>c!==upper&&c!==lower&&n(c,"1")===alarm&&n(c,"2")===ledA);
+  if(!sourceNet||!returnNet||!sense||!alarm||!ledA||!upper||!lower||!series||n(comparator,"VCC")!==sourceNet||n(comparator,"GND")!==returnNet||n(led,"K")!==returnNet||n(groundPart,"0")!==returnNet)return null;
+  if(!Number.isFinite(r.batteryVoltage)||!Number.isFinite(r.senseVoltage)||!Number.isFinite(r.comparatorOutputVoltage)||typeof r.lowBattery!=="boolean"||typeof r.ledOn!=="boolean")return null;
+  return {kind:"analytical-dc-output",model:`Battery discharge monitor DC operating point (battery ${r.lowBattery?"below":"above"} trip; ideal comparator)`,nodes:{[returnNet]:0,[sourceNet]:r.batteryVoltage,[sense]:r.senseVoltage,[alarm]:r.comparatorOutputVoltage}};
+ }
  if(r?.kind==="led-polarity-indicator"){
   const reds=byType("diode.led-red"),greens=byType("diode.led-green"),red=reds[0],green=greens[0],resistors=byType("passive.resistor"),resistorResult=ref=>r.resistorResults?.find(item=>item.reference===ref);
   if(byType("power.dc-source").length!==1||byType("ground.signal").length!==1||reds.length!==1||greens.length!==1||resistors.length!==2)return null;
