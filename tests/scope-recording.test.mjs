@@ -18,6 +18,13 @@ test('LED current limiter has a constant DC trace and explains why it does not o
  }
 });
 
+test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
+ const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
+ const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);
+ assert.equal(a.result.kind,'resistive-network');assert.ok(channels.length>0);
+ for(const channel of channels){const trace=scopeTrace(p,a,live,channel);assert.equal(trace.kind,'dc');assert.equal(trace.points[0][1],trace.points[1][1]);}
+});
+
 test('unconfigured RC/RL examples expose their actual model curve and pin-mapped nodes',async()=>{
  for(const name of ['005-rc-step-response','006-rl-step-response','011-rc-charge-discharge']){
   const p=await load(name),before=JSON.stringify(p),a=runProjectAnalysis(p),r=a.result,record=a.scopeRecording,timeline=createFeedbackTimeline(p,a);

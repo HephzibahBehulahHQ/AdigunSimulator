@@ -9,7 +9,7 @@ import {resolveSchematicWires,editWireRoute,splitSchematicWire,resumeSchematicWi
 import {DEFAULT_PALETTE,awgArea,editProjectPalette,editWireAppearance,wireAppearance,wirePaint,validateWireAppearance} from '../js/project-appearance.mjs';
 import {scopeChannels,scopeTrace,scopePlot,fitScopeWindow} from '../js/oscilloscope-data.mjs';
 import {designText} from '../js/design-tools-ui.mjs';
-import {createScopeLauncher,hasCurrentScopeAnalysis} from '../js/scope-launcher.mjs';
+import {createScopeLauncher,hasCurrentScopeAnalysis,recordScopeAnalysis} from '../js/scope-launcher.mjs';
 const fixture=async()=>parseProject(await readFile(new URL('./fixtures/junction-divider.adigun.json',import.meta.url),'utf8'));
 
 test('wire appearance preserves identity, solver results, route edits, split/rejoin and native round trips',async()=>{
@@ -69,8 +69,8 @@ test('floating scope launcher appears only for the current project and opens the
  const canvas={children:[],append(node){this.children.push(node);}},launcher=createScopeLauncher({document,canvas,onOpen:()=>opened++}),button=canvas.children[0];
  const state={project:{id:'p1'},lastAnalysis:null,lastAnalysisProjectKey:null};
  assert.equal(button.hidden,true);assert.equal(hasCurrentScopeAnalysis(state),false);
- state.lastAnalysis={state:'complete'};state.lastAnalysisProjectKey=JSON.stringify(state.project);
- launcher.update(state,'Open oscilloscope');assert.equal(button.hidden,false);assert.equal(button.attributes['aria-label'],'Open oscilloscope');
+ recordScopeAnalysis(state,{state:'complete'},()=>launcher.update(state,'Open oscilloscope'));
+ assert.equal(button.hidden,false);assert.equal(button.attributes['aria-label'],'Open oscilloscope');
  button.handlers.click({stopPropagation(){}});assert.equal(opened,1);
  state.project={id:'p2'};launcher.update(state,'Open oscilloscope');assert.equal(button.hidden,true);
  launcher.remove();assert.equal(removed,1);
