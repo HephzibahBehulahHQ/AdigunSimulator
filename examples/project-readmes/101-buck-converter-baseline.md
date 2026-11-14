@@ -55,4 +55,3 @@ The estimate uses steady-state buck volt-second balance, CCM inductor ripple, an
 **Not accepted.** The schematic, scope, PCB view, and all three one-page visual prints have been checked. The breadboard map remains empty and its print visibly fails the physical-placement and wiring gate. The documented next step is a verified physical solution for U1, then source-backed placements and jumpers for the remaining breadboard interfaces and components. Continue with this example until the breadboard is physically coherent or a specific unsupported capability and its resolution are documented.
 
 The all-project acceptance gate is in [AGENTS.md](../../AGENTS.md). References: [BusBoard BB400 datasheet](https://www.busboard.com/documents/datasheets/BPS-DAT-%28BB400%29-Datasheet.pdf) and [TI LM2596 datasheet, mechanical data NEB0005E](https://www.ti.com/lit/ds/symlink/lm2596.pdf).
-
