@@ -1190,6 +1190,14 @@
         "reason": "This is a BusBoard BB400: 30 numbered terminal columns, a 2.54 mm hole pitch, and four continuous 25-hole power rails. TI's NEB0005E TO-220 drawing specifies adjacent lead intervals of 1.45–1.96 mm and lead widths of 0.76–1.02 mm, outside the board's direct pin grid/contact specification; no adapter is mapped for U1.",
         "fix": "Identify the exact solderless board, then source or design a five-pin interposer that maps the LM2596 leads to its contacts; verify pin fit and current path before assigning an adapter-backed hole map.",
         "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm2596.pdf"
+      },
+      {
+        "instanceId": "diode",
+        "reference": "D1",
+        "view": "breadboard",
+        "reason": "The selected onsemi 1N5822G is a DO-201AD axial part with 1.20–1.30 mm leads. The BusBoard BB400 accepts 0.4–0.7 mm insertion wire, so these leads are outside its specified contact range; D1 has no direct BB400 placement.",
+        "fix": "Use a source-backed adapter footprint or a separately verified compatible part, then verify its polarity, 3 A circuit path, and the BB400 map before assigning breadboard holes.",
+        "sourceUrl": "https://www.onsemi.com/pub/Collateral/1N5820-D.PDF"
       }
     ],
     "pinHoles": {},
@@ -1208,3 +1216,4 @@
     ]
   }
 }
+
