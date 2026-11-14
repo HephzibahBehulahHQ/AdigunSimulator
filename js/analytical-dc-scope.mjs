@@ -5,8 +5,8 @@ export function analyticalDcScopeRecording(project,analysis){
  const r=analysis.result,components=project.components,netOf=(c,pin)=>project.nets.find(n=>n.endpoints.includes(`${c?.instanceId}:${pin}`))?.id;
  const byType=id=>components.filter(c=>c.libraryId===id),source=byType("power.dc-source")[0],ground=byType("ground.signal")[0];
  if(r?.kind==="led-polarity-indicator"){
-  const red=components.find(c=>c.reference==="D1"),green=components.find(c=>c.reference==="D2"),resistors=byType("passive.resistor"),resistorResult=ref=>r.resistorResults?.find(item=>item.reference===ref);
-  if(!source||!ground||red?.libraryId!=="diode.led-red"||green?.libraryId!=="diode.led-green"||resistors.length!==2)return null;
+  const reds=byType("diode.led-red"),greens=byType("diode.led-green"),red=reds[0],green=greens[0],resistors=byType("passive.resistor"),resistorResult=ref=>r.resistorResults?.find(item=>item.reference===ref);
+  if(byType("power.dc-source").length!==1||byType("ground.signal").length!==1||reds.length!==1||greens.length!==1||resistors.length!==2)return null;
   const vcc=netOf(source,"+"),gnd=netOf(source,"-"),redA=netOf(red,"A"),greenK=netOf(green,"K"),redR=resistors.find(x=>resistorResult(x.reference)),greenR=resistors.find(x=>x!==redR&&resistorResult(x.reference));
   const between=(resistor,a,b)=>[netOf(resistor,"1"),netOf(resistor,"2")].sort().join("|")===[a,b].sort().join("|");
   if(!vcc||gnd!==netOf(ground,"0")||netOf(red,"K")!==gnd||netOf(green,"A")!==gnd||!redA||!greenK||!redR||!greenR||!between(redR,vcc,redA)||!between(greenR,vcc,greenK))return null;
