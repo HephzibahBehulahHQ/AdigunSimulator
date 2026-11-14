@@ -3593,7 +3593,7 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "612ce73cd8fb5e5b84536e258b6dbc1b51f73afccbe9c6dc4881464cd2772a16",
+      "sha256": "14c9a8e8849ab4b71c6f2c50386851655aa25d05eef8816717b7d637274dcad8",
       "components": 5,
       "analysis": "complete",
       "engine": "Ideal STM32 timer PWM/load estimate",

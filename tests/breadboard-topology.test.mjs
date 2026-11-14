@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { createProject, findLibraryPart, parseProject, serializeProject } from "../js/core.mjs";
 import { runBreadboardSchematicSync } from "../js/breadboard-schematic-sync.mjs";
 import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "../js/breadboard-topology.mjs";
+import { renderNucleoG031K8Breadboard } from "../js/nucleo-g031k8.mjs";
 
 const getPartPins = libraryId => findLibraryPart(libraryId)?.pins ?? [];
 const readExample = async file => JSON.parse(await readFile(new URL("../examples/" + file, import.meta.url)));
@@ -63,6 +64,26 @@ test("checked-in STM32 PWM fixture carries real-hole placements and validates wi
   assert.equal(result.state, "complete");
   assert.equal(result.nets.length, 4);
   assert.equal(JSON.stringify(project.nets), before);
+});
+
+test("STM32 PWM example maps the NUCLEO-G031K8 board to its sourced CN4 header pins", async () => {
+  const project = await readExample("070-stm32-timer-pwm.adigun.json");
+  const board = project.components.find(component => component.instanceId === "timer");
+  const svg = renderNucleoG031K8Breadboard(project, board);
+  assert.match(svg, /NUCLEO-G031K8 development board, MB1455/);
+  assert.match(svg, /CN4 pads are pin 2 GND, pin 12 A0 PA0, and pin 14 3V3/);
+  assert.equal((svg.match(/<circle /g) ?? []).length, 30);
+  assert.equal(project.breadboard.pinHoles["timer:GND"], "I6");
+  assert.equal(project.breadboard.pinHoles["timer:PA0"], "I16");
+  assert.equal(project.breadboard.pinHoles["timer:VCC"], "I18");
+  assert.equal(validateBreadboardTopology(project, {getPartPins}).state, "complete");
+});
+
+test("NUCLEO-G031K8 board rendering refuses an inconsistent CN4 placement", async () => {
+  const project = await readExample("070-stm32-timer-pwm.adigun.json");
+  const board = project.components.find(component => component.instanceId === "timer");
+  project.breadboard.pinHoles["timer:VCC"] = "I19";
+  assert.equal(renderNucleoG031K8Breadboard(project, board), "");
 });
 
 test("default starter includes persistent physical breadboard mapping", () => {

@@ -147,26 +147,30 @@
     "pinHoles": {
       "supply:+": "TP2",
       "supply:-": "BM2",
-      "timer:VCC": "A5",
-      "timer:GND": "A10",
-      "timer:PA0": "A15",
-      "resistor:1": "C15",
-      "resistor:2": "A20",
-      "led:A": "E20",
-      "led:K": "E21",
+      "timer:VCC": "I18",
+      "timer:GND": "I6",
+      "timer:PA0": "I16",
+      "resistor:1": "C25",
+      "resistor:2": "C30",
+      "led:A": "E30",
+      "led:K": "E29",
       "ground:0": "BM10"
     },
     "jumpers": [
       {
         "from": "TP2",
-        "to": "A5"
+        "to": "I18"
       },
       {
-        "from": "A10",
+        "from": "I6",
         "to": "BM10"
       },
       {
-        "from": "E21",
+        "from": "I16",
+        "to": "C25"
+      },
+      {
+        "from": "E29",
         "to": "BM15"
       }
     ]
