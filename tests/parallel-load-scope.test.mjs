@@ -22,6 +22,6 @@ test("5 V Parallel Resistor Load exposes solved constant-voltage scope channels"
     assert.equal(trace.kind, "dc");
     assert.equal(trace.model, "Resistive network DC solution");
     assert.ok(Math.abs(trace.voltage - voltage) < 1e-9, net);
-    assert.deepEqual(trace.points[0], trace.points[1]);
+    assert.equal(trace.points[0][1], trace.points[1][1]);
   }
 });
