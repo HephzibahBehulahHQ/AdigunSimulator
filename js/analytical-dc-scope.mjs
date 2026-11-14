@@ -114,6 +114,21 @@ export function analyticalDcScopeRecording(project,analysis){
   if(!Number.isFinite(r.supplyVoltage)||!Number.isFinite(r.inputVoltage)||!Number.isFinite(r.outputVoltage)||r.outputVoltage<0||r.outputVoltage>r.supplyVoltage||r.outputVoltage>r.inputVoltage)return null;
   return {kind:"analytical-dc-output",model:"Ideal NPN emitter-follower DC estimate",preferredNet:emitter,nodes:{[groundNet]:0,[collector]:r.supplyVoltage,[base]:r.inputVoltage,[emitter]:r.outputVoltage}};
  }
+
+ if(r?.kind==="nmos-low-side-switch"){
+  const sources=byType("power.dc-source"),mosfets=byType("active.nmos-switch"),resistors=byType("passive.resistor"),inductors=byType("passive.inductor"),diodes=byType("diode.schottky"),grounds=byType("ground.signal");
+  if(sources.length!==2||mosfets.length!==1||resistors.length!==1||inductors.length!==1||diodes.length!==1||grounds.length!==1)return null;
+  const mosfet=mosfets[0],resistor=resistors[0],inductor=inductors[0],diode=diodes[0],ground=grounds[0],gnd=netOf(ground,"0"),drain=netOf(mosfet,"D"),source=netOf(mosfet,"S"),gate=netOf(mosfet,"G");
+  if(!gnd||!drain||!gate||source!==gnd)return null;
+  const supply=sources.find(part=>netOf(part,"+")===netOf(diode,"K")&&netOf(part,"-")===gnd),drive=sources.find(part=>part!==supply&&netOf(part,"+")===gate&&netOf(part,"-")===gnd),vcc=supply&&netOf(supply,"+"),coilNode=[netOf(inductor,"1"),netOf(inductor,"2")].find(net=>net!==drain);
+  const between=(part,a,b)=>netOf(part,"1")===a&&netOf(part,"2")===b||netOf(part,"2")===a&&netOf(part,"1")===b;
+  if(!supply||!drive||!vcc||!coilNode||new Set([gnd,vcc,gate,drain,coilNode]).size!==5||netOf(diode,"A")!==drain||!between(resistor,vcc,coilNode)||!between(inductor,coilNode,drain))return null;
+  const modeledResistance=parseResistance(resistor.value);
+  if(typeof r.switchOn!=="boolean"||![r.supplyVoltage,r.gateVoltage,r.gateThresholdV,r.drainSourceVoltageV,r.loadCurrentA,r.onCurrentA,r.onDrainVoltageV,r.coilResistanceOhm,modeledResistance].every(Number.isFinite)||r.supplyVoltage<=0||r.gateVoltage<0||r.gateVoltage>r.supplyVoltage||r.gateThresholdV<0||r.coilResistanceOhm<=0||r.loadCurrentA<0||Math.abs(modeledResistance-r.coilResistanceOhm)>1e-9)return null;
+  const expectedOn=r.gateVoltage>=r.gateThresholdV,expectedCurrent=expectedOn?r.onCurrentA:0,expectedDrain=expectedOn?r.onDrainVoltageV:r.supplyVoltage,expectedCoil=r.supplyVoltage-expectedCurrent*r.coilResistanceOhm,tol=Math.max(1,r.supplyVoltage)*1e-9;
+  if(r.switchOn!==expectedOn||Math.abs(r.loadCurrentA-expectedCurrent)>tol||Math.abs(r.drainSourceVoltageV-expectedDrain)>tol||expectedCoil<0||expectedCoil>r.supplyVoltage)return null;
+  return {kind:"analytical-dc-output",model:`Ideal NMOS low-side driver ${expectedOn?"on":"off"} steady-state DC estimate; first-order coil-current decay is reported separately`,preferredNet:drain,nodes:{[gnd]:0,[vcc]:r.supplyVoltage,[gate]:r.gateVoltage,[drain]:r.drainSourceVoltageV,[coilNode]:expectedCoil}};
+ }
  return null;
 }
 
