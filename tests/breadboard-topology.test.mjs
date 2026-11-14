@@ -86,6 +86,15 @@ test("NUCLEO-G031K8 board rendering refuses an inconsistent CN4 placement", asyn
   assert.equal(renderNucleoG031K8Breadboard(project, board), "");
 });
 
+test("STM32 board behavior model retains official sources and ideal-model limits", () => {
+  const board = findLibraryPart("active.stm32-timer-ideal");
+  assert.deepEqual(board.sources, [
+    "https://www.st.com/resource/en/user_manual/um2591-stm32g0-nucleo32-board-mb1455-stmicroelectronics.pdf",
+    "https://www.st.com/resource/en/schematic_pack/mb1455-g031k8-d01-schematic.pdf",
+  ]);
+  assert.match(board.status, /PWM behavior is ideal, firmware and physical GPIO limits are not simulated/);
+});
+
 test("default starter includes persistent physical breadboard mapping", () => {
   const project = createProject();
   const parsed = parseProject(serializeProject(project));
