@@ -21,7 +21,7 @@ test("manufacturer evidence search returns exact records without promoting candi
 });
 
 test("manufacturer evidence browser provides a searchable review snapshot for every ledger record", () => {
-  assert.equal(MANUFACTURER_PART_RECORDS.length, 17);
+  assert.equal(MANUFACTURER_PART_RECORDS.length, 18);
   assert.equal(searchManufacturerParts("Texas Instruments").length, 11);
   assert.equal(searchManufacturerParts("Texas LM555CN/NOPB").length, 1);
   assert.equal(searchManufacturerParts("LM555 Texas")[0].id, "ti.lm555p");

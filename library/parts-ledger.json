@@ -251,6 +251,52 @@
       }
     },
     {
+      "id": "st.stm32g031k8t6",
+      "manufacturer": "STMicroelectronics",
+      "manufacturerPartNumber": "STM32G031K8T6",
+      "category": "Active components",
+      "type": "32-bit ARM microcontroller",
+      "typeCode": "G03",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "STM32G031x4/x6/x8 datasheet (DS12992 Rev. 4)",
+        "url": "https://www.st.com/resource/en/datasheet/stm32g031k8.pdf",
+        "accessedAt": "2026-11-14"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.st.com/en/microcontrollers-microprocessors/stm32g031k8.html",
+          "kind": "manufacturer-product-page"
+        },
+        {
+          "url": "https://www.st.com/resource/en/datasheet/stm32g031k8.pdf",
+          "kind": "manufacturer-datasheet"
+        }
+      ],
+      "packageEvidence": {
+        "package": "LQFP32",
+        "pinCount": 32,
+        "sourceUrl": "https://www.st.com/resource/en/datasheet/stm32g031k8.pdf"
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "The existing STM32 timer example uses an ideal behavior model; no STM32G031 device-level electrical model is implemented or validated."
+      },
+      "lifecycleEvidence": {
+        "sourceUrl": "https://www.st.com/en/microcontrollers-microprocessors/stm32g031k8.html",
+        "checkedAt": "2026-11-14"
+      },
+      "evidenceNote": "library/evidence/st.stm32g031k8t6.md",
+      "notes": "Candidate device record linked to the STM32 timer example family. Datasheet bytes/checksum and a reviewed 32-pin signal map are not recorded. This identifies the LQFP32 silicon only; it does not identify or model a NUCLEO board, its headers, power path, or breakout wiring. Not counted as verified.",
+      "warnings": [
+        "Unverified manufacturer-backed candidate; not counted as a verified part or manufacturer-specific model.",
+        "Do not treat the three-pin ideal STM32 timer behavior model as the physical 32-pin MCU or a development board.",
+        "Verify exact pin functions, power pins, decoupling, package orientation, voltage limits, and unused-pin handling against the current datasheet before hardware use.",
+        "A separate board-level record is required before representing a NUCLEO-G031K8 module or its header and power connections."
+      ]
+    },
+    {
       "id": "microchip.atmega328p-pu",
       "manufacturer": "Microchip Technology",
       "manufacturerPartNumber": "ATMEGA328P-PU",
