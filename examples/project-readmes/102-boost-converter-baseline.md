@@ -18,7 +18,7 @@ There are 14 project components. SCOPE1 and GND are logical analysis/ground symb
 | D1 | onsemi 1N5822G Schottky, 0.5 V model drop |
 | CIN | KEMET C315C104M5U5TA, 0.1 µF |
 | C1 | Nichicon UPW1E681MPD, 680 µF, 25 V |
-| RLOAD | Vishay AC0300001000JAC00, 100 Ω, 3 W |
+| RLOAD | Vishay AC03000001000JACCS, 100 Ω, 3 W |
 | RFB1 / RFB2 | 17.4 kΩ / 2 kΩ |
 | RCOMP / CCOMP | 2.2 kΩ / 0.33 µF |
 | J2 | Phoenix Contact 1757242 output terminal |
