@@ -3,6 +3,7 @@
 export function analyticalScopeRecording(project,analysis){
  if(analysis?.state!=='complete')return null;
  const r=analysis.result,kind=r?.kind;
+ if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
@@ -39,6 +40,17 @@ function pwmGateRecording(project,r){
 
 // Evaluate the same successful first-order model at display resolution. Preserve
 // its physical net identities and initial condition; never synthesize a sine wave.
+// Preserve the event queue's actual logic transitions; no analog edge shape is inferred.
+function digitalEventRecording(project,r){
+ const stop=r.stopTimeNs,probes=r.probeNets,trace=r.trace,nets=new Set(project.nets.map(n=>n.id));
+ if(!Number.isFinite(stop)||stop<=0||!Array.isArray(probes)||!probes.length||!trace||probes.some(net=>!nets.has(net)||!Array.isArray(trace[net])||!trace[net].length))return null;
+ const events=[];
+ for(const net of probes){let previous=-1;for(const event of trace[net]){if(!Number.isFinite(event.timeNs)||event.timeNs<previous||event.timeNs<0||event.timeNs>stop||typeof event.high!=='boolean')return null;previous=event.timeNs;events.push({net,timeNs:event.timeNs,high:event.high});}if(trace[net][0].timeNs!==0)return null;}
+ const times=[...new Set([...events.map(event=>event.timeNs),stop])].sort((a,b)=>a-b),state=Object.fromEntries(probes.map(net=>[net,0])),samples=[];
+ for(const timeNs of times){for(const event of events)if(event.timeNs===timeNs)state[event.net]=event.high?1:0;samples.push({timeSeconds:timeNs*1e-9,nodeVoltages:{...state}});}
+ return {kind:'analytical-output-recording',units:'logic',model:'Digital event simulation (modeled logic transitions)',preferredNet:probes[0],samples};
+}
+
 function firstOrderRecording(project,r){
  const inductive=r.kind==='rl-step-response',switched=r.kind==='rc-charge-discharge';
  const source=project.components.find(c=>c.libraryId==='power.dc-source');
