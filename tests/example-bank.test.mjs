@@ -25,7 +25,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,30);assert.equal(index.summary.withoutStoredPcb,186);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,31);assert.equal(index.summary.withoutStoredPcb,185);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('DC Voltage Divider has sourced physical resistor values, mapped pads and connected copper',async()=>{
  const entry=index.entries.find(item=>item.file==='002-dc-voltage-divider.adigun.json');
