@@ -17,7 +17,20 @@ export function createPcbBoardEditor({ state, $, $$, t, captureHistory, render, 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     if (state.project !== openedProject) { $("#pcb-board-error").textContent = t("pcbBoardStale"); return; }
-    const input = Object.fromEntries($$("[data-board-field]").map((field) => [field.dataset.boardField, field.dataset.boardField === "copperLayers" ? field.value.split(",") : Number(field.value)]));
+    const input = Object.fromEntries($$("[data-board-field]").map((field) => {
+      const key = field.dataset.boardField;
+      if (key === "copperLayers") return [key, field.value.split(",")];
+      if (key === "outlineType" || key === "outlinePoints") return [key, field.value];
+      return [key, Number(field.value)];
+    }));
+    if (input.outlineType) {
+      if (input.outlineType === "rectangle") input.outline = "rectangle";
+      else if (input.outlineType === "polygon") input.outline = { type: "polygon", pointsMm: input.outlinePoints.split(/\r?\n/).filter((line) => line.trim()).map((line) => {
+        const trimmed = line.trim();
+        const values = trimmed.includes(",") ? trimmed.split(",").map((value) => value.trim()) : trimmed.split(/\s+/);
+        return values.length === 2 ? values.map((value) => value === "" ? Number.NaN : Number(value)) : [Number.NaN, Number.NaN];
+      }) };
+    }
     const result = updatePcbBoard(state.project, input);
     if (result.status === "blocked") { $("#pcb-board-error").textContent = `${t("pcbBoardBlocked")} ${result.errors.join(" ")}`; return; }
     if (result.status === "unchanged") { dialog.close(); return; }

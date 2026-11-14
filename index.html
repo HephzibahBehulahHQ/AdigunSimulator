@@ -610,7 +610,7 @@
     <dialog id="pcb-board-dialog" aria-labelledby="pcb-board-title" aria-describedby="pcb-board-note">
       <form id="pcb-board-form">
         <h2 id="pcb-board-title" data-i18n="pcbBoardSetup">Board Setup</h2>
-        <p id="pcb-board-note" data-i18n="pcbBoardNote">Rectangular one/two-layer board. Dimensions do not scale or move components. Rules are design limits, not manufacturing approval.</p>
+        <p id="pcb-board-note" data-i18n="pcbBoardNote">Rectangular or simple polygon, one/two copper layers. Dimensions do not scale or move components. Rules are design limits, not manufacturing approval.</p>
         <div class="board-field-grid">
           <label><span data-i18n="pcbBoardWidth">Width (mm)</span><input id="pcb-board-width" data-board-field="widthMm" type="number" min="0.001" step="any" required autofocus /></label>
           <label><span data-i18n="pcbBoardHeight">Height (mm)</span><input id="pcb-board-height" data-board-field="heightMm" type="number" min="0.001" step="any" required /></label>
@@ -618,6 +618,8 @@
           <label><span data-i18n="pcbBoardLayers">Copper layers</span><select id="pcb-board-layers" data-board-field="copperLayers" required><option value="F.Cu">F.Cu</option><option value="F.Cu,B.Cu">F.Cu + B.Cu</option></select></label>
           <label><span data-i18n="pcbBoardClearance">Minimum clearance (mm)</span><input id="pcb-board-clearance" data-board-field="minimumClearanceMm" type="number" min="0.001" step="any" required /></label>
           <label><span data-i18n="pcbBoardTraceWidth">Minimum trace width (mm)</span><input id="pcb-board-trace-width" data-board-field="minimumTraceWidthMm" type="number" min="0.001" step="any" required /></label>
+          <label><span data-i18n="pcbBoardOutlineType">Board outline</span><select id="pcb-board-outline-type" data-board-field="outlineType" required><option value="rectangle" data-i18n="pcbBoardRectangle">Rectangle</option><option value="polygon" data-i18n="pcbBoardPolygon">Polygon</option></select></label>
+          <label class="board-outline-points"><span data-i18n="pcbBoardOutlinePoints">Polygon vertices (mm)</span><textarea id="pcb-board-outline-points" data-board-field="outlinePoints" rows="5" spellcheck="false" aria-describedby="pcb-board-outline-help"></textarea><small id="pcb-board-outline-help" data-i18n="pcbBoardOutlineHelp">For a polygon, enter one x,y coordinate pair per line. The vertices must span the board width and height.</small></label>
         </div>
         <p id="pcb-board-error" role="alert"></p>
         <div class="board-dialog-actions">

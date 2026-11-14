@@ -392,6 +392,9 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 #pcb-board-dialog .board-field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; justify-items: stretch; gap: .75rem; padding: 0; }
 #pcb-board-dialog label { display: grid; gap: .35rem; min-width: 0; }
 #pcb-board-dialog input, #pcb-board-dialog select { width: 100%; min-width: 0; }
+#pcb-board-dialog textarea { width: 100%; min-width: 0; resize: vertical; font: inherit; }
+#pcb-board-dialog .board-outline-points { grid-column: 1 / -1; }
+#pcb-board-dialog .board-outline-points small { color: var(--muted, #64748b); line-height: 1.4; }
 #pcb-board-dialog .board-dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .75rem; padding: 0; }
 #pcb-board-error { color: var(--red, #ff7589); white-space: pre-line; }
 @media (max-width: 480px) { #pcb-board-dialog .board-field-grid { grid-template-columns: minmax(0, 1fr); } }
