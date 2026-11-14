@@ -70,6 +70,19 @@ test('555 and STM32 records use the successful model period, duty and actual sup
   assert.ok(before.nodeVoltages[r.preferredNet]>0);assert.equal(after.nodeVoltages[r.preferredNet],0);
  }
 });
+test('PWM LED dimmer scope records the modeled gate input and does not claim a simulated power-stage output',async()=>{
+ const p=await load('005-pwm-led-dimmer'),a=runProjectAnalysis(p),record=a.scopeRecording;
+ assert.equal(a.state,'complete');assert.ok(record);assert.equal(record.preferredNet,'GATE');assert.match(record.model,/power stage not transient-simulated/);
+ assert.equal(record.samples.at(-1).timeSeconds,4/a.result.frequencyHz);
+ const period=1/a.result.frequencyHz,high=period*a.result.effectiveDutyFraction;
+ assert.ok(record.samples.find(s=>s.timeSeconds<high).nodeVoltages.GATE>0);
+ assert.equal(record.samples.find(s=>s.timeSeconds>=high+period*1e-8).nodeVoltages.GATE,0);
+ const timeline=createFeedbackTimeline(p,a);assert.equal(timeline.kind,'transient');
+ const live={status:'ready',kind:'transient',sampleIndex:timeline.length-1,data:timeline.frame(timeline.length-1)};
+ const trace=scopeTrace(p,a,live,'GATE');assert.equal(trace.kind,'transient');assert.ok(trace.points.some(([,v])=>v===0));assert.ok(trace.points.some(([,v])=>v===a.result.gateHighVoltage));
+ const disconnected=structuredClone(p);disconnected.nets=disconnected.nets.map(n=>({...n,endpoints:n.endpoints.filter(e=>e!=='mosfet-1:G')})).filter(n=>n.endpoints.length>0);
+ assert.equal(analyticalScopeRecording(disconnected,a),null);
+});
 test('monostable trigger state and model rejection cannot invent a periodic waveform',async()=>{
  const p=await load('022-555-monostable'),a=runProjectAnalysis(p),r=a.scopeRecording;
  assert.ok(r);assert.equal(r.samples.at(-1).nodeVoltages[r.preferredNet],0);
