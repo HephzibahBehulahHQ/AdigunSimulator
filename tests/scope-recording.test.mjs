@@ -145,7 +145,7 @@ test('LM2596 adjustable example produces its scoped ripple estimate with the phy
  const p=await load('101-buck-converter-baseline'),a=runProjectAnalysis(p),record=analyticalScopeRecording(p,a);
  assert.equal(a.state,'complete',a.message);
  assert.equal(record?.kind,'analytical-output-recording');
- assert.match(record.model,/not a switching-transient simulation/);
+ assert.match(record.model,/not switching-transient simulation/);
  assert.equal(record.preferredNet,'VOUT');
  assert.ok(record.samples.length>100);
  assert.ok(record.samples.every(sample=>Number.isFinite(sample.nodeVoltages.VOUT)));
