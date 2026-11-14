@@ -9,12 +9,12 @@ Calculate edge-aligned PWM frequency and duty from timer clock, prescaler, auto-
 | Reference | Project library ID | Project value |
 |---|---|---|
 | V1 | `power.dc-source` | 3.3 V |
-| U1 | `active.stm32-timer-ideal` | PA0 / TIM2_CH1; ClockHz 64000000; Prescaler 63; AutoReload 999; Compare 499 |
+| U1 | `active.stm32-timer-ideal` | NUCLEO-G031K8; CN4 pin 12 A0/PA0; CN4 pin 14 +3V3; CN4 pin 2 GND; ClockHz 64000000; Prescaler 63; AutoReload 999; Compare 499 |
 | R1 | `passive.resistor` | 330 Ω |
 | D1 | `diode.led-red` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+U1 identifies the ST NUCLEO-G031K8 board (MB1455). The breadboard image is an illustrative board drawing, not a mechanical board model. The connected external holes map to the documented CN4 pins. Only GND, A0/PA0, and +3V3 are modeled in this project; the remaining header pads are decorative and have no project nets. The timer and LED analysis remains an ideal behavior model, not MCU firmware execution or a board-level electrical simulation.
 
 ## Net connections
 
@@ -25,7 +25,7 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-The native project contains 10 breadboard pin placement(s). Review the board orientation and jumper map before physical assembly.
+The native project contains 10 breadboard pin placement(s). The selected external 3.3 V source feeds CN4 pin 14. ST documents that this power mode does not power the on-board ST-LINK; that behavior and the board's other circuits are not simulated. GPIO drive limits and LED transient behavior are also outside the model. Verify the matching board revision and its manual before assembly.
 
 No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
 

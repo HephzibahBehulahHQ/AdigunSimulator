@@ -14,6 +14,7 @@ import { createAccountUi } from "./js/account-ui.mjs";
 import { createCloudProjectStore } from "./js/cloud-projects.mjs";
 import { createCloudProjectsUi } from "./js/cloud-projects-ui.mjs";
 import { BREADBOARD_MODEL, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
+import { renderNucleoG031K8Breadboard } from "./js/nucleo-g031k8.mjs";
 import { schematicPinPoint, schematicSymbolSize, schematicGeometry } from "./js/schematic-pin-layout.mjs";
 import { editComponentField, editCustomProperties } from "./js/component-edit.mjs";
 import { createComponentPropertiesUi } from "./js/component-properties-ui.mjs";
@@ -805,6 +806,8 @@ function breadboardBoardSvg(project) {
 
 function breadboardPackageSvg(project) {
   return project.components.map((component) => {
+    const nucleoBoard = renderNucleoG031K8Breadboard(project, component);
+    if (nucleoBoard) return nucleoBoard;
     const placement = breadboardPackagePlacement(component, project);
     if (!placement) return "";
     const scale = (572 / 29) / 2.54;
