@@ -1,5 +1,5 @@
 import { parseExampleProject, canLoadExampleAnalysis } from './js/example-loading.mjs';
-import { isGlobalSearchShortcut, searchGlobalActions } from "./js/global-search.mjs";
+import { isGlobalSearchShortcut, isGlobalExampleQuery, matchGlobalExample, searchGlobalActions } from "./js/global-search.mjs";
 import { createExampleBrowser } from './js/example-bank-ui.mjs';
 import { createDesignTools } from "./js/design-tools-ui.mjs";
 import { recordScopeAnalysis } from "./js/scope-launcher.mjs";
@@ -2407,29 +2407,63 @@ function globalSearchActions() {
     }))
     .filter((action) => action.label);
 }
+let globalExampleEntries = null, globalExampleIndexPromise = null, globalExampleSearchGeneration = 0;
+function loadGlobalExampleIndex() {
+  if (!globalExampleIndexPromise) globalExampleIndexPromise = fetch("examples/index.json")
+    .then(response => { if (!response.ok) throw new Error("Example index unavailable"); return response.json(); })
+    .then(data => { if (data.schemaVersion !== 1 || !Array.isArray(data.entries)) throw new Error("Invalid example index"); globalExampleEntries = data.entries; return globalExampleEntries; })
+    .catch(() => { globalExampleEntries = []; return globalExampleEntries; });
+  return globalExampleIndexPromise;
+}
+function closeGlobalSearch() {
+  $("#global-search").value = "";
+  $("#global-search-actions").replaceChildren();
+  $(".global-search").hidden = true;
+  $("#global-search-toggle").setAttribute("aria-expanded", "false");
+}
 function activateGlobalSearchAction(query) {
   const normalized = query.trim().toLocaleLowerCase();
   const match = searchGlobalActions(globalSearchActions(), query).find((action) => action.label.toLocaleLowerCase() === normalized);
   if (!match) return false;
-  $("#global-search").value = "";
-  $("#global-search-actions").replaceChildren();
+  closeGlobalSearch();
   $("#component-search").value = "";
   renderLibrary();
-  $(".global-search").hidden = true;
-  $("#global-search-toggle").setAttribute("aria-expanded", "false");
   match.element.click();
   return true;
 }
+async function activateGlobalExample(query) {
+  const entries = globalExampleEntries ?? await loadGlobalExampleIndex();
+  const example = matchGlobalExample(entries, query);
+  if (!example) return false;
+  closeGlobalSearch();
+  $("#component-search").value = "";
+  renderLibrary();
+  void loadExample("examples/" + example.file);
+  return true;
+}
 $("#global-search").addEventListener("input", (event) => {
-  const query = event.target.value;
+  const query = event.target.value, generation = ++globalExampleSearchGeneration;
   $("#component-search").value = query;
   renderLibrary();
-  const matches = searchGlobalActions(globalSearchActions(), query);
-  $("#global-search-actions").replaceChildren(...matches.map((action) => {
-    const option = document.createElement("option");
-    option.value = action.label;
-    return option;
-  }));
+  const setOptions = (example) => {
+    const matches = searchGlobalActions(globalSearchActions(), query);
+    const options = matches.map((action) => {
+      const option = document.createElement("option");
+      option.value = action.label;
+      return option;
+    });
+    if (example) {
+      const option = document.createElement("option");
+      const id = example.file.match(/^(\d+)-/)?.[1] ?? "";
+      option.value = "Example " + id + " — " + example.title;
+      options.push(option);
+    }
+    $("#global-search-actions").replaceChildren(...options);
+  };
+  setOptions(globalExampleEntries ? matchGlobalExample(globalExampleEntries, query) : null);
+  if (isGlobalExampleQuery(query) && !globalExampleEntries) void loadGlobalExampleIndex().then(entries => {
+    if (generation === globalExampleSearchGeneration && $("#global-search").value === query) setOptions(matchGlobalExample(entries, query));
+  });
 });
 $("#add-component").addEventListener("click", () => placeLibraryComponent(state.selectedLibraryId));
 $("#component-form").addEventListener("submit", (event) => {
@@ -2565,8 +2599,7 @@ $("#simulation-analysis-mode").addEventListener("change", (event) => {
 });
 $("#run-validation").addEventListener("click", validateAndReport);
 $("#export-simulation-report").addEventListener("click", exportSimulationReport);
-$("#load-example").addEventListener("click", async () => {
-  const path = $("#example-picker").value;
+async function loadExample(path) {
   if (!path) return;
   const isCurrent = projectSession.beginLoad();
   try {
@@ -2590,7 +2623,8 @@ $("#load-example").addEventListener("click", async () => {
     if (!isCurrent()) return;
     showDialog("Example unavailable", error instanceof Error ? error.message : "The selected example could not be loaded.");
   }
-});
+}
+$("#load-example").addEventListener("click", () => { void loadExample($("#example-picker").value); });
 $("#theme-toggle").addEventListener("click", () => document.body.classList.toggle("light"));
 $("#global-search-toggle").addEventListener("click", () => {
   const search = $(".global-search");
@@ -2606,9 +2640,10 @@ $("#global-search").addEventListener("keydown", (event) => {
   }
   if (event.key === "Enter") {
     if (activateGlobalSearchAction(event.currentTarget.value)) event.preventDefault();
+    else if (isGlobalExampleQuery(event.currentTarget.value)) { event.preventDefault(); void activateGlobalExample(event.currentTarget.value); }
   }
 });
-$("#global-search").addEventListener("change", (event) => activateGlobalSearchAction(event.currentTarget.value));
+$("#global-search").addEventListener("change", (event) => { if (!activateGlobalSearchAction(event.currentTarget.value) && isGlobalExampleQuery(event.currentTarget.value)) void activateGlobalExample(event.currentTarget.value); });
 $("#dialog-close").addEventListener("click", () => $("#status-dialog").close());
 $("#recent-project-open").addEventListener("click", () => { void openSelectedRecentProject(); });
 $("#recent-project-picker").addEventListener("change", () => {

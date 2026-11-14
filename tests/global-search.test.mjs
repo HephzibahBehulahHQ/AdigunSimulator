@@ -25,3 +25,13 @@ test("global search shortcut accepts Ctrl or Command K without Alt", () => {
   assert.equal(isGlobalSearchShortcut({ ctrlKey: false, metaKey: false, altKey: false, key: "k" }), false);
   assert.equal(isGlobalSearchShortcut({ ctrlKey: true, metaKey: false, altKey: true, key: "k" }), false);
 });
+
+test("global search resolves a numeric example ID with or without its title", async () => {
+  const { isGlobalExampleQuery, matchGlobalExample } = await import("../js/global-search.mjs");
+  const entries = [{ file: "030-reference-buffer.adigun.json", title: "Precision reference buffer" }, { file: "031-transistor-common-emitter.adigun.json", title: "NPN common-emitter amplifier" }];
+  assert.equal(isGlobalExampleQuery("031"), true);
+  assert.equal(matchGlobalExample(entries, "031"), entries[1]);
+  assert.equal(matchGlobalExample(entries, "Example 031 — NPN common-emitter amplifier"), entries[1]);
+  assert.equal(matchGlobalExample(entries, "#30"), entries[0]);
+  assert.equal(matchGlobalExample(entries, "031 amplifier"), null);
+});
