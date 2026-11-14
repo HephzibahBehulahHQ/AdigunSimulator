@@ -1487,7 +1487,7 @@ function renderOutput(validation = state.lastValidation ?? validateProject(state
   $("#issue-list").classList.toggle("hidden", isLog);
   if (!isLog) {
     $("#issue-list").textContent = issues.length
-      ? issues.map((issue) => `[${issue.rule}] ${issue.message}`).join("\n")
+      ? issues.map((issue) => `[${issue.rule}] ${issue.message}${issue.fix ? `\n  Fix: ${issue.fix}` : ""}`).join("\n")
       : `[${state.activeOutput.toUpperCase()}] None.`;
   }
 }
