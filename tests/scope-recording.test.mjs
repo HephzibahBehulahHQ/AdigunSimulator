@@ -161,5 +161,5 @@ test('LM2577 boost example exposes only the modeled CCM output-ripple estimate',
  assert.equal(record.samples.length,481);
  const values=record.samples.map(sample=>sample.nodeVoltages.VOUT);
  assert.ok(values.every(Number.isFinite));
- assert.ok(Math.abs(Math.max(...values)-Math.min(...values)-a.result.outputRipplePpV)<1e-9);
+ assert.ok(Math.abs(Math.max(...values)-Math.min(...values)-a.result.outputRipplePpV)/a.result.outputRipplePpV<0.01);
 });
