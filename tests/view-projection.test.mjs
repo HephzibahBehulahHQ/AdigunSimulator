@@ -1,8 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { addComponent, createEmptyProject } from "../js/core.mjs";
+import { addComponent, createEmptyProject, validateProject } from "../js/core.mjs";
 import { projectComponentsForView, unresolvedComponentsForDisplay } from "../js/view-projection.mjs";
+import { pcbCoverage } from "../js/example-bank.mjs";
 
 test("newly placed starter parts remain represented in all views without invented footprints",()=>{
  const project=addComponent(createEmptyProject(),"passive.resistor");
@@ -20,6 +21,17 @@ test("reviewed project-specific footprints satisfy PCB display only with sourced
  assert.ok(!unresolved.some(issue=>issue.reference==="R1"||issue.reference==="R2"));
  const altered=structuredClone(project),part=altered.pcbFabrication.parts.find(item=>item.reference==="R1");part.sourceUrl="";
  assert.ok(unresolvedComponentsForDisplay(altered,"pcb").some(issue=>issue.reference==="R1"));
+});
+
+test("LM2596 buck PCB maps every physical part and exempts only declared virtual items",async()=>{
+ const project=JSON.parse(await readFile(new URL("../examples/101-buck-converter-baseline.adigun.json",import.meta.url),"utf8"));
+ const unresolved=unresolvedComponentsForDisplay(project,"pcb");
+ assert.deepEqual(unresolved,[]);
+ assert.equal(project.pcbFabrication.parts.length,9);
+ assert.ok(project.pcbFabrication.parts.every(part=>part.sourceUrl&&project.pcbFabrication.pads.some(pad=>pad.instanceId===part.instanceId)));
+ assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference).sort(),["GND","SCOPE1"]);
+ assert.deepEqual(pcbCoverage(project).missing,[]);
+ assert.deepEqual(validateProject(project).warnings.filter(item=>item.rule==="LAYOUT_OVERLAP"),[]);
 });
 
 test("physical breadboard pin maps are distinguished from unsupported package placeholders",async()=>{
