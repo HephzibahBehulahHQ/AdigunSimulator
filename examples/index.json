@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 28,
-    "withoutStoredPcb": 188,
+    "withStoredPcb": 29,
+    "withoutStoredPcb": 187,
     "unexpectedFailures": []
   },
   "entries": [
@@ -209,31 +209,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "c422be007bb06e022ffba3c1663f0aa9df18e83b11c62ee3b40631e9503f0634",
+      "sha256": "a34d2a6ce55b708bedb7daf01e150b85cb7cedb9dbc89cea638dfb1ece7f10f8",
       "components": 5,
       "analysis": "complete",
       "engine": "Linear DC resistive nodal analysis",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 8,
+      "pcbRoutes": 5,
       "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R3",
-          "libraryId": "passive.resistor"
-        },
         {
           "reference": "GND",
           "libraryId": "ground.signal"
