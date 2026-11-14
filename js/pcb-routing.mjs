@@ -1,5 +1,6 @@
 import { readPcbNetClasses } from "./pcb-net-classes.mjs";
 import { boardDefinitionErrors, minimumPcbTraceWidth } from "./pcb-board.mjs";
+import { boardOutlineContainsSegment } from "./pcb-outline.mjs";
 import { segmentPadGap, padOnLayer, netPairClearance } from "./pcb-copper.mjs";
 import { pcbCopperPads, validatePcbVias } from "./pcb-vias.mjs";
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -74,7 +75,7 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
     ...waypoints.map((point) => Array.isArray(point) ? [Number(point[0]), Number(point[1])] : [Number.NaN, Number.NaN]),
     [Number(to.xMm), Number(to.yMm)]
   ];
-  if (pointsMm.some((point) => !point.every(Number.isFinite) || point[0] < traceWidth / 2 || point[1] < traceWidth / 2 || point[0] > board.widthMm - traceWidth / 2 || point[1] > board.heightMm - traceWidth / 2)) return { status: "blocked", code: "ROUTE_OUT_OF_BOUNDS" };
+  if (pointsMm.some((point) => !point.every(Number.isFinite)) || pointsMm.slice(1).some((point, index) => !boardOutlineContainsSegment(board, pointsMm[index], point, traceWidth / 2))) return { status: "blocked", code: "ROUTE_OUT_OF_BOUNDS" };
   if (pointsMm.some((point, index) => index > 0 && pointDistance(point, pointsMm[index - 1]) <= epsilon)) return { status: "blocked", code: "ZERO_LENGTH_SEGMENT" };
 
   const otherPads = pads.filter((pad) => pad.netId !== from.netId && padOnLayer(pad, layer));

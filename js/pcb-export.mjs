@@ -2,6 +2,7 @@ import { readPcbNetClasses } from "./pcb-net-classes.mjs";
 import { boardDefinitionErrors, boardGeometryErrors, minimumPcbTraceWidth } from "./pcb-board.mjs";
 import { auditPcbCopper, netPairClearance, disconnectedPcbNets } from "./pcb-copper.mjs";
 import { pcbCopperPads, validatePcbVias } from "./pcb-vias.mjs";
+import { boardOutlinePoints } from "./pcb-outline.mjs";
 const round = (value) => Number(Number(value).toFixed(6)).toString();
 const gerberCoord = (value) => String(Math.round(value * 1_000_000)).padStart(10,"0");
 const pointEqual = (a,b) => Array.isArray(b) && b.length === 2 && b.every(Number.isFinite) && Math.hypot(a.xMm-b[0],a.yMm-b[1]) <= 0.001;
@@ -146,7 +147,10 @@ function gerberFile(pcb, { outline=false, layer="F.Cu" }={}) {
   const lines=[`G04 AdigunSimulator ${layerDescription} educational output; verify before manufacture*`,`%FSLAX46Y46*%`,`%MOMM*%`,`%IPPOS*%`];
   for (const {code,definition} of apertures.values()) lines.push(`%ADD${code}${definition}*%`);
   if (outline) {
-    lines.push(`D${outlineCode}*`,`X0000000000Y0000000000D02*`,`X${gerberCoord(pcb.board.widthMm)}Y0000000000D01*`,`X${gerberCoord(pcb.board.widthMm)}Y${gerberCoord(pcb.board.heightMm)}D01*`,`X0000000000Y${gerberCoord(pcb.board.heightMm)}D01*`,`X0000000000Y0000000000D01*`);
+    const points = boardOutlinePoints(pcb.board);
+    lines.push(`D${outlineCode}*`,`X${gerberCoord(points[0][0])}Y${gerberCoord(points[0][1])}D02*`);
+    for (const [x,y] of points.slice(1)) lines.push(`X${gerberCoord(x)}Y${gerberCoord(y)}D01*`);
+    lines.push(`X${gerberCoord(points[0][0])}Y${gerberCoord(points[0][1])}D01*`);
   } else {
     for (const {route,code} of traceDraws) {
       lines.push(`D${code}*`);
