@@ -280,6 +280,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "connector.audio-input-2", category: "Connectors", type: "2-pin audio input header", prefix: "J", pins: ["IN","GND"], defaultValue: "Audio input and ground", simulation: "schematic/PCB only", status: "generic", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.speaker-terminal-2", category: "Connectors", type: "2-pin speaker terminal", prefix: "J", pins: ["SPK+","SPK-"], defaultValue: "Speaker positive and ground return", simulation: "schematic/PCB only", status: "generic", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "active.lm2596-fixed-5v", category: "Active", type: "TI LM2596T-5.0/NOPB fixed 5 V buck regulator", prefix: "U", pins: ["VIN","SW","GND","FB","ONOFF"], defaultValue: "LM2596T-5.0/NOPB; 4.5–40 V input family; fixed 5 V; 3 A IC rating", simulation: "bounded-buck-pcb-topology", status: "TI manufacturer device/pin map; generic PCB footprint template", views: { breadboard: false, schematic: true, pcb: true } },
+  { id: "active.lm2596-adjustable", category: "Active", type: "TI LM2596T-ADJ/NOPB adjustable buck regulator", prefix: "U", pins: ["VIN","SW","GND","FB","ONOFF"], defaultValue: "LM2596T-ADJ/NOPB; 4.5–40 V input; 1.23 V feedback reference; 150 kHz; 3 A IC rating", simulation: "bounded-lm2596-adjustable-estimate", status: "TI manufacturer identity, pin map, and operating limits; physical footprint requires verified package evidence", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "diode.schottky-1n5822g", category: "Active", type: "onsemi 1N5822G Schottky rectifier", prefix: "D", pins: ["A","K"], defaultValue: "3 A average; 40 V repetitive reverse; DO-201AD axial", simulation: "schematic/PCB topology only", status: "onsemi manufacturer part; generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.buck-input-2", category: "Connectors", type: "2-pin buck converter input terminal", prefix: "J", pins: ["VIN","GND"], defaultValue: "12 V DC input; 2-position terminal", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.buck-output-2", category: "Connectors", type: "2-pin buck converter output terminal", prefix: "J", pins: ["VOUT","GND"], defaultValue: "5 V DC output; 2-position terminal", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
@@ -1004,6 +1005,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const epaperReports = project.components.filter((item) => item.libraryId === "output.epaper-panel-report");
   const buckFixtures = project.components.filter((item) => item.libraryId === "input.buck-operating-point-fixture");
   const buckControllers = project.components.filter((item) => item.libraryId === "active.buck-average-controller");
+  const adjustableBuckControllers = project.components.filter((item) => item.libraryId === "active.lm2596-adjustable");
   const buckReports = project.components.filter((item) => item.libraryId === "output.buck-converter-report");
   const boostFixtures = project.components.filter((item) => item.libraryId === "input.boost-operating-point-fixture");
   const boostControllers = project.components.filter((item) => item.libraryId === "active.boost-average-controller");
@@ -1363,6 +1365,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (boostFixtures.length === 1 && boostControllers.length === 1 && boostReports.length === 1 && source.length === 1 && inductor.length === 1 && schottkyDiodes.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseBoostConverter(project, { source: source[0], fixture: boostFixtures[0], controller: boostControllers[0], inductor: inductor[0], diode: schottkyDiodes[0], capacitor: capacitor[0], load: resistor[0], report: boostReports[0], ground: ground[0], validation });
+  }
+  if (adjustableBuckControllers.length === 1 && buckReports.length === 1 && source.length === 1 && inductor.length === 1 && schottkyDiodes.length === 1 && capacitor.length === 1 && ground.length === 1 && project.components.length === 10) {
+    return analyseLm2596Adjustable(project, { source: source[0], controller: adjustableBuckControllers[0], inductor: inductor[0], diode: schottkyDiodes[0], capacitor: capacitor[0], report: buckReports[0], ground: ground[0], validation });
   }
   if (buckFixtures.length === 1 && buckControllers.length === 1 && buckReports.length === 1 && source.length === 1 && inductor.length === 1 && schottkyDiodes.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseBuckConverter(project, { source: source[0], fixture: buckFixtures[0], controller: buckControllers[0], inductor: inductor[0], diode: schottkyDiodes[0], capacitor: capacitor[0], load: resistor[0], report: buckReports[0], ground: ground[0], validation });
@@ -4220,6 +4225,47 @@ function analyseBoostConverter(project,{source,fixture,controller,inductor,diode
   if(inputCurrentA<=inductorRipplePpA/2)return {state:"blocked",message:"This operating point is in discontinuous-conduction mode; this example only reports the stated continuous-conduction average model.",validation};
   const outputRipplePpV=loadCurrentA*duty/(c*frequencyHz),inputPowerW=vin*inputCurrentA,outputPowerW=outputVoltageV*loadCurrentA,diodeLossW=vf*loadCurrentA;
   return {state:"complete",engine:"Asynchronous boost CCM average and triangular-ripple estimate",message:"Uses steady-state inductor volt-second balance for an asynchronous boost, a CCM inductor-ripple estimate, and a capacitive discharge estimate. It excludes switching transients, control-loop stability, inductor saturation/core loss, capacitor ESR, MOSFET loss, thermal effects, tolerances, and hardware validation.",result:{kind:"boost-converter",inputVoltageV:vin,dutyCyclePercent:dutyPercent,switchingFrequencyHz:frequencyHz,diodeForwardVoltageV:vf,inductanceH:l,capacitanceF:c,loadResistanceOhm:r,outputVoltageV,loadCurrentA,inputCurrentA,inductorRipplePpA,outputRipplePpV,conductionMode:"CCM",inputPowerW,outputPowerW,diodeLossW,estimatedEfficiencyPercent:outputPowerW/inputPowerW*100,powerBalanceW:inputPowerW-outputPowerW-diodeLossW,controllerHardwareModeled:false},validation};
+}
+function analyseLm2596Adjustable(project,{source,controller,inductor,diode,capacitor,report,ground,validation}){
+  const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
+  const n=(part,pin)=>endpointNets.get(endpoint(part,String(pin)));
+  const byRef=(reference)=>project.components.find((item)=>item.reference===reference);
+  const top=byRef("RFB1"),bottom=byRef("RFB2"),load=byRef("RLOAD");
+  const required=[source,controller,inductor,diode,capacitor,report,ground,top,bottom,load];
+  const missing=required.some((item)=>!item);
+  if(missing)return {state:"blocked",message:"This LM2596 adjustable estimate requires V1, U1, L1, D1, C1, RFB1, RFB2, RLOAD, SCOPE1, and GND. Restore the missing component before running.",validation};
+  const same=(a,ap,b,bp)=>Boolean(n(a,ap)&&n(a,ap)===n(b,bp));
+  const wired=[
+    same(source,"-",ground,"0"),same(controller,"VIN",source,"+"),same(controller,"GND",ground,"0"),same(controller,"ONOFF",ground,"0"),
+    same(controller,"SW",diode,"K"),same(controller,"SW",inductor,"1"),same(diode,"A",ground,"0"),
+    same(inductor,"2",capacitor,"1"),same(inductor,"2",load,"1"),same(inductor,"2",report,"VOUT"),same(capacitor,"2",ground,"0"),same(load,"2",ground,"0"),same(report,"GND",ground,"0"),
+    same(inductor,"2",top,"1"),same(top,"2",bottom,"1"),same(bottom,"2",ground,"0"),same(controller,"FB",top,"2")
+  ];
+  if(wired.some((ok)=>!ok)){
+    const diodeCorrect=same(controller,"SW",diode,"K")&&same(diode,"A",ground,"0");
+    const feedbackCorrect=same(controller,"FB",top,"2")&&same(top,"1",inductor,"2")&&same(top,"2",bottom,"1")&&same(bottom,"2",ground,"0");
+    const fixes=[];
+    if(!diodeCorrect)fixes.push("connect D1 cathode (K) to U1 SW and D1 anode (A) to GND");
+    if(!feedbackCorrect)fixes.push("connect RFB1 from VOUT to the RFB1/RFB2 junction, U1 FB to that junction, and RFB2 from the junction to GND");
+    if(!same(controller,"ONOFF",ground,"0"))fixes.push("connect U1 ON/OFF low to enable the regulator");
+    if(fixes.length===0)fixes.push("connect the source, switch node, inductor, output capacitor, load, and ground as shown by the labeled pins");
+    return {state:"blocked",message:"LM2596 buck wiring is incomplete or inconsistent. To fix it: "+fixes.join("; ")+".",validation};
+  }
+  const vin=voltageValue(source.value),vf=forwardVoltage(diode.value),l=inductanceValue(inductor.value),c=capacitanceValue(capacitor.value);
+  const rTop=resistanceValue(top.value),rBottom=resistanceValue(bottom.value),rLoad=resistanceValue(load.value),referenceV=1.23,frequencyHz=150000;
+  if(!Number.isFinite(vin)||vin<4.5||vin>40||!Number.isFinite(vf)||vf<0.1||vf>1.5||!Number.isFinite(l)||l<1e-6||l>10||!Number.isFinite(c)||c<1e-6||c>10||!Number.isFinite(rTop)||rTop<=0||!Number.isFinite(rBottom)||rBottom<=0||!Number.isFinite(rLoad)||rLoad<=0){
+    return {state:"blocked",message:"Use a 4.5–40 V input, valid diode forward drop, positive inductor and capacitor values, and positive feedback/load resistances.",validation};
+  }
+  const outputVoltageV=referenceV*(1+rTop/rBottom),duty=(outputVoltageV+vf)/(vin+vf);
+  if(outputVoltageV<1.23||outputVoltageV>37||outputVoltageV>=vin||duty<=0||duty>=1){
+    return {state:"blocked",message:"The feedback divider requests an output outside the LM2596 adjustable range or not below the input. Choose RFB1 and RFB2 for 1.23–37 V below VIN.",validation};
+  }
+  const loadCurrentA=outputVoltageV/rLoad,inductorRipplePpA=(vin-outputVoltageV)*duty/(l*frequencyHz);
+  if(loadCurrentA<=inductorRipplePpA/2)return {state:"blocked",message:"This operating point is discontinuous conduction. Increase inductance or load current; this estimate only reports continuous-conduction operation.",validation};
+  if(loadCurrentA+inductorRipplePpA/2>3)return {state:"blocked",message:"Estimated peak inductor current exceeds the LM2596's 3 A device rating. Reduce load current or redesign the power stage.",validation};
+  const outputRipplePpV=inductorRipplePpA/(8*frequencyHz*c),inputCurrentA=duty*loadCurrentA;
+  const outputPowerW=outputVoltageV*loadCurrentA,inputPowerW=vin*inputCurrentA,diodeLossW=(1-duty)*vf*loadCurrentA;
+  return {state:"complete",engine:"LM2596 adjustable buck CCM average and triangular-ripple estimate",message:"Uses the TI LM2596 adjustable feedback reference and nominal 150 kHz switching frequency with steady-state buck volt-second balance, CCM inductor-current ripple, and ideal-capacitor output ripple estimates. It is not a switching transient or closed-loop simulation; it excludes capacitor ESR, component tolerance, current-limit dynamics, loop stability, losses beyond the diode estimate, thermal behavior, EMC, and hardware qualification.",result:{kind:"buck-converter",device:"LM2596T-ADJ/NOPB",inputVoltageV:vin,feedbackReferenceV:referenceV,feedbackTopResistanceOhm:rTop,feedbackBottomResistanceOhm:rBottom,dutyCyclePercent:duty*100,switchingFrequencyHz:frequencyHz,diodeForwardVoltageV:vf,inductanceH:l,capacitanceF:c,loadResistanceOhm:rLoad,outputVoltageV,loadCurrentA,inductorRipplePpA,outputRipplePpV,conductionMode:"CCM",inputCurrentA,inputPowerW,outputPowerW,diodeLossW,estimatedEfficiencyPercent:outputPowerW/inputPowerW*100,powerBalanceW:inputPowerW-outputPowerW-diodeLossW,controllerHardwareModeled:false},validation};
 }
 function analyseBuckConverter(project,{source,fixture,controller,inductor,diode,capacitor,load,report,ground,validation}){
   const endpointNets=new Map();for(const net of project.nets)for(const item of net.endpoints)endpointNets.set(item,net.id);
