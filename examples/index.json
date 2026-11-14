@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 30,
-    "withoutStoredPcb": 186,
+    "withStoredPcb": 31,
+    "withoutStoredPcb": 185,
     "unexpectedFailures": []
   },
   "entries": [
@@ -4892,43 +4892,15 @@
       "type": "Power",
       "level": "Advanced",
       "category": "Conversion and protection",
-      "sha256": "0f171dd45558414a4081d0edb8aba268ea6dafb4e5810784505a60b98e0f54bb",
-      "components": 10,
+      "sha256": "9e4261a1a0ea98ac2802d6f62d8d30fdfa39b78087498da5c940331026b7340b",
+      "components": 11,
       "analysis": "complete",
       "engine": "LM2596 adjustable buck CCM average and triangular-ripple estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 21,
+      "pcbRoutes": 15,
       "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "CFG1",
-          "libraryId": "input.buck-operating-point-fixture"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.buck-average-controller"
-        },
-        {
-          "reference": "L1",
-          "libraryId": "passive.inductor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.schottky"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "RLOAD",
-          "libraryId": "passive.resistor"
-        },
         {
           "reference": "SCOPE1",
           "libraryId": "output.buck-converter-report"
