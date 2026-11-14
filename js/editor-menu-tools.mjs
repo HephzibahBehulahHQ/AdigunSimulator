@@ -86,7 +86,7 @@ export function printProjectView({document,window,project,view,viewLabel}){
   const drawing=document.createElement('div');drawing.className=`print-canvas ${view}`;
   const clone=scene.cloneNode(true);clone.style.transform='none';
   clone.querySelectorAll('.placement-ghost,.component-selection,.wire-waypoint,.junction-candidate').forEach(node=>node.remove());
-  const extent=printSceneExtent(clone),scale=Math.min(1,960/extent.width,720/extent.height);
+  const extent=printSceneExtent(clone),scale=Math.min(960/extent.width,720/extent.height);
   if(scale<1)clone.style.transform=`scale(${scale})`;
   clone.style.transformOrigin='top left';
   drawing.style.width=`${extent.width*scale}px`;drawing.style.height=`${extent.height*scale}px`;
