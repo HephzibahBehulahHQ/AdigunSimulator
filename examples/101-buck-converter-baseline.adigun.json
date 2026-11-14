@@ -1179,5 +1179,22 @@
         "reason": "Virtual analytical readout; it is not a physical circuit package."
       }
     ]
+  },
+  "breadboard": {
+    "model": "generic-400-30",
+    "pinHoles": {},
+    "jumpers": [],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; the circuit return is physical through V1-, U1 GND/ONOFF, and the return rail."
+      },
+      {
+        "instanceId": "report",
+        "reference": "SCOPE1",
+        "reason": "Virtual analytical scope readout; it is not a physical breadboard package."
+      }
+    ]
   }
 }
