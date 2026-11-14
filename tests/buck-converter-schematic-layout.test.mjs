@@ -16,6 +16,8 @@ const partFor = id => findLibraryPart(id) ?? (partPins[id] ? { pins: partPins[id
 
 test('Example 101 schematic fits its canvas, has no symbol overlaps, and routes every net edge', async () => {
   const project = JSON.parse(await readFile(example, 'utf8'));
+  assert.equal(project.components.find(component => component.reference === 'U1')?.value, 'LM2596T-ADJ/NOPB');
+  assert.equal(project.components.find(component => component.reference === 'J2')?.value, '5.76 V DC');
   const boxes = project.components.map(component => ({ reference: component.reference, ...schematicObstacle(component) }));
 
   for (const box of boxes) {
