@@ -3207,14 +3207,16 @@ test("catalogue seven-segment clock handles midnight rollover and invalid fixtur
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 
-test("catalogue buck converter reports bounded CCM average and ripple estimates", async () => {
+test("catalogue LM2596 adjustable buck reports bounded CCM average and ripple estimates", async () => {
   const project=JSON.parse(await readFile(new URL("../examples/101-buck-converter-baseline.adigun.json",import.meta.url)));
   const result=runSupportedAnalysis(project);
   assert.equal(result.state,"complete",result.message);
   assert.equal(result.result.kind,"buck-converter");
   assert.equal(result.result.inputVoltageV,12);
-  assert.equal(result.result.outputVoltageV,5.75);
-  assert.ok(Math.abs(result.result.loadCurrentA-5.75/24)<1e-12);
+  assert.ok(Math.abs(result.result.outputVoltageV-5.7564)<1e-12);
+  assert.equal(result.result.device,"LM2596T-ADJ/NOPB");
+  assert.equal(result.result.switchingFrequencyHz,150000);
+  assert.ok(Math.abs(result.result.loadCurrentA-5.7564/24)<1e-12);
   assert.ok(result.result.inductorRipplePpA>0);
   assert.ok(result.result.outputRipplePpV>0);
   assert.equal(result.result.conductionMode,"CCM");
