@@ -21,6 +21,8 @@ export function createScopeLauncher({ document, canvas, onOpen }) {
   canvas.append(button);
   return {
     update(state, label) {
+      // renderCanvas replaces the canvas contents, so restore this UI control after redraws.
+      if (button.parentElement !== canvas) canvas.append(button);
       button.hidden = !hasCurrentScopeAnalysis(state);
       button.setAttribute("aria-label", label);
       button.title = label;
@@ -28,4 +30,3 @@ export function createScopeLauncher({ document, canvas, onOpen }) {
     remove() { button.remove(); }
   };
 }
-
