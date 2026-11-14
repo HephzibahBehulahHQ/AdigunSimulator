@@ -35,6 +35,30 @@ export function analyticalDcScopeRecording(project,analysis){
   const output=r.switchPosition==="A"?r.sourceVoltage:0;
   return {kind:"analytical-dc-output",model:`Latching LED switch position ${r.switchPosition} DC operating point`,preferredNet:ledA,nodes:{[vcc]:r.sourceVoltage,[gnd]:0,[swOut]:output,[ledA]:output-r.ledCurrentA*ledResistance}};
  }
+ if(r?.kind==="usb-led-ptc"){
+  const usb=byType("power.usb-source"),fuses=byType("protection.ptc-polyfuse"),resistors=byType("passive.resistor"),leds=byType("diode.led-red");
+  if(usb.length!==1||fuses.length!==1||resistors.length!==1||leds.length!==1||byType("ground.signal").length!==1)return null;
+  const usbSource=usb[0],fuse=fuses[0],resistor=resistors[0],led=leds[0],vbus=netOf(usbSource,"+"),gnd=netOf(usbSource,"-"),fused=netOf(fuse,"2"),ledA=netOf(led,"A");
+  if(!vbus||netOf(fuse,"1")!==vbus||!fused||![netOf(resistor,"1"),netOf(resistor,"2")].includes(fused)||![netOf(resistor,"1"),netOf(resistor,"2")].includes(ledA)||netOf(led,"K")!==gnd||gnd!==netOf(ground,"0"))return null;
+  const resistance=parseResistance(resistor.value);if(!Number.isFinite(resistance))return null;
+  return {kind:"analytical-dc-output",model:"USB LED with PTC analytical DC operating point",preferredNet:ledA,nodes:{[vbus]:r.sourceVoltage,[fused]:r.sourceVoltage-r.fuseVoltageDrop,[ledA]:r.sourceVoltage-r.fuseVoltageDrop-r.currentA*resistance,[gnd]:0}};
+ }
+ if(r?.kind==="ntc-temperature-divider"){
+  const sources=byType("power.dc-source"),ntcs=byType("passive.ntc-thermistor"),resistors=byType("passive.resistor");
+  if(sources.length!==1||ntcs.length!==1||resistors.length!==1||byType("ground.signal").length!==1)return null;
+  const v=sources[0],ntc=ntcs[0],resistor=resistors[0],vcc=netOf(v,"+"),gnd=netOf(v,"-"),output=netOf(ntc,"2");
+  if(!vcc||netOf(ntc,"1")!==vcc||!output||![netOf(resistor,"1"),netOf(resistor,"2")].includes(output)||![netOf(resistor,"1"),netOf(resistor,"2")].includes(gnd)||gnd!==netOf(ground,"0"))return null;
+  return {kind:"analytical-dc-output",model:`NTC divider at ${r.temperatureC} °C`,preferredNet:output,nodes:{[vcc]:r.supplyVoltage,[output]:r.outputVoltage,[gnd]:0}};
+ }
+ if(r?.kind==="ldr-night-light"){
+  const sources=byType("power.dc-source"),ldrs=byType("passive.ldr"),comparators=byType("active.comparator-ideal"),resistors=byType("passive.resistor"),leds=byType("diode.led-red");
+  if(sources.length!==1||ldrs.length!==1||comparators.length!==1||resistors.length!==2||leds.length!==1||byType("ground.signal").length!==1)return null;
+  const v=sources[0],ldr=ldrs[0],comp=comparators[0],led=leds[0],gnd=netOf(v,"-"),vcc=netOf(v,"+"),sense=netOf(ldr,"2"),output=netOf(comp,"OUT"),ledA=netOf(led,"A"),divider=resistors.find(x=>[netOf(x,"1"),netOf(x,"2")].includes(sense)&&[netOf(x,"1"),netOf(x,"2")].includes(gnd)),series=resistors.find(x=>x!==divider&&[netOf(x,"1"),netOf(x,"2")].includes(output)&&[netOf(x,"1"),netOf(x,"2")].includes(ledA));
+  if(!vcc||!gnd||netOf(ldr,"1")!==vcc||netOf(comp,"SENSE")!==sense||netOf(comp,"VCC")!==vcc||netOf(comp,"GND")!==gnd||netOf(led,"K")!==gnd||!divider||!series||gnd!==netOf(ground,"0"))return null;
+  const resistance=parseResistance(series.value);if(!Number.isFinite(resistance))return null;
+  const outputVoltage=r.ledOn?r.supplyVoltage:0;
+  return {kind:"analytical-dc-output",model:`LDR night-light ${r.illuminationPercent}% illumination DC operating point`,preferredNet:ledA,nodes:{[vcc]:r.supplyVoltage,[sense]:r.senseVoltage,[output]:outputVoltage,[ledA]:outputVoltage-r.ledCurrentA*resistance,[gnd]:0}};
+ }
  return null;
 }
 
