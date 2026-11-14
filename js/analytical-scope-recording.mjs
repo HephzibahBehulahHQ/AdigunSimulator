@@ -5,6 +5,7 @@ export function analyticalScopeRecording(project,analysis){
  const r=analysis.result,kind=r?.kind;
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
+ if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
  if(['rc-low-pass','rc-high-pass','rl-low-pass','passive-tone-control'].includes(kind))return frequencyResponseRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
@@ -112,3 +113,17 @@ function frequencyResponseRecording(project,r){
  return {kind:'analytical-output-recording',model:`${kind} steady-state sine at ${frequency} Hz (frequency-domain estimate, not transient simulation)`,preferredNet:output,samples};
 }
 
+
+function supercapHoldUpRecording(project,r){
+ const source=project.components.filter(c=>c.libraryId==='power.dc-source'),diodes=project.components.filter(c=>c.libraryId==='diode.schottky'),capacitors=project.components.filter(c=>c.libraryId==='passive.supercapacitor'),resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),grounds=project.components.filter(c=>c.libraryId==='ground.signal');
+ if(source.length!==1||diodes.length!==1||capacitors.length!==1||resistors.length!==1||grounds.length!==1||!Array.isArray(r.samples)||r.samples.length<2||r.samples.length>2000)return null;
+ const net=(c,pin)=>project.nets.find(n=>n.endpoints.includes(`${c.instanceId}:${pin}`))?.id,[s,d,c,res,g]=[source[0],diodes[0],capacitors[0],resistors[0],grounds[0]];
+ const power=net(s,'+'),ground=net(s,'-'),output=net(c,'+'),sourceVoltage=r.sourceVoltage,initial=r.chargeVoltage;
+ if(!power||!ground||!output||new Set([power,ground,output]).size!==3||net(d,'A')!==power||net(d,'K')!==output||net(c,'-')!==ground||net(res,'1')!==output||net(res,'2')!==ground||net(g,'0')!==ground)return null;
+ if(!Number.isFinite(sourceVoltage)||!Number.isFinite(r.diodeVf)||!Number.isFinite(initial)||Math.abs(sourceVoltage-r.diodeVf-initial)>Math.max(1,Math.abs(sourceVoltage))*1e-9)return null;
+ let previous=-Infinity;
+ for(const sample of r.samples){if(!Number.isFinite(sample.timeS)||sample.timeS<previous||!Number.isFinite(sample.voltage)||sample.voltage<0||sample.voltage>r.ratedVoltage)return null;previous=sample.timeS;}
+ if(r.samples[0].timeS!==0||Math.abs(r.samples[0].voltage-initial)>Math.max(1,Math.abs(initial))*1e-9||r.samples.at(-1).timeS<=0)return null;
+ const samples=r.samples.map(sample=>({timeSeconds:sample.timeS,nodeVoltages:{[ground]:0,[power]:sourceVoltage,[output]:sample.voltage}}));
+ return {kind:'analytical-output-recording',model:'Supercapacitor hold-up discharge (analytical model samples)',preferredNet:output,samples};
+}
