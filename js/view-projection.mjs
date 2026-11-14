@@ -16,6 +16,8 @@ export function unresolvedComponentsForDisplay(project,view) {
    return !part.pins.every(pin=>typeof holes[`${component.instanceId}:${pin}`]==='string'&&holes[`${component.instanceId}:${pin}`].length>0);
   }
   if(view==='pcb'){
+   const declaredNonPhysical=new Set((project?.pcbFabrication?.nonPhysicalItems??[]).map(item=>item.instanceId));
+   if(declaredNonPhysical.has(component.instanceId))return false;
    const fabrication=project.pcbFabrication,physicalPart=fabrication?.parts?.find(item=>item.instanceId===component.instanceId);
    const mappedPads=fabrication?.pads?.filter(pad=>pad.instanceId===component.instanceId)??[];
    return !(physicalPart?.footprint&&physicalPart?.manufacturerPartNumber&&physicalPart?.sourceUrl&&mappedPads.length>=part.pins.length);
