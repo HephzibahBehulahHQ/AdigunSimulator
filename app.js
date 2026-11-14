@@ -84,7 +84,7 @@ import { verifySimulationLockfile } from "./js/simulation-lockfile.mjs";
 
 
 
-import { projectComponentsForView } from "./js/view-projection.mjs";
+import { projectComponentsForView, unresolvedComponentsForDisplay } from "./js/view-projection.mjs";
 
 
 
@@ -608,6 +608,13 @@ function componentVisual(component, view) {
   return `<button type="button" class="placed-component ${className} ${selected} ${netSelected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px;--symbol-width:${symbolSize.width}px;--symbol-height:${symbolSize.height}px;--symbol-rotation:${symbolSize.rotation ?? 0}deg;--symbol-mirror-x:${symbolSize.mirrorX ? -1 : 1};--symbol-mirror-y:${symbolSize.mirrorY ? -1 : 1}" aria-label="${escape(component.reference)} ${escape(type)}"><span class="part-reference">${escape(component.reference)}</span>${body}<span class="part-value" title="${escape(component.value)}">${escape(component.libraryId.startsWith('plc.')?ladderValueLabel(component):component.value)}</span></button>`;
 }
 
+function unmappedComponentVisual(component, view, reason) {
+  const part = findLibraryPart(component.libraryId), type = part?.type ?? "Unknown component";
+  const [x = 120, y = 120] = component.position?.[view] ?? [];
+  const selected = component.instanceId === state.selectedInstanceId ? "is-selected" : "";
+  return `<button type="button" class="placed-component unmapped-component ${selected}" data-instance-id="${escape(component.instanceId)}" data-placement-view="${escape(view)}" style="--x:${x}px;--y:${y}px" title="${escape(reason)}" aria-label="${escape(component.reference)} ${escape(type)}: ${escape(reason)}"><span class="part-reference">${escape(component.reference)}</span><span class="unmapped-component-indicator" aria-hidden="true">⚠</span><span class="unmapped-component-label">${escape(view.toUpperCase())} mapping needed</span></button>`;
+}
+
 function componentCenter(component, view) {
   const [x = 120, y = 120] = component.position?.[view] ?? [];
   return { x: x + 28, y: y + 29 };
@@ -1004,7 +1011,7 @@ function renderCanvas() {
   document.querySelectorAll("[data-mini-view]").forEach((panel) => { panel.hidden = panel.dataset.miniView !== "schematic" || state.activeView !== "breadboard"; });
   canvas.setAttribute("aria-label", `${state.activeView} representation. Select a component to inspect it.`);
   const projection = projectComponentsForView(state.project, state.activeView);
-  const issues = projection.reconciliationItems;
+  const issues = unresolvedComponentsForDisplay(state.project, state.activeView);
   const unavailable = new Set(issues.map((issue) => issue.instanceId));
   const isBreadboard = state.activeView === "breadboard";
   const isPcb = state.activeView === "pcb";
@@ -1016,9 +1023,10 @@ function renderCanvas() {
   $("#pcb-route-layer-control").hidden = !hasPcbData;
   [...pcbRouteLayerSelect.options].forEach((option) => { option.disabled = !pcbCopperLayers.includes(option.value); });
   if (!pcbCopperLayers.includes(pcbRouteLayerSelect.value)) pcbRouteLayerSelect.value = pcbCopperLayers.includes("F.Cu") ? "F.Cu" : (pcbCopperLayers[0] ?? "");
-  const parts = isBreadboard && hasPhysicalMap
+  const placedParts = isBreadboard && hasPhysicalMap
     ? breadboardPinMarkers(state.project) + projection.components.filter(component => !Object.keys(state.project.breadboard.pinHoles).some(endpoint => endpoint.startsWith(`${component.instanceId}:`))).map(component => componentVisual(component, "breadboard")).join("")
     : hasPcbData ? "" : projection.components.map((component) => componentVisual(component, state.activeView)).join("");
+  const parts = placedParts + issues.map(issue => { const component=state.project.components.find(item=>item.instanceId===issue.instanceId); return component ? unmappedComponentVisual(component,state.activeView,issue.reason) : ""; }).join("");
   const surface = isBreadboard ? breadboardBoardSvg(state.project) : isPcb ? renderPcbPreviewSvg(state.project, t("pcbNoFootprintData")) : "";
   const wires = isBreadboard
     ? breadboardWireSvg(state.project)
