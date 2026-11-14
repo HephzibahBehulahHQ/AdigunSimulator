@@ -29,6 +29,14 @@ test('invalid wiring blocks DC scope records and retains the model repair messag
  const p=await load('003-pushbutton-led');p.nets=p.nets.map(n=>({...n,endpoints:n.endpoints.filter(e=>e!=='switch-1:1')})).filter(n=>n.endpoints.length);const analysis=runProjectAnalysis(p);assert.notEqual(analysis.state,'complete');assert.match(analysis.message,/Wire source positive through the pushbutton/);assert.equal(createFeedbackTimeline(p,analysis),null);
 });
 
+test('USB LED, NTC divider and LDR examples expose measured analytical DC outputs',async()=>{
+ const cases=[['008-usb-powered-led','LED_A',2],['019-ntc-temperature-divider','VOUT',2.5],['020-ldr-night-light','LED_A',2]];
+ for(const [name,probe,expected] of cases){const p=await load(name),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);assert.equal(a.state,'complete',name);assert.equal(timeline?.kind,'dc',name);const trace=scopeTrace(p,a,{status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},probe);assert.ok(Math.abs(trace?.voltage-expected)<1e-9,name);assert.equal(trace?.points[0][1],trace?.points[1][1],name);}
+ const ldr=await load('020-ldr-night-light');ldr.components.find(c=>c.libraryId==='passive.ldr').value='Rbright 10 kΩ; Rdark 1 MΩ; light 100%';
+ const bright=runProjectAnalysis(ldr),timeline=createFeedbackTimeline(ldr,bright),ledA=ldr.nets.find(n=>n.endpoints.includes('led-1:A')).id;
+ assert.equal(bright.result.ledOn,false);assert.ok(Math.abs(timeline?.frame(0).nodes[ledA])<1e-9);
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);
