@@ -1,25 +1,56 @@
 export const BREADBOARD_MODEL = Object.freeze({
+  id: "busboard-bb400",
+  manufacturer: "BusBoard Prototype Systems",
+  manufacturerPartNumber: "BB400",
+  datasheetUrl: "https://www.busboard.com/documents/datasheets/BPS-DAT-%28BB400%29-Datasheet.pdf",
+  columns: 30,
+  railColumns: 25,
+  railColumnOffset: 2.5,
+  terminalRows: Object.freeze(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]),
+  holePitchMm: 2.54,
+  lengthMm: 84,
+  widthMm: 54.3,
+  thicknessMm: 8.5,
+  voltageRatingV: 36,
+  currentRatingA: 2,
+  insertionWireDiameterMinMm: 0.4,
+  insertionWireDiameterMaxMm: 0.7,
+  railsContinuous: true,
+  railSegmentLength: 0,
+  terminalHoleCount: 300,
+  railHoleCount: 100,
+  holeCount: 400
+});
+
+export const LEGACY_BREADBOARD_MODEL = Object.freeze({
   id: "generic-400-30",
   columns: 30,
-  terminalRows: Object.freeze(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]),
+  railColumns: 30,
+  railColumnOffset: 0,
+  terminalRows: BREADBOARD_MODEL.terminalRows,
+  railsContinuous: false,
   railSegmentLength: 15,
   terminalHoleCount: 300,
   railHoleCount: 120,
   holeCount: 420
 });
 
-export function breadboardHoleIds() {
+export function breadboardModelFor(id) {
+  return id === LEGACY_BREADBOARD_MODEL.id ? LEGACY_BREADBOARD_MODEL : BREADBOARD_MODEL;
+}
+
+export function breadboardHoleIds(model = BREADBOARD_MODEL) {
   const ids = [];
-  for (const row of BREADBOARD_MODEL.terminalRows) {
-    for (let column = 1; column <= BREADBOARD_MODEL.columns; column++) ids.push(`${row}${column}`);
+  for (const row of model.terminalRows) {
+    for (let column = 1; column <= model.columns; column++) ids.push(`${row}${column}`);
   }
   for (const rail of ["TP", "TM", "BP", "BM"]) {
-    for (let column = 1; column <= BREADBOARD_MODEL.columns; column++) ids.push(`${rail}${column}`);
+    for (let column = 1; column <= model.railColumns; column++) ids.push(`${rail}${column}`);
   }
   return ids;
 }
 
-export function normalizeBreadboardHole(value) {
+export function normalizeBreadboardHole(value, model = BREADBOARD_MODEL) {
   if (typeof value !== "string") return null;
   const id = value.trim().toUpperCase();
   const terminal = id.match(/^([A-J])(\d{1,2})$/);
@@ -27,11 +58,12 @@ export function normalizeBreadboardHole(value) {
   const match = terminal ?? rail;
   if (!match) return null;
   const column = Number(match[2]);
-  return Number.isInteger(column) && column >= 1 && column <= BREADBOARD_MODEL.columns ? id : null;
+  const maxColumn = terminal ? model.columns : model.railColumns;
+  return Number.isInteger(column) && column >= 1 && column <= maxColumn ? id : null;
 }
 
 export function breadboardConnectionGroup(value, model = BREADBOARD_MODEL) {
-  const id = normalizeBreadboardHole(value);
+  const id = normalizeBreadboardHole(value, model);
   if (!id) return null;
   const terminal = id.match(/^([A-J])(\d{1,2})$/);
   if (terminal) {
@@ -45,13 +77,13 @@ export function breadboardConnectionGroup(value, model = BREADBOARD_MODEL) {
   return `rail:${rail[1]}:${model.railsContinuous ? "continuous" : segment}`;
 }
 
-export function breadboardHolePoint(value) {
-  const id = normalizeBreadboardHole(value);
+export function breadboardHolePoint(value, model = BREADBOARD_MODEL) {
+  const id = normalizeBreadboardHole(value, model);
   if (!id) return null;
   const terminal = id.match(/^([A-J])(\d{1,2})$/);
   const rail = id.match(/^(TP|TM|BP|BM)(\d{1,2})$/);
   const column = Number((terminal ?? rail)[2]);
-  const x = 54 + (column - 1) * (572 / 29);
+  const x = 54 + (column - 1 + (terminal ? 0 : model.railColumnOffset)) * (572 / 29);
   if (terminal) {
     const rowIndex = BREADBOARD_MODEL.terminalRows.indexOf(terminal[1]);
     const y = rowIndex < 5 ? 95 + rowIndex * 10 : 165 + (rowIndex - 5) * 10;
@@ -76,9 +108,10 @@ function makeDisjointSet() {
   return { root, union };
 }
 
-export function validateBreadboardTopology(project, { getPartPins, model = BREADBOARD_MODEL } = {}) {
+export function validateBreadboardTopology(project, { getPartPins, model: requestedModel } = {}) {
   const errors = [], warnings = [];
   const config = project?.breadboard;
+  const model = requestedModel ?? breadboardModelFor(config?.model);
   const nonPhysical = new Set((config?.nonPhysicalItems ?? []).map(item => item.instanceId));
   const requiredPins = (project?.components ?? []).flatMap(component => nonPhysical.has(component.instanceId)
     ? [] : (getPartPins?.(component.libraryId) ?? []).map(pin => `${component.instanceId}:${pin}`));
@@ -95,7 +128,7 @@ export function validateBreadboardTopology(project, { getPartPins, model = BREAD
     const instanceId = separator < 0 ? "" : rawEndpoint.slice(0, separator);
     const pin = separator < 0 ? "" : rawEndpoint.slice(separator + 1);
     const component = components.get(instanceId);
-    const hole = normalizeBreadboardHole(rawHole);
+    const hole = normalizeBreadboardHole(rawHole, model);
     if (!component || !pin || !getPartPins(component.libraryId)?.includes(pin)) {
       errors.push({ code: "BREADBOARD_UNKNOWN_PIN", endpoint: rawEndpoint, message: "A physical placement refers to a component pin that is not in the library." });
       continue;
@@ -105,7 +138,7 @@ export function validateBreadboardTopology(project, { getPartPins, model = BREAD
       continue;
     }
     if (!hole) {
-      errors.push({ code: "BREADBOARD_HOLE_ID", endpoint: rawEndpoint, message: "Use a terminal hole A1–J30 or rail hole TP1/TM1/BP1/BM1 through TP30/TM30/BP30/BM30." });
+      errors.push({ code: "BREADBOARD_HOLE_ID", endpoint: rawEndpoint, message: `Use a terminal hole A1–J${model.columns} or rail hole TP1/TM1/BP1/BM1 through TP${model.railColumns}/TM${model.railColumns}/BP${model.railColumns}/BM${model.railColumns}.` });
       continue;
     }
     const endpoint = `${instanceId}:${pin}`;
@@ -128,7 +161,7 @@ export function validateBreadboardTopology(project, { getPartPins, model = BREAD
   if (!Array.isArray(config.jumpers)) errors.push({ code: "BREADBOARD_JUMPERS", message: "Physical jumpers must be stored as an array." });
   const jumperKeys = new Set();
   for (const jumper of jumpers) {
-    const from = normalizeBreadboardHole(jumper?.from), to = normalizeBreadboardHole(jumper?.to);
+    const from = normalizeBreadboardHole(jumper?.from, model), to = normalizeBreadboardHole(jumper?.to, model);
     if (!from || !to || from === to) {
       errors.push({ code: "BREADBOARD_JUMPER_ENDPOINT", message: "Each jumper must connect two distinct valid breadboard holes." });
       continue;
@@ -185,9 +218,10 @@ export const BREADBOARD_GENERIC_PACKAGE_GEOMETRY = Object.freeze({
 export function breadboardPackagePlacement(component, project) {
   const packageModel = BREADBOARD_GENERIC_PACKAGE_GEOMETRY[component?.libraryId];
   if (!packageModel || !project?.breadboard?.pinHoles) return null;
+  const model = breadboardModelFor(project.breadboard.model);
   const pinPoints = packageModel.pins.map((pin) => {
-    const hole = normalizeBreadboardHole(project.breadboard.pinHoles[`${component.instanceId}:${pin}`]);
-    return hole ? { pin, hole, ...breadboardHolePoint(hole) } : null;
+    const hole = normalizeBreadboardHole(project.breadboard.pinHoles[`${component.instanceId}:${pin}`], model);
+    return hole ? { pin, hole, ...breadboardHolePoint(hole, model) } : null;
   });
   if (pinPoints.some((point) => !point) || new Set(pinPoints.map((point) => point.hole)).size !== pinPoints.length) return null;
   const first = pinPoints[0], last = pinPoints[pinPoints.length - 1];
@@ -222,7 +256,8 @@ export function breadboardPackagePlacement(component, project) {
   };
 }
 
-export function deriveBreadboardSchematicNets(project, { getPartPins, model = BREADBOARD_MODEL } = {}) {
+export function deriveBreadboardSchematicNets(project, { getPartPins, model: requestedModel } = {}) {
+  const model = requestedModel ?? breadboardModelFor(project?.breadboard?.model);
   if (!project?.breadboard?.pinHoles) {
     return { state: "incomplete", message: "Assign physical breadboard holes before synchronizing the schematic netlist.", errors: [], warnings: [{ code: "BREADBOARD_MAPPING_MISSING" }], nets: [], changed: false, mergedNetIds: [], splitNetIds: [] };
   }
@@ -236,7 +271,7 @@ export function deriveBreadboardSchematicNets(project, { getPartPins, model = BR
   const pinHoles = project.breadboard.pinHoles;
   for (const hole of Object.values(pinHoles)) sets.root(breadboardConnectionGroup(hole, model));
   for (const jumper of project.breadboard.jumpers ?? []) {
-    const from = normalizeBreadboardHole(jumper?.from), to = normalizeBreadboardHole(jumper?.to);
+    const from = normalizeBreadboardHole(jumper?.from, model), to = normalizeBreadboardHole(jumper?.to, model);
     if (from && to) sets.union(breadboardConnectionGroup(from, model), breadboardConnectionGroup(to, model));
   }
 

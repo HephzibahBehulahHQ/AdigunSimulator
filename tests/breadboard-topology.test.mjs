@@ -3,28 +3,50 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { createProject, findLibraryPart, parseProject, serializeProject, validateProject } from "../js/core.mjs";
 import { runBreadboardSchematicSync } from "../js/breadboard-schematic-sync.mjs";
-import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "../js/breadboard-topology.mjs";
+import { BREADBOARD_MODEL, LEGACY_BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHoleIds, breadboardHolePoint, breadboardModelFor, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "../js/breadboard-topology.mjs";
 import { renderNucleoG031K8Breadboard } from "../js/nucleo-g031k8.mjs";
 
 const getPartPins = libraryId => findLibraryPart(libraryId)?.pins ?? [];
 const readExample = async file => JSON.parse(await readFile(new URL("../examples/" + file, import.meta.url)));
 
-test("generic thirty-column board models 300 terminal holes, 120 rail holes, split rails, and coordinates", () => {
+test("BusBoard BB400 models 300 terminal holes, four continuous 25-hole rails, and 400 total holes", () => {
   assert.equal(BREADBOARD_MODEL.columns, 30);
+  assert.equal(BREADBOARD_MODEL.manufacturerPartNumber, "BB400");
+  assert.equal(BREADBOARD_MODEL.holePitchMm, 2.54);
+  assert.equal(BREADBOARD_MODEL.lengthMm, 84);
+  assert.equal(BREADBOARD_MODEL.widthMm, 54.3);
+  assert.equal(BREADBOARD_MODEL.voltageRatingV, 36);
+  assert.equal(BREADBOARD_MODEL.currentRatingA, 2);
   assert.equal(BREADBOARD_MODEL.terminalHoleCount, 300);
-  assert.equal(BREADBOARD_MODEL.railHoleCount, 120);
-  assert.equal(BREADBOARD_MODEL.holeCount, 420);
-  assert.equal(breadboardHoleIds().length, 420);
-  assert.equal(new Set(breadboardHoleIds()).size, 420);
+  assert.equal(BREADBOARD_MODEL.railColumns, 25);
+  assert.equal(BREADBOARD_MODEL.railHoleCount, 100);
+  assert.equal(BREADBOARD_MODEL.holeCount, 400);
+  assert.equal(breadboardHoleIds().length, 400);
+  assert.equal(new Set(breadboardHoleIds()).size, 400);
   assert.equal(breadboardConnectionGroup("A5"), breadboardConnectionGroup("E5"));
   assert.notEqual(breadboardConnectionGroup("A5"), breadboardConnectionGroup("F5"));
-  assert.equal(breadboardConnectionGroup("TP1"), breadboardConnectionGroup("TP15"));
-  assert.notEqual(breadboardConnectionGroup("TP15"), breadboardConnectionGroup("TP16"));
+  assert.equal(breadboardConnectionGroup("TP1"), breadboardConnectionGroup("TP25"));
+  assert.equal(normalizeBreadboardHole("TP25"), "TP25");
+  assert.equal(normalizeBreadboardHole("TP26"), null);
   assert.notEqual(breadboardConnectionGroup("TP1"), breadboardConnectionGroup("TM1"));
   assert.equal(normalizeBreadboardHole("j30"), "J30");
   assert.equal(normalizeBreadboardHole("A31"), null);
   assert.deepEqual(breadboardHolePoint("A1"), {x:54,y:95});
-  assert.equal(breadboardHolePoint("BM30").x > breadboardHolePoint("BM1").x, true);
+  assert.equal(breadboardHolePoint("BM25").x > breadboardHolePoint("BM1").x, true);
+  assert.equal(breadboardHolePoint("BM25").x - breadboardHolePoint("BM1").x, 24 * (572 / 29));
+  assert.equal(breadboardHolePoint("TP1").x > breadboardHolePoint("A1").x, true);
+  assert.equal(breadboardModelFor("busboard-bb400"), BREADBOARD_MODEL);
+});
+
+test("new projects default to the source-backed BB400 board model", () => {
+  assert.equal(createProject().breadboard.model, "busboard-bb400");
+});
+
+test("legacy generic board geometry remains available to saved projects", () => {
+  assert.equal(breadboardModelFor("generic-400-30"), LEGACY_BREADBOARD_MODEL);
+  assert.equal(breadboardHoleIds(LEGACY_BREADBOARD_MODEL).length, 420);
+  assert.equal(normalizeBreadboardHole("TP30", LEGACY_BREADBOARD_MODEL), "TP30");
+  assert.notEqual(breadboardConnectionGroup("TP15", LEGACY_BREADBOARD_MODEL), breadboardConnectionGroup("TP16", LEGACY_BREADBOARD_MODEL));
 });
 
 test("starter LED project has a physically connected hole and jumper mapping for each canonical net", async () => {

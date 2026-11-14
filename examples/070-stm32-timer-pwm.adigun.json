@@ -143,7 +143,7 @@
   ],
   "history": [],
   "breadboard": {
-    "model": "generic-400-30",
+    "model": "busboard-bb400",
     "pinHoles": {
       "supply:+": "TP2",
       "supply:-": "BM2",
