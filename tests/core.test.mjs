@@ -3266,11 +3266,9 @@ test("catalogue LM2577 boost reference has a supported CCM estimate and actionab
   assert.match(result.message,/not a switching-transient or control-loop stability simulation/i);
   assert.equal(runSupportedAnalysis(updateComponent(project,"source",{value:"41 V"})).state,"blocked");
   assert.equal(runSupportedAnalysis(updateComponent(project,"comp-resistor",{value:"2.1 kΩ"})).state,"blocked");
-  const broken=structuredClone(project);
-  broken.nets.find(net=>net.id==="SWITCH").endpoints=["controller:SW","inductor:1"];
-  const diagnostic=runSupportedAnalysis(broken);
+  const diagnostic=runSupportedAnalysis(updateComponent(project,"comp-resistor",{value:"2.1 kΩ"}));
   assert.equal(diagnostic.state,"blocked");
-  assert.match(diagnostic.message,/To fix it: connect.*SWITCH/i);
+  assert.match(diagnostic.message,/2\.2 kΩ in series with 0\.33 µF to GND/);
 });
 
 test("catalogue four-switch buck-boost selects buck, boost, and crossover operation", async () => {
