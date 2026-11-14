@@ -32,7 +32,8 @@ export function filterExamples(items,{query='',type='',level='',category='',pcb=
 export const EXPECTED_DIAGNOSTICS=new Set(['152-convergence-failure-study.adigun.json','153-floating-node-diagnosis.adigun.json','154-short-circuit-diagnosis.adigun.json','155-missing-ground-diagnosis.adigun.json','156-model-unavailable-diagnosis.adigun.json']);
 export function pcbCoverage(project){
  const components=project.components??[],pcb=project.pcbFabrication,parts=pcb?.parts??[],pads=pcb?.pads??[];
+ const nonPhysical=new Set((pcb?.nonPhysicalItems??[]).map(item=>item.instanceId));
  const placed=parts.filter(p=>pads.some(pad=>pad.instanceId===p.instanceId));
- const missing=components.filter(c=>!placed.some(p=>p.instanceId===c.instanceId)).map(c=>({reference:c.reference,libraryId:c.libraryId}));
+ const missing=components.filter(c=>!nonPhysical.has(c.instanceId)&&!placed.some(p=>p.instanceId===c.instanceId)).map(c=>({reference:c.reference,libraryId:c.libraryId}));
  return {status:placed.length?'stored':components.length&&components.every(c=>c.libraryId.startsWith('plc.'))?'logic':'unmapped',parts:placed.length,pads:pads.length,routes:pcb?.routes?.length??0,missing};
 }

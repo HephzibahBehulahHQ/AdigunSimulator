@@ -216,15 +216,15 @@
       "position": {
         "breadboard": [
           580,
-          220
+          160
         ],
         "schematic": [
           580,
-          220
+          160
         ],
         "pcb": [
           580,
-          220
+          160
         ]
       }
     }
@@ -300,7 +300,8 @@
         "footprint": "Phoenix_MSTBA_2_5_2_G_5_08_1757242",
         "technology": "through-hole",
         "manufacturer": "Phoenix Contact",
-        "manufacturerPartNumber": "1757242"
+        "manufacturerPartNumber": "1757242",
+        "sourceUrl": "https://www.phoenixcontact.com/en-us/products/pcb-header-mstba-25-2-g-508-1757242"
       },
       {
         "instanceId": "controller",
@@ -308,7 +309,8 @@
         "footprint": "TI_LM2596T_ADJ_NDH_TO220_5_P1_70mm",
         "technology": "through-hole",
         "manufacturer": "Texas Instruments",
-        "manufacturerPartNumber": "LM2596T-ADJ/NOPB"
+        "manufacturerPartNumber": "LM2596T-ADJ/NOPB",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm2596.pdf"
       },
       {
         "instanceId": "diode",
@@ -316,7 +318,8 @@
         "footprint": "onsemi_1N5822G_DO201AD_P12_00mm",
         "technology": "through-hole",
         "manufacturer": "onsemi",
-        "manufacturerPartNumber": "1N5822G"
+        "manufacturerPartNumber": "1N5822G",
+        "sourceUrl": "https://www.onsemi.com/pub/Collateral/1N5820-D.PDF"
       },
       {
         "instanceId": "inductor",
@@ -324,7 +327,8 @@
         "footprint": "Bourns_RLB0914_100uH_P5_00mm",
         "technology": "through-hole",
         "manufacturer": "Bourns",
-        "manufacturerPartNumber": "RLB0914-101KL"
+        "manufacturerPartNumber": "RLB0914-101KL",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/rlb.pdf"
       },
       {
         "instanceId": "capacitor",
@@ -332,7 +336,8 @@
         "footprint": "Nichicon_UPW1V101MPD_radial_D8_P3_5mm",
         "technology": "through-hole",
         "manufacturer": "Nichicon",
-        "manufacturerPartNumber": "UPW1V101MPD"
+        "manufacturerPartNumber": "UPW1V101MPD",
+        "sourceUrl": "https://www.nichicon.com/en-us/part/upw1v101mpd/8437/"
       },
       {
         "instanceId": "load",
@@ -340,7 +345,8 @@
         "footprint": "Vishay_AC03_24R_3W_axial_P25_4mm",
         "technology": "through-hole",
         "manufacturer": "Vishay Draloric",
-        "manufacturerPartNumber": "AC0300002409JAC00"
+        "manufacturerPartNumber": "AC0300002409JAC00",
+        "sourceUrl": "https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf"
       },
       {
         "instanceId": "rfb-top",
@@ -348,7 +354,8 @@
         "footprint": "Vishay_MRS25_3681_Axial_P10_00mm",
         "technology": "through-hole",
         "manufacturer": "Vishay",
-        "manufacturerPartNumber": "MRS25000C3681FCT00"
+        "manufacturerPartNumber": "MRS25000C3681FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
       },
       {
         "instanceId": "rfb-bottom",
@@ -356,7 +363,8 @@
         "footprint": "Vishay_MRS25_1001_Axial_P10_00mm",
         "technology": "through-hole",
         "manufacturer": "Vishay",
-        "manufacturerPartNumber": "MRS25000C1001FCT00"
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
       },
       {
         "instanceId": "output-header",
@@ -364,7 +372,8 @@
         "footprint": "Phoenix_MSTBA_2_5_2_G_5_08_1757242",
         "technology": "through-hole",
         "manufacturer": "Phoenix Contact",
-        "manufacturerPartNumber": "1757242"
+        "manufacturerPartNumber": "1757242",
+        "sourceUrl": "https://www.phoenixcontact.com/en-us/products/pcb-header-mstba-25-2-g-508-1757242"
       }
     ],
     "pads": [
@@ -1157,6 +1166,18 @@
       }
     ],
     "netClassRules": [],
-    "keepouts": []
+    "keepouts": [],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Schematic/breadboard net label; copper return is represented by routed GND pads and traces."
+      },
+      {
+        "instanceId": "report",
+        "reference": "SCOPE1",
+        "reason": "Virtual analytical readout; it is not a physical circuit package."
+      }
+    ]
   }
 }
