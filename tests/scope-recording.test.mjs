@@ -140,3 +140,13 @@ test('RC, RL and tone-control frequency responses produce labeled steady-state s
  const cases=[['012-rc-low-pass','FILTER_OUT'],['013-rc-high-pass','HP_OUT'],['014-passive-tone-control','OUTPUT'],['supplemental-rl-low-pass','FILTER_OUT']];
  for(const [name,net] of cases){const p=await load(name),analysis=runProjectAnalysis(p),record=analysis.scopeRecording;assert.equal(analysis.state,'complete',name);assert.ok(record,name);assert.equal(record.preferredNet,net,name);assert.match(record.model,/frequency-domain estimate, not transient simulation/,name);const trace=scopeTrace(p,analysis,{status:'ready',kind:'transient',sampleIndex:record.samples.length-1,data:{available:true,nodes:record.samples.at(-1).nodeVoltages}},net);assert.equal(trace.kind,'transient',name);assert.ok(trace.points.length>400,name);assert.ok(trace.points.some(([,v])=>v>0),name);assert.ok(trace.points.some(([,v])=>v<0),name);}
 });
+
+test('LM2596 adjustable example produces its scoped ripple estimate with the physical output terminal',async()=>{
+ const p=await load('101-buck-converter-baseline'),a=runProjectAnalysis(p),record=analyticalScopeRecording(p,a);
+ assert.equal(a.state,'complete',a.message);
+ assert.equal(record?.kind,'analytical-output-recording');
+ assert.match(record.model,/not a switching-transient simulation/);
+ assert.equal(record.preferredNet,'VOUT');
+ assert.ok(record.samples.length>100);
+ assert.ok(record.samples.every(sample=>Number.isFinite(sample.nodeVoltages.VOUT)));
+});
