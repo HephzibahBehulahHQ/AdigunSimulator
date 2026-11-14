@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 1461)
-Total output lines: 66
-
 // Sample existing successful analytical models. These are ideal output estimates,
 // not fabricated measurements or a substitute for nonlinear transient simulation.
 export function analyticalScopeRecording(project,analysis){
@@ -26,9 +23,17 @@ export function analyticalScopeRecording(project,analysis){
  return {kind:'analytical-output-recording',model:kind==='stm32-timer-pwm'?'Ideal STM32 PWM output':'Ideal 555 output timing',preferredNet:output,samples};
 }
 
-// This is the model's ideal PWM control input, not a simulated MOSFET/LED output.
+// This records the ideal PWM control input, not a simulated MOSFET/LED output.
 function pwmGateRecording(project,r){
- const p…261 tokens truncated…nds=>{const phase=((timeSeconds%period)+period)%period;return {timeSeconds,nodeVoltages:{[ground]:0,[gate]:duty===1||(duty>0&&phase<period*duty)?voltage:0}};});
+ const pwm=project.components.filter(c=>c.libraryId==='power.pwm-source'),switches=project.components.filter(c=>c.libraryId==='active.nmos-switch');
+ if(pwm.length!==1||switches.length!==1)return null;
+ const source=pwm[0],mosfet=switches[0],net=(component,pin)=>project.nets.find(n=>n.endpoints.includes(`${component.instanceId}:${pin}`))?.id;
+ const gate=net(source,'+'),ground=net(source,'-'),gateNode=net(mosfet,'G'),sourceNode=net(mosfet,'S');
+ const frequency=r.frequencyHz,duty=r.effectiveDutyFraction,voltage=r.gateHighVoltage;
+ if(!gate||!ground||gate!==gateNode||ground!==sourceNode||!Number.isFinite(frequency)||frequency<=0||!Number.isFinite(duty)||duty<0||duty>1||!Number.isFinite(voltage)||voltage<0)return null;
+ const period=1/frequency,duration=period*4,times=new Set(Array.from({length:501},(_,i)=>duration*i/500));
+ for(let cycle=0;cycle<4;cycle++)for(const t of [cycle*period,(cycle+duty)*period])if(t>0&&t<duration){times.add(t);times.add(Math.max(0,t-period*1e-9));}
+ const samples=[...times].sort((a,b)=>a-b).map(timeSeconds=>{const phase=((timeSeconds%period)+period)%period;return {timeSeconds,nodeVoltages:{[ground]:0,[gate]:duty===1||(duty>0&&phase<period*duty)?voltage:0}};});
  return {kind:'analytical-output-recording',model:'Ideal PWM gate drive (analytical control input; power stage not transient-simulated)',preferredNet:gate,samples};
 }
 
@@ -58,4 +63,3 @@ function firstOrderRecording(project,r){
  });
  return {kind:'analytical-output-recording',model:inductive?'Ideal RL step response':`Ideal RC ${discharge?'discharge':'charge'} response`,preferredNet:output,samples};
 }
-
