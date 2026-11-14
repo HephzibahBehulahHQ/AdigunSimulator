@@ -129,8 +129,8 @@ function commonEmitterRecording(project,r){
  if(!gnd||!vcc||!base||!collector||!emitter||!input||net(supplySource,'-')!==gnd||net(inputSource,'-')!==gnd)return null;
  const biasTop=resistors.find(c=>between(c,vcc,base)),biasBottom=resistors.find(c=>c!==biasTop&&between(c,base,gnd)),collectorRes=resistors.find(c=>c!==biasTop&&c!==biasBottom&&between(c,vcc,collector)),emitterRes=resistors.find(c=>c!==biasTop&&c!==biasBottom&&c!==collectorRes&&between(c,emitter,gnd)),load=resistors.find(c=>![biasTop,biasBottom,collectorRes,emitterRes].includes(c));
  const inputCap=capacitors.find(c=>[net(c,'1'),net(c,'2')].includes(input)&&[net(c,'1'),net(c,'2')].includes(base)),outputCap=capacitors.find(c=>c!==inputCap&&[net(c,'1'),net(c,'2')].includes(collector)),output=inputCap&&outputCap?(net(outputCap,'1')===collector?net(outputCap,'2'):net(outputCap,'1')):null;
- if(!biasTop||!biasBottom||!collectorRes||!emitterRes||!inputCap||!outputCap||!output||!between(load,output,gnd)||!([net(inputCap,'1'),net(inputCap,'2')].includes(input)&&[net(inputCap,'1'),net(inputCap,'2')].includes(base)))return null;
- const supplyMatch=String(supplySource.value??'').trim().match(/^([\\d.eE+-]+)\\s*(m?V)$/),supplyVoltage=supplyMatch?Number(supplyMatch[1])*(supplyMatch[2]==='mV'?.001:1):NaN;
+ if(!biasTop||!biasBottom||!collectorRes||!emitterRes||!inputCap||!outputCap||!load||!output||!between(load,output,gnd)||!([net(inputCap,'1'),net(inputCap,'2')].includes(input)&&[net(inputCap,'1'),net(inputCap,'2')].includes(base)))return null;
+ const supplyMatch=String(supplySource.value??'').trim().match(/^([\d.eE+-]+)\s*(m?V)$/),supplyVoltage=supplyMatch?Number(supplyMatch[1])*(supplyMatch[2]==='mV'?.001:1):NaN;
  if(!Number.isFinite(supplyVoltage)||!Number.isFinite(r.baseVoltageV)||!Number.isFinite(r.emitterVoltageV)||!Number.isFinite(r.collectorVoltageV)||!Number.isFinite(r.frequencyHz)||r.frequencyHz<=0||!Number.isFinite(r.inputAmplitudeV)||!Number.isFinite(r.gainVPerV))return null;
  let previous=-Infinity;
  for(let i=0;i<r.sineTrace.length;i++){
