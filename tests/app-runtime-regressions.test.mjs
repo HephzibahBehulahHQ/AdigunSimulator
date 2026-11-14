@@ -358,7 +358,7 @@ test("diagnostic tab selection updates all tabs and renders an empty error list"
 });
 
 test("completed results feed playback and repaint the scope launcher even when canvas feedback is disabled", async () => {
-  for (const file of ["070-stm32-timer-pwm", "021-555-astable-blinker", "001-led-current-limiter", "004-parallel-resistor-load", "005-rc-step-response", "006-rl-step-response"]) {
+  for (const file of ["070-stm32-timer-pwm", "021-555-astable-blinker", "001-led-current-limiter", "004-parallel-resistor-load", "005-rc-step-response", "006-rl-step-response", "101-buck-converter-baseline"]) {
     const project = JSON.parse(await readFile(new URL(`../examples/${file}.adigun.json`, import.meta.url), "utf8"));
     const analysis = runProjectAnalysis(project);
     assert.equal(analysis.state, "complete", file);

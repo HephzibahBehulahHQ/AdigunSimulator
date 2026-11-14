@@ -207,6 +207,26 @@
           200
         ]
       }
+    },
+    {
+      "instanceId": "output-header",
+      "libraryId": "connector.buck-output-2",
+      "reference": "J2",
+      "value": "5.76 V DC output; external load connection",
+      "position": {
+        "breadboard": [
+          580,
+          220
+        ],
+        "schematic": [
+          580,
+          220
+        ],
+        "pcb": [
+          580,
+          220
+        ]
+      }
     }
   ],
   "nets": [
@@ -228,7 +248,8 @@
         "load:2",
         "report:GND",
         "ground:0",
-        "rfb-bottom:2"
+        "rfb-bottom:2",
+        "output-header:GND"
       ]
     },
     {
@@ -246,7 +267,8 @@
         "capacitor:1",
         "load:1",
         "report:VOUT",
-        "rfb-top:1"
+        "rfb-top:1",
+        "output-header:VOUT"
       ]
     },
     {
@@ -258,5 +280,883 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 112,
+      "heightMm": 60,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.2,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source",
+        "reference": "J1",
+        "footprint": "Phoenix_MSTBA_2_5_2_G_5_08_1757242",
+        "technology": "through-hole",
+        "manufacturer": "Phoenix Contact",
+        "manufacturerPartNumber": "1757242"
+      },
+      {
+        "instanceId": "controller",
+        "reference": "U1",
+        "footprint": "TI_LM2596T_ADJ_NDH_TO220_5_P1_70mm",
+        "technology": "through-hole",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "LM2596T-ADJ/NOPB"
+      },
+      {
+        "instanceId": "diode",
+        "reference": "D1",
+        "footprint": "onsemi_1N5822G_DO201AD_P12_00mm",
+        "technology": "through-hole",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "1N5822G"
+      },
+      {
+        "instanceId": "inductor",
+        "reference": "L1",
+        "footprint": "Bourns_RLB0914_100uH_P5_00mm",
+        "technology": "through-hole",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "RLB0914-101KL"
+      },
+      {
+        "instanceId": "capacitor",
+        "reference": "C1",
+        "footprint": "Nichicon_UPW1V101MPD_radial_D8_P3_5mm",
+        "technology": "through-hole",
+        "manufacturer": "Nichicon",
+        "manufacturerPartNumber": "UPW1V101MPD"
+      },
+      {
+        "instanceId": "load",
+        "reference": "RLOAD",
+        "footprint": "Vishay_AC03_24R_3W_axial_P25_4mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay Draloric",
+        "manufacturerPartNumber": "AC0300002409JAC00"
+      },
+      {
+        "instanceId": "rfb-top",
+        "reference": "RFB1",
+        "footprint": "Vishay_MRS25_3681_Axial_P10_00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3681FCT00"
+      },
+      {
+        "instanceId": "rfb-bottom",
+        "reference": "RFB2",
+        "footprint": "Vishay_MRS25_1001_Axial_P10_00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00"
+      },
+      {
+        "instanceId": "output-header",
+        "reference": "J2",
+        "footprint": "Phoenix_MSTBA_2_5_2_G_5_08_1757242",
+        "technology": "through-hole",
+        "manufacturer": "Phoenix Contact",
+        "manufacturerPartNumber": "1757242"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "netId": "VIN",
+        "xMm": 6,
+        "yMm": 17.5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1.4
+      },
+      {
+        "instanceId": "source",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 22.58,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1.4
+      },
+      {
+        "instanceId": "controller",
+        "reference": "U1",
+        "pin": "VIN",
+        "number": "1",
+        "netId": "VIN",
+        "xMm": 34,
+        "yMm": 15,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "controller",
+        "reference": "U1",
+        "pin": "SW",
+        "number": "2",
+        "netId": "SWITCH",
+        "xMm": 34,
+        "yMm": 16.7,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "controller",
+        "reference": "U1",
+        "pin": "GND",
+        "number": "3",
+        "netId": "GND",
+        "xMm": 34,
+        "yMm": 18.4,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "controller",
+        "reference": "U1",
+        "pin": "FB",
+        "number": "4",
+        "netId": "FB",
+        "xMm": 34,
+        "yMm": 20.1,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "controller",
+        "reference": "U1",
+        "pin": "ONOFF",
+        "number": "5",
+        "netId": "GND",
+        "xMm": 34,
+        "yMm": 21.8,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "diode",
+        "reference": "D1",
+        "pin": "K",
+        "number": "1",
+        "netId": "SWITCH",
+        "xMm": 44,
+        "yMm": 17,
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 1.5
+      },
+      {
+        "instanceId": "diode",
+        "reference": "D1",
+        "pin": "A",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 44,
+        "yMm": 29,
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 1.5
+      },
+      {
+        "instanceId": "inductor",
+        "reference": "L1",
+        "pin": "1",
+        "number": "1",
+        "netId": "SWITCH",
+        "xMm": 52,
+        "yMm": 17.5,
+        "technology": "through-hole",
+        "diameterMm": 1.6,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "inductor",
+        "reference": "L1",
+        "pin": "2",
+        "number": "2",
+        "netId": "VOUT",
+        "xMm": 57,
+        "yMm": 17.5,
+        "technology": "through-hole",
+        "diameterMm": 1.6,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "capacitor",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VOUT",
+        "xMm": 67,
+        "yMm": 17.5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "capacitor",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 67,
+        "yMm": 21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "load",
+        "reference": "RLOAD",
+        "pin": "1",
+        "number": "1",
+        "netId": "VOUT",
+        "xMm": 70,
+        "yMm": 49,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "load",
+        "reference": "RLOAD",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 95.4,
+        "yMm": 49,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "rfb-top",
+        "reference": "RFB1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VOUT",
+        "xMm": 44,
+        "yMm": 34,
+        "technology": "through-hole",
+        "diameterMm": 1.6,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "rfb-top",
+        "reference": "RFB1",
+        "pin": "2",
+        "number": "2",
+        "netId": "FB",
+        "xMm": 44,
+        "yMm": 44,
+        "technology": "through-hole",
+        "diameterMm": 1.6,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "rfb-bottom",
+        "reference": "RFB2",
+        "pin": "1",
+        "number": "1",
+        "netId": "FB",
+        "xMm": 54,
+        "yMm": 44,
+        "technology": "through-hole",
+        "diameterMm": 1.6,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "rfb-bottom",
+        "reference": "RFB2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 54,
+        "yMm": 34,
+        "technology": "through-hole",
+        "diameterMm": 1.6,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "output-header",
+        "reference": "J2",
+        "pin": "VOUT",
+        "number": "1",
+        "netId": "VOUT",
+        "xMm": 103,
+        "yMm": 17.5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1.4
+      },
+      {
+        "instanceId": "output-header",
+        "reference": "J2",
+        "pin": "GND",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 103,
+        "yMm": 22.58,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1.4
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VIN",
+        "netClassId": "POWER_IN",
+        "layer": "F.Cu",
+        "widthMm": 1,
+        "pointsMm": [
+          [
+            6,
+            17.5
+          ],
+          [
+            20,
+            17.5
+          ],
+          [
+            25,
+            15
+          ],
+          [
+            34,
+            15
+          ]
+        ]
+      },
+      {
+        "netId": "SWITCH",
+        "netClassId": "SWITCH_NODE",
+        "layer": "F.Cu",
+        "widthMm": 1,
+        "pointsMm": [
+          [
+            34,
+            16.7
+          ],
+          [
+            44,
+            17
+          ]
+        ]
+      },
+      {
+        "netId": "SWITCH",
+        "netClassId": "SWITCH_NODE",
+        "layer": "F.Cu",
+        "widthMm": 1,
+        "pointsMm": [
+          [
+            44,
+            17
+          ],
+          [
+            52,
+            17.5
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "netClassId": "POWER_OUT",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            57,
+            17.5
+          ],
+          [
+            67,
+            17.5
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "netClassId": "POWER_OUT",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            67,
+            17.5
+          ],
+          [
+            103,
+            17.5
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "netClassId": "POWER_OUT",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            67,
+            17.5
+          ],
+          [
+            60,
+            17.5
+          ],
+          [
+            55,
+            25
+          ],
+          [
+            44,
+            34
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "netClassId": "POWER_OUT",
+        "layer": "F.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            67,
+            17.5
+          ],
+          [
+            73,
+            17.5
+          ],
+          [
+            73,
+            40
+          ],
+          [
+            70,
+            49
+          ]
+        ]
+      },
+      {
+        "netId": "FB",
+        "netClassId": "SIGNAL",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            34,
+            20.1
+          ],
+          [
+            28,
+            20.1
+          ],
+          [
+            28,
+            44
+          ],
+          [
+            44,
+            44
+          ]
+        ]
+      },
+      {
+        "netId": "FB",
+        "netClassId": "SIGNAL",
+        "layer": "F.Cu",
+        "widthMm": 0.3,
+        "pointsMm": [
+          [
+            44,
+            44
+          ],
+          [
+            54,
+            44
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "B.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            6,
+            22.58
+          ],
+          [
+            15,
+            22.58
+          ],
+          [
+            28,
+            18.4
+          ],
+          [
+            34,
+            18.4
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "B.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            34,
+            18.4
+          ],
+          [
+            40,
+            18.4
+          ],
+          [
+            40,
+            25
+          ],
+          [
+            44,
+            29
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "B.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            34,
+            21.8
+          ],
+          [
+            36,
+            21.8
+          ],
+          [
+            38,
+            26
+          ],
+          [
+            44,
+            29
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "B.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            44,
+            29
+          ],
+          [
+            60,
+            29
+          ],
+          [
+            67,
+            21
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "B.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            67,
+            21
+          ],
+          [
+            103,
+            22.58
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "B.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            67,
+            21
+          ],
+          [
+            65,
+            30
+          ],
+          [
+            54,
+            34
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "B.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            67,
+            21
+          ],
+          [
+            80,
+            30
+          ],
+          [
+            88,
+            38
+          ],
+          [
+            95.4,
+            49
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "netClassId": "POWER_RETURN",
+        "layer": "B.Cu",
+        "widthMm": 1.5,
+        "pointsMm": [
+          [
+            95.4,
+            49
+          ],
+          [
+            100,
+            44
+          ],
+          [
+            100,
+            27
+          ],
+          [
+            103,
+            22.58
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Phoenix Contact",
+        "manufacturerPartNumber": "1757242",
+        "package": "MSTBA 2,5/2-G-5,08; 2 positions; 5.08 mm pitch; 1 x 1 mm pins",
+        "sourceUrl": "https://www.phoenixcontact.com/en-us/products/pcb-header-mstba-25-2-g-508-1757242",
+        "pinMapping": {
+          "1": "VIN",
+          "2": "GND"
+        },
+        "limitations": [
+          "The ideal V1 source is off-board and is represented by this input terminal on the PCB."
+        ]
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "LM2596T-ADJ/NOPB",
+        "package": "TO-220 NDH, 5 pins; 1.70 mm nominal lead pitch",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm2596.pdf",
+        "pinMapping": {
+          "1": "VIN",
+          "2": "SWITCH",
+          "3": "GND",
+          "4": "FB",
+          "5": "GND"
+        },
+        "limitations": [
+          "Pad size and 1.2 mm drill are project layout choices based on TI's lead envelope; board-house drill, annular-ring, thermal and electrical review is required before fabrication.",
+          "The tab's thermal mounting is not included in this two-dimensional board model.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
+        ]
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "1N5822G",
+        "package": "DO-201AD axial Schottky; 3 A, 40 V",
+        "sourceUrl": "https://www.onsemi.com/pub/Collateral/1N5820-D.PDF",
+        "pinMapping": {
+          "1": "SWITCH",
+          "2": "GND"
+        },
+        "limitations": [
+          "The 12 mm lead spacing is a board layout choice for formed axial leads; maintain body clearance to the inductor and regulator.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
+        ]
+      },
+      {
+        "reference": "L1",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "RLB0914-101KL",
+        "package": "RLB0914 radial; 100 µH ±10%; 8.7 mm nominal body diameter; 5.0 ±0.8 mm lead pitch; Irms 1.1 A typ; Isat 2.1 A typ",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/rlb.pdf",
+        "pinMapping": {
+          "1": "SWITCH",
+          "2": "VOUT"
+        },
+        "limitations": [
+          "Bourns rates current and saturation as typical values; this analytical example is not a thermal or saturation qualification.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
+        ]
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "Nichicon",
+        "manufacturerPartNumber": "UPW1V101MPD",
+        "package": "Radial aluminum electrolytic; 100 µF, 35 V; Ø8 x 11.5 mm; 3.5 mm lead pitch",
+        "sourceUrl": "https://www.nichicon.com/en-us/part/upw1v101mpd/8437/",
+        "pinMapping": {
+          "1": "VOUT",
+          "2": "GND"
+        },
+        "limitations": [
+          "The datasheet's high-frequency ripple rating is 555 mA; the present average/ripple estimate does not model capacitor ESR or lifetime.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
+        ]
+      },
+      {
+        "reference": "RLOAD",
+        "manufacturer": "Vishay Draloric",
+        "manufacturerPartNumber": "AC0300002409JAC00",
+        "package": "AC03 axial cemented wirewound; 24 Ω ±5%; 3 W at 40 °C, 2.5 W at 70 °C",
+        "sourceUrl": "https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf",
+        "pinMapping": {
+          "1": "VOUT",
+          "2": "GND"
+        },
+        "limitations": [
+          "The 25.4 mm lead span is a project layout choice for straight axial leads; verify resistor temperature and airflow in the actual enclosure.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
+        ]
+      },
+      {
+        "reference": "RFB1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3681FCT00",
+        "package": "MRS25 axial film resistor; 3.68 kΩ ±1%; 0.6 W; 10 mm minimum formed-lead pitch",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "pinMapping": {
+          "1": "VOUT",
+          "2": "FB"
+        },
+        "limitations": [
+          "10 mm lead spacing is a board layout choice; verify the exact ordering code against the supplier listing.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
+        ]
+      },
+      {
+        "reference": "RFB2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "package": "MRS25 axial film resistor; 1 kΩ ±1%; 0.6 W; 10 mm minimum formed-lead pitch",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "pinMapping": {
+          "1": "FB",
+          "2": "GND"
+        },
+        "limitations": [
+          "10 mm lead spacing is a board layout choice; verify the exact ordering code against the supplier listing.",
+          "This is a sourced component-to-pad proposal. Complete board-house DRC, electrical spacing, thermal, enclosure, and assembly checks before manufacturing."
+        ]
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Phoenix Contact",
+        "manufacturerPartNumber": "1757242",
+        "package": "MSTBA 2,5/2-G-5,08; 2 positions; 5.08 mm pitch; 1 x 1 mm pins",
+        "sourceUrl": "https://www.phoenixcontact.com/en-us/products/pcb-header-mstba-25-2-g-508-1757242",
+        "pinMapping": {
+          "1": "VOUT",
+          "2": "GND"
+        },
+        "limitations": [
+          "Output current and voltage in this example are analytical; the output connector is sourced at 12 A nominal and is not the limiting component."
+        ]
+      }
+    ],
+    "netClasses": [
+      {
+        "id": "POWER_IN",
+        "netIds": [
+          "VIN"
+        ],
+        "clearanceMm": 0.2,
+        "traceWidthMm": 1
+      },
+      {
+        "id": "SWITCH_NODE",
+        "netIds": [
+          "SWITCH"
+        ],
+        "clearanceMm": 0.2,
+        "traceWidthMm": 1
+      },
+      {
+        "id": "POWER_OUT",
+        "netIds": [
+          "VOUT"
+        ],
+        "clearanceMm": 0.2,
+        "traceWidthMm": 1.5
+      },
+      {
+        "id": "POWER_RETURN",
+        "netIds": [
+          "GND"
+        ],
+        "clearanceMm": 0.2,
+        "traceWidthMm": 1.5
+      },
+      {
+        "id": "SIGNAL",
+        "netIds": [
+          "FB"
+        ],
+        "clearanceMm": 0.2,
+        "traceWidthMm": 0.3
+      }
+    ],
+    "netClassRules": [],
+    "keepouts": []
+  }
 }
