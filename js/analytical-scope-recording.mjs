@@ -8,6 +8,7 @@ export function analyticalScopeRecording(project,analysis){
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
  if(kind==='rlc-step-response')return rlcStepRecording(project,r);
  if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
+ if(['bridge-rectifier-waveform','bridge-smoothing-capacitor'].includes(kind))return rectifierWaveformRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
  if(['rc-low-pass','rc-high-pass','rl-low-pass','passive-tone-control'].includes(kind))return frequencyResponseRecording(project,r);
  if(kind==='active-low-pass')return activeLowPassRecording(project,r);
@@ -169,4 +170,18 @@ function activeLowPassRecording(project,r){
  if(!Number.isFinite(amplitude)||amplitude<0||!Number.isFinite(cutoff)||cutoff<=0||!point||Math.abs(point.outputAmplitudeV-amplitude*point.gain)>Math.max(1,point.outputAmplitudeV)*1e-9)return null;
  const phase=-Math.atan(point.frequencyHz/cutoff),duration=4/point.frequencyHz,samples=Array.from({length:481},(_,i)=>{const timeSeconds=duration*i/480,angle=2*Math.PI*point.frequencyHz*timeSeconds;return {timeSeconds,nodeVoltages:{[gnd]:0,[inputNet]:amplitude*Math.sin(angle),[output]:point.outputAmplitudeV*Math.sin(angle+phase)}};});
  return {kind:'analytical-output-recording',model:`Active low-pass steady-state sine at ${point.frequencyHz} Hz (frequency-domain estimate, not transient simulation)`,preferredNet:output,samples};
+}
+
+function rectifierWaveformRecording(project,r){
+ const smooth=r.kind==='bridge-smoothing-capacitor',sources=project.components.filter(c=>c.libraryId==='power.ac-source'),bridges=project.components.filter(c=>c.libraryId==='diode.bridge-ideal'),resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),capacitors=project.components.filter(c=>c.libraryId==='passive.capacitor'),grounds=project.components.filter(c=>c.libraryId==='ground.signal');
+ if(sources.length!==1||bridges.length!==1||resistors.length!==1||grounds.length!==1||capacitors.length!==(smooth?1:0)||!Array.isArray(r.waveform)||r.waveform.length<2||r.waveform.length>2000)return null;
+ const net=(c,pin)=>project.nets.find(n=>n.endpoints.includes(`${c.instanceId}:${pin}`))?.id,[source,bridge,resistor,ground]=[sources[0],bridges[0],resistors[0],grounds[0]];
+ const inputPositive=net(source,'+'),inputNegative=net(source,'-'),output=net(bridge,'POS'),returnNet=net(bridge,'NEG');
+ if(!inputPositive||!inputNegative||!output||!returnNet||net(bridge,'AC1')!==inputPositive||net(bridge,'AC2')!==inputNegative||net(resistor,'1')!==output||net(resistor,'2')!==returnNet||net(ground,'0')!==returnNet)return null;
+ if(smooth){const capacitor=capacitors[0];if(net(capacitor,'1')!==output||net(capacitor,'2')!==returnNet)return null;}
+ if(!Number.isFinite(r.inputFrequencyHz)||r.inputFrequencyHz<=0||!Number.isFinite(r.sourceRmsVoltage)||r.sourceRmsVoltage<=0)return null;
+ let previous=-Infinity;
+ for(const sample of r.waveform){if(!Number.isFinite(sample.timeS)||sample.timeS<=previous||!Number.isFinite(sample.inputVoltage)||!Number.isFinite(sample.outputVoltage)||(smooth&&!Number.isFinite(sample.rectifiedVoltage)))return null;previous=sample.timeS;}
+ const samples=r.waveform.map(sample=>({timeSeconds:sample.timeS,nodeVoltages:{[returnNet]:0,[output]:sample.outputVoltage}}));
+ return {kind:'analytical-output-recording',model:`${smooth?'Bridge smoothing-capacitor':'Bridge rectifier'} output waveform (analytical model samples)`,preferredNet:output,samples};
 }
