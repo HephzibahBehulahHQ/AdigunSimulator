@@ -2,11 +2,13 @@
 
 ## Implemented behavior
 
-PCB → Board Setup creates a rectangular empty board or edits an existing supported board. The localized modal exposes width, height, thickness, F.Cu or F.Cu+B.Cu, minimum trace width and minimum copper clearance, all in millimetres. Values must be positive and finite. Defaults for an existing board preserve its declared values; a previously undeclared minimum width defaults to its narrowest stored trace. New-board defaults are editable design assumptions, not manufacturer requirements.
+PCB → Board Setup creates a rectangular empty board or edits an existing supported rectangular or polygonal board. The localized modal exposes width, height, thickness, F.Cu or F.Cu+B.Cu, minimum trace width and minimum copper clearance, all in millimetres. Values must be positive and finite. Defaults for an existing board preserve its declared values; a previously undeclared minimum width defaults to its narrowest stored trace. New-board defaults are editable design assumptions, not manufacturer requirements.
 
 Applying a change creates one native undo step, marks the project unsaved, cancels incomplete routing/via drafts and displays the PCB view. Cancel, Escape, unchanged values and rejected edits create no history entries. Stale dialogs cannot replace a newer project. Native import/export preserves the board fields and exact copper positions. Dimensions change the outline only; nets, components, other view positions, pads, routes and vias are not rescaled or relocated.
 
 The editor rejects copper that would extend outside the new outline, using full pad/via size and trace half-width. It also checks keep-out/zone bounds, mounting-hole edge allowances and declared edge-cutout positions. Removing B.Cu is blocked while it contains routes, zones or spanning plated vias. Existing multilayer/detailed stackup plans and nonrectangular outlines are preserved rather than converted by this editor.
+
+Simple polygon outlines can be stored as `board.outline: { type: "polygon", pointsMm: [[x1,y1], ...] }`. Rings may be concave, may contain up to 256 distinct finite vertices, must not self-intersect, and their bounds must match the declared board dimensions. Copper pads, round vias, routes, keep-outs, zones and mounting-hole edge allowances are checked against the actual polygon. Preview rendering and the Edge.Cuts Gerber use the stored vertices. Polygon vertices are preserved through Board Setup dimension/rule edits but cannot yet be drawn or edited in that dialog. Edge cut-outs on polygon boards are rejected until they can be tied to a specific outline segment.
 
 The board width rule is a floor: routing uses the maximum of the board minimum and every matching class's minimum trace width (or its declared trace width when no explicit minimum is present). A lower class value cannot relax the board rule. Legacy projects without a declared board floor remain compatible; new interactive routes still default to 0.25 mm when neither board nor class specifies a width. A malformed declared width blocks routing/export.
 
@@ -27,6 +29,6 @@ Browser verification in the local preview:
 
 ## Remaining scope
 
-This is a rectangular one/two-layer editor, not a full board/stackup system. Polygonal outlines, layer ordering/materials/copper weights, inner-layer routing, stackup impedance, a net-class editor, via drill/annular-ring rule editing, mechanical feature editing and automatic repair remain outstanding. There is no manufacturer-specific board qualification or certified DRC. Thickness is retained as declared metadata; no electromagnetic or mechanical solver is implied. Existing manufacturing-feature limitations remain in force.
+This is a one/two-layer editor, not a full board/stackup system. Outline vertex editing, curved outlines, layer ordering/materials/copper weights, inner-layer routing, stackup impedance, a net-class editor, via drill/annular-ring rule editing, additional mechanical feature editing and automatic repair remain outstanding. Polygon support is a bounded geometry/export capability, not manufacturer-specific board qualification or certified DRC. Thickness is retained as declared metadata; no electromagnetic or mechanical solver is implied. Existing manufacturing-feature limitations remain in force.
 
 No production deployment was performed. Independent electrical/release review, broader browser acceptance and the protected release process remain required by `DELIVERY_GATES.md` and `DEPLOYMENT_RUNBOOK.md`.

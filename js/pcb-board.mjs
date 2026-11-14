@@ -1,3 +1,4 @@
+import { boardOutlineContainsBox, boardOutlineContainsCircle, boardOutlineContainsSegment, boardOutlineDefinitionErrors } from "./pcb-outline.mjs";
 const EPS = 1e-9;
 const positive = (value) => Number.isFinite(value) && value > 0;
 export function supportedBoardLayers(layers) {
@@ -7,9 +8,9 @@ export function supportedBoardLayers(layers) {
 export function boardDefinitionErrors(board) {
   if (!board) return ["Board setup is missing."];
   const errors = [];
-  if (board.outline !== undefined && !["rectangle", "rectangular UNO R3 shield template"].includes(board.outline)) errors.push("Only a rectangular board outline is supported by this editor/exporter.");
   for (const key of ["widthMm", "heightMm", "minimumClearanceMm"]) if (!positive(board[key])) errors.push(`Board ${key} must be a positive millimetre value.`);
   for (const key of ["thicknessMm", "minimumTraceWidthMm"]) if (board[key] !== undefined && !positive(board[key])) errors.push(`Board ${key} must be a positive millimetre value.`);
+  if (positive(board.widthMm) && positive(board.heightMm)) errors.push(...boardOutlineDefinitionErrors(board));
   if (!supportedBoardLayers(board.copperLayers)) errors.push("Copper layers must be F.Cu, optionally followed by B.Cu.");
   return errors;
 }
@@ -27,28 +28,29 @@ export function boardGeometryErrors(pcb) {
   const definitionErrors = boardDefinitionErrors(board);
   if (definitionErrors.length) return definitionErrors;
   for (const key of ["pads", "routes", "vias", "keepouts", "copperZones", "mechanicalFeatures"]) if (pcb[key] !== undefined && (!Array.isArray(pcb[key]) || pcb[key].some((item) => !item || typeof item !== "object"))) return [`PCB ${key} must be an array of records.`];
-  const inside = (x, y, hx, hy) => [x, y, hx, hy].every(Number.isFinite) && hx >= 0 && hy >= 0 && x - hx >= -EPS && y - hy >= -EPS && x + hx <= board.widthMm + EPS && y + hy <= board.heightMm + EPS;
   for (const pad of [...(pcb.pads ?? []), ...(pcb.vias ?? []).map((via) => ({ ...via, technology: "through-hole", reference: `Via ${via.id}` }))]) {
     const hx = pad.technology === "through-hole" ? pad.diameterMm / 2 : pad.widthMm / 2;
     const hy = pad.technology === "through-hole" ? hx : pad.heightMm / 2;
-    if (!inside(pad.xMm, pad.yMm, hx, hy)) errors.push(`Copper pad ${pad.reference ?? pad.instanceId ?? "unknown"} leaves the board outline or has invalid dimensions.`);
+    const fits = pad.technology === "through-hole" ? boardOutlineContainsCircle(board, pad.xMm, pad.yMm, hx) : boardOutlineContainsBox(board, pad.xMm, pad.yMm, hx, hy);
+    if (!fits) errors.push(`Copper pad ${pad.reference ?? pad.instanceId ?? "unknown"} leaves the board outline or has invalid dimensions.`);
   }
   for (const route of pcb.routes ?? []) {
-    if (!Array.isArray(route.pointsMm) || route.pointsMm.some((point) => !Array.isArray(point) || !inside(point[0], point[1], route.widthMm / 2, route.widthMm / 2))) errors.push(`Route ${route.netId} copper leaves the board outline or has invalid dimensions.`);
+    if (!positive(route.widthMm) || !Array.isArray(route.pointsMm) || route.pointsMm.length < 2 || route.pointsMm.some((point) => !Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite)) || route.pointsMm.slice(1).some((point, index) => !boardOutlineContainsSegment(board, route.pointsMm[index], point, route.widthMm / 2))) errors.push(`Route ${route.netId} copper leaves the board outline or has invalid dimensions.`);
     if (!board.copperLayers.includes(route.layer)) errors.push(`Route ${route.netId} occupies an undeclared copper layer.`);
   }
   if (pcb.vias?.length && board.copperLayers.length !== 2) errors.push("Remove plated vias before removing B.Cu.");
   const boxes = [...(pcb.keepouts ?? []), ...(pcb.copperZones ?? []).map((zone) => ({ ...zone.bounds, id: zone.id }))];
-  for (const box of boxes) if (!inside(box.xMm + box.widthMm / 2, box.yMm + box.heightMm / 2, box.widthMm / 2, box.heightMm / 2)) errors.push(`Keep-out/zone ${box.id ?? "unknown"} leaves the board outline.`);
+  for (const box of boxes) if (![box.xMm, box.yMm, box.widthMm, box.heightMm].every(Number.isFinite) || box.widthMm <= 0 || box.heightMm <= 0 || !boardOutlineContainsBox(board, box.xMm + box.widthMm / 2, box.yMm + box.heightMm / 2, box.widthMm / 2, box.heightMm / 2)) errors.push(`Keep-out/zone ${box.id ?? "unknown"} leaves the board outline.`);
   for (const zone of pcb.copperZones ?? []) if (!board.copperLayers.includes(zone.layer)) errors.push(`Zone ${zone.id} occupies an undeclared copper layer.`);
   for (const feature of pcb.mechanicalFeatures ?? []) {
     if (feature.type === "mounting-hole") {
       const radius = Math.max(feature.diameterMm ?? feature.drillMm, feature.drillMm) / 2 + (feature.requiredEdgeClearanceMm ?? 0);
-      if (!inside(feature.xMm, feature.yMm, radius, radius)) errors.push(`Mounting hole ${feature.id} violates the board edge allowance.`);
+      if (!boardOutlineContainsCircle(board, feature.xMm, feature.yMm, radius)) errors.push(`Mounting hole ${feature.id} violates the board edge allowance.`);
     } else if (feature.type === "edge-cutout") {
+      if (board.outline?.type === "polygon") { errors.push(`Edge cut-out ${feature.id} is not supported on polygonal board outlines.`); continue; }
       const side = feature.openingSide;
       const onEdge = side === "top" ? Math.abs(feature.yMm) <= EPS : side === "left" ? Math.abs(feature.xMm) <= EPS : side === "bottom" ? Math.abs(feature.yMm + feature.heightMm - board.heightMm) <= EPS : side === "right" && Math.abs(feature.xMm + feature.widthMm - board.widthMm) <= EPS;
-      if (!onEdge || !inside(feature.xMm + feature.widthMm / 2, feature.yMm + feature.heightMm / 2, feature.widthMm / 2, feature.heightMm / 2)) errors.push(`Edge cut-out ${feature.id} no longer meets its declared board edge.`);
+      if (!onEdge || !boardOutlineContainsBox(board, feature.xMm + feature.widthMm / 2, feature.yMm + feature.heightMm / 2, feature.widthMm / 2, feature.heightMm / 2)) errors.push(`Edge cut-out ${feature.id} no longer meets its declared board edge.`);
     } else errors.push(`Mechanical feature ${feature.id ?? "unknown"} cannot be checked by this board editor.`);
   }
   return errors;
@@ -65,7 +67,7 @@ export function pcbBoardDefaults(project) {
 export function updatePcbBoard(project, input) {
   const previous = project?.pcbFabrication;
   if (!project || !Array.isArray(project.components) || !Array.isArray(project.nets)) return { status: "blocked", errors: ["A native project is required."] };
-  if (previous && (!previous.board || !supportedBoardLayers(previous.board.copperLayers) || previous.stackup)) return { status: "blocked", errors: ["This editor supports rectangular F.Cu or F.Cu/B.Cu boards without a detailed stackup. Existing multilayer plans are preserved."] };
+  if (previous && (!previous.board || !supportedBoardLayers(previous.board.copperLayers) || previous.stackup)) return { status: "blocked", errors: ["This editor supports rectangular or polygonal F.Cu or F.Cu/B.Cu boards without a detailed stackup. Polygon vertices are preserved but cannot be edited here."] };
   const required = ["widthMm", "heightMm", "thicknessMm", "minimumClearanceMm", "minimumTraceWidthMm"];
   if (!input || required.some((key) => !positive(input[key]))) return { status: "blocked", errors: ["All board dimensions and rule values must be positive millimetres."] };
   const board = { ...(previous?.board ?? { outline: "rectangle" }), ...Object.fromEntries(required.map((key) => [key, input[key]])), copperLayers: input.copperLayers };

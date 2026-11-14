@@ -51,6 +51,15 @@ test("route enforces board bounds and the net-class minimum width", () => {
   assert.equal(createPcbRoute(project, { startPad: "r1:2", endPad: "d1:A" }).code, "INVALID_ROUTE_ENDPOINTS");
 });
 
+test("route rejects a direct segment that crosses outside a concave polygon outline", () => {
+  const project = fixture();
+  project.pcbFabrication.board.outline = { type: "polygon", pointsMm: [[0,0],[40,0],[40,24],[30,24],[30,8],[10,8],[10,24],[0,24]] };
+  project.pcbFabrication.pads[0].xMm = 5; project.pcbFabrication.pads[0].yMm = 20;
+  project.pcbFabrication.pads[1].xMm = 35; project.pcbFabrication.pads[1].yMm = 20;
+  project.pcbFabrication.pads[2].xMm = 5; project.pcbFabrication.pads[2].yMm = 14;
+  assert.equal(createPcbRoute(project, { startPad: "r1:2", endPad: "d1:A" }).code, "ROUTE_OUT_OF_BOUNDS");
+});
+
 test("route avoids foreign pads, foreign copper, and keepouts", () => {
   const project = fixture();
   project.pcbFabrication.pads[2].xMm = 15;

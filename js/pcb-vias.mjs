@@ -1,3 +1,5 @@
+import { boardOutlineContainsCircle } from "./pcb-outline.mjs";
+
 /** Stored plated through vias span the two supported copper layers. */
 export function validatePcbVias(pcb, netIds) {
   if (pcb?.vias === undefined) return [];
@@ -12,7 +14,7 @@ export function validatePcbVias(pcb, netIds) {
     if (!via.netId || via.netId === "NC" || (netIds && !netIds.has(via.netId))) errors.push(`Via ${via.id} needs a declared electrical net.`);
     if (![via.xMm, via.yMm, via.diameterMm, via.drillMm].every(Number.isFinite) || via.drillMm <= 0 || via.diameterMm <= via.drillMm) { errors.push(`Via ${via.id} has invalid position, copper diameter or drill.`); continue; }
     const r = via.diameterMm / 2;
-    if (via.xMm < r || via.yMm < r || via.xMm > pcb.board.widthMm - r || via.yMm > pcb.board.heightMm - r) errors.push(`Via ${via.id} copper leaves the board outline.`);
+    if (!boardOutlineContainsCircle(pcb.board, via.xMm, via.yMm, r)) errors.push(`Via ${via.id} copper leaves the board outline.`);
     const drills = [...pcb.vias.filter((item) => item && item !== via && seen.has(item.id)), ...(Array.isArray(pcb.pads) ? pcb.pads.filter((pad) => pad?.technology === "through-hole") : [])];
     for (const other of drills) if ([other.xMm, other.yMm, other.drillMm].every(Number.isFinite) && other.drillMm > 0 && Math.hypot(via.xMm - other.xMm, via.yMm - other.yMm) + 1e-9 < (via.drillMm + other.drillMm) / 2) errors.push(`Via ${via.id} drill overlaps another plated hole.`);
   }

@@ -7,6 +7,7 @@ import { validatePcbFabrication, exportPcbFabrication } from "../js/pcb-export.m
 import { createPcbRoute } from "../js/pcb-routing.mjs";
 import { createManufacturingExportPack } from "../js/manufacturing-export-pack.mjs";
 import { createPcbBoardEditor } from "../js/pcb-board-controller.mjs";
+import { renderPcbPreviewSvg } from "../js/pcb-preview.mjs";
 
 const load = async (name = "125-usbc-breakout") => parseProject(await readFile(new URL(`../examples/${name}.adigun.json`, import.meta.url), "utf8"));
 
@@ -105,6 +106,39 @@ test("export rejects copper crossing the outline even when its center stays insi
   const pad = p.pcbFabrication.pads[0]; pad.xMm = pad.technology === "through-hole" ? pad.diameterMm/4 : pad.widthMm/4;
   const result = exportPcbFabrication(p);
   assert.equal(result.status, "blocked"); assert.ok(result.drc.errors.some(message=>message.includes("Copper pad") && message.includes("board outline")));
+});
+
+test("polygon board outlines validate, render and export their declared Edge.Cuts path", async () => {
+  const p = await load("121-single-sided-led-pcb"), board = p.pcbFabrication.board;
+  board.outline = { type: "polygon", pointsMm: [[0,3],[3,0],[37,0],[40,3],[40,21],[37,24],[3,24],[0,21]] };
+  assert.deepEqual(boardDefinitionErrors(board), []);
+  assert.deepEqual(boardGeometryErrors(p.pcbFabrication), []);
+  assert.equal(validatePcbFabrication(p).status, "passed");
+  const svg = renderPcbPreviewSvg(p);
+  assert.match(svg, /<polygon class="pcb-board-outline"/);
+  assert.doesNotMatch(svg, /<rect class="pcb-board-outline"/);
+  const result = exportPcbFabrication(p);
+  assert.equal(result.status, "passed", result.drc.errors.join("; "));
+  const edgeCuts = result.files["board-Edge_Cuts.gbr"];
+  assert.ok(edgeCuts.includes("X0003000000Y0000000000D01*"));
+  assert.ok(edgeCuts.includes("X0000000000Y0003000000D02*"));
+  const edited = updatePcbBoard(p, { ...pcbBoardDefaults(p), thicknessMm: 2 });
+  assert.equal(edited.status, "complete");
+  assert.deepEqual(edited.project.pcbFabrication.board.outline, board.outline);
+});
+
+test("polygon edge checks reject concave crossings, outside copper and malformed outlines", () => {
+  const board = { widthMm: 10, heightMm: 10, thicknessMm: 1.6, copperLayers: ["F.Cu"], minimumClearanceMm: 0.2,
+    outline: { type: "polygon", pointsMm: [[0,0],[10,0],[10,4],[4,4],[4,10],[0,10]] } };
+  assert.deepEqual(boardDefinitionErrors(board), []);
+  const copperOutside = { board, pads: [{ technology: "through-hole", xMm: 8, yMm: 8, diameterMm: 0.4 }], routes: [] };
+  assert.ok(boardGeometryErrors(copperOutside).some(message => message.includes("Copper pad") && message.includes("outline")));
+  const concaveCrossing = { board, pads: [], routes: [{ netId: "N", layer: "F.Cu", widthMm: 0.2, pointsMm: [[2,8],[8,2]] }] };
+  assert.ok(boardGeometryErrors(concaveCrossing).some(message => message.includes("Route N")));
+  const cutout = { board, pads: [], routes: [], mechanicalFeatures: [{ id: "C1", type: "edge-cutout", openingSide: "left", xMm: 0, yMm: 2, widthMm: 2, heightMm: 2 }] };
+  assert.ok(boardGeometryErrors(cutout).some(message => message.includes("not supported on polygonal")));
+  assert.ok(boardDefinitionErrors({ ...board, outline: { type: "polygon", pointsMm: [[0,0],[10,10],[0,10],[10,0]] } }).length);
+  assert.ok(boardDefinitionErrors({ ...board, outline: { type: "polygon", pointsMm: [[0,0],[10,0],[10,0],[0,10]] } }).length);
 });
 
 test("manufacturing pack reports the actual updated board and supported layer scope", async () => {
