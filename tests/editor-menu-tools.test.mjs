@@ -75,3 +75,19 @@ test('actual Edit action captures history and marks dirty through existing compo
   const action=runInNewContext(source.slice(start,end)+'};handleAction',{state,selectedComponent:()=>state.project.components[0],transformSchematicComponent,commitComponentEdit:p=>{captured=state.project;state.project=p;state.dirty=true;},showDialog:()=>assert.fail('Unexpected dialog'),t:k=>k,editorMenuText});
   action('transform-rotateRight');assert.equal(captured,previous);assert.equal(state.dirty,true);assert.equal(state.project.components[0].geometry.schematic.rotation,90);
 });
+
+
+test('print routes the active breadboard, schematic and PCB canvas through the same clean print path',()=>{
+ for(const view of ['breadboard','schematic','pcb']){
+  const nodes=[],events=new Map();let printed=0;
+  const node=()=>({style:{},children:[],append(...items){this.children.push(...items);},remove(){},querySelectorAll:()=>[]});
+  const scene=node();scene.cloneNode=deep=>{assert.equal(deep,true);const clone=node();nodes.push(clone);return clone;};
+  const document={querySelector:selector=>selector.includes('canvas-scene')?scene:null,createElement:()=>node(),body:node()};
+  const window={addEventListener:(name,fn)=>events.set(name,fn),removeEventListener:name=>events.delete(name),print:()=>printed++};
+  const project=createEmptyProject();
+  printProjectView({document,window,project,view,viewLabel:view});
+  assert.equal(printed,1,view);
+  assert.equal(document.body.children[0].children[2].className,'print-canvas '+view,view);
+  events.get('afterprint')();
+ }
+});

@@ -150,3 +150,16 @@ test('LM2596 adjustable example produces its scoped ripple estimate with the phy
  assert.ok(record.samples.length>100);
  assert.ok(record.samples.every(sample=>Number.isFinite(sample.nodeVoltages.VOUT)));
 });
+
+
+test('LM2577 boost example exposes only the modeled CCM output-ripple estimate',async()=>{
+ const p=await load('102-boost-converter-baseline'),a=runProjectAnalysis(p),record=analyticalScopeRecording(p,a);
+ assert.equal(a.state,'complete',a.message);
+ assert.equal(record?.kind,'analytical-output-recording');
+ assert.match(record.model,/not switching-transient simulation/);
+ assert.equal(record.preferredNet,'VOUT');
+ assert.equal(record.samples.length,481);
+ const values=record.samples.map(sample=>sample.nodeVoltages.VOUT);
+ assert.ok(values.every(Number.isFinite));
+ assert.ok(Math.abs(Math.max(...values)-Math.min(...values)-a.result.outputRipplePpV)/a.result.outputRipplePpV<0.01);
+});

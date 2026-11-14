@@ -4,6 +4,7 @@ export function analyticalScopeRecording(project,analysis){
  if(analysis?.state!=='complete')return null;
  const r=analysis.result,kind=r?.kind;
  if(kind==='buck-converter')return lm2596AdjustableRecording(project,r)??buckAverageRecording(project,r);
+ if(kind==='boost-converter'&&r.device==='LM2577T-ADJ/NOPB')return lm2577BoostRecording(project,r);
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(kind==='mcu-button-debounce')return buttonDebounceRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
@@ -261,4 +262,17 @@ function tvsPulseRecording(project,r){
   {timeSeconds:2*pulseWidthS,nodeVoltages:{[returnNet]:0,[input]:idleVoltage,[output]:idleOutputVoltage}}
  ];
  return {kind:'analytical-output-recording',model:'TVS ideal rectangular pulse clamp (rise time and recovery dynamics omitted)',preferredNet:output,samples};
+}
+
+
+function lm2577BoostRecording(project,r){
+ const byRef=reference=>project.components.find(c=>c.reference===reference),source=byRef('V1'),controller=byRef('U1'),report=byRef('SCOPE1'),ground=byRef('GND');
+ if(!source||controller?.libraryId!=='active.ti-lm2577-adjustable'||!report||!ground)return null;
+ const net=(component,pin)=>{const matches=project.nets.filter(item=>item.endpoints.includes(component.instanceId+':'+pin));return matches.length===1?matches[0].id:null;};
+ const input=net(source,'+'),returnNet=net(source,'-'),output=net(report,'VOUT');
+ if(!input||!returnNet||!output||input===returnNet||output===returnNet||net(controller,'VIN')!==input||net(controller,'GND')!==returnNet||net(report,'GND')!==returnNet||net(ground,'0')!==returnNet)return null;
+ const {switchingFrequencyHz:frequency,outputVoltageV:average,outputRipplePpV:ripple,inputVoltageV:vin}=r;
+ if(frequency!==52000||![average,ripple,vin].every(Number.isFinite)||average<=0||ripple<0||vin<=0||r.controllerHardwareModeled!==false)return null;
+ const duration=4/frequency,samples=Array.from({length:481},(_,i)=>{const timeSeconds=duration*i/480,phase=(i/480*4)%1,voltage=average+(0.5-phase)*ripple;return {timeSeconds,nodeVoltages:{[returnNet]:0,[input]:vin,[output]:voltage}};});
+ return {kind:'analytical-output-recording',model:`LM2577 CCM output ripple estimate at ${frequency} Hz (capacitor-discharge envelope; not switching-transient simulation)`,preferredNet:output,samples};
 }
