@@ -52,7 +52,7 @@
       "instanceId": "inductor",
       "libraryId": "passive.inductor",
       "reference": "L1",
-      "value": "100 µH; Bourns RLB0914-101KL; Irms 1.1 A typ; Isat 2.1 A typ",
+      "value": "100 µH",
       "position": {
         "breadboard": [
           350,
@@ -72,7 +72,7 @@
       "instanceId": "diode",
       "libraryId": "diode.schottky",
       "reference": "D1",
-      "value": "Vf 0.5 V; onsemi 1N5822G; 3 A; 40 V",
+      "value": "Vf 0.5 V",
       "position": {
         "breadboard": [
           220,
@@ -92,7 +92,7 @@
       "instanceId": "capacitor",
       "libraryId": "passive.capacitor",
       "reference": "C1",
-      "value": "100 µF; 35 V Nichicon UPW1V101MPD",
+      "value": "100 µF",
       "position": {
         "breadboard": [
           480,
@@ -112,7 +112,7 @@
       "instanceId": "load",
       "libraryId": "passive.resistor",
       "reference": "RLOAD",
-      "value": "24 Ω; Vishay AC03; 3 W at 40 °C, 2.5 W at 70 °C; ±5%",
+      "value": "24 Ω",
       "position": {
         "breadboard": [
           540,
@@ -172,7 +172,7 @@
       "instanceId": "rfb-top",
       "libraryId": "passive.resistor",
       "reference": "RFB1",
-      "value": "3.68 kΩ; Vishay MRS25; ±1%",
+      "value": "3.68 kΩ",
       "position": {
         "breadboard": [
           420,
@@ -192,7 +192,7 @@
       "instanceId": "rfb-bottom",
       "libraryId": "passive.resistor",
       "reference": "RFB2",
-      "value": "1 kΩ; Vishay MRS25; ±1%",
+      "value": "1 kΩ",
       "position": {
         "breadboard": [
           480,
