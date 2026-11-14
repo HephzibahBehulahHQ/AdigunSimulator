@@ -10,6 +10,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
  if(['rc-low-pass','rc-high-pass','rl-low-pass','passive-tone-control'].includes(kind))return frequencyResponseRecording(project,r);
+ if(kind==='active-low-pass')return activeLowPassRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
  if(!timer)return null;
@@ -153,4 +154,19 @@ function buttonDebounceRecording(project,r){
  const samples=[];
  for(let i=0;i<r.trace.length;i++){const item=r.trace[i];if(item.sampleIndex!==i||item.sample!==r.samples[i]||![0,1].includes(item.sample)||typeof item.gpioHigh!=='boolean'||typeof item.ledOn!=='boolean'||item.ledOn!==item.gpioHigh)return null;samples.push({timeSeconds:i/r.sampleRateHz,nodeVoltages:{[groundNet]:0,[inputNet]:item.sample,[outputNet]:item.gpioHigh?1:0}});}
  return {kind:'analytical-output-recording',units:'logic',model:'Arduino button debounce digital IO levels (sampled firmware execution)',preferredNet:outputNet,samples};
+}
+
+function activeLowPassRecording(project,r){
+ const sources=project.components.filter(c=>c.libraryId==='power.dc-source'),inputs=project.components.filter(c=>c.libraryId==='power.ac-source'),opamps=project.components.filter(c=>c.libraryId==='active.opamp-ideal'),resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),capacitors=project.components.filter(c=>c.libraryId==='passive.capacitor'),grounds=project.components.filter(c=>c.libraryId==='ground.signal');
+ if(sources.length!==2||inputs.length!==1||opamps.length!==1||resistors.length!==3||capacitors.length!==1||grounds.length!==1||!Array.isArray(r.response))return null;
+ const net=(c,pin)=>project.nets.find(n=>n.endpoints.includes(`${c.instanceId}:${pin}`))?.id,between=(c,a,b)=>{const one=net(c,'1'),two=net(c,'2');return one===a&&two===b||one===b&&two===a;},[input,opamp,ground]=[inputs[0],opamps[0],grounds[0]];
+ const gnd=net(ground,'0'),inputNet=net(input,'+'),output=net(opamp,'OUT'),inverting=net(opamp,'-'),nonInverting=net(opamp,'+');
+ const positive=sources.find(c=>net(c,'-')===gnd),negative=sources.find(c=>net(c,'+')===gnd),inputResistor=resistors.find(c=>between(c,inputNet,nonInverting)),feedback=resistors.find(c=>between(c,output,inverting)),gainLeg=resistors.find(c=>c!==inputResistor&&c!==feedback&&between(c,inverting,gnd));
+ if(!gnd||!inputNet||!output||!inverting||!nonInverting||!positive||!negative||positive===negative||net(opamp,'VCC')!==net(positive,'+')||net(opamp,'VEE')!==net(negative,'-')||net(input,'-')!==gnd||!inputResistor||!feedback||!gainLeg)return null;
+ const cap=capacitors[0];
+ if(inputNet===nonInverting||!between(cap,nonInverting,gnd)||!r.response.length)return null;
+ const amplitude=r.inputAmplitudeV,cutoff=r.cutoffHz,point=r.response.filter(s=>[s.frequencyHz,s.gain,s.outputAmplitudeV].every(Number.isFinite)&&s.frequencyHz>0).sort((a,b)=>Math.abs(Math.log(a.frequencyHz/cutoff))-Math.abs(Math.log(b.frequencyHz/cutoff)))[0];
+ if(!Number.isFinite(amplitude)||amplitude<0||!Number.isFinite(cutoff)||cutoff<=0||!point||Math.abs(point.outputAmplitudeV-amplitude*point.gain)>Math.max(1,point.outputAmplitudeV)*1e-9)return null;
+ const phase=-Math.atan(point.frequencyHz/cutoff),duration=4/point.frequencyHz,samples=Array.from({length:481},(_,i)=>{const timeSeconds=duration*i/480,angle=2*Math.PI*point.frequencyHz*timeSeconds;return {timeSeconds,nodeVoltages:{[gnd]:0,[inputNet]:amplitude*Math.sin(angle),[output]:point.outputAmplitudeV*Math.sin(angle+phase)}};});
+ return {kind:'analytical-output-recording',model:`Active low-pass steady-state sine at ${point.frequencyHz} Hz (frequency-domain estimate, not transient simulation)`,preferredNet:output,samples};
 }
