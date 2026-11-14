@@ -13,6 +13,15 @@ export function analyticalDcScopeRecording(project,analysis){
   if(!Object.hasOwn(nodes,positive)||!Object.hasOwn(nodes,negative)||Math.abs((nodes[positive]-nodes[negative])-sourceVoltage)>tolerance)return null;
   return {kind:"analytical-dc-output",model:"Resistive network DC solution",nodes:{...nodes}};
  }
+ if(r?.kind==="linear-regulated-supply"){
+  const ac=byType("power.ac-source"),transformers=byType("passive.transformer-ideal"),bridges=byType("diode.bridge-ideal"),capacitors=byType("passive.capacitor"),regulators=byType("active.regulator-7805-ideal"),resistors=byType("passive.resistor"),grounds=byType("ground.signal");
+  if(ac.length!==1||transformers.length!==1||bridges.length!==1||capacitors.length!==1||regulators.length!==1||resistors.length!==1||grounds.length!==1||byType("power.dc-source").length!==0)return null;
+  const [input,transformer,bridge,capacitor,regulator,load,gnd]=[ac[0],transformers[0],bridges[0],capacitors[0],regulators[0],resistors[0],grounds[0]],n=(c,pin)=>netOf(c,pin);
+  const output=n(regulator,"OUT"),returnNet=n(regulator,"GND"),raw=n(regulator,"IN");
+  if(!output||!returnNet||!raw||n(input,"+")!==n(transformer,"PRI1")||n(input,"-")!==n(transformer,"PRI2")||n(transformer,"SEC1")!==n(bridge,"AC1")||n(transformer,"SEC2")!==n(bridge,"AC2")||n(bridge,"POS")!==raw||n(bridge,"NEG")!==returnNet||n(capacitor,"1")!==raw||n(capacitor,"2")!==returnNet||n(load,"1")!==output||n(load,"2")!==returnNet||n(gnd,"0")!==returnNet)return null;
+  if(r.regulated!==true||!Number.isFinite(r.outputVoltage)||!Number.isFinite(r.outputSetpointV)||Math.abs(r.outputVoltage-r.outputSetpointV)>1e-9)return null;
+  return {kind:"analytical-dc-output",model:"Linear regulated supply DC output (ripple voltage reported separately)",nodes:{[returnNet]:0,[output]:r.outputVoltage}};
+ }
  if(r?.kind==="led-polarity-indicator"){
   const reds=byType("diode.led-red"),greens=byType("diode.led-green"),red=reds[0],green=greens[0],resistors=byType("passive.resistor"),resistorResult=ref=>r.resistorResults?.find(item=>item.reference===ref);
   if(byType("power.dc-source").length!==1||byType("ground.signal").length!==1||reds.length!==1||greens.length!==1||resistors.length!==2)return null;
