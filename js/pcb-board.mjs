@@ -61,16 +61,20 @@ export function pcbBoardDefaults(project) {
   const widths = (Array.isArray(pcb?.routes) ? pcb.routes : []).map((route) => route?.widthMm).filter(positive);
   return { widthMm: board?.widthMm ?? 50, heightMm: board?.heightMm ?? 30, thicknessMm: board?.thicknessMm ?? 1.6,
     copperLayers: board?.copperLayers ?? ["F.Cu", "B.Cu"], minimumClearanceMm: board?.minimumClearanceMm ?? 0.2,
-    minimumTraceWidthMm: board?.minimumTraceWidthMm ?? (widths.length ? Math.min(...widths) : 0.25) };
+    minimumTraceWidthMm: board?.minimumTraceWidthMm ?? (widths.length ? Math.min(...widths) : 0.25),
+    outlineType: board?.outline?.type === "polygon" ? "polygon" : "rectangle",
+    outlinePoints: (board?.outline?.type === "polygon" ? board.outline.pointsMm : [[0, 0], [board?.widthMm ?? 50, 0], [board?.widthMm ?? 50, board?.heightMm ?? 30], [0, board?.heightMm ?? 30]])
+      .map(([x, y]) => `${x},${y}`).join("\n") };
 }
 
 export function updatePcbBoard(project, input) {
   const previous = project?.pcbFabrication;
   if (!project || !Array.isArray(project.components) || !Array.isArray(project.nets)) return { status: "blocked", errors: ["A native project is required."] };
-  if (previous && (!previous.board || !supportedBoardLayers(previous.board.copperLayers) || previous.stackup)) return { status: "blocked", errors: ["This editor supports rectangular or polygonal F.Cu or F.Cu/B.Cu boards without a detailed stackup. Polygon vertices are preserved but cannot be edited here."] };
+  if (previous && (!previous.board || !supportedBoardLayers(previous.board.copperLayers) || previous.stackup)) return { status: "blocked", errors: ["This editor supports rectangular or polygonal F.Cu or F.Cu/B.Cu boards without a detailed stackup."] };
   const required = ["widthMm", "heightMm", "thicknessMm", "minimumClearanceMm", "minimumTraceWidthMm"];
   if (!input || required.some((key) => !positive(input[key]))) return { status: "blocked", errors: ["All board dimensions and rule values must be positive millimetres."] };
   const board = { ...(previous?.board ?? { outline: "rectangle" }), ...Object.fromEntries(required.map((key) => [key, input[key]])), copperLayers: input.copperLayers };
+  if (input.outline !== undefined && !(input.outline === "rectangle" && previous?.board?.outline === "rectangular UNO R3 shield template")) board.outline = input.outline;
   const errors = boardDefinitionErrors(board);
   if (errors.length) return { status: "blocked", errors };
   const pcb = { parts: [], pads: [], routes: [], ...previous, board };

@@ -169,3 +169,17 @@ test("board dialog commits once, preserves rejected edits and detects stale proj
   editor.action("pcb-board-setup"); state.project=structuredClone(state.project); submit(); assert.equal(history.length,1); assert.equal($("#pcb-board-error").textContent,"pcbBoardStale");
   state.project=parseProject(history[0]); assert.equal(state.project.pcbFabrication.board.widthMm,42);
 });
+
+test("board dialog creates and edits polygon vertices and rejects invalid rings without history", async () => {
+  const state = { project: createEmptyProject(), dirty: false }, nodes = {}, history = [];
+  const $ = id => nodes[id] ??= { value: "", textContent: "", events: {}, addEventListener(name, fn) { this.events[name] = fn; }, showModal() { this.open = true; }, close() { this.open = false; } };
+  const fields = Object.keys(pcbBoardDefaults(state.project)).map(key=>({ dataset: { boardField: key }, value: "" }));
+  const editor = createPcbBoardEditor({ state, $, $$: () => fields, t: key=>key, captureHistory: ()=>history.push(serializeProject(state.project)), render() {}, activateView() {}, log() {} });
+  const set = (key,value)=>fields.find(f=>f.dataset.boardField===key).value=String(value);
+  const submit = () => $("#pcb-board-form").events.submit({ preventDefault() {} });
+  editor.action("pcb-board-setup"); set("outlineType", "polygon"); set("outlinePoints", "0,0\n50,0\n50,30\n20,15\n0,30"); submit();
+  assert.equal(history.length, 1); assert.deepEqual(state.project.pcbFabrication.board.outline, { type: "polygon", pointsMm: [[0,0],[50,0],[50,30],[20,15],[0,30]] });
+  editor.action("pcb-board-setup"); assert.equal(fields.find(f=>f.dataset.boardField==="outlinePoints").value, "0,0\n50,0\n50,30\n20,15\n0,30");
+  set("outlinePoints", "0,0\n50,0\n50,30\n50,30\n0,30"); submit();
+  assert.equal(history.length, 1); assert.equal(state.project.pcbFabrication.board.outline.pointsMm.length, 5); assert.ok($("#pcb-board-error").textContent.startsWith("pcbBoardBlocked"));
+});
