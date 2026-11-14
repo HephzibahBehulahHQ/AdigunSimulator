@@ -5,6 +5,7 @@ export function analyticalScopeRecording(project,analysis){
  const r=analysis.result,kind=r?.kind;
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
+ if(kind==='rlc-step-response')return rlcStepRecording(project,r);
  if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
  if(['rc-low-pass','rc-high-pass','rl-low-pass','passive-tone-control'].includes(kind))return frequencyResponseRecording(project,r);
@@ -126,4 +127,18 @@ function supercapHoldUpRecording(project,r){
  if(r.samples[0].timeS!==0||Math.abs(r.samples[0].voltage-initial)>Math.max(1,Math.abs(initial))*1e-9||r.samples.at(-1).timeS<=0)return null;
  const samples=r.samples.map(sample=>({timeSeconds:sample.timeS,nodeVoltages:{[ground]:0,[power]:sourceVoltage,[output]:sample.voltage}}));
  return {kind:'analytical-output-recording',model:'Supercapacitor hold-up discharge (analytical model samples)',preferredNet:output,samples};
+}
+
+function rlcStepRecording(project,r){
+ const sources=project.components.filter(c=>c.libraryId==='power.dc-source'),resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),inductors=project.components.filter(c=>c.libraryId==='passive.inductor'),capacitors=project.components.filter(c=>c.libraryId==='passive.capacitor'),grounds=project.components.filter(c=>c.libraryId==='ground.signal');
+ if(sources.length!==1||resistors.length!==1||inductors.length!==1||capacitors.length!==1||grounds.length!==1||!Array.isArray(r.samples)||r.samples.length<2||r.samples.length>2000||r.sampleCount!==r.samples.length)return null;
+ const net=(c,pin)=>project.nets.find(n=>n.endpoints.includes(`${c.instanceId}:${pin}`))?.id,[s,res,l,c,g]=[sources[0],resistors[0],inductors[0],capacitors[0],grounds[0]];
+ const power=net(s,'+'),ground=net(s,'-'),output=net(c,'1');
+ if(!power||!ground||!output||new Set([power,ground,output]).size!==3||net(res,'1')!==power||net(res,'2')!==net(l,'1')||net(l,'2')!==output||net(c,'2')!==ground||net(g,'0')!==ground)return null;
+ if(!Number.isFinite(r.sourceVoltage)||r.sourceVoltage<=0||!Number.isFinite(r.durationS)||r.durationS<=0||!Number.isFinite(r.resistanceOhms)||r.resistanceOhms<=0||!Number.isFinite(r.inductanceH)||r.inductanceH<=0||!Number.isFinite(r.capacitanceF)||r.capacitanceF<=0)return null;
+ let previous=-Infinity;
+ for(const sample of r.samples){if(!Number.isFinite(sample.timeS)||sample.timeS<previous||!Number.isFinite(sample.capacitorVoltageV))return null;previous=sample.timeS;}
+ if(r.samples[0].timeS!==0||r.samples.at(-1).timeS!==r.durationS)return null;
+ const samples=r.samples.map(sample=>({timeSeconds:sample.timeS,nodeVoltages:{[ground]:0,[power]:r.sourceVoltage,[output]:sample.capacitorVoltageV}}));
+ return {kind:'analytical-output-recording',model:'RLC step response (analytical model samples)',preferredNet:output,samples};
 }
