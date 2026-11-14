@@ -424,7 +424,7 @@
         "footprint": "Vishay_AC03_100R_axial_P25_4mm",
         "technology": "through-hole",
         "manufacturer": "Vishay Draloric",
-        "manufacturerPartNumber": "AC0300001000JAC00"
+        "manufacturerPartNumber": "AC03000001000JACCS"
       },
       {
         "instanceId": "rfb-top",
@@ -1319,9 +1319,9 @@
       {
         "reference": "RLOAD",
         "manufacturer": "Vishay Draloric",
-        "manufacturerPartNumber": "AC0300001000JAC00",
+        "manufacturerPartNumber": "AC03000001000JACCS",
         "package": "AC03 axial cemented wirewound; 100 Ω ±5%, 3 W; 25.4 mm layout lead span",
-        "sourceUrl": "https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf",
+        "sourceUrl": "https://www.vishay.com/docs/28909/acxxcs.pdf",
         "pinMapping": {
           "1": "VOUT",
           "2": "GND"
