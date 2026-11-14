@@ -29,6 +29,15 @@ export function analyticalDcScopeRecording(project,analysis){
   if(!input||!output||!returnNet||!series||!load||net(diode,"A")!==returnNet||net(gnd,"0")!==returnNet||!Number.isFinite(r.sourceVoltage)||!Number.isFinite(r.outputVoltage)||r.outputVoltage<0||r.outputVoltage>r.sourceVoltage)return null;
   return {kind:"analytical-dc-output",model:`Zener shunt regulator DC output (${r.zenerOn?"zener conducting":"zener off"}; steady-state estimate)`,nodes:{[returnNet]:0,[input]:r.sourceVoltage,[output]:r.outputVoltage}};
  }
+ if(r?.kind==="solar-garden-light"){
+  const solar=byType("power.solar-cell"),batteries=byType("power.rechargeable-battery"),diodes=byType("diode.schottky"),ldrs=byType("passive.ldr"),mosfets=byType("active.nmos-switch"),leds=byType("diode.led-red"),resistors=byType("passive.resistor"),grounds=byType("ground.signal");
+  if(solar.length!==1||batteries.length!==1||diodes.length!==1||ldrs.length!==1||mosfets.length!==1||leds.length!==1||resistors.length!==2||grounds.length!==1)return null;
+  const [pv,battery,diode,ldr,mosfet,led,gnd]=[solar[0],batteries[0],diodes[0],ldrs[0],mosfets[0],leds[0],grounds[0]],n=(c,pin)=>netOf(c,pin),returnNet=n(gnd,"0"),pvPositive=n(pv,"+"),batteryPositive=n(battery,"+"),gate=n(mosfet,"G"),drain=n(mosfet,"D"),ledAnode=n(led,"A");
+  const between=(c,a,b)=>n(c,"1")===a&&n(c,"2")===b||n(c,"2")===a&&n(c,"1")===b,batteryResistor=resistors.find(c=>between(c,batteryPositive,gate)),ledResistor=resistors.find(c=>c!==batteryResistor&&between(c,batteryPositive,ledAnode));
+  if(!returnNet||!pvPositive||!batteryPositive||!gate||!drain||n(pv,"-")!==returnNet||n(battery,"-")!==returnNet||n(diode,"A")!==pvPositive||n(diode,"K")!==batteryPositive||n(ldr,"1")!==gate||n(ldr,"2")!==returnNet||n(mosfet,"S")!==returnNet||n(led,"K")!==drain||!batteryResistor||!ledResistor)return null;
+  if(!Number.isFinite(r.batteryVoltage)||!Number.isFinite(r.gateVoltage)||!Number.isFinite(r.ldrResistance)||r.ldrResistance<=0||typeof r.mosfetConducting!=="boolean"||typeof r.ledOn!=="boolean")return null;
+  return {kind:"analytical-dc-output",model:"Solar garden light operating-point estimate (battery and LDR gate nodes)",nodes:{[returnNet]:0,[batteryPositive]:r.batteryVoltage,[gate]:r.gateVoltage}};
+ }
  if(r?.kind==="led-polarity-indicator"){
   const reds=byType("diode.led-red"),greens=byType("diode.led-green"),red=reds[0],green=greens[0],resistors=byType("passive.resistor"),resistorResult=ref=>r.resistorResults?.find(item=>item.reference===ref);
   if(byType("power.dc-source").length!==1||byType("ground.signal").length!==1||reds.length!==1||greens.length!==1||resistors.length!==2)return null;
