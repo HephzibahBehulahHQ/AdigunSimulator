@@ -719,9 +719,21 @@
           "loadResistance": 10000,
           "cutoffHz": 477.46482927568604,
           "response": [
-            {"frequencyHz": 100, "gain": 0.6525091286378826, "phaseRad": -0.20645531758085955},
-            {"frequencyHz": 1000, "gain": 0.287247182748001, "phaseRad": -1.1253388328842984},
-            {"frequencyHz": 10000, "gain": 0.03179476756097162, "phaseRad": -1.523086077295077}
+            {
+              "frequencyHz": 100,
+              "gain": 0.6525091286378826,
+              "phaseRad": -0.20645531758085955
+            },
+            {
+              "frequencyHz": 1000,
+              "gain": 0.287247182748001,
+              "phaseRad": -1.1253388328842984
+            },
+            {
+              "frequencyHz": 10000,
+              "gain": 0.03179476756097162,
+              "phaseRad": -1.523086077295077
+            }
           ],
           "defaultPosition50Percent": {
             "cutoffHz": 477.46482927568604,
@@ -2150,7 +2162,15 @@
         "modelVersion": "ideal-bcd-counter-display-v1",
         "expectedResult": {
           "digit": 0,
-          "segmentsOn": [true, true, true, true, true, true, false],
+          "segmentsOn": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
           "digits0to9": [
             [
               1,
@@ -2271,7 +2291,14 @@
         "modelVersion": "ideal-six-phase-traffic-fsm-v1",
         "expectedResult": {
           "phase": 0,
-          "lamps": [false, false, true, true, false, false],
+          "lamps": [
+            false,
+            false,
+            true,
+            true,
+            false,
+            false
+          ],
           "phaseLampVectors": [
             [
               false,
@@ -2392,7 +2419,12 @@
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ideal-four-bit-ring-shift-v1",
         "expectedResult": {
-          "bits": [true, false, false, false],
+          "bits": [
+            true,
+            false,
+            false,
+            false
+          ],
           "oneHot": true,
           "resetBits": [
             true,
@@ -2456,8 +2488,18 @@
           "kind": "mux4",
           "supplyVoltage": 5,
           "logicThresholdV": 2.5,
-          "dataVoltages": [0, 5, 0, 5],
-          "dataBits": [false, true, false, true],
+          "dataVoltages": [
+            0,
+            5,
+            0,
+            5
+          ],
+          "dataBits": [
+            false,
+            true,
+            false,
+            true
+          ],
           "select0": true,
           "select1": false,
           "selectedIndex": 1,
@@ -2499,10 +2541,23 @@
           "kind": "decoder-2to4",
           "supplyVoltage": 5,
           "logicThresholdV": 2.5,
-          "addressBits": [false, false],
+          "addressBits": [
+            false,
+            false
+          ],
           "address": 0,
-          "outputsHigh": [true, false, false, false],
-          "outputCurrents": [0.00909090909090909, 0, 0, 0],
+          "outputsHigh": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "outputCurrents": [
+            0.00909090909090909,
+            0,
+            0,
+            0
+          ],
           "oneHot": true,
           "addresses": [
             0,
@@ -2565,14 +2620,35 @@
           "kind": "priority-encoder",
           "supplyVoltage": 5,
           "logicThresholdV": 2.5,
-          "inputVoltages": [0, 0, 0, 0],
-          "inputs": [false, false, false, false],
+          "inputVoltages": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "inputs": [
+            false,
+            false,
+            false,
+            false
+          ],
           "highestIndex": -1,
           "valid": false,
           "code": 0,
-          "codeBits": [false, false],
-          "outputBits": [false, false, false],
-          "outputCurrents": [0, 0, 0],
+          "codeBits": [
+            false,
+            false
+          ],
+          "outputBits": [
+            false,
+            false,
+            false
+          ],
+          "outputCurrents": [
+            0,
+            0,
+            0
+          ],
           "noActiveInput": {
             "valid": false,
             "code": 0
@@ -2617,18 +2693,45 @@
           "kind": "alu4-add-subtract",
           "supplyVoltage": 5,
           "logicThresholdV": 2.5,
-          "aBits": [false, false, false, false],
-          "bBits": [false, false, false, false],
+          "aBits": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "bBits": [
+            false,
+            false,
+            false,
+            false
+          ],
           "subtract": false,
           "a": 0,
           "b": 0,
           "adjustedB": 0,
-          "sumBits": [false, false, false, false],
+          "sumBits": [
+            false,
+            false,
+            false,
+            false
+          ],
           "sum": 0,
           "carryOut": false,
           "borrow": false,
-          "outputBits": [false, false, false, false, false],
-          "outputCurrents": [0, 0, 0, 0, 0],
+          "outputBits": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "outputCurrents": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
           "operation": "add",
           "operandBits": 4,
           "operationModes": [
@@ -2674,8 +2777,28 @@
           ],
           "byte": 165,
           "baud": 9600,
-          "dataBits": [true, false, true, false, false, true, false, true],
-          "frameBits": [false, true, false, true, false, false, true, false, true, true],
+          "dataBits": [
+            true,
+            false,
+            true,
+            false,
+            false,
+            true,
+            false,
+            true
+          ],
+          "frameBits": [
+            false,
+            true,
+            false,
+            true,
+            false,
+            false,
+            true,
+            false,
+            true,
+            true
+          ],
           "frameFormat": "8N1",
           "frameDurationSeconds": 0.0010416666666666667,
           "frameDescription": "start low + 8 LSB-first data + stop high",
@@ -2712,7 +2835,18 @@
           "byte": 165,
           "byteHex": "0xA5",
           "baud": 9600,
-          "frameBits": [0, 1, 0, 1, 0, 0, 1, 0, 1, 1],
+          "frameBits": [
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
           "frameFormat": "8N1",
           "framingError": false,
           "valid": true,
@@ -2785,7 +2919,16 @@
           "sampleEdge": "rising",
           "clockBaud": 1000000,
           "baud": 1000000,
-          "bits": [true, false, true, false, false, true, false, true],
+          "bits": [
+            true,
+            false,
+            true,
+            false,
+            false,
+            true,
+            false,
+            true
+          ],
           "receivedByte": 165,
           "receivedHex": "0xA5",
           "transferDurationSeconds": 0.000008,
@@ -2858,13 +3001,38 @@
           "highMs": 500,
           "lowMs": 500,
           "runtimeMs": 2000,
-          "traceLabels": ["HIGH", "LOW", "HIGH", "LOW"],
+          "traceLabels": [
+            "HIGH",
+            "LOW",
+            "HIGH",
+            "LOW"
+          ],
           "periodMs": 1000,
           "trace": [
-            {"timeMs": 0, "intervalMs": 500, "gpioHigh": true, "ledOn": true},
-            {"timeMs": 500, "intervalMs": 500, "gpioHigh": false, "ledOn": false},
-            {"timeMs": 1000, "intervalMs": 500, "gpioHigh": true, "ledOn": true},
-            {"timeMs": 1500, "intervalMs": 500, "gpioHigh": false, "ledOn": false}
+            {
+              "timeMs": 0,
+              "intervalMs": 500,
+              "gpioHigh": true,
+              "ledOn": true
+            },
+            {
+              "timeMs": 500,
+              "intervalMs": 500,
+              "gpioHigh": false,
+              "ledOn": false
+            },
+            {
+              "timeMs": 1000,
+              "intervalMs": 500,
+              "gpioHigh": true,
+              "ledOn": true
+            },
+            {
+              "timeMs": 1500,
+              "intervalMs": 500,
+              "gpioHigh": false,
+              "ledOn": false
+            }
           ],
           "frequencyHz": 1,
           "firmwareExecuted": false
@@ -3032,7 +3200,10 @@
           "adcCount": 512,
           "pulseWidthUs": 1500.4897360703812,
           "angleDegrees": 90.08797653958945,
-          "angleRangeDegrees": [0, 180],
+          "angleRangeDegrees": [
+            0,
+            180
+          ],
           "pwmFrequencyHz": 50,
           "frameRateHz": 50,
           "firmwareExecuted": false
@@ -3064,7 +3235,10 @@
           "stepAngleDegrees": 1.8,
           "clockwise200StepsTravelDegrees": 360,
           "counterclockwise50StepsTravelDegrees": -90,
-          "stepRatesHzTested": [100, 200],
+          "stepRatesHzTested": [
+            100,
+            200
+          ],
           "stepRateHz": 200,
           "direction": "CW",
           "steps": 200,
@@ -4488,11 +4662,11 @@
       "id": "101-buck-converter-baseline",
       "title": "Buck converter baseline",
       "status": "released",
-      "objective": "Estimate an asynchronous buck converter steady state at 12 V input, 50% duty, 100 kHz, 100 µH, 100 µF and 24 Ω; verify CCM, output, ripple, diode loss, power balance, line/load movement and unsupported DCM blocking.",
-      "acceptanceTest": "tests/core.test.mjs: catalogue buck converter reports bounded CCM average and ripple estimates",
+      "objective": "Estimate an asynchronous LM2596T-ADJ buck at 12 V input using a 3.68 kΩ/1 kΩ feedback divider, nominal 150 kHz operation, 100 µH, 100 µF and 24 Ω; verify CCM, divider-derived output, ripple, diode loss, power balance, regulated line/load behavior and unsupported DCM blocking.",
+      "acceptanceTest": "tests/core.test.mjs: catalogue LM2596 adjustable buck reports bounded CCM average and ripple estimates",
       "testId": "core-buck-converter-baseline",
       "projectFile": "examples/101-buck-converter-baseline.adigun.json",
-      "safetyNote": "Bounded steady-state asynchronous CCM estimate only. It excludes switching transients, controller-loop stability, inductor saturation/core loss, capacitor ESR, MOSFET loss, thermal effects, tolerances, component ratings, and hardware validation.",
+      "safetyNote": "Bounded LM2596T-ADJ steady-state CCM estimate only. Ripple is an ideal-capacitor estimate; this is not closed-loop or switching-transient simulation. It excludes capacitor ESR, current-limit dynamics, inductor saturation/core loss, thermal behavior, tolerances, EMC, PCB fabrication qualification, and hardware validation.",
       "scope": "catalogue",
       "catalogueIndex": 101,
       "verification": {
@@ -4500,28 +4674,32 @@
         "workflow": "Verify AdigunSimulator",
         "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41186919065",
         "headRevision": "33607823be4e17739110e7d9e06911c578ff5404",
-        "engine": "Asynchronous buck CCM average and triangular-ripple estimate",
+        "engine": "LM2596 adjustable buck CCM average and triangular-ripple estimate",
         "engineVersion": "adigun-simulator@0.1.0",
-        "modelVersion": "ideal-asynchronous-buck-ccm-v1",
+        "modelVersion": "lm2596-adjustable-buck-ccm-estimate-v1",
         "expectedResult": {
           "kind": "buck-converter",
+          "device": "LM2596T-ADJ/NOPB",
           "inputVoltageV": 12,
-          "dutyCyclePercent": 50,
-          "switchingFrequencyHz": 100000,
+          "feedbackReferenceV": 1.23,
+          "feedbackTopResistanceOhm": 3680,
+          "feedbackBottomResistanceOhm": 1000,
+          "dutyCyclePercent": 50.0512,
+          "switchingFrequencyHz": 150000,
           "diodeForwardVoltageV": 0.5,
           "inductanceH": 0.0001,
           "capacitanceF": 0.0001,
           "loadResistanceOhm": 24,
-          "outputVoltageV": 5.75,
-          "loadCurrentA": 0.23958333333333334,
-          "inductorRipplePpA": 0.3125,
-          "outputRipplePpV": 0.00390625,
+          "outputVoltageV": 5.7564,
+          "loadCurrentA": 0.23985,
+          "inductorRipplePpA": 0.20833311488,
+          "outputRipplePpV": 0.0017361092906666667,
           "conductionMode": "CCM",
-          "inputCurrentA": 0.11979166666666667,
-          "inputPowerW": 1.4375,
-          "outputPowerW": 1.3776041666666667,
-          "diodeLossW": 0.059895833333333336,
-          "estimatedEfficiencyPercent": 95.83333333333334,
+          "inputCurrentA": 0.1200478032,
+          "inputPowerW": 1.4405736384,
+          "outputPowerW": 1.38067254,
+          "diodeLossW": 0.0599010984,
+          "estimatedEfficiencyPercent": 95.84185793747201,
           "powerBalanceW": 0,
           "controllerHardwareModeled": false
         }
@@ -5348,7 +5526,7 @@
           "filterCapacitanceF": 0.0001,
           "filterTimeConstantS": 0.001,
           "outputVoltageV": 10.909090909090908,
-          "outputLoadCurrentA": 0.10909090909090908,
+          "outputLoadCurrentA": 0.10909090909090909,
           "outputEnabled": true,
           "hardwareSafetyQualified": false
         }
@@ -6272,7 +6450,6 @@
           "powerBalanceW": 0,
           "phaseOffsetDeg": 90,
           "unit": "deg",
-          "frequencyHz": 1000,
           "sampleCount": 201,
           "mismatchedFrequencyBlocked": true
         }
@@ -8390,154 +8567,154 @@
       }
     },
     {
-          "id": "supplemental-digital-event-simulation",
-          "title": "Two-input AND digital event simulation",
-          "status": "planned",
-          "objective": "Run a deterministic discrete-event timeline for a wired ideal AND gate and observe simultaneous input changes on named project nets.",
-          "acceptanceTest": "tests/digital-event-analysis.test.mjs: digital event queue sorts inputs and records only settled probe transitions",
-          "testId": "digital-event-and-timeline",
-          "projectFile": "examples/supplemental-digital-event-simulation.adigun.json",
-          "safetyNote": "Educational ideal, zero-delay digital model only. It omits propagation delay, metastability, electrical loading, physical logic-family limits, and manufacturer-specific behaviour.",
-          "verification": {
-            "status": "pending",
-            "engine": "Ideal digital discrete-event logic simulation",
-            "engineVersion": "adigun-simulator@0.1.0",
-            "modelVersion": "digital-event-engine-v1",
-            "expectedResult": {
-              "kind": "digital-event-simulation",
-              "stopTimeNs": 400,
-              "transitions": {
-                "A": [
-                  [
-                    0,
-                    false
-                  ],
-                  [
-                    100,
-                    true
-                  ],
-                  [
-                    300,
-                    false
-                  ]
-                ],
-                "B": [
-                  [
-                    0,
-                    false
-                  ],
-                  [
-                    200,
-                    true
-                  ]
-                ],
-                "Y": [
-                  [
-                    0,
-                    false
-                  ],
-                  [
-                    200,
-                    true
-                  ],
-                  [
-                    300,
-                    false
-                  ]
-                ]
-              }
-            }
-          },
-          "scope": "supplemental",
-          "readmeFile": "examples/project-readmes/supplemental-digital-event-simulation.md"
-        },
+      "id": "supplemental-digital-event-simulation",
+      "title": "Two-input AND digital event simulation",
+      "status": "planned",
+      "objective": "Run a deterministic discrete-event timeline for a wired ideal AND gate and observe simultaneous input changes on named project nets.",
+      "acceptanceTest": "tests/digital-event-analysis.test.mjs: digital event queue sorts inputs and records only settled probe transitions",
+      "testId": "digital-event-and-timeline",
+      "projectFile": "examples/supplemental-digital-event-simulation.adigun.json",
+      "safetyNote": "Educational ideal, zero-delay digital model only. It omits propagation delay, metastability, electrical loading, physical logic-family limits, and manufacturer-specific behaviour.",
+      "verification": {
+        "status": "pending",
+        "engine": "Ideal digital discrete-event logic simulation",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "digital-event-engine-v1",
+        "expectedResult": {
+          "kind": "digital-event-simulation",
+          "stopTimeNs": 400,
+          "transitions": {
+            "A": [
+              [
+                0,
+                false
+              ],
+              [
+                100,
+                true
+              ],
+              [
+                300,
+                false
+              ]
+            ],
+            "B": [
+              [
+                0,
+                false
+              ],
+              [
+                200,
+                true
+              ]
+            ],
+            "Y": [
+              [
+                0,
+                false
+              ],
+              [
+                200,
+                true
+              ],
+              [
+                300,
+                false
+              ]
+            ]
+          }
+        }
+      },
+      "scope": "supplemental",
+      "readmeFile": "examples/project-readmes/supplemental-digital-event-simulation.md"
+    },
     {
-          "id": "supplemental-d-flip-flop-events",
-          "title": "Positive-edge D flip-flop event simulation",
-          "status": "planned",
-          "objective": "Model explicit initial Q state and sample D only on positive clock edges, retaining Q between edges.",
-          "acceptanceTest": "tests/digital-event-analysis.test.mjs: positive-edge D flip-flop samples D, retains state between edges, and exposes Q-bar",
-          "testId": "digital-event-positive-edge-dff-timeline",
-          "projectFile": "examples/supplemental-d-flip-flop-events.adigun.json",
-          "safetyNote": "Ideal zero-delay positive-edge state model only. PRE and CLR remain inactive-high. Setup/hold, asynchronous control behavior, propagation delay, metastability, electrical loading, and device-specific timing are not modeled.",
-          "verification": {
-            "status": "pending",
-            "engine": "Ideal digital discrete-event logic simulation",
-            "engineVersion": "adigun-simulator@0.1.0",
-            "modelVersion": "digital-event-engine-v1",
-            "expectedResult": {
-              "kind": "digital-event-simulation",
-              "stopTimeNs": 400,
-              "initialStates": {
-                "U1": false
-              },
-              "transitions": {
-                "D": [
-                  [
-                    0,
-                    false
-                  ],
-                  [
-                    100,
-                    true
-                  ],
-                  [
-                    250,
-                    false
-                  ]
-                ],
-                "CLK": [
-                  [
-                    0,
-                    false
-                  ],
-                  [
-                    200,
-                    true
-                  ],
-                  [
-                    300,
-                    false
-                  ],
-                  [
-                    350,
-                    true
-                  ]
-                ],
-                "Q": [
-                  [
-                    0,
-                    false
-                  ],
-                  [
-                    200,
-                    true
-                  ],
-                  [
-                    350,
-                    false
-                  ]
-                ],
-                "QBAR": [
-                  [
-                    0,
-                    true
-                  ],
-                  [
-                    200,
-                    false
-                  ],
-                  [
-                    350,
-                    true
-                  ]
-                ]
-              }
-            }
+      "id": "supplemental-d-flip-flop-events",
+      "title": "Positive-edge D flip-flop event simulation",
+      "status": "planned",
+      "objective": "Model explicit initial Q state and sample D only on positive clock edges, retaining Q between edges.",
+      "acceptanceTest": "tests/digital-event-analysis.test.mjs: positive-edge D flip-flop samples D, retains state between edges, and exposes Q-bar",
+      "testId": "digital-event-positive-edge-dff-timeline",
+      "projectFile": "examples/supplemental-d-flip-flop-events.adigun.json",
+      "safetyNote": "Ideal zero-delay positive-edge state model only. PRE and CLR remain inactive-high. Setup/hold, asynchronous control behavior, propagation delay, metastability, electrical loading, and device-specific timing are not modeled.",
+      "verification": {
+        "status": "pending",
+        "engine": "Ideal digital discrete-event logic simulation",
+        "engineVersion": "adigun-simulator@0.1.0",
+        "modelVersion": "digital-event-engine-v1",
+        "expectedResult": {
+          "kind": "digital-event-simulation",
+          "stopTimeNs": 400,
+          "initialStates": {
+            "U1": false
           },
-          "scope": "supplemental",
-          "readmeFile": "examples/project-readmes/supplemental-d-flip-flop-events.md"
-        },
+          "transitions": {
+            "D": [
+              [
+                0,
+                false
+              ],
+              [
+                100,
+                true
+              ],
+              [
+                250,
+                false
+              ]
+            ],
+            "CLK": [
+              [
+                0,
+                false
+              ],
+              [
+                200,
+                true
+              ],
+              [
+                300,
+                false
+              ],
+              [
+                350,
+                true
+              ]
+            ],
+            "Q": [
+              [
+                0,
+                false
+              ],
+              [
+                200,
+                true
+              ],
+              [
+                350,
+                false
+              ]
+            ],
+            "QBAR": [
+              [
+                0,
+                true
+              ],
+              [
+                200,
+                false
+              ],
+              [
+                350,
+                true
+              ]
+            ]
+          }
+        }
+      },
+      "scope": "supplemental",
+      "readmeFile": "examples/project-readmes/supplemental-d-flip-flop-events.md"
+    },
     {
       "id": "supplemental-mux-event-simulation",
       "title": "Four-to-one multiplexer event simulation",
@@ -8556,9 +8733,48 @@
           "kind": "digital-event-simulation",
           "stopTimeNs": 40,
           "transitions": {
-            "S0": [[0, false], [10, true], [30, false]],
-            "S1": [[0, false], [20, true], [40, false]],
-            "Y": [[0, false], [10, true], [30, false]]
+            "S0": [
+              [
+                0,
+                false
+              ],
+              [
+                10,
+                true
+              ],
+              [
+                30,
+                false
+              ]
+            ],
+            "S1": [
+              [
+                0,
+                false
+              ],
+              [
+                20,
+                true
+              ],
+              [
+                40,
+                false
+              ]
+            ],
+            "Y": [
+              [
+                0,
+                false
+              ],
+              [
+                10,
+                true
+              ],
+              [
+                30,
+                false
+              ]
+            ]
           }
         }
       },
