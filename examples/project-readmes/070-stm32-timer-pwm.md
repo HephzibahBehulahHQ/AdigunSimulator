@@ -9,7 +9,7 @@ Calculate edge-aligned PWM frequency and duty from timer clock, prescaler, auto-
 | Reference | Project library ID | Project value |
 |---|---|---|
 | V1 | `power.dc-source` | 3.3 V |
-| U1 | `active.stm32-timer-ideal` | ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 499 |
+| U1 | `active.stm32-timer-ideal` | PA0 / TIM2_CH1; ClockHz 64000000; Prescaler 63; AutoReload 999; Compare 499 |
 | R1 | `passive.resistor` | 330 Ω |
 | D1 | `diode.led-red` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
@@ -20,7 +20,7 @@ These are the exact component records in the native example file. A library ID a
 
 - **VCC:** `supply:+`, `timer:VCC`
 - **GND:** `supply:-`, `timer:GND`, `led:K`, `ground:0`
-- **PWM_LED:** `timer:TIM1_CH1`, `resistor:1`
+- **PWM_LED:** `timer:PA0` (TIM2_CH1 alternate function), `resistor:1`
 - **LED_SERIES:** `resistor:2`, `led:A`
 
 ## Views and physical-layout status

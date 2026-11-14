@@ -39,7 +39,7 @@ function basePinPoint(component, pins, pin) {
   }
   if (component.libraryId === "ground.signal") return { x: x + 28, y: y + 6, side: "top" };
   if (component.libraryId === "active.stm32-timer-ideal") {
-    const positions = { VCC: [0, 26, "left"], GND: [0, 104, "left"], TIM1_CH1: [124, 65, "right"] };
+    const positions = { VCC: [0, 26, "left"], GND: [0, 104, "left"], PA0: [124, 65, "right"] };
     const point = positions[pin];
     return point ? { x: x + point[0], y: y + point[1], side: point[2] } : null;
   }

@@ -22,9 +22,10 @@ test("missing pin metadata does not create a fake symbol",()=>{
 });
 
 test("STM32 behavior symbol uses matching pin stubs and discloses its ideal model",()=>{
- const s=renderSchematicSymbol(p("active.stm32-timer-ideal","STM32 timer",["VCC","GND","TIM1_CH1"]));
+ const s=renderSchematicSymbol(p("active.stm32-timer-ideal","STM32 timer",["VCC","GND","PA0"]));
  assert.match(s,/viewBox="0 0 124 130"/);
  for(const stub of ["M0 26 H12","M0 104 H12","M124 65 H112"]) assert.ok(s.includes(stub));
  assert.match(s,/ideal model/);
- assert.doesNotMatch(s,/PA0|G031K8/);
+ assert.match(s,/PA0/);
+ assert.doesNotMatch(s,/G031K8/);
 });
