@@ -1,12 +1,12 @@
-const number=(value)=>{const m=String(value??"").match(/[-+]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:e[-+]?\\d+)?/i);return m?Number(m[0]):NaN;};
+const number=(value)=>{const m=String(value??"").match(/[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[-+]?\d+)?/i);return m?Number(m[0]):NaN;};
 const endpointNets=(project)=>{const map=new Map();for(const net of project.nets??[])for(const endpoint of net.endpoints??[])map.set(endpoint,net.id);return map;};
 const unit=(value,kind)=>{
  const text=String(value??"");
  const n=number(text);if(!Number.isFinite(n))return NaN;
- if(kind==="voltage"){const u=text.match(/(m?V)\\b/i)?.[1]?.toLowerCase();return u==="mV"?n/1000:u==="v"?n:NaN;}
- if(kind==="resistance"){const u=text.match(/(k)?\\s*(?:Ω|ohms?)\\b/i);return u?(u[1]?n*1000:n):NaN;}
- if(kind==="capacitance"){const u=text.match(/(µ|u|n|p)?F\\b/i)?.[1]?.toLowerCase();return u==="µ"||u==="u"?n*1e-6:u==="n"?n*1e-9:u==="p"?n*1e-12:u===""?n:NaN;}
- if(kind==="inductance"){const u=text.match(/(µ|u|m)?H\\b/i)?.[1]?.toLowerCase();return u==="µ"||u==="u"?n*1e-6:u==="m"?n*1e-3:u===""?n:NaN;}
+ if(kind==="voltage"){const u=text.match(/(m?V)\b/i)?.[1]?.toLowerCase();return u==="mV"?n/1000:u==="v"?n:NaN;}
+ if(kind==="resistance"){const u=text.match(/(k)?\s*(?:Ω|ohms?)\b/i);return u?(u[1]?n*1000:n):NaN;}
+ if(kind==="capacitance"){const u=text.match(/(µ|u|n|p)?F\b/i)?.[1]?.toLowerCase();return u==="µ"||u==="u"?n*1e-6:u==="n"?n*1e-9:u==="p"?n*1e-12:u===""?n:NaN;}
+ if(kind==="inductance"){const u=text.match(/(µ|u|m)?H\b/i)?.[1]?.toLowerCase();return u==="µ"||u==="u"?n*1e-6:u==="m"?n*1e-3:u===""?n:NaN;}
  return NaN;
 };
 export function analyseLm2577Boost(project,{validation}={}){
@@ -28,14 +28,11 @@ export function analyseLm2577Boost(project,{validation}={}){
   ["COMP",[[parts.controller,"COMP"],[parts.compResistor,"1"]]],
   ["COMP_RC",[[parts.compResistor,"2"],[parts.compCap,"1"]]]
  ];
- const inputConnector=project.components.find(c=>c.reference==="J1");
- groups[0][1].push([inputConnector,"VIN"]);groups[1][1].push([inputConnector,"GND"]);
  const faults=[];
  for(const [name,pins] of groups){const ids=pins.map(([part,pin])=>part?net(part,pin):null);if(!ids[0]||ids.some(id=>!id||id!==ids[0]))faults.push(`connect ${pins.map(([part,pin])=>part?`${part.reference} ${pin}`:"J1").join(", ")} on the ${name} net`);}
- if(!inputConnector)faults.unshift("restore input terminal J1");
  if(faults.length)return {state:"blocked",message:"LM2577 boost wiring is incomplete or inconsistent. To fix it: "+faults.join("; ")+".",validation};
  if(project.components.length!==14)return {state:"blocked",message:"This LM2577 reference design expects 14 components. Remove unsupported extras or restore a missing reference component.",validation};
- const vin=unit(parts.source.value,"voltage"),vf=number(String(parts.diode.value).match(/Vf\\s*([-+]?\\d+(?:\\.\\d+)?)/i)?.[1]),l=unit(parts.inductor.value,"inductance"),c=unit(parts.outputCap.value,"capacitance"),rLoad=unit(parts.load.value,"resistance"),rTop=unit(parts.top.value,"resistance"),rBottom=unit(parts.bottom.value,"resistance"),rComp=unit(parts.compResistor.value,"resistance"),cComp=unit(parts.compCap.value,"capacitance");
+ const vin=unit(parts.source.value,"voltage"),vf=number(String(parts.diode.value).match(/Vf\s*([-+]?\d+(?:\.\d+)?)/i)?.[1]),l=unit(parts.inductor.value,"inductance"),c=unit(parts.outputCap.value,"capacitance"),rLoad=unit(parts.load.value,"resistance"),rTop=unit(parts.top.value,"resistance"),rBottom=unit(parts.bottom.value,"resistance"),rComp=unit(parts.compResistor.value,"resistance"),cComp=unit(parts.compCap.value,"capacitance");
  if(!Number.isFinite(vin)||vin<3.5||vin>40||!Number.isFinite(vf)||vf<0.1||vf>1.5||!Number.isFinite(l)||l<1e-6||l>10||!Number.isFinite(c)||c<1e-6||c>10||unit(parts.inputCap.value,"capacitance")<=0||!Number.isFinite(rLoad)||rLoad<=0||!Number.isFinite(rTop)||rTop<=0||!Number.isFinite(rBottom)||rBottom<=0||rComp!==2200||Math.abs(cComp-0.33e-6)>0.01e-6){
   return {state:"blocked",message:"Use a 3.5–40 V input, positive inductor/capacitor/load values, a 0.1–1.5 V Schottky drop, and the TI reference compensation network (2.2 kΩ in series with 0.33 µF to GND).",validation};
  }
