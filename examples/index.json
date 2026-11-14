@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 31,
-    "withoutStoredPcb": 185,
+    "withStoredPcb": 32,
+    "withoutStoredPcb": 184,
     "unexpectedFailures": []
   },
   "entries": [
@@ -4913,47 +4913,19 @@
     },
     {
       "file": "102-boost-converter-baseline.adigun.json",
-      "title": "Asynchronous Boost Converter CCM Estimate",
+      "title": "Asynchronous Boost Converter CCM — LM2577 Reference",
       "type": "Power",
       "level": "Advanced",
       "category": "Conversion and protection",
-      "sha256": "fca436e15ef9d177a964919cc413431144d080cc92e068967fbdc11560d7e893",
-      "components": 9,
+      "sha256": "ce35ee0223615ab667236d7070184565ca2eb6866361040ec10096fb77fb1f63",
+      "components": 14,
       "analysis": "complete",
-      "engine": "Asynchronous boost CCM average and triangular-ripple estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
+      "engine": "TI LM2577-ADJ boost reference CCM average and ripple estimate",
+      "pcbStatus": "stored",
+      "pcbParts": 12,
+      "pcbPads": 27,
+      "pcbRoutes": 20,
       "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "CFG1",
-          "libraryId": "input.boost-operating-point-fixture"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.boost-average-controller"
-        },
-        {
-          "reference": "L1",
-          "libraryId": "passive.inductor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.schottky"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "RLOAD",
-          "libraryId": "passive.resistor"
-        },
         {
           "reference": "SCOPE1",
           "libraryId": "output.boost-converter-report"
