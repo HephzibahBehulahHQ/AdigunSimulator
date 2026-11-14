@@ -4720,8 +4720,8 @@
       "verification": {
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
-        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41187198444",
-        "headRevision": "ef6109cebae5a0b3ecd7ca931eb5a2d2e6c5a7e2",
+        "runUrl": "https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/43629033350",
+        "headRevision": "b145c43b693b8e0e9fb48029f249d6004320940c",
         "engine": "TI LM2577-ADJ boost reference CCM average and ripple estimate",
         "engineVersion": "adigun-simulator@0.1.0",
         "modelVersion": "ti-lm2577-adjustable-boost-average-ccm-v1",
