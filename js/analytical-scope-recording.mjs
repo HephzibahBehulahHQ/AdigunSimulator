@@ -4,6 +4,7 @@ export function analyticalScopeRecording(project,analysis){
  if(analysis?.state!=='complete')return null;
  const r=analysis.result,kind=r?.kind;
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
+ if(kind==='mcu-button-debounce')return buttonDebounceRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
  if(kind==='rlc-step-response')return rlcStepRecording(project,r);
  if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
@@ -141,4 +142,15 @@ function rlcStepRecording(project,r){
  if(r.samples[0].timeS!==0||r.samples.at(-1).timeS!==r.durationS)return null;
  const samples=r.samples.map(sample=>({timeSeconds:sample.timeS,nodeVoltages:{[ground]:0,[power]:r.sourceVoltage,[output]:sample.capacitorVoltageV}}));
  return {kind:'analytical-output-recording',model:'RLC step response (analytical model samples)',preferredNet:output,samples};
+}
+
+function buttonDebounceRecording(project,r){
+ const mcus=project.components.filter(c=>c.libraryId==='active.mcu-uno-ideal'),inputs=project.components.filter(c=>c.libraryId==='input.digital-sample-sequence'),resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),leds=project.components.filter(c=>c.libraryId==='diode.led-red'),grounds=project.components.filter(c=>c.libraryId==='ground.signal');
+ if(mcus.length!==1||inputs.length!==1||resistors.length!==1||leds.length!==1||grounds.length!==1||!Array.isArray(r.samples)||!Array.isArray(r.trace)||r.trace.length!==r.samples.length||r.trace.length<2||r.trace.length>2000||!Number.isFinite(r.sampleRateHz)||r.sampleRateHz<=0)return null;
+ const net=(c,pin)=>project.nets.find(n=>n.endpoints.includes(`${c.instanceId}:${pin}`))?.id,[mcu,input,resistor,led,ground]=[mcus[0],inputs[0],resistors[0],leds[0],grounds[0]];
+ const inputNet=net(input,'OUT'),groundNet=net(ground,'0'),outputNet=net(mcu,'D13');
+ if(!inputNet||!groundNet||!outputNet||net(mcu,'D2')!==inputNet||net(input,'GND')!==groundNet||net(mcu,'GND')!==groundNet||net(resistor,'1')!==outputNet||net(resistor,'2')!==net(led,'A')||net(led,'K')!==groundNet)return null;
+ const samples=[];
+ for(let i=0;i<r.trace.length;i++){const item=r.trace[i];if(item.sampleIndex!==i||item.sample!==r.samples[i]||![0,1].includes(item.sample)||typeof item.gpioHigh!=='boolean'||typeof item.ledOn!=='boolean'||item.ledOn!==item.gpioHigh)return null;samples.push({timeSeconds:i/r.sampleRateHz,nodeVoltages:{[groundNet]:0,[inputNet]:item.sample,[outputNet]:item.gpioHigh?1:0}});}
+ return {kind:'analytical-output-recording',units:'logic',model:'Arduino button debounce digital IO levels (sampled firmware execution)',preferredNet:outputNet,samples};
 }
