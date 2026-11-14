@@ -4250,6 +4250,7 @@ function analyseLm2596Adjustable(project,{source,controller,inductor,diode,capac
     if(!diodeCorrect)fixes.push("connect D1 cathode (K) to U1 SW and D1 anode (A) to GND");
     if(!feedbackCorrect)fixes.push("connect RFB1 from VOUT to the RFB1/RFB2 junction, U1 FB to that junction, and RFB2 from the junction to GND");
     if(!same(controller,"ONOFF",ground,"0"))fixes.push("connect U1 ON/OFF low to enable the regulator");
+    if(outputConnector&&(!same(outputConnector,"VOUT",inductor,"2")||!same(outputConnector,"GND",ground,"0")))fixes.push("connect J2 VOUT to the output net and J2 GND to the return net");
     if(fixes.length===0)fixes.push("connect the source, switch node, inductor, output capacitor, load, and ground as shown by the labeled pins");
     return {state:"blocked",message:"LM2596 buck wiring is incomplete or inconsistent. To fix it: "+fixes.join("; ")+".",validation};
   }
