@@ -43,6 +43,8 @@ test("LM2596 buck reports its incomplete breadboard map without hiding unresolve
  assert.ok(diagnostic);
  assert.match(diagnostic.fix,/every physical pin/);
  assert.equal(diagnostic.details[0].endpoints.length,21);
+ const referenceById=new Map(project.components.map(component=>[component.instanceId,component.reference]));
+ assert.ok(diagnostic.details[0].endpoints.every(value=>{const [instanceId,...pinParts]=value.split(":");return diagnostic.message.includes(`${referenceById.get(instanceId)}.${pinParts.join(":")}`);}));
 });
 
 test("physical breadboard pin maps are distinguished from unsupported package placeholders",async()=>{
