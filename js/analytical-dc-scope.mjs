@@ -93,6 +93,16 @@ export function analyticalDcScopeRecording(project,analysis){
   const outputVoltage=r.ledOn?r.supplyVoltage:0;
   return {kind:"analytical-dc-output",model:`LDR night-light ${r.illuminationPercent}% illumination DC operating point`,preferredNet:ledA,nodes:{[vcc]:r.supplyVoltage,[sense]:r.senseVoltage,[output]:outputVoltage,[ledA]:outputVoltage-r.ledCurrentA*resistance,[gnd]:0}};
  }
+ if(r?.kind==="reference-buffer"){
+  const sources=byType("power.dc-source"),amps=byType("active.opamp-ideal"),loads=byType("passive.resistor"),grounds=byType("ground.signal");
+  if(sources.length!==3||amps.length!==1||loads.length!==1||grounds.length!==1)return null;
+  const [positive,negative,reference]=["vplus","vminus","reference"].map(id=>sources.find(c=>c.instanceId===id)),amp=amps[0],load=loads[0],gnd=grounds[0],n=(c,pin)=>netOf(c,pin);
+  const positiveNet=n(positive,"+"),negativeNet=n(negative,"-"),referenceNet=n(reference,"+"),outputNet=n(amp,"OUT"),returnNet=n(gnd,"0");
+  if(!positive||!negative||!reference||!positiveNet||!negativeNet||!referenceNet||!outputNet||!returnNet)return null;
+  if(n(positive,"-")!==returnNet||n(negative,"+")!==returnNet||n(reference,"-")!==returnNet||n(amp,"VCC")!==positiveNet||n(amp,"VEE")!==negativeNet||n(amp,"+")!==referenceNet||n(amp,"-")!==outputNet||n(load,"1")!==outputNet||n(load,"2")!==returnNet)return null;
+  if(!Number.isFinite(r.positiveSupplyV)||!Number.isFinite(r.negativeSupplyV)||!Number.isFinite(r.referenceVoltage)||!Number.isFinite(r.outputVoltage)||Math.abs(r.outputVoltage-r.referenceVoltage)>1e-9)return null;
+  return {kind:"analytical-dc-output",model:"Ideal op-amp reference-buffer DC estimate",preferredNet:outputNet,nodes:{[returnNet]:0,[positiveNet]:r.positiveSupplyV,[negativeNet]:r.negativeSupplyV,[referenceNet]:r.referenceVoltage,[outputNet]:r.outputVoltage}};
+ }
  return null;
 }
 
