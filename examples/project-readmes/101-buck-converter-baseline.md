@@ -34,6 +34,17 @@ No verified breadboard pin-hole map is stored; the view must not be interpreted 
 
 No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
 
+### PCB remediation target (researched; implementation and acceptance still open)
+
+The present nine-part project is an ideal average-model exercise, not a physical buck-regulator circuit. In particular, `CFG1` is a simulation input, `SCOPE1` is a report model, and `active.buck-average-controller` exposes an ideal `VOUT` pin that a real asynchronous regulator does not have. Its current `controller:VOUT` net must not be copied to a PCB.
+
+TI's adjustable LM2596 application circuit is a source-backed physical topology to evaluate for a hardware version: a five-pin regulator (VIN, switch output, GND, FB, ON/OFF), with the switch output feeding the inductor, a Schottky catch diode from ground to the switch node, and an output-feedback divider. The TI datasheet specifies a 1.23 V reference and `VOUT = VREF × (1 + R2/R1)`; a 1.00 kΩ lower resistor and 3.67 kΩ upper resistor calculate to 5.7441 V. Its reference circuit lists 470 µF / 50 V input capacitance, 220 µF / 35 V output capacitance, a 1N5825 catch diode, and a 68 µH inductor. These are a design investigation starting point, not a verified replacement BOM or a claim that the current model predicts LM2596 switching behavior.
+
+Before this example can pass PCB acceptance, replace the ideal controller and simulation-only fixture/report with a physically coherent design, add the real feedback connections and external input/output terminals, record manufacturer identities and sourced package/pad geometry for every placed part, then calculate and review the layout, copper, clearances, and exports. The current 12 V, 24 Ω operating point and old 100 kHz ideal estimate must be recalculated against the selected hardware and a stated model; do not carry its old result over as hardware evidence.
+
+Manufacturer source: [TI LM2596 datasheet, adjustable-output application circuit and design procedure](https://www.ti.com/lit/ds/symlink/lm2596.pdf), Figure 9-13 and sections 9.2.2.1–9.2.2.2. The datasheet describes the LM2596 family as a 150 kHz regulator and lists its five-pin TO-220 package.
+
+
 ## Acceptance test and expected result
 
 - Stable test ID: `core-buck-converter-baseline`
