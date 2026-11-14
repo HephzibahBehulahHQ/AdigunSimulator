@@ -9,6 +9,7 @@ import {resolveSchematicWires,editWireRoute,splitSchematicWire,resumeSchematicWi
 import {DEFAULT_PALETTE,awgArea,editProjectPalette,editWireAppearance,wireAppearance,wirePaint,validateWireAppearance} from '../js/project-appearance.mjs';
 import {scopeChannels,scopeTrace,scopePlot,fitScopeWindow} from '../js/oscilloscope-data.mjs';
 import {designText} from '../js/design-tools-ui.mjs';
+import {createScopeLauncher,hasCurrentScopeAnalysis} from '../js/scope-launcher.mjs';
 const fixture=async()=>parseProject(await readFile(new URL('./fixtures/junction-divider.adigun.json',import.meta.url),'utf8'));
 
 test('wire appearance preserves identity, solver results, route edits, split/rejoin and native round trips',async()=>{
@@ -59,7 +60,20 @@ test('scope movement/resizing stays inside canvas limits on desktop and narrow v
       const b=fitScopeWindow(attempted,bounds);assert.ok(b.x>=bounds.x&&b.y>=bounds.y);assert.ok(b.x+b.width<=bounds.x+bounds.width);assert.ok(b.y+b.height<=bounds.y+bounds.height);
     }
   }
-  for(const locale of ['en','de','yo','pcm'])for(let i=0;i<34;i++)assert.ok(designText(locale,i));
+  for(const locale of ['en','de','yo','pcm'])for(let i=0;i<35;i++)assert.ok(designText(locale,i));
+});
+
+test('floating scope launcher appears only for the current project and opens the existing scope',()=>{
+ let opened=0,removed=0;
+ const document={createElement(tag){return {tag,hidden:false,attributes:{},handlers:{},setAttribute(key,value){this.attributes[key]=value;},addEventListener(name,fn){this.handlers[name]=fn;},remove(){removed++;}};}};
+ const canvas={children:[],append(node){this.children.push(node);}},launcher=createScopeLauncher({document,canvas,onOpen:()=>opened++}),button=canvas.children[0];
+ const state={project:{id:'p1'},lastAnalysis:null,lastAnalysisProjectKey:null};
+ assert.equal(button.hidden,true);assert.equal(hasCurrentScopeAnalysis(state),false);
+ state.lastAnalysis={state:'complete'};state.lastAnalysisProjectKey=JSON.stringify(state.project);
+ launcher.update(state,'Open oscilloscope');assert.equal(button.hidden,false);assert.equal(button.attributes['aria-label'],'Open oscilloscope');
+ button.handlers.click({stopPropagation(){}});assert.equal(opened,1);
+ state.project={id:'p2'};launcher.update(state,'Open oscilloscope');assert.equal(button.hidden,true);
+ launcher.remove();assert.equal(removed,1);
 });
 
 test('actual scope pointer handlers capture drag, reject other pointers, cancel and resize safely',async()=>{
