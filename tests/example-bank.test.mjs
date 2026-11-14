@@ -7,7 +7,7 @@ import {runProjectAnalysis} from '../js/analysis-dispatch.mjs';
 import {renderPcbPreviewSvg} from '../js/pcb-preview.mjs';
 import {parseExampleProject,canLoadExampleAnalysis} from '../js/example-loading.mjs';
 import {describeExample} from '../js/example-bank-ui.mjs';
-import {validatePcbFabrication} from '../js/pcb-export.mjs';
+import {validatePcbFabrication,exportPcbFabrication} from '../js/pcb-export.mjs';
 const index=JSON.parse(await readFile(new URL('../examples/index.json',import.meta.url),'utf8'));
 test('coverage descriptions distinguish component, package and pad counts',()=>{
  const e={components:6,pcbStatus:'stored',pcbParts:2,pcbPads:4,unmapped:[],analysis:'complete'};
@@ -25,7 +25,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,31);assert.equal(index.summary.withoutStoredPcb,185);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,32);assert.equal(index.summary.withoutStoredPcb,184);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('DC Voltage Divider has sourced physical resistor values, mapped pads and connected copper',async()=>{
  const entry=index.entries.find(item=>item.file==='002-dc-voltage-divider.adigun.json');
@@ -55,10 +55,25 @@ test('5 V Parallel Resistor Load exports its exact external supply, resistor pad
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="resistor-branch-1"/);
  assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','R2','R3']);
 });
+test('LM2577 boost example has a routed, source-backed PCB and exportable fabrication pack',async()=>{
+ const entry=index.entries.find(item=>item.file==='102-boost-converter-baseline.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/102-boost-converter-baseline.adigun.json',import.meta.url),'utf8'));
+ const analysis=runProjectAnalysis(project),drc=validatePcbFabrication(project),pack=exportPcbFabrication(project);
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.components,14);assert.equal(entry.pcbParts,12);assert.equal(entry.pcbPads,27);assert.equal(entry.pcbRoutes,20);
+ assert.equal(drc.status,'passed',drc.errors.join('; '));assert.equal(pack.status,'passed');
+ assert.deepEqual(Object.keys(pack.files).sort(),['BOM.csv','board-B_Cu.gbr','board-Edge_Cuts.gbr','board-F_Cu.gbr','board-PTH.drl'].sort());
+ assert.equal(analysis.state,'complete',analysis.message);assert.equal(analysis.result.device,'LM2577T-ADJ/NOPB');assert.equal(analysis.result.outputVoltageV,11.931);
+ assert.deepEqual(project.components.map(c=>['breadboard','schematic','pcb'].every(view=>Array.isArray(c.position[view]))).every(Boolean),true);
+ assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="controller"/);
+ assert.deepEqual(entry.unmapped.map(item=>item.reference).sort(),['GND','SCOPE1']);
+ const controller=project.pcbFabrication.physicalEvidence.find(item=>item.reference==='U1');
+ assert.deepEqual(controller.pinMapping,{'1':'COMP','2':'FB','3':'GND case/tab','4':'SWITCH','5':'VIN'});
+});
+
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,31);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,32);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });
