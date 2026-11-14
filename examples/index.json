@@ -4892,7 +4892,7 @@
       "type": "Power",
       "level": "Advanced",
       "category": "Conversion and protection",
-      "sha256": "78f2c073d126a6bcad44fe1869e03f607181c19074ae59d1cd9518ce2543618f",
+      "sha256": "797d7771da5fd1359c8ec6942c247a0cc841ea32c1884e20f7aa38be575ae67c",
       "components": 11,
       "analysis": "complete",
       "engine": "LM2596 adjustable buck CCM average and triangular-ripple estimate",
@@ -4900,16 +4900,7 @@
       "pcbParts": 9,
       "pcbPads": 21,
       "pcbRoutes": 15,
-      "unmapped": [
-        {
-          "reference": "SCOPE1",
-          "libraryId": "output.buck-converter-report"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "unmapped": []
     },
     {
       "file": "102-boost-converter-baseline.adigun.json",
