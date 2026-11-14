@@ -4,7 +4,7 @@ const unit=(value,kind)=>{
  const text=String(value??"");
  const n=number(text);if(!Number.isFinite(n))return NaN;
  if(kind==="voltage"){const u=text.match(/(m?V)\b/i)?.[1]?.toLowerCase();return u==="mV"?n/1000:u==="v"?n:NaN;}
- if(kind==="resistance"){const u=text.match(/(k)?\s*(?:Ω|ohms?)\b/i);return u?(u[1]?n*1000:n):NaN;}
+ if(kind==="resistance"){const u=text.match(/(k)?\s*(?:Ω|ohms?)/i);return u?(u[1]?n*1000:n):NaN;}
  if(kind==="capacitance"){const u=text.match(/(µ|u|n|p)?F\b/i)?.[1]?.toLowerCase();return u==="µ"||u==="u"?n*1e-6:u==="n"?n*1e-9:u==="p"?n*1e-12:u===""?n:NaN;}
  if(kind==="inductance"){const u=text.match(/(µ|u|m)?H\b/i)?.[1]?.toLowerCase();return u==="µ"||u==="u"?n*1e-6:u==="m"?n*1e-3:u===""?n:NaN;}
  return NaN;
