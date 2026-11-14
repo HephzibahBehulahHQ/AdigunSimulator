@@ -41,7 +41,10 @@ test("LM2596 buck reports its incomplete breadboard map without hiding unresolve
  assert.deepEqual(projectComponentsForView(project,"breadboard").components.map(item=>item.reference).sort(),["C1","D1","L1","RFB1","RFB2","RLOAD","V1"]);
  const diagnostic=validateProject(project).warnings.find(item=>item.rule==="BREADBOARD_PHYSICAL_MAP");
  assert.ok(diagnostic);
- assert.match(diagnostic.fix,/every physical pin/);
+ assert.match(diagnostic.fix,/every physical pin/i);
+ assert.match(diagnostic.message,/U1:.*1\.45.*1\.96/);
+ assert.match(diagnostic.fix,/five-pin interposer/i);
+ assert.ok(diagnostic.details.some(detail=>detail.code==="BREADBOARD_PART_MAPPING"&&detail.reference==="U1"));
  assert.equal(diagnostic.details[0].endpoints.length,21);
  const referenceById=new Map(project.components.map(component=>[component.instanceId,component.reference]));
  assert.ok(diagnostic.details[0].endpoints.every(value=>{const [instanceId,...pinParts]=value.split(":");return diagnostic.message.includes(`${referenceById.get(instanceId)}.${pinParts.join(":")}`);}));

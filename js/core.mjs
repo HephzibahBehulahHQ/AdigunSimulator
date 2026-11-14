@@ -614,20 +614,26 @@ export function validateProject(project) {
   errors.push(...validateSchematicWires(project,pin=>{const [id,terminal]=pin.split(":");const c=components.find(c=>c?.instanceId===id);return Boolean(c&&findLibraryPart(c.libraryId)?.pins.includes(terminal));}));
   const breadboard = validateBreadboardTopology(project, { getPartPins: libraryId => findLibraryPart(libraryId)?.pins ?? [] });
   if (breadboard.errors.length) errors.push({ rule: "BREADBOARD_PHYSICAL_MAP", message: breadboard.errors.map(issue => issue.message).filter(Boolean).join(" ") || "Breadboard pin placements contain physical conflicts.", fix: "Correct the listed hole assignments or jumpers, then validate again.", details: breadboard.errors });
-  if (breadboard.state === "incomplete" || breadboard.warnings.length) {
+  if (breadboard.state === "incomplete" || breadboard.warnings.length || (project.breadboard?.mappingNotes ?? []).length) {
     const missingPins = breadboard.warnings.flatMap(issue => issue.endpoints ?? []);
     const referenceById = new Map(components.map(component => [component.instanceId, component.reference]));
     const pinLabels = missingPins.map(value => {
       const [instanceId, ...pinParts] = value.split(":");
       return `${referenceById.get(instanceId) ?? instanceId}.${pinParts.join(":")}`;
     });
+    const mappingNotes = (project.breadboard?.mappingNotes ?? []).filter(note => note?.view === "breadboard");
+    const diagnosticMessage = [
+      ...(pinLabels.length ? [`Missing breadboard holes for ${pinLabels.length} physical pins: ${pinLabels.join(", ")}.`] : []),
+      ...mappingNotes.map(note => `${note.reference ?? note.instanceId}: ${note.reason}`)
+    ].filter(Boolean).join(" ");
     warnings.push({
       rule: "BREADBOARD_PHYSICAL_MAP",
-      message: pinLabels.length
-        ? `Missing breadboard holes for ${pinLabels.length} physical pins: ${pinLabels.join(", ")}.`
-        : "The breadboard view does not yet have a verified physical pin and jumper map.",
-      fix: "Assign every physical pin to a real breadboard hole, then add jumpers that reproduce the project nets. Declare only genuinely virtual items as nonphysical.",
-      details: breadboard.warnings,
+      message: diagnosticMessage || "The breadboard view does not yet have a verified physical pin and jumper map.",
+      fix: [
+        "Assign every physical pin to a verified breadboard hole, then add jumpers that reproduce the project nets. Declare only genuinely virtual items as nonphysical.",
+        ...mappingNotes.map(note => note.fix)
+      ].filter(Boolean).join(" "),
+      details: [...breadboard.warnings, ...mappingNotes.map(note => ({ code: "BREADBOARD_PART_MAPPING", ...note }))],
       mappedPinCount: breadboard.mappedPinCount,
       requiredPinCount: (project.components ?? []).reduce((count, component) => count + (findLibraryPart(component?.libraryId)?.pins?.length ?? 0), 0) - (project.breadboard?.nonPhysicalItems ?? []).reduce((count, item) => count + (findLibraryPart(components.find(component => component.instanceId === item.instanceId)?.libraryId)?.pins?.length ?? 0), 0)
     });
