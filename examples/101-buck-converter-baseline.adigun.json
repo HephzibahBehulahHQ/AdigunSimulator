@@ -32,7 +32,7 @@
       "instanceId": "controller",
       "libraryId": "active.lm2596-adjustable",
       "reference": "U1",
-      "value": "LM2596T-ADJ/NOPB; 1.23 V FB reference; 150 kHz; 4.5–40 V input; 3 A IC rating",
+      "value": "LM2596T-ADJ/NOPB",
       "position": {
         "breadboard": [
           230,
@@ -212,7 +212,7 @@
       "instanceId": "output-header",
       "libraryId": "connector.buck-output-2",
       "reference": "J2",
-      "value": "5.76 V DC output; external load connection",
+      "value": "5.76 V DC",
       "position": {
         "breadboard": [
           580,

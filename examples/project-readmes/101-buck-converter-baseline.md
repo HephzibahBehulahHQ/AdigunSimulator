@@ -9,14 +9,14 @@ Estimate continuous-conduction operation for the native TI LM2596 adjustable buc
 | Reference | Native identity | Current project value |
 |---|---|---|
 | V1 | Ideal DC source; mapped to the PCB input connector J1 | 12 V |
-| U1 | TI LM2596T-ADJ/NOPB | 4.5–40 V input; 1.23 V reference; nominal 150 kHz |
+| U1 | TI LM2596T-ADJ/NOPB | LM2596T-ADJ/NOPB |
 | L1 | Bourns RLB0914-101KL | 100 µH |
 | D1 | onsemi 1N5822G | Schottky; modeled Vf 0.5 V |
 | C1 | Nichicon UPW1V101MPD | 100 µF |
 | RLOAD | Vishay AC0300002409JAC00 | 24 Ω, 3 W |
 | RFB1 | Vishay MRS25000C3681FCT00 | 3.68 kΩ |
 | RFB2 | Vishay MRS25000C1001FCT00 | 1 kΩ |
-| J2 | Phoenix Contact 1757242 | 2-pin output terminal |
+| J2 | Phoenix Contact 1757242 | 5.76 V DC |
 | GND | Schematic reference | Virtual in breadboard and PCB physical maps |
 | SCOPE1 | Analytical buck report | Virtual; not a physical part |
 
@@ -40,7 +40,7 @@ The simulator blocks the supported LM2596 estimate when these required connectio
 
 The TI package drawing for U1 specifies adjacent lead intervals of 1.45–1.96 mm and lead widths of 0.76–1.02 mm. The BB400 has 2.54 mm hole pitch and is specified for 0.4–0.7 mm insertion wire. A direct pin-to-hole map is not verified. A sourced/measured adapter or another documented physical layout is required before claiming U1 is correctly placed on this breadboard. Do not silently bend leads or invent an adapter footprint.
 
-**Schematic:** Production run after the schematic reflow showed 19 routed wire segments and zero blocked wires. A one-page schematic print was generated and visually inspected against the native project.
+**Schematic:** Production run after the schematic reflow showed 19 routed wire segments and zero blocked wires. Print review exposed ellipsized U1 and J2 values; the project now prints the exact U1 manufacturer part number and the J2 output voltage as concise labels. A regenerated one-page print shows both labels in full and was visually inspected against the native project.
 
 **Scope:** Production Run completed, exposed the floating scope launcher, and opened a scope with model-backed VOUT/GND/VIN traces. The scope identifies the bounded LM2596 output-ripple model and its limits; browser page errors were zero.
 
