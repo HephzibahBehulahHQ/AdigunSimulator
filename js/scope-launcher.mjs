@@ -1,5 +1,5 @@
 export function hasCurrentScopeAnalysis(state) {
-  return Boolean(state?.lastAnalysis && state.lastAnalysisProjectKey && state.lastAnalysisProjectKey === JSON.stringify(state.project));
+  return Boolean(state?.lastAnalysis?.state === "complete" && state.lastAnalysisProjectKey && state.lastAnalysisProjectKey === JSON.stringify(state.project));
 }
 
 export function recordScopeAnalysis(state, result, repaint) {
@@ -28,3 +28,4 @@ export function createScopeLauncher({ document, canvas, onOpen }) {
     remove() { button.remove(); }
   };
 }
+
