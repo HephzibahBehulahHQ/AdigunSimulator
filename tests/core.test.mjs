@@ -3224,11 +3224,12 @@ test("catalogue LM2596 adjustable buck reports bounded CCM average and ripple es
   assert.ok(result.result.estimatedEfficiencyPercent>90&&result.result.estimatedEfficiencyPercent<100);
   const line=runSupportedAnalysis(updateComponent(project,"source",{value:"14 V"}));
   assert.equal(line.state,"complete");
-  assert.ok(line.result.outputVoltageV>result.result.outputVoltageV);
+  assert.ok(Math.abs(line.result.outputVoltageV-result.result.outputVoltageV)<1e-12);
+  assert.ok(line.result.dutyCyclePercent<result.result.dutyCyclePercent);
   const load=runSupportedAnalysis(updateComponent(project,"load",{value:"12 Ω"}));
   assert.equal(load.state,"complete");
   assert.ok(load.result.loadCurrentA>result.result.loadCurrentA);
-  assert.equal(runSupportedAnalysis(updateComponent(project,"fixture",{value:"Duty 90%; Frequency 100 kHz; MaxDuty 85%; MaxInput 60 V"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"rfb-top",{value:"100 kΩ"})).state,"blocked");
   assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"240 Ω"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="SWITCH").endpoints=["controller:SW","inductor:1"];
