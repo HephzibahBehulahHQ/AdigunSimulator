@@ -72,6 +72,10 @@ test('floating scope launcher appears only for the current project and opens the
  recordScopeAnalysis(state,{state:'complete'},()=>launcher.update(state,'Open oscilloscope'));
  assert.equal(button.hidden,false);assert.equal(button.attributes['aria-label'],'Open oscilloscope');
  button.handlers.click({stopPropagation(){}});assert.equal(opened,1);
+ recordScopeAnalysis(state,{state:'blocked',message:'Connect the supply return to ground.'},()=>launcher.update(state,'Open oscilloscope'));
+ assert.equal(button.hidden,true);assert.equal(hasCurrentScopeAnalysis(state),false);
+ recordScopeAnalysis(state,{state:'complete'},()=>launcher.update(state,'Open oscilloscope'));
+ assert.equal(button.hidden,false);
  state.project={id:'p2'};launcher.update(state,'Open oscilloscope');assert.equal(button.hidden,true);
  launcher.remove();assert.equal(removed,1);
 });
@@ -91,3 +95,4 @@ test('actual scope pointer handlers capture drag, reject other pointers, cancel 
   assert.equal(snapshot().width,500);assert.equal(snapshot().height,300);handlers.pointerup(event('pointerup',900,900,3));
   const finished=snapshot();handlers.pointermove(event('pointermove',0,0,3));assert.deepEqual(snapshot(),finished);
 });
+
