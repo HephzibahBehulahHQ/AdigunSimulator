@@ -3,6 +3,7 @@
 export function analyticalScopeRecording(project,analysis){
  if(analysis?.state!=='complete')return null;
  const r=analysis.result,kind=r?.kind;
+ if(kind==='buck-converter')return buckAverageRecording(project,r);
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(kind==='mcu-button-debounce')return buttonDebounceRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
@@ -141,6 +142,21 @@ function commonEmitterRecording(project,r){
  if(r.sineTrace[0].timeS!==0||Math.abs(r.sineTrace.at(-1).timeS-1/r.frequencyHz)>1e-9)return null;
  const samples=r.sineTrace.map(sample=>({timeSeconds:sample.timeS,nodeVoltages:{[gnd]:0,[vcc]:supplyVoltage,[input]:sample.inputV,[base]:r.baseVoltageV+sample.inputV,[emitter]:r.emitterVoltageV,[collector]:sample.collectorVoltageV,[output]:sample.outputV}}));
  return {kind:'analytical-output-recording',model:`NPN common-emitter midband sine at ${r.frequencyHz} Hz (ideal small-signal estimate, not transient simulation)`,preferredNet:output,samples};
+}
+
+
+function buckAverageRecording(project,r){
+ const byType=id=>project.components.filter(c=>c.libraryId===id),sources=byType('power.dc-source'),fixtures=byType('input.buck-operating-point-fixture'),controllers=byType('active.buck-average-controller'),inductors=byType('passive.inductor'),diodes=byType('diode.schottky'),capacitors=byType('passive.capacitor'),loads=byType('passive.resistor'),reports=byType('output.buck-converter-report'),grounds=byType('ground.signal');
+ if(sources.length!==1||fixtures.length!==1||controllers.length!==1||inductors.length!==1||diodes.length!==1||capacitors.length!==1||loads.length!==1||reports.length!==1||grounds.length!==1)return null;
+ const net=(component,pin)=>{const matches=project.nets.filter(item=>item.endpoints.includes(component.instanceId+':'+pin));return matches.length===1?matches[0].id:null;},[source,fixture,controller,inductor,diode,capacitor,load,report,ground]=[sources[0],fixtures[0],controllers[0],inductors[0],diodes[0],capacitors[0],loads[0],reports[0],grounds[0]];
+ const gnd=net(ground,'0'),vin=net(source,'+'),switchNet=net(controller,'SW'),output=net(inductor,'2'),control=net(fixture,'CTRL');
+ if(!gnd||!vin||!switchNet||!output||!control||new Set([gnd,vin,switchNet,output,control]).size!==5)return null;
+ if(net(source,'-')!==gnd||net(fixture,'VCC')!==vin||net(fixture,'GND')!==gnd||net(controller,'VIN')!==vin||net(controller,'GND')!==gnd||net(fixture,'CTRL')!==net(controller,'CTRL'))return null;
+ if(net(inductor,'1')!==switchNet||net(diode,'A')!==gnd||net(diode,'K')!==switchNet||net(capacitor,'1')!==output||net(capacitor,'2')!==gnd||net(load,'1')!==output||net(load,'2')!==gnd||net(controller,'VOUT')!==output||net(report,'VOUT')!==output||net(report,'GND')!==gnd)return null;
+ const frequency=r.switchingFrequencyHz,average=r.outputVoltageV,ripple=r.outputRipplePpV,input=r.inputVoltageV,duty=r.dutyCyclePercent/100;
+ if(![frequency,average,ripple,input,duty].every(Number.isFinite)||frequency<=0||average<=0||ripple<0||input<=average||duty<=0||duty>=1||r.conductionMode!=='CCM'||r.controllerHardwareModeled!==false)return null;
+ const duration=4/frequency,samples=Array.from({length:481},(_,i)=>{const timeSeconds=duration*i/480,phase=(i/480*4)%1,triangle=1-4*Math.abs(phase-.5);return {timeSeconds,nodeVoltages:{[gnd]:0,[vin]:input,[output]:average+triangle*ripple/2}};});
+ return {kind:'analytical-output-recording',model:`Asynchronous buck output ripple estimate at ${frequency} Hz (CCM capacitor-ripple model; phase-normalized, not switching-transient simulation)`,preferredNet:output,samples};
 }
 
 function supercapHoldUpRecording(project,r){
