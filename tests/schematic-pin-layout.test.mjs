@@ -24,10 +24,10 @@ test("unknown pins and malformed component positions do not produce invented anc
 // Native pin names remain unchanged while the controller gets enough room for legible labels.
 test("STM32 timer block anchors match its larger symbol without changing net endpoints", () => {
   const timer = { libraryId: "active.stm32-timer-ideal", position: { schematic: [175,60] } };
-  const pins = ["VCC", "GND", "TIM1_CH1"];
+  const pins = ["VCC", "GND", "PA0"];
   assert.deepEqual(schematicSymbolSize(timer.libraryId), { width:124, height:130 });
   assert.deepEqual(schematicPinPoint(timer,pins,"VCC"), {x:175,y:86,side:"left"});
   assert.deepEqual(schematicPinPoint(timer,pins,"GND"), {x:175,y:164,side:"left"});
-  assert.deepEqual(schematicPinPoint(timer,pins,"TIM1_CH1"), {x:299,y:125,side:"right"});
-  assert.equal(schematicPinPoint(timer,pins,"PA0"),null);
+  assert.deepEqual(schematicPinPoint(timer,pins,"PA0"), {x:299,y:125,side:"right"});
+  assert.equal(schematicPinPoint(timer,pins,"TIM1_CH1"),null);
 });

@@ -32,7 +32,7 @@
       "instanceId": "timer",
       "libraryId": "active.stm32-timer-ideal",
       "reference": "U1",
-      "value": "ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 499",
+      "value": "ClockHz 64000000; Prescaler 63; AutoReload 999; Compare 499",
       "position": {
         "breadboard": [
           175,
@@ -129,7 +129,7 @@
     {
       "id": "PWM_LED",
       "endpoints": [
-        "timer:TIM1_CH1",
+        "timer:PA0",
         "resistor:1"
       ]
     },
@@ -149,7 +149,7 @@
       "supply:-": "BM2",
       "timer:VCC": "A5",
       "timer:GND": "A10",
-      "timer:TIM1_CH1": "A15",
+      "timer:PA0": "A15",
       "resistor:1": "C15",
       "resistor:2": "A20",
       "led:A": "E20",

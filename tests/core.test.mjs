@@ -2521,16 +2521,18 @@ test("catalogue Pico voltmeter estimates calibrated divider input at three point
 
 test("catalogue STM32 timer PWM computes frequency, duty, and LED load estimate",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/070-stm32-timer-pwm.adigun.json",import.meta.url)));
+  assert.deepEqual(STARTER_LIBRARY.find(part=>part.id==="active.stm32-timer-ideal").pins,["PA0","VCC","GND"]);
   const result=runSupportedAnalysis(project);
   assert.equal(result.state,"complete",result.message);
   assert.equal(result.result.frequencyHz,1000);
   assert.equal(result.result.dutyCycle,0.499);
   assert.ok(Math.abs(result.result.averageLedCurrentA-(1.3/330*0.499))<1e-12);
   assert.equal(result.result.firmwareExecuted,false);
-  assert.equal(runSupportedAnalysis(updateComponent(project,"timer",{value:"ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 1000"})).state,"blocked");
-  assert.equal(runSupportedAnalysis(updateComponent(project,"timer",{value:"ClockHz 72000000; Prescaler 71; AutoReload 999; Compare 499"})).result.frequencyHz,1000);
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timer",{value:"ClockHz 64000000; Prescaler 63; AutoReload 999; Compare 1000"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timer",{value:"ClockHz 64000001; Prescaler 63; AutoReload 999; Compare 499"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"timer",{value:"ClockHz 64000000; Prescaler 63; AutoReload 999; Compare 499"})).result.frequencyHz,1000);
   const broken=structuredClone(project);
-  broken.nets.find(n=>n.id==="PWM_LED").endpoints=["timer:TIM1_CH1"];
+  broken.nets.find(n=>n.id==="PWM_LED").endpoints=["timer:PA0"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 
