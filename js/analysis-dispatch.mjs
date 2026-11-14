@@ -2,6 +2,7 @@ import { runLadderSimulation } from './ladder-simulation.mjs';
 
 import { runSupportedAnalysis } from "./core.mjs";
 import { analyticalScopeRecording } from './analytical-scope-recording.mjs';
+import { analyticalDcScopeRecording } from './analytical-dc-scope.mjs';
 import { analyzeDcVoltmeter } from "./dc-voltmeter-analysis.mjs";
 import { analyzeDcAmmeter } from "./dc-ammeter-analysis.mjs";
 import { captureTriggeredPulse } from "./oscilloscope-trigger.mjs";
@@ -69,7 +70,8 @@ export function runProjectAnalysis(project) {
   // Workflow reports remain intact; a supported electrical analysis supplies the scope.
   const electrical=['missing-footprint-resolution-report','schematic-pcb-netlist-pad-sync'].includes(primary.result?.kind) ? runSupportedAnalysis(project) : primary;
   const recording=analyticalScopeRecording(project,electrical);
-  return {...primary,...(electrical!==primary&&electrical.state==='complete'?{scopeElectrical:electrical}:{}),...(recording?{scopeRecording:recording}:{})};
+  const dcRecording=analyticalDcScopeRecording(project,electrical);
+  return {...primary,...(electrical!==primary&&electrical.state==='complete'?{scopeElectrical:electrical}:{}),...(recording?{scopeRecording:recording}:{}),...(dcRecording?{scopeDcRecording:dcRecording}:{})};
 }
 function runPrimaryAnalysis(project) {
   if(project.components?.some(c=>c.libraryId?.startsWith('plc.')))return runLadderSimulation(project);
