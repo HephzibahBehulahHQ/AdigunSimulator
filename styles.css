@@ -559,7 +559,7 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
   #project-print { display:block; color:#111; font:12pt system-ui,sans-serif; }
   #project-print h1 { font-size:18pt; margin:0 0 4mm; }
   .print-canvas { position:relative; width:680px; height:300px; background:#071d2c; print-color-adjust:exact; -webkit-print-color-adjust:exact; overflow:visible; break-inside:avoid; }
-  .print-canvas > .canvas-scene { width:680px; height:300px; transform:none !important; }
+  .print-canvas > .canvas-scene { width:680px; height:300px; transform-origin:0 0; }
   .print-canvas .placed-component { outline:none !important; box-shadow:none !important; border-color:transparent !important; background:transparent !important; }
   .print-canvas .wire-current-flow { animation:none !important; }
 }

@@ -67,6 +67,16 @@ export function transformSchematicComponent(project,id,action){
   return updateComponent(project,id,{geometry:next.geometry});
 }
 
+export function printSceneExtent(scene){
+  let width=680,height=300;
+  for(const node of scene.querySelectorAll('[data-instance-id]')){
+    const left=Number(node.offsetLeft)||0,top=Number(node.offsetTop)||0;
+    const nodeWidth=Number(node.offsetWidth)||0,nodeHeight=Number(node.offsetHeight)||0;
+    width=Math.max(width,left+nodeWidth);height=Math.max(height,top+nodeHeight);
+  }
+  return {width,height};
+}
+
 export function printProjectView({document,window,project,view,viewLabel}){
   const scene=document.querySelector('#design-canvas .canvas-scene');if(!scene)return;
   document.querySelector('#project-print')?.remove();
@@ -76,6 +86,10 @@ export function printProjectView({document,window,project,view,viewLabel}){
   const drawing=document.createElement('div');drawing.className=`print-canvas ${view}`;
   const clone=scene.cloneNode(true);clone.style.transform='none';
   clone.querySelectorAll('.placement-ghost,.component-selection,.wire-waypoint,.junction-candidate').forEach(node=>node.remove());
+  const extent=printSceneExtent(clone),scale=Math.min(1,960/extent.width,720/extent.height);
+  if(scale<1)clone.style.transform=`scale(${scale})`;
+  clone.style.transformOrigin='top left';
+  drawing.style.width=`${extent.width*scale}px`;drawing.style.height=`${extent.height*scale}px`;
   drawing.append(clone);sheet.append(heading,caption,drawing);document.body.append(sheet);
   const cleanup=()=>sheet.remove();window.addEventListener('afterprint',cleanup,{once:true});
   try{window.print();}catch(error){window.removeEventListener('afterprint',cleanup);cleanup();throw error;}
