@@ -48,9 +48,9 @@ test("buck scope declines a reversed catch diode with an actionable wiring diagn
 
 test("buck scope diagnoses a broken feedback divider before recording a waveform", async () => {
   const project = await projectFixture();
-  const ground = project.nets.find(net => net.id === "GND");
-  ground.endpoints = ground.endpoints.filter(endpoint => endpoint !== "rfb-bottom:2");
-  ground.endpoints.push("rfb-bottom:1");
+  const feedback = project.nets.find(net => net.id === "FB"), output = project.nets.find(net => net.id === "VOUT");
+  feedback.endpoints = feedback.endpoints.filter(endpoint => endpoint !== "controller:FB");
+  output.endpoints.push("controller:FB");
   const analysis = runProjectAnalysis(project);
   assert.equal(analysis.state, "blocked");
   assert.match(analysis.message, /RFB1.*RFB2.*FB/);
