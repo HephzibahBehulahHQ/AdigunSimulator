@@ -103,6 +103,17 @@ export function analyticalDcScopeRecording(project,analysis){
   if(!Number.isFinite(r.positiveSupplyV)||!Number.isFinite(r.negativeSupplyV)||!Number.isFinite(r.referenceVoltage)||!Number.isFinite(r.outputVoltage)||Math.abs(r.outputVoltage-r.referenceVoltage)>1e-9)return null;
   return {kind:"analytical-dc-output",model:"Ideal op-amp reference-buffer DC estimate",preferredNet:outputNet,nodes:{[returnNet]:0,[positiveNet]:r.positiveSupplyV,[negativeNet]:r.negativeSupplyV,[referenceNet]:r.referenceVoltage,[outputNet]:r.outputVoltage}};
  }
+
+ if(r?.kind==="npn-emitter-follower"){
+  const transistors=byType("active.npn-small-signal"),sources=byType("power.dc-source"),loads=byType("passive.resistor"),grounds=byType("ground.signal");
+  if(transistors.length!==1||sources.length!==2||loads.length!==1||grounds.length!==1)return null;
+  const transistor=transistors[0],load=loads[0],gnd=grounds[0],groundNet=netOf(gnd,"0"),collector=netOf(transistor,"C"),base=netOf(transistor,"B"),emitter=netOf(transistor,"E");
+  if(!groundNet||!collector||!base||!emitter)return null;
+  const supply=sources.find(c=>netOf(c,"+")===collector&&netOf(c,"-")===groundNet),input=sources.find(c=>c!==supply&&netOf(c,"+")===base&&netOf(c,"-")===groundNet);
+  if(!supply||!input||!([netOf(load,"1"),netOf(load,"2")].includes(emitter)&&[netOf(load,"1"),netOf(load,"2")].includes(groundNet)))return null;
+  if(!Number.isFinite(r.supplyVoltage)||!Number.isFinite(r.inputVoltage)||!Number.isFinite(r.outputVoltage)||r.outputVoltage<0||r.outputVoltage>r.supplyVoltage||r.outputVoltage>r.inputVoltage)return null;
+  return {kind:"analytical-dc-output",model:"Ideal NPN emitter-follower DC estimate",preferredNet:emitter,nodes:{[groundNet]:0,[collector]:r.supplyVoltage,[base]:r.inputVoltage,[emitter]:r.outputVoltage}};
+ }
  return null;
 }
 
