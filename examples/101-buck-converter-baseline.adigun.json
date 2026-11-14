@@ -5,7 +5,7 @@
     "name": "Asynchronous Buck Converter CCM Estimate",
     "locale": "en",
     "createdAt": "2026-10-31T00:00:00.000Z",
-    "updatedAt": "2026-10-31T00:00:00.000Z"
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   "components": [
     {
@@ -29,30 +29,10 @@
       }
     },
     {
-      "instanceId": "fixture",
-      "libraryId": "input.buck-operating-point-fixture",
-      "reference": "CFG1",
-      "value": "Duty 50%; Frequency 100 kHz; MaxDuty 85%; MaxInput 60 V",
-      "position": {
-        "breadboard": [
-          100,
-          40
-        ],
-        "schematic": [
-          100,
-          40
-        ],
-        "pcb": [
-          100,
-          40
-        ]
-      }
-    },
-    {
       "instanceId": "controller",
-      "libraryId": "active.buck-average-controller",
+      "libraryId": "active.lm2596-adjustable",
       "reference": "U1",
-      "value": "Mode asynchronous; MaxDuty 85%; MaxInput 60 V",
+      "value": "LM2596T-ADJ/NOPB; 1.23 V FB reference; 150 kHz; 4.5–40 V input; 3 A IC rating",
       "position": {
         "breadboard": [
           230,
@@ -187,6 +167,46 @@
           220
         ]
       }
+    },
+    {
+      "instanceId": "rfb-top",
+      "libraryId": "passive.resistor",
+      "reference": "RFB1",
+      "value": "3.68 kΩ",
+      "position": {
+        "breadboard": [
+          420,
+          200
+        ],
+        "schematic": [
+          420,
+          200
+        ],
+        "pcb": [
+          420,
+          200
+        ]
+      }
+    },
+    {
+      "instanceId": "rfb-bottom",
+      "libraryId": "passive.resistor",
+      "reference": "RFB2",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          480,
+          200
+        ],
+        "schematic": [
+          480,
+          200
+        ],
+        "pcb": [
+          480,
+          200
+        ]
+      }
     }
   ],
   "nets": [
@@ -194,28 +214,21 @@
       "id": "VIN",
       "endpoints": [
         "source:+",
-        "controller:VIN",
-        "fixture:VCC"
+        "controller:VIN"
       ]
     },
     {
       "id": "GND",
       "endpoints": [
         "source:-",
-        "fixture:GND",
         "controller:GND",
+        "controller:ONOFF",
         "diode:A",
         "capacitor:2",
         "load:2",
         "report:GND",
-        "ground:0"
-      ]
-    },
-    {
-      "id": "CTRL",
-      "endpoints": [
-        "fixture:CTRL",
-        "controller:CTRL"
+        "ground:0",
+        "rfb-bottom:2"
       ]
     },
     {
@@ -232,8 +245,16 @@
         "inductor:2",
         "capacitor:1",
         "load:1",
-        "controller:VOUT",
-        "report:VOUT"
+        "report:VOUT",
+        "rfb-top:1"
+      ]
+    },
+    {
+      "id": "FB",
+      "endpoints": [
+        "controller:FB",
+        "rfb-top:2",
+        "rfb-bottom:1"
       ]
     }
   ],

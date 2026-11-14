@@ -3,7 +3,7 @@
 export function analyticalScopeRecording(project,analysis){
  if(analysis?.state!=='complete')return null;
  const r=analysis.result,kind=r?.kind;
- if(kind==='buck-converter')return buckAverageRecording(project,r);
+ if(kind==='buck-converter')return lm2596AdjustableRecording(project,r)??buckAverageRecording(project,r);
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(kind==='mcu-button-debounce')return buttonDebounceRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
@@ -144,6 +144,25 @@ function commonEmitterRecording(project,r){
  return {kind:'analytical-output-recording',model:`NPN common-emitter midband sine at ${r.frequencyHz} Hz (ideal small-signal estimate, not transient simulation)`,preferredNet:output,samples};
 }
 
+
+function lm2596AdjustableRecording(project,r){
+ const byType=id=>project.components.filter(c=>c.libraryId===id),sources=byType('power.dc-source'),controllers=byType('active.lm2596-adjustable'),inductors=byType('passive.inductor'),diodes=byType('diode.schottky'),capacitors=byType('passive.capacitor'),reports=byType('output.buck-converter-report'),grounds=byType('ground.signal');
+ if(sources.length!==1||controllers.length!==1||inductors.length!==1||diodes.length!==1||capacitors.length!==1||reports.length!==1||grounds.length!==1)return null;
+ const byRef=ref=>project.components.find(c=>c.reference===ref),top=byRef('RFB1'),bottom=byRef('RFB2'),load=byRef('RLOAD');
+ if(!top||!bottom||!load)return null;
+ const net=(component,pin)=>{const matches=project.nets.filter(item=>item.endpoints.includes(component.instanceId+':'+pin));return matches.length===1?matches[0].id:null;};
+ const [source,controller,inductor,diode,capacitor,report,ground]=[sources[0],controllers[0],inductors[0],diodes[0],capacitors[0],reports[0],grounds[0]];
+ const gnd=net(ground,'0'),vin=net(source,'+'),switchNet=net(controller,'SW'),output=net(inductor,'2'),feedback=net(controller,'FB');
+ if(!gnd||!vin||!switchNet||!output||!feedback||new Set([gnd,vin,switchNet,output,feedback]).size!==5)return null;
+ if(net(source,'-')!==gnd||net(controller,'VIN')!==vin||net(controller,'GND')!==gnd||net(controller,'ONOFF')!==gnd)return null;
+ if(net(inductor,'1')!==switchNet||net(diode,'K')!==switchNet||net(diode,'A')!==gnd)return null;
+ if(net(capacitor,'1')!==output||net(capacitor,'2')!==gnd||net(load,'1')!==output||net(load,'2')!==gnd||net(report,'VOUT')!==output||net(report,'GND')!==gnd)return null;
+ if(net(top,'1')!==output||net(top,'2')!==feedback||net(bottom,'1')!==feedback||net(bottom,'2')!==gnd)return null;
+ const frequency=r.switchingFrequencyHz,average=r.outputVoltageV,ripple=r.outputRipplePpV,input=r.inputVoltageV,duty=r.dutyCyclePercent/100;
+ if(![frequency,average,ripple,input,duty].every(Number.isFinite)||frequency!==150000||average<=0||ripple<0||input<=average||duty<=0||duty>=1||r.conductionMode!=='CCM'||r.controllerHardwareModeled!==false)return null;
+ const duration=4/frequency,samples=Array.from({length:481},(_,i)=>{const timeSeconds=duration*i/480,phase=(i/480*4)%1,triangle=1-4*Math.abs(phase-.5);return {timeSeconds,nodeVoltages:{[gnd]:0,[vin]:input,[output]:average+triangle*ripple/2}};});
+ return {kind:'analytical-output-recording',model:`LM2596 adjustable buck output ripple estimate at ${frequency} Hz (CCM capacitor-ripple model; phase-normalized, not switching-transient simulation)`,preferredNet:output,samples};
+}
 
 function buckAverageRecording(project,r){
  const byType=id=>project.components.filter(c=>c.libraryId===id),sources=byType('power.dc-source'),fixtures=byType('input.buck-operating-point-fixture'),controllers=byType('active.buck-average-controller'),inductors=byType('passive.inductor'),diodes=byType('diode.schottky'),capacitors=byType('passive.capacitor'),loads=byType('passive.resistor'),reports=byType('output.buck-converter-report'),grounds=byType('ground.signal');
