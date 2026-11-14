@@ -10,7 +10,11 @@ async function shockleyProject({ value = "Is=2 nA; n=1.8", temperatureC = 25, re
   const diode = project.components.find((item) => item.reference === "D1");
   diode.libraryId = "diode.shockley-generic";
   diode.value = value;
-  if (reverse) for (const net of project.nets) net.endpoints = net.endpoints.map((endpoint) => endpoint === "led-1:A" ? "led-1:K" : endpoint === "led-1:K" ? "led-1:A" : endpoint);
+  if (reverse) {
+    for (const net of project.nets) net.endpoints = net.endpoints.map((endpoint) => endpoint === "led-1:A" ? "led-1:K" : endpoint === "led-1:K" ? "led-1:A" : endpoint);
+    project.breadboard.pinHoles = {};
+    project.breadboard.jumpers = [];
+  }
   project.shockleyDcOperatingPoint = { temperatureC };
   return project;
 }
@@ -28,6 +32,7 @@ async function npnProject({ value = "Is=1e-14 A; alphaF=0.99; alphaR=0.5", pnp =
     { ...device, libraryId: pnp ? "active.pnp-ebers-moll-generic" : "active.npn-ebers-moll-generic", reference: "Q1", value },
     ground
   ];
+  project.breadboard = { model: "generic-400-30", pinHoles: {}, jumpers: [], nonPhysicalItems: [] };
   project.nets = pnp ? [
     { id: "VCC", endpoints: ["source-1:+", "led-1:E"] },
     { id: "BASE", endpoints: ["base-resistor:2", "led-1:B"] },

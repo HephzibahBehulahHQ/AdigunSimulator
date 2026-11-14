@@ -79,8 +79,11 @@ function makeDisjointSet() {
 export function validateBreadboardTopology(project, { getPartPins, model = BREADBOARD_MODEL } = {}) {
   const errors = [], warnings = [];
   const config = project?.breadboard;
+  const nonPhysical = new Set((config?.nonPhysicalItems ?? []).map(item => item.instanceId));
+  const requiredPins = (project?.components ?? []).flatMap(component => nonPhysical.has(component.instanceId)
+    ? [] : (getPartPins?.(component.libraryId) ?? []).map(pin => `${component.instanceId}:${pin}`));
   if (!config || config.model !== model.id || !config.pinHoles || typeof config.pinHoles !== "object" || Array.isArray(config.pinHoles)) {
-    return { state: "incomplete", errors, warnings: [{ code: "BREADBOARD_MAPPING_MISSING", message: "Assign component pins to physical breadboard holes before treating the layout as wired." }], nets: [], mappedPinCount: 0, jumperCount: 0 };
+    return { state: "incomplete", errors, warnings: [{ code: "BREADBOARD_MAPPING_MISSING", endpoints: requiredPins, fix: "Assign each physical component pin to a real breadboard hole, then add jumpers that reproduce the project nets.", message: `Breadboard pin mapping is missing for ${requiredPins.length} physical pins; the layout is not verified as wired.` }], nets: [], mappedPinCount: 0, jumperCount: 0 };
   }
   if (typeof getPartPins !== "function") {
     return { state: "blocked", errors: [{ code: "BREADBOARD_PIN_LOOKUP", message: "A component-library pin lookup is required to validate physical placements." }], warnings, nets: [], mappedPinCount: 0, jumperCount: 0 };
@@ -97,6 +100,10 @@ export function validateBreadboardTopology(project, { getPartPins, model = BREAD
       errors.push({ code: "BREADBOARD_UNKNOWN_PIN", endpoint: rawEndpoint, message: "A physical placement refers to a component pin that is not in the library." });
       continue;
     }
+    if (nonPhysical.has(instanceId)) {
+      errors.push({ code: "BREADBOARD_VIRTUAL_PIN", endpoint: rawEndpoint, message: `${component.reference} is declared nonphysical and must not have a breadboard pin placement.` });
+      continue;
+    }
     if (!hole) {
       errors.push({ code: "BREADBOARD_HOLE_ID", endpoint: rawEndpoint, message: "Use a terminal hole A1–J30 or rail hole TP1/TM1/BP1/BM1 through TP30/TM30/BP30/BM30." });
       continue;
@@ -111,6 +118,9 @@ export function validateBreadboardTopology(project, { getPartPins, model = BREAD
     else holeOwners.set(hole, endpoint);
     pinHoles.set(endpoint, hole);
   }
+
+  const missingPins = requiredPins.filter(endpoint => !pinHoles.has(endpoint));
+  if (missingPins.length) warnings.push({ code: "BREADBOARD_PIN_UNMAPPED", endpoints: missingPins, fix: "Place each listed pin in a real hole or declare an off-board interface with its physical lead connection.", message: `Breadboard placements are missing for ${missingPins.join(", ")}.` });
 
   const dsu = makeDisjointSet();
   for (const hole of pinHoles.values()) dsu.root(breadboardConnectionGroup(hole, model));
@@ -133,7 +143,8 @@ export function validateBreadboardTopology(project, { getPartPins, model = BREAD
 
   const endpointToNet = new Map(), netReports = [];
   for (const net of project.nets ?? []) {
-    const endpoints = Array.isArray(net.endpoints) ? net.endpoints : [];
+    const endpoints = (Array.isArray(net.endpoints) ? net.endpoints : []).filter(endpoint => !nonPhysical.has(String(endpoint).split(":")[0]));
+    if (!endpoints.length) continue;
     for (const endpoint of endpoints) {
       if (endpointToNet.has(endpoint) && endpointToNet.get(endpoint) !== net.id) errors.push({ code: "BREADBOARD_MULTIPLE_NETS", endpoint, message: "A component pin cannot belong to more than one canonical project net." });
       endpointToNet.set(endpoint, net.id);

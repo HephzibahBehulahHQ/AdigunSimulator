@@ -34,6 +34,19 @@ test("LM2596 buck PCB maps every physical part and exempts only declared virtual
  assert.deepEqual(validateProject(project).warnings.filter(item=>item.rule==="LAYOUT_OVERLAP"),[]);
 });
 
+test("LM2596 buck reports its incomplete breadboard map without hiding unresolved physical parts",async()=>{
+ const project=JSON.parse(await readFile(new URL("../examples/101-buck-converter-baseline.adigun.json",import.meta.url),"utf8"));
+ const unresolved=unresolvedComponentsForDisplay(project,"breadboard");
+ assert.deepEqual(unresolved.map(item=>item.reference).sort(),["J2","U1"]);
+ assert.deepEqual(projectComponentsForView(project,"breadboard").components.map(item=>item.reference).sort(),["C1","D1","L1","RFB1","RFB2","RLOAD","V1"]);
+ const diagnostic=validateProject(project).warnings.find(item=>item.rule==="BREADBOARD_PHYSICAL_MAP");
+ assert.ok(diagnostic);
+ assert.match(diagnostic.fix,/every physical pin/);
+ assert.equal(diagnostic.details[0].endpoints.length,21);
+ const referenceById=new Map(project.components.map(component=>[component.instanceId,component.reference]));
+ assert.ok(diagnostic.details[0].endpoints.every(value=>{const [instanceId,...pinParts]=value.split(":");return diagnostic.message.includes(`${referenceById.get(instanceId)}.${pinParts.join(":")}`);}));
+});
+
 test("physical breadboard pin maps are distinguished from unsupported package placeholders",async()=>{
  const mapped=JSON.parse(await readFile(new URL("../examples/001-led-current-limiter.adigun.json",import.meta.url),"utf8"));
  assert.deepEqual(unresolvedComponentsForDisplay(mapped,"breadboard"),[]);
@@ -48,4 +61,5 @@ test("canvas rendering adds selectable, explicitly unmapped parts without treati
  assert.match(app,/const parts = placedParts \+ issues\.map/);
  assert.match(app,/unresolvedComponentsForDisplay\(state\.project, state\.activeView\)/);
 });
+
 

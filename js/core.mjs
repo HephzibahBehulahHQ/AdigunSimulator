@@ -8,6 +8,7 @@ import { validateSchematicWires } from "./schematic-wire-data.mjs";
 import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs";
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
 import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
+import { validateBreadboardTopology } from "./breadboard-topology.mjs";
 export const SCHEMA_VERSION = 1;
 export const DESIGN_VIEWS = Object.freeze(["breadboard", "schematic", "pcb"]);
 const UI_LOCALES_FOR_PROJECT = Object.freeze(["en", "de", "yo", "pcm"]);
@@ -493,6 +494,12 @@ export function removeComponent(project, instanceId) {
   if (!project.components.some((item) => item.instanceId === instanceId)) throw new Error(`Component not found: ${instanceId}`);
   const next = clone(project);
   next.components = next.components.filter((item) => item.instanceId !== instanceId);
+  if (next.breadboard?.pinHoles) {
+    const removedHoles = new Set(Object.entries(next.breadboard.pinHoles).filter(([endpoint]) => endpoint.startsWith(`${instanceId}:`)).map(([, hole]) => hole));
+    next.breadboard.pinHoles = Object.fromEntries(Object.entries(next.breadboard.pinHoles).filter(([endpoint]) => !endpoint.startsWith(`${instanceId}:`)));
+    next.breadboard.jumpers = (next.breadboard.jumpers ?? []).filter(jumper => !removedHoles.has(jumper.from) && !removedHoles.has(jumper.to));
+    next.breadboard.nonPhysicalItems = (next.breadboard.nonPhysicalItems ?? []).filter(item => item.instanceId !== instanceId);
+  }
   const usedNetIds = new Set(next.nets.map(net => net.id));
   next.nets = next.nets.flatMap((net) => {
     if (net.connections) return splitNetEdges(net, net.connections.filter(edge => edge.every(endpoint => !endpoint.startsWith(`${instanceId}:`))), usedNetIds);
@@ -605,6 +612,26 @@ export function validateProject(project) {
   for(const c of components)if(LADDER_MODELS[c?.libraryId]){try{ladderParameters(c);}catch(error){errors.push({rule:'LADDER_PARAMETER',message:`${c.reference}: ${error.message}`});}}
   if(project.ladderSimulation!==undefined){try{ladderSettings(project.ladderSimulation,components.length,(project.nets??[]).length);}catch(error){errors.push({rule:'LADDER_RECORDING',message:error.message});}}
   errors.push(...validateSchematicWires(project,pin=>{const [id,terminal]=pin.split(":");const c=components.find(c=>c?.instanceId===id);return Boolean(c&&findLibraryPart(c.libraryId)?.pins.includes(terminal));}));
+  const breadboard = validateBreadboardTopology(project, { getPartPins: libraryId => findLibraryPart(libraryId)?.pins ?? [] });
+  if (breadboard.errors.length) errors.push({ rule: "BREADBOARD_PHYSICAL_MAP", message: breadboard.errors.map(issue => issue.message).filter(Boolean).join(" ") || "Breadboard pin placements contain physical conflicts.", fix: "Correct the listed hole assignments or jumpers, then validate again.", details: breadboard.errors });
+  if (breadboard.state === "incomplete" || breadboard.warnings.length) {
+    const missingPins = breadboard.warnings.flatMap(issue => issue.endpoints ?? []);
+    const referenceById = new Map(components.map(component => [component.instanceId, component.reference]));
+    const pinLabels = missingPins.map(value => {
+      const [instanceId, ...pinParts] = value.split(":");
+      return `${referenceById.get(instanceId) ?? instanceId}.${pinParts.join(":")}`;
+    });
+    warnings.push({
+      rule: "BREADBOARD_PHYSICAL_MAP",
+      message: pinLabels.length
+        ? `Missing breadboard holes for ${pinLabels.length} physical pins: ${pinLabels.join(", ")}.`
+        : "The breadboard view does not yet have a verified physical pin and jumper map.",
+      fix: "Assign every physical pin to a real breadboard hole, then add jumpers that reproduce the project nets. Declare only genuinely virtual items as nonphysical.",
+      details: breadboard.warnings,
+      mappedPinCount: breadboard.mappedPinCount,
+      requiredPinCount: (project.components ?? []).reduce((count, component) => count + (findLibraryPart(component?.libraryId)?.pins?.length ?? 0), 0) - (project.breadboard?.nonPhysicalItems ?? []).reduce((count, item) => count + (findLibraryPart(components.find(component => component.instanceId === item.instanceId)?.libraryId)?.pins?.length ?? 0), 0)
+    });
+  }
   return { errors, warnings, valid: errors.length === 0 };
 }
 

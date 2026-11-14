@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { createProject, findLibraryPart, parseProject, serializeProject } from "../js/core.mjs";
+import { createProject, findLibraryPart, parseProject, serializeProject, validateProject } from "../js/core.mjs";
 import { runBreadboardSchematicSync } from "../js/breadboard-schematic-sync.mjs";
 import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "../js/breadboard-topology.mjs";
 import { renderNucleoG031K8Breadboard } from "../js/nucleo-g031k8.mjs";
@@ -42,6 +42,8 @@ test("breadboard topology catches a physical short between separate schematic ne
   const result = validateBreadboardTopology(project, {getPartPins});
   assert.equal(result.state, "blocked");
   assert.ok(result.errors.some(issue => issue.code === "BREADBOARD_SHORT"));
+  const diagnostics=validateProject(project);
+  assert.ok(diagnostics.errors.some(issue=>issue.rule==="BREADBOARD_PHYSICAL_MAP"&&issue.details.some(detail=>detail.code==="BREADBOARD_SHORT")));
 });
 
 test("breadboard topology catches a split net and duplicate pin-hole assignments", async () => {
