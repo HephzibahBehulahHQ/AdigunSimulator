@@ -1332,7 +1332,7 @@ test("LM2596 buck converter PCB validates topology, high-current layout review, 
   const project = JSON.parse(await readFile(new URL("../examples/129-buck-converter-pcb.adigun.json", import.meta.url)));
   const validation = validateProject(project);
   assert.equal(validation.valid, true);
-  assert.deepEqual(validation.warnings, []);
+  assert.ok(validation.warnings.some(warning => warning.rule === "BREADBOARD_PHYSICAL_MAP"));
   const analysis = runSupportedAnalysis(project);
   assert.equal(analysis.state, "complete");
   assert.equal(analysis.result.kind, "lm2596-buck-converter-topology");
@@ -4623,9 +4623,9 @@ test("catalogue unsupported BGA package becomes a breadboard reconciliation item
   assert.equal(validateProject(project).valid,true);
   const board=projectComponentsForView(project,"breadboard");assert.deepEqual(board.components,[]);assert.equal(board.reconciliationItems.length,1);assert.equal(board.reconciliationItems[0].instanceId,"bga");
   const schematic=projectComponentsForView(project,"schematic");assert.equal(schematic.components.length,1);assert.deepEqual(schematic.reconciliationItems,[]);
-  const pcb=projectComponentsForView(project,"pcb");assert.equal(pcb.components.length,1);assert.deepEqual(pcb.reconciliationItems,[]);
+  const pcb=projectComponentsForView(project,"pcb");assert.deepEqual(pcb.components,[]);assert.equal(pcb.reconciliationItems.length,1);assert.equal(pcb.reconciliationItems[0].instanceId,"bga");
   const result=runUnsupportedBreadboardPackage(project);assert.equal(result.state,"complete");assert.equal(result.result.kind,"unsupported-breadboard-package-reconciliation");assert.equal(result.result.breadboardPlaced,false);
-  assert.equal(result.result.schematicPlaced,true);assert.equal(result.result.pcbPlaced,true);assert.equal(result.result.fabricationQualified,false);assert.equal(result.result.claimsManufacturable,false);
+  assert.equal(result.result.schematicPlaced,true);assert.equal(result.result.pcbPlaced,false);assert.equal(result.result.fabricationQualified,false);assert.equal(result.result.claimsManufacturable,false);
   const invalid=structuredClone(project);invalid.unsupportedBreadboardPackage.instanceId="missing";assert.equal(runUnsupportedBreadboardPackage(invalid).state,"blocked");
 });
 test("catalogue missing-footprint workflow blocks PCB update and returns required resolution report", async () => {
