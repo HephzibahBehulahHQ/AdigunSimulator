@@ -22,6 +22,13 @@ export function analyticalDcScopeRecording(project,analysis){
   if(r.regulated!==true||!Number.isFinite(r.outputVoltage)||!Number.isFinite(r.outputSetpointV)||Math.abs(r.outputVoltage-r.outputSetpointV)>1e-9)return null;
   return {kind:"analytical-dc-output",model:"Linear regulated supply DC output (ripple voltage reported separately)",nodes:{[returnNet]:0,[output]:r.outputVoltage}};
  }
+ if(r?.kind==="zener-shunt-regulator"){
+  const sources=byType("power.dc-source"),zener=byType("diode.zener-ideal"),resistors=byType("passive.resistor"),grounds=byType("ground.signal");
+  if(sources.length!==1||zener.length!==1||resistors.length!==2||grounds.length!==1)return null;
+  const [voltageSource,diode,gnd]=[sources[0],zener[0],grounds[0]],net=(c,pin)=>netOf(c,pin),returnNet=net(voltageSource,"-"),input=net(voltageSource,"+"),output=net(diode,"K"),series=resistors.find(c=>net(c,"1")===input&&net(c,"2")===output),load=resistors.find(c=>c!==series&&net(c,"1")===output&&net(c,"2")===returnNet);
+  if(!input||!output||!returnNet||!series||!load||net(diode,"A")!==returnNet||net(gnd,"0")!==returnNet||!Number.isFinite(r.sourceVoltage)||!Number.isFinite(r.outputVoltage)||r.outputVoltage<0||r.outputVoltage>r.sourceVoltage)return null;
+  return {kind:"analytical-dc-output",model:`Zener shunt regulator DC output (${r.zenerOn?"zener conducting":"zener off"}; steady-state estimate)`,nodes:{[returnNet]:0,[input]:r.sourceVoltage,[output]:r.outputVoltage}};
+ }
  if(r?.kind==="led-polarity-indicator"){
   const reds=byType("diode.led-red"),greens=byType("diode.led-green"),red=reds[0],green=greens[0],resistors=byType("passive.resistor"),resistorResult=ref=>r.resistorResults?.find(item=>item.reference===ref);
   if(byType("power.dc-source").length!==1||byType("ground.signal").length!==1||reds.length!==1||greens.length!==1||resistors.length!==2)return null;
