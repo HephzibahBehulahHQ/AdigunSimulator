@@ -123,7 +123,7 @@ function frequencyResponseRecording(project,r){
 
 function commonEmitterRecording(project,r){
  const sources=project.components.filter(c=>c.libraryId==='power.dc-source'),inputs=project.components.filter(c=>c.libraryId==='power.ac-source'),transistors=project.components.filter(c=>c.libraryId==='active.npn-small-signal'),resistors=project.components.filter(c=>c.libraryId==='passive.resistor'),capacitors=project.components.filter(c=>c.libraryId==='passive.capacitor'),grounds=project.components.filter(c=>c.libraryId==='ground.signal');
- if(sources.length!==1||inputs.length!==1||transistors.length!==1||resistors.length!==4||capacitors.length!==2||grounds.length!==1||!Array.isArray(r.sineTrace)||r.sineTrace.length!==9)return null;
+ if(sources.length!==1||inputs.length!==1||transistors.length!==1||resistors.length!==5||capacitors.length!==2||grounds.length!==1||!Array.isArray(r.sineTrace)||r.sineTrace.length!==9)return null;
  const net=(c,p)=>project.nets.find(n=>n.endpoints.includes(`${c.instanceId}:${p}`))?.id,[supplySource,inputSource,transistor,ground]=[sources[0],inputs[0],transistors[0],grounds[0]],between=(c,a,b)=>net(c,'1')===a&&net(c,'2')===b||net(c,'2')===a&&net(c,'1')===b;
  const gnd=net(ground,'0'),vcc=net(supplySource,'+'),base=net(transistor,'B'),collector=net(transistor,'C'),emitter=net(transistor,'E'),input=net(inputSource,'+');
  if(!gnd||!vcc||!base||!collector||!emitter||!input||net(supplySource,'-')!==gnd||net(inputSource,'-')!==gnd)return null;
