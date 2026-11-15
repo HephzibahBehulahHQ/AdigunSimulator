@@ -91,6 +91,14 @@ test("breadboard topology catches a split net and duplicate pin-hole assignments
   assert.ok(duplicateResult.errors.some(issue => issue.code === "BREADBOARD_HOLE_OCCUPIED"));
 });
 
+test("9 V LED current limiter has a complete physical breadboard placement", async () => {
+  const project = await readExample("003-led-current-limiter-9v.adigun.json");
+  const result = validateBreadboardTopology(project, {getPartPins});
+  assert.equal(result.state, "complete");
+  assert.equal(result.errors.length, 0);
+  assert.equal(result.warnings.length, 0);
+});
+
 test("checked-in STM32 PWM fixture carries real-hole placements and validates without changing its electrical nets", async () => {
   const project = await readExample("070-stm32-timer-pwm.adigun.json");
   const before = JSON.stringify(project.nets);
