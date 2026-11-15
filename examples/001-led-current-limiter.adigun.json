@@ -151,20 +151,29 @@
       {
         "instanceId": "source-1",
         "reference": "J1",
-        "footprint": "TerminalBlock_1x02_P5.00mm_PTH",
-        "technology": "through-hole"
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
       },
       {
         "instanceId": "resistor-1",
         "reference": "R1",
-        "footprint": "R_0805_2012Metric_SMD",
-        "technology": "smd"
+        "footprint": "NEOHM_CFR25J330R_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J330R",
+        "sourceUrl": "https://www.te.com/en/product-1623931-7.html"
       },
       {
         "instanceId": "led-1",
         "reference": "D1",
-        "footprint": "LED_0805_2012Metric_SMD",
-        "technology": "smd"
+        "footprint": "Vishay_TLHR5400_LED_D5.0mm_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "TLHR5400",
+        "sourceUrl": "https://www.vishay.com/docs/83012/tlhg540.pdf"
       }
     ],
     "pads": [
@@ -173,24 +182,26 @@
         "reference": "J1",
         "pin": "+",
         "number": "1",
+        "bridgeEndpoint": "source-1:+",
         "netId": "VCC",
         "xMm": 4,
         "yMm": 8,
         "technology": "through-hole",
-        "diameterMm": 2,
-        "drillMm": 1
+        "diameterMm": 1.8,
+        "drillMm": 0.9
       },
       {
         "instanceId": "source-1",
         "reference": "J1",
         "pin": "-",
         "number": "2",
+        "bridgeEndpoint": "source-1:-",
         "netId": "GND",
         "xMm": 4,
-        "yMm": 13,
+        "yMm": 10.54,
         "technology": "through-hole",
-        "diameterMm": 2,
-        "drillMm": 1
+        "diameterMm": 1.8,
+        "drillMm": 0.9
       },
       {
         "instanceId": "resistor-1",
@@ -198,11 +209,11 @@
         "pin": "1",
         "number": "1",
         "netId": "VCC",
-        "xMm": 16,
+        "xMm": 12,
         "yMm": 8,
-        "technology": "smd",
-        "widthMm": 1.2,
-        "heightMm": 1
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
       },
       {
         "instanceId": "resistor-1",
@@ -210,11 +221,11 @@
         "pin": "2",
         "number": "2",
         "netId": "LED_A",
-        "xMm": 18,
+        "xMm": 22,
         "yMm": 8,
-        "technology": "smd",
-        "widthMm": 1.2,
-        "heightMm": 1
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
       },
       {
         "instanceId": "led-1",
@@ -222,11 +233,11 @@
         "pin": "A",
         "number": "1",
         "netId": "LED_A",
-        "xMm": 22,
+        "xMm": 28,
         "yMm": 8,
-        "technology": "smd",
-        "widthMm": 1.2,
-        "heightMm": 1
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
       },
       {
         "instanceId": "led-1",
@@ -234,11 +245,11 @@
         "pin": "K",
         "number": "2",
         "netId": "GND",
-        "xMm": 24,
+        "xMm": 30.54,
         "yMm": 8,
-        "technology": "smd",
-        "widthMm": 1.2,
-        "heightMm": 1
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
       }
     ],
     "routes": [
@@ -252,7 +263,7 @@
             8
           ],
           [
-            16,
+            12,
             8
           ]
         ]
@@ -263,11 +274,11 @@
         "widthMm": 0.4,
         "pointsMm": [
           [
-            18,
+            22,
             8
           ],
           [
-            22,
+            28,
             8
           ]
         ]
@@ -278,23 +289,75 @@
         "widthMm": 0.4,
         "pointsMm": [
           [
-            24,
+            30.54,
             8
           ],
           [
-            24,
-            18
+            34,
+            8
+          ],
+          [
+            34,
+            20
           ],
           [
             4,
-            18
+            20
           ],
           [
             4,
-            13
+            10.54
           ]
         ]
       }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; the LED return is implemented by PCB ground pads and routed copper."
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        },
+        "limitations": [
+          "Selected drill size and annular-ring dimensions are layout choices and require fabrication-rule review."
+        ]
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J330R",
+        "package": "CFR25 axial, 330 Ω, 5%, 0.33 W",
+        "sourceUrl": "https://www.te.com/en/product-1623931-7.html",
+        "limitations": [
+          "10 mm lead-center spacing is a board layout choice; the resistor is rated from its cited manufacturer product data."
+        ]
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "TLHR5400",
+        "package": "5 mm red through-hole LED",
+        "sourceUrl": "https://www.vishay.com/docs/83012/tlhg540.pdf",
+        "pinMapping": {
+          "1": "Anode",
+          "2": "Cathode"
+        }
+      }
+    ],
+    "fabricationNotes": [
+      "J1 is a Samtec 1x02 header for an external 5 V bench supply; the supply itself is not mounted on the board.",
+      "R1 and D1 use the cited manufacturer packages; confirm hole sizes, lead spacing, copper clearances, polarity, and board fabrication rules before manufacture."
     ]
   }
 }
