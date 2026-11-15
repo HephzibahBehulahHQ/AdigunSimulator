@@ -26,3 +26,24 @@ test("linear regulated supply exposes its solved DC output separately from rippl
   assert.equal(analyticalDcScopeRecording(disconnected, analysis), null);
 });
 
+test("USB-powered LED exposes its solved DC nodes to the scope and blocks a broken J1 feed", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/008-usb-powered-led.adigun.json", import.meta.url), "utf8"));
+  const analysis = runProjectAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.deepEqual(Object.keys(analysis.scopeDcRecording.nodes).sort(), ["FUSED_5V", "GND", "LED_A", "USB_VBUS"]);
+  assert.equal(analysis.scopeDcRecording.nodes.USB_VBUS, 5);
+  assert.equal(analysis.scopeDcRecording.nodes.FUSED_5V, 5 - analysis.result.fuseVoltageDrop);
+  assert.ok(Math.abs(analysis.scopeDcRecording.nodes.LED_A - 2) < 1e-12);
+  assert.equal(analysis.scopeDcRecording.nodes.GND, 0);
+  const timeline = createFeedbackTimeline(project, analysis);
+  assert.equal(timeline.kind, "dc");
+  const live = { status: "ready", kind: "dc", sampleIndex: 0, data: timeline.frame(0) };
+  assert.ok(scopeChannels(project, analysis, live).includes("LED_A"));
+  assert.ok(Math.abs(scopeTrace(project, analysis, live, "LED_A").voltage - 2) < 1e-12);
+  assert.equal(scopeTrace(project, analysis, live, "GND").voltage, 0);
+  const disconnected = structuredClone(project);
+  disconnected.nets.find(net => net.id === "USB_VBUS").endpoints = disconnected.nets.find(net => net.id === "USB_VBUS").endpoints.filter(endpoint => endpoint !== "usb-input-1:VUSB");
+  assert.equal(runProjectAnalysis(disconnected).state, "blocked");
+  assert.equal(analyticalDcScopeRecording(disconnected, runProjectAnalysis(disconnected)), null);
+});
+

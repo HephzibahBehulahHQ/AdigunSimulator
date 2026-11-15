@@ -27,7 +27,7 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
       continue;
     }
     packages.set(pkg.instanceId, pkg);
-    const allowedKinds = ["to220", "axial-diode", "bridge-rectifier", "radial-inductor", "radial-capacitor", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-supply"];
+    const allowedKinds = ["to220", "axial-diode", "bridge-rectifier", "radial-inductor", "radial-capacitor", "radial-ptc", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-supply"];
     const externalSupply = pkg.kind === "external-supply";
     const offBoard = externalSupply || pkg.kind === "external-axial-resistor";
     if (!allowedKinds.includes(pkg.kind) || (!externalSupply && (!positive(pkg.bodyMm?.width) || !positive(pkg.bodyMm?.height))) || !Array.isArray(pkg.positionPx) || pkg.positionPx.length !== 2 || !pkg.positionPx.every(Number.isFinite)) {
@@ -85,6 +85,7 @@ function packageBody(pkg, scaleX, scaleY) {
   if (pkg.kind === "external-supply") return `<text class="breadboard-external-supply-label" x="0" y="9">off-board supply leads</text>`;
   const width = pkg.bodyMm.width * scaleX, height = pkg.bodyMm.height * scaleY;
   if (pkg.kind === "radial-capacitor") return `<ellipse class="capacitor-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/><path class="capacitor-top" d="M${-width * .32} 0 H${width * .32}"/>`;
+  if (pkg.kind === "radial-ptc") return `<rect class="breadboard-ptc-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width,height) * .28}"/><path class="breadboard-ptc-seam" d="M${-width * .26} ${-height * .34} H${width * .26}"/>`;
   if (pkg.kind === "radial-inductor") return `<rect class="breadboard-inductor-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width, height) * .38}"/><path class="breadboard-inductor-seam" d="M${-width * .32} ${-height / 2} V${height / 2} M${width * .32} ${-height / 2} V${height / 2}"/>`;
   if (pkg.kind === "axial-diode") return `<rect class="axial-diode-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${height / 2}"/><path class="diode-cathode-band" d="M${width * .22} ${-height / 2} V${height / 2}"/>`;
   if (pkg.kind === "bridge-rectifier") return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/><text class="breadboard-bridge-mark" x="${-width * .29}" y="${-height * .12}">+</text><text class="breadboard-bridge-mark" x="${width * .29}" y="${-height * .12}">~</text><text class="breadboard-bridge-mark" x="${-width * .29}" y="${height * .39}">~</text><text class="breadboard-bridge-mark" x="${width * .29}" y="${height * .39}">−</text>`;

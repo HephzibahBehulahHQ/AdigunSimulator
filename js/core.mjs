@@ -24,6 +24,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "sensor.bme280-i2c", category: "Sensors", type: "Bosch BME280 8-pad I²C environmental sensor", prefix: "U", pins: ["GND1","CSB","SDA","SCL","SDO","VDDIO","GND2","VDD"], defaultValue: "BME280; 0x76; VDD 1.71–3.6 V; VDDIO 1.2–3.6 V", simulation: "bounded-breakout-topology", status: "manufacturer pin map; generic footprint template", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "power.tlv70033", category: "Power & Ground", type: "TI TLV70033 3.3 V LDO (DDC)", prefix: "U", pins: ["IN","GND","EN","NC","OUT"], defaultValue: "TLV70033DDC; VIN 5 V; VOUT 3.3 V", simulation: "bounded-breakout-topology", status: "manufacturer identified", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.i2c-header-4", category: "Connectors", type: "4-pin I²C sensor header", prefix: "J", pins: ["VIN","GND","SDA","SCL"], defaultValue: "VIN, GND, SDA, SCL; 2.54 mm", simulation: "schematic/PCB only", status: "generic", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "connector.usb-led-power-input-2", category: "Connectors", type: "2-pin low-voltage USB power input", prefix: "J", pins: ["VUSB","GND"], defaultValue: "5 V USB supply breakout; Samtec TSW-102-07-T-S; 2.54 mm", simulation: "schematic/PCB/breadboard interface", status: "Samtec manufacturer part identified", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.usb-c-receptacle", category: "Connectors", type: "USB-C receptacle (USB 2.0, 16 contacts)", prefix: "J", pins: ["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"], defaultValue: "GCT USB4105; 5.1 kΩ Rd on CC1 and CC2", simulation: null, status: "manufacturer identified; footprint template", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.breakout-header-4", category: "Connectors", type: "4-pin breakout header", prefix: "J", pins: ["1","2","3","4"], defaultValue: "VBUS, GND, D+, D-", simulation: null, status: "generic", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -1133,6 +1134,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const regulators = project.components.filter((item) => item.libraryId === "active.regulator-7805-ideal");
   const usbSources = project.components.filter((item) => item.libraryId === "power.usb-source");
   const ptcFuses = project.components.filter((item) => item.libraryId === "protection.ptc-polyfuse");
+  const usbPowerInputs = project.components.filter(item => item.libraryId === "connector.usb-led-power-input-2");
   const solarCells = project.components.filter((item) => item.libraryId === "power.solar-cell");
   const batteries = project.components.filter((item) => item.libraryId === "power.rechargeable-battery");
   const photoresistors = project.components.filter((item) => item.libraryId === "passive.ldr");
@@ -1475,8 +1477,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (solarCells.length === 1 && batteries.length === 1 && photoresistors.length === 1 && schottkyDiodes.length === 1 && mosfets.length === 1 && led.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 9) {
     return analyseSolarGardenLight(project, { solar: solarCells[0], battery: batteries[0], ldr: photoresistors[0], diode: schottkyDiodes[0], mosfet: mosfets[0], led: led[0], resistors: resistor, ground: ground[0], validation });
   }
-  if (usbSources.length === 1 && ptcFuses.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
-    return analyseUsbLedPtc(project, { source: usbSources[0], fuse: ptcFuses[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+  if (usbSources.length === 1 && ptcFuses.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && usbPowerInputs.length === 1 && project.components.length === 6) {
+    return analyseUsbLedPtc(project, { source: usbSources[0], fuse: ptcFuses[0], resistor: resistor[0], led: led[0], ground: ground[0], inputHeader: usbPowerInputs[0], validation });
   }
   const linearSupplyInputs = project.components.filter(item => item.libraryId === "connector.linear-supply-ac-input-2");
   const linearSupplyOutputs = project.components.filter(item => item.libraryId === "connector.linear-supply-dc-output-2");
@@ -4963,7 +4965,7 @@ function analyseSolarGardenLight(project, { solar, battery, ldr, diode, mosfet, 
   };
 }
 
-function analyseUsbLedPtc(project, { source, fuse, resistor, led, ground, validation }) {
+function analyseUsbLedPtc(project, { source, fuse, resistor, led, ground, inputHeader, validation }) {
   const sourceVoltage = voltageValue(source.value);
   const ledVf = forwardVoltage(led.value);
   const resistance = resistanceValue(resistor.value);
@@ -4978,13 +4980,14 @@ function analyseUsbLedPtc(project, { source, fuse, resistor, led, ground, valida
   for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
   const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
   const supplyNet = n(source, "+"), sourceReturn = n(source, "-");
+  const inputPositive = n(inputHeader, "VUSB"), inputReturn = n(inputHeader, "GND");
   const fuseInput = n(fuse, "1"), fuseOutput = n(fuse, "2");
   const resistorInput = n(resistor, "1"), resistorOutput = n(resistor, "2");
   const ledAnode = n(led, "A"), ledCathode = n(led, "K"), groundNet = n(ground, "0");
-  if (!supplyNet || supplyNet === groundNet || sourceReturn !== groundNet || fuseInput !== supplyNet
+  if (!supplyNet || supplyNet === groundNet || sourceReturn !== groundNet || inputPositive !== supplyNet || inputReturn !== groundNet || fuseInput !== supplyNet
     || !fuseOutput || fuseOutput === supplyNet || resistorInput !== fuseOutput
     || !resistorOutput || resistorOutput !== ledAnode || ledCathode !== groundNet) {
-    return { state: "blocked", message: "Wire USB positive through the PTC, LED resistor, and LED to ground, with USB negative and signal ground on the same return.", validation };
+    return { state: "blocked", message: "Connect the 5 V USB breakout input J1 VUSB pin to the USB source and PTC input. Connect J1 GND, USB negative, and signal ground together, then wire through the PTC, resistor, and LED to the shared return.", validation };
   }
   const totalSeriesResistance = resistance + coldResistance;
   const currentA = Math.max(0, (sourceVoltage - ledVf) / totalSeriesResistance);

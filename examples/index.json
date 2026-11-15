@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 34,
-    "withoutStoredPcb": 182,
+    "withStoredPcb": 35,
+    "withoutStoredPcb": 181,
     "unexpectedFailures": []
   },
   "entries": [
@@ -354,36 +354,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "88bbd1b7392ecdf6b68fbac1815c62a57bf1e11c82b81ee7de110dac1ac90098",
-      "components": 5,
+      "sha256": "1c2b4ff71ab25720a086cde772a0a1bd4dd652eda46d2e15cb1daa4bb72f4905",
+      "components": 6,
       "analysis": "complete",
       "engine": "Analytical USB LED and cold-state PTC estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "USB1",
-          "libraryId": "power.usb-source"
-        },
-        {
-          "reference": "F1",
-          "libraryId": "protection.ptc-polyfuse"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 8,
+      "pcbRoutes": 4,
+      "unmapped": []
     },
     {
       "file": "009-dc-voltage-divider-3k-1k.adigun.json",

@@ -343,6 +343,8 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .breadboard-header-divider { stroke:#89b6c3; stroke-width:1; }
 .breadboard-bridge-body { fill:#252b31; stroke:#b9c3c9; stroke-width:1.2; }
 .breadboard-bridge-mark { fill:#f1f5f7; font-size:3.6px; font-weight:700; text-anchor:middle; }
+.breadboard-ptc-body { fill:#174b35; stroke:#9ad2ac; stroke-width:1.2; }
+.breadboard-ptc-seam { stroke:#b7d9bf; stroke-width:0.8; }
 
 .axial-diode-body { fill:#343943; stroke:#111820; stroke-width:1.5; filter:drop-shadow(0 1px 1px rgb(0 0 0 / 35%)); }
 .diode-cathode-band { stroke:#e6e9ee; stroke-width:3; }
