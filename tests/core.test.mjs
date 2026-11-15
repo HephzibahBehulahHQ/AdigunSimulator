@@ -1151,7 +1151,8 @@ test("catalogue USB LED estimates normal current and flags a PTC hold-current ov
   assert.equal(normal.result.holdCurrentExceeded, false);
   assert.equal(normal.result.overloadWarning, false);
   assert.equal(normal.result.fuseTripPredicted, false);
-  assert.ok(Math.abs(normal.result.currentA - 3 / 330.1) < 1e-12);
+  assert.equal(normal.result.coldResistance, 0.77);
+  assert.ok(Math.abs(normal.result.currentA - 3 / 330.77) < 1e-12);
   assert.ok(Math.abs(normal.result.powerBalanceW) < 1e-12);
 
   const overload = runSupportedAnalysis(updateComponent(project, "resistor-1", { value: "1 Ω" }));
@@ -1166,6 +1167,10 @@ test("catalogue USB LED estimates normal current and flags a PTC hold-current ov
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "FUSED_5V").endpoints = ["fuse-1:2"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
+  const disconnectedInput = structuredClone(project);
+  disconnectedInput.nets.find((net) => net.id === "USB_VBUS").endpoints = disconnectedInput.nets.find((net) => net.id === "USB_VBUS").endpoints.filter(endpoint => endpoint !== "usb-input-1:VUSB");
+  assert.equal(runSupportedAnalysis(disconnectedInput).state, "blocked");
+  assert.match(runSupportedAnalysis(disconnectedInput).message, /J1 VUSB/);
 });
 
 test("catalogue 5 V linear supply estimates ripple and regulator dropout", async () => {
