@@ -4,6 +4,19 @@ export function analyticalDcScopeRecording(project,analysis){
  if(analysis?.state!=="complete")return null;
  const r=analysis.result,components=project.components,netOf=(c,pin)=>project.nets.find(n=>n.endpoints.includes(`${c?.instanceId}:${pin}`))?.id;
  const byType=id=>components.filter(c=>c.libraryId===id),source=byType("power.dc-source")[0],ground=byType("ground.signal")[0];
+ if(r?.kind==="battery-discharge-monitor"&&byType("active.tps3710-ideal").length===1){
+  const tps=byType("active.tps3710-ideal")[0],resistors=byType("passive.resistor"),led=byType("diode.led-red")[0],capacitor=byType("passive.capacitor")[0];
+  if(byType("power.dc-source").length!==1||byType("ground.signal").length!==1||!led||!capacitor||resistors.length!==3)return null;
+  const battery=netOf(source,"+"),returnNet=netOf(source,"-"),vdd=netOf(tps,"VDD"),sense=netOf(tps,"SENSE"),output=netOf(tps,"OUT"),ledA=netOf(led,"A"),ledK=netOf(led,"K"),gnds=["GND1","GND2","GND3"].map(pin=>netOf(tps,pin));
+  const between=(part,a,b)=>[netOf(part,"1"),netOf(part,"2")].includes(a)&&[netOf(part,"1"),netOf(part,"2")].includes(b);
+  const upper=resistors.find(part=>between(part,battery,sense)),lower=resistors.find(part=>part!==upper&&between(part,sense,returnNet)),series=resistors.find(part=>part!==upper&&part!==lower&&between(part,battery,ledA));
+  if(!battery||!returnNet||vdd!==battery||gnds.some(net=>net!==returnNet)||!sense||!output||ledK!==output||!upper||!lower||!series||netOf(capacitor,"1")===netOf(capacitor,"2")||![netOf(capacitor,"1"),netOf(capacitor,"2")].includes(battery)||![netOf(capacitor,"1"),netOf(capacitor,"2")].includes(returnNet)||netOf(ground,"0")!==returnNet||typeof r.lowBattery!=="boolean"||![r.batteryVoltage,r.senseVoltage,r.tripVoltage,r.ledCurrentA].every(Number.isFinite))return null;
+  const batteryMeasured=r.batteryVoltage,senseMeasured=r.senseVoltage,expectedTrip=r.tripVoltage;
+  if(Math.abs(batteryMeasured-Number.parseFloat(String(source.value)))>Math.max(1,batteryMeasured)*1e-9||r.lowBattery!==(senseMeasured<expectedTrip))return null;
+  const nodes={[battery]:batteryMeasured,[returnNet]:0,[sense]:senseMeasured};
+  if(r.lowBattery){if(r.ledCurrentA<=0||!Number.isFinite(r.ledCurrentA))return null;nodes[output]=0;}
+  return {kind:"analytical-dc-output",model:"TPS3710 battery monitor steady-state DC operating point (not transient simulation)",preferredNet:r.lowBattery?output:sense,nodes};
+ }
  if(r?.kind==="resistive-network"){
   const sources=byType("power.dc-source"),grounds=byType("ground.signal"),resistors=byType("passive.resistor"),nodes=r.nodeVoltages,netIds=new Set(project.nets.map(net=>net.id));
   if(sources.length!==1||grounds.length!==1||resistors.length<1||r.resistors?.length!==resistors.length||!nodes||typeof nodes!=="object")return null;

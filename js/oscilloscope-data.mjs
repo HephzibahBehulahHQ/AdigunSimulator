@@ -3,6 +3,7 @@ export function scopeChannels(project,analysis,live){
   if(live.status!=='ready'||!live.data?.available)return [];
   if(live.data.units==='logic')return Object.keys(live.data.nodes);
   if(analysis?.scopeRecording)return [analysis.scopeRecording.preferredNet,...Object.keys(live.data.nodes).filter(n=>n!==analysis.scopeRecording.preferredNet)];
+  if(analysis?.scopeDcRecording?.preferredNet)return [analysis.scopeDcRecording.preferredNet,...Object.keys(live.data.nodes).filter(n=>n!==analysis.scopeDcRecording.preferredNet)];
   if(live.kind==='transient')return analysis?.feedbackLayout?.nets?.filter(n=>project.nets.some(x=>x.id===n))??[];
   return Object.keys(live.data.nodes).filter(n=>Number.isFinite(live.data.nodes[n]));
 }

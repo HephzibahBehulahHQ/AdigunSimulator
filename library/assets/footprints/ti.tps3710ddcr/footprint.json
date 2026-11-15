@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-example-smd-land-pattern",
+  "partId": "ti.tps3710ddcr",
+  "package": "Texas Instruments DDC0006A SOT-23-6",
+  "view": "top",
+  "units": "mm",
+  "pinOne": { "number": 1, "xMm": -1.35, "yMm": -0.95 },
+  "packageOutline": {
+    "bodyWidthMm": { "minimum": 1.45, "maximum": 1.75 },
+    "bodyLengthMm": { "minimum": 2.75, "maximum": 3.05 },
+    "heightMaxMm": 1.1,
+    "layout": "six gull-wing leads, three per side",
+    "sourceUrl": "https://www.ti.com/lit/ds/symlink/tps3710.pdf",
+    "drawing": "DDC0006A, package outline and example board layout"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 1.1,
+    "heightMm": 0.6,
+    "pitchMm": 0.95,
+    "rowCenterSpacingMm": 2.7,
+    "source": "TI DDC0006A example land pattern (6X 1.1 x 0.6 mm; 4X 0.95 mm; 2.7 mm row center spacing)."
+  },
+  "pads": [
+    { "number": "1", "xMm": -1.35, "yMm": -0.95 },
+    { "number": "2", "xMm": -1.35, "yMm": 0 },
+    { "number": "3", "xMm": -1.35, "yMm": 0.95 },
+    { "number": "4", "xMm": 1.35, "yMm": 0.95 },
+    { "number": "5", "xMm": 1.35, "yMm": 0 },
+    { "number": "6", "xMm": 1.35, "yMm": -0.95 }
+  ],
+  "limitations": [
+    "Pad dimensions and package geometry are transcribed from the TI DDC0006A datasheet example; independently review solder mask, paste, courtyard, assembly, and fabrication rules before production.",
+    "The symbol pin labels follow the TI TPS3710 pinout: 1 GND, 2 VDD, 3 GND, 4 SENSE, 5 GND, 6 OUT."
+  ],
+  "license": { "id": "CC0-1.0", "url": "https://creativecommons.org/publicdomain/zero/1.0/" }
+}

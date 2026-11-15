@@ -5,7 +5,7 @@
     "name": "9 V Battery Discharge Monitor",
     "locale": "en",
     "createdAt": "2026-10-31T00:00:00.000Z",
-    "updatedAt": "2026-10-31T00:00:00.000Z"
+    "updatedAt": "2026-11-15T04:46:54.736Z"
   },
   "components": [
     {
@@ -32,7 +32,7 @@
       "instanceId": "upper-1",
       "libraryId": "passive.resistor",
       "reference": "R1",
-      "value": "10 kΩ",
+      "value": "180 kΩ",
       "position": {
         "breadboard": [
           135,
@@ -70,9 +70,9 @@
     },
     {
       "instanceId": "comparator-1",
-      "libraryId": "active.comparator-ideal",
+      "libraryId": "active.tps3710-ideal",
       "reference": "U1",
-      "value": "Vref 3.75 V",
+      "value": "Vref 0.4 V",
       "position": {
         "breadboard": [
           295,
@@ -129,10 +129,10 @@
       }
     },
     {
-      "instanceId": "ground-1",
-      "libraryId": "ground.signal",
-      "reference": "GND",
-      "value": "0 V",
+      "instanceId": "capacitor-1",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "0.1 µF",
       "position": {
         "breadboard": [
           535,
@@ -147,6 +147,26 @@
           80
         ]
       }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          615,
+          80
+        ],
+        "schematic": [
+          615,
+          80
+        ],
+        "pcb": [
+          615,
+          80
+        ]
+      }
     }
   ],
   "nets": [
@@ -155,7 +175,9 @@
       "endpoints": [
         "battery-1:+",
         "upper-1:1",
-        "comparator-1:VCC"
+        "comparator-1:VDD",
+        "series-1:1",
+        "capacitor-1:1"
       ]
     },
     {
@@ -167,13 +189,6 @@
       ]
     },
     {
-      "id": "ALARM",
-      "endpoints": [
-        "comparator-1:OUT",
-        "series-1:1"
-      ]
-    },
-    {
       "id": "LED_A",
       "endpoints": [
         "series-1:2",
@@ -181,15 +196,892 @@
       ]
     },
     {
+      "id": "ALARM_N",
+      "endpoints": [
+        "led-1:K",
+        "comparator-1:OUT"
+      ]
+    },
+    {
       "id": "GND",
       "endpoints": [
         "battery-1:-",
         "lower-1:2",
-        "comparator-1:GND",
-        "led-1:K",
+        "comparator-1:GND1",
+        "comparator-1:GND2",
+        "comparator-1:GND3",
+        "capacitor-1:2",
         "ground-1:0"
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "battery-1:+": "TP2",
+      "battery-1:-": "BM2",
+      "upper-1:1": "A5",
+      "upper-1:2": "A10",
+      "lower-1:1": "C10",
+      "lower-1:2": "C30",
+      "comparator-1:GND1": "B20",
+      "comparator-1:VDD": "B5",
+      "comparator-1:GND2": "B25",
+      "comparator-1:SENSE": "B10",
+      "comparator-1:GND3": "B30",
+      "comparator-1:OUT": "B15",
+      "series-1:1": "E5",
+      "series-1:2": "E12",
+      "led-1:A": "C12",
+      "led-1:K": "C15",
+      "capacitor-1:1": "D5",
+      "capacitor-1:2": "D20",
+      "ground-1:0": "BM10"
+    },
+    "jumpers": [
+      {
+        "from": "TP2",
+        "to": "A5"
+      },
+      {
+        "from": "C30",
+        "to": "BM2"
+      },
+      {
+        "from": "B20",
+        "to": "BM10"
+      },
+      {
+        "from": "B25",
+        "to": "BM10"
+      },
+      {
+        "from": "B30",
+        "to": "BM10"
+      },
+      {
+        "from": "D20",
+        "to": "BM10"
+      }
+    ],
+    "physicalNotes": [
+      "U1 is the TI TPS3710DDCR SOT-23-6 detector. Breadboard assembly requires a six-pin SOT-23 to 2.54 mm breakout adapter; the adapter is not included. Use its pin-1-marked pinout exactly as shown in the schematic.",
+      "V1 represents an external current-limited 9 V source connected at J1; no battery is mounted on the PCB."
+    ]
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 60,
+      "heightMm": 42,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "battery-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "upper-1",
+        "reference": "R1",
+        "footprint": "NEOHM_CFR25J180K_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J180K",
+        "sourceUrl": "https://www.te.com/en/product-2-1623930-5.html"
+      },
+      {
+        "instanceId": "lower-1",
+        "reference": "R2",
+        "footprint": "NEOHM_CFR25J10K0_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J10K0",
+        "sourceUrl": "https://www.te.com/en/product-1623930-6.html"
+      },
+      {
+        "instanceId": "comparator-1",
+        "reference": "U1",
+        "footprint": "TI_DDC0006A_SOT-23-6",
+        "technology": "smd",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "TPS3710DDCR",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/tps3710.pdf"
+      },
+      {
+        "instanceId": "series-1",
+        "reference": "R3",
+        "footprint": "NEOHM_CFR25J1K0_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J1K0",
+        "sourceUrl": "https://www.te.com/en/product-2-1623930-9.html"
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "footprint": "Vishay_TLHR5400_LED_D5.0mm_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "TLHR5400",
+        "sourceUrl": "https://www.vishay.com/docs/83012/tlhg540.pdf"
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "footprint": "KEMET_C315C104K5R5TA_radial_P5.00mm",
+        "technology": "through-hole",
+        "manufacturer": "KEMET",
+        "manufacturerPartNumber": "C315C104K5R5TA",
+        "sourceUrl": "https://search.kemet.com/component-documentation/download/specsheet/C315C104K5R5TA"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "battery-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "netId": "VBAT",
+        "xMm": 5,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "battery-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 7.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "upper-1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VBAT",
+        "xMm": 14,
+        "yMm": 10,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "upper-1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "SENSE",
+        "xMm": 24,
+        "yMm": 10,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "lower-1",
+        "reference": "R2",
+        "pin": "1",
+        "number": "1",
+        "netId": "SENSE",
+        "xMm": 14,
+        "yMm": 21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "lower-1",
+        "reference": "R2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 24,
+        "yMm": 21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "comparator-1",
+        "reference": "U1",
+        "pin": "GND1",
+        "number": "1",
+        "netId": "GND",
+        "xMm": 43.65,
+        "yMm": 17.05,
+        "technology": "smd",
+        "widthMm": 1.1,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "comparator-1",
+        "reference": "U1",
+        "pin": "VDD",
+        "number": "2",
+        "netId": "VBAT",
+        "xMm": 43.65,
+        "yMm": 18,
+        "technology": "smd",
+        "widthMm": 1.1,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "comparator-1",
+        "reference": "U1",
+        "pin": "GND2",
+        "number": "3",
+        "netId": "GND",
+        "xMm": 43.65,
+        "yMm": 18.95,
+        "technology": "smd",
+        "widthMm": 1.1,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "comparator-1",
+        "reference": "U1",
+        "pin": "SENSE",
+        "number": "4",
+        "netId": "SENSE",
+        "xMm": 46.35,
+        "yMm": 18.95,
+        "technology": "smd",
+        "widthMm": 1.1,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "comparator-1",
+        "reference": "U1",
+        "pin": "GND3",
+        "number": "5",
+        "netId": "GND",
+        "xMm": 46.35,
+        "yMm": 18,
+        "technology": "smd",
+        "widthMm": 1.1,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "comparator-1",
+        "reference": "U1",
+        "pin": "OUT",
+        "number": "6",
+        "netId": "ALARM_N",
+        "xMm": 46.35,
+        "yMm": 17.05,
+        "technology": "smd",
+        "widthMm": 1.1,
+        "heightMm": 0.6
+      },
+      {
+        "instanceId": "series-1",
+        "reference": "R3",
+        "pin": "1",
+        "number": "1",
+        "netId": "VBAT",
+        "xMm": 14,
+        "yMm": 32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "series-1",
+        "reference": "R3",
+        "pin": "2",
+        "number": "2",
+        "netId": "LED_A",
+        "xMm": 24,
+        "yMm": 32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "netId": "LED_A",
+        "xMm": 34,
+        "yMm": 32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "netId": "ALARM_N",
+        "xMm": 36.54,
+        "yMm": 32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VBAT",
+        "xMm": 50,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.7,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 55,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.7,
+        "drillMm": 0.8
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VBAT",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            5,
+            5
+          ],
+          [
+            14,
+            10
+          ]
+        ]
+      },
+      {
+        "netId": "VBAT",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            5,
+            5
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            36
+          ],
+          [
+            14,
+            36
+          ],
+          [
+            14,
+            32
+          ]
+        ]
+      },
+      {
+        "netId": "VBAT",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            48,
+            3
+          ],
+          [
+            48,
+            8
+          ],
+          [
+            50,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "VBAT",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            43.65,
+            18
+          ],
+          [
+            37.5,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "SENSE",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            24,
+            10
+          ],
+          [
+            14,
+            21
+          ]
+        ]
+      },
+      {
+        "netId": "LED_A",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            24,
+            32
+          ],
+          [
+            34,
+            32
+          ]
+        ]
+      },
+      {
+        "netId": "ALARM_N",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            46.35,
+            17.05
+          ],
+          [
+            48,
+            17.05
+          ]
+        ]
+      },
+      {
+        "netId": "ALARM_N",
+        "layer": "B.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            48,
+            17.05
+          ],
+          [
+            50,
+            17.05
+          ],
+          [
+            50,
+            34
+          ],
+          [
+            36.54,
+            34
+          ],
+          [
+            36.54,
+            32
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            5,
+            7.54
+          ],
+          [
+            4,
+            9
+          ],
+          [
+            4,
+            24
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            24,
+            21
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            43.65,
+            17.05
+          ],
+          [
+            41.5,
+            17.05
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            43.65,
+            18.95
+          ],
+          [
+            42,
+            18.95
+          ],
+          [
+            42,
+            20
+          ],
+          [
+            41.5,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            41.5,
+            20
+          ],
+          [
+            32.5,
+            20
+          ],
+          [
+            32.5,
+            39
+          ],
+          [
+            5,
+            39
+          ],
+          [
+            5,
+            7.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            46.35,
+            18
+          ],
+          [
+            56,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            56,
+            18
+          ],
+          [
+            56,
+            40
+          ],
+          [
+            5,
+            40
+          ],
+          [
+            5,
+            7.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            55,
+            8
+          ],
+          [
+            58,
+            8
+          ],
+          [
+            58,
+            40
+          ],
+          [
+            5,
+            40
+          ],
+          [
+            5,
+            7.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            41.5,
+            17.05
+          ],
+          [
+            41.5,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "VBAT",
+        "layer": "B.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            37.5,
+            18
+          ],
+          [
+            14,
+            10
+          ]
+        ]
+      },
+      {
+        "netId": "SENSE",
+        "layer": "F.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            46.35,
+            18.95
+          ],
+          [
+            53,
+            18.95
+          ]
+        ]
+      },
+      {
+        "netId": "SENSE",
+        "layer": "B.Cu",
+        "widthMm": 0.25,
+        "pointsMm": [
+          [
+            53,
+            18.95
+          ],
+          [
+            53,
+            12
+          ],
+          [
+            24,
+            12
+          ],
+          [
+            24,
+            10
+          ]
+        ]
+      }
+    ],
+    "vias": [
+      {
+        "id": "via-out",
+        "netId": "ALARM_N",
+        "xMm": 48,
+        "yMm": 17.05,
+        "diameterMm": 0.8,
+        "drillMm": 0.4
+      },
+      {
+        "id": "via-gnd1",
+        "netId": "GND",
+        "xMm": 41.5,
+        "yMm": 17.05,
+        "diameterMm": 0.8,
+        "drillMm": 0.4
+      },
+      {
+        "id": "via-gnd2",
+        "netId": "GND",
+        "xMm": 41.5,
+        "yMm": 20,
+        "diameterMm": 0.8,
+        "drillMm": 0.4
+      },
+      {
+        "id": "via-gnd3",
+        "netId": "GND",
+        "xMm": 56,
+        "yMm": 18,
+        "diameterMm": 0.8,
+        "drillMm": 0.4
+      },
+      {
+        "id": "via-vdd",
+        "netId": "VBAT",
+        "xMm": 37.5,
+        "yMm": 18,
+        "diameterMm": 0.8,
+        "drillMm": 0.4
+      },
+      {
+        "id": "via-sense",
+        "netId": "SENSE",
+        "xMm": 53,
+        "yMm": 18.95,
+        "diameterMm": 0.8,
+        "drillMm": 0.4
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol only; physical circuit return is J1 pin 2 and the routed GND net."
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "VBAT",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J180K",
+        "package": "CFR25 axial, 180 kΩ, 5%, 0.33 W",
+        "sourceUrl": "https://www.te.com/en/product-2-1623930-5.html"
+      },
+      {
+        "reference": "R2",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J10K0",
+        "package": "CFR25 axial, 10 kΩ, 5%, 0.33 W",
+        "sourceUrl": "https://www.te.com/en/product-1623930-6.html"
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "TPS3710DDCR",
+        "package": "DDC0006A SOT-23-6; datasheet pin map 1 GND, 2 VDD, 3 GND, 4 SENSE, 5 GND, 6 OUT",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/tps3710.pdf",
+        "pinMapping": {
+          "1": "GND1",
+          "2": "VDD",
+          "3": "GND2",
+          "4": "SENSE",
+          "5": "GND3",
+          "6": "OUT"
+        },
+        "limitations": [
+          "The footprint follows TI DDC0006A package drawing and example land pattern. This does not constitute independent footprint review or fabrication qualification.",
+          "Use a SOT-23-6-to-through-hole adapter for BB400 prototyping; adapter is not in BOM."
+        ]
+      },
+      {
+        "reference": "R3",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR25J1K0",
+        "package": "CFR25 axial, 1 kΩ, 5%, 0.33 W",
+        "sourceUrl": "https://www.te.com/en/product-2-1623930-9.html"
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "TLHR5400",
+        "package": "5 mm red through-hole LED",
+        "sourceUrl": "https://www.vishay.com/docs/83012/tlhg540.pdf",
+        "pinMapping": {
+          "1": "Anode",
+          "2": "Cathode"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "KEMET",
+        "manufacturerPartNumber": "C315C104K5R5TA",
+        "package": "Radial leaded 0.1 µF, 50 V, X7R ceramic capacitor, 5 mm nominal pitch",
+        "sourceUrl": "https://search.kemet.com/component-documentation/download/specsheet/C315C104K5R5TA"
+      }
+    ],
+    "fabricationNotes": [
+      "The TPS3710 threshold estimate uses its fixed nominal 0.4 V reference and active-low open-drain output. TI datasheet input-supply range is 1.8–18 V; exact threshold tolerance and hysteresis are not represented in the simulator.",
+      "U1 uses TI DDC0006A package drawing and published example land pattern; confirm solder-mask, paste, assembly, and board-house rules before fabrication.",
+      "The through-hole resistor drill and lead-center dimensions and connector land details are educational layout selections; verify against the exact purchased parts and fabricator capabilities.",
+      "This educational design is not a production-qualified battery monitor. Check worst-case trip tolerance, leakage, low-battery energy budget, and transistor sink current for the actual use case."
+    ],
+    "manufacturingStatus": "educational-layout-not-production-qualified"
+  }
 }

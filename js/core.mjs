@@ -56,6 +56,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge/ideal-latching-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.comparator-ideal", category: "Active", type: "Ideal low-battery comparator model", prefix: "U", pins: ["VCC", "GND", "SENSE", "OUT"], defaultValue: "Vref 3.75 V", simulation: "analytical-battery-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.tps3710-ideal", category: "Active", type: "TI TPS3710 wide-input voltage detector (idealized threshold model)", prefix: "U", pins: ["GND1", "VDD", "GND2", "SENSE", "GND3", "OUT"], defaultValue: "TPS3710DDCR; Vref 0.4 V", simulation: "analytical-battery-monitor", status: "TI TPS3710DDCR identified; threshold model only", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "active.comparator-dual-ideal", category: "Active", type: "Ideal dual-input comparator with indicator", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal comparator", simulation: "analytical-comparator-threshold", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.schmitt-trigger-ideal", category: "Active", type: "Ideal Schmitt trigger with positive feedback", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal Schmitt trigger", simulation: "analytical-schmitt-trigger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-and-ideal", category: "Active", type: "Ideal two-input AND gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-window-comparator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -898,6 +899,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
 
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
+  const batteryMonitors = project.components.filter((item) => ["active.comparator-ideal", "active.tps3710-ideal"].includes(item.libraryId));
   const dualComparators = project.components.filter((item) => item.libraryId === "active.comparator-dual-ideal");
   const schmittTriggers = project.components.filter((item) => item.libraryId === "active.schmitt-trigger-ideal");
   const andGates = project.components.filter((item) => item.libraryId === "active.logic-and-ideal");
@@ -1477,8 +1479,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (acSource.length === 1 && transformers.length === 1 && bridges.length === 1 && regulators.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analyseLinearSupply(project, { source: acSource[0], transformer: transformers[0], bridge: bridges[0], capacitor: capacitor[0], regulator: regulators[0], load: resistor[0], ground: ground[0], validation });
   }
-  if (source.length === 1 && resistor.length === 3 && led.length === 1 && comparators.length === 1 && ground.length === 1 && project.components.length === 7) {
-    return analyseBatteryDischargeMonitor(project, { source: source[0], resistors: resistor, led: led[0], comparator: comparators[0], ground: ground[0], validation });
+  if (source.length === 1 && resistor.length === 3 && led.length === 1 && batteryMonitors.length === 1 && ground.length === 1 && capacitor.length === 1 && project.components.length === 8) {
+    return analyseBatteryDischargeMonitor(project, { source: source[0], resistors: resistor, led: led[0], comparator: batteryMonitors[0], capacitor: capacitor[0], ground: ground[0], validation });
   }
   if (source.length === 1 && resistor.length === 1 && led.length === 1 && pwmSources.length === 1 && mosfets.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analysePwmLedAverage(project, { source: source[0], resistor: resistor[0], led: led[0], pwmSource: pwmSources[0], mosfet: mosfets[0], ground: ground[0], validation });
@@ -1594,28 +1596,34 @@ function analysePwmLedAverage(project, { source, resistor, led, pwmSource, mosfe
   };
 }
 
-function analyseBatteryDischargeMonitor(project, { source, resistors, led, comparator, ground, validation }) {
+function analyseBatteryDischargeMonitor(project, { source, resistors, led, comparator, capacitor, ground, validation }) {
   const batteryVoltage = voltageValue(source.value);
   const ledVf = forwardVoltage(led.value);
   const tripVoltage = voltageValue(comparator.value);
+  const tps3710 = comparator.libraryId === "active.tps3710-ideal";
   if (![batteryVoltage, ledVf, tripVoltage].every(Number.isFinite) || batteryVoltage <= 0 || ledVf <= 0 || tripVoltage <= 0) {
     return { state: "blocked", message: "The battery monitor requires positive numeric battery, reference threshold, and LED forward voltages.", validation };
+  }
+  if (tps3710 && (batteryVoltage < 1.8 || batteryVoltage > 18 || tripVoltage !== 0.4)) {
+    return { state: "blocked", message: "TPS3710DDCR requires a 1.8–18 V supply; this model uses its fixed nominal 0.4 V threshold. Set the battery and Vref accordingly.", validation };
   }
   const netByEndpoint = new Map();
   for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
   const batteryNet = netByEndpoint.get(endpoint(source, "+"));
   const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
   const groundNet = netByEndpoint.get(endpoint(ground, "0"));
-  const comparatorSupply = netByEndpoint.get(endpoint(comparator, "VCC"));
-  const comparatorGround = netByEndpoint.get(endpoint(comparator, "GND"));
+  const comparatorSupply = netByEndpoint.get(endpoint(comparator, tps3710 ? "VDD" : "VCC"));
+  const comparatorGrounds = (tps3710 ? ["GND1", "GND2", "GND3"] : ["GND"]).map(pin => netByEndpoint.get(endpoint(comparator, pin)));
   const senseNet = netByEndpoint.get(endpoint(comparator, "SENSE"));
   const outputNet = netByEndpoint.get(endpoint(comparator, "OUT"));
   const ledAnode = netByEndpoint.get(endpoint(led, "A"));
   const ledCathode = netByEndpoint.get(endpoint(led, "K"));
   if (!batteryNet || batteryNet === groundNet || sourceNegative !== groundNet || comparatorSupply !== batteryNet
-    || comparatorGround !== groundNet || !senseNet || senseNet === batteryNet || senseNet === groundNet
-    || !outputNet || outputNet === groundNet || ledCathode !== groundNet) {
-    return { state: "blocked", message: "Wire the battery to comparator supply, divider and shared ground; connect the divider midpoint to SENSE and comparator OUT through the LED resistor and LED to ground.", validation };
+    || comparatorGrounds.some(net => net !== groundNet) || !senseNet || senseNet === batteryNet || senseNet === groundNet
+    || !outputNet || outputNet === groundNet || (tps3710 ? ledCathode !== outputNet : ledCathode !== groundNet)) {
+    return { state: "blocked", message: tps3710
+      ? "Wire battery positive to VDD and the divider; tie all three GND pins to battery return. Connect divider midpoint to SENSE and place the LED plus its resistor from battery positive to open-drain OUT (LED cathode at OUT)."
+      : "Wire the battery to comparator supply, divider and shared ground; connect the divider midpoint to SENSE and comparator OUT through the LED resistor and LED to ground.", validation };
   }
   const between = (part, netA, netB) => {
     const a = netByEndpoint.get(endpoint(part, "1"));
@@ -1624,9 +1632,12 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
   };
   const upperDivider = resistors.find(part => between(part, batteryNet, senseNet));
   const lowerDivider = resistors.find(part => part !== upperDivider && between(part, senseNet, groundNet));
-  const ledResistor = resistors.find(part => part !== upperDivider && part !== lowerDivider && between(part, outputNet, ledAnode));
+  const ledResistor = resistors.find(part => part !== upperDivider && part !== lowerDivider && between(part, tps3710 ? batteryNet : outputNet, ledAnode));
   if (!upperDivider || !lowerDivider || !ledResistor) {
     return { state: "blocked", message: "The monitor needs a battery-to-sense upper resistor, a sense-to-ground lower resistor, and a separate comparator-output LED resistor.", validation };
+  }
+  if (tps3710 && !between(capacitor, batteryNet, groundNet)) {
+    return { state: "blocked", message: "Connect the 0.1 µF decoupling capacitor directly between TPS3710 VDD and shared ground, close to the device.", validation };
   }
   const upperResistance = resistanceValue(upperDivider.value);
   const lowerResistance = resistanceValue(lowerDivider.value);
@@ -1639,8 +1650,8 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
   const senseVoltage = batteryVoltage * lowerResistance / dividerResistance;
   const tripBatteryVoltage = tripVoltage * dividerResistance / lowerResistance;
   const lowBattery = senseVoltage < tripVoltage;
-  const comparatorOutputVoltage = lowBattery ? batteryVoltage : 0;
-  const ledCurrentA = lowBattery ? Math.max(0, (comparatorOutputVoltage - ledVf) / ledResistance) : 0;
+  const comparatorOutputVoltage = tps3710 ? (lowBattery ? 0 : null) : (lowBattery ? batteryVoltage : 0);
+  const ledCurrentA = lowBattery ? Math.max(0, (batteryVoltage - ledVf) / ledResistance) : 0;
   const dividerPowerW = dividerCurrentA ** 2 * dividerResistance;
   const ledResistorPowerW = ledCurrentA ** 2 * ledResistance;
   const ledPowerW = ledCurrentA * ledVf;
@@ -1652,9 +1663,11 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
   }
   return {
     state: "complete",
-    engine: "Analytical ideal low-battery comparator and divider",
-    message: "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
-    result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
+    engine: tps3710 ? "TPS3710 threshold and open-drain analytical estimate" : "Analytical ideal low-battery comparator and divider",
+    message: tps3710
+      ? "Estimated the TPS3710DDCR 0.4 V nominal sense threshold, divider trip point, and active-low open-drain LED alarm. TI specifies an internal hysteresis, but its tolerance and temperature behavior, dynamic response, output sink limits, battery characteristics, component tolerances, and SPICE behavior are not simulated. Verify the external resistor's minimum operating resistance against TI's sink-current characterization before production."
+      : "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
+    result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, outputMode: tps3710 ? (lowBattery ? "open-drain sinking" : "open-drain high impedance") : "ideal push-pull", ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
     validation
   };
 }
