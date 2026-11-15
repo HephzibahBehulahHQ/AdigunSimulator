@@ -27,7 +27,7 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
       continue;
     }
     packages.set(pkg.instanceId, pkg);
-    const allowedKinds = ["to220", "axial-diode", "axial-led", "bridge-rectifier", "radial-inductor", "radial-capacitor", "radial-ptc", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
+    const allowedKinds = ["to220", "axial-diode", "axial-led", "slide-switch", "bridge-rectifier", "radial-inductor", "radial-capacitor", "radial-ptc", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
     const externalSupply = pkg.kind === "external-supply";
     const offBoard = externalSupply || pkg.kind === "external-axial-resistor" || pkg.kind === "external-pushbutton";
     if (!allowedKinds.includes(pkg.kind) || (!externalSupply && (!positive(pkg.bodyMm?.width) || !positive(pkg.bodyMm?.height))) || !Array.isArray(pkg.positionPx) || pkg.positionPx.length !== 2 || !pkg.positionPx.every(Number.isFinite)) {
@@ -86,6 +86,7 @@ function packageBody(pkg, scaleX, scaleY) {
   if (pkg.kind === "external-supply") return `<text class="breadboard-external-supply-label" x="0" y="9">off-board supply leads</text>`;
   const width = pkg.bodyMm.width * scaleX, height = pkg.bodyMm.height * scaleY;
   if (pkg.kind === "external-pushbutton") return `<rect class="breadboard-pushbutton-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width,height) * .2}"/><circle class="breadboard-pushbutton-cap" cx="0" cy="0" r="${Math.min(width,height) * .28}"/>`;
+  if (pkg.kind === "slide-switch") return `<rect class="breadboard-switch-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width,height) * .16}"/><path class="breadboard-switch-track" d="M${-width * .2} 0 H${width * .2}"/><rect class="breadboard-switch-cap" x="${-width * .04}" y="${-height * .24}" width="${width * .18}" height="${height * .48}" rx="2"/>`;
   if (pkg.kind === "axial-led") return `<ellipse class="breadboard-led-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/><path class="breadboard-led-cathode" d="M${width * .28} ${-height / 2} V${height / 2}"/>`;
   if (pkg.kind === "radial-capacitor") return `<ellipse class="capacitor-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/><path class="capacitor-top" d="M${-width * .32} 0 H${width * .32}"/>`;
   if (pkg.kind === "radial-ptc") return `<rect class="breadboard-ptc-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width,height) * .28}"/><path class="breadboard-ptc-seam" d="M${-width * .26} ${-height * .34} H${width * .26}"/>`;

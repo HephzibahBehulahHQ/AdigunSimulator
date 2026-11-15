@@ -5,7 +5,7 @@
     "name": "5 V Latching SPDT LED Switch",
     "locale": "en",
     "createdAt": "2026-10-31T00:00:00.000Z",
-    "updatedAt": "2026-10-31T00:00:00.000Z"
+    "updatedAt": "2026-11-15T00:00:00.000Z"
   },
   "components": [
     {
@@ -141,5 +141,561 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 52,
+      "heightMm": 34,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "switch-1",
+        "reference": "SW1",
+        "footprint": "ESwitch_EG1218_SPDT_3Pin_P2.50mm",
+        "technology": "through-hole",
+        "manufacturer": "E-Switch",
+        "manufacturerPartNumber": "EG1218",
+        "sourceUrl": "https://configured-product-images.s3.amazonaws.com/2D/specs/EG1218.pdf"
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "footprint": "Vishay_MRS25000C3300FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "footprint": "LiteOn_LTL-307E-002A_T1-3-4_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "VCC",
+        "xMm": 4,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 7.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "switch-1",
+        "reference": "SW1",
+        "pin": "A",
+        "number": "1",
+        "bridgeEndpoint": "switch-1:A",
+        "netId": "VCC",
+        "xMm": 16,
+        "yMm": 13,
+        "technology": "through-hole",
+        "diameterMm": 1.6,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "switch-1",
+        "reference": "SW1",
+        "pin": "COM",
+        "number": "2",
+        "bridgeEndpoint": "switch-1:COM",
+        "netId": "SW_OUT",
+        "xMm": 18.5,
+        "yMm": 13,
+        "technology": "through-hole",
+        "diameterMm": 1.6,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "switch-1",
+        "reference": "SW1",
+        "pin": "B",
+        "number": "3",
+        "bridgeEndpoint": "switch-1:B",
+        "netId": "GND",
+        "xMm": 21,
+        "yMm": 13,
+        "technology": "through-hole",
+        "diameterMm": 1.6,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "SW_OUT",
+        "xMm": 32,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "LED_A",
+        "xMm": 42,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "netId": "LED_A",
+        "xMm": 46,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 46,
+        "yMm": 10.54,
+        "technology": "through-hole",
+        "diameterMm": 2,
+        "drillMm": 0.9
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            5
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            9,
+            13
+          ],
+          [
+            16,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "SW_OUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            18.5,
+            13
+          ],
+          [
+            18.5,
+            5
+          ],
+          [
+            32,
+            5
+          ],
+          [
+            32,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "LED_A",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            42,
+            8
+          ],
+          [
+            46,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            7.54
+          ],
+          [
+            4,
+            30
+          ],
+          [
+            23,
+            30
+          ],
+          [
+            23,
+            13
+          ],
+          [
+            21,
+            13
+          ],
+          [
+            23,
+            13
+          ],
+          [
+            27,
+            13
+          ],
+          [
+            27,
+            27
+          ],
+          [
+            48,
+            27
+          ],
+          [
+            48,
+            10.54
+          ],
+          [
+            46,
+            10.54
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        },
+        "limitations": [
+          "Confirm drill and annular-ring rules with the fabricator."
+        ]
+      },
+      {
+        "reference": "SW1",
+        "manufacturer": "E-Switch",
+        "manufacturerPartNumber": "EG1218",
+        "package": "SPDT on-on slide switch, 11.6 x 5.4 mm body, three 2.50 mm pitch PC pins",
+        "sourceUrl": "https://configured-product-images.s3.amazonaws.com/2D/specs/EG1218.pdf",
+        "pinMapping": {
+          "1": "A / VCC",
+          "2": "COM / SW_OUT",
+          "3": "B / GND"
+        },
+        "limitations": [
+          "The manufacturer shows the recommended 0.90 mm PCB drill. Confirm copper annular ring and component clearance against the chosen fabricator. The switch is non-shorting; the ideal model does not simulate contact motion."
+        ]
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "package": "MRS25 axial, 330 ohm, 1%, 0.6 W",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "limitations": [
+          "10 mm lead centers are a layout choice; confirm fit and fabrication drill rules."
+        ]
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "package": "5 mm red through-hole LED, 2.54 mm lead pitch",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "pinMapping": {
+          "1": "A",
+          "2": "K"
+        },
+        "limitations": [
+          "Confirm LED polarity and lead diameter against the purchased part."
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; physical returns are connected through J1 pin 2, switch terminal B, LED cathode, and routed GND copper."
+      }
+    ],
+    "fabricationNotes": [
+      "Feed the board from a regulated, current-limited 5 V supply at J1: pin 1 VCC and pin 2 GND.",
+      "EG1218 terminal 2 is common; position A connects common to terminal 1 and position B connects common to terminal 3. This matches the project nets: A=VCC, COM=SW_OUT, B=GND.",
+      "When selected to A the LED path is limited by R1. Position B connects SW_OUT to ground and turns the LED off.",
+      "52 mm x 34 mm single-sided educational board. Copper DRC and fabrication exports do not replace independent manufacturing review."
+    ]
+  },
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "switch-1:A": "A10",
+      "switch-1:B": "A12",
+      "switch-1:COM": "A11",
+      "resistor-1:1": "D11",
+      "resistor-1:2": "D15",
+      "led-1:A": "F15",
+      "led-1:K": "F16"
+    },
+    "jumpers": [
+      {
+        "from": "TP2",
+        "to": "A10"
+      },
+      {
+        "from": "A12",
+        "to": "BM12"
+      },
+      {
+        "from": "D15",
+        "to": "F15"
+      },
+      {
+        "from": "F16",
+        "to": "BM16"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol only; the physical return is the J1 negative lead, switch B contact, LED cathode and BB400 ground rail."
+      }
+    ],
+    "physicalNotes": [
+      "Use a current-limited regulated 5 V source. Switch A receives VCC, COM drives the 330 ohm LED path, and B is tied to GND.",
+      "The EG1218 terminals have 2.50 mm pitch; the switch sits across BB400 A10-A12 (2.54 mm hole pitch). The small lead compliance accommodates the 0.04 mm per-pitch difference.",
+      "R1 spans D11-D15; its output crosses the center trench with a jumper to LED anode F15. LED cathode F16 returns to the blue ground rail.",
+      "Verify switch position, LED polarity, supply polarity, and all connections before energizing."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "source-1",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            283
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "switch-1",
+          "reference": "SW1",
+          "kind": "slide-switch",
+          "manufacturer": "E-Switch",
+          "manufacturerPartNumber": "EG1218",
+          "sourceUrl": "https://configured-product-images.s3.amazonaws.com/2D/specs/EG1218.pdf",
+          "bodyMm": {
+            "width": 11.6,
+            "height": 5.4
+          },
+          "positionPx": [
+            251.24137931034483,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "A10",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "COM",
+              "hole": "A11",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                0,
+                0
+              ]
+            },
+            {
+              "pin": "B",
+              "hole": "A12",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "resistor-1",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3300FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            290.68965517241384,
+            125
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "D11",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "D15",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led-1",
+          "reference": "D1",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            340,
+            165
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "F15",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "F16",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }
