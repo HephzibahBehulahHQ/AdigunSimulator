@@ -197,7 +197,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "a34d2a6ce55b708bedb7daf01e150b85cb7cedb9dbc89cea638dfb1ece7f10f8",
+      "sha256": "50287dbaa22eab1b8de4d92ae989ce3f441b7c851ecfc4b850f6d72a8563c5ec",
       "components": 5,
       "analysis": "complete",
       "engine": "Linear DC resistive nodal analysis",
@@ -205,12 +205,7 @@
       "pcbParts": 4,
       "pcbPads": 8,
       "pcbRoutes": 5,
-      "unmapped": [
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "unmapped": []
     },
     {
       "file": "005-pwm-led-dimmer.adigun.json",
