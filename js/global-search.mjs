@@ -21,3 +21,8 @@ export function matchGlobalExample(entries, query) {
   const number = Number(match[1]);
   return entries.find(entry => Number(String(entry?.file ?? "").match(/^(\d+)-/)?.[1]) === number) ?? null;
 }
+
+export function globalExampleSuggestion(entry) {
+  const id = String(entry?.file ?? "").match(/^(\d+)-/)?.[1];
+  return id && entry?.title ? id + " — " + entry.title : "";
+}
