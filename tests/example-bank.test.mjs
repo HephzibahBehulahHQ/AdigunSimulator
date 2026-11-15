@@ -50,6 +50,8 @@ test('5 V Parallel Resistor Load exports its exact external supply, resistor pad
  const entry=index.entries.find(item=>item.file==='004-parallel-resistor-load.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/004-parallel-resistor-load.adigun.json',import.meta.url),'utf8'));
  assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,4);assert.equal(entry.pcbPads,8);
+ assert.deepEqual(entry.unmapped,[]);assert.deepEqual(pcbCoverage(project).missing,[]);
+ assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);
  assert.equal(validatePcbFabrication(project).status,'passed');
  assert.equal(runProjectAnalysis(project).result.kind,'resistive-network');
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="resistor-branch-1"/);

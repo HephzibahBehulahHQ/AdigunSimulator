@@ -436,6 +436,13 @@
       "V1 is an external 5 V bench supply connected through J1; GND is the shared return, not an extra physical component.",
       "R1, R2 and R3 are three instances of the cited 1 kΩ resistor. The board keeps each native project net and endpoint.",
       "The PCB is a stored educational layout. Independently review drill sizes, lead spacing, clearances, copper, polarity and fabrication rules before manufacture."
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; the common return is implemented by PCB ground pads and routed copper."
+      }
     ]
   }
 }
