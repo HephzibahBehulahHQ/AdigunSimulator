@@ -73,7 +73,7 @@ export function analyticalDcScopeRecording(project,analysis){
   const redI=resistorResult(redR.reference).currentA,greenI=resistorResult(greenR.reference).currentA,redResistance=parseResistance(redR.value),greenResistance=parseResistance(greenR.value);
   if(![redI,greenI,redResistance,greenResistance].every(Number.isFinite))return null;
   const nodes={[vcc]:r.sourceVoltage,[gnd]:0,[redA]:r.sourceVoltage-redI*redResistance,[greenK]:r.sourceVoltage+(r.polarity==="negative"?greenI*greenResistance:0)};
-  return {kind:"analytical-dc-output",model:"Anti-parallel LED analytical DC operating point",preferredNet:redA,nodes};
+  return {kind:"analytical-dc-output",model:"Anti-parallel LED analytical DC operating point",preferredNet:r.polarity==="negative"?greenK:redA,nodes};
  }
  if(r?.kind==="pushbutton-led"){
   const sw=byType("input.pushbutton")[0],led=byType("diode.led-red")[0],resistors=byType("passive.resistor");
