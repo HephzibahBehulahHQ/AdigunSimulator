@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 54881)
-Total output lines: 7945
-
 {
   "schemaVersion": 1,
   "summary": {
@@ -2989,7 +2986,2147 @@ Total output lines: 7945
           "reference": "R1",
           "libraryId": "passive.resistor"
         },
-  …14881 tokens truncated…mplete",
+        {
+          "reference": "D1",
+          "libraryId": "diode.led-red"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "063-arduino-pwm-dimmer.adigun.json",
+      "title": "Uno-Class Potentiometer PWM LED Dimmer",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "8082aa143f3971fcae011c349dda4263eaa3d043a3c729a9d474c2f0c408e506",
+      "components": 7,
+      "analysis": "complete",
+      "engine": "Ideal Uno-class ADC-to-PWM MOSFET dimmer",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.mcu-uno-ideal"
+        },
+        {
+          "reference": "RV1",
+          "libraryId": "input.potentiometer-adc-ideal"
+        },
+        {
+          "reference": "Q1",
+          "libraryId": "active.nmos-switch"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "D1",
+          "libraryId": "diode.led-red"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "064-arduino-temperature-monitor.adigun.json",
+      "title": "Uno-Class Linear Temperature Monitor and LCD Result",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "f765e558e6adcff381723e1b4474f36cd594237efa5d3e9075f3bbda3d58d095",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal Uno-class linear temperature monitor",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.mcu-uno-ideal"
+        },
+        {
+          "reference": "TS1",
+          "libraryId": "sensor.temperature-analog-ideal"
+        },
+        {
+          "reference": "LCD1",
+          "libraryId": "output.lcd-text-sink-ideal"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "065-arduino-ultrasonic-ranger.adigun.json",
+      "title": "Uno-Class Ultrasonic Ranger and OLED Result",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "4ca5b3c615d7ab19651bf7d1e24245056adb2ed1073c01e9469668a47fb50825",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal Uno-class ultrasonic time-of-flight estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.mcu-uno-ideal"
+        },
+        {
+          "reference": "US1",
+          "libraryId": "sensor.ultrasonic-echo-ideal"
+        },
+        {
+          "reference": "OLED1",
+          "libraryId": "output.oled-text-sink-ideal"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "066-arduino-servo-control.adigun.json",
+      "title": "Uno-Class Potentiometer Servo Sweep",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "842584668d8bf5109f3e37d1ca82d35c2bc1b5028df7fd6e47910bd1686f5c99",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal Uno-class hobby-servo pulse mapping",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.mcu-uno-ideal"
+        },
+        {
+          "reference": "RV1",
+          "libraryId": "input.potentiometer-adc-ideal"
+        },
+        {
+          "reference": "SERVO1",
+          "libraryId": "output.servo-angle-ideal"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "067-arduino-stepper-driver.adigun.json",
+      "title": "Uno-Class Bipolar Stepper Driver Motion Model",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "135de5ff2bb2029f3ce810023bfe08ea05b39b9d8a8d2c7ae53448633f6c5906",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal Uno-class bipolar stepper sequence and position model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.mcu-uno-ideal"
+        },
+        {
+          "reference": "U2",
+          "libraryId": "active.stepper-driver-ideal"
+        },
+        {
+          "reference": "M1",
+          "libraryId": "output.stepper-motor-ideal"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "068-esp32-telemetry-mock.adigun.json",
+      "title": "ESP32 Offline Temperature Telemetry Payload",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "225381b1646e386a500d54e65f2fe648fb2692971257f6163cfe8ed6d156384e",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal ESP32-class offline telemetry formatter",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.esp32-telemetry-ideal"
+        },
+        {
+          "reference": "TS1",
+          "libraryId": "sensor.temperature-analog-ideal"
+        },
+        {
+          "reference": "OUT1",
+          "libraryId": "output.telemetry-payload-sink"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "069-pico-adc-voltmeter.adigun.json",
+      "title": "Pico ADC Divider Voltmeter with OLED",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "8ef9023af3c0633348267312158faab88bcec037c72030c210cb306992c3c7c7",
+      "components": 7,
+      "analysis": "complete",
+      "engine": "Ideal Pico 12-bit ADC divider voltmeter",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "VIN",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "VLOGIC",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.rp2040-pico-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "OLED1",
+          "libraryId": "output.oled-text-sink-ideal"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "070-stm32-timer-pwm.adigun.json",
+      "title": "STM32 Timer PWM LED Load",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "1666435acd2e7fbe457ea3d31f833a87ff760f624dd441123572d1da7fe1a063",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal STM32 timer PWM/load estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.stm32-timer-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "D1",
+          "libraryId": "diode.led-red"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "071-pic-adc-bargraph.adigun.json",
+      "title": "PIC-Class ADC LED Bargraph",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "670185cb9eafd1057075ad1a03b0737d6c49a03f4d23871a86aa663e1ec8fa19",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal PIC-class 10-bit ADC bargraph model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "RV1",
+          "libraryId": "input.potentiometer-adc-ideal"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.pic-adc-bargraph-ideal"
+        },
+        {
+          "reference": "LED1",
+          "libraryId": "output.led-bargraph-10seg-ideal"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "072-avr-ir-receiver.adigun.json",
+      "title": "AVR NEC-Like IR Receiver",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "22d416631a5e3d71c1d1544d2687c853108e1c76bf24c022fc95efdbf1d15014",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Ideal AVR NEC-like infrared frame decoder",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.ir-nec-frame"
+        },
+        {
+          "reference": "IR1",
+          "libraryId": "sensor.ir-receiver-ideal"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.avr-ir-decoder-ideal"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.ir-code-display-ideal"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "073-mcu-watchdog.adigun.json",
+      "title": "Microcontroller Watchdog Stall Recovery",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "de95ac707e6ef46249ae491dc8be27b3ce7e0ca642c1752057f55115b23ab3cf",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal MCU watchdog service-sequence model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.watchdog-service-sequence"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.mcu-watchdog-ideal"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.watchdog-status-display"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "074-can-node-pair.adigun.json",
+      "title": "CAN Node Pair with ACK",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "10f759da40e5994c0ba2c0ac8194349fad78f08c6994ca1253a224155f5009cd",
+      "components": 10,
+      "analysis": "complete",
+      "engine": "Ideal two-node CAN frame and ACK model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.can-frame-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.can-node-ideal"
+        },
+        {
+          "reference": "XCVR1",
+          "libraryId": "active.can-transceiver-ideal"
+        },
+        {
+          "reference": "U2",
+          "libraryId": "active.can-node-ideal"
+        },
+        {
+          "reference": "XCVR2",
+          "libraryId": "active.can-transceiver-ideal"
+        },
+        {
+          "reference": "RT1",
+          "libraryId": "passive.can-termination"
+        },
+        {
+          "reference": "RT2",
+          "libraryId": "passive.can-termination"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.can-frame-display"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "075-rs485-sensor-network.adigun.json",
+      "title": "Addressed RS-485 Temperature Sensor Network",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "642e30bc65c13f6fac7a9db7a7bc89d0376722a27b0c64a2e4bfe098c97e197c",
+      "components": 14,
+      "analysis": "complete",
+      "engine": "Ideal addressed half-duplex RS-485 polling model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "POLL1",
+          "libraryId": "input.rs485-poll-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.rs485-master-ideal"
+        },
+        {
+          "reference": "XCVR1",
+          "libraryId": "active.rs485-transceiver-ideal"
+        },
+        {
+          "reference": "U2",
+          "libraryId": "active.rs485-sensor-node-ideal"
+        },
+        {
+          "reference": "XCVR2",
+          "libraryId": "active.rs485-transceiver-ideal"
+        },
+        {
+          "reference": "S1",
+          "libraryId": "sensor.rs485-temperature-ideal"
+        },
+        {
+          "reference": "U3",
+          "libraryId": "active.rs485-sensor-node-ideal"
+        },
+        {
+          "reference": "XCVR3",
+          "libraryId": "active.rs485-transceiver-ideal"
+        },
+        {
+          "reference": "S2",
+          "libraryId": "sensor.rs485-temperature-ideal"
+        },
+        {
+          "reference": "RT1",
+          "libraryId": "passive.rs485-termination"
+        },
+        {
+          "reference": "RT2",
+          "libraryId": "passive.rs485-termination"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.rs485-poll-display"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "076-gps-nmea-display.adigun.json",
+      "title": "GPS NMEA RMC Coordinate Display",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "1671e9542eff7a78fa720b711006329fb08ec5e6ebc80e5df50519208fd32345",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal NMEA RMC sentence parser model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "GPS1",
+          "libraryId": "sensor.gnss-nmea-ideal"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.gnss-nmea-parser-ideal"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.gnss-position-display"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "077-rfid-access-reader.adigun.json",
+      "title": "RFID UID Allowlist Lock Demonstration",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "b330440db89dc9e33b9956f8d2b532d603df6c7aa356ea76cdc26dfc4f85c8d4",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Ideal RFID UID allowlist behavior model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "TAG1",
+          "libraryId": "input.rfid-uid-fixture"
+        },
+        {
+          "reference": "RFID1",
+          "libraryId": "active.rfid-uid-reader-ideal"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.rfid-access-controller-ideal"
+        },
+        {
+          "reference": "LOCK1",
+          "libraryId": "output.lock-state-indicator-ideal"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "078-nfc-uid-display.adigun.json",
+      "title": "NFC UID Safe Display",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "fd4b35296fe59b1c887b1ac52885cb035dd03af4b90574188b487d59f2c79a3f",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Ideal NFC UID read-and-display model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "TAG1",
+          "libraryId": "sensor.nfc-tag-ideal"
+        },
+        {
+          "reference": "NFC1",
+          "libraryId": "active.nfc-reader-ideal"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.nfc-display-controller-ideal"
+        },
+        {
+          "reference": "OLED1",
+          "libraryId": "output.nfc-uid-display"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "079-eeprom-data-logger.adigun.json",
+      "title": "EEPROM Circular Data Logger",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "28560252d99c20e7b04cd05edca13baa5bd4c25020b3decb8eefde1c943d1db4",
+      "components": 8,
+      "analysis": "complete",
+      "engine": "Ideal EEPROM circular sample-buffer model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.data-log-samples"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.data-logger-controller-ideal"
+        },
+        {
+          "reference": "MEM1",
+          "libraryId": "active.eeprom-ring-buffer-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.data-log-display"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "080-low-power-sleep-wake.adigun.json",
+      "title": "Low-Power Sleep and Interrupt Wake",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Microcontrollers and embedded systems",
+      "sha256": "a8ee09a6eac32482f3dd33c13988e9fb4a68f9fbe4b4943c74cc63e053f3ff8f",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Ideal MCU sleep/wake duty and LED load estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.interrupt-edge-sequence-ideal"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.low-power-mcu-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "D1",
+          "libraryId": "diode.led-red"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "081-ble-beacon-configuration.adigun.json",
+      "title": "BLE Beacon Advertising Data Configuration",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Communications",
+      "sha256": "88f4c4b2ac89fb8e263cac6af3a7d2a759c8e93950797fd009ab72c8702bfbc7",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Ideal Bluetooth LE legacy advertising data encoder",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "CFG1",
+          "libraryId": "input.ble-advertising-settings"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.ble-advertising-encoder-ideal"
+        },
+        {
+          "reference": "BLE1",
+          "libraryId": "active.ble-advertiser-ideal"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.ble-advertising-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "082-lora-sensor-node.adigun.json",
+      "title": "LoRa Temperature Sensor Node",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Communications",
+      "sha256": "4a15799d353d30c0aee14cc8b218b84d008a2f0b9985cee4432b0948b9843eb1",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Ideal LoRa sensor payload and configured duty-window guard",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.lora-temperature-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.lora-node-controller-ideal"
+        },
+        {
+          "reference": "LORA1",
+          "libraryId": "active.lora-radio-payload-ideal"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.lora-duty-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "083-gsm-alarm-notifier.adigun.json",
+      "title": "GSM Alarm Notifier Mock",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Communications",
+      "sha256": "a0d63e2a2b2020d192b1ab417005aab5cc32473a96c6e4173d94fdf7a7fdbdf1",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Mock GSM AT-command alarm transaction",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.gsm-alarm-event"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.gsm-alarm-controller-ideal"
+        },
+        {
+          "reference": "MODEM1",
+          "libraryId": "active.gsm-modem-at-mock"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.gsm-sms-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "084-wifi-relay-controller.adigun.json",
+      "title": "Wi-Fi Relay Controller Mock",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Communications",
+      "sha256": "4fde5373209105e705c32ec443a063fd5ee3b002601af81c3c8e3900c08de530",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Local Wi-Fi relay command and ideal driver-state model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "CMD1",
+          "libraryId": "input.wifi-relay-command"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.wifi-relay-controller-ideal"
+        },
+        {
+          "reference": "WIFI1",
+          "libraryId": "active.wifi-module-mock"
+        },
+        {
+          "reference": "Q1",
+          "libraryId": "active.wifi-relay-driver-ideal"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "085-ethernet-sensor-node.adigun.json",
+      "title": "Ethernet Sensor Node Frame Mock",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Communications",
+      "sha256": "55f2a7720c203076afc35bff2a290fccd42e403a3c1d2766a8c5d5d97ae19e8c",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Mock Ethernet-II header and sensor application payload",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.ethernet-sensor-config"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.ethernet-sensor-controller-ideal"
+        },
+        {
+          "reference": "PHY1",
+          "libraryId": "active.ethernet-phy-mock"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.ethernet-frame-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "086-ir-remote-actions.adigun.json",
+      "title": "NEC-Like IR Remote Action Decoder",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Communications",
+      "sha256": "5d2f9c03c78e63b05037e859eedc7b19c30cc0b128aaea5406e9bcce16a910a3",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Ideal NEC-like IR remote action dispatcher",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.ir-nec-frame"
+        },
+        {
+          "reference": "IR1",
+          "libraryId": "sensor.ir-receiver-ideal"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.ir-remote-action-decoder"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.ir-action-display"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "087-fm-front-end-response.adigun.json",
+      "title": "FM Radio Front-End Response Concept",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Communications",
+      "sha256": "4511403647b4a6d4430ff14bc70493061a3dcf9634880148edb60597a1af1007",
+      "components": 7,
+      "analysis": "complete",
+      "engine": "Small-signal ideal FM tuned response estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.fm-frequency-sweep"
+        },
+        {
+          "reference": "ANT1",
+          "libraryId": "passive.fm-antenna-ideal"
+        },
+        {
+          "reference": "LC1",
+          "libraryId": "passive.fm-tuning-network-ideal"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.fm-audio-gain-ideal"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.fm-response-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "088-rfid-inventory.adigun.json",
+      "title": "RFID Inventory and Slot Collision Fixture",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Communications",
+      "sha256": "830431e763cd5116e08b39ca28bc171fa986e6e7ad886f56f7deb652d3bab787",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Deterministic RFID UID-to-slot inventory fixture",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "TAGS1",
+          "libraryId": "input.rfid-inventory-fixture"
+        },
+        {
+          "reference": "RFID1",
+          "libraryId": "active.rfid-inventory-reader-ideal"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.rfid-inventory-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "089-i2c-level-shifter.adigun.json",
+      "title": "Bidirectional I²C Bus Level Shifter",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Communications",
+      "sha256": "03540c001af1d34e66bd92864f8e1ef9e2d1cfd168db7603d816f3aaecd4b5d4",
+      "components": 10,
+      "analysis": "complete",
+      "engine": "Ideal bidirectional open-drain I²C level-shifter model",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "V2",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "BUS1",
+          "libraryId": "input.i2c-level-shifter-transition-fixture"
+        },
+        {
+          "reference": "Q1",
+          "libraryId": "active.i2c-bidirectional-level-shifter-ideal"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.i2c-level-shifter-report"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R3",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R4",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "090-usb-uart-console.adigun.json",
+      "title": "USB-UART Console Known Byte Stream",
+      "type": "Digital",
+      "level": "Advanced",
+      "category": "Communications",
+      "sha256": "da0077f00982c7f10cefc52f396e77174e8deb84931e2efae515d161ddb0ede2",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Local USB-UART serial framing and console mock",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "HOST1",
+          "libraryId": "input.usb-uart-console-stream"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.usb-uart-bridge-mock"
+        },
+        {
+          "reference": "TERM1",
+          "libraryId": "output.serial-console-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "091-electret-microphone-meter.adigun.json",
+      "title": "Electret Microphone Audio Level Meter",
+      "type": "Analog",
+      "level": "Intermediate",
+      "category": "Audio and displays",
+      "sha256": "556dbe3df854f1e18499b184b84eef12c6796801e7ff209770cef05e227b148e",
+      "components": 7,
+      "analysis": "complete",
+      "engine": "Ideal electret envelope and calibrated LED meter estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "MIC1",
+          "libraryId": "sensor.electret-mic-generic"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.electret-envelope-preamp-ideal"
+        },
+        {
+          "reference": "BR1",
+          "libraryId": "active.audio-envelope-rectifier-ideal"
+        },
+        {
+          "reference": "LED1",
+          "libraryId": "output.audio-level-ledbar-ideal"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "092-audio-tone-generator.adigun.json",
+      "title": "1 kHz Audio Tone and Spectrum Check",
+      "type": "Analog",
+      "level": "Intermediate",
+      "category": "Audio and displays",
+      "sha256": "007d8292732f0e52e07797be8844deb82bd9e6e5abc656c8d9a5f6b5c1329b43",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal sampled audio tone and DFT estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.audio-tone-settings"
+        },
+        {
+          "reference": "OSC1",
+          "libraryId": "active.audio-tone-generator-ideal"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.audio-spectrum-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "093-guitar-pedal-buffer.adigun.json",
+      "title": "Guitar Pickup High-Impedance Buffer",
+      "type": "Analog",
+      "level": "Intermediate",
+      "category": "Audio and displays",
+      "sha256": "e73f6ea98c690c1acf015156f1c142cfc6002edec4dd2e674af60df2baf3df45",
+      "components": 8,
+      "analysis": "complete",
+      "engine": "Ideal guitar pickup and JFET buffer AC estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "PICKUP1",
+          "libraryId": "input.guitar-pickup-frequency-sweep"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "C1",
+          "libraryId": "passive.capacitor"
+        },
+        {
+          "reference": "Q1",
+          "libraryId": "active.guitar-jfet-buffer-ideal"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.guitar-buffer-response"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "094-simple-audio-mixer.adigun.json",
+      "title": "Two-Source Weighted Audio Mixer",
+      "type": "Analog",
+      "level": "Intermediate",
+      "category": "Audio and displays",
+      "sha256": "74c5dbdd044735ee3cd1f0369485c5476a58318cae6ddf9a9eb9623d324d5563",
+      "components": 7,
+      "analysis": "complete",
+      "engine": "Two-source resistive weighted mixer and ideal unity buffer",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.audio-mixer-two-source"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.audio-summing-buffer-ideal"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.audio-mixer-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "095-pwm-audio-dac.adigun.json",
+      "title": "PWM Audio DAC RC Filter Concept",
+      "type": "Analog",
+      "level": "Intermediate",
+      "category": "Audio and displays",
+      "sha256": "184d366e54bd1973a1bfdd0132327264007df40d9f73c1af6bb6c95d0469992f",
+      "components": 8,
+      "analysis": "complete",
+      "engine": "Ideal PWM-to-RC average and steady-state ripple estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.pwm-dac-settings"
+        },
+        {
+          "reference": "PWM1",
+          "libraryId": "active.pwm-waveform-source-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "C1",
+          "libraryId": "passive.capacitor"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.pwm-dac-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "096-digital-volume-control.adigun.json",
+      "title": "Digital Potentiometer Volume Control",
+      "type": "Analog",
+      "level": "Intermediate",
+      "category": "Audio and displays",
+      "sha256": "18ef8045d9f457ea4b624a560e481a702267a8f35df844394754587fee6afe9d",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Loaded linear digital potentiometer audio attenuation estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SIG1",
+          "libraryId": "input.digital-volume-audio-source"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.digital-pot-volume-control-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.audio-volume-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "097-rgb-led-controller.adigun.json",
+      "title": "RGB LED PWM Colour Controller",
+      "type": "Analog",
+      "level": "Intermediate",
+      "category": "Audio and displays",
+      "sha256": "e748283239d6569d1651ff8a6476f9900a3b750c82589a0f7680b8cf837365a2",
+      "components": 9,
+      "analysis": "complete",
+      "engine": "Ideal three-channel RGB PWM and LED-current estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "CMD1",
+          "libraryId": "input.rgb-colour-command"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.rgb-pwm-controller-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R3",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "LED1",
+          "libraryId": "output.rgb-led-common-cathode"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.rgb-pwm-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "098-oled-status-panel.adigun.json",
+      "title": "OLED Sensor Status Panel",
+      "type": "Analog",
+      "level": "Intermediate",
+      "category": "Audio and displays",
+      "sha256": "c85dd0707d25224c8369d56dc2ae44a14985c53eec912ba209227e1be0506694",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal MCU OLED status formatting and sensor-range check",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SNS1",
+          "libraryId": "input.status-sensor-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.oled-status-controller-ideal"
+        },
+        {
+          "reference": "OLED1",
+          "libraryId": "output.oled-status-panel"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "099-epaper-display-updater.adigun.json",
+      "title": "E-paper Partial Refresh and Power-State Model",
+      "type": "Analog",
+      "level": "Intermediate",
+      "category": "Audio and displays",
+      "sha256": "2e78dc59183d5421a3b51f897240d36f9b0bb0e41700c2f138675e8d1c2816a1",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Generic e-paper partial/full refresh state estimator",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "REQ1",
+          "libraryId": "input.epaper-update-request"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.epaper-update-controller-ideal"
+        },
+        {
+          "reference": "EPD1",
+          "libraryId": "output.epaper-panel-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "100-seven-segment-clock.adigun.json",
+      "title": "24-hour RTC Seven-Segment Clock",
+      "type": "Analog",
+      "level": "Intermediate",
+      "category": "Audio and displays",
+      "sha256": "2452cde10d68638e58fcb08f43282813677292ab3f2bfce3d26dbd2799f96868",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal 24-hour clock tick and seven-segment formatter",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "RTC1",
+          "libraryId": "input.clock-tick-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.seven-segment-clock-ideal"
+        },
+        {
+          "reference": "DISP1",
+          "libraryId": "output.seven-segment-display"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "101-buck-converter-baseline.adigun.json",
+      "title": "Asynchronous Buck Converter CCM Estimate",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "770c76cf67717f59ac5182eddbda8657b007a9732e5ace09cc0bd88176cf0f48",
+      "components": 11,
+      "analysis": "complete",
+      "engine": "LM2596 adjustable buck CCM average and triangular-ripple estimate",
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 21,
+      "pcbRoutes": 17,
+      "unmapped": []
+    },
+    {
+      "file": "102-boost-converter-baseline.adigun.json",
+      "title": "Asynchronous Boost Converter CCM — LM2577 Reference",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "16581c2fef5e8844775eb8f98d7bac4f9cd31d71d03dfeebf3d31ab736aa56fe",
+      "components": 14,
+      "analysis": "complete",
+      "engine": "TI LM2577-ADJ boost reference CCM average and ripple estimate",
+      "pcbStatus": "stored",
+      "pcbParts": 12,
+      "pcbPads": 27,
+      "pcbRoutes": 20,
+      "unmapped": [
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.boost-converter-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "103-buck-boost-supply.adigun.json",
+      "title": "Non-Inverting Buck-Boost Supply Operating Point",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "f8fca4fa820aa638aa828cf8665553610352f2151e544404c1dbc21d88d4420c",
+      "components": 8,
+      "analysis": "complete",
+      "engine": "Ideal four-switch non-inverting buck-boost steady-state CCM estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "CFG1",
+          "libraryId": "input.buckboost-target-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.buckboost-four-switch-average"
+        },
+        {
+          "reference": "L1",
+          "libraryId": "passive.inductor"
+        },
+        {
+          "reference": "C1",
+          "libraryId": "passive.capacitor"
+        },
+        {
+          "reference": "RLOAD",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.buckboost-converter-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "104-liion-charger-concept.adigun.json",
+      "title": "Li-ion CC/CV Charger Phase Model",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "47bb9069870735188e589350afdb1147aca108da479bdaeac28cf4c3e846439b",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal Li-ion CC/CV phase and limit estimator",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "BAT1",
+          "libraryId": "input.liion-cell-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.liion-cccv-charger-ideal"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.liion-charge-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "105-bms-cell-monitor.adigun.json",
+      "title": "Three-Cell BMS Threshold Monitor",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "2e3bffb401cd3510c3555dbfc734346dd36c268072cb876a3c182ab35ed97550",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Ideal three-cell BMS threshold and passive-balance request estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "CELL1",
+          "libraryId": "input.bms-cell-stack-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.bms-cell-monitor-ideal"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.bms-cell-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "106-solar-mppt-concept.adigun.json",
+      "title": "Solar Curve Maximum-Power Sweep",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "461a242aa5b36c1f15d0247d9b1f24969588089bd7df9d788ecef5858f7e82ed",
+      "components": 5,
+      "analysis": "complete",
+      "engine": "Piecewise-linear solar I-V sweep and sampled maximum-power estimate",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "PV1",
+          "libraryId": "input.solar-iv-curve-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.solar-mpp-sweep-ideal"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.solar-mpp-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "107-usb-c-sink-concept.adigun.json",
+      "title": "USB-C Sink Profile Concept",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "614034efb3bbe567448afac263b7bc74494ba0113514681796b0cf37312a8ad3",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Bounded USB-C fixed-PDO sink policy and load estimator",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "USBC1",
+          "libraryId": "input.usb-c-pd-source-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.usb-c-pd-sink-policy-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.usb-c-pd-contract-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "108-usb-c-source-concept.adigun.json",
+      "title": "USB-C Source Profile Concept",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "125b8802d9f91fc158a3c8c397b3962d11a8400aff0c5c1db708766c28dac467",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Bounded USB-C source PDO advertisement and overcurrent policy estimator",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "USBC1",
+          "libraryId": "input.usb-c-pd-request-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.usb-c-pd-source-controller-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.usb-c-source-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "109-poe-pd-input.adigun.json",
+      "title": "PoE Powered-Device Input Concept",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "3ddc77b6608cdabdc3054477206481b500b655fa71228b7810ef8b11d11f47a8",
+      "components": 7,
+      "analysis": "complete",
+      "engine": "Bounded PoE polarity bridge and DC/DC load estimator",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "POE1",
+          "libraryId": "input.poe-pd-source-fixture"
+        },
+        {
+          "reference": "BR1",
+          "libraryId": "active.poe-input-bridge-ideal"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.poe-pd-dcdc-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.poe-pd-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "110-constant-current-led-driver.adigun.json",
+      "title": "Constant-Current LED Driver",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "023bf5f3e2a100a2e174e4cf549f95c3f5c600bdeec307a927c134e17f602edb",
+      "components": 6,
+      "analysis": "complete",
+      "engine": "Bounded constant-current LED compliance and load estimator",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.led-cc-driver-ideal"
+        },
+        {
+          "reference": "LED1",
+          "libraryId": "input.led-string-fixture"
+        },
+        {
+          "reference": "RS1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.led-cc-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "111-mosfet-half-bridge.adigun.json",
+      "title": "MOSFET Half-Bridge with Dead Time",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "0fe9d5e577cafba94d3a2f9ccd67530140e5776c06ba5f0d7e221fd0f8c2cba8",
+      "components": 7,
+      "analysis": "complete",
+      "engine": "Complementary half-bridge timing and resistive-load estimator",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "PWM1",
+          "libraryId": "input.half-bridge-pwm-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.half-bridge-gate-driver-ideal"
+        },
+        {
+          "reference": "Q1",
+          "libraryId": "active.mosfet-half-bridge-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.half-bridge-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "112-igbt-inverter-leg.adigun.json",
+      "title": "IGBT Inverter Leg with Fault Interlock",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "95c1317ca1682fe0187de335494f8af00da880b7ba9423d84786998e4d63320a",
+      "components": 7,
+      "analysis": "complete",
+      "engine": "Bounded IGBT inverter-leg logic and resistive-load estimator",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "CMD1",
+          "libraryId": "input.igbt-leg-command-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.igbt-leg-driver-ideal"
+        },
+        {
+          "reference": "Q1",
+          "libraryId": "active.igbt-inverter-leg-ideal"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.half-bridge-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "113-triac-ac-dimmer.adigun.json",
+      "title": "TRIAC AC Dimmer with Zero-Cross Interlock",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "005b8ee82f067f951cf47386983ab70d9f7cff139d36d12548840351f3872bda",
+      "components": 7,
+      "analysis": "complete",
+      "engine": "Bounded phase-angle AC dimmer RMS estimator",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.ac-source"
+        },
+        {
+          "reference": "CMD1",
+          "libraryId": "input.triac-phase-fixture"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.optotriac-phase-driver-ideal"
+        },
+        {
+          "reference": "Q1",
+          "libraryId": "active.triac-dimmer-ideal"
+        },
+        {
+          "reference": "RL1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "SCOPE1",
+          "libraryId": "output.triac-dimmer-report"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
+    },
+    {
+      "file": "114-ssr-ac-switch.adigun.json",
+      "title": "Isolated AC Solid-State Relay with Off Leakage",
+      "type": "Power",
+      "level": "Advanced",
+      "category": "Conversion and protection",
+      "sha256": "d9123c1266143576a330de29cf0bfe3074025537eb8c581b46812bfd64265354",
+      "components": 6,
+      "analysis": "complete",
       "engine": "Bounded AC solid-state relay and off-leakage estimator",
       "pcbStatus": "unmapped",
       "pcbParts": 0,
