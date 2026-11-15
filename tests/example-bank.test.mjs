@@ -7,6 +7,7 @@ import {runProjectAnalysis} from '../js/analysis-dispatch.mjs';
 import {renderPcbPreviewSvg} from '../js/pcb-preview.mjs';
 import {parseExampleProject,canLoadExampleAnalysis} from '../js/example-loading.mjs';
 import {describeExample} from '../js/example-bank-ui.mjs';
+import {projectComponentsForView} from '../js/view-projection.mjs';
 import {validatePcbFabrication,exportPcbFabrication} from '../js/pcb-export.mjs';
 const index=JSON.parse(await readFile(new URL('../examples/index.json',import.meta.url),'utf8'));
 test('coverage descriptions distinguish component, package and pad counts',()=>{
@@ -26,6 +27,17 @@ test('the example index audits every native project without inventing PCB packag
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
  assert.equal(index.summary.withStoredPcb,32);assert.equal(index.summary.withoutStoredPcb,184);assert.deepEqual(index.summary.unexpectedFailures,[]);
+});
+test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
+ const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/001-led-current-limiter.adigun.json',import.meta.url),'utf8'));
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,3);assert.equal(entry.pcbPads,6);
+ assert.deepEqual(entry.unmapped,[]);assert.deepEqual(pcbCoverage(project).missing,[]);
+ assert.deepEqual(projectComponentsForView(project,'pcb').reconciliationItems,[]);
+ assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);
+ assert.equal(validatePcbFabrication(project).status,'passed');
+ assert.equal(runProjectAnalysis(project).result.kind,'led-current-limiter');
+ assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="led-1"/);
 });
 test('DC Voltage Divider has sourced physical resistor values, mapped pads and connected copper',async()=>{
  const entry=index.entries.find(item=>item.file==='002-dc-voltage-divider.adigun.json');
