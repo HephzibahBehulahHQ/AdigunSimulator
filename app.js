@@ -1,5 +1,5 @@
 import { parseExampleProject, canLoadExampleAnalysis } from './js/example-loading.mjs';
-import { isGlobalSearchShortcut, isGlobalExampleQuery, matchGlobalExample, searchGlobalActions } from "./js/global-search.mjs";
+import { isGlobalSearchShortcut, isGlobalExampleQuery, matchGlobalExample, globalExampleSuggestion, searchGlobalActions } from "./js/global-search.mjs";
 import { createExampleBrowser } from './js/example-bank-ui.mjs';
 import { createDesignTools } from "./js/design-tools-ui.mjs";
 import { recordScopeAnalysis } from "./js/scope-launcher.mjs";
@@ -2463,8 +2463,7 @@ $("#global-search").addEventListener("input", (event) => {
     });
     if (example) {
       const option = document.createElement("option");
-      const id = example.file.match(/^(\d+)-/)?.[1] ?? "";
-      option.value = "Example " + id + " — " + example.title;
+      option.value = globalExampleSuggestion(example);
       options.push(option);
     }
     $("#global-search-actions").replaceChildren(...options);
@@ -2474,6 +2473,9 @@ $("#global-search").addEventListener("input", (event) => {
     if (generation === globalExampleSearchGeneration && $("#global-search").value === query) setOptions(matchGlobalExample(entries, query));
   });
 });
+// Warm the small example index before a numeric query is entered so its
+// datalist suggestion is available on the user's first keystroke.
+$("#global-search").addEventListener("focus", () => { void loadGlobalExampleIndex(); }, { once: true });
 $("#add-component").addEventListener("click", () => placeLibraryComponent(state.selectedLibraryId));
 $("#component-form").addEventListener("submit", (event) => {
   event.preventDefault();
