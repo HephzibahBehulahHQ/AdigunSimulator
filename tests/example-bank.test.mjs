@@ -27,7 +27,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,32);assert.equal(index.summary.withoutStoredPcb,184);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,33);assert.equal(index.summary.withoutStoredPcb,183);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -116,7 +116,7 @@ test('LM2577 boost example has a routed, source-backed PCB and exportable fabric
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,32);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,33);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });
