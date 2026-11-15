@@ -29,7 +29,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,40);assert.equal(index.summary.withoutStoredPcb,176);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,41);assert.equal(index.summary.withoutStoredPcb,175);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -135,6 +135,24 @@ test('PWM LED dimmer carries a source-backed physical PCB map without changing i
  assert.ok(project.pcbFabrication.fabricationNotes.some(note=>/not a manufacturing DRC/.test(note)));
  assert.match(project.pcbFabrication.fabricationNotes.at(-1),/SOT-23-to-2.54 mm through-hole breakout adapter/);
 });
+test('5 V RC step response reconciles its polarized capacitor, BB400 assembly, scope and PCB exports',async()=>{
+ const entry=index.entries.find(item=>item.file==='005-rc-step-response.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/005-rc-step-response.adigun.json',import.meta.url),'utf8'));
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,3);assert.equal(entry.pcbPads,6);assert.equal(entry.pcbRoutes,3);assert.deepEqual(entry.unmapped,[]);
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ assert.equal(validatePcbFabrication(project).status,'passed');
+ const analysis=runProjectAnalysis(project);assert.equal(analysis.state,'complete');assert.equal(analysis.result.kind,'rc-step-response');
+ assert.equal(analysis.scopeRecording.preferredNet,'RC_NODE');assert.equal(analysis.scopeRecording.samples.length,501);
+ assert.equal(analysis.scopeRecording.samples[0].nodeVoltages.RC_NODE,0);assert.ok(analysis.scopeRecording.samples.at(-1).nodeVoltages.RC_NODE>4.9);
+ assert.equal(project.pcbFabrication.physicalEvidence.find(item=>item.reference==='C1').pinMapping['1'],'positive / RC_NODE');
+ assert.match(project.pcbFabrication.parts.find(item=>item.reference==='C1').sourceUrl,/panasonic\.com/);
+ const disconnected=structuredClone(project);disconnected.nets.find(net=>net.id==='RC_NODE').endpoints=['resistor-1:2'];
+ const failed=runProjectAnalysis(disconnected);assert.equal(failed.state,'blocked');assert.match(failed.message,/source positive → resistor → capacitor → ground/);assert.equal(failed.scopeRecording,undefined);
+ const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/ECA1VMH101I/);assert.match(exported.files['board-F_Cu.gbr'],/X/);assert.match(exported.files['board-PTH.drl'],/T01/);
+ assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="capacitor-1"/);assert.match(renderBreadboardAssemblySvg(project),/radial-capacitor/);
+});
 test('5 V Parallel Resistor Load exports its exact external supply, resistor pads and net routes',async()=>{
  const entry=index.entries.find(item=>item.file==='004-parallel-resistor-load.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/004-parallel-resistor-load.adigun.json',import.meta.url),'utf8'));
@@ -229,7 +247,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,40);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,41);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

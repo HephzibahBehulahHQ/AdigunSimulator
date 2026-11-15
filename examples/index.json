@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 40,
-    "withoutStoredPcb": 176,
+    "withStoredPcb": 41,
+    "withoutStoredPcb": 175,
     "unexpectedFailures": []
   },
   "entries": [
@@ -143,32 +143,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "69ec2bff6a9ee05d6be49acfa0ba7a85d351a71c2592acab2a35d4f63b55c644",
+      "sha256": "55934db999b14331ce85f6a6487e600fc325fbdc0f947218ef18d4e85cc92d64",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical first-order RC step response",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 3,
+      "pcbPads": 6,
+      "pcbRoutes": 3,
+      "unmapped": []
     },
     {
       "file": "006-battery-discharge-monitor.adigun.json",
