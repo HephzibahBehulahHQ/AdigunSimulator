@@ -198,7 +198,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "f7c1f0677f29a17c3a3a2c12557ec5fc24a7475ec33ecdb4f9d6c10e528f1550",
+      "sha256": "8a8cacb17411d051e5d9e942a4a93fd8a4955f505229588852ef6ac5b8bf1539",
       "components": 6,
       "analysis": "complete",
       "engine": "Analytical PWM LED average-current model",
@@ -206,16 +206,7 @@
       "pcbParts": 4,
       "pcbPads": 10,
       "pcbRoutes": 5,
-      "unmapped": [
-        {
-          "reference": "PWM1",
-          "libraryId": "power.pwm-source"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "unmapped": []
     },
     {
       "file": "005-rc-step-response.adigun.json",

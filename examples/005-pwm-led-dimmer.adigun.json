@@ -169,6 +169,30 @@
     }
   ],
   "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "pwm-1:+": "C20",
+      "pwm-1:-": "BM5",
+      "mosfet-1:G": "A20",
+      "mosfet-1:D": "C15",
+      "mosfet-1:S": "A25",
+      "resistor-1:1": "A5",
+      "resistor-1:2": "A10",
+      "led-1:A": "C10",
+      "led-1:K": "A15",
+      "ground-1:0": "BM15"
+    },
+    "jumpers": [
+      { "from": "TP2", "to": "A5" },
+      { "from": "A25", "to": "BM10" }
+    ],
+    "physicalNotes": [
+      "Q1 is the sourced SOT-23 MOSFET; use a SOT-23-to-2.54 mm through-hole breakout adapter for this BB400 layout. The adapter is not included in the project parts."
+    ]
+  },
   "pcbFabrication": {
     "board": {
       "widthMm": 40,
@@ -505,7 +529,20 @@
     "fabricationNotes": [
       "External interface J1 pin order is VCC, PWM input, GND.",
       "The GND symbol and ideal V1/PWM1 sources are simulation objects; J1 is their physical board interface.",
-      "This stored preview and educational Gerber output are not a manufacturing DRC or a qualified fabrication release. Independently review pad coordinates, clearances, connector drilling, polarity, assembly, and the physical BSS138BK behavior before ordering."
+      "This stored preview and educational Gerber output are not a manufacturing DRC or a qualified fabrication release. Independently review pad coordinates, clearances, connector drilling, polarity, assembly, and the physical BSS138BK behavior before ordering.",
+      "Q1 is a surface-mount SOT-23 device; a SOT-23-to-2.54 mm through-hole breakout adapter is required to use the documented BB400 breadboard placement."
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "pwm-1",
+        "reference": "PWM1",
+        "reason": "Ideal PWM source is a simulation instrument; connect the external PWM generator to J1 pin 2 (PWM/GATE) and its return to J1 pin 3 (GND)."
+      },
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; J1 pin 3 and routed ground copper provide the physical return."
+      }
     ]
   }
 }
