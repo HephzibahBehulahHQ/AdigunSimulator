@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 33,
-    "withoutStoredPcb": 183,
+    "withStoredPcb": 34,
+    "withoutStoredPcb": 182,
     "unexpectedFailures": []
   },
   "entries": [
@@ -317,44 +317,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "7dbbe9d8f0c49d6063e40477fdba0801cfad039739016b4157065b5a069d271f",
-      "components": 7,
+      "sha256": "72138910e88f294c7db07383bab9dbbc611e966d65f3ec5b798bab20a725d520",
+      "components": 9,
       "analysis": "complete",
       "engine": "Analytical transformer, bridge, reservoir-capacitor, and linear-regulator envelope",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "VAC1",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "T1",
-          "libraryId": "passive.transformer-ideal"
-        },
-        {
-          "reference": "BR1",
-          "libraryId": "diode.bridge-ideal"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.regulator-7805-ideal"
-        },
-        {
-          "reference": "RLOAD",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 6,
+      "pcbPads": 15,
+      "pcbRoutes": 9,
+      "unmapped": []
     },
     {
       "file": "008-led-current-limiter-3v3.adigun.json",

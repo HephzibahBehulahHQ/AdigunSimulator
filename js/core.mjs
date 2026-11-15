@@ -290,6 +290,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "diode.schottky-1n5822g", category: "Active", type: "onsemi 1N5822G Schottky rectifier", prefix: "D", pins: ["A","K"], defaultValue: "3 A average; 40 V repetitive reverse; DO-201AD axial", simulation: "schematic/PCB topology only", status: "onsemi manufacturer part; generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.buck-input-2", category: "Connectors", type: "2-pin buck converter input terminal", prefix: "J", pins: ["VIN","GND"], defaultValue: "12 V DC input; 2-position terminal", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.buck-output-2", category: "Connectors", type: "2-pin buck converter output terminal", prefix: "J", pins: ["VOUT","GND"], defaultValue: "5 V DC output; 2-position terminal", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
+  { id: "connector.linear-supply-ac-input-2", category: "Connectors", type: "2-pin isolated AC secondary header", prefix: "J", pins: ["AC1","AC2"], defaultValue: "12 V AC isolated secondary; Samtec TSW-102-07-T-S; 2.54 mm", simulation: "schematic/PCB/breadboard interface", status: "Samtec manufacturer part identified", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "connector.linear-supply-dc-output-2", category: "Connectors", type: "2-pin regulated DC output header", prefix: "J", pins: ["VOUT","GND"], defaultValue: "5 V DC output; Samtec TSW-102-07-T-S; 2.54 mm", simulation: "schematic/PCB/breadboard interface", status: "Samtec manufacturer part identified", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "active.stm32g031k8-lqfp32", category: "Active", type: "ST STM32G031K8T6 Cortex-M0+ MCU LQFP32", prefix: "U", pins: ["PB9","PC14","PC15","VDD_VDDA","VSS_VSSA","NRST","PA0","PA1","PA2","PA3","PA4","PA5","PA6","PA7","PB0","PB1","PB2","PA8","PA9","PC6","PA10","PA11","PA12","PA13_SWDIO","PA14_SWDCLK","PA15","PB3","PB4","PB5","PB6","PB7","PB8"], defaultValue: "STM32G031K8T6; LQFP32; 1.7–3.6 V; datasheet pin map", simulation: "bounded-mcu-board-plan", status: "ST manufacturer device/pin map; generic PCB footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.swd-header-4", category: "Connectors", type: "4-pin SWD programming header", prefix: "J", pins: ["VDD","GND","SWDIO","SWCLK"], defaultValue: "2.54 mm SWD header", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "active.tusb1106-usb-fs-phy", category: "Active", type: "TI TUSB1106 USB Full-Speed transceiver", prefix: "U", pins: ["VPU","SOFTCON","OE","RCV","VP","VM","SUSPND","GND","VCCIO","SPEED","D-","D+","VPO","VMO","VREG","VCC5"], defaultValue: "TUSB1106RGTR; USB Full-Speed; RGT 16-pin pin map", simulation: "bounded-differential-pcb-rules", status: "TI manufacturer pin map; generic PCB footprint template", views: { breadboard: false, schematic: true, pcb: true } },
@@ -1476,8 +1478,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (usbSources.length === 1 && ptcFuses.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseUsbLedPtc(project, { source: usbSources[0], fuse: ptcFuses[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
-  if (acSource.length === 1 && transformers.length === 1 && bridges.length === 1 && regulators.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 7) {
-    return analyseLinearSupply(project, { source: acSource[0], transformer: transformers[0], bridge: bridges[0], capacitor: capacitor[0], regulator: regulators[0], load: resistor[0], ground: ground[0], validation });
+  const linearSupplyInputs = project.components.filter(item => item.libraryId === "connector.linear-supply-ac-input-2");
+  const linearSupplyOutputs = project.components.filter(item => item.libraryId === "connector.linear-supply-dc-output-2");
+  if (acSource.length === 1 && transformers.length === 1 && bridges.length === 1 && regulators.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1
+    && linearSupplyInputs.length === 1 && linearSupplyOutputs.length === 1 && project.components.length === 9) {
+    return analyseLinearSupply(project, { source: acSource[0], transformer: transformers[0], bridge: bridges[0], capacitor: capacitor[0], regulator: regulators[0], load: resistor[0], ground: ground[0], inputHeader: linearSupplyInputs[0], outputHeader: linearSupplyOutputs[0], validation });
   }
   if (source.length === 1 && resistor.length === 3 && led.length === 1 && batteryMonitors.length === 1 && ground.length === 1 && capacitor.length === 1 && project.components.length === 8) {
     return analyseBatteryDischargeMonitor(project, { source: source[0], resistors: resistor, led: led[0], comparator: batteryMonitors[0], capacitor: capacitor[0], ground: ground[0], validation });
@@ -5004,7 +5009,7 @@ function analyseUsbLedPtc(project, { source, fuse, resistor, led, ground, valida
   };
 }
 
-function analyseLinearSupply(project, { source, transformer, bridge, capacitor, regulator, load, ground, validation }) {
+function analyseLinearSupply(project, { source, transformer, bridge, capacitor, regulator, load, ground, inputHeader, outputHeader, validation }) {
   const acFields = String(source.value).split(",").map(field => field.trim());
   const acMatch = acFields.length === 2 ? acFields[0].match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*RMS$/i) : null;
   const primaryRmsVoltage = acMatch ? Number(acMatch[1]) : Number.NaN;
@@ -5034,13 +5039,16 @@ function analyseLinearSupply(project, { source, transformer, bridge, capacitor, 
   const capacitorPositive = n(capacitor, "1"), capacitorNegative = n(capacitor, "2");
   const regulatorInput = n(regulator, "IN"), regulatorOutput = n(regulator, "OUT"), regulatorGround = n(regulator, "GND");
   const loadInput = n(load, "1"), loadReturn = n(load, "2"), groundNet = n(ground, "0");
+  const headerAc1 = n(inputHeader, "AC1"), headerAc2 = n(inputHeader, "AC2");
+  const outputHeaderVout = n(outputHeader, "VOUT"), outputHeaderGround = n(outputHeader, "GND");
   if (!sourcePositive || sourcePositive !== primary1 || sourceNegative !== primary2
     || !secondary1 || secondary1 !== bridgeAC1 || !secondary2 || secondary2 !== bridgeAC2
     || !bridgePositive || bridgePositive === bridgeNegative || capacitorPositive !== bridgePositive
     || regulatorInput !== bridgePositive || !groundNet || bridgeNegative !== groundNet
     || capacitorNegative !== groundNet || regulatorGround !== groundNet || loadReturn !== groundNet
-    || !regulatorOutput || regulatorOutput === groundNet || loadInput !== regulatorOutput) {
-    return { state: "blocked", message: "Wire the AC source to transformer primary, transformer secondary to bridge AC pins, bridge DC rails across the capacitor and regulator input, and regulator output through the load to shared DC ground.", validation };
+    || !regulatorOutput || regulatorOutput === groundNet || loadInput !== regulatorOutput
+    || headerAc1 !== bridgeAC1 || headerAc2 !== bridgeAC2 || outputHeaderVout !== regulatorOutput || outputHeaderGround !== groundNet) {
+    return { state: "blocked", message: "Wire the analytical AC source to the ideal transformer, then route its secondary through the isolated 12 V AC input header to the bridge. Keep the DC rails across the capacitor and regulator input, and connect the 5 V output header to regulator OUT and shared DC ground.", validation };
   }
   const transformerRatio = secondaryTurns / primaryTurns;
   const secondaryRmsVoltage = primaryRmsVoltage * transformerRatio;
