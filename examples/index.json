@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 35,
-    "withoutStoredPcb": 181,
+    "withStoredPcb": 36,
+    "withoutStoredPcb": 180,
     "unexpectedFailures": []
   },
   "entries": [
@@ -370,32 +370,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "baebee9c11756319aac8f519460d86391e33dcda445b988d8d32b831fe2b2d6d",
+      "sha256": "a8b6a51b5d75d33ce95d5a1707b2b358b26cc433b1fe04f56d5821d20532bdaf",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical DC voltage-divider calculation",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 3,
+      "pcbPads": 6,
+      "pcbRoutes": 3,
+      "unmapped": []
     },
     {
       "file": "009-solar-garden-light.adigun.json",

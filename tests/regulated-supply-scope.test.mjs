@@ -47,3 +47,23 @@ test("USB-powered LED exposes its solved DC nodes to the scope and blocks a brok
   assert.equal(analyticalDcScopeRecording(disconnected, runProjectAnalysis(disconnected)), null);
 });
 
+test("9 V divider exposes its solved DC output to the scope and blocks an open junction", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/009-dc-voltage-divider-3k-1k.adigun.json", import.meta.url), "utf8"));
+  const analysis = runProjectAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.deepEqual(analysis.scopeDcRecording.nodes, { VCC: 9, VOUT: 2.25, GND: 0 });
+  assert.equal(analysis.scopeDcRecording.preferredNet, "VOUT");
+  const timeline = createFeedbackTimeline(project, analysis);
+  assert.equal(timeline.kind, "dc");
+  const live = { status: "ready", kind: "dc", sampleIndex: 0, data: timeline.frame(0) };
+  assert.ok(scopeChannels(project, analysis, live).includes("VOUT"));
+  assert.equal(scopeTrace(project, analysis, live, "VOUT").voltage, 2.25);
+  assert.equal(scopeTrace(project, analysis, live, "GND").voltage, 0);
+  const disconnected = structuredClone(project);
+  disconnected.nets.find(net => net.id === "VOUT").endpoints = disconnected.nets.find(net => net.id === "VOUT").endpoints.filter(endpoint => endpoint !== "resistor-top-1:2");
+  const failed = runProjectAnalysis(disconnected);
+  assert.equal(failed.state, "blocked");
+  assert.match(failed.message, /join the two resistors at VOUT/);
+  assert.equal(analyticalDcScopeRecording(disconnected, failed), null);
+});
+
