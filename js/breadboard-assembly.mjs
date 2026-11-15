@@ -27,13 +27,14 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
       continue;
     }
     packages.set(pkg.instanceId, pkg);
-    const allowedKinds = ["to220", "axial-diode", "bridge-rectifier", "radial-inductor", "radial-capacitor", "radial-ptc", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-supply"];
+    const allowedKinds = ["to220", "axial-diode", "axial-led", "bridge-rectifier", "radial-inductor", "radial-capacitor", "radial-ptc", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
     const externalSupply = pkg.kind === "external-supply";
-    const offBoard = externalSupply || pkg.kind === "external-axial-resistor";
+    const offBoard = externalSupply || pkg.kind === "external-axial-resistor" || pkg.kind === "external-pushbutton";
     if (!allowedKinds.includes(pkg.kind) || (!externalSupply && (!positive(pkg.bodyMm?.width) || !positive(pkg.bodyMm?.height))) || !Array.isArray(pkg.positionPx) || pkg.positionPx.length !== 2 || !pkg.positionPx.every(Number.isFinite)) {
       errors.push({ code: "BREADBOARD_ASSEMBLY_GEOMETRY", instanceId: pkg.instanceId, message: `${component.reference} is missing a supported package shape, dimensions, or canvas position.` });
     }
     if (pkg.kind === "external-axial-resistor" && pkg.mounting !== "off-board") errors.push({ code: "BREADBOARD_ASSEMBLY_MOUNTING", instanceId: pkg.instanceId, message: `${component.reference} is a power load and must be shown as an off-board package on this BB400 assembly.` });
+    if (pkg.kind === "external-pushbutton" && pkg.mounting !== "off-board") errors.push({ code: "BREADBOARD_ASSEMBLY_MOUNTING", instanceId: pkg.instanceId, message: `${component.reference} must be identified as an off-board pushbutton when its terminals use pigtails.` });
     if (!externalSupply && (!pkg.manufacturer || !pkg.manufacturerPartNumber || !/^https:\/\//.test(pkg.sourceUrl ?? ""))) {
       errors.push({ code: "BREADBOARD_ASSEMBLY_PROVENANCE", instanceId: pkg.instanceId, message: `${component.reference} needs manufacturer identity and a package-dimension source.` });
     }
@@ -84,6 +85,8 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
 function packageBody(pkg, scaleX, scaleY) {
   if (pkg.kind === "external-supply") return `<text class="breadboard-external-supply-label" x="0" y="9">off-board supply leads</text>`;
   const width = pkg.bodyMm.width * scaleX, height = pkg.bodyMm.height * scaleY;
+  if (pkg.kind === "external-pushbutton") return `<rect class="breadboard-pushbutton-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width,height) * .2}"/><circle class="breadboard-pushbutton-cap" cx="0" cy="0" r="${Math.min(width,height) * .28}"/>`;
+  if (pkg.kind === "axial-led") return `<ellipse class="breadboard-led-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/><path class="breadboard-led-cathode" d="M${width * .28} ${-height / 2} V${height / 2}"/>`;
   if (pkg.kind === "radial-capacitor") return `<ellipse class="capacitor-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/><path class="capacitor-top" d="M${-width * .32} 0 H${width * .32}"/>`;
   if (pkg.kind === "radial-ptc") return `<rect class="breadboard-ptc-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width,height) * .28}"/><path class="breadboard-ptc-seam" d="M${-width * .26} ${-height * .34} H${width * .26}"/>`;
   if (pkg.kind === "radial-inductor") return `<rect class="breadboard-inductor-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width, height) * .38}"/><path class="breadboard-inductor-seam" d="M${-width * .32} ${-height / 2} V${height / 2} M${width * .32} ${-height / 2} V${height / 2}"/>`;

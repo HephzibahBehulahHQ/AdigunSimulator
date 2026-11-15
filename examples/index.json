@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 38,
-    "withoutStoredPcb": 178,
+    "withStoredPcb": 39,
+    "withoutStoredPcb": 177,
     "unexpectedFailures": []
   },
   "entries": [
@@ -79,40 +79,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "70882a2fad96987aac704e6664efb03bae4b312184f0a3ae133e40243b665e55",
+      "sha256": "ecab6b266f5dc0feb34f67642b93061153f32352c4a71034bb29aef121d890a6",
       "components": 6,
       "analysis": "complete",
       "engine": "Analytical ideal pushbutton LED circuit",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "SW1",
-          "libraryId": "input.pushbutton"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 5,
+      "pcbPads": 12,
+      "pcbRoutes": 5,
+      "unmapped": []
     },
     {
       "file": "004-latching-led-switch.adigun.json",

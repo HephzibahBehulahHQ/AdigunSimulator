@@ -340,6 +340,10 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .breadboard-terminal-body { fill:#183e50; stroke:#87d1df; stroke-width:1.4; }
 .breadboard-terminal-screw { fill:#c4a86b; stroke:#504329; stroke-width:1; }
 .breadboard-header-body { fill:#26394a; stroke:#89b6c3; stroke-width:1.2; }
+.breadboard-pushbutton-body { fill:#26394a; stroke:#9bb7c4; stroke-width:1.2; }
+.breadboard-pushbutton-cap { fill:#df4d56; stroke:#ffd2d4; stroke-width:1; }
+.breadboard-led-body { fill:#c72f46; stroke:#f1afb6; stroke-width:1.1; }
+.breadboard-led-cathode { stroke:#f5e7e9; stroke-width:1.4; }
 .breadboard-header-divider { stroke:#89b6c3; stroke-width:1; }
 .breadboard-bridge-body { fill:#252b31; stroke:#b9c3c9; stroke-width:1.2; }
 .breadboard-bridge-mark { fill:#f1f5f7; font-size:3.6px; font-weight:700; text-anchor:middle; }

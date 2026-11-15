@@ -5677,7 +5677,7 @@ function analysePushbuttonLed(project, { source, resistors, led, pushbutton, gro
     const second = netByEndpoint.get(endpoint(resistor, "2"));
     return (first === switchOutput && second === groundNet) || (second === switchOutput && first === groundNet);
   });
-  if (!seriesResistor || !pullDown) return { state: "blocked", message: "The circuit requires a series LED resistor and a pull-down resistor from the switched node to ground.", validation };
+  if (!seriesResistor || !pullDown) return { state: "blocked", message: `The LED path needs a series resistor between ${switchOutput} and ${ledAnode}; the pull-down resistor must connect ${switchOutput} to ${groundNet}. Wire both resistor pins to those named nets, then run again.`, validation };
 
   const seriesResistance = resistanceValue(seriesResistor.value);
   const pullDownResistance = resistanceValue(pullDown.value);
