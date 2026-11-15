@@ -29,7 +29,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,39);assert.equal(index.summary.withoutStoredPcb,177);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,40);assert.equal(index.summary.withoutStoredPcb,176);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -105,6 +105,22 @@ test('5 V pushbutton LED reconciles its breadboard, PCB, scope, and fabrication 
  const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/B3F-1000/);assert.match(exported.files['board-F_Cu.gbr'],/X/);assert.match(exported.files['board-PTH.drl'],/T01/);
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="switch-1"/);
  assert.match(renderBreadboardAssemblySvg(project),/external-pushbutton/);assert.match(renderBreadboardAssemblySvg(project),/axial-led/);
+});
+test('latching SPDT LED maps the sourced slide switch across breadboard and PCB',async()=>{
+ const entry=index.entries.find(item=>item.file==='004-latching-led-switch.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/004-latching-led-switch.adigun.json',import.meta.url),'utf8'));
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,4);assert.equal(entry.pcbPads,9);assert.deepEqual(entry.unmapped,[]);
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ assert.equal(validatePcbFabrication(project).status,'passed');
+ const positionA=runProjectAnalysis(project);assert.equal(positionA.state,'complete');assert.equal(positionA.result.ledOn,true);assert.ok(Math.abs(positionA.scopeDcRecording.nodes.LED_A-2)<1e-12);
+ const positionBProject=structuredClone(project);positionBProject.components.find(item=>item.instanceId==='switch-1').value='Position B';
+ const positionB=runProjectAnalysis(positionBProject);assert.equal(positionB.state,'complete');assert.equal(positionB.result.ledOn,false);assert.equal(positionB.scopeDcRecording.nodes.LED_A,0);
+ const disconnected=structuredClone(project);disconnected.nets.find(net=>net.id==='SW_OUT').endpoints=['resistor-1:1'];
+ const failed=runProjectAnalysis(disconnected);assert.equal(failed.state,'blocked');assert.match(failed.message,/COM through the series resistor and LED/);assert.equal(failed.scopeDcRecording,undefined);
+ const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/EG1218/);assert.match(exported.files['board-F_Cu.gbr'],/X/);assert.match(exported.files['board-PTH.drl'],/T01/);
+ assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="switch-1"/);assert.match(renderBreadboardAssemblySvg(project),/slide-switch/);
 });
 test('PWM LED dimmer carries a source-backed physical PCB map without changing its ideal analysis',async()=>{
  const entry=index.entries.find(item=>item.file==='005-pwm-led-dimmer.adigun.json');
@@ -213,7 +229,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,39);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,40);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });
