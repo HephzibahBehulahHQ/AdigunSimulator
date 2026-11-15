@@ -66,11 +66,14 @@ test('PWM LED dimmer carries a source-backed physical PCB map without changing i
  const entry=index.entries.find(item=>item.file==='005-pwm-led-dimmer.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/005-pwm-led-dimmer.adigun.json',import.meta.url),'utf8'));
  assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,4);assert.equal(entry.pcbPads,10);
+ assert.deepEqual(entry.unmapped,[]);assert.deepEqual(projectComponentsForView(project,'pcb').reconciliationItems,[]);
+ assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['PWM1','GND']);
  assert.equal(validatePcbFabrication(project).status,'passed');
  assert.equal(runProjectAnalysis(project).result.kind,'pwm-led-average');
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="mosfet-1"/);
  assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','D1','Q1']);
- assert.match(project.pcbFabrication.fabricationNotes.at(-1),/not a manufacturing DRC/);
+ assert.ok(project.pcbFabrication.fabricationNotes.some(note=>/not a manufacturing DRC/.test(note)));
+ assert.match(project.pcbFabrication.fabricationNotes.at(-1),/SOT-23-to-2.54 mm through-hole breakout adapter/);
 });
 test('5 V Parallel Resistor Load exports its exact external supply, resistor pads and net routes',async()=>{
  const entry=index.entries.find(item=>item.file==='004-parallel-resistor-load.adigun.json');

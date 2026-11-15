@@ -99,6 +99,15 @@ test("9 V LED current limiter has a complete physical breadboard placement", asy
   assert.equal(result.warnings.length, 0);
 });
 
+test("5 V PWM LED dimmer maps its signal, power, LED and MOSFET nets to BB400", async () => {
+  const project = await readExample("005-pwm-led-dimmer.adigun.json");
+  const result = validateBreadboardTopology(project, {getPartPins});
+  assert.equal(result.state, "complete");
+  assert.equal(result.errors.length, 0);
+  assert.equal(result.warnings.length, 0);
+  assert.match(project.breadboard.physicalNotes[0], /SOT-23-to-2.54 mm through-hole breakout adapter/);
+});
+
 test("checked-in STM32 PWM fixture carries real-hole placements and validates without changing its electrical nets", async () => {
   const project = await readExample("070-stm32-timer-pwm.adigun.json");
   const before = JSON.stringify(project.nets);
