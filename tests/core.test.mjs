@@ -3233,6 +3233,8 @@ test("catalogue LM2596 adjustable buck reports bounded CCM average and ripple es
   const outputFault=structuredClone(project);
   for(const net of outputFault.nets)net.endpoints=net.endpoints.filter(endpoint=>!endpoint.startsWith("output-header:"));
   outputFault.nets.find(net=>net.id==="VIN").endpoints.push("output-header:VOUT","output-header:GND");
+  // This case tests the schematic topology diagnostic; the physical assembly map is intentionally omitted.
+  delete outputFault.breadboard;
   const outputDiagnostics=runSupportedAnalysis(outputFault);
   assert.equal(outputDiagnostics.state,"blocked");
   assert.match(outputDiagnostics.message,/connect J2 VOUT to the output net and J2 GND to the return net/);
@@ -3247,6 +3249,8 @@ test("catalogue LM2596 adjustable buck reports bounded CCM average and ripple es
   assert.equal(runSupportedAnalysis(updateComponent(project,"load",{value:"240 Ω"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="SWITCH").endpoints=["controller:SW","inductor:1"];
+  // This case tests the schematic topology diagnostic; the physical assembly map is intentionally omitted.
+  delete broken.breadboard;
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
 });
 

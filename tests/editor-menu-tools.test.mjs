@@ -56,16 +56,20 @@ test('four turns and double reflection restore coordinates; invalid geometry or 
   const malformed=structuredClone(project);malformed.components[0].geometry.schematic.mirrorX='true';assert.throws(()=>parseProject(JSON.stringify(malformed)),/geometry/i);
   const edge=updateComponent(project,id,{position:{schematic:[0,0]}}),snapshot=serializeProject(edge);assert.throws(()=>transformSchematicComponent(edge,id,'rotateLeft'),/SPACE/);assert.equal(serializeProject(edge),snapshot);
 });
-test('print uses a clean clone of the active native view and afterprint cleans up without saving',()=>{
+test('breadboard, schematic, and PCB print paths use a clean clone of the active native view',()=>{
   const removed=[],nodes=[],events=new Map();let printed=0;
   const node=()=>({style:{},children:[],append(...xs){this.children.push(...xs);},remove(){removed.push(this);},querySelectorAll:()=>[{remove(){removed.push('ghost');}}]});
   const scene=node();scene.cloneNode=deep=>{assert.equal(deep,true);const n=node();nodes.push(n);return n;};
   const document={querySelector:s=>s.includes('canvas-scene')?scene:null,createElement:()=>node(),body:node()};
   const window={addEventListener:(n,f)=>events.set(n,f),removeEventListener:n=>events.delete(n),print:()=>printed++};
   const project=createEmptyProject(),before=serializeProject(project);
-  printProjectView({document,window,project,view:'schematic',viewLabel:'Schematic View'});
-  assert.equal(printed,1);assert.equal(nodes[0].style.transform,'none');assert.equal(scene.style.transform,undefined);assert.equal(serializeProject(project),before);
-  const sheet=document.body.children[0];assert.equal(sheet.id,'project-print');assert.ok(sheet.children[1].textContent.includes('AdigunSimulator'));events.get('afterprint')();assert.ok(removed.includes(sheet));
+  for(const view of ['breadboard','schematic','pcb']){
+    printProjectView({document,window,project,view,viewLabel:view});
+    assert.equal(nodes.at(-1).style.transform,'none');assert.equal(scene.style.transform,undefined);
+    const sheet=document.body.children.at(-1);assert.equal(sheet.id,'project-print');assert.equal(sheet.children[2].className,`print-canvas ${view}`);
+    assert.ok(sheet.children[1].textContent.includes('AdigunSimulator'));events.get('afterprint')();assert.ok(removed.includes(sheet));
+  }
+  assert.equal(printed,3);assert.equal(serializeProject(project),before);
 });
 test('actual Edit action captures history and marks dirty through existing component commit',async()=>{
   const source=await readFile(new URL('../app.js',import.meta.url),'utf8');

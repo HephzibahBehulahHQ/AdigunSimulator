@@ -34,23 +34,12 @@ test("LM2596 buck PCB maps every physical part and exempts only declared virtual
  assert.deepEqual(validateProject(project).warnings.filter(item=>item.rule==="LAYOUT_OVERLAP"),[]);
 });
 
-test("LM2596 buck reports its incomplete breadboard map without hiding unresolved physical parts",async()=>{
+test("LM2596 buck shows every source-backed breadboard package without unresolved placement diagnostics",async()=>{
  const project=JSON.parse(await readFile(new URL("../examples/101-buck-converter-baseline.adigun.json",import.meta.url),"utf8"));
  const unresolved=unresolvedComponentsForDisplay(project,"breadboard");
- assert.deepEqual(unresolved.map(item=>item.reference).sort(),["J2","U1"]);
- assert.deepEqual(projectComponentsForView(project,"breadboard").components.map(item=>item.reference).sort(),["C1","D1","L1","RFB1","RFB2","RLOAD","V1"]);
- const diagnostic=validateProject(project).warnings.find(item=>item.rule==="BREADBOARD_PHYSICAL_MAP");
- assert.ok(diagnostic);
- assert.match(diagnostic.fix,/every physical pin/i);
- assert.match(diagnostic.message,/U1:.*1\.45.*1\.96/);
- assert.match(diagnostic.fix,/five-pin interposer/i);
- assert.ok(diagnostic.details.some(detail=>detail.code==="BREADBOARD_PART_MAPPING"&&detail.reference==="U1"));
- assert.match(diagnostic.message,/D1:.*1\.20–1\.30 mm leads.*0\.4–0\.7 mm insertion wire/i);
- assert.match(diagnostic.fix,/3 A circuit path/i);
- assert.ok(diagnostic.details.some(detail=>detail.code==="BREADBOARD_PART_MAPPING"&&detail.reference==="D1"&&detail.sourceUrl==="https://www.onsemi.com/pub/Collateral/1N5820-D.PDF"));
- assert.equal(diagnostic.details[0].endpoints.length,21);
- const referenceById=new Map(project.components.map(component=>[component.instanceId,component.reference]));
- assert.ok(diagnostic.details[0].endpoints.every(value=>{const [instanceId,...pinParts]=value.split(":");return diagnostic.message.includes(`${referenceById.get(instanceId)}.${pinParts.join(":")}`);}));
+ assert.deepEqual(unresolved,[]);
+ assert.deepEqual(projectComponentsForView(project,"breadboard").components.map(item=>item.reference).sort(),["C1","D1","J2","L1","RFB1","RFB2","RLOAD","U1","V1"]);
+ assert.equal(validateProject(project).warnings.some(item=>item.rule==="BREADBOARD_PHYSICAL_MAP"),false);
 });
 
 test("physical breadboard pin maps are distinguished from unsupported package placeholders",async()=>{

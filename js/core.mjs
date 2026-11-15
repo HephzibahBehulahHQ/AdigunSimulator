@@ -9,6 +9,7 @@ import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
 import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
 import { validateBreadboardTopology } from "./breadboard-topology.mjs";
+import { validateBreadboardAssembly } from "./breadboard-assembly.mjs";
 export const SCHEMA_VERSION = 1;
 export const DESIGN_VIEWS = Object.freeze(["breadboard", "schematic", "pcb"]);
 const UI_LOCALES_FOR_PROJECT = Object.freeze(["en", "de", "yo", "pcm"]);
@@ -614,6 +615,11 @@ export function validateProject(project) {
   errors.push(...validateSchematicWires(project,pin=>{const [id,terminal]=pin.split(":");const c=components.find(c=>c?.instanceId===id);return Boolean(c&&findLibraryPart(c.libraryId)?.pins.includes(terminal));}));
   const breadboard = validateBreadboardTopology(project, { getPartPins: libraryId => findLibraryPart(libraryId)?.pins ?? [] });
   if (breadboard.errors.length) errors.push({ rule: "BREADBOARD_PHYSICAL_MAP", message: breadboard.errors.map(issue => issue.message).filter(Boolean).join(" ") || "Breadboard pin placements contain physical conflicts.", fix: "Correct the listed hole assignments or jumpers, then validate again.", details: breadboard.errors });
+  if (project.breadboard?.assembly) {
+    const assembly = validateBreadboardAssembly(project, { getPartPins: libraryId => findLibraryPart(libraryId)?.pins ?? [] });
+    if (assembly.errors.length) errors.push({ rule: "BREADBOARD_ASSEMBLY", message: assembly.errors.map(issue => issue.message).join(" "), fix: "Correct package identity, physical fit, lead-to-hole mapping, or BB400 pigtail specifications before using this assembly view.", details: assembly.errors });
+    if (assembly.warnings.length) warnings.push({ rule: "BREADBOARD_ASSEMBLY", message: assembly.warnings.map(issue => issue.message).join(" "), fix: "Complete the package and terminal map using manufacturer drawings and the selected BB400 model.", details: assembly.warnings });
+  }
   if (breadboard.state === "incomplete" || breadboard.warnings.length || (project.breadboard?.mappingNotes ?? []).length) {
     const missingPins = breadboard.warnings.flatMap(issue => issue.endpoints ?? []);
     const referenceById = new Map(components.map(component => [component.instanceId, component.reference]));
