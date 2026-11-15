@@ -288,8 +288,8 @@ test("single-pole RL step response reports current rise and inductor voltage", a
   const result = runSupportedAnalysis(project);
   assert.equal(result.state, "complete");
   assert.equal(result.result.kind, "rl-step-response");
-  assert.ok(Math.abs(result.result.timeConstantS - 0.001) < 1e-12);
-  assert.ok(Math.abs(result.result.samples[1].currentA - 0.05 * (1 - Math.exp(-1))) < 1e-12);
+  assert.ok(Math.abs(result.result.timeConstantS - 0.0008333333333333334) < 1e-12);
+  assert.ok(Math.abs(result.result.samples[1].currentA - (5 / 120) * (1 - Math.exp(-1))) < 1e-12);
   assert.ok(Math.abs(result.result.samples[1].inductorVoltage - 5 * Math.exp(-1)) < 1e-12);
   const broken = structuredClone(project);
   broken.nets[1].endpoints = ["resistor-1:2"];

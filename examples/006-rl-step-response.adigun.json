@@ -1,11 +1,16 @@
 {
   "schemaVersion": 1,
   "id": "example-006-rl-step-response",
-  "metadata": { "name": "5 V RL Step Response", "locale": "en", "createdAt": "2026-10-31T00:00:00.000Z", "updatedAt": "2026-10-31T00:00:00.000Z" },
+  "metadata": {
+    "name": "5 V RL Step Response",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-11-15T00:00:00.000Z"
+  },
   "components": [
-    { "instanceId": "source-1", "libraryId": "power.dc-source", "reference": "V1", "value": "5 V", "position": { "breadboard": [60, 142], "schematic": [95, 128], "pcb": [92, 130] } },
-    { "instanceId": "resistor-1", "libraryId": "passive.resistor", "reference": "R1", "value": "100 Ω", "position": { "breadboard": [250, 142], "schematic": [260, 128], "pcb": [244, 128] } },
-    { "instanceId": "inductor-1", "libraryId": "passive.inductor", "reference": "L1", "value": "100 mH", "position": { "breadboard": [435, 142], "schematic": [445, 128], "pcb": [425, 128] } },
+    { "instanceId": "source-1", "libraryId": "power.dc-source", "reference": "V1", "value": "5 V", "position": { "breadboard": [60, 142], "schematic": [95, 128], "pcb": [60, 80] } },
+    { "instanceId": "resistor-1", "libraryId": "passive.resistor", "reference": "R1", "value": "120 Ω", "position": { "breadboard": [192, 125], "schematic": [260, 128], "pcb": [220, 80] } },
+    { "instanceId": "inductor-1", "libraryId": "passive.inductor", "reference": "L1", "value": "100 mH", "position": { "breadboard": [251, 72], "schematic": [445, 128], "pcb": [395, 130] } },
     { "instanceId": "ground-1", "libraryId": "ground.signal", "reference": "GND", "value": "0 V", "position": { "breadboard": [570, 220], "schematic": [570, 220], "pcb": [520, 220] } }
   ],
   "nets": [
@@ -13,5 +18,91 @@
     { "id": "RL_NODE", "endpoints": ["resistor-1:2", "inductor-1:1"] },
     { "id": "GND", "endpoints": ["inductor-1:2", "source-1:-", "ground-1:0"] }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "resistor-1:1": "D6",
+      "resistor-1:2": "D10",
+      "inductor-1:1": "A10",
+      "inductor-1:2": "A12"
+    },
+    "jumpers": [
+      { "from": "TP2", "to": "D6" },
+      { "from": "A12", "to": "BM12" }
+    ],
+    "nonPhysicalItems": [
+      { "instanceId": "ground-1", "reference": "GND", "reason": "Schematic ground symbol only; V1 negative and L1 pin 2 return to the BB400 blue ground rail." }
+    ],
+    "physicalNotes": [
+      "Use a regulated, current-limited 5 V supply. R1 is 120 Ω to keep the ideal 41.7 mA steady-state result below the sourced L1 current rating.",
+      "L1 is the 5.0 mm-pitch radial WE-TIS part; the BB400 A10-A12 hole spacing is 5.08 mm. Check the specified ±0.5 mm lead pitch and insert without force.",
+      "R1 spans D6-D10. D10 and A10 are on the same BB400 five-hole strip. Return L1 pin 2 from A12 to the blue rail at BM12.",
+      "The ideal model omits the inductor winding resistance (115 Ω typical, 140 Ω maximum), tolerance, and saturation curve; the scope trace is an ideal first-order RL estimate."
+    ],
+    "assembly": {
+      "wire": { "manufacturer": "Belden", "partNumber": "8530", "gaugeAwg": 22, "conductorDiameterMm": 0.64, "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530" },
+      "packages": [
+        {
+          "instanceId": "source-1", "reference": "V1", "kind": "external-supply", "positionPx": [90, 283],
+          "pins": [
+            { "pin": "+", "hole": "TP2", "connection": "pigtail", "offsetMm": [0, -1.27] },
+            { "pin": "-", "hole": "BM2", "connection": "pigtail", "offsetMm": [0, 1.27] }
+          ]
+        },
+        {
+          "instanceId": "resistor-1", "reference": "R1", "kind": "axial-resistor", "manufacturer": "Vishay", "manufacturerPartNumber": "MRS25000C1200FCT00", "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf", "bodyMm": { "width": 6.5, "height": 2.5 }, "positionPx": [192.07, 125],
+          "pins": [
+            { "pin": "1", "hole": "D6", "connection": "direct", "leadDiameterMm": 0.6, "offsetMm": [-5.08, 0] },
+            { "pin": "2", "hole": "D10", "connection": "direct", "leadDiameterMm": 0.6, "offsetMm": [5.08, 0] }
+          ]
+        },
+        {
+          "instanceId": "inductor-1", "reference": "L1", "kind": "radial-inductor", "manufacturer": "Würth Elektronik", "manufacturerPartNumber": "7447471104", "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Wurth%20Electronics%20PDFs/7447471104.pdf", "bodyMm": { "width": 11, "height": 11.5 }, "positionPx": [251.2, 72.35],
+          "pins": [
+            { "pin": "1", "hole": "A10", "connection": "direct", "leadDiameterMm": 0.65, "offsetMm": [-2.5, 5.75] },
+            { "pin": "2", "hole": "A12", "connection": "direct", "leadDiameterMm": 0.65, "offsetMm": [2.5, 5.75] }
+          ]
+        }
+      ]
+    }
+  },
+  "pcbFabrication": {
+    "board": { "widthMm": 52, "heightMm": 32, "thicknessMm": 1.6, "copperLayers": ["F.Cu"], "minimumClearanceMm": 0.35, "outline": "rectangle" },
+    "parts": [
+      { "instanceId": "source-1", "reference": "J1", "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm", "technology": "through-hole", "manufacturer": "Samtec", "manufacturerPartNumber": "TSW-102-07-T-S", "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s" },
+      { "instanceId": "resistor-1", "reference": "R1", "footprint": "Vishay_MRS25000C1200FCT00_Axial_P10.00mm", "technology": "through-hole", "manufacturer": "Vishay", "manufacturerPartNumber": "MRS25000C1200FCT00", "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf" },
+      { "instanceId": "inductor-1", "reference": "L1", "footprint": "Wurth_7447471104_WE-TIS_radial_D11_P5.00mm", "technology": "through-hole", "manufacturer": "Würth Elektronik", "manufacturerPartNumber": "7447471104", "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Wurth%20Electronics%20PDFs/7447471104.pdf" }
+    ],
+    "pads": [
+      { "instanceId": "source-1", "reference": "J1", "pin": "+", "number": "1", "bridgeEndpoint": "source-1:+", "netId": "VCC", "xMm": 4, "yMm": 5, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.9 },
+      { "instanceId": "source-1", "reference": "J1", "pin": "-", "number": "2", "bridgeEndpoint": "source-1:-", "netId": "GND", "xMm": 4, "yMm": 7.54, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.9 },
+      { "instanceId": "resistor-1", "reference": "R1", "pin": "1", "number": "1", "bridgeEndpoint": "resistor-1:1", "netId": "VCC", "xMm": 15, "yMm": 5, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.8 },
+      { "instanceId": "resistor-1", "reference": "R1", "pin": "2", "number": "2", "bridgeEndpoint": "resistor-1:2", "netId": "RL_NODE", "xMm": 25, "yMm": 5, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.8 },
+      { "instanceId": "inductor-1", "reference": "L1", "pin": "1", "number": "1", "bridgeEndpoint": "inductor-1:1", "netId": "RL_NODE", "xMm": 37.5, "yMm": 8, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 1 },
+      { "instanceId": "inductor-1", "reference": "L1", "pin": "2", "number": "2", "bridgeEndpoint": "inductor-1:2", "netId": "GND", "xMm": 42.5, "yMm": 8, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 1 }
+    ],
+    "routes": [
+      { "netId": "VCC", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[4, 5], [15, 5]] },
+      { "netId": "RL_NODE", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[25, 5], [30, 5], [30, 8], [37.5, 8]] },
+      { "netId": "GND", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[4, 7.54], [4, 27], [42.5, 27], [42.5, 8]] }
+    ],
+    "physicalEvidence": [
+      { "reference": "J1", "manufacturer": "Samtec", "manufacturerPartNumber": "TSW-102-07-T-S", "package": "1×02 through-hole header, 2.54 mm pitch", "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s", "pinMapping": { "1": "5 V input", "2": "ground return" }, "limitations": ["Confirm the selected fabricator's drill and annular-ring rules."] },
+      { "reference": "R1", "manufacturer": "Vishay", "manufacturerPartNumber": "MRS25000C1200FCT00", "package": "MRS25 axial, 120 Ω, 1%, 0.6 W", "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf", "limitations": ["The board uses 10 mm lead centers; verify the ordered part variant and lead diameter."] },
+      { "reference": "L1", "manufacturer": "Würth Elektronik", "manufacturerPartNumber": "7447471104", "package": "WE-TIS 1111 radial wire-wound inductor, 100 mH ±10%, 50 mA rated current, 50 mA typical saturation current, 11 × 11.5 mm body, 5.0 ±0.5 mm lead pitch", "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Wurth%20Electronics%20PDFs/7447471104.pdf", "pinMapping": { "1": "RL_NODE", "2": "GND" }, "limitations": ["The winding has 115 Ω typical / 140 Ω maximum DC resistance. The ideal simulation omits it; verify the physical current and time constant against the ordered part before using the board."] }
+    ],
+    "nonPhysicalItems": [
+      { "instanceId": "source-1", "reference": "V1", "reason": "The ideal voltage source is a simulation object; feed regulated, current-limited 5 V to J1 pin 1 and ground to J1 pin 2." },
+      { "instanceId": "ground-1", "reference": "GND", "reason": "Schematic ground symbol; J1 pin 2 and the routed GND net provide the physical return." }
+    ],
+    "fabricationNotes": [
+      "J1 pin 1 is regulated 5 V and pin 2 is GND. The series path is R1 then L1 to return.",
+      "R1 is 120 Ω so the ideal 5 V steady-state current is about 41.7 mA, below L1's 50 mA rated current. Use a current-limited supply.",
+      "The ideal RL scope trace omits L1 winding resistance, tolerance and magnetic behavior. The selected coil's specified winding resistance materially changes the real response; validate the assembled circuit before relying on the timing result.",
+      "52 mm × 32 mm educational single-sided layout. Copper DRC and exports are not a fabricator qualification. Independently review component orientation, polarity, drill, clearance and assembly before ordering."
+    ]
+  }
 }
