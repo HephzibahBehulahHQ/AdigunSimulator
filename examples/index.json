@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 42,
-    "withoutStoredPcb": 174,
+    "withStoredPcb": 43,
+    "withoutStoredPcb": 173,
     "unexpectedFailures": []
   },
   "entries": [
@@ -350,36 +350,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "d5f3ef89adfedbf703f791f3b8b0448127aff6d5b9472072aff0fae317a894c2",
+      "sha256": "a739f71639033ac540019e517b56539c57ae1b87dbb50441ad6065700b654a98",
       "components": 5,
       "analysis": "complete",
       "engine": "Analytical supercapacitor RC power-interruption response",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.schottky"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.supercapacitor"
-        },
-        {
-          "reference": "RLOAD",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 8,
+      "pcbRoutes": 5,
+      "unmapped": []
     },
     {
       "file": "011-rc-charge-discharge.adigun.json",

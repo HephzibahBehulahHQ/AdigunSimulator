@@ -29,7 +29,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,42);assert.equal(index.summary.withoutStoredPcb,174);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,43);assert.equal(index.summary.withoutStoredPcb,173);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -170,6 +170,24 @@ test('5 V RL step response maps a current-rated radial inductor across BB400 and
  const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/7447471104/);assert.match(exported.files['board-F_Cu.gbr'],/X/);assert.match(exported.files['board-PTH.drl'],/T01/);
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="inductor-1"/);assert.match(renderBreadboardAssemblySvg(project),/radial-inductor/);
 });
+test('5 V supercapacitor hold-up maps its BB400 assembly, scope and routed PCB',async()=>{
+ const entry=index.entries.find(item=>item.file==='010-supercapacitor-hold-up.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/010-supercapacitor-hold-up.adigun.json',import.meta.url),'utf8'));
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,4);assert.equal(entry.pcbPads,8);assert.equal(entry.pcbRoutes,5);assert.deepEqual(entry.unmapped,[]);
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ assert.equal(validatePcbFabrication(project).status,'passed');
+ const analysis=runProjectAnalysis(project);assert.equal(analysis.state,'complete');assert.equal(analysis.result.kind,'supercap-hold-up');
+ assert.equal(analysis.scopeRecording.preferredNet,'CAP_LOAD');assert.equal(analysis.scopeRecording.samples.length,501);
+ assert.equal(project.components.find(component=>component.instanceId==='cap-1').value,'C 1 F; Vstart 4.7 V; Vmin 3 V; Vmax 5.5 V');
+ const cap=project.pcbFabrication.physicalEvidence.find(item=>item.reference==='C1');assert.equal(cap.manufacturerPartNumber,'LP055105A');assert.match(cap.package,/maximum charge current 1.5 mA/);
+ assert.match(project.breadboard.physicalNotes.join(' '),/1.5 mA/);assert.match(project.pcbFabrication.fabricationNotes.join(' '),/1.5 mA or less/);
+ const disconnected=structuredClone(project);disconnected.nets.find(net=>net.id==='CAP_LOAD').endpoints=['diode-1:K'];
+ const failed=runProjectAnalysis(disconnected);assert.equal(failed.state,'blocked');assert.equal(failed.scopeRecording,undefined);
+ const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/LP055105A/);assert.match(exported.files['board-F_Cu.gbr'],/X/);assert.match(exported.files['board-PTH.drl'],/T01/);
+ assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="cap-1"/);assert.match(renderBreadboardAssemblySvg(project),/radial-capacitor/);
+});
 test('5 V Parallel Resistor Load exports its exact external supply, resistor pads and net routes',async()=>{
  const entry=index.entries.find(item=>item.file==='004-parallel-resistor-load.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/004-parallel-resistor-load.adigun.json',import.meta.url),'utf8'));
@@ -264,7 +282,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,42);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,43);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

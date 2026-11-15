@@ -189,8 +189,10 @@ function supercapHoldUpRecording(project,r){
  let previous=-Infinity;
  for(const sample of r.samples){if(!Number.isFinite(sample.timeS)||sample.timeS<previous||!Number.isFinite(sample.voltage)||sample.voltage<0||sample.voltage>r.ratedVoltage)return null;previous=sample.timeS;}
  if(r.samples[0].timeS!==0||Math.abs(r.samples[0].voltage-initial)>Math.max(1,Math.abs(initial))*1e-9||r.samples.at(-1).timeS<=0)return null;
- const samples=r.samples.map(sample=>({timeSeconds:sample.timeS,nodeVoltages:{[ground]:0,[power]:sourceVoltage,[output]:sample.voltage}}));
- return {kind:'analytical-output-recording',model:'Supercapacitor hold-up discharge (analytical model samples)',preferredNet:output,samples};
+ const duration=r.samples.at(-1).timeS;
+ if(!Number.isFinite(r.initialVoltage)||r.initialVoltage<=0||!Number.isFinite(r.timeConstantS)||r.timeConstantS<=0)return null;
+ const samples=Array.from({length:501},(_,i)=>{const timeSeconds=duration*i/500,voltage=r.initialVoltage*Math.exp(-timeSeconds/r.timeConstantS);return {timeSeconds,nodeVoltages:{[ground]:0,[power]:sourceVoltage,[output]:voltage}};});
+ return {kind:'analytical-output-recording',model:'Supercapacitor hold-up discharge (501 analytical RC samples)',preferredNet:output,samples};
 }
 
 function rlcStepRecording(project,r){

@@ -18,12 +18,13 @@ test("supercapacitor hold-up scope follows the solved discharge samples", async 
   assert.ok(channels.includes("GND"));
   const trace = scopeTrace(project, analysis, live, "CAP_LOAD");
   assert.equal(trace.kind, "transient");
-  assert.match(trace.model, /analytical model samples/);
-  assert.equal(trace.points.length, analysis.result.samples.length);
+  assert.match(trace.model, /501 analytical RC samples/);
+  assert.equal(trace.points.length, 501);
   assert.equal(trace.points[0][1], analysis.result.samples[0].voltage);
   assert.equal(trace.points.at(-1)[1], analysis.result.samples.at(-1).voltage);
   const unwired = structuredClone(project);
   unwired.nets = unwired.nets.map(net => ({ ...net, endpoints: net.endpoints.filter(endpoint => endpoint !== "diode-1:K") })).filter(net => net.endpoints.length);
   assert.equal((await import("../js/analytical-scope-recording.mjs")).analyticalScopeRecording(unwired, analysis), null);
 });
+
 
