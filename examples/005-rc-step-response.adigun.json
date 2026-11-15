@@ -1,11 +1,16 @@
 {
   "schemaVersion": 1,
   "id": "example-005-rc-step-response",
-  "metadata": { "name": "5 V RC Step Response", "locale": "en", "createdAt": "2026-10-31T00:00:00.000Z", "updatedAt": "2026-10-31T00:00:00.000Z" },
+  "metadata": {
+    "name": "5 V RC Step Response",
+    "locale": "en",
+    "createdAt": "2026-10-31T00:00:00.000Z",
+    "updatedAt": "2026-11-15T00:00:00.000Z"
+  },
   "components": [
-    { "instanceId": "source-1", "libraryId": "power.dc-source", "reference": "V1", "value": "5 V", "position": { "breadboard": [60, 142], "schematic": [95, 128], "pcb": [92, 130] } },
-    { "instanceId": "resistor-1", "libraryId": "passive.resistor", "reference": "R1", "value": "1 kΩ", "position": { "breadboard": [250, 142], "schematic": [260, 128], "pcb": [244, 128] } },
-    { "instanceId": "capacitor-1", "libraryId": "passive.capacitor", "reference": "C1", "value": "100 µF", "position": { "breadboard": [435, 142], "schematic": [445, 128], "pcb": [425, 128] } },
+    { "instanceId": "source-1", "libraryId": "power.dc-source", "reference": "V1", "value": "5 V", "position": { "breadboard": [60, 142], "schematic": [95, 128], "pcb": [60, 80] } },
+    { "instanceId": "resistor-1", "libraryId": "passive.resistor", "reference": "R1", "value": "1 kΩ", "position": { "breadboard": [192, 95], "schematic": [260, 128], "pcb": [240, 80] } },
+    { "instanceId": "capacitor-1", "libraryId": "passive.capacitor", "reference": "C1", "value": "100 µF", "position": { "breadboard": [320, 143], "schematic": [445, 128], "pcb": [420, 120] } },
     { "instanceId": "ground-1", "libraryId": "ground.signal", "reference": "GND", "value": "0 V", "position": { "breadboard": [570, 220], "schematic": [570, 220], "pcb": [520, 220] } }
   ],
   "nets": [
@@ -13,5 +18,92 @@
     { "id": "RC_NODE", "endpoints": ["resistor-1:2", "capacitor-1:1"] },
     { "id": "GND", "endpoints": ["capacitor-1:2", "source-1:-", "ground-1:0"] }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "resistor-1:1": "A6",
+      "resistor-1:2": "A10",
+      "capacitor-1:1": "F14",
+      "capacitor-1:2": "F15"
+    },
+    "jumpers": [
+      { "from": "TP2", "to": "A6" },
+      { "from": "A10", "to": "F14" },
+      { "from": "F15", "to": "BM15" }
+    ],
+    "nonPhysicalItems": [
+      { "instanceId": "ground-1", "reference": "GND", "reason": "Schematic ground symbol only; V1 negative and C1 negative connect to the BB400 blue ground rail." }
+    ],
+    "physicalNotes": [
+      "Use a regulated, current-limited 5 V DC source. V1 positive feeds R1; C1 positive connects to RC_NODE after R1, and C1 negative returns to ground.",
+      "C1 is a 2.50 mm pitch radial electrolytic. Its pitch differs by 0.04 mm from the 2.54 mm BB400 F14/F15 holes; verify the purchased lead form and do not force pins that do not align.",
+      "R1 spans A6-A10. Connect A10 to capacitor positive at F14; return capacitor negative from F15 to the blue ground rail at BM15.",
+      "Check capacitor polarity and supply polarity before energizing. The ideal transient model omits source impedance, leakage, ESR, tolerance and dielectric effects."
+    ],
+    "assembly": {
+      "wire": { "manufacturer": "Belden", "partNumber": "8530", "gaugeAwg": 22, "conductorDiameterMm": 0.64, "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530" },
+      "packages": [
+        {
+          "instanceId": "source-1", "reference": "V1", "kind": "external-supply", "positionPx": [90, 283],
+          "pins": [
+            { "pin": "+", "hole": "TP2", "connection": "pigtail", "offsetMm": [0, -1.27] },
+            { "pin": "-", "hole": "BM2", "connection": "pigtail", "offsetMm": [0, 1.27] }
+          ]
+        },
+        {
+          "instanceId": "resistor-1", "reference": "R1", "kind": "axial-resistor", "manufacturer": "Vishay", "manufacturerPartNumber": "MRS25000C1001FCT00", "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf", "bodyMm": { "width": 6.5, "height": 2.5 }, "positionPx": [192.07, 95],
+          "pins": [
+            { "pin": "1", "hole": "A6", "connection": "direct", "leadDiameterMm": 0.6, "offsetMm": [-5.08, 0] },
+            { "pin": "2", "hole": "A10", "connection": "direct", "leadDiameterMm": 0.6, "offsetMm": [5.08, 0] }
+          ]
+        },
+        {
+          "instanceId": "capacitor-1", "reference": "C1", "kind": "radial-capacitor", "manufacturer": "Panasonic", "manufacturerPartNumber": "ECA1VMH101I", "sourceUrl": "https://na.industrial.panasonic.com/products/capacitors/aluminum-electrolytic-capacitors/series/84119/model/88360", "bodyMm": { "width": 6.3, "height": 11.2 }, "positionPx": [320.28, 142.95],
+          "pins": [
+            { "pin": "1", "hole": "F14", "connection": "direct", "leadDiameterMm": 0.5, "offsetMm": [-1.25, 5.6] },
+            { "pin": "2", "hole": "F15", "connection": "direct", "leadDiameterMm": 0.5, "offsetMm": [1.25, 5.6] }
+          ]
+        }
+      ]
+    }
+  },
+  "pcbFabrication": {
+    "board": { "widthMm": 52, "heightMm": 30, "thicknessMm": 1.6, "copperLayers": ["F.Cu"], "minimumClearanceMm": 0.35, "outline": "rectangle" },
+    "parts": [
+      { "instanceId": "source-1", "reference": "J1", "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm", "technology": "through-hole", "manufacturer": "Samtec", "manufacturerPartNumber": "TSW-102-07-T-S", "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s" },
+      { "instanceId": "resistor-1", "reference": "R1", "footprint": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm", "technology": "through-hole", "manufacturer": "Vishay", "manufacturerPartNumber": "MRS25000C1001FCT00", "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf" },
+      { "instanceId": "capacitor-1", "reference": "C1", "footprint": "Panasonic_ECA1VMH101I_radial_D6.3_P2.50mm", "technology": "through-hole", "manufacturer": "Panasonic", "manufacturerPartNumber": "ECA1VMH101I", "sourceUrl": "https://na.industrial.panasonic.com/products/capacitors/aluminum-electrolytic-capacitors/series/84119/model/88360" }
+    ],
+    "pads": [
+      { "instanceId": "source-1", "reference": "J1", "pin": "+", "number": "1", "bridgeEndpoint": "source-1:+", "netId": "VCC", "xMm": 4, "yMm": 5, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.9 },
+      { "instanceId": "source-1", "reference": "J1", "pin": "-", "number": "2", "bridgeEndpoint": "source-1:-", "netId": "GND", "xMm": 4, "yMm": 7.54, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.9 },
+      { "instanceId": "resistor-1", "reference": "R1", "pin": "1", "number": "1", "bridgeEndpoint": "resistor-1:1", "netId": "VCC", "xMm": 16, "yMm": 5, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.8 },
+      { "instanceId": "resistor-1", "reference": "R1", "pin": "2", "number": "2", "bridgeEndpoint": "resistor-1:2", "netId": "RC_NODE", "xMm": 26, "yMm": 5, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.8 },
+      { "instanceId": "capacitor-1", "reference": "C1", "pin": "1", "number": "1", "bridgeEndpoint": "capacitor-1:1", "netId": "RC_NODE", "xMm": 35, "yMm": 6.25, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.9 },
+      { "instanceId": "capacitor-1", "reference": "C1", "pin": "2", "number": "2", "bridgeEndpoint": "capacitor-1:2", "netId": "GND", "xMm": 37.5, "yMm": 6.25, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.9 }
+    ],
+    "routes": [
+      { "netId": "VCC", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[4, 5], [16, 5]] },
+      { "netId": "RC_NODE", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[26, 5], [30, 5], [30, 6.25], [35, 6.25]] },
+      { "netId": "GND", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[4, 7.54], [4, 25], [37.5, 25], [37.5, 6.25]] }
+    ],
+    "physicalEvidence": [
+      { "reference": "J1", "manufacturer": "Samtec", "manufacturerPartNumber": "TSW-102-07-T-S", "package": "1x02 through-hole header, 2.54 mm pitch", "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s", "pinMapping": { "1": "5 V input", "2": "GND return" }, "limitations": ["Confirm drill and annular-ring rules with the selected fabricator."] },
+      { "reference": "R1", "manufacturer": "Vishay", "manufacturerPartNumber": "MRS25000C1001FCT00", "package": "MRS25 axial, 1 kΩ, 1%, 0.6 W", "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf", "limitations": ["The board uses a 10 mm lead-center layout; verify the ordered variant and lead diameter before assembly."] },
+      { "reference": "C1", "manufacturer": "Panasonic", "manufacturerPartNumber": "ECA1VMH101I", "package": "100 µF, 35 V radial polarized electrolytic, 6.3 mm diameter × 11.2 mm body, 2.5 mm lead pitch", "sourceUrl": "https://na.industrial.panasonic.com/products/capacitors/aluminum-electrolytic-capacitors/series/84119/model/88360", "pinMapping": { "1": "positive / RC_NODE", "2": "negative / GND" }, "limitations": ["Confirm lead form and polarity markings on the purchased part before assembly."] }
+    ],
+    "nonPhysicalItems": [
+      { "instanceId": "source-1", "reference": "V1", "reason": "The ideal 5 V source is a simulation object; connect a regulated, current-limited supply to J1 pin 1 and return through J1 pin 2." },
+      { "instanceId": "ground-1", "reference": "GND", "reason": "Schematic ground symbol; J1 pin 2 and the routed ground net provide the physical return." }
+    ],
+    "fabricationNotes": [
+      "J1 pin 1 is the regulated 5 V input; J1 pin 2 is ground. R1 charges C1 through RC_NODE.",
+      "C1 pin 1 is positive and connects to RC_NODE; pin 2 is negative and connects to GND. Never reverse the polarized capacitor.",
+      "52 mm × 30 mm educational single-sided layout with 0.35 mm declared copper clearance. Review drill, annular ring, component spacing, polarity, and fabrication rules independently before ordering.",
+      "The analytical result is an ideal first-order RC response. It is not a capacitor ESR, leakage, tolerance, or thermal qualification."
+    ]
+  }
 }
