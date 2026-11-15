@@ -88,7 +88,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "a3eaa6000d2bcad144c85c3f1908157ee31fee2755af9d458e7226b9222fe8a7",
+      "sha256": "b40dba68565c6c8f8d80c43ce645f32373dd3c07f023671cb72e8c1bfe533849",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical DC LED demonstration",
@@ -96,12 +96,7 @@
       "pcbParts": 3,
       "pcbPads": 6,
       "pcbRoutes": 3,
-      "unmapped": [
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "unmapped": []
     },
     {
       "file": "003-pushbutton-led.adigun.json",

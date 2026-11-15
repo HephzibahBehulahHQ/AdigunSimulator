@@ -39,6 +39,18 @@ test('Example 001 LED current limiter routes its return without assigning a foot
  assert.equal(runProjectAnalysis(project).result.kind,'led-current-limiter');
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="led-1"/);
 });
+test('9 V LED Current Limiter maps sourced through-hole parts and connected PCB copper',async()=>{
+ const entry=index.entries.find(item=>item.file==='003-led-current-limiter-9v.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/003-led-current-limiter-9v.adigun.json',import.meta.url),'utf8'));
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,3);assert.equal(entry.pcbPads,6);
+ assert.deepEqual(entry.unmapped,[]);assert.deepEqual(projectComponentsForView(project,'pcb').reconciliationItems,[]);
+ assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);
+ assert.equal(project.pcbFabrication.parts.find(item=>item.reference==='R1').manufacturerPartNumber,'CFR25J470R');
+ assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','D1']);
+ assert.equal(validatePcbFabrication(project).status,'passed');
+ assert.equal(runProjectAnalysis(project).result.kind,'led-current-limiter');
+ assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="led-1"/);
+});
 test('DC Voltage Divider has sourced physical resistor values, mapped pads and connected copper',async()=>{
  const entry=index.entries.find(item=>item.file==='002-dc-voltage-divider.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/002-dc-voltage-divider.adigun.json',import.meta.url),'utf8'));
