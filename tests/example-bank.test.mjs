@@ -29,7 +29,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,36);assert.equal(index.summary.withoutStoredPcb,180);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,37);assert.equal(index.summary.withoutStoredPcb,179);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -75,6 +75,18 @@ test('9 V divider maps both resistors and its source across printable BB400, sch
  assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.manufacturerPartNumber),['TSW-102-07-T-S','MRS25000C3001FCT00','MRS25000C1001FCT00']);
  const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/MRS25000C3001FCT00/);assert.match(exported.files['board-F_Cu.gbr'],/X/);
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="resistor-bottom-1"/);assert.match(renderBreadboardAssemblySvg(project),/R1|resistor-top-1/);
+});
+test('12 V parallel load maps sourced resistors and routes its PCB',async()=>{
+ const entry=index.entries.find(item=>item.file==='010-parallel-load-12v.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/010-parallel-load-12v.adigun.json',import.meta.url),'utf8'));
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,4);assert.equal(entry.pcbPads,8);assert.deepEqual(entry.unmapped,[]);
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);assert.equal(validatePcbFabrication(project).status,'passed');assert.equal(runProjectAnalysis(project).state,'complete');
+ assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.manufacturerPartNumber),['TSW-102-07-T-S','MRS25000C1001FCT00','MRS25000C2001FCT00','MRS25000C3001FCT00']);
+ const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/MRS25000C3001FCT00/);assert.match(exported.files['board-F_Cu.gbr'],/M02\*/);
+ assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="resistor-branch-1"/);assert.ok(renderBreadboardAssemblySvg(project).includes('resistor-branch-1'));
 });
 test('PWM LED dimmer carries a source-backed physical PCB map without changing its ideal analysis',async()=>{
  const entry=index.entries.find(item=>item.file==='005-pwm-led-dimmer.adigun.json');
@@ -171,7 +183,7 @@ test('LM2577 boost example has a routed, source-backed PCB and exportable fabric
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,36);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,37);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });
