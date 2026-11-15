@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 37,
-    "withoutStoredPcb": 179,
+    "withStoredPcb": 38,
+    "withoutStoredPcb": 178,
     "unexpectedFailures": []
   },
   "entries": [
@@ -47,40 +47,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "58c6bf60cb09f2999651e7ae9899bd84a01b5e3e7bc8f5e3cf27f9b829e15acd",
+      "sha256": "298575236efab19335bd56f34de45992f56ab04acd012189496b5fe2b0754a73",
       "components": 6,
       "analysis": "complete",
       "engine": "Analytical anti-parallel LED polarity indicator",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D2",
-          "libraryId": "diode.led-green"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 5,
+      "pcbPads": 10,
+      "pcbRoutes": 4,
+      "unmapped": []
     },
     {
       "file": "003-led-current-limiter-9v.adigun.json",

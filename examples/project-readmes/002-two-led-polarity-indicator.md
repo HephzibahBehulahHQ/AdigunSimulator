@@ -1,84 +1,22 @@
-# 002 — Two-LED polarity indicator
+# 5 V Two-LED Polarity Indicator
 
-## Purpose
+## Circuit and result
 
-Use red and green LEDs in opposite orientations, each with a 330 Ω series resistor, to indicate the polarity of a signed 5 V DC source.
+The signed 5 V source feeds two opposite-facing LED branches, each with its own 330 Ω series resistor. At +5 V, the red branch conducts about 9.09 mA and the green branch is reverse-biased. At −5 V, the green branch conducts about 8.79 mA and the red branch is reverse-biased. The scope shows the DC operating-point nodes for the selected polarity; it is not a transient SPICE simulation.
 
-## Bill of materials
+## Physical views
 
-| Reference | Project library ID | Project value |
-|---|---|---|
-| V1 | `power.dc-source` | 5 V |
-| R1 | `passive.resistor` | 330 Ω |
-| D1 | `diode.led-red` | Vf 2.0 V |
-| R2 | `passive.resistor` | 330 Ω |
-| D2 | `diode.led-green` | Vf 2.1 V |
-| GND | `ground.signal` | 0 V |
+The BB400 map assigns all 11 physical pins to holes and four jumpers reproduce VCC, RED_A, GREEN_K and GND. The schematic retains both LED directions and their separate resistors. The 40 mm × 30 mm single-sided PCB maps the two-pin 5 V input, both resistors and both LEDs to 10 through-hole pads and routed copper. D1’s cathode connects to ground; D2 is rotated so its cathode faces the green resistor. Print the three project views and export the Gerber, drill and BOM from the native data.
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+## Source-backed parts
 
-## Net connections
+- J1: Samtec TSW-102-07-T-S, 1×02 2.54 mm header. Pin 1 is VCC; pin 2 is GND. [Samtec product page](https://www.samtec.com/products/tsw-102-07-t-s)
+- R1 and R2: Vishay MRS25000C3300FCT00, 330 Ω, 1%, MRS25, 0.6 W. [Vishay MRS16/MRS25 datasheet](https://www.vishay.com/docs/28724/mrs16m25.pdf)
+- D1: Lite-On LTL-307E-002A, 5 mm red LED; [manufacturer datasheet](https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf).
+- D2: Lite-On LTL-307G, 5 mm green LED; [Lite-On datasheet copy](https://media.digikey.com/pdf/Data%20Sheets/Lite-On%20PDFs/LTL-307G.pdf) lists 2.1 V typical and 2.6 V maximum at 20 mA, 2.54 mm lead pitch and cathode lead identity.
 
-- **VCC:** `source-1:+`, `resistor-red:1`, `resistor-green:1`
-- **RED_A:** `resistor-red:2`, `led-red:A`
-- **GND:** `led-red:K`, `led-green:A`, `source-1:-`, `ground-1:0`
-- **GREEN_K:** `led-green:K`, `resistor-green:2`
+The PCB’s 10 mm resistor lead centers and pad/drill dimensions are layout choices. Verify the purchased LEDs’ polarity, reverse-voltage limits, resistor dimensions and board fabrication rules before assembly.
 
-## Views and physical-layout status
+## Limits
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
-
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
-
-## Acceptance test and expected result
-
-- Stable test ID: `core-two-led-polarity-indicator`
-- Engine: Analytical anti-parallel LED polarity indicator
-- Engine version: `adigun-simulator@0.1.0`
-- Model version: `ideal-led-polarity-v1`
-- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41152385551
-
-Recorded expected result:
-
-```json
-{
-  "sourceVoltage": 5,
-  "polarity": "positive",
-  "redLedOn": true,
-  "greenLedOn": false,
-  "redCurrentA": 0.00909090909090909,
-  "greenCurrentA": 0,
-  "sourceCurrentA": 0.00909090909090909,
-  "ledPowerW": 0.01818181818181818,
-  "sourcePowerW": 0.04545454545454545,
-  "positive5V": {
-    "polarity": "positive",
-    "redLedOn": true,
-    "greenLedOn": false,
-    "redCurrentA": 0.00909090909090909,
-    "greenCurrentA": 0
-  },
-  "negative5V": {
-    "polarity": "negative",
-    "redLedOn": false,
-    "greenLedOn": true,
-    "redCurrentA": 0,
-    "greenCurrentA": 0.008787878787878787
-  },
-  "zeroV": {
-    "polarity": "zero",
-    "redLedOn": false,
-    "greenLedOn": false,
-    "redCurrentA": 0,
-    "greenCurrentA": 0
-  }
-}
-```
-
-## Safety and model limits
-
-Ideal educational model using generic LEDs with nominal 2.0 V and 2.1 V forward drops. It omits reverse breakdown, tolerance, thermal behavior, ratings, and physical hardware validation.
-
-Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
-
-Native project: `examples/002-two-led-polarity-indicator.adigun.json`.
+The analytical model uses typical LED forward drops, ideal switching and fixed resistor values. It does not model LED reverse breakdown, recovery, temperature, tolerances or general SPICE behavior. DRC and generated files do not replace independent engineering or manufacturing review.

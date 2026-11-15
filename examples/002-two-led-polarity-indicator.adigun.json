@@ -162,5 +162,596 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 40,
+      "heightMm": 30,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "resistor-red",
+        "reference": "R1",
+        "footprint": "Vishay_MRS25000C3300FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "led-red",
+        "reference": "D1",
+        "footprint": "LiteOn_LTL-307E-002A_T1-3-4_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf"
+      },
+      {
+        "instanceId": "resistor-green",
+        "reference": "R2",
+        "footprint": "Vishay_MRS25000C3300FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "led-green",
+        "reference": "D2",
+        "footprint": "LiteOn_LTL-307G_T1-3-4_P2.54mm",
+        "technology": "through-hole",
+        "rotationDeg": 180,
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307G",
+        "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Lite-On%20PDFs/LTL-307G.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "VCC",
+        "xMm": 4,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 10.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "resistor-red",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 12,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-red",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "RED_A",
+        "xMm": 22,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-red",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "netId": "RED_A",
+        "xMm": 28,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-red",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 30.54,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-green",
+        "reference": "R2",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 12,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-green",
+        "reference": "R2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GREEN_K",
+        "xMm": 22,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-green",
+        "reference": "D2",
+        "pin": "K",
+        "number": "2",
+        "netId": "GREEN_K",
+        "xMm": 28,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-green",
+        "reference": "D2",
+        "pin": "A",
+        "number": "1",
+        "netId": "GND",
+        "xMm": 30.54,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            8
+          ],
+          [
+            12,
+            8
+          ],
+          [
+            10,
+            8
+          ],
+          [
+            10,
+            20
+          ],
+          [
+            12,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "RED_A",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22,
+            8
+          ],
+          [
+            28,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "GREEN_K",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22,
+            20
+          ],
+          [
+            28,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            10.54
+          ],
+          [
+            6,
+            10.54
+          ],
+          [
+            6,
+            24
+          ],
+          [
+            34,
+            24
+          ],
+          [
+            34,
+            8
+          ],
+          [
+            30.54,
+            8
+          ],
+          [
+            30.54,
+            20
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        },
+        "limitations": [
+          "Selected drill size and annular-ring dimensions require fabrication-rule review."
+        ]
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "package": "MRS25 axial, 330 Ω, 1%, 0.6 W",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "limitations": [
+          "10 mm lead-center spacing is a board layout choice; verify purchased part dimensions and drill rules."
+        ]
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "package": "5 mm red diffused LED, 2.54 mm lead pitch",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "pinMapping": {
+          "1": "Anode",
+          "2": "Cathode"
+        },
+        "limitations": [
+          "The analysis uses the typical 2.0 V forward voltage; datasheet limit is higher and LED reverse behavior is not modeled."
+        ]
+      },
+      {
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "package": "MRS25 axial, 330 Ω, 1%, 0.6 W",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "limitations": [
+          "10 mm lead-center spacing is a board layout choice; verify purchased part dimensions and drill rules."
+        ]
+      },
+      {
+        "reference": "D2",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307G",
+        "package": "5 mm green diffused LED, 2.54 mm lead pitch; cathode on lead 2",
+        "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Lite-On%20PDFs/LTL-307G.pdf",
+        "pinMapping": {
+          "1": "Anode",
+          "2": "Cathode"
+        },
+        "limitations": [
+          "The cited supplier-hosted Lite-On datasheet gives 2.1 V typical and 2.6 V maximum at 20 mA; the analysis uses typical voltage and does not model reverse behavior."
+        ]
+      }
+    ],
+    "fabricationNotes": [
+      "V1 is an external regulated 5 V low-voltage supply through J1, pin 1 VCC and pin 2 GND.",
+      "D1 lights for positive polarity; D2 is oriented in the opposite direction and lights for negative polarity. Each LED has its own series resistor.",
+      "This 40 mm x 30 mm single-sided educational layout routes all four named nets. Confirm LED polarity, reverse-voltage limits, pad drills, and fabrication rules before hardware use."
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; the physical return is routed GND copper and the J1 return pad."
+      }
+    ]
+  },
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "resistor-red:1": "A4",
+      "resistor-red:2": "A8",
+      "led-red:A": "D8",
+      "led-red:K": "D9",
+      "resistor-green:1": "A18",
+      "resistor-green:2": "A22",
+      "led-green:K": "D22",
+      "led-green:A": "D23"
+    },
+    "jumpers": [
+      {
+        "from": "TP2",
+        "to": "A4"
+      },
+      {
+        "from": "TP2",
+        "to": "A18"
+      },
+      {
+        "from": "D9",
+        "to": "BM9"
+      },
+      {
+        "from": "D23",
+        "to": "BM23"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol only; the physical return is the external supply negative lead and BB400 ground rail."
+      }
+    ],
+    "physicalNotes": [
+      "Use a regulated, current-limited 5 V supply on the source pigtails. Verify the red and green LED cathode orientation before energizing.",
+      "The red branch conducts for positive input polarity; the green branch is reverse-oriented and conducts for negative polarity.",
+      "The 22 AWG Belden 8530 pigtails connect the off-board supply to the BB400 rails. This model excludes LED reverse breakdown and transient behavior."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "source-1",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            283
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "resistor-red",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3300FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            152.6206896551724,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A4",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A8",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "resistor-green",
+          "reference": "R2",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3300FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            428.7586206896552,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A18",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A22",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led-red",
+          "reference": "D1",
+          "kind": "axial-diode",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            201.93103448275863,
+            125
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "D8",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "D9",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led-green",
+          "reference": "D2",
+          "kind": "axial-diode",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307G",
+          "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Lite-On%20PDFs/LTL-307G.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            478.0689655172414,
+            125
+          ],
+          "pins": [
+            {
+              "pin": "K",
+              "hole": "D22",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "A",
+              "hole": "D23",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

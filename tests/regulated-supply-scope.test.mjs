@@ -87,3 +87,34 @@ test("12 V parallel load exposes its solved MID voltage and blocks an open branc
   assert.equal(analyticalDcScopeRecording(disconnected, failed), null);
 });
 
+test("Two-LED polarity indicator selects the conducting LED node for each source polarity", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/002-two-led-polarity-indicator.adigun.json", import.meta.url), "utf8"));
+  const positive = runProjectAnalysis(project);
+  assert.equal(positive.state, "complete");
+  assert.equal(positive.result.redLedOn, true);
+  assert.equal(positive.scopeDcRecording.preferredNet, "RED_A");
+  const positiveTimeline = createFeedbackTimeline(project, positive);
+  const positiveLive = { status: "ready", kind: "dc", sampleIndex: 0, data: positiveTimeline.frame(0) };
+  assert.ok(scopeChannels(project, positive, positiveLive).includes("RED_A"));
+  assert.equal(scopeTrace(project, positive, positiveLive, "RED_A").voltage, 2);
+
+  const reversed = structuredClone(project);
+  reversed.components.find(component => component.instanceId === "source-1").value = "-5 V";
+  const negative = runProjectAnalysis(reversed);
+  assert.equal(negative.state, "complete");
+  assert.equal(negative.result.greenLedOn, true);
+  assert.equal(negative.scopeDcRecording.preferredNet, "GREEN_K");
+  assert.equal(negative.scopeDcRecording.nodes.GREEN_K, -2.1);
+  const negativeTimeline = createFeedbackTimeline(reversed, negative);
+  const negativeLive = { status: "ready", kind: "dc", sampleIndex: 0, data: negativeTimeline.frame(0) };
+  assert.ok(scopeChannels(reversed, negative, negativeLive).includes("GREEN_K"));
+  assert.equal(scopeTrace(reversed, negative, negativeLive, "GREEN_K").voltage, -2.1);
+
+  const disconnected = structuredClone(project);
+  disconnected.nets.find(net => net.id === "GREEN_K").endpoints = disconnected.nets.find(net => net.id === "GREEN_K").endpoints.filter(endpoint => endpoint !== "resistor-green:2");
+  const failed = runProjectAnalysis(disconnected);
+  assert.equal(failed.state, "blocked");
+  assert.equal(failed.validation.warnings.some(item => item.fix?.includes("Connect R2 pin 2")), true);
+  assert.equal(analyticalDcScopeRecording(disconnected, failed), null);
+});
+
