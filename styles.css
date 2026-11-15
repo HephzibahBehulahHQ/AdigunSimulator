@@ -326,6 +326,19 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .led-body { fill:#ee514d; stroke:#fbe5e4; stroke-width:2; filter:drop-shadow(0 0 5px rgb(239 74 70 / 65%)); }
 .led-lens { fill:none; stroke:#ffc1bb; stroke-width:2; stroke-linecap:round; opacity:.9; }
 .breadboard-controls .package-note { color:var(--muted); font-size:.68rem; line-height:1.4; }
+.breadboard-assembly-package { pointer-events:none; }
+.breadboard-assembly-lead { fill:none; stroke:#43c4e8; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+.breadboard-assembly-lead.net-ground { stroke:#1b2632; }
+.breadboard-assembly-lead.net-power { stroke:#e94f4f; }
+.breadboard-assembly-reference { fill:#fff; stroke:#102337; stroke-width:2.5; paint-order:stroke; stroke-linejoin:round; text-anchor:middle; font:700 7px sans-serif; }
+.breadboard-external-supply-label { fill:#ffd36e; text-anchor:middle; font:700 6px sans-serif; }
+.breadboard-external-load-body { fill:#987052; stroke:#4b2e20; stroke-width:1.5; }
+.breadboard-to220-body { fill:#262d35; stroke:#10151b; stroke-width:1.5; filter:drop-shadow(0 1px 2px rgb(0 0 0 / 45%)); }
+.breadboard-to220-hole { fill:#111923; stroke:#8794a0; stroke-width:1; }
+.breadboard-inductor-body { fill:#b9b9ad; stroke:#5e625e; stroke-width:1.5; }
+.breadboard-inductor-seam { fill:none; stroke:#777b77; stroke-width:1; }
+.breadboard-terminal-body { fill:#183e50; stroke:#87d1df; stroke-width:1.4; }
+.breadboard-terminal-screw { fill:#c4a86b; stroke:#504329; stroke-width:1; }
 
 .axial-diode-body { fill:#343943; stroke:#111820; stroke-width:1.5; filter:drop-shadow(0 1px 1px rgb(0 0 0 / 35%)); }
 .diode-cathode-band { stroke:#e6e9ee; stroke-width:3; }

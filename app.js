@@ -15,6 +15,7 @@ import { createAccountUi } from "./js/account-ui.mjs";
 import { createCloudProjectStore } from "./js/cloud-projects.mjs";
 import { createCloudProjectsUi } from "./js/cloud-projects-ui.mjs";
 import { BREADBOARD_MODEL, breadboardModelFor, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
+import { renderBreadboardAssemblySvg } from "./js/breadboard-assembly.mjs";
 import { renderNucleoG031K8Breadboard } from "./js/nucleo-g031k8.mjs";
 import { schematicPinPoint, schematicSymbolSize, schematicGeometry } from "./js/schematic-pin-layout.mjs";
 import { editComponentField, editCustomProperties } from "./js/component-edit.mjs";
@@ -820,7 +821,9 @@ function breadboardBoardSvg(project) {
 
 
 function breadboardPackageSvg(project) {
-  return project.components.map((component) => {
+  const assemblyPackages = Array.isArray(project.breadboard?.assembly?.packages) ? project.breadboard.assembly.packages : [];
+  const assemblyIds = new Set(assemblyPackages.map(pkg => pkg.instanceId));
+  return project.components.filter(component => !assemblyIds.has(component.instanceId)).map((component) => {
     const nucleoBoard = renderNucleoG031K8Breadboard(project, component);
     if (nucleoBoard) return nucleoBoard;
     const placement = breadboardPackagePlacement(component, project);
@@ -874,7 +877,7 @@ function breadboardPackageSvg(project) {
       </g>`;
     }
     return "";
-  }).join("");
+  }).join("") + renderBreadboardAssemblySvg(project);
 }
 function breadboardWireSvg(project) {
   const config = project.breadboard;

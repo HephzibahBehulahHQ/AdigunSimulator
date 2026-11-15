@@ -40,6 +40,8 @@ test("buck scope declines a reversed catch diode with an actionable wiring diagn
   const ground = project.nets.find(net => net.id === "GND"), switching = project.nets.find(net => net.id === "SWITCH");
   ground.endpoints = ground.endpoints.filter(endpoint => endpoint !== "diode:A").concat("diode:K");
   switching.endpoints = switching.endpoints.filter(endpoint => endpoint !== "diode:K").concat("diode:A");
+  // This fixture exercises the schematic model diagnosis; omit the now-stale physical assembly map.
+  delete project.breadboard;
   const analysis = runProjectAnalysis(project);
   assert.equal(analysis.state, "blocked");
   assert.match(analysis.message, /D1 cathode \(K\).*U1 SW.*anode \(A\).*GND/);
@@ -51,6 +53,8 @@ test("buck scope diagnoses a broken feedback divider before recording a waveform
   const feedback = project.nets.find(net => net.id === "FB"), output = project.nets.find(net => net.id === "VOUT");
   feedback.endpoints = feedback.endpoints.filter(endpoint => endpoint !== "controller:FB");
   output.endpoints.push("controller:FB");
+  // This fixture exercises the schematic model diagnosis; omit the now-stale physical assembly map.
+  delete project.breadboard;
   const analysis = runProjectAnalysis(project);
   assert.equal(analysis.state, "blocked");
   assert.match(analysis.message, /RFB1.*RFB2.*FB/);
