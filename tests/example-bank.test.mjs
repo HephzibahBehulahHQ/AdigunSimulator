@@ -8,8 +8,10 @@ import {renderPcbPreviewSvg} from '../js/pcb-preview.mjs';
 import {parseExampleProject,canLoadExampleAnalysis} from '../js/example-loading.mjs';
 import {describeExample} from '../js/example-bank-ui.mjs';
 import {projectComponentsForView} from '../js/view-projection.mjs';
-import {validateProject} from '../js/core.mjs';
+import {findLibraryPart,validateProject} from '../js/core.mjs';
 import {validatePcbFabrication,exportPcbFabrication} from '../js/pcb-export.mjs';
+import {validateBreadboardTopology} from '../js/breadboard-topology.mjs';
+import {validateBreadboardAssembly,renderBreadboardAssemblySvg} from '../js/breadboard-assembly.mjs';
 const index=JSON.parse(await readFile(new URL('../examples/index.json',import.meta.url),'utf8'));
 test('coverage descriptions distinguish component, package and pad counts',()=>{
  const e={components:6,pcbStatus:'stored',pcbParts:2,pcbPads:4,unmapped:[],analysis:'complete'};
@@ -27,7 +29,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,33);assert.equal(index.summary.withoutStoredPcb,183);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,34);assert.equal(index.summary.withoutStoredPcb,182);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -98,6 +100,27 @@ test('9 V Battery Discharge Monitor maps its TPS3710 across BB400 and routed fab
  assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','R2','U1','R3','D1','C1']);
  assert.equal(project.pcbFabrication.vias.length,6);assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="comparator-1"/);
 });
+test('230 V to 5 V linear supply keeps the simulated primary off hardware and maps the isolated low-voltage views',async()=>{
+ const entry=index.entries.find(item=>item.file==='007-linear-regulated-supply.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/007-linear-regulated-supply.adigun.json',import.meta.url),'utf8'));
+ const pins=libraryId=>findLibraryPart(libraryId)?.pins??[];
+ const components=Object.fromEntries(['breadboard','schematic','pcb'].map(view=>[view,projectComponentsForView(project,view)]));
+ const topology=validateBreadboardTopology(project,{getPartPins:pins}),assembly=validateBreadboardAssembly(project,{getPartPins:pins});
+ const analysis=runProjectAnalysis(project),drc=validatePcbFabrication(project),pack=exportPcbFabrication(project);
+ assert.equal(validateProject(project).valid,true);
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,6);assert.equal(entry.pcbPads,15);assert.equal(entry.pcbRoutes,9);assert.deepEqual(entry.unmapped,[]);
+ assert.ok(Object.values(components).every(view=>view.reconciliationItems.length===0));
+ assert.equal(topology.state,'complete',JSON.stringify(topology.warnings));assert.equal(assembly.state,'complete',JSON.stringify(assembly.errors));assert.equal(assembly.packageCount,6);
+ assert.match(renderBreadboardAssemblySvg(project),/data-instance-id="bridge-1"/);
+ assert.deepEqual(project.breadboard.nonPhysicalItems.map(item=>item.reference),['VAC1','T1','GND']);
+ assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['VAC1','T1','GND']);
+ assert.equal(analysis.state,'complete');assert.equal(analysis.result.outputVoltage,5);assert.equal(analysis.scopeDcRecording.nodes.DC_5V,5);
+ const disconnectedInput=structuredClone(project);disconnectedInput.nets.find(net=>net.id==='SEC1').endpoints=disconnectedInput.nets.find(net=>net.id==='SEC1').endpoints.filter(endpoint=>endpoint!=='isolated-input-1:AC1');
+ assert.equal(runProjectAnalysis(disconnectedInput).state,'blocked');
+ assert.equal(drc.status,'passed',drc.errors.join('; '));assert.equal(pack.status,'passed');
+ assert.match(project.pcbFabrication.fabricationNotes[0],/Never connect mains voltage/);
+ assert.match(project.breadboard.physicalNotes[0],/Do not connect mains voltage/);
+});
 test('LM2577 boost example has a routed, source-backed PCB and exportable fabrication pack',async()=>{
  const entry=index.entries.find(item=>item.file==='102-boost-converter-baseline.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/102-boost-converter-baseline.adigun.json',import.meta.url),'utf8'));
@@ -116,7 +139,7 @@ test('LM2577 boost example has a routed, source-backed PCB and exportable fabric
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,33);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,34);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

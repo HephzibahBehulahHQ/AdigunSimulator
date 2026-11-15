@@ -322,7 +322,7 @@
       "acceptanceTest": "tests/core.test.mjs: catalogue 5 V linear supply estimates ripple and regulator dropout and blocks invalid frequency and wiring",
       "testId": "core-linear-regulated-supply",
       "projectFile": "examples/007-linear-regulated-supply.adigun.json",
-      "safetyNote": "Simulation only. The 230 V primary is not a construction or mains-safety instruction. Ideal transformer, bridge, ripple-envelope and regulator models omit isolation qualification, pulse currents, control-loop behavior, tolerance, thermal design, and device ratings.",
+      "safetyNote": "The 230 V source and ideal transformer are analytical-only. Never connect mains voltage to J1, the PCB, or BB400. The physical interfaces are for an externally isolated low-voltage secondary and regulated 5 V output only; the low-voltage board data is not a mains-safety, thermal, manufacturing, or regulatory approval.",
       "scope": "catalogue",
       "catalogueIndex": 7,
       "verification": {

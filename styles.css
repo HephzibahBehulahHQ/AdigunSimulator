@@ -339,6 +339,10 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .breadboard-inductor-seam { fill:none; stroke:#777b77; stroke-width:1; }
 .breadboard-terminal-body { fill:#183e50; stroke:#87d1df; stroke-width:1.4; }
 .breadboard-terminal-screw { fill:#c4a86b; stroke:#504329; stroke-width:1; }
+.breadboard-header-body { fill:#26394a; stroke:#89b6c3; stroke-width:1.2; }
+.breadboard-header-divider { stroke:#89b6c3; stroke-width:1; }
+.breadboard-bridge-body { fill:#252b31; stroke:#b9c3c9; stroke-width:1.2; }
+.breadboard-bridge-mark { fill:#f1f5f7; font-size:3.6px; font-weight:700; text-anchor:middle; }
 
 .axial-diode-body { fill:#343943; stroke:#111820; stroke-width:1.5; filter:drop-shadow(0 1px 1px rgb(0 0 0 / 35%)); }
 .diode-cathode-band { stroke:#e6e9ee; stroke-width:3; }

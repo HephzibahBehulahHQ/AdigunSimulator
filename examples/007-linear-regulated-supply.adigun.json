@@ -147,6 +147,46 @@
           80
         ]
       }
+    },
+    {
+      "instanceId": "isolated-input-1",
+      "libraryId": "connector.linear-supply-ac-input-2",
+      "reference": "J1",
+      "value": "12 V AC isolated secondary only",
+      "position": {
+        "breadboard": [
+          120,
+          190
+        ],
+        "schematic": [
+          105,
+          185
+        ],
+        "pcb": [
+          100,
+          190
+        ]
+      }
+    },
+    {
+      "instanceId": "output-header-1",
+      "libraryId": "connector.linear-supply-dc-output-2",
+      "reference": "J2",
+      "value": "5 V regulated output",
+      "position": {
+        "breadboard": [
+          500,
+          190
+        ],
+        "schematic": [
+          500,
+          185
+        ],
+        "pcb": [
+          500,
+          190
+        ]
+      }
     }
   ],
   "nets": [
@@ -168,14 +208,16 @@
       "id": "SEC1",
       "endpoints": [
         "transformer-1:SEC1",
-        "bridge-1:AC1"
+        "bridge-1:AC1",
+        "isolated-input-1:AC1"
       ]
     },
     {
       "id": "SEC2",
       "endpoints": [
         "transformer-1:SEC2",
-        "bridge-1:AC2"
+        "bridge-1:AC2",
+        "isolated-input-1:AC2"
       ]
     },
     {
@@ -193,16 +235,944 @@
         "capacitor-1:2",
         "regulator-1:GND",
         "load-1:2",
-        "ground-1:0"
+        "ground-1:0",
+        "output-header-1:GND"
       ]
     },
     {
       "id": "DC_5V",
       "endpoints": [
         "regulator-1:OUT",
-        "load-1:1"
+        "load-1:1",
+        "output-header-1:VOUT"
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "isolated-input-1:AC1": "A3",
+      "isolated-input-1:AC2": "A4",
+      "bridge-1:POS": "A11",
+      "bridge-1:AC1": "A13",
+      "bridge-1:AC2": "A15",
+      "bridge-1:NEG": "A17",
+      "capacitor-1:1": "A19",
+      "capacitor-1:2": "A21",
+      "regulator-1:IN": "J22",
+      "regulator-1:GND": "J24",
+      "regulator-1:OUT": "J26",
+      "load-1:1": "A26",
+      "load-1:2": "A30",
+      "output-header-1:VOUT": "C26",
+      "output-header-1:GND": "C27"
+    },
+    "jumpers": [
+      {
+        "from": "A3",
+        "to": "A13"
+      },
+      {
+        "from": "A4",
+        "to": "A15"
+      },
+      {
+        "from": "A11",
+        "to": "A19"
+      },
+      {
+        "from": "A19",
+        "to": "J22"
+      },
+      {
+        "from": "A17",
+        "to": "A21"
+      },
+      {
+        "from": "A21",
+        "to": "J24"
+      },
+      {
+        "from": "J24",
+        "to": "A30"
+      },
+      {
+        "from": "A30",
+        "to": "C27"
+      },
+      {
+        "from": "J26",
+        "to": "A26"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "source-1",
+        "reference": "VAC1",
+        "reason": "230 V RMS primary source exists only in the analytical model. Never place or connect mains voltage on the BB400."
+      },
+      {
+        "instanceId": "transformer-1",
+        "reference": "T1",
+        "reason": "The ideal 230:12 transformer is a simulation abstraction, not a breadboard part. J1 is the isolated low-voltage secondary interface."
+      },
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol only; the physical return is the J2 GND pin and jumper-connected DC_GND."
+      }
+    ],
+    "physicalNotes": [
+      "VAC1 and T1 are analytical-only abstractions. Do not connect mains voltage to the breadboard or PCB. The physical interface is restricted to an externally isolated 12 V AC secondary at J1.",
+      "BR1, C1 and U1 use sourced parts. Use pigtails where required by the BB400 hole insertion limits; the pigtail wire plan is 22 AWG Belden 8530.",
+      "This breadboard map documents low-voltage secondary-side prototyping only. It is not a mains supply construction or safety design."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "isolated-input-1",
+          "reference": "J1",
+          "kind": "through-hole-header",
+          "manufacturer": "Samtec",
+          "manufacturerPartNumber": "TSW-102-07-T-S",
+          "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+          "bodyMm": {
+            "width": 5.08,
+            "height": 2.54
+          },
+          "positionPx": [
+            103.31034482758622,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "AC1",
+              "hole": "A3",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "AC2",
+              "hole": "A4",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "bridge-1",
+          "reference": "BR1",
+          "kind": "bridge-rectifier",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "W04G-E4/51",
+          "sourceUrl": "https://www.vishay.com/docs/88769/w005g.pdf",
+          "bodyMm": {
+            "width": 9.86,
+            "height": 8.84
+          },
+          "positionPx": [
+            310.4137931034483,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "POS",
+              "hole": "A11",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                -2.54
+              ]
+            },
+            {
+              "pin": "AC1",
+              "hole": "A13",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                -2.54
+              ]
+            },
+            {
+              "pin": "AC2",
+              "hole": "A15",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                2.54
+              ]
+            },
+            {
+              "pin": "NEG",
+              "hole": "A17",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                2.54
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "capacitor-1",
+          "reference": "C1",
+          "kind": "radial-capacitor",
+          "manufacturer": "Panasonic",
+          "manufacturerPartNumber": "EEUFR1V102B",
+          "sourceUrl": "https://industrial.panasonic.com/na/products/capacitors/aluminum-electrolytic-capacitors/series/83367/model/83812",
+          "bodyMm": {
+            "width": 12.5,
+            "height": 20
+          },
+          "positionPx": [
+            428.7586206896552,
+            105
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A19",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.5,
+                -2.54
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A21",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.5,
+                -2.54
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "regulator-1",
+          "reference": "U1",
+          "kind": "to220",
+          "manufacturer": "Texas Instruments",
+          "manufacturerPartNumber": "LM7805CT/NOPB",
+          "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm7800.pdf",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 8.64
+          },
+          "positionPx": [
+            507.65517241379314,
+            195
+          ],
+          "pins": [
+            {
+              "pin": "IN",
+              "hole": "J22",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                2.54
+              ]
+            },
+            {
+              "pin": "GND",
+              "hole": "J24",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                2.54
+              ]
+            },
+            {
+              "pin": "OUT",
+              "hole": "J26",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                2.54
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "load-1",
+          "reference": "RLOAD",
+          "kind": "axial-resistor",
+          "manufacturer": "TE Connectivity (NEOHM)",
+          "manufacturerPartNumber": "CFR50J100R",
+          "sourceUrl": "https://www.te.com/en/product-1623932-6.html",
+          "bodyMm": {
+            "width": 9,
+            "height": 3
+          },
+          "positionPx": [
+            586.551724137931,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A26",
+              "connection": "pigtail",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A30",
+              "connection": "pigtail",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "output-header-1",
+          "reference": "J2",
+          "kind": "through-hole-header",
+          "manufacturer": "Samtec",
+          "manufacturerPartNumber": "TSW-102-07-T-S",
+          "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+          "bodyMm": {
+            "width": 5.08,
+            "height": 2.54
+          },
+          "positionPx": [
+            556.9655172413793,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "VOUT",
+              "hole": "C26",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "GND",
+              "hole": "C27",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 80,
+      "heightMm": 42,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "isolated-input-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "bridge-1",
+        "reference": "BR1",
+        "footprint": "Vishay_W0G_4pin_square5.08mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "W04G-E4/51",
+        "sourceUrl": "https://www.vishay.com/docs/88769/w005g.pdf"
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "footprint": "Panasonic_EEUFR1V102B_radial_P5.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1V102B",
+        "sourceUrl": "https://industrial.panasonic.com/na/products/capacitors/aluminum-electrolytic-capacitors/series/83367/model/83812"
+      },
+      {
+        "instanceId": "regulator-1",
+        "reference": "U1",
+        "footprint": "TI_LM7805CT_TO-220-3_educational",
+        "technology": "through-hole",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "LM7805CT/NOPB",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm7800.pdf"
+      },
+      {
+        "instanceId": "load-1",
+        "reference": "RLOAD",
+        "footprint": "NEOHM_CFR50J100R_Axial_10mm_template",
+        "technology": "through-hole",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR50J100R",
+        "sourceUrl": "https://www.te.com/en/product-1623932-6.html"
+      },
+      {
+        "instanceId": "output-header-1",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "isolated-input-1",
+        "reference": "J1",
+        "pin": "AC1",
+        "number": "1",
+        "netId": "SEC1",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 5,
+        "yMm": 5
+      },
+      {
+        "instanceId": "isolated-input-1",
+        "reference": "J1",
+        "pin": "AC2",
+        "number": "2",
+        "netId": "SEC2",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 7.54,
+        "yMm": 5
+      },
+      {
+        "instanceId": "bridge-1",
+        "reference": "BR1",
+        "pin": "POS",
+        "number": "+",
+        "netId": "DC_RAW",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 22,
+        "yMm": 8
+      },
+      {
+        "instanceId": "bridge-1",
+        "reference": "BR1",
+        "pin": "AC1",
+        "number": "~1",
+        "netId": "SEC1",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 27.08,
+        "yMm": 8
+      },
+      {
+        "instanceId": "bridge-1",
+        "reference": "BR1",
+        "pin": "AC2",
+        "number": "~2",
+        "netId": "SEC2",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 22,
+        "yMm": 13.08
+      },
+      {
+        "instanceId": "bridge-1",
+        "reference": "BR1",
+        "pin": "NEG",
+        "number": "-",
+        "netId": "DC_GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 27.08,
+        "yMm": 13.08
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "netId": "DC_RAW",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 39,
+        "yMm": 8
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "netId": "DC_GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 39,
+        "yMm": 13.08
+      },
+      {
+        "instanceId": "regulator-1",
+        "reference": "U1",
+        "pin": "IN",
+        "number": "1",
+        "netId": "DC_RAW",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 52,
+        "yMm": 8
+      },
+      {
+        "instanceId": "regulator-1",
+        "reference": "U1",
+        "pin": "GND",
+        "number": "2",
+        "netId": "DC_GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 52,
+        "yMm": 10.54
+      },
+      {
+        "instanceId": "regulator-1",
+        "reference": "U1",
+        "pin": "OUT",
+        "number": "3",
+        "netId": "DC_5V",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 52,
+        "yMm": 13.08
+      },
+      {
+        "instanceId": "load-1",
+        "reference": "RLOAD",
+        "pin": "1",
+        "number": "1",
+        "netId": "DC_5V",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 66,
+        "yMm": 8
+      },
+      {
+        "instanceId": "load-1",
+        "reference": "RLOAD",
+        "pin": "2",
+        "number": "2",
+        "netId": "DC_GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 66,
+        "yMm": 18
+      },
+      {
+        "instanceId": "output-header-1",
+        "reference": "J2",
+        "pin": "VOUT",
+        "number": "1",
+        "netId": "DC_5V",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 74,
+        "yMm": 27
+      },
+      {
+        "instanceId": "output-header-1",
+        "reference": "J2",
+        "pin": "GND",
+        "number": "2",
+        "netId": "DC_GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 76.54,
+        "yMm": 27
+      }
+    ],
+    "routes": [
+      {
+        "netId": "SEC1",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            27.08,
+            2
+          ],
+          [
+            27.08,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "SEC2",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            7.54,
+            5
+          ],
+          [
+            7.54,
+            25
+          ],
+          [
+            22,
+            25
+          ],
+          [
+            22,
+            13.08
+          ]
+        ]
+      },
+      {
+        "netId": "DC_RAW",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22,
+            8
+          ],
+          [
+            18,
+            8
+          ],
+          [
+            18,
+            18
+          ],
+          [
+            34,
+            18
+          ],
+          [
+            34,
+            8
+          ],
+          [
+            39,
+            8
+          ],
+          [
+            46,
+            8
+          ],
+          [
+            52,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "DC_5V",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            52,
+            13.08
+          ],
+          [
+            57,
+            13.08
+          ],
+          [
+            57,
+            6
+          ],
+          [
+            66,
+            6
+          ],
+          [
+            66,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "DC_5V",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            66,
+            8
+          ],
+          [
+            70,
+            8
+          ],
+          [
+            70,
+            27
+          ],
+          [
+            74,
+            27
+          ]
+        ]
+      },
+      {
+        "netId": "DC_GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            27.08,
+            13.08
+          ],
+          [
+            30,
+            16
+          ],
+          [
+            39,
+            16
+          ],
+          [
+            39,
+            13.08
+          ]
+        ]
+      },
+      {
+        "netId": "DC_GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            39,
+            13.08
+          ],
+          [
+            44,
+            13.08
+          ],
+          [
+            44,
+            10.54
+          ],
+          [
+            52,
+            10.54
+          ]
+        ]
+      },
+      {
+        "netId": "DC_GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            52,
+            10.54
+          ],
+          [
+            48,
+            10.54
+          ],
+          [
+            48,
+            22
+          ],
+          [
+            66,
+            22
+          ],
+          [
+            66,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "DC_GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            66,
+            18
+          ],
+          [
+            68,
+            24
+          ],
+          [
+            76.54,
+            24
+          ],
+          [
+            76.54,
+            27
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "source-1",
+        "reference": "VAC1",
+        "reason": "230 V RMS source is analytical-only. No primary-side or mains circuitry is placed on this low-voltage secondary PCB."
+      },
+      {
+        "instanceId": "transformer-1",
+        "reference": "T1",
+        "reason": "Ideal transformer is simulation-only. J1 is the board input for an externally isolated 12 V AC secondary."
+      },
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol only; the physical return is the J2 GND pad and routed DC_GND copper."
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole straight header, 2.54 mm pitch; isolated 12 V AC secondary input only",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "AC1",
+          "2": "AC2"
+        },
+        "limitations": [
+          "The external source must be isolated low-voltage AC. Never connect mains voltage to J1."
+        ]
+      },
+      {
+        "reference": "BR1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "W04G-E4/51",
+        "package": "W0G through-hole 4-pin bridge; manufacturer-marked terminal square is 4.6–5.6 mm",
+        "sourceUrl": "https://www.vishay.com/docs/88769/w005g.pdf",
+        "pinMapping": {
+          "+": "POS",
+          "~ upper-right": "AC1",
+          "~ lower-left": "AC2",
+          "-": "NEG"
+        },
+        "limitations": [
+          "The ideal bridge simulation uses a fixed per-diode drop; this orderable part has device-specific electrical behavior not modeled here. Confirm orientation from body marks."
+        ]
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1V102B",
+        "package": "1000 µF, 35 V radial electrolytic, 12.5 mm diameter × 20 mm body, 5 mm pitch",
+        "sourceUrl": "https://industrial.panasonic.com/na/products/capacitors/aluminum-electrolytic-capacitors/series/83367/model/83812",
+        "pinMapping": {
+          "1": "positive / DC_RAW",
+          "2": "negative / DC_GND"
+        },
+        "limitations": [
+          "The generic model is non-polarity-specific; project pin 1 is connected as the positive terminal."
+        ]
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "LM7805CT/NOPB",
+        "package": "TO-220-3; 1 INPUT, 2 GND, 3 OUTPUT",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm7800.pdf",
+        "pinMapping": {
+          "1": "IN",
+          "2": "GND",
+          "3": "OUT"
+        },
+        "limitations": [
+          "Educational pad dimensions require physical/package, thermal, land-pattern, and fabrication-rule review. The ideal model does not represent device dynamics or thermal protection."
+        ]
+      },
+      {
+        "reference": "RLOAD",
+        "manufacturer": "TE Connectivity (NEOHM)",
+        "manufacturerPartNumber": "CFR50J100R",
+        "package": "100 Ω, 5%, 0.5 W, CFR50 axial; 9 mm × 3 mm body",
+        "sourceUrl": "https://www.te.com/en/product-1623932-6.html",
+        "limitations": [
+          "The nominal 0.25 W load estimate uses half the listed resistor power rating; board thermal/environmental suitability is not established."
+        ]
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole straight header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "VOUT",
+          "2": "GND"
+        }
+      }
+    ],
+    "fabricationNotes": [
+      "Only the isolated low-voltage 12 V AC secondary side is represented on this board. VAC1 and T1 are analytical symbols and are intentionally omitted. Never connect mains voltage to J1 or the PCB.",
+      "Board layout maps educational/ideal circuit elements to source-backed physical candidates. The electrical model is not a device-level SPICE model, and this artwork is not a certified safety, thermal, or manufacturing design.",
+      "U1 uses an educational TO-220 pad pattern reconstructed from TI package geometry; verify the physical part, heat dissipation, clearances, hole sizes, and assembly before manufacture."
+    ]
+  }
 }
