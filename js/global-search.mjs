@@ -23,6 +23,6 @@ export function matchGlobalExample(entries, query) {
 }
 
 export function globalExampleSuggestion(entry) {
-  const id = String(entry?.file ?? "").match(/^(\\d+)-/)?.[1];
+  const id = String(entry?.file ?? "").match(/^(\d+)-/)?.[1];
   return id && entry?.title ? id + " — " + entry.title : "";
 }
