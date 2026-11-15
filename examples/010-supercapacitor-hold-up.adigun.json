@@ -5,7 +5,7 @@
     "name": "5 V Supercapacitor Hold-Up Model",
     "locale": "en",
     "createdAt": "2026-10-31T00:00:00.000Z",
-    "updatedAt": "2026-10-31T00:00:00.000Z"
+    "updatedAt": "2026-11-15T00:00:00.000Z"
   },
   "components": [
     {
@@ -15,8 +15,8 @@
       "value": "5 V",
       "position": {
         "breadboard": [
-          70,
-          80
+          60,
+          142
         ],
         "schematic": [
           70,
@@ -24,7 +24,7 @@
         ],
         "pcb": [
           70,
-          80
+          70
         ]
       }
     },
@@ -35,8 +35,8 @@
       "value": "Vf 0.3 V",
       "position": {
         "breadboard": [
-          180,
-          80
+          192,
+          95
         ],
         "schematic": [
           180,
@@ -44,7 +44,7 @@
         ],
         "pcb": [
           180,
-          80
+          70
         ]
       }
     },
@@ -52,19 +52,19 @@
       "instanceId": "cap-1",
       "libraryId": "passive.supercapacitor",
       "reference": "C1",
-      "value": "C 1 F; Vstart 4.7 V; Vmin 3 V; Vmax 5 V",
+      "value": "C 1 F; Vstart 4.7 V; Vmin 3 V; Vmax 5.5 V",
       "position": {
         "breadboard": [
-          290,
-          80
+          350,
+          109
         ],
         "schematic": [
           290,
           80
         ],
         "pcb": [
-          290,
-          80
+          360,
+          180
         ]
       }
     },
@@ -75,16 +75,16 @@
       "value": "100 Ω",
       "position": {
         "breadboard": [
-          400,
-          80
+          153,
+          125
         ],
         "schematic": [
           400,
           80
         ],
         "pcb": [
-          400,
-          80
+          180,
+          150
         ]
       }
     },
@@ -96,15 +96,15 @@
       "position": {
         "breadboard": [
           510,
-          80
+          220
         ],
         "schematic": [
           510,
           80
         ],
         "pcb": [
-          510,
-          80
+          520,
+          220
         ]
       }
     }
@@ -135,5 +135,110 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "diode-1:A": "A6",
+      "diode-1:K": "A10",
+      "cap-1:+": "F14",
+      "cap-1:-": "F18",
+      "load-1:1": "D4",
+      "load-1:2": "D8"
+    },
+    "jumpers": [
+      { "from": "TP2", "to": "A6" },
+      { "from": "A10", "to": "F14" },
+      { "from": "A10", "to": "D4" },
+      { "from": "D8", "to": "BM8" },
+      { "from": "F18", "to": "BM18" }
+    ],
+    "nonPhysicalItems": [
+      { "instanceId": "ground-1", "reference": "GND", "reason": "Schematic ground symbol only; supply return, C1 negative and RLOAD return use the blue ground rail." }
+    ],
+    "physicalNotes": [
+      "C1 is a 1 F, 5.5 V supercapacitor, precharged to 4.7 V for the hold-up run. Its manufacturer maximum charge current is 1.5 mA; limit the external supply to no more than 1.5 mA while charging.",
+      "The 10.20 mm capacitor pin spacing maps to BB400 F14-F18, whose hole centers are 10.16 mm apart. Check lead alignment and insert without force.",
+      "The board has no internal charge limiter. Never connect its input to an unlimited-current source. Disable or disconnect the input supply to begin the hold-up interval.",
+      "The ideal discharge model omits capacitor ESR, tolerance, leakage, recharge behavior, temperature and load dynamics."
+    ],
+    "assembly": {
+      "wire": { "manufacturer": "Belden", "partNumber": "8530", "gaugeAwg": 22, "conductorDiameterMm": 0.64, "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530" },
+      "packages": [
+        {
+          "instanceId": "source-1", "reference": "V1", "kind": "external-supply", "positionPx": [90, 283],
+          "pins": [
+            { "pin": "+", "hole": "TP2", "connection": "pigtail", "offsetMm": [0, -1.27] },
+            { "pin": "-", "hole": "BM2", "connection": "pigtail", "offsetMm": [0, 1.27] }
+          ]
+        },
+        {
+          "instanceId": "diode-1", "reference": "D1", "kind": "axial-diode", "manufacturer": "Vishay", "manufacturerPartNumber": "1N5819-E3/54", "sourceUrl": "https://www.vishay.com/docs/88525/1n5817.pdf", "bodyMm": { "width": 5.2, "height": 2.7 }, "positionPx": [191.97, 95],
+          "pins": [
+            { "pin": "A", "hole": "A6", "connection": "direct", "leadDiameterMm": 0.7, "offsetMm": [-5.08, 0] },
+            { "pin": "K", "hole": "A10", "connection": "direct", "leadDiameterMm": 0.7, "offsetMm": [5.08, 0] }
+          ]
+        },
+        {
+          "instanceId": "cap-1", "reference": "C1", "kind": "radial-capacitor", "manufacturer": "Ohmite", "manufacturerPartNumber": "LP055105A", "sourceUrl": "https://www.ohmite.com/catalog/maxcap-series/LP055105A/", "bodyMm": { "width": 28.5, "height": 28.5 }, "positionPx": [350.28, 108.93],
+          "pins": [
+            { "pin": "+", "hole": "F14", "connection": "pigtail", "leadDiameterMm": 1, "offsetMm": [-5.1, 14.25] },
+            { "pin": "-", "hole": "F18", "connection": "pigtail", "leadDiameterMm": 1, "offsetMm": [5.1, 14.25] }
+          ]
+        },
+        {
+          "instanceId": "load-1", "reference": "RLOAD", "kind": "axial-resistor", "manufacturer": "Vishay", "manufacturerPartNumber": "MRS25000C1000FCT00", "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf", "bodyMm": { "width": 6.5, "height": 2.5 }, "positionPx": [152.61, 125],
+          "pins": [
+            { "pin": "1", "hole": "D4", "connection": "direct", "leadDiameterMm": 0.6, "offsetMm": [-5.08, 0] },
+            { "pin": "2", "hole": "D8", "connection": "direct", "leadDiameterMm": 0.6, "offsetMm": [5.08, 0] }
+          ]
+        }
+      ]
+    }
+  },
+  "pcbFabrication": {
+    "board": { "widthMm": 75, "heightMm": 50, "thicknessMm": 1.6, "copperLayers": ["F.Cu"], "minimumClearanceMm": 0.35, "outline": "rectangle" },
+    "parts": [
+      { "instanceId": "source-1", "reference": "J1", "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm", "technology": "through-hole", "manufacturer": "Samtec", "manufacturerPartNumber": "TSW-102-07-T-S", "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s" },
+      { "instanceId": "diode-1", "reference": "D1", "footprint": "Vishay_1N5819_DO-41_Axial_P10mm", "technology": "through-hole", "manufacturer": "Vishay", "manufacturerPartNumber": "1N5819-E3/54", "sourceUrl": "https://www.vishay.com/docs/88525/1n5817.pdf" },
+      { "instanceId": "cap-1", "reference": "C1", "footprint": "Ohmite_LP055105A_Maxcap_D28.5_P10.2mm", "technology": "through-hole", "manufacturer": "Ohmite", "manufacturerPartNumber": "LP055105A", "sourceUrl": "https://www.ohmite.com/catalog/maxcap-series/LP055105A/" },
+      { "instanceId": "load-1", "reference": "RLOAD", "footprint": "Vishay_MRS25000C1000FCT00_Axial_P10.00mm", "technology": "through-hole", "manufacturer": "Vishay", "manufacturerPartNumber": "MRS25000C1000FCT00", "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf" }
+    ],
+    "pads": [
+      { "instanceId": "source-1", "reference": "J1", "pin": "+", "number": "1", "bridgeEndpoint": "source-1:+", "netId": "SUPPLY", "xMm": 4, "yMm": 5, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.9 },
+      { "instanceId": "source-1", "reference": "J1", "pin": "-", "number": "2", "bridgeEndpoint": "source-1:-", "netId": "GND", "xMm": 4, "yMm": 7.54, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.9 },
+      { "instanceId": "diode-1", "reference": "D1", "pin": "A", "number": "1", "bridgeEndpoint": "diode-1:A", "netId": "SUPPLY", "xMm": 15, "yMm": 5, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.9 },
+      { "instanceId": "diode-1", "reference": "D1", "pin": "K", "number": "2", "bridgeEndpoint": "diode-1:K", "netId": "CAP_LOAD", "xMm": 25, "yMm": 5, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.9 },
+      { "instanceId": "cap-1", "reference": "C1", "pin": "+", "number": "1", "bridgeEndpoint": "cap-1:+", "netId": "CAP_LOAD", "xMm": 42.4, "yMm": 8, "technology": "through-hole", "diameterMm": 2.5, "drillMm": 1.5 },
+      { "instanceId": "cap-1", "reference": "C1", "pin": "-", "number": "2", "bridgeEndpoint": "cap-1:-", "netId": "GND", "xMm": 52.6, "yMm": 8, "technology": "through-hole", "diameterMm": 2.5, "drillMm": 1.5 },
+      { "instanceId": "load-1", "reference": "RLOAD", "pin": "1", "number": "1", "bridgeEndpoint": "load-1:1", "netId": "CAP_LOAD", "xMm": 15, "yMm": 13, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.8 },
+      { "instanceId": "load-1", "reference": "RLOAD", "pin": "2", "number": "2", "bridgeEndpoint": "load-1:2", "netId": "GND", "xMm": 25, "yMm": 13, "technology": "through-hole", "diameterMm": 1.8, "drillMm": 0.8 }
+    ],
+    "routes": [
+      { "netId": "SUPPLY", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[4, 5], [15, 5]] },
+      { "netId": "CAP_LOAD", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[25, 5], [28, 3], [42.4, 3], [42.4, 8]] },
+      { "netId": "CAP_LOAD", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[25, 5], [27, 5], [27, 11], [15, 11], [15, 13]] },
+      { "netId": "GND", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[4, 7.54], [4, 36], [25, 36], [25, 13]] },
+      { "netId": "GND", "layer": "F.Cu", "widthMm": 0.4, "pointsMm": [[52.6, 8], [70, 8], [70, 40], [4, 40], [4, 7.54]] }
+    ],
+    "physicalEvidence": [
+      { "reference": "J1", "manufacturer": "Samtec", "manufacturerPartNumber": "TSW-102-07-T-S", "package": "1×02 through-hole header, 2.54 mm pitch", "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s", "pinMapping": { "1": "regulated 5 V input", "2": "GND return" }, "limitations": ["Confirm the fabricator's drill and annular-ring rules."] },
+      { "reference": "D1", "manufacturer": "Vishay", "manufacturerPartNumber": "1N5819-E3/54", "package": "1N5819 Schottky barrier rectifier, DO-41, 40 V / 1 A", "sourceUrl": "https://www.vishay.com/docs/88525/1n5817.pdf", "pinMapping": { "1": "anode / SUPPLY", "2": "cathode / CAP_LOAD" }, "limitations": ["Confirm body, lead diameter and cathode band orientation against the purchased part."] },
+      { "reference": "C1", "manufacturer": "Ohmite", "manufacturerPartNumber": "LP055105A", "package": "1 F, 5.5 V, 28.5 mm diameter radial EDLC, 10.2 mm pin spacing, 7 Ω ESR at 1 kHz, maximum charge current 1.5 mA", "sourceUrl": "https://www.ohmite.com/catalog/maxcap-series/LP055105A/", "pinMapping": { "+": "CAP_LOAD", "-": "GND" }, "limitations": ["The 1.5 mm PCB drill is the design choice; confirm the PC-pin size in Ohmite's 2D CAD before fabrication."] },
+      { "reference": "RLOAD", "manufacturer": "Vishay", "manufacturerPartNumber": "MRS25000C1000FCT00", "package": "MRS25 axial, 100 Ω, 1%, 0.6 W", "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf", "limitations": ["The 10 mm lead-center layout must be checked against the ordered part."] }
+    ],
+    "nonPhysicalItems": [
+      { "instanceId": "source-1", "reference": "V1", "reason": "Ideal simulation source; charge C1 through J1 from a regulated 5 V supply with a hard current limit of 1.5 mA maximum." },
+      { "instanceId": "ground-1", "reference": "GND", "reason": "Schematic ground symbol; J1 pin 2, C1 negative and RLOAD return connect to the routed GND net." }
+    ],
+    "fabricationNotes": [
+      "J1 pin 1 is regulated 5 V and pin 2 is GND. D1 isolates C1 from the input during hold-up.",
+      "C1 is rated for 5.5 V; the nominal model charges it to 4.7 V through D1 and starts the hold-up run at that voltage.",
+      "LP055105A's manufacturer maximum charge current is 1.5 mA. This board has no internal charge limiter: use an external supply with a current limit of 1.5 mA or less when charging, then disable or disconnect the input to begin the hold-up interval.",
+      "C1's 1.5 mm drills are design choices because the public product table omits PC-pin diameter; verify the purchased part's 2D CAD before fabrication.",
+      "75 mm × 50 mm educational single-sided board. Gerber/drill output and DRC are not a fabricator qualification; check drilling, annular ring, polarity, clearance, and assembly before ordering."
+    ]
+  }
 }
