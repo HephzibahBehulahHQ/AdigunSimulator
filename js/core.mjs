@@ -1650,7 +1650,7 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
   const senseVoltage = batteryVoltage * lowerResistance / dividerResistance;
   const tripBatteryVoltage = tripVoltage * dividerResistance / lowerResistance;
   const lowBattery = senseVoltage < tripVoltage;
-  const comparatorOutputVoltage = tps3710 ? (lowBattery ? 0 : batteryVoltage) : (lowBattery ? batteryVoltage : 0);
+  const comparatorOutputVoltage = tps3710 ? (lowBattery ? 0 : null) : (lowBattery ? batteryVoltage : 0);
   const ledCurrentA = lowBattery ? Math.max(0, (batteryVoltage - ledVf) / ledResistance) : 0;
   const dividerPowerW = dividerCurrentA ** 2 * dividerResistance;
   const ledResistorPowerW = ledCurrentA ** 2 * ledResistance;
