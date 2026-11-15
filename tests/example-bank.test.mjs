@@ -8,6 +8,7 @@ import {renderPcbPreviewSvg} from '../js/pcb-preview.mjs';
 import {parseExampleProject,canLoadExampleAnalysis} from '../js/example-loading.mjs';
 import {describeExample} from '../js/example-bank-ui.mjs';
 import {projectComponentsForView} from '../js/view-projection.mjs';
+import {validateProject} from '../js/core.mjs';
 import {validatePcbFabrication,exportPcbFabrication} from '../js/pcb-export.mjs';
 const index=JSON.parse(await readFile(new URL('../examples/index.json',import.meta.url),'utf8'));
 test('coverage descriptions distinguish component, package and pad counts',()=>{
@@ -85,6 +86,17 @@ test('5 V Parallel Resistor Load exports its exact external supply, resistor pad
  assert.equal(runProjectAnalysis(project).result.kind,'resistive-network');
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="resistor-branch-1"/);
  assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','R2','R3']);
+});
+test('9 V Battery Discharge Monitor maps its TPS3710 across BB400 and routed fabrication views',async()=>{
+ const entry=index.entries.find(item=>item.file==='006-battery-discharge-monitor.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/006-battery-discharge-monitor.adigun.json',import.meta.url),'utf8'));
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,7);assert.equal(entry.pcbPads,18);assert.ok(entry.pcbRoutes>0);
+ assert.deepEqual(entry.unmapped,[]);assert.deepEqual(projectComponentsForView(project,'breadboard').reconciliationItems,[]);assert.deepEqual(projectComponentsForView(project,'pcb').reconciliationItems,[]);
+ assert.equal(validateProject(project).valid,true);assert.equal(runProjectAnalysis(project).result.tripBatteryVoltage,7.6);
+ assert.equal(validatePcbFabrication(project).status,'passed');assert.equal(exportPcbFabrication(project).status,'passed');
+ assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);
+ assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','R2','U1','R3','D1','C1']);
+ assert.equal(project.pcbFabrication.vias.length,6);assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="comparator-1"/);
 });
 test('LM2577 boost example has a routed, source-backed PCB and exportable fabrication pack',async()=>{
  const entry=index.entries.find(item=>item.file==='102-boost-converter-baseline.adigun.json');

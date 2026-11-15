@@ -1,111 +1,38 @@
 # 006 — 9 V battery discharge monitor
 
-## Purpose
+## Circuit and expected behavior
 
-Compare a divided 9 V battery signal with an ideal 3.75 V reference and assert a current-limited LED alarm below a 7.5 V battery threshold; test a ±0.1 V crossing.
+The TI TPS3710DDCR monitors a 9 V nominal external source. A 180 kΩ / 10 kΩ divider presents the SENSE pin with 0.474 V at 9 V input. The device's nominal 0.4 V reference gives a calculated battery trip point of 7.6 V. Below that point, the open-drain OUT sinks current through a 1 kΩ resistor and red LED to signal low battery. C1 is a 0.1 µF VDD decoupling capacitor.
+
+The simulator uses an ideal threshold and open-drain state estimate. It does not simulate the TPS3710's actual threshold tolerance, hysteresis bounds, propagation delay, output sink characteristic, battery chemistry, resistor/capacitor tolerance, or production corner behavior. This is not a validated battery product design.
 
 ## Bill of materials
 
-| Reference | Project library ID | Project value |
+| Reference | Manufacturer part | Function / package |
 |---|---|---|
-| V1 | `power.dc-source` | 9 V |
-| R1 | `passive.resistor` | 10 kΩ |
-| R2 | `passive.resistor` | 10 kΩ |
-| U1 | `active.comparator-ideal` | Vref 3.75 V |
-| R3 | `passive.resistor` | 1 kΩ |
-| D1 | `diode.led-red` | Vf 2.0 V |
-| GND | `ground.signal` | 0 V |
+| J1 | Samtec TSW-102-07-T-S | External supply header, 2.54 mm through-hole |
+| R1 | TE CFR25J180K | 180 kΩ, 5%, 0.33 W axial divider resistor |
+| R2 | TE CFR25J10K0 | 10 kΩ, 5%, 0.33 W axial divider resistor |
+| U1 | TI TPS3710DDCR | SOT-23-6, fixed 0.4 V nominal threshold |
+| R3 | TE CFR25J1K0 | 1 kΩ, 5%, 0.33 W axial LED resistor |
+| D1 | Vishay TLHR5400 | Red through-hole LED |
+| C1 | KEMET C315C104K5R5TA | 0.1 µF, 50 V, X7R radial capacitor |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+J1 provides external power; V1 is not mounted on the PCB. The GND symbol is schematic-only; the return uses J1 pin 2 and the routed GND net. BB400 assembly requires a SOT-23-6-to-through-hole breakout adapter for U1, which is not included in the BOM.
 
-## Net connections
+## Connections
 
-- **VBAT:** `battery-1:+`, `upper-1:1`, `comparator-1:VCC`
-- **SENSE:** `upper-1:2`, `lower-1:1`, `comparator-1:SENSE`
-- **ALARM:** `comparator-1:OUT`, `series-1:1`
-- **LED_A:** `series-1:2`, `led-1:A`
-- **GND:** `battery-1:-`, `lower-1:2`, `comparator-1:GND`, `led-1:K`, `ground-1:0`
+- **VBAT:** J1 pin 1, R1 pin 1, U1 VDD, R3 pin 1, C1 pin 1
+- **SENSE:** R1 pin 2, R2 pin 1, U1 SENSE
+- **LED_A:** R3 pin 2, D1 anode
+- **ALARM_N:** D1 cathode, U1 OUT
+- **GND:** J1 pin 2, R2 pin 2, U1 pins 1/3/5, C1 pin 2
 
-## Views and physical-layout status
+The stored BB400 pin-hole map identifies the required jumpers and shared rows. The PCB pad map uses the TI DDC0006A package drawing and example land pattern for U1. Application-selected through-hole drill sizes and board-specific routing still require an independent fabrication review.
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+## Verification
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
-
-## Acceptance test and expected result
-
-- Stable test ID: `core-battery-discharge-monitor`
-- Engine: Analytical ideal low-battery comparator and divider
-- Engine version: `adigun-simulator@0.1.0`
-- Model version: `ideal-battery-monitor-v1`
-- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41153365413
-
-Recorded expected result:
-
-```json
-{
-  "batteryVoltage": 9,
-  "upperResistance": 10000,
-  "lowerResistance": 10000,
-  "ledResistance": 1000,
-  "dividerCurrentA": 0.00045,
-  "senseVoltage": 4.5,
-  "tripVoltage": 3.75,
-  "tripBatteryVoltage": 7.5,
-  "lowBattery": false,
-  "comparatorOutputVoltage": 0,
-  "ledOn": false,
-  "ledCurrentA": 0,
-  "sourceCurrentA": 0.00045,
-  "dividerPowerW": 0.00405,
-  "ledResistorPowerW": 0,
-  "ledPowerW": 0,
-  "sourcePowerW": 0.00405,
-  "powerBalanceW": 0,
-  "nominal9V": {
-    "batteryVoltage": 9,
-    "senseVoltage": 4.5,
-    "tripVoltage": 3.75,
-    "tripBatteryVoltage": 7.5,
-    "lowBattery": false,
-    "ledOn": false,
-    "dividerCurrentA": 0.00045,
-    "sourceCurrentA": 0.00045,
-    "sourcePowerW": 0.00405,
-    "powerBalanceW": 0
-  },
-  "aboveThreshold7_6V": {
-    "batteryVoltage": 7.6,
-    "senseVoltage": 3.8,
-    "tripVoltage": 3.75,
-    "tripBatteryVoltage": 7.5,
-    "lowBattery": false,
-    "ledOn": false,
-    "dividerCurrentA": 0.00038
-  },
-  "belowThreshold7_4V": {
-    "batteryVoltage": 7.4,
-    "senseVoltage": 3.7,
-    "tripVoltage": 3.75,
-    "tripBatteryVoltage": 7.5,
-    "lowBattery": true,
-    "ledOn": true,
-    "ledCurrentA": 0.0054,
-    "dividerCurrentA": 0.00037,
-    "sourceCurrentA": 0.00577,
-    "dividerPowerW": 0.002738,
-    "ledResistorPowerW": 0.02916,
-    "ledPowerW": 0.0108,
-    "sourcePowerW": 0.042698,
-    "powerBalanceW": 0
-  }
-}
-```
-
-## Safety and model limits
-
-Ideal educational comparator and battery-divider model only. It does not model a physical comparator, hysteresis, input offset/bias, propagation, output limits, battery chemistry, tolerance, thermal effects, or hardware safety.
-
-Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
-
-Native project: `examples/006-battery-discharge-monitor.adigun.json`.
+- Expected nominal battery trip calculation: 7.6 V
+- At 9.0 V: open-drain output high-impedance; low-battery LED off
+- At 7.4 V: open-drain output sinking; low-battery LED on
+- Analysis limits: threshold-state analytical estimate, not SPICE or production qualification

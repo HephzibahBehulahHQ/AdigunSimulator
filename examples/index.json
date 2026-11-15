@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 32,
-    "withoutStoredPcb": 184,
+    "withStoredPcb": 33,
+    "withoutStoredPcb": 183,
     "unexpectedFailures": []
   },
   "entries": [
@@ -247,44 +247,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "e8a7de563e337f2023478392ebc8eb9b4aacdbb0a766a286a8ceda434fd6aac7",
-      "components": 7,
+      "sha256": "67c5c33f9192eeade04d26163c957ba9d9487e650998e87ea9c19dd2ad3820ff",
+      "components": 8,
       "analysis": "complete",
-      "engine": "Analytical ideal low-battery comparator and divider",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.comparator-ideal"
-        },
-        {
-          "reference": "R3",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "engine": "TPS3710 threshold and open-drain analytical estimate",
+      "pcbStatus": "stored",
+      "pcbParts": 7,
+      "pcbPads": 18,
+      "pcbRoutes": 19,
+      "unmapped": []
     },
     {
       "file": "006-rl-step-response.adigun.json",

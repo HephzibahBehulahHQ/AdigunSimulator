@@ -1193,17 +1193,18 @@ test("catalogue 5 V linear supply estimates ripple and regulator dropout", async
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
 });
 
-test("catalogue battery discharge monitor asserts across the divider threshold", async () => {
+test("catalogue TPS3710 battery monitor asserts across the divider threshold", async () => {
   const project = JSON.parse(await readFile(new URL("../examples/006-battery-discharge-monitor.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
   assert.equal(validateProject(project).warnings.some((issue) => issue.rule === "UNCONNECTED_PIN"), false);
   const nominal = runSupportedAnalysis(project);
   assert.equal(nominal.state, "complete");
   assert.equal(nominal.result.kind, "battery-discharge-monitor");
-  assert.equal(nominal.result.tripBatteryVoltage, 7.5);
+  assert.equal(nominal.result.tripBatteryVoltage, 7.6);
   assert.equal(nominal.result.lowBattery, false);
   assert.equal(nominal.result.ledOn, false);
-  assert.ok(Math.abs(nominal.result.dividerCurrentA - 9 / 20000) < 1e-12);
+  assert.equal(nominal.result.outputMode, "open-drain high impedance");
+  assert.ok(Math.abs(nominal.result.dividerCurrentA - 9 / 190000) < 1e-12);
 
   const above = runSupportedAnalysis(updateComponent(project, "battery-1", { value: "7.6 V" }));
   assert.equal(above.state, "complete");
@@ -1212,10 +1213,15 @@ test("catalogue battery discharge monitor asserts across the divider threshold",
   assert.equal(below.state, "complete");
   assert.equal(below.result.lowBattery, true);
   assert.equal(below.result.ledOn, true);
+  assert.equal(below.result.outputMode, "open-drain sinking");
   assert.ok(Math.abs(below.result.ledCurrentA - (7.4 - 2) / 1000) < 1e-12);
   assert.ok(Math.abs(below.result.powerBalanceW) < 1e-12);
 
   assert.equal(runSupportedAnalysis(updateComponent(project, "comparator-1", { value: "bad threshold" })).state, "blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project, "battery-1", { value: "19 V" })).state, "blocked");
+  const outputMiswired = structuredClone(project);
+  outputMiswired.nets.find((net) => net.id === "ALARM_N").endpoints = ["comparator-1:OUT"];
+  assert.equal(runSupportedAnalysis(outputMiswired).state, "blocked");
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "SENSE").endpoints = ["upper-1:2"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
