@@ -67,3 +67,23 @@ test("9 V divider exposes its solved DC output to the scope and blocks an open j
   assert.equal(analyticalDcScopeRecording(disconnected, failed), null);
 });
 
+test("12 V parallel load exposes its solved MID voltage and blocks an open branch", async () => {
+  const project = JSON.parse(await readFile(new URL("../examples/010-parallel-load-12v.adigun.json", import.meta.url), "utf8"));
+  const analysis = runProjectAnalysis(project);
+  assert.equal(analysis.state, "complete");
+  assert.equal(analysis.scopeDcRecording.nodes.VCC, 12);
+  assert.equal(analysis.scopeDcRecording.nodes.GND, 0);
+  assert.ok(Math.abs(analysis.scopeDcRecording.nodes.MID - 6.545454545454546) < 1e-12);
+  const timeline = createFeedbackTimeline(project, analysis);
+  assert.equal(timeline.kind, "dc");
+  const live = { status: "ready", kind: "dc", sampleIndex: 0, data: timeline.frame(0) };
+  assert.ok(scopeChannels(project, analysis, live).includes("MID"));
+  assert.ok(Math.abs(scopeTrace(project, analysis, live, "MID").voltage - 6.545454545454546) < 1e-12);
+  const disconnected = structuredClone(project);
+  disconnected.nets.find(net => net.id === "MID").endpoints = disconnected.nets.find(net => net.id === "MID").endpoints.filter(endpoint => endpoint !== "resistor-branch-1:1");
+  const failed = runProjectAnalysis(disconnected);
+  assert.equal(failed.state, "blocked");
+  assert.match(failed.message, /R3 must connect both pins to named project nets/);
+  assert.equal(analyticalDcScopeRecording(disconnected, failed), null);
+});
+

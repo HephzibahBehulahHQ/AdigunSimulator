@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 36,
-    "withoutStoredPcb": 180,
+    "withStoredPcb": 37,
+    "withoutStoredPcb": 179,
     "unexpectedFailures": []
   },
   "entries": [
@@ -439,36 +439,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "15407d89e08ee4fafc6d8fa2608dc90bb57d2476d514199ba08bb5fdd143df54",
+      "sha256": "d6d0d2b1fa2c4236d13f9c70e569577705c7b6068439db22c12aef0a008b5e57",
       "components": 5,
       "analysis": "complete",
       "engine": "Linear DC resistive nodal analysis",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R3",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 8,
+      "pcbRoutes": 3,
+      "unmapped": []
     },
     {
       "file": "010-supercapacitor-hold-up.adigun.json",
