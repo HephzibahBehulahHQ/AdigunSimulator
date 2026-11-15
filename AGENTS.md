@@ -117,8 +117,8 @@ These instructions remain active wherever they have been configured until explic
 - Keep unverified follow-up work separate from a release candidate. Record any deployment or approval blocker immediately and continue with independent work where possible.
 
 
-## Engineering acceptance for embedded-circuit projects
-- This gate applies to every existing example and every new user-created project. Work on one project at a time; do not call it complete or move to another until each applicable gate below has evidence.
+## Mandatory engineering acceptance for embedded-circuit projects
+- This is a binding handoff rule for every Codex agent working in this repository. Apply it to every existing example as it is reviewed and every new user-created project; do not skip examples in a requested review. Work on one project at a time, and do not call it complete or move to another until each applicable gate below has evidence.
 - When a user adds a component to a new project, show that same instance in Breadboard, Schematic, and PCB immediately. Only claim a physical placement when its source-backed pin, hole, footprint, and pad mapping is complete; otherwise show a specific actionable mapping diagnostic in the affected view and Diagnostics. Never hide a part or fabricate a placeholder footprint.
 - Before running, inspect Breadboard, Schematic, and PCB. Confirm the same real component instances, pin identities, nets, and intended connections appear consistently in all three views; check readable placement, overlap, board fit, and that parts/pads/routes are physically coherent.
 - A PCB is mandatory for physical embedded circuits. Verify source-backed component identity and footprint, pin-to-pad mapping, board boundary, clearances, copper layers, routed nets, and fabrication/DRC output. Unmapped warning tiles, floating labels, unrouted nets, or decorative placements are failures. Never invent footprints, package dimensions, pad geometry, or routes. Exempt only explicitly virtual/nonphysical items and explain why they have no footprint.
