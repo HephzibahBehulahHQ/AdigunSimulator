@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 41,
-    "withoutStoredPcb": 175,
+    "withStoredPcb": 42,
+    "withoutStoredPcb": 174,
     "unexpectedFailures": []
   },
   "entries": [
@@ -175,32 +175,15 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "4c826504d75ff73ee5c17bf6932903615fca2de3f20b1b99e26925c5aabea47b",
+      "sha256": "e55e50540e32077bbb569194676fd355a0e4d4dd80b9d55507e5a848e4f10dc1",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical first-order RL step response",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "L1",
-          "libraryId": "passive.inductor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 3,
+      "pcbPads": 6,
+      "pcbRoutes": 3,
+      "unmapped": []
     },
     {
       "file": "007-led-current-limiter-12v.adigun.json",
