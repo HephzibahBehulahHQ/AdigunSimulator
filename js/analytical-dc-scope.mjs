@@ -17,6 +17,19 @@ export function analyticalDcScopeRecording(project,analysis){
   if(r.lowBattery){if(r.ledCurrentA<=0||!Number.isFinite(r.ledCurrentA))return null;nodes[output]=0;}
   return {kind:"analytical-dc-output",model:"TPS3710 battery monitor steady-state DC operating point (not transient simulation)",preferredNet:r.lowBattery?output:sense,nodes};
  }
+ if(r?.kind==="voltage-divider"){
+  const sources=byType("power.dc-source"),grounds=byType("ground.signal"),resistors=byType("passive.resistor");
+  if(sources.length!==1||grounds.length!==1||resistors.length!==2||components.length!==4)return null;
+  const positive=netOf(source,"+"),negative=netOf(source,"-"),groundNet=netOf(ground,"0"),tol=Math.max(1,Math.abs(r.sourceVoltage))*1e-9;
+  if(!positive||!negative||positive===negative||negative!==groundNet||![r.sourceVoltage,r.upperResistance,r.lowerResistance,r.currentA,r.outputVoltage].every(Number.isFinite))return null;
+  const upper=resistors.find(part=>[netOf(part,"1"),netOf(part,"2")].includes(positive));
+  const upperOutput=upper&&[netOf(upper,"1"),netOf(upper,"2")].find(net=>net!==positive);
+  const lower=resistors.find(part=>part!==upper&&[netOf(part,"1"),netOf(part,"2")].includes(negative)&&[netOf(part,"1"),netOf(part,"2")].includes(upperOutput));
+  if(!upper||!lower||!upperOutput||!project.nets.some(net=>net.id===upperOutput)||!Number.isFinite(r.sourceVoltage)||Math.abs(r.sourceVoltage-Number.parseFloat(String(source.value)))>tol)return null;
+  const upperValue=parseResistance(upper.value),lowerValue=parseResistance(lower.value),current=r.sourceVoltage/(upperValue+lowerValue),output=current*lowerValue;
+  if(![upperValue,lowerValue].every(Number.isFinite)||Math.abs(upperValue-r.upperResistance)>tol||Math.abs(lowerValue-r.lowerResistance)>tol||Math.abs(current-r.currentA)>tol||Math.abs(output-r.outputVoltage)>tol)return null;
+  return {kind:"analytical-dc-output",model:"Unloaded voltage-divider steady-state DC operating point (not transient simulation)",preferredNet:upperOutput,nodes:{[positive]:r.sourceVoltage,[upperOutput]:r.outputVoltage,[negative]:0}};
+ }
  if(r?.kind==="resistive-network"){
   const sources=byType("power.dc-source"),grounds=byType("ground.signal"),resistors=byType("passive.resistor"),nodes=r.nodeVoltages,netIds=new Set(project.nets.map(net=>net.id));
   if(sources.length!==1||grounds.length!==1||resistors.length<1||r.resistors?.length!==resistors.length||!nodes||typeof nodes!=="object")return null;

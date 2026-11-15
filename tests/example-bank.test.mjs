@@ -29,7 +29,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,35);assert.equal(index.summary.withoutStoredPcb,181);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,36);assert.equal(index.summary.withoutStoredPcb,180);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -64,6 +64,17 @@ test('DC Voltage Divider has sourced physical resistor values, mapped pads and c
  assert.equal(runProjectAnalysis(project).result.kind,'voltage-divider');
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="resistor-bottom-1"/);
  assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','R2']);
+});
+test('9 V divider maps both resistors and its source across printable BB400, schematic and PCB views',async()=>{
+ const entry=index.entries.find(item=>item.file==='009-dc-voltage-divider-3k-1k.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/009-dc-voltage-divider-3k-1k.adigun.json',import.meta.url),'utf8'));
+ assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,3);assert.equal(entry.pcbPads,6);assert.deepEqual(entry.unmapped,[]);
+ assert.deepEqual(projectComponentsForView(project,'breadboard').reconciliationItems,[]);assert.deepEqual(projectComponentsForView(project,'schematic').reconciliationItems,[]);assert.deepEqual(projectComponentsForView(project,'pcb').reconciliationItems,[]);
+ assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);assert.equal(validateBreadboardTopology(project,{getPartPins:id=>findLibraryPart(id)?.pins??[]}).state,'complete');assert.equal(validateBreadboardAssembly(project,{getPartPins:id=>findLibraryPart(id)?.pins??[]}).state,'complete');
+ assert.equal(validatePcbFabrication(project).status,'passed');assert.equal(runProjectAnalysis(project).result.outputVoltage,2.25);
+ assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.manufacturerPartNumber),['TSW-102-07-T-S','MRS25000C3001FCT00','MRS25000C1001FCT00']);
+ const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/MRS25000C3001FCT00/);assert.match(exported.files['board-F_Cu.gbr'],/X/);
+ assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="resistor-bottom-1"/);assert.match(renderBreadboardAssemblySvg(project),/R1|resistor-top-1/);
 });
 test('PWM LED dimmer carries a source-backed physical PCB map without changing its ideal analysis',async()=>{
  const entry=index.entries.find(item=>item.file==='005-pwm-led-dimmer.adigun.json');
@@ -160,7 +171,7 @@ test('LM2577 boost example has a routed, source-backed PCB and exportable fabric
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,35);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,36);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

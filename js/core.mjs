@@ -1510,6 +1510,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (source.length === 1 && resistor.length === 2 && led.length === 0 && ground.length >= 1) {
     const divider = findVoltageDivider(project, source[0], resistor, ground[0]);
     if (divider) return analyseVoltageDivider(project, { source: source[0], ground: ground[0], validation, ...divider });
+    if (ground.length === 1 && project.components.length === 4) {
+      return { state: "blocked", message: "The voltage-divider wiring is incomplete. Connect source positive to the upper resistor, join the two resistors at VOUT, and connect the lower resistor and source return to GND.", validation };
+    }
   }
   if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRcStep(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
   if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && switches.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 5) return analyseRcSwitchedResponse(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], switchPart: switches[0], ground: ground[0], validation });

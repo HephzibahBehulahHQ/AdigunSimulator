@@ -1105,13 +1105,13 @@
     },
     {
       "id": "009-dc-voltage-divider-3k-1k",
-      "title": "9 V divider 3 kΩ / 1 kΩ",
+      "title": "9 V Divider 3 kΩ / 1 kΩ",
       "status": "released",
-      "objective": "Calculate the unloaded output voltage and current for a 9 V source and 3 kΩ / 1 kΩ divider.",
-      "acceptanceTest": "tests/core.test.mjs: 3 kΩ / 1 kΩ divider example calculates output voltage",
+      "objective": "Calculate the unloaded output voltage and current for a 9 V source and 3 kΩ / 1 kΩ divider; inspect the sourced breadboard and routed PCB views.",
+      "acceptanceTest": "tests/example-bank.test.mjs: 9 V divider maps both resistors and its source across printable BB400, schematic and PCB views",
       "testId": "core-dc-voltage-divider-3k-1k",
       "projectFile": "examples/009-dc-voltage-divider-3k-1k.adigun.json",
-      "safetyNote": "Educational low-voltage unloaded model only. A connected load changes the output; do not use as product or regulatory design approval.",
+      "safetyNote": "Educational unloaded 9 V divider only. The 2.25 V output changes under connected load; verify resistor power, tolerance, supply limits and measurement loading for a real circuit. Physical pitches and PCB outputs need independent manufacturing review.",
       "verification": {
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
