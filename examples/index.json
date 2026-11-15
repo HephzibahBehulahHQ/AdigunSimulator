@@ -31,7 +31,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "568ffa64f0ea97f2a72abaec7e9dd610d54effe10f0bb54a101337d9cd2c8b72",
+      "sha256": "2b92b07af9b07bd2a7515f8893e796a805fbb55763ed795b9f8897153d11b6ec",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical DC voltage-divider calculation",
@@ -39,12 +39,7 @@
       "pcbParts": 3,
       "pcbPads": 6,
       "pcbRoutes": 3,
-      "unmapped": [
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "unmapped": []
     },
     {
       "file": "002-two-led-polarity-indicator.adigun.json",

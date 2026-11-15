@@ -58,6 +58,16 @@ test("starter LED project has a physically connected hole and jumper mapping for
   assert.equal(result.mappedPinCount, 7);
 });
 
+test("DC voltage divider has a connected BB400 breadboard map for source, divider midpoint, and ground return", async () => {
+  const project = await readExample("002-dc-voltage-divider.adigun.json");
+  const result = validateBreadboardTopology(project, {getPartPins});
+  assert.equal(result.state, "complete");
+  assert.deepEqual(result.errors, []);
+  assert.deepEqual(result.nets.map(net => net.connected), [true,true,true]);
+  assert.equal(result.mappedPinCount, 7);
+  assert.deepEqual(project.breadboard.jumpers, [{from:"TP2",to:"A5"},{from:"C15",to:"BM15"}]);
+});
+
 test("breadboard topology catches a physical short between separate schematic nets", async () => {
   const project = await readExample("001-led-current-limiter.adigun.json");
   project.breadboard.jumpers.push({from:"C11",to:"TP15"});

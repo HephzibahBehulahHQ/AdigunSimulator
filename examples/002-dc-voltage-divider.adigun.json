@@ -334,6 +334,35 @@
       "V1 is an external 9 V bench supply connected through J1.",
       "R1 is 1 kΩ and R2 is 2 kΩ; their pads connect to VCC, VOUT, and GND exactly as the native circuit specifies.",
       "This stored educational layout and exported Gerber data require independent physical footprint, drill, clearance, and manufacturing review."
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; the divider return is implemented by PCB ground pads and routed copper."
+      }
+    ]
+  },
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "resistor-top-1:1": "A5",
+      "resistor-top-1:2": "A10",
+      "resistor-bottom-1:1": "C10",
+      "resistor-bottom-1:2": "C15",
+      "ground-1:0": "BM10"
+    },
+    "jumpers": [
+      {
+        "from": "TP2",
+        "to": "A5"
+      },
+      {
+        "from": "C15",
+        "to": "BM15"
+      }
     ]
   }
 }

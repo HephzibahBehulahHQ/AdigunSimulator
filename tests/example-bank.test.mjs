@@ -43,6 +43,8 @@ test('DC Voltage Divider has sourced physical resistor values, mapped pads and c
  const entry=index.entries.find(item=>item.file==='002-dc-voltage-divider.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/002-dc-voltage-divider.adigun.json',import.meta.url),'utf8'));
  assert.equal(entry.pcbStatus,'stored');assert.equal(entry.pcbParts,3);assert.equal(entry.pcbPads,6);
+ assert.deepEqual(entry.unmapped,[]);assert.deepEqual(projectComponentsForView(project,'pcb').reconciliationItems,[]);
+ assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);
  assert.equal(validatePcbFabrication(project).status,'passed');
  assert.equal(runProjectAnalysis(project).result.kind,'voltage-divider');
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="resistor-bottom-1"/);
