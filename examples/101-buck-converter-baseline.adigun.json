@@ -19,8 +19,8 @@
           50
         ],
         "schematic": [
-          40,
-          35
+          20,
+          50
         ],
         "pcb": [
           20,
@@ -32,15 +32,15 @@
       "instanceId": "controller",
       "libraryId": "active.lm2596-adjustable",
       "reference": "U1",
-      "value": "LM2596T-ADJ/NOPB",
+      "value": "LM2596T-ADJ/NOPB; 1.23 V FB reference; 150 kHz; 4.5–40 V input; 3 A IC rating",
       "position": {
         "breadboard": [
           230,
           50
         ],
         "schematic": [
-          150,
-          35
+          230,
+          50
         ],
         "pcb": [
           230,
@@ -59,8 +59,8 @@
           80
         ],
         "schematic": [
-          260,
-          35
+          350,
+          80
         ],
         "pcb": [
           350,
@@ -79,8 +79,8 @@
           160
         ],
         "schematic": [
-          370,
-          35
+          220,
+          160
         ],
         "pcb": [
           220,
@@ -100,7 +100,7 @@
         ],
         "schematic": [
           480,
-          35
+          140
         ],
         "pcb": [
           480,
@@ -119,8 +119,8 @@
           70
         ],
         "schematic": [
-          590,
-          35
+          540,
+          70
         ],
         "pcb": [
           540,
@@ -139,8 +139,8 @@
           50
         ],
         "schematic": [
-          595,
-          175
+          620,
+          50
         ],
         "pcb": [
           620,
@@ -159,8 +159,8 @@
           220
         ],
         "schematic": [
-          375,
-          175
+          560,
+          220
         ],
         "pcb": [
           560,
@@ -179,8 +179,8 @@
           200
         ],
         "schematic": [
-          265,
-          175
+          420,
+          200
         ],
         "pcb": [
           420,
@@ -199,8 +199,8 @@
           200
         ],
         "schematic": [
-          155,
-          175
+          480,
+          200
         ],
         "pcb": [
           480,
@@ -212,15 +212,15 @@
       "instanceId": "output-header",
       "libraryId": "connector.buck-output-2",
       "reference": "J2",
-      "value": "5.76 V DC",
+      "value": "5.76 V DC output; external load connection",
       "position": {
         "breadboard": [
           580,
           160
         ],
         "schematic": [
-          485,
-          175
+          580,
+          160
         ],
         "pcb": [
           580,
@@ -1181,93 +1181,9 @@
     ]
   },
   "breadboard": {
-    "model": "busboard-bb400",
-    "mappingNotes": [],
-    "pinHoles": {
-      "source:+": "TP1",
-      "source:-": "TM1",
-      "controller:VIN": "E3",
-      "controller:SW": "D4",
-      "controller:GND": "C5",
-      "controller:FB": "B6",
-      "controller:ONOFF": "A7",
-      "inductor:1": "A11",
-      "inductor:2": "A14",
-      "diode:A": "F20",
-      "diode:K": "F24",
-      "capacitor:1": "E18",
-      "capacitor:2": "E24",
-      "load:1": "C16",
-      "load:2": "C26",
-      "rfb-top:1": "B18",
-      "rfb-top:2": "B22",
-      "rfb-bottom:1": "B13",
-      "rfb-bottom:2": "B17",
-      "output-header:VOUT": "D27",
-      "output-header:GND": "D29"
-    },
-    "jumpers": [
-      {
-        "from": "TP1",
-        "to": "E3"
-      },
-      {
-        "from": "TM1",
-        "to": "C5"
-      },
-      {
-        "from": "C5",
-        "to": "A7"
-      },
-      {
-        "from": "C5",
-        "to": "F20"
-      },
-      {
-        "from": "F20",
-        "to": "E24"
-      },
-      {
-        "from": "E24",
-        "to": "C26"
-      },
-      {
-        "from": "C26",
-        "to": "D29"
-      },
-      {
-        "from": "D29",
-        "to": "B17"
-      },
-      {
-        "from": "D4",
-        "to": "A11"
-      },
-      {
-        "from": "D4",
-        "to": "F24"
-      },
-      {
-        "from": "A14",
-        "to": "C16"
-      },
-      {
-        "from": "C16",
-        "to": "E18"
-      },
-      {
-        "from": "E18",
-        "to": "D27"
-      },
-      {
-        "from": "B6",
-        "to": "B22"
-      },
-      {
-        "from": "B22",
-        "to": "B13"
-      }
-    ],
+    "model": "generic-400-30",
+    "pinHoles": {},
+    "jumpers": [],
     "nonPhysicalItems": [
       {
         "instanceId": "ground",
@@ -1279,367 +1195,6 @@
         "reference": "SCOPE1",
         "reason": "Virtual analytical scope readout; it is not a physical breadboard package."
       }
-    ],
-    "assembly": {
-      "wire": {
-        "manufacturer": "Belden",
-        "partNumber": "8530",
-        "gaugeAwg": 22,
-        "conductorDiameterMm": 0.64,
-        "sourceUrl": "https://catalog.belden.com/techdata/en/8530_techdata.pdf"
-      },
-      "notes": [
-        "V1 is the virtual 12 V source. Its two red/black leads connect to the BB400 rails; a physical bench-supply model is not included.",
-        "The 3 W RLOAD is placed off-board and connected with leads to avoid seating a heat-dissipating load body on the solderless board.",
-        "The BB400 is rated for 2 A. This placement drawing does not qualify high-frequency switch-node parasitics or thermal performance; use the source-backed PCB for the physical power stage."
-      ],
-      "packages": [
-        {
-          "instanceId": "source",
-          "reference": "V1",
-          "kind": "external-supply",
-          "positionPx": [
-            86,
-            61
-          ],
-          "pins": [
-            {
-              "pin": "+",
-              "hole": "TP1",
-              "offsetMm": [
-                -2.8,
-                -1.8
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "-",
-              "hole": "TM1",
-              "offsetMm": [
-                -2.8,
-                1.8
-              ],
-              "connection": "pigtail"
-            }
-          ]
-        },
-        {
-          "instanceId": "controller",
-          "reference": "U1",
-          "kind": "to220",
-          "manufacturer": "Texas Instruments",
-          "manufacturerPartNumber": "LM2596T-ADJ/NOPB",
-          "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm2596.pdf",
-          "bodyMm": {
-            "width": 15,
-            "height": 10.16
-          },
-          "positionPx": [
-            405,
-            70
-          ],
-          "pins": [
-            {
-              "pin": "VIN",
-              "hole": "E3",
-              "offsetMm": [
-                7.5,
-                3.4
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "SW",
-              "hole": "D4",
-              "offsetMm": [
-                7.5,
-                1.7
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "GND",
-              "hole": "C5",
-              "offsetMm": [
-                7.5,
-                0
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "FB",
-              "hole": "B6",
-              "offsetMm": [
-                7.5,
-                -1.7
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "ONOFF",
-              "hole": "A7",
-              "offsetMm": [
-                7.5,
-                -3.4
-              ],
-              "connection": "pigtail"
-            }
-          ]
-        },
-        {
-          "instanceId": "inductor",
-          "reference": "L1",
-          "kind": "radial-inductor",
-          "manufacturer": "Bourns",
-          "manufacturerPartNumber": "RLB0914-101KL",
-          "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/rlb.pdf",
-          "bodyMm": {
-            "width": 8.7,
-            "height": 12.1
-          },
-          "positionPx": [
-            270,
-            63
-          ],
-          "pins": [
-            {
-              "pin": "1",
-              "hole": "A11",
-              "offsetMm": [
-                -2.5,
-                5.5
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "2",
-              "hole": "A14",
-              "offsetMm": [
-                2.5,
-                5.5
-              ],
-              "connection": "pigtail"
-            }
-          ]
-        },
-        {
-          "instanceId": "diode",
-          "reference": "D1",
-          "kind": "axial-diode",
-          "manufacturer": "onsemi",
-          "manufacturerPartNumber": "1N5822G",
-          "sourceUrl": "https://www.onsemi.com/pub/Collateral/1N5820-D.PDF",
-          "bodyMm": {
-            "width": 9.5,
-            "height": 5.3
-          },
-          "positionPx": [
-            468,
-            165
-          ],
-          "pins": [
-            {
-              "pin": "A",
-              "hole": "F20",
-              "offsetMm": [
-                -6,
-                0
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "K",
-              "hole": "F24",
-              "offsetMm": [
-                6,
-                0
-              ],
-              "connection": "pigtail"
-            }
-          ]
-        },
-        {
-          "instanceId": "capacitor",
-          "reference": "C1",
-          "kind": "radial-capacitor",
-          "manufacturer": "Nichicon",
-          "manufacturerPartNumber": "UPW1V101MPD",
-          "sourceUrl": "https://www.nichicon.com/en-us/part/upw1v101mpd/8437/",
-          "bodyMm": {
-            "width": 8,
-            "height": 11.5
-          },
-          "positionPx": [
-            500,
-            72
-          ],
-          "pins": [
-            {
-              "pin": "1",
-              "hole": "E18",
-              "offsetMm": [
-                -1.75,
-                5.75
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "2",
-              "hole": "E24",
-              "offsetMm": [
-                1.75,
-                5.75
-              ],
-              "connection": "pigtail"
-            }
-          ]
-        },
-        {
-          "instanceId": "load",
-          "reference": "RLOAD",
-          "kind": "external-axial-resistor",
-          "manufacturer": "Vishay Draloric",
-          "manufacturerPartNumber": "AC0300002409JAC00",
-          "sourceUrl": "https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf",
-          "mounting": "off-board",
-          "bodyMm": {
-            "width": 13,
-            "height": 4.8
-          },
-          "positionPx": [
-            449,
-            286
-          ],
-          "pins": [
-            {
-              "pin": "1",
-              "hole": "C16",
-              "offsetMm": [
-                -12.7,
-                0
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "2",
-              "hole": "C26",
-              "offsetMm": [
-                12.7,
-                0
-              ],
-              "connection": "pigtail"
-            }
-          ]
-        },
-        {
-          "instanceId": "rfb-top",
-          "reference": "RFB1",
-          "kind": "axial-resistor",
-          "manufacturer": "Vishay",
-          "manufacturerPartNumber": "MRS25000C3681FCT00",
-          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
-          "bodyMm": {
-            "width": 6.5,
-            "height": 2.5
-          },
-          "positionPx": [
-            428.9,
-            105
-          ],
-          "pins": [
-            {
-              "pin": "1",
-              "hole": "B18",
-              "offsetMm": [
-                -5.08,
-                0
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "2",
-              "hole": "B22",
-              "offsetMm": [
-                5.08,
-                0
-              ],
-              "connection": "pigtail"
-            }
-          ]
-        },
-        {
-          "instanceId": "rfb-bottom",
-          "reference": "RFB2",
-          "kind": "axial-resistor",
-          "manufacturer": "Vishay",
-          "manufacturerPartNumber": "MRS25000C1001FCT00",
-          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
-          "bodyMm": {
-            "width": 6.5,
-            "height": 2.5
-          },
-          "positionPx": [
-            330.3,
-            105
-          ],
-          "pins": [
-            {
-              "pin": "1",
-              "hole": "B13",
-              "offsetMm": [
-                -5.08,
-                0
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "2",
-              "hole": "B17",
-              "offsetMm": [
-                5.08,
-                0
-              ],
-              "connection": "pigtail"
-            }
-          ]
-        },
-        {
-          "instanceId": "output-header",
-          "reference": "J2",
-          "kind": "terminal-header",
-          "manufacturer": "Phoenix Contact",
-          "manufacturerPartNumber": "1757242",
-          "sourceUrl": "https://www.phoenixcontact.com/en-us/products/pcb-header-mstba-25-2-g-508-1757242",
-          "bodyMm": {
-            "width": 12.16,
-            "height": 11.8
-          },
-          "positionPx": [
-            590,
-            102
-          ],
-          "pins": [
-            {
-              "pin": "VOUT",
-              "hole": "D27",
-              "offsetMm": [
-                -2.54,
-                5.9
-              ],
-              "connection": "pigtail"
-            },
-            {
-              "pin": "GND",
-              "hole": "D29",
-              "offsetMm": [
-                2.54,
-                5.9
-              ],
-              "connection": "pigtail"
-            }
-          ]
-        }
-      ]
-    }
+    ]
   }
 }

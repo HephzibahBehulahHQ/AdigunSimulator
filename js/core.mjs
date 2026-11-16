@@ -9,7 +9,6 @@ import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
 import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
 import { validateBreadboardTopology } from "./breadboard-topology.mjs";
-import { validateBreadboardAssembly } from "./breadboard-assembly.mjs";
 export const SCHEMA_VERSION = 1;
 export const DESIGN_VIEWS = Object.freeze(["breadboard", "schematic", "pcb"]);
 const UI_LOCALES_FOR_PROJECT = Object.freeze(["en", "de", "yo", "pcm"]);
@@ -24,7 +23,6 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "sensor.bme280-i2c", category: "Sensors", type: "Bosch BME280 8-pad I²C environmental sensor", prefix: "U", pins: ["GND1","CSB","SDA","SCL","SDO","VDDIO","GND2","VDD"], defaultValue: "BME280; 0x76; VDD 1.71–3.6 V; VDDIO 1.2–3.6 V", simulation: "bounded-breakout-topology", status: "manufacturer pin map; generic footprint template", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "power.tlv70033", category: "Power & Ground", type: "TI TLV70033 3.3 V LDO (DDC)", prefix: "U", pins: ["IN","GND","EN","NC","OUT"], defaultValue: "TLV70033DDC; VIN 5 V; VOUT 3.3 V", simulation: "bounded-breakout-topology", status: "manufacturer identified", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.i2c-header-4", category: "Connectors", type: "4-pin I²C sensor header", prefix: "J", pins: ["VIN","GND","SDA","SCL"], defaultValue: "VIN, GND, SDA, SCL; 2.54 mm", simulation: "schematic/PCB only", status: "generic", views: { breadboard: true, schematic: true, pcb: true } },
-  { id: "connector.usb-led-power-input-2", category: "Connectors", type: "2-pin low-voltage USB power input", prefix: "J", pins: ["VUSB","GND"], defaultValue: "5 V USB supply breakout; Samtec TSW-102-07-T-S; 2.54 mm", simulation: "schematic/PCB/breadboard interface", status: "Samtec manufacturer part identified", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.usb-c-receptacle", category: "Connectors", type: "USB-C receptacle (USB 2.0, 16 contacts)", prefix: "J", pins: ["A1","A4","A5","A6","A7","A8","A9","A12","B1","B4","B5","B6","B7","B8","B9","B12","SHIELD"], defaultValue: "GCT USB4105; 5.1 kΩ Rd on CC1 and CC2", simulation: null, status: "manufacturer identified; footprint template", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.breakout-header-4", category: "Connectors", type: "4-pin breakout header", prefix: "J", pins: ["1","2","3","4"], defaultValue: "VBUS, GND, D+, D-", simulation: null, status: "generic", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "power.dc-source", category: "Power & Ground", type: "DC voltage source", prefix: "V", pins: ["+", "-"], defaultValue: "5 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -57,7 +55,6 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge/ideal-latching-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.comparator-ideal", category: "Active", type: "Ideal low-battery comparator model", prefix: "U", pins: ["VCC", "GND", "SENSE", "OUT"], defaultValue: "Vref 3.75 V", simulation: "analytical-battery-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
-  { id: "active.tps3710-ideal", category: "Active", type: "TI TPS3710 wide-input voltage detector (idealized threshold model)", prefix: "U", pins: ["GND1", "VDD", "GND2", "SENSE", "GND3", "OUT"], defaultValue: "TPS3710DDCR; Vref 0.4 V", simulation: "analytical-battery-monitor", status: "TI TPS3710DDCR identified; threshold model only", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "active.comparator-dual-ideal", category: "Active", type: "Ideal dual-input comparator with indicator", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal comparator", simulation: "analytical-comparator-threshold", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.schmitt-trigger-ideal", category: "Active", type: "Ideal Schmitt trigger with positive feedback", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal Schmitt trigger", simulation: "analytical-schmitt-trigger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-and-ideal", category: "Active", type: "Ideal two-input AND gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-window-comparator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -291,8 +288,6 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "diode.schottky-1n5822g", category: "Active", type: "onsemi 1N5822G Schottky rectifier", prefix: "D", pins: ["A","K"], defaultValue: "3 A average; 40 V repetitive reverse; DO-201AD axial", simulation: "schematic/PCB topology only", status: "onsemi manufacturer part; generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.buck-input-2", category: "Connectors", type: "2-pin buck converter input terminal", prefix: "J", pins: ["VIN","GND"], defaultValue: "12 V DC input; 2-position terminal", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.buck-output-2", category: "Connectors", type: "2-pin buck converter output terminal", prefix: "J", pins: ["VOUT","GND"], defaultValue: "5 V DC output; 2-position terminal", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
-  { id: "connector.linear-supply-ac-input-2", category: "Connectors", type: "2-pin isolated AC secondary header", prefix: "J", pins: ["AC1","AC2"], defaultValue: "12 V AC isolated secondary; Samtec TSW-102-07-T-S; 2.54 mm", simulation: "schematic/PCB/breadboard interface", status: "Samtec manufacturer part identified", views: { breadboard: true, schematic: true, pcb: true } },
-  { id: "connector.linear-supply-dc-output-2", category: "Connectors", type: "2-pin regulated DC output header", prefix: "J", pins: ["VOUT","GND"], defaultValue: "5 V DC output; Samtec TSW-102-07-T-S; 2.54 mm", simulation: "schematic/PCB/breadboard interface", status: "Samtec manufacturer part identified", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "active.stm32g031k8-lqfp32", category: "Active", type: "ST STM32G031K8T6 Cortex-M0+ MCU LQFP32", prefix: "U", pins: ["PB9","PC14","PC15","VDD_VDDA","VSS_VSSA","NRST","PA0","PA1","PA2","PA3","PA4","PA5","PA6","PA7","PB0","PB1","PB2","PA8","PA9","PC6","PA10","PA11","PA12","PA13_SWDIO","PA14_SWDCLK","PA15","PB3","PB4","PB5","PB6","PB7","PB8"], defaultValue: "STM32G031K8T6; LQFP32; 1.7–3.6 V; datasheet pin map", simulation: "bounded-mcu-board-plan", status: "ST manufacturer device/pin map; generic PCB footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "connector.swd-header-4", category: "Connectors", type: "4-pin SWD programming header", prefix: "J", pins: ["VDD","GND","SWDIO","SWCLK"], defaultValue: "2.54 mm SWD header", simulation: "schematic/PCB only", status: "generic footprint template", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "active.tusb1106-usb-fs-phy", category: "Active", type: "TI TUSB1106 USB Full-Speed transceiver", prefix: "U", pins: ["VPU","SOFTCON","OE","RCV","VP","VM","SUSPND","GND","VCCIO","SPEED","D-","D+","VPO","VMO","VREG","VCC5"], defaultValue: "TUSB1106RGTR; USB Full-Speed; RGT 16-pin pin map", simulation: "bounded-differential-pcb-rules", status: "TI manufacturer pin map; generic PCB footprint template", views: { breadboard: false, schematic: true, pcb: true } },
@@ -345,7 +340,7 @@ export function createLedCurrentLimiterProject({ name = "LED Current Limiter", s
       { id: "GND", endpoints: ["led-1:K", "source-1:-", "ground-1:0"] }
     ],
     breadboard: {
-      model: "busboard-bb400",
+      model: "generic-400-30",
       pinHoles: {
         "source-1:+": "TP2", "source-1:-": "BM2",
         "resistor-1:1": "A5", "resistor-1:2": "A10",
@@ -618,36 +613,8 @@ export function validateProject(project) {
   if(project.ladderSimulation!==undefined){try{ladderSettings(project.ladderSimulation,components.length,(project.nets??[]).length);}catch(error){errors.push({rule:'LADDER_RECORDING',message:error.message});}}
   errors.push(...validateSchematicWires(project,pin=>{const [id,terminal]=pin.split(":");const c=components.find(c=>c?.instanceId===id);return Boolean(c&&findLibraryPart(c.libraryId)?.pins.includes(terminal));}));
   const breadboard = validateBreadboardTopology(project, { getPartPins: libraryId => findLibraryPart(libraryId)?.pins ?? [] });
-  if (breadboard.errors.length) errors.push({ rule: "BREADBOARD_PHYSICAL_MAP", message: breadboard.errors.map(issue => issue.message).filter(Boolean).join(" ") || "Breadboard pin placements contain physical conflicts.", fix: "Correct the listed hole assignments or jumpers, then validate again.", details: breadboard.errors });
-  if (project.breadboard?.assembly) {
-    const assembly = validateBreadboardAssembly(project, { getPartPins: libraryId => findLibraryPart(libraryId)?.pins ?? [] });
-    if (assembly.errors.length) errors.push({ rule: "BREADBOARD_ASSEMBLY", message: assembly.errors.map(issue => issue.message).join(" "), fix: "Correct package identity, physical fit, lead-to-hole mapping, or BB400 pigtail specifications before using this assembly view.", details: assembly.errors });
-    if (assembly.warnings.length) warnings.push({ rule: "BREADBOARD_ASSEMBLY", message: assembly.warnings.map(issue => issue.message).join(" "), fix: "Complete the package and terminal map using manufacturer drawings and the selected BB400 model.", details: assembly.warnings });
-  }
-  if (breadboard.state === "incomplete" || breadboard.warnings.length || (project.breadboard?.mappingNotes ?? []).length) {
-    const missingPins = breadboard.warnings.flatMap(issue => issue.endpoints ?? []);
-    const referenceById = new Map(components.map(component => [component.instanceId, component.reference]));
-    const pinLabels = missingPins.map(value => {
-      const [instanceId, ...pinParts] = value.split(":");
-      return `${referenceById.get(instanceId) ?? instanceId}.${pinParts.join(":")}`;
-    });
-    const mappingNotes = (project.breadboard?.mappingNotes ?? []).filter(note => note?.view === "breadboard");
-    const diagnosticMessage = [
-      ...(pinLabels.length ? [`Missing breadboard holes for ${pinLabels.length} physical pins: ${pinLabels.join(", ")}.`] : []),
-      ...mappingNotes.map(note => `${note.reference ?? note.instanceId}: ${note.reason}`)
-    ].filter(Boolean).join(" ");
-    warnings.push({
-      rule: "BREADBOARD_PHYSICAL_MAP",
-      message: diagnosticMessage || "The breadboard view does not yet have a verified physical pin and jumper map.",
-      fix: [
-        "Assign every physical pin to a verified breadboard hole, then add jumpers that reproduce the project nets. Declare only genuinely virtual items as nonphysical.",
-        ...mappingNotes.map(note => note.fix)
-      ].filter(Boolean).join(" "),
-      details: [...breadboard.warnings, ...mappingNotes.map(note => ({ code: "BREADBOARD_PART_MAPPING", ...note }))],
-      mappedPinCount: breadboard.mappedPinCount,
-      requiredPinCount: (project.components ?? []).reduce((count, component) => count + (findLibraryPart(component?.libraryId)?.pins?.length ?? 0), 0) - (project.breadboard?.nonPhysicalItems ?? []).reduce((count, item) => count + (findLibraryPart(components.find(component => component.instanceId === item.instanceId)?.libraryId)?.pins?.length ?? 0), 0)
-    });
-  }
+  if (breadboard.errors.length) errors.push({ rule: "BREADBOARD_PHYSICAL_MAP", message: "Breadboard pin placements contain physical conflicts.", fix: "Correct the listed hole assignments or jumpers, then validate again.", details: breadboard.errors });
+  if (breadboard.state === "incomplete" || breadboard.warnings.length) warnings.push({ rule: "BREADBOARD_PHYSICAL_MAP", message: "The breadboard view does not yet have a verified physical pin and jumper map.", fix: "Assign every physical pin to a real breadboard hole, then add jumpers that reproduce the project nets. Declare only genuinely virtual items as nonphysical.", details: breadboard.warnings, mappedPinCount: breadboard.mappedPinCount, requiredPinCount: (project.components ?? []).reduce((count, component) => count + (findLibraryPart(component?.libraryId)?.pins?.length ?? 0), 0) - (project.breadboard?.nonPhysicalItems ?? []).reduce((count, item) => count + (findLibraryPart(components.find(component => component.instanceId === item.instanceId)?.libraryId)?.pins?.length ?? 0), 0) });
   return { errors, warnings, valid: errors.length === 0 };
 }
 
@@ -902,7 +869,6 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
 
   const source = project.components.filter((item) => item.libraryId === "power.dc-source");
   const comparators = project.components.filter((item) => item.libraryId === "active.comparator-ideal");
-  const batteryMonitors = project.components.filter((item) => ["active.comparator-ideal", "active.tps3710-ideal"].includes(item.libraryId));
   const dualComparators = project.components.filter((item) => item.libraryId === "active.comparator-dual-ideal");
   const schmittTriggers = project.components.filter((item) => item.libraryId === "active.schmitt-trigger-ideal");
   const andGates = project.components.filter((item) => item.libraryId === "active.logic-and-ideal");
@@ -1134,7 +1100,6 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const regulators = project.components.filter((item) => item.libraryId === "active.regulator-7805-ideal");
   const usbSources = project.components.filter((item) => item.libraryId === "power.usb-source");
   const ptcFuses = project.components.filter((item) => item.libraryId === "protection.ptc-polyfuse");
-  const usbPowerInputs = project.components.filter(item => item.libraryId === "connector.usb-led-power-input-2");
   const solarCells = project.components.filter((item) => item.libraryId === "power.solar-cell");
   const batteries = project.components.filter((item) => item.libraryId === "power.rechargeable-battery");
   const photoresistors = project.components.filter((item) => item.libraryId === "passive.ldr");
@@ -1477,17 +1442,14 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (solarCells.length === 1 && batteries.length === 1 && photoresistors.length === 1 && schottkyDiodes.length === 1 && mosfets.length === 1 && led.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 9) {
     return analyseSolarGardenLight(project, { solar: solarCells[0], battery: batteries[0], ldr: photoresistors[0], diode: schottkyDiodes[0], mosfet: mosfets[0], led: led[0], resistors: resistor, ground: ground[0], validation });
   }
-  if (usbSources.length === 1 && ptcFuses.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && usbPowerInputs.length === 1 && project.components.length === 6) {
-    return analyseUsbLedPtc(project, { source: usbSources[0], fuse: ptcFuses[0], resistor: resistor[0], led: led[0], ground: ground[0], inputHeader: usbPowerInputs[0], validation });
+  if (usbSources.length === 1 && ptcFuses.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
+    return analyseUsbLedPtc(project, { source: usbSources[0], fuse: ptcFuses[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
-  const linearSupplyInputs = project.components.filter(item => item.libraryId === "connector.linear-supply-ac-input-2");
-  const linearSupplyOutputs = project.components.filter(item => item.libraryId === "connector.linear-supply-dc-output-2");
-  if (acSource.length === 1 && transformers.length === 1 && bridges.length === 1 && regulators.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1
-    && linearSupplyInputs.length === 1 && linearSupplyOutputs.length === 1 && project.components.length === 9) {
-    return analyseLinearSupply(project, { source: acSource[0], transformer: transformers[0], bridge: bridges[0], capacitor: capacitor[0], regulator: regulators[0], load: resistor[0], ground: ground[0], inputHeader: linearSupplyInputs[0], outputHeader: linearSupplyOutputs[0], validation });
+  if (acSource.length === 1 && transformers.length === 1 && bridges.length === 1 && regulators.length === 1 && capacitor.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseLinearSupply(project, { source: acSource[0], transformer: transformers[0], bridge: bridges[0], capacitor: capacitor[0], regulator: regulators[0], load: resistor[0], ground: ground[0], validation });
   }
-  if (source.length === 1 && resistor.length === 3 && led.length === 1 && batteryMonitors.length === 1 && ground.length === 1 && capacitor.length === 1 && project.components.length === 8) {
-    return analyseBatteryDischargeMonitor(project, { source: source[0], resistors: resistor, led: led[0], comparator: batteryMonitors[0], capacitor: capacitor[0], ground: ground[0], validation });
+  if (source.length === 1 && resistor.length === 3 && led.length === 1 && comparators.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseBatteryDischargeMonitor(project, { source: source[0], resistors: resistor, led: led[0], comparator: comparators[0], ground: ground[0], validation });
   }
   if (source.length === 1 && resistor.length === 1 && led.length === 1 && pwmSources.length === 1 && mosfets.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analysePwmLedAverage(project, { source: source[0], resistor: resistor[0], led: led[0], pwmSource: pwmSources[0], mosfet: mosfets[0], ground: ground[0], validation });
@@ -1510,9 +1472,6 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (source.length === 1 && resistor.length === 2 && led.length === 0 && ground.length >= 1) {
     const divider = findVoltageDivider(project, source[0], resistor, ground[0]);
     if (divider) return analyseVoltageDivider(project, { source: source[0], ground: ground[0], validation, ...divider });
-    if (ground.length === 1 && project.components.length === 4) {
-      return { state: "blocked", message: "The voltage-divider wiring is incomplete. Connect source positive to the upper resistor, join the two resistors at VOUT, and connect the lower resistor and source return to GND.", validation };
-    }
   }
   if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 4) return analyseRcStep(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], ground: ground[0], validation });
   if (source.length === 1 && resistor.length === 1 && capacitor.length === 1 && switches.length === 1 && led.length === 0 && ground.length === 1 && project.components.length === 5) return analyseRcSwitchedResponse(project, { source: source[0], resistor: resistor[0], capacitor: capacitor[0], switchPart: switches[0], ground: ground[0], validation });
@@ -1606,34 +1565,28 @@ function analysePwmLedAverage(project, { source, resistor, led, pwmSource, mosfe
   };
 }
 
-function analyseBatteryDischargeMonitor(project, { source, resistors, led, comparator, capacitor, ground, validation }) {
+function analyseBatteryDischargeMonitor(project, { source, resistors, led, comparator, ground, validation }) {
   const batteryVoltage = voltageValue(source.value);
   const ledVf = forwardVoltage(led.value);
   const tripVoltage = voltageValue(comparator.value);
-  const tps3710 = comparator.libraryId === "active.tps3710-ideal";
   if (![batteryVoltage, ledVf, tripVoltage].every(Number.isFinite) || batteryVoltage <= 0 || ledVf <= 0 || tripVoltage <= 0) {
     return { state: "blocked", message: "The battery monitor requires positive numeric battery, reference threshold, and LED forward voltages.", validation };
-  }
-  if (tps3710 && (batteryVoltage < 1.8 || batteryVoltage > 18 || tripVoltage !== 0.4)) {
-    return { state: "blocked", message: "TPS3710DDCR requires a 1.8–18 V supply; this model uses its fixed nominal 0.4 V threshold. Set the battery and Vref accordingly.", validation };
   }
   const netByEndpoint = new Map();
   for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
   const batteryNet = netByEndpoint.get(endpoint(source, "+"));
   const sourceNegative = netByEndpoint.get(endpoint(source, "-"));
   const groundNet = netByEndpoint.get(endpoint(ground, "0"));
-  const comparatorSupply = netByEndpoint.get(endpoint(comparator, tps3710 ? "VDD" : "VCC"));
-  const comparatorGrounds = (tps3710 ? ["GND1", "GND2", "GND3"] : ["GND"]).map(pin => netByEndpoint.get(endpoint(comparator, pin)));
+  const comparatorSupply = netByEndpoint.get(endpoint(comparator, "VCC"));
+  const comparatorGround = netByEndpoint.get(endpoint(comparator, "GND"));
   const senseNet = netByEndpoint.get(endpoint(comparator, "SENSE"));
   const outputNet = netByEndpoint.get(endpoint(comparator, "OUT"));
   const ledAnode = netByEndpoint.get(endpoint(led, "A"));
   const ledCathode = netByEndpoint.get(endpoint(led, "K"));
   if (!batteryNet || batteryNet === groundNet || sourceNegative !== groundNet || comparatorSupply !== batteryNet
-    || comparatorGrounds.some(net => net !== groundNet) || !senseNet || senseNet === batteryNet || senseNet === groundNet
-    || !outputNet || outputNet === groundNet || (tps3710 ? ledCathode !== outputNet : ledCathode !== groundNet)) {
-    return { state: "blocked", message: tps3710
-      ? "Wire battery positive to VDD and the divider; tie all three GND pins to battery return. Connect divider midpoint to SENSE and place the LED plus its resistor from battery positive to open-drain OUT (LED cathode at OUT)."
-      : "Wire the battery to comparator supply, divider and shared ground; connect the divider midpoint to SENSE and comparator OUT through the LED resistor and LED to ground.", validation };
+    || comparatorGround !== groundNet || !senseNet || senseNet === batteryNet || senseNet === groundNet
+    || !outputNet || outputNet === groundNet || ledCathode !== groundNet) {
+    return { state: "blocked", message: "Wire the battery to comparator supply, divider and shared ground; connect the divider midpoint to SENSE and comparator OUT through the LED resistor and LED to ground.", validation };
   }
   const between = (part, netA, netB) => {
     const a = netByEndpoint.get(endpoint(part, "1"));
@@ -1642,12 +1595,9 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
   };
   const upperDivider = resistors.find(part => between(part, batteryNet, senseNet));
   const lowerDivider = resistors.find(part => part !== upperDivider && between(part, senseNet, groundNet));
-  const ledResistor = resistors.find(part => part !== upperDivider && part !== lowerDivider && between(part, tps3710 ? batteryNet : outputNet, ledAnode));
+  const ledResistor = resistors.find(part => part !== upperDivider && part !== lowerDivider && between(part, outputNet, ledAnode));
   if (!upperDivider || !lowerDivider || !ledResistor) {
     return { state: "blocked", message: "The monitor needs a battery-to-sense upper resistor, a sense-to-ground lower resistor, and a separate comparator-output LED resistor.", validation };
-  }
-  if (tps3710 && !between(capacitor, batteryNet, groundNet)) {
-    return { state: "blocked", message: "Connect the 0.1 µF decoupling capacitor directly between TPS3710 VDD and shared ground, close to the device.", validation };
   }
   const upperResistance = resistanceValue(upperDivider.value);
   const lowerResistance = resistanceValue(lowerDivider.value);
@@ -1660,8 +1610,8 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
   const senseVoltage = batteryVoltage * lowerResistance / dividerResistance;
   const tripBatteryVoltage = tripVoltage * dividerResistance / lowerResistance;
   const lowBattery = senseVoltage < tripVoltage;
-  const comparatorOutputVoltage = tps3710 ? (lowBattery ? 0 : null) : (lowBattery ? batteryVoltage : 0);
-  const ledCurrentA = lowBattery ? Math.max(0, (batteryVoltage - ledVf) / ledResistance) : 0;
+  const comparatorOutputVoltage = lowBattery ? batteryVoltage : 0;
+  const ledCurrentA = lowBattery ? Math.max(0, (comparatorOutputVoltage - ledVf) / ledResistance) : 0;
   const dividerPowerW = dividerCurrentA ** 2 * dividerResistance;
   const ledResistorPowerW = ledCurrentA ** 2 * ledResistance;
   const ledPowerW = ledCurrentA * ledVf;
@@ -1673,11 +1623,9 @@ function analyseBatteryDischargeMonitor(project, { source, resistors, led, compa
   }
   return {
     state: "complete",
-    engine: tps3710 ? "TPS3710 threshold and open-drain analytical estimate" : "Analytical ideal low-battery comparator and divider",
-    message: tps3710
-      ? "Estimated the TPS3710DDCR 0.4 V nominal sense threshold, divider trip point, and active-low open-drain LED alarm. TI specifies an internal hysteresis, but its tolerance and temperature behavior, dynamic response, output sink limits, battery characteristics, component tolerances, and SPICE behavior are not simulated. Verify the external resistor's minimum operating resistance against TI's sink-current characterization before production."
-      : "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
-    result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, outputMode: tps3710 ? (lowBattery ? "open-drain sinking" : "open-drain high impedance") : "ideal push-pull", ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
+    engine: "Analytical ideal low-battery comparator and divider",
+    message: "Compared a divided battery voltage with an ideal fixed reference and calculated an LED alarm output below the trip point. The generic comparator model omits hysteresis, input bias/offset, propagation delay, output-current limits, dropout, battery chemistry, tolerance, temperature, device ratings, and general SPICE.",
+    result: { kind: "battery-discharge-monitor", batteryVoltage, upperResistance, lowerResistance, ledResistance, dividerCurrentA, senseVoltage, tripVoltage, tripBatteryVoltage, lowBattery, comparatorOutputVoltage, ledOn: ledCurrentA > 0.0005, ledCurrentA, sourceCurrentA, dividerPowerW, ledResistorPowerW, ledPowerW, sourcePowerW, powerBalanceW },
     validation
   };
 }
@@ -4968,7 +4916,7 @@ function analyseSolarGardenLight(project, { solar, battery, ldr, diode, mosfet, 
   };
 }
 
-function analyseUsbLedPtc(project, { source, fuse, resistor, led, ground, inputHeader, validation }) {
+function analyseUsbLedPtc(project, { source, fuse, resistor, led, ground, validation }) {
   const sourceVoltage = voltageValue(source.value);
   const ledVf = forwardVoltage(led.value);
   const resistance = resistanceValue(resistor.value);
@@ -4983,14 +4931,13 @@ function analyseUsbLedPtc(project, { source, fuse, resistor, led, ground, inputH
   for (const net of project.nets) for (const item of net.endpoints) netByEndpoint.set(item, net.id);
   const n = (part, pin) => netByEndpoint.get(endpoint(part, pin));
   const supplyNet = n(source, "+"), sourceReturn = n(source, "-");
-  const inputPositive = n(inputHeader, "VUSB"), inputReturn = n(inputHeader, "GND");
   const fuseInput = n(fuse, "1"), fuseOutput = n(fuse, "2");
   const resistorInput = n(resistor, "1"), resistorOutput = n(resistor, "2");
   const ledAnode = n(led, "A"), ledCathode = n(led, "K"), groundNet = n(ground, "0");
-  if (!supplyNet || supplyNet === groundNet || sourceReturn !== groundNet || inputPositive !== supplyNet || inputReturn !== groundNet || fuseInput !== supplyNet
+  if (!supplyNet || supplyNet === groundNet || sourceReturn !== groundNet || fuseInput !== supplyNet
     || !fuseOutput || fuseOutput === supplyNet || resistorInput !== fuseOutput
     || !resistorOutput || resistorOutput !== ledAnode || ledCathode !== groundNet) {
-    return { state: "blocked", message: "Connect the 5 V USB breakout input J1 VUSB pin to the USB source and PTC input. Connect J1 GND, USB negative, and signal ground together, then wire through the PTC, resistor, and LED to the shared return.", validation };
+    return { state: "blocked", message: "Wire USB positive through the PTC, LED resistor, and LED to ground, with USB negative and signal ground on the same return.", validation };
   }
   const totalSeriesResistance = resistance + coldResistance;
   const currentA = Math.max(0, (sourceVoltage - ledVf) / totalSeriesResistance);
@@ -5015,7 +4962,7 @@ function analyseUsbLedPtc(project, { source, fuse, resistor, led, ground, inputH
   };
 }
 
-function analyseLinearSupply(project, { source, transformer, bridge, capacitor, regulator, load, ground, inputHeader, outputHeader, validation }) {
+function analyseLinearSupply(project, { source, transformer, bridge, capacitor, regulator, load, ground, validation }) {
   const acFields = String(source.value).split(",").map(field => field.trim());
   const acMatch = acFields.length === 2 ? acFields[0].match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*RMS$/i) : null;
   const primaryRmsVoltage = acMatch ? Number(acMatch[1]) : Number.NaN;
@@ -5045,16 +4992,13 @@ function analyseLinearSupply(project, { source, transformer, bridge, capacitor, 
   const capacitorPositive = n(capacitor, "1"), capacitorNegative = n(capacitor, "2");
   const regulatorInput = n(regulator, "IN"), regulatorOutput = n(regulator, "OUT"), regulatorGround = n(regulator, "GND");
   const loadInput = n(load, "1"), loadReturn = n(load, "2"), groundNet = n(ground, "0");
-  const headerAc1 = n(inputHeader, "AC1"), headerAc2 = n(inputHeader, "AC2");
-  const outputHeaderVout = n(outputHeader, "VOUT"), outputHeaderGround = n(outputHeader, "GND");
   if (!sourcePositive || sourcePositive !== primary1 || sourceNegative !== primary2
     || !secondary1 || secondary1 !== bridgeAC1 || !secondary2 || secondary2 !== bridgeAC2
     || !bridgePositive || bridgePositive === bridgeNegative || capacitorPositive !== bridgePositive
     || regulatorInput !== bridgePositive || !groundNet || bridgeNegative !== groundNet
     || capacitorNegative !== groundNet || regulatorGround !== groundNet || loadReturn !== groundNet
-    || !regulatorOutput || regulatorOutput === groundNet || loadInput !== regulatorOutput
-    || headerAc1 !== bridgeAC1 || headerAc2 !== bridgeAC2 || outputHeaderVout !== regulatorOutput || outputHeaderGround !== groundNet) {
-    return { state: "blocked", message: "Wire the analytical AC source to the ideal transformer, then route its secondary through the isolated 12 V AC input header to the bridge. Keep the DC rails across the capacitor and regulator input, and connect the 5 V output header to regulator OUT and shared DC ground.", validation };
+    || !regulatorOutput || regulatorOutput === groundNet || loadInput !== regulatorOutput) {
+    return { state: "blocked", message: "Wire the AC source to transformer primary, transformer secondary to bridge AC pins, bridge DC rails across the capacitor and regulator input, and regulator output through the load to shared DC ground.", validation };
   }
   const transformerRatio = secondaryTurns / primaryTurns;
   const secondaryRmsVoltage = primaryRmsVoltage * transformerRatio;
@@ -5677,7 +5621,7 @@ function analysePushbuttonLed(project, { source, resistors, led, pushbutton, gro
     const second = netByEndpoint.get(endpoint(resistor, "2"));
     return (first === switchOutput && second === groundNet) || (second === switchOutput && first === groundNet);
   });
-  if (!seriesResistor || !pullDown) return { state: "blocked", message: `The LED path needs a series resistor between ${switchOutput} and ${ledAnode}; the pull-down resistor must connect ${switchOutput} to ${groundNet}. Wire both resistor pins to those named nets, then run again.`, validation };
+  if (!seriesResistor || !pullDown) return { state: "blocked", message: "The circuit requires a series LED resistor and a pull-down resistor from the switched node to ground.", validation };
 
   const seriesResistance = resistanceValue(seriesResistor.value);
   const pullDownResistance = resistanceValue(pullDown.value);

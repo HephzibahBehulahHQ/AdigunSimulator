@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 43,
-    "withoutStoredPcb": 173,
+    "withStoredPcb": 32,
+    "withoutStoredPcb": 184,
     "unexpectedFailures": []
   },
   "entries": [
@@ -15,7 +15,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "5f8cbc2fafadcfb9a7e336c19fec028d03da313ac915bbae5039707000d5a8cc",
+      "sha256": "3ca87c86154c4c07ea542a52efc83c0890baf63fdfcc2413c0a39fb3790bbdef",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical DC LED demonstration",
@@ -23,7 +23,12 @@
       "pcbParts": 3,
       "pcbPads": 6,
       "pcbRoutes": 3,
-      "unmapped": []
+      "unmapped": [
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "002-dc-voltage-divider.adigun.json",
@@ -31,7 +36,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "2b92b07af9b07bd2a7515f8893e796a805fbb55763ed795b9f8897153d11b6ec",
+      "sha256": "568ffa64f0ea97f2a72abaec7e9dd610d54effe10f0bb54a101337d9cd2c8b72",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical DC voltage-divider calculation",
@@ -39,7 +44,12 @@
       "pcbParts": 3,
       "pcbPads": 6,
       "pcbRoutes": 3,
-      "unmapped": []
+      "unmapped": [
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "002-two-led-polarity-indicator.adigun.json",
@@ -47,15 +57,40 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "298575236efab19335bd56f34de45992f56ab04acd012189496b5fe2b0754a73",
+      "sha256": "58c6bf60cb09f2999651e7ae9899bd84a01b5e3e7bc8f5e3cf27f9b829e15acd",
       "components": 6,
       "analysis": "complete",
       "engine": "Analytical anti-parallel LED polarity indicator",
-      "pcbStatus": "stored",
-      "pcbParts": 5,
-      "pcbPads": 10,
-      "pcbRoutes": 4,
-      "unmapped": []
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "D1",
+          "libraryId": "diode.led-red"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "D2",
+          "libraryId": "diode.led-green"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "003-led-current-limiter-9v.adigun.json",
@@ -63,7 +98,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "b40dba68565c6c8f8d80c43ce645f32373dd3c07f023671cb72e8c1bfe533849",
+      "sha256": "a3eaa6000d2bcad144c85c3f1908157ee31fee2755af9d458e7226b9222fe8a7",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical DC LED demonstration",
@@ -71,7 +106,12 @@
       "pcbParts": 3,
       "pcbPads": 6,
       "pcbRoutes": 3,
-      "unmapped": []
+      "unmapped": [
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "003-pushbutton-led.adigun.json",
@@ -79,15 +119,40 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "ecab6b266f5dc0feb34f67642b93061153f32352c4a71034bb29aef121d890a6",
+      "sha256": "70882a2fad96987aac704e6664efb03bae4b312184f0a3ae133e40243b665e55",
       "components": 6,
       "analysis": "complete",
       "engine": "Analytical ideal pushbutton LED circuit",
-      "pcbStatus": "stored",
-      "pcbParts": 5,
-      "pcbPads": 12,
-      "pcbRoutes": 5,
-      "unmapped": []
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SW1",
+          "libraryId": "input.pushbutton"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "D1",
+          "libraryId": "diode.led-red"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "004-latching-led-switch.adigun.json",
@@ -95,15 +160,36 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "ecd870697470ed1f82a45ecfb44de9a2c257d2a6d3cf3ea154edbaeca14fe86c",
+      "sha256": "831527b6c757f79177d2f65ac7dcff591581f73c5f2e30a9d93e8fb6ad5c55a4",
       "components": 5,
       "analysis": "complete",
       "engine": "Analytical ideal latching SPDT LED switch",
-      "pcbStatus": "stored",
-      "pcbParts": 4,
-      "pcbPads": 9,
-      "pcbRoutes": 4,
-      "unmapped": []
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "SW1",
+          "libraryId": "input.spdt-switch"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "D1",
+          "libraryId": "diode.led-red"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "004-parallel-resistor-load.adigun.json",
@@ -111,7 +197,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "50287dbaa22eab1b8de4d92ae989ce3f441b7c851ecfc4b850f6d72a8563c5ec",
+      "sha256": "a34d2a6ce55b708bedb7daf01e150b85cb7cedb9dbc89cea638dfb1ece7f10f8",
       "components": 5,
       "analysis": "complete",
       "engine": "Linear DC resistive nodal analysis",
@@ -119,7 +205,12 @@
       "pcbParts": 4,
       "pcbPads": 8,
       "pcbRoutes": 5,
-      "unmapped": []
+      "unmapped": [
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "005-pwm-led-dimmer.adigun.json",
@@ -127,7 +218,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "8a8cacb17411d051e5d9e942a4a93fd8a4955f505229588852ef6ac5b8bf1539",
+      "sha256": "f7c1f0677f29a17c3a3a2c12557ec5fc24a7475ec33ecdb4f9d6c10e528f1550",
       "components": 6,
       "analysis": "complete",
       "engine": "Analytical PWM LED average-current model",
@@ -135,7 +226,16 @@
       "pcbParts": 4,
       "pcbPads": 10,
       "pcbRoutes": 5,
-      "unmapped": []
+      "unmapped": [
+        {
+          "reference": "PWM1",
+          "libraryId": "power.pwm-source"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "005-rc-step-response.adigun.json",
@@ -143,15 +243,32 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "55934db999b14331ce85f6a6487e600fc325fbdc0f947218ef18d4e85cc92d64",
+      "sha256": "69ec2bff6a9ee05d6be49acfa0ba7a85d351a71c2592acab2a35d4f63b55c644",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical first-order RC step response",
-      "pcbStatus": "stored",
-      "pcbParts": 3,
-      "pcbPads": 6,
-      "pcbRoutes": 3,
-      "unmapped": []
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "C1",
+          "libraryId": "passive.capacitor"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "006-battery-discharge-monitor.adigun.json",
@@ -159,15 +276,44 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "67c5c33f9192eeade04d26163c957ba9d9487e650998e87ea9c19dd2ad3820ff",
-      "components": 8,
+      "sha256": "e8a7de563e337f2023478392ebc8eb9b4aacdbb0a766a286a8ceda434fd6aac7",
+      "components": 7,
       "analysis": "complete",
-      "engine": "TPS3710 threshold and open-drain analytical estimate",
-      "pcbStatus": "stored",
-      "pcbParts": 7,
-      "pcbPads": 18,
-      "pcbRoutes": 19,
-      "unmapped": []
+      "engine": "Analytical ideal low-battery comparator and divider",
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.comparator-ideal"
+        },
+        {
+          "reference": "R3",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "D1",
+          "libraryId": "diode.led-red"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "006-rl-step-response.adigun.json",
@@ -175,15 +321,32 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "e55e50540e32077bbb569194676fd355a0e4d4dd80b9d55507e5a848e4f10dc1",
+      "sha256": "4c826504d75ff73ee5c17bf6932903615fca2de3f20b1b99e26925c5aabea47b",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical first-order RL step response",
-      "pcbStatus": "stored",
-      "pcbParts": 3,
-      "pcbPads": 6,
-      "pcbRoutes": 3,
-      "unmapped": []
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "L1",
+          "libraryId": "passive.inductor"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "007-led-current-limiter-12v.adigun.json",
@@ -212,15 +375,44 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "72138910e88f294c7db07383bab9dbbc611e966d65f3ec5b798bab20a725d520",
-      "components": 9,
+      "sha256": "7dbbe9d8f0c49d6063e40477fdba0801cfad039739016b4157065b5a069d271f",
+      "components": 7,
       "analysis": "complete",
       "engine": "Analytical transformer, bridge, reservoir-capacitor, and linear-regulator envelope",
-      "pcbStatus": "stored",
-      "pcbParts": 6,
-      "pcbPads": 15,
-      "pcbRoutes": 9,
-      "unmapped": []
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "VAC1",
+          "libraryId": "power.ac-source"
+        },
+        {
+          "reference": "T1",
+          "libraryId": "passive.transformer-ideal"
+        },
+        {
+          "reference": "BR1",
+          "libraryId": "diode.bridge-ideal"
+        },
+        {
+          "reference": "C1",
+          "libraryId": "passive.capacitor"
+        },
+        {
+          "reference": "U1",
+          "libraryId": "active.regulator-7805-ideal"
+        },
+        {
+          "reference": "RLOAD",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "008-led-current-limiter-3v3.adigun.json",
@@ -249,15 +441,36 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "1c2b4ff71ab25720a086cde772a0a1bd4dd652eda46d2e15cb1daa4bb72f4905",
-      "components": 6,
+      "sha256": "88bbd1b7392ecdf6b68fbac1815c62a57bf1e11c82b81ee7de110dac1ac90098",
+      "components": 5,
       "analysis": "complete",
       "engine": "Analytical USB LED and cold-state PTC estimate",
-      "pcbStatus": "stored",
-      "pcbParts": 4,
-      "pcbPads": 8,
-      "pcbRoutes": 4,
-      "unmapped": []
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "USB1",
+          "libraryId": "power.usb-source"
+        },
+        {
+          "reference": "F1",
+          "libraryId": "protection.ptc-polyfuse"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "D1",
+          "libraryId": "diode.led-red"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "009-dc-voltage-divider-3k-1k.adigun.json",
@@ -265,15 +478,32 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "a8b6a51b5d75d33ce95d5a1707b2b358b26cc433b1fe04f56d5821d20532bdaf",
+      "sha256": "baebee9c11756319aac8f519460d86391e33dcda445b988d8d32b831fe2b2d6d",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical DC voltage-divider calculation",
-      "pcbStatus": "stored",
-      "pcbParts": 3,
-      "pcbPads": 6,
-      "pcbRoutes": 3,
-      "unmapped": []
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "009-solar-garden-light.adigun.json",
@@ -334,15 +564,36 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "d6d0d2b1fa2c4236d13f9c70e569577705c7b6068439db22c12aef0a008b5e57",
+      "sha256": "15407d89e08ee4fafc6d8fa2608dc90bb57d2476d514199ba08bb5fdd143df54",
       "components": 5,
       "analysis": "complete",
       "engine": "Linear DC resistive nodal analysis",
-      "pcbStatus": "stored",
-      "pcbParts": 4,
-      "pcbPads": 8,
-      "pcbRoutes": 3,
-      "unmapped": []
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "R1",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R2",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "R3",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "010-supercapacitor-hold-up.adigun.json",
@@ -350,15 +601,36 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "a739f71639033ac540019e517b56539c57ae1b87dbb50441ad6065700b654a98",
+      "sha256": "d5f3ef89adfedbf703f791f3b8b0448127aff6d5b9472072aff0fae317a894c2",
       "components": 5,
       "analysis": "complete",
       "engine": "Analytical supercapacitor RC power-interruption response",
-      "pcbStatus": "stored",
-      "pcbParts": 4,
-      "pcbPads": 8,
-      "pcbRoutes": 5,
-      "unmapped": []
+      "pcbStatus": "unmapped",
+      "pcbParts": 0,
+      "pcbPads": 0,
+      "pcbRoutes": 0,
+      "unmapped": [
+        {
+          "reference": "V1",
+          "libraryId": "power.dc-source"
+        },
+        {
+          "reference": "D1",
+          "libraryId": "diode.schottky"
+        },
+        {
+          "reference": "C1",
+          "libraryId": "passive.supercapacitor"
+        },
+        {
+          "reference": "RLOAD",
+          "libraryId": "passive.resistor"
+        },
+        {
+          "reference": "GND",
+          "libraryId": "ground.signal"
+        }
+      ]
     },
     {
       "file": "011-rc-charge-discharge.adigun.json",
@@ -3277,7 +3549,7 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "1666435acd2e7fbe457ea3d31f833a87ff760f624dd441123572d1da7fe1a063",
+      "sha256": "14c9a8e8849ab4b71c6f2c50386851655aa25d05eef8816717b7d637274dcad8",
       "components": 5,
       "analysis": "complete",
       "engine": "Ideal STM32 timer PWM/load estimate",
@@ -4620,7 +4892,7 @@
       "type": "Power",
       "level": "Advanced",
       "category": "Conversion and protection",
-      "sha256": "770c76cf67717f59ac5182eddbda8657b007a9732e5ace09cc0bd88176cf0f48",
+      "sha256": "f83cf2bf828d33e10fc595ae2220207718bbcb38d88f7bcae4b9a9a526f93746",
       "components": 11,
       "analysis": "complete",
       "engine": "LM2596 adjustable buck CCM average and triangular-ripple estimate",
@@ -6925,7 +7197,7 @@
       "type": "Tools",
       "level": "Intermediate",
       "category": "Design workflows and calculators",
-      "sha256": "1b2366d46938cb469df74cfd039f6976a7e0faf49ccc04dc87dd2d28cfec1068",
+      "sha256": "78a589582e73f2db509e6a4e92d029e84aef736b289cc96fdbca08e2fb7bf53e",
       "components": 4,
       "analysis": "complete",
       "engine": "Breadboard-to-schematic physical netlist sync",

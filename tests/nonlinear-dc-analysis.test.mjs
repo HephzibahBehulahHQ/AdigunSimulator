@@ -32,7 +32,7 @@ async function npnProject({ value = "Is=1e-14 A; alphaF=0.99; alphaR=0.5", pnp =
     { ...device, libraryId: pnp ? "active.pnp-ebers-moll-generic" : "active.npn-ebers-moll-generic", reference: "Q1", value },
     ground
   ];
-  project.breadboard = { model: "busboard-bb400", pinHoles: {}, jumpers: [], nonPhysicalItems: [] };
+  project.breadboard = { model: "generic-400-30", pinHoles: {}, jumpers: [], nonPhysicalItems: [] };
   project.nets = pnp ? [
     { id: "VCC", endpoints: ["source-1:+", "led-1:E"] },
     { id: "BASE", endpoints: ["base-resistor:2", "led-1:B"] },
