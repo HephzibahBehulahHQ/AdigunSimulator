@@ -19,6 +19,10 @@ const customPinSides = {
   "active.sn74hc153n-mux": [
     ["I0", "I1", "I2", "I3", "S0", "S1"],
     ["VCC", "2G", "Y", "1G", "2C0", "2C1", "2C2", "2C3", "GND"]
+  ],
+  "active.cd4555be-decoder": [
+    ["VCC", "2E", "A0", "A1", "1E", "2A", "2B", "GND"],
+    ["Y0", "Y1", "Y2", "Y3"]
   ]
 };
 // Visual anchors for the editor's named electrical terminals.

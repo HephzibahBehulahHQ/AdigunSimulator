@@ -11,23 +11,22 @@ Decode every two-bit address into exactly one active-high output and light only 
 | V1 | `power.dc-source` | 5 V |
 | A0 | `power.dc-source` | 0 V |
 | A1 | `power.dc-source` | 0 V |
-| U1 | `active.logic-decoder-2to4-ideal` | Ideal active-high 2:4 decoder |
-| R0 | `passive.resistor` | 330 Ω |
-| R1 | `passive.resistor` | 330 Ω |
-| R2 | `passive.resistor` | 330 Ω |
-| R3 | `passive.resistor` | 330 Ω |
+| U1 | `active.cd4555be-decoder` | CD4555BE |
+| R0 | `passive.resistor` | 10 kΩ |
+| R1 | `passive.resistor` | 10 kΩ |
+| R2 | `passive.resistor` | 10 kΩ |
+| R3 | `passive.resistor` | 10 kΩ |
 | D0 | `diode.led-red` | Vf 2 V |
 | D1 | `diode.led-red` | Vf 2 V |
 | D2 | `diode.led-red` | Vf 2 V |
 | D3 | `diode.led-red` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
-
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+| C1 | `passive.capacitor` | 100 nF |
 
 ## Net connections
 
-- **VCC:** `supply:+`, `decoder:VCC`
-- **GND:** `supply:-`, `address-0:-`, `address-1:-`, `decoder:GND`, `ground:0`, `led0:K`, `led1:K`, `led2:K`, `led3:K`
+- **VCC:** `supply:+`, `decoder:VCC`, `decoder:2E`, `bypass:1`
+- **GND:** `supply:-`, `address-0:-`, `address-1:-`, `decoder:GND`, `ground:0`, `led0:K`, `led1:K`, `led2:K`, `led3:K`, `decoder:1E`, `decoder:2A`, `decoder:2B`, `bypass:2`
 - **A0:** `address-0:+`, `decoder:A0`
 - **A1:** `address-1:+`, `decoder:A1`
 - **Y0:** `decoder:Y0`, `r0:1`
@@ -41,9 +40,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses the [CD4555BE pinout](https://www.ti.com/lit/ds/symlink/cd4555b.pdf) with pin 1 at F12. Ground 1E and both unused address inputs, hold 2E high, and isolate the four unused outputs. Each 10 kΩ load draws an ideal 0.30 mA when selected. Actual brightness and output voltage await bench characterization.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 57 × 52 mm two-layer PCB routes the same connections. J1 is +5 V, J2 is A0, and J3 is A1, each with a common return. Project fabrication checks cover board fit, connectivity, and clearance. Independent package review remains pending.
 
 ## Acceptance test and expected result
 
@@ -63,7 +62,7 @@ Recorded expected result:
   "addressBits": [false, false],
   "address": 0,
   "outputsHigh": [true, false, false, false],
-  "outputCurrents": [0.00909090909090909, 0, 0, 0],
+  "outputCurrents": [0.0003, 0, 0, 0],
   "oneHot": true,
   "addresses": [
     0,

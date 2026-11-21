@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 85,
-    "withoutStoredPcb": 131,
+    "withStoredPcb": 86,
+    "withoutStoredPcb": 130,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1038,68 +1038,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "1c9b156065e997ccca149ec769dfafb27ed9790d883cc08126eeaf55e08b1959",
-      "components": 13,
+      "sha256": "70b9f986f0c92c213af74bbf73144fa4fe809abcd6f358f9dc771365c2b37451",
+      "components": 14,
       "analysis": "complete",
       "engine": "Ideal active-high two-to-four decoder",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "A0",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "A1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-decoder-2to4-ideal"
-        },
-        {
-          "reference": "R0",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R3",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D0",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D2",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D3",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 13,
+      "pcbPads": 40,
+      "pcbRoutes": 24,
+      "unmapped": []
     },
     {
       "file": "054-priority-encoder.adigun.json",
