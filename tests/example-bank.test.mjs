@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,63);assert.equal(index.summary.withoutStoredPcb,153);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,64);assert.equal(index.summary.withoutStoredPcb,152);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -408,6 +408,23 @@ test('555 one-shot maps both trigger contact pairs and produces a single trigger
  assert.ok(Math.abs(triggered.result.pulseWidthS-1.1)<1e-9);
  assert.equal(triggered.scopeRecording.preferredNet,'OUT');
 });
+test('common-emitter amplifier maps the 2N3904BU and the polarized coupling capacitors',async()=>{
+ const project=JSON.parse(await readFile(new URL('../examples/031-transistor-common-emitter.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ const netOf=(id,pin)=>project.pcbFabrication.pads.find(pad=>pad.instanceId===id&&pad.number===pin)?.netId;
+ assert.deepEqual(['1','2','3'].map(pin=>netOf('q1',pin)),['EMITTER','BASE','COLLECTOR']);
+ assert.equal(netOf('cin','2'),'BASE');
+ assert.equal(netOf('cout','1'),'COLLECTOR');
+ const exported=exportPcbFabrication(project);
+ assert.equal(exported.status,'passed');
+ assert.match(exported.files['BOM.csv'],/2N3904BU/);
+ const result=runProjectAnalysis(project);
+ assert.equal(result.scopeRecording.preferredNet,'OUTPUT_AC');
+ assert.ok(result.scopeRecording.samples.some(sample=>sample.nodeVoltages.INPUT_AC>0&&sample.nodeVoltages.OUTPUT_AC<0));
+});
 test('reference buffer maps its load and scopes the fixed DC output over a load sweep',async()=>{
  const project=JSON.parse(await readFile(new URL('../examples/030-reference-buffer.adigun.json',import.meta.url),'utf8'));
  const getPartPins=id=>findLibraryPart(id)?.pins??[];
@@ -657,7 +674,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,63);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,64);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

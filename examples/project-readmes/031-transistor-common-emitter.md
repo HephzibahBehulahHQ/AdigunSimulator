@@ -34,9 +34,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses the onsemi 2N3904BU. Form the TO-92 leads gently to the BB400 pitch and place emitter, base, and collector at I11, I12, and I13. The positive lead of CIN goes to BASE and the positive lead of COUT goes to COLLECTOR. Both Panasonic EEUFR1H100 capacitors use insulated pigtails for their 2 mm lead spacing. [onsemi transistor datasheet](https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 74 × 47 mm PCB routes the amplifier on both copper layers. Form Q1's leads to the 2.54 mm PCB spacing. Observe capacitor polarity: CIN pad 2 and COUT pad 1 are positive. J1 is the 12 V supply and J2 is the grounded signal input. Probe RL pin 1 for the AC output. The exporter checks connectivity and clearance and produces copper Gerbers, outline, plated drill data, and a BOM. Hardware characterization remains pending.
 
 ## Acceptance test and expected result
 
