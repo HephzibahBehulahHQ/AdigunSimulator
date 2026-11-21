@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 83,
-    "withoutStoredPcb": 133,
+    "withStoredPcb": 84,
+    "withoutStoredPcb": 132,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1006,68 +1006,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "12af38546eee24ff779d4098e1a24c54ff0a13624122c1a46559244700b338a2",
-      "components": 13,
+      "sha256": "f24146ca180d1b957f2dad8b5e68ecf79510968ef3d4c513f9e2ced6d958b01b",
+      "components": 16,
       "analysis": "complete",
       "engine": "Ideal four-bit one-hot ring shift register",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "CLK",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "RESET_N",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-ring-shift-4bit-ideal"
-        },
-        {
-          "reference": "R0",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R3",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D0",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D2",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D3",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 15,
+      "pcbPads": 54,
+      "pcbRoutes": 38,
+      "unmapped": []
     },
     {
       "file": "052-multiplexer-selector.adigun.json",
