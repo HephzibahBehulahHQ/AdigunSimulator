@@ -1838,12 +1838,16 @@ test("catalogue AND gate matches all input vectors and drives a current-limited 
     assert.equal(result.state, "complete");
     assert.equal(result.result.outputHigh, expected);
     assert.equal(result.result.ledOn, expected);
-    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 330 : 0);
+    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 2200 : 0);
   }
   let threshold = updateComponent(project, "input-a", { value: "2.5 V" });
   threshold = updateComponent(threshold, "input-b", { value: "5 V" });
   assert.equal(runSupportedAnalysis(threshold).result.outputHigh, true);
   assert.equal(runSupportedAnalysis(updateComponent(project, "input-a", { value: "6 V" })).state, "blocked");
+
+  const invalidBypass = runSupportedAnalysis(updateComponent(project, "bypass", { value: "0 nF" }));
+  assert.equal(invalidBypass.state, "blocked");
+  assert.match(invalidBypass.message, /positive-valued bypass capacitor/);
 
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "LED_A").endpoints = ["led:A"];
