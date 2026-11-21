@@ -70,6 +70,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-nor-ideal", category: "Active", type: "Ideal two-input NOR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-nor-sr-latch", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.sn74hc02n-latch", category: "Active", type: "SN74HC02N dual NOR latch (ideal logic)", prefix: "U", pins: ["1Y", "1A", "1B", "2Y", "2A", "2B", "GND", "3A", "3B", "4A", "4B", "VCC"], defaultValue: "SN74HC02N", simulation: "analytical-nor-sr-latch", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-dff-ideal", category: "Active", type: "Ideal positive-edge D flip-flop (static logic)", prefix: "U", pins: ["D", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge D flip-flop", simulation: "analytical-d-flip-flop", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.sn74hc74n-register", category: "Active", type: "SN74HC74N flip-flop 1 (ideal logic)", prefix: "U", pins: ["CLR", "D", "CLK", "PRE", "Q", "GND", "2PRE", "2CLK", "2D", "2CLR", "VCC"], defaultValue: "SN74HC74N", simulation: "analytical-d-flip-flop", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-jk-ideal", category: "Active", type: "Ideal positive-edge JK flip-flop (static logic)", prefix: "U", pins: ["J", "K", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge JK flip-flop", simulation: "analytical-jk-toggle-divider", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-counter-4bit-ideal", category: "Active", type: "Ideal 4-bit binary counter (static state)", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Ideal modulo-16 rising-edge counter", simulation: "analytical-4bit-counter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-bcd-display-ideal", category: "Active", type: "Ideal BCD decade counter and seven-segment decoder", prefix: "U", pins: ["CLK", "RESET_N", "SEG_A", "SEG_B", "SEG_C", "SEG_D", "SEG_E", "SEG_F", "SEG_G", "VCC", "GND"], defaultValue: "Ideal BCD decade counter; common-cathode segments", simulation: "analytical-bcd-counter-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -917,7 +918,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const xorGates = project.components.filter((item) => ["active.logic-xor-ideal", "active.sn74hc86n-first-gate"].includes(item.libraryId));
   const norGates = project.components.filter((item) => item.libraryId === "active.logic-nor-ideal");
   const norLatchPackage = project.components.find((item) => item.libraryId === "active.sn74hc02n-latch");
-  const dFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-dff-ideal");
+  const dFlipFlops = project.components.filter((item) => ["active.logic-dff-ideal", "active.sn74hc74n-register"].includes(item.libraryId));
   const jkFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-jk-ideal");
   const fourBitCounters = project.components.filter((item) => item.libraryId === "active.logic-counter-4bit-ideal");
   const bcdDisplays = project.components.filter((item) => item.libraryId === "active.logic-bcd-display-ideal");
@@ -1325,8 +1326,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (jkFlipFlops.length === 1 && source.length === 5 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseJkFlipFlop(project, { sources: source, flipFlop: jkFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], previousState, validation });
   }
-  if (dFlipFlops.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
-    return analyseDFlipFlop(project, { sources: source, flipFlop: dFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], previousState, validation });
+  if (dFlipFlops.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 7 + capacitor.length) {
+    return analyseDFlipFlop(project, { sources: source, flipFlop: dFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], bypass: capacitor[0], previousState, validation });
   }
   if (norGates.length === 2 && source.length === 3 && resistor.length === 2 && led.length === 2 && ground.length === 1 && project.components.length === 10) {
     return analyseNorSrLatch(project, { sources: source, gates: norGates, resistors: resistor, leds: led, ground: ground[0], previousState, validation });
@@ -3456,11 +3457,19 @@ function analyseJkFlipFlop(project,{sources,flipFlop,resistor,led,ground,previou
   return {state:"complete",engine:"Ideal positive-edge JK flip-flop with asynchronous clear",message:"Models J/K state transitions on rising clock edges and asynchronous active-low clear. When J=K=1, Q toggles once per rising edge and the ideal output repetition rate is half the clock rate. Setup/hold timing, propagation delay, metastability and device-specific limits are not modeled.",result:{kind:"jk-toggle-divider",supplyVoltage,logicThresholdV:thresholdV,jVoltage,kVoltage,clockVoltage,clearVoltage,jHigh,kHigh,clockHigh,clearActive,risingEdge,risingEdgeCount,q,qBar,qVoltage,ledCurrentA,mode,outputToClockFrequencyRatio:jHigh&&kHigh?0.5:null,timingAnnotation:"Setup/hold violations and metastability are not simulated."},validation};
 }
 
-function analyseDFlipFlop(project,{sources,flipFlop,resistor,led,ground,previousState,validation}){
+function analyseDFlipFlop(project,{sources,flipFlop,resistor,led,ground,bypass,previousState,validation}){
   const netByEndpoint=new Map();
   for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
-  const groundNet=n(ground,"0"),supply=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")!==groundNet);
+  const groundNet=n(ground,"0"),supplyNet=n(flipFlop,"VCC");
+  const supply=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")===supplyNet&&supplyNet!==groundNet);
+  if(flipFlop.libraryId==="active.sn74hc74n-register"
+    &&(["2PRE","2CLR"].some(pin=>n(flipFlop,pin)!==supplyNet)||["2CLK","2D"].some(pin=>n(flipFlop,pin)!==groundNet))){
+    return {state:"blocked",message:"Tie the unused flip-flop's preset and clear to VCC, and its clock and data to ground.",validation};
+  }
+  if(bypass&&!validSupplyBypass(bypass,n,supplyNet,groundNet)){
+    return {state:"blocked",message:"Connect a positive-valued bypass capacitor directly between the flip-flop supply and ground.",validation};
+  }
   const dataNet=n(flipFlop,"D"),clockNet=n(flipFlop,"CLK"),qNet=n(flipFlop,"Q");
   const dataSource=sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===dataNet);
   const clockSource=sources.find(v=>v!==supply&&v!==dataSource&&n(v,"-")===groundNet&&n(v,"+")===clockNet);

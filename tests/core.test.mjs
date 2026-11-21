@@ -1947,7 +1947,7 @@ test("catalogue D flip-flop samples data only on rising edges and annotates timi
   assert.equal(sampledOne.result.risingEdge, true);
   assert.equal(sampledOne.result.sampled, true);
   assert.equal(sampledOne.result.q, true);
-  assert.ok(Math.abs(sampledOne.result.ledCurrentA - (5 - 2) / 330) < 1e-12);
+  assert.ok(Math.abs(sampledOne.result.ledCurrentA - (5 - 2) / 2200) < 1e-12);
 
   let highLevel = updateComponent(rising, "data-input", { value: "0 V" });
   const heldHigh = runSupportedAnalysis(highLevel, { previousState: sampledOne });

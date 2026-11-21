@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 77,
-    "withoutStoredPcb": 139,
+    "withStoredPcb": 78,
+    "withoutStoredPcb": 138,
     "unexpectedFailures": []
   },
   "entries": [
@@ -910,44 +910,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "6f99b721f758f830d7ff47a1cfdcf0db45e6c7dd375d661e0d0336baed5a1504",
-      "components": 7,
+      "sha256": "2e1ca3908a926d07b98d17f8827f296027ae673acee7da7663cc7b6555dc4809",
+      "components": 8,
       "analysis": "complete",
       "engine": "Ideal positive-edge D flip-flop state transition",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "D",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "CLK",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-dff-ideal"
-        },
-        {
-          "reference": "RQ",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DQ",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 7,
+      "pcbPads": 26,
+      "pcbRoutes": 17,
+      "unmapped": []
     },
     {
       "file": "046-jk-toggle-divider.adigun.json",
