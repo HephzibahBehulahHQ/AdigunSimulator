@@ -135,5 +135,527 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 70,
+      "heightMm": 37,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "series-resistor-1",
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "AC05000001009JAC00",
+        "sourceUrl": "https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf",
+        "footprint": "Vishay_AC05000001009JAC00_Axial_P25.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "load-resistor-1",
+        "reference": "RLOAD",
+        "footprint": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "tvs-1",
+        "reference": "DTVS1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "1.5KE18A-E3/54",
+        "sourceUrl": "https://www.vishay.com/docs/88301/15ke.pdf",
+        "footprint": "Vishay_1.5KE18A-E3_54_Axial_P15.00mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "VIN",
+        "xMm": 4,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 7.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "series-resistor-1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VIN",
+        "xMm": 12,
+        "yMm": 9,
+        "technology": "through-hole",
+        "diameterMm": 2.2,
+        "drillMm": 1.1
+      },
+      {
+        "instanceId": "series-resistor-1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "VOUT",
+        "xMm": 37,
+        "yMm": 9,
+        "technology": "through-hole",
+        "diameterMm": 2.2,
+        "drillMm": 1.1
+      },
+      {
+        "instanceId": "load-resistor-1",
+        "reference": "RLOAD",
+        "pin": "1",
+        "number": "1",
+        "netId": "VOUT",
+        "xMm": 47,
+        "yMm": 22,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "load-resistor-1",
+        "reference": "RLOAD",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 57,
+        "yMm": 22,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "tvs-1",
+        "reference": "DTVS1",
+        "pin": "K",
+        "number": "K",
+        "netId": "VOUT",
+        "xMm": 47,
+        "yMm": 9,
+        "technology": "through-hole",
+        "diameterMm": 2.4,
+        "drillMm": 1.3
+      },
+      {
+        "instanceId": "tvs-1",
+        "reference": "DTVS1",
+        "pin": "A",
+        "number": "A",
+        "netId": "GND",
+        "xMm": 62,
+        "yMm": 9,
+        "technology": "through-hole",
+        "diameterMm": 2.4,
+        "drillMm": 1.3
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VIN",
+        "layer": "F.Cu",
+        "widthMm": 0.6,
+        "pointsMm": [
+          [
+            4,
+            5
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            12,
+            9
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "layer": "F.Cu",
+        "widthMm": 0.6,
+        "pointsMm": [
+          [
+            37,
+            9
+          ],
+          [
+            47,
+            9
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "layer": "F.Cu",
+        "widthMm": 0.6,
+        "pointsMm": [
+          [
+            47,
+            9
+          ],
+          [
+            47,
+            22
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.6,
+        "pointsMm": [
+          [
+            4,
+            7.54
+          ],
+          [
+            4,
+            32
+          ],
+          [
+            57,
+            32
+          ],
+          [
+            57,
+            22
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.6,
+        "pointsMm": [
+          [
+            57,
+            22
+          ],
+          [
+            62,
+            22
+          ],
+          [
+            62,
+            9
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "pulse VIN",
+          "2": "GND"
+        },
+        "limitations": [
+          "Confirm drill and annular-ring rules with the selected fabricator."
+        ]
+      },
+      {
+        "instanceId": "series-resistor-1",
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "AC05000001009JAC00",
+        "sourceUrl": "https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf",
+        "package": "AC05 axial wirewound, 18 × 7.5 mm body maximum, 0.8 ± 0.03 mm leads",
+        "pinMapping": {
+          "1": "VIN",
+          "2": "VOUT"
+        },
+        "limitations": [
+          "25 mm lead centers are a layout choice. The nominal 5 W rating is conditional on manufacturer mounting and temperature limits."
+        ]
+      },
+      {
+        "reference": "RLOAD",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "package": "MRS25 axial, 1 kΩ, 1%, 0.6 W",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "limitations": [
+          "The board uses a 10 mm lead-center layout; verify the ordered variant and lead diameter before assembly."
+        ],
+        "pinMapping": {
+          "1": "VOUT",
+          "2": "GND"
+        }
+      },
+      {
+        "instanceId": "tvs-1",
+        "reference": "DTVS1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "1.5KE18A-E3/54",
+        "sourceUrl": "https://www.vishay.com/docs/88301/15ke.pdf",
+        "package": "1.5KE axial, 9.5 × 5.3 mm body maximum, 0.96–1.07 mm leads",
+        "pinMapping": {
+          "A": "anode / GND",
+          "K": "banded cathode / VOUT"
+        },
+        "limitations": [
+          "15 mm lead centers are a layout choice. Breakdown is specified as 17.1–18.9 V at 1 mA. The 25.2 V clamp specification uses a 59.5 A 10/1000 µs pulse; it does not predict this study’s output."
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "source-1",
+        "reference": "V1",
+        "reason": "The off-board current-limited pulse source connects through J1."
+      },
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; J1 pin 2 and the routed ground net provide the physical return."
+      }
+    ],
+    "fabricationNotes": [
+      "J1 is a low-voltage bench pulse input. Keep the TVS cathode band on VOUT and the unbanded end on GND.",
+      "The nominal simulation pulse is a single 24 V, 1 ms event. Its 18 V plateau and power/energy limits are ideal model inputs, not TVS ratings or a hardware qualification.",
+      "Verify source current, duty cycle, resistor pulse capability, thermal limits and measured clamp voltage before applying pulses. Keep hot components clear of plastics."
+    ]
+  },
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "series-resistor-1:1": "A5",
+      "series-resistor-1:2": "A13",
+      "load-resistor-1:1": "D18",
+      "load-resistor-1:2": "D22",
+      "tvs-1:A": "F18",
+      "tvs-1:K": "F24"
+    },
+    "jumpers": [
+      {
+        "from": "TP2",
+        "to": "A5"
+      },
+      {
+        "from": "A13",
+        "to": "D18"
+      },
+      {
+        "from": "D18",
+        "to": "F24"
+      },
+      {
+        "from": "D22",
+        "to": "BM22"
+      },
+      {
+        "from": "F18",
+        "to": "BM18"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol representing the shared physical return rail."
+      }
+    ],
+    "physicalNotes": [
+      "Use insulated 22 AWG pigtails for the off-board R1 and axial TVS. Their package leads exceed the BB400 insertion range.",
+      "Connect R1 to A5/A13 and RLOAD across D18/D22. Connect DTVS1 anode to F18 and banded cathode to F24.",
+      "Fit jumpers TP2–A5, A13–D18, D18–F24, D22–BM22 and F18–BM18. The current-limited external source connects to TP2/BM2."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "source-1",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            283
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "series-resistor-1",
+          "reference": "R1",
+          "kind": "external-axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "AC05000001009JAC00",
+          "sourceUrl": "https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf",
+          "bodyMm": {
+            "width": 18,
+            "height": 7.5
+          },
+          "positionPx": [
+            247,
+            278
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A5",
+              "connection": "pigtail",
+              "offsetMm": [
+                -9,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A13",
+              "connection": "pigtail",
+              "offsetMm": [
+                9,
+                0
+              ]
+            }
+          ],
+          "mounting": "off-board"
+        },
+        {
+          "instanceId": "load-resistor-1",
+          "reference": "RLOAD",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1001FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            428.75862068965523,
+            125
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "D18",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "D22",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "tvs-1",
+          "reference": "DTVS1",
+          "kind": "axial-diode",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "1.5KE18A-E3/54",
+          "sourceUrl": "https://www.vishay.com/docs/88301/15ke.pdf",
+          "bodyMm": {
+            "width": 9.5,
+            "height": 5.3
+          },
+          "positionPx": [
+            448.48275862068965,
+            165
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "F18",
+              "connection": "pigtail",
+              "offsetMm": [
+                -4.75,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "F24",
+              "connection": "pigtail",
+              "offsetMm": [
+                4.75,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

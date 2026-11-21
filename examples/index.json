@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 50,
-    "withoutStoredPcb": 166,
+    "withStoredPcb": 51,
+    "withoutStoredPcb": 165,
     "unexpectedFailures": []
   },
   "entries": [
@@ -478,36 +478,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Passive networks and sensors",
-      "sha256": "5d145a95e7fadea73f0c20a3d1de45c14a15a80e436e0e430513c1372d631649",
+      "sha256": "f090a66b72585ae2de1f9196e2cc2e4327e44d00c2233f147e8b1b6d1e72ef07",
       "components": 5,
       "analysis": "complete",
       "engine": "Analytical ideal TVS pulse-clamp estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RLOAD",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DTVS1",
-          "libraryId": "protection.tvs-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 8,
+      "pcbRoutes": 5,
+      "unmapped": []
     },
     {
       "file": "019-ntc-temperature-divider.adigun.json",

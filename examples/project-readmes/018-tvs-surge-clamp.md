@@ -14,7 +14,7 @@ Apply one 24 V, 1 ms rectangular pulse through a 10 Ω source resistor to a 1 k�
 | DTVS1 | `protection.tvs-ideal` | Vclamp 18 V; Pmax 12 W; Emax 0.01 J |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The physical layout uses a Vishay 1.5KE18A-E3/54 TVS, Vishay AC05000001009JAC00 10 Ω wirewound resistor, Vishay MRS25000C1001FCT00 load, and a Samtec TSW-102-07-T-S input header.
 
 ## Net connections
 
@@ -24,9 +24,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+Connect the current-limited pulse source to TP2/BM2. Use insulated pigtails for the off-board R1 at A5/A13 and for the TVS anode at F18 and banded cathode at F24. Place RLOAD across D18/D22. Jumper TP2–A5, A13–D18, D18–F24, D22–BM22 and F18–BM18.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The project stores a routed 70 × 37 mm single-sided PCB. J1 pin 1 takes the bench pulse input and pin 2 is GND. Verify part fit, source and pulse limits, and thermal behavior before use. Vishay specifies the TVS breakdown as 17.1–18.9 V at 1 mA and the 25.2 V maximum clamp at 59.5 A for a 10/1000 µs pulse. Neither specification establishes an 18 V rectangular plateau for this circuit.
 
 ## Acceptance test and expected result
 
