@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 74,
-    "withoutStoredPcb": 142,
+    "withStoredPcb": 75,
+    "withoutStoredPcb": 141,
     "unexpectedFailures": []
   },
   "entries": [
@@ -862,44 +862,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "7fc78381b5e47629b156ac7eacfce8cffc34cbef79baf79ac9b7d6fc3d7a7f6f",
-      "components": 7,
+      "sha256": "cece2b8aa49c3b0d1440d5b4c0f598583bb65364bcff9eb4c2d1391dd9669b45",
+      "components": 8,
       "analysis": "complete",
       "engine": "Ideal static two-input OR truth-table estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VA",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VB",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-or-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 7,
+      "pcbPads": 26,
+      "pcbRoutes": 17,
+      "unmapped": []
     },
     {
       "file": "043-xor-parity-checker.adigun.json",

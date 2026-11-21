@@ -1867,7 +1867,7 @@ test("catalogue OR gate matches all input vectors and drives the LED for either 
     assert.equal(result.result.kind, "or-gate-truth-table");
     assert.equal(result.result.outputHigh, expected);
     assert.equal(result.result.ledOn, expected);
-    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 330 : 0);
+    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 2200 : 0);
   }
   const invalid = updateComponent(project, "input-b", { value: "6 V" });
   assert.equal(runSupportedAnalysis(invalid).state, "blocked");
