@@ -142,6 +142,24 @@ export function analyticalDcScopeRecording(project,analysis){
   return {kind:"analytical-dc-output",model:"Ideal NPN emitter-follower DC estimate",preferredNet:emitter,nodes:{[groundNet]:0,[collector]:r.supplyVoltage,[base]:r.inputVoltage,[emitter]:r.outputVoltage}};
  }
 
+ if(r?.kind==="hbridge-dc-motor"){
+  const [lowLeft,lowRight]=byType("active.nmos-switch"),high=byType("active.pmos-high-side-ideal");
+  const left=netOf(lowLeft,"D"),right=netOf(lowRight,"D"),gnd=netOf(ground,"0");
+  const highLeft=high.find(part=>netOf(part,"D")===left),highRight=high.find(part=>netOf(part,"D")===right);
+  const supply=netOf(highLeft,"S");
+  const devices=[highLeft,lowLeft,highRight,lowRight];
+  const gates=devices.map(part=>netOf(part,"G"));
+  const nets=[left,right,gnd,supply,...gates];
+  if(!nets.every(Boolean)||new Set(nets).size!==nets.length||netOf(highRight,"S")!==supply||
+     netOf(lowLeft,"S")!==gnd||netOf(lowRight,"S")!==gnd||r.shootThrough!==false)return null;
+  const gateVoltages=["leftHigh","leftLow","rightHigh","rightLow"].map(key=>r.gateVoltageV?.[key]);
+  const driven=r.direction!=="coast";
+  if(![r.supplyVoltage,...gateVoltages].every(Number.isFinite)||
+     (driven&&![r.leftOutputVoltageV,r.rightOutputVoltageV].every(Number.isFinite)))return null;
+  const nodes={[gnd]:0,[supply]:r.supplyVoltage,...Object.fromEntries(gates.map((net,i)=>[net,gateVoltages[i]]))};
+  if(driven)Object.assign(nodes,{[left]:r.leftOutputVoltageV,[right]:r.rightOutputVoltageV});
+  return {kind:"analytical-dc-output",model:"Ideal H-bridge steady-state DC",preferredNet:driven?left:supply,nodes};
+ }
  if(r?.kind==="npn-relay-driver"){
   const relay=byType("relay.omron-g5v1-dc12-coil")[0],transistor=byType("active.npn-small-signal")[0],diode=byType("diode.schottky")[0];
   const supply=netOf(relay,"COIL1"),collector=netOf(relay,"COIL2"),gnd=netOf(ground,"0");

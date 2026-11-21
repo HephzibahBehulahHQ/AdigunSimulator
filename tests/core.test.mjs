@@ -1670,7 +1670,8 @@ test("catalogue NPN relay driver estimates coil pull-in and flyback release curr
 });
 
 test("catalogue H-bridge reverses the motor model and blocks same-leg shoot-through", async () => {
-  const project = JSON.parse(await readFile(new URL("../examples/036-hbridge-dc-motor.adigun.json", import.meta.url)));
+  const fixture = JSON.parse(await readFile(new URL("../examples/036-hbridge-dc-motor.adigun.json", import.meta.url)));
+  const project = updateComponent(updateComponent(fixture, "motor-resistance", { value: "6 Ω" }), "motor-inductance", { value: "10 mH" });
   assert.equal(validateProject(project).valid, true);
   const forward = runSupportedAnalysis(project);
   assert.equal(forward.state, "complete");
