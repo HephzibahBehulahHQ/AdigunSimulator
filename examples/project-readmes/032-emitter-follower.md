@@ -25,9 +25,11 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses the onsemi 2N3904BU and a Vishay MRS25000C1001FCT00 1 kΩ load. Form the transistor leads gently to the BB400 pitch and place emitter, base, and collector at I11, I12, and I13. Connect a current-limited 5 V supply and share its ground with the adjustable input. [onsemi transistor datasheet](https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 52 × 43 mm PCB uses nine plated pads and two copper layers. J1 accepts 5 V and J2 accepts the adjustable input. Pin 2 on each connector is ground. Probe RL pin 1 for the output. The fabrication exporter checks connectivity and clearance and provides copper Gerbers, outline, plated drills, and a BOM. Hardware characterization remains pending.
+
+The floating scope shows the model's steady DC input and output, including 1.8 V at the default 2.5 V input.
 
 ## Acceptance test and expected result
 
