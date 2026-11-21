@@ -13,7 +13,7 @@ Use a 5 V dual-input comparator and a 10 kΩ/10 kΩ divider to switch an LED at 
 | U1 | `active.comparator-dual-ideal` | Ideal dual-input comparator |
 | R1 | `passive.resistor` | 10 kΩ |
 | R2 | `passive.resistor` | 10 kΩ |
-| R3 | `passive.resistor` | 330 Ω |
+| R3 | `passive.resistor` | 2.2 kΩ |
 | D1 | `diode.led-red` | Vf 2.0 V |
 | GND | `ground.signal` | 0 V |
 
@@ -30,9 +30,11 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses the Microchip MCP6541-E/P push-pull comparator. Seat it with pin 1 at F13 and leave pins 1, 5, and 8 isolated. The 2.2 kΩ Vishay MRS25000C2201FCT00 limits the modeled LED current to about 1.36 mA, below the comparator's 2 mA output test point at 5 V. Use a current-limited regulated 5 V supply and share the return between the supply and adjustable input. [Microchip comparator datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6541%20Output%20SubMicroamp%20Comparators%2020001696K.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 58 × 49 mm PCB routes all nets across two copper layers. J1 accepts power and J2 accepts the adjustable input, with pin 2 at the shared return on both headers. The fabrication exporter generates both copper layers, board outline, plated drill data, and a BOM. Hardware characterization remains pending.
+
+The floating scope shows ideal steady levels for the 2.5 V threshold, input, output, and rails. Run with 2.4 V for an ideal low output and 2.6 V for an ideal high output.
 
 ## Acceptance test and expected result
 
@@ -51,7 +53,7 @@ Recorded expected result:
   "thresholdVoltage": 2.5,
   "outputState": "high",
   "ledOn": true,
-  "ledCurrentA": 0.00909090909090909
+  "ledCurrentA": 0.0013636363636363637
 }
 ```
 

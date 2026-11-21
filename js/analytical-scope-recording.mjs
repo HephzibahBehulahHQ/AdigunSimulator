@@ -17,6 +17,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='active-low-pass')return activeLowPassRecording(project,r);
  if(kind==='npn-common-emitter')return commonEmitterRecording(project,r);
  if(kind==='ne556-dual-astable')return dualTimerRecording(project,r);
+ if(kind==='comparator-threshold')return comparatorRecording(project,r);
  if(['opamp-noninverting','opamp-inverting','opamp-voltage-follower'].includes(kind))return opAmpMidbandRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
@@ -34,6 +35,24 @@ export function analyticalScopeRecording(project,analysis){
   return {timeSeconds,nodeVoltages:{[ground]:0,[power]:voltage,[output]:high?voltage:0}};
  });
  return {kind:'analytical-output-recording',model:kind==='stm32-timer-pwm'?'Ideal STM32 PWM output':'Ideal 555 output timing',preferredNet:output,samples};
+}
+
+function comparatorRecording(project, result) {
+ const comparator=project.components.find(component=>component.libraryId==='active.comparator-dual-ideal');
+ if(!comparator)return null;
+ const net=pin=>project.nets.find(item=>item.endpoints.includes(`${comparator.instanceId}:${pin}`))?.id;
+ const output=net('OUT'),supply=net('VCC'),ground=net('GND'),input=net('IN+'),threshold=net('IN-');
+ const nets=[output,supply,ground,input,threshold];
+ if(!nets.every(Boolean)||new Set(nets).size!==nets.length)return null;
+ const {supplyVoltage,inputVoltage,thresholdVoltage,outputHigh}=result;
+ if(![supplyVoltage,inputVoltage,thresholdVoltage].every(Number.isFinite)||
+    outputHigh!==(inputVoltage>thresholdVoltage))return null;
+ const nodeVoltages={
+  [output]:outputHigh?supplyVoltage:0,[supply]:supplyVoltage,
+  [ground]:0,[input]:inputVoltage,[threshold]:thresholdVoltage
+ };
+ return {kind:'analytical-output-recording',model:'Ideal comparator steady-state levels',preferredNet:output,
+  samples:[0,1].map(timeSeconds=>({timeSeconds,nodeVoltages:{...nodeVoltages}}))};
 }
 
 function opAmpMidbandRecording(project, result) {

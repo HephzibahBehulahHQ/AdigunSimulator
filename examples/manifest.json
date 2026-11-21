@@ -1315,7 +1315,7 @@
           "thresholdVoltage": 2.5,
           "outputState": "high",
           "ledOn": true,
-          "ledCurrentA": 0.00909090909090909
+          "ledCurrentA": 0.0013636363636363637
         }
       },
       "readmeFile": "examples/project-readmes/027-comparator-threshold.md"
