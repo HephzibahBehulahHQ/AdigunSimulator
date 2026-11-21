@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 57,
-    "withoutStoredPcb": 159,
+    "withStoredPcb": 58,
+    "withoutStoredPcb": 158,
     "unexpectedFailures": []
   },
   "entries": [
@@ -590,44 +590,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "83f7ae3ac4fbe1f3ddbcda5be15454184bb1f2eea25a8c1500e65b8819dd489a",
+      "sha256": "6693055b71e753d05cf149aa6e9a7e2095694c3cd9eaafc8eafb9b410ea353fd",
       "components": 7,
       "analysis": "complete",
       "engine": "Ideal op-amp closed-loop midband gain estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "V2",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VIN",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.opamp-ideal"
-        },
-        {
-          "reference": "RIN",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RF",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 6,
+      "pcbPads": 18,
+      "pcbRoutes": 9,
+      "unmapped": []
     },
     {
       "file": "026-opamp-voltage-follower.adigun.json",

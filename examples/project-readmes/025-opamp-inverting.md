@@ -29,9 +29,11 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses a Texas Instruments TL071CP with pin 1 at F13. Leave pins 1, 5, and 8 isolated. RIN is the Vishay MRS25000C1002FCT00 (10 kΩ) and RF is the MRS25000C2002FCT00 (20 kΩ). Tie pin 3 to the common 0 V rail. Apply a zero-offset 100 mV peak sine and use isolated, current-limited dual supplies. [TL071CP pinout](https://www.ti.com/lit/ds/symlink/tl071.pdf) · [Vishay MRS25 resistor data](https://www.vishay.com/docs/28724/mrs16m25.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 58 × 47 mm PCB uses both copper layers and three Samtec input headers. J1 carries +12 V and 0 V, J2 carries 0 V and −12 V, and J3 carries the input and 0 V. Probe RF pin 2 for the output. The fabrication exporter checks routed connectivity and clearance and generates copper Gerbers, board outline, plated drill data, and a BOM. Hardware characterization remains pending.
+
+The scope displays a 200 mV peak output inverted relative to the 100 mV peak input. The ideal midband display uses a 1 kHz reference.
 
 ## Acceptance test and expected result
 
