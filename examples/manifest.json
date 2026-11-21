@@ -606,7 +606,7 @@
       "acceptanceTest": "tests/core.test.mjs: RC low-pass response uses the calculated cutoff and attenuates above it",
       "testId": "core-rc-low-pass",
       "projectFile": "examples/012-rc-low-pass.adigun.json",
-      "safetyNote": "Ideal educational frequency-domain model only. Generic components have no verified physical ratings, tolerances, parasitics, exact manufacturer BOM, hole-level breadboard mapping, or PCB footprints. It is not hardware or manufacturing guidance.",
+      "safetyNote": "Ideal educational frequency-domain model with source-backed physical mappings. Use the specified bipolar capacitor with a 1 V peak zero-offset sine input. The analytical result omits component tolerances, parasitics and measurement loading.",
       "verification": {
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
