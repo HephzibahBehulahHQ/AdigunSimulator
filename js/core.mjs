@@ -3572,7 +3572,8 @@ function analyseWienBridgeOscillator(project,{sources,opAmp,resistors,capacitors
   const rSeries=seriesResistor?resistanceValue(seriesResistor.value):Number.NaN,rShunt=shuntResistor?resistanceValue(shuntResistor.value):Number.NaN;
   const cSeries=seriesCap?capacitanceValue(seriesCap.value):Number.NaN,cShunt=shuntCap?capacitanceValue(shuntCap.value):Number.NaN;
   const rFeedback=feedback?resistanceValue(feedback.value):Number.NaN,rGain=gainLeg?resistanceValue(gainLeg.value):Number.NaN;
-  const diodeDrop=diodes.length===2?forwardVoltage(diodes[0].value):Number.NaN;
+  const diodeDrops=diodes.map(diode=>forwardVoltage(diode.value));
+  const [diodeDrop,oppositeDiodeDrop]=diodeDrops;
   const positiveVoltage=positiveRail?voltageValue(positiveRail.value):Number.NaN,negativeVoltage=negativeRail?voltageValue(negativeRail.value):Number.NaN;
   const diodePair=diodes.length===2&&diodes.every(d=>(n(d,"A")===outputNet&&n(d,"K")===invertingNet)||(n(d,"K")===outputNet&&n(d,"A")===invertingNet))
     &&((n(diodes[0],"A")===outputNet&&n(diodes[1],"K")===outputNet)||(n(diodes[1],"A")===outputNet&&n(diodes[0],"K")===outputNet));
@@ -3584,8 +3585,12 @@ function analyseWienBridgeOscillator(project,{sources,opAmp,resistors,capacitors
     ||!symmetrical){
     return {state:"blocked",message:"Wire a balanced Wien RC bridge to the non-inverting input, gain network and anti-parallel limiter diodes to the inverting input, and valid dual op-amp rails.",validation};
   }
+  if(diodeDrop!==oppositeDiodeDrop){
+    return {state:"blocked",message:"Set both antiparallel limiter diodes to the same positive forward voltage for the symmetric clamp estimate.",validation};
+  }
   const frequencyHz=1/(2*Math.PI*Math.sqrt(rSeries*rShunt*cSeries*cShunt));
-  const bridgeAttenuation=1/3,amplifierGain=1+rFeedback/rGain,loopGain=amplifierGain*bridgeAttenuation;
+  const bridgeAttenuation=1/(1+rSeries/rShunt+cShunt/cSeries);
+  const amplifierGain=1+rFeedback/rGain,loopGain=amplifierGain*bridgeAttenuation;
   const oscillationStarts=loopGain>1;
   const amplitudeLimitV=oscillationStarts?diodeDrop*(rFeedback+rGain)/rFeedback:0;
   if(amplitudeLimitV>=Math.min(positiveVoltage,negativeVoltage)){
