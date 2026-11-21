@@ -9,6 +9,20 @@ import {scopeChannels,scopeTrace,fitScopeWindow} from '../js/oscilloscope-data.m
 import {scopeExplanation} from '../js/scope-readout.mjs';
 const load=async name=>JSON.parse(await readFile(new URL('../examples/'+name+'.adigun.json',import.meta.url),'utf8'));
 
+test('ideal non-inverting scope shows the modeled gain and suppresses clipping estimates',async()=>{
+ const project=await load('024-opamp-noninverting');
+ const result=runProjectAnalysis(project);
+ const recording=result.scopeRecording;
+ assert.equal(recording.preferredNet,'OUTPUT');
+ assert.deepEqual(recording.samples[30].nodeVoltages,{GND:0,INPUT:0.1,OUTPUT:0.2});
+ assert.equal(recording.samples[30].timeSeconds,0.00025);
+ project.components.find(component=>component.instanceId==='signal').value='7 V';
+ const clipping=runProjectAnalysis(project);
+ assert.equal(clipping.state,'blocked');
+ assert.match(clipping.message,/reaches a supply rail/);
+ assert.equal(analyticalScopeRecording(project,clipping),null);
+});
+
 test('NE556 scope records each channel at its own modeled edges',async()=>{
  const project=await load('023-556-dual-timer');
  const analysis=runProjectAnalysis(project);

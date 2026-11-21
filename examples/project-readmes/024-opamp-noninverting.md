@@ -29,9 +29,11 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses a Texas Instruments TL071CP in a PDIP-8 package and two Vishay MRS25000C1002FCT00 resistors. Seat U1 with pin 1 at F13. Leave offset trim pins 1 and 5 and unused pin 8 isolated. Use current-limited isolated dual supplies and connect the generator return to their common 0 V node. [TL071CP pinout and package](https://www.ti.com/lit/ds/symlink/tl071.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 58 × 47 mm PCB uses 18 plated pads, both copper layers, and three Samtec TSW-102-07-T-S headers. J1 carries +12 V and 0 V, J2 carries 0 V and −12 V, and J3 carries the input and 0 V. Probe the output at RF pin 2. The fabrication exporter produces the two copper Gerbers, outline, plated drill file, and BOM. Hardware characterization remains pending.
+
+The floating scope displays 100 mV peak at the input and 200 mV peak at the output, in phase. It uses a 1 kHz display reference for the ideal midband gain. The analysis reports a wiring or rail diagnostic when it cannot produce a supported estimate.
 
 ## Acceptance test and expected result
 
