@@ -142,6 +142,16 @@ export function analyticalDcScopeRecording(project,analysis){
   return {kind:"analytical-dc-output",model:"Ideal NPN emitter-follower DC estimate",preferredNet:emitter,nodes:{[groundNet]:0,[collector]:r.supplyVoltage,[base]:r.inputVoltage,[emitter]:r.outputVoltage}};
  }
 
+ if(r?.kind==="npn-relay-driver"){
+  const relay=byType("relay.omron-g5v1-dc12-coil")[0],transistor=byType("active.npn-small-signal")[0],diode=byType("diode.schottky")[0];
+  const supply=netOf(relay,"COIL1"),collector=netOf(relay,"COIL2"),gnd=netOf(ground,"0");
+  if(!supply||!collector||!gnd||new Set([supply,collector,gnd]).size!==3||
+     netOf(transistor,"C")!==collector||netOf(transistor,"E")!==gnd||netOf(diode,"A")!==collector||netOf(diode,"K")!==supply)return null;
+  const {supplyVoltage,collectorVoltageV}=r;
+  if(![supplyVoltage,collectorVoltageV].every(Number.isFinite)||collectorVoltageV<0||collectorVoltageV>supplyVoltage)return null;
+  return {kind:"analytical-dc-output",model:"Ideal NPN relay driver steady-state DC",preferredNet:collector,
+   nodes:{[supply]:supplyVoltage,[collector]:collectorVoltageV,[gnd]:0}};
+ }
  if(r?.kind==="pmos-high-side-switch"){
   const mosfet=byType("active.pmos-high-side-ideal")[0];
   const resistors=byType("passive.resistor"),sources=byType("power.dc-source");

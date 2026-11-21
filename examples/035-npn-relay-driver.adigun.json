@@ -19,8 +19,8 @@
           55
         ],
         "schematic": [
-          55,
-          55
+          75,
+          42
         ],
         "pcb": [
           55,
@@ -39,8 +39,8 @@
           55
         ],
         "schematic": [
-          165,
-          55
+          53,
+          152
         ],
         "pcb": [
           165,
@@ -59,8 +59,8 @@
           55
         ],
         "schematic": [
-          275,
-          55
+          367,
+          143
         ],
         "pcb": [
           275,
@@ -72,15 +72,15 @@
       "instanceId": "base-resistor",
       "libraryId": "passive.resistor",
       "reference": "RB",
-      "value": "220 Ω",
+      "value": "3.3 kΩ",
       "position": {
         "breadboard": [
           385,
           55
         ],
         "schematic": [
-          385,
-          55
+          203,
+          79
         ],
         "pcb": [
           385,
@@ -89,38 +89,18 @@
       }
     },
     {
-      "instanceId": "coil-resistor",
-      "libraryId": "passive.resistor",
-      "reference": "RCOIL",
-      "value": "24 Ω",
-      "position": {
-        "breadboard": [
-          495,
-          55
-        ],
-        "schematic": [
-          495,
-          55
-        ],
-        "pcb": [
-          495,
-          55
-        ]
-      }
-    },
-    {
-      "instanceId": "coil-inductor",
-      "libraryId": "passive.inductor",
-      "reference": "LCOIL",
-      "value": "100 mH",
+      "instanceId": "relay",
+      "libraryId": "relay.omron-g5v1-dc12-coil",
+      "reference": "K1",
+      "value": "12 V; 960 Ω",
       "position": {
         "breadboard": [
           55,
           145
         ],
         "schematic": [
-          55,
-          145
+          365,
+          45
         ],
         "pcb": [
           55,
@@ -139,8 +119,8 @@
           145
         ],
         "schematic": [
-          165,
-          145
+          522,
+          73
         ],
         "pcb": [
           165,
@@ -159,8 +139,8 @@
           145
         ],
         "schematic": [
-          275,
-          145
+          196,
+          222
         ],
         "pcb": [
           275,
@@ -174,7 +154,7 @@
       "id": "VCC",
       "endpoints": [
         "supply:+",
-        "coil-resistor:1",
+        "relay:COIL1",
         "flyback:K"
       ]
     },
@@ -193,16 +173,9 @@
       ]
     },
     {
-      "id": "COIL_MID",
-      "endpoints": [
-        "coil-resistor:2",
-        "coil-inductor:1"
-      ]
-    },
-    {
       "id": "COLLECTOR",
       "endpoints": [
-        "coil-inductor:2",
+        "relay:COIL2",
         "npn:C",
         "flyback:A"
       ]
@@ -217,5 +190,847 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "control:+": "I5",
+      "control:-": "BM8",
+      "npn:E": "I11",
+      "npn:B": "I12",
+      "npn:C": "I13",
+      "base-resistor:1": "A5",
+      "base-resistor:2": "A9",
+      "flyback:A": "A20",
+      "flyback:K": "A24",
+      "relay:COIL1": "I24",
+      "relay:COIL2": "I20"
+    },
+    "jumpers": [
+      {
+        "from": "H5",
+        "to": "B5"
+      },
+      {
+        "from": "B9",
+        "to": "H12"
+      },
+      {
+        "from": "H11",
+        "to": "BM11"
+      },
+      {
+        "from": "H13",
+        "to": "H20"
+      },
+      {
+        "from": "J20",
+        "to": "B20"
+      },
+      {
+        "from": "J24",
+        "to": "B24"
+      },
+      {
+        "from": "C24",
+        "to": "TP24"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "control",
+          "reference": "VIN",
+          "kind": "external-supply",
+          "positionPx": [
+            235,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "I5",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "npn",
+          "reference": "Q1",
+          "manufacturer": "onsemi",
+          "manufacturerPartNumber": "2N3904BU",
+          "sourceUrl": "https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf",
+          "kind": "to92",
+          "bodyMm": {
+            "width": 5.33,
+            "height": 4.19
+          },
+          "positionPx": [
+            270.9655172413793,
+            195
+          ],
+          "pins": [
+            {
+              "pin": "E",
+              "hole": "I11",
+              "connection": "direct",
+              "leadDiameterMm": 0.48,
+              "offsetMm": [
+                -2.54,
+                0
+              ]
+            },
+            {
+              "pin": "B",
+              "hole": "I12",
+              "connection": "direct",
+              "leadDiameterMm": 0.48,
+              "offsetMm": [
+                0,
+                0
+              ]
+            },
+            {
+              "pin": "C",
+              "hole": "I13",
+              "connection": "direct",
+              "leadDiameterMm": 0.48,
+              "offsetMm": [
+                2.54,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "base-resistor",
+          "reference": "RB",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3301FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            172.34482758620692,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A5",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A9",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "flyback",
+          "reference": "D1",
+          "kind": "axial-diode",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "1N5819-E3/54",
+          "sourceUrl": "https://www.vishay.com/docs/88525/1n5817.pdf",
+          "bodyMm": {
+            "width": 5.2,
+            "height": 2.7
+          },
+          "positionPx": [
+            468.2068965517242,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "A20",
+              "connection": "direct",
+              "leadDiameterMm": 0.7,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "A24",
+              "connection": "direct",
+              "leadDiameterMm": 0.7,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "relay",
+          "reference": "K1",
+          "kind": "external-relay",
+          "manufacturer": "Omron",
+          "manufacturerPartNumber": "G5V-1 DC12",
+          "sourceUrl": "https://components.omron.com/eu-en/sites/components.omron.com.eu/files/datasheet_pdf/K048-E1.pdf",
+          "positionPx": [
+            465,
+            278
+          ],
+          "bodyMm": {
+            "width": 12.5,
+            "height": 7.5
+          },
+          "mounting": "off-board",
+          "pins": [
+            {
+              "pin": "COIL1",
+              "hole": "I24",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                2.54
+              ]
+            },
+            {
+              "pin": "COIL2",
+              "hole": "I20",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                -2.54
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "physicalNotes": [
+      "Connect insulated pigtails only to relay pins 2 and 9. Leave all other terminals isolated.",
+      "Use a current-limited 12 V supply and a grounded 0–5 V driver. The Schottky cathode stripe connects to 12 V."
+    ]
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 57,
+      "heightMm": 40,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "control",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "npn",
+        "reference": "Q1",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "2N3904BU",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf",
+        "technology": "through-hole",
+        "footprint": "onsemi_2N3904BU_TO-92_Inline_P2.54mm_Formed"
+      },
+      {
+        "instanceId": "base-resistor",
+        "reference": "RB",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3301FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C3301FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "flyback",
+        "reference": "D1",
+        "footprint": "Vishay_1N5819_DO-41_Axial_P10mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "1N5819-E3/54",
+        "sourceUrl": "https://www.vishay.com/docs/88525/1n5817.pdf"
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "footprint": "Omron_G5V-1_DC12_6pin_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Omron",
+        "manufacturerPartNumber": "G5V-1 DC12",
+        "sourceUrl": "https://components.omron.com/eu-en/sites/components.omron.com.eu/files/datasheet_pdf/K048-E1.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "supply:+",
+        "netId": "VCC",
+        "xMm": 5,
+        "yMm": 6,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "supply:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 8.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "control",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "control:+",
+        "netId": "CONTROL",
+        "xMm": 5,
+        "yMm": 23,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "control",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "control:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 25.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "npn",
+        "reference": "Q1",
+        "pin": "E",
+        "number": "1",
+        "bridgeEndpoint": "npn:E",
+        "netId": "GND",
+        "xMm": 25,
+        "yMm": 29,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "npn",
+        "reference": "Q1",
+        "pin": "B",
+        "number": "2",
+        "bridgeEndpoint": "npn:B",
+        "netId": "BASE",
+        "xMm": 27.54,
+        "yMm": 29,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "npn",
+        "reference": "Q1",
+        "pin": "C",
+        "number": "3",
+        "bridgeEndpoint": "npn:C",
+        "netId": "COLLECTOR",
+        "xMm": 30.08,
+        "yMm": 29,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "base-resistor",
+        "reference": "RB",
+        "pin": "1",
+        "number": "1",
+        "netId": "CONTROL",
+        "xMm": 15,
+        "yMm": 21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "base-resistor:1"
+      },
+      {
+        "instanceId": "base-resistor",
+        "reference": "RB",
+        "pin": "2",
+        "number": "2",
+        "netId": "BASE",
+        "xMm": 25,
+        "yMm": 21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "base-resistor:2"
+      },
+      {
+        "instanceId": "flyback",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "bridgeEndpoint": "flyback:A",
+        "netId": "COLLECTOR",
+        "xMm": 39,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "flyback",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "bridgeEndpoint": "flyback:K",
+        "netId": "VCC",
+        "xMm": 49,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "number": "1",
+        "pin": "CONTACT1",
+        "xMm": 34,
+        "yMm": 15.08,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "number": "2",
+        "pin": "COIL1",
+        "xMm": 36.54,
+        "yMm": 15.08,
+        "netId": "VCC",
+        "bridgeEndpoint": "relay:COIL1",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "number": "5",
+        "pin": "CONTACT5",
+        "xMm": 44.16,
+        "yMm": 15.08,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "number": "6",
+        "pin": "CONTACT6",
+        "xMm": 44.16,
+        "yMm": 10,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "number": "9",
+        "pin": "COIL2",
+        "xMm": 36.54,
+        "yMm": 10,
+        "netId": "COLLECTOR",
+        "bridgeEndpoint": "relay:COIL2",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "relay",
+        "reference": "K1",
+        "number": "10",
+        "pin": "CONTACT10",
+        "xMm": 34,
+        "yMm": 10,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            6
+          ],
+          [
+            51,
+            6
+          ],
+          [
+            51,
+            24
+          ],
+          [
+            49,
+            24
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            36.54,
+            15.08
+          ],
+          [
+            36.54,
+            19
+          ],
+          [
+            49,
+            19
+          ],
+          [
+            49,
+            24
+          ]
+        ]
+      },
+      {
+        "netId": "CONTROL",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            23
+          ],
+          [
+            15,
+            23
+          ],
+          [
+            15,
+            21
+          ]
+        ]
+      },
+      {
+        "netId": "BASE",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25,
+            21
+          ],
+          [
+            27.54,
+            21
+          ],
+          [
+            27.54,
+            29
+          ]
+        ]
+      },
+      {
+        "netId": "COLLECTOR",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            36.54,
+            10
+          ],
+          [
+            36.54,
+            7
+          ],
+          [
+            39,
+            7
+          ],
+          [
+            39,
+            24
+          ]
+        ]
+      },
+      {
+        "netId": "COLLECTOR",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            39,
+            24
+          ],
+          [
+            39,
+            29
+          ],
+          [
+            30.08,
+            29
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            8.54
+          ],
+          [
+            3,
+            8.54
+          ],
+          [
+            3,
+            25.54
+          ],
+          [
+            5,
+            25.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            25.54
+          ],
+          [
+            5,
+            34
+          ],
+          [
+            25,
+            34
+          ],
+          [
+            25,
+            29
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "CONTROL",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "Q1",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "2N3904BU",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf",
+        "package": "onsemi_2N3904BU_TO-92_Inline_P2.54mm_Formed",
+        "pinMapping": {
+          "1": "GND",
+          "2": "BASE",
+          "3": "COLLECTOR"
+        }
+      },
+      {
+        "reference": "RB",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3301FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C3301FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "CONTROL",
+          "2": "BASE"
+        }
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "1N5819-E3/54",
+        "sourceUrl": "https://www.vishay.com/docs/88525/1n5817.pdf",
+        "package": "Vishay_1N5819_DO-41_Axial_P10mm",
+        "pinMapping": {
+          "1": "COLLECTOR",
+          "2": "VCC"
+        }
+      },
+      {
+        "reference": "K1",
+        "manufacturer": "Omron",
+        "manufacturerPartNumber": "G5V-1 DC12",
+        "sourceUrl": "https://components.omron.com/eu-en/sites/components.omron.com.eu/files/datasheet_pdf/K048-E1.pdf",
+        "package": "Omron_G5V-1_DC12_6pin_P2.54mm",
+        "pinMapping": {
+          "1": "NC",
+          "2": "VCC",
+          "5": "NC",
+          "6": "NC",
+          "9": "COLLECTOR",
+          "10": "NC"
+        }
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External 12 V bench supply connects through J1."
+      },
+      {
+        "instanceId": "control",
+        "reference": "VIN",
+        "reason": "External 0–5 V control connects through J2."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "fabricationNotes": "Use 12 V at J1 and 0–5 V at J2. Both pin 2 terminals are ground. Observe the relay mounting mark at the pad 1/10 end. Unused relay pads are isolated."
+  }
 }
