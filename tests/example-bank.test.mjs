@@ -29,7 +29,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,48);assert.equal(index.summary.withoutStoredPcb,168);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,49);assert.equal(index.summary.withoutStoredPcb,167);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -266,6 +266,25 @@ test('full-wave bridge keeps the floating AC input separate from the rectified r
  assert.ok(analysis.scopeRecording.samples.every(sample=>sample.nodeVoltages.RECT_NEG===0&&sample.nodeVoltages.RECT_POS>=0));
  assert.ok(analysis.scopeRecording.samples.some(sample=>sample.nodeVoltages.RECT_POS>15));
 });
+test('reservoir capacitor preserves polarity in both physical layouts and the scope recording',async()=>{
+ const project=JSON.parse(await readFile(new URL('../examples/016-smoothing-capacitor.adigun.json',import.meta.url),'utf8'));
+ const pins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(project,{getPartPins:pins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(project,{getPartPins:pins}).state,'complete');
+ const capacitorPads=project.pcbFabrication.pads.filter(pad=>pad.instanceId==='capacitor-1');
+ assert.deepEqual(capacitorPads.map(pad=>[pad.number,pad.netId]),[['1','RECT_POS'],['2','RECT_NEG']]);
+ assert.match(renderBreadboardAssemblySvg(project),/EEUFR1V102B/);
+ const exported=exportPcbFabrication(project);
+ assert.equal(exported.status,'passed');
+ assert.match(exported.files['BOM.csv'],/EEUFR1V102B/);
+ assert.match(exported.files['board-F_Cu.gbr'],/M02\*/);
+ assert.match(exported.files['board-PTH.drl'],/T01/);
+ const analysis=runProjectAnalysis(project);
+ assert.equal(analysis.state,'complete');
+ assert.equal(analysis.scopeRecording.preferredNet,'RECT_POS');
+ assert.ok(analysis.scopeRecording.samples.some(sample=>sample.nodeVoltages.RECT_POS>15));
+});
 test('5 V RL step response maps a current-rated radial inductor across BB400 and PCB',async()=>{
  const entry=index.entries.find(item=>item.file==='006-rl-step-response.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/006-rl-step-response.adigun.json',import.meta.url),'utf8'));
@@ -395,7 +414,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,48);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,49);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

@@ -14,7 +14,7 @@ Compare the sampled full-wave bridge waveform with and without a 1,000 µF reser
 | C1 | `passive.capacitor` | 1000 µF |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The stored physical layout uses a Vishay W04G-E4/51 bridge, Panasonic EEUFR1V102B 1,000 µF / 35 V polarized capacitor, Vishay MRS25000C1001FCT00 resistor, and Samtec TSW-102-07-T-S input header.
 
 ## Net connections
 
@@ -25,9 +25,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+Connect an isolated, current-limited 12 V RMS, 50 Hz source to A3/A6. Bridge pigtails reach A11 (positive), A13 (AC1), A15 (AC2), and A17 (negative). Connect C1 positive to A23 and negative to A26 with insulated pigtails. RLOAD spans F21/F25. Fit jumpers A3–A13, A6–A15, A11–F21, A17–F25, A11–A23, and A17–A26.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The project includes a routed 67 × 30 mm single-sided PCB. J1 accepts the floating AC source. C1 pin 1 goes to RECT_POS and pin 2 to RECT_NEG. Verify bridge markings, capacitor polarity, and package fit before energizing. Measure with an isolated differential probe or battery-powered meter. Disconnect the source and verify C1 has discharged before handling.
 
 ## Acceptance test and expected result
 

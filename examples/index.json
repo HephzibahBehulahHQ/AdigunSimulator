@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 48,
-    "withoutStoredPcb": 168,
+    "withStoredPcb": 49,
+    "withoutStoredPcb": 167,
     "unexpectedFailures": []
   },
   "entries": [
@@ -446,36 +446,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Passive networks and sensors",
-      "sha256": "ee37da80001f8583818887d716428dc2049ed10cb21db48b91173469fde1462a",
+      "sha256": "2adf2bcd4628342dde2da6d6b224c91c1c690b47bc97dddeb452449994db0aac",
       "components": 5,
       "analysis": "complete",
       "engine": "Analytical bridge plus ideal-capacitor sampled transient estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "VAC1",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "BR1",
-          "libraryId": "diode.bridge-ideal"
-        },
-        {
-          "reference": "RLOAD",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 10,
+      "pcbRoutes": 6,
+      "unmapped": []
     },
     {
       "file": "017-zener-shunt-regulator.adigun.json",
