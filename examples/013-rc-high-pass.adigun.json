@@ -8,15 +8,509 @@
     "updatedAt": "2026-10-31T00:00:00.000Z"
   },
   "components": [
-    { "instanceId": "source-1", "libraryId": "power.ac-source", "reference": "V1", "value": "1 V", "position": { "breadboard": [60, 142], "schematic": [95, 128], "pcb": [92, 130] } },
-    { "instanceId": "capacitor-1", "libraryId": "passive.capacitor", "reference": "C1", "value": "100 µF", "position": { "breadboard": [250, 142], "schematic": [260, 128], "pcb": [244, 128] } },
-    { "instanceId": "resistor-1", "libraryId": "passive.resistor", "reference": "R1", "value": "1 kΩ", "position": { "breadboard": [435, 142], "schematic": [445, 128], "pcb": [425, 128] } },
-    { "instanceId": "ground-1", "libraryId": "ground.signal", "reference": "GND", "value": "0 V", "position": { "breadboard": [570, 220], "schematic": [570, 220], "pcb": [520, 220] } }
+    {
+      "instanceId": "source-1",
+      "libraryId": "power.ac-source",
+      "reference": "V1",
+      "value": "1 V",
+      "position": {
+        "breadboard": [
+          60,
+          142
+        ],
+        "schematic": [
+          95,
+          128
+        ],
+        "pcb": [
+          92,
+          130
+        ]
+      }
+    },
+    {
+      "instanceId": "capacitor-1",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 µF",
+      "position": {
+        "breadboard": [
+          250,
+          142
+        ],
+        "schematic": [
+          260,
+          128
+        ],
+        "pcb": [
+          244,
+          128
+        ]
+      }
+    },
+    {
+      "instanceId": "resistor-1",
+      "libraryId": "passive.resistor",
+      "reference": "R1",
+      "value": "1 kΩ",
+      "position": {
+        "breadboard": [
+          435,
+          142
+        ],
+        "schematic": [
+          445,
+          128
+        ],
+        "pcb": [
+          425,
+          128
+        ]
+      }
+    },
+    {
+      "instanceId": "ground-1",
+      "libraryId": "ground.signal",
+      "reference": "GND",
+      "value": "0 V",
+      "position": {
+        "breadboard": [
+          570,
+          220
+        ],
+        "schematic": [
+          570,
+          220
+        ],
+        "pcb": [
+          520,
+          220
+        ]
+      }
+    }
   ],
   "nets": [
-    { "id": "AC_IN", "endpoints": ["source-1:+", "capacitor-1:1"] },
-    { "id": "HP_OUT", "endpoints": ["capacitor-1:2", "resistor-1:1"] },
-    { "id": "GND", "endpoints": ["resistor-1:2", "source-1:-", "ground-1:0"] }
+    {
+      "id": "AC_IN",
+      "endpoints": [
+        "source-1:+",
+        "capacitor-1:1"
+      ]
+    },
+    {
+      "id": "HP_OUT",
+      "endpoints": [
+        "capacitor-1:2",
+        "resistor-1:1"
+      ]
+    },
+    {
+      "id": "GND",
+      "endpoints": [
+        "resistor-1:2",
+        "source-1:-",
+        "ground-1:0"
+      ]
+    }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 52,
+      "heightMm": 30,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "footprint": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "footprint": "Nichicon_UES1E101MPM_radial_D10_P5.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Nichicon",
+        "manufacturerPartNumber": "UES1E101MPM",
+        "sourceUrl": "https://www.nichicon.co.jp/english/series_items/catalog_pdf/e-ues.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "AC_IN",
+        "xMm": 4,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 7.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "bridgeEndpoint": "resistor-1:1",
+        "netId": "HP_OUT",
+        "xMm": 30,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor-1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "bridgeEndpoint": "resistor-1:2",
+        "netId": "GND",
+        "xMm": 40,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "bridgeEndpoint": "capacitor-1:1",
+        "netId": "AC_IN",
+        "xMm": 16,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "bridgeEndpoint": "capacitor-1:2",
+        "netId": "HP_OUT",
+        "xMm": 21,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      }
+    ],
+    "routes": [
+      {
+        "netId": "AC_IN",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            5
+          ],
+          [
+            12,
+            5
+          ],
+          [
+            12,
+            8
+          ],
+          [
+            16,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "HP_OUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            21,
+            8
+          ],
+          [
+            30,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            7.54
+          ],
+          [
+            4,
+            25
+          ],
+          [
+            40,
+            25
+          ],
+          [
+            40,
+            8
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "AC_IN",
+          "2": "GND"
+        },
+        "limitations": [
+          "Confirm drill and annular-ring rules with the selected fabricator."
+        ]
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "package": "MRS25 axial, 1 kΩ, 1%, 0.6 W",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "limitations": [
+          "The board uses a 10 mm lead-center layout; verify the ordered variant and lead diameter before assembly."
+        ],
+        "pinMapping": {
+          "1": "HP_OUT",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "Nichicon",
+        "manufacturerPartNumber": "UES1E101MPM",
+        "sourceUrl": "https://www.nichicon.co.jp/english/series_items/catalog_pdf/e-ues.pdf",
+        "package": "100 µF, 25 V bipolar radial electrolytic, 10 mm diameter × 16 mm body, 5 mm lead pitch, 0.6 mm leads",
+        "pinMapping": {
+          "1": "AC_IN",
+          "2": "HP_OUT"
+        },
+        "limitations": [
+          "Either lead may serve as pin 1. Confirm fit and fabrication drill rules."
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "source-1",
+        "reference": "V1",
+        "reason": "The source is an off-board function generator. J1 pin 1 accepts AC_IN and pin 2 is its return."
+      },
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; J1 pin 2 and the routed ground net provide the physical return."
+      }
+    ],
+    "fabricationNotes": [
+      "Use a function generator at 1 V peak, zero DC offset. Set the amplitude for a high-impedance load.",
+      "Measure HP_OUT on C1 pad 2 or R1 pad 1 relative to GND with a high-impedance probe.",
+      "C1 is bipolar. Keep the stored pin numbers for net identification; the device has no required polarity orientation.",
+      "The single-sided educational PCB uses a 0.35 mm copper clearance rule. Verify physical fit and fabrication rules before ordering."
+    ]
+  },
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "resistor-1:1": "D15",
+      "resistor-1:2": "D19",
+      "capacitor-1:1": "F9",
+      "capacitor-1:2": "F11"
+    },
+    "jumpers": [
+      {
+        "from": "TP2",
+        "to": "F9"
+      },
+      {
+        "from": "F11",
+        "to": "D15"
+      },
+      {
+        "from": "D19",
+        "to": "BM19"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "The schematic ground symbol represents the shared function-generator and filter return on the BB400 ground rail."
+      }
+    ],
+    "physicalNotes": [
+      "Connect generator signal to TP2 and return to BM2. Set a 1 V peak sine wave and zero DC offset.",
+      "C1 spans F9 to F11. Use a bipolar C1 and check that its 5 mm leads fit the 5.08 mm hole spacing without force. R1 spans D15 to D19.",
+      "Connect TP2 to F9, F11 to D15, and D19 to BM19. Probe HP_OUT at D15 relative to the ground rail."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "source-1",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            283
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "resistor-1",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1001FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            369.58620689655174,
+            125
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "D15",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "D19",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "capacitor-1",
+          "reference": "C1",
+          "kind": "radial-capacitor",
+          "manufacturer": "Nichicon",
+          "manufacturerPartNumber": "UES1E101MPM",
+          "sourceUrl": "https://www.nichicon.co.jp/english/series_items/catalog_pdf/e-ues.pdf",
+          "bodyMm": {
+            "width": 10,
+            "height": 16
+          },
+          "positionPx": [
+            231.51724137931035,
+            133.50393700787401
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "F9",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -2.5,
+                8
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "F11",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                2.5,
+                8
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

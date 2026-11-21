@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 45,
-    "withoutStoredPcb": 171,
+    "withStoredPcb": 46,
+    "withoutStoredPcb": 170,
     "unexpectedFailures": []
   },
   "entries": [
@@ -398,32 +398,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Passive networks and sensors",
-      "sha256": "443f563caae388515e4b55d1e7155101cbf8a2d0103e8e841af9fac60d2ef189",
+      "sha256": "662e294f400ac614f2b2dfe37f20ac31cd8dbaa6f2e06cda19bf52ca829c5617",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical first-order RC high-pass frequency response",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 3,
+      "pcbPads": 6,
+      "pcbRoutes": 3,
+      "unmapped": []
     },
     {
       "file": "014-passive-tone-control.adigun.json",

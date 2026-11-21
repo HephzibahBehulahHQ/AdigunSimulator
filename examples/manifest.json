@@ -635,7 +635,7 @@
       "acceptanceTest": "tests/core.test.mjs: RC high-pass response uses the calculated cutoff and attenuates below it",
       "testId": "core-rc-high-pass",
       "projectFile": "examples/013-rc-high-pass.adigun.json",
-      "safetyNote": "Ideal educational frequency-domain model only. Generic components have no verified physical ratings, tolerances, parasitics, exact manufacturer BOM, hole-level breadboard mapping, or PCB footprints. It is not hardware or manufacturing guidance.",
+      "safetyNote": "Ideal frequency-domain model with source-backed physical mappings. Use the specified bipolar capacitor with a 1 V peak zero-offset sine input. Component tolerances and parasitics are omitted.",
       "verification": {
         "status": "passed",
         "workflow": "Verify AdigunSimulator",
