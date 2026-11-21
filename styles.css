@@ -346,6 +346,8 @@ body.light { color-scheme: light; --navy: #f4f7fb; --navy-2: #ffffff; --navy-3: 
 .breadboard-switch-track { stroke:#111b27; stroke-width:2; stroke-linecap:round; }
 .breadboard-switch-cap { fill:#31bde0; stroke:#d3f6ff; stroke-width:1; }
 .breadboard-led-body { fill:#c72f46; stroke:#f1afb6; stroke-width:1.1; }
+[data-library-id="diode.led-yellow"] .breadboard-led-body { fill:#b88116; stroke:#ffe098; }
+[data-library-id="diode.led-green"] .breadboard-led-body { fill:#328346; stroke:#a8e1ae; }
 .breadboard-led-cathode { stroke:#f5e7e9; stroke-width:1.4; }
 .breadboard-header-divider { stroke:#89b6c3; stroke-width:1; }
 .breadboard-bridge-body { fill:#252b31; stroke:#b9c3c9; stroke-width:1.2; }
