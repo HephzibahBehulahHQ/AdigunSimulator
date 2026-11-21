@@ -11,10 +11,10 @@ Build a two-NOR active-high SR latch with Q/Q̅ LED indicators; verify set, rese
 | V1 | `power.dc-source` | 5 V |
 | SET | `power.dc-source` | 5 V |
 | RESET | `power.dc-source` | 0 V |
-| U1 | `active.logic-nor-ideal` | Ideal NOR gate |
-| U2 | `active.logic-nor-ideal` | Ideal NOR gate |
-| RQ | `passive.resistor` | 330 Ω |
-| RQB | `passive.resistor` | 330 Ω |
+| U1 | `active.sn74hc02n-latch` | SN74HC02N, gates 1 and 2 |
+| C1 | `passive.capacitor` | 100 nF |
+| RQ | `passive.resistor` | 2.2 kΩ |
+| RQB | `passive.resistor` | 2.2 kΩ |
 | DQ | `diode.led-red` | Vf 2 V |
 | DQB | `diode.led-red` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
@@ -23,20 +23,20 @@ These are the exact component records in the native example file. A library ID a
 
 ## Net connections
 
-- **VCC:** `supply:+`, `set-gate:VCC`, `reset-gate:VCC`
-- **GND:** `supply:-`, `set-input:-`, `reset-input:-`, `set-gate:GND`, `reset-gate:GND`, `q-led:K`, `qbar-led:K`, `ground:0`
-- **SET:** `set-input:+`, `set-gate:A`
-- **RESET:** `reset-input:+`, `reset-gate:A`
-- **Q:** `reset-gate:Y`, `set-gate:B`, `q-resistor:1`
-- **QBAR:** `set-gate:Y`, `reset-gate:B`, `qbar-resistor:1`
+- **VCC:** `supply:+`, `latch:VCC`, `bypass:1`
+- **GND:** `supply:-`, `set-input:-`, `reset-input:-`, `latch:GND`, `q-led:K`, `qbar-led:K`, `ground:0`, `bypass:2`, `latch:3A`, `latch:3B`, `latch:4A`, `latch:4B`
+- **SET:** `set-input:+`, `latch:1A`
+- **RESET:** `reset-input:+`, `latch:2A`
+- **Q:** `latch:2Y`, `latch:1B`, `q-resistor:1`
+- **QBAR:** `latch:1Y`, `latch:2B`, `qbar-resistor:1`
 - **Q_LED:** `q-resistor:2`, `q-led:A`
 - **QBAR_LED:** `qbar-resistor:2`, `qbar-led:A`
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly places one SN74HC02N with pin 1 at F12. C1 bypasses VCC to ground. Unused inputs 8, 9, 11 and 12 are grounded, and outputs 10 and 13 remain isolated. Both 2.2 kΩ indicator paths use the same common return. Hardware characterization is pending.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 51 × 44 mm two-layer PCB routes both cross-coupled feedback paths and both indicators. J1 supplies +5 V, J2 sets the latch, and J3 resets it. Each header includes a common return. The fabrication export checks pad connectivity, clearance, and board fit. Independent package review and bench characterization are pending.
 
 ## Acceptance test and expected result
 
@@ -55,7 +55,7 @@ Recorded expected result:
   "qBar": false,
   "qVoltage": 5,
   "qBarVoltage": 0,
-  "qLedCurrentA": 0.00909090909090909,
+  "qLedCurrentA": 0.0013636363636363637,
   "qBarLedCurrentA": 0,
   "set": {
     "mode": "set",
@@ -63,7 +63,7 @@ Recorded expected result:
     "qBar": false,
     "qVoltage": 5,
     "qBarVoltage": 0,
-    "qLedCurrentA": 0.00909090909090909,
+    "qLedCurrentA": 0.0013636363636363637,
     "qBarLedCurrentA": 0
   },
   "reset": {
@@ -73,7 +73,7 @@ Recorded expected result:
     "qVoltage": 0,
     "qBarVoltage": 5,
     "qLedCurrentA": 0,
-    "qBarLedCurrentA": 0.00909090909090909
+    "qBarLedCurrentA": 0.0013636363636363637
   },
   "holdAfterSet": {
     "mode": "hold",

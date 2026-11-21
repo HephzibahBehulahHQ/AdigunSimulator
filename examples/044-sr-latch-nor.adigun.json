@@ -18,13 +18,13 @@
           40,
           55
         ],
-        "schematic": [
-          40,
-          55
-        ],
         "pcb": [
           40,
           55
+        ],
+        "schematic": [
+          42,
+          34
         ]
       }
     },
@@ -38,13 +38,13 @@
           155,
           55
         ],
-        "schematic": [
-          155,
-          55
-        ],
         "pcb": [
           155,
           55
+        ],
+        "schematic": [
+          42,
+          156
         ]
       }
     },
@@ -58,73 +58,60 @@
           270,
           55
         ],
-        "schematic": [
-          270,
-          55
-        ],
         "pcb": [
           270,
           55
+        ],
+        "schematic": [
+          147,
+          156
         ]
       }
     },
     {
-      "instanceId": "set-gate",
-      "libraryId": "active.logic-nor-ideal",
+      "instanceId": "latch",
+      "libraryId": "active.sn74hc02n-latch",
       "reference": "U1",
-      "value": "Ideal NOR gate",
+      "value": "SN74HC02N",
       "position": {
         "breadboard": [
-          385,
-          55
-        ],
-        "schematic": [
           385,
           55
         ],
         "pcb": [
           385,
           55
-        ]
-      }
-    },
-    {
-      "instanceId": "reset-gate",
-      "libraryId": "active.logic-nor-ideal",
-      "reference": "U2",
-      "value": "Ideal NOR gate",
-      "position": {
-        "breadboard": [
-          500,
-          55
         ],
         "schematic": [
-          500,
-          55
-        ],
-        "pcb": [
-          500,
-          55
+          292,
+          70
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 84,
+          "height": 104,
+          "rotation": 0
+        }
       }
     },
     {
       "instanceId": "q-resistor",
       "libraryId": "passive.resistor",
       "reference": "RQ",
-      "value": "330 Ω",
+      "value": "2.2 kΩ",
       "position": {
         "breadboard": [
-          40,
-          130
-        ],
-        "schematic": [
-          40,
-          130
+          500,
+          55
         ],
         "pcb": [
-          40,
-          130
+          500,
+          55
+        ],
+        "schematic": [
+          426,
+          36
         ]
       }
     },
@@ -132,19 +119,19 @@
       "instanceId": "qbar-resistor",
       "libraryId": "passive.resistor",
       "reference": "RQB",
-      "value": "330 Ω",
+      "value": "2.2 kΩ",
       "position": {
         "breadboard": [
-          155,
-          130
-        ],
-        "schematic": [
-          155,
+          40,
           130
         ],
         "pcb": [
-          155,
+          40,
           130
+        ],
+        "schematic": [
+          426,
+          160
         ]
       }
     },
@@ -155,16 +142,16 @@
       "value": "Vf 2 V",
       "position": {
         "breadboard": [
-          270,
-          130
-        ],
-        "schematic": [
-          270,
+          155,
           130
         ],
         "pcb": [
-          270,
+          155,
           130
+        ],
+        "schematic": [
+          531,
+          36
         ]
       }
     },
@@ -175,16 +162,16 @@
       "value": "Vf 2 V",
       "position": {
         "breadboard": [
-          385,
-          130
-        ],
-        "schematic": [
-          385,
+          270,
           130
         ],
         "pcb": [
-          385,
+          270,
           130
+        ],
+        "schematic": [
+          531,
+          160
         ]
       }
     },
@@ -195,16 +182,36 @@
       "value": "0 V",
       "position": {
         "breadboard": [
-          500,
+          385,
+          130
+        ],
+        "pcb": [
+          385,
           130
         ],
         "schematic": [
+          235,
+          204
+        ]
+      }
+    },
+    {
+      "instanceId": "bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
           500,
           130
         ],
         "pcb": [
           500,
           130
+        ],
+        "schematic": [
+          155,
+          34
         ]
       }
     }
@@ -214,8 +221,8 @@
       "id": "VCC",
       "endpoints": [
         "supply:+",
-        "set-gate:VCC",
-        "reset-gate:VCC"
+        "latch:VCC",
+        "bypass:1"
       ]
     },
     {
@@ -224,40 +231,44 @@
         "supply:-",
         "set-input:-",
         "reset-input:-",
-        "set-gate:GND",
-        "reset-gate:GND",
+        "latch:GND",
         "q-led:K",
         "qbar-led:K",
-        "ground:0"
+        "ground:0",
+        "bypass:2",
+        "latch:3A",
+        "latch:3B",
+        "latch:4A",
+        "latch:4B"
       ]
     },
     {
       "id": "SET",
       "endpoints": [
         "set-input:+",
-        "set-gate:A"
+        "latch:1A"
       ]
     },
     {
       "id": "RESET",
       "endpoints": [
         "reset-input:+",
-        "reset-gate:A"
+        "latch:2A"
       ]
     },
     {
       "id": "Q",
       "endpoints": [
-        "reset-gate:Y",
-        "set-gate:B",
+        "latch:2Y",
+        "latch:1B",
         "q-resistor:1"
       ]
     },
     {
       "id": "QBAR",
       "endpoints": [
-        "set-gate:Y",
-        "reset-gate:B",
+        "latch:1Y",
+        "latch:2B",
         "qbar-resistor:1"
       ]
     },
@@ -276,5 +287,1549 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "set-input:+": "H13",
+      "set-input:-": "BM8",
+      "reset-input:+": "H16",
+      "reset-input:-": "BM16",
+      "latch:1Y": "F12",
+      "latch:1A": "F13",
+      "latch:1B": "F14",
+      "latch:2Y": "F15",
+      "latch:2A": "F16",
+      "latch:2B": "F17",
+      "latch:GND": "F18",
+      "latch:3A": "E18",
+      "latch:3B": "E17",
+      "latch:4A": "E15",
+      "latch:4B": "E14",
+      "latch:VCC": "E12",
+      "q-resistor:1": "I22",
+      "q-resistor:2": "I28",
+      "qbar-resistor:1": "I4",
+      "qbar-resistor:2": "I10",
+      "q-led:A": "B27",
+      "q-led:K": "B28",
+      "qbar-led:A": "B5",
+      "qbar-led:K": "B6",
+      "bypass:1": "A11",
+      "bypass:2": "A9"
+    },
+    "jumpers": [
+      {
+        "from": "TP12",
+        "to": "A12"
+      },
+      {
+        "from": "B11",
+        "to": "B12"
+      },
+      {
+        "from": "B9",
+        "to": "BM6"
+      },
+      {
+        "from": "G14",
+        "to": "G15"
+      },
+      {
+        "from": "G12",
+        "to": "G17"
+      },
+      {
+        "from": "H15",
+        "to": "J22"
+      },
+      {
+        "from": "J28",
+        "to": "C27"
+      },
+      {
+        "from": "C28",
+        "to": "BM24"
+      },
+      {
+        "from": "H12",
+        "to": "J4"
+      },
+      {
+        "from": "J10",
+        "to": "C5"
+      },
+      {
+        "from": "C6",
+        "to": "BM4"
+      },
+      {
+        "from": "J18",
+        "to": "BM17"
+      },
+      {
+        "from": "A18",
+        "to": "BM12"
+      },
+      {
+        "from": "B18",
+        "to": "B17"
+      },
+      {
+        "from": "C17",
+        "to": "C15"
+      },
+      {
+        "from": "D15",
+        "to": "D14"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Common reference for the supply and both external input stimuli."
+      }
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "set-input",
+          "reference": "SET",
+          "kind": "external-supply",
+          "positionPx": [
+            245,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "H13",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reset-input",
+          "reference": "RESET",
+          "kind": "external-supply",
+          "positionPx": [
+            366,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "H16",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM16",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "latch",
+          "reference": "U1",
+          "manufacturer": "Texas Instruments",
+          "manufacturerPartNumber": "SN74HC02N",
+          "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc02.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 19.3,
+            "height": 6.4
+          },
+          "positionPx": [
+            330.1379310344827,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "1Y",
+              "hole": "F12",
+              "offsetMm": [
+                -7.62,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "1A",
+              "hole": "F13",
+              "offsetMm": [
+                -5.08,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "1B",
+              "hole": "F14",
+              "offsetMm": [
+                -2.54,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "2Y",
+              "hole": "F15",
+              "offsetMm": [
+                0,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "2A",
+              "hole": "F16",
+              "offsetMm": [
+                2.54,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "2B",
+              "hole": "F17",
+              "offsetMm": [
+                5.08,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "GND",
+              "hole": "F18",
+              "offsetMm": [
+                7.62,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "3A",
+              "hole": "E18",
+              "offsetMm": [
+                7.62,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "3B",
+              "hole": "E17",
+              "offsetMm": [
+                5.08,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "4A",
+              "hole": "E15",
+              "offsetMm": [
+                0,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "4B",
+              "hole": "E14",
+              "offsetMm": [
+                -2.54,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "VCC",
+              "hole": "E12",
+              "offsetMm": [
+                -7.62,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            }
+          ],
+          "noConnectHoles": [
+            "E16",
+            "E13"
+          ]
+        },
+        {
+          "instanceId": "q-resistor",
+          "reference": "RQ",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C2201FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            527.3793103448278,
+            195
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I22",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -7.62,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I28",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                7.62,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "qbar-resistor",
+          "reference": "RQB",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C2201FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            172.34482758620675,
+            195
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I4",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -7.62,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I10",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                7.62,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "q-led",
+          "reference": "DQ",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            576.6896551724138,
+            105
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "B27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "B28",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "qbar-led",
+          "reference": "DQB",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            142.75862068965478,
+            105
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "B5",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "B6",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "bypass",
+          "reference": "C1",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            231.51724137931035,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A11",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A9",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "physicalNotes": [
+      "Seat U1 with pin 1 at F12. Isolate unused outputs 10 and 13. Ground pins 8, 9, 11 and 12.",
+      "Drive set and reset from the common return. Assert only one at a time. Return both to 0 V to hold the state."
+    ]
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 51,
+      "heightMm": 44,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "set-input",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "reset-input",
+        "reference": "J3",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "footprint": "TI_SN74HC02N_PDIP-14_P2.54mm_W7.62mm",
+        "technology": "through-hole",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "SN74HC02N",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc02.pdf"
+      },
+      {
+        "instanceId": "q-resistor",
+        "reference": "RQ",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C2201FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C2201FCT00_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "qbar-resistor",
+        "reference": "RQB",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C2201FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C2201FCT00_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "q-led",
+        "reference": "DQ",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_LTL-307E-002A_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "qbar-led",
+        "reference": "DQB",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_LTL-307E-002A_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "supply:+",
+        "netId": "VCC",
+        "xMm": 5,
+        "yMm": 9,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "supply:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 11.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "set-input",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "set-input:+",
+        "netId": "SET",
+        "xMm": 5,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "set-input",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "set-input:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 22.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "reset-input",
+        "reference": "J3",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "reset-input:+",
+        "netId": "RESET",
+        "xMm": 5,
+        "yMm": 15,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "reset-input",
+        "reference": "J3",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "reset-input:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 17.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "1Y",
+        "number": "1",
+        "xMm": 20,
+        "yMm": 20,
+        "netId": "QBAR",
+        "bridgeEndpoint": "latch:1Y",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "1A",
+        "number": "2",
+        "xMm": 22.54,
+        "yMm": 20,
+        "netId": "SET",
+        "bridgeEndpoint": "latch:1A",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "1B",
+        "number": "3",
+        "xMm": 25.08,
+        "yMm": 20,
+        "netId": "Q",
+        "bridgeEndpoint": "latch:1B",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "2Y",
+        "number": "4",
+        "xMm": 27.62,
+        "yMm": 20,
+        "netId": "Q",
+        "bridgeEndpoint": "latch:2Y",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "2A",
+        "number": "5",
+        "xMm": 30.16,
+        "yMm": 20,
+        "netId": "RESET",
+        "bridgeEndpoint": "latch:2A",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "2B",
+        "number": "6",
+        "xMm": 32.7,
+        "yMm": 20,
+        "netId": "QBAR",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "latch:2B"
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "GND",
+        "number": "7",
+        "xMm": 35.24,
+        "yMm": 20,
+        "netId": "GND",
+        "bridgeEndpoint": "latch:GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "3A",
+        "number": "8",
+        "xMm": 35.24,
+        "yMm": 27.62,
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "latch:3A"
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "3B",
+        "number": "9",
+        "xMm": 32.7,
+        "yMm": 27.62,
+        "netId": "GND",
+        "bridgeEndpoint": "latch:3B",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "NC10",
+        "number": "10",
+        "xMm": 30.16,
+        "yMm": 27.62,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "4A",
+        "number": "11",
+        "xMm": 27.62,
+        "yMm": 27.62,
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "latch:4A"
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "4B",
+        "number": "12",
+        "xMm": 25.08,
+        "yMm": 27.62,
+        "netId": "GND",
+        "bridgeEndpoint": "latch:4B",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "NC13",
+        "number": "13",
+        "xMm": 22.54,
+        "yMm": 27.62,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "latch",
+        "reference": "U1",
+        "pin": "VCC",
+        "number": "14",
+        "xMm": 20,
+        "yMm": 27.62,
+        "netId": "VCC",
+        "bridgeEndpoint": "latch:VCC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "q-resistor",
+        "reference": "RQ",
+        "pin": "1",
+        "number": "1",
+        "netId": "Q",
+        "xMm": 27.62,
+        "yMm": 11,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "q-resistor:1"
+      },
+      {
+        "instanceId": "q-resistor",
+        "reference": "RQ",
+        "pin": "2",
+        "number": "2",
+        "netId": "Q_LED",
+        "xMm": 37.62,
+        "yMm": 11,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "q-resistor:2"
+      },
+      {
+        "instanceId": "qbar-resistor",
+        "reference": "RQB",
+        "pin": "1",
+        "number": "1",
+        "netId": "QBAR",
+        "xMm": 20,
+        "yMm": 7,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "qbar-resistor:1"
+      },
+      {
+        "instanceId": "qbar-resistor",
+        "reference": "RQB",
+        "pin": "2",
+        "number": "2",
+        "netId": "QBAR_LED",
+        "xMm": 30,
+        "yMm": 7,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "qbar-resistor:2"
+      },
+      {
+        "instanceId": "q-led",
+        "reference": "DQ",
+        "pin": "A",
+        "number": "1",
+        "netId": "Q_LED",
+        "xMm": 43,
+        "yMm": 11,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "q-led:A"
+      },
+      {
+        "instanceId": "q-led",
+        "reference": "DQ",
+        "pin": "K",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 45.54,
+        "yMm": 11,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "q-led:K"
+      },
+      {
+        "instanceId": "qbar-led",
+        "reference": "DQB",
+        "pin": "A",
+        "number": "1",
+        "netId": "QBAR_LED",
+        "xMm": 38,
+        "yMm": 7,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "qbar-led:A"
+      },
+      {
+        "instanceId": "qbar-led",
+        "reference": "DQB",
+        "pin": "K",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 40.54,
+        "yMm": 7,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "qbar-led:K"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 20,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "bypass:1"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 15,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "bypass:2"
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            9
+          ],
+          [
+            13,
+            9
+          ],
+          [
+            13,
+            27.62
+          ],
+          [
+            20,
+            27.62
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            20,
+            27.62
+          ],
+          [
+            20,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "SET",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            20
+          ],
+          [
+            17,
+            20
+          ],
+          [
+            17,
+            17
+          ],
+          [
+            22.54,
+            17
+          ],
+          [
+            22.54,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "RESET",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            15
+          ],
+          [
+            30.16,
+            15
+          ],
+          [
+            30.16,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "Q",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25.08,
+            20
+          ],
+          [
+            27.62,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "Q",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            27.62,
+            20
+          ],
+          [
+            27.62,
+            11
+          ]
+        ]
+      },
+      {
+        "netId": "QBAR",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            20,
+            20
+          ],
+          [
+            20,
+            23
+          ],
+          [
+            32.7,
+            23
+          ],
+          [
+            32.7,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "QBAR",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            20,
+            20
+          ],
+          [
+            20,
+            7
+          ]
+        ]
+      },
+      {
+        "netId": "Q_LED",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            37.62,
+            11
+          ],
+          [
+            43,
+            11
+          ]
+        ]
+      },
+      {
+        "netId": "QBAR_LED",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            30,
+            7
+          ],
+          [
+            38,
+            7
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            11.54
+          ],
+          [
+            2.5,
+            11.54
+          ],
+          [
+            2.5,
+            17.54
+          ],
+          [
+            5,
+            17.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            17.54
+          ],
+          [
+            2.5,
+            17.54
+          ],
+          [
+            2.5,
+            22.54
+          ],
+          [
+            5,
+            22.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            22.54
+          ],
+          [
+            5,
+            39
+          ],
+          [
+            15,
+            39
+          ],
+          [
+            15,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            15,
+            35
+          ],
+          [
+            15,
+            33
+          ],
+          [
+            25.08,
+            33
+          ],
+          [
+            25.08,
+            27.62
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25.08,
+            27.62
+          ],
+          [
+            27.62,
+            27.62
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            27.62,
+            27.62
+          ],
+          [
+            27.62,
+            30
+          ],
+          [
+            32.7,
+            30
+          ],
+          [
+            32.7,
+            27.62
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.7,
+            27.62
+          ],
+          [
+            35.24,
+            27.62
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            35.24,
+            27.62
+          ],
+          [
+            35.24,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            35.24,
+            20
+          ],
+          [
+            45.54,
+            20
+          ],
+          [
+            45.54,
+            11
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            45.54,
+            11
+          ],
+          [
+            45.54,
+            7
+          ],
+          [
+            40.54,
+            7
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "SET",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J3",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "RESET",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "SN74HC02N",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/sn74hc02.pdf",
+        "package": "TI_SN74HC02N_PDIP-14_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "QBAR",
+          "2": "SET",
+          "3": "Q",
+          "4": "Q",
+          "5": "RESET",
+          "6": "QBAR",
+          "7": "GND",
+          "8": "GND",
+          "9": "GND",
+          "10": "NC",
+          "11": "GND",
+          "12": "GND",
+          "13": "NC",
+          "14": "VCC"
+        }
+      },
+      {
+        "reference": "RQ",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C2201FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C2201FCT00_P10.00mm",
+        "pinMapping": {
+          "1": "Q",
+          "2": "Q_LED"
+        }
+      },
+      {
+        "reference": "RQB",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C2201FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C2201FCT00_P10.00mm",
+        "pinMapping": {
+          "1": "QBAR",
+          "2": "QBAR_LED"
+        }
+      },
+      {
+        "reference": "DQ",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "LiteOn_LTL-307E-002A_P2.54mm",
+        "pinMapping": {
+          "1": "Q_LED",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "DQB",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "LiteOn_LTL-307E-002A_P2.54mm",
+        "pinMapping": {
+          "1": "QBAR_LED",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External stimulus or supply connects through J1."
+      },
+      {
+        "instanceId": "set-input",
+        "reference": "SET",
+        "reason": "External stimulus or supply connects through J2."
+      },
+      {
+        "instanceId": "reset-input",
+        "reference": "RESET",
+        "reason": "External stimulus or supply connects through J3."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Common reference for the supply and both external input stimuli."
+      }
+    ],
+    "fabricationNotes": "J1 is +5 V and return, J2 is SET and return, J3 is RESET and return. Assert only one input at a time. Pins 10 and 13 remain isolated."
+  }
 }

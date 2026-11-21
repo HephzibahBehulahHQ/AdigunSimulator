@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 76,
-    "withoutStoredPcb": 140,
+    "withStoredPcb": 77,
+    "withoutStoredPcb": 139,
     "unexpectedFailures": []
   },
   "entries": [
@@ -894,56 +894,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "2cdf4a0aefca04ddf342d21878cb972f34cbbdd05fe70bcef0de8c2cb98ec1f5",
+      "sha256": "867034ffa200a6d12c90169a3825e20c10e7f52817e425341461dbd6f86736fc",
       "components": 10,
       "analysis": "complete",
       "engine": "Cross-coupled NOR SR latch with memory",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "SET",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "RESET",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-nor-ideal"
-        },
-        {
-          "reference": "U2",
-          "libraryId": "active.logic-nor-ideal"
-        },
-        {
-          "reference": "RQ",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RQB",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DQ",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "DQB",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 30,
+      "pcbRoutes": 20,
+      "unmapped": []
     },
     {
       "file": "045-d-flip-flop-register.adigun.json",
