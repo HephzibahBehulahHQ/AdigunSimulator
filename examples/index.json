@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 66,
-    "withoutStoredPcb": 150,
+    "withStoredPcb": 67,
+    "withoutStoredPcb": 149,
     "unexpectedFailures": []
   },
   "entries": [
@@ -734,40 +734,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "b98a83fb2a9c1353af4f7ed2051136a9706e253b43b6931287bab753d6ea95b1",
+      "sha256": "30f0316ea314f72984ab617f4f59c439c9a22453754a476e84bc2f23fc420735",
       "components": 6,
       "analysis": "complete",
       "engine": "Ideal P-channel MOSFET high-side switching estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VG",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "Q1",
-          "libraryId": "active.pmos-high-side-ideal"
-        },
-        {
-          "reference": "RG",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RL",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 5,
+      "pcbPads": 11,
+      "pcbRoutes": 6,
+      "unmapped": []
     },
     {
       "file": "035-npn-relay-driver.adigun.json",

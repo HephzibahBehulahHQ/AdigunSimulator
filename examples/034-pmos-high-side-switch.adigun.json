@@ -19,8 +19,8 @@
           55
         ],
         "schematic": [
-          40,
-          55
+          80,
+          30
         ],
         "pcb": [
           40,
@@ -39,8 +39,8 @@
           55
         ],
         "schematic": [
-          155,
-          55
+          29,
+          150
         ],
         "pcb": [
           155,
@@ -59,8 +59,8 @@
           55
         ],
         "schematic": [
-          270,
-          55
+          375,
+          79
         ],
         "pcb": [
           270,
@@ -79,8 +79,8 @@
           55
         ],
         "schematic": [
-          385,
-          55
+          218,
+          143
         ],
         "pcb": [
           385,
@@ -99,8 +99,8 @@
           55
         ],
         "schematic": [
-          500,
-          55
+          538,
+          129
         ],
         "pcb": [
           500,
@@ -119,8 +119,8 @@
           130
         ],
         "schematic": [
-          40,
-          130
+          95,
+          222
         ],
         "pcb": [
           40,
@@ -168,5 +168,652 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "gate-drive:+": "I5",
+      "gate-drive:-": "BM8",
+      "pmos:G": "I13",
+      "pmos:D": "I14",
+      "pmos:S": "I15",
+      "gate-resistor:1": "A5",
+      "gate-resistor:2": "A9",
+      "load:1": "I23",
+      "load:2": "BM23"
+    },
+    "jumpers": [
+      {
+        "from": "H5",
+        "to": "B5"
+      },
+      {
+        "from": "B9",
+        "to": "H13"
+      },
+      {
+        "from": "J14",
+        "to": "H23"
+      },
+      {
+        "from": "J15",
+        "to": "TP15"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "gate-drive",
+          "reference": "VG",
+          "kind": "external-supply",
+          "positionPx": [
+            230,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "I5",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "pmos",
+          "reference": "Q1",
+          "manufacturer": "Infineon",
+          "manufacturerPartNumber": "IRF9540NPBF",
+          "sourceUrl": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-irf9540n-datasheet-en.pdf",
+          "kind": "to220",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 15.75
+          },
+          "positionPx": [
+            310.4137931034483,
+            182
+          ],
+          "pins": [
+            {
+              "pin": "G",
+              "hole": "I13",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                7.875
+              ]
+            },
+            {
+              "pin": "D",
+              "hole": "I14",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                7.875
+              ]
+            },
+            {
+              "pin": "S",
+              "hole": "I15",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                7.875
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "gate-resistor",
+          "reference": "RG",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1003FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            172.34482758620692,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A5",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A9",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "load",
+          "reference": "RL",
+          "kind": "external-axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "AC05000001200JAC00",
+          "sourceUrl": "https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf",
+          "bodyMm": {
+            "width": 18,
+            "height": 7.5
+          },
+          "positionPx": [
+            480,
+            278
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I23",
+              "connection": "pigtail",
+              "offsetMm": [
+                -9,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "BM23",
+              "connection": "pigtail",
+              "offsetMm": [
+                9,
+                0
+              ]
+            }
+          ],
+          "mounting": "off-board"
+        }
+      ]
+    },
+    "physicalNotes": [
+      "Keep the 120 Ω power resistor off the plastic breadboard using insulated pigtails.",
+      "Use a regulated current-limited 12 V supply. Drive VG actively to 0 V for on or 12 V for off. Keep Q1 drain tab isolated."
+    ]
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 66,
+      "heightMm": 43,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "gate-drive",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "gate-resistor",
+        "reference": "RG",
+        "footprint": "Vishay_MRS25000C1003FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1003FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "pmos",
+        "reference": "Q1",
+        "manufacturer": "Infineon",
+        "manufacturerPartNumber": "IRF9540NPBF",
+        "sourceUrl": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-irf9540n-datasheet-en.pdf",
+        "technology": "through-hole",
+        "footprint": "Infineon_IRF9540NPBF_TO-220AB_P2.54mm"
+      },
+      {
+        "instanceId": "load",
+        "reference": "RL",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "AC05000001200JAC00",
+        "sourceUrl": "https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf",
+        "footprint": "Vishay_AC05000001200JAC00_Axial_P25.00mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "supply:+",
+        "netId": "VCC",
+        "xMm": 5,
+        "yMm": 6,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "supply:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 8.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-drive",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "gate-drive:+",
+        "netId": "CONTROL",
+        "xMm": 5,
+        "yMm": 18,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-drive",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "gate-drive:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 20.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-resistor",
+        "reference": "RG",
+        "pin": "1",
+        "number": "1",
+        "bridgeEndpoint": "gate-resistor:1",
+        "netId": "CONTROL",
+        "xMm": 15,
+        "yMm": 18,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "gate-resistor",
+        "reference": "RG",
+        "pin": "2",
+        "number": "2",
+        "bridgeEndpoint": "gate-resistor:2",
+        "netId": "GATE",
+        "xMm": 25,
+        "yMm": 18,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pmos",
+        "reference": "Q1",
+        "pin": "G",
+        "number": "1",
+        "bridgeEndpoint": "pmos:G",
+        "netId": "GATE",
+        "xMm": 31,
+        "yMm": 30,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "pmos",
+        "reference": "Q1",
+        "pin": "D",
+        "number": "2",
+        "bridgeEndpoint": "pmos:D",
+        "netId": "LOAD",
+        "xMm": 33.54,
+        "yMm": 30,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "pmos",
+        "reference": "Q1",
+        "pin": "S",
+        "number": "3",
+        "bridgeEndpoint": "pmos:S",
+        "netId": "VCC",
+        "xMm": 36.08,
+        "yMm": 30,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "load",
+        "reference": "RL",
+        "pin": "1",
+        "number": "1",
+        "netId": "LOAD",
+        "xMm": 35,
+        "yMm": 13,
+        "technology": "through-hole",
+        "diameterMm": 2.2,
+        "drillMm": 1.1,
+        "bridgeEndpoint": "load:1"
+      },
+      {
+        "instanceId": "load",
+        "reference": "RL",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 60,
+        "yMm": 13,
+        "technology": "through-hole",
+        "diameterMm": 2.2,
+        "drillMm": 1.1,
+        "bridgeEndpoint": "load:2"
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            6
+          ],
+          [
+            55,
+            6
+          ],
+          [
+            55,
+            33
+          ],
+          [
+            36.08,
+            33
+          ],
+          [
+            36.08,
+            30
+          ]
+        ]
+      },
+      {
+        "netId": "CONTROL",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            18
+          ],
+          [
+            15,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "GATE",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25,
+            18
+          ],
+          [
+            31,
+            18
+          ],
+          [
+            31,
+            30
+          ]
+        ]
+      },
+      {
+        "netId": "LOAD",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            33.54,
+            30
+          ],
+          [
+            33.54,
+            19
+          ],
+          [
+            35,
+            19
+          ],
+          [
+            35,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            8.54
+          ],
+          [
+            3,
+            8.54
+          ],
+          [
+            3,
+            20.54
+          ],
+          [
+            5,
+            20.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            20.54
+          ],
+          [
+            5,
+            38
+          ],
+          [
+            60,
+            38
+          ],
+          [
+            60,
+            13
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "CONTROL",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "RG",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1003FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1003FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "CONTROL",
+          "2": "GATE"
+        }
+      },
+      {
+        "reference": "Q1",
+        "manufacturer": "Infineon",
+        "manufacturerPartNumber": "IRF9540NPBF",
+        "sourceUrl": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-irf9540n-datasheet-en.pdf",
+        "package": "Infineon_IRF9540NPBF_TO-220AB_P2.54mm",
+        "pinMapping": {
+          "1": "GATE",
+          "2": "LOAD",
+          "3": "VCC"
+        }
+      },
+      {
+        "reference": "RL",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "AC05000001200JAC00",
+        "sourceUrl": "https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf",
+        "package": "Vishay_AC05000001200JAC00_Axial_P25.00mm",
+        "pinMapping": {
+          "1": "LOAD",
+          "2": "GND"
+        }
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External current-limited 12 V supply connects through J1."
+      },
+      {
+        "instanceId": "gate-drive",
+        "reference": "VG",
+        "reason": "External actively driven gate signal connects through J2."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "fabricationNotes": "J1 pin 1: 12 V. J2 pin 1: 0 V on, 12 V off. Both pin 2 terminals are ground. Elevate RL on formed leads and isolate the MOSFET drain tab."
+  }
 }

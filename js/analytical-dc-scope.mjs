@@ -142,6 +142,22 @@ export function analyticalDcScopeRecording(project,analysis){
   return {kind:"analytical-dc-output",model:"Ideal NPN emitter-follower DC estimate",preferredNet:emitter,nodes:{[groundNet]:0,[collector]:r.supplyVoltage,[base]:r.inputVoltage,[emitter]:r.outputVoltage}};
  }
 
+ if(r?.kind==="pmos-high-side-switch"){
+  const mosfet=byType("active.pmos-high-side-ideal")[0];
+  const resistors=byType("passive.resistor"),sources=byType("power.dc-source");
+  const supply=netOf(mosfet,"S"),gate=netOf(mosfet,"G"),output=netOf(mosfet,"D"),gnd=netOf(ground,"0");
+  const between=(part,a,b)=>{const one=netOf(part,"1"),two=netOf(part,"2");return one===a&&two===b||one===b&&two===a;};
+  const gateSource=sources.find(part=>netOf(part,"-")===gnd&&netOf(part,"+")!==supply);
+  const control=netOf(gateSource,"+"),nets=[supply,gate,output,gnd,control];
+  if(!nets.every(Boolean)||new Set(nets).size!==nets.length||
+     !sources.some(part=>netOf(part,"+")===supply&&netOf(part,"-")===gnd)||
+     !resistors.some(part=>between(part,gate,control))||!resistors.some(part=>between(part,output,gnd)))return null;
+  const {supplyVoltage,gateVoltage,loadVoltage}=r;
+  if(![supplyVoltage,gateVoltage,loadVoltage].every(Number.isFinite)||
+     loadVoltage<0||loadVoltage>supplyVoltage||gateVoltage<0||gateVoltage>supplyVoltage)return null;
+  return {kind:"analytical-dc-output",model:"Ideal PMOS high-side switch steady-state DC",preferredNet:output,
+   nodes:{[supply]:supplyVoltage,[gate]:gateVoltage,[output]:loadVoltage,[gnd]:0,[control]:gateVoltage}};
+ }
  if(r?.kind==="nmos-low-side-switch"){
   const sources=byType("power.dc-source"),mosfets=byType("active.nmos-switch"),resistors=byType("passive.resistor"),inductors=byType("passive.inductor"),diodes=byType("diode.schottky"),grounds=byType("ground.signal");
   if(sources.length!==2||mosfets.length!==1||resistors.length!==1||inductors.length!==1||diodes.length!==1||grounds.length!==1)return null;

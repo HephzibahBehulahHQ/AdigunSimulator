@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,66);assert.equal(index.summary.withoutStoredPcb,150);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,67);assert.equal(index.summary.withoutStoredPcb,149);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -408,6 +408,30 @@ test('555 one-shot maps both trigger contact pairs and produces a single trigger
  assert.ok(Math.abs(triggered.result.pulseWidthS-1.1)<1e-9);
  assert.equal(triggered.scopeRecording.preferredNet,'OUT');
 });
+test('PMOS switch maps the power load and scopes active-low gate drive',async()=>{
+ const project=JSON.parse(await readFile(new URL('../examples/034-pmos-high-side-switch.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ assert.deepEqual(project.pcbFabrication.pads.filter(pad=>pad.reference==='Q1').map(pad=>pad.netId),['GATE','LOAD','VCC']);
+ const [inputPin,returnPin]=project.pcbFabrication.pads.filter(pad=>pad.reference==='J2');
+ assert.equal(inputPin.xMm,returnPin.xMm);
+ assert.ok(Math.abs(returnPin.yMm-inputPin.yMm-2.54)<1e-9);
+ const exported=exportPcbFabrication(project);
+ assert.equal(exported.status,'passed');
+ assert.match(exported.files['BOM.csv'],/AC05000001200JAC00/);
+ const control=project.components.find(part=>part.instanceId==='gate-drive');
+ for(const [voltage,expected] of [[0,true],[12,false]]){
+  control.value=`${voltage} V`;
+  const analysis=runProjectAnalysis(project);
+  assert.equal(analysis.result.switchOn,expected);
+  assert.equal(analysis.scopeDcRecording.nodes.GATE,voltage);
+  assert.equal(analysis.scopeDcRecording.nodes.LOAD,analysis.result.loadVoltage);
+ }
+ control.value='13 V';
+ assert.equal(runProjectAnalysis(project).scopeDcRecording,undefined);
+});
 test('NMOS coil driver maps the physical switch and stays below the selected coil rating',async()=>{
  const project=JSON.parse(await readFile(new URL('../examples/033-nmos-low-side-switch.adigun.json',import.meta.url),'utf8'));
  const getPartPins=id=>findLibraryPart(id)?.pins??[];
@@ -704,7 +728,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,66);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,67);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });
