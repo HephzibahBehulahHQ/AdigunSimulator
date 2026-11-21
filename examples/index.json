@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 71,
-    "withoutStoredPcb": 145,
+    "withStoredPcb": 72,
+    "withoutStoredPcb": 144,
     "unexpectedFailures": []
   },
   "entries": [
@@ -814,52 +814,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "609a36264f47da698dcba16f0710c4e9d1493bfb7bcc5634e363b9e491aef47d",
+      "sha256": "11cc1ccd23dfbc6a486ed76f61255c6bd78fceb6f8184133b37ccaf59079c14f",
       "components": 9,
       "analysis": "complete",
       "engine": "First-order RC active low-pass and ideal non-inverting gain estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "VCC",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VEE",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VIN",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.opamp-ideal"
-        },
-        {
-          "reference": "RIN",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RF",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RG",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 8,
+      "pcbPads": 22,
+      "pcbRoutes": 12,
+      "unmapped": []
     },
     {
       "file": "040-wien-bridge-oscillator.adigun.json",

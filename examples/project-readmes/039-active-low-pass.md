@@ -32,9 +32,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 uses the TL071CP, Vishay MRS25 10 kΩ resistors and a TDK B32529C1103J189 10 nF capacitor. Seat U1 with pin 1 at F13 and leave pins 1, 5 and 8 isolated. Use a current-limited dual ±9 V supply with the input generator referenced to the same return. [TI op-amp datasheet](https://www.ti.com/lit/ds/symlink/tl071.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 58 × 47 mm PCB uses 22 plated pads and both copper layers. J1 pin 1 is +9 V and pin 2 is 0 V. J2 pin 1 is 0 V and pin 2 is −9 V. J3 pin 1 is the input and pin 2 is 0 V. Probe RF pin 1 for the output. The scope shows the modeled sine near the cutoff, with phase lag and attenuation from the input filter. Hardware characterization remains pending.
 
 ## Acceptance test and expected result
 
