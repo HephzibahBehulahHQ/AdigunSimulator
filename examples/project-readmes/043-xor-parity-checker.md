@@ -11,8 +11,9 @@ Use a generic ideal five-volt XOR gate to assert a current-limited LED when exac
 | V1 | `power.dc-source` | 5 V |
 | VA | `power.dc-source` | 0 V |
 | VB | `power.dc-source` | 0 V |
-| U1 | `active.logic-xor-ideal` | Ideal XOR parity logic; 5 V supply |
-| R1 | `passive.resistor` | 330 Ω |
+| U1 | `active.sn74hc86n-first-gate` | SN74HC86N |
+| R1 | `passive.resistor` | 2.2 kΩ |
+| C1 | `passive.capacitor` | 100 nF |
 | D1 | `diode.led-red` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
 
@@ -20,8 +21,8 @@ These are the exact component records in the native example file. A library ID a
 
 ## Net connections
 
-- **VCC:** `supply:+`, `gate:VCC`
-- **GND:** `supply:-`, `input-a:-`, `input-b:-`, `gate:GND`, `led:K`, `ground:0`
+- **VCC:** `supply:+`, `gate:VCC`, `bypass:1`
+- **GND:** `supply:-`, `input-a:-`, `input-b:-`, `gate:GND`, `led:K`, `ground:0`, `gate:2A`, `gate:2B`, `gate:3A`, `gate:3B`, `gate:4A`, `gate:4B`, `bypass:2`
 - **A:** `input-a:+`, `gate:A`
 - **B:** `input-b:+`, `gate:B`
 - **Y:** `gate:Y`, `output-resistor:1`
@@ -29,9 +30,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 map places the TI SN74HC86N with pin 1 at F12. It grounds all six unused inputs and isolates outputs 6, 8 and 11. The 2.2 kΩ Vishay MRS25 resistor keeps the modeled LED load near 1.36 mA. Hardware characterization is pending.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 49 × 41 mm two-layer PCB uses the SN74HC86N PDIP pinout and a local TDK B32529C1104K189 bypass capacitor between VCC and ground. J1 provides power, J2 provides input A, and J3 provides input B. DRC checks continuity, clearance and board fit. Hardware characterization is pending.
 
 ## Acceptance test and expected result
 

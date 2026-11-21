@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 75,
-    "withoutStoredPcb": 141,
+    "withStoredPcb": 76,
+    "withoutStoredPcb": 140,
     "unexpectedFailures": []
   },
   "entries": [
@@ -878,44 +878,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "0919986c625b69fe6b122a01478777251f53baa1d500f0b3163f4caaab7607f4",
-      "components": 7,
+      "sha256": "216418628505dcf6417546a3282520e39ca65588349dad6500575af120758140",
+      "components": 8,
       "analysis": "complete",
       "engine": "Ideal static two-input XOR truth-table estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VA",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VB",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-xor-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 7,
+      "pcbPads": 26,
+      "pcbRoutes": 17,
+      "unmapped": []
     },
     {
       "file": "044-sr-latch-nor.adigun.json",

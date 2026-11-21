@@ -1886,7 +1886,7 @@ test("catalogue XOR parity checker asserts for odd parity only", async () => {
     assert.equal(result.result.kind, "xor-gate-truth-table");
     assert.equal(result.result.outputHigh, expected);
     assert.equal(result.result.ledOn, expected);
-    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 330 : 0);
+    assert.equal(result.result.ledCurrentA, expected ? (5 - 2) / 2200 : 0);
   }
 });
 
