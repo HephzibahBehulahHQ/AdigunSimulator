@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,69);assert.equal(index.summary.withoutStoredPcb,147);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,70);assert.equal(index.summary.withoutStoredPcb,146);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -408,6 +408,21 @@ test('555 one-shot maps both trigger contact pairs and produces a single trigger
  assert.ok(Math.abs(triggered.result.pulseWidthS-1.1)<1e-9);
  assert.equal(triggered.scopeRecording.preferredNet,'OUT');
 });
+test('electret preamp routes its two-pin capsule, midpoint bypass and MCP601',async()=>{
+ const project=JSON.parse(await readFile(new URL('../examples/037-electret-audio-preamp.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ const pads=ref=>project.pcbFabrication.pads.filter(pad=>pad.reference===ref);
+ assert.deepEqual(pads('MIC1').map(pad=>[pad.number,pad.netId]),[['1','MIC_OUT'],['2','GND']]);
+ assert.ok(Math.abs(pads('MIC1')[1].xMm-pads('MIC1')[0].xMm-2.5)<1e-9);
+ assert.deepEqual(pads('CREF').map(pad=>pad.netId),['VREF','GND']);
+ assert.deepEqual(pads('U1').map(pad=>pad.netId),['NC','INVERTING','AMP_IN','GND','NC','OUTPUT','VCC','NC']);
+ const result=exportPcbFabrication(project);
+ assert.equal(result.status,'passed');
+ assert.match(result.files['BOM.csv'],/AOM-4544P-2-R/);
+});
 test('H-bridge routes the static test load and scopes only determined nodes',async()=>{
  const project=JSON.parse(await readFile(new URL('../examples/036-hbridge-dc-motor.adigun.json',import.meta.url),'utf8'));
  const getPartPins=id=>findLibraryPart(id)?.pins??[];
@@ -767,7 +782,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,69);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,70);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

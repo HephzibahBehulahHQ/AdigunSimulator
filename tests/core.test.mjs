@@ -1720,11 +1720,12 @@ test("catalogue electret audio preamp calculates mic bias, midband gain, and cou
   assert.equal(result.result.kind, "electret-audio-preamp");
   assert.equal(result.result.microphoneBiasVoltageV, 3.9);
   assert.equal(result.result.referenceVoltageV, 2.5);
-  assert.equal(result.result.gainVPerV, 100);
+  assert.equal(result.result.gainVPerV, 101);
   assert.ok(Math.abs(result.result.highPassCutoffHz - 1 / (2 * Math.PI * 17200 * 10e-6)) < 1e-12);
   assert.ok(result.result.signalBandSamples[0].gain < result.result.signalBandSamples[1].gain);
   assert.ok(result.result.signalBandSamples[1].gain < result.result.signalBandSamples[2].gain);
-  assert.ok(Math.abs(result.result.outputAmplitudeV - 1) < 1e-4);
+  assert.ok(Math.abs(result.result.outputAmplitudeV - 0.8807) < 1e-4);
+  assert.ok(Number.isFinite(result.result.outputPhaseRad));
   assert.equal(result.result.outputWithinSupplyRails, true);
   assert.ok(result.result.outputMinimumV > 0 && result.result.outputMaximumV < 5);
 

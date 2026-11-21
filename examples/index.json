@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 69,
-    "withoutStoredPcb": 147,
+    "withStoredPcb": 70,
+    "withoutStoredPcb": 146,
     "unexpectedFailures": []
   },
   "entries": [
@@ -782,64 +782,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "12c5e5b202b5ca4c9690dc671cfb8dc964c4b46b4728c3cf2e1ef26af42918f7",
-      "components": 12,
+      "sha256": "4550fff0abe8c6558306014e83b59da563694b31588000ac7ee993e4bf17a569",
+      "components": 13,
       "analysis": "complete",
       "engine": "Generic electret microphone and single-supply op-amp preamplifier estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "MIC1",
-          "libraryId": "sensor.electret-mic-generic"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.opamp-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        },
-        {
-          "reference": "RB1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RIN",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RF",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RG",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "CIN",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "CDEC",
-          "libraryId": "passive.capacitor"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 12,
+      "pcbPads": 30,
+      "pcbRoutes": 20,
+      "unmapped": []
     },
     {
       "file": "038-audio-power-amplifier.adigun.json",

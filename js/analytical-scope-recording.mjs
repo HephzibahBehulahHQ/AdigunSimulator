@@ -19,6 +19,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='ne556-dual-astable')return dualTimerRecording(project,r);
  if(['comparator-threshold','schmitt-trigger'].includes(kind))return comparatorRecording(project,r);
  if(kind==='window-comparator')return windowComparatorRecording(project,r);
+ if(kind==='electret-audio-preamp')return electretPreampRecording(project,r);
  if(['opamp-noninverting','opamp-inverting','opamp-voltage-follower'].includes(kind))return opAmpMidbandRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
@@ -36,6 +37,24 @@ export function analyticalScopeRecording(project,analysis){
   return {timeSeconds,nodeVoltages:{[ground]:0,[power]:voltage,[output]:high?voltage:0}};
  });
  return {kind:'analytical-output-recording',model:kind==='stm32-timer-pwm'?'Ideal STM32 PWM output':'Ideal 555 output timing',preferredNet:output,samples};
+}
+
+function electretPreampRecording(project,result) {
+ const amp=project.components.find(component=>component.libraryId==='active.opamp-ideal');
+ if(!amp)return null;
+ const net=pin=>project.nets.find(item=>item.endpoints.includes(`${amp.instanceId}:${pin}`))?.id;
+ const [output,supply,ground]=['OUT','VCC','VEE'].map(net);
+ const {signalFrequencyHz:frequency,outputAmplitudeV:amplitude,outputPhaseRad:phase,outputBiasVoltageV:bias,supplyVoltage}=result;
+ if(!output||!supply||!ground||new Set([output,supply,ground]).size!==3||
+    ![frequency,amplitude,phase,bias,supplyVoltage].every(Number.isFinite)||frequency<=0||amplitude<0||
+    bias-amplitude<0||bias+amplitude>supplyVoltage)return null;
+ const samples=Array.from({length:481},(_,index)=>{
+  const cycle=index/120;
+  return {timeSeconds:cycle/frequency,nodeVoltages:{
+   [output]:bias+amplitude*Math.sin(2*Math.PI*cycle+phase),[supply]:supplyVoltage,[ground]:0
+  }};
+ });
+ return {kind:'analytical-output-recording',model:'Ideal electret preamp steady-state sine',preferredNet:output,samples};
 }
 
 function windowComparatorRecording(project,result) {
