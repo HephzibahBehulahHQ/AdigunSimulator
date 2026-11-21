@@ -13,21 +13,20 @@ Encode the highest-numbered active input into a two-bit output, expose a valid s
 | D1 | `power.dc-source` | 0 V |
 | D2 | `power.dc-source` | 0 V |
 | D3 | `power.dc-source` | 0 V |
-| U1 | `active.logic-priority-encoder-4to2-ideal` | D3 highest priority |
-| R0 | `passive.resistor` | 330 Ω |
-| R1 | `passive.resistor` | 330 Ω |
-| R2 | `passive.resistor` | 330 Ω |
+| U1 | `active.cd4532be-encoder` | CD4532BE |
+| R0 | `passive.resistor` | 10 kΩ |
+| R1 | `passive.resistor` | 10 kΩ |
+| R2 | `passive.resistor` | 10 kΩ |
 | DCODE0 | `diode.led-red` | Vf 2 V |
 | DCODE1 | `diode.led-red` | Vf 2 V |
 | DVALID | `diode.led-red` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
-
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+| C1 | `passive.capacitor` | 100 nF |
 
 ## Net connections
 
-- **VCC:** `supply:+`, `encoder:VCC`
-- **GND:** `supply:-`, `encoder:GND`, `ground:0`, `led0:K`, `led1:K`, `led2:K`, `input-0:-`, `input-1:-`, `input-2:-`, `input-3:-`
+- **VCC:** `supply:+`, `encoder:VCC`, `encoder:EI`, `bypass:1`
+- **GND:** `supply:-`, `encoder:GND`, `ground:0`, `led0:K`, `led1:K`, `led2:K`, `input-0:-`, `input-1:-`, `input-2:-`, `input-3:-`, `encoder:D4`, `encoder:D5`, `encoder:D6`, `encoder:D7`, `bypass:2`
 - **D0:** `input-0:+`, `encoder:D0`
 - **D1:** `input-1:+`, `encoder:D1`
 - **D2:** `input-2:+`, `encoder:D2`
@@ -41,9 +40,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 uses the [CD4532BE pinout](https://www.ti.com/lit/ds/symlink/cd4532b.pdf) with pin 1 at F12. EI is high, D4 through D7 are grounded, and code bit 2 and EO are isolated. GS drives the valid indicator. Each lit 10 kΩ indicator path draws an ideal 0.30 mA.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 66 × 46 mm two-layer PCB routes the same connections. J1 provides +5 V. J2 through J5 take D0 through D3. Each connector includes a return pin. The fabrication export checks connectivity, clearance, and board fit. Independent package fit and LED brightness remain to be verified.
 
 ## Acceptance test and expected result
 

@@ -23,6 +23,10 @@ const customPinSides = {
   "active.cd4555be-decoder": [
     ["VCC", "2E", "A0", "A1", "1E", "2A", "2B", "GND"],
     ["Y0", "Y1", "Y2", "Y3"]
+  ],
+  "active.cd4532be-encoder": [
+    ["D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7"],
+    ["VCC", "EI", "CODE0", "CODE1", "VALID", "GND"]
   ]
 };
 // Visual anchors for the editor's named electrical terminals.

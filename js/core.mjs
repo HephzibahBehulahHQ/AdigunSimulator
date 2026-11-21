@@ -90,6 +90,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-decoder-2to4-ideal", category: "Active", type: "Ideal two-to-four decoder (static logic)", prefix: "U", pins: ["A0", "A1", "Y0", "Y1", "Y2", "Y3", "VCC", "GND"], defaultValue: "Ideal active-high 2:4 decoder", simulation: "analytical-decoder-2to4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.cd4555be-decoder", category: "Active", type: "CD4555BE decoder 1 (ideal logic)", prefix: "U", pins: ["1E", "A0", "A1", "Y0", "Y1", "Y2", "Y3", "GND", "2B", "2A", "2E", "VCC"], defaultValue: "CD4555BE", simulation: "analytical-decoder-2to4", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-priority-encoder-4to2-ideal", category: "Active", type: "Ideal four-input priority encoder", prefix: "U", pins: ["D0", "D1", "D2", "D3", "CODE0", "CODE1", "VALID", "VCC", "GND"], defaultValue: "D3 has highest priority; valid output", simulation: "analytical-priority-encoder", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.cd4532be-encoder", category: "Active", type: "CD4532BE four-input priority encoder (ideal logic)", prefix: "U", pins: ["D4", "D5", "D6", "D7", "EI", "CODE1", "GND", "CODE0", "D0", "D1", "D2", "D3", "VALID", "VCC"], defaultValue: "CD4532BE", simulation: "analytical-priority-encoder", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-alu4-ideal", category: "Active", type: "Ideal four-bit add/subtract ALU", prefix: "U", pins: ["A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3", "SUB", "SUM0", "SUM1", "SUM2", "SUM3", "CARRY", "VCC", "GND"], defaultValue: "Four-bit two's-complement add/subtract", simulation: "analytical-alu4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.uart-tx-ideal", category: "Active", type: "Ideal UART transmitter (8N1 frame model)", prefix: "U", pins: ["TX", "VCC", "GND"], defaultValue: "Byte 0xA5; Baud 9600", simulation: "analytical-uart-transmitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.uart-frame-source", category: "Inputs", type: "Ideal UART serial-frame source (digital fixture)", prefix: "SIG", pins: ["TX", "GND"], defaultValue: "Bits 0,1,0,1,0,0,1,0,1,1; Baud 9600", simulation: "fixture-uart-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -942,7 +943,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const ringFlipFlops = project.components.filter((item) => item.libraryId === "active.sn74hc74n-ring-pair");
   const mux4s = project.components.filter((item) => ["active.logic-mux4-ideal", "active.sn74hc153n-mux"].includes(item.libraryId));
   const decoders2to4 = project.components.filter((item) => ["active.logic-decoder-2to4-ideal", "active.cd4555be-decoder"].includes(item.libraryId));
-  const priorityEncoders = project.components.filter((item) => item.libraryId === "active.logic-priority-encoder-4to2-ideal");
+  const priorityEncoders = project.components.filter((item) => ["active.logic-priority-encoder-4to2-ideal", "active.cd4532be-encoder"].includes(item.libraryId));
   const alu4s = project.components.filter((item) => item.libraryId === "active.logic-alu4-ideal");
   const uartTransmitters = project.components.filter((item) => item.libraryId === "active.uart-tx-ideal");
   const uartReceivers = project.components.filter((item) => item.libraryId === "active.uart-rx-ideal");
@@ -1314,8 +1315,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (alu4s.length === 1 && source.length === 10 && resistor.length === 5 && led.length === 5 && ground.length === 1 && project.components.length === 22) {
     return analyseAlu4(project, { sources: source, alu: alu4s[0], resistors: resistor, leds: led, ground: ground[0], validation });
   }
-  if (priorityEncoders.length === 1 && source.length === 5 && resistor.length === 3 && led.length === 3 && ground.length === 1 && project.components.length === 13) {
-    return analysePriorityEncoder(project, { sources: source, encoder: priorityEncoders[0], resistors: resistor, leds: led, ground: ground[0], validation });
+  if (priorityEncoders.length === 1 && source.length === 5 && resistor.length === 3 && led.length === 3 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 13 + capacitor.length) {
+    return analysePriorityEncoder(project, { sources: source, encoder: priorityEncoders[0], resistors: resistor, leds: led, ground: ground[0], bypass: capacitor[0], validation });
   }
   if (decoders2to4.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 13 + capacitor.length) {
     return analyseDecoder2to4(project, { sources: source, decoder: decoders2to4[0], resistors: resistor, leds: led, ground: ground[0], bypass: capacitor[0], validation });
@@ -3223,10 +3224,17 @@ function analyseAlu4(project,{sources,alu,resistors,leds,ground,validation}){
   const outputCurrents=outputs.map((o,i)=>outputBits[i]?Math.max(0,(supplyVoltage-o.vf)/o.resistance):0);
   return {state:"complete",engine:"Ideal four-bit combinational add/subtract ALU",message:"Computes unsigned four-bit addition or two's-complement subtraction. In subtraction mode, carry indicates no borrow. Signed overflow, propagation delay, logic hazards, and device-specific electrical limits are not modeled.",result:{kind:"alu4-add-subtract",supplyVoltage,logicThresholdV:thresholdV,aBits,bBits,subtract,a,b,adjustedB,sumBits,sum,carryOut,borrow:subtract&&!carryOut,outputBits,outputCurrents,operation:subtract?"subtract":"add"},validation};
 }
-function analysePriorityEncoder(project,{sources,encoder,resistors,leds,ground,validation}){
+function analysePriorityEncoder(project,{sources,encoder,resistors,leds,ground,bypass,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),vccNet=n(encoder,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  if(encoder.libraryId==="active.cd4532be-encoder"
+    &&(["D4","D5","D6","D7"].some(pin=>n(encoder,pin)!==groundNet)||n(encoder,"EI")!==vccNet)){
+    return {state:"blocked",message:"Ground D4 through D7 and tie EI to VCC to encode only the four connected inputs.",validation};
+  }
+  if(bypass&&!validSupplyBypass(bypass,n,vccNet,groundNet)){
+    return {state:"blocked",message:"Connect a positive-valued bypass capacitor directly between the priority encoder supply and ground.",validation};
+  }
   const inputSources=[0,1,2,3].map(index=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===n(encoder,`D${index}`)));
   const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,inputVoltages=inputSources.map(v=>v?voltageValue(v.value):Number.NaN),thresholdV=supplyVoltage/2;
   const outputPins=["CODE0","CODE1","VALID"];

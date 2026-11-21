@@ -2266,18 +2266,17 @@ test("catalogue priority encoder reports the highest asserted input", async () =
   const project = JSON.parse(await readFile(new URL("../examples/054-priority-encoder.adigun.json", import.meta.url)));
   assert.equal(validateProject(project).valid, true);
   assert.equal(STARTER_LIBRARY.some((part) => part.id === "active.logic-priority-encoder-4to2-ideal"), true);
-  const vectors = [
-    [0,0,0,0,false,0,-1],[1,0,0,0,true,0,0],[0,1,0,0,true,1,1],[0,0,1,0,true,2,2],[0,0,0,1,true,3,3],
-    [1,0,1,0,true,2,2],[0,1,0,1,true,3,3],[1,1,1,1,true,3,3]
-  ];
-  for (const [d0,d1,d2,d3,valid,code,highest] of vectors) {
+  for (let mask = 0; mask < 16; mask++) {
+    const inputs = [0, 1, 2, 3].map(bit => Boolean(mask & (1 << bit)));
+    const highest = inputs.lastIndexOf(true), valid = highest >= 0, code = valid ? highest : 0;
     let vector=project;
-    for(const [index,value] of [d0,d1,d2,d3].entries())vector=updateComponent(vector,`input-${index}`,{value:value?"5 V":"0 V"});
+    for(const [index,value] of inputs.entries())vector=updateComponent(vector,`input-${index}`,{value:value?"5 V":"0 V"});
     const result=runSupportedAnalysis(vector);
     assert.equal(result.state,"complete",result.message);
     assert.equal(result.result.valid,valid);
     assert.equal(result.result.code,code);
     assert.equal(result.result.highestIndex,highest);
+    assert.deepEqual(result.result.outputCurrents, [code & 1, code & 2, valid].map(on => on ? 0.0003 : 0));
   }
   assert.equal(runSupportedAnalysis(updateComponent(project,"input-3",{value:"6 V"})).state,"blocked");
   const broken=structuredClone(project);

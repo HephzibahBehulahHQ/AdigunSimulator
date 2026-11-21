@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 86,
-    "withoutStoredPcb": 130,
+    "withStoredPcb": 87,
+    "withoutStoredPcb": 129,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1054,68 +1054,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "ac9803ee046fefde636608ed132e0334f9d8d054d964541d91c6562a102ff0a4",
-      "components": 13,
+      "sha256": "60982547926b6cc3011ad9d5eb156892524c15a55e0ec0eed0ce0c219c7e8bac",
+      "components": 14,
       "analysis": "complete",
       "engine": "Ideal four-input priority encoder",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "D0",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "D2",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "D3",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-priority-encoder-4to2-ideal"
-        },
-        {
-          "reference": "R0",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DCODE0",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "DCODE1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "DVALID",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 13,
+      "pcbPads": 40,
+      "pcbRoutes": 26,
+      "unmapped": []
     },
     {
       "file": "055-alu-add-subtract.adigun.json",
