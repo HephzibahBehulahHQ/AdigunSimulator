@@ -84,6 +84,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-debounce-ideal", category: "Active", type: "Ideal N-sample digital debounce filter", prefix: "U", pins: ["INPUT", "CLK", "RESET_N", "Q", "VCC", "GND"], defaultValue: "Stable samples 3", simulation: "analytical-digital-debounce", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.atmega328p-debounce", category: "Active", type: "ATmega328P-PU sampled debounce demonstration", prefix: "U", pins: ["INPUT", "CLK", "RESET_N", "MCU_RESET_N", "VCC", "AVCC", "GND", "AGND", "Q"], defaultValue: "ATmega328P-PU; Stable samples 3", simulation: "analytical-digital-debounce", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-ring-shift-4bit-ideal", category: "Active", type: "Ideal four-bit ring shift register", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Four-bit one-hot ring; reset Q0", simulation: "analytical-shift-register-chaser", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.sn74hc74n-ring-pair", category: "Active", type: "SN74HC74N dual D flip-flop for a ring register", prefix: "U", pins: ["D1", "D2", "CLK1", "CLK2", "PRE1", "CLR1", "PRE2", "CLR2", "Q1", "Q2", "VCC", "GND"], defaultValue: "SN74HC74N", simulation: "analytical-shift-register-chaser", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-mux4-ideal", category: "Active", type: "Ideal four-to-one multiplexer (static logic)", prefix: "U", pins: ["I0", "I1", "I2", "I3", "S0", "S1", "Y", "VCC", "GND"], defaultValue: "Ideal 4:1 mux; S1:S0 selects I0–I3", simulation: "analytical-mux4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-decoder-2to4-ideal", category: "Active", type: "Ideal two-to-four decoder (static logic)", prefix: "U", pins: ["A0", "A1", "Y0", "Y1", "Y2", "Y3", "VCC", "GND"], defaultValue: "Ideal active-high 2:4 decoder", simulation: "analytical-decoder-2to4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-priority-encoder-4to2-ideal", category: "Active", type: "Ideal four-input priority encoder", prefix: "U", pins: ["D0", "D1", "D2", "D3", "CODE0", "CODE1", "VALID", "VCC", "GND"], defaultValue: "D3 has highest priority; valid output", simulation: "analytical-priority-encoder", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -936,6 +937,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const debounceFilters = project.components.filter((item) => item.libraryId === "active.logic-debounce-ideal");
   const debounceController = project.components.find((item) => item.libraryId === "active.atmega328p-debounce");
   const ringShiftRegisters = project.components.filter((item) => item.libraryId === "active.logic-ring-shift-4bit-ideal");
+  const ringFlipFlops = project.components.filter((item) => item.libraryId === "active.sn74hc74n-ring-pair");
   const mux4s = project.components.filter((item) => item.libraryId === "active.logic-mux4-ideal");
   const decoders2to4 = project.components.filter((item) => item.libraryId === "active.logic-decoder-2to4-ideal");
   const priorityEncoders = project.components.filter((item) => item.libraryId === "active.logic-priority-encoder-4to2-ideal");
@@ -1321,6 +1323,13 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (ringShiftRegisters.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && project.components.length === 13) {
     return analyseRingShiftChaser(project, { sources: source, register: ringShiftRegisters[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
+  }
+  if (ringFlipFlops.length === 2 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && capacitor.length === 2 && project.components.length === 16) {
+    const register=ringFlipFlops.find(part=>!project.nets.some(net=>
+      net.endpoints.includes(endpoint(part,"PRE1"))&&net.endpoints.includes(endpoint(part,"VCC"))
+    ))??ringFlipFlops[0];
+    const secondRegister=ringFlipFlops.find(part=>part!==register);
+    return analyseRingShiftChaser(project, { sources: source, register, secondRegister, bypass: capacitor, resistors: resistor, leds: led, ground: ground[0], previousState, validation });
   }
   if (debounceFilters.length === 1 && source.length === 4 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseDigitalDebounce(project, { sources: source, filter: debounceFilters[0], resistors: resistor, led: led[0], ground: ground[0], previousState, validation });
@@ -3272,16 +3281,32 @@ function analyseMux4(project,{sources,mux,resistor,led,ground,validation}){
   return {state:"complete",engine:"Ideal four-to-one static multiplexer",message:"Selects one of four static logic inputs using S1:S0 and drives an ideal rail-to-rail output. Propagation delay, input loading, leakage, noise, logic-family thresholds, and device-specific limits are not modeled.",result:{kind:"mux4",supplyVoltage,logicThresholdV:thresholdV,dataVoltages,dataBits,select0,select1,selectedIndex,selectedInput:dataBits[selectedIndex],outputHigh,outputVoltage,ledOn:ledCurrentA>0,ledCurrentA},validation};
 }
 
-function analyseRingShiftChaser(project,{sources,register,resistors,leds,ground,previousState,validation}){
+function analyseRingShiftChaser(project,{sources,register,secondRegister,bypass,resistors,leds,ground,previousState,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),vccNet=n(register,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
-  const clockNet=n(register,"CLK"),resetNet=n(register,"RESET_N");
+  const clockNet=n(register,secondRegister?"CLK1":"CLK"),resetNet=n(register,secondRegister?"PRE1":"RESET_N");
+  let outputs=[0,1,2,3].map(bit=>n(register,`Q${bit}`));
+  if(secondRegister){
+    const stages=[[register,1],[register,2],[secondRegister,1],[secondRegister,2]];
+    outputs=stages.map(([part,stage])=>n(part,`Q${stage}`));
+    if(!clockNet||!resetNet||clockNet===resetNet||outputs.some(net=>!net||[vccNet,groundNet,clockNet,resetNet].includes(net))
+      ||new Set(outputs).size!==4||stages.some(([part,stage],index)=>
+        n(part,"VCC")!==vccNet||n(part,"GND")!==groundNet||n(part,`CLK${stage}`)!==clockNet
+        ||n(part,`D${stage}`)!==outputs[(index+3)%4]
+        ||n(part,`PRE${stage}`)!==(index===0?resetNet:vccNet)
+        ||n(part,`CLR${stage}`)!==(index===0?vccNet:resetNet))){
+      return {state:"blocked",message:"Wire all four flip-flops to a common clock, connect each Q to the next D, and use RESET_N to preset Q0 and clear Q1–Q3.",validation};
+    }
+    if(bypass.some(c=>!validSupplyBypass(c,n,vccNet,groundNet))){
+      return {state:"blocked",message:"Connect both positive-valued bypass capacitors from VCC to ground.",validation};
+    }
+  }
   const clockSource=sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===clockNet);
   const resetSource=sources.find(v=>v!==supply&&v!==clockSource&&n(v,"-")===groundNet&&n(v,"+")===resetNet);
   const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,clockVoltage=clockSource?voltageValue(clockSource.value):Number.NaN,resetVoltage=resetSource?voltageValue(resetSource.value):Number.NaN,thresholdV=supplyVoltage/2;
-  const paths=[0,1,2,3].map(bit=>{
-    const outputNet=n(register,`Q${bit}`),resistor=resistors.find(r=>n(r,"1")===outputNet||n(r,"2")===outputNet);
+  const paths=outputs.map(outputNet=>{
+    const resistor=resistors.find(r=>n(r,"1")===outputNet||n(r,"2")===outputNet);
     const led=resistor&&leds.find(x=>((n(resistor,"1")===outputNet&&n(resistor,"2")===n(x,"A"))||(n(resistor,"2")===outputNet&&n(resistor,"1")===n(x,"A")))&&n(x,"K")===groundNet);
     return {outputNet,resistor,led,resistance:resistor?resistanceValue(resistor.value):Number.NaN,vf:led?forwardVoltage(led.value):Number.NaN};
   });

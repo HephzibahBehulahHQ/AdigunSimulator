@@ -2181,6 +2181,12 @@ test("catalogue four-bit ring shift register moves one LED per rising edge", asy
   const reset = runSupportedAnalysis(project);
   assert.equal(reset.state, "complete");
   assert.deepEqual(reset.result.bits, [true,false,false,false]);
+  assert.deepEqual(runSupportedAnalysis({...project,components:[...project.components].reverse()}).result.bits, reset.result.bits);
+  const openFeedback = structuredClone(project);
+  delete openFeedback.breadboard;
+  delete openFeedback.pcbFabrication;
+  openFeedback.nets.find(net => net.id === "Q3").endpoints = ["register-b:Q2", "r3:1"];
+  assert.match(runSupportedAnalysis(openFeedback).message, /connect each Q to the next D/);
   const expected = [[false,true,false,false],[false,false,true,false],[false,false,false,true],[true,false,false,false]];
   let p = updateComponent(project, "reset-input", { value: "5 V" });
   let state = runSupportedAnalysis(p, { previousState: reset });
