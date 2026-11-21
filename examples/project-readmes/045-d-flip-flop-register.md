@@ -11,8 +11,9 @@ Sample a digital data switch on each rising clock edge and retain Q through a fa
 | V1 | `power.dc-source` | 5 V |
 | D | `power.dc-source` | 0 V |
 | CLK | `power.dc-source` | 0 V |
-| U1 | `active.logic-dff-ideal` | Ideal positive-edge D flip-flop |
-| RQ | `passive.resistor` | 330 Ω |
+| U1 | `active.sn74hc74n-register` | SN74HC74N |
+| C1 | `passive.capacitor` | 100 nF |
+| RQ | `passive.resistor` | 2.2 kΩ |
 | DQ | `diode.led-red` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
 
@@ -20,8 +21,8 @@ These are the exact component records in the native example file. A library ID a
 
 ## Net connections
 
-- **VCC:** `supply:+`, `dff:VCC`, `dff:PRE`, `dff:CLR`
-- **GND:** `supply:-`, `data-input:-`, `clock-input:-`, `dff:GND`, `q-led:K`, `ground:0`
+- **VCC:** `supply:+`, `dff:VCC`, `dff:PRE`, `dff:CLR`, `dff:2PRE`, `dff:2CLR`, `bypass:1`
+- **GND:** `supply:-`, `data-input:-`, `clock-input:-`, `dff:GND`, `q-led:K`, `ground:0`, `dff:2CLK`, `dff:2D`, `bypass:2`
 - **DATA:** `data-input:+`, `dff:D`
 - **CLOCK:** `clock-input:+`, `dff:CLK`
 - **Q:** `dff:Q`, `q-resistor:1`
@@ -29,9 +30,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly places the SN74HC74N with pin 1 at F12. Both active-low preset and clear pairs are held high. The spare clock and data inputs are grounded, and outputs 6, 8, and 9 remain isolated. C1 bypasses the local supply.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 55 × 41 mm two-layer layout routes the SN74HC74N and its 2.2 kΩ LED load. J1 supplies +5 V, J2 drives DATA, and J3 drives CLOCK. All three headers include a return pin. The project fabrication export checks connectivity, clearance, and board fit. Independent package review and bench characterization remain pending.
 
 ## Acceptance test and expected result
 
@@ -62,7 +63,7 @@ Recorded expected result:
     "sampled": true,
     "q": true,
     "qBar": false,
-    "ledCurrentA": 0.00909090909090909
+    "ledCurrentA": 0.0013636363636363637
   },
   "dataChangesWhileClockHigh": {
     "risingEdge": false,
