@@ -86,6 +86,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-ring-shift-4bit-ideal", category: "Active", type: "Ideal four-bit ring shift register", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Four-bit one-hot ring; reset Q0", simulation: "analytical-shift-register-chaser", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.sn74hc74n-ring-pair", category: "Active", type: "SN74HC74N dual D flip-flop for a ring register", prefix: "U", pins: ["D1", "D2", "CLK1", "CLK2", "PRE1", "CLR1", "PRE2", "CLR2", "Q1", "Q2", "VCC", "GND"], defaultValue: "SN74HC74N", simulation: "analytical-shift-register-chaser", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-mux4-ideal", category: "Active", type: "Ideal four-to-one multiplexer (static logic)", prefix: "U", pins: ["I0", "I1", "I2", "I3", "S0", "S1", "Y", "VCC", "GND"], defaultValue: "Ideal 4:1 mux; S1:S0 selects I0–I3", simulation: "analytical-mux4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.sn74hc153n-mux", category: "Active", type: "SN74HC153N multiplexer 1 (ideal logic)", prefix: "U", pins: ["1G", "S1", "I3", "I2", "I1", "I0", "Y", "GND", "2C0", "2C1", "2C2", "2C3", "S0", "2G", "VCC"], defaultValue: "SN74HC153N", simulation: "analytical-mux4", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-decoder-2to4-ideal", category: "Active", type: "Ideal two-to-four decoder (static logic)", prefix: "U", pins: ["A0", "A1", "Y0", "Y1", "Y2", "Y3", "VCC", "GND"], defaultValue: "Ideal active-high 2:4 decoder", simulation: "analytical-decoder-2to4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-priority-encoder-4to2-ideal", category: "Active", type: "Ideal four-input priority encoder", prefix: "U", pins: ["D0", "D1", "D2", "D3", "CODE0", "CODE1", "VALID", "VCC", "GND"], defaultValue: "D3 has highest priority; valid output", simulation: "analytical-priority-encoder", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-alu4-ideal", category: "Active", type: "Ideal four-bit add/subtract ALU", prefix: "U", pins: ["A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3", "SUB", "SUM0", "SUM1", "SUM2", "SUM3", "CARRY", "VCC", "GND"], defaultValue: "Four-bit two's-complement add/subtract", simulation: "analytical-alu4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -938,7 +939,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const debounceController = project.components.find((item) => item.libraryId === "active.atmega328p-debounce");
   const ringShiftRegisters = project.components.filter((item) => item.libraryId === "active.logic-ring-shift-4bit-ideal");
   const ringFlipFlops = project.components.filter((item) => item.libraryId === "active.sn74hc74n-ring-pair");
-  const mux4s = project.components.filter((item) => item.libraryId === "active.logic-mux4-ideal");
+  const mux4s = project.components.filter((item) => ["active.logic-mux4-ideal", "active.sn74hc153n-mux"].includes(item.libraryId));
   const decoders2to4 = project.components.filter((item) => item.libraryId === "active.logic-decoder-2to4-ideal");
   const priorityEncoders = project.components.filter((item) => item.libraryId === "active.logic-priority-encoder-4to2-ideal");
   const alu4s = project.components.filter((item) => item.libraryId === "active.logic-alu4-ideal");
@@ -1318,8 +1319,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (decoders2to4.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && project.components.length === 13) {
     return analyseDecoder2to4(project, { sources: source, decoder: decoders2to4[0], resistors: resistor, leds: led, ground: ground[0], validation });
   }
-  if (mux4s.length === 1 && source.length === 7 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 11) {
-    return analyseMux4(project, { sources: source, mux: mux4s[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+  if (mux4s.length === 1 && source.length === 7 && resistor.length === 1 && led.length === 1 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 11 + capacitor.length) {
+    return analyseMux4(project, { sources: source, mux: mux4s[0], resistor: resistor[0], led: led[0], ground: ground[0], bypass: capacitor[0], validation });
   }
   if (ringShiftRegisters.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && project.components.length === 13) {
     return analyseRingShiftChaser(project, { sources: source, register: ringShiftRegisters[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
@@ -3263,10 +3264,17 @@ function analyseDecoder2to4(project,{sources,decoder,resistors,leds,ground,valid
   return {state:"complete",engine:"Ideal active-high two-to-four decoder",message:"Asserts exactly one active-high output for each two-bit address. Propagation delay, output drive, leakage, noise, enable behavior, and manufacturer-specific logic thresholds are not modeled.",result:{kind:"decoder-2to4",supplyVoltage,logicThresholdV:thresholdV,addressBits:[v0>=thresholdV,v1>=thresholdV],address,outputsHigh,outputCurrents,oneHot:outputsHigh.filter(Boolean).length===1},validation};
 }
 
-function analyseMux4(project,{sources,mux,resistor,led,ground,validation}){
+function analyseMux4(project,{sources,mux,resistor,led,ground,bypass,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),vccNet=n(mux,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  if(mux.libraryId==="active.sn74hc153n-mux"
+    &&(["1G","2C0","2C1","2C2","2C3"].some(pin=>n(mux,pin)!==groundNet)||n(mux,"2G")!==vccNet)){
+    return {state:"blocked",message:"Ground 1G and the four unused data inputs, and hold 2G high to disable channel 2.",validation};
+  }
+  if(bypass&&!validSupplyBypass(bypass,n,vccNet,groundNet)){
+    return {state:"blocked",message:"Connect a positive-valued bypass capacitor directly between the multiplexer supply and ground.",validation};
+  }
   const sourceFor=(pin)=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===n(mux,pin));
   const dataSources=[0,1,2,3].map(i=>sourceFor(`I${i}`)),s0=sourceFor("S0"),s1=sourceFor("S1");
   const outputNet=n(mux,"Y"),outputPath=(n(resistor,"1")===outputNet&&n(resistor,"2")===n(led,"A"))||(n(resistor,"2")===outputNet&&n(resistor,"1")===n(led,"A"));

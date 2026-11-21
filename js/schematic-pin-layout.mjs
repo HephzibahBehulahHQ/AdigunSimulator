@@ -15,6 +15,10 @@ const customPinSides = {
   "active.sn74hc74n-ring-pair": [
     ["D1", "D2", "CLK1", "CLK2", "PRE1", "CLR1", "PRE2", "CLR2"],
     ["VCC", "Q1", "Q2", "GND"]
+  ],
+  "active.sn74hc153n-mux": [
+    ["I0", "I1", "I2", "I3", "S0", "S1"],
+    ["VCC", "2G", "Y", "1G", "2C0", "2C1", "2C2", "2C3", "GND"]
   ]
 };
 // Visual anchors for the editor's named electrical terminals.

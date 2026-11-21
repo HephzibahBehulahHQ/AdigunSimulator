@@ -2221,9 +2221,20 @@ test("catalogue four-to-one multiplexer selects each input for all data vectors"
       assert.equal(result.state, "complete");
       assert.equal(result.result.selectedIndex, selected);
       assert.equal(result.result.outputHigh, Boolean(data & (1 << selected)));
+      assert.equal(result.result.ledCurrentA, result.result.outputHigh ? 3 / 2200 : 0);
     }
   }
   assert.equal(runSupportedAnalysis(updateComponent(project, "select-0", { value: "6 V" })).state, "blocked");
+  const unusedChannelEnabled = structuredClone(project);
+  delete unusedChannelEnabled.breadboard;
+  delete unusedChannelEnabled.pcbFabrication;
+  delete unusedChannelEnabled.schematicWires;
+  unusedChannelEnabled.nets.find(net => net.id === "VCC").endpoints =
+    unusedChannelEnabled.nets.find(net => net.id === "VCC").endpoints.filter(pin => pin !== "mux:2G");
+  const groundNet = unusedChannelEnabled.nets.find(net => net.id === "GND");
+  delete groundNet.connections;
+  groundNet.endpoints.push("mux:2G");
+  assert.match(runSupportedAnalysis(unusedChannelEnabled).message, /hold 2G high/);
   const broken = structuredClone(project);
   broken.nets.find((net) => net.id === "I3").endpoints = ["input-3:+"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");
