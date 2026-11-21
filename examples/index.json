@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 56,
-    "withoutStoredPcb": 160,
+    "withStoredPcb": 57,
+    "withoutStoredPcb": 159,
     "unexpectedFailures": []
   },
   "entries": [
@@ -574,44 +574,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "2599ba15b6e15b05c0b4e82bc30222f4352a4848aaf94fb6a30dadf717aa7cd1",
+      "sha256": "02ca8fcd673701e12ee4840cc95bd3ea3842417049c7e3ab93f86b1ead7657af",
       "components": 7,
       "analysis": "complete",
       "engine": "Ideal op-amp closed-loop midband gain estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "V2",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VIN",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.opamp-ideal"
-        },
-        {
-          "reference": "RF",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RG",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 6,
+      "pcbPads": 18,
+      "pcbRoutes": 9,
+      "unmapped": []
     },
     {
       "file": "025-opamp-inverting.adigun.json",

@@ -17,6 +17,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='active-low-pass')return activeLowPassRecording(project,r);
  if(kind==='npn-common-emitter')return commonEmitterRecording(project,r);
  if(kind==='ne556-dual-astable')return dualTimerRecording(project,r);
+ if(['opamp-noninverting','opamp-inverting','opamp-voltage-follower'].includes(kind))return opAmpMidbandRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
  if(!timer)return null;
@@ -33,6 +34,30 @@ export function analyticalScopeRecording(project,analysis){
   return {timeSeconds,nodeVoltages:{[ground]:0,[power]:voltage,[output]:high?voltage:0}};
  });
  return {kind:'analytical-output-recording',model:kind==='stm32-timer-pwm'?'Ideal STM32 PWM output':'Ideal 555 output timing',preferredNet:output,samples};
+}
+
+function opAmpMidbandRecording(project, result) {
+ const amp=project.components.find(component=>component.libraryId==='active.opamp-ideal');
+ const source=project.components.find(component=>component.libraryId==='power.ac-source');
+ const ground=project.components.find(component=>component.libraryId==='ground.signal');
+ if(!amp||!source||!ground)return null;
+ const net=(component,pin)=>project.nets.find(item=>item.endpoints.includes(`${component.instanceId}:${pin}`))?.id;
+ const input=net(source,'+'),output=net(amp,'OUT'),reference=net(ground,'0');
+ if(!input||!output||!reference||new Set([input,output,reference]).size!==3||net(source,'-')!==reference)return null;
+ const {gainVPerV,inputAmplitudeV,outputAmplitudeV}=result;
+ if(![gainVPerV,inputAmplitudeV,outputAmplitudeV].every(Number.isFinite)||inputAmplitudeV<=0||
+    Math.abs(outputAmplitudeV-Math.abs(gainVPerV)*inputAmplitudeV)>1e-9)return null;
+
+ // Use a display reference because the ideal midband model has no frequency input.
+ const referenceFrequencyHz=1000;
+ const samples=Array.from({length:481},(_,index)=>{
+  const phase=index/120;
+  const inputVoltage=inputAmplitudeV*Math.sin(2*Math.PI*phase);
+  return {timeSeconds:phase/referenceFrequencyHz,nodeVoltages:{
+   [reference]:0,[input]:inputVoltage,[output]:gainVPerV*inputVoltage
+  }};
+ });
+ return {kind:'analytical-output-recording',model:'Ideal op-amp midband gain (1 kHz display reference)',preferredNet:output,samples};
 }
 
 function dualTimerRecording(project, result) {
