@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 82,
-    "withoutStoredPcb": 134,
+    "withStoredPcb": 83,
+    "withoutStoredPcb": 133,
     "unexpectedFailures": []
   },
   "entries": [
@@ -990,48 +990,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "d2b97eeb4009b7a6f353f38905f87f13add49d4f8445b846143a4adf608b38fd",
-      "components": 8,
+      "sha256": "41cd5d28f1f5ceb7d593c1e43570daec715ad588819e334a3822515115e78b53",
+      "components": 11,
       "analysis": "complete",
       "engine": "Ideal clocked N-sample digital debounce filter",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "RAW",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "SAMPLE_CLK",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "RESET_N",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-debounce-ideal"
-        },
-        {
-          "reference": "RQ",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DQ",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 10,
+      "pcbPads": 46,
+      "pcbRoutes": 19,
+      "unmapped": []
     },
     {
       "file": "051-shift-register-led-chaser.adigun.json",

@@ -5,10 +5,12 @@ on:
     branches: [main]
     paths:
       - 'examples/049-traffic-light-fsm/main.c'
+      - 'examples/050-debounced-digital-input/main.c'
       - '.github/workflows/avr-example-firmware.yml'
   pull_request:
     paths:
       - 'examples/049-traffic-light-fsm/main.c'
+      - 'examples/050-debounced-digital-input/main.c'
       - '.github/workflows/avr-example-firmware.yml'
 
 permissions:
@@ -26,10 +28,12 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y --no-install-recommends gcc-avr binutils-avr avr-libc
           fi
-      - name: Build the ATmega328P demonstration
+      - name: Build the ATmega328P examples
         run: |
           avr-gcc --version
-          avr-gcc -mmcu=atmega328p -std=c11 -Os -Wall -Wextra -Werror \
-            examples/049-traffic-light-fsm/main.c -o "$RUNNER_TEMP/traffic-light.elf"
-          avr-objcopy -O ihex -R .eeprom "$RUNNER_TEMP/traffic-light.elf" "$RUNNER_TEMP/traffic-light.hex"
-          test -s "$RUNNER_TEMP/traffic-light.hex"
+          for example in 049-traffic-light-fsm 050-debounced-digital-input; do
+            avr-gcc -mmcu=atmega328p -std=c11 -Os -Wall -Wextra -Werror \
+              "examples/$example/main.c" -o "$RUNNER_TEMP/$example.elf"
+            avr-objcopy -O ihex -R .eeprom "$RUNNER_TEMP/$example.elf" "$RUNNER_TEMP/$example.hex"
+            test -s "$RUNNER_TEMP/$example.hex"
+          done
