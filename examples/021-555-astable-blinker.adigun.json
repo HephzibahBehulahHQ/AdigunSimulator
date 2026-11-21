@@ -179,12 +179,32 @@
           175
         ],
         "schematic": [
-          535,
-          175
+          620,
+          178
         ],
         "pcb": [
           535,
           175
+        ]
+      }
+    },
+    {
+      "instanceId": "bypass-1",
+      "libraryId": "passive.capacitor",
+      "reference": "CBYP",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          45,
+          185
+        ],
+        "schematic": [
+          45,
+          185
+        ],
+        "pcb": [
+          45,
+          185
         ]
       }
     }
@@ -196,7 +216,8 @@
         "source-1:+",
         "timer-1:8",
         "timer-1:4",
-        "ra-1:1"
+        "ra-1:1",
+        "bypass-1:1"
       ]
     },
     {
@@ -245,9 +266,1381 @@
         "timing-capacitor-1:2",
         "control-capacitor-1:2",
         "led-1:K",
-        "ground-1:0"
+        "ground-1:0",
+        "bypass-1:2"
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 72,
+      "heightMm": 50,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "timer-1",
+        "reference": "U1",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "NE555P",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/ne555.pdf",
+        "footprint": "TI_NE555P_PDIP8_W7.62mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "ra-1",
+        "reference": "RA",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "rb-1",
+        "reference": "RB",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "timing-capacitor-1",
+        "reference": "CT",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "ECA1VMH101I",
+        "sourceUrl": "https://na.industrial.panasonic.com/products/capacitors/aluminum-electrolytic-capacitors/series/84119/model/88360",
+        "footprint": "Panasonic_ECA1VMH101I_Radial_P2.50mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "control-capacitor-1",
+        "reference": "CCTRL",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1103J189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1103J189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "led-resistor-1",
+        "reference": "RLED",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C3300FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_LTL-307E-002A_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "bypass-1",
+        "reference": "CBYP",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "VCC",
+        "xMm": 4,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 7.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "timer-1",
+        "reference": "U1",
+        "pin": "1",
+        "number": "1",
+        "netId": "GND",
+        "xMm": 25,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "timer-1",
+        "reference": "U1",
+        "pin": "2",
+        "number": "2",
+        "netId": "TIMING",
+        "xMm": 25,
+        "yMm": 21.46,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "timer-1",
+        "reference": "U1",
+        "pin": "3",
+        "number": "3",
+        "netId": "OUTPUT",
+        "xMm": 25,
+        "yMm": 18.92,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "timer-1",
+        "reference": "U1",
+        "pin": "4",
+        "number": "4",
+        "netId": "VCC",
+        "xMm": 25,
+        "yMm": 16.38,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "timer-1",
+        "reference": "U1",
+        "pin": "5",
+        "number": "5",
+        "netId": "CONTROL",
+        "xMm": 32.62,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "timer-1",
+        "reference": "U1",
+        "pin": "6",
+        "number": "6",
+        "netId": "TIMING",
+        "xMm": 32.62,
+        "yMm": 21.46,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "timer-1",
+        "reference": "U1",
+        "pin": "7",
+        "number": "7",
+        "netId": "DISCHARGE",
+        "xMm": 32.62,
+        "yMm": 18.92,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "timer-1",
+        "reference": "U1",
+        "pin": "8",
+        "number": "8",
+        "netId": "VCC",
+        "xMm": 32.62,
+        "yMm": 16.38,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "ra-1",
+        "reference": "RA",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 42,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "ra-1",
+        "reference": "RA",
+        "pin": "2",
+        "number": "2",
+        "netId": "DISCHARGE",
+        "xMm": 52,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "rb-1",
+        "reference": "RB",
+        "pin": "1",
+        "number": "1",
+        "netId": "DISCHARGE",
+        "xMm": 52,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "rb-1",
+        "reference": "RB",
+        "pin": "2",
+        "number": "2",
+        "netId": "TIMING",
+        "xMm": 62,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "timing-capacitor-1",
+        "reference": "CT",
+        "pin": "1",
+        "number": "1",
+        "netId": "TIMING",
+        "xMm": 52,
+        "yMm": 30,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "timing-capacitor-1",
+        "reference": "CT",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 54.5,
+        "yMm": 30,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "control-capacitor-1",
+        "reference": "CCTRL",
+        "pin": "1",
+        "number": "1",
+        "netId": "CONTROL",
+        "xMm": 36,
+        "yMm": 32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "control-capacitor-1",
+        "reference": "CCTRL",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 41,
+        "yMm": 32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-resistor-1",
+        "reference": "RLED",
+        "pin": "1",
+        "number": "1",
+        "netId": "OUTPUT",
+        "xMm": 30,
+        "yMm": 41,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-resistor-1",
+        "reference": "RLED",
+        "pin": "2",
+        "number": "2",
+        "netId": "LED_A",
+        "xMm": 40,
+        "yMm": 41,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "netId": "LED_A",
+        "xMm": 62,
+        "yMm": 41,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "led-1",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 64.54,
+        "yMm": 41,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "bypass-1",
+        "reference": "CBYP",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 15,
+        "yMm": 12,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "bypass-1",
+        "reference": "CBYP",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 20,
+        "yMm": 12,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            5
+          ],
+          [
+            15,
+            5
+          ],
+          [
+            15,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            15,
+            12
+          ],
+          [
+            15,
+            14
+          ],
+          [
+            25,
+            14
+          ],
+          [
+            25,
+            16.38
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25,
+            16.38
+          ],
+          [
+            32.62,
+            16.38
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.62,
+            16.38
+          ],
+          [
+            36,
+            16.38
+          ],
+          [
+            36,
+            8
+          ],
+          [
+            42,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "DISCHARGE",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.62,
+            18.92
+          ],
+          [
+            38,
+            18.92
+          ],
+          [
+            38,
+            12
+          ],
+          [
+            52,
+            12
+          ],
+          [
+            52,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "DISCHARGE",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            52,
+            8
+          ],
+          [
+            52,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "TIMING",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            62,
+            20
+          ],
+          [
+            62,
+            27
+          ],
+          [
+            52,
+            27
+          ],
+          [
+            52,
+            30
+          ]
+        ]
+      },
+      {
+        "netId": "TIMING",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.62,
+            21.46
+          ],
+          [
+            42,
+            21.46
+          ],
+          [
+            42,
+            30
+          ],
+          [
+            52,
+            30
+          ]
+        ]
+      },
+      {
+        "netId": "TIMING",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25,
+            21.46
+          ],
+          [
+            32.62,
+            21.46
+          ]
+        ]
+      },
+      {
+        "netId": "OUTPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25,
+            18.92
+          ],
+          [
+            11,
+            18.92
+          ],
+          [
+            11,
+            41
+          ],
+          [
+            30,
+            41
+          ]
+        ]
+      },
+      {
+        "netId": "LED_A",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            40,
+            41
+          ],
+          [
+            62,
+            41
+          ]
+        ]
+      },
+      {
+        "netId": "CONTROL",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.62,
+            24
+          ],
+          [
+            36,
+            24
+          ],
+          [
+            36,
+            32
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            7.54
+          ],
+          [
+            4,
+            9.5
+          ],
+          [
+            20,
+            9.5
+          ],
+          [
+            20,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            7.54
+          ],
+          [
+            4,
+            24
+          ],
+          [
+            25,
+            24
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25,
+            24
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            54.5,
+            37
+          ],
+          [
+            54.5,
+            30
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            54.5,
+            30
+          ],
+          [
+            54.5,
+            33
+          ],
+          [
+            41,
+            33
+          ],
+          [
+            41,
+            32
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            54.5,
+            30
+          ],
+          [
+            64.54,
+            30
+          ],
+          [
+            64.54,
+            41
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "5 V VCC",
+          "2": "GND"
+        },
+        "limitations": [
+          "Confirm drill and annular-ring rules with the selected fabricator."
+        ]
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "NE555P",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/ne555.pdf",
+        "package": "PDIP-8, 2.54 mm lead pitch, 7.62 mm row spacing",
+        "pinMapping": {
+          "1": "GND",
+          "2": "TIMING",
+          "3": "OUTPUT",
+          "4": "VCC",
+          "5": "CONTROL",
+          "6": "TIMING",
+          "7": "DISCHARGE",
+          "8": "VCC"
+        }
+      },
+      {
+        "reference": "RA",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay MRS25 axial, 10 mm formed lead centers",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "DISCHARGE"
+        }
+      },
+      {
+        "reference": "RB",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay MRS25 axial, 10 mm formed lead centers",
+        "pinMapping": {
+          "1": "DISCHARGE",
+          "2": "TIMING"
+        }
+      },
+      {
+        "reference": "CT",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "ECA1VMH101I",
+        "sourceUrl": "https://na.industrial.panasonic.com/products/capacitors/aluminum-electrolytic-capacitors/series/84119/model/88360",
+        "package": "Polarized radial 100 µF / 35 V, 2.5 mm pitch",
+        "pinMapping": {
+          "1": "TIMING",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "CCTRL",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1103J189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "10 nF film, 5 mm pitch",
+        "pinMapping": {
+          "1": "CONTROL",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "RLED",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay MRS25 axial, 10 mm formed lead centers",
+        "pinMapping": {
+          "1": "OUTPUT",
+          "2": "LED_A"
+        }
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "5 mm red radial LED, 2.54 mm pitch",
+        "pinMapping": {
+          "1": "LED_A",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "CBYP",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "100 nF film, 5 mm pitch",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "source-1",
+        "reference": "V1",
+        "reason": "A regulated, current-limited 5 V bench source connects to J1."
+      },
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; J1 pin 2 and the routed ground net provide the physical return."
+      }
+    ],
+    "fabricationNotes": [
+      "Use a regulated, current-limited 5 V source at J1. Orient U1 by its pin-1 marker and observe CT and LED polarity.",
+      "CBYP is the 100 nF VCC-to-GND capacitor and CCTRL is the 10 nF control-pin capacitor. Verify component fit and drill rules.",
+      "The analytical result uses ideal switching and nominal R/C values. Timer output saturation and component tolerances affect a real build."
+    ]
+  },
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "timer-1:1": "F12",
+      "timer-1:2": "F13",
+      "timer-1:3": "F14",
+      "timer-1:4": "F15",
+      "timer-1:5": "E15",
+      "timer-1:6": "E14",
+      "timer-1:7": "E13",
+      "timer-1:8": "E12",
+      "ra-1:1": "A18",
+      "ra-1:2": "A22",
+      "rb-1:1": "D22",
+      "rb-1:2": "D26",
+      "timing-capacitor-1:1": "A26",
+      "timing-capacitor-1:2": "A27",
+      "control-capacitor-1:1": "A8",
+      "control-capacitor-1:2": "A10",
+      "led-resistor-1:1": "G17",
+      "led-resistor-1:2": "G21",
+      "led-1:A": "G23",
+      "led-1:K": "G24",
+      "bypass-1:1": "C4",
+      "bypass-1:2": "C6"
+    },
+    "jumpers": [
+      {
+        "from": "TP4",
+        "to": "C4"
+      },
+      {
+        "from": "C6",
+        "to": "BM6"
+      },
+      {
+        "from": "TP12",
+        "to": "E12"
+      },
+      {
+        "from": "TP15",
+        "to": "F15"
+      },
+      {
+        "from": "TP18",
+        "to": "A18"
+      },
+      {
+        "from": "F12",
+        "to": "BM12"
+      },
+      {
+        "from": "E13",
+        "to": "A22"
+      },
+      {
+        "from": "E14",
+        "to": "A26"
+      },
+      {
+        "from": "F13",
+        "to": "B26"
+      },
+      {
+        "from": "A27",
+        "to": "BM25"
+      },
+      {
+        "from": "E15",
+        "to": "A8"
+      },
+      {
+        "from": "A10",
+        "to": "BM10"
+      },
+      {
+        "from": "F14",
+        "to": "G17"
+      },
+      {
+        "from": "G21",
+        "to": "G23"
+      },
+      {
+        "from": "G24",
+        "to": "BM24"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic reference for the shared physical return on the BB400 ground rail."
+      }
+    ],
+    "physicalNotes": [
+      "Place the NE555P across the center trench with pin 1 at F12. Pin 8 is at E12; both it and reset pin 4 feed from the 5 V rail.",
+      "CT is polarized with positive at A26 and negative at A27. CCTRL is the 10 nF control capacitor, and CBYP is the 100 nF supply bypass.",
+      "Use a regulated, current-limited 5 V source. Verify timer and LED orientation, capacitor polarity, and wiring before applying power."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "source-1",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            283
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "timer-1",
+          "reference": "U1",
+          "manufacturer": "Texas Instruments",
+          "manufacturerPartNumber": "NE555P",
+          "sourceUrl": "https://www.ti.com/lit/ds/symlink/ne555.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 6.6
+          },
+          "positionPx": [
+            300.55172413793105,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "F12",
+              "leadDiameterMm": 0.68,
+              "connection": "direct",
+              "offsetMm": [
+                -3.81,
+                3.81
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "F13",
+              "leadDiameterMm": 0.68,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                3.81
+              ]
+            },
+            {
+              "pin": "3",
+              "hole": "F14",
+              "leadDiameterMm": 0.68,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                3.81
+              ]
+            },
+            {
+              "pin": "4",
+              "hole": "F15",
+              "leadDiameterMm": 0.68,
+              "connection": "direct",
+              "offsetMm": [
+                3.81,
+                3.81
+              ]
+            },
+            {
+              "pin": "5",
+              "hole": "E15",
+              "leadDiameterMm": 0.68,
+              "connection": "direct",
+              "offsetMm": [
+                3.81,
+                -3.81
+              ]
+            },
+            {
+              "pin": "6",
+              "hole": "E14",
+              "leadDiameterMm": 0.68,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                -3.81
+              ]
+            },
+            {
+              "pin": "7",
+              "hole": "E13",
+              "leadDiameterMm": 0.68,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ]
+            },
+            {
+              "pin": "8",
+              "hole": "E12",
+              "leadDiameterMm": 0.68,
+              "connection": "direct",
+              "offsetMm": [
+                -3.81,
+                -3.81
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "ra-1",
+          "reference": "RA",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            428.75862068965523,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A18",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A22",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "rb-1",
+          "reference": "RB",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            507.65517241379314,
+            125
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "D22",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "D26",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "timing-capacitor-1",
+          "reference": "CT",
+          "kind": "radial-capacitor",
+          "manufacturer": "Panasonic",
+          "manufacturerPartNumber": "ECA1VMH101I",
+          "sourceUrl": "https://na.industrial.panasonic.com/products/capacitors/aluminum-electrolytic-capacitors/series/84119/model/88360",
+          "bodyMm": {
+            "width": 6.3,
+            "height": 11.2
+          },
+          "positionPx": [
+            556.9655172413793,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A26",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.25,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.25,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "control-capacitor-1",
+          "reference": "CCTRL",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1103J189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            211.79310344827587,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A8",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A10",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led-resistor-1",
+          "reference": "RLED",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3300FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            409.0344827586207,
+            175
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "G17",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "G21",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led-1",
+          "reference": "D1",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            497.79310344827593,
+            175
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "G23",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "G24",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "bypass-1",
+          "reference": "CBYP",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            132.89655172413794,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "C4",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "C6",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

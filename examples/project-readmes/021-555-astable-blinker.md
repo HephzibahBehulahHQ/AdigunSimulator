@@ -14,27 +14,28 @@ Model an ideal NE555 astable using RA=10 kΩ, RB=10 kΩ, and CT=100 µF; verify 
 | RB | `passive.resistor` | 10 kΩ |
 | CT | `passive.capacitor` | 100 µF |
 | CCTRL | `passive.capacitor` | 10 nF |
+| CBYP | `passive.capacitor` | 100 nF |
 | RLED | `passive.resistor` | 330 Ω |
 | D1 | `diode.led-red` | Vf 2.0 V |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The layout uses a Texas Instruments NE555P in PDIP-8, Vishay MRS25 resistors, a Panasonic ECA1VMH101I polarized timing capacitor, TDK film capacitors, and a Lite-On red indicator.
 
 ## Net connections
 
-- **VCC:** `source-1:+`, `timer-1:8`, `timer-1:4`, `ra-1:1`
+- **VCC:** `source-1:+`, `timer-1:8`, `timer-1:4`, `ra-1:1`, `bypass-1:1`
 - **DISCHARGE:** `timer-1:7`, `ra-1:2`, `rb-1:1`
 - **TIMING:** `timer-1:2`, `timer-1:6`, `rb-1:2`, `timing-capacitor-1:1`
 - **OUTPUT:** `timer-1:3`, `led-resistor-1:1`
 - **LED_A:** `led-resistor-1:2`, `led-1:A`
 - **CONTROL:** `timer-1:5`, `control-capacitor-1:1`
-- **GND:** `source-1:-`, `timer-1:1`, `timing-capacitor-1:2`, `control-capacitor-1:2`, `led-1:K`, `ground-1:0`
+- **GND:** `source-1:-`, `timer-1:1`, `timing-capacitor-1:2`, `control-capacitor-1:2`, `bypass-1:2`, `led-1:K`, `ground-1:0`
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 layout puts U1 across the center trench with pin 1 at F12 and pin 8 at E12. CT positive is at A26 and negative at A27. CCTRL spans A8/A10 and CBYP spans C4/C6. Follow the stored jumper map and verify diode and capacitor polarity before powering from a regulated, current-limited 5 V source.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The project stores a routed 72 × 50 mm two-layer PCB and generates BOM, Gerber and drill outputs. J1 accepts the 5 V source. Check part fit, polarity, and fabricator rules before ordering. Timing is a nominal estimate, and real output amplitude and duty cycle vary with component tolerances and timer behavior.
 
 ## Acceptance test and expected result
 
