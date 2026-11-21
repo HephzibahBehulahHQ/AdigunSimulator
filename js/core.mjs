@@ -72,6 +72,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-dff-ideal", category: "Active", type: "Ideal positive-edge D flip-flop (static logic)", prefix: "U", pins: ["D", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge D flip-flop", simulation: "analytical-d-flip-flop", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.sn74hc74n-register", category: "Active", type: "SN74HC74N flip-flop 1 (ideal logic)", prefix: "U", pins: ["CLR", "D", "CLK", "PRE", "Q", "GND", "2PRE", "2CLK", "2D", "2CLR", "VCC"], defaultValue: "SN74HC74N", simulation: "analytical-d-flip-flop", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-jk-ideal", category: "Active", type: "Ideal positive-edge JK flip-flop (static logic)", prefix: "U", pins: ["J", "K", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge JK flip-flop", simulation: "analytical-jk-toggle-divider", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.cd4027be-toggle", category: "Active", type: "CD4027BE flip-flop 1 (ideal logic)", prefix: "U", pins: ["2CLK", "2CLR", "2K", "2J", "2PRE", "GND", "PRE", "J", "K", "CLR", "CLK", "Q", "VCC"], defaultValue: "CD4027BE", simulation: "analytical-jk-toggle-divider", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-counter-4bit-ideal", category: "Active", type: "Ideal 4-bit binary counter (static state)", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Ideal modulo-16 rising-edge counter", simulation: "analytical-4bit-counter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-bcd-display-ideal", category: "Active", type: "Ideal BCD decade counter and seven-segment decoder", prefix: "U", pins: ["CLK", "RESET_N", "SEG_A", "SEG_B", "SEG_C", "SEG_D", "SEG_E", "SEG_F", "SEG_G", "VCC", "GND"], defaultValue: "Ideal BCD decade counter; common-cathode segments", simulation: "analytical-bcd-counter-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-traffic-fsm-ideal", category: "Active", type: "Ideal six-phase traffic-light state machine", prefix: "U", pins: ["CLK", "RESET_N", "NS_R", "NS_Y", "NS_G", "EW_R", "EW_Y", "EW_G", "VCC", "GND"], defaultValue: "Six-phase traffic-light FSM", simulation: "analytical-traffic-light-fsm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -919,7 +920,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const norGates = project.components.filter((item) => item.libraryId === "active.logic-nor-ideal");
   const norLatchPackage = project.components.find((item) => item.libraryId === "active.sn74hc02n-latch");
   const dFlipFlops = project.components.filter((item) => ["active.logic-dff-ideal", "active.sn74hc74n-register"].includes(item.libraryId));
-  const jkFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-jk-ideal");
+  const jkFlipFlops = project.components.filter((item) => ["active.logic-jk-ideal", "active.cd4027be-toggle"].includes(item.libraryId));
   const fourBitCounters = project.components.filter((item) => item.libraryId === "active.logic-counter-4bit-ideal");
   const bcdDisplays = project.components.filter((item) => item.libraryId === "active.logic-bcd-display-ideal");
   const trafficFsms = project.components.filter((item) => item.libraryId === "active.logic-traffic-fsm-ideal");
@@ -1323,8 +1324,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (fourBitCounters.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && project.components.length === 13) {
     return analyseFourBitCounter(project, { sources: source, counter: fourBitCounters[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
   }
-  if (jkFlipFlops.length === 1 && source.length === 5 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 9) {
-    return analyseJkFlipFlop(project, { sources: source, flipFlop: jkFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], previousState, validation });
+  if (jkFlipFlops.length === 1 && source.length === 5 && resistor.length === 1 && led.length === 1 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 9 + capacitor.length) {
+    return analyseJkFlipFlop(project, { sources: source, flipFlop: jkFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], bypass: capacitor[0], previousState, validation });
   }
   if (dFlipFlops.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 7 + capacitor.length) {
     return analyseDFlipFlop(project, { sources: source, flipFlop: dFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], bypass: capacitor[0], previousState, validation });
@@ -3415,11 +3416,20 @@ function analyseFourBitCounter(project,{sources,counter,resistors,leds,ground,pr
   return {state:"complete",engine:"Ideal modulo-16 four-bit rising-edge counter",message:"Counts one binary step on each rising clock edge, wraps after 15, and resets asynchronously when RESET_N is low. Clock waveform details, propagation delay, metastability, setup/hold timing, and device-specific behavior are not modeled.",result:{kind:"four-bit-binary-counter",supplyVoltage,logicThresholdV:thresholdV,clockVoltage,resetVoltage,clockHigh,resetActive,risingEdge,count,bits,outputCurrents,risingEdgeCount:(previous?.risingEdgeCount||0)+(risingEdge?1:0),bitFrequencyRatios:[0.5,0.25,0.125,0.0625],mode,timingAnnotation:"Clock timing violations and metastability are not simulated."},validation};
 }
 
-function analyseJkFlipFlop(project,{sources,flipFlop,resistor,led,ground,previousState,validation}){
+function analyseJkFlipFlop(project,{sources,flipFlop,resistor,led,ground,bypass,previousState,validation}){
   const netByEndpoint=new Map();
   for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
-  const groundNet=n(ground,"0"),supply=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")!==groundNet);
+  const groundNet=n(ground,"0"),supplyNet=n(flipFlop,"VCC");
+  const supply=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")===supplyNet&&supplyNet!==groundNet);
+  const activeHighClear=flipFlop.libraryId==="active.cd4027be-toggle";
+  const clearPolarity=activeHighClear?"active-high":"active-low";
+  if(activeHighClear&&["2CLK","2CLR","2K","2J","2PRE"].some(pin=>n(flipFlop,pin)!==groundNet)){
+    return {state:"blocked",message:"Tie all unused CD4027BE inputs to ground.",validation};
+  }
+  if(bypass&&!validSupplyBypass(bypass,n,supplyNet,groundNet)){
+    return {state:"blocked",message:"Connect a positive-valued bypass capacitor directly between the JK flip-flop supply and ground.",validation};
+  }
   const sourceFor=(pin)=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===n(flipFlop,pin));
   const jSource=sourceFor("J"),kSource=sourceFor("K"),clockSource=sourceFor("CLK"),clearSource=sourceFor("CLR");
   const outputNet=n(flipFlop,"Q");
@@ -3430,20 +3440,21 @@ function analyseJkFlipFlop(project,{sources,flipFlop,resistor,led,ground,previou
   const resistance=resistanceValue(resistor.value),forwardV=forwardVoltage(led.value),thresholdV=supplyVoltage/2;
   if(!supply||!jSource||!kSource||!clockSource||!clearSource||!outputPath
     ||n(flipFlop,"VCC")!==n(supply,"+")||n(flipFlop,"GND")!==groundNet
-    ||n(flipFlop,"PRE")!==n(supply,"+")||n(led,"K")!==groundNet
+    ||n(flipFlop,"PRE")!==(activeHighClear?groundNet:supplyNet)||n(led,"K")!==groundNet
     ||![supplyVoltage,jVoltage,kVoltage,clockVoltage,clearVoltage,resistance,forwardV].every(Number.isFinite)
     ||supplyVoltage<=0||[jVoltage,kVoltage,clockVoltage,clearVoltage].some(v=>v<0||v>supplyVoltage)
     ||resistance<=0||forwardV<=0){
-    return {state:"blocked",message:"Wire the ideal JK flip-flop, inactive preset, active-low clear input, 0–VCC J/K/clock controls, and a current-limited Q indicator.",validation};
+    return {state:"blocked",message:`Wire the ideal JK flip-flop, inactive preset, ${clearPolarity} clear input, 0–VCC J/K/clock controls, and a current-limited Q indicator.`,validation};
   }
-  const clockHigh=clockVoltage>=thresholdV,jHigh=jVoltage>=thresholdV,kHigh=kVoltage>=thresholdV,clearActive=clearVoltage<thresholdV;
+  const clockHigh=clockVoltage>=thresholdV,jHigh=jVoltage>=thresholdV,kHigh=kVoltage>=thresholdV;
+  const clearActive=activeHighClear?clearVoltage>=thresholdV:clearVoltage<thresholdV;
   const previous=previousState?.result,previousClockHigh=previous?.clockHigh,previousQ=previous?.q;
   const risingEdge=previousClockHigh===false&&clockHigh;
   if(!clearActive&&clockHigh&&typeof previousClockHigh!=="boolean"){
     return {state:"blocked",message:"Start with the clock low, then apply a rising edge so the simulator can distinguish a clock transition.",validation};
   }
   if(jHigh&&kHigh&&risingEdge&&typeof previousQ!=="boolean"&&!clearActive){
-    return {state:"blocked",message:"Initialize the JK flip-flop with active-low clear before using toggle mode.",validation};
+    return {state:"blocked",message:`Initialize the JK flip-flop with ${clearPolarity} clear before using toggle mode.`,validation};
   }
   let q,mode;
   if(clearActive){q=false;mode="asynchronous clear";}
@@ -3454,7 +3465,7 @@ function analyseJkFlipFlop(project,{sources,flipFlop,resistor,led,ground,previou
   const qBar=typeof q==="boolean"?!q:null,qVoltage=q===true?supplyVoltage:0;
   const ledCurrentA=q===true?Math.max(0,(qVoltage-forwardV)/resistance):0;
   const risingEdgeCount=(previous?.risingEdgeCount||0)+(risingEdge?1:0);
-  return {state:"complete",engine:"Ideal positive-edge JK flip-flop with asynchronous clear",message:"Models J/K state transitions on rising clock edges and asynchronous active-low clear. When J=K=1, Q toggles once per rising edge and the ideal output repetition rate is half the clock rate. Setup/hold timing, propagation delay, metastability and device-specific limits are not modeled.",result:{kind:"jk-toggle-divider",supplyVoltage,logicThresholdV:thresholdV,jVoltage,kVoltage,clockVoltage,clearVoltage,jHigh,kHigh,clockHigh,clearActive,risingEdge,risingEdgeCount,q,qBar,qVoltage,ledCurrentA,mode,outputToClockFrequencyRatio:jHigh&&kHigh?0.5:null,timingAnnotation:"Setup/hold violations and metastability are not simulated."},validation};
+  return {state:"complete",engine:"Ideal positive-edge JK flip-flop with asynchronous clear",message:`Models J/K state transitions on rising clock edges and asynchronous ${clearPolarity} clear. When J=K=1, Q toggles once per rising edge and the ideal output repetition rate is half the clock rate. Setup/hold timing, propagation delay, metastability and device-specific limits are not modeled.`,result:{kind:"jk-toggle-divider",supplyVoltage,logicThresholdV:thresholdV,jVoltage,kVoltage,clockVoltage,clearVoltage,jHigh,kHigh,clockHigh,clearActive,risingEdge,risingEdgeCount,q,qBar,qVoltage,ledCurrentA,mode,outputToClockFrequencyRatio:jHigh&&kHigh?0.5:null,timingAnnotation:"Setup/hold violations and metastability are not simulated."},validation};
 }
 
 function analyseDFlipFlop(project,{sources,flipFlop,resistor,led,ground,bypass,previousState,validation}){

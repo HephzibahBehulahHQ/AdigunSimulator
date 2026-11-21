@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 78,
-    "withoutStoredPcb": 138,
+    "withStoredPcb": 79,
+    "withoutStoredPcb": 137,
     "unexpectedFailures": []
   },
   "entries": [
@@ -926,52 +926,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "d81b7019d6ceb69c109e1b586d6ec138a27e484436628f58e1885c881751e0bb",
-      "components": 9,
+      "sha256": "5b7d2df547f3809de234064eb4b5a45e761d3f1eb190dd3c037244aa60a13784",
+      "components": 10,
       "analysis": "complete",
       "engine": "Ideal positive-edge JK flip-flop with asynchronous clear",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "J",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "K",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "CLK",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "CLR",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-jk-ideal"
-        },
-        {
-          "reference": "RQ",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DQ",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "ground",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 32,
+      "pcbRoutes": 21,
+      "unmapped": []
     },
     {
       "file": "047-four-bit-binary-counter.adigun.json",

@@ -1985,7 +1985,7 @@ test("catalogue JK toggle divider toggles on each rising edge and clears asynchr
   assert.equal(cleared.result.mode, "asynchronous clear");
   assert.equal(cleared.result.q, false);
 
-  let released = updateComponent(project, "clear-input", { value: "5 V" });
+  let released = updateComponent(project, "clear-input", { value: "0 V" });
   const lowClock = runSupportedAnalysis(released, { previousState: cleared });
   assert.equal(lowClock.result.mode, "low-level hold");
   assert.equal(lowClock.result.q, false);
@@ -1995,6 +1995,7 @@ test("catalogue JK toggle divider toggles on each rising edge and clears asynchr
   assert.equal(first.result.risingEdge, true);
   assert.equal(first.result.mode, "toggle");
   assert.equal(first.result.q, true);
+  assert.equal(first.result.ledCurrentA, 0.0003);
   assert.equal(first.result.risingEdgeCount, 1);
   assert.equal(first.result.outputToClockFrequencyRatio, 0.5);
 
@@ -2007,7 +2008,7 @@ test("catalogue JK toggle divider toggles on each rising edge and clears asynchr
   assert.equal(second.result.q, false);
   assert.equal(second.result.risingEdgeCount, 2);
 
-  const clearedAgain = runSupportedAnalysis(updateComponent(secondEdge, "clear-input", { value: "0 V" }), { previousState: second });
+  const clearedAgain = runSupportedAnalysis(updateComponent(secondEdge, "clear-input", { value: "5 V" }), { previousState: second });
   assert.equal(clearedAgain.result.q, false);
   assert.equal(clearedAgain.result.mode, "asynchronous clear");
   assert.equal(runSupportedAnalysis(updateComponent(project, "clock-input", { value: "6 V" })).state, "blocked");
