@@ -74,6 +74,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-jk-ideal", category: "Active", type: "Ideal positive-edge JK flip-flop (static logic)", prefix: "U", pins: ["J", "K", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge JK flip-flop", simulation: "analytical-jk-toggle-divider", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.cd4027be-toggle", category: "Active", type: "CD4027BE flip-flop 1 (ideal logic)", prefix: "U", pins: ["2CLK", "2CLR", "2K", "2J", "2PRE", "GND", "PRE", "J", "K", "CLR", "CLK", "Q", "VCC"], defaultValue: "CD4027BE", simulation: "analytical-jk-toggle-divider", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-counter-4bit-ideal", category: "Active", type: "Ideal 4-bit binary counter (static state)", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Ideal modulo-16 rising-edge counter", simulation: "analytical-4bit-counter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.sn74hc161n-counter", category: "Active", type: "SN74HC161N binary counter (ideal logic)", prefix: "U", pins: ["RESET_N", "CLK", "A", "B", "C", "D", "ENP", "GND", "LOAD_N", "ENT", "Q3", "Q2", "Q1", "Q0", "VCC"], defaultValue: "SN74HC161N", simulation: "analytical-4bit-counter", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-bcd-display-ideal", category: "Active", type: "Ideal BCD decade counter and seven-segment decoder", prefix: "U", pins: ["CLK", "RESET_N", "SEG_A", "SEG_B", "SEG_C", "SEG_D", "SEG_E", "SEG_F", "SEG_G", "VCC", "GND"], defaultValue: "Ideal BCD decade counter; common-cathode segments", simulation: "analytical-bcd-counter-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-traffic-fsm-ideal", category: "Active", type: "Ideal six-phase traffic-light state machine", prefix: "U", pins: ["CLK", "RESET_N", "NS_R", "NS_Y", "NS_G", "EW_R", "EW_Y", "EW_G", "VCC", "GND"], defaultValue: "Six-phase traffic-light FSM", simulation: "analytical-traffic-light-fsm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-debounce-ideal", category: "Active", type: "Ideal N-sample digital debounce filter", prefix: "U", pins: ["INPUT", "CLK", "RESET_N", "Q", "VCC", "GND"], defaultValue: "Stable samples 3", simulation: "analytical-digital-debounce", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -921,7 +922,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const norLatchPackage = project.components.find((item) => item.libraryId === "active.sn74hc02n-latch");
   const dFlipFlops = project.components.filter((item) => ["active.logic-dff-ideal", "active.sn74hc74n-register"].includes(item.libraryId));
   const jkFlipFlops = project.components.filter((item) => ["active.logic-jk-ideal", "active.cd4027be-toggle"].includes(item.libraryId));
-  const fourBitCounters = project.components.filter((item) => item.libraryId === "active.logic-counter-4bit-ideal");
+  const fourBitCounters = project.components.filter((item) => ["active.logic-counter-4bit-ideal", "active.sn74hc161n-counter"].includes(item.libraryId));
   const bcdDisplays = project.components.filter((item) => item.libraryId === "active.logic-bcd-display-ideal");
   const trafficFsms = project.components.filter((item) => item.libraryId === "active.logic-traffic-fsm-ideal");
   const debounceFilters = project.components.filter((item) => item.libraryId === "active.logic-debounce-ideal");
@@ -1321,8 +1322,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (bcdDisplays.length === 1 && source.length === 3 && resistor.length === 7 && led.length === 7 && ground.length === 1 && project.components.length === 19) {
     return analyseBcdCounterDisplay(project, { sources: source, counter: bcdDisplays[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
   }
-  if (fourBitCounters.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && project.components.length === 13) {
-    return analyseFourBitCounter(project, { sources: source, counter: fourBitCounters[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
+  if (fourBitCounters.length === 1 && source.length === 3 && resistor.length === 4 && led.length === 4 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 13 + capacitor.length) {
+    return analyseFourBitCounter(project, { sources: source, counter: fourBitCounters[0], resistors: resistor, leds: led, ground: ground[0], bypass: capacitor[0], previousState, validation });
   }
   if (jkFlipFlops.length === 1 && source.length === 5 && resistor.length === 1 && led.length === 1 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 9 + capacitor.length) {
     return analyseJkFlipFlop(project, { sources: source, flipFlop: jkFlipFlops[0], resistor: resistor[0], led: led[0], ground: ground[0], bypass: capacitor[0], previousState, validation });
@@ -3372,11 +3373,18 @@ function analyseBcdCounterDisplay(project,{sources,counter,resistors,leds,ground
   return {state:"complete",engine:"Ideal BCD decade counter and seven-segment decoder",message:"Counts 0 through 9 on rising clock edges and wraps to 0; active-low reset initializes zero. Display segments are ideal static outputs. Clock timing, propagation delay, setup/hold, metastability, decoder loading, and device-specific behavior are not modeled.",result:{kind:"bcd-counter-display",supplyVoltage,logicThresholdV:thresholdV,clockVoltage,resetVoltage,clockHigh,resetActive,risingEdge,digit,bcdBits:digit===null?null:[0,1,2,3].map(bit=>Boolean(digit&(1<<bit))),segmentsOn,segmentCurrents,risingEdgeCount:(previous?.risingEdgeCount||0)+(risingEdge?1:0),mode:resetActive?"asynchronous reset":risingEdge?"count":clockHigh?"high-level hold":"low-level hold",timingAnnotation:"Setup/hold and decoder propagation behavior are not simulated."},validation};
 }
 
-function analyseFourBitCounter(project,{sources,counter,resistors,leds,ground,previousState,validation}){
+function analyseFourBitCounter(project,{sources,counter,resistors,leds,ground,bypass,previousState,validation}){
   const netByEndpoint=new Map();
   for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),vccNet=n(counter,"VCC");
+  if(counter.libraryId==="active.sn74hc161n-counter"
+    &&(["ENP","ENT","LOAD_N"].some(pin=>n(counter,pin)!==vccNet)||["A","B","C","D"].some(pin=>n(counter,pin)!==groundNet))){
+    return {state:"blocked",message:"Tie ENP, ENT and LOAD_N to VCC for count mode, and ground all four unused parallel data inputs.",validation};
+  }
+  if(bypass&&!validSupplyBypass(bypass,n,vccNet,groundNet)){
+    return {state:"blocked",message:"Connect a positive-valued bypass capacitor directly between the counter supply and ground.",validation};
+  }
   const supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
   const clockNet=n(counter,"CLK"),resetNet=n(counter,"RESET_N");
   const clockSource=sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===clockNet);

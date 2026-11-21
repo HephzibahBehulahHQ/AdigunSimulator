@@ -2039,6 +2039,7 @@ test("catalogue four-bit counter counts rising edges through 15 and wraps to zer
     assert.equal(state.result.count, expected & 15);
     assert.equal(state.result.risingEdge, true);
     assert.equal(state.result.risingEdgeCount, expected);
+    assert.deepEqual(state.result.outputCurrents, [0, 1, 2, 3].map(bit => (expected & (1 << bit)) ? 3 / 2200 : 0));
     stateProject = updateComponent(stateProject, "clock-input", { value: "0 V" });
     state = runSupportedAnalysis(stateProject, { previousState: state });
     assert.equal(state.result.count, expected & 15);

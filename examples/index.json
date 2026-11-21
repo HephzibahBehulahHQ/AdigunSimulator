@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 79,
-    "withoutStoredPcb": 137,
+    "withStoredPcb": 80,
+    "withoutStoredPcb": 136,
     "unexpectedFailures": []
   },
   "entries": [
@@ -942,68 +942,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "0b7e22fe34b16d6552ff8db51189552b373c82290298181519f7fa9b6051f0f1",
-      "components": 13,
+      "sha256": "408ea6d0a5c52e071c6eb9301e547ad65721c4524112f9f69a2f3268a085e190",
+      "components": 14,
       "analysis": "complete",
       "engine": "Ideal modulo-16 four-bit rising-edge counter",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "CLK",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "RESET_N",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-counter-4bit-ideal"
-        },
-        {
-          "reference": "R0",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R3",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D0",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D2",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D3",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 13,
+      "pcbPads": 40,
+      "pcbRoutes": 27,
+      "unmapped": []
     },
     {
       "file": "048-bcd-counter-display.adigun.json",
