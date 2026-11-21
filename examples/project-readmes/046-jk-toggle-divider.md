@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use J=K=1 so Q toggles on each rising clock edge; assert asynchronous active-low clear initializes Q and the output frequency ratio is one half of the clock rate in ideal toggle mode.
+Use J=K=1 so Q toggles on each rising clock edge; assert asynchronous active-high clear initializes Q and the output frequency ratio is one half of the clock rate in ideal toggle mode.
 
 ## Bill of materials
 
@@ -12,9 +12,10 @@ Use J=K=1 so Q toggles on each rising clock edge; assert asynchronous active-low
 | J | `power.dc-source` | 5 V |
 | K | `power.dc-source` | 5 V |
 | CLK | `power.dc-source` | 0 V |
-| CLR | `power.dc-source` | 0 V |
-| U1 | `active.logic-jk-ideal` | Ideal positive-edge JK flip-flop |
-| RQ | `passive.resistor` | 330 Ω |
+| CLR | `power.dc-source` | 5 V |
+| U1 | `active.cd4027be-toggle` | CD4027BE |
+| C1 | `passive.capacitor` | 100 nF |
+| RQ | `passive.resistor` | 10 kΩ |
 | DQ | `diode.led-red` | Vf 2 V |
 | ground | `ground.signal` | 0 V |
 
@@ -22,8 +23,8 @@ These are the exact component records in the native example file. A library ID a
 
 ## Net connections
 
-- **VCC:** `supply:+`, `jk-ff:VCC`, `jk-ff:PRE`
-- **GND:** `supply:-`, `j-input:-`, `k-input:-`, `clock-input:-`, `clear-input:-`, `jk-ff:GND`, `q-led:K`, `ground:0`
+- **VCC:** `supply:+`, `jk-ff:VCC`, `bypass:1`
+- **GND:** `supply:-`, `j-input:-`, `k-input:-`, `clock-input:-`, `clear-input:-`, `jk-ff:GND`, `q-led:K`, `ground:0`, `jk-ff:PRE`, `jk-ff:2CLK`, `jk-ff:2CLR`, `jk-ff:2K`, `jk-ff:2J`, `jk-ff:2PRE`, `bypass:2`
 - **J:** `j-input:+`, `jk-ff:J`
 - **K:** `k-input:+`, `jk-ff:K`
 - **CLOCK:** `clock-input:+`, `jk-ff:CLK`
@@ -33,9 +34,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly places the TI CD4027BE with pin 1 at F12. SET1 and the unused channel inputs are grounded. C1 bypasses the supply. The 10 kΩ indicator load draws an ideal 0.30 mA with the modeled LED drop. Actual output voltage and LED visibility require bench verification. See the [TI datasheet](https://www.ti.com/lit/ds/symlink/cd4027b.pdf), pin functions, static output characteristics, and N-PDIP drawing.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 49 × 47 mm two-layer PCB uses the CD4027BE N-PDIP pin map. J1 supplies +5 V. J2 through J5 connect J, K, CLOCK and RESET with individual common-return pins. The fabrication export checks connectivity, clearance and board fit. The pad and drill pattern uses project-selected dimensions and awaits independent physical fit review.
 
 ## Acceptance test and expected result
 

@@ -2004,7 +2004,7 @@
       "id": "046-jk-toggle-divider",
       "title": "JK flip-flop toggle divider",
       "status": "released",
-      "objective": "Use J=K=1 so Q toggles on each rising clock edge; assert asynchronous active-low clear initializes Q and the output frequency ratio is one half of the clock rate in ideal toggle mode.",
+      "objective": "Use J=K=1 so Q toggles on each rising clock edge; assert asynchronous active-high clear initializes Q and the output frequency ratio is one half of the clock rate in ideal toggle mode.",
       "acceptanceTest": "tests/core.test.mjs: catalogue JK toggle divider toggles on each rising edge and clears asynchronously",
       "testId": "core-jk-toggle-divider",
       "projectFile": "examples/046-jk-toggle-divider.adigun.json",
