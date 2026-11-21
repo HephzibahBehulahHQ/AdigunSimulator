@@ -20,6 +20,7 @@ export function analyticalScopeRecording(project,analysis){
  if(['comparator-threshold','schmitt-trigger'].includes(kind))return comparatorRecording(project,r);
  if(kind==='window-comparator')return windowComparatorRecording(project,r);
  if(kind==='electret-audio-preamp')return electretPreampRecording(project,r);
+ if(kind==='audio-power-amplifier')return audioPowerRecording(project,r);
  if(['opamp-noninverting','opamp-inverting','opamp-voltage-follower'].includes(kind))return opAmpMidbandRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
@@ -37,6 +38,30 @@ export function analyticalScopeRecording(project,analysis){
   return {timeSeconds,nodeVoltages:{[ground]:0,[power]:voltage,[output]:high?voltage:0}};
  });
  return {kind:'analytical-output-recording',model:kind==='stm32-timer-pwm'?'Ideal STM32 PWM output':'Ideal 555 output timing',preferredNet:output,samples};
+}
+
+function audioPowerRecording(project,result) {
+ const amp=project.components.find(component=>['active.audio-amp-generic','active.lm386n1-gain20'].includes(component.libraryId));
+ const speaker=project.components.find(component=>component.libraryId==='passive.speaker-r-l-generic');
+ if(!amp||!speaker||result.clipped!==false)return null;
+ const net=(component,pin)=>project.nets.find(item=>item.endpoints.includes(`${component.instanceId}:${pin}`))?.id;
+ const input=net(amp,'IN'),output=net(amp,'OUT'),load=net(speaker,'+'),ground=net(amp,'GND');
+ if(![input,output,load,ground].every(Boolean)||new Set([input,output,load,ground]).size!==4||net(speaker,'-')!==ground)return null;
+ const {frequencyHz:frequency,inputAmplitudeV,amplifierOutputAmplitudeV,speakerVoltagePeakV,
+  outputBiasVoltageV,speakerResistanceOhm,speakerInductanceH,couplingCapacitanceF}=result;
+ if(![frequency,inputAmplitudeV,amplifierOutputAmplitudeV,speakerVoltagePeakV,outputBiasVoltageV,
+     speakerResistanceOhm,speakerInductanceH,couplingCapacitanceF].every(Number.isFinite)||
+    frequency<=0||speakerResistanceOhm<=0||speakerInductanceH<0||couplingCapacitanceF<=0)return null;
+ const omega=2*Math.PI*frequency,reactance=omega*speakerInductanceH;
+ const phase=Math.atan2(reactance,speakerResistanceOhm)-Math.atan2(reactance-1/(omega*couplingCapacitanceF),speakerResistanceOhm);
+ const samples=Array.from({length:481},(_,index)=>{
+  const cycle=index/120,angle=2*Math.PI*cycle;
+  return {timeSeconds:cycle/frequency,nodeVoltages:{
+   [input]:inputAmplitudeV*Math.sin(angle),[output]:outputBiasVoltageV+amplifierOutputAmplitudeV*Math.sin(angle),
+   [load]:speakerVoltagePeakV*Math.sin(angle+phase),[ground]:0
+  }};
+ });
+ return {kind:'analytical-output-recording',model:'Ideal class-AB fundamental and series R-L load',preferredNet:load,samples};
 }
 
 function electretPreampRecording(project,result) {

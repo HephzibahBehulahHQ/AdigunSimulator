@@ -35,16 +35,18 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
       continue;
     }
     packages.set(pkg.instanceId, pkg);
-    const allowedKinds = ["to220", "to92", "external-relay", "radial-microphone", "axial-diode", "axial-led", "slide-switch", "trimmer", "bridge-rectifier", "radial-inductor", "radial-capacitor", "box-capacitor", "radial-ptc", "radial-ntc", "photoresistor", "pdip", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
+    const allowedKinds = ["to220", "to92", "external-relay", "external-speaker", "radial-microphone", "axial-diode", "axial-led", "slide-switch", "trimmer", "bridge-rectifier", "radial-inductor", "radial-capacitor", "box-capacitor", "radial-ptc", "radial-ntc", "photoresistor", "pdip", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
     const externalSupply = pkg.kind === "external-supply";
     const externalRelay = pkg.kind === "external-relay";
-    const offBoard = externalSupply || externalRelay || pkg.kind === "external-axial-resistor" || pkg.kind === "external-pushbutton";
+    const externalSpeaker = pkg.kind === "external-speaker";
+    const offBoard = externalSupply || externalRelay || externalSpeaker || pkg.kind === "external-axial-resistor" || pkg.kind === "external-pushbutton";
     if (!allowedKinds.includes(pkg.kind) || (!externalSupply && (!positive(pkg.bodyMm?.width) || !positive(pkg.bodyMm?.height))) || !Array.isArray(pkg.positionPx) || pkg.positionPx.length !== 2 || !pkg.positionPx.every(Number.isFinite)) {
       errors.push({ code: "BREADBOARD_ASSEMBLY_GEOMETRY", instanceId: pkg.instanceId, message: `${component.reference} is missing a supported package shape, dimensions, or canvas position.` });
     }
     if (pkg.kind === "external-axial-resistor" && pkg.mounting !== "off-board") errors.push({ code: "BREADBOARD_ASSEMBLY_MOUNTING", instanceId: pkg.instanceId, message: `${component.reference} is a power load and must be shown as an off-board package on this BB400 assembly.` });
     if (pkg.kind === "external-pushbutton" && pkg.mounting !== "off-board") errors.push({ code: "BREADBOARD_ASSEMBLY_MOUNTING", instanceId: pkg.instanceId, message: `${component.reference} must be identified as an off-board pushbutton when its terminals use pigtails.` });
     if (externalRelay && (pkg.mounting !== "off-board" || pkg.pins?.some(pin => pin.connection !== "pigtail"))) errors.push({ code: "BREADBOARD_ASSEMBLY_MOUNTING", instanceId: pkg.instanceId, message: `${component.reference} requires an off-board mount with insulated coil pigtails.` });
+    if (externalSpeaker && (pkg.mounting !== "off-board" || pkg.pins?.some(pin => pin.connection !== "pigtail"))) errors.push({ code: "BREADBOARD_ASSEMBLY_MOUNTING", instanceId: pkg.instanceId, message: `${component.reference} requires off-board mounting and insulated speaker leads.` });
     if (!externalSupply && (!pkg.manufacturer || !pkg.manufacturerPartNumber || !/^https:\/\//.test(pkg.sourceUrl ?? ""))) {
       errors.push({ code: "BREADBOARD_ASSEMBLY_PROVENANCE", instanceId: pkg.instanceId, message: `${component.reference} needs manufacturer identity and a package-dimension source.` });
     }
@@ -53,7 +55,8 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
       errors.push({ code: "BREADBOARD_ASSEMBLY_IDENTITY", instanceId: pkg.instanceId, message: `${component.reference} breadboard package identity must match its source-backed PCB part record.` });
     }
     if (!externalSupply && positive(pkg.bodyMm?.width) && positive(pkg.bodyMm?.height) && Array.isArray(pkg.positionPx) && pkg.positionPx.length === 2) {
-      const bounds = { instanceId: pkg.instanceId, left: pkg.positionPx[0] - pkg.bodyMm.width * scaleX / 2, right: pkg.positionPx[0] + pkg.bodyMm.width * scaleX / 2, top: pkg.positionPx[1] - pkg.bodyMm.height * scaleY / 2, bottom: pkg.positionPx[1] + pkg.bodyMm.height * scaleY / 2 };
+      const displayScale = assemblyPackageDisplayScale(pkg);
+      const bounds = { instanceId: pkg.instanceId, left: pkg.positionPx[0] - pkg.bodyMm.width * scaleX * displayScale / 2, right: pkg.positionPx[0] + pkg.bodyMm.width * scaleX * displayScale / 2, top: pkg.positionPx[1] - pkg.bodyMm.height * scaleY * displayScale / 2, bottom: pkg.positionPx[1] + pkg.bodyMm.height * scaleY * displayScale / 2 };
       if (offBoard ? bounds.left < 0 || bounds.right > 680 || bounds.top < 0 || bounds.bottom > 300 : bounds.left < 34 || bounds.right > 646 || bounds.top < 38 || bounds.bottom > 262) errors.push({ code: offBoard ? "BREADBOARD_ASSEMBLY_SCENE_FIT" : "BREADBOARD_ASSEMBLY_BOARD_FIT", instanceId: pkg.instanceId, message: offBoard ? `${component.reference} off-board package extends beyond the printed breadboard scene.` : `${component.reference} package body extends beyond the BB400 board area.` });
       for (const other of bodyBounds) if (bounds.left < other.right + 2 && bounds.right > other.left - 2 && bounds.top < other.bottom + 2 && bounds.bottom > other.top - 2) errors.push({ code: "BREADBOARD_ASSEMBLY_OVERLAP", instanceId: pkg.instanceId, otherInstanceId: other.instanceId, message: `${component.reference} package body overlaps ${parts.get(other.instanceId)?.reference ?? other.instanceId}.` });
       bodyBounds.push(bounds);
@@ -114,6 +117,7 @@ function packageBody(pkg, scaleX, scaleY) {
   if (pkg.kind === "pdip") return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/><path class="breadboard-ptc-seam" d="M${-width / 2} ${-height * .16} a${height * .16} ${height * .16} 0 0 1 0 ${height * .32}"/>`;
   if (pkg.kind === "to92") return `<path class="breadboard-bridge-body" d="M${-width / 2} ${height / 2} V0 Q${-width / 2} ${-height / 2} 0 ${-height / 2} T${width / 2} 0 V${height / 2} Z"/>`;
   if (pkg.kind === "external-relay") return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/>`;
+  if (pkg.kind === "external-speaker") return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="4"/><ellipse class="breadboard-to220-hole" cx="0" cy="0" rx="${width * .38}" ry="${height * .38}"/><text class="breadboard-external-supply-label" x="0" y="4">off-board speaker</text>`;
   if (pkg.kind === "radial-inductor") return `<rect class="breadboard-inductor-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width, height) * .38}"/><path class="breadboard-inductor-seam" d="M${-width * .32} ${-height / 2} V${height / 2} M${width * .32} ${-height / 2} V${height / 2}"/>`;
   if (pkg.kind === "axial-diode") return `<rect class="axial-diode-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${height / 2}"/><path class="diode-cathode-band" d="M${width * .22} ${-height / 2} V${height / 2}"/>`;
   if (pkg.kind === "bridge-rectifier") return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/><text class="breadboard-bridge-mark" x="${-width * .29}" y="${-height * .12}">+</text><text class="breadboard-bridge-mark" x="${width * .29}" y="${-height * .12}">~</text><text class="breadboard-bridge-mark" x="${-width * .29}" y="${height * .39}">~</text><text class="breadboard-bridge-mark" x="${width * .29}" y="${height * .39}">−</text>`;
@@ -123,6 +127,11 @@ function packageBody(pkg, scaleX, scaleY) {
   if (pkg.kind === "terminal-header") return `<rect class="breadboard-terminal-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/><circle class="breadboard-terminal-screw" cx="${-width * .22}" cy="${-height * .18}" r="${Math.max(1.5, height * .12)}"/><circle class="breadboard-terminal-screw" cx="${width * .22}" cy="${-height * .18}" r="${Math.max(1.5, height * .12)}"/>`;
   if (pkg.kind === "through-hole-header") return `<rect class="breadboard-header-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="1"/><path class="breadboard-header-divider" d="M${-width / 2 + width / 2} ${-height / 2} V${height / 2}"/>`;
   return `<rect class="breadboard-external-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="3"/>`;
+}
+
+// Show the off-board speaker at reduced scale so the icon leaves the board accessible.
+function assemblyPackageDisplayScale(pkg) {
+  return pkg.kind === "external-speaker" ? 0.35 : 1;
 }
 
 export function renderBreadboardAssemblySvg(project) {
@@ -138,10 +147,11 @@ export function renderBreadboardAssemblySvg(project) {
   for (const pkg of assembly.packages) {
     const component = componentById.get(pkg.instanceId);
     if (!component || !Array.isArray(pkg.positionPx) || !Array.isArray(pkg.pins)) continue;
-    const [cx, cy] = pkg.positionPx, w = (pkg.bodyMm?.width ?? 0) * scaleX, h = (pkg.bodyMm?.height ?? 0) * scaleY;
+    const displayScale = assemblyPackageDisplayScale(pkg), packageScaleX = scaleX * displayScale, packageScaleY = scaleY * displayScale;
+    const [cx, cy] = pkg.positionPx, h = (pkg.bodyMm?.height ?? 0) * packageScaleY;
     const label = esc(`${pkg.reference} · ${pkg.manufacturerPartNumber ?? "external bench supply"}`);
     const dimensions = pkg.bodyMm ? ` · ${Number(pkg.bodyMm.width).toFixed(2)} × ${Number(pkg.bodyMm.height).toFixed(2)} mm` : " · off-board source";
-    bodies.push(`<g class="breadboard-package breadboard-assembly-package ${pkg.kind}" data-instance-id="${esc(pkg.instanceId)}" role="group" aria-label="${label}"><title>${label}${dimensions}${pkg.sourceUrl ? ` · ${esc(pkg.sourceUrl)}` : ""}</title><g transform="translate(${cx} ${cy})">${packageBody(pkg, scaleX, scaleY)}<text class="breadboard-assembly-reference" x="0" y="${-h / 2 - 3}">${esc(pkg.reference)}</text></g></g>`);
+    bodies.push(`<g class="breadboard-package breadboard-assembly-package ${pkg.kind}" data-instance-id="${esc(pkg.instanceId)}" role="group" aria-label="${label}"><title>${label}${dimensions}${pkg.sourceUrl ? ` · ${esc(pkg.sourceUrl)}` : ""}</title><g transform="translate(${cx} ${cy})">${packageBody(pkg, packageScaleX, packageScaleY)}<text class="breadboard-assembly-reference" x="0" y="${-h / 2 - 3}">${esc(pkg.reference)}</text></g></g>`);
     for (const hole of unusedTerminalHoles(pkg)) {
       const point = breadboardHolePoint(hole);
       if (point) bodies.push(`<circle class="breadboard-terminal-screw" cx="${point.x}" cy="${point.y}" r="2.5"><title>${esc(pkg.reference)} unused terminal at ${esc(hole)}</title></circle>`);
@@ -150,7 +160,7 @@ export function renderBreadboardAssemblySvg(project) {
       const endpoint = `${pkg.instanceId}:${pin.pin}`;
       const hole = normalizeBreadboardHole(project.breadboard?.pinHoles?.[endpoint]);
       if (!hole || !Array.isArray(pin.offsetMm)) continue;
-      const start = { x: cx + pin.offsetMm[0] * scaleX, y: cy + pin.offsetMm[1] * scaleY };
+      const start = { x: cx + pin.offsetMm[0] * packageScaleX, y: cy + pin.offsetMm[1] * packageScaleY };
       const end = breadboardHolePoint(hole);
       const net = netByEndpoint.get(endpoint);
       const lift = Math.max(12, Math.min(34, Math.abs(end.x - start.x) * .07));

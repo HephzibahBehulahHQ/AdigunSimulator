@@ -280,6 +280,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.seven-segment-clock-ideal", category: "Active", type: "Ideal 24-hour clock and seven-segment formatter", prefix: "U", pins: ["RTC", "SEG", "VCC", "GND"], defaultValue: "Mode 24h; Digits 6; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.seven-segment-display", category: "Output", type: "Six-digit seven-segment display report", prefix: "DISP", pins: ["SEG", "VCC", "GND"], defaultValue: "Digits 6; Segments a,b,c,d,e,f,g; Common cathode", simulation: "analytical-seven-segment-clock", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.audio-amp-generic", category: "Active", type: "Generic low-voltage class-AB audio amplifier (LM386-class estimate)", prefix: "U", pins: ["VCC", "GND", "IN", "OUT"], defaultValue: "Av 20; Swing 2 V; Q 4 mA; f 1 kHz", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.lm386n1-gain20", category: "Active", type: "LM386N-1 with open gain pins", prefix: "U", pins: ["VCC", "GND", "IN", "OUT", "IN-", "BYPASS"], defaultValue: "Av 20; Swing 2 V; Q 4 mA; f 1 kHz", simulation: "analytical-audio-power-amp", status: "manufacturer pin map; ideal electrical model", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "passive.speaker-r-l-generic", category: "Output", type: "Generic speaker electrical R-L model", prefix: "SP", pins: ["+", "-"], defaultValue: "R 8 Ω; L 0.5 mH", simulation: "analytical-audio-power-amp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.npn-small-signal", category: "Active", type: "NPN transistor (ideal common-emitter small-signal)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "β 100; VBE 0.7 V; VCEsat 0.2 V", simulation: "analytical-npn-common-emitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "instrument.voltmeter", category: "Instruments", type: "Voltmeter", prefix: "M", pins: ["+", "-"], defaultValue: "DC", simulation: "not modelled", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -1022,7 +1023,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const timers555 = project.components.filter((item) => item.libraryId === "active.ne555");
   const timers556 = project.components.filter((item) => item.libraryId === "active.ne556");
   const opAmps = project.components.filter((item) => item.libraryId === "active.opamp-ideal");
-  const audioAmplifiers = project.components.filter((item) => item.libraryId === "active.audio-amp-generic");
+  const audioAmplifiers = project.components.filter((item) => ["active.audio-amp-generic","active.lm386n1-gain20"].includes(item.libraryId));
   const speakers = project.components.filter((item) => item.libraryId === "passive.speaker-r-l-generic");
   const electretMics = project.components.filter((item) => item.libraryId === "sensor.electret-mic-generic");
   const electretMeterPreamps = project.components.filter((item) => item.libraryId === "active.electret-envelope-preamp-ideal");
@@ -1359,8 +1360,12 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (opAmps.length === 1 && source.length === 3 && acSource.length === 0 && resistor.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseReferenceBuffer(project, { sources: source, opAmp: opAmps[0], load: resistor[0], ground: ground[0], validation });
   }
-  if (audioAmplifiers.length === 1 && speakers.length === 1 && source.length === 1 && acSource.length === 1 && capacitor.length === 1 && ground.length === 1 && project.components.length === 6) {
-    return analyseAudioPowerAmplifier(project, { source: source[0], input: acSource[0], amplifier: audioAmplifiers[0], coupling: capacitor[0], speaker: speakers[0], ground: ground[0], validation });
+  if (audioAmplifiers.length === 1 && speakers.length === 1 && source.length === 1 && acSource.length === 1 && ground.length === 1) {
+    const packaged=audioAmplifiers[0].libraryId==="active.lm386n1-gain20";
+    if ((!packaged&&capacitor.length===1&&project.components.length===6)||
+        (packaged&&capacitor.length===4&&resistor.length===1&&project.components.length===10)) {
+      return analyseAudioPowerAmplifier(project, { source: source[0], input: acSource[0], amplifier: audioAmplifiers[0], capacitors:capacitor, zobel:resistor[0], speaker: speakers[0], ground: ground[0], validation });
+    }
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 1 && resistor.length === 3 && capacitor.length === 1 && ground.length === 1 && project.components.length === 9) {
     return analyseActiveLowPass(project, { sources: source, input: acSource[0], opAmp: opAmps[0], resistors: resistor, capacitor: capacitor[0], ground: ground[0], validation });
@@ -3621,26 +3626,41 @@ function analyseActiveLowPass(project,{sources,input,opAmp,resistors,capacitor,g
   return {state:"complete",engine:"First-order RC active low-pass and ideal non-inverting gain estimate",message:"Combines a first-order RC input low-pass with an ideal non-inverting op-amp gain. It omits op-amp bandwidth, slew rate, noise, output loading, parasitics, and device-specific limits.",result:{kind:"active-low-pass",inputAmplitudeV,inputResistanceOhm:rInput,capacitanceF:c,cutoffHz,passbandGain,feedbackResistanceOhm:rFeedback,gainResistanceOhm:rGain,response,maximumOutputAmplitudeV},validation};
 }
 
-function analyseAudioPowerAmplifier(project,{source,input,amplifier,coupling,speaker,ground,validation}){
+function analyseAudioPowerAmplifier(project,{source,input,amplifier,capacitors,zobel,speaker,ground,validation}){
   const netByEndpoint=new Map();
   for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),vccNet=n(source,"+"),outputNet=n(amplifier,"OUT");
+  const connects=(part,a,b)=>{
+    if(!part||!a||!b||a===b)return false;
+    const first=n(part,"1"),second=n(part,"2");
+    return first===a&&second===b||first===b&&second===a;
+  };
+  const coupling=capacitors.find(part=>connects(part,outputNet,n(speaker,"+")));
+  const packaged=amplifier.libraryId==="active.lm386n1-gain20";
+  if(packaged){
+    const zobelMid=n(zobel,"1")===outputNet?n(zobel,"2"):n(zobel,"2")===outputNet?n(zobel,"1"):null;
+    const bypass=n(amplifier,"BYPASS"),positiveCapBetween=(a,b)=>capacitors.some(part=>connects(part,a,b)&&capacitanceValue(part.value)>0);
+    if(n(amplifier,"IN-")!==groundNet||!positiveCapBetween(vccNet,groundNet)||
+       !positiveCapBetween(bypass,groundNet)||!positiveCapBetween(zobelMid,groundNet)||!(resistanceValue(zobel.value)>0)){
+      return {state:"blocked",message:"Ground LM386 pin 2 and connect separate supply decoupling, pin 7 bypass and series output Zobel networks.",validation};
+    }
+  }
   const fields=String(amplifier.value).match(/Av\s*([^;]+)\s*;\s*Swing\s*([^;]+)\s*;\s*Q\s*([^;]+)\s*;\s*f\s*(.+)/i);
   const speakerFields=String(speaker.value).match(/R\s*([^;]+)\s*;\s*L\s*(.+)/i);
   const gain=fields?Number(fields[1]):Number.NaN,swing=fields?voltageValue(fields[2]):Number.NaN;
   const quiescentCurrent=fields?currentValue(fields[3]):Number.NaN,frequencyHz=fields?frequencyValue(fields[4]):Number.NaN;
   const inputAmplitudeV=voltageValue(input.value),supplyVoltage=voltageValue(source.value);
-  const couplingCapacitance=capacitanceValue(coupling.value);
+  const couplingCapacitance=coupling?capacitanceValue(coupling.value):Number.NaN;
   const speakerResistance=speakerFields?resistanceValue(speakerFields[1]):Number.NaN;
   const speakerInductance=speakerFields?inductanceValue(speakerFields[2]):Number.NaN;
   const amplifierWired=n(source,"-")===groundNet&&n(amplifier,"VCC")===vccNet&&n(amplifier,"GND")===groundNet
     &&n(input,"+")===n(amplifier,"IN")&&n(input,"-")===groundNet;
-  const outputWired=(n(coupling,"1")===outputNet&&n(coupling,"2")===n(speaker,"+"))
-    ||(n(coupling,"2")===outputNet&&n(coupling,"1")===n(speaker,"+"));
+  const outputWired=coupling&&(!packaged||n(coupling,"1")===outputNet);
   if(!amplifierWired||!outputWired||n(speaker,"-")!==groundNet
     ||![gain,swing,quiescentCurrent,frequencyHz,inputAmplitudeV,supplyVoltage,couplingCapacitance,speakerResistance,speakerInductance].every(Number.isFinite)
-    ||gain<=0||swing<=0||quiescentCurrent<0||frequencyHz<=0||inputAmplitudeV<=0||supplyVoltage<=0||couplingCapacitance<=0||speakerResistance<=0||speakerInductance<0){
+    ||gain<=0||swing<=0||quiescentCurrent<0||frequencyHz<=0||inputAmplitudeV<=0||supplyVoltage<=0||couplingCapacitance<=0||speakerResistance<=0||speakerInductance<0
+    ||packaged&&(gain!==20||supplyVoltage<4||supplyVoltage>12)){
     return {state:"blocked",message:"Wire a low-voltage audio amplifier, AC input, output coupling capacitor, and positive R-L speaker load to a common ground.",validation};
   }
   const biasVoltageV=supplyVoltage/2;
