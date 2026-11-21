@@ -14,7 +14,7 @@ Model a 9 V source feeding a 5.1 V ideal Zener through a 330 Ω series resistor 
 | DZ1 | `diode.zener-ideal` | Vz 5.1 V; Pmax 0.5 W |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The physical layout uses a Vishay BZX55C5V1-TAP Zener, Vishay MRS25 resistors, and a Samtec TSW-102-07-T-S input header. Vishay specifies 4.8–5.4 V at 5 mA. The analytical model uses an ideal 5.1 V clamp.
 
 ## Net connections
 
@@ -24,9 +24,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+Connect a regulated, current-limited 9 V source at TP2/BM2. R1 spans A6–A10 and RLOAD spans D14–D18. Place DZ1’s unbanded anode in F14 and banded cathode in F18. Fit jumpers TP2–A6, A10–D14, D14–F18, D18–BM18 and F14–BM14.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The native project stores a 52 × 30 mm single-sided routed PCB. J1 pin 1 takes VIN and pin 2 takes GND. Orient DZ1 with its marked cathode on VOUT. Verify the purchased parts, polarity and fabricator rules before ordering or powering the board.
 
 ## Acceptance test and expected result
 
