@@ -135,5 +135,521 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 52,
+      "heightMm": 30,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "series-resistor-1",
+        "reference": "R1",
+        "footprint": "Vishay_MRS25000C3300FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "load-resistor-1",
+        "reference": "RLOAD",
+        "footprint": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "zener-1",
+        "reference": "DZ1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "BZX55C5V1-TAP",
+        "sourceUrl": "https://www.vishay.com/docs/85604/bzx55.pdf",
+        "footprint": "Vishay_BZX55C5V1-TAP_DO-35_P8.00mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "VIN",
+        "xMm": 4,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 7.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "series-resistor-1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VIN",
+        "xMm": 14,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "series-resistor-1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "VOUT",
+        "xMm": 24,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "load-resistor-1",
+        "reference": "RLOAD",
+        "pin": "1",
+        "number": "1",
+        "netId": "VOUT",
+        "xMm": 32,
+        "yMm": 15,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "load-resistor-1",
+        "reference": "RLOAD",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 42,
+        "yMm": 15,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "zener-1",
+        "reference": "DZ1",
+        "pin": "K",
+        "number": "K",
+        "netId": "VOUT",
+        "xMm": 32,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "zener-1",
+        "reference": "DZ1",
+        "pin": "A",
+        "number": "A",
+        "netId": "GND",
+        "xMm": 40,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VIN",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            5
+          ],
+          [
+            14,
+            5
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            24,
+            5
+          ],
+          [
+            32,
+            5
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32,
+            5
+          ],
+          [
+            32,
+            15
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            7.54
+          ],
+          [
+            4,
+            25
+          ],
+          [
+            42,
+            25
+          ],
+          [
+            42,
+            15
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            42,
+            15
+          ],
+          [
+            42,
+            5
+          ],
+          [
+            40,
+            5
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "9 V VIN",
+          "2": "GND"
+        },
+        "limitations": [
+          "Confirm drill and annular-ring rules with the selected fabricator."
+        ]
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "package": "MRS25 axial, 330 Ω, 1%, 0.6 W",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "limitations": [
+          "The board uses a 10 mm lead-center layout; verify the ordered variant and lead diameter before assembly."
+        ],
+        "pinMapping": {
+          "1": "VIN",
+          "2": "VOUT"
+        }
+      },
+      {
+        "reference": "RLOAD",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "package": "MRS25 axial, 1 kΩ, 1%, 0.6 W",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "limitations": [
+          "The board uses a 10 mm lead-center layout; verify the ordered variant and lead diameter before assembly."
+        ],
+        "pinMapping": {
+          "1": "VOUT",
+          "2": "GND"
+        }
+      },
+      {
+        "instanceId": "zener-1",
+        "reference": "DZ1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "BZX55C5V1-TAP",
+        "sourceUrl": "https://www.vishay.com/docs/85604/bzx55.pdf",
+        "package": "DO-35 axial, body up to 3.9 × 1.7 mm, lead diameter 0.4–0.6 mm",
+        "pinMapping": {
+          "A": "anode / GND",
+          "K": "banded cathode / VOUT"
+        },
+        "limitations": [
+          "8 mm lead centers are a layout choice. The nominal 5.1 V is specified at 5 mA, with 4.8–5.4 V limits at that test current."
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "source-1",
+        "reference": "V1",
+        "reason": "A regulated, current-limited 9 V bench source connects to J1."
+      },
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; J1 pin 2 and the routed ground net provide the physical return."
+      }
+    ],
+    "fabricationNotes": [
+      "Feed J1 pin 1 with current-limited 9 V DC and pin 2 with the supply return.",
+      "The DZ1 banded cathode connects to VOUT and its anode to GND. Check polarity before powering.",
+      "The ideal model fixes VOUT at 5.1 V in regulation. Real output varies with Zener current, tolerance and temperature."
+    ]
+  },
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "series-resistor-1:1": "A6",
+      "series-resistor-1:2": "A10",
+      "load-resistor-1:1": "D14",
+      "load-resistor-1:2": "D18",
+      "zener-1:A": "F14",
+      "zener-1:K": "F18"
+    },
+    "jumpers": [
+      {
+        "from": "TP2",
+        "to": "A6"
+      },
+      {
+        "from": "A10",
+        "to": "D14"
+      },
+      {
+        "from": "D14",
+        "to": "F18"
+      },
+      {
+        "from": "D18",
+        "to": "BM18"
+      },
+      {
+        "from": "F14",
+        "to": "BM14"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol representing the shared physical return rail."
+      }
+    ],
+    "physicalNotes": [
+      "Use a regulated, current-limited 9 V DC source at TP2/BM2.",
+      "R1 spans A6–A10 and RLOAD spans D14–D18. Place the DZ1 unbanded anode at F14 and banded cathode at F18.",
+      "Fit jumpers TP2–A6, A10–D14, D14–F18, D18–BM18 and F14–BM14."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "source-1",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            283
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "series-resistor-1",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3300FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            192.0689655172414,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A6",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A10",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "load-resistor-1",
+          "reference": "RLOAD",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1001FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            349.86206896551727,
+            125
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "D14",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "D18",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "zener-1",
+          "reference": "DZ1",
+          "kind": "axial-diode",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "BZX55C5V1-TAP",
+          "sourceUrl": "https://www.vishay.com/docs/85604/bzx55.pdf",
+          "bodyMm": {
+            "width": 3.9,
+            "height": 1.7
+          },
+          "positionPx": [
+            349.86206896551727,
+            165
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "F14",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "F18",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

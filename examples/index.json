@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 49,
-    "withoutStoredPcb": 167,
+    "withStoredPcb": 50,
+    "withoutStoredPcb": 166,
     "unexpectedFailures": []
   },
   "entries": [
@@ -462,36 +462,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Passive networks and sensors",
-      "sha256": "169535bc92f1cec86a865325b509a0b3fd2743b627346651bc5b50b54c18e10a",
+      "sha256": "0e062f789b8f28cbc9a8d94143f8bd91e370030338dbc07e55e0558ed56a3485",
       "components": 5,
       "analysis": "complete",
       "engine": "Analytical ideal Zener shunt-regulator estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RLOAD",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DZ1",
-          "libraryId": "diode.zener-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 8,
+      "pcbRoutes": 5,
+      "unmapped": []
     },
     {
       "file": "018-tvs-surge-clamp.adigun.json",
