@@ -11,26 +11,30 @@ Use a 5 V supply, 10 kΩ/1 MΩ light-dependent resistor endpoints, a 10 kΩ divi
 | V1 | `power.dc-source` | 5 V |
 | R_LDR | `passive.ldr` | Rbright 10 kΩ; Rdark 1 MΩ; light 0% |
 | R1 | `passive.resistor` | 10 kΩ |
-| U1 | `active.comparator-ideal` | Vref 0.2 V |
-| RLED | `passive.resistor` | 330 Ω |
+| U1 | `active.comparator-dual-ideal` | External reference |
+| RREF1 | `passive.resistor` | 240 kΩ |
+| RREF2 | `passive.resistor` | 10 kΩ |
+| C1 | `passive.capacitor` | 100 nF |
+| RLED | `passive.resistor` | 2.2 kΩ |
 | D1 | `diode.led-red` | Vf 2.0 V |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The physical circuit uses an Advanced Photonix PDV-P9002 photocell and a Microchip MCP6541-I/P comparator. The 2.2 kΩ LED resistor keeps the nominal output current near 1.36 mA. The photocell is a CdS part. The nominal simulation endpoints do not calibrate the circuit to lux.
 
 ## Net connections
 
-- **VCC:** `source-1:+`, `ldr-1:1`, `comparator-1:VCC`
-- **SENSE:** `ldr-1:2`, `divider-resistor-1:1`, `comparator-1:SENSE`
+- **VCC:** `source-1:+`, `ldr-1:1`, `comparator-1:VCC`, `reference-high-1:1`, `bypass-1:1`
+- **SENSE:** `ldr-1:2`, `divider-resistor-1:1`, `comparator-1:IN-`
+- **VREF:** `reference-high-1:2`, `reference-low-1:1`, `comparator-1:IN+`
 - **OUT:** `comparator-1:OUT`, `led-resistor-1:1`
 - **LED_A:** `led-resistor-1:2`, `led-1:A`
-- **GND:** `source-1:-`, `divider-resistor-1:2`, `comparator-1:GND`, `led-1:K`, `ground-1:0`
+- **GND:** `source-1:-`, `divider-resistor-1:2`, `comparator-1:GND`, `led-1:K`, `reference-low-1:2`, `bypass-1:2`, `ground-1:0`
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 layout puts U1 across the center trench with its pin-1 mark to the left. Keep F12–J12, A15–E15 and A12–E12 isolated for terminals 1, 5 and 8. Keep the LED out of the photocell’s line of sight.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The native project stores a routed two-layer PCB and generates BOM, Gerber and drill files. Connect a regulated 5 V bench supply to J1. Measure VREF and the photocell divider before comparing the hardware behavior with the nominal model.
 
 ## Acceptance test and expected result
 
@@ -40,7 +44,7 @@ No stored PCB fabrication geometry is present. The PCB view is a conceptual/shar
 - Model version: `ldr-comparator-nightlight-v1`
 - Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41168467607
 
-Recorded expected result:
+Expected result for the explicit reference-divider revision. The CI link above records the earlier implicit-reference revision.
 
 ```json
 {
@@ -50,7 +54,7 @@ Recorded expected result:
   "darkLightPercent": 0,
   "brightLedOn": false,
   "darkLedOn": true,
-  "darkLedCurrentA": 0.00909090909090909
+  "darkLedCurrentA": 0.0013636363636363637
 }
 ```
 

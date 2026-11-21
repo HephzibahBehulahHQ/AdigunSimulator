@@ -1474,6 +1474,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (source.length === 1 && photoresistors.length === 1 && comparators.length === 1 && led.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 7) {
     return analyseLdrNightLight(project, { source: source[0], ldr: photoresistors[0], comparator: comparators[0], led: led[0], resistors: resistor, ground: ground[0], validation });
   }
+  if (source.length === 1 && photoresistors.length === 1 && dualComparators.length === 1 && led.length === 1 && resistor.length === 4 && capacitor.length === 1 && ground.length === 1 && project.components.length === 10) {
+    return analyseLdrNightLight(project, { source: source[0], ldr: photoresistors[0], comparator: dualComparators[0], led: led[0], resistors: resistor, bypass: capacitor[0], ground: ground[0], validation });
+  }
   if (solarCells.length === 1 && batteries.length === 1 && photoresistors.length === 1 && schottkyDiodes.length === 1 && mosfets.length === 1 && led.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 9) {
     return analyseSolarGardenLight(project, { solar: solarCells[0], battery: batteries[0], ldr: photoresistors[0], diode: schottkyDiodes[0], mosfet: mosfets[0], led: led[0], resistors: resistor, ground: ground[0], validation });
   }
@@ -4830,18 +4833,18 @@ function analyseNe555Astable(project, { source, timer, resistors, capacitors, le
   return {state:"complete",engine:"Analytical ideal 555 astable timing estimate",message:"Uses the standard ideal astable timing approximation. It omits output saturation, discharge-transistor voltage, timer tolerances, control-pin noise, startup behavior, and hardware qualification.",result:{kind:"ne555-astable",supplyVoltage,raOhm,rbOhm,timingCapacitanceF:timingCapF,controlCapacitanceF:controlCapF,highTimeS,lowTimeS,periodS,frequencyHz,dutyCycle,dutyPercent:dutyCycle*100,ledOnCurrentA,ledAverageCurrentA:ledOnCurrentA*dutyCycle,ledBlinking:true},validation};
 }
 
-function analyseLdrNightLight(project, { source, ldr, comparator, led, resistors, ground, validation }) {
+function analyseLdrNightLight(project, { source, ldr, comparator, led, resistors, bypass, ground, validation }) {
   const supplyVoltage = voltageValue(source.value);
   const ldrFields = String(ldr.value).match(/Rbright\s*([^;]+)\s*;\s*Rdark\s*([^;]+)\s*;\s*light\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*%/i);
   const brightResistance = ldrFields ? resistanceValue(ldrFields[1]) : Number.NaN;
   const darkResistance = ldrFields ? resistanceValue(ldrFields[2]) : Number.NaN;
   const illuminationPercent = ldrFields ? Number(ldrFields[3]) : Number.NaN;
   const referenceMatch = String(comparator.value).match(/^\s*Vref\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*V\s*$/i);
-  const referenceVoltage = referenceMatch ? Number(referenceMatch[1]) : Number.NaN;
+  let referenceVoltage = referenceMatch ? Number(referenceMatch[1]) : Number.NaN;
   const ledVf = forwardVoltage(led.value);
-  if (![supplyVoltage, brightResistance, darkResistance, illuminationPercent, referenceVoltage, ledVf].every(Number.isFinite)
+  if (![supplyVoltage, brightResistance, darkResistance, illuminationPercent, ledVf].every(Number.isFinite)
     || supplyVoltage <= 0 || brightResistance <= 0 || darkResistance < brightResistance || illuminationPercent < 0 || illuminationPercent > 100
-    || referenceVoltage < 0 || referenceVoltage > supplyVoltage || ledVf <= 0) {
+    || ledVf <= 0) {
     return { state: "blocked", message: "The LDR night-light model needs positive supply and sensor values, illumination from 0% to 100%, and a comparator reference within the supply range.", validation };
   }
   const netByEndpoint = new Map();
@@ -4850,7 +4853,7 @@ function analyseLdrNightLight(project, { source, ldr, comparator, led, resistors
   const sourcePlus = n(source, "+"), sourceMinus = n(source, "-");
   const ldrTop = n(ldr, "1"), ldrBottom = n(ldr, "2");
   const compVcc = n(comparator, "VCC"), compGround = n(comparator, "GND");
-  const compSense = n(comparator, "SENSE"), compOutput = n(comparator, "OUT");
+  const compSense = n(comparator, bypass ? "IN-" : "SENSE"), compOutput = n(comparator, "OUT");
   const ledAnode = n(led, "A"), ledCathode = n(led, "K");
   const groundNet = n(ground, "0");
   const dividerResistor = resistors.find(part => {
@@ -4864,7 +4867,29 @@ function analyseLdrNightLight(project, { source, ldr, comparator, led, resistors
   if (!sourcePlus || sourcePlus === sourceMinus || ldrTop !== sourcePlus || compVcc !== sourcePlus
     || !ldrBottom || ldrBottom !== compSense || !groundNet || sourceMinus !== groundNet || compGround !== groundNet
     || !dividerResistor || !ledResistor || !compOutput || ledCathode !== groundNet) {
-    return { state: "blocked", message: "Connect the LDR and fixed resistor as a divider to comparator SENSE; power the comparator from the source, and connect its output through the LED resistor and LED to ground.", validation };
+    return { state: "blocked", message: `Connect the LDR divider to comparator ${bypass ? "IN-" : "SENSE"}; power the comparator from the source, and connect its output through the LED resistor and LED to ground.`, validation };
+  }
+  if (bypass) {
+    const refNet = n(comparator, "IN+");
+    const referenceResistors = resistors.filter(part => part !== dividerResistor && part !== ledResistor);
+    const connects = (part, a, b) => (n(part, "1") === a && n(part, "2") === b) || (n(part, "1") === b && n(part, "2") === a);
+    const upper = referenceResistors.find(part => connects(part, sourcePlus, refNet));
+    const lower = referenceResistors.find(part => part !== upper && connects(part, refNet, groundNet));
+    if (!refNet || [sourcePlus, groundNet, compSense, compOutput, ledAnode].includes(refNet) || !upper || !lower) {
+      return { state: "blocked", message: "Connect a two-resistor divider between VCC and GND and connect its junction to comparator IN+.", validation };
+    }
+    if (!connects(bypass, sourcePlus, groundNet) || !(capacitanceValue(bypass.value) > 0)) {
+      return { state: "blocked", message: "Connect a positive-valued decoupling capacitor across the comparator supply and ground.", validation };
+    }
+    const upperResistance = resistanceValue(upper.value);
+    const lowerResistance = resistanceValue(lower.value);
+    if (!(upperResistance > 0) || !(lowerResistance > 0)) {
+      return { state: "blocked", message: "Enter positive resistance values for both comparator reference divider resistors.", validation };
+    }
+    referenceVoltage = supplyVoltage * lowerResistance / (upperResistance + lowerResistance);
+  }
+  if (!Number.isFinite(referenceVoltage) || referenceVoltage < 0 || referenceVoltage > supplyVoltage) {
+    return { state: "blocked", message: "The comparator reference must be within the supply range.", validation };
   }
   const dividerResistance = resistanceValue(dividerResistor.value);
   const ledResistance = resistanceValue(ledResistor.value);

@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 52,
-    "withoutStoredPcb": 164,
+    "withStoredPcb": 53,
+    "withoutStoredPcb": 163,
     "unexpectedFailures": []
   },
   "entries": [
@@ -510,44 +510,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Passive networks and sensors",
-      "sha256": "59858eae7d2856929ed20aba2a671806d3ea240ddd48e09c2eb474d9ed6f29ca",
-      "components": 7,
+      "sha256": "2b215bbdb0c1aeca66af03db34f70c8a9ad12e3d1b946db5a03c93933687236c",
+      "components": 10,
       "analysis": "complete",
       "engine": "Analytical LDR comparator night-light estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "R_LDR",
-          "libraryId": "passive.ldr"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.comparator-ideal"
-        },
-        {
-          "reference": "RLED",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 24,
+      "pcbRoutes": 15,
+      "unmapped": []
     },
     {
       "file": "021-555-astable-blinker.adigun.json",
