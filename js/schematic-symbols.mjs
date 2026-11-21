@@ -12,7 +12,8 @@ export function renderSchematicSymbol(part, component) {
   } else {
     const left=Math.ceil(part.pins.length/2), right=part.pins.length-left;
     const stubs=part.pins.map(pin=>{const p=schematicPinPoint({position:{schematic:[0,0]}},part.pins,pin);return '<path class="symbol-stroke" d="M'+p.x+' '+p.y+' L'+(p.side==="left"?15:41)+' '+p.y+'"/>';}).join("");
-    const h=Math.min(34,Math.max(18,Math.max(left,right)*7)), top=(58-h)/2, label=escape((part.type??"Part").split(/\s+/).map(word=>word[0]).join("").slice(0,5));
+    const h=Math.min(34,Math.max(18,Math.max(left,right)*7)), top=(58-h)/2;
+    const label=id==="active.ne556"?"556":escape((part.type??"Part").split(/\s+/).map(word=>word[0]).join("").slice(0,5));
     body='<title>'+escape(part.type)+'</title><path class="symbol-stroke" d="M15 '+top+' H41 V'+(top+h)+' H15 Z"/>'+stubs+'<text class="symbol-text" x="28" y="29">'+label+'</text>';
   }
   return '<svg class="schematic-symbol" preserveAspectRatio="none" viewBox="0 0 '+size.width+' '+size.height+'" role="img" aria-label="'+(primitive?'Schematic symbol for ':'Generic schematic symbol for ')+escape(part.type)+(primitive?'; electrical terminals, not physical package pin numbers':' ; pin placement is editorial')+'">'+body+'</svg>';

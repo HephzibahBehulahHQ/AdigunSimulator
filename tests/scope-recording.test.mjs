@@ -9,6 +9,33 @@ import {scopeChannels,scopeTrace,fitScopeWindow} from '../js/oscilloscope-data.m
 import {scopeExplanation} from '../js/scope-readout.mjs';
 const load=async name=>JSON.parse(await readFile(new URL('../examples/'+name+'.adigun.json',import.meta.url),'utf8'));
 
+test('NE556 scope records each channel at its own modeled edges',async()=>{
+ const project=await load('023-556-dual-timer');
+ const analysis=runProjectAnalysis(project);
+ const recording=analyticalScopeRecording(project,analysis);
+ assert.equal(recording.preferredNet,'A_OUTPUT');
+ for(const [output,timing] of [['A_OUTPUT',analysis.result.channelA],['B_OUTPUT',analysis.result.channelB]]){
+  const edges=recording.samples.filter((sample,index)=>
+   index>0&&sample.nodeVoltages[output]!==recording.samples[index-1].nodeVoltages[output]);
+  assert.equal(edges[0].timeSeconds,timing.highTimeS);
+  assert.equal(edges[0].nodeVoltages[output],0);
+  assert.equal(edges[1].timeSeconds,timing.periodS);
+  assert.equal(edges[1].nodeVoltages[output],5);
+ }
+ assert.deepEqual(Object.keys(recording.samples[0].nodeVoltages).sort(),['A_OUTPUT','B_OUTPUT','GND','VCC']);
+ const revised=structuredClone(project);
+ revised.components.find(component=>component.instanceId==='ct-B').value='22 µF';
+ const revisedAnalysis=runProjectAnalysis(revised);
+ const revisedRecording=analyticalScopeRecording(revised,revisedAnalysis);
+ const fallingEdge=(trace,net)=>trace.samples.find(sample=>sample.nodeVoltages[net]===0).timeSeconds;
+ assert.equal(fallingEdge(revisedRecording,'A_OUTPUT'),fallingEdge(recording,'A_OUTPUT'));
+ assert.equal(fallingEdge(revisedRecording,'B_OUTPUT'),revisedAnalysis.result.channelB.highTimeS);
+ assert.ok(fallingEdge(revisedRecording,'B_OUTPUT')>fallingEdge(recording,'B_OUTPUT'));
+ const disconnected=structuredClone(project);
+ disconnected.nets=disconnected.nets.filter(net=>net.id!=='B_OUTPUT');
+ assert.equal(analyticalScopeRecording(disconnected,runProjectAnalysis(disconnected)),null);
+});
+
 test('LED current limiter has a constant DC trace and explains why it does not oscillate',async()=>{
  const p=await load('001-led-current-limiter'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0};

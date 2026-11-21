@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 55,
-    "withoutStoredPcb": 161,
+    "withStoredPcb": 56,
+    "withoutStoredPcb": 160,
     "unexpectedFailures": []
   },
   "entries": [
@@ -558,76 +558,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "fa791a5601b4e6b5a1a534267a5fcdbf497a62f10d1483f823486efee8e997af",
+      "sha256": "8ea27ae89131bfe6a2eba16bd289bb1f586f2c2760685a68dfbdea7e13dbeccb",
       "components": 15,
       "analysis": "complete",
       "engine": "Analytical independent NE556 astable timing estimates",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.ne556"
-        },
-        {
-          "reference": "RA1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RB1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "CT1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "CC1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "RA2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RB2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "CT2",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "CC2",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "RLED1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "RLED2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D2",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 14,
+      "pcbPads": 40,
+      "pcbRoutes": 28,
+      "unmapped": []
     },
     {
       "file": "024-opamp-noninverting.adigun.json",
