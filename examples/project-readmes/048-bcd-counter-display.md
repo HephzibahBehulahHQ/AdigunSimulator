@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Count ten clock edges from 0 through 9 and wrap to 0; assert the correct seven-segment output pattern for each decimal digit and support active-low reset.
+Count ten clock edges from 0 through 9 and wrap to 0; assert the correct seven-segment output pattern for each decimal digit and support active-high reset.
 
 ## Bill of materials
 
@@ -10,52 +10,45 @@ Count ten clock edges from 0 through 9 and wrap to 0; assert the correct seven-s
 |---|---|---|
 | V1 | `power.dc-source` | 5 V |
 | CLK | `power.dc-source` | 0 V |
-| RESET_N | `power.dc-source` | 0 V |
-| U1 | `active.logic-bcd-display-ideal` | Ideal BCD decade counter; common-cathode segments |
-| RA | `passive.resistor` | 330 Ω |
-| RB | `passive.resistor` | 330 Ω |
-| RC | `passive.resistor` | 330 Ω |
-| RD | `passive.resistor` | 330 Ω |
-| RE | `passive.resistor` | 330 Ω |
-| RF | `passive.resistor` | 330 Ω |
-| RG | `passive.resistor` | 330 Ω |
-| DA | `diode.led-red` | Vf 2 V |
-| DB | `diode.led-red` | Vf 2 V |
-| DC | `diode.led-red` | Vf 2 V |
-| DD | `diode.led-red` | Vf 2 V |
-| DE | `diode.led-red` | Vf 2 V |
-| DF | `diode.led-red` | Vf 2 V |
-| DG | `diode.led-red` | Vf 2 V |
+| RESET | `power.dc-source` | 5 V |
+| U1 | `active.cd4026be-decade` | CD4026BE |
+| RA | `passive.resistor` | 10 kΩ |
+| RB | `passive.resistor` | 10 kΩ |
+| RC | `passive.resistor` | 10 kΩ |
+| RD | `passive.resistor` | 10 kΩ |
+| RE | `passive.resistor` | 10 kΩ |
+| RF | `passive.resistor` | 10 kΩ |
+| RG | `passive.resistor` | 10 kΩ |
 | GND | `ground.signal` | 0 V |
-
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+| DS1 | `display.sc56-11ewa` | Vf 2 V |
+| C1 | `passive.capacitor` | 100 nF |
 
 ## Net connections
 
-- **VCC:** `supply:+`, `display:VCC`
-- **GND:** `supply:-`, `clock-input:-`, `reset-input:-`, `display:GND`, `ground:0`, `leda:K`, `ledb:K`, `ledc:K`, `ledd:K`, `lede:K`, `ledf:K`, `ledg:K`
+- **VCC:** `supply:+`, `display:VCC`, `display:ENABLE`, `bypass:1`
+- **GND:** `supply:-`, `clock-input:-`, `reset-input:-`, `display:GND`, `ground:0`, `display:INHIBIT`, `digit:K1`, `digit:K2`, `bypass:2`
 - **CLOCK:** `clock-input:+`, `display:CLK`
-- **RESET_N:** `reset-input:+`, `display:RESET_N`
+- **RESET:** `reset-input:+`, `display:RESET`
 - **SEG_A:** `display:SEG_A`, `ra:1`
-- **SEG_LED_A:** `ra:2`, `leda:A`
+- **SEG_LED_A:** `ra:2`, `digit:A`
 - **SEG_B:** `display:SEG_B`, `rb:1`
-- **SEG_LED_B:** `rb:2`, `ledb:A`
+- **SEG_LED_B:** `rb:2`, `digit:B`
 - **SEG_C:** `display:SEG_C`, `rc:1`
-- **SEG_LED_C:** `rc:2`, `ledc:A`
+- **SEG_LED_C:** `rc:2`, `digit:C`
 - **SEG_D:** `display:SEG_D`, `rd:1`
-- **SEG_LED_D:** `rd:2`, `ledd:A`
+- **SEG_LED_D:** `rd:2`, `digit:D`
 - **SEG_E:** `display:SEG_E`, `re:1`
-- **SEG_LED_E:** `re:2`, `lede:A`
+- **SEG_LED_E:** `re:2`, `digit:E`
 - **SEG_F:** `display:SEG_F`, `rf:1`
-- **SEG_LED_F:** `rf:2`, `ledf:A`
+- **SEG_LED_F:** `rf:2`, `digit:F`
 - **SEG_G:** `display:SEG_G`, `rg:1`
-- **SEG_LED_G:** `rg:2`, `ledg:A`
+- **SEG_LED_G:** `rg:2`, `digit:G`
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 layout maps the CD4026BE and SC56-11EWA pin by pin. Both display cathodes share the return. The decimal point and the driver’s three unused outputs have isolated holes. Display enable is tied high and clock inhibit is tied low. The 10 kΩ resistors set the ideal segment current to 0.30 mA per lit segment. Actual brightness requires hardware characterization.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 76 × 48 mm two-layer PCB routes each of the seven segment resistors to the SC56-11EWA. J1 is +5 V, J2 is clock, and J3 is active-high reset, each with a return pin. The PCB export verifies board fit, continuity, and copper clearance. Independent package fit review and hardware characterization remain pending.
 
 ## Acceptance test and expected result
 
