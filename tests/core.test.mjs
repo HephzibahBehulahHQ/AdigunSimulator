@@ -943,6 +943,7 @@ test("catalogue 555 astable blinker reports timing and duty from R/C values", as
   assert.ok(Math.abs(result.result.dutyCycle-2/3)<1e-12);
   assert.ok(result.result.ledBlinking);
   assert.ok(result.result.ledAverageCurrentA>0);
+  assert.match(runSupportedAnalysis(updateComponent(project,"bypass-1",{value:"0 F"})).message,/supply bypass capacitor/);
   assert.equal(runSupportedAnalysis(updateComponent(project,"timing-capacitor-1",{value:"0 F"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(net=>net.id==="TIMING").endpoints=["timer-1:2","timing-capacitor-1:1"];

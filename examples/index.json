@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 53,
-    "withoutStoredPcb": 163,
+    "withStoredPcb": 54,
+    "withoutStoredPcb": 162,
     "unexpectedFailures": []
   },
   "entries": [
@@ -526,52 +526,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "7068aa9595f6993664b56ce075bc26212d81ec3b65add6e8cb5980b2e9ebc69f",
-      "components": 9,
+      "sha256": "227d1e4844a21f3aa7b3417518d2062b4dc6dc09915d910a848f3e6286903dee",
+      "components": 10,
       "analysis": "complete",
       "engine": "Analytical ideal 555 astable timing estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.ne555"
-        },
-        {
-          "reference": "RA",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RB",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "CT",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "CCTRL",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "RLED",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 24,
+      "pcbRoutes": 17,
+      "unmapped": []
     },
     {
       "file": "022-555-monostable.adigun.json",
