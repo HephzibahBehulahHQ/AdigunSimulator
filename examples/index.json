@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 84,
-    "withoutStoredPcb": 132,
+    "withStoredPcb": 85,
+    "withoutStoredPcb": 131,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1022,60 +1022,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "966efaa76468fb16fd95d667f9a47ee52c441f1c07a811a56834b28eaace576a",
-      "components": 11,
+      "sha256": "18a62895eff2383efea5b81d636654a4cd5af7887724b92e1e81e719403f4715",
+      "components": 12,
       "analysis": "complete",
       "engine": "Ideal four-to-one static multiplexer",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "I0",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "I1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "I2",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "I3",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "S0",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "S1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-mux4-ideal"
-        },
-        {
-          "reference": "RY",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DY",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 11,
+      "pcbPads": 36,
+      "pcbRoutes": 25,
+      "unmapped": []
     },
     {
       "file": "053-decoder-controlled-leds.adigun.json",
