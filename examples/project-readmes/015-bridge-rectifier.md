@@ -13,7 +13,7 @@ Generate a sampled 12 V RMS, 50 Hz bridge output across a resistive load, includ
 | RLOAD | `passive.resistor` | 1 kΩ |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The physical layout uses a Samtec TSW-102-07-T-S input header, Vishay W04G-E4/51 bridge and Vishay MRS25000C1001FCT00 load resistor. The bridge model uses a fixed 0.7 V drop per conducting diode.
 
 ## Net connections
 
@@ -24,9 +24,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+Connect an isolated 12 V RMS, 50 Hz AC source across BB400 A3 and A6. Connect the bridge through insulated pigtails to A11 (POS), A13 (AC1), A15 (AC2), and A17 (NEG). Place RLOAD across F21 and F25. Jumper A3–A13, A6–A15, A11–F21 and A17–F25. Verify the terminal marks on the purchased bridge.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The project stores a 58 × 30 mm single-sided routed PCB. J1 pins 1 and 2 are the two floating AC inputs. Measure the rectified output across RLOAD with an isolated differential probe or a battery-powered meter. Keep both input terminals separate from the rectifier return. Verify the purchased parts and fabrication rules before ordering.
 
 ## Acceptance test and expected result
 
