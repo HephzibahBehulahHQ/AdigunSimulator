@@ -1465,7 +1465,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (source.length === 1 && timers556.length === 1 && resistor.length === 6 && capacitor.length === 4 && led.length === 2 && ground.length === 1 && project.components.length === 15) {
     return analyseNe556DualAstable(project, { source: source[0], timer: timers556[0], resistors: resistor, capacitors: capacitor, leds: led, ground: ground[0], validation });
   }
-  if (source.length === 1 && timers555.length === 1 && pushbuttons.length === 1 && resistor.length === 3 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 10) {
+  if (source.length === 1 && timers555.length === 1 && pushbuttons.length === 1 && resistor.length === 3 && [2, 3].includes(capacitor.length) && led.length === 1 && ground.length === 1 && project.components.length === 8 + capacitor.length) {
     return analyseNe555Monostable(project, { source: source[0], timer: timers555[0], pushbutton: pushbuttons[0], resistors: resistor, capacitors: capacitor, led: led[0], ground: ground[0], validation });
   }
   if (source.length === 1 && timers555.length === 1 && resistor.length === 3 && [2, 3].includes(capacitor.length) && led.length === 1 && ground.length === 1 && project.components.length === 7 + capacitor.length) {
@@ -4735,6 +4735,14 @@ function analyseNe556DualAstable(project,{source,timer,resistors,capacitors,leds
   return {state:"complete",engine:"Analytical independent NE556 astable timing estimates",message:"Calculates each ideal timer channel independently with its own RA, RB, timing capacitor, and output LED. It omits timer tolerances, output saturation, startup, discharge-transistor voltage, and hardware qualification.",result:{kind:"ne556-dual-astable",supplyVoltage,channelA:channelResults[0],channelB:channelResults[1]},validation};
 }
 
+function validOptional555Bypass(capacitors, timingCapacitor, controlCapacitor, net, vcc, groundNet) {
+  if (capacitors.length === 2) return true;
+  const bypass = capacitors.find(part => part !== timingCapacitor && part !== controlCapacitor);
+  const terminals = [net(bypass, "1"), net(bypass, "2")];
+  const capacitance = capacitanceValue(bypass.value);
+  return terminals.includes(vcc) && terminals.includes(groundNet) && Number.isFinite(capacitance) && capacitance > 0;
+}
+
 function analyseNe555Monostable(project, { source, timer, pushbutton, resistors, capacitors, led, ground, validation }) {
   const supplyVoltage=voltageValue(source.value),ledVf=forwardVoltage(led.value);
   const buttonState=String(pushbutton.value).trim().toLowerCase();
@@ -4748,7 +4756,7 @@ function analyseNe555Monostable(project, { source, timer, pushbutton, resistors,
   const vcc=n(source,"+"),groundNet=n(ground,"0"),timerVcc=n(timer,"8"),reset=n(timer,"4"),timerGround=n(timer,"1");
   const triggerNet=n(timer,"2"),thresholdNet=n(timer,"6"),dischargeNet=n(timer,"7"),controlNet=n(timer,"5"),outputNet=n(timer,"3");
   const timingCapacitor=capacitors.find(part=>n(part,"1")===thresholdNet||n(part,"2")===thresholdNet);
-  const controlCapacitor=capacitors.find(part=>part!==timingCapacitor);
+  const controlCapacitor=capacitors.find(part=>part!==timingCapacitor&&(n(part,"1")===controlNet||n(part,"2")===controlNet));
   const timingCapOther=timingCapacitor?(n(timingCapacitor,"1")===thresholdNet?n(timingCapacitor,"2"):n(timingCapacitor,"1")):null;
   const controlCapOther=controlCapacitor?(n(controlCapacitor,"1")===controlNet?n(controlCapacitor,"2"):n(controlCapacitor,"1")):null;
   const buttonInput=n(pushbutton,"1"),buttonOutput=n(pushbutton,"2");
@@ -4769,6 +4777,9 @@ function analyseNe555Monostable(project, { source, timer, pushbutton, resistors,
     ||buttonInput!==triggerNet||buttonOutput!==groundNet||n(source,"-")!==groundNet
     ||ledCathode!==groundNet||!ledAnode||!controlNet){
     return {state:"blocked",message:"Wire timer VCC/reset and ground correctly; connect the timing resistor/capacitor to pins 6/7, pull up pin 2 with a normally-open button to ground, and connect the LED to pin 3.",validation};
+  }
+  if(!validOptional555Bypass(capacitors,timingCapacitor,controlCapacitor,n,vcc,groundNet)){
+    return {state:"blocked",message:"Connect a positive-valued supply bypass capacitor directly between VCC and GND.",validation};
   }
   const timingResistance=resistanceValue(timingResistor.value),pullupResistance=resistanceValue(pullupResistor.value);
   const ledResistance=resistanceValue(ledResistor.value),timingCapacitance=capacitanceValue(timingCapacitor.value),controlCapacitance=capacitanceValue(controlCapacitor.value);
@@ -4817,13 +4828,8 @@ function analyseNe555Astable(project, { source, timer, resistors, capacitors, le
     ||!ledAnode||ledCathode!==groundNet||n(source,"-")!==groundNet) {
     return {state:"blocked",message:"Wire the 555 supply/reset to VCC and pin 1 to ground; tie pins 2/6 to the timing capacitor and RB; connect RA to pin 7, the LED to pin 3, and both capacitors to ground.",validation};
   }
-  if(capacitors.length===3){
-    const bypass=capacitors.find(part=>part!==timingCapacitor&&part!==controlCapacitor);
-    const terminals=[n(bypass,"1"),n(bypass,"2")];
-    const capacitance=capacitanceValue(bypass.value);
-    if(!terminals.includes(vcc)||!terminals.includes(groundNet)||!Number.isFinite(capacitance)||capacitance<=0){
-      return {state:"blocked",message:"Connect a positive-valued supply bypass capacitor directly between VCC and GND.",validation};
-    }
+  if(!validOptional555Bypass(capacitors,timingCapacitor,controlCapacitor,n,vcc,groundNet)){
+    return {state:"blocked",message:"Connect a positive-valued supply bypass capacitor directly between VCC and GND.",validation};
   }
   const raOhm=resistanceValue(ra.value),rbOhm=resistanceValue(rb.value),ledResistance=resistanceValue(ledResistor.value);
   const timingCapF=capacitanceValue(timingCapacitor.value),controlCapF=capacitanceValue(controlCapacitor.value);
