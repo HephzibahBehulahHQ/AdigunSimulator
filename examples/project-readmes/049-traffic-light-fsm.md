@@ -11,27 +11,28 @@ Cycle through north/south green, north/south yellow, all red, east/west green, e
 | V1 | `power.dc-source` | 5 V |
 | CLK | `power.dc-source` | 0 V |
 | RESET_N | `power.dc-source` | 0 V |
-| U1 | `active.logic-traffic-fsm-ideal` | Six-phase traffic-light FSM |
-| R-NS_R | `passive.resistor` | 330 Ω |
-| R-NS_Y | `passive.resistor` | 330 Ω |
-| R-NS_G | `passive.resistor` | 330 Ω |
-| R-EW_R | `passive.resistor` | 330 Ω |
-| R-EW_Y | `passive.resistor` | 330 Ω |
-| R-EW_G | `passive.resistor` | 330 Ω |
+| U1 | `active.atmega328p-traffic-demo` | ATmega328P-PU |
+| R-NS_R | `passive.resistor` | 1 kΩ |
+| R-NS_Y | `passive.resistor` | 1 kΩ |
+| R-NS_G | `passive.resistor` | 1 kΩ |
+| R-EW_R | `passive.resistor` | 1 kΩ |
+| R-EW_Y | `passive.resistor` | 1 kΩ |
+| R-EW_G | `passive.resistor` | 1 kΩ |
 | LED-NS_R | `diode.led-red` | Vf 2 V |
-| LED-NS_Y | `diode.led-red` | Vf 2 V |
-| LED-NS_G | `diode.led-red` | Vf 2 V |
+| LED-NS_Y | `diode.led-yellow` | Vf 2 V |
+| LED-NS_G | `diode.led-green` | Vf 2 V |
 | LED-EW_R | `diode.led-red` | Vf 2 V |
-| LED-EW_Y | `diode.led-red` | Vf 2 V |
-| LED-EW_G | `diode.led-red` | Vf 2 V |
+| LED-EW_Y | `diode.led-yellow` | Vf 2 V |
+| LED-EW_G | `diode.led-green` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
-
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+| R7 | `passive.resistor` | 10 kΩ |
+| C1 | `passive.capacitor` | 100 nF |
+| C2 | `passive.capacitor` | 100 nF |
 
 ## Net connections
 
-- **VCC:** `supply:+`, `fsm:VCC`
-- **GND:** `supply:-`, `clock-input:-`, `reset-input:-`, `fsm:GND`, `ground:0`, `led-NS_R:K`, `led-NS_Y:K`, `led-NS_G:K`, `led-EW_R:K`, `led-EW_Y:K`, `led-EW_G:K`
+- **VCC:** `supply:+`, `fsm:VCC`, `fsm:AVCC`, `reset-pullup:1`, `vcc-bypass:1`, `avcc-bypass:1`
+- **GND:** `supply:-`, `clock-input:-`, `reset-input:-`, `fsm:GND`, `ground:0`, `led-NS_R:K`, `led-NS_Y:K`, `led-NS_G:K`, `led-EW_R:K`, `led-EW_Y:K`, `led-EW_G:K`, `fsm:AGND`, `vcc-bypass:2`, `avcc-bypass:2`
 - **CLOCK:** `clock-input:+`, `fsm:CLK`
 - **RESET_N:** `reset-input:+`, `fsm:RESET_N`
 - **LAMP_NS_R:** `fsm:NS_R`, `r-NS_R:1`
@@ -46,12 +47,19 @@ These are the exact component records in the native example file. A library ID a
 - **LED_EW_Y:** `r-EW_Y:2`, `led-EW_Y:A`
 - **LAMP_EW_G:** `fsm:EW_G`, `r-EW_G:1`
 - **LED_EW_G:** `r-EW_G:2`, `led-EW_G:A`
+- **MCU_RESET_N:** `fsm:MCU_RESET_N`, `reset-pullup:2`
+
+## Firmware
+
+The [AVR C source](../049-traffic-light-fsm/main.c) uses PD2 for the phase clock and PD3 for active-low phase reset. PC0 through PC5 drive the six lamps in the order shown above. Pin 1 is the separate MCU hardware reset. Use a known ATmega328P-PU configuration with its internal oscillator and program it before insertion, or use an external programming fixture. Supply common-reference 0 V and 5 V inputs and hold the phase clock low during initialization.
+
+Build with AVR-GCC and AVR Libc using `avr-gcc -mmcu=atmega328p -std=c11 -Os main.c -o main.elf`, then use `avr-objcopy -O ihex -R .eeprom main.elf main.hex`. The local acceptance check compares the firmware’s lamp masks with the simulator’s six phase vectors. The AVR firmware CI workflow compiles the source and checks the generated HEX file. Execution and timing remain to be verified on hardware.
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly seats the ATmega328P-PU with pin 1 at F10. The six LED paths use red, yellow, and green lamps with individual 1 kΩ resistors. Both supply pins are bypassed, hardware reset is pulled high, and unused package terminals have isolated strips.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 83 × 55 mm two-layer PCB routes the ATmega328P-PU and all six lamp paths. J1 supplies +5 V, J2 connects the phase clock, and J3 connects active-low phase reset. Each provides a common return. The PCB export passes connectivity, board-fit, and copper-clearance checks. Independent package fit and electrical bench tests remain pending.
 
 ## Acceptance test and expected result
 

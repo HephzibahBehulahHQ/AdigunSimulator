@@ -19,7 +19,7 @@ define(["power.dc-current-source"], "current-source", two("+", "-"));
 define(["power.ac-source"], "ac-source", two("+", "-"));
 define(["power.pwm-source"], "pulse-source", two("+", "-"));
 define(["ground.signal"], "ground", { "0": [28, 6, "top"] });
-define(["diode.led-red", "diode.led-green"], "led", two("A", "K"));
+define(["diode.led-red", "diode.led-yellow", "diode.led-green"], "led", two("A", "K"));
 define(["diode.rectifier-1n4007", "diode.shockley-generic"], "diode", two("A", "K"));
 define(["diode.schottky", "diode.schottky-1n5822g"], "schottky", two("A", "K"));
 // Zener's native list is K,A; the drawing explicitly maps A left / K right.

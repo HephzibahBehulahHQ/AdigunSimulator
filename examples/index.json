@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 81,
-    "withoutStoredPcb": 135,
+    "withStoredPcb": 82,
+    "withoutStoredPcb": 134,
     "unexpectedFailures": []
   },
   "entries": [
@@ -974,84 +974,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "e10f1d412ab29b3a1b2448ddbb6de42f209494f95ca8b2c46e975167b1143c74",
-      "components": 17,
+      "sha256": "594b84ad861fe22c52892a8e80f7f88173755a5994a2e023af3c072570bc2b27",
+      "components": 20,
       "analysis": "complete",
       "engine": "Ideal six-phase traffic-light finite-state machine",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "CLK",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "RESET_N",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-traffic-fsm-ideal"
-        },
-        {
-          "reference": "R-NS_R",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R-NS_Y",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R-NS_G",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R-EW_R",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R-EW_Y",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R-EW_G",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "LED-NS_R",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "LED-NS_Y",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "LED-NS_G",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "LED-EW_R",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "LED-EW_Y",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "LED-EW_G",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 19,
+      "pcbPads": 64,
+      "pcbRoutes": 32,
+      "unmapped": []
     },
     {
       "file": "050-debounced-digital-input.adigun.json",

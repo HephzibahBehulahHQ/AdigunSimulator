@@ -2103,6 +2103,11 @@ test("catalogue traffic-light FSM cycles safe six-phase states without opposing 
     [true,false,false,false,true,false],
     [true,false,false,true,false,false]
   ];
+  const firmware = await readFile(new URL("../examples/049-traffic-light-fsm/main.c", import.meta.url), "utf8");
+  const table = firmware.match(/lamp_masks\[\]\s*=\s*\{([^}]+)\}/)?.[1];
+  assert.ok(table, "Firmware phase masks are missing");
+  const masks = table.trim().split(/,\s*/).map(Number);
+  assert.deepEqual(masks, expected.map(lamps => lamps.reduce((mask, on, bit) => mask | (on ? 1 << bit : 0), 0)));
   let state = runSupportedAnalysis(project);
   assert.equal(state.state, "complete");
   assert.equal(state.result.phase, 0);

@@ -54,6 +54,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.nmos-switch", category: "Active", type: "N-channel MOSFET (ideal PWM switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.pmos-high-side-ideal", category: "Active", type: "P-channel MOSFET (ideal high-side switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V; RdsOn 0.1 Ω; |VGS|max 20 V", simulation: "analytical-pmos-high-side", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-green", category: "Active", type: "Green LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.1 V", simulation: "analytical-polarity-indicator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "diode.led-yellow", category: "Active", type: "Yellow LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2 V", simulation: "analytical-traffic-light-fsm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "ground.signal", category: "Power & Ground", type: "Signal ground", prefix: "GND", pins: ["0"], defaultValue: "0 V", simulation: "reference", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.pushbutton", category: "Inputs", type: "Momentary pushbutton", prefix: "SW", pins: ["1", "2"], defaultValue: "Normally open", simulation: "ideal-switch-analytical-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spdt-switch", category: "Inputs", type: "SPDT switch", prefix: "SW", pins: ["COM", "A", "B"], defaultValue: "Charge (A)", simulation: "analytical-rc-charge-discharge/ideal-latching-led", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -79,6 +80,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.cd4026be-decade", category: "Active", type: "CD4026BE decade counter and decoder (ideal logic)", prefix: "U", pins: ["CLK", "INHIBIT", "ENABLE", "SEG_F", "SEG_G", "GND", "SEG_D", "SEG_A", "SEG_E", "SEG_B", "SEG_C", "RESET", "VCC"], defaultValue: "CD4026BE", simulation: "analytical-bcd-counter-display", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "display.sc56-11ewa", category: "Active", type: "SC56-11EWA common-cathode display", prefix: "DS", pins: ["E", "D", "K1", "C", "B", "A", "K2", "F", "G"], defaultValue: "Vf 2 V", simulation: "analytical-bcd-counter-display", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-traffic-fsm-ideal", category: "Active", type: "Ideal six-phase traffic-light state machine", prefix: "U", pins: ["CLK", "RESET_N", "NS_R", "NS_Y", "NS_G", "EW_R", "EW_Y", "EW_G", "VCC", "GND"], defaultValue: "Six-phase traffic-light FSM", simulation: "analytical-traffic-light-fsm", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.atmega328p-traffic-demo", category: "Active", type: "ATmega328P-PU traffic-light demonstration", prefix: "U", pins: ["CLK", "RESET_N", "MCU_RESET_N", "VCC", "AVCC", "GND", "AGND", "NS_R", "NS_Y", "NS_G", "EW_R", "EW_Y", "EW_G"], defaultValue: "ATmega328P-PU", simulation: "analytical-traffic-light-fsm", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-debounce-ideal", category: "Active", type: "Ideal N-sample digital debounce filter", prefix: "U", pins: ["INPUT", "CLK", "RESET_N", "Q", "VCC", "GND"], defaultValue: "Stable samples 3", simulation: "analytical-digital-debounce", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-ring-shift-4bit-ideal", category: "Active", type: "Ideal four-bit ring shift register", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Four-bit one-hot ring; reset Q0", simulation: "analytical-shift-register-chaser", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-mux4-ideal", category: "Active", type: "Ideal four-to-one multiplexer (static logic)", prefix: "U", pins: ["I0", "I1", "I2", "I3", "S0", "S1", "Y", "VCC", "GND"], defaultValue: "Ideal 4:1 mux; S1:S0 selects I0–I3", simulation: "analytical-mux4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -929,6 +931,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const decadeDriver = project.components.find((item) => item.libraryId === "active.cd4026be-decade");
   const segmentDisplay = project.components.find((item) => item.libraryId === "display.sc56-11ewa");
   const trafficFsms = project.components.filter((item) => item.libraryId === "active.logic-traffic-fsm-ideal");
+  const trafficController = project.components.find((item) => item.libraryId === "active.atmega328p-traffic-demo");
   const debounceFilters = project.components.filter((item) => item.libraryId === "active.logic-debounce-ideal");
   const ringShiftRegisters = project.components.filter((item) => item.libraryId === "active.logic-ring-shift-4bit-ideal");
   const mux4s = project.components.filter((item) => item.libraryId === "active.logic-mux4-ideal");
@@ -1322,6 +1325,10 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (trafficFsms.length === 1 && source.length === 3 && resistor.length === 6 && led.length === 6 && ground.length === 1 && project.components.length === 17) {
     return analyseTrafficLightFsm(project, { sources: source, fsm: trafficFsms[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
+  }
+  if (trafficController && source.length === 3 && resistor.length === 7 && capacitor.length === 2 && ground.length === 1 && project.components.length === 20) {
+    const signalLeds = project.components.filter(part => ["diode.led-red", "diode.led-yellow", "diode.led-green"].includes(part.libraryId));
+    return analyseTrafficLightFsm(project, { sources: source, fsm: trafficController, resistors: resistor, leds: signalLeds, bypass: capacitor, ground: ground[0], previousState, validation });
   }
   if (bcdDisplays.length === 1 && source.length === 3 && resistor.length === 7 && led.length === 7 && ground.length === 1 && project.components.length === 19) {
     return analyseBcdCounterDisplay(project, { sources: source, counter: bcdDisplays[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
@@ -3320,10 +3327,20 @@ function analyseDigitalDebounce(project,{sources,filter,resistor,led,ground,prev
   return {state:"complete",engine:"Ideal clocked N-sample digital debounce filter",message:"Changes the output only after the raw digital input has matched for the configured number of rising-edge samples. This is a digital stability-window model, not a simulated RC/Schmitt analog circuit; analog time constants, bounce duration, thresholds, metastability and device-specific behavior are omitted.",result:{kind:"digital-debounce",supplyVoltage,logicThresholdV:thresholdV,inputVoltage,inputHigh,clockVoltage,clockHigh,resetVoltage,resetActive,risingEdge,sampleCount,candidateHigh,stableSamples,output,qVoltage,ledCurrentA,mode},validation};
 }
 
-function analyseTrafficLightFsm(project,{sources,fsm,resistors,leds,ground,previousState,validation}){
+function analyseTrafficLightFsm(project,{sources,fsm,resistors,leds,ground,bypass,previousState,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),vccNet=n(fsm,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  if(bypass){
+    const resetPin=n(fsm,"MCU_RESET_N");
+    const resetPullup=resistors.find(r=>{
+      const nets=[n(r,"1"),n(r,"2")];
+      return resetPin&&resetPin!==vccNet&&resetPin!==groundNet&&nets.includes(resetPin)&&nets.includes(vccNet)&&resistanceValue(r.value)>0;
+    });
+    if(!resetPullup||n(fsm,"AVCC")!==vccNet||n(fsm,"AGND")!==groundNet||bypass.some(c=>!validSupplyBypass(c,n,vccNet,groundNet))){
+      return {state:"blocked",message:"Power VCC and AVCC, ground both return pins, fit both supply bypass capacitors, and pull the MCU hardware reset pin up to VCC.",validation};
+    }
+  }
   const clockNet=n(fsm,"CLK"),resetNet=n(fsm,"RESET_N");
   const clockSource=sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===clockNet);
   const resetSource=sources.find(v=>v!==supply&&v!==clockSource&&n(v,"-")===groundNet&&n(v,"+")===resetNet);
