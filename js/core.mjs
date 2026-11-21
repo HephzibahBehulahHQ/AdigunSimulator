@@ -64,6 +64,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-and-ideal", category: "Active", type: "Ideal two-input AND gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-window-comparator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.sn74hc08n-first-gate", category: "Active", type: "SN74HC08N gate 1 (ideal logic)", prefix: "U", pins: ["A", "B", "Y", "2A", "2B", "GND", "3A", "3B", "4A", "4B", "VCC"], defaultValue: "SN74HC08N", simulation: "analytical-window-comparator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-or-ideal", category: "Active", type: "Ideal two-input OR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-or-gate-truth-table", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.sn74hc32n-first-gate", category: "Active", type: "SN74HC32N gate 1 (ideal logic)", prefix: "U", pins: ["A", "B", "Y", "2A", "2B", "GND", "3A", "3B", "4A", "4B", "VCC"], defaultValue: "SN74HC32N", simulation: "analytical-or-gate-truth-table", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-xor-ideal", category: "Active", type: "Ideal two-input XOR parity gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-xor-parity-checker", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-nor-ideal", category: "Active", type: "Ideal two-input NOR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-nor-sr-latch", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-dff-ideal", category: "Active", type: "Ideal positive-edge D flip-flop (static logic)", prefix: "U", pins: ["D", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge D flip-flop", simulation: "analytical-d-flip-flop", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -910,7 +911,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const dualComparators = project.components.filter((item) => item.libraryId === "active.comparator-dual-ideal");
   const schmittTriggers = project.components.filter((item) => item.libraryId === "active.schmitt-trigger-ideal");
   const andGates = project.components.filter((item) => ["active.logic-and-ideal","active.sn74hc08n-first-gate"].includes(item.libraryId));
-  const orGates = project.components.filter((item) => item.libraryId === "active.logic-or-ideal");
+  const orGates = project.components.filter((item) => ["active.logic-or-ideal", "active.sn74hc32n-first-gate"].includes(item.libraryId));
   const xorGates = project.components.filter((item) => item.libraryId === "active.logic-xor-ideal");
   const norGates = project.components.filter((item) => item.libraryId === "active.logic-nor-ideal");
   const dFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-dff-ideal");
@@ -1330,8 +1331,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (xorGates.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analyseLogicGateTruthTable(project, { sources: source, gate: xorGates[0], resistor: resistor[0], led: led[0], ground: ground[0], validation, logic: "xor" });
   }
-  if (orGates.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
-    return analyseLogicGateTruthTable(project, { sources: source, gate: orGates[0], resistor: resistor[0], led: led[0], ground: ground[0], validation, logic: "or" });
+  if (orGates.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 7 + capacitor.length) {
+    return analyseLogicGateTruthTable(project, { sources: source, gate: orGates[0], resistor: resistor[0], led: led[0], ground: ground[0], bypass: capacitor[0], validation, logic: "or" });
   }
   if (andGates.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 7 + capacitor.length) {
     return analyseLogicGateTruthTable(project, { sources: source, gate: andGates[0], resistor: resistor[0], led: led[0], ground: ground[0], bypass: capacitor[0], validation, logic: "and" });
