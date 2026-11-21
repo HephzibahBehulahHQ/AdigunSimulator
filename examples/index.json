@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 73,
-    "withoutStoredPcb": 143,
+    "withStoredPcb": 74,
+    "withoutStoredPcb": 142,
     "unexpectedFailures": []
   },
   "entries": [
@@ -846,44 +846,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "2ec34a49ebdc587904362e678d8fb2cd760e541852dba4653eced71200e55918",
-      "components": 7,
+      "sha256": "667bd55f5b63bb5ca3152f87f2778ead59c325148f3e12e4c8ea6dbbe562ba23",
+      "components": 8,
       "analysis": "complete",
       "engine": "Ideal static two-input AND truth-table estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VA",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VB",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-and-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 7,
+      "pcbPads": 26,
+      "pcbRoutes": 17,
+      "unmapped": []
     },
     {
       "file": "042-or-gate-truth-table.adigun.json",
