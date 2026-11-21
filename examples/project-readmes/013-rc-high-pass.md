@@ -13,7 +13,7 @@ Calculate the ideal sinusoidal steady-state response of a 1 kΩ / 100 µF RC hig
 | R1 | `passive.resistor` | 1 kΩ |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The physical layout uses a Samtec TSW-102-07-T-S input header, Vishay MRS25000C1001FCT00 resistor and Nichicon UES1E101MPM bipolar capacitor. Use the bipolar capacitor for the zero-offset sine input.
 
 ## Net connections
 
@@ -23,9 +23,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+On the BB400, use TP2 and BM2 for generator signal and return. Insert C1 at F9 and F11 and R1 at D15 and D19. Jumper TP2–F9, F11–D15 and D19–BM19. Verify the 5 mm capacitor lead fit without forcing the pins.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The project stores a 52 × 30 mm single-sided routed PCB and generates BOM, Gerber and drill files. Feed a 1 V peak, zero-offset sine at J1 pin 1 with return at pin 2. Set the generator for a high-impedance load and probe HP_OUT at R1 pad 1 relative to GND. Verify part fit and fabricator rules.
 
 ## Acceptance test and expected result
 
