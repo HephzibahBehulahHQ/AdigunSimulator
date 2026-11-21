@@ -1,5 +1,5 @@
 import { SCHEMATIC_PRIMITIVES } from "./schematic-primitives.mjs";
-const displayPinSides = {
+const customPinSides = {
   "active.cd4026be-decade": [
     ["VCC", "ENABLE", "INHIBIT", "CLK", "RESET", "GND"],
     ["SEG_A", "SEG_B", "SEG_C", "SEG_D", "SEG_E", "SEG_F", "SEG_G"]
@@ -7,6 +7,10 @@ const displayPinSides = {
   "display.sc56-11ewa": [
     ["A", "B", "C", "D", "E", "F", "G"],
     ["K1", "K2"]
+  ],
+  "active.atmega328p-debounce": [
+    ["INPUT", "CLK", "RESET_N", "MCU_RESET_N", "GND", "AGND"],
+    ["VCC", "AVCC", "Q"]
   ]
 };
 // Visual anchors for the editor's named electrical terminals.
@@ -40,7 +44,7 @@ function basePinPoint(component, pins, pin) {
   if (index < 0) return null;
   const [x = 120, y = 120] = component.position?.schematic ?? [];
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
-  const sides = displayPinSides[component.libraryId];
+  const sides = customPinSides[component.libraryId];
   if (sides) {
     const left = sides[0].includes(pin);
     const sidePins = sides[left ? 0 : 1];

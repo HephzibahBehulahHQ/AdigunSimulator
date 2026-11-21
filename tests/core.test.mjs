@@ -2141,6 +2141,8 @@ test("catalogue digital debouncer rejects short bounce and accepts stable sample
   const reset = runSupportedAnalysis(project);
   assert.equal(reset.state, "complete");
   assert.equal(reset.result.output, false);
+  const firmware = await readFile(new URL("../examples/050-debounced-digital-input/main.c", import.meta.url), "utf8");
+  assert.equal(Number(firmware.match(/^#define STABLE_SAMPLES (\d+)$/m)?.[1]), reset.result.sampleCount);
   let p = updateComponent(project, "reset-input", { value: "5 V" });
   let state = runSupportedAnalysis(p, { previousState: reset });
   const bounce = [5, 0, 5, 0, 5, 0];
@@ -2164,6 +2166,7 @@ test("catalogue digital debouncer rejects short bounce and accepts stable sample
     state = runSupportedAnalysis(p, { previousState: state });
   }
   assert.equal(state.result.output, true);
+  assert.equal(state.result.ledCurrentA, 0.003);
   assert.match(state.message, /not a simulated RC\/Schmitt analog circuit/);
   assert.equal(runSupportedAnalysis(updateComponent(project, "raw-input", { value: "6 V" })).state, "blocked");
   const invalidCount = updateComponent(project, "debounce", { value: "Stable samples 1" });

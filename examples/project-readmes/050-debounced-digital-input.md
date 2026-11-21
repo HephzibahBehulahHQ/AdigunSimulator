@@ -12,28 +12,36 @@ Reject short alternating bounce samples and change the logical output only after
 | RAW | `power.dc-source` | 0 V |
 | SAMPLE_CLK | `power.dc-source` | 0 V |
 | RESET_N | `power.dc-source` | 0 V |
-| U1 | `active.logic-debounce-ideal` | Stable samples 3 |
-| RQ | `passive.resistor` | 330 Ω |
+| U1 | `active.atmega328p-debounce` | ATmega328P-PU; Stable samples 3 |
+| RQ | `passive.resistor` | 1 kΩ |
 | DQ | `diode.led-red` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
-
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+| R7 | `passive.resistor` | 10 kΩ |
+| C1 | `passive.capacitor` | 100 nF |
+| C2 | `passive.capacitor` | 100 nF |
 
 ## Net connections
 
-- **VCC:** `supply:+`, `debounce:VCC`
-- **GND:** `supply:-`, `raw-input:-`, `clock-input:-`, `reset-input:-`, `debounce:GND`, `q-led:K`, `ground:0`
+- **VCC:** `supply:+`, `debounce:VCC`, `debounce:AVCC`, `reset-pullup:1`, `vcc-bypass:1`, `avcc-bypass:1`
+- **GND:** `supply:-`, `raw-input:-`, `clock-input:-`, `reset-input:-`, `debounce:GND`, `q-led:K`, `ground:0`, `debounce:AGND`, `vcc-bypass:2`, `avcc-bypass:2`
 - **RAW:** `raw-input:+`, `debounce:INPUT`
 - **CLOCK:** `clock-input:+`, `debounce:CLK`
 - **RESET_N:** `reset-input:+`, `debounce:RESET_N`
 - **Q:** `debounce:Q`, `q-resistor:1`
 - **Q_LED:** `q-resistor:2`, `q-led:A`
+- **MCU_RESET_N:** `debounce:MCU_RESET_N`, `reset-pullup:2`
+
+## Firmware
+
+The [AVR C source](../050-debounced-digital-input/main.c) samples PD4 on rising edges at PD2 and drives the indicator on PC0. PD3 is the active-low state reset. MCU pin 1 is a separate hardware reset held high by a pull-up. Program the chip before insertion using a fixture, and use a known internal-oscillator configuration. Keep the external clock slow enough for polling and hold each raw input value stable while sampling.
+
+The example uses three matching samples. The AVR workflow compiles the source and checks the generated HEX file. Hardware timing and execution remain to be verified.
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 map seats the programmed ATmega328P-PU with pin 1 at F10. Both power pins have bypass capacitors and the hardware reset pin has a 10 kΩ pull-up. The Q indicator uses a 1 kΩ series resistor.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 64 × 48 mm two-layer PCB routes the same connections. J1 supplies +5 V, J2 is RAW, J3 is CLOCK, and J4 is active-low state reset. All four include common return. The fabrication export checks board fit, continuity and copper clearance. Independent package fit and hardware timing review remain pending.
 
 ## Acceptance test and expected result
 

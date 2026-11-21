@@ -19,8 +19,8 @@
           55
         ],
         "schematic": [
-          40,
-          55
+          146,
+          34
         ],
         "pcb": [
           40,
@@ -35,15 +35,15 @@
       "value": "0 V",
       "position": {
         "breadboard": [
-          160,
+          155,
           55
         ],
         "schematic": [
-          160,
-          55
+          35,
+          33
         ],
         "pcb": [
-          160,
+          155,
           55
         ]
       }
@@ -55,15 +55,15 @@
       "value": "0 V",
       "position": {
         "breadboard": [
-          280,
+          270,
           55
         ],
         "schematic": [
-          280,
-          55
+          35,
+          128
         ],
         "pcb": [
-          280,
+          270,
           55
         ]
       }
@@ -75,56 +75,63 @@
       "value": "0 V",
       "position": {
         "breadboard": [
-          400,
+          385,
           55
         ],
         "schematic": [
-          400,
-          55
+          31,
+          207
         ],
         "pcb": [
-          400,
+          385,
           55
         ]
       }
     },
     {
       "instanceId": "debounce",
-      "libraryId": "active.logic-debounce-ideal",
+      "libraryId": "active.atmega328p-debounce",
       "reference": "U1",
-      "value": "Stable samples 3",
+      "value": "ATmega328P-PU; Stable samples 3",
       "position": {
         "breadboard": [
-          40,
-          155
+          500,
+          55
         ],
         "schematic": [
-          40,
-          155
+          283,
+          86
         ],
         "pcb": [
-          40,
-          155
+          500,
+          55
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 109,
+          "height": 114,
+          "rotation": 0
+        }
       }
     },
     {
       "instanceId": "q-resistor",
       "libraryId": "passive.resistor",
       "reference": "RQ",
-      "value": "330 Ω",
+      "value": "1 kΩ",
       "position": {
         "breadboard": [
-          160,
-          155
+          40,
+          121
         ],
         "schematic": [
-          160,
-          155
+          458,
+          146
         ],
         "pcb": [
-          160,
-          155
+          40,
+          121
         ]
       }
     },
@@ -135,16 +142,16 @@
       "value": "Vf 2 V",
       "position": {
         "breadboard": [
-          280,
-          155
+          155,
+          121
         ],
         "schematic": [
-          280,
-          155
+          560,
+          146
         ],
         "pcb": [
-          280,
-          155
+          155,
+          121
         ]
       }
     },
@@ -155,16 +162,76 @@
       "value": "0 V",
       "position": {
         "breadboard": [
-          400,
-          155
+          270,
+          121
         ],
         "schematic": [
-          400,
-          155
+          223,
+          201
         ],
         "pcb": [
-          400,
-          155
+          270,
+          121
+        ]
+      }
+    },
+    {
+      "instanceId": "reset-pullup",
+      "libraryId": "passive.resistor",
+      "reference": "R7",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          385,
+          121
+        ],
+        "pcb": [
+          385,
+          121
+        ],
+        "schematic": [
+          157,
+          151
+        ]
+      }
+    },
+    {
+      "instanceId": "vcc-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          500,
+          121
+        ],
+        "pcb": [
+          500,
+          121
+        ],
+        "schematic": [
+          452,
+          36
+        ]
+      }
+    },
+    {
+      "instanceId": "avcc-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C2",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          40,
+          187
+        ],
+        "pcb": [
+          40,
+          187
+        ],
+        "schematic": [
+          556,
+          36
         ]
       }
     }
@@ -174,7 +241,11 @@
       "id": "VCC",
       "endpoints": [
         "supply:+",
-        "debounce:VCC"
+        "debounce:VCC",
+        "debounce:AVCC",
+        "reset-pullup:1",
+        "vcc-bypass:1",
+        "avcc-bypass:1"
       ]
     },
     {
@@ -186,7 +257,10 @@
         "reset-input:-",
         "debounce:GND",
         "q-led:K",
-        "ground:0"
+        "ground:0",
+        "debounce:AGND",
+        "vcc-bypass:2",
+        "avcc-bypass:2"
       ]
     },
     {
@@ -223,7 +297,2077 @@
         "q-resistor:2",
         "q-led:A"
       ]
+    },
+    {
+      "id": "MCU_RESET_N",
+      "endpoints": [
+        "debounce:MCU_RESET_N",
+        "reset-pullup:2"
+      ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "raw-input:+": "H15",
+      "raw-input:-": "BM5",
+      "clock-input:+": "H13",
+      "clock-input:-": "BM9",
+      "reset-input:+": "H14",
+      "reset-input:-": "BM15",
+      "debounce:MCU_RESET_N": "F10",
+      "debounce:CLK": "F13",
+      "debounce:RESET_N": "F14",
+      "debounce:INPUT": "F15",
+      "debounce:VCC": "F16",
+      "debounce:GND": "F17",
+      "debounce:AVCC": "E18",
+      "debounce:AGND": "E16",
+      "debounce:Q": "E15",
+      "q-resistor:1": "C1",
+      "q-resistor:2": "C5",
+      "q-led:A": "A5",
+      "q-led:K": "A6",
+      "reset-pullup:1": "E26",
+      "reset-pullup:2": "E30",
+      "vcc-bypass:1": "J25",
+      "vcc-bypass:2": "J27",
+      "avcc-bypass:1": "A25",
+      "avcc-bypass:2": "A27"
+    },
+    "jumpers": [
+      {
+        "from": "TP13",
+        "to": "J16"
+      },
+      {
+        "from": "TP14",
+        "to": "C18"
+      },
+      {
+        "from": "TP15",
+        "to": "I25"
+      },
+      {
+        "from": "TP16",
+        "to": "B25"
+      },
+      {
+        "from": "TP17",
+        "to": "D26"
+      },
+      {
+        "from": "J17",
+        "to": "BM12"
+      },
+      {
+        "from": "B16",
+        "to": "BM13"
+      },
+      {
+        "from": "I27",
+        "to": "BM20"
+      },
+      {
+        "from": "B27",
+        "to": "BM19"
+      },
+      {
+        "from": "D30",
+        "to": "I10"
+      },
+      {
+        "from": "B15",
+        "to": "B1"
+      },
+      {
+        "from": "B6",
+        "to": "BM3"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Common return for the MCU, input sources, and lamps."
+      }
+    ],
+    "physicalNotes": [
+      "Install the programmed ATmega328P-PU with pin 1 at F10 and use its internal oscillator.",
+      "Apply common-ground 0–5 V signals to clock, raw input, and active-low state reset. The separate hardware reset remains pulled high.",
+      "The Q LED changes after three matching samples. Use a slow phase clock to allow firmware polling."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "raw-input",
+          "reference": "RAW",
+          "kind": "external-supply",
+          "positionPx": [
+            169,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "H15",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM5",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "clock-input",
+          "reference": "CLK",
+          "kind": "external-supply",
+          "positionPx": [
+            255,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "H13",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM9",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reset-input",
+          "reference": "RESET_N",
+          "kind": "external-supply",
+          "positionPx": [
+            386,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "H14",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM15",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "debounce",
+          "reference": "U1",
+          "manufacturer": "Microchip",
+          "manufacturerPartNumber": "ATMEGA328P-PU",
+          "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 34.798,
+            "height": 7.493
+          },
+          "positionPx": [
+            359.72413793103476,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "MCU_RESET_N",
+              "hole": "F10",
+              "offsetMm": [
+                -16.51,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "CLK",
+              "hole": "F13",
+              "offsetMm": [
+                -8.89,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "RESET_N",
+              "hole": "F14",
+              "offsetMm": [
+                -6.35,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "INPUT",
+              "hole": "F15",
+              "offsetMm": [
+                -3.81,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "VCC",
+              "hole": "F16",
+              "offsetMm": [
+                -1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "GND",
+              "hole": "F17",
+              "offsetMm": [
+                1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AVCC",
+              "hole": "E18",
+              "offsetMm": [
+                3.81,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AGND",
+              "hole": "E16",
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "Q",
+              "hole": "E15",
+              "offsetMm": [
+                -3.81,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            }
+          ],
+          "noConnectHoles": [
+            "F11",
+            "F12",
+            "F18",
+            "F19",
+            "F20",
+            "F21",
+            "F22",
+            "F23",
+            "E23",
+            "E22",
+            "E21",
+            "E20",
+            "E19",
+            "E17",
+            "E14",
+            "E13",
+            "E12",
+            "E11",
+            "E10"
+          ]
+        },
+        {
+          "instanceId": "q-resistor",
+          "reference": "RQ",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1001FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            93.44827586206901,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "C1",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "C5",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "q-led",
+          "reference": "DQ",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            142.75862068965526,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "A5",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "A6",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reset-pullup",
+          "reference": "R7",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            586.5517241379315,
+            135
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "E26",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "E30",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "vcc-bypass",
+          "reference": "C1",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            547.1034482758625,
+            205
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "J25",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "J27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "avcc-bypass",
+          "reference": "C2",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            546.5034482758625,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A25",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 64,
+      "heightMm": 48,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "raw-input",
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "clock-input",
+        "reference": "J3",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "reset-input",
+        "reference": "J4",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "ATMEGA328P-PU",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "footprint": "Microchip_ATMEGA328P-PU_SPDIP-28_P2.54mm_W7.62mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "q-resistor",
+        "reference": "RQ",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.16mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "q-led",
+        "reference": "DQ",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_T1-3/4_P2.54mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "1",
+        "pin": "+",
+        "netId": "VCC",
+        "xMm": 5.08,
+        "yMm": 5.08,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:+"
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.08,
+        "yMm": 7.62,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:-"
+      },
+      {
+        "instanceId": "raw-input",
+        "reference": "J2",
+        "number": "1",
+        "pin": "+",
+        "netId": "RAW",
+        "xMm": 5.08,
+        "yMm": 14.224,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "raw-input:+"
+      },
+      {
+        "instanceId": "raw-input",
+        "reference": "J2",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.08,
+        "yMm": 16.764,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "raw-input:-"
+      },
+      {
+        "instanceId": "clock-input",
+        "reference": "J3",
+        "number": "1",
+        "pin": "+",
+        "netId": "CLOCK",
+        "xMm": 5.08,
+        "yMm": 27.432,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "clock-input:+"
+      },
+      {
+        "instanceId": "clock-input",
+        "reference": "J3",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.08,
+        "yMm": 29.972,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "clock-input:-"
+      },
+      {
+        "instanceId": "reset-input",
+        "reference": "J4",
+        "number": "1",
+        "pin": "+",
+        "netId": "RESET_N",
+        "xMm": 5.08,
+        "yMm": 39.116,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "reset-input:+"
+      },
+      {
+        "instanceId": "reset-input",
+        "reference": "J4",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.08,
+        "yMm": 41.656,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "reset-input:-"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 22.86,
+        "yMm": 34.29,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "vcc-bypass:1"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 17.78,
+        "yMm": 34.29,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "vcc-bypass:2"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 33.274,
+        "yMm": 8.636,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avcc-bypass:1"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 28.194,
+        "yMm": 8.636,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avcc-bypass:2"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 12.7,
+        "yMm": 12.7,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:1"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "2",
+        "pin": "2",
+        "netId": "MCU_RESET_N",
+        "xMm": 12.7,
+        "yMm": 22.86,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:2"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "1",
+        "pin": "MCU_RESET_N",
+        "netId": "MCU_RESET_N",
+        "xMm": 17.78,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "debounce:MCU_RESET_N"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "2",
+        "pin": "NC2",
+        "netId": "NC",
+        "xMm": 20.32,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "3",
+        "pin": "NC3",
+        "netId": "NC",
+        "xMm": 22.86,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "4",
+        "pin": "CLK",
+        "netId": "CLOCK",
+        "xMm": 25.4,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "debounce:CLK"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "5",
+        "pin": "RESET_N",
+        "netId": "RESET_N",
+        "xMm": 27.94,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "debounce:RESET_N"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "6",
+        "pin": "INPUT",
+        "netId": "RAW",
+        "xMm": 30.48,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "debounce:INPUT"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "7",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 33.02,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "debounce:VCC"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "8",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 35.56,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "debounce:GND"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "9",
+        "pin": "NC9",
+        "netId": "NC",
+        "xMm": 38.1,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "10",
+        "pin": "NC10",
+        "netId": "NC",
+        "xMm": 40.64,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "11",
+        "pin": "NC11",
+        "netId": "NC",
+        "xMm": 43.18,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "12",
+        "pin": "NC12",
+        "netId": "NC",
+        "xMm": 45.72,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "13",
+        "pin": "NC13",
+        "netId": "NC",
+        "xMm": 48.26,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "14",
+        "pin": "NC14",
+        "netId": "NC",
+        "xMm": 50.8,
+        "yMm": 23.114,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "15",
+        "pin": "NC15",
+        "netId": "NC",
+        "xMm": 50.8,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "16",
+        "pin": "NC16",
+        "netId": "NC",
+        "xMm": 48.26,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "17",
+        "pin": "NC17",
+        "netId": "NC",
+        "xMm": 45.72,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "18",
+        "pin": "NC18",
+        "netId": "NC",
+        "xMm": 43.18,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "19",
+        "pin": "NC19",
+        "netId": "NC",
+        "xMm": 40.64,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "20",
+        "pin": "AVCC",
+        "netId": "VCC",
+        "xMm": 38.1,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "debounce:AVCC"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "21",
+        "pin": "NC21",
+        "netId": "NC",
+        "xMm": 35.56,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "22",
+        "pin": "AGND",
+        "netId": "GND",
+        "xMm": 33.02,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "debounce:AGND"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "23",
+        "pin": "Q",
+        "netId": "Q",
+        "xMm": 30.48,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "debounce:Q"
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "24",
+        "pin": "NC24",
+        "netId": "NC",
+        "xMm": 27.94,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "25",
+        "pin": "NC25",
+        "netId": "NC",
+        "xMm": 25.4,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "26",
+        "pin": "NC26",
+        "netId": "NC",
+        "xMm": 22.86,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "27",
+        "pin": "NC27",
+        "netId": "NC",
+        "xMm": 20.32,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "debounce",
+        "reference": "U1",
+        "number": "28",
+        "pin": "NC28",
+        "netId": "NC",
+        "xMm": 17.78,
+        "yMm": 15.494,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "q-resistor",
+        "reference": "RQ",
+        "number": "1",
+        "pin": "1",
+        "netId": "Q",
+        "xMm": 40.386,
+        "yMm": 8.636,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "q-resistor:1"
+      },
+      {
+        "instanceId": "q-resistor",
+        "reference": "RQ",
+        "number": "2",
+        "pin": "2",
+        "netId": "Q_LED",
+        "xMm": 50.546,
+        "yMm": 8.636,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "q-resistor:2"
+      },
+      {
+        "instanceId": "q-led",
+        "reference": "DQ",
+        "number": "1",
+        "pin": "A",
+        "netId": "Q_LED",
+        "xMm": 56.896,
+        "yMm": 8.636,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "q-led:A"
+      },
+      {
+        "instanceId": "q-led",
+        "reference": "DQ",
+        "number": "2",
+        "pin": "K",
+        "netId": "GND",
+        "xMm": 59.436,
+        "yMm": 8.636,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "q-led:K"
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "RAW",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J3",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "CLOCK",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J4",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "RESET_N",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C2",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "MCU_RESET_N"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "ATMEGA328P-PU",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "package": "Microchip_ATMEGA328P-PU_SPDIP-28_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "MCU_RESET_N",
+          "2": "NC",
+          "3": "NC",
+          "4": "CLOCK",
+          "5": "RESET_N",
+          "6": "RAW",
+          "7": "VCC",
+          "8": "GND",
+          "9": "NC",
+          "10": "NC",
+          "11": "NC",
+          "12": "NC",
+          "13": "NC",
+          "14": "NC",
+          "15": "NC",
+          "16": "NC",
+          "17": "NC",
+          "18": "NC",
+          "19": "NC",
+          "20": "VCC",
+          "21": "NC",
+          "22": "GND",
+          "23": "Q",
+          "24": "NC",
+          "25": "NC",
+          "26": "NC",
+          "27": "NC",
+          "28": "NC"
+        }
+      },
+      {
+        "reference": "RQ",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.16mm",
+        "pinMapping": {
+          "1": "Q",
+          "2": "Q_LED"
+        }
+      },
+      {
+        "reference": "DQ",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "LiteOn_T1-3/4_P2.54mm",
+        "pinMapping": {
+          "1": "Q_LED",
+          "2": "GND"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "netId": "MCU_RESET_N",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            12.7,
+            22.86
+          ],
+          [
+            17.78,
+            22.86
+          ],
+          [
+            17.78,
+            23.114
+          ]
+        ]
+      },
+      {
+        "netId": "Q_LED",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            50.546,
+            8.636
+          ],
+          [
+            56.896,
+            8.636
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.08,
+            7.62
+          ],
+          [
+            5.334,
+            7.62
+          ],
+          [
+            5.334,
+            12.7
+          ],
+          [
+            6.096,
+            12.7
+          ],
+          [
+            6.096,
+            12.954
+          ],
+          [
+            6.35,
+            12.954
+          ],
+          [
+            6.35,
+            13.208
+          ],
+          [
+            6.604,
+            13.208
+          ],
+          [
+            6.604,
+            15.24
+          ],
+          [
+            6.35,
+            15.24
+          ],
+          [
+            6.35,
+            15.494
+          ],
+          [
+            6.096,
+            15.494
+          ],
+          [
+            6.096,
+            15.748
+          ],
+          [
+            5.08,
+            15.748
+          ],
+          [
+            5.08,
+            16.764
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            33.02,
+            15.494
+          ],
+          [
+            34.036,
+            15.494
+          ],
+          [
+            34.036,
+            16.51
+          ],
+          [
+            34.29,
+            16.51
+          ],
+          [
+            34.29,
+            16.764
+          ],
+          [
+            34.544,
+            16.764
+          ],
+          [
+            34.544,
+            17.018
+          ],
+          [
+            35.56,
+            17.018
+          ],
+          [
+            35.56,
+            23.114
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            33.274,
+            8.636
+          ],
+          [
+            38.1,
+            8.636
+          ],
+          [
+            38.1,
+            15.494
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.08,
+            29.972
+          ],
+          [
+            5.334,
+            29.972
+          ],
+          [
+            5.334,
+            37.592
+          ],
+          [
+            6.096,
+            37.592
+          ],
+          [
+            6.096,
+            37.846
+          ],
+          [
+            6.35,
+            37.846
+          ],
+          [
+            6.35,
+            38.1
+          ],
+          [
+            6.604,
+            38.1
+          ],
+          [
+            6.604,
+            40.132
+          ],
+          [
+            6.35,
+            40.132
+          ],
+          [
+            6.35,
+            40.386
+          ],
+          [
+            6.096,
+            40.386
+          ],
+          [
+            6.096,
+            40.64
+          ],
+          [
+            5.08,
+            40.64
+          ],
+          [
+            5.08,
+            41.656
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            28.194,
+            8.636
+          ],
+          [
+            31.75,
+            8.636
+          ],
+          [
+            31.75,
+            9.652
+          ],
+          [
+            32.004,
+            9.652
+          ],
+          [
+            32.004,
+            9.906
+          ],
+          [
+            32.258,
+            9.906
+          ],
+          [
+            32.258,
+            10.16
+          ],
+          [
+            33.02,
+            10.16
+          ],
+          [
+            33.02,
+            15.494
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            38.1,
+            15.494
+          ],
+          [
+            37.084,
+            15.494
+          ],
+          [
+            37.084,
+            16.51
+          ],
+          [
+            36.83,
+            16.51
+          ],
+          [
+            36.83,
+            16.764
+          ],
+          [
+            36.576,
+            16.764
+          ],
+          [
+            36.576,
+            17.018
+          ],
+          [
+            33.02,
+            17.018
+          ],
+          [
+            33.02,
+            23.114
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.08,
+            16.764
+          ],
+          [
+            5.334,
+            16.764
+          ],
+          [
+            5.334,
+            25.908
+          ],
+          [
+            6.096,
+            25.908
+          ],
+          [
+            6.096,
+            26.162
+          ],
+          [
+            6.35,
+            26.162
+          ],
+          [
+            6.35,
+            26.416
+          ],
+          [
+            6.604,
+            26.416
+          ],
+          [
+            6.604,
+            28.448
+          ],
+          [
+            6.35,
+            28.448
+          ],
+          [
+            6.35,
+            28.702
+          ],
+          [
+            6.096,
+            28.702
+          ],
+          [
+            6.096,
+            28.956
+          ],
+          [
+            5.08,
+            28.956
+          ],
+          [
+            5.08,
+            29.972
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.08,
+            5.08
+          ],
+          [
+            12.7,
+            5.08
+          ],
+          [
+            12.7,
+            12.7
+          ]
+        ]
+      },
+      {
+        "netId": "Q",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            30.48,
+            15.494
+          ],
+          [
+            31.496,
+            15.494
+          ],
+          [
+            31.496,
+            14.478
+          ],
+          [
+            31.75,
+            14.478
+          ],
+          [
+            31.75,
+            14.224
+          ],
+          [
+            32.004,
+            14.224
+          ],
+          [
+            32.004,
+            13.97
+          ],
+          [
+            40.386,
+            13.97
+          ],
+          [
+            40.386,
+            8.636
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.08,
+            29.972
+          ],
+          [
+            17.78,
+            29.972
+          ],
+          [
+            17.78,
+            34.29
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            33.02,
+            23.114
+          ],
+          [
+            32.004,
+            23.114
+          ],
+          [
+            32.004,
+            24.13
+          ],
+          [
+            31.75,
+            24.13
+          ],
+          [
+            31.75,
+            24.384
+          ],
+          [
+            31.496,
+            24.384
+          ],
+          [
+            31.496,
+            24.638
+          ],
+          [
+            22.86,
+            24.638
+          ],
+          [
+            22.86,
+            34.29
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.08,
+            7.62
+          ],
+          [
+            28.194,
+            7.62
+          ],
+          [
+            28.194,
+            8.636
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            12.7,
+            12.7
+          ],
+          [
+            33.274,
+            12.7
+          ],
+          [
+            33.274,
+            8.636
+          ]
+        ]
+      },
+      {
+        "netId": "CLOCK",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.08,
+            27.432
+          ],
+          [
+            25.4,
+            27.432
+          ],
+          [
+            25.4,
+            23.114
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            28.194,
+            8.636
+          ],
+          [
+            31.75,
+            8.636
+          ],
+          [
+            31.75,
+            7.62
+          ],
+          [
+            32.004,
+            7.62
+          ],
+          [
+            32.004,
+            7.366
+          ],
+          [
+            32.258,
+            7.366
+          ],
+          [
+            32.258,
+            7.112
+          ],
+          [
+            59.436,
+            7.112
+          ],
+          [
+            59.436,
+            8.636
+          ]
+        ]
+      },
+      {
+        "netId": "RAW",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.08,
+            14.224
+          ],
+          [
+            16.256,
+            14.224
+          ],
+          [
+            16.256,
+            16.51
+          ],
+          [
+            16.51,
+            16.51
+          ],
+          [
+            16.51,
+            16.764
+          ],
+          [
+            16.764,
+            16.764
+          ],
+          [
+            16.764,
+            17.018
+          ],
+          [
+            30.48,
+            17.018
+          ],
+          [
+            30.48,
+            23.114
+          ]
+        ]
+      },
+      {
+        "netId": "RESET_N",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.08,
+            39.116
+          ],
+          [
+            27.94,
+            39.116
+          ],
+          [
+            27.94,
+            23.114
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External stimulus or supply connects through J1."
+      },
+      {
+        "instanceId": "raw-input",
+        "reference": "RAW",
+        "reason": "External stimulus or supply connects through J2."
+      },
+      {
+        "instanceId": "clock-input",
+        "reference": "SAMPLE_CLK",
+        "reason": "External stimulus or supply connects through J3."
+      },
+      {
+        "instanceId": "reset-input",
+        "reference": "RESET_N",
+        "reason": "External stimulus or supply connects through J4."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Common return for the MCU, input sources, and lamps."
+      }
+    ],
+    "fabricationNotes": "J1 is +5 V. J2 is RAW, J3 is CLOCK and J4 is active-low state reset. All four headers provide a return. Program U1 with its internal oscillator enabled before insertion."
+  }
 }
