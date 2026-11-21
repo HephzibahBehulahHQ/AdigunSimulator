@@ -9,7 +9,7 @@ Model both NE556 astable channels from independent RA/RB/timing-capacitor networ
 | Reference | Project library ID | Project value |
 |---|---|---|
 | V1 | `power.dc-source` | 5 V |
-| U1 | `active.ne556` | NE556 independent astable channels |
+| U1 | `active.ne556` | NE556N |
 | RA1 | `passive.resistor` | 10 kΩ |
 | RB1 | `passive.resistor` | 10 kΩ |
 | CT1 | `passive.capacitor` | 100 µF |
@@ -43,9 +43,11 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly maps 40 terminals and 28 jumpers. Seat the Texas Instruments NE556N in the center gap with pin 1 at F13 and pin 14 at E13. Channel A passives sit below the gap, and channel B passives sit above it. The timing capacitors are polarized Panasonic ECA1VMH101I (CT1) and EEUFR1H100 (CT2). Follow the stored pigtail map and observe positive and negative leads. Use a regulated, current-limited 5 V source. [TI timer datasheet](https://www.ti.com/lit/ds/symlink/ne556.pdf) · [TI PDIP dimensions](https://www.ti.com/packaging/docs/searchtipackages.tsp?packageName=DIP)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 76 × 58 mm through-hole PCB has 40 pads and 28 routed paths across front and back copper. J1 is the Samtec TSW-102-07-T-S connector for the external supply. U1 uses the 14-pin N PDIP package. The fabrication exporter checks connectivity and 0.35 mm copper clearance and produces both Gerber copper layers, board outline, plated drill data, and a BOM. The board has not been fabricated or electrically characterized.
+
+The oscilloscope exposes ideal timing on `A_OUTPUT` and `B_OUTPUT` against the shared return. Both traces start at the beginning of their modeled high interval. The recording omits device startup, propagation delay, and loaded output swing.
 
 ## Acceptance test and expected result
 

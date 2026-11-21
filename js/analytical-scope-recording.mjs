@@ -16,6 +16,7 @@ export function analyticalScopeRecording(project,analysis){
  if(['rc-low-pass','rc-high-pass','rl-low-pass','passive-tone-control'].includes(kind))return frequencyResponseRecording(project,r);
  if(kind==='active-low-pass')return activeLowPassRecording(project,r);
  if(kind==='npn-common-emitter')return commonEmitterRecording(project,r);
+ if(kind==='ne556-dual-astable')return dualTimerRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
  if(!timer)return null;
@@ -32,6 +33,45 @@ export function analyticalScopeRecording(project,analysis){
   return {timeSeconds,nodeVoltages:{[ground]:0,[power]:voltage,[output]:high?voltage:0}};
  });
  return {kind:'analytical-output-recording',model:kind==='stm32-timer-pwm'?'Ideal STM32 PWM output':'Ideal 555 output timing',preferredNet:output,samples};
+}
+
+function dualTimerRecording(project, result) {
+ const timer=project.components.find(component=>component.libraryId==='active.ne556');
+ if(!timer||!Number.isFinite(result.supplyVoltage)||result.supplyVoltage<=0)return null;
+ const net=pin=>project.nets.find(item=>item.endpoints.includes(`${timer.instanceId}:${pin}`))?.id;
+ const power=net('14'),ground=net('7');
+ const channels=[
+  {output:net('5'),timing:result.channelA},
+  {output:net('9'),timing:result.channelB}
+ ];
+ if(![power,ground,...channels.map(channel=>channel.output)].every(Boolean)||
+    new Set([power,ground,...channels.map(channel=>channel.output)]).size!==4||
+    net('4')!==power||net('10')!==power)return null;
+ if(channels.some(({timing})=>!timing||!Number.isFinite(timing.periodS)||
+    !Number.isFinite(timing.highTimeS)||timing.highTimeS<=0||timing.highTimeS>=timing.periodS))return null;
+
+ const periods=channels.map(({timing})=>timing.periodS);
+ // Bound the recording to 128 cycles of the faster channel.
+ const duration=Math.min(4*Math.max(...periods),128*Math.min(...periods));
+ const events=new Map();
+ for(const {output,timing:{periodS,highTimeS}} of channels){
+  for(let cycle=0;cycle<128&&cycle*periodS<duration;cycle++){
+   for(const [time,voltage] of [[cycle*periodS,result.supplyVoltage],[cycle*periodS+highTimeS,0]]){
+    if(time>=duration)continue;
+    if(!events.has(time))events.set(time,{});
+    events.get(time)[output]=voltage;
+   }
+  }
+ }
+ const levels={[power]:result.supplyVoltage,[ground]:0};
+ const samples=[];
+ for(const [timeSeconds,changes] of [...events].sort(([a],[b])=>a-b)){
+  if(timeSeconds>0)samples.push({timeSeconds,nodeVoltages:{...levels}});
+  Object.assign(levels,changes);
+  samples.push({timeSeconds,nodeVoltages:{...levels}});
+ }
+ samples.push({timeSeconds:duration,nodeVoltages:{...levels}});
+ return {kind:'analytical-output-recording',model:'Ideal NE556 dual astable timing (phase-normalized outputs, hardware levels omitted)',preferredNet:channels[0].output,samples};
 }
 
 // This records the ideal PWM control input, not a simulated MOSFET/LED output.
