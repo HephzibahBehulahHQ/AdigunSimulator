@@ -53,7 +53,7 @@ Cycle through north/south green, north/south yellow, all red, east/west green, e
 
 The [AVR C source](../049-traffic-light-fsm/main.c) uses PD2 for the phase clock and PD3 for active-low phase reset. PC0 through PC5 drive the six lamps in the order shown above. Pin 1 is the separate MCU hardware reset. Use a known ATmega328P-PU configuration with its internal oscillator and program it before insertion, or use an external programming fixture. Supply common-reference 0 V and 5 V inputs and hold the phase clock low during initialization.
 
-Build with AVR-GCC and AVR Libc using `avr-gcc -mmcu=atmega328p -std=c11 -Os main.c -o main.elf`, then use `avr-objcopy -O ihex -R .eeprom main.elf main.hex`. The local acceptance check compares the firmware’s lamp masks with the simulator’s six phase vectors. AVR compilation and hardware timing remain to be verified.
+Build with AVR-GCC and AVR Libc using `avr-gcc -mmcu=atmega328p -std=c11 -Os main.c -o main.elf`, then use `avr-objcopy -O ihex -R .eeprom main.elf main.hex`. The local acceptance check compares the firmware’s lamp masks with the simulator’s six phase vectors. The AVR firmware CI workflow compiles the source and checks the generated HEX file. Execution and timing remain to be verified on hardware.
 
 ## Views and physical-layout status
 
