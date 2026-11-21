@@ -19,6 +19,7 @@ export const STARTER_LIBRARY = Object.freeze([
   ...ADDITIONAL_LOGIC_PARTS,
   ...LADDER_PARTS,
   { id: "relay.omron-g5v1-dc5", category: "Active", type: "Omron G5V-1 DC5 SPDT relay", prefix: "K", pins: ["COIL1","COIL2","COM","NC","NO"], defaultValue: "5 V; 167 Ω; 1 A at 24 VDC resistive", simulation: "bounded-relay-driver", status: "manufacturer identified; board footprint template", views: { breadboard: true, schematic: true, pcb: true } },
+  { id: "relay.omron-g5v1-dc12-coil", category: "Active", type: "Omron G5V-1 DC12 coil", prefix: "K", pins: ["COIL1","COIL2"], defaultValue: "12 V; 960 Ω", simulation: "analytical-npn-relay-driver", status: "manufacturer identified; ideal coil model", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "diode.rectifier-1n4007", category: "Active", type: "1N4007 axial rectifier diode", prefix: "D", pins: ["A","K"], defaultValue: "1 A; 1000 V; axial", simulation: "flyback protection", status: "manufacturer family identified", views: { breadboard: true, schematic: true, pcb: true } },
   { id: "connector.screw-terminal-3", category: "Connectors", type: "3-position screw terminal block", prefix: "J", pins: ["1","2","3"], defaultValue: "Through-hole; generic footprint", simulation: "schematic/PCB only", status: "generic", views: { breadboard: false, schematic: true, pcb: true } },
   { id: "sensor.bme280-i2c", category: "Sensors", type: "Bosch BME280 8-pad I²C environmental sensor", prefix: "U", pins: ["GND1","CSB","SDA","SCL","SDO","VDDIO","GND2","VDD"], defaultValue: "BME280; 0x76; VDD 1.71–3.6 V; VDDIO 1.2–3.6 V", simulation: "bounded-breakout-topology", status: "manufacturer pin map; generic footprint template", views: { breadboard: true, schematic: true, pcb: true } },
@@ -1342,8 +1343,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (dualComparators.length === 1 && source.length === 2 && resistor.length === 3 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseComparatorThreshold(project, { sources: source, comparator: dualComparators[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
-  if (npnTransistors.length === 1 && source.length === 2 && acSource.length === 0 && schottkyDiodes.length === 1 && resistor.length === 2 && inductor.length === 1 && ground.length === 1 && project.components.length === 8) {
-    return analyseNpnRelayDriver(project, { sources: source, transistor: npnTransistors[0], diode: schottkyDiodes[0], resistors: resistor, coil: inductor[0], ground: ground[0], validation });
+  const dc12Relays=project.components.filter(item=>item.libraryId==="relay.omron-g5v1-dc12-coil");
+  const discreteRelayCoil=resistor.length===2&&inductor.length===1&&project.components.length===8;
+  const packagedRelayCoil=resistor.length===1&&dc12Relays.length===1&&project.components.length===7;
+  if (npnTransistors.length === 1 && source.length === 2 && acSource.length === 0 && schottkyDiodes.length === 1 && ground.length === 1 && (discreteRelayCoil||packagedRelayCoil)) {
+    return analyseNpnRelayDriver(project, { sources: source, transistor: npnTransistors[0], diode: schottkyDiodes[0], resistors: resistor, coil: inductor[0], relay:dc12Relays[0], ground: ground[0], validation });
   }
   if (npnTransistors.length === 1 && source.length === 2 && acSource.length === 0 && resistor.length === 1 && capacitor.length === 0 && ground.length === 1 && project.components.length === 5) {
     return analyseNpnEmitterFollower(project, { sources: source, transistor: npnTransistors[0], load: resistor[0], ground: ground[0], validation });
@@ -2130,7 +2134,7 @@ function analyseNmosLowSideSwitch(project,{sources,mosfet,diode,coilResistance,c
   return {state:"complete",engine:"Ideal low-side MOSFET and flyback-coil estimate",message:"Uses a 2 V gate threshold, fixed 0.1 Ω on-resistance, and constant-drop flyback diode. It reports steady off/on states and a first-order coil-current decay. It omits switching edges, MOSFET capacitance, diode recovery, thermal behavior, avalanche, and component ratings.",result:{kind:"nmos-low-side-switch",supplyVoltage,gateVoltage,gateThresholdV:vth,switchOn:gateHigh,drainSourceVoltageV:gateHigh?onDrainVoltageV:supplyVoltage,loadCurrentA:gateHigh?onCurrentA:0,coilResistanceOhm:rCoil,inductanceH:inductance,onCurrentA,onDrainVoltageV,flybackClampVoltageV:supplyVoltage+vf,coilStoredEnergyJ:0.5*inductance*onCurrentA*onCurrentA,timeConstantS:tauS,turnOffDecay:decay},validation};
 }
 
-function analyseNpnRelayDriver(project,{sources,transistor,diode,resistors,coil,ground,validation}){
+function analyseNpnRelayDriver(project,{sources,transistor,diode,resistors,coil,relay,ground,validation}){
   const netByEndpoint=new Map();
   for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
@@ -2142,11 +2146,13 @@ function analyseNpnRelayDriver(project,{sources,transistor,diode,resistors,coil,
   const coilMid=coilResistance?([n(coilResistance,"1"),n(coilResistance,"2")].find(net=>net!==n(supply,"+"))):undefined;
   const baseResistorWired=baseResistor&&control&&((n(baseResistor,"1")===n(control,"+")&&n(baseResistor,"2")===baseNet)||(n(baseResistor,"2")===n(control,"+")&&n(baseResistor,"1")===baseNet));
   const coilResistanceWired=coilResistance&&supply&&((n(coilResistance,"1")===n(supply,"+")&&n(coilResistance,"2")===coilMid)||(n(coilResistance,"2")===n(supply,"+")&&n(coilResistance,"1")===coilMid));
-  const coilWired=coilMid&&((n(coil,"1")===coilMid&&n(coil,"2")===collectorNet)||(n(coil,"2")===coilMid&&n(coil,"1")===collectorNet));
+  const coilWired=relay?n(relay,"COIL1")===n(supply,"+")&&n(relay,"COIL2")===collectorNet:
+    coilResistanceWired&&((n(coil,"1")===coilMid&&n(coil,"2")===collectorNet)||(n(coil,"2")===coilMid&&n(coil,"1")===collectorNet));
   const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,controlVoltage=control?voltageValue(control.value):Number.NaN;
-  const rCoil=coilResistance?resistanceValue(coilResistance.value):Number.NaN,rBase=baseResistor?resistanceValue(baseResistor.value):Number.NaN;
-  const inductance=inductanceValue(coil.value),vf=forwardVoltage(diode.value),beta=100,vbe=0.7,vceSat=0.2,baseCurrentLimitA=0.02,pullInThresholdA=0.4;
-  if(!supply||!control||!baseResistor||!coilResistance||!baseResistorWired||!coilResistanceWired||!coilWired
+  const rCoil=relay?960:coilResistance?resistanceValue(coilResistance.value):Number.NaN,rBase=baseResistor?resistanceValue(baseResistor.value):Number.NaN;
+  const inductance=relay?1.63:inductanceValue(coil.value),vf=forwardVoltage(diode.value),beta=100,vbe=0.7,vceSat=0.2,baseCurrentLimitA=0.02;
+  const pullInThresholdA=relay?9.6/rCoil:0.4;
+  if(!supply||!control||!baseResistorWired||!coilWired||relay&&supplyVoltage>12
     ||n(supply,"-")!==groundNet||n(control,"-")!==groundNet||emitterNet!==groundNet
     ||n(diode,"A")!==collectorNet||n(diode,"K")!==n(supply,"+")
     ||![supplyVoltage,controlVoltage,rCoil,rBase,inductance,vf].every(Number.isFinite)
@@ -2168,7 +2174,8 @@ function analyseNpnRelayDriver(project,{sources,transistor,diode,resistors,coil,
     return {timeS,currentA};
   });
   const coilStoredEnergyJ=0.5*inductance*coilCurrentA*coilCurrentA;
-  return {state:"complete",engine:"Generic NPN relay-coil and flyback estimate",message:"Uses β=100, VBE=0.7 V, VCE(sat)=0.2 V, a 20 mA base-current bound, a 0.4 A assumed relay pull-in threshold, and a constant-drop diode. The relay is represented by its series R-L coil; contact motion, actual pull-in/drop-out data, switching edges, transistor curves, thermal behavior, diode recovery, and manufacturer ratings are not modeled.",result:{kind:"npn-relay-driver",supplyVoltage,controlVoltage,baseResistanceOhm:rBase,coilResistanceOhm:rCoil,inductanceH:inductance,beta,vbeV:vbe,vceSatV:vceSat,baseCurrentLimitA,baseCurrentA,betaLimitedCurrentA,coilCurrentLimitA,coilCurrentA,transistorConducting,transistorSaturated,collectorVoltageV,relayPullInThresholdA:pullInThresholdA,relayEnergizedEstimate:coilCurrentA>=pullInThresholdA,flybackClampVoltageV:supplyVoltage+vf,coilStoredEnergyJ,timeConstantS,turnOffDecay},validation};
+  const message=relay?"Uses the DC12 relay nominal winding resistance, reference inductance, and nominal current at the datasheet must-operate voltage. Reports an electrical estimate with ideal transistor and diode behavior. It does not predict contact motion or release time.":"Uses β=100, VBE=0.7 V, VCE(sat)=0.2 V, a 20 mA base-current bound, a 0.4 A assumed relay pull-in threshold, and a constant-drop diode. The relay is represented by its series R-L coil; contact motion, actual pull-in/drop-out data, switching edges, transistor curves, thermal behavior, diode recovery, and manufacturer ratings are not modeled.";
+  return {state:"complete",engine:"Generic NPN relay-coil and flyback estimate",message,result:{kind:"npn-relay-driver",supplyVoltage,controlVoltage,baseResistanceOhm:rBase,coilResistanceOhm:rCoil,inductanceH:inductance,beta,vbeV:vbe,vceSatV:vceSat,baseCurrentLimitA,baseCurrentA,betaLimitedCurrentA,coilCurrentLimitA,coilCurrentA,transistorConducting,transistorSaturated,collectorVoltageV,relayPullInThresholdA:pullInThresholdA,relayEnergizedEstimate:coilCurrentA>=pullInThresholdA,flybackClampVoltageV:supplyVoltage+vf,coilStoredEnergyJ,timeConstantS,turnOffDecay},validation};
 }
 
 function analyseSupercapHoldUp(project, { source, diode, capacitor, load, ground, validation }) {

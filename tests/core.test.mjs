@@ -1637,10 +1637,10 @@ test("catalogue NPN relay driver estimates coil pull-in and flyback release curr
   assert.equal(on.result.kind, "npn-relay-driver");
   assert.equal(on.result.transistorSaturated, true);
   assert.equal(on.result.relayEnergizedEstimate, true);
-  assert.ok(Math.abs(on.result.baseCurrentA - (5 - 0.7) / 220) < 1e-12);
-  assert.ok(Math.abs(on.result.coilCurrentA - (12 - 0.2) / 24) < 1e-12);
+  assert.ok(Math.abs(on.result.baseCurrentA - (5 - 0.7) / 3300) < 1e-12);
+  assert.ok(Math.abs(on.result.coilCurrentA - (12 - 0.2) / 960) < 1e-12);
   assert.ok(Math.abs(on.result.collectorVoltageV - 0.2) < 1e-12);
-  assert.ok(Math.abs(on.result.coilStoredEnergyJ - 0.5 * 0.1 * on.result.coilCurrentA ** 2) < 1e-12);
+  assert.ok(Math.abs(on.result.coilStoredEnergyJ - 0.5 * 1.63 * on.result.coilCurrentA ** 2) < 1e-12);
   assert.equal(on.result.turnOffDecay.length, 3);
   assert.ok(Math.abs(on.result.turnOffDecay[0].currentA - on.result.coilCurrentA) < 1e-12);
   assert.ok(on.result.turnOffDecay[1].currentA > 0);
@@ -1657,12 +1657,12 @@ test("catalogue NPN relay driver estimates coil pull-in and flyback release curr
   const weakDrive = runSupportedAnalysis(updateComponent(project, "control", { value: "1 V" }));
   assert.equal(weakDrive.state, "complete");
   assert.equal(weakDrive.result.transistorSaturated, false);
-  assert.ok(Math.abs(weakDrive.result.coilCurrentA - 100 * (1 - 0.7) / 220) < 1e-12);
+  assert.ok(Math.abs(weakDrive.result.coilCurrentA - 100 * (1 - 0.7) / 3300) < 1e-12);
   assert.equal(weakDrive.result.relayEnergizedEstimate, false);
 
   const reversedDiode = structuredClone(project);
-  reversedDiode.nets.find((net) => net.id === "VCC").endpoints = ["supply:+", "coil-resistor:1", "flyback:A"];
-  reversedDiode.nets.find((net) => net.id === "COLLECTOR").endpoints = ["coil-inductor:2", "npn:C", "flyback:K"];
+  reversedDiode.nets.find((net) => net.id === "VCC").endpoints = ["supply:+", "relay:COIL1", "flyback:A"];
+  reversedDiode.nets.find((net) => net.id === "COLLECTOR").endpoints = ["relay:COIL2", "npn:C", "flyback:K"];
   assert.equal(runSupportedAnalysis(reversedDiode).state, "blocked");
 
   const excessiveBaseDrive = updateComponent(project, "base-resistor", { value: "10 Ω" });

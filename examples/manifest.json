@@ -1527,11 +1527,11 @@
       "id": "035-npn-relay-driver",
       "title": "NPN relay-coil driver with flyback",
       "status": "released",
-      "objective": "Drive a generic relay coil represented by 24 Ω in series with 100 mH from a 12 V supply using an NPN transistor and 5 V base drive; calculate coil current, assumed pull-in threshold, transistor saturation, stored energy, and flyback release decay.",
+      "objective": "Drive an Omron G5V-1 DC12 relay coil at 12 V with a 5 V NPN base drive and estimate coil current and flyback decay.",
       "acceptanceTest": "tests/core.test.mjs: catalogue NPN relay driver estimates coil pull-in and flyback release current and blocks reversed diode and excessive base current",
       "testId": "core-npn-relay-driver",
       "projectFile": "examples/035-npn-relay-driver.adigun.json",
-      "safetyNote": "Educational generic model only: β=100, VBE=0.7 V, VCE(sat)=0.2 V, 20 mA base-current bound, 0.4 A assumed pull-in threshold, and constant 0.3 V flyback drop. The coil is an R-L equivalent; actual relay pull-in/drop-out characteristics, contact behavior, component ratings, transients beyond the first-order clamp estimate, thermal effects, and physical hardware qualification are not modeled.",
+      "safetyNote": "Nominal DC12 coil and ideal transistor/diode model. Contact motion and electrical and thermal hardware qualification remain outside the model.",
       "scope": "catalogue",
       "catalogueIndex": 35,
       "verification": {
@@ -1545,17 +1545,17 @@
         "expectedResult": {
           "supplyVoltage": 12,
           "controlVoltage": 5,
-          "baseCurrentA": 0.019545454545454543,
-          "coilCurrentA": 0.49166666666666664,
+          "baseCurrentA": 0.001303030303030303,
+          "coilCurrentA": 0.012291666666666668,
           "transistorSaturated": true,
           "collectorVoltageV": 0.2,
-          "relayPullInThresholdA": 0.4,
+          "relayPullInThresholdA": 0.01,
           "relayEnergizedEstimate": true,
           "flybackClampVoltageV": 12.3,
-          "coilStoredEnergyJ": 0.012086805555555555,
-          "timeConstantS": 0.004166666666666667,
-          "turnOffCurrentAtOneTimeConstantA": 0.17297255159060215,
-          "turnOffCurrentAtThreeTimeConstantsA": 0.012600980302131396
+          "coilStoredEnergyJ": 0.00012313433159722223,
+          "timeConstantS": 0.0016979166666666666,
+          "turnOffCurrentAtOneTimeConstantA": 0.004324313789765054,
+          "turnOffCurrentAtThreeTimeConstantsA": 0.00031502450755328517
         }
       },
       "readmeFile": "examples/project-readmes/035-npn-relay-driver.md"
