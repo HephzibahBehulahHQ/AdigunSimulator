@@ -1899,7 +1899,9 @@ test("catalogue NOR SR latch sets, resets, holds state, and blocks forbidden inp
   assert.equal(set.result.q, true);
   assert.equal(set.result.qBar, false);
   assert.equal(set.result.mode, "set");
-  assert.ok(Math.abs(set.result.qLedCurrentA - (5 - 2) / 330) < 1e-12);
+  assert.ok(Math.abs(set.result.qLedCurrentA - (5 - 2) / 2200) < 1e-12);
+  const reordered = {...project, components: [...project.components].reverse()};
+  assert.equal(runSupportedAnalysis(reordered).result.q, true);
 
   let holdProject = updateComponent(project, "set-input", { value: "0 V" });
   holdProject = updateComponent(holdProject, "reset-input", { value: "0 V" });

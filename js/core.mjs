@@ -68,6 +68,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-xor-ideal", category: "Active", type: "Ideal two-input XOR parity gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-xor-parity-checker", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.sn74hc86n-first-gate", category: "Active", type: "SN74HC86N gate 1 (ideal logic)", prefix: "U", pins: ["A", "B", "Y", "2A", "2B", "GND", "3A", "3B", "4A", "4B", "VCC"], defaultValue: "SN74HC86N", simulation: "analytical-xor-parity-checker", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-nor-ideal", category: "Active", type: "Ideal two-input NOR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-nor-sr-latch", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.sn74hc02n-latch", category: "Active", type: "SN74HC02N dual NOR latch (ideal logic)", prefix: "U", pins: ["1Y", "1A", "1B", "2Y", "2A", "2B", "GND", "3A", "3B", "4A", "4B", "VCC"], defaultValue: "SN74HC02N", simulation: "analytical-nor-sr-latch", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-dff-ideal", category: "Active", type: "Ideal positive-edge D flip-flop (static logic)", prefix: "U", pins: ["D", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge D flip-flop", simulation: "analytical-d-flip-flop", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-jk-ideal", category: "Active", type: "Ideal positive-edge JK flip-flop (static logic)", prefix: "U", pins: ["J", "K", "CLK", "Q", "QBAR", "PRE", "CLR", "VCC", "GND"], defaultValue: "Ideal positive-edge JK flip-flop", simulation: "analytical-jk-toggle-divider", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-counter-4bit-ideal", category: "Active", type: "Ideal 4-bit binary counter (static state)", prefix: "U", pins: ["CLK", "RESET_N", "Q0", "Q1", "Q2", "Q3", "VCC", "GND"], defaultValue: "Ideal modulo-16 rising-edge counter", simulation: "analytical-4bit-counter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -915,6 +916,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const orGates = project.components.filter((item) => ["active.logic-or-ideal", "active.sn74hc32n-first-gate"].includes(item.libraryId));
   const xorGates = project.components.filter((item) => ["active.logic-xor-ideal", "active.sn74hc86n-first-gate"].includes(item.libraryId));
   const norGates = project.components.filter((item) => item.libraryId === "active.logic-nor-ideal");
+  const norLatchPackage = project.components.find((item) => item.libraryId === "active.sn74hc02n-latch");
   const dFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-dff-ideal");
   const jkFlipFlops = project.components.filter((item) => item.libraryId === "active.logic-jk-ideal");
   const fourBitCounters = project.components.filter((item) => item.libraryId === "active.logic-counter-4bit-ideal");
@@ -1328,6 +1330,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (norGates.length === 2 && source.length === 3 && resistor.length === 2 && led.length === 2 && ground.length === 1 && project.components.length === 10) {
     return analyseNorSrLatch(project, { sources: source, gates: norGates, resistors: resistor, leds: led, ground: ground[0], previousState, validation });
+  }
+  if (norLatchPackage && source.length === 3 && resistor.length === 2 && led.length === 2 && ground.length === 1 && capacitor.length === 1 && project.components.length === 10) {
+    return analyseNorSrLatch(project, { sources: source, gates: [norLatchPackage, norLatchPackage], bypass: capacitor[0], resistors: resistor, leds: led, ground: ground[0], previousState, validation });
   }
   if (xorGates.length === 1 && source.length === 3 && resistor.length === 1 && led.length === 1 && ground.length === 1 && capacitor.length <= 1 && project.components.length === 7 + capacitor.length) {
     return analyseLogicGateTruthTable(project, { sources: source, gate: xorGates[0], resistor: resistor[0], led: led[0], ground: ground[0], bypass: capacitor[0], validation, logic: "xor" });
@@ -3488,18 +3493,30 @@ function analyseDFlipFlop(project,{sources,flipFlop,resistor,led,ground,previous
   return {state:"complete",engine:"Ideal positive-edge D flip-flop state transition",message:"Samples D on a rising clock edge and retains Q between edges. Setup/hold timing, propagation delay, metastability, asynchronous control behavior, and device-specific limits are not modeled.",result:{kind:"d-flip-flop",supplyVoltage,logicThresholdV:thresholdV,dataVoltage,clockVoltage,dataHigh,clockHigh,risingEdge,sampled:risingEdge,q,qBar,qVoltage,ledCurrentA,mode:risingEdge?"sample":clockHigh?"high-level hold":"low-level hold",timingAnnotation:"Setup/hold violations and metastability are not simulated."},validation};
 }
 
-function analyseNorSrLatch(project,{sources,gates,resistors,leds,ground,previousState,validation}){
+function analyseNorSrLatch(project,{sources,gates,bypass,resistors,leds,ground,previousState,validation}){
   const netByEndpoint=new Map();
   for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
-  const [setGate,resetGate]=gates,groundNet=n(ground,"0"),qNet=n(resetGate,"Y"),qBarNet=n(setGate,"Y");
-  const supply=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")!==groundNet);
-  const inputSourceFor=(gate)=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&([n(gate,"A"),n(gate,"B")].includes(n(v,"+"))));
-  const setSource=inputSourceFor(setGate),resetSource=inputSourceFor(resetGate);
+  const [setGate,resetGate]=gates;
+  const sharedPackage=setGate===resetGate;
+  const setPin=pin=>n(setGate,sharedPackage?`1${pin}`:pin);
+  const resetPin=pin=>n(resetGate,sharedPackage?`2${pin}`:pin);
+  const groundNet=n(ground,"0"),qNet=resetPin("Y"),qBarNet=setPin("Y");
+  const supplyNet=n(setGate,"VCC");
+  const supply=sources.find(v=>n(v,"-")===groundNet&&n(v,"+")===supplyNet&&supplyNet!==groundNet);
+  if(sharedPackage&&["3A","3B","4A","4B"].some(pin=>n(setGate,pin)!==groundNet)){
+    return {state:"blocked",message:"Connect the unused NOR gate inputs 3A, 3B, 4A, and 4B to ground.",validation};
+  }
+  if(bypass&&!validSupplyBypass(bypass,n,supplyNet,groundNet)){
+    return {state:"blocked",message:"Connect a positive-valued bypass capacitor directly between the latch supply and ground.",validation};
+  }
+  const setInputs=[setPin("A"),setPin("B")],resetInputs=[resetPin("A"),resetPin("B")];
+  const inputSourceFor=inputs=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&inputs.includes(n(v,"+")));
+  const setSource=inputSourceFor(setInputs),resetSource=inputSourceFor(resetInputs);
   const setSourceNet=setSource?n(setSource,"+"):undefined,resetSourceNet=resetSource?n(resetSource,"+"):undefined;
-  const setFeedback=[n(setGate,"A"),n(setGate,"B")].includes(qNet),resetFeedback=[n(resetGate,"A"),n(resetGate,"B")].includes(qBarNet);
-  const setPinSource=setSource&&[n(setGate,"A"),n(setGate,"B")].includes(setSourceNet)&&setSourceNet!==qBarNet;
-  const resetPinSource=resetSource&&[n(resetGate,"A"),n(resetGate,"B")].includes(resetSourceNet)&&resetSourceNet!==qNet;
+  const setFeedback=setInputs.includes(qNet),resetFeedback=resetInputs.includes(qBarNet);
+  const setPinSource=setSource&&setInputs.includes(setSourceNet)&&setSourceNet!==qBarNet;
+  const resetPinSource=resetSource&&resetInputs.includes(resetSourceNet)&&resetSourceNet!==qNet;
   const ledPath=(outputNet)=>resistors.find(r=>{const d=leds.find(x=>((n(r,"1")===outputNet&&n(r,"2")===n(x,"A"))||(n(r,"2")===outputNet&&n(r,"1")===n(x,"A")))&&n(x,"K")===groundNet);return Boolean(d);});
   const setResistor=ledPath(qNet),resetResistor=ledPath(qBarNet);
   const setLed=setResistor&&leds.find(x=>(n(setResistor,"1")===qNet&&n(setResistor,"2")===n(x,"A")||n(setResistor,"2")===qNet&&n(setResistor,"1")===n(x,"A"))&&n(x,"K")===groundNet);
@@ -3534,6 +3551,11 @@ function analyseNorSrLatch(project,{sources,gates,resistors,leds,ground,previous
   return {state:"complete",engine:"Cross-coupled NOR SR latch with memory",message:"Models an active-high NOR latch with state retention when both inputs are low and explicitly blocks the prohibited set/reset combination. Gates are ideal and static; propagation delay, metastability, input switch bounce, output drive limits, and part-specific behavior are omitted.",result:{kind:"nor-sr-latch",supplyVoltage,logicThresholdV:thresholdV,setVoltage,resetVoltage,setActive,resetActive,q,qBar,qVoltage,qBarVoltage,qLedCurrentA,qBarLedCurrentA,mode:setActive?"set":resetActive?"reset":"hold"},validation};
 }
 
+function validSupplyBypass(capacitor,netOf,supplyNet,groundNet){
+  const nets=[netOf(capacitor,"1"),netOf(capacitor,"2")];
+  return Boolean(supplyNet&&groundNet&&supplyNet!==groundNet&&nets.includes(supplyNet)&&nets.includes(groundNet)&&capacitanceValue(capacitor.value)>0);
+}
+
 function analyseLogicGateTruthTable(project,{sources,gate,resistor,led,ground,bypass,validation,logic="and"}){
   const netByEndpoint=new Map();
   for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
@@ -3543,11 +3565,8 @@ function analyseLogicGateTruthTable(project,{sources,gate,resistor,led,ground,by
   const inputA=sources.find(v=>v!==supply&&n(v,"+")===n(gate,"A")&&n(v,"-")===groundNet);
   const inputB=sources.find(v=>v!==supply&&v!==inputA&&n(v,"+")===n(gate,"B")&&n(v,"-")===groundNet);
   const resistorWired=(n(resistor,"1")===outputNet&&n(resistor,"2")===n(led,"A"))||(n(resistor,"2")===outputNet&&n(resistor,"1")===n(led,"A"));
-  if(bypass){
-    const bypassNets=[n(bypass,"1"),n(bypass,"2")];
-    if(!bypassNets.includes(vccNet)||!bypassNets.includes(groundNet)||!(capacitanceValue(bypass.value)>0)){
-      return {state:"blocked",message:"Connect a positive-valued bypass capacitor directly between the gate supply and ground.",validation};
-    }
+  if(bypass&&!validSupplyBypass(bypass,n,vccNet,groundNet)){
+    return {state:"blocked",message:"Connect a positive-valued bypass capacitor directly between the gate supply and ground.",validation};
   }
   const supplyVoltage=supply?voltageValue(supply.value):Number.NaN;
   const inputAVoltage=inputA?voltageValue(inputA.value):Number.NaN,inputBVoltage=inputB?voltageValue(inputB.value):Number.NaN;

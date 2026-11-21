@@ -1905,7 +1905,7 @@
           "qBar": false,
           "qVoltage": 5,
           "qBarVoltage": 0,
-          "qLedCurrentA": 0.00909090909090909,
+          "qLedCurrentA": 0.0013636363636363637,
           "qBarLedCurrentA": 0,
           "set": {
             "mode": "set",
@@ -1913,7 +1913,7 @@
             "qBar": false,
             "qVoltage": 5,
             "qBarVoltage": 0,
-            "qLedCurrentA": 0.00909090909090909,
+            "qLedCurrentA": 0.0013636363636363637,
             "qBarLedCurrentA": 0
           },
           "reset": {
@@ -1923,7 +1923,7 @@
             "qVoltage": 0,
             "qBarVoltage": 5,
             "qLedCurrentA": 0,
-            "qBarLedCurrentA": 0.00909090909090909
+            "qBarLedCurrentA": 0.0013636363636363637
           },
           "holdAfterSet": {
             "mode": "hold",
