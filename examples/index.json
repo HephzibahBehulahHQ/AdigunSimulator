@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 62,
-    "withoutStoredPcb": 154,
+    "withStoredPcb": 63,
+    "withoutStoredPcb": 153,
     "unexpectedFailures": []
   },
   "entries": [
@@ -670,40 +670,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "7b825abd4abe08a705a9f4335b7c6ead04a98040cf5d0a0cc7e1c6dc9d54d8b2",
+      "sha256": "7fcbc78d795f016f180330d85c1c799aa0c1dd30f04b666e02f5547c12a3f06a",
       "components": 6,
       "analysis": "complete",
       "engine": "Ideal reference-voltage follower load estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "V2",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VREF",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.opamp-ideal"
-        },
-        {
-          "reference": "RLOAD",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 5,
+      "pcbPads": 16,
+      "pcbRoutes": 8,
+      "unmapped": []
     },
     {
       "file": "031-transistor-common-emitter.adigun.json",
