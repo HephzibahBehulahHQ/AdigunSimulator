@@ -19,8 +19,8 @@
           55
         ],
         "schematic": [
-          40,
-          55
+          160,
+          30
         ],
         "pcb": [
           40,
@@ -39,8 +39,8 @@
           55
         ],
         "schematic": [
-          155,
-          55
+          440,
+          190
         ],
         "pcb": [
           155,
@@ -59,8 +59,8 @@
           55
         ],
         "schematic": [
-          270,
-          55
+          42,
+          120
         ],
         "pcb": [
           270,
@@ -79,8 +79,8 @@
           55
         ],
         "schematic": [
-          385,
-          55
+          295,
+          105
         ],
         "pcb": [
           385,
@@ -99,8 +99,8 @@
           55
         ],
         "schematic": [
-          500,
-          55
+          453,
+          94
         ],
         "pcb": [
           500,
@@ -119,8 +119,8 @@
           130
         ],
         "schematic": [
-          40,
-          130
+          26,
+          236
         ],
         "pcb": [
           40,
@@ -170,5 +170,795 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "vplus:+": "TP2",
+      "vplus:-": "BM2",
+      "vminus:+": "BM8",
+      "vminus:-": "TM8",
+      "opamp:-": "F14",
+      "opamp:+": "F15",
+      "opamp:VEE": "F16",
+      "opamp:OUT": "E15",
+      "opamp:VCC": "E14",
+      "reference:+": "I22",
+      "reference:-": "BM20",
+      "load:1": "C21",
+      "load:2": "C25"
+    },
+    "jumpers": [
+      {
+        "from": "TP14",
+        "to": "A14"
+      },
+      {
+        "from": "TM16",
+        "to": "J16"
+      },
+      {
+        "from": "H22",
+        "to": "H15"
+      },
+      {
+        "from": "D15",
+        "to": "G14"
+      },
+      {
+        "from": "C15",
+        "to": "D21"
+      },
+      {
+        "from": "D25",
+        "to": "BM24"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference node for the two bench supplies and AC input return."
+      }
+    ],
+    "physicalNotes": [
+      "Seat TL071CP with pin 1 at F13. Keep offset trim pins 1 and 5 and unused pin 8 isolated.",
+      "Top TP is +12 V and top TM is -12 V. The bottom BM rail is 0 V. Use a current-limited isolated dual supply with the common terminal tied to 0 V.",
+      "Connect a regulated 2.5 V reference to I22 and BM20.",
+      "Connect output pin 6 directly to inverting input pin 2. Probe the output at B15 with respect to the 0 V rail.",
+      "RLOAD connects the buffered output to the 0 V rail."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "vplus",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "vminus",
+          "reference": "V2",
+          "kind": "external-supply",
+          "positionPx": [
+            250,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "BM8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "TM8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reference",
+          "reference": "VREF",
+          "kind": "external-supply",
+          "positionPx": [
+            430,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "I22",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM20",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "opamp",
+          "reference": "U1",
+          "manufacturer": "Texas Instruments",
+          "manufacturerPartNumber": "TL071CP",
+          "sourceUrl": "https://www.ti.com/lit/ds/symlink/tl071.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 6.6
+          },
+          "positionPx": [
+            320.2758620689656,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "-",
+              "hole": "F14",
+              "offsetMm": [
+                -1.27,
+                3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "+",
+              "hole": "F15",
+              "offsetMm": [
+                1.27,
+                3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "VEE",
+              "hole": "F16",
+              "offsetMm": [
+                3.81,
+                3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "OUT",
+              "hole": "E15",
+              "offsetMm": [
+                1.27,
+                -3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "VCC",
+              "hole": "E14",
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            }
+          ],
+          "noConnectHoles": [
+            "F13",
+            "E16",
+            "E13"
+          ]
+        },
+        {
+          "instanceId": "load",
+          "reference": "RLOAD",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            487.93103448275866,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "C21",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "C25",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 58,
+      "heightMm": 47,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "vplus",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "vminus",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "reference",
+        "reference": "J3",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "footprint": "TI_TL071CP_PDIP-8_P2.54mm_W7.62mm",
+        "technology": "through-hole",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "TL071CP",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/tl071.pdf"
+      },
+      {
+        "instanceId": "load",
+        "reference": "RLOAD",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "vplus",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "vplus:+",
+        "netId": "VPLUS",
+        "xMm": 6,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "vplus",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "vplus:-",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 32.46,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "vminus",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "vminus:+",
+        "netId": "GND",
+        "xMm": 50,
+        "yMm": 12.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "vminus",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "vminus:-",
+        "netId": "VMINUS",
+        "xMm": 50,
+        "yMm": 10,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "reference",
+        "reference": "J3",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "reference:+",
+        "netId": "REFERENCE",
+        "xMm": 6,
+        "yMm": 10,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "reference",
+        "reference": "J3",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "reference:-",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 12.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "OFFSET_N1",
+        "number": "1",
+        "xMm": 24,
+        "yMm": 22,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "-",
+        "number": "2",
+        "xMm": 26.54,
+        "yMm": 22,
+        "bridgeEndpoint": "opamp:-",
+        "netId": "OUTPUT",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "+",
+        "number": "3",
+        "xMm": 29.08,
+        "yMm": 22,
+        "bridgeEndpoint": "opamp:+",
+        "netId": "REFERENCE",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "VEE",
+        "number": "4",
+        "xMm": 31.62,
+        "yMm": 22,
+        "bridgeEndpoint": "opamp:VEE",
+        "netId": "VMINUS",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "OFFSET_N2",
+        "number": "5",
+        "xMm": 31.62,
+        "yMm": 29.62,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "OUT",
+        "number": "6",
+        "xMm": 29.08,
+        "yMm": 29.62,
+        "bridgeEndpoint": "opamp:OUT",
+        "netId": "OUTPUT",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "VCC",
+        "number": "7",
+        "xMm": 26.54,
+        "yMm": 29.62,
+        "bridgeEndpoint": "opamp:VCC",
+        "netId": "VPLUS",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "NC",
+        "number": "8",
+        "xMm": 24,
+        "yMm": 29.62,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "load",
+        "reference": "RLOAD",
+        "pin": "1",
+        "number": "1",
+        "netId": "OUTPUT",
+        "xMm": 39,
+        "yMm": 31,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "load:1"
+      },
+      {
+        "instanceId": "load",
+        "reference": "RLOAD",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 49,
+        "yMm": 31,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "load:2"
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VPLUS",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            35
+          ],
+          [
+            6,
+            40
+          ],
+          [
+            26.54,
+            40
+          ],
+          [
+            26.54,
+            29.62
+          ]
+        ]
+      },
+      {
+        "netId": "VMINUS",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            50,
+            10
+          ],
+          [
+            31.62,
+            10
+          ],
+          [
+            31.62,
+            22
+          ]
+        ]
+      },
+      {
+        "netId": "REFERENCE",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            10
+          ],
+          [
+            29.08,
+            10
+          ],
+          [
+            29.08,
+            22
+          ]
+        ]
+      },
+      {
+        "netId": "OUTPUT",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            26.54,
+            22
+          ],
+          [
+            26.54,
+            25
+          ],
+          [
+            29.08,
+            25
+          ],
+          [
+            29.08,
+            29.62
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            12.54
+          ],
+          [
+            6,
+            32.46
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            32.46
+          ],
+          [
+            3,
+            32.46
+          ],
+          [
+            3,
+            43
+          ],
+          [
+            50,
+            43
+          ],
+          [
+            50,
+            12.54
+          ]
+        ]
+      },
+      {
+        "netId": "OUTPUT",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            29.08,
+            29.62
+          ],
+          [
+            29.08,
+            34
+          ],
+          [
+            39,
+            34
+          ],
+          [
+            39,
+            31
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            49,
+            31
+          ],
+          [
+            50,
+            31
+          ],
+          [
+            50,
+            12.54
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VPLUS",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "GND",
+          "2": "VMINUS"
+        }
+      },
+      {
+        "reference": "J3",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "REFERENCE",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "TL071CP",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/tl071.pdf",
+        "package": "TI_TL071CP_PDIP-8_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "NC",
+          "2": "OUTPUT",
+          "3": "REFERENCE",
+          "4": "VMINUS",
+          "5": "NC",
+          "6": "OUTPUT",
+          "7": "VPLUS",
+          "8": "NC"
+        }
+      },
+      {
+        "reference": "RLOAD",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "OUTPUT",
+          "2": "GND"
+        }
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "vplus",
+        "reference": "V1",
+        "reason": "External positive supply connects through J1."
+      },
+      {
+        "instanceId": "vminus",
+        "reference": "V2",
+        "reason": "External negative supply connects through J2."
+      },
+      {
+        "instanceId": "reference",
+        "reference": "VREF",
+        "reason": "External regulated 2.5 V reference connects through J3."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference node for the two bench supplies and AC input return."
+      }
+    ],
+    "fabricationNotes": "J1 pin 1: +12 V, pin 2: 0 V. J2 pin 1: 0 V, pin 2: -12 V. J3 pin 1: regulated 2.5 V reference, pin 2: 0 V. Probe output at U1 pin 6."
+  }
 }

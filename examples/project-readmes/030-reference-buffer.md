@@ -27,9 +27,11 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses a Texas Instruments TL071CP with pin 1 at F13 and a Vishay MRS25000C1002FCT00 10 kΩ load. Leave pins 1, 5 and 8 isolated. Connect a regulated 2.5 V reference, ±12 V supplies, and the load return to the common 0 V node as shown. [TL071CP datasheet](https://www.ti.com/lit/ds/symlink/tl071.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 58 × 47 mm PCB uses 16 plated pads and two copper layers. J1 supplies +12 V and 0 V, J2 supplies 0 V and −12 V, and J3 accepts the regulated reference and 0 V. Probe RLOAD pin 1 for the buffered output. The exporter generates both copper Gerbers, board outline, plated drills, and a BOM. Hardware accuracy and stability remain uncharacterized.
+
+The floating scope displays steady 2.5 V readings for the input reference and buffered output. Changing the load changes the modeled current.
 
 ## Acceptance test and expected result
 
