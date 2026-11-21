@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 47,
-    "withoutStoredPcb": 169,
+    "withStoredPcb": 48,
+    "withoutStoredPcb": 168,
     "unexpectedFailures": []
   },
   "entries": [
@@ -430,32 +430,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Passive networks and sensors",
-      "sha256": "fa957c1b8f0f371f52c075de28d9e1f9d7ac718230613379d76bcc70fc589ea5",
+      "sha256": "7639fa15f53b411bcf8b6574675c39bfaa5c51711c464fa675ea3641763e47c5",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical full-wave bridge waveform with fixed diode drops",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "VAC1",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "BR1",
-          "libraryId": "diode.bridge-ideal"
-        },
-        {
-          "reference": "RLOAD",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 3,
+      "pcbPads": 8,
+      "pcbRoutes": 4,
+      "unmapped": []
     },
     {
       "file": "016-smoothing-capacitor.adigun.json",
