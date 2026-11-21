@@ -26,9 +26,11 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses a Texas Instruments TL071CP with pin 1 at F13. Leave pins 1, 5, and 8 isolated. The jumper from D15 to G14 closes the feedback loop between output pin 6 and inverting input pin 2. Probe B15 against the shared 0 V rail. [TL071CP pinout and package](https://www.ti.com/lit/ds/symlink/tl071.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 58 × 47 mm PCB uses 14 plated pads on two copper layers. J1 carries +12 V and 0 V, J2 carries 0 V and −12 V, and J3 carries the input and 0 V. Probe U1 pin 6 for the output. The exporter checks connectivity and clearance and produces both copper Gerbers, outline, plated drill data, and a BOM. Hardware characterization remains pending.
+
+The input and output scope traces overlap at 200 mV peak. The ideal midband display uses a 1 kHz reference.
 
 ## Acceptance test and expected result
 

@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 58,
-    "withoutStoredPcb": 158,
+    "withStoredPcb": 59,
+    "withoutStoredPcb": 157,
     "unexpectedFailures": []
   },
   "entries": [
@@ -606,36 +606,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "db7474bbfe2e748f3799f4dda735876a74025c1f8cc4a70d3789ea666a6d8fbf",
+      "sha256": "6200752323d58b36e3212552ddbed1b1f950326e4aa60b4d874d71bac08c1707",
       "components": 5,
       "analysis": "complete",
       "engine": "Ideal op-amp closed-loop midband gain estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "V2",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VIN",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.opamp-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 14,
+      "pcbRoutes": 6,
+      "unmapped": []
     },
     {
       "file": "027-comparator-threshold.adigun.json",
