@@ -2,6 +2,10 @@ import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHolePoint, norma
 
 const esc = value => String(value ?? "").replace(/[&<>\"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" })[char]);
 const positive = value => Number.isFinite(value) && value > 0;
+const unusedTerminalHoles = pkg => [
+  ...(pkg.noConnectHole ? [pkg.noConnectHole] : []),
+  ...(Array.isArray(pkg.noConnectHoles) ? pkg.noConnectHoles : [])
+];
 
 export function validateBreadboardAssembly(project, { getPartPins } = {}) {
   const assembly = project?.breadboard?.assembly;
@@ -31,7 +35,7 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
       continue;
     }
     packages.set(pkg.instanceId, pkg);
-    const allowedKinds = ["to220", "axial-diode", "axial-led", "slide-switch", "trimmer", "bridge-rectifier", "radial-inductor", "radial-capacitor", "box-capacitor", "radial-ptc", "radial-ntc", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
+    const allowedKinds = ["to220", "axial-diode", "axial-led", "slide-switch", "trimmer", "bridge-rectifier", "radial-inductor", "radial-capacitor", "box-capacitor", "radial-ptc", "radial-ntc", "photoresistor", "pdip", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
     const externalSupply = pkg.kind === "external-supply";
     const offBoard = externalSupply || pkg.kind === "external-axial-resistor" || pkg.kind === "external-pushbutton";
     if (!allowedKinds.includes(pkg.kind) || (!externalSupply && (!positive(pkg.bodyMm?.width) || !positive(pkg.bodyMm?.height))) || !Array.isArray(pkg.positionPx) || pkg.positionPx.length !== 2 || !pkg.positionPx.every(Number.isFinite)) {
@@ -53,10 +57,10 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
       bodyBounds.push(bounds);
     }
     const expectedPins = getPartPins?.(component.libraryId) ?? [];
-    if (pkg.noConnectHole) {
-      const group = breadboardConnectionGroup(pkg.noConnectHole);
+    for (const hole of unusedTerminalHoles(pkg)) {
+      const group = breadboardConnectionGroup(hole);
       if (!group || occupiedGroups.has(group)) {
-        errors.push({ code: "BREADBOARD_ASSEMBLY_NO_CONNECT", instanceId: pkg.instanceId, message: `${component.reference} requires an isolated strip for its unused terminal at ${pkg.noConnectHole}.` });
+        errors.push({ code: "BREADBOARD_ASSEMBLY_NO_CONNECT", instanceId: pkg.instanceId, message: `${component.reference} requires an isolated strip for its unused terminal at ${hole}.` });
       }
       occupiedGroups.add(group);
     }
@@ -103,7 +107,8 @@ function packageBody(pkg, scaleX, scaleY) {
   if (pkg.kind === "box-capacitor") return `<rect class="capacitor-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="1"/>`;
   if (pkg.kind === "trimmer") return `<rect class="capacitor-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="1"/><circle class="breadboard-terminal-screw" cx="0" cy="0" r="${height * .22}"/><path class="capacitor-top" d="M${-height * .16} 0 H${height * .16}"/>`;
   if (pkg.kind === "radial-ptc") return `<rect class="breadboard-ptc-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width,height) * .28}"/><path class="breadboard-ptc-seam" d="M${-width * .26} ${-height * .34} H${width * .26}"/>`;
-  if (pkg.kind === "radial-ntc") return `<ellipse class="breadboard-ptc-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/>`;
+  if (pkg.kind === "radial-ntc" || pkg.kind === "photoresistor") return `<ellipse class="breadboard-ptc-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/>`;
+  if (pkg.kind === "pdip") return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/><path class="breadboard-ptc-seam" d="M${-width / 2} ${-height * .16} a${height * .16} ${height * .16} 0 0 1 0 ${height * .32}"/>`;
   if (pkg.kind === "radial-inductor") return `<rect class="breadboard-inductor-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width, height) * .38}"/><path class="breadboard-inductor-seam" d="M${-width * .32} ${-height / 2} V${height / 2} M${width * .32} ${-height / 2} V${height / 2}"/>`;
   if (pkg.kind === "axial-diode") return `<rect class="axial-diode-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${height / 2}"/><path class="diode-cathode-band" d="M${width * .22} ${-height / 2} V${height / 2}"/>`;
   if (pkg.kind === "bridge-rectifier") return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/><text class="breadboard-bridge-mark" x="${-width * .29}" y="${-height * .12}">+</text><text class="breadboard-bridge-mark" x="${width * .29}" y="${-height * .12}">~</text><text class="breadboard-bridge-mark" x="${-width * .29}" y="${height * .39}">~</text><text class="breadboard-bridge-mark" x="${width * .29}" y="${height * .39}">−</text>`;
@@ -132,8 +137,10 @@ export function renderBreadboardAssemblySvg(project) {
     const label = esc(`${pkg.reference} · ${pkg.manufacturerPartNumber ?? "external bench supply"}`);
     const dimensions = pkg.bodyMm ? ` · ${Number(pkg.bodyMm.width).toFixed(2)} × ${Number(pkg.bodyMm.height).toFixed(2)} mm` : " · off-board source";
     bodies.push(`<g class="breadboard-package breadboard-assembly-package ${pkg.kind}" data-instance-id="${esc(pkg.instanceId)}" role="group" aria-label="${label}"><title>${label}${dimensions}${pkg.sourceUrl ? ` · ${esc(pkg.sourceUrl)}` : ""}</title><g transform="translate(${cx} ${cy})">${packageBody(pkg, scaleX, scaleY)}<text class="breadboard-assembly-reference" x="0" y="${-h / 2 - 3}">${esc(pkg.reference)}</text></g></g>`);
-    const noConnect = breadboardHolePoint(pkg.noConnectHole);
-    if (noConnect) bodies.push(`<circle class="breadboard-terminal-screw" cx="${noConnect.x}" cy="${noConnect.y}" r="2.5"><title>${esc(pkg.reference)} unused terminal at ${esc(pkg.noConnectHole)}</title></circle>`);
+    for (const hole of unusedTerminalHoles(pkg)) {
+      const point = breadboardHolePoint(hole);
+      if (point) bodies.push(`<circle class="breadboard-terminal-screw" cx="${point.x}" cy="${point.y}" r="2.5"><title>${esc(pkg.reference)} unused terminal at ${esc(hole)}</title></circle>`);
+    }
     for (const pin of pkg.pins) {
       const endpoint = `${pkg.instanceId}:${pin.pin}`;
       const hole = normalizeBreadboardHole(project.breadboard?.pinHoles?.[endpoint]);

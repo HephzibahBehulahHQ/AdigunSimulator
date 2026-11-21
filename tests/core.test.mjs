@@ -956,13 +956,18 @@ test("catalogue LDR night light switches on in darkness and off in bright light"
   assert.equal(night.state, "complete");
   assert.equal(night.result.kind, "ldr-night-light");
   assert.equal(night.result.ledOn, true);
-  assert.ok(night.result.ledCurrentA > 0);
+  assert.equal(night.result.referenceVoltage, 0.2);
+  assert.equal(night.result.ledCurrentA, 3 / 2200);
   const day = runSupportedAnalysis(updateComponent(project, "ldr-1", { value: "Rbright 10 kΩ; Rdark 1 MΩ; light 100%" }));
   assert.equal(day.result.ledOn, false);
   assert.equal(day.result.ledCurrentA, 0);
   assert.ok(night.result.samples[0].ledOn && !night.result.samples[2].ledOn);
 
-  assert.equal(runSupportedAnalysis(updateComponent(project, "comparator-1", { value: "Vref 6 V" })).state, "blocked");
+  const badReference = structuredClone(project);
+  badReference.nets.find(net => net.id === "VREF").endpoints = ["reference-high-1:2", "comparator-1:IN+"];
+  assert.match(runSupportedAnalysis(badReference).message, /two-resistor divider/);
+  const shifted = runSupportedAnalysis(updateComponent(project, "reference-high-1", { value: "90 kΩ" }));
+  assert.equal(shifted.result.referenceVoltage, 0.5);
   const broken = structuredClone(project);
   broken.nets.find(net => net.id === "SENSE").endpoints = ["ldr-1:2"];
   assert.equal(runSupportedAnalysis(broken).state, "blocked");

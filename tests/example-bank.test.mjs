@@ -12,6 +12,8 @@ import {findLibraryPart,validateProject} from '../js/core.mjs';
 import {validatePcbFabrication,exportPcbFabrication} from '../js/pcb-export.mjs';
 import {validateBreadboardTopology} from '../js/breadboard-topology.mjs';
 import {validateBreadboardAssembly,renderBreadboardAssemblySvg} from '../js/breadboard-assembly.mjs';
+import {netEdges} from '../js/net-edges.mjs';
+import {routeSchematicConnection} from '../js/schematic-routing.mjs';
 const index=JSON.parse(await readFile(new URL('../examples/index.json',import.meta.url),'utf8'));
 test('coverage descriptions distinguish component, package and pad counts',()=>{
  const e={components:6,pcbStatus:'stored',pcbParts:2,pcbPads:4,unmapped:[],analysis:'complete'};
@@ -29,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,52);assert.equal(index.summary.withoutStoredPcb,164);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,53);assert.equal(index.summary.withoutStoredPcb,163);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -340,6 +342,29 @@ test('NTC temperature divider maps the source-backed thermistor in series with i
  assert.equal(analysis.state,'complete');
  assert.equal(analysis.result.outputVoltage,2.5);
 });
+test('physical LDR night light wires the comparator reference and isolates unused PDIP terminals',async()=>{
+ const project=JSON.parse(await readFile(new URL('../examples/020-ldr-night-light.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ const comparator=project.pcbFabrication.pads.filter(pad=>pad.instanceId==='comparator-1');
+ assert.deepEqual(comparator.map(pad=>[pad.number,pad.netId]),[['1','NC'],['2','SENSE'],['3','VREF'],['4','GND'],['5','NC'],['6','OUT'],['7','VCC'],['8','NC']]);
+ const previous=[];
+ for(const net of project.nets)for(const [first,second] of netEdges(net)){
+  const route=routeSchematicConnection(project.components,findLibraryPart,first,second,previous.filter(item=>item.id!==net.id).map(item=>item.route),net.id==='VCC'?'top':net.id==='GND'?'bottom':null);
+  assert.ok(route?.every(point=>point.x>=0&&point.x<=680&&point.y>=0&&point.y<=300),`${net.id} route from ${first} to ${second} must fit the schematic print canvas`);
+  previous.push({id:net.id,route});
+ }
+ const bridged=structuredClone(project);
+ bridged.breadboard.jumpers.push({from:'J12',to:'BM12'});
+ assert.ok(validateBreadboardAssembly(bridged,{getPartPins}).errors.some(issue=>issue.code==='BREADBOARD_ASSEMBLY_NO_CONNECT'));
+ const exported=exportPcbFabrication(project);
+ assert.equal(exported.status,'passed');
+ assert.match(exported.files['BOM.csv'],/MCP6541-I_P/);
+ for(const layer of ['F','B'])assert.match(exported.files[`board-${layer}_Cu.gbr`],/M02\*/);
+ assert.match(exported.files['board-PTH.drl'],/T01/);
+});
 test('5 V RL step response maps a current-rated radial inductor across BB400 and PCB',async()=>{
  const entry=index.entries.find(item=>item.file==='006-rl-step-response.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/006-rl-step-response.adigun.json',import.meta.url),'utf8'));
@@ -469,7 +494,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,52);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,53);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

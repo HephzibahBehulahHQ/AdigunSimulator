@@ -111,10 +111,11 @@ export function analyticalDcScopeRecording(project,analysis){
   return {kind:"analytical-dc-output",model:`NTC divider at ${r.temperatureC} °C`,preferredNet:output,nodes:{[vcc]:r.supplyVoltage,[output]:r.outputVoltage,[gnd]:0}};
  }
  if(r?.kind==="ldr-night-light"){
-  const sources=byType("power.dc-source"),ldrs=byType("passive.ldr"),comparators=byType("active.comparator-ideal"),resistors=byType("passive.resistor"),leds=byType("diode.led-red");
-  if(sources.length!==1||ldrs.length!==1||comparators.length!==1||resistors.length!==2||leds.length!==1||byType("ground.signal").length!==1)return null;
+  const sources=byType("power.dc-source"),ldrs=byType("passive.ldr"),comparators=[...byType("active.comparator-ideal"),...byType("active.comparator-dual-ideal")],resistors=byType("passive.resistor"),leds=byType("diode.led-red");
+  const externalReference=comparators[0]?.libraryId==="active.comparator-dual-ideal";
+  if(sources.length!==1||ldrs.length!==1||comparators.length!==1||resistors.length!==(externalReference?4:2)||leds.length!==1||byType("ground.signal").length!==1)return null;
   const v=sources[0],ldr=ldrs[0],comp=comparators[0],led=leds[0],gnd=netOf(v,"-"),vcc=netOf(v,"+"),sense=netOf(ldr,"2"),output=netOf(comp,"OUT"),ledA=netOf(led,"A"),divider=resistors.find(x=>[netOf(x,"1"),netOf(x,"2")].includes(sense)&&[netOf(x,"1"),netOf(x,"2")].includes(gnd)),series=resistors.find(x=>x!==divider&&[netOf(x,"1"),netOf(x,"2")].includes(output)&&[netOf(x,"1"),netOf(x,"2")].includes(ledA));
-  if(!vcc||!gnd||netOf(ldr,"1")!==vcc||netOf(comp,"SENSE")!==sense||netOf(comp,"VCC")!==vcc||netOf(comp,"GND")!==gnd||netOf(led,"K")!==gnd||!divider||!series||gnd!==netOf(ground,"0"))return null;
+  if(!vcc||!gnd||netOf(ldr,"1")!==vcc||netOf(comp,externalReference?"IN-":"SENSE")!==sense||netOf(comp,"VCC")!==vcc||netOf(comp,"GND")!==gnd||netOf(led,"K")!==gnd||!divider||!series||gnd!==netOf(ground,"0"))return null;
   const resistance=parseResistance(series.value);if(!Number.isFinite(resistance))return null;
   const outputVoltage=r.ledOn?r.supplyVoltage:0;
   return {kind:"analytical-dc-output",model:`LDR night-light ${r.illuminationPercent}% illumination DC operating point`,preferredNet:ledA,nodes:{[vcc]:r.supplyVoltage,[sense]:r.senseVoltage,[output]:outputVoltage,[ledA]:outputVoltage-r.ledCurrentA*resistance,[gnd]:0}};
