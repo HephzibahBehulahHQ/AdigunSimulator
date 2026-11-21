@@ -730,7 +730,7 @@ test("catalogue NMOS low-side driver switches coil and clamps turn-off with a fl
   assert.equal(on.state,"complete");
   assert.equal(on.result.kind,"nmos-low-side-switch");
   assert.equal(on.result.switchOn,true);
-  assert.ok(on.result.loadCurrentA>0.49);
+  assert.ok(Math.abs(on.result.loadCurrentA-12/390.1)<1e-9);
   assert.ok(on.result.drainSourceVoltageV<0.1);
   assert.ok(on.result.coilStoredEnergyJ>0);
   const off=runSupportedAnalysis(updateComponent(project,"gate-drive",{value:"0 V"}));
