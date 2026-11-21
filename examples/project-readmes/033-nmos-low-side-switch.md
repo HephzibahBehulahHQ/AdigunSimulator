@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Drive a 24 Ω, 100 mH coil from 12 V with a 5 V gate signal; test off/on VDS, current, flyback clamp, and turn-off decay.
+Drive a series 390 Ω and 100 mH load from 12 V with a 5 V gate signal. Test off/on VDS, current, flyback clamp, and turn-off decay.
 
 ## Bill of materials
 
@@ -11,7 +11,7 @@ Drive a 24 Ω, 100 mH coil from 12 V with a 5 V gate signal; test off/on VDS, cu
 | V1 | `power.dc-source` | 12 V |
 | VG | `power.dc-source` | 5 V |
 | Q1 | `active.nmos-switch` | Vth 2 V; RdsOn 0.1 Ω |
-| RCOIL | `passive.resistor` | 24 Ω |
+| RCOIL | `passive.resistor` | 390 Ω |
 | L1 | `passive.inductor` | 100 mH |
 | D1 | `diode.schottky` | Vf 0.3 V |
 | GND | `ground.signal` | 0 V |
@@ -28,9 +28,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses the onsemi FQP30N06L, Vishay 1N5819-E3/54, and Würth 7447471104. Use insulated TO-220 pigtails, keep the drain tab isolated, and connect the diode's cathode stripe to VCC. Drive the gate actively at 0 V or 5 V with a shared supply return. The 390 Ω resistor limits the ideal on-current to approximately 30.8 mA and ideal resistor dissipation to about 0.37 W. The selected 100 mH inductor is rated for 50 mA and has approximately 115 Ω typical winding resistance, which the ideal model omits. [onsemi MOSFET datasheet](https://www.onsemi.com/pdf/datasheet/fqp30n06l-d.pdf) · [Würth inductor datasheet](https://media.digikey.com/pdf/Data%20Sheets/Wurth%20Electronics%20PDFs/7447471104.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 64 × 43 mm two-layer PCB uses 13 plated pads. J1 is the current-limited 12 V supply and J2 is the actively driven gate input. Pin 2 of both connectors is ground. The fabrication exporter checks connectivity and clearance and provides copper Gerbers, outline, plated drill data, and a BOM. Hardware characterization remains pending.
 
 ## Acceptance test and expected result
 

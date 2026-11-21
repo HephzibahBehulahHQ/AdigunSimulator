@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 65,
-    "withoutStoredPcb": 151,
+    "withStoredPcb": 66,
+    "withoutStoredPcb": 150,
     "unexpectedFailures": []
   },
   "entries": [
@@ -718,44 +718,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "a29e4103a6d5f1eabbfbfda3349d0c6035906a80d84824d2cad5cd909d2ad2aa",
+      "sha256": "689e26b98aebd10744520a329ed98b8a283a3aeea9d64a1e5974ec651096ca0e",
       "components": 7,
       "analysis": "complete",
       "engine": "Ideal low-side MOSFET and flyback-coil estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VG",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "Q1",
-          "libraryId": "active.nmos-switch"
-        },
-        {
-          "reference": "RCOIL",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "L1",
-          "libraryId": "passive.inductor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.schottky"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 6,
+      "pcbPads": 13,
+      "pcbRoutes": 8,
+      "unmapped": []
     },
     {
       "file": "034-pmos-high-side-switch.adigun.json",

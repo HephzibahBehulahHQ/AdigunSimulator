@@ -19,8 +19,8 @@
           55
         ],
         "schematic": [
-          40,
-          55
+          66,
+          27
         ],
         "pcb": [
           40,
@@ -39,8 +39,8 @@
           55
         ],
         "schematic": [
-          155,
-          55
+          98,
+          153
         ],
         "pcb": [
           155,
@@ -59,8 +59,8 @@
           55
         ],
         "schematic": [
-          270,
-          55
+          373,
+          165
         ],
         "pcb": [
           270,
@@ -72,15 +72,15 @@
       "instanceId": "coil-r",
       "libraryId": "passive.resistor",
       "reference": "RCOIL",
-      "value": "24 Ω",
+      "value": "390 Ω",
       "position": {
         "breadboard": [
           385,
           55
         ],
         "schematic": [
-          385,
-          55
+          222,
+          46
         ],
         "pcb": [
           385,
@@ -99,8 +99,8 @@
           55
         ],
         "schematic": [
-          500,
-          55
+          368,
+          46
         ],
         "pcb": [
           500,
@@ -119,8 +119,8 @@
           130
         ],
         "schematic": [
-          40,
-          130
+          535,
+          94
         ],
         "pcb": [
           40,
@@ -139,8 +139,8 @@
           130
         ],
         "schematic": [
-          155,
-          130
+          55,
+          220
         ],
         "pcb": [
           155,
@@ -190,5 +190,790 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "gate-drive:+": "I5",
+      "gate-drive:-": "BM8",
+      "coil-r:1": "A5",
+      "coil-r:2": "A9",
+      "coil-l:1": "A15",
+      "coil-l:2": "A17",
+      "flyback:A": "A23",
+      "flyback:K": "A27",
+      "mosfet:G": "I13",
+      "mosfet:D": "I14",
+      "mosfet:S": "I15"
+    },
+    "jumpers": [
+      {
+        "from": "TP5",
+        "to": "B5"
+      },
+      {
+        "from": "C5",
+        "to": "B27"
+      },
+      {
+        "from": "B9",
+        "to": "B15"
+      },
+      {
+        "from": "B17",
+        "to": "B23"
+      },
+      {
+        "from": "C23",
+        "to": "H14"
+      },
+      {
+        "from": "H5",
+        "to": "H13"
+      },
+      {
+        "from": "J15",
+        "to": "BM15"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "gate-drive",
+          "reference": "VG",
+          "kind": "external-supply",
+          "positionPx": [
+            230,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "I5",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "coil-r",
+          "reference": "RCOIL",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3900FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            172.34482758620692,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A5",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A9",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "coil-l",
+          "reference": "L1",
+          "kind": "radial-inductor",
+          "manufacturer": "Würth Elektronik",
+          "manufacturerPartNumber": "7447471104",
+          "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Wurth%20Electronics%20PDFs/7447471104.pdf",
+          "bodyMm": {
+            "width": 11,
+            "height": 11.5
+          },
+          "positionPx": [
+            349.86206896551727,
+            72.35
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A15",
+              "connection": "direct",
+              "leadDiameterMm": 0.65,
+              "offsetMm": [
+                -2.5,
+                5.75
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A17",
+              "connection": "direct",
+              "leadDiameterMm": 0.65,
+              "offsetMm": [
+                2.5,
+                5.75
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "flyback",
+          "reference": "D1",
+          "kind": "axial-diode",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "1N5819-E3/54",
+          "sourceUrl": "https://www.vishay.com/docs/88525/1n5817.pdf",
+          "bodyMm": {
+            "width": 5.2,
+            "height": 2.7
+          },
+          "positionPx": [
+            527.3793103448277,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "A23",
+              "connection": "direct",
+              "leadDiameterMm": 0.7,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "A27",
+              "connection": "direct",
+              "leadDiameterMm": 0.7,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "mosfet",
+          "reference": "Q1",
+          "manufacturer": "onsemi",
+          "manufacturerPartNumber": "FQP30N06L",
+          "sourceUrl": "https://www.onsemi.com/pdf/datasheet/fqp30n06l-d.pdf",
+          "kind": "to220",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 15.75
+          },
+          "positionPx": [
+            310.4137931034483,
+            182
+          ],
+          "pins": [
+            {
+              "pin": "G",
+              "hole": "I13",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                7.875
+              ]
+            },
+            {
+              "pin": "D",
+              "hole": "I14",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                7.875
+              ]
+            },
+            {
+              "pin": "S",
+              "hole": "I15",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                7.875
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "physicalNotes": [
+      "Connect the 1N5819 cathode stripe to VCC. Insulate the TO-220 pigtails and keep the metal drain tab isolated.",
+      "Drive the gate actively at either 0 V or 5 V. Connect the gate reference and 12 V supply return together before energizing.",
+      "The 390 Ω resistor keeps even the zero winding-resistance ideal current below the inductor rating."
+    ]
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 64,
+      "heightMm": 43,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "gate-drive",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "coil-r",
+        "reference": "RCOIL",
+        "footprint": "Vishay_MRS25000C3900FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3900FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "coil-l",
+        "reference": "L1",
+        "footprint": "Wurth_7447471104_WE-TIS_radial_D11_P5.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Würth Elektronik",
+        "manufacturerPartNumber": "7447471104",
+        "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Wurth%20Electronics%20PDFs/7447471104.pdf"
+      },
+      {
+        "instanceId": "flyback",
+        "reference": "D1",
+        "footprint": "Vishay_1N5819_DO-41_Axial_P10mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "1N5819-E3/54",
+        "sourceUrl": "https://www.vishay.com/docs/88525/1n5817.pdf"
+      },
+      {
+        "instanceId": "mosfet",
+        "reference": "Q1",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "FQP30N06L",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/fqp30n06l-d.pdf",
+        "technology": "through-hole",
+        "footprint": "onsemi_FQP30N06L_TO-220-3_P2.54mm"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "supply:+",
+        "netId": "VCC",
+        "xMm": 5,
+        "yMm": 6,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "supply:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 8.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-drive",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "gate-drive:+",
+        "netId": "GATE",
+        "xMm": 5,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-drive",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "gate-drive:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 27.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "coil-r",
+        "reference": "RCOIL",
+        "pin": "1",
+        "number": "1",
+        "bridgeEndpoint": "coil-r:1",
+        "netId": "VCC",
+        "xMm": 15,
+        "yMm": 9,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "coil-r",
+        "reference": "RCOIL",
+        "pin": "2",
+        "number": "2",
+        "bridgeEndpoint": "coil-r:2",
+        "netId": "COIL",
+        "xMm": 25,
+        "yMm": 9,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "coil-l",
+        "reference": "L1",
+        "pin": "1",
+        "number": "1",
+        "bridgeEndpoint": "coil-l:1",
+        "netId": "COIL",
+        "xMm": 35,
+        "yMm": 9,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "coil-l",
+        "reference": "L1",
+        "pin": "2",
+        "number": "2",
+        "bridgeEndpoint": "coil-l:2",
+        "netId": "DRAIN",
+        "xMm": 40,
+        "yMm": 9,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "flyback",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "bridgeEndpoint": "flyback:A",
+        "netId": "DRAIN",
+        "xMm": 45,
+        "yMm": 17,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "flyback",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "bridgeEndpoint": "flyback:K",
+        "netId": "VCC",
+        "xMm": 55,
+        "yMm": 17,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "mosfet",
+        "reference": "Q1",
+        "pin": "G",
+        "number": "1",
+        "bridgeEndpoint": "mosfet:G",
+        "netId": "GATE",
+        "xMm": 31,
+        "yMm": 30,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "mosfet",
+        "reference": "Q1",
+        "pin": "D",
+        "number": "2",
+        "bridgeEndpoint": "mosfet:D",
+        "netId": "DRAIN",
+        "xMm": 33.54,
+        "yMm": 30,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "mosfet",
+        "reference": "Q1",
+        "pin": "S",
+        "number": "3",
+        "bridgeEndpoint": "mosfet:S",
+        "netId": "GND",
+        "xMm": 36.08,
+        "yMm": 30,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            6
+          ],
+          [
+            15,
+            6
+          ],
+          [
+            15,
+            9
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            55,
+            3
+          ],
+          [
+            55,
+            17
+          ]
+        ]
+      },
+      {
+        "netId": "COIL",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25,
+            9
+          ],
+          [
+            35,
+            9
+          ]
+        ]
+      },
+      {
+        "netId": "DRAIN",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            40,
+            9
+          ],
+          [
+            40,
+            13
+          ],
+          [
+            45,
+            13
+          ],
+          [
+            45,
+            17
+          ]
+        ]
+      },
+      {
+        "netId": "DRAIN",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            45,
+            17
+          ],
+          [
+            45,
+            22
+          ],
+          [
+            33.54,
+            22
+          ],
+          [
+            33.54,
+            30
+          ]
+        ]
+      },
+      {
+        "netId": "GATE",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            25
+          ],
+          [
+            31,
+            25
+          ],
+          [
+            31,
+            30
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            8.54
+          ],
+          [
+            3,
+            8.54
+          ],
+          [
+            3,
+            27.54
+          ],
+          [
+            5,
+            27.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            27.54
+          ],
+          [
+            5,
+            37
+          ],
+          [
+            36.08,
+            37
+          ],
+          [
+            36.08,
+            30
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "GATE",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "RCOIL",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3900FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C3900FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "COIL"
+        }
+      },
+      {
+        "reference": "L1",
+        "manufacturer": "Würth Elektronik",
+        "manufacturerPartNumber": "7447471104",
+        "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Wurth%20Electronics%20PDFs/7447471104.pdf",
+        "package": "Wurth_7447471104_WE-TIS_radial_D11_P5.00mm",
+        "pinMapping": {
+          "1": "COIL",
+          "2": "DRAIN"
+        }
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "1N5819-E3/54",
+        "sourceUrl": "https://www.vishay.com/docs/88525/1n5817.pdf",
+        "package": "Vishay_1N5819_DO-41_Axial_P10mm",
+        "pinMapping": {
+          "1": "DRAIN",
+          "2": "VCC"
+        }
+      },
+      {
+        "reference": "Q1",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "FQP30N06L",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/fqp30n06l-d.pdf",
+        "package": "onsemi_FQP30N06L_TO-220-3_P2.54mm",
+        "pinMapping": {
+          "1": "GATE",
+          "2": "DRAIN",
+          "3": "GND"
+        }
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External current-limited 12 V supply connects through J1."
+      },
+      {
+        "instanceId": "gate-drive",
+        "reference": "VG",
+        "reason": "External actively driven gate signal connects through J2."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "fabricationNotes": "J1 pin 1: 12 V. J2 pin 1: actively driven 0/5 V gate. Both pin 2 terminals are ground. Keep the drain tab isolated."
+  }
 }
