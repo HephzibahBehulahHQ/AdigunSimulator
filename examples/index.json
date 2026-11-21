@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 80,
-    "withoutStoredPcb": 136,
+    "withStoredPcb": 81,
+    "withoutStoredPcb": 135,
     "unexpectedFailures": []
   },
   "entries": [
@@ -958,92 +958,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "4c13c1a06c822bb25339bf767835a79ec4b1221c84b78d04ff838bdae01069cc",
-      "components": 19,
+      "sha256": "3ff4cbabfea04e272b855a5ffa76efa094401651f3f7dbcefce1adab1e18f74f",
+      "components": 14,
       "analysis": "complete",
       "engine": "Ideal BCD decade counter and seven-segment decoder",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "CLK",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "RESET_N",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-bcd-display-ideal"
-        },
-        {
-          "reference": "RA",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RB",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RC",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RD",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RE",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RF",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RG",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DA",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "DB",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "DC",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "DD",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "DE",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "DF",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "DG",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 13,
+      "pcbPads": 48,
+      "pcbRoutes": 26,
+      "unmapped": []
     },
     {
       "file": "049-traffic-light-fsm.adigun.json",

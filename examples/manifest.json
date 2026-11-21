@@ -2113,7 +2113,7 @@
       "id": "048-bcd-counter-display",
       "title": "BCD counter and seven-segment display",
       "status": "released",
-      "objective": "Count ten clock edges from 0 through 9 and wrap to 0; assert the correct seven-segment output pattern for each decimal digit and support active-low reset.",
+      "objective": "Count ten clock edges from 0 through 9 and wrap to 0; assert the correct seven-segment output pattern for each decimal digit and support active-high reset.",
       "acceptanceTest": "tests/core.test.mjs: catalogue BCD counter displays 0 through 9 and wraps with correct segments",
       "testId": "core-bcd-counter-display",
       "projectFile": "examples/048-bcd-counter-display.adigun.json",

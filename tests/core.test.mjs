@@ -2063,7 +2063,7 @@ test("catalogue BCD counter displays 0 through 9 and wraps with correct segments
   assert.equal(reset.state, "complete");
   assert.equal(reset.result.digit, 0);
   assert.deepEqual(reset.result.segmentsOn, [true, true, true, true, true, true, false]);
-  let stateProject = updateComponent(project, "reset-input", { value: "5 V" });
+  let stateProject = updateComponent(project, "reset-input", { value: "0 V" });
   let state = runSupportedAnalysis(stateProject, { previousState: reset });
   const expected = [
     [1,0,1,1,0,0,0,0],[2,1,1,0,1,1,0,1],[3,1,1,1,1,0,0,1],[4,0,1,1,0,0,1,1],
@@ -2074,6 +2074,7 @@ test("catalogue BCD counter displays 0 through 9 and wraps with correct segments
     state = runSupportedAnalysis(stateProject, { previousState: state });
     assert.equal(state.result.digit, digit);
     assert.deepEqual(state.result.segmentsOn, pattern.map(Boolean));
+    assert.deepEqual(state.result.segmentCurrents, pattern.map(on => on ? 0.0003 : 0));
     assert.equal(state.result.risingEdge, true);
     stateProject = updateComponent(stateProject, "clock-input", { value: "0 V" });
     state = runSupportedAnalysis(stateProject, { previousState: state });

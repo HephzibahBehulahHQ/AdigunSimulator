@@ -1,4 +1,14 @@
 import { SCHEMATIC_PRIMITIVES } from "./schematic-primitives.mjs";
+const displayPinSides = {
+  "active.cd4026be-decade": [
+    ["VCC", "ENABLE", "INHIBIT", "CLK", "RESET", "GND"],
+    ["SEG_A", "SEG_B", "SEG_C", "SEG_D", "SEG_E", "SEG_F", "SEG_G"]
+  ],
+  "display.sc56-11ewa": [
+    ["A", "B", "C", "D", "E", "F", "G"],
+    ["K1", "K2"]
+  ]
+};
 // Visual anchors for the editor's named electrical terminals.
 // Pin order here defines schematic placement only; it does not assert physical package pin numbers.
 export function schematicSymbolSize(libraryId) {
@@ -30,6 +40,12 @@ function basePinPoint(component, pins, pin) {
   if (index < 0) return null;
   const [x = 120, y = 120] = component.position?.schematic ?? [];
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  const sides = displayPinSides[component.libraryId];
+  if (sides) {
+    const left = sides[0].includes(pin);
+    const sidePins = sides[left ? 0 : 1];
+    return { x: x + (left ? 6 : 50), y: y + 11 + (sidePins.indexOf(pin) + 1) * 36 / (sidePins.length + 1), side: left ? "left" : "right" };
+  }
   const primitive = SCHEMATIC_PRIMITIVES[component.libraryId];
   if (primitive) {
     const point = primitive.pins[pin];

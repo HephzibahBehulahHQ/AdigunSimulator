@@ -35,7 +35,7 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
       continue;
     }
     packages.set(pkg.instanceId, pkg);
-    const allowedKinds = ["to220", "to92", "external-relay", "external-speaker", "radial-microphone", "axial-diode", "axial-led", "slide-switch", "trimmer", "bridge-rectifier", "radial-inductor", "radial-capacitor", "box-capacitor", "radial-ptc", "radial-ntc", "photoresistor", "pdip", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
+    const allowedKinds = ["to220", "to92", "external-relay", "external-speaker", "radial-microphone", "axial-diode", "axial-led", "slide-switch", "trimmer", "bridge-rectifier", "radial-inductor", "radial-capacitor", "box-capacitor", "radial-ptc", "radial-ntc", "photoresistor", "pdip", "seven-segment-display", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
     const externalSupply = pkg.kind === "external-supply";
     const externalRelay = pkg.kind === "external-relay";
     const externalSpeaker = pkg.kind === "external-speaker";
@@ -115,6 +115,12 @@ function packageBody(pkg, scaleX, scaleY) {
   if (pkg.kind === "radial-ptc") return `<rect class="breadboard-ptc-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width,height) * .28}"/><path class="breadboard-ptc-seam" d="M${-width * .26} ${-height * .34} H${width * .26}"/>`;
   if (pkg.kind === "radial-ntc" || pkg.kind === "photoresistor") return `<ellipse class="breadboard-ptc-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/>`;
   if (pkg.kind === "pdip") return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/><path class="breadboard-ptc-seam" d="M${-width / 2} ${-height * .16} a${height * .16} ${height * .16} 0 0 1 0 ${height * .32}"/>`;
+  if (pkg.kind === "seven-segment-display") {
+    const segmentX = width * .24, segmentY = height * .34, gap = height * .04;
+    const horizontals = [-segmentY, 0, segmentY].map(y => `M${-segmentX + gap} ${y}H${segmentX - gap}`);
+    const verticals = [-segmentX, segmentX].flatMap(x => [`M${x} ${-segmentY + gap}V${-gap}`, `M${x} ${gap}V${segmentY - gap}`]);
+    return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/><path d="${[...horizontals, ...verticals].join(" ")}" fill="none" stroke="#92969b" stroke-width="${gap}" stroke-linecap="round"/><circle cx="${width * .35}" cy="${segmentY}" r="${gap / 2}" fill="#92969b"/>`;
+  }
   if (pkg.kind === "to92") return `<path class="breadboard-bridge-body" d="M${-width / 2} ${height / 2} V0 Q${-width / 2} ${-height / 2} 0 ${-height / 2} T${width / 2} 0 V${height / 2} Z"/>`;
   if (pkg.kind === "external-relay") return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/>`;
   if (pkg.kind === "external-speaker") return `<rect class="breadboard-bridge-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="4"/><ellipse class="breadboard-to220-hole" cx="0" cy="0" rx="${width * .38}" ry="${height * .38}"/><text class="breadboard-external-supply-label" x="0" y="4">off-board speaker</text>`;
