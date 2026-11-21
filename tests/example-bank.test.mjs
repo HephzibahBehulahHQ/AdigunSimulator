@@ -159,6 +159,7 @@ test('switched RC example maps the switch and polarized capacitor across views a
  assert.equal(entry.pcbStatus,'stored');
  assert.deepEqual(entry.unmapped,[]);
  for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.deepEqual(projectComponentsForView(project,'schematic').components.map(part=>part.instanceId),project.components.map(part=>part.instanceId));
  const getPartPins=id=>findLibraryPart(id)?.pins??[];
  assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');
  assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
