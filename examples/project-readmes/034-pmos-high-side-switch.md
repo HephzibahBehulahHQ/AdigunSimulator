@@ -27,9 +27,11 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 uses an Infineon IRF9540NPBF and a Vishay AC05000001200JAC00 120 Ω, 5 W wirewound load. Keep the load off the plastic breadboard with insulated pigtails. The ideal load dissipates about 1.2 W when on. Keep the MOSFET drain tab isolated. Drive VG actively from a grounded 0–12 V bench source, with 0 V on and 12 V off. [Infineon MOSFET datasheet](https://www.infineon.com/assets/row/public/documents/24/49/infineon-irf9540n-datasheet-en.pdf) · [Vishay load resistor datasheet](https://www.vishay.com/docs/28730/ac_ac-at_ac-ni.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 66 × 43 mm PCB has 11 plated pads and routed front and back copper. J1 pin 1 accepts the current-limited 12 V supply. J2 pin 1 accepts the gate control. Pin 2 of both headers is ground. Mount RL above the PCB on formed leads. The fabrication export provides both copper Gerbers, board outline, plated drills, and a BOM. Thermal and electrical bench characterization remains pending.
+
+The scope displays the modeled settled gate and load voltages. Gate charging and switching edges are outside the ideal model.
 
 ## Acceptance test and expected result
 
