@@ -578,7 +578,7 @@
       "acceptanceTest": "tests/core.test.mjs: SPDT RC example calculates charging and discharging at one time constant",
       "testId": "core-rc-charge-discharge",
       "projectFile": "examples/011-rc-charge-discharge.adigun.json",
-      "safetyNote": "Ideal low-voltage educational model only. Generic components, switch resistance, tolerances, leakage, ratings, physical breadboard layout, and PCB footprints are not verified. Discharge assumes a previously charged capacitor at the source voltage.",
+      "safetyNote": "Ideal low-voltage educational model with source-backed BB400 and PCB mappings. The model omits switch resistance, capacitor leakage and tolerances. Discharge assumes a capacitor initially charged to the source voltage. Verify polarity and use a current-limited supply.",
       "verification": {
         "status": "passed",
         "workflow": "Verify AdigunSimulator",

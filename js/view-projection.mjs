@@ -1,6 +1,7 @@
 import { findLibraryPart, getViewReconciliationIssues, validateProject } from "./core.mjs";
 
 function declaredNonPhysical(project, view) {
+  if (view === "schematic") return new Set();
   const items = view === "breadboard" ? project?.breadboard?.nonPhysicalItems : project?.pcbFabrication?.nonPhysicalItems;
   return new Set((items ?? []).map(item => item.instanceId));
 }
