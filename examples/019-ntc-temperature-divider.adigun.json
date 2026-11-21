@@ -113,5 +113,392 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 52,
+      "heightMm": 30,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "ntc-1",
+        "reference": "TH1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B57891M0103J000",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/50/db/ntc/NTC_Leaded_disks_M891.pdf",
+        "footprint": "TDK_B57891M0103J000_Radial_P2.50mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "fixed-resistor-1",
+        "reference": "R1",
+        "footprint": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "VCC",
+        "xMm": 4,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 7.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "ntc-1",
+        "reference": "TH1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 14,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "ntc-1",
+        "reference": "TH1",
+        "pin": "2",
+        "number": "2",
+        "netId": "VOUT",
+        "xMm": 16.5,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "fixed-resistor-1",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VOUT",
+        "xMm": 29,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "fixed-resistor-1",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 39,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            5
+          ],
+          [
+            14,
+            5
+          ]
+        ]
+      },
+      {
+        "netId": "VOUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            16.5,
+            5
+          ],
+          [
+            29,
+            5
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            7.54
+          ],
+          [
+            4,
+            25
+          ],
+          [
+            39,
+            25
+          ],
+          [
+            39,
+            5
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "5 V VCC",
+          "2": "GND"
+        },
+        "limitations": [
+          "Confirm drill and annular-ring rules with the selected fabricator."
+        ]
+      },
+      {
+        "instanceId": "ntc-1",
+        "reference": "TH1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B57891M0103J000",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/50/db/ntc/NTC_Leaded_disks_M891.pdf",
+        "package": "M891 leaded disk, 2.5 mm nominal lead pitch and 0.5 mm leads",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "VOUT"
+        },
+        "limitations": [
+          "10 kΩ at 25 °C ±5%; B25/100 3950 K ±3%. The model omits self-heating and uses a single nominal Beta."
+        ]
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "package": "MRS25 axial, 10 kΩ, 1%, 0.6 W",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "limitations": [
+          "The board uses a 10 mm lead-center layout; verify the ordered variant and lead diameter before assembly."
+        ],
+        "pinMapping": {
+          "1": "VOUT",
+          "2": "GND"
+        }
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "source-1",
+        "reference": "V1",
+        "reason": "A regulated, current-limited 5 V bench source connects to J1."
+      },
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; J1 pin 2 and the routed ground net provide the physical return."
+      }
+    ],
+    "fabricationNotes": [
+      "Connect 5 V to J1 pin 1 and return to pin 2. Probe VOUT at TH1 pad 2 or R1 pad 1.",
+      "Leave airflow around TH1 and keep it away from local heat sources. Verify placement and allow the sensor to settle before measuring.",
+      "Treat the model as a nominal divider estimate. Actual readings depend on sensor tolerance, self-heating, airflow and probe loading."
+    ]
+  },
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "ntc-1:1": "A8",
+      "ntc-1:2": "A9",
+      "fixed-resistor-1:1": "D14",
+      "fixed-resistor-1:2": "D18"
+    },
+    "jumpers": [
+      {
+        "from": "TP2",
+        "to": "A8"
+      },
+      {
+        "from": "A9",
+        "to": "D14"
+      },
+      {
+        "from": "D18",
+        "to": "BM18"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol representing the shared physical return rail."
+      }
+    ],
+    "physicalNotes": [
+      "Use a regulated, current-limited 5 V source at TP2/BM2.",
+      "TH1 spans A8–A9 and R1 spans D14–D18. Verify the 2.5 mm sensor pitch fits the 2.54 mm hole pitch without forcing or bending leads at the body.",
+      "Fit jumpers TP2–A8, A9–D14 and D18–BM18. Probe VOUT at D14 and allow the sensor to thermally settle."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "source-1",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            283
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "ntc-1",
+          "reference": "TH1",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B57891M0103J000",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/50/db/ntc/NTC_Leaded_disks_M891.pdf",
+          "kind": "radial-ntc",
+          "bodyMm": {
+            "width": 3.5,
+            "height": 3
+          },
+          "positionPx": [
+            201.93103448275863,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A8",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -1.25,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A9",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                1.25,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "fixed-resistor-1",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            349.86206896551727,
+            125
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "D14",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "D18",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

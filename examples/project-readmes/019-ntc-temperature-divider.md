@@ -13,7 +13,7 @@ Use an NTC thermistor with R25 10 kΩ and Beta 3950 K above a 10 kΩ fixed resis
 | R1 | `passive.resistor` | 10 kΩ |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The stored layout uses a TDK B57891M0103J000 thermistor, Vishay MRS25000C1002FCT00 resistor, and Samtec TSW-102-07-T-S input header. TDK specifies 10 kΩ at 25 °C with ±5% tolerance and a B25/100 of 3950 K with ±3% tolerance.
 
 ## Net connections
 
@@ -23,9 +23,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+On the BB400, place TH1 across A8/A9 and R1 across D14/D18. Connect the regulated 5 V source to TP2/BM2. Fit jumpers TP2–A8, A9–D14 and D18–BM18. Probe VOUT at D14 relative to the return rail. Verify lead fit without bending the sensor leads at the body.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 52 × 30 mm single-sided PCB connects J1 pin 1 to 5 V and pin 2 to GND. Probe VOUT at TH1 pad 2 or R1 pad 1. Allow airflow around TH1 and let the sensor settle before reading. The single-Beta calculation omits self-heating, part tolerances and probe loading.
 
 ## Acceptance test and expected result
 
