@@ -1564,7 +1564,7 @@
       "id": "036-hbridge-dc-motor",
       "title": "Four-switch H-bridge DC motor driver",
       "status": "released",
-      "objective": "Use two generic P-channel high-side switches and two generic N-channel low-side switches to drive a 6 Ω + 10 mH motor electrical equivalent from 12 V; test forward and reverse static vectors, coast, MOSFET gate bounds, and same-leg shoot-through interlock.",
+      "objective": "Check static forward, reverse, coast and overlap rejection with a 390 Ω and 100 mH motor equivalent from 12 V.",
       "acceptanceTest": "tests/core.test.mjs: catalogue H-bridge reverses the motor model and blocks same-leg shoot-through",
       "testId": "core-hbridge-dc-motor",
       "projectFile": "examples/036-hbridge-dc-motor.adigun.json",
@@ -1582,10 +1582,10 @@
         "expectedResult": {
           "supplyVoltage": 12,
           "direction": "forward",
-          "motorCurrentA": 1.9354838709677418,
-          "motorVoltageV": 11.61290322580645,
-          "leftOutputVoltageV": 11.806451612903226,
-          "rightOutputVoltageV": 0.1935483870967742,
+          "motorCurrentA": 0.030753459764223477,
+          "motorVoltageV": 11.993849308047157,
+          "leftOutputVoltageV": 11.996924654023578,
+          "rightOutputVoltageV": 0.0030753459764223477,
           "shootThrough": false
         }
       },

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use two generic P-channel high-side switches and two generic N-channel low-side switches to drive a 6 Ω + 10 mH motor electrical equivalent from 12 V; test forward and reverse static vectors, coast, MOSFET gate bounds, and same-leg shoot-through interlock.
+Use two generic P-channel high-side switches and two generic N-channel low-side switches to drive a 390 Ω + 100 mH motor electrical equivalent from 12 V; test forward and reverse static vectors, coast, MOSFET gate bounds, and same-leg shoot-through interlock.
 
 ## Bill of materials
 
@@ -17,8 +17,8 @@ Use two generic P-channel high-side switches and two generic N-channel low-side 
 | Q2 | `active.nmos-switch` | Vth 2 V; RdsOn 0.1 Ω |
 | Q3 | `active.pmos-high-side-ideal` | Vth 2 V; RdsOn 0.1 Ω; |VGS|max 20 V |
 | Q4 | `active.nmos-switch` | Vth 2 V; RdsOn 0.1 Ω |
-| RM | `passive.resistor` | 6 Ω |
-| LM | `passive.inductor` | 10 mH |
+| RM | `passive.resistor` | 390 Ω |
+| LM | `passive.inductor` | 100 mH |
 | GND | `ground.signal` | 0 V |
 
 These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
@@ -37,9 +37,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses IRF9540NPBF high-side switches and FQP30N06L low-side switches. The 390 Ω resistor and Würth 7447471104 100 mH inductor form a static test load. The ideal 30.8 mA current stays below the inductor rating of 50 mA. Set the gate levels before energizing a 12 V supply limited to 40 mA and keep the drain tabs isolated.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 76 × 58 mm two-layer PCB has 26 plated pads. J1 is the supply. J2 through J5 accept LH, LL, RH and RL gate voltages, respectively. Pin 2 on each connector is ground. The scope reports settled modeled levels and excludes the floating motor nodes in coast. Disconnect the supply and let load current decay before changing the gate vector. The board has not been bench-tested.
 
 ## Acceptance test and expected result
 
@@ -55,10 +55,10 @@ Recorded expected result:
 {
   "supplyVoltage": 12,
   "direction": "forward",
-  "motorCurrentA": 1.9354838709677418,
-  "motorVoltageV": 11.61290322580645,
-  "leftOutputVoltageV": 11.806451612903226,
-  "rightOutputVoltageV": 0.1935483870967742,
+  "motorCurrentA": 0.030753459764223477,
+  "motorVoltageV": 11.993849308047157,
+  "leftOutputVoltageV": 11.996924654023578,
+  "rightOutputVoltageV": 0.0030753459764223477,
   "shootThrough": false
 }
 ```

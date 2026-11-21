@@ -19,8 +19,8 @@
           55
         ],
         "schematic": [
-          40,
-          55
+          315,
+          27
         ],
         "pcb": [
           40,
@@ -39,8 +39,8 @@
           55
         ],
         "schematic": [
-          155,
-          55
+          38,
+          35
         ],
         "pcb": [
           155,
@@ -59,8 +59,8 @@
           55
         ],
         "schematic": [
-          270,
-          55
+          40,
+          181
         ],
         "pcb": [
           270,
@@ -79,8 +79,8 @@
           55
         ],
         "schematic": [
-          385,
-          55
+          590,
+          35
         ],
         "pcb": [
           385,
@@ -99,8 +99,8 @@
           55
         ],
         "schematic": [
-          500,
-          55
+          590,
+          181
         ],
         "pcb": [
           500,
@@ -119,8 +119,8 @@
           120
         ],
         "schematic": [
-          40,
-          120
+          179,
+          68
         ],
         "pcb": [
           40,
@@ -139,8 +139,8 @@
           120
         ],
         "schematic": [
-          155,
-          120
+          178,
+          174
         ],
         "pcb": [
           155,
@@ -159,8 +159,8 @@
           120
         ],
         "schematic": [
-          270,
-          120
+          463,
+          40
         ],
         "pcb": [
           270,
@@ -179,8 +179,8 @@
           120
         ],
         "schematic": [
-          385,
-          120
+          434,
+          188
         ],
         "pcb": [
           385,
@@ -192,15 +192,15 @@
       "instanceId": "motor-resistance",
       "libraryId": "passive.resistor",
       "reference": "RM",
-      "value": "6 Ω",
+      "value": "390 Ω",
       "position": {
         "breadboard": [
           500,
           120
         ],
         "schematic": [
-          500,
-          120
+          251,
+          152
         ],
         "pcb": [
           500,
@@ -212,15 +212,15 @@
       "instanceId": "motor-inductance",
       "libraryId": "passive.inductor",
       "reference": "LM",
-      "value": "10 mH",
+      "value": "100 mH",
       "position": {
         "breadboard": [
           40,
           186
         ],
         "schematic": [
-          40,
-          186
+          370,
+          124
         ],
         "pcb": [
           40,
@@ -239,8 +239,8 @@
           186
         ],
         "schematic": [
-          155,
-          186
+          332,
+          208
         ],
         "pcb": [
           155,
@@ -323,5 +323,1625 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "gate-lh:+": "C3",
+      "gate-lh:-": "BM5",
+      "gate-ll:+": "C9",
+      "gate-ll:-": "BM10",
+      "gate-rh:+": "C15",
+      "gate-rh:-": "BM15",
+      "gate-rl:+": "C21",
+      "gate-rl:-": "BM20",
+      "pmos-left:G": "I3",
+      "pmos-left:D": "I4",
+      "pmos-left:S": "I5",
+      "nmos-left:G": "I9",
+      "nmos-left:D": "I10",
+      "nmos-left:S": "I11",
+      "pmos-right:G": "I15",
+      "pmos-right:D": "I16",
+      "pmos-right:S": "I17",
+      "nmos-right:G": "I21",
+      "nmos-right:D": "I22",
+      "nmos-right:S": "I23",
+      "motor-resistance:1": "A4",
+      "motor-resistance:2": "A8",
+      "motor-inductance:1": "A26",
+      "motor-inductance:2": "A28"
+    },
+    "jumpers": [
+      {
+        "from": "TP3",
+        "to": "F5"
+      },
+      {
+        "from": "TP14",
+        "to": "F17"
+      },
+      {
+        "from": "BM8",
+        "to": "J11"
+      },
+      {
+        "from": "BM21",
+        "to": "J23"
+      },
+      {
+        "from": "E3",
+        "to": "F3"
+      },
+      {
+        "from": "E9",
+        "to": "F9"
+      },
+      {
+        "from": "E15",
+        "to": "F15"
+      },
+      {
+        "from": "E21",
+        "to": "F21"
+      },
+      {
+        "from": "H4",
+        "to": "H10"
+      },
+      {
+        "from": "F10",
+        "to": "E4"
+      },
+      {
+        "from": "B8",
+        "to": "B26"
+      },
+      {
+        "from": "E28",
+        "to": "F16"
+      },
+      {
+        "from": "H16",
+        "to": "H22"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            72,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "gate-lh",
+          "reference": "VGLH",
+          "kind": "external-supply",
+          "positionPx": [
+            185,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "C3",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM5",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "gate-ll",
+          "reference": "VGLL",
+          "kind": "external-supply",
+          "positionPx": [
+            297,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "C9",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM10",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "gate-rh",
+          "reference": "VGRH",
+          "kind": "external-supply",
+          "positionPx": [
+            409,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "C15",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM15",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "gate-rl",
+          "reference": "VGRL",
+          "kind": "external-supply",
+          "positionPx": [
+            521,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "C21",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM20",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "pmos-left",
+          "reference": "Q1",
+          "manufacturer": "Infineon",
+          "manufacturerPartNumber": "IRF9540NPBF",
+          "sourceUrl": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-irf9540n-datasheet-en.pdf",
+          "kind": "to220",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 15.75
+          },
+          "positionPx": [
+            113.17241379310346,
+            177
+          ],
+          "pins": [
+            {
+              "pin": "G",
+              "hole": "I3",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                7.875
+              ]
+            },
+            {
+              "pin": "D",
+              "hole": "I4",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                7.875
+              ]
+            },
+            {
+              "pin": "S",
+              "hole": "I5",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                7.875
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "nmos-left",
+          "reference": "Q2",
+          "manufacturer": "onsemi",
+          "manufacturerPartNumber": "FQP30N06L",
+          "sourceUrl": "https://www.onsemi.com/pdf/datasheet/fqp30n06l-d.pdf",
+          "kind": "to220",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 15.75
+          },
+          "positionPx": [
+            231.51724137931035,
+            177
+          ],
+          "pins": [
+            {
+              "pin": "G",
+              "hole": "I9",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                7.875
+              ]
+            },
+            {
+              "pin": "D",
+              "hole": "I10",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                7.875
+              ]
+            },
+            {
+              "pin": "S",
+              "hole": "I11",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                7.875
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "pmos-right",
+          "reference": "Q3",
+          "manufacturer": "Infineon",
+          "manufacturerPartNumber": "IRF9540NPBF",
+          "sourceUrl": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-irf9540n-datasheet-en.pdf",
+          "kind": "to220",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 15.75
+          },
+          "positionPx": [
+            349.86206896551727,
+            177
+          ],
+          "pins": [
+            {
+              "pin": "G",
+              "hole": "I15",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                7.875
+              ]
+            },
+            {
+              "pin": "D",
+              "hole": "I16",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                7.875
+              ]
+            },
+            {
+              "pin": "S",
+              "hole": "I17",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                7.875
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "nmos-right",
+          "reference": "Q4",
+          "manufacturer": "onsemi",
+          "manufacturerPartNumber": "FQP30N06L",
+          "sourceUrl": "https://www.onsemi.com/pdf/datasheet/fqp30n06l-d.pdf",
+          "kind": "to220",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 15.75
+          },
+          "positionPx": [
+            468.2068965517242,
+            177
+          ],
+          "pins": [
+            {
+              "pin": "G",
+              "hole": "I21",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                7.875
+              ]
+            },
+            {
+              "pin": "D",
+              "hole": "I22",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                7.875
+              ]
+            },
+            {
+              "pin": "S",
+              "hole": "I23",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                7.875
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "motor-resistance",
+          "reference": "RM",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3900FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            152.6206896551724,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A4",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A8",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "motor-inductance",
+          "reference": "LM",
+          "kind": "radial-inductor",
+          "manufacturer": "Würth Elektronik",
+          "manufacturerPartNumber": "7447471104",
+          "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Wurth%20Electronics%20PDFs/7447471104.pdf",
+          "bodyMm": {
+            "width": 11,
+            "height": 11.5
+          },
+          "positionPx": [
+            566.8275862068966,
+            72.35
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A26",
+              "connection": "direct",
+              "leadDiameterMm": 0.65,
+              "offsetMm": [
+                -2.5,
+                5.75
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A28",
+              "connection": "direct",
+              "leadDiameterMm": 0.65,
+              "offsetMm": [
+                2.5,
+                5.75
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "physicalNotes": [
+      "Use the source-backed R-L fixture for static checks. Set the 12 V supply current limit to 40 mA.",
+      "Set all four gate voltages before energizing. Turn off the supply and let load current decay before changing direction.",
+      "Keep the four drain tabs electrically isolated. Use insulated pigtails and share the gate sources’ ground with the 12 V supply."
+    ]
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 76,
+      "heightMm": 58,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "gate-lh",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "gate-ll",
+        "reference": "J3",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "gate-rh",
+        "reference": "J4",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "gate-rl",
+        "reference": "J5",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "pmos-left",
+        "reference": "Q1",
+        "manufacturer": "Infineon",
+        "manufacturerPartNumber": "IRF9540NPBF",
+        "sourceUrl": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-irf9540n-datasheet-en.pdf",
+        "technology": "through-hole",
+        "footprint": "Infineon_IRF9540NPBF_TO-220AB_P2.54mm"
+      },
+      {
+        "instanceId": "nmos-left",
+        "reference": "Q2",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "FQP30N06L",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/fqp30n06l-d.pdf",
+        "technology": "through-hole",
+        "footprint": "onsemi_FQP30N06L_TO-220-3_P2.54mm"
+      },
+      {
+        "instanceId": "pmos-right",
+        "reference": "Q3",
+        "manufacturer": "Infineon",
+        "manufacturerPartNumber": "IRF9540NPBF",
+        "sourceUrl": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-irf9540n-datasheet-en.pdf",
+        "technology": "through-hole",
+        "footprint": "Infineon_IRF9540NPBF_TO-220AB_P2.54mm"
+      },
+      {
+        "instanceId": "nmos-right",
+        "reference": "Q4",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "FQP30N06L",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/fqp30n06l-d.pdf",
+        "technology": "through-hole",
+        "footprint": "onsemi_FQP30N06L_TO-220-3_P2.54mm"
+      },
+      {
+        "instanceId": "motor-resistance",
+        "reference": "RM",
+        "footprint": "Vishay_MRS25000C3900FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3900FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "motor-inductance",
+        "reference": "LM",
+        "footprint": "Wurth_7447471104_WE-TIS_radial_D11_P5.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Würth Elektronik",
+        "manufacturerPartNumber": "7447471104",
+        "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Wurth%20Electronics%20PDFs/7447471104.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "supply:+",
+        "netId": "VCC",
+        "xMm": 5,
+        "yMm": 6,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "supply:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 8.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-lh",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "gate-lh:+",
+        "netId": "GATE_LH",
+        "xMm": 5,
+        "yMm": 15,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-lh",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "gate-lh:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 17.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-ll",
+        "reference": "J3",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "gate-ll:+",
+        "netId": "GATE_LL",
+        "xMm": 5,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-ll",
+        "reference": "J3",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "gate-ll:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 26.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-rh",
+        "reference": "J4",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "gate-rh:+",
+        "netId": "GATE_RH",
+        "xMm": 5,
+        "yMm": 33,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-rh",
+        "reference": "J4",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "gate-rh:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 35.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-rl",
+        "reference": "J5",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "gate-rl:+",
+        "netId": "GATE_RL",
+        "xMm": 5,
+        "yMm": 42,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "gate-rl",
+        "reference": "J5",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "gate-rl:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 44.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "pmos-left",
+        "reference": "Q1",
+        "pin": "G",
+        "number": "1",
+        "bridgeEndpoint": "pmos-left:G",
+        "netId": "GATE_LH",
+        "xMm": 23,
+        "yMm": 18,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "pmos-left",
+        "reference": "Q1",
+        "pin": "D",
+        "number": "2",
+        "bridgeEndpoint": "pmos-left:D",
+        "netId": "MOTOR_A",
+        "xMm": 25.54,
+        "yMm": 18,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "pmos-left",
+        "reference": "Q1",
+        "pin": "S",
+        "number": "3",
+        "bridgeEndpoint": "pmos-left:S",
+        "netId": "VCC",
+        "xMm": 28.08,
+        "yMm": 18,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "nmos-left",
+        "reference": "Q2",
+        "pin": "G",
+        "number": "1",
+        "bridgeEndpoint": "nmos-left:G",
+        "netId": "GATE_LL",
+        "xMm": 23,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "nmos-left",
+        "reference": "Q2",
+        "pin": "D",
+        "number": "2",
+        "bridgeEndpoint": "nmos-left:D",
+        "netId": "MOTOR_A",
+        "xMm": 25.54,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "nmos-left",
+        "reference": "Q2",
+        "pin": "S",
+        "number": "3",
+        "bridgeEndpoint": "nmos-left:S",
+        "netId": "GND",
+        "xMm": 28.08,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "pmos-right",
+        "reference": "Q3",
+        "pin": "G",
+        "number": "1",
+        "bridgeEndpoint": "pmos-right:G",
+        "netId": "GATE_RH",
+        "xMm": 55,
+        "yMm": 18,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "pmos-right",
+        "reference": "Q3",
+        "pin": "D",
+        "number": "2",
+        "bridgeEndpoint": "pmos-right:D",
+        "netId": "MOTOR_B",
+        "xMm": 57.54,
+        "yMm": 18,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "pmos-right",
+        "reference": "Q3",
+        "pin": "S",
+        "number": "3",
+        "bridgeEndpoint": "pmos-right:S",
+        "netId": "VCC",
+        "xMm": 60.08,
+        "yMm": 18,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "nmos-right",
+        "reference": "Q4",
+        "pin": "G",
+        "number": "1",
+        "bridgeEndpoint": "nmos-right:G",
+        "netId": "GATE_RL",
+        "xMm": 55,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "nmos-right",
+        "reference": "Q4",
+        "pin": "D",
+        "number": "2",
+        "bridgeEndpoint": "nmos-right:D",
+        "netId": "MOTOR_B",
+        "xMm": 57.54,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "nmos-right",
+        "reference": "Q4",
+        "pin": "S",
+        "number": "3",
+        "bridgeEndpoint": "nmos-right:S",
+        "netId": "GND",
+        "xMm": 60.08,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.9,
+        "drillMm": 1.2
+      },
+      {
+        "instanceId": "motor-resistance",
+        "reference": "RM",
+        "pin": "1",
+        "number": "1",
+        "bridgeEndpoint": "motor-resistance:1",
+        "netId": "MOTOR_A",
+        "xMm": 32,
+        "yMm": 7,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "motor-resistance",
+        "reference": "RM",
+        "pin": "2",
+        "number": "2",
+        "bridgeEndpoint": "motor-resistance:2",
+        "netId": "MOTOR_MID",
+        "xMm": 42,
+        "yMm": 7,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "motor-inductance",
+        "reference": "LM",
+        "pin": "1",
+        "number": "1",
+        "bridgeEndpoint": "motor-inductance:1",
+        "netId": "MOTOR_MID",
+        "xMm": 35,
+        "yMm": 48,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "motor-inductance",
+        "reference": "LM",
+        "pin": "2",
+        "number": "2",
+        "bridgeEndpoint": "motor-inductance:2",
+        "netId": "MOTOR_B",
+        "xMm": 40,
+        "yMm": 48,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      }
+    ],
+    "routes": [
+      {
+        "netId": "GATE_LH",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            15
+          ],
+          [
+            23,
+            15
+          ],
+          [
+            23,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "GATE_LL",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            24
+          ],
+          [
+            23,
+            24
+          ],
+          [
+            23,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "GATE_RH",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            33
+          ],
+          [
+            3.5,
+            33
+          ],
+          [
+            3.5,
+            22.5
+          ],
+          [
+            55,
+            22.5
+          ],
+          [
+            55,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "GATE_RL",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            42
+          ],
+          [
+            55,
+            42
+          ],
+          [
+            55,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "MOTOR_A",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25.54,
+            18
+          ],
+          [
+            26.5,
+            18
+          ],
+          [
+            26.5,
+            16.5
+          ],
+          [
+            27.5,
+            16.5
+          ],
+          [
+            27.5,
+            16
+          ],
+          [
+            32,
+            16
+          ],
+          [
+            32,
+            7
+          ]
+        ]
+      },
+      {
+        "netId": "MOTOR_A",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25.54,
+            18
+          ],
+          [
+            25.54,
+            21.5
+          ],
+          [
+            2.5,
+            21.5
+          ],
+          [
+            2.5,
+            34
+          ],
+          [
+            3.5,
+            34
+          ],
+          [
+            3.5,
+            37
+          ],
+          [
+            4.5,
+            37
+          ],
+          [
+            4.5,
+            37.5
+          ],
+          [
+            25.54,
+            37.5
+          ],
+          [
+            25.54,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "MOTOR_MID",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            42,
+            7
+          ],
+          [
+            62,
+            7
+          ],
+          [
+            62,
+            46.5
+          ],
+          [
+            38.5,
+            46.5
+          ],
+          [
+            38.5,
+            48
+          ],
+          [
+            35,
+            48
+          ]
+        ]
+      },
+      {
+        "netId": "MOTOR_B",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            57.54,
+            18
+          ],
+          [
+            57.54,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "MOTOR_B",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            57.54,
+            35
+          ],
+          [
+            57.54,
+            45.5
+          ],
+          [
+            37.5,
+            45.5
+          ],
+          [
+            37.5,
+            46.5
+          ],
+          [
+            33.5,
+            46.5
+          ],
+          [
+            33.5,
+            49.5
+          ],
+          [
+            40,
+            49.5
+          ],
+          [
+            40,
+            48
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            6
+          ],
+          [
+            30.5,
+            6
+          ],
+          [
+            30.5,
+            5.5
+          ],
+          [
+            33.5,
+            5.5
+          ],
+          [
+            33.5,
+            18
+          ],
+          [
+            28.08,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            28.08,
+            18
+          ],
+          [
+            53,
+            18
+          ],
+          [
+            53,
+            17.54
+          ],
+          [
+            53.5,
+            17.54
+          ],
+          [
+            53.5,
+            16.5
+          ],
+          [
+            54.5,
+            16.5
+          ],
+          [
+            54.5,
+            16
+          ],
+          [
+            60.08,
+            16
+          ],
+          [
+            60.08,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            8.54
+          ],
+          [
+            6.5,
+            8.54
+          ],
+          [
+            6.5,
+            17.54
+          ],
+          [
+            5,
+            17.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            17.54
+          ],
+          [
+            6.5,
+            17.54
+          ],
+          [
+            6.5,
+            26.54
+          ],
+          [
+            5,
+            26.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            26.54
+          ],
+          [
+            6.5,
+            26.54
+          ],
+          [
+            6.5,
+            35.54
+          ],
+          [
+            5,
+            35.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            35.54
+          ],
+          [
+            6.5,
+            35.54
+          ],
+          [
+            6.5,
+            44.54
+          ],
+          [
+            5,
+            44.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            35.54
+          ],
+          [
+            21.5,
+            35.54
+          ],
+          [
+            21.5,
+            36.5
+          ],
+          [
+            22.5,
+            36.5
+          ],
+          [
+            22.5,
+            37
+          ],
+          [
+            28.08,
+            37
+          ],
+          [
+            28.08,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            28.08,
+            35
+          ],
+          [
+            53,
+            35
+          ],
+          [
+            53,
+            34.5
+          ],
+          [
+            53.5,
+            34.5
+          ],
+          [
+            53.5,
+            33.5
+          ],
+          [
+            54.5,
+            33.5
+          ],
+          [
+            54.5,
+            33
+          ],
+          [
+            60.08,
+            33
+          ],
+          [
+            60.08,
+            35
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "GATE_LH",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J3",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "GATE_LL",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J4",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "GATE_RH",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J5",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "GATE_RL",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "Q1",
+        "manufacturer": "Infineon",
+        "manufacturerPartNumber": "IRF9540NPBF",
+        "sourceUrl": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-irf9540n-datasheet-en.pdf",
+        "package": "Infineon_IRF9540NPBF_TO-220AB_P2.54mm",
+        "pinMapping": {
+          "1": "GATE_LH",
+          "2": "MOTOR_A",
+          "3": "VCC"
+        }
+      },
+      {
+        "reference": "Q2",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "FQP30N06L",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/fqp30n06l-d.pdf",
+        "package": "onsemi_FQP30N06L_TO-220-3_P2.54mm",
+        "pinMapping": {
+          "1": "GATE_LL",
+          "2": "MOTOR_A",
+          "3": "GND"
+        }
+      },
+      {
+        "reference": "Q3",
+        "manufacturer": "Infineon",
+        "manufacturerPartNumber": "IRF9540NPBF",
+        "sourceUrl": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-irf9540n-datasheet-en.pdf",
+        "package": "Infineon_IRF9540NPBF_TO-220AB_P2.54mm",
+        "pinMapping": {
+          "1": "GATE_RH",
+          "2": "MOTOR_B",
+          "3": "VCC"
+        }
+      },
+      {
+        "reference": "Q4",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "FQP30N06L",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/fqp30n06l-d.pdf",
+        "package": "onsemi_FQP30N06L_TO-220-3_P2.54mm",
+        "pinMapping": {
+          "1": "GATE_RL",
+          "2": "MOTOR_B",
+          "3": "GND"
+        }
+      },
+      {
+        "reference": "RM",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3900FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C3900FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "MOTOR_A",
+          "2": "MOTOR_MID"
+        }
+      },
+      {
+        "reference": "LM",
+        "manufacturer": "Würth Elektronik",
+        "manufacturerPartNumber": "7447471104",
+        "sourceUrl": "https://media.digikey.com/pdf/Data%20Sheets/Wurth%20Electronics%20PDFs/7447471104.pdf",
+        "package": "Wurth_7447471104_WE-TIS_radial_D11_P5.00mm",
+        "pinMapping": {
+          "1": "MOTOR_MID",
+          "2": "MOTOR_B"
+        }
+      }
+    ],
+    "fabricationNotes": "J1 accepts 12 V with a 40 mA current limit. J2–J5 accept LH, LL, RH and RL bench gate levels. Set static levels before power and isolate all four drain tabs.",
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External bench source connects through J1."
+      },
+      {
+        "instanceId": "gate-lh",
+        "reference": "VGLH",
+        "reason": "External bench source connects through J2."
+      },
+      {
+        "instanceId": "gate-ll",
+        "reference": "VGLL",
+        "reason": "External bench source connects through J3."
+      },
+      {
+        "instanceId": "gate-rh",
+        "reference": "VGRH",
+        "reason": "External bench source connects through J4."
+      },
+      {
+        "instanceId": "gate-rl",
+        "reference": "VGRL",
+        "reason": "External bench source connects through J5."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ]
+  }
 }

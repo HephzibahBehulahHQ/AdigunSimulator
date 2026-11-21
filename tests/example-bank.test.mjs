@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,68);assert.equal(index.summary.withoutStoredPcb,148);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,69);assert.equal(index.summary.withoutStoredPcb,147);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -408,6 +408,30 @@ test('555 one-shot maps both trigger contact pairs and produces a single trigger
  assert.ok(Math.abs(triggered.result.pulseWidthS-1.1)<1e-9);
  assert.equal(triggered.scopeRecording.preferredNet,'OUT');
 });
+test('H-bridge routes the static test load and scopes only determined nodes',async()=>{
+ const project=JSON.parse(await readFile(new URL('../examples/036-hbridge-dc-motor.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ assert.equal(exportPcbFabrication(project).status,'passed');
+ const forward=runProjectAnalysis(project);
+ assert.ok(Math.abs(forward.result.motorCurrentA-12/390.2)<1e-12);
+ assert.equal(forward.scopeDcRecording.nodes.MOTOR_A,forward.result.leftOutputVoltageV);
+ assert.equal(forward.scopeDcRecording.nodes.MOTOR_B,forward.result.rightOutputVoltageV);
+ const setGate=(id,value)=>{project.components.find(c=>c.instanceId===id).value=value;};
+ setGate('gate-ll','5 V');
+ const overlap=runProjectAnalysis(project);
+ assert.equal(overlap.state,'blocked');
+ assert.equal(overlap.scopeDcRecording,undefined);
+ setGate('gate-ll','0 V');
+ setGate('gate-lh','12 V');
+ setGate('gate-rl','0 V');
+ const coast=runProjectAnalysis(project);
+ assert.equal(coast.result.direction,'coast');
+ assert.equal(Object.hasOwn(coast.scopeDcRecording.nodes,'MOTOR_A'),false);
+ assert.equal(Object.hasOwn(coast.scopeDcRecording.nodes,'MOTOR_B'),false);
+});
 test('NPN relay maps the two real coil terminals and isolates remaining pads',async()=>{
  const project=JSON.parse(await readFile(new URL('../examples/035-npn-relay-driver.adigun.json',import.meta.url),'utf8'));
  const getPartPins=id=>findLibraryPart(id)?.pins??[];
@@ -743,7 +767,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,68);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,69);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

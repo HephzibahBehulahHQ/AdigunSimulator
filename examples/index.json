@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 68,
-    "withoutStoredPcb": 148,
+    "withStoredPcb": 69,
+    "withoutStoredPcb": 147,
     "unexpectedFailures": []
   },
   "entries": [
@@ -766,64 +766,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "b5547ca1172efc1bfc589e2cf566c5ad49db53ba3e645df85234cc59902466d9",
+      "sha256": "222f5b17c3e8e81f34c10f36b3f3266a977b1dc5a5e4116ee285891e46646c85",
       "components": 12,
       "analysis": "complete",
       "engine": "Ideal four-switch H-bridge DC motor electrical estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VGLH",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VGLL",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VGRH",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VGRL",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "Q1",
-          "libraryId": "active.pmos-high-side-ideal"
-        },
-        {
-          "reference": "Q2",
-          "libraryId": "active.nmos-switch"
-        },
-        {
-          "reference": "Q3",
-          "libraryId": "active.pmos-high-side-ideal"
-        },
-        {
-          "reference": "Q4",
-          "libraryId": "active.nmos-switch"
-        },
-        {
-          "reference": "RM",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "LM",
-          "libraryId": "passive.inductor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 11,
+      "pcbPads": 26,
+      "pcbRoutes": 17,
+      "unmapped": []
     },
     {
       "file": "037-electret-audio-preamp.adigun.json",
