@@ -13,7 +13,7 @@ Calculate the ideal sinusoidal steady-state response of a 1 kΩ / 100 µF RC low
 | C1 | `passive.capacitor` | 100 µF |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The physical layout uses a Samtec TSW-102-07-T-S input header, Vishay MRS25000C1001FCT00 resistor, and [Nichicon UES1E101MPM](https://www.nichicon.co.jp/english/series_items/catalog_pdf/e-ues.pdf) 100 µF, 25 V bipolar radial capacitor. The capacitor has 5 mm lead spacing and 0.6 mm leads. Use the bipolar part for the zero-offset AC input.
 
 ## Net connections
 
@@ -23,9 +23,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+On the BB400, connect generator signal to TP2 and return to BM2. Place R1 across A6 and A10 and C1 across F19 and F21. Add jumpers TP2–A6, A10–F19 and F21–BM21. Verify that C1’s 5 mm leads fit the 5.08 mm hole spacing without force.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The project stores a 52 × 30 mm single-sided routed PCB and generates BOM, Gerber and drill files. Connect the function generator to J1 pin 1 with return to pin 2. Set 1 V peak, zero DC offset, and amplitude for a high-impedance load. Probe FILTER_OUT at C1 pad 1 relative to GND using a high-impedance probe. Verify part fit and fabrication rules before ordering.
 
 ## Acceptance test and expected result
 

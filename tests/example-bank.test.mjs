@@ -29,7 +29,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,44);assert.equal(index.summary.withoutStoredPcb,172);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,45);assert.equal(index.summary.withoutStoredPcb,171);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -178,6 +178,30 @@ test('switched RC example maps the switch and polarized capacitor across views a
  assert.equal(analysis.scopeRecording.samples[0].nodeVoltages.RC_NODE,0);
  assert.ok(analysis.scopeRecording.samples.at(-1).nodeVoltages.RC_NODE>4.9);
 });
+test('RC low-pass uses a mapped bipolar capacitor and a model-backed cutoff trace',async()=>{
+ const entry=index.entries.find(item=>item.file==='012-rc-low-pass.adigun.json');
+ const project=JSON.parse(await readFile(new URL('../examples/012-rc-low-pass.adigun.json',import.meta.url),'utf8'));
+ assert.equal(entry.pcbStatus,'stored');
+ assert.deepEqual(entry.unmapped,[]);
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.equal(projectComponentsForView(project,'schematic').components.length,4);
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ assert.equal(validatePcbFabrication(project).status,'passed');
+ const exported=exportPcbFabrication(project);
+ assert.equal(exported.status,'passed');
+ assert.match(exported.files['BOM.csv'],/UES1E101MPM/);
+ assert.match(exported.files['board-F_Cu.gbr'],/M02\*/);
+ assert.match(exported.files['board-PTH.drl'],/T01/);
+ const analysis=runProjectAnalysis(project);
+ assert.equal(analysis.state,'complete');
+ const scope=analysis.scopeRecording;
+ assert.equal(scope.preferredNet,'FILTER_OUT');
+ assert.equal(scope.samples.length,481);
+ assert.ok(Math.abs(scope.samples[0].nodeVoltages.FILTER_OUT+0.5)<1e-9);
+ assert.ok(Math.abs(Math.max(...scope.samples.map(sample=>sample.nodeVoltages.FILTER_OUT))-Math.SQRT1_2)<1e-9);
+});
 test('5 V RL step response maps a current-rated radial inductor across BB400 and PCB',async()=>{
  const entry=index.entries.find(item=>item.file==='006-rl-step-response.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/006-rl-step-response.adigun.json',import.meta.url),'utf8'));
@@ -307,7 +331,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,44);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,45);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });
