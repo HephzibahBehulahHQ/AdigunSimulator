@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,72);assert.equal(index.summary.withoutStoredPcb,144);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,73);assert.equal(index.summary.withoutStoredPcb,143);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -407,6 +407,23 @@ test('555 one-shot maps both trigger contact pairs and produces a single trigger
  assert.equal(triggered.result.pulseCount,1);
  assert.ok(Math.abs(triggered.result.pulseWidthS-1.1)<1e-9);
  assert.equal(triggered.scopeRecording.preferredNet,'OUT');
+});
+test('Wien bridge keeps the limiter diodes antiparallel across physical views',async()=>{
+ const project=JSON.parse(await readFile(new URL('../examples/040-wien-bridge-oscillator.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ const {pinHoles}=project.breadboard;
+ assert.equal(pinHoles['limiter-1:K'],'A28');
+ assert.equal(pinHoles['limiter-2:K'],'E24');
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ const cathodeNet=ref=>project.pcbFabrication.pads.find(pad=>pad.reference===ref&&pad.pin==='K').netId;
+ assert.equal(cathodeNet('D1'),'INVERTING');
+ assert.equal(cathodeNet('D2'),'OUTPUT');
+ assert.equal(exportPcbFabrication(project).status,'passed');
+ const analysis=runProjectAnalysis(project);
+ assert.equal(analysis.result.kind,'wien-bridge-oscillator');
+ assert.equal(analysis.scopeRecording,undefined);
 });
 test('active low-pass routes the filter node independently of input and feedback',async()=>{
  const project=JSON.parse(await readFile(new URL('../examples/039-active-low-pass.adigun.json',import.meta.url),'utf8'));
@@ -811,7 +828,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,72);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,73);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });
