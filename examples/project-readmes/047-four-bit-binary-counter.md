@@ -11,11 +11,12 @@ Count modulo-16 rising clock edges into a four-bit output, initialize with activ
 | V1 | `power.dc-source` | 5 V |
 | CLK | `power.dc-source` | 0 V |
 | RESET_N | `power.dc-source` | 0 V |
-| U1 | `active.logic-counter-4bit-ideal` | Ideal modulo-16 counter |
-| R0 | `passive.resistor` | 330 Ω |
-| R1 | `passive.resistor` | 330 Ω |
-| R2 | `passive.resistor` | 330 Ω |
-| R3 | `passive.resistor` | 330 Ω |
+| U1 | `active.sn74hc161n-counter` | SN74HC161N |
+| C1 | `passive.capacitor` | 100 nF |
+| R0 | `passive.resistor` | 2.2 kΩ |
+| R1 | `passive.resistor` | 2.2 kΩ |
+| R2 | `passive.resistor` | 2.2 kΩ |
+| R3 | `passive.resistor` | 2.2 kΩ |
 | D0 | `diode.led-red` | Vf 2 V |
 | D1 | `diode.led-red` | Vf 2 V |
 | D2 | `diode.led-red` | Vf 2 V |
@@ -26,8 +27,8 @@ These are the exact component records in the native example file. A library ID a
 
 ## Net connections
 
-- **VCC:** `supply:+`, `counter:VCC`
-- **GND:** `supply:-`, `clock-input:-`, `reset-input:-`, `counter:GND`, `led0:K`, `led1:K`, `led2:K`, `led3:K`, `ground:0`
+- **VCC:** `supply:+`, `counter:VCC`, `counter:ENP`, `counter:ENT`, `counter:LOAD_N`, `bypass:1`
+- **GND:** `supply:-`, `clock-input:-`, `reset-input:-`, `counter:GND`, `led0:K`, `led1:K`, `led2:K`, `led3:K`, `ground:0`, `counter:A`, `counter:B`, `counter:C`, `counter:D`, `bypass:2`
 - **CLOCK:** `clock-input:+`, `counter:CLK`
 - **RESET_N:** `reset-input:+`, `counter:RESET_N`
 - **BIT0:** `counter:Q0`, `r0:1`
@@ -41,9 +42,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses the [TI SN74HC161N PDIP pinout](https://www.ti.com/lit/ds/symlink/sn74hc161.pdf). Pin 1 sits at F12. ENP, ENT, and LOAD_N are high, A–D are low, and RCO is isolated. C1 provides local supply bypass. Four 2.2 kΩ indicator paths show QA through QD.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 53 × 54 mm two-layer PCB routes all four bit indicators. J1 supplies +5 V, J2 connects CLOCK, and J3 connects RESET_N. Each header includes a return. The project fabrication export checks board fit, connectivity, and copper clearance. Package fit and electrical behavior on assembled hardware await independent review.
 
 ## Acceptance test and expected result
 
