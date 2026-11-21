@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 63,
-    "withoutStoredPcb": 153,
+    "withStoredPcb": 64,
+    "withoutStoredPcb": 152,
     "unexpectedFailures": []
   },
   "entries": [
@@ -686,60 +686,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "c9fe5918471519900f3a9e7b8c97a6f0186f15e6a09281413c4f606ad8312886",
+      "sha256": "5b55b7345a98fdfbab073737b223ffd17aa7355fa2bb55a5d763ec112b368ea7",
       "components": 11,
       "analysis": "complete",
       "engine": "Ideal NPN common-emitter bias and midband small-signal estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VIN",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "Q1",
-          "libraryId": "active.npn-small-signal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RC",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RE",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RL",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "CIN",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "COUT",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 10,
+      "pcbPads": 21,
+      "pcbRoutes": 14,
+      "unmapped": []
     },
     {
       "file": "032-emitter-follower.adigun.json",

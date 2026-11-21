@@ -19,8 +19,8 @@
           55
         ],
         "schematic": [
-          40,
-          55
+          38,
+          34
         ],
         "pcb": [
           40,
@@ -39,8 +39,8 @@
           55
         ],
         "schematic": [
-          155,
-          55
+          40,
+          158
         ],
         "pcb": [
           155,
@@ -59,8 +59,8 @@
           55
         ],
         "schematic": [
-          270,
-          55
+          343,
+          117
         ],
         "pcb": [
           270,
@@ -79,8 +79,8 @@
           55
         ],
         "schematic": [
-          385,
-          55
+          230,
+          44
         ],
         "pcb": [
           385,
@@ -99,8 +99,8 @@
           55
         ],
         "schematic": [
-          500,
-          55
+          229,
+          194
         ],
         "pcb": [
           500,
@@ -119,8 +119,8 @@
           130
         ],
         "schematic": [
-          40,
-          130
+          400,
+          35
         ],
         "pcb": [
           40,
@@ -139,8 +139,8 @@
           130
         ],
         "schematic": [
-          155,
-          130
+          415,
+          204
         ],
         "pcb": [
           155,
@@ -159,8 +159,8 @@
           130
         ],
         "schematic": [
-          270,
-          130
+          581,
+          202
         ],
         "pcb": [
           270,
@@ -179,8 +179,8 @@
           130
         ],
         "schematic": [
-          385,
-          130
+          140,
+          120
         ],
         "pcb": [
           385,
@@ -199,8 +199,8 @@
           130
         ],
         "schematic": [
-          500,
-          130
+          510,
+          106
         ],
         "pcb": [
           500,
@@ -219,8 +219,8 @@
           205
         ],
         "schematic": [
-          40,
-          205
+          100,
+          226
         ],
         "pcb": [
           40,
@@ -288,5 +288,1267 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "signal:+": "F5",
+      "signal:-": "BM8",
+      "q1:E": "I11",
+      "q1:B": "I12",
+      "q1:C": "I13",
+      "rbias-top:1": "A2",
+      "rbias-top:2": "A6",
+      "rbias-bottom:1": "A8",
+      "rbias-bottom:2": "A12",
+      "rc:1": "A14",
+      "rc:2": "A18",
+      "re:1": "A20",
+      "re:2": "A24",
+      "rload:1": "A26",
+      "rload:2": "A30",
+      "cin:1": "I19",
+      "cin:2": "I20",
+      "cout:1": "I25",
+      "cout:2": "I26"
+    },
+    "jumpers": [
+      {
+        "from": "TP1",
+        "to": "B2"
+      },
+      {
+        "from": "TP12",
+        "to": "B14"
+      },
+      {
+        "from": "B6",
+        "to": "B8"
+      },
+      {
+        "from": "E8",
+        "to": "F12"
+      },
+      {
+        "from": "H12",
+        "to": "H20"
+      },
+      {
+        "from": "I5",
+        "to": "F19"
+      },
+      {
+        "from": "E18",
+        "to": "F13"
+      },
+      {
+        "from": "H13",
+        "to": "H25"
+      },
+      {
+        "from": "F11",
+        "to": "E20"
+      },
+      {
+        "from": "F26",
+        "to": "E26"
+      },
+      {
+        "from": "BM9",
+        "to": "E12"
+      },
+      {
+        "from": "BM21",
+        "to": "E24"
+      },
+      {
+        "from": "BM25",
+        "to": "E30"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "signal",
+          "reference": "VIN",
+          "kind": "external-supply",
+          "positionPx": [
+            235,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "F5",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "q1",
+          "reference": "Q1",
+          "manufacturer": "onsemi",
+          "manufacturerPartNumber": "2N3904BU",
+          "sourceUrl": "https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf",
+          "kind": "to92",
+          "bodyMm": {
+            "width": 5.33,
+            "height": 4.19
+          },
+          "positionPx": [
+            270.9655172413793,
+            195
+          ],
+          "pins": [
+            {
+              "pin": "E",
+              "hole": "I11",
+              "connection": "direct",
+              "leadDiameterMm": 0.48,
+              "offsetMm": [
+                -2.54,
+                0
+              ]
+            },
+            {
+              "pin": "B",
+              "hole": "I12",
+              "connection": "direct",
+              "leadDiameterMm": 0.48,
+              "offsetMm": [
+                0,
+                0
+              ]
+            },
+            {
+              "pin": "C",
+              "hole": "I13",
+              "connection": "direct",
+              "leadDiameterMm": 0.48,
+              "offsetMm": [
+                2.54,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "rbias-top",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1003FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            113.17241379310344,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A2",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A6",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "rbias-bottom",
+          "reference": "R2",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1802FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            231.51724137931035,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A8",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A12",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "rc",
+          "reference": "RC",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C4701FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            349.86206896551727,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A14",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A18",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "re",
+          "reference": "RE",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1001FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            468.2068965517242,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A20",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A24",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "rload",
+          "reference": "RL",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            586.551724137931,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A26",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A30",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "cin",
+          "reference": "CIN",
+          "kind": "radial-capacitor",
+          "manufacturer": "Panasonic",
+          "manufacturerPartNumber": "EEUFR1H100",
+          "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 11
+          },
+          "positionPx": [
+            418.8965517241379,
+            173
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I19",
+              "connection": "pigtail",
+              "offsetMm": [
+                1,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I20",
+              "connection": "pigtail",
+              "offsetMm": [
+                -1,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "cout",
+          "reference": "COUT",
+          "kind": "radial-capacitor",
+          "manufacturer": "Panasonic",
+          "manufacturerPartNumber": "EEUFR1H100",
+          "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 11
+          },
+          "positionPx": [
+            537.2413793103449,
+            173
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I25",
+              "connection": "pigtail",
+              "offsetMm": [
+                -1,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I26",
+              "connection": "pigtail",
+              "offsetMm": [
+                1,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "physicalNotes": [
+      "Form Q1 leads to 2.54 mm centers without stressing the package. Pin 1 emitter is I11, pin 2 base is I12, and pin 3 collector is I13.",
+      "CIN positive goes to the BASE node; COUT positive goes to COLLECTOR. Use insulated pigtails for the 2 mm pitch capacitors.",
+      "Use current-limited 12 V and a grounded, zero-offset 1 kHz input at 10 mV peak."
+    ]
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 74,
+      "heightMm": 47,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "signal",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "q1",
+        "reference": "Q1",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "2N3904BU",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf",
+        "technology": "through-hole",
+        "footprint": "onsemi_2N3904BU_TO-92_Inline_P2.54mm_Formed"
+      },
+      {
+        "instanceId": "rbias-top",
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1003FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1003FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "rbias-bottom",
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1802FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1802FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "rc",
+        "reference": "RC",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C4701FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C4701FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "re",
+        "reference": "RE",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "rload",
+        "reference": "RL",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "cin",
+        "reference": "CIN",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1H100",
+        "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+        "footprint": "Panasonic_EEUFR1H100_Radial_P2.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "cout",
+        "reference": "COUT",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1H100",
+        "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+        "footprint": "Panasonic_EEUFR1H100_Radial_P2.00mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "supply:+",
+        "netId": "VCC",
+        "xMm": 6,
+        "yMm": 7,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "supply:-",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 9.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "signal",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "signal:+",
+        "netId": "INPUT_AC",
+        "xMm": 6,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "signal",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "signal:-",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 26.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "q1",
+        "reference": "Q1",
+        "pin": "E",
+        "number": "1",
+        "bridgeEndpoint": "q1:E",
+        "netId": "EMITTER",
+        "xMm": 36,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "q1",
+        "reference": "Q1",
+        "pin": "B",
+        "number": "2",
+        "bridgeEndpoint": "q1:B",
+        "netId": "BASE",
+        "xMm": 38.54,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "q1",
+        "reference": "Q1",
+        "pin": "C",
+        "number": "3",
+        "bridgeEndpoint": "q1:C",
+        "netId": "COLLECTOR",
+        "xMm": 41.08,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "rbias-top",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 12,
+        "yMm": 12,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rbias-top:1"
+      },
+      {
+        "instanceId": "rbias-top",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "BASE",
+        "xMm": 22,
+        "yMm": 12,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rbias-top:2"
+      },
+      {
+        "instanceId": "rbias-bottom",
+        "reference": "R2",
+        "pin": "1",
+        "number": "1",
+        "netId": "BASE",
+        "xMm": 21,
+        "yMm": 31,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rbias-bottom:1"
+      },
+      {
+        "instanceId": "rbias-bottom",
+        "reference": "R2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 11,
+        "yMm": 31,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rbias-bottom:2"
+      },
+      {
+        "instanceId": "rc",
+        "reference": "RC",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 54,
+        "yMm": 12,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rc:1"
+      },
+      {
+        "instanceId": "rc",
+        "reference": "RC",
+        "pin": "2",
+        "number": "2",
+        "netId": "COLLECTOR",
+        "xMm": 44,
+        "yMm": 12,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rc:2"
+      },
+      {
+        "instanceId": "re",
+        "reference": "RE",
+        "pin": "1",
+        "number": "1",
+        "netId": "EMITTER",
+        "xMm": 36,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "re:1"
+      },
+      {
+        "instanceId": "re",
+        "reference": "RE",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 26,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "re:2"
+      },
+      {
+        "instanceId": "rload",
+        "reference": "RL",
+        "pin": "1",
+        "number": "1",
+        "netId": "OUTPUT_AC",
+        "xMm": 57,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rload:1"
+      },
+      {
+        "instanceId": "rload",
+        "reference": "RL",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 67,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rload:2"
+      },
+      {
+        "instanceId": "cin",
+        "reference": "CIN",
+        "pin": "1",
+        "number": "1",
+        "netId": "INPUT_AC",
+        "xMm": 17,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "cin:1"
+      },
+      {
+        "instanceId": "cin",
+        "reference": "CIN",
+        "pin": "2",
+        "number": "2",
+        "netId": "BASE",
+        "xMm": 19,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "cin:2"
+      },
+      {
+        "instanceId": "cout",
+        "reference": "COUT",
+        "pin": "1",
+        "number": "1",
+        "netId": "COLLECTOR",
+        "xMm": 48,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "cout:1"
+      },
+      {
+        "instanceId": "cout",
+        "reference": "COUT",
+        "pin": "2",
+        "number": "2",
+        "netId": "OUTPUT_AC",
+        "xMm": 50,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "cout:2"
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            7
+          ],
+          [
+            12,
+            7
+          ],
+          [
+            12,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            12,
+            12
+          ],
+          [
+            12,
+            6
+          ],
+          [
+            54,
+            6
+          ],
+          [
+            54,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "BASE",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22,
+            12
+          ],
+          [
+            22,
+            20
+          ],
+          [
+            38.54,
+            20
+          ],
+          [
+            38.54,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "BASE",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            19,
+            24
+          ],
+          [
+            21,
+            24
+          ],
+          [
+            21,
+            31
+          ]
+        ]
+      },
+      {
+        "netId": "BASE",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            21,
+            31
+          ],
+          [
+            21,
+            28
+          ],
+          [
+            38.54,
+            28
+          ],
+          [
+            38.54,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "INPUT_AC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            24
+          ],
+          [
+            17,
+            24
+          ]
+        ]
+      },
+      {
+        "netId": "COLLECTOR",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            41.08,
+            25
+          ],
+          [
+            48,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "COLLECTOR",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            44,
+            12
+          ],
+          [
+            44,
+            23
+          ],
+          [
+            41.08,
+            23
+          ],
+          [
+            41.08,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "EMITTER",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            36,
+            25
+          ],
+          [
+            36,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "OUTPUT_AC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            50,
+            25
+          ],
+          [
+            57,
+            25
+          ],
+          [
+            57,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            9.54
+          ],
+          [
+            3,
+            9.54
+          ],
+          [
+            3,
+            26.54
+          ],
+          [
+            6,
+            26.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            26.54
+          ],
+          [
+            6,
+            31
+          ],
+          [
+            11,
+            31
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            11,
+            31
+          ],
+          [
+            11,
+            35
+          ],
+          [
+            26,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            26,
+            35
+          ],
+          [
+            26,
+            42
+          ],
+          [
+            67,
+            42
+          ],
+          [
+            67,
+            35
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "INPUT_AC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "Q1",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "2N3904BU",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf",
+        "package": "onsemi_2N3904BU_TO-92_Inline_P2.54mm_Formed",
+        "pinMapping": {
+          "1": "EMITTER",
+          "2": "BASE",
+          "3": "COLLECTOR"
+        }
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1003FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1003FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "BASE"
+        }
+      },
+      {
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1802FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1802FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "BASE",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "RC",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C4701FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C4701FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "COLLECTOR"
+        }
+      },
+      {
+        "reference": "RE",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "EMITTER",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "RL",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "OUTPUT_AC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "CIN",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1H100",
+        "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+        "package": "Panasonic_EEUFR1H100_Radial_P2.00mm",
+        "pinMapping": {
+          "1": "INPUT_AC",
+          "2": "BASE"
+        }
+      },
+      {
+        "reference": "COUT",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1H100",
+        "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+        "package": "Panasonic_EEUFR1H100_Radial_P2.00mm",
+        "pinMapping": {
+          "1": "COLLECTOR",
+          "2": "OUTPUT_AC"
+        }
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External 12 V bench supply connects through J1."
+      },
+      {
+        "instanceId": "signal",
+        "reference": "VIN",
+        "reason": "External zero-offset generator connects through J2."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "fabricationNotes": "J1 pin 1: 12 V. J2 pin 1: 10 mV peak, 1 kHz. Pin 2 on both connectors is ground. CIN pad 2 and COUT pad 1 are positive."
+  }
 }
