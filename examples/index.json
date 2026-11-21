@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 60,
-    "withoutStoredPcb": 156,
+    "withStoredPcb": 61,
+    "withoutStoredPcb": 155,
     "unexpectedFailures": []
   },
   "entries": [
@@ -638,56 +638,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "581f03e11325400dc8ab8ab89af609c21be64ddb14e836ce00bf0d8976b5df2e",
+      "sha256": "770d3db60bad680ae6f0d6efaca25788610002e8bc5ae6eadf074b0c9b354a34",
       "components": 10,
       "analysis": "complete",
       "engine": "Ideal Schmitt-trigger hysteresis estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VIN",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VREF",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.schmitt-trigger-ideal"
-        },
-        {
-          "reference": "RIN",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RF",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RG",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RLED",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 24,
+      "pcbRoutes": 14,
+      "unmapped": []
     },
     {
       "file": "029-window-comparator.adigun.json",

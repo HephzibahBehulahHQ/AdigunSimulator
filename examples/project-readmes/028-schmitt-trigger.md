@@ -15,7 +15,7 @@ Calculate separate 2.5 V falling and 3.0 V rising thresholds and verify state re
 | RIN | `passive.resistor` | 10 kΩ |
 | RF | `passive.resistor` | 100 kΩ |
 | RG | `passive.resistor` | 100 kΩ |
-| RLED | `passive.resistor` | 330 Ω |
+| RLED | `passive.resistor` | 2.2 kΩ |
 | D1 | `diode.led-red` | Vf 2.0 V |
 | GND | `ground.signal` | 0 V |
 
@@ -33,9 +33,11 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly uses the Microchip MCP6541-E/P push-pull comparator. Seat pin 1 at F13 and leave pins 1, 5, and 8 isolated. Tie the 5 V supply, adjustable input, and fixed 2.5 V reference to a shared return. RLED is 2.2 kΩ to keep the modeled LED current below the 2 mA output test point. [Microchip comparator datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6541%20Output%20SubMicroamp%20Comparators%2020001696K.pdf)
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 58 × 49 mm plated-through PCB routes the supply, sense, reference, output, and LED connections on two copper layers. J1 is the 5 V supply, J2 the adjustable input, and J3 the 2.5 V reference. Pin 2 of each connector is ground. The PCB export generates copper Gerbers, outline, plated drill data, and a BOM. Hardware characterization remains pending.
+
+The floating scope shows ideal settled levels. Inside the hysteresis band, a run without a prior state displays the known input, reference, and rails and omits the undetermined output.
 
 ## Acceptance test and expected result
 

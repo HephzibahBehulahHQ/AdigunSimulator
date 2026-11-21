@@ -17,7 +17,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='active-low-pass')return activeLowPassRecording(project,r);
  if(kind==='npn-common-emitter')return commonEmitterRecording(project,r);
  if(kind==='ne556-dual-astable')return dualTimerRecording(project,r);
- if(kind==='comparator-threshold')return comparatorRecording(project,r);
+ if(['comparator-threshold','schmitt-trigger'].includes(kind))return comparatorRecording(project,r);
  if(['opamp-noninverting','opamp-inverting','opamp-voltage-follower'].includes(kind))return opAmpMidbandRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
@@ -38,20 +38,26 @@ export function analyticalScopeRecording(project,analysis){
 }
 
 function comparatorRecording(project, result) {
- const comparator=project.components.find(component=>component.libraryId==='active.comparator-dual-ideal');
+ const schmitt=result.kind==='schmitt-trigger';
+ const comparator=project.components.find(component=>component.libraryId===(schmitt?'active.schmitt-trigger-ideal':'active.comparator-dual-ideal'));
  if(!comparator)return null;
- const net=pin=>project.nets.find(item=>item.endpoints.includes(`${comparator.instanceId}:${pin}`))?.id;
- const output=net('OUT'),supply=net('VCC'),ground=net('GND'),input=net('IN+'),threshold=net('IN-');
+ const net=(component,pin)=>project.nets.find(item=>item.endpoints.includes(`${component.instanceId}:${pin}`))?.id;
+ const [output,supply,ground,sense,threshold]=['OUT','VCC','GND','IN+','IN-'].map(pin=>net(comparator,pin));
+ const signalSources=schmitt?project.components.filter(component=>component.libraryId==='power.dc-source'&&
+  net(component,'-')===ground&&![supply,threshold].includes(net(component,'+'))):[];
+ const input=schmitt?(signalSources.length===1?net(signalSources[0],'+'):null):sense;
  const nets=[output,supply,ground,input,threshold];
  if(!nets.every(Boolean)||new Set(nets).size!==nets.length)return null;
- const {supplyVoltage,inputVoltage,thresholdVoltage,outputHigh}=result;
+ const {supplyVoltage,inputVoltage,outputHigh}=result;
+ const thresholdVoltage=schmitt?result.referenceVoltage:result.thresholdVoltage;
  if(![supplyVoltage,inputVoltage,thresholdVoltage].every(Number.isFinite)||
-    outputHigh!==(inputVoltage>thresholdVoltage))return null;
+    (!schmitt&&outputHigh!==(inputVoltage>thresholdVoltage)))return null;
  const nodeVoltages={
-  [output]:outputHigh?supplyVoltage:0,[supply]:supplyVoltage,
-  [ground]:0,[input]:inputVoltage,[threshold]:thresholdVoltage
+  [supply]:supplyVoltage,[ground]:0,[input]:inputVoltage,[threshold]:thresholdVoltage
  };
- return {kind:'analytical-output-recording',model:'Ideal comparator steady-state levels',preferredNet:output,
+ if(typeof outputHigh==='boolean')nodeVoltages[output]=outputHigh?supplyVoltage:0;
+ return {kind:'analytical-output-recording',model:schmitt?'Ideal Schmitt trigger steady-state levels':'Ideal comparator steady-state levels',
+  preferredNet:typeof outputHigh==='boolean'?output:input,
   samples:[0,1].map(timeSeconds=>({timeSeconds,nodeVoltages:{...nodeVoltages}}))};
 }
 
