@@ -35,7 +35,7 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
       continue;
     }
     packages.set(pkg.instanceId, pkg);
-    const allowedKinds = ["to220", "to92", "external-relay", "axial-diode", "axial-led", "slide-switch", "trimmer", "bridge-rectifier", "radial-inductor", "radial-capacitor", "box-capacitor", "radial-ptc", "radial-ntc", "photoresistor", "pdip", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
+    const allowedKinds = ["to220", "to92", "external-relay", "radial-microphone", "axial-diode", "axial-led", "slide-switch", "trimmer", "bridge-rectifier", "radial-inductor", "radial-capacitor", "box-capacitor", "radial-ptc", "radial-ntc", "photoresistor", "pdip", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
     const externalSupply = pkg.kind === "external-supply";
     const externalRelay = pkg.kind === "external-relay";
     const offBoard = externalSupply || externalRelay || pkg.kind === "external-axial-resistor" || pkg.kind === "external-pushbutton";
@@ -106,6 +106,7 @@ function packageBody(pkg, scaleX, scaleY) {
   if (pkg.kind === "slide-switch") return `<rect class="breadboard-switch-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width,height) * .16}"/><path class="breadboard-switch-track" d="M${-width * .2} 0 H${width * .2}"/><rect class="breadboard-switch-cap" x="${-width * .04}" y="${-height * .24}" width="${width * .18}" height="${height * .48}" rx="2"/>`;
   if (pkg.kind === "axial-led") return `<ellipse class="breadboard-led-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/><path class="breadboard-led-cathode" d="M${width * .28} ${-height / 2} V${height / 2}"/>`;
   if (pkg.kind === "radial-capacitor") return `<ellipse class="capacitor-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/><path class="capacitor-top" d="M${-width * .32} 0 H${width * .32}"/>`;
+  if (pkg.kind === "radial-microphone") return `<ellipse class="breadboard-bridge-body" cx="0" cy="0" rx="${width / 2}" ry="${height / 2}"/><ellipse class="breadboard-to220-hole" cx="0" cy="0" rx="${width * .31}" ry="${height * .31}"/>`;
   if (pkg.kind === "box-capacitor") return `<rect class="capacitor-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="1"/>`;
   if (pkg.kind === "trimmer") return `<rect class="capacitor-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="1"/><circle class="breadboard-terminal-screw" cx="0" cy="0" r="${height * .22}"/><path class="capacitor-top" d="M${-height * .16} 0 H${height * .16}"/>`;
   if (pkg.kind === "radial-ptc") return `<rect class="breadboard-ptc-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${Math.min(width,height) * .28}"/><path class="breadboard-ptc-seam" d="M${-width * .26} ${-height * .34} H${width * .26}"/>`;

@@ -1599,7 +1599,7 @@
       "acceptanceTest": "tests/core.test.mjs: catalogue electret audio preamp calculates mic bias, midband gain, and coupling response; blocks overbias and rail clipping",
       "testId": "core-electret-audio-preamp",
       "projectFile": "examples/037-electret-audio-preamp.adigun.json",
-      "safetyNote": "Generic microphone and ideal op-amp analytical estimate. The mic uses a specified 0.5 mA bias current, 10 mV signal amplitude, and 2.2 kΩ source resistance; the op-amp is ideal and single-supply. No specific manufacturer part is implied. Noise, sensitivity spread, frequency-dependent microphone behavior, op-amp bandwidth/slew/input limits, output load, distortion, thermal effects, and physical validation are omitted.",
+      "safetyNote": "Two-terminal microphone equivalent with ideal op amp, loaded bypassed midpoint and stated effective source resistance. Acoustic sensitivity, device bandwidth, distortion, and hardware behavior remain unqualified.",
       "scope": "catalogue",
       "catalogueIndex": 37,
       "verification": {
@@ -1615,12 +1615,12 @@
           "microphoneBiasCurrentA": 0.0005,
           "microphoneBiasVoltageV": 3.9,
           "referenceVoltageV": 2.5,
-          "gainVPerV": 100,
-          "highPassCutoffHz": 0.9253194365807869,
+          "gainVPerV": 101,
+          "highPassCutoffHz": 0.925319436580787,
           "signalFrequencyHz": 1000,
-          "outputAmplitudeV": 0.9999995718922451,
-          "outputMinimumV": 1.5000004281077548,
-          "outputMaximumV": 3.4999995718922454,
+          "outputAmplitudeV": 0.8807009067761352,
+          "outputMinimumV": 1.619299093223865,
+          "outputMaximumV": 3.380700906776135,
           "outputWithinSupplyRails": true
         }
       },

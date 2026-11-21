@@ -9,6 +9,21 @@ import {scopeChannels,scopeTrace,fitScopeWindow} from '../js/oscilloscope-data.m
 import {scopeExplanation} from '../js/scope-readout.mjs';
 const load=async name=>JSON.parse(await readFile(new URL('../examples/'+name+'.adigun.json',import.meta.url),'utf8'));
 
+test('electret preamp scope preserves modeled phase and midpoint bias',async()=>{
+ const project=await load('037-electret-audio-preamp');
+ const analysis=runProjectAnalysis(project),recording=analysis.scopeRecording;
+ assert.equal(recording.preferredNet,'OUTPUT');
+ const {outputAmplitudeV,outputBiasVoltageV,outputPhaseRad}=analysis.result;
+ assert.equal(recording.samples[0].nodeVoltages.OUTPUT,outputBiasVoltageV+outputAmplitudeV*Math.sin(outputPhaseRad));
+ assert.equal(recording.samples[120].timeSeconds,0.001);
+ const bypass=project.nets.find(net=>net.id==='VREF');
+ bypass.endpoints=bypass.endpoints.filter(endpoint=>endpoint!=='reference-bypass:1');
+ const broken=runProjectAnalysis(project);
+ assert.equal(broken.state,'blocked');
+ assert.match(broken.message,/bypass capacitance/);
+ assert.equal(broken.scopeRecording,undefined);
+});
+
 test('window comparator scope shows both comparator decisions and their AND output',async()=>{
  const project=await load('029-window-comparator');
  const input=project.components.find(component=>component.instanceId==='signal');

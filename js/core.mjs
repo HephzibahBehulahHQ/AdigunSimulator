@@ -179,6 +179,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.ne556", category: "Active", type: "556 dual timer (ideal astable channels)", prefix: "U", pins: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"], defaultValue: "NE556-class", simulation: "analytical-556-dual-astable", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.opamp-ideal", category: "Active", type: "Ideal op-amp (non-inverting midband model)", prefix: "U", pins: ["VCC", "VEE", "+", "-", "OUT"], defaultValue: "Ideal op-amp, dual supply", simulation: "analytical-opamp-noninverting", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.electret-mic-generic", category: "Sensors", type: "Electret microphone (generic bias and small-signal model)", prefix: "MIC", pins: ["VCC", "OUT", "GND"], defaultValue: "Imic 0.5 mA; Vsig 10 mV; f 1 kHz; Rs 2.2 kΩ", simulation: "analytical-electret-audio-preamp", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "sensor.electret-two-terminal", category: "Sensors", type: "Two-terminal electret microphone", prefix: "MIC", pins: ["OUT", "GND"], defaultValue: "Imic 0.5 mA; Vsig 10 mV; f 1 kHz; Rs 2.2 kΩ", simulation: "analytical-electret-audio-preamp", status: "ideal electrical model", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.electret-envelope-preamp-ideal", category: "Active", type: "Ideal electret small-signal preamplifier", prefix: "U", pins: ["IN", "OUT", "VCC", "GND"], defaultValue: "Gain 20", simulation: "analytical-electret-mic-meter", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.audio-envelope-rectifier-ideal", category: "Active", type: "Ideal full-wave audio envelope rectifier", prefix: "BR", pins: ["IN", "OUT", "VCC", "GND"], defaultValue: "Mode full-wave; DropV 0 V", simulation: "analytical-electret-mic-meter", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.audio-level-ledbar-ideal", category: "Output", type: "Ideal calibrated audio level LED bargraph", prefix: "LED", pins: ["IN", "VCC", "GND"], defaultValue: "ThresholdsV 0.02,0.04,0.06,0.08,0.10,0.12,0.14,0.16,0.18,0.20", simulation: "analytical-electret-mic-meter", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -1458,8 +1459,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (electretMics.length === 1 && electretMeterPreamps.length === 1 && audioEnvelopeRectifiers.length === 1 && audioLevelLedBars.length === 1 && source.length === 1 && resistor.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analyseElectretMicMeter(project, { source: source[0], microphone: electretMics[0], biasResistor: resistor[0], preamp: electretMeterPreamps[0], rectifier: audioEnvelopeRectifiers[0], bargraph: audioLevelLedBars[0], ground: ground[0], validation });
   }
-  if (opAmps.length === 1 && electretMics.length === 1 && source.length === 1 && resistor.length === 6 && capacitor.length === 2 && ground.length === 1 && project.components.length === 12) {
-    return analyseElectretAudioPreamp(project, { source: source[0], microphone: electretMics[0], opAmp: opAmps[0], resistors: resistor, capacitors: capacitor, ground: ground[0], validation });
+  const twoTerminalMics=project.components.filter(item=>item.libraryId==="sensor.electret-two-terminal");
+  const genericPreamp=electretMics.length===1&&capacitor.length===2&&project.components.length===12;
+  const physicalPreamp=twoTerminalMics.length===1&&capacitor.length===3&&project.components.length===13;
+  if (opAmps.length === 1 && source.length === 1 && resistor.length === 6 && ground.length === 1 && (genericPreamp||physicalPreamp)) {
+    return analyseElectretAudioPreamp(project, { source: source[0], microphone:physicalPreamp?twoTerminalMics[0]:electretMics[0], opAmp: opAmps[0], resistors: resistor, capacitors: capacitor, ground: ground[0], validation });
   }
   if (opAmps.length === 1 && source.length === 2 && acSource.length === 0 && resistor.length === 4 && capacitor.length === 2 && schottkyDiodes.length === 2 && ground.length === 1 && project.components.length === 12) {
     return analyseWienBridgeOscillator(project, { sources: source, opAmp: opAmps[0], resistors: resistor, capacitors: capacitor, diodes: schottkyDiodes, ground: ground[0], validation });
@@ -4630,7 +4634,14 @@ function analyseElectretAudioPreamp(project,{source,microphone,opAmp,resistors,c
   const positiveConnected=n(opAmp,"VCC")===vccNet&&n(opAmp,"VEE")===groundNet;
   const referenceWired=referenceNet&&dividerTop&&dividerBottom;
   const feedbackWired=feedback&&gainLeg&&((n(feedback,"1")===outputNet&&n(feedback,"2")===invertingNet)||(n(feedback,"2")===outputNet&&n(feedback,"1")===invertingNet))&&((n(gainLeg,"1")===invertingNet&&n(gainLeg,"2")===referenceNet)||(n(gainLeg,"2")===invertingNet&&n(gainLeg,"1")===referenceNet));
-  if(n(source,"-")!==groundNet||n(microphone,"VCC")!==vccNet||n(microphone,"GND")!==groundNet||!positiveConnected||!referenceWired||!feedbackWired
+  const twoTerminal=microphone.libraryId==="sensor.electret-two-terminal";
+  const referenceBypass=twoTerminal?capacitors.find(c=>c!==coupling&&c!==decoupling&&
+    ((n(c,"1")===referenceNet&&n(c,"2")===groundNet)||(n(c,"2")===referenceNet&&n(c,"1")===groundNet))):null;
+  const cReference=referenceBypass?capacitanceValue(referenceBypass.value):Number.NaN;
+  if(twoTerminal&&(!referenceBypass||!Number.isFinite(cReference)||cReference<=0)){
+    return {state:"blocked",message:"Connect a positive bypass capacitance between the midpoint reference and ground.",validation};
+  }
+  if(n(source,"-")!==groundNet||(!twoTerminal&&n(microphone,"VCC")!==vccNet)||n(microphone,"GND")!==groundNet||!positiveConnected||!referenceWired||!feedbackWired
     ||!micBiasResistor||!coupling||!decoupling||!inputBias||![supplyVoltage,micCurrent,inputAmplitudeV,frequencyHz,micSourceResistance,rMicBias,rTop,rBottom,rInput,rFeedback,rGain,cCoupling].every(Number.isFinite)
     ||supplyVoltage<=0||micCurrent<=0||inputAmplitudeV<=0||frequencyHz<=0||micSourceResistance<0||rMicBias<=0||rTop<=0||rBottom<=0||rInput<=0||rFeedback<=0||rGain<=0||cCoupling<=0){
     return {state:"blocked",message:"Connect a biased generic electret-microphone model, AC-coupling capacitor, midpoint reference, and single-supply non-inverting op-amp feedback network.",validation};
@@ -4642,12 +4653,27 @@ function analyseElectretAudioPreamp(project,{source,microphone,opAmp,resistors,c
   const highPassCutoffHz=1/(2*Math.PI*highPassResistanceOhm*cCoupling);
   const highPassGainAt=(f)=>f/Math.sqrt(f*f+highPassCutoffHz*highPassCutoffHz);
   const signalBandSamples=[20,1000,20000].map(f=>({frequencyHz:f,gain:highPassGainAt(f)}));
-  const outputAmplitudeV=inputAmplitudeV*gainVPerV*highPassGainAt(frequencyHz);
+  let transferMagnitude=gainVPerV*highPassGainAt(frequencyHz);
+  let outputPhaseRad=Math.atan(highPassCutoffHz/frequencyHz);
+  if(twoTerminal){
+    // The stated microphone source resistance is the effective resistance under bias.
+    const omega=2*Math.PI*frequencyHz,rReference=1/(1/rTop+1/rBottom);
+    const referencePole=omega*rReference*cReference;
+    const referenceGain=rReference*(1/rInput+1/rGain)/(1+referencePole**2);
+    const referenceImaginary=-referenceGain*referencePole;
+    const numeratorReal=gainVPerV+referenceGain;
+    const denominatorReal=1+micSourceResistance/rInput+referenceGain;
+    const denominatorImaginary=referenceImaginary-1/(omega*cCoupling*rInput);
+    transferMagnitude=Math.hypot(numeratorReal,referenceImaginary)/Math.hypot(denominatorReal,denominatorImaginary);
+    outputPhaseRad=Math.atan2(referenceImaginary,numeratorReal)-Math.atan2(denominatorImaginary,denominatorReal);
+  }
+  const outputAmplitudeV=inputAmplitudeV*transferMagnitude;
   const outputMinimumV=referenceVoltageV-outputAmplitudeV,outputMaximumV=referenceVoltageV+outputAmplitudeV;
   if(microphoneBiasVoltageV<=0||microphoneBiasVoltageV>=supplyVoltage||outputMinimumV<0||outputMaximumV>supplyVoltage){
     return {state:"blocked",message:"The microphone bias or amplified audio swing exceeds the modeled supply range; reduce mic current/gain or increase the supply.",validation};
   }
-  return {state:"complete",engine:"Generic electret microphone and single-supply op-amp preamplifier estimate",message:"Models a 0.5 mA electret bias load, its AC signal amplitude and source resistance, a first-order coupling high-pass, a divided midpoint reference, and ideal non-inverting op-amp gain. It omits microphone sensitivity/noise/variation, op-amp bandwidth/slew/noise/input limits, output loading, low-pass filtering, distortion, and manufacturer-specific behavior.",result:{kind:"electret-audio-preamp",supplyVoltage,microphoneBiasCurrentA:micCurrent,microphoneBiasResistanceOhm:rMicBias,microphoneBiasVoltageV,referenceVoltageV,microphoneSignalAmplitudeV:inputAmplitudeV,microphoneSourceResistanceOhm:micSourceResistance,inputResistanceOhm:rInput,signalFrequencyHz:frequencyHz,couplingCapacitanceF:cCoupling,highPassCutoffHz,signalBandSamples,gainVPerV,highPassGainAtSignal:highPassGainAt(frequencyHz),outputAmplitudeV,outputBiasVoltageV:referenceVoltageV,outputMinimumV,outputMaximumV,outputWithinSupplyRails:true},validation};
+  const message=twoTerminal?"Uses the specified biased microphone source, coupling capacitor, loaded bypassed midpoint and ideal non-inverting op amp. Acoustic sensitivity, device bandwidth, distortion, and output loading remain outside the model.":"Models a 0.5 mA electret bias load, its AC signal amplitude and source resistance, a first-order coupling high-pass, a divided midpoint reference, and ideal non-inverting op-amp gain. It omits microphone sensitivity/noise/variation, op-amp bandwidth/slew/noise/input limits, output loading, low-pass filtering, distortion, and manufacturer-specific behavior.";
+  return {state:"complete",engine:"Generic electret microphone and single-supply op-amp preamplifier estimate",message,result:{kind:"electret-audio-preamp",supplyVoltage,microphoneBiasCurrentA:micCurrent,microphoneBiasResistanceOhm:rMicBias,microphoneBiasVoltageV,referenceVoltageV,microphoneSignalAmplitudeV:inputAmplitudeV,microphoneSourceResistanceOhm:micSourceResistance,inputResistanceOhm:rInput,signalFrequencyHz:frequencyHz,couplingCapacitanceF:cCoupling,highPassCutoffHz,signalBandSamples,gainVPerV,highPassGainAtSignal:highPassGainAt(frequencyHz),outputAmplitudeV,outputPhaseRad,outputBiasVoltageV:referenceVoltageV,outputMinimumV,outputMaximumV,outputWithinSupplyRails:true},validation};
 }
 
 function analyseOpAmpAmplifier(project,{sources,input,opAmp,resistors,ground,validation}){

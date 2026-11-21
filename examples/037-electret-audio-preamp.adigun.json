@@ -19,18 +19,25 @@
           55
         ],
         "schematic": [
-          40,
-          55
+          30,
+          32
         ],
         "pcb": [
           40,
           55
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
       "instanceId": "microphone",
-      "libraryId": "sensor.electret-mic-generic",
+      "libraryId": "sensor.electret-two-terminal",
       "reference": "MIC1",
       "value": "Imic 0.5 mA; Vsig 10 mV; f 1 kHz; Rs 2.2 kΩ",
       "position": {
@@ -39,13 +46,20 @@
           55
         ],
         "schematic": [
-          155,
-          55
+          45,
+          110
         ],
         "pcb": [
           155,
           55
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
@@ -59,8 +73,8 @@
           55
         ],
         "schematic": [
-          270,
-          55
+          351,
+          84
         ],
         "pcb": [
           270,
@@ -79,8 +93,8 @@
           55
         ],
         "schematic": [
-          385,
-          55
+          24,
+          215
         ],
         "pcb": [
           385,
@@ -99,13 +113,20 @@
           55
         ],
         "schematic": [
-          500,
-          55
+          123,
+          30
         ],
         "pcb": [
           500,
           55
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
@@ -119,13 +140,20 @@
           120
         ],
         "schematic": [
-          40,
-          120
+          224,
+          30
         ],
         "pcb": [
           40,
           120
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
@@ -139,13 +167,20 @@
           120
         ],
         "schematic": [
-          155,
-          120
+          249,
+          177
         ],
         "pcb": [
           155,
           120
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
@@ -159,33 +194,47 @@
           120
         ],
         "schematic": [
-          270,
-          120
+          261,
+          107
         ],
         "pcb": [
           270,
           120
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
       "instanceId": "feedback",
       "libraryId": "passive.resistor",
       "reference": "RF",
-      "value": "99 kΩ",
+      "value": "100 kΩ",
       "position": {
         "breadboard": [
           385,
           120
         ],
         "schematic": [
-          385,
-          120
+          486,
+          48
         ],
         "pcb": [
           385,
           120
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
@@ -199,13 +248,20 @@
           120
         ],
         "schematic": [
-          500,
-          120
+          489,
+          219
         ],
         "pcb": [
           500,
           120
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
@@ -219,13 +275,20 @@
           185
         ],
         "schematic": [
-          40,
-          185
+          143,
+          138
         ],
         "pcb": [
           40,
           185
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
@@ -239,13 +302,47 @@
           185
         ],
         "schematic": [
-          155,
-          185
+          600,
+          28
         ],
         "pcb": [
           155,
           185
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "reference-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "CREF",
+      "value": "10 µF",
+      "position": {
+        "schematic": [
+          151,
+          207
+        ],
+        "breadboard": [
+          237,
+          215
+        ],
+        "pcb": [
+          237,
+          215
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     }
   ],
@@ -254,7 +351,6 @@
       "id": "VCC",
       "endpoints": [
         "supply:+",
-        "microphone:VCC",
         "opamp:VCC",
         "mic-bias:1",
         "reference-top:1",
@@ -269,7 +365,8 @@
         "opamp:VEE",
         "reference-bottom:2",
         "decoupling-capacitor:2",
-        "ground:0"
+        "ground:0",
+        "reference-bypass:2"
       ]
     },
     {
@@ -294,7 +391,8 @@
         "reference-top:2",
         "reference-bottom:1",
         "input-bias:2",
-        "gain-leg:2"
+        "gain-leg:2",
+        "reference-bypass:1"
       ]
     },
     {
@@ -313,5 +411,1845 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "opamp:-": "F12",
+      "opamp:+": "F13",
+      "opamp:VEE": "F14",
+      "opamp:OUT": "E13",
+      "opamp:VCC": "E12",
+      "microphone:OUT": "I8",
+      "microphone:GND": "I9",
+      "mic-bias:1": "A2",
+      "mic-bias:2": "A6",
+      "reference-top:1": "A7",
+      "reference-top:2": "A10",
+      "reference-bottom:1": "A16",
+      "reference-bottom:2": "A20",
+      "input-bias:1": "A24",
+      "input-bias:2": "A28",
+      "feedback:1": "I2",
+      "feedback:2": "I6",
+      "gain-leg:1": "I24",
+      "gain-leg:2": "I28",
+      "coupling-capacitor:1": "I17",
+      "coupling-capacitor:2": "I18",
+      "reference-bypass:1": "I20",
+      "reference-bypass:2": "I21",
+      "decoupling-capacitor:1": "C21",
+      "decoupling-capacitor:2": "C23"
+    },
+    "jumpers": [
+      {
+        "from": "TP9",
+        "to": "A12"
+      },
+      {
+        "from": "TP1",
+        "to": "B2"
+      },
+      {
+        "from": "TP5",
+        "to": "B7"
+      },
+      {
+        "from": "TP18",
+        "to": "A21"
+      },
+      {
+        "from": "BM6",
+        "to": "J9"
+      },
+      {
+        "from": "BM11",
+        "to": "J14"
+      },
+      {
+        "from": "BM17",
+        "to": "E20"
+      },
+      {
+        "from": "BM20",
+        "to": "E23"
+      },
+      {
+        "from": "BM18",
+        "to": "J21"
+      },
+      {
+        "from": "F8",
+        "to": "E6"
+      },
+      {
+        "from": "D6",
+        "to": "F17"
+      },
+      {
+        "from": "F18",
+        "to": "I13"
+      },
+      {
+        "from": "G13",
+        "to": "E24"
+      },
+      {
+        "from": "B10",
+        "to": "B16"
+      },
+      {
+        "from": "C16",
+        "to": "B28"
+      },
+      {
+        "from": "E28",
+        "to": "F28"
+      },
+      {
+        "from": "H28",
+        "to": "H20"
+      },
+      {
+        "from": "I12",
+        "to": "F6"
+      },
+      {
+        "from": "H6",
+        "to": "H24"
+      },
+      {
+        "from": "D13",
+        "to": "F2"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference node for the two bench supplies and AC input return."
+      }
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "opamp",
+          "reference": "U1",
+          "manufacturer": "Microchip Technology",
+          "manufacturerPartNumber": "MCP601-I/P",
+          "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP601-1R-2-3-4-2.7V-to-6.0V-Single-Supply-CMOS-Op-Amps-DS20001314.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 6.6
+          },
+          "positionPx": [
+            280.82758620689657,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "-",
+              "hole": "F12",
+              "offsetMm": [
+                -1.27,
+                3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "+",
+              "hole": "F13",
+              "offsetMm": [
+                1.27,
+                3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "VEE",
+              "hole": "F14",
+              "offsetMm": [
+                3.81,
+                3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "OUT",
+              "hole": "E13",
+              "offsetMm": [
+                1.27,
+                -3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "VCC",
+              "hole": "E12",
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            }
+          ],
+          "noConnectHoles": [
+            "F11",
+            "E14",
+            "E11"
+          ]
+        },
+        {
+          "instanceId": "microphone",
+          "reference": "MIC1",
+          "manufacturer": "PUI Audio",
+          "manufacturerPartNumber": "AOM-4544P-2-R",
+          "sourceUrl": "https://api.puiaudio.com/filename/AOM-4544P-2-R.pdf",
+          "kind": "radial-microphone",
+          "bodyMm": {
+            "width": 9.7,
+            "height": 9.7
+          },
+          "positionPx": [
+            201.93103448275863,
+            207
+          ],
+          "pins": [
+            {
+              "pin": "OUT",
+              "hole": "I8",
+              "connection": "pigtail",
+              "offsetMm": [
+                -1.25,
+                -2
+              ]
+            },
+            {
+              "pin": "GND",
+              "hole": "I9",
+              "connection": "pigtail",
+              "offsetMm": [
+                1.25,
+                -2
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "mic-bias",
+          "reference": "RB1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C2201FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            113.17241379310344,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A2",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A6",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reference-top",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1003FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            201.93103448275863,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A7",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -3.81,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A10",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                3.81,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reference-bottom",
+          "reference": "R2",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1003FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            389.3103448275862,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A16",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A20",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "input-bias",
+          "reference": "RIN",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1502FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            547.1034482758621,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A24",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A28",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "feedback",
+          "reference": "RF",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1003FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            113.17241379310344,
+            195
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I2",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I6",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "gain-leg",
+          "reference": "RG",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1001FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            547.1034482758621,
+            195
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I24",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I28",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "coupling-capacitor",
+          "reference": "CIN",
+          "kind": "radial-capacitor",
+          "manufacturer": "Panasonic",
+          "manufacturerPartNumber": "EEUFR1H100",
+          "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 11
+          },
+          "positionPx": [
+            379.44827586206895,
+            182
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I17",
+              "connection": "pigtail",
+              "offsetMm": [
+                -1,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I18",
+              "connection": "pigtail",
+              "offsetMm": [
+                1,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reference-bypass",
+          "reference": "CREF",
+          "kind": "radial-capacitor",
+          "manufacturer": "Panasonic",
+          "manufacturerPartNumber": "EEUFR1H100",
+          "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 11
+          },
+          "positionPx": [
+            438.62068965517244,
+            182
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I20",
+              "connection": "pigtail",
+              "offsetMm": [
+                -1,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I21",
+              "connection": "pigtail",
+              "offsetMm": [
+                1,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "decoupling-capacitor",
+          "reference": "CDEC",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            468.2068965517242,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "C21",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "C23",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "physicalNotes": [
+      "Seat the MCP601 with pin 1 at F11. Keep pins 1, 5 and 8 isolated.",
+      "Connect microphone terminal 1 to MIC_OUT and terminal 2 to the common return.",
+      "CIN positive faces the microphone bias. CREF positive faces VREF. Use a current-limited regulated 5 V supply."
+    ]
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 76,
+      "heightMm": 57,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "footprint": "Microchip_MCP601-I-P_PDIP-8_P2.54mm_W7.62mm",
+        "technology": "through-hole",
+        "manufacturer": "Microchip Technology",
+        "manufacturerPartNumber": "MCP601-I/P",
+        "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP601-1R-2-3-4-2.7V-to-6.0V-Single-Supply-CMOS-Op-Amps-DS20001314.pdf"
+      },
+      {
+        "instanceId": "mic-bias",
+        "reference": "RB1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C2201FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C2201FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "reference-top",
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1003FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1003FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "reference-bottom",
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1003FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1003FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "input-bias",
+        "reference": "RIN",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1502FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1502FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "feedback",
+        "reference": "RF",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1003FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1003FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "gain-leg",
+        "reference": "RG",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "coupling-capacitor",
+        "reference": "CIN",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1H100",
+        "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+        "footprint": "Panasonic_EEUFR1H100_Radial_P2.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "reference-bypass",
+        "reference": "CREF",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1H100",
+        "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+        "footprint": "Panasonic_EEUFR1H100_Radial_P2.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "decoupling-capacitor",
+        "reference": "CDEC",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "microphone",
+        "reference": "MIC1",
+        "footprint": "PUI_AOM-4544P-2-R_D9.7_P2.50mm",
+        "technology": "through-hole",
+        "manufacturer": "PUI Audio",
+        "manufacturerPartNumber": "AOM-4544P-2-R",
+        "sourceUrl": "https://api.puiaudio.com/filename/AOM-4544P-2-R.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "supply:+",
+        "netId": "VCC",
+        "xMm": 5,
+        "yMm": 6,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "supply:-",
+        "netId": "GND",
+        "xMm": 5,
+        "yMm": 8.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "NC1",
+        "number": "1",
+        "xMm": 38,
+        "yMm": 20,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "-",
+        "number": "2",
+        "xMm": 40.54,
+        "yMm": 20,
+        "bridgeEndpoint": "opamp:-",
+        "netId": "INVERTING",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "+",
+        "number": "3",
+        "xMm": 43.08,
+        "yMm": 20,
+        "bridgeEndpoint": "opamp:+",
+        "netId": "AMP_IN",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "VEE",
+        "number": "4",
+        "xMm": 45.62,
+        "yMm": 20,
+        "bridgeEndpoint": "opamp:VEE",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "NC5",
+        "number": "5",
+        "xMm": 45.62,
+        "yMm": 27.62,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "OUT",
+        "number": "6",
+        "xMm": 43.08,
+        "yMm": 27.62,
+        "bridgeEndpoint": "opamp:OUT",
+        "netId": "OUTPUT",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "VCC",
+        "number": "7",
+        "xMm": 40.54,
+        "yMm": 27.62,
+        "bridgeEndpoint": "opamp:VCC",
+        "netId": "VCC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "opamp",
+        "reference": "U1",
+        "pin": "NC8",
+        "number": "8",
+        "xMm": 38,
+        "yMm": 27.62,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "mic-bias",
+        "reference": "RB1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 11,
+        "yMm": 12,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mic-bias:1"
+      },
+      {
+        "instanceId": "mic-bias",
+        "reference": "RB1",
+        "pin": "2",
+        "number": "2",
+        "netId": "MIC_OUT",
+        "xMm": 21,
+        "yMm": 12,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mic-bias:2"
+      },
+      {
+        "instanceId": "reference-top",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 44,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reference-top:1"
+      },
+      {
+        "instanceId": "reference-top",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "VREF",
+        "xMm": 54,
+        "yMm": 8,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reference-top:2"
+      },
+      {
+        "instanceId": "reference-bottom",
+        "reference": "R2",
+        "pin": "1",
+        "number": "1",
+        "netId": "VREF",
+        "xMm": 59,
+        "yMm": 13,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reference-bottom:1"
+      },
+      {
+        "instanceId": "reference-bottom",
+        "reference": "R2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 69,
+        "yMm": 13,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reference-bottom:2"
+      },
+      {
+        "instanceId": "input-bias",
+        "reference": "RIN",
+        "pin": "1",
+        "number": "1",
+        "netId": "AMP_IN",
+        "xMm": 27,
+        "yMm": 16,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "input-bias:1"
+      },
+      {
+        "instanceId": "input-bias",
+        "reference": "RIN",
+        "pin": "2",
+        "number": "2",
+        "netId": "VREF",
+        "xMm": 27,
+        "yMm": 26,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "input-bias:2"
+      },
+      {
+        "instanceId": "feedback",
+        "reference": "RF",
+        "pin": "1",
+        "number": "1",
+        "netId": "OUTPUT",
+        "xMm": 56,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "feedback:1"
+      },
+      {
+        "instanceId": "feedback",
+        "reference": "RF",
+        "pin": "2",
+        "number": "2",
+        "netId": "INVERTING",
+        "xMm": 56,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "feedback:2"
+      },
+      {
+        "instanceId": "gain-leg",
+        "reference": "RG",
+        "pin": "1",
+        "number": "1",
+        "netId": "INVERTING",
+        "xMm": 50,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "gain-leg:1"
+      },
+      {
+        "instanceId": "gain-leg",
+        "reference": "RG",
+        "pin": "2",
+        "number": "2",
+        "netId": "VREF",
+        "xMm": 60,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "gain-leg:2"
+      },
+      {
+        "instanceId": "coupling-capacitor",
+        "reference": "CIN",
+        "pin": "1",
+        "number": "1",
+        "netId": "MIC_OUT",
+        "xMm": 23,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "coupling-capacitor:1"
+      },
+      {
+        "instanceId": "coupling-capacitor",
+        "reference": "CIN",
+        "pin": "2",
+        "number": "2",
+        "netId": "AMP_IN",
+        "xMm": 25,
+        "yMm": 20,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "coupling-capacitor:2"
+      },
+      {
+        "instanceId": "reference-bypass",
+        "reference": "CREF",
+        "pin": "1",
+        "number": "1",
+        "netId": "VREF",
+        "xMm": 64,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reference-bypass:1"
+      },
+      {
+        "instanceId": "reference-bypass",
+        "reference": "CREF",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 66,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reference-bypass:2"
+      },
+      {
+        "instanceId": "decoupling-capacitor",
+        "reference": "CDEC",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 45,
+        "yMm": 33,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoupling-capacitor:1"
+      },
+      {
+        "instanceId": "decoupling-capacitor",
+        "reference": "CDEC",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 50,
+        "yMm": 33,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoupling-capacitor:2"
+      },
+      {
+        "instanceId": "microphone",
+        "reference": "MIC1",
+        "pin": "OUT",
+        "number": "1",
+        "bridgeEndpoint": "microphone:OUT",
+        "netId": "MIC_OUT",
+        "xMm": 11,
+        "yMm": 24,
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "microphone",
+        "reference": "MIC1",
+        "pin": "GND",
+        "number": "2",
+        "bridgeEndpoint": "microphone:GND",
+        "netId": "GND",
+        "xMm": 13.5,
+        "yMm": 24,
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "technology": "through-hole"
+      }
+    ],
+    "routes": [
+      {
+        "netId": "MIC_OUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            21,
+            12
+          ],
+          [
+            23,
+            12
+          ],
+          [
+            23,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "MIC_OUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            23,
+            20
+          ],
+          [
+            23,
+            22.5
+          ],
+          [
+            12,
+            22.5
+          ],
+          [
+            12,
+            24
+          ],
+          [
+            11,
+            24
+          ]
+        ]
+      },
+      {
+        "netId": "AMP_IN",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            43.08,
+            20
+          ],
+          [
+            42.5,
+            20
+          ],
+          [
+            42.5,
+            19.5
+          ],
+          [
+            42,
+            19.5
+          ],
+          [
+            42,
+            18.5
+          ],
+          [
+            27,
+            18.5
+          ],
+          [
+            27,
+            16
+          ]
+        ]
+      },
+      {
+        "netId": "AMP_IN",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            27,
+            16
+          ],
+          [
+            27,
+            20
+          ],
+          [
+            25,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "VREF",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            54,
+            8
+          ],
+          [
+            59,
+            8
+          ],
+          [
+            59,
+            13
+          ]
+        ]
+      },
+      {
+        "netId": "VREF",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            59,
+            13
+          ],
+          [
+            60,
+            13
+          ],
+          [
+            60,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "VREF",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            60,
+            20
+          ],
+          [
+            64,
+            20
+          ],
+          [
+            64,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "VREF",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            54,
+            8
+          ],
+          [
+            54,
+            26
+          ],
+          [
+            27,
+            26
+          ]
+        ]
+      },
+      {
+        "netId": "INVERTING",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            40.54,
+            20
+          ],
+          [
+            41,
+            20
+          ],
+          [
+            41,
+            20.5
+          ],
+          [
+            41.5,
+            20.5
+          ],
+          [
+            41.5,
+            21
+          ],
+          [
+            42,
+            21
+          ],
+          [
+            42,
+            21.5
+          ],
+          [
+            50,
+            21.5
+          ],
+          [
+            50,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "INVERTING",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            50,
+            20
+          ],
+          [
+            52.5,
+            20
+          ],
+          [
+            52.5,
+            6.5
+          ],
+          [
+            67.5,
+            6.5
+          ],
+          [
+            67.5,
+            26.5
+          ],
+          [
+            56,
+            26.5
+          ],
+          [
+            56,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "OUTPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            43.08,
+            27.62
+          ],
+          [
+            44,
+            27.62
+          ],
+          [
+            44,
+            29
+          ],
+          [
+            45,
+            29
+          ],
+          [
+            45,
+            29.5
+          ],
+          [
+            56,
+            29.5
+          ],
+          [
+            56,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            6
+          ],
+          [
+            11,
+            6
+          ],
+          [
+            11,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            11,
+            12
+          ],
+          [
+            19.5,
+            12
+          ],
+          [
+            19.5,
+            10.5
+          ],
+          [
+            44,
+            10.5
+          ],
+          [
+            44,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            44,
+            8
+          ],
+          [
+            44,
+            10.5
+          ],
+          [
+            19.5,
+            10.5
+          ],
+          [
+            19.5,
+            21.5
+          ],
+          [
+            11,
+            21.5
+          ],
+          [
+            11,
+            22.5
+          ],
+          [
+            9.5,
+            22.5
+          ],
+          [
+            9.5,
+            25.5
+          ],
+          [
+            25.5,
+            25.5
+          ],
+          [
+            25.5,
+            27.5
+          ],
+          [
+            36.5,
+            27.5
+          ],
+          [
+            36.5,
+            29
+          ],
+          [
+            37,
+            29
+          ],
+          [
+            37,
+            29.5
+          ],
+          [
+            40.54,
+            29.5
+          ],
+          [
+            40.54,
+            27.62
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            40.54,
+            27.62
+          ],
+          [
+            41.5,
+            27.62
+          ],
+          [
+            41.5,
+            29
+          ],
+          [
+            42.5,
+            29
+          ],
+          [
+            42.5,
+            29.5
+          ],
+          [
+            43.08,
+            29.5
+          ],
+          [
+            43.08,
+            30
+          ],
+          [
+            44,
+            30
+          ],
+          [
+            44,
+            30.5
+          ],
+          [
+            45,
+            30.5
+          ],
+          [
+            45,
+            33
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            8.54
+          ],
+          [
+            13.5,
+            8.54
+          ],
+          [
+            13.5,
+            24
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            13.5,
+            24
+          ],
+          [
+            45.62,
+            24
+          ],
+          [
+            45.62,
+            20
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            45.62,
+            20
+          ],
+          [
+            48.5,
+            20
+          ],
+          [
+            48.5,
+            21.5
+          ],
+          [
+            50,
+            21.5
+          ],
+          [
+            50,
+            33
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            50,
+            33
+          ],
+          [
+            66,
+            33
+          ],
+          [
+            66,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            66,
+            25
+          ],
+          [
+            69,
+            25
+          ],
+          [
+            69,
+            13
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External regulated 5 V supply connects through J1."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference node for the two bench supplies and AC input return."
+      }
+    ],
+    "fabricationNotes": "J1 pin 1: regulated 5 V. Pin 2: ground. Respect microphone and capacitor polarity. Probe RF pin 1 for the output.",
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Microchip Technology",
+        "manufacturerPartNumber": "MCP601-I/P",
+        "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP601-1R-2-3-4-2.7V-to-6.0V-Single-Supply-CMOS-Op-Amps-DS20001314.pdf",
+        "package": "Microchip_MCP601-I-P_PDIP-8_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "NC",
+          "2": "INVERTING",
+          "3": "AMP_IN",
+          "4": "GND",
+          "5": "NC",
+          "6": "OUTPUT",
+          "7": "VCC",
+          "8": "NC"
+        }
+      },
+      {
+        "reference": "RB1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C2201FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C2201FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "MIC_OUT"
+        }
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1003FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1003FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "VREF"
+        }
+      },
+      {
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1003FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1003FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VREF",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "RIN",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1502FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1502FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "AMP_IN",
+          "2": "VREF"
+        }
+      },
+      {
+        "reference": "RF",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1003FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1003FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "OUTPUT",
+          "2": "INVERTING"
+        }
+      },
+      {
+        "reference": "RG",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "INVERTING",
+          "2": "VREF"
+        }
+      },
+      {
+        "reference": "CIN",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1H100",
+        "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+        "package": "Panasonic_EEUFR1H100_Radial_P2.00mm",
+        "pinMapping": {
+          "1": "MIC_OUT",
+          "2": "AMP_IN"
+        }
+      },
+      {
+        "reference": "CREF",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1H100",
+        "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+        "package": "Panasonic_EEUFR1H100_Radial_P2.00mm",
+        "pinMapping": {
+          "1": "VREF",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "CDEC",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "MIC1",
+        "manufacturer": "PUI Audio",
+        "manufacturerPartNumber": "AOM-4544P-2-R",
+        "sourceUrl": "https://api.puiaudio.com/filename/AOM-4544P-2-R.pdf",
+        "package": "PUI_AOM-4544P-2-R_D9.7_P2.50mm",
+        "pinMapping": {
+          "1": "MIC_OUT",
+          "2": "GND"
+        }
+      }
+    ]
+  }
 }
