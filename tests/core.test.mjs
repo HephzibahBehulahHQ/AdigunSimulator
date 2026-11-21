@@ -2252,6 +2252,7 @@ test("catalogue two-to-four decoder asserts exactly one matching output", async 
     assert.equal(result.state, "complete");
     assert.equal(result.result.address, address);
     assert.deepEqual(result.result.outputsHigh, [0,1,2,3].map(i=>i===address));
+    assert.deepEqual(result.result.outputCurrents, [0,1,2,3].map(i=>i===address?0.0003:0));
     assert.equal(result.result.oneHot, true);
   }
   assert.equal(runSupportedAnalysis(updateComponent(project, "address-1", { value: "6 V" })).state, "blocked");

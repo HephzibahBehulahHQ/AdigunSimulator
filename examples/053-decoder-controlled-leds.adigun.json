@@ -16,15 +16,15 @@
       "position": {
         "breadboard": [
           40,
-          45
-        ],
-        "schematic": [
-          40,
-          45
+          55
         ],
         "pcb": [
           40,
-          45
+          55
+        ],
+        "schematic": [
+          28,
+          34
         ]
       }
     },
@@ -36,15 +36,15 @@
       "position": {
         "breadboard": [
           155,
-          45
-        ],
-        "schematic": [
-          155,
-          45
+          55
         ],
         "pcb": [
           155,
-          45
+          55
+        ],
+        "schematic": [
+          28,
+          162
         ]
       }
     },
@@ -56,55 +56,62 @@
       "position": {
         "breadboard": [
           270,
-          45
-        ],
-        "schematic": [
-          270,
-          45
+          55
         ],
         "pcb": [
           270,
-          45
+          55
+        ],
+        "schematic": [
+          120,
+          162
         ]
       }
     },
     {
       "instanceId": "decoder",
-      "libraryId": "active.logic-decoder-2to4-ideal",
+      "libraryId": "active.cd4555be-decoder",
       "reference": "U1",
-      "value": "Ideal active-high 2:4 decoder",
+      "value": "CD4555BE",
       "position": {
         "breadboard": [
           385,
-          45
-        ],
-        "schematic": [
-          385,
-          45
+          55
         ],
         "pcb": [
           385,
-          45
+          55
+        ],
+        "schematic": [
+          240,
+          82
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 100,
+          "height": 128,
+          "rotation": 0
+        }
       }
     },
     {
       "instanceId": "r0",
       "libraryId": "passive.resistor",
       "reference": "R0",
-      "value": "330 Ω",
+      "value": "10 kΩ",
       "position": {
         "breadboard": [
           500,
-          45
-        ],
-        "schematic": [
-          500,
-          45
+          55
         ],
         "pcb": [
           500,
-          45
+          55
+        ],
+        "schematic": [
+          358,
+          31
         ]
       }
     },
@@ -112,19 +119,19 @@
       "instanceId": "r1",
       "libraryId": "passive.resistor",
       "reference": "R1",
-      "value": "330 Ω",
+      "value": "10 kΩ",
       "position": {
         "breadboard": [
           40,
-          110
-        ],
-        "schematic": [
-          40,
-          110
+          130
         ],
         "pcb": [
           40,
-          110
+          130
+        ],
+        "schematic": [
+          508,
+          31
         ]
       }
     },
@@ -132,19 +139,19 @@
       "instanceId": "r2",
       "libraryId": "passive.resistor",
       "reference": "R2",
-      "value": "330 Ω",
+      "value": "10 kΩ",
       "position": {
         "breadboard": [
           155,
-          110
-        ],
-        "schematic": [
-          155,
-          110
+          130
         ],
         "pcb": [
           155,
-          110
+          130
+        ],
+        "schematic": [
+          358,
+          163
         ]
       }
     },
@@ -152,19 +159,19 @@
       "instanceId": "r3",
       "libraryId": "passive.resistor",
       "reference": "R3",
-      "value": "330 Ω",
+      "value": "10 kΩ",
       "position": {
         "breadboard": [
           270,
-          110
-        ],
-        "schematic": [
-          270,
-          110
+          130
         ],
         "pcb": [
           270,
-          110
+          130
+        ],
+        "schematic": [
+          508,
+          163
         ]
       }
     },
@@ -176,15 +183,15 @@
       "position": {
         "breadboard": [
           385,
-          110
-        ],
-        "schematic": [
-          385,
-          110
+          130
         ],
         "pcb": [
           385,
-          110
+          130
+        ],
+        "schematic": [
+          433,
+          31
         ]
       }
     },
@@ -196,15 +203,15 @@
       "position": {
         "breadboard": [
           500,
-          110
-        ],
-        "schematic": [
-          500,
-          110
+          130
         ],
         "pcb": [
           500,
-          110
+          130
+        ],
+        "schematic": [
+          583,
+          31
         ]
       }
     },
@@ -216,15 +223,15 @@
       "position": {
         "breadboard": [
           40,
-          175
-        ],
-        "schematic": [
-          40,
-          175
+          205
         ],
         "pcb": [
           40,
-          175
+          205
+        ],
+        "schematic": [
+          433,
+          163
         ]
       }
     },
@@ -236,15 +243,15 @@
       "position": {
         "breadboard": [
           155,
-          175
-        ],
-        "schematic": [
-          155,
-          175
+          205
         ],
         "pcb": [
           155,
-          175
+          205
+        ],
+        "schematic": [
+          583,
+          163
         ]
       }
     },
@@ -256,15 +263,35 @@
       "position": {
         "breadboard": [
           270,
-          175
-        ],
-        "schematic": [
-          270,
-          175
+          205
         ],
         "pcb": [
           270,
-          175
+          205
+        ],
+        "schematic": [
+          200,
+          198
+        ]
+      }
+    },
+    {
+      "instanceId": "bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          385,
+          205
+        ],
+        "pcb": [
+          385,
+          205
+        ],
+        "schematic": [
+          120,
+          34
         ]
       }
     }
@@ -274,7 +301,9 @@
       "id": "VCC",
       "endpoints": [
         "supply:+",
-        "decoder:VCC"
+        "decoder:VCC",
+        "decoder:2E",
+        "bypass:1"
       ]
     },
     {
@@ -288,7 +317,11 @@
         "led0:K",
         "led1:K",
         "led2:K",
-        "led3:K"
+        "led3:K",
+        "decoder:1E",
+        "decoder:2A",
+        "decoder:2B",
+        "bypass:2"
       ]
     },
     {
@@ -362,5 +395,2349 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "address-0:+": "H13",
+      "address-0:-": "BM8",
+      "address-1:+": "H14",
+      "address-1:-": "BM13",
+      "decoder:1E": "F12",
+      "decoder:A0": "F13",
+      "decoder:A1": "F14",
+      "decoder:Y0": "F15",
+      "decoder:Y1": "F16",
+      "decoder:Y2": "F17",
+      "decoder:Y3": "F18",
+      "decoder:GND": "F19",
+      "decoder:2B": "E15",
+      "decoder:2A": "E14",
+      "decoder:2E": "E13",
+      "decoder:VCC": "E12",
+      "bypass:1": "A12",
+      "bypass:2": "A10",
+      "r0:1": "G3",
+      "r0:2": "G9",
+      "r1:1": "C3",
+      "r1:2": "C9",
+      "r2:1": "G22",
+      "r2:2": "G28",
+      "r3:1": "C22",
+      "r3:2": "C28",
+      "led0:A": "J4",
+      "led0:K": "J5",
+      "led1:A": "A4",
+      "led1:K": "A5",
+      "led2:A": "J26",
+      "led2:K": "J27",
+      "led3:A": "A26",
+      "led3:K": "A27"
+    },
+    "jumpers": [
+      {
+        "from": "TP12",
+        "to": "B12"
+      },
+      {
+        "from": "A13",
+        "to": "C12"
+      },
+      {
+        "from": "B14",
+        "to": "BM11"
+      },
+      {
+        "from": "C14",
+        "to": "C15"
+      },
+      {
+        "from": "J12",
+        "to": "BM8"
+      },
+      {
+        "from": "J19",
+        "to": "BM17"
+      },
+      {
+        "from": "H15",
+        "to": "I3"
+      },
+      {
+        "from": "H16",
+        "to": "D3"
+      },
+      {
+        "from": "H17",
+        "to": "I22"
+      },
+      {
+        "from": "H18",
+        "to": "D22"
+      },
+      {
+        "from": "I9",
+        "to": "H4"
+      },
+      {
+        "from": "D9",
+        "to": "B4"
+      },
+      {
+        "from": "I28",
+        "to": "H26"
+      },
+      {
+        "from": "D28",
+        "to": "B26"
+      },
+      {
+        "from": "I5",
+        "to": "BM4"
+      },
+      {
+        "from": "B5",
+        "to": "BM5"
+      },
+      {
+        "from": "I27",
+        "to": "BM24"
+      },
+      {
+        "from": "B27",
+        "to": "BM25"
+      },
+      {
+        "from": "B10",
+        "to": "BM6"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Common reference for the supply and both external input stimuli."
+      }
+    ],
+    "physicalNotes": [
+      "Seat the CD4555BE with pin 1 at F12. Ground 1E and the second decoder’s A/B inputs. Hold 2E high and isolate all four unused outputs.",
+      "Apply 0 V or 5 V to A0 and A1 relative to the common return. The selected output sources its LED through a 10 kΩ resistor."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "address-0",
+          "reference": "A0",
+          "kind": "external-supply",
+          "positionPx": [
+            215,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "H13",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "address-1",
+          "reference": "A1",
+          "kind": "external-supply",
+          "positionPx": [
+            355,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "H14",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM13",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "decoder",
+          "reference": "U1",
+          "manufacturer": "Texas Instruments",
+          "manufacturerPartNumber": "CD4555BE",
+          "sourceUrl": "https://www.ti.com/lit/ds/symlink/cd4555b.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 21.59,
+            "height": 6.6
+          },
+          "positionPx": [
+            339.99999999999994,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "1E",
+              "hole": "F12",
+              "offsetMm": [
+                -8.89,
+                3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "A0",
+              "hole": "F13",
+              "offsetMm": [
+                -6.35,
+                3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "A1",
+              "hole": "F14",
+              "offsetMm": [
+                -3.81,
+                3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "Y0",
+              "hole": "F15",
+              "offsetMm": [
+                -1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "Y1",
+              "hole": "F16",
+              "offsetMm": [
+                1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "Y2",
+              "hole": "F17",
+              "offsetMm": [
+                3.81,
+                3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "Y3",
+              "hole": "F18",
+              "offsetMm": [
+                6.35,
+                3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "GND",
+              "hole": "F19",
+              "offsetMm": [
+                8.89,
+                3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "2B",
+              "hole": "E15",
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "2A",
+              "hole": "E14",
+              "offsetMm": [
+                -3.81,
+                -3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "2E",
+              "hole": "E13",
+              "offsetMm": [
+                -6.35,
+                -3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            },
+            {
+              "pin": "VCC",
+              "hole": "E12",
+              "offsetMm": [
+                -8.89,
+                -3.81
+              ],
+              "leadDiameterMm": 0.59,
+              "connection": "direct"
+            }
+          ],
+          "noConnectHoles": [
+            "E19",
+            "E18",
+            "E17",
+            "E16"
+          ]
+        },
+        {
+          "instanceId": "bypass",
+          "reference": "C1",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            251.24137931034485,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A12",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A10",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "r0",
+          "reference": "R0",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            152.6206896551725,
+            175
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "G3",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -7.62,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "G9",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                7.62,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "r1",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            152.6206896551725,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "C3",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -7.62,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "C9",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                7.62,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "r2",
+          "reference": "R2",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            527.379310344828,
+            175
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "G22",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -7.62,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "G28",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                7.62,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "r3",
+          "reference": "R3",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            527.379310344828,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "C22",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -7.62,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "C28",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                7.62,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led0",
+          "reference": "D0",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            123.03448275862075,
+            205
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "J4",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "J5",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led1",
+          "reference": "D1",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            123.03448275862075,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "A4",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "A5",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led2",
+          "reference": "D2",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            556.9655172413798,
+            205
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "J26",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "J27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led3",
+          "reference": "D3",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            556.9655172413798,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "A26",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "A27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 57,
+      "heightMm": 52,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "address-0",
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "address-1",
+        "reference": "J3",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "CD4555BE",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/cd4555b.pdf",
+        "footprint": "TI_CD4555BE_PDIP-16_P2.54mm_W7.62mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "r0",
+        "reference": "R0",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.16mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "led0",
+        "reference": "D0",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_T1-3/4_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "r1",
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.16mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "led1",
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_T1-3/4_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "r2",
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.16mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "led2",
+        "reference": "D2",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_T1-3/4_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "r3",
+        "reference": "R3",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.16mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "led3",
+        "reference": "D3",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_T1-3/4_P2.54mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "1",
+        "pin": "+",
+        "netId": "VCC",
+        "xMm": 5.842,
+        "yMm": 5.08,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:+"
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.842,
+        "yMm": 7.62,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:-"
+      },
+      {
+        "instanceId": "address-0",
+        "reference": "J2",
+        "number": "1",
+        "pin": "+",
+        "netId": "A0",
+        "xMm": 5.842,
+        "yMm": 12.192,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "address-0:+"
+      },
+      {
+        "instanceId": "address-0",
+        "reference": "J2",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.842,
+        "yMm": 14.732,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "address-0:-"
+      },
+      {
+        "instanceId": "address-1",
+        "reference": "J3",
+        "number": "1",
+        "pin": "+",
+        "netId": "A1",
+        "xMm": 5.842,
+        "yMm": 19.304,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "address-1:+"
+      },
+      {
+        "instanceId": "address-1",
+        "reference": "J3",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.842,
+        "yMm": 21.844,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "address-1:-"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "C1",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 31.242,
+        "yMm": 6.096,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "bypass:1"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "C1",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 26.162,
+        "yMm": 6.096,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "bypass:2"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "1",
+        "pin": "1E",
+        "netId": "GND",
+        "xMm": 18.542,
+        "yMm": 22.352,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:1E"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "2",
+        "pin": "A0",
+        "netId": "A0",
+        "xMm": 21.082,
+        "yMm": 22.352,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:A0"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "3",
+        "pin": "A1",
+        "netId": "A1",
+        "xMm": 23.622,
+        "yMm": 22.352,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:A1"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "4",
+        "pin": "Y0",
+        "netId": "Y0",
+        "xMm": 26.162,
+        "yMm": 22.352,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:Y0"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "5",
+        "pin": "Y1",
+        "netId": "Y1",
+        "xMm": 28.702,
+        "yMm": 22.352,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:Y1"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "6",
+        "pin": "Y2",
+        "netId": "Y2",
+        "xMm": 31.242,
+        "yMm": 22.352,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:Y2"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "7",
+        "pin": "Y3",
+        "netId": "Y3",
+        "xMm": 33.782,
+        "yMm": 22.352,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:Y3"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "8",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 36.322,
+        "yMm": 22.352,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:GND"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "9",
+        "pin": "NC9",
+        "netId": "NC",
+        "xMm": 36.322,
+        "yMm": 14.732,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "10",
+        "pin": "NC10",
+        "netId": "NC",
+        "xMm": 33.782,
+        "yMm": 14.732,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "11",
+        "pin": "NC11",
+        "netId": "NC",
+        "xMm": 31.242,
+        "yMm": 14.732,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "12",
+        "pin": "NC12",
+        "netId": "NC",
+        "xMm": 28.702,
+        "yMm": 14.732,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "13",
+        "pin": "2B",
+        "netId": "GND",
+        "xMm": 26.162,
+        "yMm": 14.732,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:2B"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "14",
+        "pin": "2A",
+        "netId": "GND",
+        "xMm": 23.622,
+        "yMm": 14.732,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:2A"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "15",
+        "pin": "2E",
+        "netId": "VCC",
+        "xMm": 21.082,
+        "yMm": 14.732,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:2E"
+      },
+      {
+        "instanceId": "decoder",
+        "reference": "U1",
+        "number": "16",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 18.542,
+        "yMm": 14.732,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoder:VCC"
+      },
+      {
+        "instanceId": "r0",
+        "reference": "R0",
+        "number": "1",
+        "pin": "1",
+        "netId": "Y0",
+        "xMm": 25.146,
+        "yMm": 29.21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "r0:1"
+      },
+      {
+        "instanceId": "r0",
+        "reference": "R0",
+        "number": "2",
+        "pin": "2",
+        "netId": "LED0",
+        "xMm": 25.146,
+        "yMm": 39.37,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "r0:2"
+      },
+      {
+        "instanceId": "led0",
+        "reference": "D0",
+        "number": "1",
+        "pin": "A",
+        "netId": "LED0",
+        "xMm": 25.146,
+        "yMm": 44.196,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led0:A"
+      },
+      {
+        "instanceId": "led0",
+        "reference": "D0",
+        "number": "2",
+        "pin": "K",
+        "netId": "GND",
+        "xMm": 25.146,
+        "yMm": 46.736,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led0:K"
+      },
+      {
+        "instanceId": "r1",
+        "reference": "R1",
+        "number": "1",
+        "pin": "1",
+        "netId": "Y1",
+        "xMm": 32.004,
+        "yMm": 29.21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "r1:1"
+      },
+      {
+        "instanceId": "r1",
+        "reference": "R1",
+        "number": "2",
+        "pin": "2",
+        "netId": "LED1",
+        "xMm": 32.004,
+        "yMm": 39.37,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "r1:2"
+      },
+      {
+        "instanceId": "led1",
+        "reference": "D1",
+        "number": "1",
+        "pin": "A",
+        "netId": "LED1",
+        "xMm": 32.004,
+        "yMm": 44.196,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led1:A"
+      },
+      {
+        "instanceId": "led1",
+        "reference": "D1",
+        "number": "2",
+        "pin": "K",
+        "netId": "GND",
+        "xMm": 32.004,
+        "yMm": 46.736,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led1:K"
+      },
+      {
+        "instanceId": "r2",
+        "reference": "R2",
+        "number": "1",
+        "pin": "1",
+        "netId": "Y2",
+        "xMm": 38.862,
+        "yMm": 29.21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "r2:1"
+      },
+      {
+        "instanceId": "r2",
+        "reference": "R2",
+        "number": "2",
+        "pin": "2",
+        "netId": "LED2",
+        "xMm": 38.862,
+        "yMm": 39.37,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "r2:2"
+      },
+      {
+        "instanceId": "led2",
+        "reference": "D2",
+        "number": "1",
+        "pin": "A",
+        "netId": "LED2",
+        "xMm": 38.862,
+        "yMm": 44.196,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led2:A"
+      },
+      {
+        "instanceId": "led2",
+        "reference": "D2",
+        "number": "2",
+        "pin": "K",
+        "netId": "GND",
+        "xMm": 38.862,
+        "yMm": 46.736,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led2:K"
+      },
+      {
+        "instanceId": "r3",
+        "reference": "R3",
+        "number": "1",
+        "pin": "1",
+        "netId": "Y3",
+        "xMm": 45.72,
+        "yMm": 29.21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "r3:1"
+      },
+      {
+        "instanceId": "r3",
+        "reference": "R3",
+        "number": "2",
+        "pin": "2",
+        "netId": "LED3",
+        "xMm": 45.72,
+        "yMm": 39.37,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "r3:2"
+      },
+      {
+        "instanceId": "led3",
+        "reference": "D3",
+        "number": "1",
+        "pin": "A",
+        "netId": "LED3",
+        "xMm": 45.72,
+        "yMm": 44.196,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led3:A"
+      },
+      {
+        "instanceId": "led3",
+        "reference": "D3",
+        "number": "2",
+        "pin": "K",
+        "netId": "GND",
+        "xMm": 45.72,
+        "yMm": 46.736,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led3:K"
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "A0",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J3",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "A1",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "CD4555BE",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/cd4555b.pdf",
+        "package": "TI_CD4555BE_PDIP-16_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "GND",
+          "2": "A0",
+          "3": "A1",
+          "4": "Y0",
+          "5": "Y1",
+          "6": "Y2",
+          "7": "Y3",
+          "8": "GND",
+          "9": "NC",
+          "10": "NC",
+          "11": "NC",
+          "12": "NC",
+          "13": "GND",
+          "14": "GND",
+          "15": "VCC",
+          "16": "VCC"
+        }
+      },
+      {
+        "reference": "R0",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.16mm",
+        "pinMapping": {
+          "1": "Y0",
+          "2": "LED0"
+        }
+      },
+      {
+        "reference": "D0",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "LiteOn_T1-3/4_P2.54mm",
+        "pinMapping": {
+          "1": "LED0",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.16mm",
+        "pinMapping": {
+          "1": "Y1",
+          "2": "LED1"
+        }
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "LiteOn_T1-3/4_P2.54mm",
+        "pinMapping": {
+          "1": "LED1",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.16mm",
+        "pinMapping": {
+          "1": "Y2",
+          "2": "LED2"
+        }
+      },
+      {
+        "reference": "D2",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "LiteOn_T1-3/4_P2.54mm",
+        "pinMapping": {
+          "1": "LED2",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R3",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.16mm",
+        "pinMapping": {
+          "1": "Y3",
+          "2": "LED3"
+        }
+      },
+      {
+        "reference": "D3",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "LiteOn_T1-3/4_P2.54mm",
+        "pinMapping": {
+          "1": "LED3",
+          "2": "GND"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            18.542,
+            14.732
+          ],
+          [
+            21.082,
+            14.732
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            23.622,
+            14.732
+          ],
+          [
+            26.162,
+            14.732
+          ]
+        ]
+      },
+      {
+        "netId": "LED0",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25.146,
+            39.37
+          ],
+          [
+            25.146,
+            44.196
+          ]
+        ]
+      },
+      {
+        "netId": "LED1",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.004,
+            39.37
+          ],
+          [
+            32.004,
+            44.196
+          ]
+        ]
+      },
+      {
+        "netId": "LED2",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            38.862,
+            39.37
+          ],
+          [
+            38.862,
+            44.196
+          ]
+        ]
+      },
+      {
+        "netId": "LED3",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            45.72,
+            39.37
+          ],
+          [
+            45.72,
+            44.196
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            38.862,
+            46.736
+          ],
+          [
+            32.004,
+            46.736
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            38.862,
+            46.736
+          ],
+          [
+            45.72,
+            46.736
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.004,
+            46.736
+          ],
+          [
+            25.146,
+            46.736
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            7.62
+          ],
+          [
+            6.096,
+            7.62
+          ],
+          [
+            6.096,
+            10.668
+          ],
+          [
+            6.858,
+            10.668
+          ],
+          [
+            6.858,
+            10.922
+          ],
+          [
+            7.112,
+            10.922
+          ],
+          [
+            7.112,
+            11.176
+          ],
+          [
+            7.366,
+            11.176
+          ],
+          [
+            7.366,
+            13.208
+          ],
+          [
+            7.112,
+            13.208
+          ],
+          [
+            7.112,
+            13.462
+          ],
+          [
+            6.858,
+            13.462
+          ],
+          [
+            6.858,
+            13.716
+          ],
+          [
+            5.842,
+            13.716
+          ],
+          [
+            5.842,
+            14.732
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            14.732
+          ],
+          [
+            6.096,
+            14.732
+          ],
+          [
+            6.096,
+            17.78
+          ],
+          [
+            6.858,
+            17.78
+          ],
+          [
+            6.858,
+            18.034
+          ],
+          [
+            7.112,
+            18.034
+          ],
+          [
+            7.112,
+            18.288
+          ],
+          [
+            7.366,
+            18.288
+          ],
+          [
+            7.366,
+            20.32
+          ],
+          [
+            7.112,
+            20.32
+          ],
+          [
+            7.112,
+            20.574
+          ],
+          [
+            6.858,
+            20.574
+          ],
+          [
+            6.858,
+            20.828
+          ],
+          [
+            5.842,
+            20.828
+          ],
+          [
+            5.842,
+            21.844
+          ]
+        ]
+      },
+      {
+        "netId": "Y0",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            26.162,
+            22.352
+          ],
+          [
+            25.146,
+            22.352
+          ],
+          [
+            25.146,
+            29.21
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            26.162,
+            14.732
+          ],
+          [
+            26.162,
+            6.096
+          ]
+        ]
+      },
+      {
+        "netId": "Y1",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            28.702,
+            22.352
+          ],
+          [
+            29.718,
+            22.352
+          ],
+          [
+            29.718,
+            23.368
+          ],
+          [
+            29.972,
+            23.368
+          ],
+          [
+            29.972,
+            23.622
+          ],
+          [
+            30.226,
+            23.622
+          ],
+          [
+            30.226,
+            23.876
+          ],
+          [
+            32.004,
+            23.876
+          ],
+          [
+            32.004,
+            29.21
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            18.542,
+            22.352
+          ],
+          [
+            19.558,
+            22.352
+          ],
+          [
+            19.558,
+            21.336
+          ],
+          [
+            19.812,
+            21.336
+          ],
+          [
+            19.812,
+            21.082
+          ],
+          [
+            20.066,
+            21.082
+          ],
+          [
+            20.066,
+            20.828
+          ],
+          [
+            23.622,
+            20.828
+          ],
+          [
+            23.622,
+            14.732
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            21.844
+          ],
+          [
+            18.542,
+            21.844
+          ],
+          [
+            18.542,
+            22.352
+          ]
+        ]
+      },
+      {
+        "netId": "Y2",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            31.242,
+            22.352
+          ],
+          [
+            32.258,
+            22.352
+          ],
+          [
+            32.258,
+            23.368
+          ],
+          [
+            32.512,
+            23.368
+          ],
+          [
+            32.512,
+            23.622
+          ],
+          [
+            32.766,
+            23.622
+          ],
+          [
+            32.766,
+            23.876
+          ],
+          [
+            38.862,
+            23.876
+          ],
+          [
+            38.862,
+            29.21
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            18.542,
+            22.352
+          ],
+          [
+            19.558,
+            22.352
+          ],
+          [
+            19.558,
+            21.336
+          ],
+          [
+            19.812,
+            21.336
+          ],
+          [
+            19.812,
+            21.082
+          ],
+          [
+            20.066,
+            21.082
+          ],
+          [
+            20.066,
+            20.828
+          ],
+          [
+            36.322,
+            20.828
+          ],
+          [
+            36.322,
+            22.352
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            21.082,
+            14.732
+          ],
+          [
+            22.098,
+            14.732
+          ],
+          [
+            22.098,
+            13.716
+          ],
+          [
+            22.352,
+            13.716
+          ],
+          [
+            22.352,
+            13.462
+          ],
+          [
+            22.606,
+            13.462
+          ],
+          [
+            22.606,
+            13.208
+          ],
+          [
+            31.242,
+            13.208
+          ],
+          [
+            31.242,
+            6.096
+          ]
+        ]
+      },
+      {
+        "netId": "Y3",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            33.782,
+            22.352
+          ],
+          [
+            34.798,
+            22.352
+          ],
+          [
+            34.798,
+            23.368
+          ],
+          [
+            35.052,
+            23.368
+          ],
+          [
+            35.052,
+            23.622
+          ],
+          [
+            35.306,
+            23.622
+          ],
+          [
+            35.306,
+            23.876
+          ],
+          [
+            45.72,
+            23.876
+          ],
+          [
+            45.72,
+            29.21
+          ]
+        ]
+      },
+      {
+        "netId": "A1",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            19.304
+          ],
+          [
+            23.622,
+            19.304
+          ],
+          [
+            23.622,
+            22.352
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            5.08
+          ],
+          [
+            18.542,
+            5.08
+          ],
+          [
+            18.542,
+            14.732
+          ]
+        ]
+      },
+      {
+        "netId": "A0",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            12.192
+          ],
+          [
+            5.842,
+            12.7
+          ],
+          [
+            5.334,
+            12.7
+          ],
+          [
+            5.334,
+            12.954
+          ],
+          [
+            5.08,
+            12.954
+          ],
+          [
+            5.08,
+            13.208
+          ],
+          [
+            4.826,
+            13.208
+          ],
+          [
+            4.826,
+            13.462
+          ],
+          [
+            4.572,
+            13.462
+          ],
+          [
+            4.572,
+            13.716
+          ],
+          [
+            4.318,
+            13.716
+          ],
+          [
+            4.318,
+            22.86
+          ],
+          [
+            4.572,
+            22.86
+          ],
+          [
+            4.572,
+            23.114
+          ],
+          [
+            4.826,
+            23.114
+          ],
+          [
+            4.826,
+            23.368
+          ],
+          [
+            17.272,
+            23.368
+          ],
+          [
+            17.272,
+            23.622
+          ],
+          [
+            17.526,
+            23.622
+          ],
+          [
+            17.526,
+            23.876
+          ],
+          [
+            21.082,
+            23.876
+          ],
+          [
+            21.082,
+            22.352
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            36.322,
+            22.352
+          ],
+          [
+            39.116,
+            22.352
+          ],
+          [
+            39.116,
+            22.86
+          ],
+          [
+            39.37,
+            22.86
+          ],
+          [
+            39.37,
+            23.114
+          ],
+          [
+            39.624,
+            23.114
+          ],
+          [
+            39.624,
+            23.368
+          ],
+          [
+            39.878,
+            23.368
+          ],
+          [
+            39.878,
+            27.94
+          ],
+          [
+            40.132,
+            27.94
+          ],
+          [
+            40.132,
+            28.194
+          ],
+          [
+            40.386,
+            28.194
+          ],
+          [
+            40.386,
+            45.212
+          ],
+          [
+            40.132,
+            45.212
+          ],
+          [
+            40.132,
+            45.466
+          ],
+          [
+            39.878,
+            45.466
+          ],
+          [
+            39.878,
+            45.72
+          ],
+          [
+            38.862,
+            45.72
+          ],
+          [
+            38.862,
+            46.736
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External stimulus or supply connects through J1."
+      },
+      {
+        "instanceId": "address-0",
+        "reference": "A0",
+        "reason": "External stimulus or supply connects through J2."
+      },
+      {
+        "instanceId": "address-1",
+        "reference": "A1",
+        "reason": "External stimulus or supply connects through J3."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Common reference for the supply and both external input stimuli."
+      }
+    ],
+    "fabricationNotes": "J1 supplies +5 V. J2 is A0 and J3 is A1. Each header includes a return. Ground 1E, hold 2E high, and leave outputs 9 through 12 isolated."
+  }
 }
