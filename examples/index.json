@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 43,
-    "withoutStoredPcb": 173,
+    "withStoredPcb": 44,
+    "withoutStoredPcb": 172,
     "unexpectedFailures": []
   },
   "entries": [
@@ -366,36 +366,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Passive networks and sensors",
-      "sha256": "c6529b46f4801822098e1d7aebc4f0385dd908861930dc9db9242e66b41b209e",
+      "sha256": "35034dd7ea716cab3797129004a1391f8c74c56d8720c1d420cdd0362c469dda",
       "components": 5,
       "analysis": "complete",
       "engine": "Analytical first-order switched RC response",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "SW1",
-          "libraryId": "input.spdt-switch"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 9,
+      "pcbRoutes": 5,
+      "unmapped": []
     },
     {
       "file": "012-rc-low-pass.adigun.json",

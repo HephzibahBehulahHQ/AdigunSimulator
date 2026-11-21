@@ -14,7 +14,7 @@ Calculate the ideal 5 V, 1 kΩ, 100 µF response with an SPDT switch selecting c
 | C1 | `passive.capacitor` | 100 µF |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The ideal 5 V source is represented on the PCB by a Samtec TSW-102-07-T-S supply header. SW1 is an E-Switch EG1218, R1 is a Vishay MRS25000C1001FCT00, and polarized C1 is a Panasonic ECA1VMH101I rated at 35 V. The native project records the part sources and package mappings.
 
 ## Net connections
 
@@ -25,9 +25,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+On the BB400, connect the supply leads to TP2 and BM2. Insert SW1 A, COM and B at A10, A11 and A12. Place R1 across D11–D15 and C1 positive and negative at F20 and F21. Add jumpers TP2–A10, A12–BM12, D15–F20 and F21–BM21. Verify the switch and capacitor leads fit the BB400 hole pitch without force.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The native project stores a 58 × 34 mm single-sided PCB and generates BOM, Gerber and drill outputs from the routed layout. J1 pin 1 takes regulated, current-limited 5 V and pin 2 is the common return. SW1 pin 2 selects charge through R1 in position A and discharge through R1 in position B. Check the purchased parts, polarity and fabrication rules before assembly.
 
 ## Acceptance test and expected result
 
