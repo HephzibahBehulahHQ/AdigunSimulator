@@ -61,6 +61,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.comparator-dual-ideal", category: "Active", type: "Ideal dual-input comparator with indicator", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal comparator", simulation: "analytical-comparator-threshold", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.schmitt-trigger-ideal", category: "Active", type: "Ideal Schmitt trigger with positive feedback", prefix: "U", pins: ["VCC", "GND", "IN+", "IN-", "OUT"], defaultValue: "Ideal Schmitt trigger", simulation: "analytical-schmitt-trigger", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-and-ideal", category: "Active", type: "Ideal two-input AND gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-window-comparator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.sn74hc08n-first-gate", category: "Active", type: "SN74HC08N gate 1 (ideal logic)", prefix: "U", pins: ["A", "B", "Y", "2A", "2B", "GND", "3A", "3B", "4A", "4B", "VCC"], defaultValue: "SN74HC08N", simulation: "analytical-window-comparator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-or-ideal", category: "Active", type: "Ideal two-input OR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-or-gate-truth-table", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-xor-ideal", category: "Active", type: "Ideal two-input XOR parity gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-xor-parity-checker", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-nor-ideal", category: "Active", type: "Ideal two-input NOR gate (static)", prefix: "U", pins: ["A", "B", "Y", "VCC", "GND"], defaultValue: "Ideal logic", simulation: "analytical-nor-sr-latch", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -905,7 +906,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const batteryMonitors = project.components.filter((item) => ["active.comparator-ideal", "active.tps3710-ideal"].includes(item.libraryId));
   const dualComparators = project.components.filter((item) => item.libraryId === "active.comparator-dual-ideal");
   const schmittTriggers = project.components.filter((item) => item.libraryId === "active.schmitt-trigger-ideal");
-  const andGates = project.components.filter((item) => item.libraryId === "active.logic-and-ideal");
+  const andGates = project.components.filter((item) => ["active.logic-and-ideal","active.sn74hc08n-first-gate"].includes(item.libraryId));
   const orGates = project.components.filter((item) => item.libraryId === "active.logic-or-ideal");
   const xorGates = project.components.filter((item) => item.libraryId === "active.logic-xor-ideal");
   const norGates = project.components.filter((item) => item.libraryId === "active.logic-nor-ideal");
@@ -2236,6 +2237,9 @@ function analyseWindowComparator(project,{sources,comparators,gate,resistors,led
     return {state:"blocked",message:"Connect the dual comparators, AND gate, signal, supply, and LED to their ground and supply references.",validation};
   }
   const inputNet=n(signal,"+"),lower=comparators.find(item=>n(item,"IN+")===inputNet),upper=comparators.find(item=>n(item,"IN-")===inputNet);
+  if(gate.libraryId==="active.sn74hc08n-first-gate"&&["2A","2B","3A","3B","4A","4B"].some(pin=>n(gate,pin)!==groundNet)){
+    return {state:"blocked",message:"Tie the six unused SN74HC08N inputs to ground. Leave unused gate outputs unconnected.",validation};
+  }
   if(!lower||!upper||lower===upper||n(lower,"VCC")!==n(supply,"+")||n(upper,"VCC")!==n(supply,"+")||n(lower,"GND")!==groundNet||n(upper,"GND")!==groundNet){
     return {state:"blocked",message:"Wire one comparator for input-above-lower-limit and the other for input-below-upper-limit.",validation};
   }

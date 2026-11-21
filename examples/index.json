@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 61,
-    "withoutStoredPcb": 155,
+    "withStoredPcb": 62,
+    "withoutStoredPcb": 154,
     "unexpectedFailures": []
   },
   "entries": [
@@ -654,60 +654,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "8849c36c734f98c7e7f76e3096853c4b424accd3860e40ede2f4df989e4cdd8c",
+      "sha256": "2334d031813925c7942909a9ab1319dbd252a1f13be2fa9f3519776debfafada",
       "components": 11,
       "analysis": "complete",
       "engine": "Ideal dual-comparator window detector",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VIN",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.comparator-dual-ideal"
-        },
-        {
-          "reference": "U2",
-          "libraryId": "active.comparator-dual-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R3",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "U3",
-          "libraryId": "active.logic-and-ideal"
-        },
-        {
-          "reference": "R4",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 10,
+      "pcbPads": 44,
+      "pcbRoutes": 26,
+      "unmapped": []
     },
     {
       "file": "030-reference-buffer.adigun.json",

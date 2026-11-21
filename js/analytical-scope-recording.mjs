@@ -18,6 +18,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='npn-common-emitter')return commonEmitterRecording(project,r);
  if(kind==='ne556-dual-astable')return dualTimerRecording(project,r);
  if(['comparator-threshold','schmitt-trigger'].includes(kind))return comparatorRecording(project,r);
+ if(kind==='window-comparator')return windowComparatorRecording(project,r);
  if(['opamp-noninverting','opamp-inverting','opamp-voltage-follower'].includes(kind))return opAmpMidbandRecording(project,r);
  if(!['ne555-astable','ne555-monostable','stm32-timer-pwm'].includes(kind))return null;
  const timer=project.components.find(c=>c.libraryId===(kind.startsWith('ne555')?'active.ne555':'active.stm32-timer-ideal'));
@@ -35,6 +36,28 @@ export function analyticalScopeRecording(project,analysis){
   return {timeSeconds,nodeVoltages:{[ground]:0,[power]:voltage,[output]:high?voltage:0}};
  });
  return {kind:'analytical-output-recording',model:kind==='stm32-timer-pwm'?'Ideal STM32 PWM output':'Ideal 555 output timing',preferredNet:output,samples};
+}
+
+function windowComparatorRecording(project,result) {
+ const gate=project.components.find(component=>['active.logic-and-ideal','active.sn74hc08n-first-gate'].includes(component.libraryId));
+ if(!gate)return null;
+ const net=(component,pin)=>project.nets.find(item=>item.endpoints.includes(`${component.instanceId}:${pin}`))?.id;
+ const [lowOk,highOk,output,supply,ground]=['A','B','Y','VCC','GND'].map(pin=>net(gate,pin));
+ const comparators=project.components.filter(component=>component.libraryId==='active.comparator-dual-ideal');
+ const lower=comparators.find(component=>net(component,'OUT')===lowOk);
+ const upper=comparators.find(component=>net(component,'OUT')===highOk);
+ if(!lower||!upper)return null;
+ const input=net(lower,'IN+'),low=net(lower,'IN-'),high=net(upper,'IN+');
+ const nets=[lowOk,highOk,output,supply,ground,input,low,high];
+ if(!nets.every(Boolean)||new Set(nets).size!==nets.length||net(upper,'IN-')!==input)return null;
+ const {supplyVoltage,inputVoltage,lowerThresholdV,upperThresholdV,lowerComparatorHigh,upperComparatorHigh,windowActive}=result;
+ if(![supplyVoltage,inputVoltage,lowerThresholdV,upperThresholdV].every(Number.isFinite)||
+    lowerComparatorHigh!==(inputVoltage>lowerThresholdV)||upperComparatorHigh!==(inputVoltage<upperThresholdV)||
+    windowActive!==(lowerComparatorHigh&&upperComparatorHigh))return null;
+ const nodeVoltages={[supply]:supplyVoltage,[ground]:0,[input]:inputVoltage,[low]:lowerThresholdV,[high]:upperThresholdV,
+  [lowOk]:lowerComparatorHigh?supplyVoltage:0,[highOk]:upperComparatorHigh?supplyVoltage:0,[output]:windowActive?supplyVoltage:0};
+ return {kind:'analytical-output-recording',model:'Ideal window comparator steady-state levels',preferredNet:output,
+  samples:[0,1].map(timeSeconds=>({timeSeconds,nodeVoltages:{...nodeVoltages}}))};
 }
 
 function comparatorRecording(project, result) {

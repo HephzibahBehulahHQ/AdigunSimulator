@@ -9,6 +9,22 @@ import {scopeChannels,scopeTrace,fitScopeWindow} from '../js/oscilloscope-data.m
 import {scopeExplanation} from '../js/scope-readout.mjs';
 const load=async name=>JSON.parse(await readFile(new URL('../examples/'+name+'.adigun.json',import.meta.url),'utf8'));
 
+test('window comparator scope shows both comparator decisions and their AND output',async()=>{
+ const project=await load('029-window-comparator');
+ const input=project.components.find(component=>component.instanceId==='signal');
+ for(const [value,levels] of [['1 V',[0,5,0]],['2.5 V',[5,5,5]],['4 V',[5,0,0]]]){
+  input.value=value;
+  const analysis=runProjectAnalysis(project);
+  const recording=analysis.scopeRecording;
+  assert.equal(recording.preferredNet,'WINDOW_OUT');
+  for(const sample of recording.samples){
+   assert.deepEqual(['LOWER_OK','UPPER_OK','WINDOW_OUT'].map(net=>sample.nodeVoltages[net]),levels);
+   assert.equal(sample.nodeVoltages.LOWER_LIMIT,5/3);
+   assert.equal(sample.nodeVoltages.UPPER_LIMIT,10/3);
+  }
+ }
+});
+
 test('ideal non-inverting scope shows the modeled gain and suppresses clipping estimates',async()=>{
  const project=await load('024-opamp-noninverting');
  const result=runProjectAnalysis(project);
