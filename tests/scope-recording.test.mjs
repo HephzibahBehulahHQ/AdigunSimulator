@@ -9,6 +9,22 @@ import {scopeChannels,scopeTrace,fitScopeWindow} from '../js/oscilloscope-data.m
 import {scopeExplanation} from '../js/scope-readout.mjs';
 const load=async name=>JSON.parse(await readFile(new URL('../examples/'+name+'.adigun.json',import.meta.url),'utf8'));
 
+test('LM386 scope records the modeled fundamental and omits clipping waveforms',async()=>{
+ const project=await load('038-audio-power-amplifier');
+ const analysis=runProjectAnalysis(project),recording=analysis.scopeRecording;
+ assert.equal(recording.preferredNet,'SPEAKER_PLUS');
+ assert.equal(recording.samples[30].nodeVoltages.AMP_OUT,6.1);
+ assert.ok(Math.abs(recording.samples[30].nodeVoltages.SPEAKER_PLUS)>1);
+ project.components.find(component=>component.instanceId==='input').value='200 mV';
+ const clipped=runProjectAnalysis(project);
+ assert.equal(clipped.result.clipped,true);
+ assert.equal(clipped.scopeRecording,undefined);
+ project.nets.find(net=>net.id==='BYPASS').endpoints=['amplifier:BYPASS'];
+ const broken=runProjectAnalysis(project);
+ assert.equal(broken.state,'blocked');
+ assert.match(broken.message,/pin 7 bypass/);
+});
+
 test('electret preamp scope preserves modeled phase and midpoint bias',async()=>{
  const project=await load('037-electret-audio-preamp');
  const analysis=runProjectAnalysis(project),recording=analysis.scopeRecording;

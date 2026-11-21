@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 70,
-    "withoutStoredPcb": 146,
+    "withStoredPcb": 71,
+    "withoutStoredPcb": 145,
     "unexpectedFailures": []
   },
   "entries": [
@@ -798,40 +798,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "5e1dd617051c46c0d76f5dd86fe216dc0dd6597990774faf678dff59a265eefa",
-      "components": 6,
+      "sha256": "5712eb6810500f798db00bcd052cbde8c91f0f024291fa2335aa460f72135444",
+      "components": 10,
       "analysis": "complete",
       "engine": "Generic low-voltage class-AB amplifier and R-L speaker estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VIN",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.audio-amp-generic"
-        },
-        {
-          "reference": "COUT",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "SP1",
-          "libraryId": "passive.speaker-r-l-generic"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 24,
+      "pcbRoutes": 15,
+      "unmapped": []
     },
     {
       "file": "039-active-low-pass.adigun.json",

@@ -19,13 +19,20 @@
           55
         ],
         "schematic": [
-          40,
-          55
+          44,
+          41
         ],
         "pcb": [
           40,
           55
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
@@ -39,18 +46,25 @@
           55
         ],
         "schematic": [
-          155,
-          55
+          66,
+          97
         ],
         "pcb": [
           155,
           55
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
       "instanceId": "amplifier",
-      "libraryId": "active.audio-amp-generic",
+      "libraryId": "active.lm386n1-gain20",
       "reference": "U1",
       "value": "Av 20; Swing 2 V; Q 4 mA; f 1 kHz",
       "position": {
@@ -59,8 +73,8 @@
           55
         ],
         "schematic": [
-          270,
-          55
+          260,
+          160
         ],
         "pcb": [
           270,
@@ -79,13 +93,20 @@
           55
         ],
         "schematic": [
-          385,
-          55
+          425,
+          95
         ],
         "pcb": [
           385,
           55
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
@@ -99,13 +120,20 @@
           55
         ],
         "schematic": [
-          500,
-          55
+          575,
+          101
         ],
         "pcb": [
           500,
           55
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     },
     {
@@ -119,13 +147,121 @@
           130
         ],
         "schematic": [
-          40,
-          130
+          58,
+          199
         ],
         "pcb": [
           40,
           130
         ]
+      }
+    },
+    {
+      "instanceId": "decoupling",
+      "reference": "CDEC",
+      "libraryId": "passive.capacitor",
+      "value": "100 nF",
+      "position": {
+        "schematic": [
+          151,
+          42
+        ],
+        "breadboard": [
+          210,
+          38
+        ],
+        "pcb": [
+          210,
+          38
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "bypass",
+      "reference": "CBYP",
+      "libraryId": "passive.capacitor",
+      "value": "10 µF",
+      "position": {
+        "schematic": [
+          174,
+          173
+        ],
+        "breadboard": [
+          315,
+          214
+        ],
+        "pcb": [
+          315,
+          214
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "zobel-resistor",
+      "reference": "RZ",
+      "libraryId": "passive.resistor",
+      "value": "10 Ω",
+      "position": {
+        "schematic": [
+          430,
+          166
+        ],
+        "breadboard": [
+          461,
+          160
+        ],
+        "pcb": [
+          461,
+          160
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "zobel-capacitor",
+      "reference": "CZ",
+      "libraryId": "passive.capacitor",
+      "value": "47 nF",
+      "position": {
+        "schematic": [
+          539,
+          207
+        ],
+        "breadboard": [
+          505,
+          220
+        ],
+        "pcb": [
+          505,
+          220
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 56,
+          "height": 38,
+          "rotation": 0
+        }
       }
     }
   ],
@@ -134,7 +270,8 @@
       "id": "VCC",
       "endpoints": [
         "supply:+",
-        "amplifier:VCC"
+        "amplifier:VCC",
+        "decoupling:1"
       ]
     },
     {
@@ -144,7 +281,11 @@
         "input:-",
         "amplifier:GND",
         "speaker:-",
-        "ground:0"
+        "ground:0",
+        "decoupling:2",
+        "bypass:2",
+        "zobel-capacitor:2",
+        "amplifier:IN-"
       ]
     },
     {
@@ -158,7 +299,8 @@
       "id": "AMP_OUT",
       "endpoints": [
         "amplifier:OUT",
-        "coupling:1"
+        "coupling:1",
+        "zobel-resistor:1"
       ]
     },
     {
@@ -167,7 +309,1380 @@
         "coupling:2",
         "speaker:+"
       ]
+    },
+    {
+      "id": "BYPASS",
+      "endpoints": [
+        "amplifier:BYPASS",
+        "bypass:1"
+      ]
+    },
+    {
+      "id": "ZOBEL",
+      "endpoints": [
+        "zobel-resistor:2",
+        "zobel-capacitor:1"
+      ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "input:+": "I4",
+      "input:-": "BM8",
+      "amplifier:IN-": "F12",
+      "amplifier:IN": "F13",
+      "amplifier:GND": "F14",
+      "amplifier:OUT": "E14",
+      "amplifier:VCC": "E13",
+      "amplifier:BYPASS": "E12",
+      "coupling:1": "I17",
+      "coupling:2": "I18",
+      "bypass:1": "I21",
+      "bypass:2": "I22",
+      "decoupling:1": "A2",
+      "decoupling:2": "A4",
+      "zobel-capacitor:1": "A22",
+      "zobel-capacitor:2": "A24",
+      "zobel-resistor:1": "A16",
+      "zobel-resistor:2": "A20",
+      "speaker:+": "I26",
+      "speaker:-": "BM24"
+    },
+    "jumpers": [
+      {
+        "from": "TP10",
+        "to": "A13"
+      },
+      {
+        "from": "TP1",
+        "to": "B2"
+      },
+      {
+        "from": "BM11",
+        "to": "J14"
+      },
+      {
+        "from": "BM1",
+        "to": "E4"
+      },
+      {
+        "from": "BM20",
+        "to": "J22"
+      },
+      {
+        "from": "BM21",
+        "to": "E24"
+      },
+      {
+        "from": "BM9",
+        "to": "J12"
+      },
+      {
+        "from": "F4",
+        "to": "I13"
+      },
+      {
+        "from": "D14",
+        "to": "F17"
+      },
+      {
+        "from": "G17",
+        "to": "E16"
+      },
+      {
+        "from": "H18",
+        "to": "H26"
+      },
+      {
+        "from": "D12",
+        "to": "F21"
+      },
+      {
+        "from": "B20",
+        "to": "B22"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference node for the two bench supplies and AC input return."
+      }
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            84,
+            280
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "input",
+          "reference": "VIN",
+          "kind": "external-supply",
+          "positionPx": [
+            238,
+            280
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "I4",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "amplifier",
+          "reference": "U1",
+          "manufacturer": "Texas Instruments",
+          "manufacturerPartNumber": "LM386N-1",
+          "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm386.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 6.6
+          },
+          "positionPx": [
+            280.82758620689657,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "IN-",
+              "hole": "F12",
+              "connection": "direct",
+              "leadDiameterMm": 0.68,
+              "offsetMm": [
+                -1.27,
+                3.81
+              ]
+            },
+            {
+              "pin": "IN",
+              "hole": "F13",
+              "connection": "direct",
+              "leadDiameterMm": 0.68,
+              "offsetMm": [
+                1.27,
+                3.81
+              ]
+            },
+            {
+              "pin": "GND",
+              "hole": "F14",
+              "connection": "direct",
+              "leadDiameterMm": 0.68,
+              "offsetMm": [
+                3.81,
+                3.81
+              ]
+            },
+            {
+              "pin": "OUT",
+              "hole": "E14",
+              "connection": "direct",
+              "leadDiameterMm": 0.68,
+              "offsetMm": [
+                3.81,
+                -3.81
+              ]
+            },
+            {
+              "pin": "VCC",
+              "hole": "E13",
+              "connection": "direct",
+              "leadDiameterMm": 0.68,
+              "offsetMm": [
+                1.27,
+                -3.81
+              ]
+            },
+            {
+              "pin": "BYPASS",
+              "hole": "E12",
+              "connection": "direct",
+              "leadDiameterMm": 0.68,
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ]
+            }
+          ],
+          "noConnectHoles": [
+            "F11",
+            "E11"
+          ]
+        },
+        {
+          "instanceId": "coupling",
+          "reference": "COUT",
+          "kind": "radial-capacitor",
+          "manufacturer": "Panasonic",
+          "manufacturerPartNumber": "EEUFR1C221",
+          "sourceUrl": "https://industrial.panasonic.com/sa/products/pt/aluminum-cap-lead/models/EEUFR1C221",
+          "bodyMm": {
+            "width": 6.3,
+            "height": 6.3
+          },
+          "positionPx": [
+            379.44827586206895,
+            180
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I17",
+              "connection": "pigtail",
+              "offsetMm": [
+                -1.25,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I18",
+              "connection": "pigtail",
+              "offsetMm": [
+                1.25,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "bypass",
+          "reference": "CBYP",
+          "kind": "radial-capacitor",
+          "manufacturer": "Panasonic",
+          "manufacturerPartNumber": "EEUFR1H100",
+          "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 11
+          },
+          "positionPx": [
+            458.3448275862069,
+            180
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I21",
+              "connection": "pigtail",
+              "offsetMm": [
+                -1,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I22",
+              "connection": "pigtail",
+              "offsetMm": [
+                1,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "decoupling",
+          "reference": "CDEC",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            93.44827586206897,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A2",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A4",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "zobel-capacitor",
+          "reference": "CZ",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1473J289",
+          "sourceUrl": "https://product.tdk.com/en/search/capacitor/film/rfi_general/info?part_no=B32529C1473J289",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            487.93103448275866,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A22",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A24",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "zobel-resistor",
+          "reference": "RZ",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1009FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            389.3103448275862,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A16",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A20",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "speaker",
+          "reference": "SP1",
+          "manufacturer": "PUI Audio",
+          "manufacturerPartNumber": "AS04008CO-WR-R",
+          "sourceUrl": "https://api.puiaudio.com/file/431f38ab-0adc-4d2d-84f8-d71513c655a3.pdf",
+          "kind": "external-speaker",
+          "mounting": "off-board",
+          "positionPx": [
+            502,
+            282
+          ],
+          "bodyMm": {
+            "width": 40,
+            "height": 20
+          },
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "I26",
+              "connection": "pigtail",
+              "offsetMm": [
+                15,
+                -4
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM24",
+              "connection": "pigtail",
+              "offsetMm": [
+                15,
+                4
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "physicalNotes": [
+      "Seat the LM386N-1 with pin 1 at F11, leaving gain terminals 1 and 8 isolated.",
+      "COUT positive connects to pin 5, and CBYP positive connects to pin 7. Connect the speaker off board with insulated wires.",
+      "Use a regulated current-limited 9 V supply and grounded zero-offset 80 mV peak input."
+    ]
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 64,
+      "heightMm": 46,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "input",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "coupling",
+        "reference": "COUT",
+        "footprint": "Panasonic_EEUFR1C221_D6.3_P2.50mm",
+        "technology": "through-hole",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1C221",
+        "sourceUrl": "https://industrial.panasonic.com/sa/products/pt/aluminum-cap-lead/models/EEUFR1C221"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "CBYP",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1H100",
+        "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+        "footprint": "Panasonic_EEUFR1H100_Radial_P2.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "decoupling",
+        "reference": "CDEC",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "zobel-resistor",
+        "reference": "RZ",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1009FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1009FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "zobel-capacitor",
+        "reference": "CZ",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1473J289",
+        "sourceUrl": "https://product.tdk.com/en/search/capacitor/film/rfi_general/info?part_no=B32529C1473J289",
+        "footprint": "TDK_B32529C1473J289_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "amplifier",
+        "reference": "U1",
+        "footprint": "TI_LM386N-1_PDIP-8_P2.54mm_W7.62mm",
+        "technology": "through-hole",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "LM386N-1",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm386.pdf"
+      },
+      {
+        "instanceId": "speaker",
+        "reference": "SP1",
+        "footprint": "PUI_AS04008CO-WR-R_Offboard_Wire_Pads_5mm",
+        "technology": "through-hole",
+        "manufacturer": "PUI Audio",
+        "manufacturerPartNumber": "AS04008CO-WR-R",
+        "sourceUrl": "https://api.puiaudio.com/file/431f38ab-0adc-4d2d-84f8-d71513c655a3.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "supply:+",
+        "netId": "VCC",
+        "xMm": 6,
+        "yMm": 6,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "supply:-",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 8.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "input",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "input:+",
+        "netId": "AUDIO_IN",
+        "xMm": 6,
+        "yMm": 22,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "input",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "input:-",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 24.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "coupling",
+        "reference": "COUT",
+        "pin": "1",
+        "number": "1",
+        "bridgeEndpoint": "coupling:1",
+        "netId": "AMP_OUT",
+        "xMm": 44,
+        "yMm": 14,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "coupling",
+        "reference": "COUT",
+        "pin": "2",
+        "number": "2",
+        "bridgeEndpoint": "coupling:2",
+        "netId": "SPEAKER_PLUS",
+        "xMm": 46.5,
+        "yMm": 14,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "CBYP",
+        "pin": "1",
+        "number": "1",
+        "netId": "BYPASS",
+        "xMm": 20,
+        "yMm": 29,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "bypass:1"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "CBYP",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 22,
+        "yMm": 29,
+        "technology": "through-hole",
+        "diameterMm": 1.5,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "bypass:2"
+      },
+      {
+        "instanceId": "decoupling",
+        "reference": "CDEC",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 19,
+        "yMm": 17,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoupling:1"
+      },
+      {
+        "instanceId": "decoupling",
+        "reference": "CDEC",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 14,
+        "yMm": 17,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "decoupling:2"
+      },
+      {
+        "instanceId": "zobel-resistor",
+        "reference": "RZ",
+        "pin": "1",
+        "number": "1",
+        "netId": "AMP_OUT",
+        "xMm": 42,
+        "yMm": 26,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "zobel-resistor:1"
+      },
+      {
+        "instanceId": "zobel-resistor",
+        "reference": "RZ",
+        "pin": "2",
+        "number": "2",
+        "netId": "ZOBEL",
+        "xMm": 52,
+        "yMm": 26,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "zobel-resistor:2"
+      },
+      {
+        "instanceId": "zobel-capacitor",
+        "reference": "CZ",
+        "pin": "1",
+        "number": "1",
+        "netId": "ZOBEL",
+        "xMm": 53,
+        "yMm": 33,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "zobel-capacitor:1"
+      },
+      {
+        "instanceId": "zobel-capacitor",
+        "reference": "CZ",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 58,
+        "yMm": 33,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "zobel-capacitor:2"
+      },
+      {
+        "instanceId": "amplifier",
+        "reference": "U1",
+        "pin": "NC1",
+        "number": "1",
+        "netId": "NC",
+        "xMm": 28,
+        "yMm": 18,
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "amplifier",
+        "reference": "U1",
+        "pin": "IN-",
+        "number": "2",
+        "netId": "GND",
+        "bridgeEndpoint": "amplifier:IN-",
+        "xMm": 30.54,
+        "yMm": 18,
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "amplifier",
+        "reference": "U1",
+        "pin": "IN",
+        "number": "3",
+        "netId": "AUDIO_IN",
+        "bridgeEndpoint": "amplifier:IN",
+        "xMm": 33.08,
+        "yMm": 18,
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "amplifier",
+        "reference": "U1",
+        "pin": "GND",
+        "number": "4",
+        "netId": "GND",
+        "bridgeEndpoint": "amplifier:GND",
+        "xMm": 35.62,
+        "yMm": 18,
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "amplifier",
+        "reference": "U1",
+        "pin": "OUT",
+        "number": "5",
+        "netId": "AMP_OUT",
+        "bridgeEndpoint": "amplifier:OUT",
+        "xMm": 35.62,
+        "yMm": 25.62,
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "amplifier",
+        "reference": "U1",
+        "pin": "VCC",
+        "number": "6",
+        "netId": "VCC",
+        "bridgeEndpoint": "amplifier:VCC",
+        "xMm": 33.08,
+        "yMm": 25.62,
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "amplifier",
+        "reference": "U1",
+        "pin": "BYPASS",
+        "number": "7",
+        "netId": "BYPASS",
+        "bridgeEndpoint": "amplifier:BYPASS",
+        "xMm": 30.54,
+        "yMm": 25.62,
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "amplifier",
+        "reference": "U1",
+        "pin": "NC8",
+        "number": "8",
+        "netId": "NC",
+        "xMm": 28,
+        "yMm": 25.62,
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "speaker",
+        "reference": "SP1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "speaker:+",
+        "netId": "SPEAKER_PLUS",
+        "xMm": 58,
+        "yMm": 12,
+        "diameterMm": 2.2,
+        "drillMm": 1.1,
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "speaker",
+        "reference": "SP1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "speaker:-",
+        "netId": "GND",
+        "xMm": 58,
+        "yMm": 17,
+        "diameterMm": 2.2,
+        "drillMm": 1.1,
+        "technology": "through-hole"
+      }
+    ],
+    "routes": [
+      {
+        "netId": "AUDIO_IN",
+        "layer": "F.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            6,
+            22
+          ],
+          [
+            33.08,
+            22
+          ],
+          [
+            33.08,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "AMP_OUT",
+        "layer": "F.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            44,
+            14
+          ],
+          [
+            44,
+            26
+          ],
+          [
+            42,
+            26
+          ]
+        ]
+      },
+      {
+        "netId": "AMP_OUT",
+        "layer": "F.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            42,
+            26
+          ],
+          [
+            35.62,
+            26
+          ],
+          [
+            35.62,
+            25.62
+          ]
+        ]
+      },
+      {
+        "netId": "SPEAKER_PLUS",
+        "layer": "F.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            46.5,
+            14
+          ],
+          [
+            58,
+            14
+          ],
+          [
+            58,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "BYPASS",
+        "layer": "F.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            20,
+            29
+          ],
+          [
+            20.5,
+            29
+          ],
+          [
+            20.5,
+            28
+          ],
+          [
+            21,
+            28
+          ],
+          [
+            21,
+            27.5
+          ],
+          [
+            30.54,
+            27.5
+          ],
+          [
+            30.54,
+            25.62
+          ]
+        ]
+      },
+      {
+        "netId": "ZOBEL",
+        "layer": "F.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            52,
+            26
+          ],
+          [
+            53,
+            26
+          ],
+          [
+            53,
+            33
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            6,
+            6
+          ],
+          [
+            19,
+            6
+          ],
+          [
+            19,
+            17
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            19,
+            17
+          ],
+          [
+            26.5,
+            17
+          ],
+          [
+            26.5,
+            16.5
+          ],
+          [
+            37.5,
+            16.5
+          ],
+          [
+            37.5,
+            24
+          ],
+          [
+            34.5,
+            24
+          ],
+          [
+            34.5,
+            24.54
+          ],
+          [
+            34,
+            24.54
+          ],
+          [
+            34,
+            25.62
+          ],
+          [
+            33.08,
+            25.62
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            6,
+            8.54
+          ],
+          [
+            14,
+            8.54
+          ],
+          [
+            14,
+            17
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            14,
+            17
+          ],
+          [
+            14,
+            24.54
+          ],
+          [
+            6,
+            24.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            14,
+            17
+          ],
+          [
+            17.5,
+            17
+          ],
+          [
+            17.5,
+            18.5
+          ],
+          [
+            22,
+            18.5
+          ],
+          [
+            22,
+            29
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            22,
+            29
+          ],
+          [
+            26.5,
+            29
+          ],
+          [
+            26.5,
+            24.5
+          ],
+          [
+            27,
+            24.5
+          ],
+          [
+            27,
+            24
+          ],
+          [
+            30.54,
+            24
+          ],
+          [
+            30.54,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            30.54,
+            18
+          ],
+          [
+            31.5,
+            18
+          ],
+          [
+            31.5,
+            19.5
+          ],
+          [
+            35.62,
+            19.5
+          ],
+          [
+            35.62,
+            18
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            35.62,
+            18
+          ],
+          [
+            58,
+            18
+          ],
+          [
+            58,
+            17
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.45,
+        "pointsMm": [
+          [
+            58,
+            17
+          ],
+          [
+            58,
+            33
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External 9 V supply connects through J1."
+      },
+      {
+        "instanceId": "input",
+        "reference": "VIN",
+        "reason": "External grounded signal generator connects through J2."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference node for the two bench supplies and AC input return."
+      }
+    ],
+    "fabricationNotes": "J1 pin 1 accepts 9 V and J2 pin 1 accepts the input signal. Both pin 2 terminals are ground. Mount the speaker off-board and solder insulated leads to SP1. Observe electrolytic polarity.",
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "AUDIO_IN",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "COUT",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1C221",
+        "sourceUrl": "https://industrial.panasonic.com/sa/products/pt/aluminum-cap-lead/models/EEUFR1C221",
+        "package": "Panasonic_EEUFR1C221_D6.3_P2.50mm",
+        "pinMapping": {
+          "1": "AMP_OUT",
+          "2": "SPEAKER_PLUS"
+        }
+      },
+      {
+        "reference": "CBYP",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1H100",
+        "sourceUrl": "https://industrial.panasonic.com/content/data/CP/PDF/S_Alm_A_cap_catalog_e.pdf",
+        "package": "Panasonic_EEUFR1H100_Radial_P2.00mm",
+        "pinMapping": {
+          "1": "BYPASS",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "CDEC",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "RZ",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1009FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1009FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "AMP_OUT",
+          "2": "ZOBEL"
+        }
+      },
+      {
+        "reference": "CZ",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1473J289",
+        "sourceUrl": "https://product.tdk.com/en/search/capacitor/film/rfi_general/info?part_no=B32529C1473J289",
+        "package": "TDK_B32529C1473J289_P5.00mm",
+        "pinMapping": {
+          "1": "ZOBEL",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Texas Instruments",
+        "manufacturerPartNumber": "LM386N-1",
+        "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm386.pdf",
+        "package": "TI_LM386N-1_PDIP-8_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "NC",
+          "2": "GND",
+          "3": "AUDIO_IN",
+          "4": "GND",
+          "5": "AMP_OUT",
+          "6": "VCC",
+          "7": "BYPASS",
+          "8": "NC"
+        }
+      },
+      {
+        "reference": "SP1",
+        "manufacturer": "PUI Audio",
+        "manufacturerPartNumber": "AS04008CO-WR-R",
+        "sourceUrl": "https://api.puiaudio.com/file/431f38ab-0adc-4d2d-84f8-d71513c655a3.pdf",
+        "package": "PUI_AS04008CO-WR-R_Offboard_Wire_Pads_5mm",
+        "pinMapping": {
+          "1": "SPEAKER_PLUS",
+          "2": "GND"
+        }
+      }
+    ]
+  }
 }
