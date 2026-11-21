@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 51,
-    "withoutStoredPcb": 165,
+    "withStoredPcb": 52,
+    "withoutStoredPcb": 164,
     "unexpectedFailures": []
   },
   "entries": [
@@ -494,32 +494,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Passive networks and sensors",
-      "sha256": "315a908c89a0b2efb9b4122d45f5bb80f292e5a5a89e9e1f668999f7b7e1601a",
+      "sha256": "0aeaf1f037e23558373eb528330abd5c8fdf81c5f7f830fda87d9a75b416b4a3",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical NTC Beta-law voltage-divider estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "TH1",
-          "libraryId": "passive.ntc-thermistor"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 3,
+      "pcbPads": 6,
+      "pcbRoutes": 3,
+      "unmapped": []
     },
     {
       "file": "020-ldr-night-light.adigun.json",
