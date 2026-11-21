@@ -17,25 +17,26 @@ Model a 5 V ideal NE555 monostable with a normally-open active-low trigger, 100 
 | RLED | `passive.resistor` | 330 Ω |
 | D1 | `diode.led-red` | Vf 2.0 V |
 | CCTRL | `passive.capacitor` | 10 nF |
+| CBYP | `passive.capacitor` | 100 nF |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The physical circuit uses a TI NE555P, an Omron B3F-1000 normally-open switch, a polarized Panasonic EEUFR1H100 timing capacitor, Vishay MRS25 resistors, TDK film capacitors, and a Lite-On red indicator.
 
 ## Net connections
 
-- **VCC:** `source-1:+`, `timer-1:8`, `timer-1:4`, `timing-resistor-1:1`, `pullup-resistor-1:1`
+- **VCC:** `source-1:+`, `timer-1:8`, `timer-1:4`, `timing-resistor-1:1`, `pullup-resistor-1:1`, `bypass-1:1`
 - **TIMING:** `timer-1:6`, `timer-1:7`, `timing-resistor-1:2`, `timing-capacitor-1:1`
 - **TRIGGER:** `timer-1:2`, `pullup-resistor-1:2`, `trigger-1:1`
 - **OUT:** `timer-1:3`, `led-resistor-1:1`
 - **LED_A:** `led-resistor-1:2`, `led-1:A`
 - **CONTROL:** `timer-1:5`, `control-capacitor-1:1`
-- **GND:** `source-1:-`, `timer-1:1`, `timing-capacitor-1:2`, `trigger-1:2`, `led-1:K`, `control-capacitor-1:2`, `ground-1:0`
+- **GND:** `source-1:-`, `timer-1:1`, `timing-capacitor-1:2`, `trigger-1:2`, `led-1:K`, `control-capacitor-1:2`, `bypass-1:2`, `ground-1:0`
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly puts U1 pin 1 at F12. C1 positive and negative pigtails go to A26 and A27. Connect SW1 across G9 and BM10 with insulated pigtails. Leave the switch open at startup and verify all polarity and jumper mappings before applying regulated, current-limited 5 V.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The native project stores a routed two-layer PCB. The B3F-1000 terminals form two internally common pairs. Both TRIGGER pads and both GND pads are routed, with the pairs separated until the switch closes. Release the button before the nominal pulse expires. The ideal trigger model omits contact bounce, long presses, and retriggering.
 
 ## Acceptance test and expected result
 

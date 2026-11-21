@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,54);assert.equal(index.summary.withoutStoredPcb,162);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,55);assert.equal(index.summary.withoutStoredPcb,161);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -385,6 +385,29 @@ test('555 blinker maps all timer pins and its supply bypass to exported PCB pads
  assert.ok(analysis.scopeRecording.samples.some(sample=>sample.nodeVoltages.OUTPUT===5));
  assert.ok(analysis.scopeRecording.samples.some(sample=>sample.nodeVoltages.OUTPUT===0));
 });
+test('555 one-shot maps both trigger contact pairs and produces a single triggered pulse',async()=>{
+ const project=JSON.parse(await readFile(new URL('../examples/022-555-monostable.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ const switchPads=project.pcbFabrication.pads.filter(pad=>pad.reference==='SW1');
+ assert.deepEqual(switchPads.map(pad=>[pad.number,pad.netId]),[['2','TRIGGER'],['4','TRIGGER'],['1','GND'],['3','GND']]);
+ const exported=exportPcbFabrication(project);
+ assert.equal(exported.status,'passed');
+ assert.match(exported.files['BOM.csv'],/B3F-1000/);
+ assert.match(exported.files['BOM.csv'],/EEUFR1H100/);
+ for(const layer of ['F','B'])assert.match(exported.files[`board-${layer}_Cu.gbr`],/M02\*/);
+ const idle=runProjectAnalysis(project);
+ assert.equal(idle.state,'complete');
+ assert.equal(idle.result.pulseCount,0);
+ project.components.find(part=>part.instanceId==='trigger-1').value='Pressed';
+ const triggered=runProjectAnalysis(project);
+ assert.equal(triggered.state,'complete');
+ assert.equal(triggered.result.pulseCount,1);
+ assert.ok(Math.abs(triggered.result.pulseWidthS-1.1)<1e-9);
+ assert.equal(triggered.scopeRecording.preferredNet,'OUT');
+});
 test('5 V RL step response maps a current-rated radial inductor across BB400 and PCB',async()=>{
  const entry=index.entries.find(item=>item.file==='006-rl-step-response.adigun.json');
  const project=JSON.parse(await readFile(new URL('../examples/006-rl-step-response.adigun.json',import.meta.url),'utf8'));
@@ -514,7 +537,7 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,54);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,55);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });
