@@ -135,5 +135,548 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 52,
+      "heightMm": 30,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "pot-1",
+        "reference": "RP1",
+        "footprint": "Bourns_3296W-1-103LF_Inline_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "3296W-1-103LF",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/3296.pdf"
+      },
+      {
+        "instanceId": "cap-1",
+        "reference": "C1",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf"
+      },
+      {
+        "instanceId": "load-1",
+        "reference": "RLOAD",
+        "footprint": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "INPUT",
+        "xMm": 4,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "GND",
+        "xMm": 4,
+        "yMm": 7.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "pot-1",
+        "reference": "RP1",
+        "pin": "1",
+        "number": "1",
+        "netId": "INPUT",
+        "xMm": 16,
+        "yMm": 10,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pot-1",
+        "reference": "RP1",
+        "pin": "2",
+        "number": "2",
+        "netId": "OUTPUT",
+        "xMm": 18.54,
+        "yMm": 10,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pot-1",
+        "reference": "RP1",
+        "pin": "3",
+        "number": "3",
+        "netId": "NC",
+        "xMm": 21.08,
+        "yMm": 10,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "cap-1",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "netId": "OUTPUT",
+        "xMm": 31,
+        "yMm": 12,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "cap-1",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 36,
+        "yMm": 12,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "load-1",
+        "reference": "RLOAD",
+        "pin": "1",
+        "number": "1",
+        "netId": "OUTPUT",
+        "xMm": 34,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "load-1",
+        "reference": "RLOAD",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 44,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      }
+    ],
+    "routes": [
+      {
+        "netId": "INPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            5
+          ],
+          [
+            12,
+            5
+          ],
+          [
+            12,
+            10
+          ],
+          [
+            16,
+            10
+          ]
+        ]
+      },
+      {
+        "netId": "OUTPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            18.54,
+            10
+          ],
+          [
+            18.54,
+            16
+          ],
+          [
+            31,
+            16
+          ],
+          [
+            31,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "OUTPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            31,
+            12
+          ],
+          [
+            31,
+            5
+          ],
+          [
+            34,
+            5
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            7.54
+          ],
+          [
+            4,
+            25
+          ],
+          [
+            36,
+            25
+          ],
+          [
+            36,
+            12
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            36,
+            12
+          ],
+          [
+            44,
+            12
+          ],
+          [
+            44,
+            5
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "INPUT",
+          "2": "GND"
+        },
+        "limitations": [
+          "Confirm drill and annular-ring rules with the selected fabricator."
+        ]
+      },
+      {
+        "reference": "RP1",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "3296W-1-103LF",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/3296.pdf",
+        "package": "Top-adjust 10 kΩ trimmer, 9.53 × 4.83 mm board profile, three inline terminals at 2.54 mm pitch",
+        "pinMapping": {
+          "1": "INPUT",
+          "2": "OUTPUT (wiper)",
+          "3": "NC"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "100 nF / 100 V metallized polyester film, 7.3 × 2.5 mm board profile, 5 mm pitch, 0.5 mm leads",
+        "pinMapping": {
+          "1": "OUTPUT",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "RLOAD",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "MRS25 axial resistor, 10 kΩ, 1%, 0.6 W",
+        "pinMapping": {
+          "1": "OUTPUT",
+          "2": "GND"
+        },
+        "limitations": [
+          "10 mm lead centers are a layout choice."
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "source-1",
+        "reference": "VAC1",
+        "reason": "Off-board function generator, with signal and return on J1."
+      },
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic ground symbol; J1 pin 2 and the routed ground net provide the physical return."
+      }
+    ],
+    "fabricationNotes": [
+      "Feed J1 with a 1 V peak zero-offset sine from a function generator. Pin 1 is INPUT and pin 2 is GND.",
+      "RP1 terminals 1 and 2 implement the modeled series rheostat. Leave terminal 3 unconnected. With power off, trim approximately 5 kΩ between terminals 1 and 2 for the nominal 50% example.",
+      "Probe OUTPUT at C1 pad 1 or RLOAD pad 1 relative to GND with a high-impedance probe. Check package fit and fabricator rules before ordering."
+    ]
+  },
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "TP2",
+      "source-1:-": "BM2",
+      "pot-1:1": "F7",
+      "pot-1:2": "F8",
+      "cap-1:1": "F18",
+      "cap-1:2": "F20",
+      "load-1:1": "D18",
+      "load-1:2": "D22"
+    },
+    "jumpers": [
+      {
+        "from": "TP2",
+        "to": "F7"
+      },
+      {
+        "from": "F8",
+        "to": "F18"
+      },
+      {
+        "from": "F18",
+        "to": "D18"
+      },
+      {
+        "from": "F20",
+        "to": "BM20"
+      },
+      {
+        "from": "D22",
+        "to": "BM22"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "The schematic ground symbol represents the generator and output return on the BB400 ground rail."
+      }
+    ],
+    "physicalNotes": [
+      "Insert RP1 terminals 1, 2 and 3 at F7, F8 and F9 respectively. Keep the entire F9–J9 strip isolated so terminal 3 is unconnected.",
+      "Place C1 at F18/F20 and RLOAD at D18/D22. Connect TP2–F7, F8–F18, F18–D18, F20–BM20 and D22–BM22.",
+      "Connect the 1 V peak zero-offset generator to TP2 and BM2. Probe OUTPUT at D18."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "source-1",
+          "reference": "VAC1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            283
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "pot-1",
+          "reference": "RP1",
+          "kind": "trimmer",
+          "manufacturer": "Bourns",
+          "manufacturerPartNumber": "3296W-1-103LF",
+          "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/3296.pdf",
+          "bodyMm": {
+            "width": 9.53,
+            "height": 4.83
+          },
+          "positionPx": [
+            192.0689655172414,
+            165
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "F7",
+              "connection": "direct",
+              "leadDiameterMm": 0.51,
+              "offsetMm": [
+                -2.54,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "F8",
+              "connection": "direct",
+              "leadDiameterMm": 0.51,
+              "offsetMm": [
+                2.220446049250313e-16,
+                0
+              ]
+            }
+          ],
+          "noConnectHole": "F9"
+        },
+        {
+          "instanceId": "cap-1",
+          "reference": "C1",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            409.0344827586207,
+            165
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "F18",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "F20",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "load-1",
+          "reference": "RLOAD",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            428.75862068965523,
+            125
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "D18",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "D22",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }
