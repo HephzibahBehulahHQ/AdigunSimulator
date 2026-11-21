@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 46,
-    "withoutStoredPcb": 170,
+    "withStoredPcb": 47,
+    "withoutStoredPcb": 169,
     "unexpectedFailures": []
   },
   "entries": [
@@ -414,36 +414,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Passive networks and sensors",
-      "sha256": "0fc6e12a5a9d2449c943f79075f787e5660fb0f56328b04b6ef9ab67437e02ae",
+      "sha256": "e0c87cd28cb8248f26c4bf042fd3116e9ce970782e2dc9e7d0d6025d68afc26a",
       "components": 5,
       "analysis": "complete",
       "engine": "Analytical loaded single-pole passive treble-cut response",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "VAC1",
-          "libraryId": "power.ac-source"
-        },
-        {
-          "reference": "RP1",
-          "libraryId": "passive.potentiometer"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "RLOAD",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 9,
+      "pcbRoutes": 5,
+      "unmapped": []
     },
     {
       "file": "015-bridge-rectifier.adigun.json",

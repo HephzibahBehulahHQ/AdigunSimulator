@@ -14,7 +14,7 @@ Calculate a loaded 100 Hz, 1 kHz, and 10 kHz response for an audio source, adjus
 | RLOAD | `passive.resistor` | 10 kΩ |
 | GND | `ground.signal` | 0 V |
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+The physical assembly uses a Samtec TSW-102-07-T-S input header, Bourns 3296W-1-103LF trimmer, TDK B32529C1104K189 film capacitor, and Vishay MRS25000C1002FCT00 load resistor.
 
 ## Net connections
 
@@ -24,9 +24,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+On the BB400, RP1 terminals 1, 2 (wiper) and 3 occupy F7, F8 and F9. Keep the F9–J9 strip isolated. Place C1 across F18/F20 and RLOAD across D18/D22. Jumper TP2–F7, F8–F18, F18–D18, F20–BM20 and D22–BM22. Connect generator signal to TP2 and return to BM2.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 52 × 30 mm single-sided PCB includes an isolated drill pad for RP1 terminal 3. Set the trimmer to approximately 5 kΩ across terminals 1 and 2 with the generator disconnected. Apply a 1 V peak zero-offset sine to J1 and probe OUTPUT relative to GND with a high-impedance probe. Check the purchased parts and fabricator rules before ordering.
 
 ## Acceptance test and expected result
 
