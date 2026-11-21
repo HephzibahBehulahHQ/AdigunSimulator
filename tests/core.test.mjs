@@ -1810,6 +1810,17 @@ test("catalogue Wien bridge oscillator starts above unity loop gain and limits a
   const unbalancedBridge = runSupportedAnalysis(updateComponent(project, "shunt-resistor", { value: "12 kΩ" }));
   assert.equal(unbalancedBridge.state, "blocked");
 
+  let nearUnity = updateComponent(project, "feedback", { value: "20.1 kΩ" });
+  nearUnity = updateComponent(nearUnity, "shunt-capacitor", { value: "10.4 nF" });
+  const mismatchedBridge = runSupportedAnalysis(nearUnity);
+  assert.equal(mismatchedBridge.state, "complete");
+  assert.ok(Math.abs(mismatchedBridge.result.bridgeAttenuation - 1 / 3.04) < 1e-12);
+  assert.equal(mismatchedBridge.result.oscillationStarts, false);
+
+  const mismatchedDiodes = runSupportedAnalysis(updateComponent(project, "limiter-2", { value: "Vf 0.4 V" }));
+  assert.equal(mismatchedDiodes.state, "blocked");
+  assert.match(mismatchedDiodes.message, /same positive forward voltage/);
+
   const sameDirectionDiodes = structuredClone(project);
   sameDirectionDiodes.nets.find((net) => net.id === "OUTPUT").endpoints = ["opamp:OUT", "series-capacitor:1", "feedback:1", "limiter-1:A", "limiter-2:A"];
   sameDirectionDiodes.nets.find((net) => net.id === "INVERTING").endpoints = ["opamp:-", "feedback:2", "gain-leg:1", "limiter-1:K", "limiter-2:K"];
