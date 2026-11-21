@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 72,
-    "withoutStoredPcb": 144,
+    "withStoredPcb": 73,
+    "withoutStoredPcb": 143,
     "unexpectedFailures": []
   },
   "entries": [
@@ -830,64 +830,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "d113e25826737cf8e3577af3406aa5a6bdd4360462b820f2d7847871d1440764",
+      "sha256": "cb602458acc696a53011b45bdf9a571c8e5acbdfba745de2b7eb363f004aec98",
       "components": 12,
       "analysis": "complete",
       "engine": "Wien bridge start-up and diode-limited amplitude estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "VCC",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VEE",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.opamp-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RF",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "RG",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "C1",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "C2",
-          "libraryId": "passive.capacitor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.schottky"
-        },
-        {
-          "reference": "D2",
-          "libraryId": "diode.schottky"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 11,
+      "pcbPads": 28,
+      "pcbRoutes": 16,
+      "unmapped": []
     },
     {
       "file": "041-and-gate-truth-table.adigun.json",

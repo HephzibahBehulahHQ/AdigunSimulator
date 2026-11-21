@@ -35,9 +35,9 @@ These are the exact component records in the native example file. A library ID a
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The stored BB400 map covers 25 pins, including the external dual supply connections. U1 uses the [TL071CP PDIP pinout](https://www.ti.com/lit/ds/symlink/tl071.pdf). R1, R2, RF and RG use [Vishay MRS25 axial resistors](https://www.vishay.com/docs/28724/mrs16m25.pdf), with RF using the 22 kΩ ordering code MRS25000C2202FCT00. C1 and C2 use [TDK B32529C1103J189](https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf). The [Vishay 1N5819-E3/54 diodes](https://www.vishay.com/docs/88525/1n5817.pdf) have cathode bands at A28 (D1) and E24 (D2). The assembly and topology checks pass. Hardware characterization is pending.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The stored 64 × 45 mm two-layer PCB maps the same nets onto through-hole pads and passes the fabrication export checks. J1 connects +9 V and return, and J2 connects return and −9 V. Probe the output at C1 pin 1. The three print views document the assembly. Use the fabrication export for Gerber, drill and BOM data.
 
 ## Acceptance test and expected result
 
@@ -64,7 +64,7 @@ Recorded expected result:
 
 ## Safety and model limits
 
-Analytical start-up and diode-threshold estimate, not nonlinear time-domain SPICE. The estimated amplitude is an approximate limiter threshold. Noise/start-up time, waveform distortion, op-amp bandwidth/slew, diode curves, loading, tolerances, and physical part ratings are omitted.
+The analytical model reports startup and the approximate limiter threshold. It supplies no time-domain waveform for the oscilloscope. Use a bench oscilloscope to measure the waveform and startup time on assembled hardware. Noise, waveform distortion, op-amp bandwidth and slew, diode curves, loading, tolerances, and physical part ratings are omitted.
 
 Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
 
