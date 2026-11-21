@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 64,
-    "withoutStoredPcb": 152,
+    "withStoredPcb": 65,
+    "withoutStoredPcb": 151,
     "unexpectedFailures": []
   },
   "entries": [
@@ -702,36 +702,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "65d093f49951edbe5afe7bb3dd69938667d5e57123437de29ab94db32085621e",
+      "sha256": "ac2cde79016454fa33594eed283ecddbd51b4c4f611817ae42c9fc04d339297d",
       "components": 5,
       "analysis": "complete",
       "engine": "Ideal NPN emitter-follower DC estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VIN",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "Q1",
-          "libraryId": "active.npn-small-signal"
-        },
-        {
-          "reference": "RL",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 9,
+      "pcbRoutes": 5,
+      "unmapped": []
     },
     {
       "file": "033-nmos-low-side-switch.adigun.json",

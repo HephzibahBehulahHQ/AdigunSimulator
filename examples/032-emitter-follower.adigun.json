@@ -19,8 +19,8 @@
           55
         ],
         "schematic": [
-          40,
-          55
+          85,
+          42
         ],
         "pcb": [
           40,
@@ -39,8 +39,8 @@
           55
         ],
         "schematic": [
-          155,
-          55
+          79,
+          144
         ],
         "pcb": [
           155,
@@ -59,8 +59,8 @@
           55
         ],
         "schematic": [
-          270,
-          55
+          305,
+          118
         ],
         "pcb": [
           270,
@@ -79,8 +79,8 @@
           55
         ],
         "schematic": [
-          385,
-          55
+          489,
+          145
         ],
         "pcb": [
           385,
@@ -99,8 +99,8 @@
           55
         ],
         "schematic": [
-          500,
-          55
+          202,
+          223
         ],
         "pcb": [
           500,
@@ -141,5 +141,539 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "input:+": "F5",
+      "input:-": "BM8",
+      "q1:E": "I11",
+      "q1:B": "I12",
+      "q1:C": "I13",
+      "load:1": "I16",
+      "load:2": "I20"
+    },
+    "jumpers": [
+      {
+        "from": "TP13",
+        "to": "J13"
+      },
+      {
+        "from": "G5",
+        "to": "H12"
+      },
+      {
+        "from": "H11",
+        "to": "H16"
+      },
+      {
+        "from": "J20",
+        "to": "BM20"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "input",
+          "reference": "VIN",
+          "kind": "external-supply",
+          "positionPx": [
+            235,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "F5",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "q1",
+          "reference": "Q1",
+          "manufacturer": "onsemi",
+          "manufacturerPartNumber": "2N3904BU",
+          "sourceUrl": "https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf",
+          "kind": "to92",
+          "bodyMm": {
+            "width": 5.33,
+            "height": 4.19
+          },
+          "positionPx": [
+            270.9655172413793,
+            195
+          ],
+          "pins": [
+            {
+              "pin": "E",
+              "hole": "I11",
+              "connection": "direct",
+              "leadDiameterMm": 0.48,
+              "offsetMm": [
+                -2.54,
+                0
+              ]
+            },
+            {
+              "pin": "B",
+              "hole": "I12",
+              "connection": "direct",
+              "leadDiameterMm": 0.48,
+              "offsetMm": [
+                0,
+                0
+              ]
+            },
+            {
+              "pin": "C",
+              "hole": "I13",
+              "connection": "direct",
+              "leadDiameterMm": 0.48,
+              "offsetMm": [
+                2.54,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "load",
+          "reference": "RL",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1001FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            389.3103448275862,
+            195
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I16",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I20",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "physicalNotes": [
+      "Form Q1 leads gently to 2.54 mm centers. Emitter, base, and collector occupy I11, I12, and I13.",
+      "Use a current-limited 5 V supply. Share its ground with the adjustable DC input and probe output at J16."
+    ]
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 52,
+      "heightMm": 43,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "input",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "q1",
+        "reference": "Q1",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "2N3904BU",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf",
+        "technology": "through-hole",
+        "footprint": "onsemi_2N3904BU_TO-92_Inline_P2.54mm_Formed"
+      },
+      {
+        "instanceId": "load",
+        "reference": "RL",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "supply:+",
+        "netId": "VCC",
+        "xMm": 6,
+        "yMm": 7,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "supply:-",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 9.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "input",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "input:+",
+        "netId": "INPUT",
+        "xMm": 6,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "input",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "input:-",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 26.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "q1",
+        "reference": "Q1",
+        "pin": "E",
+        "number": "1",
+        "bridgeEndpoint": "q1:E",
+        "netId": "OUTPUT",
+        "xMm": 36,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "q1",
+        "reference": "Q1",
+        "pin": "B",
+        "number": "2",
+        "bridgeEndpoint": "q1:B",
+        "netId": "INPUT",
+        "xMm": 38.54,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "q1",
+        "reference": "Q1",
+        "pin": "C",
+        "number": "3",
+        "bridgeEndpoint": "q1:C",
+        "netId": "VCC",
+        "xMm": 41.08,
+        "yMm": 25,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "load",
+        "reference": "RL",
+        "pin": "1",
+        "number": "1",
+        "netId": "OUTPUT",
+        "xMm": 36,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "load:1"
+      },
+      {
+        "instanceId": "load",
+        "reference": "RL",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 26,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "load:2"
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            7
+          ],
+          [
+            41.08,
+            7
+          ],
+          [
+            41.08,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "INPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            24
+          ],
+          [
+            6,
+            18
+          ],
+          [
+            38.54,
+            18
+          ],
+          [
+            38.54,
+            25
+          ]
+        ]
+      },
+      {
+        "netId": "OUTPUT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            36,
+            25
+          ],
+          [
+            36,
+            35
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            9.54
+          ],
+          [
+            3,
+            9.54
+          ],
+          [
+            3,
+            26.54
+          ],
+          [
+            6,
+            26.54
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            26.54
+          ],
+          [
+            6,
+            35
+          ],
+          [
+            26,
+            35
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "INPUT",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "Q1",
+        "manufacturer": "onsemi",
+        "manufacturerPartNumber": "2N3904BU",
+        "sourceUrl": "https://www.onsemi.com/pdf/datasheet/2n3904-d.pdf",
+        "package": "onsemi_2N3904BU_TO-92_Inline_P2.54mm_Formed",
+        "pinMapping": {
+          "1": "OUTPUT",
+          "2": "INPUT",
+          "3": "VCC"
+        }
+      },
+      {
+        "reference": "RL",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "OUTPUT",
+          "2": "GND"
+        }
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External 12 V bench supply connects through J1."
+      },
+      {
+        "instanceId": "input",
+        "reference": "VIN",
+        "reason": "External adjustable DC input connects through J2."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "fabricationNotes": "J1 pin 1: regulated 5 V. J2 pin 1: adjustable DC input. Both pin 2 terminals are ground. Probe RL pin 1 for the output."
+  }
 }
