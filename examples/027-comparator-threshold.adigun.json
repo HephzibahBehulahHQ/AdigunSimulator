@@ -19,8 +19,8 @@
           55
         ],
         "schematic": [
-          40,
-          55
+          200,
+          28
         ],
         "pcb": [
           40,
@@ -39,8 +39,8 @@
           55
         ],
         "schematic": [
-          155,
-          55
+          45,
+          131
         ],
         "pcb": [
           155,
@@ -59,8 +59,8 @@
           55
         ],
         "schematic": [
-          270,
-          55
+          325,
+          110
         ],
         "pcb": [
           270,
@@ -79,8 +79,8 @@
           55
         ],
         "schematic": [
-          385,
-          55
+          440,
+          45
         ],
         "pcb": [
           385,
@@ -99,8 +99,8 @@
           55
         ],
         "schematic": [
-          500,
-          55
+          445,
+          170
         ],
         "pcb": [
           500,
@@ -112,15 +112,15 @@
       "instanceId": "rled",
       "libraryId": "passive.resistor",
       "reference": "R3",
-      "value": "330 Ω",
+      "value": "2.2 kΩ",
       "position": {
         "breadboard": [
           40,
           130
         ],
         "schematic": [
-          40,
-          130
+          474,
+          105
         ],
         "pcb": [
           40,
@@ -139,8 +139,8 @@
           130
         ],
         "schematic": [
-          155,
-          130
+          584,
+          105
         ],
         "pcb": [
           155,
@@ -159,8 +159,8 @@
           130
         ],
         "schematic": [
-          270,
-          130
+          240,
+          212
         ],
         "pcb": [
           270,
@@ -219,5 +219,1054 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM2",
+      "signal:+": "I22",
+      "signal:-": "BM20",
+      "comparator:IN-": "F14",
+      "comparator:IN+": "F15",
+      "comparator:GND": "F16",
+      "comparator:OUT": "E15",
+      "comparator:VCC": "E14",
+      "rtop:1": "B3",
+      "rtop:2": "B7",
+      "rbottom:1": "I3",
+      "rbottom:2": "I7",
+      "rled:1": "B21",
+      "rled:2": "B25",
+      "led:A": "C27",
+      "led:K": "C28"
+    },
+    "jumpers": [
+      {
+        "from": "TP3",
+        "to": "A3"
+      },
+      {
+        "from": "TP14",
+        "to": "A14"
+      },
+      {
+        "from": "C7",
+        "to": "H3"
+      },
+      {
+        "from": "A7",
+        "to": "G14"
+      },
+      {
+        "from": "H22",
+        "to": "H15"
+      },
+      {
+        "from": "J16",
+        "to": "BM16"
+      },
+      {
+        "from": "J7",
+        "to": "BM7"
+      },
+      {
+        "from": "D15",
+        "to": "C21"
+      },
+      {
+        "from": "C25",
+        "to": "B27"
+      },
+      {
+        "from": "D28",
+        "to": "BM24"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "physicalNotes": [
+      "Seat U1 with pin 1 at F13. Leave pins 1, 5 and 8 isolated.",
+      "Connect a regulated current-limited 5 V supply and a separate 2.4–2.6 V input with common ground. Observe LED polarity.",
+      "R3 is 2.2 kΩ to keep the nominal LED load below the datasheet 2 mA output test point."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "signal",
+          "reference": "VIN",
+          "kind": "external-supply",
+          "positionPx": [
+            430,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "I22",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM20",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "comparator",
+          "reference": "U1",
+          "manufacturer": "Microchip Technology",
+          "manufacturerPartNumber": "MCP6541-E/P",
+          "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6541%20Output%20SubMicroamp%20Comparators%2020001696K.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 6.6
+          },
+          "positionPx": [
+            320.2758620689656,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "IN-",
+              "hole": "F14",
+              "offsetMm": [
+                -1.27,
+                3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "IN+",
+              "hole": "F15",
+              "offsetMm": [
+                1.27,
+                3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "GND",
+              "hole": "F16",
+              "offsetMm": [
+                3.81,
+                3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "OUT",
+              "hole": "E15",
+              "offsetMm": [
+                1.27,
+                -3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            },
+            {
+              "pin": "VCC",
+              "hole": "E14",
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ],
+              "connection": "direct",
+              "leadDiameterMm": 0.68
+            }
+          ],
+          "noConnectHoles": [
+            "F13",
+            "E16",
+            "E13"
+          ]
+        },
+        {
+          "instanceId": "rtop",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            132.89655172413794,
+            105
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "B3",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "B7",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "rbottom",
+          "reference": "R2",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            132.89655172413794,
+            195
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "I3",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "I7",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "rled",
+          "reference": "R3",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C2201FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            487.93103448275866,
+            105
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "B21",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "B25",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led",
+          "reference": "D1",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            576.6896551724138,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "C27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "C28",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 58,
+      "heightMm": 49,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "signal",
+        "reference": "J2",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "rtop",
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "rbottom",
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "rled",
+        "reference": "R3",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C2201FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25000C2201FCT00_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_LTL-307E-002A_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "comparator",
+        "reference": "U1",
+        "footprint": "Microchip_MCP6541-E-P_PDIP-8_P2.54mm_W7.62mm",
+        "technology": "through-hole",
+        "manufacturer": "Microchip Technology",
+        "manufacturerPartNumber": "MCP6541-E/P",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6541%20Output%20SubMicroamp%20Comparators%2020001696K.pdf"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "supply:+",
+        "netId": "VCC",
+        "xMm": 6,
+        "yMm": 35,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "supply:-",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 32.46,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "signal",
+        "reference": "J2",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "signal:+",
+        "netId": "SIGNAL",
+        "xMm": 6,
+        "yMm": 10,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "signal",
+        "reference": "J2",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "signal:-",
+        "netId": "GND",
+        "xMm": 6,
+        "yMm": 12.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "rtop",
+        "reference": "R1",
+        "pin": "1",
+        "number": "1",
+        "netId": "VCC",
+        "xMm": 12,
+        "yMm": 39,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rtop:1"
+      },
+      {
+        "instanceId": "rtop",
+        "reference": "R1",
+        "pin": "2",
+        "number": "2",
+        "netId": "THRESHOLD",
+        "xMm": 22,
+        "yMm": 39,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rtop:2"
+      },
+      {
+        "instanceId": "rbottom",
+        "reference": "R2",
+        "pin": "1",
+        "number": "1",
+        "netId": "THRESHOLD",
+        "xMm": 20,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rbottom:1"
+      },
+      {
+        "instanceId": "rbottom",
+        "reference": "R2",
+        "pin": "2",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 10,
+        "yMm": 24,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rbottom:2"
+      },
+      {
+        "instanceId": "rled",
+        "reference": "R3",
+        "pin": "1",
+        "number": "1",
+        "netId": "CMP_OUT",
+        "xMm": 40,
+        "yMm": 31,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rled:1"
+      },
+      {
+        "instanceId": "rled",
+        "reference": "R3",
+        "pin": "2",
+        "number": "2",
+        "netId": "LED",
+        "xMm": 50,
+        "yMm": 31,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "rled:2"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "pin": "A",
+        "number": "1",
+        "netId": "LED",
+        "xMm": 50,
+        "yMm": 38,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led:A"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "pin": "K",
+        "number": "2",
+        "netId": "GND",
+        "xMm": 52.54,
+        "yMm": 38,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led:K"
+      },
+      {
+        "instanceId": "comparator",
+        "reference": "U1",
+        "pin": "NC1",
+        "number": "1",
+        "xMm": 24,
+        "yMm": 22,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "comparator",
+        "reference": "U1",
+        "pin": "IN-",
+        "number": "2",
+        "xMm": 26.54,
+        "yMm": 22,
+        "bridgeEndpoint": "comparator:IN-",
+        "netId": "THRESHOLD",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "comparator",
+        "reference": "U1",
+        "pin": "IN+",
+        "number": "3",
+        "xMm": 29.08,
+        "yMm": 22,
+        "bridgeEndpoint": "comparator:IN+",
+        "netId": "SIGNAL",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "comparator",
+        "reference": "U1",
+        "pin": "GND",
+        "number": "4",
+        "xMm": 31.62,
+        "yMm": 22,
+        "bridgeEndpoint": "comparator:GND",
+        "netId": "GND",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "comparator",
+        "reference": "U1",
+        "pin": "NC5",
+        "number": "5",
+        "xMm": 31.62,
+        "yMm": 29.62,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "comparator",
+        "reference": "U1",
+        "pin": "OUT",
+        "number": "6",
+        "xMm": 29.08,
+        "yMm": 29.62,
+        "bridgeEndpoint": "comparator:OUT",
+        "netId": "CMP_OUT",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "comparator",
+        "reference": "U1",
+        "pin": "VCC",
+        "number": "7",
+        "xMm": 26.54,
+        "yMm": 29.62,
+        "bridgeEndpoint": "comparator:VCC",
+        "netId": "VCC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "comparator",
+        "reference": "U1",
+        "pin": "NC8",
+        "number": "8",
+        "xMm": 24,
+        "yMm": 29.62,
+        "netId": "NC",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      }
+    ],
+    "routes": [
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            35
+          ],
+          [
+            6,
+            39
+          ],
+          [
+            12,
+            39
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            12,
+            39
+          ],
+          [
+            12,
+            42
+          ],
+          [
+            26.54,
+            42
+          ],
+          [
+            26.54,
+            29.62
+          ]
+        ]
+      },
+      {
+        "netId": "THRESHOLD",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22,
+            39
+          ],
+          [
+            22,
+            24
+          ],
+          [
+            26.54,
+            24
+          ],
+          [
+            26.54,
+            22
+          ]
+        ]
+      },
+      {
+        "netId": "THRESHOLD",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            20,
+            24
+          ],
+          [
+            22,
+            24
+          ],
+          [
+            26.54,
+            24
+          ],
+          [
+            26.54,
+            22
+          ]
+        ]
+      },
+      {
+        "netId": "SIGNAL",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            10
+          ],
+          [
+            29.08,
+            10
+          ],
+          [
+            29.08,
+            22
+          ]
+        ]
+      },
+      {
+        "netId": "CMP_OUT",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            29.08,
+            29.62
+          ],
+          [
+            29.08,
+            33
+          ],
+          [
+            40,
+            33
+          ],
+          [
+            40,
+            31
+          ]
+        ]
+      },
+      {
+        "netId": "LED",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            50,
+            31
+          ],
+          [
+            50,
+            38
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            12.54
+          ],
+          [
+            6,
+            24
+          ],
+          [
+            10,
+            24
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            10,
+            24
+          ],
+          [
+            10,
+            32.46
+          ],
+          [
+            6,
+            32.46
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            6,
+            32.46
+          ],
+          [
+            3,
+            32.46
+          ],
+          [
+            3,
+            45
+          ],
+          [
+            52.54,
+            45
+          ],
+          [
+            52.54,
+            38
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            52.54,
+            38
+          ],
+          [
+            55,
+            38
+          ],
+          [
+            55,
+            18
+          ],
+          [
+            31.62,
+            18
+          ],
+          [
+            31.62,
+            22
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "SIGNAL",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "THRESHOLD"
+        }
+      },
+      {
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C1002FCT00_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "THRESHOLD",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R3",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C2201FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25000C2201FCT00_P10.00mm",
+        "pinMapping": {
+          "1": "CMP_OUT",
+          "2": "LED"
+        }
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "LiteOn_LTL-307E-002A_P2.54mm",
+        "pinMapping": {
+          "1": "LED",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Microchip Technology",
+        "manufacturerPartNumber": "MCP6541-E/P",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6541%20Output%20SubMicroamp%20Comparators%2020001696K.pdf",
+        "package": "Microchip_MCP6541-E-P_PDIP-8_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "NC",
+          "2": "THRESHOLD",
+          "3": "SIGNAL",
+          "4": "GND",
+          "5": "NC",
+          "6": "CMP_OUT",
+          "7": "VCC",
+          "8": "NC"
+        }
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External 5 V bench source connects through J1."
+      },
+      {
+        "instanceId": "signal",
+        "reference": "VIN",
+        "reason": "External adjustable DC signal connects through J2."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Reference for the supply and external DC input return."
+      }
+    ],
+    "fabricationNotes": "J1 pin 1: regulated 5 V, pin 2: ground. J2 pin 1: signal, pin 2: ground. Check U1 orientation and LED polarity."
+  }
 }

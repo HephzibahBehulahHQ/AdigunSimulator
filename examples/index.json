@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 59,
-    "withoutStoredPcb": 157,
+    "withStoredPcb": 60,
+    "withoutStoredPcb": 156,
     "unexpectedFailures": []
   },
   "entries": [
@@ -622,48 +622,15 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Amplifiers, timers and filters",
-      "sha256": "7220caf12b306af0e24a2e54122acab547649caa703c2d05eaa9a0d0f5bbd64d",
+      "sha256": "36e7de068fdb97011c345e22b181a2a8862670f86eb836f9094311340d34d609",
       "components": 8,
       "analysis": "complete",
       "engine": "Ideal dual-input comparator threshold analysis",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VIN",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.comparator-dual-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R3",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 7,
+      "pcbPads": 20,
+      "pcbRoutes": 11,
+      "unmapped": []
     },
     {
       "file": "028-schmitt-trigger.adigun.json",
