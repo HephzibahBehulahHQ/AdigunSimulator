@@ -142,5 +142,606 @@
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 67,
+      "heightMm": 30,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      {
+        "instanceId": "bridge-1",
+        "reference": "BR1",
+        "footprint": "Vishay_W0G_4pin_square5.08mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "W04G-E4/51",
+        "sourceUrl": "https://www.vishay.com/docs/88769/w005g.pdf"
+      },
+      {
+        "instanceId": "load-1",
+        "reference": "RLOAD",
+        "footprint": "Vishay_MRS25000C1001FCT00_Axial_P10.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf"
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "footprint": "Panasonic_EEUFR1V102B_radial_P5.00mm",
+        "technology": "through-hole",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1V102B",
+        "sourceUrl": "https://industrial.panasonic.com/na/products/capacitors/aluminum-electrolytic-capacitors/series/83367/model/83812"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "+",
+        "number": "1",
+        "bridgeEndpoint": "source-1:+",
+        "netId": "AC1",
+        "xMm": 4,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "source-1",
+        "reference": "J1",
+        "pin": "-",
+        "number": "2",
+        "bridgeEndpoint": "source-1:-",
+        "netId": "AC2",
+        "xMm": 4,
+        "yMm": 7.54,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9
+      },
+      {
+        "instanceId": "bridge-1",
+        "reference": "BR1",
+        "pin": "POS",
+        "number": "+",
+        "netId": "RECT_POS",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 22,
+        "yMm": 8
+      },
+      {
+        "instanceId": "bridge-1",
+        "reference": "BR1",
+        "pin": "AC1",
+        "number": "~1",
+        "netId": "AC1",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 27.08,
+        "yMm": 8
+      },
+      {
+        "instanceId": "bridge-1",
+        "reference": "BR1",
+        "pin": "AC2",
+        "number": "~2",
+        "netId": "AC2",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 22,
+        "yMm": 13.08
+      },
+      {
+        "instanceId": "bridge-1",
+        "reference": "BR1",
+        "pin": "NEG",
+        "number": "-",
+        "netId": "RECT_NEG",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 27.08,
+        "yMm": 13.08
+      },
+      {
+        "instanceId": "load-1",
+        "reference": "RLOAD",
+        "pin": "1",
+        "number": "1",
+        "bridgeEndpoint": "load-1:1",
+        "netId": "RECT_POS",
+        "xMm": 49,
+        "yMm": 10.5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "load-1",
+        "reference": "RLOAD",
+        "pin": "2",
+        "number": "2",
+        "bridgeEndpoint": "load-1:2",
+        "netId": "RECT_NEG",
+        "xMm": 59,
+        "yMm": 10.5,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "pin": "1",
+        "number": "1",
+        "netId": "RECT_POS",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 38,
+        "yMm": 10.5
+      },
+      {
+        "instanceId": "capacitor-1",
+        "reference": "C1",
+        "pin": "2",
+        "number": "2",
+        "netId": "RECT_NEG",
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "xMm": 38,
+        "yMm": 15.5
+      }
+    ],
+    "routes": [
+      {
+        "netId": "AC1",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            5
+          ],
+          [
+            10,
+            5
+          ],
+          [
+            10,
+            4
+          ],
+          [
+            27.08,
+            4
+          ],
+          [
+            27.08,
+            8
+          ]
+        ]
+      },
+      {
+        "netId": "AC2",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            4,
+            7.54
+          ],
+          [
+            4,
+            13.08
+          ],
+          [
+            22,
+            13.08
+          ]
+        ]
+      },
+      {
+        "netId": "RECT_POS",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22,
+            8
+          ],
+          [
+            22,
+            10.5
+          ],
+          [
+            38,
+            10.5
+          ]
+        ]
+      },
+      {
+        "netId": "RECT_POS",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            38,
+            10.5
+          ],
+          [
+            49,
+            10.5
+          ]
+        ]
+      },
+      {
+        "netId": "RECT_NEG",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            27.08,
+            13.08
+          ],
+          [
+            27.08,
+            19
+          ],
+          [
+            38,
+            19
+          ],
+          [
+            38,
+            15.5
+          ]
+        ]
+      },
+      {
+        "netId": "RECT_NEG",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            38,
+            15.5
+          ],
+          [
+            59,
+            15.5
+          ],
+          [
+            59,
+            10.5
+          ]
+        ]
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "package": "1x02 through-hole header, 2.54 mm pitch",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "pinMapping": {
+          "1": "AC1",
+          "2": "AC2"
+        },
+        "limitations": [
+          "Confirm drill and annular-ring rules with the selected fabricator."
+        ]
+      },
+      {
+        "reference": "BR1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "W04G-E4/51",
+        "package": "W0G through-hole 4-pin bridge; manufacturer-marked terminal square is 4.6–5.6 mm",
+        "sourceUrl": "https://www.vishay.com/docs/88769/w005g.pdf",
+        "pinMapping": {
+          "+": "POS",
+          "~ upper-right": "AC1",
+          "~ lower-left": "AC2",
+          "-": "NEG"
+        },
+        "limitations": [
+          "The ideal bridge simulation uses a fixed per-diode drop; this orderable part has device-specific electrical behavior not modeled here. Confirm orientation from body marks."
+        ]
+      },
+      {
+        "reference": "RLOAD",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1001FCT00",
+        "package": "MRS25 axial, 1 kΩ, 1%, 0.6 W",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "limitations": [
+          "The board uses a 10 mm lead-center layout; verify the ordered variant and lead diameter before assembly."
+        ],
+        "pinMapping": {
+          "1": "RECT_POS",
+          "2": "RECT_NEG"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1V102B",
+        "package": "1000 µF, 35 V radial electrolytic, 12.5 mm diameter × 20 mm body, 5 mm pitch",
+        "sourceUrl": "https://industrial.panasonic.com/na/products/capacitors/aluminum-electrolytic-capacitors/series/83367/model/83812",
+        "pinMapping": {
+          "1": "positive / RECT_POS",
+          "2": "negative / RECT_NEG"
+        },
+        "limitations": [
+          "The generic model is non-polarity-specific; project pin 1 is connected as the positive terminal."
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "source-1",
+        "reference": "VAC1",
+        "reason": "An isolated 12 V RMS source connects to the physical J1 header."
+      },
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic reference for RECT_NEG. The AC input floats relative to this node."
+      }
+    ],
+    "fabricationNotes": [
+      "Connect an isolated, current-limited 12 V RMS, 50 Hz AC source across J1. Neither input terminal connects to RECT_NEG.",
+      "Install C1 positive at RECT_POS and negative at RECT_NEG. Verify BR1 package marks and C1 polarity before applying power.",
+      "Measure across RLOAD with an isolated differential probe or battery-powered meter. Disconnect the input and verify the reservoir is discharged before touching the circuit.",
+      "The modeled recharge is ideal and omits current limiting, source impedance, inrush, capacitor ESR and tolerances."
+    ]
+  },
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "source-1:+": "A3",
+      "source-1:-": "A6",
+      "bridge-1:POS": "A11",
+      "bridge-1:AC1": "A13",
+      "bridge-1:AC2": "A15",
+      "bridge-1:NEG": "A17",
+      "load-1:1": "F21",
+      "load-1:2": "F25",
+      "capacitor-1:1": "A23",
+      "capacitor-1:2": "A26"
+    },
+    "jumpers": [
+      {
+        "from": "A3",
+        "to": "A13"
+      },
+      {
+        "from": "A6",
+        "to": "A15"
+      },
+      {
+        "from": "A11",
+        "to": "F21"
+      },
+      {
+        "from": "A17",
+        "to": "F25"
+      },
+      {
+        "from": "A11",
+        "to": "A23"
+      },
+      {
+        "from": "A17",
+        "to": "A26"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground-1",
+        "reference": "GND",
+        "reason": "Schematic reference for RECT_NEG. The AC input floats relative to this node."
+      }
+    ],
+    "physicalNotes": [
+      "Use an isolated low-voltage AC source across A3 and A6. Keep both AC leads isolated from the rectifier output return.",
+      "Use insulated Belden 8530 pigtails from the bridge package to A11 (POS), A13 (AC1), A15 (AC2) and A17 (NEG). Verify the marks on the package.",
+      "Place RLOAD across F21/F25. Install A3–A13, A6–A15, A11–F21 and A17–F25 jumpers.",
+      "Use insulated pigtails from C1 positive to A23 and negative to A26. Jumper A11–A23 and A17–A26.",
+      "Use a current-limited isolated source. Verify polarity before energizing and verify discharge before touching C1."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "source-1",
+          "reference": "VAC1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            283
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "A3",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "A6",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "bridge-1",
+          "reference": "BR1",
+          "kind": "bridge-rectifier",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "W04G-E4/51",
+          "sourceUrl": "https://www.vishay.com/docs/88769/w005g.pdf",
+          "bodyMm": {
+            "width": 9.86,
+            "height": 8.84
+          },
+          "positionPx": [
+            310.4137931034483,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "POS",
+              "hole": "A11",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                -2.54
+              ]
+            },
+            {
+              "pin": "AC1",
+              "hole": "A13",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                -2.54
+              ]
+            },
+            {
+              "pin": "AC2",
+              "hole": "A15",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                2.54
+              ]
+            },
+            {
+              "pin": "NEG",
+              "hole": "A17",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                2.54
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "load-1",
+          "reference": "RLOAD",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1001FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            487.93103448275866,
+            165
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "F21",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "F25",
+              "connection": "direct",
+              "leadDiameterMm": 0.6,
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "capacitor-1",
+          "reference": "C1",
+          "kind": "radial-capacitor",
+          "manufacturer": "Panasonic",
+          "manufacturerPartNumber": "EEUFR1V102B",
+          "sourceUrl": "https://industrial.panasonic.com/na/products/capacitors/aluminum-electrolytic-capacitors/series/83367/model/83812",
+          "bodyMm": {
+            "width": 12.5,
+            "height": 20
+          },
+          "positionPx": [
+            517.5172413793103,
+            110
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A23",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.5,
+                -2.54
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A26",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.5,
+                -2.54
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }
