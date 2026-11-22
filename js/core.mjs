@@ -99,6 +99,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.usb-uart-console-stream", category: "Inputs", type: "USB-UART local byte-stream fixture", prefix: "HOST", pins: ["TX", "GND"], defaultValue: "Baud 9600; DataBits 8; Parity none; StopBits 1; TXBytes 48 69; RXBytes 4F 4B", simulation: "fixture-usb-uart-stream", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.usb-uart-bridge-mock", category: "Active", type: "Local USB-UART bridge behavior mock", prefix: "U", pins: ["RX", "TX", "VCC", "GND"], defaultValue: "Mode local mock; Flow none", simulation: "analytical-usb-uart-console", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.serial-console-report", category: "Output", type: "Serial console byte and text report", prefix: "TERM", pins: ["RX", "VCC", "GND"], defaultValue: "Console output", simulation: "analytical-usb-uart-console", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.atmega328p-uart-rx", category: "Active", type: "ATmega328P-PU UART receiver demonstration", prefix: "U", pins: ["RX", "MCU_RESET_N", "GND", "AGND", "VALID", "VCC", "AVCC"], defaultValue: "8N1 frame decoder", simulation: "analytical-uart-receiver", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.uart-rx-ideal", category: "Active", type: "Ideal UART 8N1 receiver (frame decoder)", prefix: "U", pins: ["RX", "VALID", "VCC", "GND"], defaultValue: "8N1 frame decoder", simulation: "analytical-uart-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.i2c-read-transaction", category: "Inputs", type: "Ideal I²C read transaction fixture", prefix: "BUS", pins: ["SDA", "SCL", "GND"], defaultValue: "Address 0x48; Register 0x00; Baud 100000; ACK yes", simulation: "fixture-i2c-read", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.i2c-level-shifter-transition-fixture", category: "Inputs", type: "I²C open-drain transition fixture", prefix: "BUS", pins: ["SDA", "SCL", "GND"], defaultValue: "SDA Drive low-side; SDA States H,L,H,L; SCL Drive high-side; SCL States L,H,L,H", simulation: "fixture-i2c-level-shift", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -950,6 +951,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const alu4s = project.components.filter((item) => item.libraryId === "active.logic-alu4-ideal");
   const avrUartTransmitter = project.components.find(item => item.libraryId === "active.atmega328p-uart-tx");
   const uartTransmitters = project.components.filter((item) => item.libraryId === "active.uart-tx-ideal");
+  const avrUartReceiver = project.components.find(item => item.libraryId === "active.atmega328p-uart-rx");
   const uartReceivers = project.components.filter((item) => item.libraryId === "active.uart-rx-ideal");
   const uartFrameSources = project.components.filter((item) => item.libraryId === "input.uart-frame-source");
   const usbUartStreams = project.components.filter((item) => item.libraryId === "input.usb-uart-console-stream");
@@ -1310,8 +1312,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (usbUartStreams.length === 1 && usbUartBridges.length === 1 && serialConsoleReports.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseUsbUartConsole(project, { source: source[0], stream: usbUartStreams[0], bridge: usbUartBridges[0], report: serialConsoleReports[0], ground: ground[0], validation });
   }
+  if (avrUartReceiver && uartFrameSources.length === 1 && source.length === 1 && resistor.length === 2 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 9) {
+    return analyseUartReceiver(project, { source: source[0], frameSource: uartFrameSources[0], receiver: avrUartReceiver, resistors: resistor, bypass: capacitor, led: led[0], ground: ground[0], validation });
+  }
   if (uartReceivers.length === 1 && uartFrameSources.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 6) {
-    return analyseUartReceiver(project, { source: source[0], frameSource: uartFrameSources[0], receiver: uartReceivers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+    return analyseUartReceiver(project, { source: source[0], frameSource: uartFrameSources[0], receiver: uartReceivers[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
   if (avrUartTransmitter && source.length === 1 && resistor.length === 2 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseUartTransmitter(project, { source: source[0], transmitter: avrUartTransmitter, resistors: resistor, bypass: capacitor, led: led[0], ground: ground[0], validation });
@@ -3183,15 +3188,22 @@ function analyseUsbUartConsole(project,{source,stream,bridge,report,ground,valid
   const text=bytes=>bytes.map(byte=>byte>=32&&byte<=126?String.fromCharCode(byte):"·").join("");
   return {state:"complete",engine:"Local USB-UART serial framing and console mock",message:"Frames configured byte streams using ideal asynchronous UART start/data/parity/stop-bit rules and reports local console text. USB enumeration, USB packet transport, electrical line levels, clock error, oversampling, buffering, drivers, firmware, and physical bridge behavior are not modeled; no host or device is contacted.",result:{kind:"usb-uart-console",baud,dataBits,parity,stopBits,frameBits,txBytes,rxBytes,txHex:txFrames.map(frame=>frame.hex),rxHex:rxFrames.map(frame=>frame.hex),txAscii:text(txBytes),rxAscii:text(rxBytes),txDurationSeconds,rxDurationSeconds,txFrames,rxFrames,usbEnumerated:false,hostContacted:false,firmwareExecuted:false},validation};
 }
-function analyseUartReceiver(project,{source,frameSource,receiver,resistor,led,ground,validation}){
+function analyseUartReceiver(project,{source,frameSource,receiver,resistors,bypass,led,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),vccNet=n(receiver,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
-  const rxNet=n(receiver,"RX"),txNet=n(frameSource,"TX"),validNet=n(receiver,"VALID"),outputPath=(n(resistor,"1")===validNet&&n(resistor,"2")===n(led,"A"))||(n(resistor,"2")===validNet&&n(resistor,"1")===n(led,"A"));
+  if (bypass && !validAvrSupply(receiver,resistors,bypass,n,vccNet,groundNet)) {
+    return {state:"blocked",message:"Power VCC and AVCC, ground both return pins, fit both bypass capacitors, and pull MCU reset up to VCC.",validation};
+  }
+  const rxNet=n(receiver,"RX"),txNet=n(frameSource,"TX"),validNet=n(receiver,"VALID"),anodeNet=n(led,"A");
+  const resistor=validNet&&anodeNet&&resistors.find(part=>{
+    const pins=[n(part,"1"),n(part,"2")];
+    return pins.includes(validNet)&&pins.includes(anodeNet)&&validNet!==anodeNet;
+  });
   const frameConfig=String(frameSource.value),fields=frameConfig.split(";"),bitsField=fields.find(v=>v.trim().startsWith("Bits ")),baudField=fields.find(v=>v.trim().startsWith("Baud "));
   const frameBits=bitsField?bitsField.trim().slice(5).split(",").map(v=>Number(v.trim())):[],baud=baudField?Number(baudField.trim().slice(5)):Number.NaN;
-  const resistance=resistanceValue(resistor.value),forwardV=forwardVoltage(led.value);
-  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(receiver,"GND")!==groundNet||n(frameSource,"GND")!==groundNet||rxNet!==txNet||!outputPath||n(led,"K")!==groundNet||frameBits.length!==10||frameBits.some(v=>v!==0&&v!==1)||!Number.isFinite(baud)||baud<300||baud>1000000||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(forwardV)||forwardV<=0){
+  const resistance=resistanceValue(resistor?.value),forwardV=forwardVoltage(led.value);
+  if(!vccNet||!groundNet||!rxNet||!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(receiver,"GND")!==groundNet||n(frameSource,"GND")!==groundNet||rxNet!==txNet||n(led,"K")!==groundNet||frameBits.length!==10||frameBits.some(v=>v!==0&&v!==1)||!Number.isFinite(baud)||baud<300||baud>1000000||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(forwardV)||forwardV<=0){
     return {state:"blocked",message:"Connect a ten-bit 8N1 UART frame source to RX, set baud from 300 to 1,000,000, and wire powered receiver and valid-frame LED.",validation};
   }
   const startBit=frameBits[0],dataBits=frameBits.slice(1,9),stopBit=frameBits[9],byte=dataBits.reduce((value,bit,index)=>value|(bit<<index),0),framingError=startBit!==0||stopBit!==1,valid=!framingError;

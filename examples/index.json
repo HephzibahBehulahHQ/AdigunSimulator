@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 89,
-    "withoutStoredPcb": 127,
+    "withStoredPcb": 90,
+    "withoutStoredPcb": 126,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1102,40 +1102,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "7d588c3fba21ca62da5bd742636aafd5f014109192c2b0f44fb859bb6a478040",
-      "components": 6,
+      "sha256": "6bdfb668d5514f8f0a88bef949578fcc120d33276b7b1ec4cfa762b8a022b39a",
+      "components": 9,
       "analysis": "complete",
       "engine": "Ideal UART 8N1 frame decoder",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "SIG1",
-          "libraryId": "input.uart-frame-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.uart-rx-ideal"
-        },
-        {
-          "reference": "RVALID",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DVALID",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 8,
+      "pcbPads": 42,
+      "pcbRoutes": 15,
+      "unmapped": []
     },
     {
       "file": "058-i2c-sensor-read.adigun.json",
