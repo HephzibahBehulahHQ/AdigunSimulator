@@ -19,6 +19,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='mcu-stepper-position')return stepperCommandRecording(project,r);
  if(kind==='mcu-servo-control')return servoPulseRecording(project,r);
  if(kind==='mcu-ultrasonic-range')return sonarEchoRecording(project,r);
+ if(kind==='avr-ir-receiver')return infraredInputRecording(project,r);
  if(kind==='pic-adc-bargraph')return picBargraphInputRecording(project,r);
  if(kind==='pico-adc-voltmeter')return picoDividerRecording(project,r);
  if(kind==='esp32-telemetry-payload')return temperatureInputRecording(project,r);
@@ -332,6 +333,26 @@ function sonarEchoRecording(project,result){
  const width=result.echoTimeUs/1e6;
  const samples=[[0,1],[width,1],[width,0],[width*1.2,0]].map(([timeSeconds,value])=>({timeSeconds,nodeVoltages:{[echo]:value}}));
  return {kind:'analytical-output-recording',units:'logic',model:'Ideal echo width from rising edge',preferredNet:echo,samples};
+}
+
+function infraredInputRecording(project,result){
+ const receiver=project.components.find(c=>['sensor.vishay-tsop38438','sensor.ir-receiver-ideal'].includes(c.libraryId));
+ const output=receiver&&project.nets.find(net=>net.endpoints.includes(receiver.instanceId+':OUT'))?.id;
+ const t=result.demodulatedTimingUs,bits=result.frameBits;
+ if(!output||!t||!Array.isArray(bits)||bits.length!==32)return null;
+ const durations=[t.leaderMark,t.leaderSpace,...bits.flatMap(bit=>[t.bitMark,bit?t.oneSpace:t.zeroSpace]),t.stopMark];
+ if(durations.some(us=>!Number.isFinite(us)||us<=0))return null;
+ const point=(us,level)=>({timeSeconds:us/1e6,nodeVoltages:{[output]:level}});
+ let elapsed=0,level=0;
+ const samples=[point(0,1),point(0,0)];
+ for(const duration of durations){
+  elapsed+=duration;
+  samples.push(point(elapsed,level));
+  level=1-level;
+  samples.push(point(elapsed,level));
+ }
+ samples.push(point(elapsed+500,1));
+ return {kind:'analytical-output-recording',units:'logic',model:'Ideal active-low NEC demodulated frame',preferredNet:output,samples};
 }
 
 function picBargraphInputRecording(project,result){

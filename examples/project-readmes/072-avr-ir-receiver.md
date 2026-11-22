@@ -1,63 +1,18 @@
-# 072 — AVR NEC-like IR receiver
+# 072 — AVR NEC-like infrared receiver
 
-## Purpose
+A Vishay TSOP38438 demodulates 38 kHz infrared bursts. The ATmega328P-PU receives the active-low output on PD2/INT0 and sends the decoded address and command to a cabled Parallax serial LCD. The simulator uses a virtual optical stimulus with bytes 00 FF A2 5D. The virtual fixture has no conductor or PCB footprint.
 
-Decode a known four-byte NEC-like IR frame through an ideal 38 kHz receiver model, verify byte complements and timing tolerances, and display the address and command.
+| Reference | Assembly |
+| --- | --- |
+| J1 | Regulated 5 V and common return |
+| U1 | Microchip ATmega328P-PU, undivided internal 8 MHz oscillator |
+| IR1 | Vishay TSOP38438, pins 1 OUT, 2 GND and 3 VS |
+| J2 | Samtec TSW-103-07-T-S, pins 1 GND, 2 +5 V and 3 TX |
+| C1–C3 | 100 nF supply bypass for VCC, AVCC and IR1 |
+| R7 | 10 kΩ AVR reset pull-up |
 
-## Bill of materials
+Install U1 with pin 1 at F10 on the BB400. Use insulated pigtails from IR1 to A9 (OUT), A8 (GND) and A7 (VS). Place IR1's supply bypass close to the module in a physical build. Cable J2 to the Parallax 27977 LCD by its GND, 5V and RX markings. Use a shared regulated 5 V supply and set SW1 OFF, SW2 ON for 9600 baud. [Vishay receiver datasheet](https://www.vishay.com/docs/82491/tsop382.pdf), [Parallax LCD guide](https://forums.parallax.com/uploads/attachments/61826/89125.pdf), [Samtec J2](https://www.samtec.com/products/tsw-103-07-t-s).
 
-| Reference | Project library ID | Project value |
-|---|---|---|
-| V1 | `power.dc-source` | 5 V |
-| SIG1 | `input.ir-nec-frame` | Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000 |
-| IR1 | `sensor.ir-receiver-ideal` | CarrierHz 38000; Output demodulated active-low |
-| U1 | `active.avr-ir-decoder-ideal` | Program Decode NEC-like; Input INT0; Output TX; Tolerance 20% |
-| DISP1 | `output.ir-code-display-ideal` | Address and command bytes |
-| GND | `ground.signal` | 0 V |
+The [AVR firmware](../072-avr-ir-receiver/main.c) polls PD2 and measures each pulse with the Timer1 1 µs timebase. It accepts a full 32-bit frame with matching complement bytes and approximately ±20% timing tolerance. Valid frames update the LCD over 9600-baud 8N1. Repeat bursts and invalid frames leave the last valid display intact.
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
-
-## Net connections
-
-- **VCC:** `supply:+`, `receiver:VCC`, `avr:VCC`, `display:VCC`
-- **GND:** `supply:-`, `frame:GND`, `receiver:GND`, `avr:GND`, `display:GND`, `ground:0`
-- **OPTICAL_FRAME:** `frame:OUT`, `receiver:SIG`
-- **IR_RX:** `receiver:OUT`, `avr:INT0`
-- **DECODED_TEXT:** `avr:TX`, `display:DATA`
-
-## Views and physical-layout status
-
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
-
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
-
-## Acceptance test and expected result
-
-- Stable test ID: `core-avr-ir-receiver`
-- Engine: Ideal AVR NEC-like infrared frame decoder
-- Engine version: `adigun-simulator@0.1.0`
-- Model version: `ideal-avr-nec-like-ir-v1`
-- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41179186525
-
-Recorded expected result:
-
-```json
-{
-  "protocol": "NEC-like",
-  "rawCode": "0x00FFA25D",
-  "address": "0x00",
-  "command": "0xA2",
-  "bitOrder": "LSB-first within each byte",
-  "carrierHz": 38000,
-  "frameDurationUs": 67980,
-  "firmwareExecuted": false
-}
-```
-
-## Safety and model limits
-
-Ideal demodulated timing and byte-decoder model only. It omits optical propagation, carrier waveform, receiver AGC, AVR firmware, ambient-light effects, and physical timing margins.
-
-Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
-
-Native project: `examples/072-avr-ir-receiver.adigun.json`.
+The scope shows the ideal demodulated output, including the 9 ms low leader and 4.5 ms high space. The native project contains the 65 × 49 mm two-layer PCB, the three view mappings and educational fabrication export. Optical range, ambient light, AGC response, digital timing margins and hardware operation require bench verification.
