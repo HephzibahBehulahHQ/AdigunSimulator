@@ -105,6 +105,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.i2c-level-shifter-transition-fixture", category: "Inputs", type: "I²C open-drain transition fixture", prefix: "BUS", pins: ["SDA", "SCL", "GND"], defaultValue: "SDA Drive low-side; SDA States H,L,H,L; SCL Drive high-side; SCL States L,H,L,H", simulation: "fixture-i2c-level-shift", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.i2c-bidirectional-level-shifter-ideal", category: "Active", type: "Ideal bidirectional MOSFET I²C level-shifter model", prefix: "Q", pins: ["SDA_L", "SCL_L", "SDA_H", "SCL_H", "VREF_L", "VREF_H", "GND"], defaultValue: "Mode open-drain bidirectional", simulation: "analytical-i2c-level-shift", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "output.i2c-level-shifter-report", category: "Output", type: "I²C level-shifter transition report", prefix: "DISP", pins: ["SDA_L", "SCL_L", "SDA_H", "SCL_H", "VREF_L", "VREF_H", "GND"], defaultValue: "I²C transition report", simulation: "analytical-i2c-level-shift", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.tc74a0-3v3vat", category: "Active", type: "Microchip TC74A0-3.3VAT I²C temperature sensor", prefix: "U", pins: ["SDA", "GND", "SCL", "VCC"], defaultValue: "Address 0x48; Register 0x00=0x2A", simulation: "analytical-i2c-register-read", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.i2c-sensor-ideal", category: "Active", type: "Ideal I²C register sensor (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x48; Register 0x00=0x2A", simulation: "analytical-i2c-register-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.i2c-eeprom-ideal", category: "Active", type: "Ideal I²C EEPROM byte memory (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x50; Memory 0x10=0x00", simulation: "analytical-i2c-eeprom-write-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -961,6 +962,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const i2cLevelFixtures = project.components.filter((item) => item.libraryId === "input.i2c-level-shifter-transition-fixture");
   const i2cLevelShifters = project.components.filter((item) => item.libraryId === "active.i2c-bidirectional-level-shifter-ideal");
   const i2cLevelReports = project.components.filter((item) => item.libraryId === "output.i2c-level-shifter-report");
+  const tc74 = project.components.find(item => item.libraryId === "active.tc74a0-3v3vat");
   const i2cSensors = project.components.filter((item) => item.libraryId === "active.i2c-sensor-ideal");
   const i2cEeproms = project.components.filter((item) => item.libraryId === "active.i2c-eeprom-ideal");
   const spiFixtures = project.components.filter((item) => item.libraryId === "input.spi-transfer-source");
@@ -1305,6 +1307,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (i2cFixtures.length === 1 && i2cEeproms.length === 1 && source.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 6) {
     return analyseI2cEepromWriteRead(project, { source: source[0], fixture: i2cFixtures[0], eeprom: i2cEeproms[0], resistors: resistor, ground: ground[0], validation });
+  }
+  if (i2cFixtures.length === 1 && tc74 && source.length === 1 && resistor.length === 2 && capacitor.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analyseI2cRegisterRead(project, { source: source[0], fixture: i2cFixtures[0], sensor: tc74, resistors: resistor, bypass: capacitor[0], ground: ground[0], validation });
   }
   if (i2cFixtures.length === 1 && i2cSensors.length === 1 && source.length === 1 && resistor.length === 2 && ground.length === 1 && project.components.length === 6) {
     return analyseI2cRegisterRead(project, { source: source[0], fixture: i2cFixtures[0], sensor: i2cSensors[0], resistors: resistor, ground: ground[0], validation });
@@ -3146,10 +3151,13 @@ function analyseI2cEepromWriteRead(project,{source,fixture,eeprom,resistors,grou
   const pullupCurrentA=resistances.reduce((sum,r)=>sum+supplyVoltage/r,0);
   return {state:"complete",engine:"Ideal I²C EEPROM write/read transaction model",message:readByte===null?"The EEPROM transaction was not acknowledged or the configured memory address was absent; no verified read-back is returned.":"Models an acknowledged byte write followed by immediate register read-back. Persistence is an ideal logical storage assumption; write-cycle delay, endurance, power-loss behavior, page boundaries, and physical EEPROM timing are not modeled.",result:{kind:"i2c-eeprom-write-read",address,register,baud,addressMatch,registerMatch,deviceAck,writeAcknowledged,readAcknowledged:readByte!==null,initialByte,writeByte,storedByte:writeAcknowledged?storedByte:initialByte,readByte,readHex:readByte===null?null:"0x"+readByte.toString(16).padStart(2,"0").toUpperCase(),dataPreserved:readByte!==null&&readByte===writeByte,persistenceModel:"ideal immediate register storage",pullupCurrentA},validation};
 }
-function analyseI2cRegisterRead(project,{source,fixture,sensor,resistors,ground,validation}){
+function analyseI2cRegisterRead(project,{source,fixture,sensor,resistors,bypass,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),vccNet=n(sensor,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  if (bypass && (!vccNet || !groundNet || !validSupplyBypass(bypass,n,vccNet,groundNet) || !(supplyVoltage >= 2.7 && supplyVoltage <= 5.5))) {
+    return {state:"blocked",message:"Power the TC74 from 2.7 V to 5.5 V with a shared return and connect its bypass capacitor across VCC and GND.",validation};
+  }
   const fixtureGround=n(fixture,"GND"),sdaNet=n(fixture,"SDA"),sclNet=n(fixture,"SCL");
   const config=String(fixture.value),sensorConfig=String(sensor.value);
   const hex=(text,label)=>{const match=text.match(new RegExp("\\b"+label+"\\s+(0x[0-9a-f]+|\\d+)","i"));return match?parseInt(match[1],match[1].toLowerCase().startsWith("0x")?16:10):Number.NaN;};
@@ -3159,6 +3167,9 @@ function analyseI2cRegisterRead(project,{source,fixture,sensor,resistors,ground,
   const mapMatch=sensorConfig.match(/\bRegister\s+(0x[0-9a-f]+|\d+)\s*=\s*(0x[0-9a-f]+|\d+)/i);
   const mappedRegister=mapMatch?parseInt(mapMatch[1],mapMatch[1].toLowerCase().startsWith("0x")?16:10):Number.NaN;
   const dataByte=mapMatch?parseInt(mapMatch[2],mapMatch[2].toLowerCase().startsWith("0x")?16:10):Number.NaN;
+  if (bypass && (sensorAddress !== 0x48 || mappedRegister !== 0 || !(baud >= 10000 && baud <= 100000))) {
+    return {state:"blocked",message:"Use the TC74A0 fixed address 0x48, temperature register 0x00, and a bus clock from 10 to 100 kHz.",validation};
+  }
   const resistanceValues=resistors.map(item=>resistanceValue(item.value));
   const pullupNets=resistors.map(item=>{const a=n(item,"1"),b=n(item,"2");return a===vccNet?b:b===vccNet?a:undefined;});
   const correctPullups=pullupNets.includes(sdaNet)&&pullupNets.includes(sclNet)&&sdaNet!==sclNet;
