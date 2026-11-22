@@ -16,6 +16,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
  if(['bridge-rectifier-waveform','bridge-smoothing-capacitor'].includes(kind))return rectifierWaveformRecording(project,r);
  if(kind==='tvs-pulse-clamp')return tvsPulseRecording(project,r);
+ if(kind==='mcu-ultrasonic-range')return sonarEchoRecording(project,r);
  if(kind==='mcu-temperature-monitor')return temperatureInputRecording(project,r);
  if(kind==='mcu-pwm-dimmer')return dimmerPwmRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
@@ -286,6 +287,15 @@ function dualTimerRecording(project, result) {
  }
  samples.push({timeSeconds:duration,nodeVoltages:{...levels}});
  return {kind:'analytical-output-recording',model:'Ideal NE556 dual astable timing (phase-normalized outputs, hardware levels omitted)',preferredNet:channels[0].output,samples};
+}
+
+function sonarEchoRecording(project,result){
+ const sensor=project.components.find(c=>['sensor.ultrasonic-echo-ideal','sensor.us100-echo-port'].includes(c.libraryId));
+ const echo=sensor&&project.nets.find(net=>net.endpoints.includes(sensor.instanceId+':ECHO'))?.id;
+ if(!echo||!Number.isFinite(result.echoTimeUs)||result.echoTimeUs<=0)return null;
+ const width=result.echoTimeUs/1e6;
+ const samples=[[0,1],[width,1],[width,0],[width*1.2,0]].map(([timeSeconds,value])=>({timeSeconds,nodeVoltages:{[echo]:value}}));
+ return {kind:'analytical-output-recording',units:'logic',model:'Ideal echo width from rising edge',preferredNet:echo,samples};
 }
 
 function temperatureInputRecording(project,result){

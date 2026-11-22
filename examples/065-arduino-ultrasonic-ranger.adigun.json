@@ -15,76 +15,76 @@
       "value": "5 V",
       "position": {
         "breadboard": [
-          45,
-          60
+          48,
+          37
         ],
         "schematic": [
-          45,
-          60
+          48,
+          37
         ],
         "pcb": [
-          45,
-          60
+          48,
+          37
         ]
       }
     },
     {
       "instanceId": "mcu",
-      "libraryId": "active.mcu-uno-ideal",
+      "libraryId": "active.atmega328p-ultrasonic-ranger",
       "reference": "U1",
-      "value": "Program Ultrasonic ranger; Trigger D9; Echo D8; Display D7",
+      "value": "Program Ultrasonic ranger; Trigger D9; Echo D8; Display I2C",
       "position": {
         "breadboard": [
-          165,
-          60
+          277,
+          130
         ],
         "schematic": [
-          165,
-          60
+          277,
+          130
         ],
         "pcb": [
-          165,
-          60
+          277,
+          130
         ]
       }
     },
     {
       "instanceId": "sensor",
-      "libraryId": "sensor.ultrasonic-echo-ideal",
-      "reference": "US1",
+      "libraryId": "sensor.us100-echo-port",
+      "reference": "J2",
       "value": "Echo 5882 us; Minimum 20 mm; Maximum 4000 mm",
       "position": {
         "breadboard": [
-          290,
-          60
+          105,
+          133
         ],
         "schematic": [
-          290,
-          60
+          105,
+          133
         ],
         "pcb": [
-          290,
-          60
+          105,
+          133
         ]
       }
     },
     {
       "instanceId": "oled",
-      "libraryId": "output.oled-text-sink-ideal",
-      "reference": "OLED1",
-      "value": "Distance result",
+      "libraryId": "output.ssd1306-oled-port",
+      "reference": "J3",
+      "value": "Adafruit 4440 SSD1306; I2C 0x3C",
       "position": {
         "breadboard": [
-          430,
-          60
+          501,
+          145
         ],
         "schematic": [
-          430,
-          60
+          501,
+          145
         ],
         "pcb": [
-          430,
-          60
+          501,
+          145
         ]
       }
     },
@@ -95,17 +95,98 @@
       "value": "0 V",
       "position": {
         "breadboard": [
-          540,
-          60
+          558,
+          227
         ],
         "schematic": [
-          540,
-          60
+          558,
+          227
         ],
         "pcb": [
-          540,
-          60
+          558,
+          227
         ]
+      }
+    },
+    {
+      "instanceId": "vcc-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          184,
+          42
+        ],
+        "schematic": [
+          184,
+          42
+        ],
+        "pcb": [
+          184,
+          42
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "avcc-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C2",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          358,
+          42
+        ],
+        "schematic": [
+          358,
+          42
+        ],
+        "pcb": [
+          358,
+          42
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "reset-pullup",
+      "libraryId": "passive.resistor",
+      "reference": "R7",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          277,
+          243
+        ],
+        "schematic": [
+          277,
+          243
+        ],
+        "pcb": [
+          277,
+          243
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
       }
     }
   ],
@@ -116,7 +197,11 @@
         "supply:+",
         "mcu:VCC",
         "sensor:VCC",
-        "oled:VCC"
+        "oled:VCC",
+        "mcu:AVCC",
+        "vcc-bypass:1",
+        "avcc-bypass:1",
+        "reset-pullup:1"
       ]
     },
     {
@@ -126,7 +211,10 @@
         "mcu:GND",
         "sensor:GND",
         "oled:GND",
-        "ground:0"
+        "ground:0",
+        "mcu:AGND",
+        "vcc-bypass:2",
+        "avcc-bypass:2"
       ]
     },
     {
@@ -144,12 +232,2434 @@
       ]
     },
     {
-      "id": "OLED_DATA",
+      "id": "OLED_SDA",
       "endpoints": [
-        "mcu:D7",
-        "oled:DATA"
+        "mcu:SDA",
+        "oled:SDA"
+      ]
+    },
+    {
+      "id": "OLED_SCL",
+      "endpoints": [
+        "mcu:SCL",
+        "oled:SCL"
+      ]
+    },
+    {
+      "id": "MCU_RESET_N",
+      "endpoints": [
+        "mcu:MCU_RESET_N",
+        "reset-pullup:2"
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM1",
+      "mcu:MCU_RESET_N": "F10",
+      "mcu:VCC": "F16",
+      "mcu:GND": "F17",
+      "mcu:AVCC": "E18",
+      "mcu:AGND": "E16",
+      "mcu:D8": "F23",
+      "mcu:D9": "E23",
+      "mcu:SDA": "E11",
+      "mcu:SCL": "E10",
+      "vcc-bypass:1": "J25",
+      "vcc-bypass:2": "J27",
+      "avcc-bypass:1": "A25",
+      "avcc-bypass:2": "A27",
+      "reset-pullup:1": "E26",
+      "reset-pullup:2": "E30",
+      "sensor:VCC": "A2",
+      "sensor:TRIG": "A3",
+      "sensor:ECHO": "A4",
+      "sensor:GND": "A5",
+      "oled:GND": "H2",
+      "oled:VCC": "H3",
+      "oled:SDA": "H4",
+      "oled:SCL": "H5"
+    },
+    "jumpers": [
+      {
+        "from": "TP13",
+        "to": "J16"
+      },
+      {
+        "from": "TP14",
+        "to": "C18"
+      },
+      {
+        "from": "TP15",
+        "to": "I25"
+      },
+      {
+        "from": "TP16",
+        "to": "B25"
+      },
+      {
+        "from": "TP17",
+        "to": "D26"
+      },
+      {
+        "from": "J17",
+        "to": "BM12"
+      },
+      {
+        "from": "B16",
+        "to": "BM13"
+      },
+      {
+        "from": "I27",
+        "to": "BM20"
+      },
+      {
+        "from": "B27",
+        "to": "BM19"
+      },
+      {
+        "from": "D30",
+        "to": "I10"
+      },
+      {
+        "from": "B2",
+        "to": "TP9"
+      },
+      {
+        "from": "B3",
+        "to": "D23"
+      },
+      {
+        "from": "B4",
+        "to": "I23"
+      },
+      {
+        "from": "B5",
+        "to": "BM4"
+      },
+      {
+        "from": "G2",
+        "to": "BM5"
+      },
+      {
+        "from": "G3",
+        "to": "TP5"
+      },
+      {
+        "from": "G4",
+        "to": "D11"
+      },
+      {
+        "from": "G5",
+        "to": "D10"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "physicalNotes": [
+      "Install U1 with pin 1 at F10 and program the 8 MHz internal oscillator without division.",
+      "Cable J2 to the US-100 VCC, TRIG/TX, ECHO/RX and either GND pin. Remove the US-100 jumper. Cable J3 by signal labels to the 5 V Adafruit 4440 OLED breakout."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM1",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "mcu",
+          "reference": "U1",
+          "manufacturer": "Microchip",
+          "manufacturerPartNumber": "ATMEGA328P-PU",
+          "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 34.798,
+            "height": 7.493
+          },
+          "positionPx": [
+            359.72413793103476,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "MCU_RESET_N",
+              "hole": "F10",
+              "offsetMm": [
+                -16.51,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "VCC",
+              "hole": "F16",
+              "offsetMm": [
+                -1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "GND",
+              "hole": "F17",
+              "offsetMm": [
+                1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AVCC",
+              "hole": "E18",
+              "offsetMm": [
+                3.81,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AGND",
+              "hole": "E16",
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "D8",
+              "hole": "F23",
+              "offsetMm": [
+                16.51,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "D9",
+              "hole": "E23",
+              "offsetMm": [
+                16.51,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "SDA",
+              "hole": "E11",
+              "offsetMm": [
+                -13.97,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "SCL",
+              "hole": "E10",
+              "offsetMm": [
+                -16.51,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            }
+          ],
+          "noConnectHoles": [
+            "F18",
+            "F19",
+            "E22",
+            "E21",
+            "E20",
+            "F11",
+            "F13",
+            "F14",
+            "F15",
+            "F20",
+            "F21",
+            "F22",
+            "E14",
+            "E13",
+            "E12",
+            "F12",
+            "E19",
+            "E15",
+            "E17"
+          ]
+        },
+        {
+          "instanceId": "vcc-bypass",
+          "reference": "C1",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            547.1034482758625,
+            205
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "J25",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "J27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "avcc-bypass",
+          "reference": "C2",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            546.5034482758625,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A25",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reset-pullup",
+          "reference": "R7",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            586.5517241379315,
+            135
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "E26",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "E30",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "sensor",
+          "reference": "J2",
+          "kind": "through-hole-header",
+          "manufacturer": "Samtec",
+          "manufacturerPartNumber": "TSW-104-07-T-S",
+          "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 2.54
+          },
+          "positionPx": [
+            103.3103448275862,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "VCC",
+              "hole": "A2",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -3.81,
+                0
+              ]
+            },
+            {
+              "pin": "TRIG",
+              "hole": "A3",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "ECHO",
+              "hole": "A4",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            },
+            {
+              "pin": "GND",
+              "hole": "A5",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                3.81,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "oled",
+          "reference": "J3",
+          "kind": "through-hole-header",
+          "manufacturer": "Samtec",
+          "manufacturerPartNumber": "TSW-104-07-T-S",
+          "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 2.54
+          },
+          "positionPx": [
+            103.3103448275862,
+            185
+          ],
+          "pins": [
+            {
+              "pin": "GND",
+              "hole": "H2",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -3.81,
+                0
+              ]
+            },
+            {
+              "pin": "VCC",
+              "hole": "H3",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "SDA",
+              "hole": "H4",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            },
+            {
+              "pin": "SCL",
+              "hole": "H5",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                3.81,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "schematicWires": [
+    {
+      "id": "ultrasonic-wire-1",
+      "from": "supply:+",
+      "to": "mcu:VCC",
+      "waypoints": [
+        [
+          32,
+          66
+        ],
+        [
+          32,
+          15
+        ],
+        [
+          349,
+          15
+        ],
+        [
+          349,
+          148.2
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-2",
+      "from": "supply:+",
+      "to": "sensor:VCC",
+      "waypoints": [
+        [
+          32,
+          66
+        ],
+        [
+          32,
+          156
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-3",
+      "from": "supply:+",
+      "to": "oled:VCC",
+      "waypoints": [
+        [
+          32,
+          66
+        ],
+        [
+          32,
+          15
+        ],
+        [
+          485,
+          15
+        ],
+        [
+          485,
+          180
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-4",
+      "from": "supply:+",
+      "to": "mcu:AVCC",
+      "waypoints": [
+        [
+          32,
+          66
+        ],
+        [
+          32,
+          15
+        ],
+        [
+          349,
+          15
+        ],
+        [
+          349,
+          155.4
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-5",
+      "from": "supply:+",
+      "to": "vcc-bypass:1",
+      "waypoints": [
+        [
+          32,
+          66
+        ],
+        [
+          32,
+          15
+        ],
+        [
+          168,
+          15
+        ],
+        [
+          168,
+          61.5
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-6",
+      "from": "supply:+",
+      "to": "avcc-bypass:1",
+      "waypoints": [
+        [
+          32,
+          66
+        ],
+        [
+          32,
+          15
+        ],
+        [
+          342,
+          15
+        ],
+        [
+          342,
+          61.5
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-7",
+      "from": "supply:+",
+      "to": "reset-pullup:1",
+      "waypoints": [
+        [
+          32,
+          66
+        ],
+        [
+          32,
+          15
+        ],
+        [
+          261,
+          15
+        ],
+        [
+          261,
+          262.5
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-8",
+      "from": "supply:-",
+      "to": "mcu:GND",
+      "waypoints": [
+        [
+          120,
+          66
+        ],
+        [
+          120,
+          113
+        ],
+        [
+          177,
+          113
+        ],
+        [
+          177,
+          216
+        ],
+        [
+          349,
+          216
+        ],
+        [
+          349,
+          162.6
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-9",
+      "from": "supply:-",
+      "to": "sensor:GND",
+      "waypoints": [
+        [
+          120,
+          66
+        ],
+        [
+          120,
+          113
+        ],
+        [
+          177,
+          113
+        ],
+        [
+          177,
+          168
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-10",
+      "from": "supply:-",
+      "to": "oled:GND",
+      "waypoints": [
+        [
+          120,
+          66
+        ],
+        [
+          120,
+          113
+        ],
+        [
+          177,
+          113
+        ],
+        [
+          177,
+          216
+        ],
+        [
+          477,
+          216
+        ],
+        [
+          477,
+          168
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-11",
+      "from": "supply:-",
+      "to": "ground:0",
+      "waypoints": [
+        [
+          120,
+          66
+        ],
+        [
+          120,
+          113
+        ],
+        [
+          177,
+          113
+        ],
+        [
+          177,
+          235
+        ],
+        [
+          262,
+          235
+        ],
+        [
+          262,
+          223
+        ],
+        [
+          342,
+          223
+        ],
+        [
+          342,
+          235
+        ],
+        [
+          477,
+          235
+        ],
+        [
+          477,
+          121
+        ],
+        [
+          586,
+          121
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-12",
+      "from": "supply:-",
+      "to": "mcu:AGND",
+      "waypoints": [
+        [
+          120,
+          66
+        ],
+        [
+          120,
+          113
+        ],
+        [
+          177,
+          113
+        ],
+        [
+          177,
+          216
+        ],
+        [
+          349,
+          216
+        ],
+        [
+          349,
+          169.8
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-13",
+      "from": "supply:-",
+      "to": "vcc-bypass:2",
+      "waypoints": [
+        [
+          120,
+          66
+        ],
+        [
+          120,
+          106
+        ],
+        [
+          254,
+          106
+        ],
+        [
+          254,
+          61.5
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-14",
+      "from": "supply:-",
+      "to": "avcc-bypass:2",
+      "waypoints": [
+        [
+          120,
+          66
+        ],
+        [
+          120,
+          106
+        ],
+        [
+          428,
+          106
+        ],
+        [
+          428,
+          61.5
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-15",
+      "from": "mcu:D9",
+      "to": "sensor:TRIG",
+      "waypoints": [
+        [
+          185,
+          147
+        ],
+        [
+          185,
+          220
+        ],
+        [
+          89,
+          220
+        ],
+        [
+          89,
+          168
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-16",
+      "from": "sensor:ECHO",
+      "to": "mcu:D8",
+      "waypoints": [
+        [
+          254,
+          156
+        ],
+        [
+          254,
+          153
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-17",
+      "from": "mcu:SDA",
+      "to": "oled:SDA",
+      "waypoints": [
+        [
+          262,
+          159
+        ],
+        [
+          262,
+          110
+        ],
+        [
+          573,
+          110
+        ],
+        [
+          573,
+          168
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-18",
+      "from": "mcu:SCL",
+      "to": "oled:SCL",
+      "waypoints": [
+        [
+          253,
+          165
+        ],
+        [
+          253,
+          103
+        ],
+        [
+          347,
+          103
+        ],
+        [
+          347,
+          118
+        ],
+        [
+          581,
+          118
+        ],
+        [
+          581,
+          180
+        ]
+      ]
+    },
+    {
+      "id": "ultrasonic-wire-19",
+      "from": "mcu:MCU_RESET_N",
+      "to": "reset-pullup:2",
+      "waypoints": [
+        [
+          262,
+          171
+        ],
+        [
+          262,
+          220
+        ],
+        [
+          347,
+          220
+        ],
+        [
+          347,
+          262.5
+        ]
+      ]
+    }
+  ],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 65,
+      "heightMm": 49,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "ATMEGA328P-PU",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "footprint": "Microchip_ATMEGA328P-PU_SPDIP-28_P2.54mm_W7.62mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "sensor",
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-104-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
+        "footprint": "Samtec_TSW-104-07-T-S_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "oled",
+        "reference": "J3",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-104-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
+        "footprint": "Samtec_TSW-104-07-T-S_P2.54mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "1",
+        "pin": "+",
+        "netId": "VCC",
+        "xMm": 5.842,
+        "yMm": 24.892,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:+"
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.842,
+        "yMm": 27.432,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:-"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 32.512,
+        "yMm": 37.084,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "vcc-bypass:1"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 27.432,
+        "yMm": 37.084,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "vcc-bypass:2"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 32.004,
+        "yMm": 13.97,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avcc-bypass:1"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 26.924,
+        "yMm": 13.97,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avcc-bypass:2"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 10.16,
+        "yMm": 33.528,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:1"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "2",
+        "pin": "2",
+        "netId": "MCU_RESET_N",
+        "xMm": 20.32,
+        "yMm": 33.528,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:2"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "1",
+        "pin": "MCU_RESET_N",
+        "netId": "MCU_RESET_N",
+        "xMm": 17.526,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:MCU_RESET_N"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "2",
+        "pin": "NC2",
+        "netId": "NC",
+        "xMm": 20.066,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "3",
+        "pin": "NC3",
+        "netId": "NC",
+        "xMm": 22.606,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "4",
+        "pin": "NC4",
+        "netId": "NC",
+        "xMm": 25.146,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "5",
+        "pin": "NC5",
+        "netId": "NC",
+        "xMm": 27.686,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "6",
+        "pin": "NC6",
+        "netId": "NC",
+        "xMm": 30.226,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "7",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 32.766,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:VCC"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "8",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 35.306,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:GND"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "9",
+        "pin": "NC9",
+        "netId": "NC",
+        "xMm": 37.846,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "10",
+        "pin": "NC10",
+        "netId": "NC",
+        "xMm": 40.386,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "11",
+        "pin": "NC11",
+        "netId": "NC",
+        "xMm": 42.926,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "12",
+        "pin": "NC12",
+        "netId": "NC",
+        "xMm": 45.466,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "13",
+        "pin": "NC13",
+        "netId": "NC",
+        "xMm": 48.006,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "14",
+        "pin": "D8",
+        "netId": "ECHO",
+        "xMm": 50.546,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:D8"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "15",
+        "pin": "D9",
+        "netId": "TRIG",
+        "xMm": 50.546,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:D9"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "16",
+        "pin": "NC16",
+        "netId": "NC",
+        "xMm": 48.006,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "17",
+        "pin": "NC17",
+        "netId": "NC",
+        "xMm": 45.466,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "18",
+        "pin": "NC18",
+        "netId": "NC",
+        "xMm": 42.926,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "19",
+        "pin": "NC19",
+        "netId": "NC",
+        "xMm": 40.386,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "20",
+        "pin": "AVCC",
+        "netId": "VCC",
+        "xMm": 37.846,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:AVCC"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "21",
+        "pin": "NC21",
+        "netId": "NC",
+        "xMm": 35.306,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "22",
+        "pin": "AGND",
+        "netId": "GND",
+        "xMm": 32.766,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:AGND"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "23",
+        "pin": "NC23",
+        "netId": "NC",
+        "xMm": 30.226,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "24",
+        "pin": "NC24",
+        "netId": "NC",
+        "xMm": 27.686,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "25",
+        "pin": "NC25",
+        "netId": "NC",
+        "xMm": 25.146,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "26",
+        "pin": "NC26",
+        "netId": "NC",
+        "xMm": 22.606,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "27",
+        "pin": "SDA",
+        "netId": "OLED_SDA",
+        "xMm": 20.066,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:SDA"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "28",
+        "pin": "SCL",
+        "netId": "OLED_SCL",
+        "xMm": 17.526,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:SCL"
+      },
+      {
+        "instanceId": "sensor",
+        "reference": "J2",
+        "number": "1",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 55.626,
+        "yMm": 9.906,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "sensor:VCC"
+      },
+      {
+        "instanceId": "sensor",
+        "reference": "J2",
+        "number": "2",
+        "pin": "TRIG",
+        "netId": "TRIG",
+        "xMm": 55.626,
+        "yMm": 12.446,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "sensor:TRIG"
+      },
+      {
+        "instanceId": "sensor",
+        "reference": "J2",
+        "number": "3",
+        "pin": "ECHO",
+        "netId": "ECHO",
+        "xMm": 55.626,
+        "yMm": 14.986,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "sensor:ECHO"
+      },
+      {
+        "instanceId": "sensor",
+        "reference": "J2",
+        "number": "4",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 55.626,
+        "yMm": 17.526,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "sensor:GND"
+      },
+      {
+        "instanceId": "oled",
+        "reference": "J3",
+        "number": "1",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 10.668,
+        "yMm": 8.128,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "oled:GND"
+      },
+      {
+        "instanceId": "oled",
+        "reference": "J3",
+        "number": "2",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 13.208,
+        "yMm": 8.128,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "oled:VCC"
+      },
+      {
+        "instanceId": "oled",
+        "reference": "J3",
+        "number": "3",
+        "pin": "SDA",
+        "netId": "OLED_SDA",
+        "xMm": 15.748,
+        "yMm": 8.128,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "oled:SDA"
+      },
+      {
+        "instanceId": "oled",
+        "reference": "J3",
+        "number": "4",
+        "pin": "SCL",
+        "netId": "OLED_SCL",
+        "xMm": 18.288,
+        "yMm": 8.128,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "oled:SCL"
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C2",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "MCU_RESET_N"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "ATMEGA328P-PU",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "package": "Microchip_ATMEGA328P-PU_SPDIP-28_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "MCU_RESET_N",
+          "2": "NC",
+          "3": "NC",
+          "4": "NC",
+          "5": "NC",
+          "6": "NC",
+          "7": "VCC",
+          "8": "GND",
+          "9": "NC",
+          "10": "NC",
+          "11": "NC",
+          "12": "NC",
+          "13": "NC",
+          "14": "ECHO",
+          "15": "TRIG",
+          "16": "NC",
+          "17": "NC",
+          "18": "NC",
+          "19": "NC",
+          "20": "VCC",
+          "21": "NC",
+          "22": "GND",
+          "23": "NC",
+          "24": "NC",
+          "25": "NC",
+          "26": "NC",
+          "27": "OLED_SDA",
+          "28": "OLED_SCL"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-104-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
+        "package": "Samtec_TSW-104-07-T-S_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "TRIG",
+          "3": "ECHO",
+          "4": "GND"
+        }
+      },
+      {
+        "reference": "J3",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-104-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
+        "package": "Samtec_TSW-104-07-T-S_P2.54mm",
+        "pinMapping": {
+          "1": "GND",
+          "2": "VCC",
+          "3": "OLED_SDA",
+          "4": "OLED_SCL"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.766,
+            20.32
+          ],
+          [
+            33.782,
+            20.32
+          ],
+          [
+            33.782,
+            21.336
+          ],
+          [
+            34.036,
+            21.336
+          ],
+          [
+            34.036,
+            21.59
+          ],
+          [
+            34.29,
+            21.59
+          ],
+          [
+            34.29,
+            21.844
+          ],
+          [
+            35.306,
+            21.844
+          ],
+          [
+            35.306,
+            27.94
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            26.924,
+            13.97
+          ],
+          [
+            30.48,
+            13.97
+          ],
+          [
+            30.48,
+            14.986
+          ],
+          [
+            30.734,
+            14.986
+          ],
+          [
+            30.734,
+            15.24
+          ],
+          [
+            30.988,
+            15.24
+          ],
+          [
+            30.988,
+            15.494
+          ],
+          [
+            32.766,
+            15.494
+          ],
+          [
+            32.766,
+            20.32
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            35.306,
+            27.94
+          ],
+          [
+            34.29,
+            27.94
+          ],
+          [
+            34.29,
+            28.956
+          ],
+          [
+            34.036,
+            28.956
+          ],
+          [
+            34.036,
+            29.21
+          ],
+          [
+            33.782,
+            29.21
+          ],
+          [
+            33.782,
+            29.464
+          ],
+          [
+            27.432,
+            29.464
+          ],
+          [
+            27.432,
+            37.084
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            10.668,
+            8.128
+          ],
+          [
+            11.684,
+            8.128
+          ],
+          [
+            11.684,
+            9.144
+          ],
+          [
+            11.938,
+            9.144
+          ],
+          [
+            11.938,
+            9.398
+          ],
+          [
+            12.192,
+            9.398
+          ],
+          [
+            12.192,
+            9.652
+          ],
+          [
+            26.924,
+            9.652
+          ],
+          [
+            26.924,
+            13.97
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            27.432
+          ],
+          [
+            10.668,
+            27.432
+          ],
+          [
+            10.668,
+            8.128
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.766,
+            20.32
+          ],
+          [
+            33.782,
+            20.32
+          ],
+          [
+            33.782,
+            19.304
+          ],
+          [
+            34.036,
+            19.304
+          ],
+          [
+            34.036,
+            19.05
+          ],
+          [
+            34.29,
+            19.05
+          ],
+          [
+            34.29,
+            18.796
+          ],
+          [
+            55.626,
+            18.796
+          ],
+          [
+            55.626,
+            17.526
+          ]
+        ]
+      },
+      {
+        "netId": "MCU_RESET_N",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            20.32,
+            33.528
+          ],
+          [
+            17.526,
+            33.528
+          ],
+          [
+            17.526,
+            27.94
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.766,
+            27.94
+          ],
+          [
+            32.512,
+            27.94
+          ],
+          [
+            32.512,
+            37.084
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.004,
+            13.97
+          ],
+          [
+            37.846,
+            13.97
+          ],
+          [
+            37.846,
+            20.32
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            37.846,
+            20.32
+          ],
+          [
+            36.83,
+            20.32
+          ],
+          [
+            36.83,
+            21.336
+          ],
+          [
+            36.576,
+            21.336
+          ],
+          [
+            36.576,
+            21.59
+          ],
+          [
+            36.322,
+            21.59
+          ],
+          [
+            36.322,
+            21.844
+          ],
+          [
+            32.766,
+            21.844
+          ],
+          [
+            32.766,
+            27.94
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            24.892
+          ],
+          [
+            10.16,
+            24.892
+          ],
+          [
+            10.16,
+            33.528
+          ]
+        ]
+      },
+      {
+        "netId": "TRIG",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            50.546,
+            20.32
+          ],
+          [
+            54.102,
+            20.32
+          ],
+          [
+            54.102,
+            13.97
+          ],
+          [
+            54.356,
+            13.97
+          ],
+          [
+            54.356,
+            13.716
+          ],
+          [
+            54.61,
+            13.716
+          ],
+          [
+            54.61,
+            13.462
+          ],
+          [
+            55.626,
+            13.462
+          ],
+          [
+            55.626,
+            12.446
+          ]
+        ]
+      },
+      {
+        "netId": "OLED_SCL",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            17.526,
+            20.32
+          ],
+          [
+            18.288,
+            20.32
+          ],
+          [
+            18.288,
+            8.128
+          ]
+        ]
+      },
+      {
+        "netId": "OLED_SDA",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            20.066,
+            20.32
+          ],
+          [
+            19.304,
+            20.32
+          ],
+          [
+            19.304,
+            20.828
+          ],
+          [
+            19.05,
+            20.828
+          ],
+          [
+            19.05,
+            21.336
+          ],
+          [
+            18.796,
+            21.336
+          ],
+          [
+            18.796,
+            21.59
+          ],
+          [
+            18.542,
+            21.59
+          ],
+          [
+            18.542,
+            21.844
+          ],
+          [
+            15.748,
+            21.844
+          ],
+          [
+            15.748,
+            8.128
+          ]
+        ]
+      },
+      {
+        "netId": "ECHO",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            50.546,
+            27.94
+          ],
+          [
+            55.88,
+            27.94
+          ],
+          [
+            55.88,
+            19.812
+          ],
+          [
+            56.134,
+            19.812
+          ],
+          [
+            56.134,
+            19.558
+          ],
+          [
+            56.388,
+            19.558
+          ],
+          [
+            56.388,
+            19.304
+          ],
+          [
+            56.642,
+            19.304
+          ],
+          [
+            56.642,
+            18.796
+          ],
+          [
+            56.896,
+            18.796
+          ],
+          [
+            56.896,
+            18.542
+          ],
+          [
+            57.15,
+            18.542
+          ],
+          [
+            57.15,
+            16.51
+          ],
+          [
+            56.896,
+            16.51
+          ],
+          [
+            56.896,
+            16.256
+          ],
+          [
+            56.642,
+            16.256
+          ],
+          [
+            56.642,
+            16.002
+          ],
+          [
+            55.626,
+            16.002
+          ],
+          [
+            55.626,
+            14.986
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            24.892
+          ],
+          [
+            13.208,
+            24.892
+          ],
+          [
+            13.208,
+            8.128
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            13.208,
+            8.128
+          ],
+          [
+            14.224,
+            8.128
+          ],
+          [
+            14.224,
+            7.112
+          ],
+          [
+            14.478,
+            7.112
+          ],
+          [
+            14.478,
+            6.858
+          ],
+          [
+            14.732,
+            6.858
+          ],
+          [
+            14.732,
+            6.604
+          ],
+          [
+            32.004,
+            6.604
+          ],
+          [
+            32.004,
+            13.97
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.004,
+            13.97
+          ],
+          [
+            54.102,
+            13.97
+          ],
+          [
+            54.102,
+            11.43
+          ],
+          [
+            54.356,
+            11.43
+          ],
+          [
+            54.356,
+            11.176
+          ],
+          [
+            54.61,
+            11.176
+          ],
+          [
+            54.61,
+            10.922
+          ],
+          [
+            55.626,
+            10.922
+          ],
+          [
+            55.626,
+            9.906
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External stimulus or supply connects through J1."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "fabricationNotes": "J1 supplies 5 V. J2 connects the US-100 in trigger/echo mode. J3 connects the Adafruit 4440 OLED. Program U1 for the internal 8 MHz oscillator without division."
+  }
 }

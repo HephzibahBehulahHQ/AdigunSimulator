@@ -124,6 +124,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.potentiometer-adc-ideal", category: "Inputs", type: "Ideal potentiometer-to-ADC fixture", prefix: "RV", pins: ["VCC", "OUT", "GND"], defaultValue: "Position 50%; Resolution 10 bit", simulation: "fixture-potentiometer-adc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.temperature-analog-ideal", category: "Sensors", type: "Ideal linear analog temperature sensor model", prefix: "TS", pins: ["VCC", "OUT", "GND"], defaultValue: "Temperature 25 C; Scale 10 mV/C; Offset 0 mV", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.lcd-text-sink-ideal", category: "Output", type: "Ideal single-line LCD text sink (behavior model)", prefix: "LCD", pins: ["DATA", "VCC", "GND"], defaultValue: "16-character text row", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.atmega328p-ultrasonic-ranger", category: "Active", type: "ATmega328P-PU ultrasonic ranger", prefix: "U", pins: ["D9", "D8", "SDA", "SCL", "MCU_RESET_N", "VCC", "AVCC", "GND", "AGND"], defaultValue: "Program Ultrasonic ranger; Trigger D9; Echo D8; Display I2C", simulation: "analytical-ultrasonic-range", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "sensor.us100-echo-port", category: "Sensors", type: "Off-board US-100 trigger and echo port", prefix: "J", pins: ["VCC", "TRIG", "ECHO", "GND"], defaultValue: "Echo 5882 us; Minimum 20 mm; Maximum 4000 mm", simulation: "analytical-ultrasonic-range", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.ssd1306-oled-port", category: "Output", type: "Off-board SSD1306 I2C display port", prefix: "J", pins: ["GND", "VCC", "SDA", "SCL"], defaultValue: "Adafruit 4440 SSD1306; I2C 0x3C", simulation: "analytical-ultrasonic-range", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.ultrasonic-echo-ideal", category: "Sensors", type: "Ideal ultrasonic echo-time sensor model", prefix: "US", pins: ["TRIG", "ECHO", "VCC", "GND"], defaultValue: "Echo 5882 us; Minimum 20 mm; Maximum 4000 mm", simulation: "analytical-ultrasonic-range", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.oled-text-sink-ideal", category: "Output", type: "Ideal OLED text sink (behavior model)", prefix: "OLED", pins: ["DATA", "VCC", "GND"], defaultValue: "Distance result", simulation: "analytical-ultrasonic-range", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.servo-angle-ideal", category: "Output", type: "Ideal hobby-servo position model", prefix: "SERVO", pins: ["PWM", "VCC", "GND"], defaultValue: "MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz", simulation: "analytical-servo-position", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -1302,6 +1305,12 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (servoModels.length === 1 && adcPotentiometers.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuServoControl(project, { source: source[0], mcu: mcuControllers[0], potentiometer: adcPotentiometers[0], servo: servoModels[0], ground: ground[0], validation });
+  }
+  const rangeController = project.components.find(item => item.libraryId === "active.atmega328p-ultrasonic-ranger");
+  const sonarPort = project.components.find(item => item.libraryId === "sensor.us100-echo-port");
+  const oledPort = project.components.find(item => item.libraryId === "output.ssd1306-oled-port");
+  if (rangeController && sonarPort && oledPort && source.length === 1 && ground.length === 1 && capacitor.length === 2 && resistor.length === 1 && project.components.length === 8) {
+    return analyseMcuUltrasonicRanger(project, { source: source[0], mcu: rangeController, sensor: sonarPort, oled: oledPort, ground: ground[0], bypass: capacitor, resistors: resistor, validation });
   }
   if (ultrasonicSensors.length === 1 && oledSinks.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuUltrasonicRanger(project, { source: source[0], mcu: mcuControllers[0], sensor: ultrasonicSensors[0], oled: oledSinks[0], ground: ground[0], validation });
@@ -3042,15 +3051,22 @@ function analyseMcuServoControl(project,{source,mcu,potentiometer,servo,ground,v
   const positionFraction=adcCount/1023,pulseWidthUs=minPulse+positionFraction*(maxPulse-minPulse),angleDegrees=minAngle+positionFraction*(maxAngle-minAngle);
   return {state:"complete",engine:"Ideal Uno-class hobby-servo pulse mapping",message:"Maps the 10-bit potentiometer reading linearly to the configured servo angle and pulse width. Arduino C++ execution, servo torque, mechanics, backlash, supply transients, and device-specific pulse calibration are omitted.",result:{kind:"mcu-servo-control",positionPercent:position,adcResolutionBits:10,adcCount,pwmFrequencyHz:frequency,pulseWidthUs,angleDegrees,angleRangeDegrees:[minAngle,maxAngle],firmwareExecuted:false},validation};
 }
-function analyseMcuUltrasonicRanger(project,{source,mcu,sensor,oled,ground,validation}){
+function analyseMcuUltrasonicRanger(project,{source,mcu,sensor,oled,ground,bypass,resistors,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
   const echoUs=Number(field(sensorFields,"Echo")?.split(/\s+/)[0]),minimumMm=Number(field(sensorFields,"Minimum")?.split(/\s+/)[0]),maximumMm=Number(field(sensorFields,"Maximum")?.split(/\s+/)[0]);
   const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
-  const wired=n(mcu,"D9")===n(sensor,"TRIG")&&n(sensor,"ECHO")===n(mcu,"D8")&&n(mcu,"D7")===n(oled,"DATA");
-  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(mcu,"GND")!==groundNet||n(sensor,"VCC")!==vccNet||n(sensor,"GND")!==groundNet||n(oled,"VCC")!==vccNet||n(oled,"GND")!==groundNet||!wired||field(mcuFields,"Program")?.toLowerCase()!=="ultrasonic ranger"||field(mcuFields,"Trigger")!=="D9"||field(mcuFields,"Echo")!=="D8"||field(mcuFields,"Display")!=="D7"||!Number.isFinite(echoUs)||echoUs<=0||echoUs>25000||!Number.isFinite(minimumMm)||!Number.isFinite(maximumMm)||minimumMm<=0||maximumMm<=minimumMm){
-    return {state:"blocked",message:"Wire D9 to trigger, sensor echo to D8, OLED data to D7, share power/ground, and set an echo time from 1 to 25000 µs with valid range limits.",validation};
+  const connected=(left,leftPin,right,rightPin)=>Boolean(n(left,leftPin))&&n(left,leftPin)===n(right,rightPin);
+  const displayWired=bypass
+    ? connected(mcu,"SDA",oled,"SDA")&&connected(mcu,"SCL",oled,"SCL")
+    : connected(mcu,"D7",oled,"DATA");
+  const wired=connected(mcu,"D9",sensor,"TRIG")&&connected(sensor,"ECHO",mcu,"D8")&&displayWired;
+  if (bypass&&(!vccNet||!groundNet||supplyVoltage!==5||!validAvrSupply(mcu,resistors,bypass,n,vccNet,groundNet))) {
+    return {state:"blocked",message:"Use regulated 5 V, connect both AVR supply and ground pins, add both bypass capacitors and pull MCU reset up.",validation};
+  }
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(mcu,"GND")!==groundNet||n(sensor,"VCC")!==vccNet||n(sensor,"GND")!==groundNet||n(oled,"VCC")!==vccNet||n(oled,"GND")!==groundNet||!wired||field(mcuFields,"Program")?.toLowerCase()!=="ultrasonic ranger"||field(mcuFields,"Trigger")!=="D9"||field(mcuFields,"Echo")!=="D8"||field(mcuFields,"Display")!==(bypass?"I2C":"D7")||!Number.isFinite(echoUs)||echoUs<=0||echoUs>25000||!Number.isFinite(minimumMm)||!Number.isFinite(maximumMm)||minimumMm<=0||maximumMm<=minimumMm){
+    return {state:"blocked",message:bypass?"Wire D9 to US-100 trigger and D8 to echo. Connect OLED SDA and SCL, share power and ground, and use an echo time from 1 to 25000 µs.":"Wire D9 to trigger, sensor echo to D8, OLED data to D7, share power/ground, and set an echo time from 1 to 25000 µs with valid range limits.",validation};
   }
   const roundTripUs=echoUs,distanceMm=roundTripUs*0.343/2,measurementValid=distanceMm>=minimumMm&&distanceMm<=maximumMm;
   const displayText=measurementValid?(distanceMm/10).toFixed(1)+" cm":"Out of range";
