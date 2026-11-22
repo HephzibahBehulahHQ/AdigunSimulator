@@ -281,6 +281,15 @@ test('offline telemetry scope displays only the model-backed ADC voltage',async(
  assert.deepEqual(scopeRecording.samples,[0,.5].map(timeSeconds=>({timeSeconds,nodeVoltages:{ADC:.75}})));
 });
 
+test('Pico voltmeter scope displays the ideal 3 V divider midpoint',async()=>{
+ const p=await load('069-pico-adc-voltmeter');
+ const {result,scopeRecording}=runProjectAnalysis(p);
+ assert.equal(result.inputVoltageV,12);
+ assert.equal(scopeRecording.preferredNet,'ADC_MID');
+ assert.equal(scopeRecording.model,'Ideal Pico ADC divider voltage');
+ assert.deepEqual(scopeRecording.samples,[0,.25].map(timeSeconds=>({timeSeconds,nodeVoltages:{ADC_MID:3}})));
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);

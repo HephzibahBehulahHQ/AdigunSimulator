@@ -1,0 +1,36 @@
+name: Build Pico voltmeter firmware
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'examples/069-pico-adc-voltmeter/**/*.ino'
+      - '.github/workflows/pico-example-firmware.yml'
+  pull_request:
+    paths:
+      - 'examples/069-pico-adc-voltmeter/**/*.ino'
+      - '.github/workflows/pico-example-firmware.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+        with:
+          version: '1.2.2'
+      - name: Install pinned Arduino Pico core and OLED libraries
+        env:
+          BOARD_INDEX: https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+        run: |
+          arduino-cli core update-index --additional-urls "$BOARD_INDEX"
+          arduino-cli core install rp2040:rp2040@5.7.0 --additional-urls "$BOARD_INDEX"
+          arduino-cli lib install --no-deps "Adafruit SSD1306@2.5.13" "Adafruit GFX Library@1.12.4" "Adafruit BusIO@1.17.4"
+      - name: Compile the Raspberry Pi Pico sketch
+        run: |
+          arduino-cli compile --fqbn rp2040:rp2040:rpipico \
+            --output-dir "$RUNNER_TEMP/pico-voltmeter" examples/069-pico-adc-voltmeter
+          test -s "$RUNNER_TEMP/pico-voltmeter/069-pico-adc-voltmeter.ino.uf2"

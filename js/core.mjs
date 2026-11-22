@@ -142,6 +142,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.uart-telemetry-port", category: "Output", type: "Local 3.3 V UART telemetry port", prefix: "J", pins: ["DATA", "GND"], defaultValue: "3.3 V UART; 9600 8N1", simulation: "analytical-esp32-telemetry", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.esp32-telemetry-ideal", category: "Active", type: "Ideal ESP32-class sensor telemetry formatter", prefix: "U", pins: ["ADC", "TX", "VCC", "GND"], defaultValue: "Device esp32-node-01; Sequence 1; Transport offline-mock", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.telemetry-payload-sink", category: "Output", type: "Offline telemetry payload viewer", prefix: "OUT", pins: ["DATA", "GND"], defaultValue: "JSON payload", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.raspberry-pi-pico-voltmeter", category: "Active", type: "Raspberry Pi Pico ADC voltmeter", prefix: "U", pins: ["ADC0", "AGND", "VCC", "GND", "SDA", "SCL"], defaultValue: "ADC 12 bit; Reference 3.3 V; Power USB; Divider gain 4", simulation: "analytical-pico-voltmeter", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.pico-ssd1306-oled-port", category: "Output", type: "Off-board 3.3 V SSD1306 I2C display port", prefix: "J", pins: ["GND", "VCC", "SDA", "SCL"], defaultValue: "Adafruit 4440 SSD1306; I2C 0x3C", simulation: "analytical-pico-voltmeter", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.rp2040-pico-ideal", category: "Active", type: "Ideal RP2040 Pico ADC/display controller (behavior model)", prefix: "U", pins: ["ADC0", "TX", "VCC", "GND"], defaultValue: "ADC 12 bit; Reference 3.3 V; Calibrate divider", simulation: "analytical-pico-voltmeter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.stm32-timer-ideal", category: "Boards", type: "ST NUCLEO-G031K8 (MB1455) development board with ideal TIM2 PWM behavior", prefix: "U", pins: ["PA0", "VCC", "GND"], defaultValue: "NUCLEO-G031K8; CN4 pin 12 A0/PA0; CN4 pin 14 +3V3; CN4 pin 2 GND; ClockHz 64000000; Prescaler 63; AutoReload 999; Compare 499", simulation: "analytical-stm32-timer-pwm", status: "ST board and connector map source-backed; PWM behavior is ideal, firmware and physical GPIO limits are not simulated", sources: ["https://www.st.com/resource/en/user_manual/um2591-stm32g0-nucleo32-board-mb1455-stmicroelectronics.pdf", "https://www.st.com/resource/en/schematic_pack/mb1455-g031k8-d01-schematic.pdf"], views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.pic-adc-bargraph-ideal", category: "Active", type: "Generic PIC 10-bit ADC and bargraph behavior model", prefix: "U", pins: ["AN0", "BAR0", "BAR1", "BAR2", "BAR3", "BAR4", "BAR5", "BAR6", "BAR7", "BAR8", "BAR9", "VDD", "VSS"], defaultValue: "Program ADC bargraph; ADC AN0; Resolution 10 bit; Channels 10", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -1301,6 +1303,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (irFrames.length === 1 && irReceivers.length === 1 && avrIrDecoders.length === 1 && irCodeDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseAvrIrReceiver(project, { source: source[0], frame: irFrames[0], receiver: irReceivers[0], avr: avrIrDecoders[0], display: irCodeDisplays[0], ground: ground[0], validation });
+  }
+  const picoMeter = project.components.find(item => item.libraryId === "active.raspberry-pi-pico-voltmeter");
+  const picoOled = project.components.find(item => item.libraryId === "output.pico-ssd1306-oled-port");
+  if (picoMeter && picoOled && source.length === 1 && resistor.length === 2 && capacitor.length === 1 && ground.length === 1 && project.components.length === 7) {
+    return analysePicoVoltmeter(project, { sources: source, pico: picoMeter, resistors: resistor, oled: picoOled, inputFilter: capacitor[0], ground: ground[0], validation });
   }
   if (picoControllers.length === 1 && source.length === 2 && resistor.length === 2 && oledSinks.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analysePicoVoltmeter(project, { sources: source, pico: picoControllers[0], resistors: resistor, oled: oledSinks[0], ground: ground[0], validation });
@@ -3012,26 +3019,31 @@ function analyseAvrIrReceiver(project,{source,frame,receiver,avr,display,ground,
   const displayText="Address 0x"+address.toString(16).padStart(2,"0").toUpperCase()+"  Command 0x"+command.toString(16).padStart(2,"0").toUpperCase();
   return {state:"complete",engine:"Ideal AVR NEC-like infrared frame decoder",message:"Checks an ideal 38 kHz demodulated frame, timing tolerances, LSB-first byte order, and byte complements. Carrier waveform, optical range, ambient light, receiver AGC, AVR firmware, and physical timing margins are not modeled.",result:{kind:"avr-ir-receiver",protocol:"NEC-like",rawCode:"0x"+rawCode,address:"0x"+bytes[0].toString(16).padStart(2,"0").toUpperCase(),command:"0x"+bytes[2].toString(16).padStart(2,"0").toUpperCase(),bitOrder:"LSB-first within each byte",bitCount:bits.length,oneBits:ones,zeroBits:zeros,carrierHz:timing.carrierHz,tolerancePercent:tolerance,frameDurationUs,displayText,firmwareExecuted:false},validation};
 }
-function analysePicoVoltmeter(project,{sources,pico,resistors,oled,ground,validation}){
+function analysePicoVoltmeter(project,{sources,pico,resistors,oled,inputFilter,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),groundNet=n(ground,"0"),vccNet=n(pico,"VCC");
   const logicSource=sources.find(s=>n(s,"+")===vccNet&&n(s,"-")===groundNet),senseSource=sources.find(s=>s!==logicSource&&n(s,"-")===groundNet);
-  const inputVoltage=senseSource?voltageValue(senseSource.value):Number.NaN,referenceVoltage=logicSource?voltageValue(logicSource.value):Number.NaN;
+  const senseNet=senseSource&&n(senseSource,"+");
+  const inputVoltage=senseSource?voltageValue(senseSource.value):Number.NaN,referenceVoltage=inputFilter?3.3:logicSource?voltageValue(logicSource.value):Number.NaN;
   const divider=resistors.flatMap(top=>resistors.filter(bottom=>bottom!==top).map(bottom=>{
     const midpoint=n(top,"1")===n(bottom,"1")||n(top,"1")===n(bottom,"2")?n(top,"1"):n(top,"2")===n(bottom,"1")||n(top,"2")===n(bottom,"2")?n(top,"2"):undefined;
     const topOther=n(top,"1")===midpoint?n(top,"2"):n(top,"1"),bottomOther=n(bottom,"1")===midpoint?n(bottom,"2"):n(bottom,"1");
-    return {top,bottom,midpoint,topOther,bottomOther,valid:midpoint&&topOther===n(senseSource,"+")&&bottomOther===groundNet};
+    return {top,bottom,midpoint,topOther,bottomOther,valid:midpoint&&senseNet&&topOther===senseNet&&bottomOther===groundNet};
   })).find(item=>item.valid);
-  if(!logicSource||!senseSource||!Number.isFinite(inputVoltage)||inputVoltage<=0||!Number.isFinite(referenceVoltage)||referenceVoltage<=0||!divider||n(pico,"GND")!==groundNet||n(oled,"VCC")!==vccNet||n(oled,"GND")!==groundNet||n(pico,"TX")!==n(oled,"DATA")||n(pico,"ADC0")!==divider.midpoint){
-    return {state:"blocked",message:"Wire separate sensed-input and 3.3 V logic supplies, connect a two-resistor divider midpoint to ADC0, ground the lower resistor, and connect the OLED text output.",validation};
+  const displayConnected=inputFilter ? ["SDA","SCL"].every(pin=>n(pico,pin)&&n(pico,pin)===n(oled,pin)) : n(pico,"TX")&&n(pico,"TX")===n(oled,"DATA");
+  if(!groundNet||!vccNet||vccNet===groundNet||(!logicSource&&!inputFilter)||!senseSource||!Number.isFinite(inputVoltage)||inputVoltage<0||(!inputFilter&&inputVoltage===0)||!Number.isFinite(referenceVoltage)||referenceVoltage<=0||!divider||n(pico,"GND")!==groundNet||n(oled,"VCC")!==vccNet||n(oled,"GND")!==groundNet||!displayConnected||n(pico,"ADC0")!==divider.midpoint){
+    return {state:"blocked",message:inputFilter?"Connect the sensed input to the two-resistor divider, its midpoint to ADC0, and the OLED to 3V3, ground, SDA and SCL.":"Wire separate sensed-input and 3.3 V logic supplies, connect a two-resistor divider midpoint to ADC0, ground the lower resistor, and connect the OLED text output.",validation};
   }
   const upperResistance=resistanceValue(divider.top.value),lowerResistance=resistanceValue(divider.bottom.value);
   if(!Number.isFinite(upperResistance)||!Number.isFinite(lowerResistance)||upperResistance<=0||lowerResistance<=0)return {state:"blocked",message:"Both divider resistors must have positive numeric values.",validation};
+  if (inputFilter&&(!validSupplyBypass(inputFilter,n,divider.midpoint,groundNet)||n(pico,"AGND")!==groundNet||upperResistance!==30000||lowerResistance!==10000)) {
+    return {state:"blocked",message:"Connect Pico AGND and the ADC input capacitor to the common return, and use the firmware's 30 k / 10 k divider.",validation};
+  }
   const dividerVoltage=inputVoltage*lowerResistance/(upperResistance+lowerResistance);
   if(!Number.isFinite(dividerVoltage)||dividerVoltage<0||dividerVoltage>referenceVoltage)return {state:"blocked",message:"The divider output exceeds the configured ADC reference; this ideal model blocks the measurement and does not estimate physical input protection.",validation};
   const adcCount=Math.round(dividerVoltage/referenceVoltage*4095),measuredDividerVoltage=adcCount/4095*referenceVoltage,estimatedInputVoltage=measuredDividerVoltage*(upperResistance+lowerResistance)/lowerResistance;
   const displayText="Vin "+estimatedInputVoltage.toFixed(2)+" V";
-  return {state:"complete",engine:"Ideal Pico 12-bit ADC divider voltmeter",message:"Quantizes a protected divider voltage with an ideal 12-bit ADC and applies the known divider ratio for an OLED reading. ADC nonlinearity, input leakage, resistor tolerance, calibration error, and C++ firmware are omitted.",result:{kind:"pico-adc-voltmeter",inputVoltageV:inputVoltage,dividerVoltageV:dividerVoltage,adcReferenceV:referenceVoltage,adcResolutionBits:12,adcCount,measuredDividerVoltageV:measuredDividerVoltage,upperResistanceOhm:upperResistance,lowerResistanceOhm:lowerResistance,estimatedInputVoltageV:estimatedInputVoltage,displayText,firmwareExecuted:false},validation};
+  return {state:"complete",engine:"Ideal Pico 12-bit ADC divider voltmeter",message:"Quantizes the divider voltage with an ideal 12-bit ADC and applies the known divider ratio for an OLED reading. ADC nonlinearity, input leakage, resistor tolerance, calibration error, and C++ firmware are omitted.",result:{kind:"pico-adc-voltmeter",inputVoltageV:inputVoltage,dividerVoltageV:dividerVoltage,adcReferenceV:referenceVoltage,adcResolutionBits:12,adcCount,measuredDividerVoltageV:measuredDividerVoltage,upperResistanceOhm:upperResistance,lowerResistanceOhm:lowerResistance,estimatedInputVoltageV:estimatedInputVoltage,displayText,firmwareExecuted:false},validation};
 }
 function analyseEsp32Telemetry(project,{source,esp32,sensor,sink,ground,bypass,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);

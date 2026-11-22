@@ -19,48 +19,28 @@
           55
         ],
         "schematic": [
-          35,
-          55
+          53,
+          118
         ],
         "pcb": [
           35,
-          55
-        ]
-      }
-    },
-    {
-      "instanceId": "logic",
-      "libraryId": "power.dc-source",
-      "reference": "VLOGIC",
-      "value": "3.3 V",
-      "position": {
-        "breadboard": [
-          110,
-          55
-        ],
-        "schematic": [
-          110,
-          55
-        ],
-        "pcb": [
-          110,
           55
         ]
       }
     },
     {
       "instanceId": "pico",
-      "libraryId": "active.rp2040-pico-ideal",
+      "libraryId": "active.raspberry-pi-pico-voltmeter",
       "reference": "U1",
-      "value": "ADC 12 bit; Reference 3.3 V; Calibrate divider",
+      "value": "ADC 12 bit; Reference 3.3 V; Power USB; Divider gain 4",
       "position": {
         "breadboard": [
           205,
           55
         ],
         "schematic": [
-          205,
-          55
+          312,
+          126
         ],
         "pcb": [
           205,
@@ -79,8 +59,8 @@
           55
         ],
         "schematic": [
-          300,
-          55
+          139,
+          63
         ],
         "pcb": [
           300,
@@ -99,8 +79,8 @@
           55
         ],
         "schematic": [
-          365,
-          55
+          145,
+          186
         ],
         "pcb": [
           365,
@@ -110,17 +90,17 @@
     },
     {
       "instanceId": "oled",
-      "libraryId": "output.oled-text-sink-ideal",
-      "reference": "OLED1",
-      "value": "Voltage result",
+      "libraryId": "output.pico-ssd1306-oled-port",
+      "reference": "J2",
+      "value": "Adafruit 4440 SSD1306; I2C 0x3C",
       "position": {
         "breadboard": [
           440,
           55
         ],
         "schematic": [
-          440,
-          55
+          491,
+          123
         ],
         "pcb": [
           440,
@@ -139,13 +119,40 @@
           55
         ],
         "schematic": [
-          540,
-          55
+          508,
+          229
         ],
         "pcb": [
           540,
           55
         ]
+      }
+    },
+    {
+      "instanceId": "adc-filter",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          184,
+          42
+        ],
+        "schematic": [
+          230,
+          204
+        ],
+        "pcb": [
+          184,
+          42
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
       }
     }
   ],
@@ -162,13 +169,13 @@
       "endpoints": [
         "upper:2",
         "lower:1",
-        "pico:ADC0"
+        "pico:ADC0",
+        "adc-filter:1"
       ]
     },
     {
       "id": "VCC",
       "endpoints": [
-        "logic:+",
         "pico:VCC",
         "oled:VCC"
       ]
@@ -177,20 +184,2031 @@
       "id": "GROUND",
       "endpoints": [
         "vin:-",
-        "logic:-",
         "pico:GND",
         "lower:2",
         "oled:GND",
-        "ground:0"
+        "ground:0",
+        "pico:AGND",
+        "adc-filter:2"
       ]
     },
     {
-      "id": "OLED_DATA",
+      "id": "OLED_SDA",
       "endpoints": [
-        "pico:TX",
-        "oled:DATA"
+        "pico:SDA",
+        "oled:SDA"
+      ]
+    },
+    {
+      "id": "OLED_SCL",
+      "endpoints": [
+        "pico:SCL",
+        "oled:SCL"
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "vin:+": "H25",
+      "vin:-": "BM1",
+      "pico:SDA": "D10",
+      "pico:SCL": "D11",
+      "pico:ADC0": "I14",
+      "pico:AGND": "I12",
+      "pico:VCC": "I9",
+      "pico:GND": "I7",
+      "upper:1": "G25",
+      "upper:2": "G29",
+      "lower:1": "B25",
+      "lower:2": "B29",
+      "oled:GND": "A1",
+      "oled:VCC": "A2",
+      "oled:SDA": "A3",
+      "oled:SCL": "A4",
+      "adc-filter:1": "J26",
+      "adc-filter:2": "J28"
+    },
+    "jumpers": [
+      {
+        "from": "B1",
+        "to": "BM2"
+      },
+      {
+        "from": "B2",
+        "to": "TP4"
+      },
+      {
+        "from": "B3",
+        "to": "C10"
+      },
+      {
+        "from": "B4",
+        "to": "C11"
+      },
+      {
+        "from": "H9",
+        "to": "TP2"
+      },
+      {
+        "from": "C25",
+        "to": "J14"
+      },
+      {
+        "from": "H29",
+        "to": "H14"
+      },
+      {
+        "from": "I26",
+        "to": "G14"
+      },
+      {
+        "from": "H12",
+        "to": "BM7"
+      },
+      {
+        "from": "H7",
+        "to": "BM3"
+      },
+      {
+        "from": "H28",
+        "to": "BM8"
+      },
+      {
+        "from": "A29",
+        "to": "BM6"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "physicalNotes": [
+      "Orient the Pico USB connector toward column 5 and power the Pico over USB before applying the sensed DC voltage.",
+      "Fit 30 kOhm from VIN to ADC0 and 10 kOhm from ADC0 to ground. J2 uses 3.3 V and connects to the display by its pin markings."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "vin",
+          "reference": "VIN",
+          "kind": "external-supply",
+          "positionPx": [
+            586,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "H25",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM1",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "pico",
+          "reference": "U1",
+          "manufacturer": "Raspberry Pi",
+          "manufacturerPartNumber": "SC0915",
+          "sourceUrl": "https://pip-assets.raspberrypi.com/categories/610-raspberry-pi-pico/documents/RP-008307-DS-2-pico-datasheet.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 51,
+            "height": 21
+          },
+          "positionPx": [
+            320.2758620689655,
+            160
+          ],
+          "pins": [
+            {
+              "pin": "SDA",
+              "hole": "D10",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -11.43,
+                -8.89
+              ]
+            },
+            {
+              "pin": "SCL",
+              "hole": "D11",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -8.89,
+                -8.89
+              ]
+            },
+            {
+              "pin": "ADC0",
+              "hole": "I14",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -1.27,
+                8.89
+              ]
+            },
+            {
+              "pin": "AGND",
+              "hole": "I12",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -6.35,
+                8.89
+              ]
+            },
+            {
+              "pin": "VCC",
+              "hole": "I9",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -13.97,
+                8.89
+              ]
+            },
+            {
+              "pin": "GND",
+              "hole": "I7",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -19.05,
+                8.89
+              ]
+            }
+          ],
+          "noConnectHoles": [
+            "D5",
+            "D6",
+            "D7",
+            "D8",
+            "D9",
+            "D12",
+            "D13",
+            "D14",
+            "D15",
+            "D16",
+            "D17",
+            "D18",
+            "D19",
+            "D20",
+            "D21",
+            "D22",
+            "D23",
+            "D24",
+            "I5",
+            "I6",
+            "I8",
+            "I10",
+            "I11",
+            "I13",
+            "I15",
+            "I16",
+            "I17",
+            "I18",
+            "I19",
+            "I20",
+            "I21",
+            "I22",
+            "I23",
+            "I24"
+          ]
+        },
+        {
+          "instanceId": "upper",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            566.8275862068966,
+            175
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "G25",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "G29",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "lower",
+          "reference": "R2",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            566.8275862068966,
+            105
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "B25",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "B29",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "oled",
+          "reference": "J2",
+          "kind": "through-hole-header",
+          "manufacturer": "Samtec",
+          "manufacturerPartNumber": "TSW-104-07-T-S",
+          "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
+          "bodyMm": {
+            "width": 10.16,
+            "height": 2.54
+          },
+          "positionPx": [
+            83.58620689655173,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "GND",
+              "hole": "A1",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -3.81,
+                0
+              ]
+            },
+            {
+              "pin": "VCC",
+              "hole": "A2",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "SDA",
+              "hole": "A3",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            },
+            {
+              "pin": "SCL",
+              "hole": "A4",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                3.81,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "adc-filter",
+          "reference": "C1",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            566.8275862068965,
+            205
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "J26",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "J28",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "schematicWires": [
+    {
+      "id": "pico-voltmeter-wire-1",
+      "from": "vin:+",
+      "to": "upper:1",
+      "waypoints": [
+        [
+          37,
+          147
+        ],
+        [
+          37,
+          92
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-2",
+      "from": "upper:2",
+      "to": "lower:1",
+      "waypoints": [
+        [
+          211,
+          92
+        ],
+        [
+          211,
+          161
+        ],
+        [
+          129,
+          161
+        ],
+        [
+          129,
+          215
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-3",
+      "from": "upper:2",
+      "to": "pico:ADC0",
+      "waypoints": [
+        [
+          296,
+          92
+        ],
+        [
+          296,
+          146
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-4",
+      "from": "upper:2",
+      "to": "adc-filter:1",
+      "waypoints": [
+        [
+          211,
+          92
+        ],
+        [
+          211,
+          223.5
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-5",
+      "from": "pico:VCC",
+      "to": "oled:VCC",
+      "waypoints": [
+        [
+          296,
+          164
+        ],
+        [
+          296,
+          151
+        ],
+        [
+          300,
+          151
+        ],
+        [
+          300,
+          99
+        ],
+        [
+          475,
+          99
+        ],
+        [
+          475,
+          158
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-6",
+      "from": "vin:-",
+      "to": "pico:GND",
+      "waypoints": [
+        [
+          125,
+          147
+        ],
+        [
+          125,
+          159
+        ],
+        [
+          300,
+          159
+        ],
+        [
+          300,
+          208
+        ],
+        [
+          384,
+          208
+        ],
+        [
+          384,
+          146
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-7",
+      "from": "vin:-",
+      "to": "lower:2",
+      "waypoints": [
+        [
+          125,
+          147
+        ],
+        [
+          125,
+          275
+        ],
+        [
+          217,
+          275
+        ],
+        [
+          217,
+          215
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-8",
+      "from": "vin:-",
+      "to": "oled:GND",
+      "waypoints": [
+        [
+          125,
+          147
+        ],
+        [
+          125,
+          159
+        ],
+        [
+          300,
+          159
+        ],
+        [
+          300,
+          208
+        ],
+        [
+          467,
+          208
+        ],
+        [
+          467,
+          146
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-9",
+      "from": "vin:-",
+      "to": "ground:0",
+      "waypoints": [
+        [
+          125,
+          147
+        ],
+        [
+          125,
+          275
+        ],
+        [
+          492,
+          275
+        ],
+        [
+          492,
+          210
+        ],
+        [
+          536,
+          210
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-10",
+      "from": "vin:-",
+      "to": "pico:AGND",
+      "waypoints": [
+        [
+          125,
+          147
+        ],
+        [
+          125,
+          155
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-11",
+      "from": "vin:-",
+      "to": "adc-filter:2",
+      "waypoints": [
+        [
+          125,
+          147
+        ],
+        [
+          125,
+          275
+        ],
+        [
+          300,
+          275
+        ],
+        [
+          300,
+          223.5
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-12",
+      "from": "pico:SDA",
+      "to": "oled:SDA",
+      "waypoints": [
+        [
+          392,
+          155
+        ],
+        [
+          392,
+          96
+        ],
+        [
+          563,
+          96
+        ],
+        [
+          563,
+          146
+        ]
+      ]
+    },
+    {
+      "id": "pico-voltmeter-wire-13",
+      "from": "pico:SCL",
+      "to": "oled:SCL",
+      "waypoints": [
+        [
+          475,
+          164
+        ],
+        [
+          475,
+          208
+        ],
+        [
+          563,
+          208
+        ],
+        [
+          563,
+          158
+        ]
+      ]
+    }
+  ],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 71,
+      "heightMm": 48,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "manufacturer": "Raspberry Pi",
+        "manufacturerPartNumber": "SC0915",
+        "sourceUrl": "https://pip-assets.raspberrypi.com/categories/610-raspberry-pi-pico/documents/RP-008307-DS-2-pico-datasheet.pdf",
+        "footprint": "RaspberryPi_Pico_SC0915_2x20_P2.54mm_W17.78mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "vin",
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "upper",
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.16mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "lower",
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.16mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "adc-filter",
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "oled",
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-104-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
+        "footprint": "Samtec_TSW-104-07-T-S_P2.54mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "1",
+        "pin": "NC1",
+        "netId": "NC",
+        "xMm": 4.064,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "2",
+        "pin": "NC2",
+        "netId": "NC",
+        "xMm": 6.604,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "3",
+        "pin": "NC3",
+        "netId": "NC",
+        "xMm": 9.144,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "4",
+        "pin": "NC4",
+        "netId": "NC",
+        "xMm": 11.684,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "5",
+        "pin": "NC5",
+        "netId": "NC",
+        "xMm": 14.224,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "6",
+        "pin": "SDA",
+        "netId": "OLED_SDA",
+        "xMm": 16.764,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "pico:SDA"
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "7",
+        "pin": "SCL",
+        "netId": "OLED_SCL",
+        "xMm": 19.304,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "pico:SCL"
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "8",
+        "pin": "NC8",
+        "netId": "NC",
+        "xMm": 21.844,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "9",
+        "pin": "NC9",
+        "netId": "NC",
+        "xMm": 24.384,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "10",
+        "pin": "NC10",
+        "netId": "NC",
+        "xMm": 26.924,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "11",
+        "pin": "NC11",
+        "netId": "NC",
+        "xMm": 29.464,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "12",
+        "pin": "NC12",
+        "netId": "NC",
+        "xMm": 32.004,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "13",
+        "pin": "NC13",
+        "netId": "NC",
+        "xMm": 34.544,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "14",
+        "pin": "NC14",
+        "netId": "NC",
+        "xMm": 37.084,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "15",
+        "pin": "NC15",
+        "netId": "NC",
+        "xMm": 39.624,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "16",
+        "pin": "NC16",
+        "netId": "NC",
+        "xMm": 42.164,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "17",
+        "pin": "NC17",
+        "netId": "NC",
+        "xMm": 44.704,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "18",
+        "pin": "NC18",
+        "netId": "NC",
+        "xMm": 47.244,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "19",
+        "pin": "NC19",
+        "netId": "NC",
+        "xMm": 49.784,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "20",
+        "pin": "NC20",
+        "netId": "NC",
+        "xMm": 52.324,
+        "yMm": 11.684,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "21",
+        "pin": "NC21",
+        "netId": "NC",
+        "xMm": 52.324,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "22",
+        "pin": "NC22",
+        "netId": "NC",
+        "xMm": 49.784,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "23",
+        "pin": "NC23",
+        "netId": "NC",
+        "xMm": 47.244,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "24",
+        "pin": "NC24",
+        "netId": "NC",
+        "xMm": 44.704,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "25",
+        "pin": "NC25",
+        "netId": "NC",
+        "xMm": 42.164,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "26",
+        "pin": "NC26",
+        "netId": "NC",
+        "xMm": 39.624,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "27",
+        "pin": "NC27",
+        "netId": "NC",
+        "xMm": 37.084,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "28",
+        "pin": "NC28",
+        "netId": "NC",
+        "xMm": 34.544,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "29",
+        "pin": "NC29",
+        "netId": "NC",
+        "xMm": 32.004,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "30",
+        "pin": "NC30",
+        "netId": "NC",
+        "xMm": 29.464,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "31",
+        "pin": "ADC0",
+        "netId": "ADC_MID",
+        "xMm": 26.924,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "pico:ADC0"
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "32",
+        "pin": "NC32",
+        "netId": "NC",
+        "xMm": 24.384,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "33",
+        "pin": "AGND",
+        "netId": "GROUND",
+        "xMm": 21.844,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "pico:AGND"
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "34",
+        "pin": "NC34",
+        "netId": "NC",
+        "xMm": 19.304,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "35",
+        "pin": "NC35",
+        "netId": "NC",
+        "xMm": 16.764,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "36",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 14.224,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "pico:VCC"
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "37",
+        "pin": "NC37",
+        "netId": "NC",
+        "xMm": 11.684,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "38",
+        "pin": "GND",
+        "netId": "GROUND",
+        "xMm": 9.144,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "pico:GND"
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "39",
+        "pin": "NC39",
+        "netId": "NC",
+        "xMm": 6.604,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "pico",
+        "reference": "U1",
+        "number": "40",
+        "pin": "NC40",
+        "netId": "NC",
+        "xMm": 4.064,
+        "yMm": 29.464,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "vin",
+        "reference": "J1",
+        "number": "1",
+        "pin": "+",
+        "netId": "VIN_HI",
+        "xMm": 61.976,
+        "yMm": 26.67,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "vin:+"
+      },
+      {
+        "instanceId": "vin",
+        "reference": "J1",
+        "number": "2",
+        "pin": "-",
+        "netId": "GROUND",
+        "xMm": 61.976,
+        "yMm": 29.21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "vin:-"
+      },
+      {
+        "instanceId": "upper",
+        "reference": "R1",
+        "number": "1",
+        "pin": "1",
+        "netId": "VIN_HI",
+        "xMm": 63.5,
+        "yMm": 35.052,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "upper:1"
+      },
+      {
+        "instanceId": "upper",
+        "reference": "R1",
+        "number": "2",
+        "pin": "2",
+        "netId": "ADC_MID",
+        "xMm": 53.34,
+        "yMm": 35.052,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "upper:2"
+      },
+      {
+        "instanceId": "lower",
+        "reference": "R2",
+        "number": "1",
+        "pin": "1",
+        "netId": "ADC_MID",
+        "xMm": 31.496,
+        "yMm": 40.64,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "lower:1"
+      },
+      {
+        "instanceId": "lower",
+        "reference": "R2",
+        "number": "2",
+        "pin": "2",
+        "netId": "GROUND",
+        "xMm": 41.656,
+        "yMm": 40.64,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "lower:2"
+      },
+      {
+        "instanceId": "adc-filter",
+        "reference": "C1",
+        "number": "1",
+        "pin": "1",
+        "netId": "ADC_MID",
+        "xMm": 27.432,
+        "yMm": 35.814,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "adc-filter:1"
+      },
+      {
+        "instanceId": "adc-filter",
+        "reference": "C1",
+        "number": "2",
+        "pin": "2",
+        "netId": "GROUND",
+        "xMm": 22.352,
+        "yMm": 35.814,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "adc-filter:2"
+      },
+      {
+        "instanceId": "oled",
+        "reference": "J2",
+        "number": "1",
+        "pin": "GND",
+        "netId": "GROUND",
+        "xMm": 58.42,
+        "yMm": 11.938,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "oled:GND"
+      },
+      {
+        "instanceId": "oled",
+        "reference": "J2",
+        "number": "2",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 60.96,
+        "yMm": 11.938,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "oled:VCC"
+      },
+      {
+        "instanceId": "oled",
+        "reference": "J2",
+        "number": "3",
+        "pin": "SDA",
+        "netId": "OLED_SDA",
+        "xMm": 63.5,
+        "yMm": 11.938,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "oled:SDA"
+      },
+      {
+        "instanceId": "oled",
+        "reference": "J2",
+        "number": "4",
+        "pin": "SCL",
+        "netId": "OLED_SCL",
+        "xMm": 66.04,
+        "yMm": 11.938,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "oled:SCL"
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "U1",
+        "manufacturer": "Raspberry Pi",
+        "manufacturerPartNumber": "SC0915",
+        "sourceUrl": "https://pip-assets.raspberrypi.com/categories/610-raspberry-pi-pico/documents/RP-008307-DS-2-pico-datasheet.pdf",
+        "package": "RaspberryPi_Pico_SC0915_2x20_P2.54mm_W17.78mm",
+        "pinMapping": {
+          "1": "NC",
+          "2": "NC",
+          "3": "NC",
+          "4": "NC",
+          "5": "NC",
+          "6": "OLED_SDA",
+          "7": "OLED_SCL",
+          "8": "NC",
+          "9": "NC",
+          "10": "NC",
+          "11": "NC",
+          "12": "NC",
+          "13": "NC",
+          "14": "NC",
+          "15": "NC",
+          "16": "NC",
+          "17": "NC",
+          "18": "NC",
+          "19": "NC",
+          "20": "NC",
+          "21": "NC",
+          "22": "NC",
+          "23": "NC",
+          "24": "NC",
+          "25": "NC",
+          "26": "NC",
+          "27": "NC",
+          "28": "NC",
+          "29": "NC",
+          "30": "NC",
+          "31": "ADC_MID",
+          "32": "NC",
+          "33": "GROUND",
+          "34": "NC",
+          "35": "NC",
+          "36": "VCC",
+          "37": "NC",
+          "38": "GROUND",
+          "39": "NC",
+          "40": "NC"
+        }
+      },
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VIN_HI",
+          "2": "GROUND"
+        }
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.16mm",
+        "pinMapping": {
+          "1": "VIN_HI",
+          "2": "ADC_MID"
+        }
+      },
+      {
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.16mm",
+        "pinMapping": {
+          "1": "ADC_MID",
+          "2": "GROUND"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "ADC_MID",
+          "2": "GROUND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-104-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
+        "package": "Samtec_TSW-104-07-T-S_P2.54mm",
+        "pinMapping": {
+          "1": "GROUND",
+          "2": "VCC",
+          "3": "OLED_SDA",
+          "4": "OLED_SCL"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "netId": "ADC_MID",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            26.924,
+            29.464
+          ],
+          [
+            27.432,
+            29.464
+          ],
+          [
+            27.432,
+            35.814
+          ]
+        ]
+      },
+      {
+        "netId": "GROUND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            21.844,
+            29.464
+          ],
+          [
+            22.352,
+            29.464
+          ],
+          [
+            22.352,
+            35.814
+          ]
+        ]
+      },
+      {
+        "netId": "ADC_MID",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            27.432,
+            35.814
+          ],
+          [
+            31.496,
+            35.814
+          ],
+          [
+            31.496,
+            40.64
+          ]
+        ]
+      },
+      {
+        "netId": "VIN_HI",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            61.976,
+            26.67
+          ],
+          [
+            63.5,
+            26.67
+          ],
+          [
+            63.5,
+            35.052
+          ]
+        ]
+      },
+      {
+        "netId": "GROUND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            21.844,
+            29.464
+          ],
+          [
+            20.828,
+            29.464
+          ],
+          [
+            20.828,
+            30.48
+          ],
+          [
+            20.574,
+            30.48
+          ],
+          [
+            20.574,
+            30.734
+          ],
+          [
+            20.32,
+            30.734
+          ],
+          [
+            20.32,
+            30.988
+          ],
+          [
+            9.144,
+            30.988
+          ],
+          [
+            9.144,
+            29.464
+          ]
+        ]
+      },
+      {
+        "netId": "GROUND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            61.976,
+            29.21
+          ],
+          [
+            58.42,
+            29.21
+          ],
+          [
+            58.42,
+            11.938
+          ]
+        ]
+      },
+      {
+        "netId": "GROUND",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22.352,
+            35.814
+          ],
+          [
+            25.908,
+            35.814
+          ],
+          [
+            25.908,
+            36.83
+          ],
+          [
+            26.162,
+            36.83
+          ],
+          [
+            26.162,
+            37.084
+          ],
+          [
+            26.416,
+            37.084
+          ],
+          [
+            26.416,
+            37.338
+          ],
+          [
+            41.656,
+            37.338
+          ],
+          [
+            41.656,
+            40.64
+          ]
+        ]
+      },
+      {
+        "netId": "ADC_MID",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            27.432,
+            35.814
+          ],
+          [
+            53.34,
+            35.814
+          ],
+          [
+            53.34,
+            35.052
+          ]
+        ]
+      },
+      {
+        "netId": "GROUND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            41.656,
+            40.64
+          ],
+          [
+            61.976,
+            40.64
+          ],
+          [
+            61.976,
+            29.21
+          ]
+        ]
+      },
+      {
+        "netId": "OLED_SDA",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            16.764,
+            11.684
+          ],
+          [
+            17.78,
+            11.684
+          ],
+          [
+            17.78,
+            10.668
+          ],
+          [
+            18.034,
+            10.668
+          ],
+          [
+            18.034,
+            10.414
+          ],
+          [
+            18.288,
+            10.414
+          ],
+          [
+            18.288,
+            10.16
+          ],
+          [
+            63.5,
+            10.16
+          ],
+          [
+            63.5,
+            11.938
+          ]
+        ]
+      },
+      {
+        "netId": "OLED_SCL",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            19.304,
+            11.684
+          ],
+          [
+            20.32,
+            11.684
+          ],
+          [
+            20.32,
+            12.7
+          ],
+          [
+            20.574,
+            12.7
+          ],
+          [
+            20.574,
+            12.954
+          ],
+          [
+            20.828,
+            12.954
+          ],
+          [
+            20.828,
+            13.208
+          ],
+          [
+            57.404,
+            13.208
+          ],
+          [
+            57.404,
+            13.462
+          ],
+          [
+            66.04,
+            13.462
+          ],
+          [
+            66.04,
+            11.938
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            14.224,
+            29.464
+          ],
+          [
+            14.986,
+            29.464
+          ],
+          [
+            14.986,
+            28.702
+          ],
+          [
+            15.24,
+            28.702
+          ],
+          [
+            15.24,
+            28.194
+          ],
+          [
+            15.494,
+            28.194
+          ],
+          [
+            15.494,
+            27.94
+          ],
+          [
+            16.002,
+            27.94
+          ],
+          [
+            16.002,
+            27.686
+          ],
+          [
+            60.198,
+            27.686
+          ],
+          [
+            60.198,
+            25.908
+          ],
+          [
+            60.452,
+            25.908
+          ],
+          [
+            60.452,
+            25.4
+          ],
+          [
+            60.706,
+            25.4
+          ],
+          [
+            60.706,
+            25.146
+          ],
+          [
+            61.214,
+            25.146
+          ],
+          [
+            61.214,
+            14.478
+          ],
+          [
+            66.802,
+            14.478
+          ],
+          [
+            66.802,
+            14.224
+          ],
+          [
+            67.056,
+            14.224
+          ],
+          [
+            67.056,
+            13.462
+          ],
+          [
+            67.31,
+            13.462
+          ],
+          [
+            67.31,
+            13.208
+          ],
+          [
+            67.564,
+            13.208
+          ],
+          [
+            67.564,
+            12.7
+          ],
+          [
+            67.818,
+            12.7
+          ],
+          [
+            67.818,
+            11.176
+          ],
+          [
+            67.564,
+            11.176
+          ],
+          [
+            67.564,
+            10.668
+          ],
+          [
+            67.31,
+            10.668
+          ],
+          [
+            67.31,
+            10.414
+          ],
+          [
+            66.802,
+            10.414
+          ],
+          [
+            66.802,
+            10.16
+          ],
+          [
+            60.96,
+            10.16
+          ],
+          [
+            60.96,
+            11.938
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "vin",
+        "reference": "VIN",
+        "reason": "External stimulus or supply connects through J1."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "fabricationNotes": "Power the Pico through its USB socket before applying the measured voltage. Use 0 to 12 V DC at J1. Cable J2 to the 3.3 V Adafruit 4440 display."
+  }
 }

@@ -1,70 +1,18 @@
 # 069 — Pico ADC divider voltmeter with OLED
 
-## Purpose
+The Raspberry Pi Pico reads GP26/ADC0 through a 30 kΩ / 10 kΩ divider. A 3.3 V Adafruit 4440 OLED displays the estimated input voltage. At 12 V input the ideal divider produces 3.000 V at ADC0.
 
-Estimate an input voltage from a calibrated two-resistor divider and 12-bit Pico ADC reading; display calibrated values across the supported range.
+| Reference | Assembly |
+| --- | --- |
+| J1 | Positive sensed input and common return |
+| U1 | Raspberry Pi Pico with RP2040, SKU SC0915 |
+| R1 | Vishay MRS25000C3002FCT00, 30 kΩ |
+| R2 | Vishay MRS25000C1002FCT00, 10 kΩ |
+| C1 | 100 nF from the divider midpoint to return |
+| J2 | Samtec TSW-104-07-T-S for the off-board Adafruit 4440 OLED |
 
-## Bill of materials
+Power the Pico through its own USB socket before applying the input. Remove the input before removing USB power. Use an isolated, current-limited 0–12 V DC source at J1. The circuit has no external clamp or reverse-polarity protection. The model's 13 V case checks ideal quantization near full scale. It does not extend the bench input range.
 
-| Reference | Project library ID | Project value |
-|---|---|---|
-| VIN | `power.dc-source` | 12 V |
-| VLOGIC | `power.dc-source` | 3.3 V |
-| U1 | `active.rp2040-pico-ideal` | ADC 12 bit; Reference 3.3 V; Calibrate divider |
-| R1 | `passive.resistor` | 30 kΩ |
-| R2 | `passive.resistor` | 10 kΩ |
-| OLED1 | `output.oled-text-sink-ideal` | Voltage result |
-| GND | `ground.signal` | 0 V |
+Pin 31 is ADC0. Join Pico AGND (pin 33), GND (pin 38), J1 return and OLED ground. J2 pins 1–4 are ground, 3V3, SDA and SCL. The Pico supplies 3V3 on pin 36. SDA and SCL connect to GP4 and GP5 on pins 6 and 7. Match the cable to the OLED markings. On the BB400 orient the USB connector toward column 5. Keep the USB plug accessible on the 71 × 48 mm, two-layer PCB. J2 is the footprint for the cabled display. The native project includes the three view mappings and an educational fabrication export. [Raspberry Pi Pico datasheet](https://pip-assets.raspberrypi.com/categories/610-raspberry-pi-pico/documents/RP-008307-DS-2-pico-datasheet.pdf), [Adafruit OLED](https://www.adafruit.com/product/4440), [Samtec J2](https://www.samtec.com/products/tsw-104-07-t-s), [Vishay divider resistors](https://www.vishay.com/docs/28724/mrs16m25.pdf).
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
-
-## Net connections
-
-- **VIN_HI:** `vin:+`, `upper:1`
-- **ADC_MID:** `upper:2`, `lower:1`, `pico:ADC0`
-- **VCC:** `logic:+`, `pico:VCC`, `oled:VCC`
-- **GROUND:** `vin:-`, `logic:-`, `pico:GND`, `lower:2`, `oled:GND`, `ground:0`
-- **OLED_DATA:** `pico:TX`, `oled:DATA`
-
-## Views and physical-layout status
-
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
-
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
-
-## Acceptance test and expected result
-
-- Stable test ID: `core-pico-adc-voltmeter`
-- Engine: Ideal Pico 12-bit ADC divider voltmeter
-- Engine version: `adigun-simulator@0.1.0`
-- Model version: `ideal-pico-adc-divider-voltmeter-v1`
-- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41177993277
-
-Recorded expected result:
-
-```json
-{
-  "inputVoltageSamplesV": [
-    6,
-    12,
-    13
-  ],
-  "dividerRatio": "1/4",
-  "dividerResistorsOhm": [
-    30000,
-    10000
-  ],
-  "adcReferenceV": 3.3,
-  "adcResolutionBits": 12,
-  "aboveReference": "blocked",
-  "firmwareExecuted": false
-}
-```
-
-## Safety and model limits
-
-Ideal ADC/divider model; blocks divider outputs over 3.3 V. ADC nonlinearity, leakage, resistor tolerance, physical overvoltage protection, and Pico firmware are omitted.
-
-Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
-
-Native project: `examples/069-pico-adc-voltmeter.adigun.json`.
+The [Arduino sketch](../069-pico-adc-voltmeter/069-pico-adc-voltmeter.ino) averages 16 ADC readings, applies the nominal divider gain and shows volts on the OLED. A reading near full scale displays a saturation diagnostic. The scope displays the analytical DC divider voltage. Calibrate the reference and divider gain against a known source before relying on hardware readings. Bench calibration, transient protection, and manufacturing qualification remain open.
