@@ -144,6 +144,17 @@ test('UART transmitter exposes the complete 8N1 frame as modeled TX logic',async
  assert.deepEqual(trace.points.filter((_,i)=>i%2===0),[...frameBits.map((bit,i)=>[i*bitPeriodSeconds,Number(bit)]),[frameDurationSeconds,1]]);
 });
 
+test('UART receiver plots the supplied RX frame through a low stop bit',async()=>{
+ const p=await load('057-uart-receiver');
+ p.components.find(c=>c.instanceId==='serial-frame').value='Bits 0,1,0,1,0,0,1,0,1,0; Baud 9600';
+ const analysis=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,analysis);
+ assert.equal(analysis.result.framingError,true);
+ const index=timeline.length-1,live={status:'ready',kind:'transient',sampleIndex:index,data:timeline.frame(index)};
+ const trace=scopeTrace(p,analysis,live,'RX');
+ assert.equal(trace.units,'logic');
+ assert.deepEqual(trace.points.at(-1),[10/9600,0]);
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);
