@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 92,
-    "withoutStoredPcb": 124,
+    "withStoredPcb": 93,
+    "withoutStoredPcb": 123,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1150,40 +1150,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "cb3fc446f6a168b6d79960a5ad4b10affd022d69dcd36fcbbe626516259ae9b1",
-      "components": 6,
+      "sha256": "843853ba3b9c172096de3c671b2147e8f9a679bc40ac0b6c4ce9d2e3b9d6de2b",
+      "components": 7,
       "analysis": "complete",
       "engine": "Ideal I²C EEPROM write/read transaction model",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "BUS1",
-          "libraryId": "input.i2c-read-transaction"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.i2c-eeprom-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 6,
+      "pcbPads": 19,
+      "pcbRoutes": 12,
+      "unmapped": []
     },
     {
       "file": "061-arduino-blink.adigun.json",

@@ -6,7 +6,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='buck-converter')return lm2596AdjustableRecording(project,r)??buckAverageRecording(project,r);
  if(kind==='boost-converter'&&r.device==='LM2577T-ADJ/NOPB')return lm2577BoostRecording(project,r);
  if(kind==='uart-transmitter-8n1'||kind==='uart-receiver-8n1')return uartFrameRecording(project,r);
- if(kind==='i2c-register-read')return i2cRegisterRecording(project,r);
+ if(kind==='i2c-register-read'||kind==='i2c-eeprom-write-read')return i2cRegisterRecording(project,r);
  if(kind==='spi-display-byte')return spiDisplayRecording(project,r);
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(kind==='mcu-button-debounce')return buttonDebounceRecording(project,r);
@@ -63,10 +63,14 @@ function i2cRegisterRecording(project, result) {
  const host=project.components.find(c=>c.libraryId==='input.i2c-read-transaction');
  if(!host)return null;
  const [data,clock]=['SDA','SCL'].map(pin=>project.nets.find(n=>n.endpoints.includes(host.instanceId+':'+pin))?.id);
- const {address,register,baud,sensorAck,readComplete,receivedByte}=result;
- if(!data||!clock||data===clock||(sensorAck&&!readComplete))return null;
+ const {address,register,baud}=result;
+ const eeprom=result.kind==='i2c-eeprom-write-read';
+ const acknowledged=eeprom?result.deviceAck:result.sensorAck;
+ const readComplete=eeprom?result.readAcknowledged:result.readComplete;
+ if(!data||!clock||data===clock||(acknowledged&&!readComplete))return null;
  const samples=[];
- const sample=(sda,scl)=>samples.push({timeSeconds:samples.length/(2*baud),nodeVoltages:{[data]:sda,[clock]:scl}});
+ let idleSeconds=0;
+ const sample=(sda,scl)=>samples.push({timeSeconds:idleSeconds+samples.length/(2*baud),nodeVoltages:{[data]:sda,[clock]:scl}});
  const byte=(value,ack)=>{
   for(let bit=7;bit>=0;bit--){
    const level=(value>>bit)&1;
@@ -76,21 +80,33 @@ function i2cRegisterRecording(project, result) {
   sample(ack,0);
   sample(ack,1);
  };
+ const stop=()=>{
+  sample(0,0);
+  sample(0,1);
+  sample(1,1);
+ };
  sample(1,1);
  sample(0,1);
- byte(address<<1,sensorAck?0:1);
+ byte(address<<1,acknowledged?0:1);
  if(readComplete){
   byte(register,0);
+  if(eeprom){
+   byte(result.writeByte,0);
+   stop();
+   idleSeconds=result.hostWriteWaitSeconds??0;
+   sample(1,1);
+   sample(0,1);
+   byte(address<<1,0);
+   byte(register,0);
+  }
   sample(1,0);
   sample(1,1);
   sample(0,1);
   byte((address<<1)|1,0);
-  byte(receivedByte,1);
+  byte(eeprom?result.readByte:result.receivedByte,1);
  }
- sample(0,0);
- sample(0,1);
- sample(1,1);
- return {kind:'analytical-output-recording',units:'logic',model:'Ideal I²C register-read bus timing',preferredNet:data,samples};
+ stop();
+ return {kind:'analytical-output-recording',units:'logic',model:eeprom?'Ideal I²C EEPROM write and read-back timing':'Ideal I²C register-read bus timing',preferredNet:data,samples};
 }
 
 function spiDisplayRecording(project, result) {
