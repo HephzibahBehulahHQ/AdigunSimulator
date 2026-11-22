@@ -11,6 +11,7 @@ on:
       - 'examples/057-uart-receiver/main.c'
       - 'examples/059-spi-display/main.c'
       - 'examples/061-arduino-blink/main.c'
+      - 'examples/062-arduino-button-debounce/main.c'
       - '.github/workflows/avr-example-firmware.yml'
   pull_request:
     paths:
@@ -21,6 +22,7 @@ on:
       - 'examples/057-uart-receiver/main.c'
       - 'examples/059-spi-display/main.c'
       - 'examples/061-arduino-blink/main.c'
+      - 'examples/062-arduino-button-debounce/main.c'
       - '.github/workflows/avr-example-firmware.yml'
 
 permissions:
@@ -41,7 +43,7 @@ jobs:
       - name: Build the ATmega328P examples
         run: |
           avr-gcc --version
-          for example in 049-traffic-light-fsm 050-debounced-digital-input 055-alu-add-subtract 056-uart-transmitter 057-uart-receiver 059-spi-display 061-arduino-blink; do
+          for example in 049-traffic-light-fsm 050-debounced-digital-input 055-alu-add-subtract 056-uart-transmitter 057-uart-receiver 059-spi-display 061-arduino-blink 062-arduino-button-debounce; do
             avr-gcc -mmcu=atmega328p -std=c11 -Os -Wall -Wextra -Werror \
               "examples/$example/main.c" -o "$RUNNER_TEMP/$example.elf"
             avr-objcopy -O ihex -R .eeprom "$RUNNER_TEMP/$example.elf" "$RUNNER_TEMP/$example.hex"

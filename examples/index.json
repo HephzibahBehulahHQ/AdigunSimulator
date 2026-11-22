@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 94,
-    "withoutStoredPcb": 122,
+    "withStoredPcb": 95,
+    "withoutStoredPcb": 121,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1182,40 +1182,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "ad038bf7509fcfc1b33513df7cc42b82ad96dcbb2d4927efdc61491ae2bb4617",
-      "components": 6,
+      "sha256": "c80fd5eab9419e3b4f9ade30efb9f66932830e7e1c1c673b83450f3230167f66",
+      "components": 10,
       "analysis": "complete",
       "engine": "Ideal Uno-class sampled button debounce model",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.mcu-uno-ideal"
-        },
-        {
-          "reference": "SIG1",
-          "libraryId": "input.digital-sample-sequence"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 46,
+      "pcbRoutes": 19,
+      "unmapped": []
     },
     {
       "file": "063-arduino-pwm-dimmer.adigun.json",
