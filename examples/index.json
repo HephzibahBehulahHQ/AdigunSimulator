@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 87,
-    "withoutStoredPcb": 129,
+    "withStoredPcb": 88,
+    "withoutStoredPcb": 128,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1070,104 +1070,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "8d643d51cfd80f1bafc8a7ac0d86f572640552c9119028761e8b6caa20fdd8ef",
-      "components": 22,
+      "sha256": "b5749c41337ec31119f878f365195b7ff99c0bb3a3e33a14f261afcbf283fa7e",
+      "components": 25,
       "analysis": "complete",
       "engine": "Ideal four-bit combinational add/subtract ALU",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "VCC",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "A0",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "A1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "A2",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "A3",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "B0",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "B1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "B2",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "B3",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "SUB",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.logic-alu4-ideal"
-        },
-        {
-          "reference": "R0",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R3",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R4",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D0",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D2",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D3",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "D4",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 24,
+      "pcbPads": 74,
+      "pcbRoutes": 43,
+      "unmapped": []
     },
     {
       "file": "056-uart-transmitter.adigun.json",
