@@ -204,6 +204,19 @@ test('D13 scope shows two complete Blink periods and holds the last level to run
  assert.equal(runProjectAnalysis(p).state,'blocked');
 });
 
+test('button debounce scope maps raw samples to D2 and toggles to D13',async()=>{
+ const p=await load('062-arduino-button-debounce'),analysis=runProjectAnalysis(p),recording=analysis.scopeRecording;
+ assert.equal(recording.units,'logic');
+ assert.equal(recording.preferredNet,'D13');
+ assert.deepEqual(recording.samples.map(s=>s.nodeVoltages.BUTTON),analysis.result.samples);
+ assert.deepEqual(recording.samples.map(s=>s.nodeVoltages.D13),[0,0,0,0,0,1,1,1,1,1,1,0]);
+ const broken=structuredClone(p),ground=broken.nets.find(n=>n.id==='GND');
+ ground.endpoints=ground.endpoints.filter(e=>e!=='button-pulldown:2');
+ const diagnostic=runProjectAnalysis(broken);
+ assert.equal(diagnostic.state,'blocked');
+ assert.equal(diagnostic.scopeRecording,undefined);
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);

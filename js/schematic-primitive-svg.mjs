@@ -40,7 +40,8 @@ export function renderPrimitiveSymbol(part, component) {
     body += `<g data-polarity="${kind}">${fill(kind === "nmos" ? "M29 29 L35 25 V33 Z" : "M38 29 L32 25 V33 Z")}</g>`;
   } else if (kind === "spst" || kind === "pushbutton") {
     const closed = /^(closed|on|pressed|normally-closed)$/i.test(value.trim());
-    body = pair("1","2","H17","H39") + path(closed ? "M17 27 H39" : "M17 27 L37 17") + circle(17,29,2) + circle(39,29,2);
+    const [left, right] = Object.keys(spec.pins);
+    body = pair(left,right,"H17","H39") + path(closed ? "M17 27 H39" : "M17 27 L37 17") + circle(17,29,2) + circle(39,29,2);
     if (kind === "pushbutton") body += path("M28 16 V9 M23 9 H33");
   } else if (kind === "spdt") {
     body = lead("COM","H18") + lead("A","H39") + lead("B","H39") + circle(18,29,2) + circle(39,15,2) + circle(39,43,2) + path(/\(B\)|^B$|discharge/i.test(value) ? "M18 29 L37 43" : "M18 29 L37 15");

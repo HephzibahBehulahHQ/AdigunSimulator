@@ -29,6 +29,7 @@ define(["active.pnp-ebers-moll-generic"], "pnp", { B: [6, 29, "left"], C: [50, 1
 define(["active.nmos-switch"], "nmos", { G: [6, 29, "left"], D: [50, 11, "right"], S: [50, 47, "right"] });
 define(["active.pmos-high-side-ideal"], "pmos", { G: [6, 29, "left"], D: [50, 11, "right"], S: [50, 47, "right"] });
 define(["input.pushbutton"], "pushbutton", two("1", "2"));
+define(["input.b3f-1000-sample-sequence"], "pushbutton", two("VCC", "OUT"));
 define(["input.spdt-switch"], "spdt", { COM: [6, 29, "left"], A: [50, 15, "right"], B: [50, 43, "right"] });
 define(["passive.transformer-ideal"], "transformer", { PRI1: [6, 14, "left"], PRI2: [6, 56, "left"], SEC1: [58, 14, "right"], SEC2: [58, 56, "right"] }, 64, 70);
 define(["active.opamp-ideal"], "opamp", { "+": [6, 30, "left"], "-": [6, 60, "left"], OUT: [90, 45, "right"], VCC: [48, 6, "top"], VEE: [48, 84, "bottom"] }, 96, 90);

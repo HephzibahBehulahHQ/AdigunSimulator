@@ -19,18 +19,25 @@
           56
         ],
         "schematic": [
-          42,
-          56
+          28,
+          35
         ],
         "pcb": [
           42,
           56
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 52,
+          "height": 40,
+          "rotation": 0
+        }
       }
     },
     {
       "instanceId": "mcu",
-      "libraryId": "active.mcu-uno-ideal",
+      "libraryId": "active.atmega328p-button-toggle",
       "reference": "U1",
       "value": "Program Button debounce; Input D2; Output D13; Mode Toggle; Stable 3",
       "position": {
@@ -39,19 +46,26 @@
           56
         ],
         "schematic": [
-          140,
-          56
+          292,
+          118
         ],
         "pcb": [
           140,
           56
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 96,
+          "height": 79,
+          "rotation": 0
+        }
       }
     },
     {
       "instanceId": "button",
-      "libraryId": "input.digital-sample-sequence",
-      "reference": "SIG1",
+      "libraryId": "input.b3f-1000-sample-sequence",
+      "reference": "SW1",
       "value": "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz",
       "position": {
         "breadboard": [
@@ -59,13 +73,20 @@
           56
         ],
         "schematic": [
-          250,
-          56
+          32,
+          116
         ],
         "pcb": [
           250,
           56
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 52,
+          "height": 40,
+          "rotation": 0
+        }
       }
     },
     {
@@ -79,13 +100,20 @@
           56
         ],
         "schematic": [
-          350,
-          56
+          455,
+          128
         ],
         "pcb": [
           350,
           56
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 52,
+          "height": 40,
+          "rotation": 0
+        }
       }
     },
     {
@@ -99,13 +127,20 @@
           56
         ],
         "schematic": [
-          430,
-          56
+          562,
+          128
         ],
         "pcb": [
           430,
           56
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 52,
+          "height": 40,
+          "rotation": 0
+        }
       }
     },
     {
@@ -119,13 +154,128 @@
           56
         ],
         "schematic": [
-          520,
-          56
+          235,
+          218
         ],
         "pcb": [
           520,
           56
         ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 52,
+          "height": 40,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "reset-pullup",
+      "libraryId": "passive.resistor",
+      "reference": "R7",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          385,
+          121
+        ],
+        "pcb": [
+          385,
+          121
+        ],
+        "schematic": [
+          162,
+          112
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 52,
+          "height": 40,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "vcc-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          500,
+          121
+        ],
+        "pcb": [
+          500,
+          121
+        ],
+        "schematic": [
+          278,
+          31
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 52,
+          "height": 40,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "avcc-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C2",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          40,
+          187
+        ],
+        "pcb": [
+          40,
+          187
+        ],
+        "schematic": [
+          388,
+          31
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 52,
+          "height": 40,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "button-pulldown",
+      "reference": "R2",
+      "libraryId": "passive.resistor",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          74,
+          184
+        ],
+        "schematic": [
+          105,
+          213
+        ],
+        "pcb": [
+          92,
+          105
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 52,
+          "height": 40,
+          "rotation": 0
+        }
       }
     }
   ],
@@ -134,7 +284,12 @@
       "id": "VCC",
       "endpoints": [
         "supply:+",
-        "mcu:VCC"
+        "mcu:VCC",
+        "mcu:AVCC",
+        "button:VCC",
+        "reset-pullup:1",
+        "vcc-bypass:1",
+        "avcc-bypass:1"
       ]
     },
     {
@@ -142,16 +297,20 @@
       "endpoints": [
         "supply:-",
         "mcu:GND",
-        "button:GND",
         "led:K",
-        "ground:0"
+        "ground:0",
+        "mcu:AGND",
+        "vcc-bypass:2",
+        "avcc-bypass:2",
+        "button-pulldown:2"
       ]
     },
     {
       "id": "BUTTON",
       "endpoints": [
         "button:OUT",
-        "mcu:D2"
+        "mcu:D2",
+        "button-pulldown:1"
       ]
     },
     {
@@ -167,7 +326,2418 @@
         "resistor:2",
         "led:A"
       ]
+    },
+    {
+      "id": "MCU_RESET_N",
+      "endpoints": [
+        "mcu:MCU_RESET_N",
+        "reset-pullup:2"
+      ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM1",
+      "mcu:MCU_RESET_N": "F10",
+      "mcu:D13": "E19",
+      "mcu:VCC": "F16",
+      "mcu:GND": "F17",
+      "mcu:AVCC": "E18",
+      "mcu:AGND": "E16",
+      "mcu:D2": "F12",
+      "resistor:1": "C1",
+      "resistor:2": "C5",
+      "led:A": "A5",
+      "led:K": "A6",
+      "vcc-bypass:1": "J25",
+      "vcc-bypass:2": "J27",
+      "avcc-bypass:1": "A25",
+      "avcc-bypass:2": "A27",
+      "reset-pullup:1": "E26",
+      "reset-pullup:2": "E30",
+      "button:VCC": "TP6",
+      "button:OUT": "J12",
+      "button-pulldown:1": "H2",
+      "button-pulldown:2": "H6"
+    },
+    "jumpers": [
+      {
+        "from": "TP13",
+        "to": "J16"
+      },
+      {
+        "from": "TP14",
+        "to": "C18"
+      },
+      {
+        "from": "TP15",
+        "to": "I25"
+      },
+      {
+        "from": "TP16",
+        "to": "B25"
+      },
+      {
+        "from": "TP17",
+        "to": "D26"
+      },
+      {
+        "from": "J17",
+        "to": "BM12"
+      },
+      {
+        "from": "B16",
+        "to": "BM13"
+      },
+      {
+        "from": "I27",
+        "to": "BM20"
+      },
+      {
+        "from": "B27",
+        "to": "BM19"
+      },
+      {
+        "from": "D30",
+        "to": "I10"
+      },
+      {
+        "from": "B6",
+        "to": "BM3"
+      },
+      {
+        "from": "D19",
+        "to": "B1"
+      },
+      {
+        "from": "I2",
+        "to": "G12"
+      },
+      {
+        "from": "I6",
+        "to": "BM6"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "physicalNotes": [
+      "Seat the programmed ATmega328P-PU with pin 1 at F10. Use the internal 8 MHz oscillator without clock division.",
+      "The Omron switch connects 5 V to PD2 when pressed. A 10 kΩ pulldown holds PD2 low when released. PB5 drives D1. Probe PD2 and PB5 relative to the return rail."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM1",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "mcu",
+          "reference": "U1",
+          "manufacturer": "Microchip",
+          "manufacturerPartNumber": "ATMEGA328P-PU",
+          "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 34.798,
+            "height": 7.493
+          },
+          "positionPx": [
+            359.72413793103476,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "MCU_RESET_N",
+              "hole": "F10",
+              "offsetMm": [
+                -16.51,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "D13",
+              "hole": "E19",
+              "offsetMm": [
+                6.35,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "VCC",
+              "hole": "F16",
+              "offsetMm": [
+                -1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "GND",
+              "hole": "F17",
+              "offsetMm": [
+                1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AVCC",
+              "hole": "E18",
+              "offsetMm": [
+                3.81,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AGND",
+              "hole": "E16",
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "D2",
+              "hole": "F12",
+              "offsetMm": [
+                -11.43,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            }
+          ],
+          "noConnectHoles": [
+            "F18",
+            "F19",
+            "E23",
+            "E22",
+            "E21",
+            "E20",
+            "E17",
+            "E10",
+            "F11",
+            "F13",
+            "F14",
+            "F15",
+            "F20",
+            "F21",
+            "F22",
+            "F23",
+            "E15",
+            "E14",
+            "E13",
+            "E12",
+            "E11"
+          ]
+        },
+        {
+          "instanceId": "resistor",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3300FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            93.44827586206901,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "C1",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "C5",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led",
+          "reference": "D1",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            142.75862068965526,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "A5",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "A6",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "vcc-bypass",
+          "reference": "C1",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            547.1034482758625,
+            205
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "J25",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "J27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "avcc-bypass",
+          "reference": "C2",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            546.5034482758625,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A25",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reset-pullup",
+          "reference": "R7",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            586.5517241379315,
+            135
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "E26",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "E30",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "button",
+          "reference": "SW1",
+          "kind": "external-pushbutton",
+          "manufacturer": "Omron",
+          "manufacturerPartNumber": "B3F-1000",
+          "sourceUrl": "https://components.omron.com/us-en/datasheet_pdf/A070-E1.pdf",
+          "mounting": "off-board",
+          "bodyMm": {
+            "width": 6,
+            "height": 6
+          },
+          "positionPx": [
+            310,
+            283
+          ],
+          "pins": [
+            {
+              "pin": "VCC",
+              "hole": "TP6",
+              "connection": "pigtail",
+              "offsetMm": [
+                -3.25,
+                0
+              ]
+            },
+            {
+              "pin": "OUT",
+              "hole": "J12",
+              "connection": "pigtail",
+              "offsetMm": [
+                3.25,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "button-pulldown",
+          "reference": "R2",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            113.17241379310346,
+            185
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "H2",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "H6",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "schematicWires": [
+    {
+      "id": "button-wire-1",
+      "from": "supply:+",
+      "to": "mcu:VCC",
+      "waypoints": [
+        [
+          12,
+          55
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          456,
+          8
+        ],
+        [
+          456,
+          107
+        ],
+        [
+          404,
+          107
+        ],
+        [
+          404,
+          145.241
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-2",
+      "from": "supply:+",
+      "to": "mcu:AVCC",
+      "waypoints": [
+        [
+          12,
+          55
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          456,
+          8
+        ],
+        [
+          456,
+          107
+        ],
+        [
+          404,
+          107
+        ],
+        [
+          404,
+          157.5
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-3",
+      "from": "supply:+",
+      "to": "button:VCC",
+      "waypoints": [
+        [
+          16,
+          55
+        ],
+        [
+          16,
+          136
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-4",
+      "from": "supply:+",
+      "to": "reset-pullup:1",
+      "waypoints": [
+        [
+          12,
+          55
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          146,
+          8
+        ],
+        [
+          146,
+          132
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-5",
+      "from": "supply:+",
+      "to": "vcc-bypass:1",
+      "waypoints": [
+        [
+          12,
+          55
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          262,
+          8
+        ],
+        [
+          262,
+          51
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-6",
+      "from": "supply:+",
+      "to": "avcc-bypass:1",
+      "waypoints": [
+        [
+          12,
+          55
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          372,
+          8
+        ],
+        [
+          372,
+          51
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-7",
+      "from": "supply:-",
+      "to": "mcu:GND",
+      "waypoints": [
+        [
+          96,
+          55
+        ],
+        [
+          96,
+          178
+        ],
+        [
+          276,
+          178
+        ],
+        [
+          276,
+          162.403
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-8",
+      "from": "supply:-",
+      "to": "led:K",
+      "waypoints": [
+        [
+          96,
+          55
+        ],
+        [
+          96,
+          285
+        ],
+        [
+          630,
+          285
+        ],
+        [
+          630,
+          148
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-9",
+      "from": "supply:-",
+      "to": "ground:0",
+      "waypoints": [
+        [
+          96,
+          55
+        ],
+        [
+          96,
+          285
+        ],
+        [
+          219,
+          285
+        ],
+        [
+          219,
+          191
+        ],
+        [
+          261,
+          191
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-10",
+      "from": "supply:-",
+      "to": "mcu:AGND",
+      "waypoints": [
+        [
+          96,
+          55
+        ],
+        [
+          96,
+          178
+        ],
+        [
+          276,
+          178
+        ],
+        [
+          276,
+          172.21
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-11",
+      "from": "supply:-",
+      "to": "vcc-bypass:2",
+      "waypoints": [
+        [
+          268,
+          55
+        ],
+        [
+          268,
+          8
+        ],
+        [
+          346,
+          8
+        ],
+        [
+          346,
+          51
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-12",
+      "from": "supply:-",
+      "to": "avcc-bypass:2",
+      "waypoints": [
+        [
+          96,
+          55
+        ],
+        [
+          96,
+          285
+        ],
+        [
+          439,
+          285
+        ],
+        [
+          439,
+          101
+        ],
+        [
+          464,
+          101
+        ],
+        [
+          464,
+          51
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-13",
+      "from": "supply:-",
+      "to": "button-pulldown:2",
+      "waypoints": [
+        [
+          96,
+          55
+        ],
+        [
+          96,
+          285
+        ],
+        [
+          173,
+          285
+        ],
+        [
+          173,
+          233
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-14",
+      "from": "button:OUT",
+      "to": "mcu:D2",
+      "waypoints": [
+        [
+          100,
+          136
+        ],
+        [
+          100,
+          183
+        ],
+        [
+          268,
+          183
+        ],
+        [
+          268,
+          142.79
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-15",
+      "from": "button:OUT",
+      "to": "button-pulldown:1",
+      "waypoints": [
+        [
+          100,
+          136
+        ],
+        [
+          100,
+          192
+        ],
+        [
+          89,
+          192
+        ],
+        [
+          89,
+          233
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-16",
+      "from": "mcu:D13",
+      "to": "resistor:1",
+      "waypoints": [
+        [
+          431,
+          169.759
+        ],
+        [
+          431,
+          148
+        ]
+      ]
+    },
+    {
+      "id": "button-wire-17",
+      "from": "resistor:2",
+      "to": "led:A",
+      "waypoints": []
+    },
+    {
+      "id": "button-wire-18",
+      "from": "mcu:MCU_RESET_N",
+      "to": "reset-pullup:2",
+      "waypoints": [
+        [
+          230,
+          152.597
+        ],
+        [
+          230,
+          132
+        ]
+      ]
+    }
+  ],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 61,
+      "heightMm": 43,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "button-pulldown",
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "ATMEGA328P-PU",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "footprint": "Microchip_ATMEGA328P-PU_SPDIP-28_P2.54mm_W7.62mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.16mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_T1-3/4_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "button",
+        "reference": "SW1",
+        "manufacturer": "Omron",
+        "manufacturerPartNumber": "B3F-1000",
+        "sourceUrl": "https://components.omron.com/us-en/datasheet_pdf/A070-E1.pdf",
+        "footprint": "Omron_B3F-1000_THT_4Pin_P4.5x6.5mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "1",
+        "pin": "+",
+        "netId": "VCC",
+        "xMm": 5.842,
+        "yMm": 13.97,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:+"
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.842,
+        "yMm": 16.51,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:-"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 31.496,
+        "yMm": 32.004,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "vcc-bypass:1"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 26.416,
+        "yMm": 32.004,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "vcc-bypass:2"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 30.48,
+        "yMm": 8.382,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avcc-bypass:1"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 25.4,
+        "yMm": 8.382,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avcc-bypass:2"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 8.636,
+        "yMm": 25.654,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:1"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "2",
+        "pin": "2",
+        "netId": "MCU_RESET_N",
+        "xMm": 18.796,
+        "yMm": 25.654,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:2"
+      },
+      {
+        "instanceId": "button-pulldown",
+        "reference": "R2",
+        "number": "1",
+        "pin": "1",
+        "netId": "BUTTON",
+        "xMm": 7.62,
+        "yMm": 34.29,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "button-pulldown:1"
+      },
+      {
+        "instanceId": "button-pulldown",
+        "reference": "R2",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 17.78,
+        "yMm": 34.29,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "button-pulldown:2"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "1",
+        "pin": "MCU_RESET_N",
+        "netId": "MCU_RESET_N",
+        "xMm": 16.256,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:MCU_RESET_N"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "2",
+        "pin": "NC2",
+        "netId": "NC",
+        "xMm": 18.796,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "3",
+        "pin": "NC3",
+        "netId": "NC",
+        "xMm": 21.336,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "4",
+        "pin": "D2",
+        "netId": "BUTTON",
+        "xMm": 23.876,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:D2"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "5",
+        "pin": "NC5",
+        "netId": "NC",
+        "xMm": 26.416,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "6",
+        "pin": "NC6",
+        "netId": "NC",
+        "xMm": 28.956,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "7",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 31.496,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:VCC"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "8",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 34.036,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:GND"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "9",
+        "pin": "NC9",
+        "netId": "NC",
+        "xMm": 36.576,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "10",
+        "pin": "NC10",
+        "netId": "NC",
+        "xMm": 39.116,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "11",
+        "pin": "NC11",
+        "netId": "NC",
+        "xMm": 41.656,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "12",
+        "pin": "NC12",
+        "netId": "NC",
+        "xMm": 44.196,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "13",
+        "pin": "NC13",
+        "netId": "NC",
+        "xMm": 46.736,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "14",
+        "pin": "NC14",
+        "netId": "NC",
+        "xMm": 49.276,
+        "yMm": 21.336,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "15",
+        "pin": "NC15",
+        "netId": "NC",
+        "xMm": 49.276,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "16",
+        "pin": "NC16",
+        "netId": "NC",
+        "xMm": 46.736,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "17",
+        "pin": "NC17",
+        "netId": "NC",
+        "xMm": 44.196,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "18",
+        "pin": "NC18",
+        "netId": "NC",
+        "xMm": 41.656,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "19",
+        "pin": "D13",
+        "netId": "D13",
+        "xMm": 39.116,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:D13"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "20",
+        "pin": "AVCC",
+        "netId": "VCC",
+        "xMm": 36.576,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:AVCC"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "21",
+        "pin": "NC21",
+        "netId": "NC",
+        "xMm": 34.036,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "22",
+        "pin": "AGND",
+        "netId": "GND",
+        "xMm": 31.496,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:AGND"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "23",
+        "pin": "NC23",
+        "netId": "NC",
+        "xMm": 28.956,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "24",
+        "pin": "NC24",
+        "netId": "NC",
+        "xMm": 26.416,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "25",
+        "pin": "NC25",
+        "netId": "NC",
+        "xMm": 23.876,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "26",
+        "pin": "NC26",
+        "netId": "NC",
+        "xMm": 21.336,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "27",
+        "pin": "NC27",
+        "netId": "NC",
+        "xMm": 18.796,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "28",
+        "pin": "NC28",
+        "netId": "NC",
+        "xMm": 16.256,
+        "yMm": 13.716,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "number": "1",
+        "pin": "1",
+        "netId": "D13",
+        "xMm": 37.084,
+        "yMm": 38.354,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "resistor:1"
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "number": "2",
+        "pin": "2",
+        "netId": "LED",
+        "xMm": 47.244,
+        "yMm": 38.354,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "resistor:2"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "number": "1",
+        "pin": "A",
+        "netId": "LED",
+        "xMm": 52.832,
+        "yMm": 38.354,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led:A"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "number": "2",
+        "pin": "K",
+        "netId": "GND",
+        "xMm": 55.372,
+        "yMm": 38.354,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led:K"
+      },
+      {
+        "instanceId": "button",
+        "reference": "SW1",
+        "number": "2",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 5,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 2.2,
+        "drillMm": 1.3,
+        "bridgeEndpoint": "button:VCC"
+      },
+      {
+        "instanceId": "button",
+        "reference": "SW1",
+        "number": "4",
+        "pin": "VCCb",
+        "netId": "VCC",
+        "xMm": 5,
+        "yMm": 11.5,
+        "technology": "through-hole",
+        "diameterMm": 2.2,
+        "drillMm": 1.3,
+        "bridgeEndpoint": "button:VCC"
+      },
+      {
+        "instanceId": "button",
+        "reference": "SW1",
+        "number": "1",
+        "pin": "OUT",
+        "netId": "BUTTON",
+        "xMm": 9.5,
+        "yMm": 5,
+        "technology": "through-hole",
+        "diameterMm": 2.2,
+        "drillMm": 1.3,
+        "bridgeEndpoint": "button:OUT"
+      },
+      {
+        "instanceId": "button",
+        "reference": "SW1",
+        "number": "3",
+        "pin": "OUTb",
+        "netId": "BUTTON",
+        "xMm": 9.5,
+        "yMm": 11.5,
+        "technology": "through-hole",
+        "diameterMm": 2.2,
+        "drillMm": 1.3,
+        "bridgeEndpoint": "button:OUT"
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C2",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "MCU_RESET_N"
+        }
+      },
+      {
+        "reference": "R2",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "BUTTON",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "ATMEGA328P-PU",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "package": "Microchip_ATMEGA328P-PU_SPDIP-28_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "MCU_RESET_N",
+          "2": "NC",
+          "3": "NC",
+          "4": "BUTTON",
+          "5": "NC",
+          "6": "NC",
+          "7": "VCC",
+          "8": "GND",
+          "9": "NC",
+          "10": "NC",
+          "11": "NC",
+          "12": "NC",
+          "13": "NC",
+          "14": "NC",
+          "15": "NC",
+          "16": "NC",
+          "17": "NC",
+          "18": "NC",
+          "19": "D13",
+          "20": "VCC",
+          "21": "NC",
+          "22": "GND",
+          "23": "NC",
+          "24": "NC",
+          "25": "NC",
+          "26": "NC",
+          "27": "NC",
+          "28": "NC"
+        }
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.16mm",
+        "pinMapping": {
+          "1": "D13",
+          "2": "LED"
+        }
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "LiteOn_T1-3/4_P2.54mm",
+        "pinMapping": {
+          "1": "LED",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "SW1",
+        "manufacturer": "Omron",
+        "manufacturerPartNumber": "B3F-1000",
+        "sourceUrl": "https://components.omron.com/us-en/datasheet_pdf/A070-E1.pdf",
+        "package": "Omron_B3F-1000_THT_4Pin_P4.5x6.5mm",
+        "pinMapping": {
+          "1": "BUTTON",
+          "2": "VCC",
+          "3": "BUTTON",
+          "4": "VCC"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            31.496,
+            13.716
+          ],
+          [
+            32.512,
+            13.716
+          ],
+          [
+            32.512,
+            14.732
+          ],
+          [
+            32.766,
+            14.732
+          ],
+          [
+            32.766,
+            14.986
+          ],
+          [
+            33.02,
+            14.986
+          ],
+          [
+            33.02,
+            15.24
+          ],
+          [
+            34.036,
+            15.24
+          ],
+          [
+            34.036,
+            21.336
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            26.416,
+            32.004
+          ],
+          [
+            17.78,
+            32.004
+          ],
+          [
+            17.78,
+            34.29
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25.4,
+            8.382
+          ],
+          [
+            28.956,
+            8.382
+          ],
+          [
+            28.956,
+            9.398
+          ],
+          [
+            29.21,
+            9.398
+          ],
+          [
+            29.21,
+            9.652
+          ],
+          [
+            29.464,
+            9.652
+          ],
+          [
+            29.464,
+            9.906
+          ],
+          [
+            31.496,
+            9.906
+          ],
+          [
+            31.496,
+            13.716
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            34.036,
+            21.336
+          ],
+          [
+            33.02,
+            21.336
+          ],
+          [
+            33.02,
+            22.352
+          ],
+          [
+            32.766,
+            22.352
+          ],
+          [
+            32.766,
+            22.606
+          ],
+          [
+            32.512,
+            22.606
+          ],
+          [
+            32.512,
+            22.86
+          ],
+          [
+            26.416,
+            22.86
+          ],
+          [
+            26.416,
+            32.004
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            16.51
+          ],
+          [
+            14.732,
+            16.51
+          ],
+          [
+            14.732,
+            12.7
+          ],
+          [
+            14.986,
+            12.7
+          ],
+          [
+            14.986,
+            12.446
+          ],
+          [
+            15.24,
+            12.446
+          ],
+          [
+            15.24,
+            12.192
+          ],
+          [
+            25.4,
+            12.192
+          ],
+          [
+            25.4,
+            8.382
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            26.416,
+            32.004
+          ],
+          [
+            29.972,
+            32.004
+          ],
+          [
+            29.972,
+            33.02
+          ],
+          [
+            30.226,
+            33.02
+          ],
+          [
+            30.226,
+            33.274
+          ],
+          [
+            30.48,
+            33.274
+          ],
+          [
+            30.48,
+            33.528
+          ],
+          [
+            55.372,
+            33.528
+          ],
+          [
+            55.372,
+            38.354
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            13.97
+          ],
+          [
+            5.08,
+            13.97
+          ],
+          [
+            5,
+            11.5
+          ]
+        ]
+      },
+      {
+        "netId": "LED",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            47.244,
+            38.354
+          ],
+          [
+            52.832,
+            38.354
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5,
+            11.5
+          ],
+          [
+            5,
+            5
+          ]
+        ]
+      },
+      {
+        "netId": "BUTTON",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            9.5,
+            11.5
+          ],
+          [
+            9.5,
+            5
+          ]
+        ]
+      },
+      {
+        "netId": "MCU_RESET_N",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            18.796,
+            25.654
+          ],
+          [
+            16.256,
+            25.654
+          ],
+          [
+            16.256,
+            21.336
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            31.496,
+            21.336
+          ],
+          [
+            31.496,
+            32.004
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            36.576,
+            13.716
+          ],
+          [
+            35.56,
+            13.716
+          ],
+          [
+            35.56,
+            12.7
+          ],
+          [
+            35.306,
+            12.7
+          ],
+          [
+            35.306,
+            12.446
+          ],
+          [
+            35.052,
+            12.446
+          ],
+          [
+            35.052,
+            12.192
+          ],
+          [
+            32.512,
+            12.192
+          ],
+          [
+            32.512,
+            9.398
+          ],
+          [
+            32.258,
+            9.398
+          ],
+          [
+            32.258,
+            9.144
+          ],
+          [
+            32.004,
+            9.144
+          ],
+          [
+            32.004,
+            8.89
+          ],
+          [
+            30.48,
+            8.89
+          ],
+          [
+            30.48,
+            8.382
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            31.496,
+            21.336
+          ],
+          [
+            32.512,
+            21.336
+          ],
+          [
+            32.512,
+            20.32
+          ],
+          [
+            32.766,
+            20.32
+          ],
+          [
+            32.766,
+            20.066
+          ],
+          [
+            33.02,
+            20.066
+          ],
+          [
+            33.02,
+            19.812
+          ],
+          [
+            36.576,
+            19.812
+          ],
+          [
+            36.576,
+            13.716
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            13.97
+          ],
+          [
+            8.636,
+            13.97
+          ],
+          [
+            8.636,
+            25.654
+          ]
+        ]
+      },
+      {
+        "netId": "BUTTON",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            9.5,
+            11.5
+          ],
+          [
+            14.732,
+            11.43
+          ],
+          [
+            14.732,
+            14.732
+          ],
+          [
+            14.986,
+            14.732
+          ],
+          [
+            14.986,
+            14.986
+          ],
+          [
+            15.24,
+            14.986
+          ],
+          [
+            15.24,
+            15.24
+          ],
+          [
+            23.876,
+            15.24
+          ],
+          [
+            23.876,
+            21.336
+          ]
+        ]
+      },
+      {
+        "netId": "BUTTON",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            7.62,
+            34.29
+          ],
+          [
+            9.652,
+            34.29
+          ],
+          [
+            9.652,
+            26.924
+          ],
+          [
+            9.906,
+            26.924
+          ],
+          [
+            9.906,
+            26.67
+          ],
+          [
+            10.16,
+            26.67
+          ],
+          [
+            10.16,
+            24.638
+          ],
+          [
+            9.906,
+            24.638
+          ],
+          [
+            9.906,
+            24.384
+          ],
+          [
+            9.652,
+            24.384
+          ],
+          [
+            9.652,
+            13.462
+          ],
+          [
+            9.398,
+            13.462
+          ],
+          [
+            9.5,
+            11.5
+          ]
+        ]
+      },
+      {
+        "netId": "D13",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            39.116,
+            13.716
+          ],
+          [
+            39.116,
+            19.812
+          ],
+          [
+            50.292,
+            19.812
+          ],
+          [
+            50.292,
+            20.066
+          ],
+          [
+            50.546,
+            20.066
+          ],
+          [
+            50.546,
+            20.32
+          ],
+          [
+            50.8,
+            20.32
+          ],
+          [
+            50.8,
+            22.352
+          ],
+          [
+            50.546,
+            22.352
+          ],
+          [
+            50.546,
+            22.606
+          ],
+          [
+            50.292,
+            22.606
+          ],
+          [
+            50.292,
+            22.86
+          ],
+          [
+            37.084,
+            22.86
+          ],
+          [
+            37.084,
+            38.354
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            8.636,
+            25.654
+          ],
+          [
+            14.732,
+            25.654
+          ],
+          [
+            14.732,
+            20.32
+          ],
+          [
+            14.986,
+            20.32
+          ],
+          [
+            14.986,
+            20.066
+          ],
+          [
+            15.24,
+            20.066
+          ],
+          [
+            15.24,
+            19.812
+          ],
+          [
+            31.496,
+            19.812
+          ],
+          [
+            31.496,
+            21.336
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External stimulus or supply connects through J1."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "fabricationNotes": "J1 is 5 V and return. SW1 drives D2 high while pressed, and R2 pulls D2 low on release. Program U1 with the internal 8 MHz oscillator without division."
+  }
 }

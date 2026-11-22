@@ -112,6 +112,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.atmega328p-spi-display", category: "Active", type: "ATmega328P-PU SPI byte LED display", prefix: "U", pins: ["SCK", "MOSI", "CS", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC", "BIT0", "BIT1", "BIT2", "BIT3", "BIT4", "BIT5", "BIT6", "BIT7"], defaultValue: "Mode 0 byte LED display", simulation: "analytical-spi-display", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.atmega328p-button-toggle", category: "Active", type: "ATmega328P-PU debounced button toggle", prefix: "U", pins: ["D2", "D13", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC"], defaultValue: "Program Button debounce; Input D2; Output D13; Mode Toggle; Stable 3", simulation: "analytical-mcu-button-debounce", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.atmega328p-blink", category: "Active", type: "ATmega328P-PU D13 blink demonstration", prefix: "U", pins: ["D13", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-blink", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D3", "D7", "D8", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.potentiometer-adc-ideal", category: "Inputs", type: "Ideal potentiometer-to-ADC fixture", prefix: "RV", pins: ["VCC", "OUT", "GND"], defaultValue: "Position 50%; Resolution 10 bit", simulation: "fixture-potentiometer-adc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -194,6 +195,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.watchdog-status-display", category: "Output", type: "Ideal watchdog status text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Watchdog state", simulation: "analytical-mcu-watchdog", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.avr-ir-decoder-ideal", category: "Active", type: "Generic AVR NEC-like decoder behavior model", prefix: "U", pins: ["INT0", "TX", "VCC", "GND"], defaultValue: "Program Decode NEC-like; Input INT0; Output TX; Tolerance 20%", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.ir-code-display-ideal", category: "Output", type: "Ideal IR address/command text sink", prefix: "DISP", pins: ["DATA", "VCC", "GND"], defaultValue: "Address and command bytes", simulation: "analytical-avr-ir-receiver", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "input.b3f-1000-sample-sequence", category: "Inputs", type: "Omron B3F-1000 pushbutton with sample fixture", prefix: "SW", pins: ["VCC", "OUT"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.digital-sample-sequence", category: "Inputs", type: "Ideal digital sample-sequence fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Samples 0,1,0,1,1,1,0,0,0,1,1,1; Rate 1000 Hz", simulation: "fixture-digital-samples", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.regulator-7805-ideal", category: "Active", type: "Ideal 7805-class linear regulator model", prefix: "U", pins: ["IN", "OUT", "GND"], defaultValue: "Vout 5 V; dropout 2 V", simulation: "analytical-regulated-supply", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "protection.ptc-polyfuse", category: "Active", type: "Resettable PTC fuse (cold-state estimate)", prefix: "F", pins: ["1", "2"], defaultValue: "Ihold 0.5 A; Rcold 0.1 Ω", simulation: "analytical-usb-led-ptc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -974,6 +976,8 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const spiDisplays = project.components.filter((item) => item.libraryId === "active.spi-display-ideal");
   const avrBlink = project.components.find(item => item.libraryId === "active.atmega328p-blink");
   const mcuControllers = project.components.filter((item) => item.libraryId === "active.mcu-uno-ideal");
+  const avrButtonToggle = project.components.find(item => item.libraryId === "active.atmega328p-button-toggle");
+  const sampledButton = project.components.find(item => item.libraryId === "input.b3f-1000-sample-sequence");
   const digitalSampleFixtures = project.components.filter((item) => item.libraryId === "input.digital-sample-sequence");
   const adcPotentiometers = project.components.filter((item) => item.libraryId === "input.potentiometer-adc-ideal");
   const temperatureSensors = project.components.filter((item) => item.libraryId === "sensor.temperature-analog-ideal");
@@ -1299,8 +1303,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (adcPotentiometers.length === 1 && mcuControllers.length === 1 && mosfets.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analyseMcuPwmDimmer(project, { source: source[0], mcu: mcuControllers[0], potentiometer: adcPotentiometers[0], mosfet: mosfets[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
+  if (avrButtonToggle && sampledButton && source.length === 1 && resistor.length === 3 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 10) {
+    return analyseMcuButtonDebounce(project, { source: source[0], fixture: sampledButton, mcu: avrButtonToggle, resistors: resistor, bypass: capacitor, led: led[0], ground: ground[0], validation });
+  }
   if (digitalSampleFixtures.length === 1 && mcuControllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 6) {
-    return analyseMcuButtonDebounce(project, { source: source[0], fixture: digitalSampleFixtures[0], mcu: mcuControllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+    return analyseMcuButtonDebounce(project, { source: source[0], fixture: digitalSampleFixtures[0], mcu: mcuControllers[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
   if (avrBlink && source.length === 1 && resistor.length === 2 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
     return analyseMcuBlink(project, { source: source[0], mcu: avrBlink, resistors: resistor, bypass: capacitor, led: led[0], ground: ground[0], validation });
@@ -3066,16 +3073,29 @@ function analyseMcuPwmDimmer(project,{source,mcu,potentiometer,mosfet,resistor,l
   const peakCurrentA=supplyVoltage>threshold?Math.max(0,(supplyVoltage-vf)/resistance):0,averageCurrentA=peakCurrentA*duty;
   return {state:"complete",engine:"Ideal Uno-class ADC-to-PWM MOSFET dimmer",message:"Maps a potentiometer position to a rounded 10-bit ADC count, computes ideal PWM duty, and estimates low-side MOSFET LED average current. Arduino C++ execution, ADC noise/quantization beyond rounding, MOSFET switching loss, thermal behavior, and LED nonlinear dynamics are omitted.",result:{kind:"mcu-pwm-dimmer",positionPercent:position,adcResolutionBits:10,adcCount,dutyCycle:duty,pwmFrequencyHz:frequency,peakLedCurrentA:peakCurrentA,averageLedCurrentA:averageCurrentA,mosfetGateThresholdV:threshold,mosfetConducts:peakCurrentA>0,firmwareExecuted:false},validation};
 }
-function analyseMcuButtonDebounce(project,{source,fixture,mcu,resistor,led,ground,validation}){
+function analyseMcuButtonDebounce(project,{source,fixture,mcu,resistors,bypass,led,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(mcu.value).split(";").map(v=>v.trim()),sampleFields=String(fixture.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
   const samplesText=field(sampleFields,"Samples")??"",samples=samplesText? samplesText.split(",").map(v=>Number(v.trim())):[];
   const stableCount=Number(field(fields,"Stable")),rateText=field(sampleFields,"Rate")?.replace(/\s*Hz$/i,""),sampleRate=Number(rateText);
   const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
-  const seriesPath=(n(mcu,"D13")===n(resistor,"1")&&n(resistor,"2")===n(led,"A"))||(n(mcu,"D13")===n(resistor,"2")&&n(resistor,"1")===n(led,"A"));
-  const resistance=resistanceValue(resistor.value),vf=forwardVoltage(led.value);
-  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(mcu,"GND")!==groundNet||n(fixture,"GND")!==groundNet||n(fixture,"OUT")!==n(mcu,"D2")||n(led,"K")!==groundNet||!seriesPath||field(fields,"Program")?.toLowerCase()!=="button debounce"||field(fields,"Input")!=="D2"||field(fields,"Output")!=="D13"||field(fields,"Mode")?.toLowerCase()!=="toggle"||!Number.isInteger(stableCount)||stableCount<1||stableCount>20||samples.length<3||samples.length>200||samples.some(v=>v!==0&&v!==1)||!Number.isFinite(sampleRate)||sampleRate<1||sampleRate>100000||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(vf)||vf<=0){
+  const input=n(mcu,"D2"),outputNet=n(mcu,"D13"),anode=n(led,"A");
+  const hasPath=(resistor,first,second)=>{
+    const pins=[n(resistor,"1"),n(resistor,"2")];
+    return first&&second&&first!==second&&pins.includes(first)&&pins.includes(second);
+  };
+  if (bypass) {
+    if (!validAvrSupply(mcu,resistors,bypass,n,vccNet,groundNet) || !(supplyVoltage >= 2.7 && supplyVoltage <= 5.5)) {
+      return {state:"blocked",message:"Power both supply pins and ground both returns, fit the bypass capacitors, and pull MCU reset up to VCC.",validation};
+    }
+    if (n(fixture,"VCC")!==vccNet || !resistors.some(r=>hasPath(r,input,groundNet)&&resistanceValue(r.value)===10000)) {
+      return {state:"blocked",message:"Wire the pushbutton between VCC and D2, and fit the 10 kΩ pulldown from D2 to ground.",validation};
+    }
+  }
+  const resistor=resistors.find(r=>hasPath(r,outputNet,anode));
+  const resistance=resistanceValue(resistor?.value),vf=forwardVoltage(led.value);
+  if(!vccNet||!groundNet||!input||!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(mcu,"GND")!==groundNet||(!bypass&&n(fixture,"GND")!==groundNet)||n(fixture,"OUT")!==n(mcu,"D2")||n(led,"K")!==groundNet||field(fields,"Program")?.toLowerCase()!=="button debounce"||field(fields,"Input")!=="D2"||field(fields,"Output")!=="D13"||field(fields,"Mode")?.toLowerCase()!=="toggle"||!Number.isInteger(stableCount)||stableCount<1||stableCount>20||samples.length<3||samples.length>200||samples.some(v=>v!==0&&v!==1)||!Number.isFinite(sampleRate)||sampleRate<1||sampleRate>100000||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(vf)||vf<=0){
     return {state:"blocked",message:"Configure a binary sample sequence, 1–20 matching stable samples, and 1–100000 Hz sample rate; wire fixture OUT to D2 and D13 through a current-limited LED.",validation};
   }
   let stable=0,candidate=null,count=0,output=false,toggleCount=0;const trace=[];
