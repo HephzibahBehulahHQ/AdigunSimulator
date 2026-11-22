@@ -132,6 +132,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.atmega328p-servo-control", category: "Active", type: "ATmega328P-PU servo controller", prefix: "U", pins: ["A0", "D9", "AREF", "MCU_RESET_N", "VCC", "AVCC", "GND", "AGND"], defaultValue: "Program Servo control; ADC A0; Servo D9", simulation: "analytical-servo-position", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.fs90c-servo-port", category: "Output", type: "Off-board FEETECH FS90-C servo port", prefix: "J", pins: ["PWM", "VCC", "GND"], defaultValue: "MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz", simulation: "analytical-servo-position", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.servo-angle-ideal", category: "Output", type: "Ideal hobby-servo position model", prefix: "SERVO", pins: ["PWM", "VCC", "GND"], defaultValue: "MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz", simulation: "analytical-servo-position", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.atmega328p-stepper-control", category: "Active", type: "ATmega328P-PU stepper controller", prefix: "U", pins: ["D2", "D3", "D4", "VCC", "AVCC", "GND", "AGND", "MCU_RESET_N"], defaultValue: "Program Stepper; Step D3; DirectionPin D2; Steps 200; Direction CW; StepRate 200", simulation: "analytical-stepper-motion", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.pololu-1182-a4988", category: "Active", type: "Pololu 1182 A4988 bipolar stepper carrier", prefix: "U", pins: ["EN", "MS1", "MS2", "MS3", "RST", "SLP", "STEP", "DIR", "VMOT", "PGND", "B2", "B1", "A1", "A2", "VCC", "GND"], defaultValue: "Pololu 1182; Full step; CurrentLimit 0.6 A", simulation: "analytical-stepper-motion", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.pololu-1204-motor-port", category: "Output", type: "Off-board Pololu 1204 bipolar stepper port", prefix: "J", pins: ["A1", "A2", "B1", "B2"], defaultValue: "StepsPerRevolution 200; StepAngle 1.8 deg", simulation: "analytical-stepper-motion", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.stepper-driver-ideal", category: "Active", type: "Ideal dual-H-bridge stepper driver (logic model)", prefix: "U", pins: ["STEP", "DIR", "VCC", "GND", "A1", "A2", "B1", "B2"], defaultValue: "Full-step dual-phase drive", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.stepper-motor-ideal", category: "Output", type: "Ideal bipolar stepper motor (position model)", prefix: "M", pins: ["A1", "A2", "B1", "B2"], defaultValue: "StepsPerRevolution 200; StepAngle 1.8 deg", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.esp32-telemetry-ideal", category: "Active", type: "Ideal ESP32-class sensor telemetry formatter", prefix: "U", pins: ["ADC", "TX", "VCC", "GND"], defaultValue: "Device esp32-node-01; Sequence 1; Transport offline-mock", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -1301,6 +1304,16 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (esp32Formatters.length === 1 && payloadSinks.length === 1 && temperatureSensors.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseEsp32Telemetry(project, { source: source[0], esp32: esp32Formatters[0], sensor: temperatureSensors[0], sink: payloadSinks[0], ground: ground[0], validation });
+  }
+  const stepController = project.components.find(item => item.libraryId === "active.atmega328p-stepper-control");
+  const a4988 = project.components.find(item => item.libraryId === "active.pololu-1182-a4988");
+  const motorPort = project.components.find(item => item.libraryId === "output.pololu-1204-motor-port");
+  if (stepController && a4988 && motorPort && source.length === 2 && ground.length === 1 && project.components.length === 12) {
+    const logicNet=project.nets.find(net=>net.endpoints.includes(endpoint(stepController,"VCC")));
+    const logicSupply=source.find(item=>logicNet?.endpoints.includes(endpoint(item,"+")));
+    const motorSupply=source.find(item=>item!==logicSupply);
+    const bulk=project.components.find(item=>item.libraryId==="passive.electrolytic-capacitor");
+    if (logicSupply) return analyseMcuStepper(project, { source: logicSupply, motorSupply, bulk, bypass: capacitor, resistors: resistor, mcu: stepController, driver: a4988, motor: motorPort, ground: ground[0], validation });
   }
   if (stepperDrivers.length === 1 && stepperMotors.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuStepper(project, { source: source[0], mcu: mcuControllers[0], driver: stepperDrivers[0], motor: stepperMotors[0], ground: ground[0], validation });
@@ -3029,7 +3042,7 @@ function analyseEsp32Telemetry(project,{source,esp32,sensor,sink,ground,validati
   const payload={device,sequence,temperatureC:measuredTemperatureC},payloadText=JSON.stringify(payload);
   return {state:"complete",engine:"Ideal ESP32-class offline telemetry formatter",message:"Quantizes a linear sensor value to an ideal 12-bit ADC reading and formats a deterministic JSON payload for local inspection. No Wi-Fi association, socket, Internet request, authentication, or external data transfer occurs; ESP32 ADC nonlinearities and firmware execution are not modeled.",result:{kind:"esp32-telemetry-payload",adcResolutionBits:12,adcCount,sensorVoltageV:sensorVoltage,measuredTemperatureC,payload,payloadText,transport:"offline-mock",transmitted:false,firmwareExecuted:false},validation};
 }
-function analyseMcuStepper(project,{source,mcu,driver,motor,ground,validation}){
+function analyseMcuStepper(project,{source,motorSupply,bulk,bypass,resistors,mcu,driver,motor,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),motorFields=String(motor.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim(),numeric=value=>Number(String(value??"").split(" ")[0]);
@@ -3039,6 +3052,17 @@ function analyseMcuStepper(project,{source,mcu,driver,motor,ground,validation}){
   const wired=n(mcu,"D3")===n(driver,"STEP")&&n(mcu,"D2")===n(driver,"DIR")&&n(driver,"VCC")===vccNet&&n(driver,"GND")===groundNet&&n(mcu,"GND")===groundNet&&["A1","A2","B1","B2"].every(pin=>n(driver,pin)===n(motor,pin));
   if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!wired||field(mcuFields,"Program")?.toLowerCase()!=="stepper"||field(mcuFields,"Step")!=="D3"||field(mcuFields,"DirectionPin")!=="D2"||!Number.isInteger(steps)||steps<1||steps>100000||!Number.isFinite(stepRate)||stepRate<1||stepRate>10000||!["CW","CCW"].includes(direction)||!Number.isFinite(stepsPerRevolution)||stepsPerRevolution<1||!Number.isFinite(stepAngle)||stepAngle<=0){
     return {state:"blocked",message:"Configure D3 STEP, D2 DIR, a positive step count/rate, CW or CCW direction, and connect the dual-H-bridge outputs to all four motor coil terminals.",validation};
+  }
+  if (motorSupply) {
+    const motorNet=n(driver,"VMOT"),enable=n(driver,"EN"),stepNet=n(driver,"STEP");
+    const hasResistor=(a,b)=>Boolean(a&&b&&a!==b)&&resistors.some(r=>[n(r,"1"),n(r,"2")].includes(a)&&[n(r,"1"),n(r,"2")].includes(b)&&resistanceValue(r.value)===10000);
+    const motorPower=motorNet&&motorNet!==vccNet&&motorNet!==groundNet&&n(motorSupply,"+")===motorNet&&n(motorSupply,"-")===groundNet&&voltageValue(motorSupply.value)===12;
+    const modes=["MS1","MS2","MS3","PGND"].every(pin=>n(driver,pin)===groundNet)&&["RST","SLP"].every(pin=>n(driver,pin)===vccNet);
+    if(supplyVoltage!==5||!vccNet||!groundNet||bypass.length!==2||!validAvrSupply(mcu,resistors,bypass,n,vccNet,groundNet)||!motorPower||!modes||
+       !enable||n(mcu,"D4")!==enable||!hasResistor(enable,vccNet)||!hasResistor(stepNet,groundNet)||
+       !bulk||n(bulk,"+")!==motorNet||n(bulk,"-")!==groundNet||capacitanceValue(bulk.value)<47e-6||stepsPerRevolution!==200||stepAngle!==1.8){
+      return {state:"blocked",message:"Wire 5 V logic and 12 V VMOT with a common return, polarized motor bulk capacitance, full-step straps, reset/sleep high and the D4 enable pull-up and STEP pull-down. Use the 200-step motor.",validation};
+    }
   }
   const signedSteps=direction==="CW"?steps:-steps,angularTravelDegrees=signedSteps*stepAngle,finalPositionDegrees=((angularTravelDegrees%360)+360)%360;
   const phaseTable=[[true,false,false,true],[true,false,true,false],[false,true,true,false],[false,true,false,true]];

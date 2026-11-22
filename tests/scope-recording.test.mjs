@@ -261,6 +261,17 @@ test('servo scope renders the modeled high pulse and 50 Hz frame',async()=>{
  assert.deepEqual(scopeRecording.samples[4],{timeSeconds:.02,nodeVoltages:{SERVO_PWM:1}});
 });
 
+test('stepper scope reflects the first four STEP command pulses',async()=>{
+ const p=await load('067-arduino-stepper-driver');
+ const {scopeRecording}=runProjectAnalysis(p);
+ assert.equal(scopeRecording.preferredNet,'STEP');
+ assert.equal(scopeRecording.units,'logic');
+ assert.deepEqual(scopeRecording.samples[1],{timeSeconds:1e-5,nodeVoltages:{STEP:1}});
+ assert.deepEqual(scopeRecording.samples[2],{timeSeconds:1e-5,nodeVoltages:{STEP:0}});
+ assert.deepEqual(scopeRecording.samples[4],{timeSeconds:.005,nodeVoltages:{STEP:1}});
+ assert.equal(scopeRecording.samples.at(-1).timeSeconds,.02);
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);

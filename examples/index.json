@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 99,
-    "withoutStoredPcb": 117,
+    "withStoredPcb": 100,
+    "withoutStoredPcb": 116,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1262,36 +1262,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "135de5ff2bb2029f3ce810023bfe08ea05b39b9d8a8d2c7ae53448633f6c5906",
-      "components": 5,
+      "sha256": "6536fa37584b3ba0c62ff7d5bca7cdf60c3017f13d5e8cda9810e53f814e0047",
+      "components": 12,
       "analysis": "complete",
       "engine": "Ideal Uno-class bipolar stepper sequence and position model",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.mcu-uno-ideal"
-        },
-        {
-          "reference": "U2",
-          "libraryId": "active.stepper-driver-ideal"
-        },
-        {
-          "reference": "M1",
-          "libraryId": "output.stepper-motor-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 11,
+      "pcbPads": 64,
+      "pcbRoutes": 33,
+      "unmapped": []
     },
     {
       "file": "068-esp32-telemetry-mock.adigun.json",
