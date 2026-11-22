@@ -1,92 +1,17 @@
-# 071 — PIC-class ADC LED bargraph
+# 071 — PIC16F886 ADC LED bargraph
 
-## Purpose
+A 10 kΩ Bourns 3296W trimmer drives PIC16F886 AN0. The PIC uses supply-referenced 10-bit ADC conversion and sinks current through up to ten red LED segments. At the default midpoint, the model gives ADC count 512 and lights five segments. The scope shows the ideal 2.500 V at AN0.
 
-Map a 0–100% potentiometer input through an ideal 10-bit PIC-class ADC and illuminate the corresponding count on a ten-segment LED bargraph.
+| Reference | Assembly |
+| --- | --- |
+| J1 | Regulated 5 V input and return |
+| U1 | Microchip PIC16F886-I/SP, 28-pin SPDIP |
+| RV1 | Bourns 3296W-1-103LF, 10 kΩ |
+| DS1 | Kingbright DC10EWA, ten individually wired red LEDs |
+| RN1, RN2 | Bourns 4606X-101-102LF, five independent 1 kΩ branches sharing pin 1 |
+| C1 | 100 nF supply bypass |
+| R7 | 10 kΩ MCLR pull-up |
 
-## Bill of materials
+Connect both PIC VSS pins to the common return. AN0 is pin 2. RB0–RB5, pins 21–26, sink the first six segments. RC0–RC3, pins 11–14, sink segments seven through ten. DS1 anodes are pins 1–10, paired with cathodes 20–11. Each anode has an individual 1 kΩ branch to 5 V. On the BB400, fit PIC pin 1 at F5 and align the marked DS1 anode row at F20–F29. Check the marked common lead of each resistor network before power is applied. [Microchip PIC16F886 datasheet](https://www.microchip.com/content/dam/mchp/documents/OTH/ProductDocuments/DataSheets/40001291H.pdf), [Kingbright DC10EWA datasheet](https://www.kingbrightusa.com/images/catalog/SPEC/DC10EWA.pdf), [Bourns resistor networks](https://www.bourns.com/docs/Product-Datasheets/4600x.pdf).
 
-| Reference | Project library ID | Project value |
-|---|---|---|
-| V1 | `power.dc-source` | 5 V |
-| RV1 | `input.potentiometer-adc-ideal` | Position 50%; Resolution 10 bit |
-| U1 | `active.pic-adc-bargraph-ideal` | Program ADC bargraph; ADC AN0; Resolution 10 bit; Channels 10 |
-| LED1 | `output.led-bargraph-10seg-ideal` | Segments 10; Mode bar |
-| GND | `ground.signal` | 0 V |
-
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
-
-## Net connections
-
-- **VDD:** `supply:+`, `pot:VCC`, `pic:VDD`, `bargraph:VCC`
-- **GND:** `supply:-`, `pot:GND`, `pic:VSS`, `bargraph:GND`, `ground:0`
-- **ADC_IN:** `pot:OUT`, `pic:AN0`
-- **BAR_0:** `pic:BAR0`, `bargraph:IN0`
-- **BAR_1:** `pic:BAR1`, `bargraph:IN1`
-- **BAR_2:** `pic:BAR2`, `bargraph:IN2`
-- **BAR_3:** `pic:BAR3`, `bargraph:IN3`
-- **BAR_4:** `pic:BAR4`, `bargraph:IN4`
-- **BAR_5:** `pic:BAR5`, `bargraph:IN5`
-- **BAR_6:** `pic:BAR6`, `bargraph:IN6`
-- **BAR_7:** `pic:BAR7`, `bargraph:IN7`
-- **BAR_8:** `pic:BAR8`, `bargraph:IN8`
-- **BAR_9:** `pic:BAR9`, `bargraph:IN9`
-
-## Views and physical-layout status
-
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
-
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
-
-## Acceptance test and expected result
-
-- Stable test ID: `core-pic-adc-bargraph`
-- Engine: Ideal PIC-class 10-bit ADC bargraph model
-- Engine version: `adigun-simulator@0.1.0`
-- Model version: `ideal-pic-adc-bargraph-v1`
-- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41178728021
-
-Recorded expected result:
-
-```json
-{
-  "adcResolutionBits": 10,
-  "positions": [
-    {
-      "positionPercent": 0,
-      "adcCount": 0,
-      "illuminatedSegments": 0
-    },
-    {
-      "positionPercent": 25,
-      "adcCount": 256,
-      "illuminatedSegments": 2
-    },
-    {
-      "positionPercent": 50,
-      "adcCount": 512,
-      "illuminatedSegments": 5
-    },
-    {
-      "positionPercent": 75,
-      "adcCount": 767,
-      "illuminatedSegments": 7
-    },
-    {
-      "positionPercent": 100,
-      "adcCount": 1023,
-      "illuminatedSegments": 10
-    }
-  ],
-  "firmwareExecuted": false,
-  "physicalLedCurrent": "not modeled"
-}
-```
-
-## Safety and model limits
-
-Logical ADC and display behavior model only. PIC firmware, analog input noise, LED current limiting, device-specific pin assignment, and physical bargraph ratings are omitted.
-
-Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
-
-Native project: `examples/071-pic-adc-bargraph.adigun.json`.
+The [PIC assembly firmware](../071-pic-adc-bargraph/bargraph.asm) samples AN0, compares the 10-bit count with ten fixed thresholds, and drives the cathodes active low. Program the PIC in a suitable ICSP programming fixture before mounting it. The 89 x 58 mm two-layer board uses 0.35 mm copper clearance. The native project records the source-backed layout, PCB routes and educational fabrication outputs. The ideal model omits ADC noise, LED current and brightness, and firmware execution. Verify hardware thresholds and output behavior on the bench before relying on the meter.

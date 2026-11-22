@@ -290,6 +290,14 @@ test('Pico voltmeter scope displays the ideal 3 V divider midpoint',async()=>{
  assert.deepEqual(scopeRecording.samples,[0,.25].map(timeSeconds=>({timeSeconds,nodeVoltages:{ADC_MID:3}})));
 });
 
+test('PIC bargraph scope displays the voltage applied to AN0',async()=>{
+ const p=await load('071-pic-adc-bargraph');
+ const {result,scopeRecording}=runProjectAnalysis(p);
+ assert.equal(result.illuminatedSegments,5);
+ assert.equal(scopeRecording.preferredNet,'ADC_IN');
+ assert.deepEqual(scopeRecording.samples,[0,.25].map(timeSeconds=>({timeSeconds,nodeVoltages:{ADC_IN:2.5}})));
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);

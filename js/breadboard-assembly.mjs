@@ -36,7 +36,7 @@ export function validateBreadboardAssembly(project, { getPartPins } = {}) {
       continue;
     }
     packages.set(pkg.instanceId, pkg);
-    const allowedKinds = ["to220", "to92", "external-relay", "external-speaker", "radial-microphone", "axial-diode", "axial-led", "slide-switch", "trimmer", "bridge-rectifier", "radial-inductor", "radial-capacitor", "box-capacitor", "radial-ptc", "radial-ntc", "photoresistor", "pdip", "seven-segment-display", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
+    const allowedKinds = ["to220", "to92", "external-relay", "external-speaker", "radial-microphone", "axial-diode", "axial-led", "slide-switch", "trimmer", "bridge-rectifier", "radial-inductor", "radial-capacitor", "box-capacitor", "radial-ptc", "radial-ntc", "photoresistor", "pdip", "seven-segment-display", "led-bargraph", "sip-resistor-network", "axial-resistor", "external-axial-resistor", "terminal-header", "through-hole-header", "external-pushbutton", "external-supply"];
     const externalSupply = pkg.kind === "external-supply";
     const externalRelay = pkg.kind === "external-relay";
     const externalSpeaker = pkg.kind === "external-speaker";
@@ -132,6 +132,13 @@ function packageBody(pkg, scaleX, scaleY) {
   if (pkg.kind === "external-axial-resistor") return `<rect class="resistor-body breadboard-external-load-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="${height * .34}"/><path class="resistor-band" d="M${-width * .25} ${-height / 2} V${height / 2} M${-width * .08} ${-height / 2} V${height / 2} M${width * .08} ${-height / 2} V${height / 2} M${width * .25} ${-height / 2} V${height / 2}"/>`;
   if (pkg.kind === "to220") return `<rect class="breadboard-to220-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/><circle class="breadboard-to220-hole" cx="0" cy="${-height * .27}" r="${Math.max(1.8, height * .12)}"/>`;
   if (pkg.kind === "terminal-header") return `<rect class="breadboard-terminal-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2"/><circle class="breadboard-terminal-screw" cx="${-width * .22}" cy="${-height * .18}" r="${Math.max(1.5, height * .12)}"/><circle class="breadboard-terminal-screw" cx="${width * .22}" cy="${-height * .18}" r="${Math.max(1.5, height * .12)}"/>`;
+  if (pkg.kind === "led-bargraph") {
+    const segments = Array.from({ length: 10 }, (_, i) =>
+      `<rect x="${(i + .17) * width / 10 - width / 2}" y="${-height * .25}" width="${width * .065}" height="${height * .5}" rx="1" fill="#e8e4d7"/>`
+    ).join("");
+    return `<rect x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="2" fill="#41474b"/>${segments}`;
+  }
+  if (pkg.kind === "sip-resistor-network") return `<rect x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="1" fill="#33231e"/>`;
   if (pkg.kind === "through-hole-header") return `<rect class="breadboard-header-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="1"/><path class="breadboard-header-divider" d="M${-width / 2 + width / 2} ${-height / 2} V${height / 2}"/>`;
   return `<rect class="breadboard-external-body" x="${-width / 2}" y="${-height / 2}" width="${width}" height="${height}" rx="3"/>`;
 }

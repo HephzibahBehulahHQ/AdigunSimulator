@@ -1,0 +1,31 @@
+name: Build PIC bargraph firmware
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'examples/071-pic-adc-bargraph/**/*.asm'
+      - '.github/workflows/pic-example-firmware.yml'
+  pull_request:
+    paths:
+      - 'examples/071-pic-adc-bargraph/**/*.asm'
+      - '.github/workflows/pic-example-firmware.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install gputils if missing
+        run: |
+          if ! command -v gpasm >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install --yes --no-install-recommends gputils
+          fi
+      - name: Assemble the PIC16F886 firmware
+        run: |
+          gpasm -o "$RUNNER_TEMP/bargraph.hex" examples/071-pic-adc-bargraph/bargraph.asm
+          test -s "$RUNNER_TEMP/bargraph.hex"
