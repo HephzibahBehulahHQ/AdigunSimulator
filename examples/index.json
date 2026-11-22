@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 97,
-    "withoutStoredPcb": 119,
+    "withStoredPcb": 98,
+    "withoutStoredPcb": 118,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1230,36 +1230,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "4ca5b3c615d7ab19651bf7d1e24245056adb2ed1073c01e9469668a47fb50825",
-      "components": 5,
+      "sha256": "2a2de2bf9b5b31677fb571465520790687d8e6b99f768b0e990ed80e09cf163e",
+      "components": 8,
       "analysis": "complete",
       "engine": "Ideal Uno-class ultrasonic time-of-flight estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.mcu-uno-ideal"
-        },
-        {
-          "reference": "US1",
-          "libraryId": "sensor.ultrasonic-echo-ideal"
-        },
-        {
-          "reference": "OLED1",
-          "libraryId": "output.oled-text-sink-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 7,
+      "pcbPads": 44,
+      "pcbRoutes": 18,
+      "unmapped": []
     },
     {
       "file": "066-arduino-servo-control.adigun.json",

@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,97);assert.equal(index.summary.withoutStoredPcb,119);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,98);assert.equal(index.summary.withoutStoredPcb,118);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -842,10 +842,33 @@ test('Example 064 maps the LM35DZ, AVR and LCD connector in all three views',asy
  assert.deepEqual(Object.keys(pack.files).sort(),['BOM.csv','board-B_Cu.gbr','board-Edge_Cuts.gbr','board-F_Cu.gbr','board-PTH.drl'].sort());
 });
 
+test('Example 065 maps both off-board assemblies across breadboard, schematic and PCB',async()=>{
+ const p=JSON.parse(await readFile(new URL('../examples/065-arduino-ultrasonic-ranger.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(p,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(p,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(p,{getPartPins}).state,'complete');
+ const parts=Object.fromEntries(p.pcbFabrication.physicalEvidence.map(item=>[item.reference,item]));
+ assert.deepEqual(parts.J2.pinMapping,{'1':'VCC','2':'TRIG','3':'ECHO','4':'GND'});
+ assert.deepEqual(parts.J3.pinMapping,{'1':'GND','2':'VCC','3':'OLED_SDA','4':'OLED_SCL'});
+ assert.equal(parts.U1.pinMapping['14'],'ECHO');
+ assert.equal(parts.U1.pinMapping['15'],'TRIG');
+ assert.equal(validatePcbFabrication(p).status,'passed');
+ assert.equal(exportPcbFabrication(p).status,'passed');
+ const broken=structuredClone(p);
+ const sda=broken.nets.find(n=>n.id==='OLED_SDA'),scl=broken.nets.find(n=>n.id==='OLED_SCL');
+ sda.endpoints[1]='oled:SCL';
+ scl.endpoints[1]='oled:SDA';
+ broken.schematicWires = [];
+ broken.breadboard = undefined;
+ broken.pcbFabrication = undefined;
+ assert.match(runProjectAnalysis(broken).message,/OLED SDA and SCL/);
+});
+
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,97);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,98);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });
