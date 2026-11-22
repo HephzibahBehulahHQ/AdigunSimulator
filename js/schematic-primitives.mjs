@@ -26,7 +26,7 @@ define(["diode.schottky", "diode.schottky-1n5822g"], "schottky", two("A", "K"));
 define(["diode.zener-ideal"], "zener", two("A", "K"));
 define(["active.npn-ebers-moll-generic", "active.npn-small-signal"], "npn", { B: [6, 29, "left"], C: [50, 11, "right"], E: [50, 47, "right"] });
 define(["active.pnp-ebers-moll-generic"], "pnp", { B: [6, 29, "left"], C: [50, 11, "right"], E: [50, 47, "right"] });
-define(["active.nmos-switch"], "nmos", { G: [6, 29, "left"], D: [50, 11, "right"], S: [50, 47, "right"] });
+define(["active.nmos-switch", "active.2n7000-d74z"], "nmos", { G: [6, 29, "left"], D: [50, 11, "right"], S: [50, 47, "right"] });
 define(["active.pmos-high-side-ideal"], "pmos", { G: [6, 29, "left"], D: [50, 11, "right"], S: [50, 47, "right"] });
 define(["input.pushbutton"], "pushbutton", two("1", "2"));
 define(["input.b3f-1000-sample-sequence"], "pushbutton", two("VCC", "OUT"));
