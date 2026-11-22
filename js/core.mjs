@@ -2575,6 +2575,9 @@ function analyseStm32TimerPwm(project,{source,controller,resistor,led,ground,val
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(controller.value).split(";").map(v=>v.trim());
   const field=label=>fields.find(v=>v.startsWith(label+" "))?.slice(label.length).trim(),clockHz=Number(field("ClockHz")),prescaler=Number(field("Prescaler")),autoReload=Number(field("AutoReload")),compare=Number(field("Compare"));
   const groundNet=n(ground,"0"),vccNet=n(controller,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  if (Number.isFinite(supplyVoltage) && (supplyVoltage < 3 || supplyVoltage > 3.6)) {
+    return {state:"blocked",message:"Use a regulated 3.3 V source within the board's 3.0 to 3.6 V input range at CN4 pin 14.",validation};
+  }
   const loadPath=(n(controller,"PA0")===n(resistor,"1")&&n(resistor,"2")===n(led,"A")||n(controller,"PA0")===n(resistor,"2")&&n(resistor,"1")===n(led,"A"))&&n(led,"K")===groundNet&&n(controller,"GND")===groundNet;
   const resistance=resistanceValue(resistor.value),vf=forwardVoltage(led.value);
   if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!loadPath||![clockHz,prescaler,autoReload,compare,resistance,vf].every(Number.isFinite)||!Number.isInteger(prescaler)||prescaler<0||prescaler>65535||!Number.isInteger(autoReload)||autoReload<1||autoReload>65535||!Number.isInteger(compare)||compare<0||compare>autoReload||clockHz<1000000||clockHz>64000000||resistance<=0||vf<=0){

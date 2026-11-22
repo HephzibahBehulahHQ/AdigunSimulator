@@ -146,33 +146,1172 @@
     "model": "busboard-bb400",
     "pinHoles": {
       "supply:+": "TP2",
-      "supply:-": "BM2",
-      "timer:VCC": "I18",
+      "supply:-": "BM1",
       "timer:GND": "I6",
       "timer:PA0": "I16",
+      "timer:VCC": "I18",
       "resistor:1": "C25",
-      "resistor:2": "C30",
-      "led:A": "E30",
-      "led:K": "E29",
-      "ground:0": "BM10"
+      "resistor:2": "C29",
+      "led:A": "E29",
+      "led:K": "E30"
     },
     "jumpers": [
       {
-        "from": "TP2",
-        "to": "I18"
+        "from": "H18",
+        "to": "TP4"
       },
       {
-        "from": "I6",
-        "to": "BM10"
+        "from": "H6",
+        "to": "BM3"
       },
       {
-        "from": "I16",
-        "to": "C25"
+        "from": "H16",
+        "to": "B25"
       },
       {
-        "from": "E29",
-        "to": "BM15"
+        "from": "B30",
+        "to": "BM5"
       }
-    ]
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "physicalNotes": [
+      "Align CN3 with row E and CN4 with row I. CN4 pins 2, 12 and 14 are GND, PA0 and +3V3.",
+      "Program with USB before configuring external 3.3 V operation. Disconnect USB and follow UM2591 for the solder bridges before powering the board from the external source."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM1",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "timer",
+          "reference": "U1",
+          "manufacturer": "STMicroelectronics",
+          "manufacturerPartNumber": "NUCLEO-G031K8",
+          "sourceUrl": "https://www.st.com/resource/en/user_manual/um2591-.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 50.3,
+            "height": 18.54
+          },
+          "positionPx": [
+            270.9655172413793,
+            165
+          ],
+          "pins": [
+            {
+              "pin": "GND",
+              "hole": "I6",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -15.24,
+                7.62
+              ]
+            },
+            {
+              "pin": "PA0",
+              "hole": "I16",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                10.16,
+                7.62
+              ]
+            },
+            {
+              "pin": "VCC",
+              "hole": "I18",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                15.24,
+                7.62
+              ]
+            }
+          ],
+          "noConnectHoles": [
+            "E5",
+            "E6",
+            "E7",
+            "E8",
+            "E9",
+            "E10",
+            "E11",
+            "E12",
+            "E13",
+            "E14",
+            "E15",
+            "E16",
+            "E17",
+            "E18",
+            "E19",
+            "I5",
+            "I7",
+            "I8",
+            "I9",
+            "I10",
+            "I11",
+            "I12",
+            "I13",
+            "I14",
+            "I15",
+            "I17",
+            "I19"
+          ]
+        },
+        {
+          "instanceId": "resistor",
+          "reference": "R1",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C3300FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            566.8275862068966,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "C25",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "C29",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "led",
+          "reference": "D1",
+          "kind": "axial-led",
+          "manufacturer": "Lite-On",
+          "manufacturerPartNumber": "LTL-307E-002A",
+          "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+          "bodyMm": {
+            "width": 5,
+            "height": 5
+          },
+          "positionPx": [
+            616.1379310344828,
+            135
+          ],
+          "pins": [
+            {
+              "pin": "A",
+              "hole": "E29",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "K",
+              "hole": "E30",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "schematicWires": [
+    {
+      "id": "stm32-pwm-wire-1",
+      "from": "supply:+",
+      "to": "timer:VCC",
+      "waypoints": [
+        [
+          44,
+          93
+        ],
+        [
+          44,
+          43
+        ],
+        [
+          184,
+          43
+        ],
+        [
+          184,
+          96
+        ]
+      ]
+    },
+    {
+      "id": "stm32-pwm-wire-2",
+      "from": "supply:-",
+      "to": "timer:GND",
+      "waypoints": [
+        [
+          132,
+          93
+        ],
+        [
+          132,
+          174
+        ]
+      ]
+    },
+    {
+      "id": "stm32-pwm-wire-3",
+      "from": "supply:-",
+      "to": "led:K",
+      "waypoints": [
+        [
+          132,
+          93
+        ],
+        [
+          132,
+          232
+        ],
+        [
+          559,
+          232
+        ],
+        [
+          559,
+          193
+        ],
+        [
+          607,
+          193
+        ],
+        [
+          607,
+          135
+        ]
+      ]
+    },
+    {
+      "id": "stm32-pwm-wire-4",
+      "from": "supply:-",
+      "to": "ground:0",
+      "waypoints": [
+        [
+          132,
+          93
+        ],
+        [
+          132,
+          232
+        ],
+        [
+          559,
+          232
+        ],
+        [
+          559,
+          193
+        ],
+        [
+          603,
+          193
+        ]
+      ]
+    },
+    {
+      "id": "stm32-pwm-wire-5",
+      "from": "timer:PA0",
+      "to": "resistor:1",
+      "waypoints": []
+    },
+    {
+      "id": "stm32-pwm-wire-6",
+      "from": "resistor:2",
+      "to": "led:A",
+      "waypoints": []
+    }
+  ],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 65,
+      "heightMm": 37,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "manufacturer": "STMicroelectronics",
+        "manufacturerPartNumber": "NUCLEO-G031K8",
+        "sourceUrl": "https://www.st.com/resource/en/user_manual/um2591-.pdf",
+        "footprint": "ST_MB1455_CN3_CN4_2x15_P2.54mm_W15.24mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.16mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "footprint": "LiteOn_T1-3/4_P2.54mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-1",
+        "pin": "NC_CN3_1",
+        "netId": "NC",
+        "xMm": 6.858,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-2",
+        "pin": "NC_CN3_2",
+        "netId": "NC",
+        "xMm": 9.398,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-3",
+        "pin": "NC_CN3_3",
+        "netId": "NC",
+        "xMm": 11.938,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-4",
+        "pin": "NC_CN3_4",
+        "netId": "NC",
+        "xMm": 14.478,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-5",
+        "pin": "NC_CN3_5",
+        "netId": "NC",
+        "xMm": 17.018,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-6",
+        "pin": "NC_CN3_6",
+        "netId": "NC",
+        "xMm": 19.558,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-7",
+        "pin": "NC_CN3_7",
+        "netId": "NC",
+        "xMm": 22.098,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-8",
+        "pin": "NC_CN3_8",
+        "netId": "NC",
+        "xMm": 24.638,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-9",
+        "pin": "NC_CN3_9",
+        "netId": "NC",
+        "xMm": 27.178,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-10",
+        "pin": "NC_CN3_10",
+        "netId": "NC",
+        "xMm": 29.718,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-11",
+        "pin": "NC_CN3_11",
+        "netId": "NC",
+        "xMm": 32.258,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-12",
+        "pin": "NC_CN3_12",
+        "netId": "NC",
+        "xMm": 34.798,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-13",
+        "pin": "NC_CN3_13",
+        "netId": "NC",
+        "xMm": 37.338,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-14",
+        "pin": "NC_CN3_14",
+        "netId": "NC",
+        "xMm": 39.878,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN3-15",
+        "pin": "NC_CN3_15",
+        "netId": "NC",
+        "xMm": 42.418,
+        "yMm": 9.144,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-1",
+        "pin": "NC_CN4_1",
+        "netId": "NC",
+        "xMm": 6.858,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-2",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 9.398,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "timer:GND"
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-3",
+        "pin": "NC_CN4_3",
+        "netId": "NC",
+        "xMm": 11.938,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-4",
+        "pin": "NC_CN4_4",
+        "netId": "NC",
+        "xMm": 14.478,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-5",
+        "pin": "NC_CN4_5",
+        "netId": "NC",
+        "xMm": 17.018,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-6",
+        "pin": "NC_CN4_6",
+        "netId": "NC",
+        "xMm": 19.558,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-7",
+        "pin": "NC_CN4_7",
+        "netId": "NC",
+        "xMm": 22.098,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-8",
+        "pin": "NC_CN4_8",
+        "netId": "NC",
+        "xMm": 24.638,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-9",
+        "pin": "NC_CN4_9",
+        "netId": "NC",
+        "xMm": 27.178,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-10",
+        "pin": "NC_CN4_10",
+        "netId": "NC",
+        "xMm": 29.718,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-11",
+        "pin": "NC_CN4_11",
+        "netId": "NC",
+        "xMm": 32.258,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-12",
+        "pin": "PA0",
+        "netId": "PWM_LED",
+        "xMm": 34.798,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "timer:PA0"
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-13",
+        "pin": "NC_CN4_13",
+        "netId": "NC",
+        "xMm": 37.338,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-14",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 39.878,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "timer:VCC"
+      },
+      {
+        "instanceId": "timer",
+        "reference": "U1",
+        "number": "CN4-15",
+        "pin": "NC_CN4_15",
+        "netId": "NC",
+        "xMm": 42.418,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "1",
+        "pin": "+",
+        "netId": "VCC",
+        "xMm": 53.086,
+        "yMm": 14.224,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:+"
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 53.086,
+        "yMm": 16.764,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:-"
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "number": "1",
+        "pin": "1",
+        "netId": "PWM_LED",
+        "xMm": 49.276,
+        "yMm": 26.416,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "resistor:1"
+      },
+      {
+        "instanceId": "resistor",
+        "reference": "R1",
+        "number": "2",
+        "pin": "2",
+        "netId": "LED_SERIES",
+        "xMm": 59.436,
+        "yMm": 26.416,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "resistor:2"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "number": "1",
+        "pin": "A",
+        "netId": "LED_SERIES",
+        "xMm": 59.436,
+        "yMm": 29.21,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led:A"
+      },
+      {
+        "instanceId": "led",
+        "reference": "D1",
+        "number": "2",
+        "pin": "K",
+        "netId": "GND",
+        "xMm": 59.436,
+        "yMm": 31.75,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "led:K"
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "U1",
+        "manufacturer": "STMicroelectronics",
+        "manufacturerPartNumber": "NUCLEO-G031K8",
+        "sourceUrl": "https://www.st.com/resource/en/user_manual/um2591-.pdf",
+        "package": "ST_MB1455_CN3_CN4_2x15_P2.54mm_W15.24mm",
+        "pinMapping": {
+          "CN3-1": "NC",
+          "CN3-2": "NC",
+          "CN3-3": "NC",
+          "CN3-4": "NC",
+          "CN3-5": "NC",
+          "CN3-6": "NC",
+          "CN3-7": "NC",
+          "CN3-8": "NC",
+          "CN3-9": "NC",
+          "CN3-10": "NC",
+          "CN3-11": "NC",
+          "CN3-12": "NC",
+          "CN3-13": "NC",
+          "CN3-14": "NC",
+          "CN3-15": "NC",
+          "CN4-1": "NC",
+          "CN4-2": "GND",
+          "CN4-3": "NC",
+          "CN4-4": "NC",
+          "CN4-5": "NC",
+          "CN4-6": "NC",
+          "CN4-7": "NC",
+          "CN4-8": "NC",
+          "CN4-9": "NC",
+          "CN4-10": "NC",
+          "CN4-11": "NC",
+          "CN4-12": "PWM_LED",
+          "CN4-13": "NC",
+          "CN4-14": "VCC",
+          "CN4-15": "NC"
+        }
+      },
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C3300FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.16mm",
+        "pinMapping": {
+          "1": "PWM_LED",
+          "2": "LED_SERIES"
+        }
+      },
+      {
+        "reference": "D1",
+        "manufacturer": "Lite-On",
+        "manufacturerPartNumber": "LTL-307E-002A",
+        "sourceUrl": "https://optoelectronics.liteon.com/upload/download/DS20-2000-034/307E-002A.pdf",
+        "package": "LiteOn_T1-3/4_P2.54mm",
+        "pinMapping": {
+          "1": "LED_SERIES",
+          "2": "GND"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            53.086,
+            16.764
+          ],
+          [
+            57.658,
+            16.764
+          ],
+          [
+            57.658,
+            29.972
+          ],
+          [
+            57.912,
+            29.972
+          ],
+          [
+            57.912,
+            30.48
+          ],
+          [
+            58.166,
+            30.48
+          ],
+          [
+            58.166,
+            30.734
+          ],
+          [
+            58.674,
+            30.734
+          ],
+          [
+            58.674,
+            30.988
+          ],
+          [
+            59.436,
+            30.988
+          ],
+          [
+            59.436,
+            31.75
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            9.398,
+            24.384
+          ],
+          [
+            10.16,
+            24.384
+          ],
+          [
+            10.16,
+            23.622
+          ],
+          [
+            10.414,
+            23.622
+          ],
+          [
+            10.414,
+            23.114
+          ],
+          [
+            10.668,
+            23.114
+          ],
+          [
+            10.668,
+            22.86
+          ],
+          [
+            11.176,
+            22.86
+          ],
+          [
+            11.176,
+            22.606
+          ],
+          [
+            53.086,
+            22.606
+          ],
+          [
+            53.086,
+            16.764
+          ]
+        ]
+      },
+      {
+        "netId": "LED_SERIES",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            59.436,
+            26.416
+          ],
+          [
+            59.436,
+            29.21
+          ]
+        ]
+      },
+      {
+        "netId": "PWM_LED",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            34.798,
+            24.384
+          ],
+          [
+            35.814,
+            24.384
+          ],
+          [
+            35.814,
+            25.4
+          ],
+          [
+            36.068,
+            25.4
+          ],
+          [
+            36.068,
+            25.654
+          ],
+          [
+            36.322,
+            25.654
+          ],
+          [
+            36.322,
+            25.908
+          ],
+          [
+            49.276,
+            25.908
+          ],
+          [
+            49.276,
+            26.416
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            39.878,
+            24.384
+          ],
+          [
+            40.64,
+            24.384
+          ],
+          [
+            40.64,
+            23.622
+          ],
+          [
+            40.894,
+            23.622
+          ],
+          [
+            40.894,
+            23.114
+          ],
+          [
+            41.148,
+            23.114
+          ],
+          [
+            41.148,
+            22.86
+          ],
+          [
+            41.656,
+            22.86
+          ],
+          [
+            41.656,
+            22.606
+          ],
+          [
+            51.308,
+            22.606
+          ],
+          [
+            51.308,
+            16.002
+          ],
+          [
+            51.562,
+            16.002
+          ],
+          [
+            51.562,
+            15.494
+          ],
+          [
+            51.816,
+            15.494
+          ],
+          [
+            51.816,
+            15.24
+          ],
+          [
+            52.324,
+            15.24
+          ],
+          [
+            52.324,
+            14.986
+          ],
+          [
+            53.086,
+            14.986
+          ],
+          [
+            53.086,
+            14.224
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External stimulus or supply connects through J1."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "fabricationNotes": "Fit two Samtec SSQ-115-01-T-S sockets for the sourced NUCLEO-G031K8 CN3 and CN4 rows. Program the Nucleo via USB before configuring external 3.3 V power according to UM2591. Do not connect USB during external supply operation."
   }
 }

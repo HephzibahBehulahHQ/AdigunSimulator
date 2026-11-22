@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 102,
-    "withoutStoredPcb": 114,
+    "withStoredPcb": 103,
+    "withoutStoredPcb": 113,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1310,36 +1310,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "1666435acd2e7fbe457ea3d31f833a87ff760f624dd441123572d1da7fe1a063",
+      "sha256": "b29dc89db4b8d1c0f9124af6a05afd3db60325b8c4bd33417d3f5e6a3af4fe94",
       "components": 5,
       "analysis": "complete",
       "engine": "Ideal STM32 timer PWM/load estimate",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.stm32-timer-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 36,
+      "pcbRoutes": 5,
+      "unmapped": []
     },
     {
       "file": "071-pic-adc-bargraph.adigun.json",

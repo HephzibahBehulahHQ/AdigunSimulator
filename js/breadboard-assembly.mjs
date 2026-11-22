@@ -1,4 +1,5 @@
 import { BREADBOARD_MODEL, breadboardConnectionGroup, breadboardHolePoint, normalizeBreadboardHole } from "./breadboard-topology.mjs";
+import { renderNucleoG031K8Breadboard } from "./nucleo-g031k8.mjs";
 
 const esc = value => String(value ?? "").replace(/[&<>\"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" })[char]);
 const positive = value => Number.isFinite(value) && value > 0;
@@ -157,8 +158,9 @@ export function renderBreadboardAssemblySvg(project) {
     const [cx, cy] = pkg.positionPx, h = (pkg.bodyMm?.height ?? 0) * packageScaleY;
     const label = esc(`${pkg.reference} · ${pkg.manufacturerPartNumber ?? "external bench supply"}`);
     const dimensions = pkg.bodyMm ? ` · ${Number(pkg.bodyMm.width).toFixed(2)} × ${Number(pkg.bodyMm.height).toFixed(2)} mm` : " · off-board source";
-    bodies.push(`<g class="breadboard-package breadboard-assembly-package ${pkg.kind}" data-instance-id="${esc(pkg.instanceId)}" data-library-id="${esc(component.libraryId)}" role="group" aria-label="${label}"><title>${label}${dimensions}${pkg.sourceUrl ? ` · ${esc(pkg.sourceUrl)}` : ""}</title><g transform="translate(${cx} ${cy})">${packageBody(pkg, packageScaleX, packageScaleY)}<text class="breadboard-assembly-reference" x="0" y="${-h / 2 - 3}">${esc(pkg.reference)}</text></g></g>`);
-    for (const hole of unusedTerminalHoles(pkg)) {
+    const boardArtwork = renderNucleoG031K8Breadboard(project, component);
+    bodies.push(`<g class="breadboard-package breadboard-assembly-package ${pkg.kind}" data-instance-id="${esc(pkg.instanceId)}" data-library-id="${esc(component.libraryId)}" role="group" aria-label="${label}"><title>${label}${dimensions}${pkg.sourceUrl ? ` · ${esc(pkg.sourceUrl)}` : ""}</title>${boardArtwork || `<g transform="translate(${cx} ${cy})">${packageBody(pkg, packageScaleX, packageScaleY)}<text class="breadboard-assembly-reference" x="0" y="${-h / 2 - 3}">${esc(pkg.reference)}</text></g>`}</g>`);
+    for (const hole of boardArtwork ? [] : unusedTerminalHoles(pkg)) {
       const point = breadboardHolePoint(hole);
       if (point) bodies.push(`<circle class="breadboard-terminal-screw" cx="${point.x}" cy="${point.y}" r="2.5"><title>${esc(pkg.reference)} unused terminal at ${esc(hole)}</title></circle>`);
     }
