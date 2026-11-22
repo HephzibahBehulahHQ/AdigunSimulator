@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Deliver a configured byte MSB-first to an ideal SPI display endpoint in mode 0 and verify chip-select, sample edge, byte value, and transfer duration.
+Deliver a configured byte MSB-first to an eight-LED SPI display in mode 0 and verify chip-select, sample edge, byte value, and transfer duration.
 
 ## Bill of materials
 
@@ -10,24 +10,36 @@ Deliver a configured byte MSB-first to an ideal SPI display endpoint in mode 0 a
 |---|---|---|
 | V1 | `power.dc-source` | 3.3 V |
 | BUS1 | `input.spi-transfer-source` | Mode 0; Byte 0xA5; Baud 1000000; CS active |
-| U1 | `active.spi-display-ideal` | Mode 0 display |
+| U1 | `active.atmega328p-spi-display` | ATmega328P-PU, mode 0 LED byte display |
+| R1–R8 | `passive.resistor` | 1 kΩ, one per LED |
+| D0–D7 | `diode.led-red` | Red LEDs, least to most significant bit |
+| R9 | `passive.resistor` | 10 kΩ reset pull-up |
+| C1, C2 | `passive.capacitor` | 100 nF supply bypass each |
 | GND | `ground.signal` | 0 V |
 
 These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
 
 ## Net connections
 
-- **VCC:** `supply:+`, `display:VCC`
-- **GND:** `supply:-`, `transfer:GND`, `display:GND`, `ground:0`
+- **VCC:** `supply:+`, `display:VCC`, `display:AVCC`, `reset-pullup:1`, `vcc-bypass:1`, `avcc-bypass:1`
+- **GND:** `supply:-`, `transfer:GND`, `display:GND`, `display:AGND`, `ground:0`, `vcc-bypass:2`, `avcc-bypass:2`, and all eight LED cathodes
 - **SCK:** `transfer:SCK`, `display:SCK`
 - **MOSI:** `transfer:MOSI`, `display:MOSI`
 - **CS:** `transfer:CS`, `display:CS`
+- **MCU_RESET_N:** `display:MCU_RESET_N`, `reset-pullup:2`
+- **BIT0–BIT7:** Each PD0–PD7 output drives its corresponding LED anode through its own resistor.
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The mapped BB400 assembly seats U1 with pin 1 at F1. Connect a 3.3 V SPI master at BUS1, with SCK, MOSI, active-low chip select and return on C27–C30 respectively. The schematic uses the same netlist.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The routed 83 × 70 mm PCB has two copper layers and a 0.35 mm minimum clearance. J1 supplies 3.3 V and return. BUS1 is a [Samtec four-pin header](https://www.samtec.com/products/tsw-104-07-t-s) with the same signal order. The fabrication validator checks connectivity and exports copper, outline, plated drill and BOM files.
+
+## Firmware and oscilloscope
+
+The [AVR firmware](../059-spi-display/main.c) enables the SPI peripheral as a mode-0 slave, with hardware select on PB2, data on PB3, and clock on PB5. After each received byte it writes PORTD to drive D0–D7. The firmware enables the internal select pull-up so the display stays deselected without an attached master. Program the MCU for the internal 8 MHz clock without division. Use the example's SPI clock limit of 1 MHz, assert select low for one complete byte, and leave clock low while idle.
+
+The scope displays ideal SCK, MOSI, and CS levels for one selected byte. Actual LED brightness, oscillator accuracy and electrical timing margins require bench verification.
 
 ## Acceptance test and expected result
 

@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 91,
-    "withoutStoredPcb": 125,
+    "withStoredPcb": 92,
+    "withoutStoredPcb": 124,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1134,32 +1134,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "82614de31e2259e10135b51fe35b268fc2a976b9144164b8754e10f1cbab5f53",
-      "components": 4,
+      "sha256": "72cb270dd6da2b60cc0a5146630a94bb4c35a70f212eb7cf7f0e5a67c4b44661",
+      "components": 23,
       "analysis": "complete",
       "engine": "Ideal SPI mode-0 byte transfer",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "BUS1",
-          "libraryId": "input.spi-transfer-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.spi-display-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 22,
+      "pcbPads": 72,
+      "pcbRoutes": 38,
+      "unmapped": []
     },
     {
       "file": "060-eeprom-data-logger.adigun.json",

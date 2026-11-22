@@ -109,6 +109,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.i2c-sensor-ideal", category: "Active", type: "Ideal I²C register sensor (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x48; Register 0x00=0x2A", simulation: "analytical-i2c-register-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.i2c-eeprom-ideal", category: "Active", type: "Ideal I²C EEPROM byte memory (digital model)", prefix: "U", pins: ["SDA", "SCL", "VCC", "GND"], defaultValue: "Address 0x50; Memory 0x10=0x00", simulation: "analytical-i2c-eeprom-write-read", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.atmega328p-spi-display", category: "Active", type: "ATmega328P-PU SPI byte LED display", prefix: "U", pins: ["SCK", "MOSI", "CS", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC", "BIT0", "BIT1", "BIT2", "BIT3", "BIT4", "BIT5", "BIT6", "BIT7"], defaultValue: "Mode 0 byte LED display", simulation: "analytical-spi-display", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D3", "D7", "D8", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.potentiometer-adc-ideal", category: "Inputs", type: "Ideal potentiometer-to-ADC fixture", prefix: "RV", pins: ["VCC", "OUT", "GND"], defaultValue: "Position 50%; Resolution 10 bit", simulation: "fixture-potentiometer-adc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -966,6 +967,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const i2cSensors = project.components.filter((item) => item.libraryId === "active.i2c-sensor-ideal");
   const i2cEeproms = project.components.filter((item) => item.libraryId === "active.i2c-eeprom-ideal");
   const spiFixtures = project.components.filter((item) => item.libraryId === "input.spi-transfer-source");
+  const avrSpiDisplay = project.components.find(item => item.libraryId === "active.atmega328p-spi-display");
   const spiDisplays = project.components.filter((item) => item.libraryId === "active.spi-display-ideal");
   const mcuControllers = project.components.filter((item) => item.libraryId === "active.mcu-uno-ideal");
   const digitalSampleFixtures = project.components.filter((item) => item.libraryId === "input.digital-sample-sequence");
@@ -1298,6 +1300,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (mcuControllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuBlink(project, { source: source[0], mcu: mcuControllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+  }
+  if (spiFixtures.length === 1 && avrSpiDisplay && source.length === 1 && resistor.length === 9 && capacitor.length === 2 && led.length === 8 && ground.length === 1 && project.components.length === 23) {
+    return analyseSpiDisplayTransfer(project, { source: source[0], fixture: spiFixtures[0], display: avrSpiDisplay, resistors: resistor, bypass: capacitor, leds: led, ground: ground[0], validation });
   }
   if (spiFixtures.length === 1 && spiDisplays.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 4) {
     return analyseSpiDisplayTransfer(project, { source: source[0], fixture: spiFixtures[0], display: spiDisplays[0], ground: ground[0], validation });
@@ -3093,7 +3098,7 @@ function analyseMcuBlink(project,{source,mcu,resistor,led,ground,validation}){
   }
   return {state:"complete",engine:"Ideal Uno-class GPIO blink sequence",message:"Emits a deterministic digital D13 high/low trace and estimates the LED current when high. This does not execute Arduino C++ firmware or model CPU timing, GPIO output resistance, PWM, interrupts, or board-specific electrical limits.",result:{kind:"mcu-blink",program:"blink",pin:"D13",highMs,lowMs,periodMs,frequencyHz:1000/periodMs,runtimeMs,ledCurrentA,trace,firmwareExecuted:false},validation};
 }
-function analyseSpiDisplayTransfer(project,{source,fixture,display,ground,validation}){
+function analyseSpiDisplayTransfer(project,{source,fixture,display,resistors,bypass,leds,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(fixture.value).split(";").map(v=>v.trim());
   const field=label=>fields.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
@@ -3101,6 +3106,14 @@ function analyseSpiDisplayTransfer(project,{source,fixture,display,ground,valida
   const mode=modeText===undefined?Number.NaN:Number(modeText),baud=baudText===undefined?Number.NaN:Number(baudText);
   const byte=byteText?.toLowerCase().startsWith("0x")?Number.parseInt(byteText.slice(2),16):Number(byteText);
   const groundNet=n(ground,"0"),vccNet=n(display,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  if (bypass) {
+    if (!validAvrSupply(display,resistors,bypass,n,vccNet,groundNet) || !(supplyVoltage >= 2.7 && supplyVoltage <= 5.5)) {
+      return {state:"blocked",message:"Power VCC and AVCC from 2.7 V to 5.5 V, ground both returns, fit both bypass capacitors, and pull MCU reset high.",validation};
+    }
+    const branches = avrSpiLedBranches(display,resistors,leds,n,groundNet);
+    if (!branches) return {state:"blocked",message:"Connect each BIT0–BIT7 output through its own 1 kΩ resistor and red LED to common return.",validation};
+    if (baud > 1000000) return {state:"blocked",message:"Set the SPI display example clock to at most 1 MHz.",validation};
+  }
   const connected=["SCK","MOSI","CS"].every(pin=>n(fixture,pin)&&n(fixture,pin)===n(display,pin));
   if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(fixture,"GND")!==groundNet||n(display,"GND")!==groundNet||!connected||mode!==0||!Number.isInteger(byte)||byte<0||byte>255||!Number.isFinite(baud)||baud<1000||baud>10000000||csText?.toLowerCase()!=="active"){
     return {state:"blocked",message:"Connect the fixture and display SCK/MOSI/CS lines, share ground, power the display, and configure SPI mode 0, an 8-bit byte, 1 kHz–10 MHz clock, and active chip select.",validation};
@@ -3108,6 +3121,19 @@ function analyseSpiDisplayTransfer(project,{source,fixture,display,ground,valida
   const bits=Array.from({length:8},(_,index)=>Boolean(byte&(1<<(7-index))));
   return {state:"complete",engine:"Ideal SPI mode-0 byte transfer",message:"Transfers one byte MSB-first with clock idle low and sampling on rising edges while chip select is active. This transaction-level digital model omits edge timing, setup/hold margins, bus loading, multi-byte commands, and physical display rendering.",result:{kind:"spi-display-byte",mode,clockPolarity:0,clockPhase:0,sampleEdge:"rising",bitOrder:"MSB-first",bits,receivedByte:byte,receivedHex:"0x"+byte.toString(16).padStart(2,"0").toUpperCase(),baud,transferDurationSeconds:8/baud,chipSelect:"active"},validation};
 }
+function avrSpiLedBranches(display,resistors,leds,n,groundNet) {
+  const outputNets=Array.from({length:8},(_,bit)=>n(display,"BIT"+bit));
+  if(outputNets.some(net=>!net||net===groundNet)||new Set(outputNets).size!==8)return null;
+  const indicators=outputNets.map(output=>leds.find(led=>{
+    const anode=n(led,"A");
+    return anode&&anode!==output&&anode!==groundNet&&n(led,"K")===groundNet&&resistors.some(resistor=>{
+      const pins=[n(resistor,"1"),n(resistor,"2")];
+      return pins.includes(output)&&pins.includes(anode)&&resistanceValue(resistor.value)===1000;
+    });
+  }));
+  return indicators.every(Boolean)&&new Set(indicators).size===8?indicators:null;
+}
+
 function analyseI2cLevelShifter(project,{sources,fixture,shifter,report,resistors,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=value=>String(value).split(";").map(item=>item.trim());
