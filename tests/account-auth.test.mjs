@@ -64,12 +64,13 @@ test("Simulator only exposes account state after the Worker completes a fresh OT
     assert.equal(url, "/api/account");
     assert.equal(options.credentials, "same-origin");
     const body = JSON.parse(options.body);
+    if (body.step === "guest") return Response.json({ step:"guest", remainingMs:0 });
     requests.push(body);
     return Response.json(body.step === "begin" ? { step: "verify" } : { step: "signed-in", session: { access_token: "test", refresh_token: "test" } });
   } });
   await account.initialize();
   await account.begin("sign-in", " owner@example.test ", "correct horse battery staple");
-  assert.equal(account.state.status, "account-required");
+  assert.equal(account.state.status, "guest-expired");
   assert.equal(await account.verify("12345678"), "signed-in");
   assert.equal(account.state.user.email, "owner@example.test");
   assert.equal("access_token" in account.state, false);
@@ -84,22 +85,19 @@ test("a local session read failure leaves account auth unavailable without block
   assert.equal((await account.initialize()).status, "unavailable");
 });
 
-test("anonymous sessions lock at the server deadline and cannot restart after sign-out", async () => {
+test("guest trials lock at the Worker deadline and cannot restart after sign-out", async () => {
   const mock = mockClient();
   let marker;
   const storage = { getItem: () => marker, setItem: (_key, value) => { marker = value; } };
-  let starts = 0;
-  mock.client.auth.signInAnonymously = async () => {
-    starts++;
-    return { data: { session: { user: { is_anonymous: true } } }, error: null };
-  };
-  mock.client.rpc = async name => {
-    assert.equal(name, "adigun_simulator_ensure_guest_trial");
-    return { data: [{ expires_at: "2026-11-22T12:04:00.000Z", server_now: "2026-11-22T12:03:59.980Z" }], error: null };
+  const requests = [];
+  const fetchImpl = async (_url, options) => {
+    const body = JSON.parse(options.body);
+    requests.push(body);
+    return Response.json({ step:"guest", remainingMs:body.allowStart ? 100 : 0 });
   };
   let expire;
   const expired = new Promise(resolve => { expire = resolve; });
-  const account = createAccountSession(mock.client, { storage, onState: state => {
+  const account = createAccountSession(mock.client, { storage, fetchImpl, onState:state => {
     if (state.status === "guest-expired") expire();
   } });
   assert.equal((await account.initialize()).status, "guest");
@@ -107,8 +105,8 @@ test("anonymous sessions lock at the server deadline and cannot restart after si
   assert.equal(account.state.status, "guest-expired");
   await account.signOut();
   account.dispose();
-  const next = createAccountSession(mock.client, { storage });
-  assert.equal((await next.initialize()).status, "account-required");
-  assert.equal(starts, 1);
+  const next = createAccountSession(mock.client, { storage, fetchImpl });
+  assert.equal((await next.initialize()).status, "guest-expired");
+  assert.deepEqual(requests.map(request => request.allowStart), [true, false]);
   next.dispose();
 });

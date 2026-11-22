@@ -1,5 +1,5 @@
 -- Product membership and completed sign-ins are written by the account service.
-create schema if not exists adigun_simulator_private;
+create schema adigun_simulator_private;
 revoke all on schema adigun_simulator_private from public, anon, authenticated;
 
 create table adigun_simulator_private.product_accounts (

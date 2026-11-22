@@ -49,17 +49,7 @@ export function createAccountSession(client, {
     try {
       const user = session?.user;
       if (!user) return publish(event, "account-required");
-      if (user.is_anonymous) {
-        const [trial] = requireData(await client.rpc("adigun_simulator_ensure_guest_trial"));
-        if (request !== revision) return current;
-        const remaining = Date.parse(trial?.expires_at) - Date.parse(trial?.server_now);
-        if (!Number.isFinite(remaining) || remaining > maximumGuestMs) throw new Error("Invalid guest trial");
-        storage?.setItem(trialMarker, "1");
-        if (remaining <= 0) return publish(event, "guest-expired");
-        const state = publish(event, "guest");
-        guestTimer = setTimeout(() => publish("GUEST_EXPIRED", "guest-expired"), remaining);
-        return state;
-      }
+      if (user.is_anonymous) return publish(event, "account-required");
       const verified = requireData(await client.rpc("adigun_simulator_has_verified_product_session")) === true;
       if (request !== revision) return current;
       if (!verified) return publish(event, "account-required");
@@ -72,10 +62,19 @@ export function createAccountSession(client, {
 
   async function initializeSession() {
     const { session } = requireData(await client.auth.getSession());
-    if (session || storage?.getItem(trialMarker)) return publishSession("INITIAL_SESSION", session);
-    const data = requireData(await client.auth.signInAnonymously());
-    if (!data.session?.user?.is_anonymous) throw new Error("Anonymous session unavailable");
-    return publishSession("INITIAL_SESSION", data.session);
+    if (session) return publishSession("INITIAL_SESSION", session);
+    const remembered = Boolean(storage?.getItem(trialMarker));
+    const started = performance.now();
+    const trial = await accountRequest({ step:"guest", allowStart:!remembered });
+    if (trial.step !== "guest" || !Number.isInteger(trial.remainingMs) || trial.remainingMs < 0 || trial.remainingMs > maximumGuestMs) {
+      throw new Error("Invalid guest trial");
+    }
+    storage?.setItem(trialMarker, "1");
+    const remaining = trial.remainingMs - (performance.now() - started);
+    if (remaining <= 0) return publish("INITIAL_SESSION", "guest-expired");
+    const state = publish("INITIAL_SESSION", "guest");
+    guestTimer = setTimeout(() => publish("GUEST_EXPIRED", "guest-expired"), remaining);
+    return state;
   }
 
   async function accountRequest(payload) {

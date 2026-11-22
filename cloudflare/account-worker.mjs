@@ -1,4 +1,7 @@
 const cookieName = "__Host-adigun-simulator-account";
+const guestCookieName = "__Host-adigun-simulator-trial";
+const guestDuration = 240_000;
+const guestCookieAge = 365 * 24 * 60 * 60;
 const challengeTime = 10 * 60_000;
 const textEncoder = new TextEncoder();
 
@@ -20,9 +23,11 @@ async function handleRequest(request, env, origin) {
   }
   try {
     const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-    if (!(await env.ACCOUNT_LIMITER.limit({ key:"ip:" + ip })).success) return reply(429, { error:"wait-and-retry" });
     if (!request.headers.get("Content-Type")?.startsWith("application/json")) return reply(415, { error:"json-required" });
     const body = await request.json().catch(() => null);
+    const bucket = body?.step === "guest" ? "guest:" : "ip:";
+    if (!(await env.ACCOUNT_LIMITER.limit({ key:bucket + ip })).success) return reply(429, { error:"wait-and-retry" });
+    if (body?.step === "guest") return await guestTrial(body, request, env);
     if (body?.step === "begin") {
       return await begin(body, env, origin);
     }
@@ -31,6 +36,23 @@ async function handleRequest(request, env, origin) {
   } catch {
     return reply(503, { error:"account-unavailable" });
   }
+}
+
+function readCookie(request, name) {
+  return request.headers.get("Cookie")?.split(";").map(value => value.trim())
+    .find(value => value.startsWith(name + "="))?.slice(name.length + 1);
+}
+
+async function guestTrial(body, request, env) {
+  const saved = readCookie(request, guestCookieName);
+  const trial = saved ? await open(env, saved) : null;
+  const now = Date.now();
+  if (trial?.kind === "guest" && Number.isSafeInteger(trial.expiresAt)) {
+    return reply(200, { step:"guest", remainingMs:Math.max(0, trial.expiresAt - now) });
+  }
+  if (saved || body.allowStart !== true) return reply(200, { step:"guest", remainingMs:0 });
+  const value = await seal(env, { kind:"guest", expiresAt:now + guestDuration });
+  return reply(200, { step:"guest", remainingMs:guestDuration }, cookie(value, guestCookieAge, guestCookieName));
 }
 
 async function begin(body, env, origin) {
@@ -66,8 +88,7 @@ async function begin(body, env, origin) {
 }
 
 async function verify(body, request, env, origin) {
-  const saved = request.headers.get("Cookie")?.split(";").map(value => value.trim())
-    .find(value => value.startsWith(cookieName + "="))?.slice(cookieName.length + 1);
+  const saved = readCookie(request, cookieName);
   const challenge = await open(env, saved);
   if (!challenge || challenge.origin !== origin || challenge.expiresAt <= Date.now()) return reply(400, { error:"email-code-request-required" });
   if (typeof body.code !== "string" || !/^\d{6,10}$/.test(body.code)) return reply(400, { error:"invalid-email-code" });
@@ -118,8 +139,8 @@ function reply(status, payload, setCookie) {
   return Response.json(payload, { status, headers });
 }
 
-function cookie(value, expires) {
-  return `${cookieName}=${value}; Path=/; Max-Age=${expires}; Secure; HttpOnly; SameSite=Lax`;
+function cookie(value, expires, name = cookieName) {
+  return `${name}=${value}; Path=/; Max-Age=${expires}; Secure; HttpOnly; SameSite=Lax`;
 }
 
 function hex(bytes) {

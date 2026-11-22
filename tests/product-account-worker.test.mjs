@@ -99,3 +99,23 @@ test("product registration and every sign-in require email OTP before releasing 
     mocked.mock.restore();
   }
 });
+
+test("guest cookies retain one immutable four-minute deadline without Supabase", async () => {
+  let now = 1_800_000_000_000;
+  const clock = mock.method(Date, "now", () => now);
+  try {
+    const opened = await post({ step:"guest", allowStart:true });
+    assert.equal(opened.headers.get("Cache-Control"), "no-store");
+    assert.match(opened.headers.get("Set-Cookie"), /^__Host-adigun-simulator-trial=.*; Secure; HttpOnly; SameSite=Lax$/);
+    assert.deepEqual(await opened.json(), { step:"guest", remainingMs:240000 });
+    const saved = cookieFrom(opened);
+    now += 239999;
+    const resumed = await post({ step:"guest", allowStart:true }, saved);
+    assert.deepEqual(await resumed.json(), { step:"guest", remainingMs:1 });
+    assert.equal(resumed.headers.get("Set-Cookie"), null);
+    now++;
+    assert.deepEqual(await (await post({ step:"guest", allowStart:true }, saved)).json(), { step:"guest", remainingMs:0 });
+    assert.deepEqual(await (await post({ step:"guest", allowStart:false })).json(), { step:"guest", remainingMs:0 });
+    assert.deepEqual(await (await post({ step:"guest", allowStart:true }, "__Host-adigun-simulator-trial=invalid")).json(), { step:"guest", remainingMs:0 });
+  } finally { clock.mock.restore(); }
+});
