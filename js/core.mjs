@@ -92,6 +92,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.logic-priority-encoder-4to2-ideal", category: "Active", type: "Ideal four-input priority encoder", prefix: "U", pins: ["D0", "D1", "D2", "D3", "CODE0", "CODE1", "VALID", "VCC", "GND"], defaultValue: "D3 has highest priority; valid output", simulation: "analytical-priority-encoder", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.cd4532be-encoder", category: "Active", type: "CD4532BE four-input priority encoder (ideal logic)", prefix: "U", pins: ["D4", "D5", "D6", "D7", "EI", "CODE1", "GND", "CODE0", "D0", "D1", "D2", "D3", "VALID", "VCC"], defaultValue: "CD4532BE", simulation: "analytical-priority-encoder", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-alu4-ideal", category: "Active", type: "Ideal four-bit add/subtract ALU", prefix: "U", pins: ["A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3", "SUB", "SUM0", "SUM1", "SUM2", "SUM3", "CARRY", "VCC", "GND"], defaultValue: "Four-bit two's-complement add/subtract", simulation: "analytical-alu4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.atmega328p-alu4", category: "Active", type: "ATmega328P-PU four-bit ALU demonstration", prefix: "U", pins: ["A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3", "SUB", "SUM0", "SUM1", "SUM2", "SUM3", "CARRY", "VCC", "GND", "AVCC", "AGND", "MCU_RESET_N"], defaultValue: "ATmega328P-PU", simulation: "analytical-alu4", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.uart-tx-ideal", category: "Active", type: "Ideal UART transmitter (8N1 frame model)", prefix: "U", pins: ["TX", "VCC", "GND"], defaultValue: "Byte 0xA5; Baud 9600", simulation: "analytical-uart-transmitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.uart-frame-source", category: "Inputs", type: "Ideal UART serial-frame source (digital fixture)", prefix: "SIG", pins: ["TX", "GND"], defaultValue: "Bits 0,1,0,1,0,0,1,0,1,1; Baud 9600", simulation: "fixture-uart-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.usb-uart-console-stream", category: "Inputs", type: "USB-UART local byte-stream fixture", prefix: "HOST", pins: ["TX", "GND"], defaultValue: "Baud 9600; DataBits 8; Parity none; StopBits 1; TXBytes 48 69; RXBytes 4F 4B", simulation: "fixture-usb-uart-stream", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -944,6 +945,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const mux4s = project.components.filter((item) => ["active.logic-mux4-ideal", "active.sn74hc153n-mux"].includes(item.libraryId));
   const decoders2to4 = project.components.filter((item) => ["active.logic-decoder-2to4-ideal", "active.cd4555be-decoder"].includes(item.libraryId));
   const priorityEncoders = project.components.filter((item) => ["active.logic-priority-encoder-4to2-ideal", "active.cd4532be-encoder"].includes(item.libraryId));
+  const avrAlu = project.components.find(part => part.libraryId === "active.atmega328p-alu4");
   const alu4s = project.components.filter((item) => item.libraryId === "active.logic-alu4-ideal");
   const uartTransmitters = project.components.filter((item) => item.libraryId === "active.uart-tx-ideal");
   const uartReceivers = project.components.filter((item) => item.libraryId === "active.uart-rx-ideal");
@@ -1311,6 +1313,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (uartTransmitters.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseUartTransmitter(project, { source: source[0], transmitter: uartTransmitters[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+  }
+  if (avrAlu && source.length === 10 && resistor.length === 6 && capacitor.length === 2 && led.length === 5 && ground.length === 1 && project.components.length === 25) {
+    return analyseAlu4(project, { sources: source, alu: avrAlu, resistors: resistor, bypass: capacitor, leds: led, ground: ground[0], validation });
   }
   if (alu4s.length === 1 && source.length === 10 && resistor.length === 5 && led.length === 5 && ground.length === 1 && project.components.length === 22) {
     return analyseAlu4(project, { sources: source, alu: alu4s[0], resistors: resistor, leds: led, ground: ground[0], validation });
@@ -3202,10 +3207,13 @@ function analyseUartTransmitter(project,{source,transmitter,resistor,led,ground,
   const dataBits=Array.from({length:8},(_,bit)=>Boolean(byteValue&(1<<bit))),frameBits=[false,...dataBits,true],bitPeriodSeconds=1/baud,frameDurationSeconds=10/baud,ledCurrentA=Math.max(0,(sourceVoltage-forwardV)/resistance);
   return {state:"complete",engine:"Ideal asynchronous UART 8N1 frame generator",message:"Produces one start bit, eight LSB-first data bits, and one stop bit at the configured baud rate. This is a frame-level digital model; analog edges, jitter, oversampling, line loading, parity, and physical transceiver behavior are not simulated.",result:{kind:"uart-transmitter-8n1",byte:byteValue,byteHex:`0x${byteValue.toString(16).padStart(2,"0").toUpperCase()}`,baud,frameFormat:"8N1",dataBits,frameBits,startBit:0,stopBit:1,bitPeriodSeconds,frameDurationSeconds,txIdleVoltage:sourceVoltage,txIdleHigh:true,idleIndicatorCurrentA:ledCurrentA},validation};
 }
-function analyseAlu4(project,{sources,alu,resistors,leds,ground,validation}){
+function analyseAlu4(project,{sources,alu,resistors,bypass,leds,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),vccNet=n(alu,"VCC"),supply=sources.find(v=>n(v,"+")===vccNet&&n(v,"-")===groundNet);
+  if(bypass&&!validAvrSupply(alu,resistors,bypass,n,vccNet,groundNet)){
+    return {state:"blocked",message:"Power VCC and AVCC, ground both return pins, fit both bypass capacitors, and pull MCU reset up to VCC.",validation};
+  }
   const pins=["A0","A1","A2","A3","B0","B1","B2","B3","SUB"];
   const inputSources=pins.map(pin=>sources.find(v=>v!==supply&&n(v,"-")===groundNet&&n(v,"+")===n(alu,pin)));
   const supplyVoltage=supply?voltageValue(supply.value):Number.NaN,inputVoltages=inputSources.map(v=>v?voltageValue(v.value):Number.NaN),thresholdV=supplyVoltage/2;

@@ -6,11 +6,13 @@ on:
     paths:
       - 'examples/049-traffic-light-fsm/main.c'
       - 'examples/050-debounced-digital-input/main.c'
+      - 'examples/055-alu-add-subtract/main.c'
       - '.github/workflows/avr-example-firmware.yml'
   pull_request:
     paths:
       - 'examples/049-traffic-light-fsm/main.c'
       - 'examples/050-debounced-digital-input/main.c'
+      - 'examples/055-alu-add-subtract/main.c'
       - '.github/workflows/avr-example-firmware.yml'
 
 permissions:
@@ -31,7 +33,7 @@ jobs:
       - name: Build the ATmega328P examples
         run: |
           avr-gcc --version
-          for example in 049-traffic-light-fsm 050-debounced-digital-input; do
+          for example in 049-traffic-light-fsm 050-debounced-digital-input 055-alu-add-subtract; do
             avr-gcc -mmcu=atmega328p -std=c11 -Os -Wall -Wextra -Werror \
               "examples/$example/main.c" -o "$RUNNER_TEMP/$example.elf"
             avr-objcopy -O ihex -R .eeprom "$RUNNER_TEMP/$example.elf" "$RUNNER_TEMP/$example.hex"

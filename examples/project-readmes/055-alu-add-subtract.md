@@ -18,25 +18,26 @@ Compute unsigned four-bit addition or two's-complement subtraction, display the 
 | B2 | `power.dc-source` | 0 V |
 | B3 | `power.dc-source` | 0 V |
 | SUB | `power.dc-source` | 0 V |
-| U1 | `active.logic-alu4-ideal` | Four-bit add/subtract |
-| R0 | `passive.resistor` | 330 Ω |
-| R1 | `passive.resistor` | 330 Ω |
-| R2 | `passive.resistor` | 330 Ω |
-| R3 | `passive.resistor` | 330 Ω |
-| R4 | `passive.resistor` | 330 Ω |
+| U1 | `active.atmega328p-alu4` | ATmega328P-PU |
+| R0 | `passive.resistor` | 1 kΩ |
+| R1 | `passive.resistor` | 1 kΩ |
+| R2 | `passive.resistor` | 1 kΩ |
+| R3 | `passive.resistor` | 1 kΩ |
+| R4 | `passive.resistor` | 1 kΩ |
 | D0 | `diode.led-red` | Vf 2 V |
 | D1 | `diode.led-red` | Vf 2 V |
 | D2 | `diode.led-red` | Vf 2 V |
 | D3 | `diode.led-red` | Vf 2 V |
 | D4 | `diode.led-red` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
-
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
+| R7 | `passive.resistor` | 10 kΩ |
+| C1 | `passive.capacitor` | 100 nF |
+| C2 | `passive.capacitor` | 100 nF |
 
 ## Net connections
 
-- **VCC:** `supply:+`, `alu:VCC`
-- **GND:** `supply:-`, `alu:GND`, `ground:0`, `a0:-`, `a1:-`, `a2:-`, `a3:-`, `b0:-`, `b1:-`, `b2:-`, `b3:-`, `subtract:-`, `led0:K`, `led1:K`, `led2:K`, `led3:K`, `led4:K`
+- **VCC:** `supply:+`, `alu:VCC`, `alu:AVCC`, `reset-pullup:1`, `vcc-bypass:1`, `avcc-bypass:1`
+- **GND:** `supply:-`, `alu:GND`, `ground:0`, `a0:-`, `a1:-`, `a2:-`, `a3:-`, `b0:-`, `b1:-`, `b2:-`, `b3:-`, `subtract:-`, `led0:K`, `led1:K`, `led2:K`, `led3:K`, `led4:K`, `alu:AGND`, `vcc-bypass:2`, `avcc-bypass:2`
 - **A0:** `a0:+`, `alu:A0`
 - **B0:** `b0:+`, `alu:B0`
 - **A1:** `a1:+`, `alu:A1`
@@ -56,12 +57,17 @@ These are the exact component records in the native example file. A library ID a
 - **LED_SUM3:** `r3:2`, `led3:A`
 - **CARRY:** `alu:CARRY`, `r4:1`
 - **LED_CARRY:** `r4:2`, `led4:A`
+- **MCU_RESET_N:** `alu:MCU_RESET_N`, `reset-pullup:2`
+
+## Firmware
+
+The [AVR source](../055-alu-add-subtract/main.c) reads A0–A3 on PD0–PD3, B0–B3 on PD4–PD7, and SUB on PB0. PC0–PC3 carry the result and PC4 carries the carry/no-borrow flag. Use common-reference 0 V and 5 V inputs and allow the outputs to settle after changing operands. Program the ATmega328P-PU with its internal oscillator enabled before insertion. The scoped AVR workflow checks compilation and HEX generation.
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly seats U1 with pin 1 at F10. Each input has a separate pigtail and a common return, and each output drives a red LED through 1 kΩ. The schematic uses the same native netlist.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The stored 83 × 55 mm PCB uses two copper layers and a 0.35 mm minimum clearance. J1 is the 5 V supply. J2–J10 carry A0–A3, B0–B3 and SUB respectively. Each header uses pin 1 for supply or signal and pin 2 for return. The fabrication validator checks all pad connections and exports copper, outline, drill and BOM files.
 
 ## Acceptance test and expected result
 
