@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 98,
-    "withoutStoredPcb": 118,
+    "withStoredPcb": 99,
+    "withoutStoredPcb": 117,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1246,36 +1246,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "842584668d8bf5109f3e37d1ca82d35c2bc1b5028df7fd6e47910bd1686f5c99",
-      "components": 5,
+      "sha256": "30fc83d334cc096f781365bb42cbfa4e753f13be0aa3a2dad65ba49f3c140112",
+      "components": 10,
       "analysis": "complete",
       "engine": "Ideal Uno-class hobby-servo pulse mapping",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.mcu-uno-ideal"
-        },
-        {
-          "reference": "RV1",
-          "libraryId": "input.potentiometer-adc-ideal"
-        },
-        {
-          "reference": "SERVO1",
-          "libraryId": "output.servo-angle-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 46,
+      "pcbRoutes": 20,
+      "unmapped": []
     },
     {
       "file": "067-arduino-stepper-driver.adigun.json",
