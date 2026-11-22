@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 95,
-    "withoutStoredPcb": 121,
+    "withStoredPcb": 96,
+    "withoutStoredPcb": 120,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1198,44 +1198,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "8082aa143f3971fcae011c349dda4263eaa3d043a3c729a9d474c2f0c408e506",
-      "components": 7,
+      "sha256": "a4a4fab9e8bb8c29c53340bc27054c3d8e584dd81d3698899fe93d2382cc8dbc",
+      "components": 12,
       "analysis": "complete",
       "engine": "Ideal Uno-class ADC-to-PWM MOSFET dimmer",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.mcu-uno-ideal"
-        },
-        {
-          "reference": "RV1",
-          "libraryId": "input.potentiometer-adc-ideal"
-        },
-        {
-          "reference": "Q1",
-          "libraryId": "active.nmos-switch"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 11,
+      "pcbPads": 50,
+      "pcbRoutes": 22,
+      "unmapped": []
     },
     {
       "file": "064-arduino-temperature-monitor.adigun.json",

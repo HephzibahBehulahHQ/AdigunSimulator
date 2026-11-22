@@ -51,6 +51,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.npn-ebers-moll-generic", category: "Active", type: "Generic NPN transistor (ideal Ebers–Moll DC model)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "Is=1e-14 A; alphaF=0.99; alphaR=0.5", simulation: "bounded-ebers-moll-dc-mna", status: "generic educational model; not a manufacturer part", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.pnp-ebers-moll-generic", category: "Active", type: "Generic PNP transistor (ideal Ebers–Moll DC model)", prefix: "Q", pins: ["B", "C", "E"], defaultValue: "Is=1e-14 A; alphaF=0.99; alphaR=0.5", simulation: "bounded-ebers-moll-dc-mna", status: "generic educational model; not a manufacturer part", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-red", category: "Active", type: "Red LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.0 V", simulation: "analytical-led-demo", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.2n7000-d74z", category: "Active", type: "onsemi 2N7000-D74Z N-channel MOSFET", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V", simulation: "analytical-pwm-led-average", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.nmos-switch", category: "Active", type: "N-channel MOSFET (ideal PWM switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V", simulation: "analytical-pwm-led-average", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.pmos-high-side-ideal", category: "Active", type: "P-channel MOSFET (ideal high-side switch)", prefix: "Q", pins: ["G", "D", "S"], defaultValue: "Vth 2.0 V; RdsOn 0.1 Ω; |VGS|max 20 V", simulation: "analytical-pmos-high-side", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "diode.led-green", category: "Active", type: "Green LED", prefix: "D", pins: ["A", "K"], defaultValue: "Vf 2.1 V", simulation: "analytical-polarity-indicator", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -113,8 +114,10 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.atmega328p-spi-display", category: "Active", type: "ATmega328P-PU SPI byte LED display", prefix: "U", pins: ["SCK", "MOSI", "CS", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC", "BIT0", "BIT1", "BIT2", "BIT3", "BIT4", "BIT5", "BIT6", "BIT7"], defaultValue: "Mode 0 byte LED display", simulation: "analytical-spi-display", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.atmega328p-button-toggle", category: "Active", type: "ATmega328P-PU debounced button toggle", prefix: "U", pins: ["D2", "D13", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC"], defaultValue: "Program Button debounce; Input D2; Output D13; Mode Toggle; Stable 3", simulation: "analytical-mcu-button-debounce", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.atmega328p-pwm-dimmer", category: "Active", type: "ATmega328P-PU ADC and PWM dimmer", prefix: "U", pins: ["A0", "D9", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC", "AREF"], defaultValue: "Program PWM dimmer; ADC A0; PWM D9; Frequency 490", simulation: "analytical-mcu-pwm-dimmer", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.atmega328p-blink", category: "Active", type: "ATmega328P-PU D13 blink demonstration", prefix: "U", pins: ["D13", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-blink", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D3", "D7", "D8", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "input.bourns-3296w-adc", category: "Inputs", type: "Bourns 3296W 10 kΩ ADC trimmer", prefix: "RV", pins: ["GND", "OUT", "VCC"], defaultValue: "Position 50%; Resolution 10 bit", simulation: "fixture-adc-position", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.potentiometer-adc-ideal", category: "Inputs", type: "Ideal potentiometer-to-ADC fixture", prefix: "RV", pins: ["VCC", "OUT", "GND"], defaultValue: "Position 50%; Resolution 10 bit", simulation: "fixture-potentiometer-adc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.temperature-analog-ideal", category: "Sensors", type: "Ideal linear analog temperature sensor model", prefix: "TS", pins: ["VCC", "OUT", "GND"], defaultValue: "Temperature 25 C; Scale 10 mV/C; Offset 0 mV", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.lcd-text-sink-ideal", category: "Output", type: "Ideal single-line LCD text sink (behavior model)", prefix: "LCD", pins: ["DATA", "VCC", "GND"], defaultValue: "16-character text row", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -979,6 +982,9 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const avrButtonToggle = project.components.find(item => item.libraryId === "active.atmega328p-button-toggle");
   const sampledButton = project.components.find(item => item.libraryId === "input.b3f-1000-sample-sequence");
   const digitalSampleFixtures = project.components.filter((item) => item.libraryId === "input.digital-sample-sequence");
+  const avrDimmer = project.components.find(item => item.libraryId === "active.atmega328p-pwm-dimmer");
+  const dimmerTrimmer = project.components.find(item => item.libraryId === "input.bourns-3296w-adc");
+  const dimmerMosfet = project.components.find(item => item.libraryId === "active.2n7000-d74z");
   const adcPotentiometers = project.components.filter((item) => item.libraryId === "input.potentiometer-adc-ideal");
   const temperatureSensors = project.components.filter((item) => item.libraryId === "sensor.temperature-analog-ideal");
   const lcdSinks = project.components.filter((item) => item.libraryId === "output.lcd-text-sink-ideal");
@@ -1300,8 +1306,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (temperatureSensors.length === 1 && lcdSinks.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuTemperatureMonitor(project, { source: source[0], mcu: mcuControllers[0], sensor: temperatureSensors[0], lcd: lcdSinks[0], ground: ground[0], validation });
   }
+  if (avrDimmer && dimmerTrimmer && dimmerMosfet && source.length === 1 && resistor.length === 3 && capacitor.length === 3 && led.length === 1 && ground.length === 1 && project.components.length === 12) {
+    return analyseMcuPwmDimmer(project, { source: source[0], mcu: avrDimmer, potentiometer: dimmerTrimmer, mosfet: dimmerMosfet, resistors: resistor, capacitors: capacitor, led: led[0], ground: ground[0], validation });
+  }
   if (adcPotentiometers.length === 1 && mcuControllers.length === 1 && mosfets.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 7) {
-    return analyseMcuPwmDimmer(project, { source: source[0], mcu: mcuControllers[0], potentiometer: adcPotentiometers[0], mosfet: mosfets[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+    return analyseMcuPwmDimmer(project, { source: source[0], mcu: mcuControllers[0], potentiometer: adcPotentiometers[0], mosfet: mosfets[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
   if (avrButtonToggle && sampledButton && source.length === 1 && resistor.length === 3 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 10) {
     return analyseMcuButtonDebounce(project, { source: source[0], fixture: sampledButton, mcu: avrButtonToggle, resistors: resistor, bypass: capacitor, led: led[0], ground: ground[0], validation });
@@ -3056,18 +3065,34 @@ function analyseMcuTemperatureMonitor(project,{source,mcu,sensor,lcd,ground,vali
   const displayText=displayTemperature.toFixed(1)+" °C";
   return {state:"complete",engine:"Ideal Uno-class linear temperature monitor",message:"Quantizes the configured linear sensor voltage through an ideal 10-bit ADC and formats a one-line LCD result. This does not execute Arduino C++ or model sensor self-heating, ADC noise, LCD bus timing, or physical display/controller details.",result:{kind:"mcu-temperature-monitor",sensorTemperatureC:temperature,sensorVoltageV:sensorVoltage,adcResolutionBits:10,adcCount,measuredVoltageV:measuredVoltage,displayTemperatureC:displayTemperature,displayText,firmwareExecuted:false},validation};
 }
-function analyseMcuPwmDimmer(project,{source,mcu,potentiometer,mosfet,resistor,led,ground,validation}){
+function analyseMcuPwmDimmer(project,{source,mcu,potentiometer,mosfet,resistors,capacitors,led,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(mcu.value).split(";").map(v=>v.trim()),potFields=String(potentiometer.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
   const positionText=field(potFields,"Position")?.replace(/%$/,""),position=Number(positionText),frequency=Number(field(fields,"Frequency"));
   const adcCount=Number.isFinite(position)?Math.round(position*1023/100):Number.NaN,duty=adcCount/1023;
   const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
-  const outputConnected=n(mcu,"D9")===n(mosfet,"G");
+  const gate=n(mosfet,"G"),adc=n(mcu,"A0");
+  if (capacitors) {
+    const reference=n(mcu,"AREF");
+    const bypass=capacitors.filter(c=>validSupplyBypass(c,n,vccNet,groundNet));
+    if (!vccNet || !groundNet || !(supplyVoltage >= 4.5 && supplyVoltage <= 5.5) ||
+        bypass.length!==2 || !validAvrSupply(mcu,resistors,bypass,n,vccNet,groundNet) ||
+        !reference || reference===vccNet || reference===groundNet || !capacitors.some(c=>validSupplyBypass(c,n,reference,groundNet))) {
+      return {state:"blocked",message:"Supply 4.5–5.5 V, fit VCC/AVCC bypass and an AREF capacitor to ground, and pull reset up to VCC.",validation};
+    }
+    if (!gate || gate===groundNet || !resistors.some(r=>{
+      const pins=[n(r,"1"),n(r,"2")];
+      return pins.includes(gate)&&pins.includes(groundNet)&&resistanceValue(r.value)===100000;
+    }))return {state:"blocked",message:"Fit the 100 kΩ gate pulldown from the PWM net to common return.",validation};
+  }
+  const outputConnected=gate&&n(mcu,"D9")===gate;
   const sourceAndPot= n(source,"+")===n(potentiometer,"VCC")&&n(source,"-")===n(potentiometer,"GND");
-  const loadPath=n(source,"+")===n(resistor,"1")&&n(resistor,"2")===n(led,"A")&&n(led,"K")===n(mosfet,"D")&&n(mosfet,"S")===groundNet;
-  const resistance=resistanceValue(resistor.value),vf=forwardVoltage(led.value),threshold=voltageValue(mosfet.value);
-  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!sourceAndPot||n(mcu,"GND")!==groundNet||n(potentiometer,"OUT")!==n(mcu,"A0")||!outputConnected||!loadPath||field(fields,"Program")?.toLowerCase()!=="pwm dimmer"||field(fields,"ADC")!=="A0"||field(fields,"PWM")!=="D9"||!Number.isFinite(frequency)||frequency<1||frequency>100000||!Number.isFinite(position)||position<0||position>100||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(vf)||vf<=0||!Number.isFinite(threshold)||threshold<=0){
+  const anode=n(led,"A"),drain=n(mosfet,"D");
+  const resistor=anode&&anode!==vccNet&&resistors.find(r=>n(r,"1")===vccNet&&n(r,"2")===anode);
+  const loadPath=resistor&&drain&&n(led,"K")===drain&&n(mosfet,"S")===groundNet;
+  const resistance=resistanceValue(resistor?.value),vf=forwardVoltage(led.value),threshold=voltageValue(mosfet.value);
+  if(!vccNet||!groundNet||!adc||!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!sourceAndPot||n(mcu,"GND")!==groundNet||n(potentiometer,"OUT")!==n(mcu,"A0")||!outputConnected||!loadPath||field(fields,"Program")?.toLowerCase()!=="pwm dimmer"||field(fields,"ADC")!=="A0"||field(fields,"PWM")!=="D9"||!Number.isFinite(frequency)||frequency<1||frequency>100000||!Number.isFinite(position)||position<0||position>100||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(vf)||vf<=0||!Number.isFinite(threshold)||threshold<=0){
     return {state:"blocked",message:"Configure a 0–100% potentiometer, 10-bit ADC on A0, PWM output D9, 1–100000 Hz frequency, and wire an ideal low-side MOSFET with a current-limited LED load.",validation};
   }
   const peakCurrentA=supplyVoltage>threshold?Math.max(0,(supplyVoltage-vf)/resistance):0,averageCurrentA=peakCurrentA*duty;

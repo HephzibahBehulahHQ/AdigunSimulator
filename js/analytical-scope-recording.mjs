@@ -16,6 +16,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
  if(['bridge-rectifier-waveform','bridge-smoothing-capacitor'].includes(kind))return rectifierWaveformRecording(project,r);
  if(kind==='tvs-pulse-clamp')return tvsPulseRecording(project,r);
+ if(kind==='mcu-pwm-dimmer')return dimmerPwmRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
  if(['rc-low-pass','rc-high-pass','rl-low-pass','passive-tone-control'].includes(kind))return frequencyResponseRecording(project,r);
  if(kind==='active-low-pass')return activeLowPassRecording(project,r);
@@ -287,6 +288,21 @@ function dualTimerRecording(project, result) {
 }
 
 // This records the ideal PWM control input, not a simulated MOSFET/LED output.
+function dimmerPwmRecording(project,r){
+ const mcu=project.components.find(c=>['active.mcu-uno-ideal','active.atmega328p-pwm-dimmer'].includes(c.libraryId));
+ const gate=mcu&&project.nets.find(n=>n.endpoints.includes(mcu.instanceId+':D9'))?.id;
+ if(!gate)return null;
+ const duty=r.dutyCycle,period=1/r.pwmFrequencyHz;
+ const sample=(timeSeconds,level)=>({timeSeconds,nodeVoltages:{[gate]:level}});
+ const samples=[];
+ for(let cycle=0;cycle<4;cycle++){
+  samples.push(sample(cycle*period,Number(duty>0)));
+  if(duty>0&&duty<1)samples.push(sample((cycle+duty)*period,0));
+ }
+ samples.push(sample(4*period,Number(duty===1)));
+ return {kind:'analytical-output-recording',units:'logic',model:'Ideal D9 PWM timing',preferredNet:gate,samples};
+}
+
 function pwmGateRecording(project,r){
  const pwm=project.components.filter(c=>c.libraryId==='power.pwm-source'),switches=project.components.filter(c=>c.libraryId==='active.nmos-switch');
  if(pwm.length!==1||switches.length!==1)return null;

@@ -217,6 +217,20 @@ test('button debounce scope maps raw samples to D2 and toggles to D13',async()=>
  assert.equal(diagnostic.scopeRecording,undefined);
 });
 
+test('D9 dimmer scope uses the modeled PWM duty and preserves endpoint levels',async()=>{
+ const p=await load('063-arduino-pwm-dimmer'),pot=p.components.find(c=>c.instanceId==='pot');
+ for(const position of [0,50,100]){
+  pot.value=`Position ${position}%; Resolution 10 bit`;
+  const analysis=runProjectAnalysis(p),record=analysis.scopeRecording;
+  assert.equal(record.preferredNet,'PWM');
+  assert.equal(record.units,'logic');
+  const period=1/analysis.result.pwmFrequencyHz;
+  assert.equal(record.samples.at(-1).timeSeconds,4*period);
+  if(position===50)assert.deepEqual(record.samples[1],{timeSeconds:analysis.result.dutyCycle*period,nodeVoltages:{PWM:0}});
+  else assert.ok(record.samples.every(s=>s.nodeVoltages.PWM===Number(position===100)));
+ }
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);

@@ -20,6 +20,10 @@ const customPinSides = {
     ["D2", "MCU_RESET_N", "GND", "AGND"],
     ["VCC", "AVCC", "D13"]
   ],
+  "active.atmega328p-pwm-dimmer": [
+    ["A0", "MCU_RESET_N", "GND", "AGND"],
+    ["VCC", "AVCC", "AREF", "D9"]
+  ],
   "active.atmega328p-blink": [
     ["MCU_RESET_N", "GND", "AGND"],
     ["VCC", "AVCC", "D13"]
