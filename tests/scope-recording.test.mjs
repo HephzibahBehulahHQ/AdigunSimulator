@@ -133,6 +133,17 @@ test('digital event projects expose sampled pin transitions as logic-level scope
  }
 });
 
+test('UART transmitter exposes the complete 8N1 frame as modeled TX logic',async()=>{
+ const p=await load('056-uart-transmitter'),analysis=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,analysis);
+ assert.equal(analysis.state,'complete');
+ const {frameBits,bitPeriodSeconds,frameDurationSeconds}=analysis.result;
+ const live={status:'ready',kind:'transient',sampleIndex:timeline.length-1,data:timeline.frame(timeline.length-1)};
+ const trace=scopeTrace(p,analysis,live,'TX');
+ assert.equal(trace.units,'logic');
+ assert.equal(trace.duration,frameDurationSeconds);
+ assert.deepEqual(trace.points.filter((_,i)=>i%2===0),[...frameBits.map((bit,i)=>[i*bitPeriodSeconds,Number(bit)]),[frameDurationSeconds,1]]);
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);

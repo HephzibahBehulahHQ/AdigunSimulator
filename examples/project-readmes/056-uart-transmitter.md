@@ -9,25 +9,34 @@ Serialize a configured byte as one low start bit, eight LSB-first data bits, and
 | Reference | Project library ID | Project value |
 |---|---|---|
 | V1 | `power.dc-source` | 5 V |
-| U1 | `active.uart-tx-ideal` | Byte 0xA5; Baud 9600 |
+| U1 | `active.atmega328p-uart-tx` | ATmega328P-PU, byte 0xA5 at 9600 baud |
 | RTX | `passive.resistor` | 330 Ω |
 | DTX | `diode.led-red` | Vf 2 V |
 | GND | `ground.signal` | 0 V |
+| R7 | `passive.resistor` | 10 kΩ reset pull-up |
+| C1, C2 | `passive.capacitor` | 100 nF supply bypass, each |
 
 These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
 
 ## Net connections
 
-- **VCC:** `supply:+`, `uart:VCC`
-- **GND:** `supply:-`, `uart:GND`, `led:K`, `ground:0`
+- **VCC:** `supply:+`, `uart:VCC`, `uart:AVCC`, `reset-pullup:1`, `vcc-bypass:1`, `avcc-bypass:1`
+- **GND:** `supply:-`, `uart:GND`, `uart:AGND`, `led:K`, `ground:0`, `vcc-bypass:2`, `avcc-bypass:2`
 - **TX:** `uart:TX`, `resistor:1`
 - **TX_LED:** `resistor:2`, `led:A`
+- **MCU_RESET_N:** `uart:MCU_RESET_N`, `reset-pullup:2`
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly seats U1 with pin 1 at F10. PD1/TXD is package pin 3 and can be probed at J12 relative to the ground rail. The schematic uses the same native netlist.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The routed 56 × 43 mm PCB uses two copper layers and a 0.35 mm minimum clearance. J1 takes 5 V on pin 1 and return on pin 2. On the PCB, probe TX at the RTX pin 1 pad relative to return. The fabrication validator checks pad connectivity and exports copper, outline, plated drill, and BOM files.
+
+## Firmware and oscilloscope
+
+The [AVR firmware](../056-uart-transmitter/main.c) sends 0xA5 at nominal 9600 baud, 8N1, approximately every 100 ms. Before insertion, program U1 for its internal 8 MHz oscillator without clock division. Verify the measured baud against the receiver tolerance. Use a common return and a probe or input rated for 5 V logic.
+
+In the simulator, the oscilloscope shows the selected byte's ten modeled logic bits at the configured bit period. Editing the simulated byte or baud does not reprogram the MCU. The scope trace omits oscillator error and analog voltage edges.
 
 ## Acceptance test and expected result
 

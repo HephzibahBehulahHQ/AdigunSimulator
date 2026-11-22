@@ -93,6 +93,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.cd4532be-encoder", category: "Active", type: "CD4532BE four-input priority encoder (ideal logic)", prefix: "U", pins: ["D4", "D5", "D6", "D7", "EI", "CODE1", "GND", "CODE0", "D0", "D1", "D2", "D3", "VALID", "VCC"], defaultValue: "CD4532BE", simulation: "analytical-priority-encoder", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.logic-alu4-ideal", category: "Active", type: "Ideal four-bit add/subtract ALU", prefix: "U", pins: ["A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3", "SUB", "SUM0", "SUM1", "SUM2", "SUM3", "CARRY", "VCC", "GND"], defaultValue: "Four-bit two's-complement add/subtract", simulation: "analytical-alu4", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.atmega328p-alu4", category: "Active", type: "ATmega328P-PU four-bit ALU demonstration", prefix: "U", pins: ["A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3", "SUB", "SUM0", "SUM1", "SUM2", "SUM3", "CARRY", "VCC", "GND", "AVCC", "AGND", "MCU_RESET_N"], defaultValue: "ATmega328P-PU", simulation: "analytical-alu4", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.atmega328p-uart-tx", category: "Active", type: "ATmega328P-PU UART transmitter demonstration", prefix: "U", pins: ["TX", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC"], defaultValue: "Byte 0xA5; Baud 9600", simulation: "analytical-uart-transmitter", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.uart-tx-ideal", category: "Active", type: "Ideal UART transmitter (8N1 frame model)", prefix: "U", pins: ["TX", "VCC", "GND"], defaultValue: "Byte 0xA5; Baud 9600", simulation: "analytical-uart-transmitter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.uart-frame-source", category: "Inputs", type: "Ideal UART serial-frame source (digital fixture)", prefix: "SIG", pins: ["TX", "GND"], defaultValue: "Bits 0,1,0,1,0,0,1,0,1,1; Baud 9600", simulation: "fixture-uart-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "input.usb-uart-console-stream", category: "Inputs", type: "USB-UART local byte-stream fixture", prefix: "HOST", pins: ["TX", "GND"], defaultValue: "Baud 9600; DataBits 8; Parity none; StopBits 1; TXBytes 48 69; RXBytes 4F 4B", simulation: "fixture-usb-uart-stream", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -947,6 +948,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const priorityEncoders = project.components.filter((item) => ["active.logic-priority-encoder-4to2-ideal", "active.cd4532be-encoder"].includes(item.libraryId));
   const avrAlu = project.components.find(part => part.libraryId === "active.atmega328p-alu4");
   const alu4s = project.components.filter((item) => item.libraryId === "active.logic-alu4-ideal");
+  const avrUartTransmitter = project.components.find(item => item.libraryId === "active.atmega328p-uart-tx");
   const uartTransmitters = project.components.filter((item) => item.libraryId === "active.uart-tx-ideal");
   const uartReceivers = project.components.filter((item) => item.libraryId === "active.uart-rx-ideal");
   const uartFrameSources = project.components.filter((item) => item.libraryId === "input.uart-frame-source");
@@ -1311,8 +1313,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (uartReceivers.length === 1 && uartFrameSources.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseUartReceiver(project, { source: source[0], frameSource: uartFrameSources[0], receiver: uartReceivers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
+  if (avrUartTransmitter && source.length === 1 && resistor.length === 2 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
+    return analyseUartTransmitter(project, { source: source[0], transmitter: avrUartTransmitter, resistors: resistor, bypass: capacitor, led: led[0], ground: ground[0], validation });
+  }
   if (uartTransmitters.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
-    return analyseUartTransmitter(project, { source: source[0], transmitter: uartTransmitters[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+    return analyseUartTransmitter(project, { source: source[0], transmitter: uartTransmitters[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
   if (avrAlu && source.length === 10 && resistor.length === 6 && capacitor.length === 2 && led.length === 5 && ground.length === 1 && project.components.length === 25) {
     return analyseAlu4(project, { sources: source, alu: avrAlu, resistors: resistor, bypass: capacitor, leds: led, ground: ground[0], validation });
@@ -3193,15 +3198,22 @@ function analyseUartReceiver(project,{source,frameSource,receiver,resistor,led,g
   const frameDurationSeconds=10/baud,validCurrentA=valid?Math.max(0,(supplyVoltage-forwardV)/resistance):0;
   return {state:"complete",engine:"Ideal UART 8N1 frame decoder",message:framingError?"Frame received with a start or stop-bit framing error; data byte is not marked valid.":"Decodes the supplied 8N1 frame LSB-first. Analog waveform sampling, oversampling, jitter, noise, parity, and physical transceiver behavior are not modeled.",result:{kind:"uart-receiver-8n1",baud,frameBits,startBit,dataBits,stopBit,byte,byteHex:`0x${byte.toString(16).padStart(2,"0").toUpperCase()}`,frameFormat:"8N1",framingError,valid,frameDurationSeconds,validIndicatorCurrentA:validCurrentA},validation};
 }
-function analyseUartTransmitter(project,{source,transmitter,resistor,led,ground,validation}){
+function analyseUartTransmitter(project,{source,transmitter,resistors,bypass,led,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin)));
   const groundNet=n(ground,"0"),supplyNet=n(transmitter,"VCC"),sourceVoltage=n(source,"+")===supplyNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
-  const txNet=n(transmitter,"TX"),ledPath=(n(resistor,"1")===txNet&&n(resistor,"2")===n(led,"A"))||(n(resistor,"2")===txNet&&n(resistor,"1")===n(led,"A"));
+  if (bypass && !validAvrSupply(transmitter,resistors,bypass,n,supplyNet,groundNet)) {
+    return {state:"blocked",message:"Power VCC and AVCC, ground both return pins, fit both bypass capacitors, and pull MCU reset up to VCC.",validation};
+  }
+  const txNet=n(transmitter,"TX"),anodeNet=n(led,"A");
+  const resistor=txNet&&anodeNet&&resistors.find(part=>{
+    const pins=[n(part,"1"),n(part,"2")];
+    return pins.includes(txNet)&&pins.includes(anodeNet)&&txNet!==anodeNet;
+  });
   const config=String(transmitter.value),byteMatch=config.match(/\bByte\s+(0x[0-9a-f]+|\d+)/i),baudMatch=config.match(/\bBaud\s+(\d+(?:\.\d+)?)/i);
   const byteText=byteMatch?.[1],byteValue=byteText?(byteText.toLowerCase().startsWith("0x")?parseInt(byteText.slice(2),16):Number(byteText)):Number.NaN,baud=baudMatch?Number(baudMatch[1]):Number.NaN;
-  const resistance=resistanceValue(resistor.value),forwardV=forwardVoltage(led.value);
-  if(!Number.isFinite(sourceVoltage)||sourceVoltage<=0||n(transmitter,"GND")!==groundNet||n(led,"K")!==groundNet||!ledPath||!Number.isInteger(byteValue)||byteValue<0||byteValue>255||!Number.isFinite(baud)||baud<300||baud>1000000||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(forwardV)||forwardV<=0){
+  const resistance=resistanceValue(resistor?.value),forwardV=forwardVoltage(led.value);
+  if(!supplyNet||!groundNet||!Number.isFinite(sourceVoltage)||sourceVoltage<=0||n(transmitter,"GND")!==groundNet||n(led,"K")!==groundNet||!Number.isInteger(byteValue)||byteValue<0||byteValue>255||!Number.isFinite(baud)||baud<300||baud>1000000||!Number.isFinite(resistance)||resistance<=0||!Number.isFinite(forwardV)||forwardV<=0){
     return {state:"blocked",message:"Set a byte from 0 to 255 and baud rate from 300 to 1,000,000, and wire a powered ideal UART transmitter with an idle-high TX indicator.",validation};
   }
   const dataBits=Array.from({length:8},(_,bit)=>Boolean(byteValue&(1<<bit))),frameBits=[false,...dataBits,true],bitPeriodSeconds=1/baud,frameDurationSeconds=10/baud,ledCurrentA=Math.max(0,(sourceVoltage-forwardV)/resistance);
