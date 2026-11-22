@@ -16,6 +16,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
  if(['bridge-rectifier-waveform','bridge-smoothing-capacitor'].includes(kind))return rectifierWaveformRecording(project,r);
  if(kind==='tvs-pulse-clamp')return tvsPulseRecording(project,r);
+ if(kind==='mcu-temperature-monitor')return temperatureInputRecording(project,r);
  if(kind==='mcu-pwm-dimmer')return dimmerPwmRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
  if(['rc-low-pass','rc-high-pass','rl-low-pass','passive-tone-control'].includes(kind))return frequencyResponseRecording(project,r);
@@ -285,6 +286,14 @@ function dualTimerRecording(project, result) {
  }
  samples.push({timeSeconds:duration,nodeVoltages:{...levels}});
  return {kind:'analytical-output-recording',model:'Ideal NE556 dual astable timing (phase-normalized outputs, hardware levels omitted)',preferredNet:channels[0].output,samples};
+}
+
+function temperatureInputRecording(project,result){
+ const sensor=project.components.find(c=>['sensor.temperature-analog-ideal','sensor.ti-lm35dz'].includes(c.libraryId));
+ const output=sensor&&project.nets.find(net=>net.endpoints.includes(sensor.instanceId+':OUT'))?.id;
+ if(!output||!Number.isFinite(result.sensorVoltageV))return null;
+ const samples=[0,.5].map(timeSeconds=>({timeSeconds,nodeVoltages:{[output]:result.sensorVoltageV}}));
+ return {kind:'analytical-output-recording',model:'Ideal A0 temperature sensor voltage',preferredNet:output,samples};
 }
 
 // This records the ideal PWM control input, not a simulated MOSFET/LED output.

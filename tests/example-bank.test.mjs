@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,96);assert.equal(index.summary.withoutStoredPcb,120);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,97);assert.equal(index.summary.withoutStoredPcb,119);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -825,10 +825,27 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
  const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/LTL-307G/);assert.match(exported.files['board-F_Cu.gbr'],/M02\*/);
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="led-green"/);assert.ok(renderBreadboardAssemblySvg(project).includes('led-green'));
 });
+test('Example 064 maps the LM35DZ, AVR and LCD connector in all three views',async()=>{
+ const project=JSON.parse(await readFile(new URL('../examples/064-arduino-temperature-monitor.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(project,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(project,{getPartPins}).state,'complete');
+ const parts=Object.fromEntries(project.pcbFabrication.physicalEvidence.map(item=>[item.reference,item]));
+ assert.deepEqual(parts.TS1.pinMapping,{'1':'VCC','2':'SENSOR_OUT','3':'GND'});
+ assert.deepEqual(parts.J2.pinMapping,{'1':'GND','2':'VCC','3':'LCD_DATA'});
+ assert.equal(parts.U1.pinMapping['14'],'LCD_DATA');
+ assert.equal(parts.U1.pinMapping['23'],'SENSOR_OUT');
+ const drc=validatePcbFabrication(project),pack=exportPcbFabrication(project);
+ assert.equal(drc.status,'passed',drc.errors.join('; '));
+ assert.equal(pack.status,'passed');
+ assert.deepEqual(Object.keys(pack.files).sort(),['BOM.csv','board-B_Cu.gbr','board-Edge_Cuts.gbr','board-F_Cu.gbr','board-PTH.drl'].sort());
+});
+
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,96);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,97);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

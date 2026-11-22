@@ -231,6 +231,14 @@ test('D9 dimmer scope uses the modeled PWM duty and preserves endpoint levels',a
  }
 });
 
+test('temperature scope samples only the modeled A0 voltage',async()=>{
+ const project=await load('064-arduino-temperature-monitor');
+ const analysis=runProjectAnalysis(project),record=analysis.scopeRecording;
+ assert.equal(record.preferredNet,'SENSOR_OUT');
+ assert.equal(analysis.result.sensorVoltageV,.25);
+ assert.deepEqual(record.samples,[0,.5].map(timeSeconds=>({timeSeconds,nodeVoltages:{SENSOR_OUT:.25}})));
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);
