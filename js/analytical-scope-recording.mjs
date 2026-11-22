@@ -9,6 +9,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='i2c-register-read'||kind==='i2c-eeprom-write-read')return i2cRegisterRecording(project,r);
  if(kind==='spi-display-byte')return spiDisplayRecording(project,r);
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
+ if(kind==='mcu-blink')return blinkRecording(project,r);
  if(kind==='mcu-button-debounce')return buttonDebounceRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
  if(kind==='rlc-step-response')return rlcStepRecording(project,r);
@@ -123,6 +124,15 @@ function spiDisplayRecording(project, result) {
  const end=transferDurationSeconds+period/2;
  samples.push(sample(end,0,bits.at(-1),0),sample(end+period/2,0,bits.at(-1),1));
  return {kind:'analytical-output-recording',units:'logic',model:'Ideal SPI mode-0 byte timing',preferredNet:clock,samples};
+}
+
+function blinkRecording(project, result) {
+ const mcu=project.components.find(c=>['active.mcu-uno-ideal','active.atmega328p-blink'].includes(c.libraryId));
+ const output=mcu&&project.nets.find(n=>n.endpoints.includes(mcu.instanceId+':D13'))?.id;
+ if(!output||!result.trace.length)return null;
+ const samples=result.trace.map(item=>({timeSeconds:item.timeMs/1000,nodeVoltages:{[output]:Number(item.gpioHigh)}}));
+ samples.push({timeSeconds:result.runtimeMs/1000,nodeVoltages:{...samples.at(-1).nodeVoltages}});
+ return {kind:'analytical-output-recording',units:'logic',model:'Ideal D13 blink timing',preferredNet:output,samples};
 }
 
 function audioPowerRecording(project,result) {

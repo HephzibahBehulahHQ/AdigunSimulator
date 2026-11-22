@@ -193,6 +193,17 @@ test('24LC02B scope records a write stop, host wait and byte read-back',async()=
  assert.deepEqual(busData,[0,1,0,1,1,0,1,0,1]);
 });
 
+test('D13 scope shows two complete Blink periods and holds the last level to runtime',async()=>{
+ const p=await load('061-arduino-blink'),analysis=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,analysis);
+ const index=timeline.length-1,live={status:'ready',kind:'transient',sampleIndex:index,data:timeline.frame(index)};
+ const trace=scopeTrace(p,analysis,live,'D13');
+ assert.equal(trace.units,'logic');
+ assert.deepEqual(trace.points.filter((_,i)=>i%2===0),[[0,1],[.5,0],[1,1],[1.5,0],[2,0]]);
+ const mcu=p.components.find(c=>c.instanceId==='mcu');
+ mcu.value='Program Blink; Pin D13; High 0.25 ms; Low 0.2 ms; Runtime 60000 ms';
+ assert.equal(runProjectAnalysis(p).state,'blocked');
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);
