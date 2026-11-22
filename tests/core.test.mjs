@@ -2572,7 +2572,7 @@ test("catalogue ESP32 telemetry mock forms JSON locally without network transmis
 
 test("catalogue Pico voltmeter estimates calibrated divider input at three points",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/069-pico-adc-voltmeter.adigun.json",import.meta.url)));
-  for(const voltage of [6,12,13]){
+  for(const voltage of [0,6,12,13]){
     const result=runSupportedAnalysis(updateComponent(project,"vin",{value:`${voltage} V`}));
     assert.equal(result.state,"complete",result.message);
     assert.ok(Math.abs(result.result.estimatedInputVoltageV-voltage)<0.01);

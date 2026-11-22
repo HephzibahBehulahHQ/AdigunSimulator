@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 101,
-    "withoutStoredPcb": 115,
+    "withStoredPcb": 102,
+    "withoutStoredPcb": 114,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1294,44 +1294,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "8ef9023af3c0633348267312158faab88bcec037c72030c210cb306992c3c7c7",
+      "sha256": "73365aeaf01eb3be45956fb13af972db988e2d918e8a5fb65d3db17427b217f1",
       "components": 7,
       "analysis": "complete",
       "engine": "Ideal Pico 12-bit ADC divider voltmeter",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "VIN",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "VLOGIC",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.rp2040-pico-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "OLED1",
-          "libraryId": "output.oled-text-sink-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 6,
+      "pcbPads": 52,
+      "pcbRoutes": 12,
+      "unmapped": []
     },
     {
       "file": "070-stm32-timer-pwm.adigun.json",

@@ -19,6 +19,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='mcu-stepper-position')return stepperCommandRecording(project,r);
  if(kind==='mcu-servo-control')return servoPulseRecording(project,r);
  if(kind==='mcu-ultrasonic-range')return sonarEchoRecording(project,r);
+ if(kind==='pico-adc-voltmeter')return picoDividerRecording(project,r);
  if(kind==='esp32-telemetry-payload')return temperatureInputRecording(project,r);
  if(kind==='mcu-temperature-monitor')return temperatureInputRecording(project,r);
  if(kind==='mcu-pwm-dimmer')return dimmerPwmRecording(project,r);
@@ -330,6 +331,14 @@ function sonarEchoRecording(project,result){
  const width=result.echoTimeUs/1e6;
  const samples=[[0,1],[width,1],[width,0],[width*1.2,0]].map(([timeSeconds,value])=>({timeSeconds,nodeVoltages:{[echo]:value}}));
  return {kind:'analytical-output-recording',units:'logic',model:'Ideal echo width from rising edge',preferredNet:echo,samples};
+}
+
+function picoDividerRecording(project,result){
+ const pico=project.components.find(c=>['active.raspberry-pi-pico-voltmeter','active.rp2040-pico-ideal'].includes(c.libraryId));
+ const adc=pico&&project.nets.find(net=>net.endpoints.includes(pico.instanceId+':ADC0'))?.id;
+ if(!adc||!Number.isFinite(result.dividerVoltageV))return null;
+ const samples=[0,.25].map(timeSeconds=>({timeSeconds,nodeVoltages:{[adc]:result.dividerVoltageV}}));
+ return {kind:'analytical-output-recording',model:'Ideal Pico ADC divider voltage',preferredNet:adc,samples};
 }
 
 function temperatureInputRecording(project,result){
