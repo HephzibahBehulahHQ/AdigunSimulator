@@ -16,6 +16,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
  if(['bridge-rectifier-waveform','bridge-smoothing-capacitor'].includes(kind))return rectifierWaveformRecording(project,r);
  if(kind==='tvs-pulse-clamp')return tvsPulseRecording(project,r);
+ if(kind==='mcu-stepper-position')return stepperCommandRecording(project,r);
  if(kind==='mcu-servo-control')return servoPulseRecording(project,r);
  if(kind==='mcu-ultrasonic-range')return sonarEchoRecording(project,r);
  if(kind==='mcu-temperature-monitor')return temperatureInputRecording(project,r);
@@ -288,6 +289,21 @@ function dualTimerRecording(project, result) {
  }
  samples.push({timeSeconds:duration,nodeVoltages:{...levels}});
  return {kind:'analytical-output-recording',model:'Ideal NE556 dual astable timing (phase-normalized outputs, hardware levels omitted)',preferredNet:channels[0].output,samples};
+}
+
+function stepperCommandRecording(project,result){
+ const driver=project.components.find(c=>c.libraryId==='active.pololu-1182-a4988');
+ const output=driver&&project.nets.find(net=>net.endpoints.includes(driver.instanceId+':STEP'))?.id;
+ const period=1/result.stepRateHz,width=10e-6,steps=Math.min(4,result.steps);
+ if(!output||!Number.isFinite(period)||period<=width||!Number.isInteger(steps)||steps<1)return null;
+ const samples=[],sample=(timeSeconds,level)=>({timeSeconds,nodeVoltages:{[output]:level}});
+ for(let step=0;step<steps;step++){
+  const start=step*period,end=start+width;
+  if(step)samples.push(sample(start,0));
+  samples.push(sample(start,1),sample(end,1),sample(end,0));
+ }
+ samples.push(sample(steps*period,0));
+ return {kind:'analytical-output-recording',units:'logic',model:'Ideal D3 STEP command timing',preferredNet:output,samples};
 }
 
 function servoPulseRecording(project,result){

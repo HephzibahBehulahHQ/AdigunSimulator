@@ -1,70 +1,20 @@
 # 067 — Uno-class bipolar stepper driver
 
-## Purpose
+An ATmega328P-PU sends STEP and DIR commands to a Pololu 1182 A4988 carrier. The carrier drives an off-board Pololu 1204 bipolar stepper with 200 full steps per revolution. The model computes signed travel from the configured count, rate and direction.
 
-Apply an ideal full-step bipolar phase sequence and calculate signed angular travel, final position, and duration for CW and CCW motion.
+| Reference | Assembly |
+| --- | --- |
+| J1 | Regulated 5 V logic power and return |
+| J2 | Regulated 12 V motor power and return |
+| U1 | ATmega328P-PU with undivided internal 8 MHz clock |
+| U2 | Pololu 1182 A4988 carrier, 2 × 8 pins at 2.54 mm pitch and 12.70 mm row spacing |
+| J3 | Samtec TSW-104-07-T-S, pins 1–4 are A1, A2, B1, B2 |
+| C1, C2 | 100 nF AVR VCC and AVCC bypass capacitors |
+| C3 | Panasonic EEUFR1E101, 100 µF, 25 V, positive at VMOT |
+| R7–R9 | 10 kΩ MCU reset pull-up, driver enable pull-up, and STEP pull-down |
 
-## Bill of materials
+Connect both returns. Keep the 5 V and 12 V positive rails separate. Mount U1 with pin 1 at F10 on the BB400 and orient U2 with EN at D2 and VMOT at G2. C3's positive lead goes to BP5 and negative to BM8. On the controller PCB, check U2 orientation and C3 polarity against the project before applying either supply. J3 is the footprint for the cabled motor, and on the breadboard J3 uses insulated pigtails. The 75 × 55 mm PCB uses two copper layers, 0.35 mm clearance, and 0.75 mm supply and coil traces. [Pololu carrier guide](https://www.pololu.com/product/1182), [carrier drawing](https://www.pololu.com/file/0J1082/a4988-stepper-motor-driver-carrier-dimension-diagram.pdf), [Panasonic C3](https://industrial.panasonic.com/ww/products/pt/aluminum-cap-lead/models/EEUFR1E101), [Samtec J3](https://www.samtec.com/products/tsw-104-07-t-s).
 
-| Reference | Project library ID | Project value |
-|---|---|---|
-| V1 | `power.dc-source` | 5 V |
-| U1 | `active.mcu-uno-ideal` | Program Stepper; Step D3; DirectionPin D2; Steps 200; Direction CW; StepRate 200 |
-| U2 | `active.stepper-driver-ideal` | Full-step dual-phase drive |
-| M1 | `output.stepper-motor-ideal` | StepsPerRevolution 200; StepAngle 1.8 deg |
-| GND | `ground.signal` | 0 V |
+Connect black and green to A1 and A2 and red and blue to B1 and B2. Set the A4988 current-limit setting to at most 0.6 A using the carrier guide and the fitted sense resistors. Verify orientation and direction from an unloaded first move. Power down both supplies before connecting or disconnecting the motor. Keep C3 close to the carrier with short supply leads. [Pololu 1204 motor connection guide](https://www.pololu.com/product/1204).
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
-
-## Net connections
-
-- **VCC:** `supply:+`, `mcu:VCC`, `driver:VCC`
-- **GND:** `supply:-`, `mcu:GND`, `driver:GND`, `ground:0`
-- **STEP:** `mcu:D3`, `driver:STEP`
-- **DIR:** `mcu:D2`, `driver:DIR`
-- **MOTOR_A1:** `driver:A1`, `motor:A1`
-- **MOTOR_A2:** `driver:A2`, `motor:A2`
-- **MOTOR_B1:** `driver:B1`, `motor:B1`
-- **MOTOR_B2:** `driver:B2`, `motor:B2`
-
-## Views and physical-layout status
-
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
-
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
-
-## Acceptance test and expected result
-
-- Stable test ID: `core-arduino-stepper-driver`
-- Engine: Ideal Uno-class bipolar stepper sequence and position model
-- Engine version: `adigun-simulator@0.1.0`
-- Model version: `ideal-uno-stepper-phase-position-v1`
-- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41177644194
-
-Recorded expected result:
-
-```json
-{
-  "stepsPerRevolution": 200,
-  "stepAngleDegrees": 1.8,
-  "clockwise200StepsTravelDegrees": 360,
-  "counterclockwise50StepsTravelDegrees": -90,
-  "stepRatesHzTested": [100, 200],
-  "stepRateHz": 200,
-  "direction": "CW",
-  "steps": 200,
-  "signedSteps": 200,
-  "angularTravelDegrees": 360,
-  "finalPositionDegrees": 0,
-  "motionDurationSeconds": 1,
-  "firmwareExecuted": false
-}
-```
-
-## Safety and model limits
-
-Ideal digital phase and position model; no Arduino C++ execution, acceleration, torque, missed steps, coil current/temperature, resonance, or end-stop physics.
-
-Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
-
-Native project: `examples/067-arduino-stepper-driver.adigun.json`.
+D3 supplies STEP, D2 supplies DIR and D4 controls active-low enable. R8 keeps the bridge disabled during AVR reset. MS1–MS3 are low for full-step mode. RST and SLP are held high. The [AVR firmware](../067-arduino-stepper-driver/main.c) sends one default move of 200 pulses at approximately 200 steps/s, then disables bridge current. The scope shows the first four configured STEP pulses, with nominal 10 µs highs. The phase table represents ideal full-step sequencing. Current regulation, torque, missed steps, temperature, mechanical motion and firmware execution are outside the model. Bench and manufacturing qualification remain open.
