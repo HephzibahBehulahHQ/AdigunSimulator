@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 const publicFile = path => ["index.html", "app.js", "styles.css", "CNAME"].includes(path)
   || /^(assets|js|library|examples)\//.test(path)
     && !path.split("/").some(part => part.startsWith("."))
-    && /\.(m?js|json|svg|png|jpe?g|webp|ico|woff2?|ttf|md|txt|csv|gbr|drl|ino|c|cpp|h|hex|bin|pdf)$/i.test(path);
+    && /\.(m?js|json|svg|png|jpe?g|webp|ico|woff2?|ttf|md|txt|csv|gbr|drl|ino|asm|c|cpp|h|hex|bin|pdf)$/i.test(path);
 
 // Read committed objects only: untracked files and working-copy secrets cannot enter the artifact.
 export async function buildPages({ repository, output }) {

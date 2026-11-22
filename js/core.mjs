@@ -146,6 +146,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.pico-ssd1306-oled-port", category: "Output", type: "Off-board 3.3 V SSD1306 I2C display port", prefix: "J", pins: ["GND", "VCC", "SDA", "SCL"], defaultValue: "Adafruit 4440 SSD1306; I2C 0x3C", simulation: "analytical-pico-voltmeter", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.rp2040-pico-ideal", category: "Active", type: "Ideal RP2040 Pico ADC/display controller (behavior model)", prefix: "U", pins: ["ADC0", "TX", "VCC", "GND"], defaultValue: "ADC 12 bit; Reference 3.3 V; Calibrate divider", simulation: "analytical-pico-voltmeter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.stm32-timer-ideal", category: "Boards", type: "ST NUCLEO-G031K8 (MB1455) development board with ideal TIM2 PWM behavior", prefix: "U", pins: ["PA0", "VCC", "GND"], defaultValue: "NUCLEO-G031K8; CN4 pin 12 A0/PA0; CN4 pin 14 +3V3; CN4 pin 2 GND; ClockHz 64000000; Prescaler 63; AutoReload 999; Compare 499", simulation: "analytical-stm32-timer-pwm", status: "ST board and connector map source-backed; PWM behavior is ideal, firmware and physical GPIO limits are not simulated", sources: ["https://www.st.com/resource/en/user_manual/um2591-stm32g0-nucleo32-board-mb1455-stmicroelectronics.pdf", "https://www.st.com/resource/en/schematic_pack/mb1455-g031k8-d01-schematic.pdf"], views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.pic16f886-adc-bargraph", category: "Active", type: "Microchip PIC16F886 ADC bargraph controller", prefix: "U", pins: ["AN0","MCLR","VDD","VSS","VSS2", ...Array.from({length:10},(_,i)=>"BAR"+i)], defaultValue: "Program ADC bargraph; ADC AN0; Resolution 10 bit; Channels 10", simulation: "analytical-pic-adc-bargraph", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.kingbright-dc10ewa", category: "Output", type: "Kingbright DC10EWA ten-segment LED array", prefix: "DS", pins: [...Array.from({length:10},(_,i)=>"K"+i), ...Array.from({length:10},(_,i)=>"A"+i)], defaultValue: "Segments 10; Mode bar", simulation: "analytical-pic-adc-bargraph", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "passive.bourns-4606x-bussed", category: "Passive", type: "Bourns 4606X five-resistor bussed array", prefix: "RN", pins: ["C","R0","R1","R2","R3","R4"], defaultValue: "1 kΩ per branch", simulation: "bounded-bargraph-branch-check", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.pic-adc-bargraph-ideal", category: "Active", type: "Generic PIC 10-bit ADC and bargraph behavior model", prefix: "U", pins: ["AN0", "BAR0", "BAR1", "BAR2", "BAR3", "BAR4", "BAR5", "BAR6", "BAR7", "BAR8", "BAR9", "VDD", "VSS"], defaultValue: "Program ADC bargraph; ADC AN0; Resolution 10 bit; Channels 10", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.led-bargraph-10seg-ideal", category: "Output", type: "Ideal 10-segment LED bargraph behavior sink", prefix: "LED", pins: ["IN0", "IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "IN9", "VCC", "GND"], defaultValue: "Segments 10; Mode bar", simulation: "analytical-pic-adc-bargraph", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.ir-nec-frame", category: "Inputs", type: "Ideal NEC-like optical timing fixture", prefix: "SIG", pins: ["OUT", "GND"], defaultValue: "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000", simulation: "fixture-ir-nec-frame", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -1249,6 +1252,12 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (stm32Controllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseStm32TimerPwm(project, { source: source[0], controller: stm32Controllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+  }
+  const physicalPic = project.components.find(item => item.libraryId === "active.pic16f886-adc-bargraph");
+  const kingbrightBar = project.components.find(item => item.libraryId === "output.kingbright-dc10ewa");
+  const barNetworks = project.components.filter(item => item.libraryId === "passive.bourns-4606x-bussed");
+  if (physicalPic && kingbrightBar && dimmerTrimmer && source.length === 1 && ground.length === 1 && capacitor.length === 1 && resistor.length === 1 && barNetworks.length === 2 && project.components.length === 9) {
+    return analysePicAdcBargraph(project, { source: source[0], potentiometer: dimmerTrimmer, pic: physicalPic, bargraph: kingbrightBar, networks: barNetworks, bypass: capacitor[0], reset: resistor[0], ground: ground[0], validation });
   }
   if (picControllers.length === 1 && adcPotentiometers.length === 1 && ledBargraphs.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analysePicAdcBargraph(project, { source: source[0], potentiometer: adcPotentiometers[0], pic: picControllers[0], bargraph: ledBargraphs[0], ground: ground[0], validation });
@@ -2588,18 +2597,27 @@ function analyseStm32TimerPwm(project,{source,controller,resistor,led,ground,val
   const peakCurrentA=Math.max(0,(supplyVoltage-vf)/resistance),averageCurrentA=peakCurrentA*dutyCycle;
   return {state:"complete",engine:"Ideal STM32 timer PWM/load estimate",message:"Computes edge-aligned timer frequency and duty from clock, prescaler, auto-reload, and compare registers, then estimates current through an ideal LED load. Firmware, timer clock-tree setup, GPIO drive limits, switching transients, and LED nonlinear behavior are omitted.",result:{kind:"stm32-timer-pwm",clockHz,prescaler,autoReload,compare,frequencyHz,dutyCycle,peakLedCurrentA:peakCurrentA,averageLedCurrentA:averageCurrentA,firmwareExecuted:false},validation};
 }
-function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,ground,validation}){
+function analysePicAdcBargraph(project,{source,potentiometer,pic,bargraph,networks,bypass,reset,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(pic.value).split(";").map(v=>v.trim()),potFields=String(potentiometer.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
   const positionText=field(potFields,"Position")?.replace(/%$/,""),position=Number(positionText);
   const groundNet=n(ground,"0"),vddNet=n(pic,"VDD"),supplyVoltage=n(source,"+")===vddNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
   const potPowered=n(potentiometer,"VCC")===vddNet&&n(potentiometer,"GND")===groundNet;
-  const bargraphPowered=n(bargraph,"VCC")===vddNet&&n(bargraph,"GND")===groundNet;
-  const outputsConnected=Array.from({length:10},(_,index)=>n(pic,"BAR"+index)&&n(pic,"BAR"+index)===n(bargraph,"IN"+index)).every(Boolean);
+  const anodeNets=Array.from({length:10},(_,i)=>n(bargraph,"A"+i));
+  const branchNets=networks?.flatMap(network=>Array.from({length:5},(_,i)=>n(network,"R"+i)));
+  const bargraphPowered=networks
+    ? networks.every(network=>n(network,"C")===vddNet&&resistanceValue(String(network.value).split(" per ")[0])===1000)
+      && new Set(anodeNets).size===10 && anodeNets.every(net=>net&&net!==vddNet&&net!==groundNet&&branchNets.includes(net))
+    : n(bargraph,"VCC")===vddNet&&n(bargraph,"GND")===groundNet;
+  if (networks&&(!vddNet||!groundNet||supplyVoltage!==5||n(pic,"VSS2")!==groundNet||!validSupplyBypass(bypass,n,vddNet,groundNet)||
+      n(reset,"1")!==vddNet||!n(pic,"MCLR")||n(reset,"2")!==n(pic,"MCLR")||resistanceValue(reset.value)!==10000)) {
+    return {state:"blocked",message:"Use regulated 5 V, wire both VSS pins, fit the VDD bypass, and pull MCLR up through 10 kOhm.",validation};
+  }
+  const outputsConnected=Array.from({length:10},(_,index)=>n(pic,"BAR"+index)&&n(pic,"BAR"+index)===n(bargraph,(networks?"K":"IN")+index)).every(Boolean);
   const bargraphFields=String(bargraph.value).split(";").map(v=>v.trim());
   if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(pic,"VSS")!==groundNet||!potPowered||!bargraphPowered||n(potentiometer,"OUT")!==n(pic,"AN0")||!outputsConnected||field(fields,"Program")?.toLowerCase()!=="adc bargraph"||field(fields,"ADC")!=="AN0"||field(fields,"Resolution")!=="10 bit"||field(fields,"Channels")!=="10"||field(potFields,"Resolution")!=="10 bit"||field(bargraphFields,"Segments")!=="10"||!Number.isFinite(position)||position<0||position>100){
-    return {state:"blocked",message:"Wire the powered potentiometer wiper to AN0, connect all ten PIC behavior outputs to the matching bargraph inputs, share VDD/VSS, and configure a 10-bit, ten-segment ADC bargraph.",validation};
+    return {state:"blocked",message:"Wire the powered potentiometer wiper to AN0, connect all ten PIC outputs to the matching bargraph inputs or cathodes and fit the 1 kOhm current limiting branches, share VDD/VSS, and configure a 10-bit, ten-segment ADC bargraph.",validation};
   }
   const adcCount=Math.round(position*1023/100),illuminatedSegments=Math.min(10,Math.floor(adcCount*10/1023));
   const segments=Array.from({length:10},(_,index)=>index<illuminatedSegments);

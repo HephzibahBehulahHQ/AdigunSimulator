@@ -19,6 +19,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='mcu-stepper-position')return stepperCommandRecording(project,r);
  if(kind==='mcu-servo-control')return servoPulseRecording(project,r);
  if(kind==='mcu-ultrasonic-range')return sonarEchoRecording(project,r);
+ if(kind==='pic-adc-bargraph')return picBargraphInputRecording(project,r);
  if(kind==='pico-adc-voltmeter')return picoDividerRecording(project,r);
  if(kind==='esp32-telemetry-payload')return temperatureInputRecording(project,r);
  if(kind==='mcu-temperature-monitor')return temperatureInputRecording(project,r);
@@ -331,6 +332,15 @@ function sonarEchoRecording(project,result){
  const width=result.echoTimeUs/1e6;
  const samples=[[0,1],[width,1],[width,0],[width*1.2,0]].map(([timeSeconds,value])=>({timeSeconds,nodeVoltages:{[echo]:value}}));
  return {kind:'analytical-output-recording',units:'logic',model:'Ideal echo width from rising edge',preferredNet:echo,samples};
+}
+
+function picBargraphInputRecording(project,result){
+ const pic=project.components.find(c=>['active.pic16f886-adc-bargraph','active.pic-adc-bargraph-ideal'].includes(c.libraryId));
+ const adc=pic&&project.nets.find(net=>net.endpoints.includes(pic.instanceId+':AN0'))?.id;
+ const voltage=result.adcReferenceV*result.positionPercent/100;
+ if(!adc||!Number.isFinite(voltage))return null;
+ const samples=[0,.25].map(timeSeconds=>({timeSeconds,nodeVoltages:{[adc]:voltage}}));
+ return {kind:'analytical-output-recording',model:'Ideal PIC AN0 bargraph input voltage',preferredNet:adc,samples};
 }
 
 function picoDividerRecording(project,result){

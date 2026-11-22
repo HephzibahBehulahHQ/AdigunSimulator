@@ -19,8 +19,8 @@
           60
         ],
         "schematic": [
-          45,
-          60
+          51,
+          82
         ],
         "pcb": [
           45,
@@ -30,7 +30,7 @@
     },
     {
       "instanceId": "pot",
-      "libraryId": "input.potentiometer-adc-ideal",
+      "libraryId": "input.bourns-3296w-adc",
       "reference": "RV1",
       "value": "Position 50%; Resolution 10 bit",
       "position": {
@@ -39,8 +39,8 @@
           60
         ],
         "schematic": [
-          160,
-          60
+          108,
+          141
         ],
         "pcb": [
           160,
@@ -50,7 +50,7 @@
     },
     {
       "instanceId": "pic",
-      "libraryId": "active.pic-adc-bargraph-ideal",
+      "libraryId": "active.pic16f886-adc-bargraph",
       "reference": "U1",
       "value": "Program ADC bargraph; ADC AN0; Resolution 10 bit; Channels 10",
       "position": {
@@ -59,8 +59,8 @@
           60
         ],
         "schematic": [
-          300,
-          60
+          235,
+          135
         ],
         "pcb": [
           300,
@@ -70,8 +70,8 @@
     },
     {
       "instanceId": "bargraph",
-      "libraryId": "output.led-bargraph-10seg-ideal",
-      "reference": "LED1",
+      "libraryId": "output.kingbright-dc10ewa",
+      "reference": "DS1",
       "value": "Segments 10; Mode bar",
       "position": {
         "breadboard": [
@@ -79,8 +79,8 @@
           60
         ],
         "schematic": [
-          450,
-          60
+          469,
+          136
         ],
         "pcb": [
           450,
@@ -99,11 +99,105 @@
           60
         ],
         "schematic": [
-          570,
-          60
+          304,
+          233
         ],
         "pcb": [
           570,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          184,
+          42
+        ],
+        "schematic": [
+          138,
+          40
+        ],
+        "pcb": [
+          184,
+          42
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "reset-pullup",
+      "libraryId": "passive.resistor",
+      "reference": "R7",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          269,
+          229
+        ],
+        "schematic": [
+          238,
+          44
+        ],
+        "pcb": [
+          269,
+          229
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "limit-0",
+      "reference": "RN1",
+      "libraryId": "passive.bourns-4606x-bussed",
+      "value": "1 kΩ per branch",
+      "position": {
+        "breadboard": [
+          200,
+          60
+        ],
+        "schematic": [
+          572,
+          57
+        ],
+        "pcb": [
+          200,
+          60
+        ]
+      }
+    },
+    {
+      "instanceId": "limit-1",
+      "reference": "RN2",
+      "libraryId": "passive.bourns-4606x-bussed",
+      "value": "1 kΩ per branch",
+      "position": {
+        "breadboard": [
+          200,
+          60
+        ],
+        "schematic": [
+          571,
+          223
+        ],
+        "pcb": [
+          200,
           60
         ]
       }
@@ -116,7 +210,10 @@
         "supply:+",
         "pot:VCC",
         "pic:VDD",
-        "bargraph:VCC"
+        "bypass:1",
+        "reset-pullup:1",
+        "limit-0:C",
+        "limit-1:C"
       ]
     },
     {
@@ -125,8 +222,9 @@
         "supply:-",
         "pot:GND",
         "pic:VSS",
-        "bargraph:GND",
-        "ground:0"
+        "ground:0",
+        "pic:VSS2",
+        "bypass:2"
       ]
     },
     {
@@ -140,72 +238,4696 @@
       "id": "BAR_0",
       "endpoints": [
         "pic:BAR0",
-        "bargraph:IN0"
+        "bargraph:K0"
       ]
     },
     {
       "id": "BAR_1",
       "endpoints": [
         "pic:BAR1",
-        "bargraph:IN1"
+        "bargraph:K1"
       ]
     },
     {
       "id": "BAR_2",
       "endpoints": [
         "pic:BAR2",
-        "bargraph:IN2"
+        "bargraph:K2"
       ]
     },
     {
       "id": "BAR_3",
       "endpoints": [
         "pic:BAR3",
-        "bargraph:IN3"
+        "bargraph:K3"
       ]
     },
     {
       "id": "BAR_4",
       "endpoints": [
         "pic:BAR4",
-        "bargraph:IN4"
+        "bargraph:K4"
       ]
     },
     {
       "id": "BAR_5",
       "endpoints": [
         "pic:BAR5",
-        "bargraph:IN5"
+        "bargraph:K5"
       ]
     },
     {
       "id": "BAR_6",
       "endpoints": [
         "pic:BAR6",
-        "bargraph:IN6"
+        "bargraph:K6"
       ]
     },
     {
       "id": "BAR_7",
       "endpoints": [
         "pic:BAR7",
-        "bargraph:IN7"
+        "bargraph:K7"
       ]
     },
     {
       "id": "BAR_8",
       "endpoints": [
         "pic:BAR8",
-        "bargraph:IN8"
+        "bargraph:K8"
       ]
     },
     {
       "id": "BAR_9",
       "endpoints": [
         "pic:BAR9",
-        "bargraph:IN9"
+        "bargraph:K9"
+      ]
+    },
+    {
+      "id": "ANODE_0",
+      "endpoints": [
+        "limit-0:R0",
+        "bargraph:A0"
+      ]
+    },
+    {
+      "id": "ANODE_1",
+      "endpoints": [
+        "limit-0:R1",
+        "bargraph:A1"
+      ]
+    },
+    {
+      "id": "ANODE_2",
+      "endpoints": [
+        "limit-0:R2",
+        "bargraph:A2"
+      ]
+    },
+    {
+      "id": "ANODE_3",
+      "endpoints": [
+        "limit-0:R3",
+        "bargraph:A3"
+      ]
+    },
+    {
+      "id": "ANODE_4",
+      "endpoints": [
+        "limit-0:R4",
+        "bargraph:A4"
+      ]
+    },
+    {
+      "id": "ANODE_5",
+      "endpoints": [
+        "limit-1:R4",
+        "bargraph:A5"
+      ]
+    },
+    {
+      "id": "ANODE_6",
+      "endpoints": [
+        "limit-1:R3",
+        "bargraph:A6"
+      ]
+    },
+    {
+      "id": "ANODE_7",
+      "endpoints": [
+        "limit-1:R2",
+        "bargraph:A7"
+      ]
+    },
+    {
+      "id": "ANODE_8",
+      "endpoints": [
+        "limit-1:R1",
+        "bargraph:A8"
+      ]
+    },
+    {
+      "id": "ANODE_9",
+      "endpoints": [
+        "limit-1:R0",
+        "bargraph:A9"
+      ]
+    },
+    {
+      "id": "MCLR",
+      "endpoints": [
+        "pic:MCLR",
+        "reset-pullup:2"
       ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM1",
+      "pot:GND": "G1",
+      "pot:OUT": "G2",
+      "pot:VCC": "G3",
+      "pic:MCLR": "F5",
+      "pic:AN0": "F6",
+      "pic:VSS": "F12",
+      "pic:BAR6": "F15",
+      "pic:BAR7": "F16",
+      "pic:BAR8": "F17",
+      "pic:BAR9": "F18",
+      "pic:VSS2": "E14",
+      "pic:VDD": "E13",
+      "pic:BAR0": "E12",
+      "pic:BAR1": "E11",
+      "pic:BAR2": "E10",
+      "pic:BAR3": "E9",
+      "pic:BAR4": "E8",
+      "pic:BAR5": "E7",
+      "bargraph:K0": "E20",
+      "bargraph:K1": "E21",
+      "bargraph:K2": "E22",
+      "bargraph:K3": "E23",
+      "bargraph:K4": "E24",
+      "bargraph:K5": "E25",
+      "bargraph:K6": "E26",
+      "bargraph:K7": "E27",
+      "bargraph:K8": "E28",
+      "bargraph:K9": "E29",
+      "bargraph:A0": "F20",
+      "bargraph:A1": "F21",
+      "bargraph:A2": "F22",
+      "bargraph:A3": "F23",
+      "bargraph:A4": "F24",
+      "bargraph:A5": "F25",
+      "bargraph:A6": "F26",
+      "bargraph:A7": "F27",
+      "bargraph:A8": "F28",
+      "bargraph:A9": "F29",
+      "limit-0:C": "J19",
+      "limit-0:R0": "J20",
+      "limit-0:R1": "J21",
+      "limit-0:R2": "J22",
+      "limit-0:R3": "J23",
+      "limit-0:R4": "J24",
+      "limit-1:C": "H30",
+      "limit-1:R0": "H29",
+      "limit-1:R1": "H28",
+      "limit-1:R2": "H27",
+      "limit-1:R3": "H26",
+      "limit-1:R4": "H25",
+      "bypass:1": "A1",
+      "bypass:2": "A3",
+      "reset-pullup:1": "C1",
+      "reset-pullup:2": "C4"
+    },
+    "jumpers": [
+      {
+        "from": "B1",
+        "to": "TP3"
+      },
+      {
+        "from": "B3",
+        "to": "BM2"
+      },
+      {
+        "from": "D4",
+        "to": "H5"
+      },
+      {
+        "from": "H1",
+        "to": "BM4"
+      },
+      {
+        "from": "H3",
+        "to": "TP5"
+      },
+      {
+        "from": "H2",
+        "to": "H6"
+      },
+      {
+        "from": "H12",
+        "to": "BM7"
+      },
+      {
+        "from": "D14",
+        "to": "BM8"
+      },
+      {
+        "from": "D13",
+        "to": "TP7"
+      },
+      {
+        "from": "I19",
+        "to": "TP9"
+      },
+      {
+        "from": "I30",
+        "to": "TP11"
+      },
+      {
+        "from": "B12",
+        "to": "C20"
+      },
+      {
+        "from": "B11",
+        "to": "C21"
+      },
+      {
+        "from": "B10",
+        "to": "C22"
+      },
+      {
+        "from": "B9",
+        "to": "C23"
+      },
+      {
+        "from": "B8",
+        "to": "C24"
+      },
+      {
+        "from": "B7",
+        "to": "C25"
+      },
+      {
+        "from": "H15",
+        "to": "D26"
+      },
+      {
+        "from": "H16",
+        "to": "D27"
+      },
+      {
+        "from": "H17",
+        "to": "D28"
+      },
+      {
+        "from": "H18",
+        "to": "D29"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "physicalNotes": [
+      "Place PIC pin 1 at F5. Put the marked anode row of DS1 at F20-F29 and its cathode row at E20-E29.",
+      "RN1 and RN2 each tie their common pin to +5 V. Program the PIC with ICSP off-board before installation."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM1",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "pot",
+          "reference": "RV1",
+          "kind": "trimmer",
+          "manufacturer": "Bourns",
+          "manufacturerPartNumber": "3296W-1-103LF",
+          "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/3296.pdf",
+          "bodyMm": {
+            "width": 9.53,
+            "height": 4.83
+          },
+          "positionPx": [
+            73.72413793103448,
+            175
+          ],
+          "pins": [
+            {
+              "pin": "GND",
+              "hole": "G1",
+              "connection": "direct",
+              "offsetMm": [
+                -2.54,
+                0
+              ],
+              "leadDiameterMm": 0.51
+            },
+            {
+              "pin": "OUT",
+              "hole": "G2",
+              "connection": "direct",
+              "offsetMm": [
+                0,
+                0
+              ],
+              "leadDiameterMm": 0.51
+            },
+            {
+              "pin": "VCC",
+              "hole": "G3",
+              "connection": "direct",
+              "offsetMm": [
+                2.54,
+                0
+              ],
+              "leadDiameterMm": 0.51
+            }
+          ]
+        },
+        {
+          "instanceId": "pic",
+          "reference": "U1",
+          "manufacturer": "Microchip",
+          "manufacturerPartNumber": "PIC16F886-I/SP",
+          "sourceUrl": "https://www.microchip.com/content/dam/mchp/documents/OTH/ProductDocuments/DataSheets/40001291H.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 35.6,
+            "height": 6.6
+          },
+          "positionPx": [
+            261.1034482758621,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "MCLR",
+              "hole": "F5",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                -16.51,
+                3.81
+              ]
+            },
+            {
+              "pin": "AN0",
+              "hole": "F6",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                -13.97,
+                3.81
+              ]
+            },
+            {
+              "pin": "VSS",
+              "hole": "F12",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                1.27,
+                3.81
+              ]
+            },
+            {
+              "pin": "BAR6",
+              "hole": "F15",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                8.89,
+                3.81
+              ]
+            },
+            {
+              "pin": "BAR7",
+              "hole": "F16",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                11.43,
+                3.81
+              ]
+            },
+            {
+              "pin": "BAR8",
+              "hole": "F17",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                13.97,
+                3.81
+              ]
+            },
+            {
+              "pin": "BAR9",
+              "hole": "F18",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                16.51,
+                3.81
+              ]
+            },
+            {
+              "pin": "VSS2",
+              "hole": "E14",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                6.35,
+                -3.81
+              ]
+            },
+            {
+              "pin": "VDD",
+              "hole": "E13",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                3.81,
+                -3.81
+              ]
+            },
+            {
+              "pin": "BAR0",
+              "hole": "E12",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                1.27,
+                -3.81
+              ]
+            },
+            {
+              "pin": "BAR1",
+              "hole": "E11",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ]
+            },
+            {
+              "pin": "BAR2",
+              "hole": "E10",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                -3.81,
+                -3.81
+              ]
+            },
+            {
+              "pin": "BAR3",
+              "hole": "E9",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                -6.35,
+                -3.81
+              ]
+            },
+            {
+              "pin": "BAR4",
+              "hole": "E8",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                -8.89,
+                -3.81
+              ]
+            },
+            {
+              "pin": "BAR5",
+              "hole": "E7",
+              "connection": "direct",
+              "leadDiameterMm": 0.56,
+              "offsetMm": [
+                -11.43,
+                -3.81
+              ]
+            }
+          ],
+          "noConnectHoles": [
+            "F7",
+            "F8",
+            "F9",
+            "F10",
+            "F11",
+            "F13",
+            "F14",
+            "E18",
+            "E17",
+            "E16",
+            "E15",
+            "E6",
+            "E5"
+          ]
+        },
+        {
+          "instanceId": "bargraph",
+          "reference": "DS1",
+          "manufacturer": "Kingbright",
+          "manufacturerPartNumber": "DC10EWA",
+          "sourceUrl": "https://www.kingbrightusa.com/images/catalog/SPEC/DC10EWA.pdf",
+          "kind": "led-bargraph",
+          "bodyMm": {
+            "width": 25.4,
+            "height": 10.16
+          },
+          "positionPx": [
+            517.5172413793103,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "K0",
+              "hole": "E20",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -11.43,
+                -3.75
+              ]
+            },
+            {
+              "pin": "K1",
+              "hole": "E21",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -8.89,
+                -3.75
+              ]
+            },
+            {
+              "pin": "K2",
+              "hole": "E22",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -6.35,
+                -3.75
+              ]
+            },
+            {
+              "pin": "K3",
+              "hole": "E23",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -3.81,
+                -3.75
+              ]
+            },
+            {
+              "pin": "K4",
+              "hole": "E24",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -1.27,
+                -3.75
+              ]
+            },
+            {
+              "pin": "K5",
+              "hole": "E25",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                1.27,
+                -3.75
+              ]
+            },
+            {
+              "pin": "K6",
+              "hole": "E26",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                3.81,
+                -3.75
+              ]
+            },
+            {
+              "pin": "K7",
+              "hole": "E27",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                6.35,
+                -3.75
+              ]
+            },
+            {
+              "pin": "K8",
+              "hole": "E28",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                8.89,
+                -3.75
+              ]
+            },
+            {
+              "pin": "K9",
+              "hole": "E29",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                11.43,
+                -3.75
+              ]
+            },
+            {
+              "pin": "A0",
+              "hole": "F20",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -11.43,
+                3.75
+              ]
+            },
+            {
+              "pin": "A1",
+              "hole": "F21",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -8.89,
+                3.75
+              ]
+            },
+            {
+              "pin": "A2",
+              "hole": "F22",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -6.35,
+                3.75
+              ]
+            },
+            {
+              "pin": "A3",
+              "hole": "F23",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -3.81,
+                3.75
+              ]
+            },
+            {
+              "pin": "A4",
+              "hole": "F24",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -1.27,
+                3.75
+              ]
+            },
+            {
+              "pin": "A5",
+              "hole": "F25",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                1.27,
+                3.75
+              ]
+            },
+            {
+              "pin": "A6",
+              "hole": "F26",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                3.81,
+                3.75
+              ]
+            },
+            {
+              "pin": "A7",
+              "hole": "F27",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                6.35,
+                3.75
+              ]
+            },
+            {
+              "pin": "A8",
+              "hole": "F28",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                8.89,
+                3.75
+              ]
+            },
+            {
+              "pin": "A9",
+              "hole": "F29",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                11.43,
+                3.75
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "limit-0",
+          "reference": "RN1",
+          "manufacturer": "Bourns",
+          "manufacturerPartNumber": "4606X-101-102LF",
+          "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/4600x.pdf",
+          "kind": "sip-resistor-network",
+          "bodyMm": {
+            "width": 15.24,
+            "height": 2.49
+          },
+          "positionPx": [
+            458.3448275862069,
+            205
+          ],
+          "pins": [
+            {
+              "pin": "C",
+              "hole": "J19",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -6.35,
+                0
+              ]
+            },
+            {
+              "pin": "R0",
+              "hole": "J20",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -3.81,
+                0
+              ]
+            },
+            {
+              "pin": "R1",
+              "hole": "J21",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "R2",
+              "hole": "J22",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            },
+            {
+              "pin": "R3",
+              "hole": "J23",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                3.81,
+                0
+              ]
+            },
+            {
+              "pin": "R4",
+              "hole": "J24",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                6.35,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "limit-1",
+          "reference": "RN2",
+          "manufacturer": "Bourns",
+          "manufacturerPartNumber": "4606X-101-102LF",
+          "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/4600x.pdf",
+          "kind": "sip-resistor-network",
+          "bodyMm": {
+            "width": 15.24,
+            "height": 2.49
+          },
+          "positionPx": [
+            576.6896551724138,
+            185
+          ],
+          "pins": [
+            {
+              "pin": "C",
+              "hole": "H30",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                6.35,
+                0
+              ]
+            },
+            {
+              "pin": "R0",
+              "hole": "H29",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                3.81,
+                0
+              ]
+            },
+            {
+              "pin": "R1",
+              "hole": "H28",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                1.27,
+                0
+              ]
+            },
+            {
+              "pin": "R2",
+              "hole": "H27",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -1.27,
+                0
+              ]
+            },
+            {
+              "pin": "R3",
+              "hole": "H26",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -3.81,
+                0
+              ]
+            },
+            {
+              "pin": "R4",
+              "hole": "H25",
+              "connection": "direct",
+              "leadDiameterMm": 0.5,
+              "offsetMm": [
+                -6.35,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "bypass",
+          "reference": "C1",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            73.72413793103448,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A1",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A3",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reset-pullup",
+          "reference": "R7",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            83.58620689655173,
+            115
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "C1",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -3.81,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "C4",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                3.81,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "schematicWires": [
+    {
+      "id": "pic-bargraph-wire-1",
+      "from": "supply:+",
+      "to": "pot:VCC",
+      "waypoints": [
+        [
+          35,
+          111
+        ],
+        [
+          35,
+          55
+        ],
+        [
+          123,
+          55
+        ],
+        [
+          123,
+          111
+        ],
+        [
+          180,
+          111
+        ],
+        [
+          180,
+          170
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-2",
+      "from": "supply:+",
+      "to": "pic:VDD",
+      "waypoints": [
+        [
+          35,
+          111
+        ],
+        [
+          35,
+          55
+        ],
+        [
+          123,
+          55
+        ],
+        [
+          123,
+          111
+        ],
+        [
+          219,
+          111
+        ],
+        [
+          219,
+          158
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-3",
+      "from": "supply:+",
+      "to": "bypass:1",
+      "waypoints": [
+        [
+          35,
+          111
+        ],
+        [
+          35,
+          59.5
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-4",
+      "from": "supply:+",
+      "to": "reset-pullup:1",
+      "waypoints": [
+        [
+          35,
+          111
+        ],
+        [
+          35,
+          17
+        ],
+        [
+          222,
+          17
+        ],
+        [
+          222,
+          63.5
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-5",
+      "from": "supply:+",
+      "to": "limit-0:C",
+      "waypoints": [
+        [
+          35,
+          111
+        ],
+        [
+          35,
+          17
+        ],
+        [
+          556,
+          17
+        ],
+        [
+          556,
+          77
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-6",
+      "from": "supply:+",
+      "to": "limit-1:C",
+      "waypoints": [
+        [
+          35,
+          111
+        ],
+        [
+          35,
+          55
+        ],
+        [
+          123,
+          55
+        ],
+        [
+          123,
+          111
+        ],
+        [
+          555,
+          111
+        ],
+        [
+          555,
+          243
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-7",
+      "from": "supply:-",
+      "to": "pot:GND",
+      "waypoints": [
+        [
+          123,
+          111
+        ],
+        [
+          123,
+          119
+        ],
+        [
+          188,
+          119
+        ],
+        [
+          188,
+          225
+        ],
+        [
+          92,
+          225
+        ],
+        [
+          92,
+          164
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-8",
+      "from": "supply:-",
+      "to": "pic:VSS",
+      "waypoints": [
+        [
+          123,
+          111
+        ],
+        [
+          123,
+          119
+        ],
+        [
+          188,
+          119
+        ],
+        [
+          188,
+          162
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-9",
+      "from": "supply:-",
+      "to": "ground:0",
+      "waypoints": [
+        [
+          123,
+          111
+        ],
+        [
+          123,
+          119
+        ],
+        [
+          188,
+          119
+        ],
+        [
+          188,
+          239
+        ],
+        [
+          222,
+          239
+        ],
+        [
+          222,
+          115
+        ],
+        [
+          332,
+          115
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-10",
+      "from": "supply:-",
+      "to": "pic:VSS2",
+      "waypoints": [
+        [
+          123,
+          111
+        ],
+        [
+          123,
+          119
+        ],
+        [
+          188,
+          119
+        ],
+        [
+          188,
+          166
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-11",
+      "from": "supply:-",
+      "to": "bypass:2",
+      "waypoints": [
+        [
+          123,
+          111
+        ],
+        [
+          123,
+          114
+        ],
+        [
+          208,
+          114
+        ],
+        [
+          208,
+          59.5
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-12",
+      "from": "pot:OUT",
+      "to": "pic:AN0",
+      "waypoints": [
+        [
+          84,
+          176
+        ],
+        [
+          84,
+          226
+        ],
+        [
+          216,
+          226
+        ],
+        [
+          216,
+          150
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-13",
+      "from": "pic:BAR0",
+      "to": "bargraph:K0",
+      "waypoints": [
+        [
+          214,
+          170
+        ],
+        [
+          214,
+          114
+        ],
+        [
+          453,
+          114
+        ],
+        [
+          453,
+          150.273
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-14",
+      "from": "pic:BAR1",
+      "to": "bargraph:K1",
+      "waypoints": [
+        [
+          211,
+          174
+        ],
+        [
+          211,
+          109
+        ],
+        [
+          445,
+          109
+        ],
+        [
+          445,
+          153.545
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-15",
+      "from": "pic:BAR2",
+      "to": "bargraph:K2",
+      "waypoints": [
+        [
+          208,
+          178
+        ],
+        [
+          208,
+          115
+        ],
+        [
+          222,
+          115
+        ],
+        [
+          222,
+          108
+        ],
+        [
+          384,
+          108
+        ],
+        [
+          384,
+          156.818
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-16",
+      "from": "pic:BAR3",
+      "to": "bargraph:K3",
+      "waypoints": [
+        [
+          453,
+          150.5
+        ],
+        [
+          453,
+          160.091
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-17",
+      "from": "pic:BAR4",
+      "to": "bargraph:K4",
+      "waypoints": [
+        [
+          307,
+          155
+        ],
+        [
+          307,
+          163.364
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-18",
+      "from": "pic:BAR5",
+      "to": "bargraph:K5",
+      "waypoints": [
+        [
+          445,
+          159.5
+        ],
+        [
+          445,
+          166.636
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-19",
+      "from": "pic:BAR6",
+      "to": "bargraph:K6",
+      "waypoints": [
+        [
+          453,
+          164
+        ],
+        [
+          453,
+          169.909
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-20",
+      "from": "pic:BAR7",
+      "to": "bargraph:K7",
+      "waypoints": [
+        [
+          307,
+          168.5
+        ],
+        [
+          307,
+          173.182
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-21",
+      "from": "pic:BAR8",
+      "to": "bargraph:K8",
+      "waypoints": [
+        [
+          453,
+          173
+        ],
+        [
+          453,
+          176.455
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-22",
+      "from": "pic:BAR9",
+      "to": "bargraph:K9",
+      "waypoints": [
+        [
+          453,
+          177.5
+        ],
+        [
+          453,
+          179.727
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-23",
+      "from": "limit-0:R0",
+      "to": "bargraph:A0",
+      "waypoints": [
+        [
+          556,
+          86
+        ],
+        [
+          556,
+          150.273
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-24",
+      "from": "limit-0:R1",
+      "to": "bargraph:A1",
+      "waypoints": [
+        [
+          541,
+          95
+        ],
+        [
+          541,
+          153.545
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-25",
+      "from": "limit-0:R2",
+      "to": "bargraph:A2",
+      "waypoints": [
+        [
+          644,
+          77
+        ],
+        [
+          644,
+          156.818
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-26",
+      "from": "limit-0:R3",
+      "to": "bargraph:A3",
+      "waypoints": [
+        [
+          643,
+          86
+        ],
+        [
+          643,
+          160.091
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-27",
+      "from": "limit-0:R4",
+      "to": "bargraph:A4",
+      "waypoints": [
+        [
+          651,
+          95
+        ],
+        [
+          651,
+          163.364
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-28",
+      "from": "limit-1:R4",
+      "to": "bargraph:A5",
+      "waypoints": [
+        [
+          643,
+          261
+        ],
+        [
+          643,
+          166.636
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-29",
+      "from": "limit-1:R3",
+      "to": "bargraph:A6",
+      "waypoints": [
+        [
+          644,
+          252
+        ],
+        [
+          644,
+          169.909
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-30",
+      "from": "limit-1:R2",
+      "to": "bargraph:A7",
+      "waypoints": [
+        [
+          651,
+          243
+        ],
+        [
+          651,
+          173.182
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-31",
+      "from": "limit-1:R1",
+      "to": "bargraph:A8",
+      "waypoints": [
+        [
+          541,
+          261
+        ],
+        [
+          541,
+          176.455
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-32",
+      "from": "limit-1:R0",
+      "to": "bargraph:A9",
+      "waypoints": [
+        [
+          547,
+          252
+        ],
+        [
+          547,
+          179.727
+        ]
+      ]
+    },
+    {
+      "id": "pic-bargraph-wire-33",
+      "from": "pic:MCLR",
+      "to": "reset-pullup:2",
+      "waypoints": [
+        [
+          216,
+          154
+        ],
+        [
+          216,
+          22
+        ],
+        [
+          308,
+          22
+        ],
+        [
+          308,
+          63.5
+        ]
+      ]
+    }
+  ],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 89,
+      "heightMm": 58,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "PIC16F886-I/SP",
+        "sourceUrl": "https://www.microchip.com/content/dam/mchp/documents/OTH/ProductDocuments/DataSheets/40001291H.pdf",
+        "footprint": "Microchip_PIC16F886-I-SP_SPDIP-28_P2.54mm_W7.62mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "3296W-1-103LF",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/3296.pdf",
+        "footprint": "Bourns_3296W-1-103LF_Inline_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "manufacturer": "Kingbright",
+        "manufacturerPartNumber": "DC10EWA",
+        "sourceUrl": "https://www.kingbrightusa.com/images/catalog/SPEC/DC10EWA.pdf",
+        "footprint": "Kingbright_DC10EWA_2x10_P2.54mm_W7.50mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "limit-0",
+        "reference": "RN1",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "4606X-101-102LF",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/4600x.pdf",
+        "footprint": "Bourns_4606X_SIP-6_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "limit-1",
+        "reference": "RN2",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "4606X-101-102LF",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/4600x.pdf",
+        "footprint": "Bourns_4606X_SIP-6_P2.54mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "1",
+        "pin": "MCLR",
+        "netId": "MCLR",
+        "xMm": 19.05,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:MCLR"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "2",
+        "pin": "AN0",
+        "netId": "ADC_IN",
+        "xMm": 21.59,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:AN0"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "3",
+        "pin": "NC3",
+        "netId": "NC",
+        "xMm": 24.13,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "4",
+        "pin": "NC4",
+        "netId": "NC",
+        "xMm": 26.67,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "5",
+        "pin": "NC5",
+        "netId": "NC",
+        "xMm": 29.21,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "6",
+        "pin": "NC6",
+        "netId": "NC",
+        "xMm": 31.75,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "7",
+        "pin": "NC7",
+        "netId": "NC",
+        "xMm": 34.29,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "8",
+        "pin": "VSS",
+        "netId": "GND",
+        "xMm": 36.83,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:VSS"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "9",
+        "pin": "NC9",
+        "netId": "NC",
+        "xMm": 39.37,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "10",
+        "pin": "NC10",
+        "netId": "NC",
+        "xMm": 41.91,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "11",
+        "pin": "BAR6",
+        "netId": "BAR_6",
+        "xMm": 44.45,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:BAR6"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "12",
+        "pin": "BAR7",
+        "netId": "BAR_7",
+        "xMm": 46.99,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:BAR7"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "13",
+        "pin": "BAR8",
+        "netId": "BAR_8",
+        "xMm": 49.53,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:BAR8"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "14",
+        "pin": "BAR9",
+        "netId": "BAR_9",
+        "xMm": 52.07,
+        "yMm": 33.02,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:BAR9"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "15",
+        "pin": "NC15",
+        "netId": "NC",
+        "xMm": 52.07,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "16",
+        "pin": "NC16",
+        "netId": "NC",
+        "xMm": 49.53,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "17",
+        "pin": "NC17",
+        "netId": "NC",
+        "xMm": 46.99,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "18",
+        "pin": "NC18",
+        "netId": "NC",
+        "xMm": 44.45,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "19",
+        "pin": "VSS2",
+        "netId": "GND",
+        "xMm": 41.91,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:VSS2"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "20",
+        "pin": "VDD",
+        "netId": "VDD",
+        "xMm": 39.37,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:VDD"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "21",
+        "pin": "BAR0",
+        "netId": "BAR_0",
+        "xMm": 36.83,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:BAR0"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "22",
+        "pin": "BAR1",
+        "netId": "BAR_1",
+        "xMm": 34.29,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:BAR1"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "23",
+        "pin": "BAR2",
+        "netId": "BAR_2",
+        "xMm": 31.75,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:BAR2"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "24",
+        "pin": "BAR3",
+        "netId": "BAR_3",
+        "xMm": 29.21,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:BAR3"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "25",
+        "pin": "BAR4",
+        "netId": "BAR_4",
+        "xMm": 26.67,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:BAR4"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "26",
+        "pin": "BAR5",
+        "netId": "BAR_5",
+        "xMm": 24.13,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pic:BAR5"
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "27",
+        "pin": "NC27",
+        "netId": "NC",
+        "xMm": 21.59,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pic",
+        "reference": "U1",
+        "number": "28",
+        "pin": "NC28",
+        "netId": "NC",
+        "xMm": 19.05,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "1",
+        "pin": "+",
+        "netId": "VDD",
+        "xMm": 5.842,
+        "yMm": 16.51,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:+"
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.842,
+        "yMm": 19.05,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:-"
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "number": "1",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 13.208,
+        "yMm": 16.51,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pot:GND"
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "number": "2",
+        "pin": "OUT",
+        "netId": "ADC_IN",
+        "xMm": 15.748,
+        "yMm": 16.51,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pot:OUT"
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "number": "3",
+        "pin": "VCC",
+        "netId": "VDD",
+        "xMm": 18.288,
+        "yMm": 16.51,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pot:VCC"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "C1",
+        "number": "1",
+        "pin": "1",
+        "netId": "VDD",
+        "xMm": 25.4,
+        "yMm": 17.272,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "bypass:1"
+      },
+      {
+        "instanceId": "bypass",
+        "reference": "C1",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 30.48,
+        "yMm": 17.272,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "bypass:2"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "1",
+        "pin": "1",
+        "netId": "VDD",
+        "xMm": 6.35,
+        "yMm": 42.164,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:1"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "2",
+        "pin": "2",
+        "netId": "MCLR",
+        "xMm": 16.51,
+        "yMm": 42.164,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:2"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "1",
+        "pin": "A0",
+        "netId": "ANODE_0",
+        "xMm": 54.102,
+        "yMm": 31.884,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:A0"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "2",
+        "pin": "A1",
+        "netId": "ANODE_1",
+        "xMm": 56.642,
+        "yMm": 31.884,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:A1"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "3",
+        "pin": "A2",
+        "netId": "ANODE_2",
+        "xMm": 59.182,
+        "yMm": 31.884,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:A2"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "4",
+        "pin": "A3",
+        "netId": "ANODE_3",
+        "xMm": 61.722,
+        "yMm": 31.884,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:A3"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "5",
+        "pin": "A4",
+        "netId": "ANODE_4",
+        "xMm": 64.262,
+        "yMm": 31.884,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:A4"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "6",
+        "pin": "A5",
+        "netId": "ANODE_5",
+        "xMm": 66.802,
+        "yMm": 31.884,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:A5"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "7",
+        "pin": "A6",
+        "netId": "ANODE_6",
+        "xMm": 69.342,
+        "yMm": 31.884,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:A6"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "8",
+        "pin": "A7",
+        "netId": "ANODE_7",
+        "xMm": 71.882,
+        "yMm": 31.884,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:A7"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "9",
+        "pin": "A8",
+        "netId": "ANODE_8",
+        "xMm": 74.422,
+        "yMm": 31.884,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:A8"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "10",
+        "pin": "A9",
+        "netId": "ANODE_9",
+        "xMm": 76.962,
+        "yMm": 31.884,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:A9"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "11",
+        "pin": "K9",
+        "netId": "BAR_9",
+        "xMm": 76.962,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:K9"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "12",
+        "pin": "K8",
+        "netId": "BAR_8",
+        "xMm": 74.422,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:K8"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "13",
+        "pin": "K7",
+        "netId": "BAR_7",
+        "xMm": 71.882,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:K7"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "14",
+        "pin": "K6",
+        "netId": "BAR_6",
+        "xMm": 69.342,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:K6"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "15",
+        "pin": "K5",
+        "netId": "BAR_5",
+        "xMm": 66.802,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:K5"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "16",
+        "pin": "K4",
+        "netId": "BAR_4",
+        "xMm": 64.262,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:K4"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "17",
+        "pin": "K3",
+        "netId": "BAR_3",
+        "xMm": 61.722,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:K3"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "18",
+        "pin": "K2",
+        "netId": "BAR_2",
+        "xMm": 59.182,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:K2"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "19",
+        "pin": "K1",
+        "netId": "BAR_1",
+        "xMm": 56.642,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:K1"
+      },
+      {
+        "instanceId": "bargraph",
+        "reference": "DS1",
+        "number": "20",
+        "pin": "K0",
+        "netId": "BAR_0",
+        "xMm": 54.102,
+        "yMm": 24.384,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 1,
+        "bridgeEndpoint": "bargraph:K0"
+      },
+      {
+        "instanceId": "limit-0",
+        "reference": "RN1",
+        "number": "1",
+        "pin": "C",
+        "netId": "VDD",
+        "xMm": 51.562,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-0:C"
+      },
+      {
+        "instanceId": "limit-0",
+        "reference": "RN1",
+        "number": "2",
+        "pin": "R0",
+        "netId": "ANODE_0",
+        "xMm": 54.102,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-0:R0"
+      },
+      {
+        "instanceId": "limit-0",
+        "reference": "RN1",
+        "number": "3",
+        "pin": "R1",
+        "netId": "ANODE_1",
+        "xMm": 56.642,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-0:R1"
+      },
+      {
+        "instanceId": "limit-0",
+        "reference": "RN1",
+        "number": "4",
+        "pin": "R2",
+        "netId": "ANODE_2",
+        "xMm": 59.182,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-0:R2"
+      },
+      {
+        "instanceId": "limit-0",
+        "reference": "RN1",
+        "number": "5",
+        "pin": "R3",
+        "netId": "ANODE_3",
+        "xMm": 61.722,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-0:R3"
+      },
+      {
+        "instanceId": "limit-0",
+        "reference": "RN1",
+        "number": "6",
+        "pin": "R4",
+        "netId": "ANODE_4",
+        "xMm": 64.262,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-0:R4"
+      },
+      {
+        "instanceId": "limit-1",
+        "reference": "RN2",
+        "number": "1",
+        "pin": "C",
+        "netId": "VDD",
+        "xMm": 79.502,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-1:C"
+      },
+      {
+        "instanceId": "limit-1",
+        "reference": "RN2",
+        "number": "2",
+        "pin": "R0",
+        "netId": "ANODE_9",
+        "xMm": 76.962,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-1:R0"
+      },
+      {
+        "instanceId": "limit-1",
+        "reference": "RN2",
+        "number": "3",
+        "pin": "R1",
+        "netId": "ANODE_8",
+        "xMm": 74.422,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-1:R1"
+      },
+      {
+        "instanceId": "limit-1",
+        "reference": "RN2",
+        "number": "4",
+        "pin": "R2",
+        "netId": "ANODE_7",
+        "xMm": 71.882,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-1:R2"
+      },
+      {
+        "instanceId": "limit-1",
+        "reference": "RN2",
+        "number": "5",
+        "pin": "R3",
+        "netId": "ANODE_6",
+        "xMm": 69.342,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-1:R3"
+      },
+      {
+        "instanceId": "limit-1",
+        "reference": "RN2",
+        "number": "6",
+        "pin": "R4",
+        "netId": "ANODE_5",
+        "xMm": 66.802,
+        "yMm": 41.402,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "limit-1:R4"
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "PIC16F886-I/SP",
+        "sourceUrl": "https://www.microchip.com/content/dam/mchp/documents/OTH/ProductDocuments/DataSheets/40001291H.pdf",
+        "package": "Microchip_PIC16F886-I-SP_SPDIP-28_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "MCLR",
+          "2": "ADC_IN",
+          "3": "NC",
+          "4": "NC",
+          "5": "NC",
+          "6": "NC",
+          "7": "NC",
+          "8": "GND",
+          "9": "NC",
+          "10": "NC",
+          "11": "BAR_6",
+          "12": "BAR_7",
+          "13": "BAR_8",
+          "14": "BAR_9",
+          "15": "NC",
+          "16": "NC",
+          "17": "NC",
+          "18": "NC",
+          "19": "GND",
+          "20": "VDD",
+          "21": "BAR_0",
+          "22": "BAR_1",
+          "23": "BAR_2",
+          "24": "BAR_3",
+          "25": "BAR_4",
+          "26": "BAR_5",
+          "27": "NC",
+          "28": "NC"
+        }
+      },
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VDD",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "RV1",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "3296W-1-103LF",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/3296.pdf",
+        "package": "Bourns_3296W-1-103LF_Inline_P2.54mm",
+        "pinMapping": {
+          "1": "GND",
+          "2": "ADC_IN",
+          "3": "VDD"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VDD",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VDD",
+          "2": "MCLR"
+        }
+      },
+      {
+        "reference": "DS1",
+        "manufacturer": "Kingbright",
+        "manufacturerPartNumber": "DC10EWA",
+        "sourceUrl": "https://www.kingbrightusa.com/images/catalog/SPEC/DC10EWA.pdf",
+        "package": "Kingbright_DC10EWA_2x10_P2.54mm_W7.50mm",
+        "pinMapping": {
+          "1": "ANODE_0",
+          "2": "ANODE_1",
+          "3": "ANODE_2",
+          "4": "ANODE_3",
+          "5": "ANODE_4",
+          "6": "ANODE_5",
+          "7": "ANODE_6",
+          "8": "ANODE_7",
+          "9": "ANODE_8",
+          "10": "ANODE_9",
+          "11": "BAR_9",
+          "12": "BAR_8",
+          "13": "BAR_7",
+          "14": "BAR_6",
+          "15": "BAR_5",
+          "16": "BAR_4",
+          "17": "BAR_3",
+          "18": "BAR_2",
+          "19": "BAR_1",
+          "20": "BAR_0"
+        }
+      },
+      {
+        "reference": "RN1",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "4606X-101-102LF",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/4600x.pdf",
+        "package": "Bourns_4606X_SIP-6_P2.54mm",
+        "pinMapping": {
+          "1": "VDD",
+          "2": "ANODE_0",
+          "3": "ANODE_1",
+          "4": "ANODE_2",
+          "5": "ANODE_3",
+          "6": "ANODE_4"
+        }
+      },
+      {
+        "reference": "RN2",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "4606X-101-102LF",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/4600x.pdf",
+        "package": "Bourns_4606X_SIP-6_P2.54mm",
+        "pinMapping": {
+          "1": "VDD",
+          "2": "ANODE_9",
+          "3": "ANODE_8",
+          "4": "ANODE_7",
+          "5": "ANODE_6",
+          "6": "ANODE_5"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "netId": "ANODE_0",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            54.102,
+            31.884
+          ],
+          [
+            54.102,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "ANODE_1",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            56.642,
+            31.884
+          ],
+          [
+            56.642,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "ANODE_2",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            59.182,
+            31.884
+          ],
+          [
+            59.182,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "ANODE_3",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            61.722,
+            31.884
+          ],
+          [
+            61.722,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "ANODE_4",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            64.262,
+            31.884
+          ],
+          [
+            64.262,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "ANODE_5",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            66.802,
+            31.884
+          ],
+          [
+            66.802,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "ANODE_6",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            69.342,
+            31.884
+          ],
+          [
+            69.342,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "ANODE_7",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            71.882,
+            31.884
+          ],
+          [
+            71.882,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "ANODE_8",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            74.422,
+            31.884
+          ],
+          [
+            74.422,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "ANODE_9",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            76.962,
+            31.884
+          ],
+          [
+            76.962,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "BAR_2",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            31.75,
+            25.4
+          ],
+          [
+            32.512,
+            25.4
+          ],
+          [
+            32.512,
+            24.638
+          ],
+          [
+            32.766,
+            24.638
+          ],
+          [
+            32.766,
+            24.13
+          ],
+          [
+            33.02,
+            24.13
+          ],
+          [
+            33.02,
+            23.876
+          ],
+          [
+            33.528,
+            23.876
+          ],
+          [
+            33.528,
+            23.622
+          ],
+          [
+            52.578,
+            23.622
+          ],
+          [
+            52.578,
+            23.114
+          ],
+          [
+            52.832,
+            23.114
+          ],
+          [
+            52.832,
+            22.86
+          ],
+          [
+            53.34,
+            22.86
+          ],
+          [
+            53.34,
+            22.606
+          ],
+          [
+            59.182,
+            22.606
+          ],
+          [
+            59.182,
+            24.384
+          ]
+        ]
+      },
+      {
+        "netId": "BAR_9",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            52.07,
+            33.02
+          ],
+          [
+            52.324,
+            33.02
+          ],
+          [
+            52.324,
+            31.242
+          ],
+          [
+            52.578,
+            31.242
+          ],
+          [
+            52.578,
+            30.734
+          ],
+          [
+            52.832,
+            30.734
+          ],
+          [
+            52.832,
+            30.48
+          ],
+          [
+            53.34,
+            30.48
+          ],
+          [
+            53.34,
+            30.226
+          ],
+          [
+            76.962,
+            30.226
+          ],
+          [
+            76.962,
+            24.384
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            13.208,
+            16.51
+          ],
+          [
+            7.874,
+            16.51
+          ],
+          [
+            7.874,
+            17.018
+          ],
+          [
+            7.62,
+            17.018
+          ],
+          [
+            7.62,
+            17.526
+          ],
+          [
+            7.366,
+            17.526
+          ],
+          [
+            7.366,
+            18.034
+          ],
+          [
+            6.858,
+            18.034
+          ],
+          [
+            6.858,
+            18.288
+          ],
+          [
+            6.35,
+            18.288
+          ],
+          [
+            6.35,
+            18.542
+          ],
+          [
+            5.842,
+            18.542
+          ],
+          [
+            5.842,
+            19.05
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            36.83,
+            33.02
+          ],
+          [
+            37.338,
+            33.02
+          ],
+          [
+            37.338,
+            32.512
+          ],
+          [
+            37.592,
+            32.512
+          ],
+          [
+            37.592,
+            32.004
+          ],
+          [
+            37.846,
+            32.004
+          ],
+          [
+            37.846,
+            31.496
+          ],
+          [
+            38.354,
+            31.496
+          ],
+          [
+            38.354,
+            31.242
+          ],
+          [
+            38.862,
+            31.242
+          ],
+          [
+            38.862,
+            30.988
+          ],
+          [
+            41.91,
+            30.988
+          ],
+          [
+            41.91,
+            25.4
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            30.48,
+            17.272
+          ],
+          [
+            27.432,
+            17.272
+          ],
+          [
+            27.432,
+            16.764
+          ],
+          [
+            27.178,
+            16.764
+          ],
+          [
+            27.178,
+            16.256
+          ],
+          [
+            26.924,
+            16.256
+          ],
+          [
+            26.924,
+            15.748
+          ],
+          [
+            26.416,
+            15.748
+          ],
+          [
+            26.416,
+            15.494
+          ],
+          [
+            25.908,
+            15.494
+          ],
+          [
+            25.908,
+            15.24
+          ],
+          [
+            19.812,
+            15.24
+          ],
+          [
+            19.812,
+            14.986
+          ],
+          [
+            19.304,
+            14.986
+          ],
+          [
+            19.304,
+            14.732
+          ],
+          [
+            18.796,
+            14.732
+          ],
+          [
+            18.796,
+            14.478
+          ],
+          [
+            13.208,
+            14.478
+          ],
+          [
+            13.208,
+            16.51
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "B.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            41.91,
+            25.4
+          ],
+          [
+            41.402,
+            25.4
+          ],
+          [
+            41.402,
+            24.892
+          ],
+          [
+            41.148,
+            24.892
+          ],
+          [
+            41.148,
+            24.384
+          ],
+          [
+            40.894,
+            24.384
+          ],
+          [
+            40.894,
+            23.876
+          ],
+          [
+            40.386,
+            23.876
+          ],
+          [
+            40.386,
+            23.622
+          ],
+          [
+            39.878,
+            23.622
+          ],
+          [
+            39.878,
+            23.368
+          ],
+          [
+            30.48,
+            23.368
+          ],
+          [
+            30.48,
+            17.272
+          ]
+        ]
+      },
+      {
+        "netId": "VDD",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25.4,
+            17.272
+          ],
+          [
+            18.288,
+            17.272
+          ],
+          [
+            18.288,
+            16.51
+          ]
+        ]
+      },
+      {
+        "netId": "MCLR",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            19.05,
+            33.02
+          ],
+          [
+            16.51,
+            33.02
+          ],
+          [
+            16.51,
+            42.164
+          ]
+        ]
+      },
+      {
+        "netId": "VDD",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            18.288,
+            16.51
+          ],
+          [
+            17.526,
+            16.51
+          ],
+          [
+            17.526,
+            17.272
+          ],
+          [
+            17.272,
+            17.272
+          ],
+          [
+            17.272,
+            17.78
+          ],
+          [
+            17.018,
+            17.78
+          ],
+          [
+            17.018,
+            18.034
+          ],
+          [
+            16.51,
+            18.034
+          ],
+          [
+            16.51,
+            18.288
+          ],
+          [
+            7.366,
+            18.288
+          ],
+          [
+            7.366,
+            17.78
+          ],
+          [
+            7.112,
+            17.78
+          ],
+          [
+            7.112,
+            17.526
+          ],
+          [
+            6.604,
+            17.526
+          ],
+          [
+            6.604,
+            17.272
+          ],
+          [
+            5.842,
+            17.272
+          ],
+          [
+            5.842,
+            16.51
+          ]
+        ]
+      },
+      {
+        "netId": "BAR_0",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            36.83,
+            25.4
+          ],
+          [
+            37.592,
+            25.4
+          ],
+          [
+            37.592,
+            26.162
+          ],
+          [
+            37.846,
+            26.162
+          ],
+          [
+            37.846,
+            26.67
+          ],
+          [
+            38.1,
+            26.67
+          ],
+          [
+            38.1,
+            26.924
+          ],
+          [
+            38.608,
+            26.924
+          ],
+          [
+            38.608,
+            27.178
+          ],
+          [
+            54.102,
+            27.178
+          ],
+          [
+            54.102,
+            24.384
+          ]
+        ]
+      },
+      {
+        "netId": "VDD",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            39.37,
+            25.4
+          ],
+          [
+            38.608,
+            25.4
+          ],
+          [
+            38.608,
+            26.162
+          ],
+          [
+            38.354,
+            26.162
+          ],
+          [
+            38.354,
+            26.67
+          ],
+          [
+            38.1,
+            26.67
+          ],
+          [
+            38.1,
+            26.924
+          ],
+          [
+            37.592,
+            26.924
+          ],
+          [
+            37.592,
+            27.178
+          ],
+          [
+            18.288,
+            27.178
+          ],
+          [
+            18.288,
+            26.924
+          ],
+          [
+            17.78,
+            26.924
+          ],
+          [
+            17.78,
+            26.67
+          ],
+          [
+            17.526,
+            26.67
+          ],
+          [
+            17.526,
+            26.162
+          ],
+          [
+            17.272,
+            26.162
+          ],
+          [
+            17.272,
+            24.638
+          ],
+          [
+            17.526,
+            24.638
+          ],
+          [
+            17.526,
+            24.13
+          ],
+          [
+            17.78,
+            24.13
+          ],
+          [
+            17.78,
+            23.876
+          ],
+          [
+            18.288,
+            23.876
+          ],
+          [
+            18.288,
+            23.622
+          ],
+          [
+            25.4,
+            23.622
+          ],
+          [
+            25.4,
+            17.272
+          ]
+        ]
+      },
+      {
+        "netId": "ADC_IN",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            21.59,
+            33.02
+          ],
+          [
+            20.828,
+            33.02
+          ],
+          [
+            20.828,
+            32.258
+          ],
+          [
+            20.574,
+            32.258
+          ],
+          [
+            20.574,
+            31.75
+          ],
+          [
+            20.32,
+            31.75
+          ],
+          [
+            20.32,
+            31.496
+          ],
+          [
+            19.812,
+            31.496
+          ],
+          [
+            19.812,
+            31.242
+          ],
+          [
+            15.748,
+            31.242
+          ],
+          [
+            15.748,
+            16.51
+          ]
+        ]
+      },
+      {
+        "netId": "BAR_1",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            34.29,
+            25.4
+          ],
+          [
+            35.052,
+            25.4
+          ],
+          [
+            35.052,
+            26.162
+          ],
+          [
+            35.306,
+            26.162
+          ],
+          [
+            35.306,
+            26.67
+          ],
+          [
+            35.56,
+            26.67
+          ],
+          [
+            35.56,
+            26.924
+          ],
+          [
+            36.068,
+            26.924
+          ],
+          [
+            36.068,
+            27.178
+          ],
+          [
+            37.084,
+            27.178
+          ],
+          [
+            37.084,
+            27.432
+          ],
+          [
+            37.338,
+            27.432
+          ],
+          [
+            37.338,
+            27.686
+          ],
+          [
+            37.846,
+            27.686
+          ],
+          [
+            37.846,
+            27.94
+          ],
+          [
+            38.354,
+            27.94
+          ],
+          [
+            38.354,
+            28.194
+          ],
+          [
+            56.642,
+            28.194
+          ],
+          [
+            56.642,
+            24.384
+          ]
+        ]
+      },
+      {
+        "netId": "VDD",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            16.51
+          ],
+          [
+            6.604,
+            16.51
+          ],
+          [
+            6.604,
+            17.526
+          ],
+          [
+            7.112,
+            17.526
+          ],
+          [
+            7.112,
+            17.78
+          ],
+          [
+            7.366,
+            17.78
+          ],
+          [
+            7.366,
+            18.288
+          ],
+          [
+            7.62,
+            18.288
+          ],
+          [
+            7.62,
+            19.812
+          ],
+          [
+            7.366,
+            19.812
+          ],
+          [
+            7.366,
+            20.32
+          ],
+          [
+            7.112,
+            20.32
+          ],
+          [
+            7.112,
+            20.574
+          ],
+          [
+            6.604,
+            20.574
+          ],
+          [
+            6.604,
+            20.828
+          ],
+          [
+            6.35,
+            20.828
+          ],
+          [
+            6.35,
+            42.164
+          ]
+        ]
+      },
+      {
+        "netId": "VDD",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            51.562,
+            41.402
+          ],
+          [
+            52.324,
+            41.402
+          ],
+          [
+            52.324,
+            42.164
+          ],
+          [
+            52.578,
+            42.164
+          ],
+          [
+            52.578,
+            42.672
+          ],
+          [
+            52.832,
+            42.672
+          ],
+          [
+            52.832,
+            42.926
+          ],
+          [
+            53.34,
+            42.926
+          ],
+          [
+            53.34,
+            43.18
+          ],
+          [
+            79.502,
+            43.18
+          ],
+          [
+            79.502,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "VDD",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            39.37,
+            25.4
+          ],
+          [
+            39.37,
+            27.178
+          ],
+          [
+            17.272,
+            27.178
+          ],
+          [
+            17.272,
+            24.638
+          ],
+          [
+            17.526,
+            24.638
+          ],
+          [
+            17.526,
+            24.13
+          ],
+          [
+            17.78,
+            24.13
+          ],
+          [
+            17.78,
+            23.876
+          ],
+          [
+            18.288,
+            23.876
+          ],
+          [
+            18.288,
+            23.622
+          ],
+          [
+            32.004,
+            23.622
+          ],
+          [
+            32.004,
+            23.368
+          ],
+          [
+            32.258,
+            23.368
+          ],
+          [
+            32.258,
+            23.114
+          ],
+          [
+            32.766,
+            23.114
+          ],
+          [
+            32.766,
+            22.86
+          ],
+          [
+            33.274,
+            22.86
+          ],
+          [
+            33.274,
+            22.606
+          ],
+          [
+            51.816,
+            22.606
+          ],
+          [
+            51.816,
+            22.352
+          ],
+          [
+            52.07,
+            22.352
+          ],
+          [
+            52.07,
+            22.098
+          ],
+          [
+            52.578,
+            22.098
+          ],
+          [
+            52.578,
+            21.844
+          ],
+          [
+            53.086,
+            21.844
+          ],
+          [
+            53.086,
+            21.59
+          ],
+          [
+            59.436,
+            21.59
+          ],
+          [
+            59.436,
+            21.844
+          ],
+          [
+            59.944,
+            21.844
+          ],
+          [
+            59.944,
+            22.352
+          ],
+          [
+            60.198,
+            22.352
+          ],
+          [
+            60.198,
+            22.606
+          ],
+          [
+            77.724,
+            22.606
+          ],
+          [
+            77.724,
+            22.86
+          ],
+          [
+            78.232,
+            22.86
+          ],
+          [
+            78.232,
+            23.114
+          ],
+          [
+            78.486,
+            23.114
+          ],
+          [
+            78.486,
+            23.622
+          ],
+          [
+            78.74,
+            23.622
+          ],
+          [
+            78.74,
+            42.164
+          ],
+          [
+            78.486,
+            42.164
+          ],
+          [
+            78.486,
+            42.672
+          ],
+          [
+            78.232,
+            42.672
+          ],
+          [
+            78.232,
+            42.926
+          ],
+          [
+            77.724,
+            42.926
+          ],
+          [
+            77.724,
+            43.18
+          ],
+          [
+            51.562,
+            43.18
+          ],
+          [
+            51.562,
+            41.402
+          ]
+        ]
+      },
+      {
+        "netId": "BAR_3",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            29.21,
+            25.4
+          ],
+          [
+            29.972,
+            25.4
+          ],
+          [
+            29.972,
+            26.162
+          ],
+          [
+            30.226,
+            26.162
+          ],
+          [
+            30.226,
+            26.67
+          ],
+          [
+            30.48,
+            26.67
+          ],
+          [
+            30.48,
+            26.924
+          ],
+          [
+            30.988,
+            26.924
+          ],
+          [
+            30.988,
+            27.178
+          ],
+          [
+            34.544,
+            27.178
+          ],
+          [
+            34.544,
+            27.432
+          ],
+          [
+            34.798,
+            27.432
+          ],
+          [
+            34.798,
+            27.686
+          ],
+          [
+            35.306,
+            27.686
+          ],
+          [
+            35.306,
+            27.94
+          ],
+          [
+            35.814,
+            27.94
+          ],
+          [
+            35.814,
+            28.194
+          ],
+          [
+            36.576,
+            28.194
+          ],
+          [
+            36.576,
+            28.448
+          ],
+          [
+            37.084,
+            28.448
+          ],
+          [
+            37.084,
+            28.702
+          ],
+          [
+            37.592,
+            28.702
+          ],
+          [
+            37.592,
+            28.956
+          ],
+          [
+            38.1,
+            28.956
+          ],
+          [
+            38.1,
+            29.21
+          ],
+          [
+            61.722,
+            29.21
+          ],
+          [
+            61.722,
+            24.384
+          ]
+        ]
+      },
+      {
+        "netId": "BAR_6",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            44.45,
+            33.02
+          ],
+          [
+            45.212,
+            33.02
+          ],
+          [
+            45.212,
+            32.258
+          ],
+          [
+            45.466,
+            32.258
+          ],
+          [
+            45.466,
+            31.75
+          ],
+          [
+            45.72,
+            31.75
+          ],
+          [
+            45.72,
+            31.496
+          ],
+          [
+            46.228,
+            31.496
+          ],
+          [
+            46.228,
+            31.242
+          ],
+          [
+            51.308,
+            31.242
+          ],
+          [
+            51.308,
+            30.988
+          ],
+          [
+            51.562,
+            30.988
+          ],
+          [
+            51.562,
+            30.48
+          ],
+          [
+            51.816,
+            30.48
+          ],
+          [
+            51.816,
+            29.972
+          ],
+          [
+            52.07,
+            29.972
+          ],
+          [
+            52.07,
+            29.718
+          ],
+          [
+            52.578,
+            29.718
+          ],
+          [
+            52.578,
+            29.464
+          ],
+          [
+            53.086,
+            29.464
+          ],
+          [
+            53.086,
+            29.21
+          ],
+          [
+            69.342,
+            29.21
+          ],
+          [
+            69.342,
+            24.384
+          ]
+        ]
+      },
+      {
+        "netId": "BAR_7",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            46.99,
+            33.02
+          ],
+          [
+            47.752,
+            33.02
+          ],
+          [
+            47.752,
+            32.258
+          ],
+          [
+            48.006,
+            32.258
+          ],
+          [
+            48.006,
+            31.75
+          ],
+          [
+            48.26,
+            31.75
+          ],
+          [
+            48.26,
+            31.496
+          ],
+          [
+            48.768,
+            31.496
+          ],
+          [
+            48.768,
+            31.242
+          ],
+          [
+            52.578,
+            31.242
+          ],
+          [
+            52.578,
+            30.734
+          ],
+          [
+            52.832,
+            30.734
+          ],
+          [
+            52.832,
+            30.48
+          ],
+          [
+            53.34,
+            30.48
+          ],
+          [
+            53.34,
+            30.226
+          ],
+          [
+            71.882,
+            30.226
+          ],
+          [
+            71.882,
+            24.384
+          ]
+        ]
+      },
+      {
+        "netId": "BAR_8",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            49.53,
+            33.02
+          ],
+          [
+            50.292,
+            33.02
+          ],
+          [
+            50.292,
+            33.782
+          ],
+          [
+            50.546,
+            33.782
+          ],
+          [
+            50.546,
+            34.29
+          ],
+          [
+            50.8,
+            34.29
+          ],
+          [
+            50.8,
+            34.544
+          ],
+          [
+            51.308,
+            34.544
+          ],
+          [
+            51.308,
+            34.798
+          ],
+          [
+            74.676,
+            34.798
+          ],
+          [
+            74.676,
+            33.782
+          ],
+          [
+            77.724,
+            33.782
+          ],
+          [
+            77.724,
+            33.528
+          ],
+          [
+            78.232,
+            33.528
+          ],
+          [
+            78.232,
+            33.274
+          ],
+          [
+            78.486,
+            33.274
+          ],
+          [
+            78.486,
+            32.766
+          ],
+          [
+            78.74,
+            32.766
+          ],
+          [
+            78.74,
+            31.242
+          ],
+          [
+            78.486,
+            31.242
+          ],
+          [
+            78.486,
+            30.734
+          ],
+          [
+            78.232,
+            30.734
+          ],
+          [
+            78.232,
+            30.48
+          ],
+          [
+            77.724,
+            30.48
+          ],
+          [
+            77.724,
+            30.226
+          ],
+          [
+            74.422,
+            30.226
+          ],
+          [
+            74.422,
+            24.384
+          ]
+        ]
+      },
+      {
+        "netId": "BAR_4",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            26.67,
+            25.4
+          ],
+          [
+            27.432,
+            25.4
+          ],
+          [
+            27.432,
+            24.638
+          ],
+          [
+            27.686,
+            24.638
+          ],
+          [
+            27.686,
+            24.13
+          ],
+          [
+            27.94,
+            24.13
+          ],
+          [
+            27.94,
+            23.876
+          ],
+          [
+            28.448,
+            23.876
+          ],
+          [
+            28.448,
+            23.622
+          ],
+          [
+            28.702,
+            23.622
+          ],
+          [
+            28.702,
+            16.51
+          ],
+          [
+            28.956,
+            16.51
+          ],
+          [
+            28.956,
+            16.002
+          ],
+          [
+            29.21,
+            16.002
+          ],
+          [
+            29.21,
+            15.748
+          ],
+          [
+            29.718,
+            15.748
+          ],
+          [
+            29.718,
+            15.494
+          ],
+          [
+            64.262,
+            15.494
+          ],
+          [
+            64.262,
+            24.384
+          ]
+        ]
+      },
+      {
+        "netId": "BAR_5",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            24.13,
+            25.4
+          ],
+          [
+            24.892,
+            25.4
+          ],
+          [
+            24.892,
+            24.638
+          ],
+          [
+            25.146,
+            24.638
+          ],
+          [
+            25.146,
+            24.13
+          ],
+          [
+            25.4,
+            24.13
+          ],
+          [
+            25.4,
+            23.876
+          ],
+          [
+            25.908,
+            23.876
+          ],
+          [
+            25.908,
+            23.622
+          ],
+          [
+            26.924,
+            23.622
+          ],
+          [
+            26.924,
+            23.368
+          ],
+          [
+            27.178,
+            23.368
+          ],
+          [
+            27.178,
+            23.114
+          ],
+          [
+            27.686,
+            23.114
+          ],
+          [
+            27.686,
+            16.256
+          ],
+          [
+            27.94,
+            16.256
+          ],
+          [
+            27.94,
+            15.748
+          ],
+          [
+            28.194,
+            15.748
+          ],
+          [
+            28.194,
+            15.24
+          ],
+          [
+            28.448,
+            15.24
+          ],
+          [
+            28.448,
+            14.986
+          ],
+          [
+            28.956,
+            14.986
+          ],
+          [
+            28.956,
+            14.732
+          ],
+          [
+            29.464,
+            14.732
+          ],
+          [
+            29.464,
+            14.478
+          ],
+          [
+            66.802,
+            14.478
+          ],
+          [
+            66.802,
+            24.384
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External stimulus or supply connects through J1."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "fabricationNotes": "Regulated 5 V at J1. DS1 pin 1 is an anode. RN1 and RN2 use their marked common pin at VDD. Program U1 before installation."
+  }
 }

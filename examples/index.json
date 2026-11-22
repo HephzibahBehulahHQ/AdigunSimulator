@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 103,
-    "withoutStoredPcb": 113,
+    "withStoredPcb": 104,
+    "withoutStoredPcb": 112,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1326,36 +1326,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "670185cb9eafd1057075ad1a03b0737d6c49a03f4d23871a86aa663e1ec8fa19",
-      "components": 5,
+      "sha256": "9f575246eb651bef7707d825572faf96440ed013e1ed2dd9eb62d0ec02bfda0b",
+      "components": 9,
       "analysis": "complete",
       "engine": "Ideal PIC-class 10-bit ADC bargraph model",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "RV1",
-          "libraryId": "input.potentiometer-adc-ideal"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.pic-adc-bargraph-ideal"
-        },
-        {
-          "reference": "LED1",
-          "libraryId": "output.led-bargraph-10seg-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 8,
+      "pcbPads": 69,
+      "pcbRoutes": 32,
+      "unmapped": []
     },
     {
       "file": "072-avr-ir-receiver.adigun.json",
