@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 93,
-    "withoutStoredPcb": 123,
+    "withStoredPcb": 94,
+    "withoutStoredPcb": 122,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1166,36 +1166,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "bb217f05b7b44689669f23730acd28899267e4a46090156fec7bc79a959cab1b",
-      "components": 5,
+      "sha256": "815170c7ac8a5605739b54be6abe8490a61b435a7c25da47a51c05eaee07ac88",
+      "components": 8,
       "analysis": "complete",
       "engine": "Ideal Uno-class GPIO blink sequence",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.mcu-uno-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "D1",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 7,
+      "pcbPads": 40,
+      "pcbRoutes": 13,
+      "unmapped": []
     },
     {
       "file": "062-arduino-button-debounce.adigun.json",

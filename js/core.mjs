@@ -112,6 +112,7 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "input.spi-transfer-source", category: "Inputs", type: "Ideal SPI mode-0 transfer fixture", prefix: "BUS", pins: ["SCK", "MOSI", "CS", "GND"], defaultValue: "Mode 0; Byte 0xA5; Baud 1000000; CS active", simulation: "fixture-spi-transfer", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.atmega328p-spi-display", category: "Active", type: "ATmega328P-PU SPI byte LED display", prefix: "U", pins: ["SCK", "MOSI", "CS", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC", "BIT0", "BIT1", "BIT2", "BIT3", "BIT4", "BIT5", "BIT6", "BIT7"], defaultValue: "Mode 0 byte LED display", simulation: "analytical-spi-display", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.atmega328p-blink", category: "Active", type: "ATmega328P-PU D13 blink demonstration", prefix: "U", pins: ["D13", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-blink", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D3", "D7", "D8", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "input.potentiometer-adc-ideal", category: "Inputs", type: "Ideal potentiometer-to-ADC fixture", prefix: "RV", pins: ["VCC", "OUT", "GND"], defaultValue: "Position 50%; Resolution 10 bit", simulation: "fixture-potentiometer-adc", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.temperature-analog-ideal", category: "Sensors", type: "Ideal linear analog temperature sensor model", prefix: "TS", pins: ["VCC", "OUT", "GND"], defaultValue: "Temperature 25 C; Scale 10 mV/C; Offset 0 mV", simulation: "analytical-temperature-monitor", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -971,6 +972,7 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   const spiFixtures = project.components.filter((item) => item.libraryId === "input.spi-transfer-source");
   const avrSpiDisplay = project.components.find(item => item.libraryId === "active.atmega328p-spi-display");
   const spiDisplays = project.components.filter((item) => item.libraryId === "active.spi-display-ideal");
+  const avrBlink = project.components.find(item => item.libraryId === "active.atmega328p-blink");
   const mcuControllers = project.components.filter((item) => item.libraryId === "active.mcu-uno-ideal");
   const digitalSampleFixtures = project.components.filter((item) => item.libraryId === "input.digital-sample-sequence");
   const adcPotentiometers = project.components.filter((item) => item.libraryId === "input.potentiometer-adc-ideal");
@@ -1300,8 +1302,11 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   if (digitalSampleFixtures.length === 1 && mcuControllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 6) {
     return analyseMcuButtonDebounce(project, { source: source[0], fixture: digitalSampleFixtures[0], mcu: mcuControllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
   }
+  if (avrBlink && source.length === 1 && resistor.length === 2 && capacitor.length === 2 && led.length === 1 && ground.length === 1 && project.components.length === 8) {
+    return analyseMcuBlink(project, { source: source[0], mcu: avrBlink, resistors: resistor, bypass: capacitor, led: led[0], ground: ground[0], validation });
+  }
   if (mcuControllers.length === 1 && source.length === 1 && resistor.length === 1 && led.length === 1 && ground.length === 1 && project.components.length === 5) {
-    return analyseMcuBlink(project, { source: source[0], mcu: mcuControllers[0], resistor: resistor[0], led: led[0], ground: ground[0], validation });
+    return analyseMcuBlink(project, { source: source[0], mcu: mcuControllers[0], resistors: resistor, led: led[0], ground: ground[0], validation });
   }
   if (spiFixtures.length === 1 && avrSpiDisplay && source.length === 1 && resistor.length === 9 && capacitor.length === 2 && led.length === 8 && ground.length === 1 && project.components.length === 23) {
     return analyseSpiDisplayTransfer(project, { source: source[0], fixture: spiFixtures[0], display: avrSpiDisplay, resistors: resistor, bypass: capacitor, leds: led, ground: ground[0], validation });
@@ -3083,23 +3088,33 @@ function analyseMcuButtonDebounce(project,{source,fixture,mcu,resistor,led,groun
   const ledCurrentA=Math.max(0,(supplyVoltage-vf)/resistance);
   return {state:"complete",engine:"Ideal Uno-class sampled button debounce model",message:"Applies a consecutive-sample stability threshold and toggles the output once per accepted rising press. This is a digital behavior model; switch contact physics, analog RC filtering, CPU scheduling, and Arduino C++ execution are omitted.",result:{kind:"mcu-button-debounce",stableSamples:stableCount,sampleRateHz:sampleRate,samples,trace,toggleCount,outputOn:output,ledCurrentA:output?ledCurrentA:0,firmwareExecuted:false},validation};
 }
-function analyseMcuBlink(project,{source,mcu,resistor,led,ground,validation}){
+function analyseMcuBlink(project,{source,mcu,resistors,bypass,led,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),fields=String(mcu.value).split(";").map(v=>v.trim());
   const field=label=>fields.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
   const duration=value=>{const match=String(value??"").match(/^(\d+(?:\.\d+)?)\s*ms$/i);return match?Number(match[1]):Number.NaN;};
   const program=field("Program")?.toLowerCase(),pin=field("Pin"),highMs=duration(field("High")),lowMs=duration(field("Low")),runtimeMs=duration(field("Runtime"));
   const groundNet=n(ground,"0"),vccNet=n(mcu,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
-  const seriesPath=(n(mcu,"D13")===n(resistor,"1")&&n(resistor,"2")===n(led,"A"))||(n(mcu,"D13")===n(resistor,"2")&&n(resistor,"1")===n(led,"A"));
-  const resistance=resistanceValue(resistor.value),vf=forwardVoltage(led.value);
-  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(mcu,"GND")!==groundNet||n(led,"K")!==groundNet||!seriesPath||program!=="blink"||pin!=="D13"||![highMs,lowMs,runtimeMs,resistance,vf].every(Number.isFinite)||highMs<=0||lowMs<=0||runtimeMs<=0||highMs>60000||lowMs>60000||runtimeMs>60000||resistance<=0||vf<=0){
+  if (bypass && (!validAvrSupply(mcu,resistors,bypass,n,vccNet,groundNet) || !(supplyVoltage >= 2.7 && supplyVoltage <= 5.5))) {
+    return {state:"blocked",message:"Power VCC and AVCC from 2.7 V to 5.5 V, ground both returns, fit both bypass capacitors, and pull MCU reset up to VCC.",validation};
+  }
+  const output=n(mcu,"D13"),anode=n(led,"A");
+  const resistor=output&&anode&&output!==anode&&resistors.find(part=>{
+    const pins=[n(part,"1"),n(part,"2")];
+    return pins.includes(output)&&pins.includes(anode);
+  });
+  const resistance=resistanceValue(resistor?.value),vf=forwardVoltage(led.value);
+  if(!vccNet||!groundNet||!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(mcu,"GND")!==groundNet||n(led,"K")!==groundNet||program!=="blink"||pin!=="D13"||![highMs,lowMs,runtimeMs,resistance,vf].every(Number.isFinite)||highMs<=0||lowMs<=0||runtimeMs<=0||highMs>60000||lowMs>60000||runtimeMs>60000||resistance<=0||vf<=0){
     return {state:"blocked",message:"Configure the ideal Uno-class GPIO behavior for D13 Blink with positive high/low/runtime milliseconds (maximum 60 s), and wire D13 through a current-limiting resistor and LED to ground.",validation};
   }
   const periodMs=highMs+lowMs,ledCurrentA=Math.max(0,(supplyVoltage-vf)/resistance),trace=[];
-  for(let timeMs=0;timeMs<runtimeMs;){
-    const phaseMs=timeMs%periodMs,high=phaseMs<highMs,intervalMs=Math.min(high?highMs-phaseMs:periodMs-phaseMs,runtimeMs-timeMs);
-    trace.push({timeMs,intervalMs,gpioHigh:high,ledOn:high&&ledCurrentA>0.0005});
-    timeMs+=intervalMs;
+  if (Math.ceil(runtimeMs/periodMs)>999) {
+    return {state:"blocked",message:"Shorten the runtime or lengthen the high and low intervals to record at most 999 blink cycles.",validation};
+  }
+  for(let cycle=0;cycle*periodMs<runtimeMs;cycle++){
+    const startMs=cycle*periodMs,lowStartMs=startMs+highMs;
+    trace.push({timeMs:startMs,intervalMs:Math.min(lowStartMs,runtimeMs)-startMs,gpioHigh:true,ledOn:ledCurrentA>0.0005});
+    if(lowStartMs<runtimeMs)trace.push({timeMs:lowStartMs,intervalMs:Math.min((cycle+1)*periodMs,runtimeMs)-lowStartMs,gpioHigh:false,ledOn:false});
   }
   return {state:"complete",engine:"Ideal Uno-class GPIO blink sequence",message:"Emits a deterministic digital D13 high/low trace and estimates the LED current when high. This does not execute Arduino C++ firmware or model CPU timing, GPIO output resistance, PWM, interrupts, or board-specific electrical limits.",result:{kind:"mcu-blink",program:"blink",pin:"D13",highMs,lowMs,periodMs,frequencyHz:1000/periodMs,runtimeMs,ledCurrentA,trace,firmwareExecuted:false},validation};
 }
