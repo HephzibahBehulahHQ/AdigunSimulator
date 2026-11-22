@@ -8,6 +8,10 @@ const customPinSides = {
     ["A", "B", "C", "D", "E", "F", "G"],
     ["K1", "K2"]
   ],
+  "active.atmega328p-uart-tx": [
+    ["MCU_RESET_N", "GND", "AGND"],
+    ["VCC", "AVCC", "TX"]
+  ],
   "active.atmega328p-debounce": [
     ["INPUT", "CLK", "RESET_N", "MCU_RESET_N", "GND", "AGND"],
     ["VCC", "AVCC", "Q"]

@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 88,
-    "withoutStoredPcb": 128,
+    "withStoredPcb": 89,
+    "withoutStoredPcb": 127,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1086,36 +1086,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "f269902fef6dfe612ccce4fc54f5d4446afb06a29a89b7a71d619b06c8e9bd9d",
-      "components": 5,
+      "sha256": "dde976fd2ed72c97cda3ab8d940979c42d68e3f373494e1375287a05b90e7bbd",
+      "components": 8,
       "analysis": "complete",
       "engine": "Ideal asynchronous UART 8N1 frame generator",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.uart-tx-ideal"
-        },
-        {
-          "reference": "RTX",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "DTX",
-          "libraryId": "diode.led-red"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 7,
+      "pcbPads": 40,
+      "pcbRoutes": 13,
+      "unmapped": []
     },
     {
       "file": "057-uart-receiver.adigun.json",

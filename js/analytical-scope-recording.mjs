@@ -5,6 +5,7 @@ export function analyticalScopeRecording(project,analysis){
  const r=analysis.result,kind=r?.kind;
  if(kind==='buck-converter')return lm2596AdjustableRecording(project,r)??buckAverageRecording(project,r);
  if(kind==='boost-converter'&&r.device==='LM2577T-ADJ/NOPB')return lm2577BoostRecording(project,r);
+ if(kind==='uart-transmitter-8n1')return uartTransmitterRecording(project,r);
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(kind==='mcu-button-debounce')return buttonDebounceRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
@@ -38,6 +39,18 @@ export function analyticalScopeRecording(project,analysis){
   return {timeSeconds,nodeVoltages:{[ground]:0,[power]:voltage,[output]:high?voltage:0}};
  });
  return {kind:'analytical-output-recording',model:kind==='stm32-timer-pwm'?'Ideal STM32 PWM output':'Ideal 555 output timing',preferredNet:output,samples};
+}
+
+function uartTransmitterRecording(project, result) {
+ const transmitter=project.components.find(c=>['active.uart-tx-ideal','active.atmega328p-uart-tx'].includes(c.libraryId));
+ const output=transmitter&&project.nets.find(n=>n.endpoints.includes(transmitter.instanceId+':TX'))?.id;
+ const {frameBits,bitPeriodSeconds,frameDurationSeconds}=result;
+ if(!output||frameBits?.length!==10||!frameBits.every(bit=>typeof bit==='boolean')||
+    frameBits[0]||!frameBits[9]||!Number.isFinite(bitPeriodSeconds)||bitPeriodSeconds<=0||
+    !Number.isFinite(frameDurationSeconds)||frameDurationSeconds<=9*bitPeriodSeconds)return null;
+ const samples=frameBits.map((bit,index)=>({timeSeconds:index*bitPeriodSeconds,nodeVoltages:{[output]:Number(bit)}}));
+ samples.push({timeSeconds:frameDurationSeconds,nodeVoltages:{[output]:1}});
+ return {kind:'analytical-output-recording',units:'logic',model:'Ideal UART 8N1 frame timing',preferredNet:output,samples};
 }
 
 function audioPowerRecording(project,result) {
