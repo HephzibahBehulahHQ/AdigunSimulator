@@ -7,6 +7,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='boost-converter'&&r.device==='LM2577T-ADJ/NOPB')return lm2577BoostRecording(project,r);
  if(kind==='uart-transmitter-8n1'||kind==='uart-receiver-8n1')return uartFrameRecording(project,r);
  if(kind==='i2c-register-read')return i2cRegisterRecording(project,r);
+ if(kind==='spi-display-byte')return spiDisplayRecording(project,r);
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(kind==='mcu-button-debounce')return buttonDebounceRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
@@ -90,6 +91,22 @@ function i2cRegisterRecording(project, result) {
  sample(0,1);
  sample(1,1);
  return {kind:'analytical-output-recording',units:'logic',model:'Ideal I²C register-read bus timing',preferredNet:data,samples};
+}
+
+function spiDisplayRecording(project, result) {
+ const host=project.components.find(c=>c.libraryId==='input.spi-transfer-source');
+ if(!host)return null;
+ const [clock,data,select]=['SCK','MOSI','CS'].map(pin=>project.nets.find(n=>n.endpoints.includes(host.instanceId+':'+pin))?.id);
+ if(!clock||!data||!select||new Set([clock,data,select]).size!==3)return null;
+ const {bits,baud,transferDurationSeconds}=result,period=1/baud;
+ const sample=(timeSeconds,sck,mosi,cs)=>({timeSeconds,nodeVoltages:{[clock]:sck,[data]:Number(mosi),[select]:cs}});
+ const samples=[sample(0,0,bits[0],1)];
+ bits.forEach((bit,index)=>{
+  samples.push(sample((index+.5)*period,0,bit,0),sample((index+1)*period,1,bit,0));
+ });
+ const end=transferDurationSeconds+period/2;
+ samples.push(sample(end,0,bits.at(-1),0),sample(end+period/2,0,bits.at(-1),1));
+ return {kind:'analytical-output-recording',units:'logic',model:'Ideal SPI mode-0 byte timing',preferredNet:clock,samples};
 }
 
 function audioPowerRecording(project,result) {

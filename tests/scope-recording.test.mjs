@@ -170,6 +170,17 @@ test('I²C sensor scope follows the modeled read and stops on address NACK',asyn
  assert.equal(runProjectAnalysis(p).scopeRecording,undefined);
 });
 
+test('SPI display scope samples eight MSB-first bits while selected',async()=>{
+ const p=await load('059-spi-display'),analysis=runProjectAnalysis(p);
+ const {samples,units}=analysis.scopeRecording;
+ const rising=samples.filter((sample,i)=>i&&!samples[i-1].nodeVoltages.SCK&&sample.nodeVoltages.SCK);
+ assert.equal(units,'logic');
+ assert.deepEqual(rising.map(({nodeVoltages})=>nodeVoltages.MOSI),[1,0,1,0,0,1,0,1]);
+ assert.ok(rising.every(({nodeVoltages})=>nodeVoltages.CS===0));
+ assert.equal(samples[0].nodeVoltages.CS,1);
+ assert.deepEqual(samples.at(-1).nodeVoltages,{SCK:0,MOSI:1,CS:1});
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);

@@ -8,6 +8,10 @@ const customPinSides = {
     ["A", "B", "C", "D", "E", "F", "G"],
     ["K1", "K2"]
   ],
+  "active.atmega328p-spi-display": [
+    ["SCK", "MOSI", "CS", "MCU_RESET_N", "VCC", "AVCC", "GND", "AGND"],
+    ["BIT0", "BIT1", "BIT2", "BIT3", "BIT4", "BIT5", "BIT6", "BIT7"]
+  ],
   "active.atmega328p-uart-rx": [
     ["RX", "MCU_RESET_N", "GND", "AGND"],
     ["VCC", "AVCC", "VALID"]
