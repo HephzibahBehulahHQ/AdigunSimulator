@@ -137,6 +137,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.pololu-1204-motor-port", category: "Output", type: "Off-board Pololu 1204 bipolar stepper port", prefix: "J", pins: ["A1", "A2", "B1", "B2"], defaultValue: "StepsPerRevolution 200; StepAngle 1.8 deg", simulation: "analytical-stepper-motion", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.stepper-driver-ideal", category: "Active", type: "Ideal dual-H-bridge stepper driver (logic model)", prefix: "U", pins: ["STEP", "DIR", "VCC", "GND", "A1", "A2", "B1", "B2"], defaultValue: "Full-step dual-phase drive", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.stepper-motor-ideal", category: "Output", type: "Ideal bipolar stepper motor (position model)", prefix: "M", pins: ["A1", "A2", "B1", "B2"], defaultValue: "StepsPerRevolution 200; StepAngle 1.8 deg", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
+  { id: "active.seeed-xiao-esp32c3-telemetry", category: "Active", type: "Seeed XIAO ESP32-C3 offline UART telemetry", prefix: "U", pins: ["ADC", "TX", "VCC", "GND"], defaultValue: "Device esp32-node-01; Sequence 1; Transport offline-mock; Power USB-C", simulation: "analytical-esp32-telemetry", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "sensor.microchip-mcp9700a-to", category: "Sensors", type: "Microchip MCP9700A-E/TO temperature sensor", prefix: "TS", pins: ["VCC", "OUT", "GND"], defaultValue: "Temperature 25 C; Scale 10 mV/C; Offset 500 mV", simulation: "ideal-linear-temperature-sensor", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.uart-telemetry-port", category: "Output", type: "Local 3.3 V UART telemetry port", prefix: "J", pins: ["DATA", "GND"], defaultValue: "3.3 V UART; 9600 8N1", simulation: "analytical-esp32-telemetry", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.esp32-telemetry-ideal", category: "Active", type: "Ideal ESP32-class sensor telemetry formatter", prefix: "U", pins: ["ADC", "TX", "VCC", "GND"], defaultValue: "Device esp32-node-01; Sequence 1; Transport offline-mock", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.telemetry-payload-sink", category: "Output", type: "Offline telemetry payload viewer", prefix: "OUT", pins: ["DATA", "GND"], defaultValue: "JSON payload", simulation: "analytical-esp32-telemetry", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
   { id: "active.rp2040-pico-ideal", category: "Active", type: "Ideal RP2040 Pico ADC/display controller (behavior model)", prefix: "U", pins: ["ADC0", "TX", "VCC", "GND"], defaultValue: "ADC 12 bit; Reference 3.3 V; Calibrate divider", simulation: "analytical-pico-voltmeter", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -1301,6 +1304,12 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (picoControllers.length === 1 && source.length === 2 && resistor.length === 2 && oledSinks.length === 1 && ground.length === 1 && project.components.length === 7) {
     return analysePicoVoltmeter(project, { sources: source, pico: picoControllers[0], resistors: resistor, oled: oledSinks[0], ground: ground[0], validation });
+  }
+  const xiao = project.components.find(item => item.libraryId === "active.seeed-xiao-esp32c3-telemetry");
+  const mcp9700a = project.components.find(item => item.libraryId === "sensor.microchip-mcp9700a-to");
+  const localUart = project.components.find(item => item.libraryId === "output.uart-telemetry-port");
+  if (xiao && mcp9700a && localUart && source.length === 0 && ground.length === 1 && capacitor.length === 1 && project.components.length === 5) {
+    return analyseEsp32Telemetry(project, { esp32: xiao, sensor: mcp9700a, sink: localUart, ground: ground[0], bypass: capacitor[0], validation });
   }
   if (esp32Formatters.length === 1 && payloadSinks.length === 1 && temperatureSensors.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseEsp32Telemetry(project, { source: source[0], esp32: esp32Formatters[0], sensor: temperatureSensors[0], sink: payloadSinks[0], ground: ground[0], validation });
@@ -3024,21 +3033,25 @@ function analysePicoVoltmeter(project,{sources,pico,resistors,oled,ground,valida
   const displayText="Vin "+estimatedInputVoltage.toFixed(2)+" V";
   return {state:"complete",engine:"Ideal Pico 12-bit ADC divider voltmeter",message:"Quantizes a protected divider voltage with an ideal 12-bit ADC and applies the known divider ratio for an OLED reading. ADC nonlinearity, input leakage, resistor tolerance, calibration error, and C++ firmware are omitted.",result:{kind:"pico-adc-voltmeter",inputVoltageV:inputVoltage,dividerVoltageV:dividerVoltage,adcReferenceV:referenceVoltage,adcResolutionBits:12,adcCount,measuredDividerVoltageV:measuredDividerVoltage,upperResistanceOhm:upperResistance,lowerResistanceOhm:lowerResistance,estimatedInputVoltageV:estimatedInputVoltage,displayText,firmwareExecuted:false},validation};
 }
-function analyseEsp32Telemetry(project,{source,esp32,sensor,sink,ground,validation}){
+function analyseEsp32Telemetry(project,{source,esp32,sensor,sink,ground,bypass,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(esp32.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
   const temperature=Number(field(sensorFields,"Temperature")?.split(" ")[0]),scale=field(sensorFields,"Scale"),offset=field(sensorFields,"Offset");
   const scaleVPerC=scale?voltageValue(scale.split("/")[0]):Number.NaN,offsetV=offset?voltageValue(offset):Number.NaN;
   const device=field(mcuFields,"Device"),sequence=Number(field(mcuFields,"Sequence")),transport=field(mcuFields,"Transport");
-  const groundNet=n(ground,"0"),vccNet=n(esp32,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
-  const wired=n(sensor,"VCC")===vccNet&&n(sensor,"GND")===groundNet&&n(sensor,"OUT")===n(esp32,"ADC")&&n(esp32,"TX")===n(sink,"DATA")&&n(sink,"GND")===groundNet&&n(esp32,"GND")===groundNet;
+  const groundNet=n(ground,"0"),vccNet=n(esp32,"VCC");
+  const supplyVoltage=bypass ? 3.3 : n(source,"+")===vccNet&&n(source,"-")===groundNet ? voltageValue(source.value) : Number.NaN;
+  if (bypass&&(!validSupplyBypass(bypass,n,vccNet,groundNet)||field(mcuFields,"Power")!=="USB-C"||scaleVPerC!==0.01||offsetV!==0.5)) {
+    return {state:"blocked",message:"Power the XIAO by USB-C, wire the sensor supply bypass between 3V3 and ground, and set the MCP9700A to 10 mV/C with a 500 mV offset.",validation};
+  }
+  const wired=Boolean(n(esp32,"ADC")&&n(esp32,"TX"))&&n(sensor,"VCC")===vccNet&&n(sensor,"GND")===groundNet&&n(sensor,"OUT")===n(esp32,"ADC")&&n(esp32,"TX")===n(sink,"DATA")&&n(sink,"GND")===groundNet&&n(esp32,"GND")===groundNet;
   if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!wired||!device||device.length>40||!Number.isSafeInteger(sequence)||sequence<0||sequence>2147483647||transport!=="offline-mock"||!Number.isFinite(temperature)||temperature<0||temperature>125||!Number.isFinite(scaleVPerC)||scaleVPerC<=0||!Number.isFinite(offsetV)||offsetV<0){
     return {state:"blocked",message:"Wire the linear temperature sensor to the ESP32-class ADC, TX to the offline payload sink, share power/ground, and configure a device ID, sequence, and offline-mock transport.",validation};
   }
   const sensorVoltage=offsetV+temperature*scaleVPerC;
   if(!Number.isFinite(sensorVoltage)||sensorVoltage<0||sensorVoltage>supplyVoltage)return {state:"blocked",message:"The sensor output is outside the modeled ADC reference range.",validation};
-  const adcCount=Math.round(sensorVoltage/supplyVoltage*4095),measuredVoltage=adcCount/4095*supplyVoltage,measuredTemperatureC=Number(((measuredVoltage-offsetV)/scaleVPerC).toFixed(1));
+  const adcCount=Math.round(sensorVoltage/supplyVoltage*4095),measuredVoltage=adcCount/4095*supplyVoltage,measuredTemperatureC=Number(((measuredVoltage-offsetV)/scaleVPerC).toFixed(1))||0;
   const payload={device,sequence,temperatureC:measuredTemperatureC},payloadText=JSON.stringify(payload);
   return {state:"complete",engine:"Ideal ESP32-class offline telemetry formatter",message:"Quantizes a linear sensor value to an ideal 12-bit ADC reading and formats a deterministic JSON payload for local inspection. No Wi-Fi association, socket, Internet request, authentication, or external data transfer occurs; ESP32 ADC nonlinearities and firmware execution are not modeled.",result:{kind:"esp32-telemetry-payload",adcResolutionBits:12,adcCount,sensorVoltageV:sensorVoltage,measuredTemperatureC,payload,payloadText,transport:"offline-mock",transmitted:false,firmwareExecuted:false},validation};
 }

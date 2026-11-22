@@ -272,6 +272,15 @@ test('stepper scope reflects the first four STEP command pulses',async()=>{
  assert.equal(scopeRecording.samples.at(-1).timeSeconds,.02);
 });
 
+test('offline telemetry scope displays only the model-backed ADC voltage',async()=>{
+ const p=await load('068-esp32-telemetry-mock');
+ const {result,scopeRecording}=runProjectAnalysis(p);
+ assert.equal(result.transmitted,false);
+ assert.equal(scopeRecording.preferredNet,'ADC');
+ assert.equal(scopeRecording.model,'Ideal telemetry ADC input voltage');
+ assert.deepEqual(scopeRecording.samples,[0,.5].map(timeSeconds=>({timeSeconds,nodeVoltages:{ADC:.75}})));
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);

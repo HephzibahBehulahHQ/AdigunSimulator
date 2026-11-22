@@ -19,6 +19,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='mcu-stepper-position')return stepperCommandRecording(project,r);
  if(kind==='mcu-servo-control')return servoPulseRecording(project,r);
  if(kind==='mcu-ultrasonic-range')return sonarEchoRecording(project,r);
+ if(kind==='esp32-telemetry-payload')return temperatureInputRecording(project,r);
  if(kind==='mcu-temperature-monitor')return temperatureInputRecording(project,r);
  if(kind==='mcu-pwm-dimmer')return dimmerPwmRecording(project,r);
  if(kind==='pwm-led-average')return pwmGateRecording(project,r);
@@ -332,11 +333,11 @@ function sonarEchoRecording(project,result){
 }
 
 function temperatureInputRecording(project,result){
- const sensor=project.components.find(c=>['sensor.temperature-analog-ideal','sensor.ti-lm35dz'].includes(c.libraryId));
+ const sensor=project.components.find(c=>['sensor.temperature-analog-ideal','sensor.ti-lm35dz','sensor.microchip-mcp9700a-to'].includes(c.libraryId));
  const output=sensor&&project.nets.find(net=>net.endpoints.includes(sensor.instanceId+':OUT'))?.id;
  if(!output||!Number.isFinite(result.sensorVoltageV))return null;
  const samples=[0,.5].map(timeSeconds=>({timeSeconds,nodeVoltages:{[output]:result.sensorVoltageV}}));
- return {kind:'analytical-output-recording',model:'Ideal A0 temperature sensor voltage',preferredNet:output,samples};
+ return {kind:'analytical-output-recording',model:result.kind==='esp32-telemetry-payload'?'Ideal telemetry ADC input voltage':'Ideal A0 temperature sensor voltage',preferredNet:output,samples};
 }
 
 // This records the ideal PWM control input, not a simulated MOSFET/LED output.

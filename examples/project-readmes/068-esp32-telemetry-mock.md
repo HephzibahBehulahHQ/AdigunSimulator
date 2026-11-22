@@ -1,67 +1,16 @@
-# 068 — ESP32 temperature telemetry payload mock
+# 068 — ESP32 offline temperature telemetry
 
-## Purpose
+A Seeed XIAO ESP32-C3 reads a Microchip MCP9700A-E/TO and prints a line of JSON over a local 3.3 V UART. Power the XIAO through its own USB-C socket. Its 3V3 output powers the sensor and C1, with a shared ground.
 
-Quantize a configured temperature sensor sample into an ideal 12-bit ADC result and form a deterministic JSON telemetry payload for offline inspection.
+| Reference | Assembly |
+| --- | --- |
+| U1 | Seeed XIAO ESP32-C3, SKU 113991054 |
+| TS1 | Microchip MCP9700A-E/TO, 10 mV/°C plus 500 mV offset |
+| C1 | 100 nF sensor supply bypass |
+| J1 | Samtec TSW-102-07-T-S, pin 1 ground and pin 2 3.3 V TX |
 
-## Bill of materials
+TS1 pin 1 goes to 3V3, pin 2 to D1 (GPIO3, ADC1_CH3), and pin 3 to ground. D6 (GPIO21) sends 9600-baud 8N1 output to J1. Connect only the receiver ground and 3.3 V-compatible RX. The receiver is off board and J1 is its controller-board connector. [Seeed pinout](https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/), [Microchip sensor datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP970X-Data-Sheet-DS20001942.pdf), [Samtec J1](https://www.samtec.com/products/tsw-102-07-t-s).
 
-| Reference | Project library ID | Project value |
-|---|---|---|
-| V1 | `power.dc-source` | 3.3 V |
-| U1 | `active.esp32-telemetry-ideal` | Device esp32-node-01; Sequence 1; Transport offline-mock |
-| TS1 | `sensor.temperature-analog-ideal` | Temperature 25 C; Scale 10 mV/C; Offset 0 mV |
-| OUT1 | `output.telemetry-payload-sink` | JSON payload |
-| GND | `ground.signal` | 0 V |
+On the BB400, orient the USB-C socket toward column 10 and use insulated pigtails for TS1. On the 48 × 35 mm PCB, form the center sensor lead for its staggered land pattern and leave room for the USB-C plug. The controller PCB uses two copper layers and 0.35 mm copper clearance. The native project supplies the pin, hole and route mappings for the three views and an educational fabrication export. [Seeed mechanical drawing](https://www.seeedstudio.com/blog/wp-content/uploads/2022/08/Seeed-Studio-XIAO-Series-Package-and-PCB-Design.pdf).
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
-
-## Net connections
-
-- **VCC:** `supply:+`, `esp32:VCC`, `sensor:VCC`
-- **GND:** `supply:-`, `esp32:GND`, `sensor:GND`, `payload:GND`, `ground:0`
-- **ADC:** `sensor:OUT`, `esp32:ADC`
-- **TX:** `esp32:TX`, `payload:DATA`
-
-## Views and physical-layout status
-
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
-
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
-
-## Acceptance test and expected result
-
-- Stable test ID: `core-esp32-telemetry-mock`
-- Engine: Ideal ESP32-class offline telemetry formatter
-- Engine version: `adigun-simulator@0.1.0`
-- Model version: `ideal-esp32-telemetry-json-v1`
-- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41177822704
-
-Recorded expected result:
-
-```json
-{
-  "adcResolutionBits": 12,
-  "temperatureSamplesC": [
-    0,
-    25,
-    80
-  ],
-  "payloadFields": [
-    "device",
-    "sequence",
-    "temperatureC"
-  ],
-  "transport": "offline-mock",
-  "transmitted": false,
-  "firmwareExecuted": false
-}
-```
-
-## Safety and model limits
-
-Offline payload-formatting mock; no Wi-Fi, network, authentication, Internet transfer, ESP32 firmware, ADC nonlinearity, or sensor accuracy is modeled.
-
-Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
-
-Native project: `examples/068-esp32-telemetry-mock.adigun.json`.
+The [Arduino sketch](../068-esp32-telemetry-mock/068-esp32-telemetry-mock.ino) averages 16 calibrated millivolt readings, applies the sensor offset and emits a line approximately once per second. The sketch uses local UART only. The simulator retains deterministic offline JSON and exposes the ideal sensor voltage in the scope, 750 mV at 25 °C. The analytical ADC assumes a 3.3 V full-scale span. The firmware uses the ESP32-C3 calibration API with 11 dB attenuation. Sensor accuracy, ADC error, UART electrical levels and assembled hardware behavior require bench verification. [Espressif Arduino ADC documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html).

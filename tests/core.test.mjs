@@ -2552,7 +2552,7 @@ test("catalogue Arduino stepper driver sequence maps CW/CCW pulses to motion",as
 test("catalogue ESP32 telemetry mock forms JSON locally without network transmission",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/068-esp32-telemetry-mock.adigun.json",import.meta.url)));
   for(const celsius of [0,25,80]){
-    const configured=updateComponent(project,"sensor",{value:`Temperature ${celsius} C; Scale 10 mV/C; Offset 0 mV`});
+    const configured=updateComponent(project,"sensor",{value:`Temperature ${celsius} C; Scale 10 mV/C; Offset 500 mV`});
     const result=runSupportedAnalysis(configured);
     assert.equal(result.state,"complete",result.message);
     assert.equal(result.result.adcResolutionBits,12);
@@ -2563,7 +2563,7 @@ test("catalogue ESP32 telemetry mock forms JSON locally without network transmis
     assert.equal(result.result.payload.sequence,1);
     assert.ok(Math.abs(result.result.payload.temperatureC-celsius)<0.1);
   }
-  assert.equal(runSupportedAnalysis(updateComponent(project,"sensor",{value:"Temperature 130 C; Scale 10 mV/C; Offset 0 mV"})).state,"blocked");
+  assert.equal(runSupportedAnalysis(updateComponent(project,"sensor",{value:"Temperature 130 C; Scale 10 mV/C; Offset 500 mV"})).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(n=>n.id==="TX").endpoints=["esp32:TX"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
