@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,100);assert.equal(index.summary.withoutStoredPcb,116);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,101);assert.equal(index.summary.withoutStoredPcb,115);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -900,10 +900,28 @@ test('Example 067 maps the carrier, two supplies and bipolar motor connector thr
  assert.match(runProjectAnalysis(updateComponent(p,'motor-bulk',{value:'10 uF'})).message,/polarized motor bulk/);
 });
 
+test('Example 068 maps the USB-powered XIAO, temperature sensor and local UART port',async()=>{
+ const p=JSON.parse(await readFile(new URL('../examples/068-esp32-telemetry-mock.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(p,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(p,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(p,{getPartPins}).state,'complete');
+ const parts=Object.fromEntries(p.pcbFabrication.physicalEvidence.map(item=>[item.reference,item]));
+ assert.deepEqual(parts.TS1.pinMapping,{'1':'VCC','2':'ADC','3':'GND'});
+ assert.deepEqual(parts.J1.pinMapping,{'1':'GND','2':'TX'});
+ assert.equal(parts.U1.pinMapping['2'],'ADC');
+ assert.equal(parts.U1.pinMapping['7'],'TX');
+ assert.equal(parts.U1.pinMapping['14'],'NC');
+ assert.equal(validatePcbFabrication(p).status,'passed');
+ assert.equal(exportPcbFabrication(p).status,'passed');
+ const misconfigured=updateComponent(p,'sensor',{value:'Temperature 25 C; Scale 10 mV/C; Offset 0 mV'});
+ assert.match(runProjectAnalysis(misconfigured).message,/500 mV offset/);
+});
+
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,100);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,101);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

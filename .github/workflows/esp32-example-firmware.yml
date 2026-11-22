@@ -1,0 +1,35 @@
+name: Build ESP32 telemetry firmware
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'examples/068-esp32-telemetry-mock/**/*.ino'
+      - '.github/workflows/esp32-example-firmware.yml'
+  pull_request:
+    paths:
+      - 'examples/068-esp32-telemetry-mock/**/*.ino'
+      - '.github/workflows/esp32-example-firmware.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+        with:
+          version: '1.2.2'
+      - name: Install pinned Espressif Arduino core
+        env:
+          BOARD_INDEX: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+        run: |
+          arduino-cli core update-index --additional-urls "$BOARD_INDEX"
+          arduino-cli core install esp32:esp32@3.3.0 --additional-urls "$BOARD_INDEX"
+      - name: Compile the standalone XIAO ESP32-C3 sketch
+        run: |
+          arduino-cli compile --fqbn esp32:esp32:XIAO_ESP32C3 \
+            --output-dir "$RUNNER_TEMP/esp32-telemetry" examples/068-esp32-telemetry-mock
+          test -s "$RUNNER_TEMP/esp32-telemetry/068-esp32-telemetry-mock.ino.bin"

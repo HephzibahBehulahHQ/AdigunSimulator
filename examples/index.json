@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 100,
-    "withoutStoredPcb": 116,
+    "withStoredPcb": 101,
+    "withoutStoredPcb": 115,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1278,36 +1278,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "225381b1646e386a500d54e65f2fe648fb2692971257f6163cfe8ed6d156384e",
+      "sha256": "135541064f6d07b97a26f15050e3ec0d444c487af1d4d8918e761b8431bec0b7",
       "components": 5,
       "analysis": "complete",
       "engine": "Ideal ESP32-class offline telemetry formatter",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.esp32-telemetry-ideal"
-        },
-        {
-          "reference": "TS1",
-          "libraryId": "sensor.temperature-analog-ideal"
-        },
-        {
-          "reference": "OUT1",
-          "libraryId": "output.telemetry-payload-sink"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 4,
+      "pcbPads": 21,
+      "pcbRoutes": 7,
+      "unmapped": []
     },
     {
       "file": "069-pico-adc-voltmeter.adigun.json",
