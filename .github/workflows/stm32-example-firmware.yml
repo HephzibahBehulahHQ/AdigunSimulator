@@ -1,0 +1,35 @@
+name: Build STM32 timer PWM firmware
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'examples/070-stm32-timer-pwm/**/*.ino'
+      - '.github/workflows/stm32-example-firmware.yml'
+  pull_request:
+    paths:
+      - 'examples/070-stm32-timer-pwm/**/*.ino'
+      - '.github/workflows/stm32-example-firmware.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+        with:
+          version: '1.2.2'
+      - name: Install pinned STM32 Arduino core
+        env:
+          BOARD_INDEX: https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
+        run: |
+          arduino-cli core update-index --additional-urls "$BOARD_INDEX"
+          arduino-cli core install STMicroelectronics:stm32@2.10.1 --additional-urls "$BOARD_INDEX"
+      - name: Compile the NUCLEO-G031K8 sketch
+        run: |
+          arduino-cli compile --fqbn STMicroelectronics:stm32:Nucleo_32:pnum=NUCLEO_G031K8 \
+            --output-dir "$RUNNER_TEMP/stm32-pwm" examples/070-stm32-timer-pwm
+          test -s "$RUNNER_TEMP/stm32-pwm/070-stm32-timer-pwm.ino.bin"

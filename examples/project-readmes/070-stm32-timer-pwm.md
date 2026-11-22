@@ -1,58 +1,16 @@
 # 070 — STM32 timer PWM LED load
 
-## Purpose
+The ST NUCLEO-G031K8 drives an external red LED through a 330 Ω resistor. PA0, on CN4 pin 12, uses AF2 for TIM2 channel 1. The ideal model uses a 64 MHz timer clock, PSC 63, ARR 999, and CCR1 499, giving 1 kHz and 49.9% duty. The scope displays the modeled PA0 waveform. [STM32G031 datasheet](https://www.st.com/resource/en/datasheet/stm32g031k8.pdf).
 
-Calculate edge-aligned PWM frequency and duty from timer clock, prescaler, auto-reload, and compare values, and estimate LED average current.
+| Reference | Assembly |
+| --- | --- |
+| J1 | Regulated 3.3 V and common return |
+| U1 | ST NUCLEO-G031K8, MB1455 |
+| R1 | Vishay MRS25 330 Ω through-hole resistor |
+| D1 | Lite-On red 5 mm LED, anode toward R1 |
 
-## Bill of materials
+CN4 pin 2 is ground, pin 12 is PA0, and pin 14 is +3V3. On the BB400, align CN3 with row E and CN4 with row I. The 65 × 37 mm carrier PCB fits the two 15-pin Nucleo headers at 2.54 mm pitch with 15.24 mm row spacing. Fit two Samtec SSQ-115-01-T-S receptacles. The other 27 mating positions have no carrier nets. The native project stores the physical mappings and generates educational copper, outline, drill and BOM output. [ST board manual](https://www.st.com/resource/en/user_manual/um2591-.pdf), [Samtec sockets](https://www.samtec.com/products/ssq-115-01-t-s).
 
-| Reference | Project library ID | Project value |
-|---|---|---|
-| V1 | `power.dc-source` | 3.3 V |
-| U1 | `active.stm32-timer-ideal` | NUCLEO-G031K8; CN4 pin 12 A0/PA0; CN4 pin 14 +3V3; CN4 pin 2 GND; ClockHz 64000000; Prescaler 63; AutoReload 999; Compare 499 |
-| R1 | `passive.resistor` | 330 Ω |
-| D1 | `diode.led-red` | Vf 2 V |
-| GND | `ground.signal` | 0 V |
+Program the board over its ST-LINK USB connection before switching power modes. Disconnect USB for the external 3.3 V wiring shown in the project. For that mode, follow the board-revision instructions in UM2591 §6.4.2 and §6.7, including opening SB2 and SB3. ST documents SB11 as the regulator-output disconnect. The ST-LINK is unpowered in external 3.3 V mode. [ST board manual](https://www.st.com/resource/en/user_manual/um2591-.pdf).
 
-U1 identifies the ST NUCLEO-G031K8 board (MB1455). The breadboard image is an illustrative board drawing, not a mechanical board model. The connected external holes map to the documented CN4 pins. Only GND, A0/PA0, and +3V3 are modeled in this project; the remaining header pads are decorative and have no project nets. The timer and LED analysis remains an ideal behavior model, not MCU firmware execution or a board-level electrical simulation.
-
-## Net connections
-
-- **VCC:** `supply:+`, `timer:VCC`
-- **GND:** `supply:-`, `timer:GND`, `led:K`, `ground:0`
-- **PWM_LED:** `timer:PA0` (TIM2_CH1 alternate function), `resistor:1`
-- **LED_SERIES:** `resistor:2`, `led:A`
-
-## Views and physical-layout status
-
-The native project contains 10 breadboard pin placement(s). The selected external 3.3 V source feeds CN4 pin 14. ST documents that this power mode does not power the on-board ST-LINK; that behavior and the board's other circuits are not simulated. GPIO drive limits and LED transient behavior are also outside the model. Verify the matching board revision and its manual before assembly.
-
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
-
-## Acceptance test and expected result
-
-- Stable test ID: `core-stm32-timer-pwm`
-- Engine: Ideal STM32 timer register PWM and LED load estimate
-- Engine version: `adigun-simulator@0.1.0`
-- Model version: `ideal-stm32-timer-pwm-v1`
-- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41178155218
-
-Recorded expected result:
-
-```json
-{
-  "frequencyHz": 1000,
-  "dutyCycle": 0.499,
-  "averageLedCurrentA": 0.001965757575757576,
-  "firmwareExecuted": false,
-  "physicalTimerAndGPIOBehavior": "not modeled"
-}
-```
-
-## Safety and model limits
-
-Ideal timer-register and LED current estimate only; firmware, clock-tree setup, GPIO current limits, switching transients, and nonlinear LED behavior are omitted.
-
-Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
-
-Native project: `examples/070-stm32-timer-pwm.adigun.json`.
+The [Arduino sketch](../070-stm32-timer-pwm/070-stm32-timer-pwm.ino) configures TIM2 from the timer clock reported by STM32duino. It divides to a 1 MHz timebase and uses 1000 counts per frame with 499 high counts. The model estimates LED current from fixed forward voltage and resistance. Physical GPIO drive, PWM timing, LED current and manufacturing suitability require bench verification.

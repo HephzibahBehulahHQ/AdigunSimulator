@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,102);assert.equal(index.summary.withoutStoredPcb,114);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,103);assert.equal(index.summary.withoutStoredPcb,113);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -935,10 +935,27 @@ test('Example 069 maps the USB-powered Pico, input divider and I2C OLED in all t
  assert.match(runProjectAnalysis(updateComponent(p,'upper',{value:'20 kΩ'})).message,/10 k divider/);
 });
 
+test('Example 070 routes the documented Nucleo CN4 pins through the carrier',async()=>{
+ const p=JSON.parse(await readFile(new URL('../examples/070-stm32-timer-pwm.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(p,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(p,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(p,{getPartPins}).state,'complete');
+ assert.match(renderBreadboardAssemblySvg(p),/nucleo-g031k8-board/);
+ const board=p.pcbFabrication.physicalEvidence.find(c=>c.reference==='U1');
+ assert.equal(board.pinMapping['CN4-2'],'GND');
+ assert.equal(board.pinMapping['CN4-12'],'PWM_LED');
+ assert.equal(board.pinMapping['CN4-14'],'VCC');
+ assert.equal(Object.values(board.pinMapping).filter(net=>net==='NC').length,27);
+ assert.equal(validatePcbFabrication(p).status,'passed');
+ assert.equal(exportPcbFabrication(p).status,'passed');
+ assert.match(runProjectAnalysis(updateComponent(p,'supply',{value:'5 V'})).message,/3.3 V source/);
+});
+
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,102);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,103);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });
