@@ -114,6 +114,9 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "active.atmega328p-spi-display", category: "Active", type: "ATmega328P-PU SPI byte LED display", prefix: "U", pins: ["SCK", "MOSI", "CS", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC", "BIT0", "BIT1", "BIT2", "BIT3", "BIT4", "BIT5", "BIT6", "BIT7"], defaultValue: "Mode 0 byte LED display", simulation: "analytical-spi-display", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.spi-display-ideal", category: "Active", type: "Ideal SPI byte display (digital model)", prefix: "U", pins: ["SCK", "MOSI", "CS", "VCC", "GND"], defaultValue: "Mode 0 display", simulation: "analytical-spi-display", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.atmega328p-button-toggle", category: "Active", type: "ATmega328P-PU debounced button toggle", prefix: "U", pins: ["D2", "D13", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC"], defaultValue: "Program Button debounce; Input D2; Output D13; Mode Toggle; Stable 3", simulation: "analytical-mcu-button-debounce", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.atmega328p-temperature-monitor", category: "Active", type: "ATmega328P-PU temperature monitor", prefix: "U", pins: ["A0", "D8", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC", "AREF"], defaultValue: "Program Temperature monitor; ADC A0; Output D8; Format 0.0 C", simulation: "analytical-mcu-temperature-monitor", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "sensor.ti-lm35dz", category: "Sensors", type: "TI LM35DZ analog temperature sensor", prefix: "TS", pins: ["VCC", "OUT", "GND"], defaultValue: "Temperature 25 C; Scale 10 mV/C; Offset 0 mV", simulation: "ideal-linear-temperature-sensor", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.parallax-serial-lcd-port", category: "Output", type: "Off-board Parallax serial LCD port", prefix: "J", pins: ["GND", "VCC", "DATA"], defaultValue: "Parallax 27977 off-board LCD; 9600 baud", simulation: "ideal-lcd-text-sink", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.atmega328p-pwm-dimmer", category: "Active", type: "ATmega328P-PU ADC and PWM dimmer", prefix: "U", pins: ["A0", "D9", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC", "AREF"], defaultValue: "Program PWM dimmer; ADC A0; PWM D9; Frequency 490", simulation: "analytical-mcu-pwm-dimmer", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.atmega328p-blink", category: "Active", type: "ATmega328P-PU D13 blink demonstration", prefix: "U", pins: ["D13", "MCU_RESET_N", "GND", "AGND", "VCC", "AVCC"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-blink", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.mcu-uno-ideal", category: "Active", type: "Ideal Uno-class GPIO sequence controller (configured behavior model)", prefix: "U", pins: ["A0", "D2", "D3", "D7", "D8", "D9", "D13", "VCC", "GND"], defaultValue: "Program Blink; Pin D13; High 500 ms; Low 500 ms; Runtime 2000 ms", simulation: "analytical-mcu-gpio-sequence", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
@@ -1302,6 +1305,12 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (ultrasonicSensors.length === 1 && oledSinks.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuUltrasonicRanger(project, { source: source[0], mcu: mcuControllers[0], sensor: ultrasonicSensors[0], oled: oledSinks[0], ground: ground[0], validation });
+  }
+  const temperatureMcu = project.components.find(item => item.libraryId === "active.atmega328p-temperature-monitor");
+  const lm35 = project.components.find(item => item.libraryId === "sensor.ti-lm35dz");
+  const serialLcdPort = project.components.find(item => item.libraryId === "output.parallax-serial-lcd-port");
+  if (temperatureMcu && lm35 && serialLcdPort && source.length === 1 && ground.length === 1 && capacitor.length === 4 && resistor.length === 1 && project.components.length === 10) {
+    return analyseMcuTemperatureMonitor(project, { source: source[0], mcu: temperatureMcu, sensor: lm35, lcd: serialLcdPort, ground: ground[0], capacitors: capacitor, resistors: resistor, validation });
   }
   if (temperatureSensors.length === 1 && lcdSinks.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuTemperatureMonitor(project, { source: source[0], mcu: mcuControllers[0], sensor: temperatureSensors[0], lcd: lcdSinks[0], ground: ground[0], validation });
@@ -3047,7 +3056,7 @@ function analyseMcuUltrasonicRanger(project,{source,mcu,sensor,oled,ground,valid
   const displayText=measurementValid?(distanceMm/10).toFixed(1)+" cm":"Out of range";
   return {state:"complete",engine:"Ideal Uno-class ultrasonic time-of-flight estimate",message:"Converts a supplied round-trip echo time using 343 m/s sound speed and formats a distance for an ideal OLED text sink. It does not execute Arduino C++ or model trigger pulses, temperature-dependent sound speed, transducer dead zone, reflections, noise, or physical display timing.",result:{kind:"mcu-ultrasonic-range",echoTimeUs:echoUs,soundSpeedMPerS:343,distanceMm:measurementValid?distanceMm:null,distanceCm:measurementValid?distanceMm/10:null,minimumMm,maximumMm,measurementValid,displayText,firmwareExecuted:false},validation};
 }
-function analyseMcuTemperatureMonitor(project,{source,mcu,sensor,lcd,ground,validation}){
+function analyseMcuTemperatureMonitor(project,{source,mcu,sensor,lcd,ground,capacitors,resistors,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),sensorFields=String(sensor.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim();
@@ -3058,6 +3067,19 @@ function analyseMcuTemperatureMonitor(project,{source,mcu,sensor,lcd,ground,vali
   const sensorPowered=n(sensor,"VCC")===vccNet&&n(sensor,"GND")===groundNet,lcdPowered=n(lcd,"VCC")===vccNet&&n(lcd,"GND")===groundNet;
   if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!sensorPowered||!lcdPowered||n(mcu,"GND")!==groundNet||!outputConnected||field(mcuFields,"Program")?.toLowerCase()!=="temperature monitor"||field(mcuFields,"ADC")!=="A0"||field(mcuFields,"Output")!=="D8"||!Number.isFinite(temperature)||temperature<0||temperature>125||!Number.isFinite(scaleVPerC)||scaleVPerC<=0||!Number.isFinite(offsetV)||offsetV<0){
     return {state:"blocked",message:"Wire the powered temperature sensor to ADC A0, the LCD data input to D8, share ground, and configure a supported 0–125 °C linear sensor transfer.",validation};
+  }
+  if (capacitors) {
+    const reference = n(mcu, "AREF");
+    const bypass = capacitors.filter(capacitor => validSupplyBypass(capacitor, n, vccNet, groundNet));
+    if (supplyVoltage !== 5 || !vccNet || !groundNet || bypass.length !== 3 ||
+        !validAvrSupply(mcu, resistors, bypass, n, vccNet, groundNet) || !reference ||
+        reference === vccNet || reference === groundNet ||
+        !capacitors.some(capacitor => validSupplyBypass(capacitor, n, reference, groundNet))) {
+      return {state:"blocked",message:"Supply 5 V, connect VCC, AVCC and both ground pins, pull reset up and fit the sensor, supply and AREF bypass capacitors.",validation};
+    }
+    if (temperature > 100 || scaleVPerC !== 0.01 || offsetV !== 0) {
+      return {state:"blocked",message:"Use the LM35DZ model with 0–100 °C, 10 mV/°C and zero offset.",validation};
+    }
   }
   const sensorVoltage=offsetV+temperature*scaleVPerC;
   if(!Number.isFinite(sensorVoltage)||sensorVoltage<0||sensorVoltage>supplyVoltage)return {state:"blocked",message:"The configured sensor output is outside the ADC reference range.",validation};

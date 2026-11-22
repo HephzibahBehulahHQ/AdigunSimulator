@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 96,
-    "withoutStoredPcb": 120,
+    "withStoredPcb": 97,
+    "withoutStoredPcb": 119,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1214,36 +1214,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "f765e558e6adcff381723e1b4474f36cd594237efa5d3e9075f3bbda3d58d095",
-      "components": 5,
+      "sha256": "000ce8def6958d0f98cab5e0d1f28f8474b30bc5be6aaaf6baaa69c927123691",
+      "components": 10,
       "analysis": "complete",
       "engine": "Ideal Uno-class linear temperature monitor",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.mcu-uno-ideal"
-        },
-        {
-          "reference": "TS1",
-          "libraryId": "sensor.temperature-analog-ideal"
-        },
-        {
-          "reference": "LCD1",
-          "libraryId": "output.lcd-text-sink-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 9,
+      "pcbPads": 46,
+      "pcbRoutes": 20,
+      "unmapped": []
     },
     {
       "file": "065-arduino-ultrasonic-ranger.adigun.json",

@@ -2489,6 +2489,9 @@ test("catalogue Arduino temperature monitor converts sensor samples for an LCD r
     assert.match(result.result.displayText,/°C$/);
   }
   assert.equal(runSupportedAnalysis(updateComponent(project,"sensor",{value:"Temperature 130 C; Scale 10 mV/C; Offset 0 mV"})).state,"blocked");
+  const noReference=structuredClone(project);
+  noReference.nets.find(n=>n.id==="ADC_REFERENCE").endpoints.push("sensor:OUT");
+  assert.equal(runSupportedAnalysis(noReference).state,"blocked");
   const broken=structuredClone(project);
   broken.nets.find(n=>n.id==="SENSOR_OUT").endpoints=["sensor:OUT"];
   assert.equal(runSupportedAnalysis(broken).state,"blocked");
