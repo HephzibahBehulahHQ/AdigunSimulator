@@ -5,7 +5,7 @@ export const UI_KEYS = Object.freeze([
   "pcbBoardSetup", "pcbBoardWidth", "pcbBoardHeight", "pcbBoardThickness", "pcbBoardLayers", "pcbBoardClearance", "pcbBoardTraceWidth", "pcbBoardOutlineType", "pcbBoardRectangle", "pcbBoardPolygon", "pcbBoardOutlinePoints", "pcbBoardOutlineHelp", "pcbBoardCancel", "pcbBoardApply", "pcbBoardNote", "pcbBoardBlocked", "pcbBoardStale", "pcbBoardApplied",
   "openSavedProject", "openRecentProject", "recentProjectHelp", "recentProjectLabel", "noRecentProjects", "removeRecentProject", "removeRecentProjectPrompt", "recentProjectRemoved", "deleteSavedProject", "deleteSavedProjectPrompt", "savedProjectDeleted", "closeProject", "noSavedProject", "unsavedChanges", "savedLocally", "projectExported", "emptyProject", "chooseExample", "discardProjectPrompt", "keepEditing", "discardChanges",
   "skipToWorkspace", "searchGlobal", "theme", "help", "simulationMenu", "pcbMenu", "runPcbChecks", "exportPcbFiles", "toolsMenu", "fileMenu", "editMenu", "helpMenu", "implementationStatus", "implementationStatusBody", "exampleSelector", "examplePickerHelp", "exampleReversePolarity", "exampleSurgeProtectedInput", "exampleSingleSidedLedPcb", "example555TimerPcb", "exampleOpAmpFilterPcb", "exampleArduinoShield", "exampleUsbCBreakout", "exampleBme280Breakout", "exampleRelayModulePcb", "exampleAudioAmplifierPcb", "exampleBuckConverterPcb", "exampleFourLayerMcuPlan", "exampleUsbDifferentialPair", "exampleQfnFootprintValidation", "exampleBgaEscapeConcept", "examplePanelMountController", "exampleMcuTestPointCoverage", "exampleManufacturingExportPack", "exampleAssemblyVariantBoard", "exampleNetClassRuleDemo", "exampleCopperZoneDemo", "examplePcbSchematicReconciliation", "exampleDcVoltmeterUse", "exampleDcAmmeterUse", "exampleOscilloscopeTrigger", "exampleTwoChannelPhase", "exampleLogicAnalyzerCapture", "exampleFrequencyCounter", "exampleRcBodePlot", "exampleRlcTransientResponse", "exampleParameterSweep", "exampleMonteCarloTolerance", "exampleThermalWarningBoundary", "exampleConvergenceFailureStudy", "exampleFloatingNodeDiagnosis", "exampleShortCircuitDiagnosis", "exampleMissingGroundDiagnosis", "exampleModelUnavailableDiagnosis", "exampleNetProbeCrossProbe", "exampleComponentPropertyAudit", "exportSimulationReport", "exampleSimulationReportExport", "verifyRunLock", "exampleReproducibleRunLockfile", "examplePlcStartStopMotorConcept", "examplePlcTrafficLight", "examplePlcTankLevelController", "examplePlcConveyorCounter", "examplePlcStarDeltaStarter", "examplePlcForwardReverseMotor", "examplePlcEmergencyStopConcept", "examplePlcDoorInterlockConcept", "exampleTemperatureAlarm", "exampleWaterLeakAlarm", "exampleFanThermostat", "examplePwmFanController", "exampleAutomaticNightLight", "exampleSmartIrrigation", "exampleGarageDoorConcept", "exampleElevatorCallQueue", "exampleFireAlarmZone", "exampleAccessStrikeLock", "exampleWarehouseBeacon", "exampleMachineFaultAnnunciator", "exampleBreadboardSchematicSync", "exampleSchematicPcbSync", "exampleThreeViewLedProject", "exampleUnsupportedBreadboardPackage", "exampleMissingFootprintWorkflow", "examplePinIncompatibleSubstitution", "exampleUnitConversionCalculator", "exampleResistorColorCodeReader", "exampleLedResistorCalculator", "exampleVoltageDividerCalculator", "exampleRcTimingCalculator", "exampleOpAmpGainCalculator", "examplePcbTraceWidthAdvisor", "exportSpiceNetlist", "exportBomCsv", "exampleBomExportCostPlaceholder", "exampleBotExplainComponent", "botGroundedMode", "botGroundedPrivacy", "botExplainPlaceholder", "botExplainButton", "botResponseDefault", "botRepairApply", "exampleBotFloatingNodeRepair", "botProposalApply", "exampleBotCircuitProposal", "exampleFourLanguageUiSweep", "exampleLocalOfflineRecovery", "exampleReleaseCandidateE2E", "exampleHotSwapProtection", "exampleElectronicLoad", "exampleInverterWaveform", "exampleUpsTransfer", "exampleSsrAcSwitch", "exampleTriacAcDimmer", "exampleIgbtInverterLeg", "workspaceNotes", "modelNotes",
-  "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline", "divisionTagline", "accountGuestTooltip", "accountGuestAria", "accountSignedInTooltip", "accountSignedInAria", "accountDialogTitle", "accountIntro", "accountEmailLabel", "accountPasswordLabel", "accountConfirmPasswordLabel", "accountSubmitSignIn", "accountSubmitSignUp", "accountSubmitReset", "accountSubmitUpdate", "accountModeSignUp", "accountBackToSignIn", "accountForgotPassword", "accountSignOut", "accountClose", "accountLoggedIn", "accountCheckEmail", "accountResetEmailSent", "accountPasswordUpdated", "accountSignedOut", "accountUnavailable", "accountPasswordsMismatch", "accountAuthError", "accountSignedIn",
+  "corporateLogoAlt", "corporateWebsite", "documentation", "support", "personalProfile", "allRightsReserved", "officialLinks", "linkedinPersonalProfile", "productTagline", "divisionTagline", "accountGuestTooltip", "accountGuestAria", "accountSignedInTooltip", "accountSignedInAria", "accountDialogTitle", "accountIntro", "accountEmailLabel", "accountPasswordLabel", "accountConfirmPasswordLabel", "workspaceAccessTitle", "workspaceAccessLoading", "workspaceAccessRequired", "workspaceGuestExpired", "accountCodeLabel", "accountVerifyCode", "accountCodeSent", "accountRegistrationVerified", "accountInvalidCode", "accountInvalidCredentials", "accountRetryLater", "accountSubmitSignIn", "accountSubmitSignUp", "accountSubmitReset", "accountSubmitUpdate", "accountModeSignUp", "accountBackToSignIn", "accountForgotPassword", "accountSignOut", "accountClose", "accountLoggedIn", "accountCheckEmail", "accountResetEmailSent", "accountPasswordUpdated", "accountSignedOut", "accountUnavailable", "accountPasswordsMismatch", "accountAuthError", "accountSignedIn",
   "cloudSaveCurrent", "cloudManage", "cloudSignInRequired", "cloudSaveTitle", "cloudSaveDisclosure", "cloudSaveConfirm", "cloudProjectSaved", "cloudSizeLimit", "cloudNameLimit", "cloudProjectLimit", "cloudRequestFailed", "cloudProjectsTitle", "cloudProjectsHelp", "cloudProjectLabel", "cloudRevisionLabel", "cloudRefresh", "cloudOpenCurrent", "cloudOpenRevision", "cloudDelete", "cloudClose", "cloudChooseProject", "cloudNoProjects", "cloudLoading", "cloudProjectsLoaded", "cloudVersionsLoaded", "cloudNoRevisions", "cloudProjectMissing", "cloudProjectDeleted", "cloudDeleteTitle", "cloudDeletePrompt", "cloudDeleteConfirm", "cloudInvalidProject", "savedToCloud",
   "newProject", "import", "validate", "validation", "undo", "redo", "open", "save", "export", "components", "properties",
   "searchLibrary", "libraryNotice", "componentCategories", "allComponents", "powerGround", "passive",
@@ -210,6 +210,59 @@ Object.assign(TRANSLATIONS.en, { availableAnalysis: "Available analyses: LED cur
 Object.assign(TRANSLATIONS.de, { availableAnalysis: "Verfügbar: LED-Strombegrenzung, unbelasteter Spannungsteiler, lineare Gleichstrom-Widerstandsnetze, RC- und RL-Sprungantworten erster Ordnung sowie RC-Tiefpass-, RC-Hochpass- und RL-Tiefpass-Frequenzgänge." });
 Object.assign(TRANSLATIONS.yo, { availableAnalysis: "Ìṣirò tó wà: ààlà ìṣàn LED, voltage-divider tí kò ní ẹrù, àwọn nẹ́tìwọ́ọ̀kì DC olùtakò, ìdáhùn ìgbésẹ̀ RC àti RL, àti ìṣirò RC low-pass àti high-pass pẹ̀lú RL low-pass." });
 Object.assign(TRANSLATIONS.pcm, { availableAnalysis: "Analysis wey dey: LED current limiter, unloaded voltage divider, DC resistor networks, and first-order RC and RL step responses, plus RC low-pass/high-pass and RL low-pass frequency response." });
+
+Object.assign(TRANSLATIONS.en, {
+  workspaceAccessTitle: "Workspace access",
+  workspaceAccessLoading: "Checking access…",
+  workspaceAccessRequired: "Sign in or create an AdigunSimulator account to continue.",
+  workspaceGuestExpired: "Your four-minute guest trial has ended. Sign in or create an account to continue.",
+  accountCodeLabel: "Email verification code",
+  accountVerifyCode: "Verify code",
+  accountCodeSent: "Enter the code sent to your email.",
+  accountRegistrationVerified: "Account verified. Sign in with your Simulator password.",
+  accountInvalidCode: "That code is invalid or has expired.",
+  accountInvalidCredentials: "Check your Simulator email and password.",
+  accountRetryLater: "Too many attempts. Try again shortly."
+});
+Object.assign(TRANSLATIONS.de, {
+  workspaceAccessTitle: "Arbeitsbereichszugriff",
+  workspaceAccessLoading: "Zugriff wird geprüft…",
+  workspaceAccessRequired: "Melden Sie sich an oder erstellen Sie ein AdigunSimulator-Konto.",
+  workspaceGuestExpired: "Ihre vierminütige Testzeit ist abgelaufen. Melden Sie sich an oder erstellen Sie ein Konto.",
+  accountCodeLabel: "Bestätigungscode per E-Mail",
+  accountVerifyCode: "Code bestätigen",
+  accountCodeSent: "Geben Sie den Code aus Ihrer E-Mail ein.",
+  accountRegistrationVerified: "Konto bestätigt. Melden Sie sich mit Ihrem Simulator-Passwort an.",
+  accountInvalidCode: "Dieser Code ist ungültig oder abgelaufen.",
+  accountInvalidCredentials: "Prüfen Sie Ihre Simulator-E-Mail-Adresse und Ihr Passwort.",
+  accountRetryLater: "Zu viele Versuche. Versuchen Sie es in Kürze erneut."
+});
+Object.assign(TRANSLATIONS.yo, {
+  workspaceAccessTitle: "Àyè iṣẹ́",
+  workspaceAccessLoading: "À ń ṣàyẹ̀wò àyè wọlé…",
+  workspaceAccessRequired: "Wọlé tàbí ṣẹ̀dá àkọọ́lẹ̀ AdigunSimulator láti tẹ̀síwájú.",
+  workspaceGuestExpired: "Ìdánwò àlejò ìṣẹ́jú mẹ́rin rẹ ti parí. Wọlé tàbí ṣẹ̀dá àkọọ́lẹ̀.",
+  accountCodeLabel: "Kóòdù ìmúdájú ímeèlì",
+  accountVerifyCode: "Múdájú kóòdù",
+  accountCodeSent: "Tẹ kóòdù tí a fi ránṣẹ́ sí ímeèlì rẹ.",
+  accountRegistrationVerified: "A ti mú àkọọ́lẹ̀ náà dájú. Wọlé pẹ̀lú ọ̀rọ̀ aṣínà Simulator rẹ.",
+  accountInvalidCode: "Kóòdù yìí kò tọ́ tàbí ó ti parí.",
+  accountInvalidCredentials: "Ṣàyẹ̀wò ímeèlì àti ọ̀rọ̀ aṣínà Simulator rẹ.",
+  accountRetryLater: "Ìgbìyànjú ti pọ̀ jù. Tún gbìyànjú lẹ́yìn ìgbà díẹ̀."
+});
+Object.assign(TRANSLATIONS.pcm, {
+  workspaceAccessTitle: "Workspace access",
+  workspaceAccessLoading: "We dey check access…",
+  workspaceAccessRequired: "Sign in or create AdigunSimulator account to continue.",
+  workspaceGuestExpired: "Your four-minute guest trial don end. Sign in or create account to continue.",
+  accountCodeLabel: "Email verification code",
+  accountVerifyCode: "Verify code",
+  accountCodeSent: "Enter di code wey we send to your email.",
+  accountRegistrationVerified: "Your account don verify. Sign in with your Simulator password.",
+  accountInvalidCode: "Dis code no correct or e don expire.",
+  accountInvalidCredentials: "Check your Simulator email and password.",
+  accountRetryLater: "You don try too many times. Try again soon."
+});
 
 export function translate(locale, key) {
   return TRANSLATIONS[locale]?.[key] ?? TRANSLATIONS.en[key] ?? key;

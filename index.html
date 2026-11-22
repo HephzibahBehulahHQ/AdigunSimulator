@@ -38,7 +38,7 @@
       </div>
     </header>
 
-    <nav class="command-bar" aria-label="Application commands">
+    <nav class="command-bar" aria-label="Application commands" inert hidden>
       <div class="menu-buttons" aria-label="Application menus">
         <details class="app-menu" name="application-menu"><summary data-i18n="fileMenu">File</summary><div class="app-menu-popover">
           <button type="button" data-action="new-project" data-i18n="newProject">New Project</button>
@@ -326,7 +326,12 @@
         </div></details>
         </div>
     </nav>
-    <main id="workspace" class="workspace">
+    <section id="workspace-access" class="workspace-access" aria-labelledby="workspace-access-title">
+      <h2 id="workspace-access-title" data-i18n="workspaceAccessTitle">Workspace access</h2>
+      <p id="workspace-access-message" role="status" data-i18n="workspaceAccessLoading">Checking access…</p>
+      <button id="workspace-access-signin" class="gold-button" type="button" data-i18n="accountSubmitSignIn">Sign in</button>
+    </section>
+    <main id="workspace" class="workspace" inert hidden>
       <aside id="components-panel" class="library-panel panel" aria-label="Components library">
         <div class="panel-heading"><h2 data-i18n="components">Components</h2><button class="panel-close" type="button" aria-label="Collapse component library" data-i18n-aria="collapseLibrary" data-collapse="library-panel">×</button></div>
         <div class="library-mode-tabs" role="group" aria-label="Component catalogue" data-i18n-aria="componentCatalogueLabel">
@@ -562,7 +567,7 @@
 
         </section>
         </div>
-    <section id="bot" class="bot-panel minimized" aria-label="Adigun BOT">
+    <section id="bot" class="bot-panel minimized" aria-label="Adigun BOT" inert hidden>
       <header><span class="bot-orb" aria-hidden="true">◉</span><div><strong>Adigun BOT</strong><small data-i18n="botAssistant">Local project explainer</small></div><button id="bot-collapse" type="button" aria-label="Adigun BOT" aria-expanded="false" aria-controls="bot-content">+</button></header>
       <div id="bot-content">
         <p><strong data-i18n="botGroundedMode">Local facts mode</strong> <span data-i18n="botGroundedPrivacy">Answers use only the selected component and checked-in library fields; unknown details are stated.</span></p>
@@ -691,6 +696,10 @@
         <div id="account-password-confirm-row" hidden>
           <label for="account-password-confirm" data-i18n="accountConfirmPasswordLabel">Confirm password</label>
           <input id="account-password-confirm" name="password-confirm" type="password" autocomplete="new-password" />
+        </div>
+        <div id="account-code-row" hidden>
+          <label for="account-code" data-i18n="accountCodeLabel">Email verification code</label>
+          <input id="account-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,10}" maxlength="10" />
         </div>
         <button id="account-submit" class="gold-button" type="submit" data-i18n="accountSubmitSignIn">Sign in</button>
         <div class="account-form-links">

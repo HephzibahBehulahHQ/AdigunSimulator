@@ -5,22 +5,17 @@ import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from "../js/supabase-public-co
 
 function mockClient({ session = null, getSessionError = null } = {}) {
   const calls = [];
-  let authListener;
   const auth = {
-    onAuthStateChange(callback) {
-      authListener = callback;
+    onAuthStateChange() {
       return { data: { subscription: { unsubscribe: () => calls.push(["unsubscribe"]) } } };
     },
     async getSession() {
       return { data: { session }, error: getSessionError };
     },
-    async signUp(args) { calls.push(["signUp", args]); return { data: { user: { email: args.email }, session: null }, error: null }; },
-    async signInWithPassword(args) { calls.push(["signInWithPassword", args]); return { data: { user: { email: args.email }, session: { user: { email: args.email } } }, error: null }; },
-    async signOut() { calls.push(["signOut"]); return { data: {}, error: null }; },
-    async resetPasswordForEmail(email, options) { calls.push(["resetPasswordForEmail", email, options]); return { data: {}, error: null }; },
-    async updateUser(args) { calls.push(["updateUser", args]); return { data: { user: { email: "owner@example.test" } }, error: null }; }
+    async setSession(tokens) { calls.push(["setSession", tokens]); return { data: { session: { user: { email: "owner@example.test" } } }, error: null }; },
+    async signOut() { calls.push(["signOut"]); return { data: {}, error: null }; }
   };
-  return { client: { auth }, calls, emit: (event, nextSession) => authListener(event, nextSession) };
+  return { client: { auth, rpc: async () => ({ data: false, error: null }) }, calls };
 }
 
 test("account client uses PKCE, persisted sessions, and only the configured publishable key", () => {
@@ -37,7 +32,7 @@ test("account client uses PKCE, persisted sessions, and only the configured publ
   assert.equal(arguments_[1], "sb_publishable_test");
   assert.deepEqual(arguments_[2].auth, {
     autoRefreshToken: true,
-    detectSessionInUrl: true,
+    detectSessionInUrl: false,
     flowType: "pkce",
     persistSession: true,
     storageKey: "adigun-simulator.auth.v1"
@@ -53,35 +48,67 @@ test("the committed browser SDK bundle exposes Supabase Auth without runtime pac
   client.auth.stopAutoRefresh();
 });
 
-test("account session reports guest and signed-in states without exposing tokens", async () => {
-  const mock = mockClient();
-  const states = [];
-  const account = createAccountSession(mock.client, { onState: state => states.push(state) });
-  assert.equal((await account.initialize()).status, "guest");
-  const user = await account.signIn(" owner@example.test ", "correct horse battery staple");
-  assert.equal(user.email, "owner@example.test");
-  assert.equal(account.state.status, "signed-in");
-  assert.equal("access_token" in account.state, false);
-  mock.emit("SIGNED_OUT", null);
-  assert.equal(states.at(-1).status, "guest");
-  await account.signOut();
+test("a provider session alone cannot open Simulator cloud access", async () => {
+  const mock = mockClient({ session: { user: { email: "owner@example.test" } } });
+  const account = createAccountSession(mock.client);
+  assert.equal((await account.initialize()).status, "account-required");
   account.dispose();
   assert.deepEqual(mock.calls.at(-1), ["unsubscribe"]);
 });
 
-test("signup and password recovery redirect only to the configured application origin", async () => {
+test("Simulator only exposes account state after the Worker completes a fresh OTP challenge", async () => {
   const mock = mockClient();
-  const account = createAccountSession(mock.client, { getRedirectUrl: () => "https://adigunsimulator.example.test/" });
-  const signup = await account.signUp(" owner@example.test ", "secret");
-  assert.equal(signup.confirmationRequired, true);
-  assert.equal(mock.calls[0][1].email, "owner@example.test");
-  assert.equal(mock.calls[0][1].options.emailRedirectTo, "https://adigunsimulator.example.test/");
-  await account.requestPasswordReset(" owner@example.test ");
-  assert.deepEqual(mock.calls[1], ["resetPasswordForEmail", "owner@example.test", { redirectTo: "https://adigunsimulator.example.test/" }]);
+  const requests = [];
+  mock.client.rpc = async name => ({ data: name === "adigun_simulator_has_verified_product_session", error: null });
+  const account = createAccountSession(mock.client, { storage: { getItem: () => "1", setItem() {} }, fetchImpl: async (url, options) => {
+    assert.equal(url, "/api/account");
+    assert.equal(options.credentials, "same-origin");
+    const body = JSON.parse(options.body);
+    requests.push(body);
+    return Response.json(body.step === "begin" ? { step: "verify" } : { step: "signed-in", session: { access_token: "test", refresh_token: "test" } });
+  } });
+  await account.initialize();
+  await account.begin("sign-in", " owner@example.test ", "correct horse battery staple");
+  assert.equal(account.state.status, "account-required");
+  assert.equal(await account.verify("12345678"), "signed-in");
+  assert.equal(account.state.user.email, "owner@example.test");
+  assert.equal("access_token" in account.state, false);
+  assert.deepEqual(requests.map(request => request.step), ["begin", "verify"]);
+  await account.signOut();
+  assert.equal(account.state.status, "account-required");
 });
 
 test("a local session read failure leaves account auth unavailable without blocking guest projects", async () => {
   const mock = mockClient({ getSessionError: new Error("storage blocked") });
   const account = createAccountSession(mock.client);
   assert.equal((await account.initialize()).status, "unavailable");
+});
+
+test("anonymous sessions lock at the server deadline and cannot restart after sign-out", async () => {
+  const mock = mockClient();
+  let marker;
+  const storage = { getItem: () => marker, setItem: (_key, value) => { marker = value; } };
+  let starts = 0;
+  mock.client.auth.signInAnonymously = async () => {
+    starts++;
+    return { data: { session: { user: { is_anonymous: true } } }, error: null };
+  };
+  mock.client.rpc = async name => {
+    assert.equal(name, "adigun_simulator_ensure_guest_trial");
+    return { data: [{ expires_at: "2026-11-22T12:04:00.000Z", server_now: "2026-11-22T12:03:59.980Z" }], error: null };
+  };
+  let expire;
+  const expired = new Promise(resolve => { expire = resolve; });
+  const account = createAccountSession(mock.client, { storage, onState: state => {
+    if (state.status === "guest-expired") expire();
+  } });
+  assert.equal((await account.initialize()).status, "guest");
+  await expired;
+  assert.equal(account.state.status, "guest-expired");
+  await account.signOut();
+  account.dispose();
+  const next = createAccountSession(mock.client, { storage });
+  assert.equal((await next.initialize()).status, "account-required");
+  assert.equal(starts, 1);
+  next.dispose();
 });

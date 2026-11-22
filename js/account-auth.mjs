@@ -1,7 +1,8 @@
 import { createClient } from "./vendor/supabase-sdk.mjs";
 import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from "./supabase-public-config.mjs";
 
-const ERROR_STATE = Object.freeze({ status: "unavailable", user: null, event: "ERROR" });
+const trialMarker = "adigun-simulator.guest-started.v1";
+const maximumGuestMs = 240_000;
 
 export function createAccountClient({
   create = createClient,
@@ -12,7 +13,7 @@ export function createAccountClient({
   return create(url, publishableKey, {
     auth: {
       autoRefreshToken: true,
-      detectSessionInUrl: true,
+      detectSessionInUrl: false,
       flowType: "pkce",
       persistSession: true,
       storageKey: "adigun-simulator.auth.v1"
@@ -22,68 +23,114 @@ export function createAccountClient({
 
 export function createAccountSession(client, {
   onState = () => {},
-  getRedirectUrl = () => `${globalThis.location.origin}${globalThis.location.pathname}`
+  fetchImpl = globalThis.fetch,
+  storage = globalThis.localStorage
 } = {}) {
   let current = { status: "loading", user: null, event: "INITIAL_SESSION" };
-  let subscription = null;
-  let initializePromise = null;
+  let subscription;
+  let initializePromise;
+  let revision = 0;
+  let initializing = true;
+  let guestTimer;
 
-  const publish = (event, session, error = null) => {
-    current = error
-      ? ERROR_STATE
-      : { status: session?.user ? "signed-in" : "guest", user: session?.user ?? null, event };
+  const publish = (event, status, user = null) => {
+    clearTimeout(guestTimer);
+    current = { status, user, event };
     onState(current);
     return current;
   };
-
-  const ensureOk = ({ data, error }) => {
+  const requireData = ({ data, error }) => {
     if (error) throw error;
     return data;
   };
 
+  async function publishSession(event, session) {
+    const request = ++revision;
+    try {
+      const user = session?.user;
+      if (!user) return publish(event, "account-required");
+      if (user.is_anonymous) {
+        const [trial] = requireData(await client.rpc("adigun_simulator_ensure_guest_trial"));
+        if (request !== revision) return current;
+        const remaining = Date.parse(trial?.expires_at) - Date.parse(trial?.server_now);
+        if (!Number.isFinite(remaining) || remaining > maximumGuestMs) throw new Error("Invalid guest trial");
+        storage?.setItem(trialMarker, "1");
+        if (remaining <= 0) return publish(event, "guest-expired");
+        const state = publish(event, "guest");
+        guestTimer = setTimeout(() => publish("GUEST_EXPIRED", "guest-expired"), remaining);
+        return state;
+      }
+      const verified = requireData(await client.rpc("adigun_simulator_has_verified_product_session")) === true;
+      if (request !== revision) return current;
+      if (!verified) return publish(event, "account-required");
+      storage?.setItem(trialMarker, "1");
+      return publish(event, "signed-in", user);
+    } catch {
+      return request === revision ? publish("ERROR", "unavailable") : current;
+    }
+  }
+
+  async function initializeSession() {
+    const { session } = requireData(await client.auth.getSession());
+    if (session || storage?.getItem(trialMarker)) return publishSession("INITIAL_SESSION", session);
+    const data = requireData(await client.auth.signInAnonymously());
+    if (!data.session?.user?.is_anonymous) throw new Error("Anonymous session unavailable");
+    return publishSession("INITIAL_SESSION", data.session);
+  }
+
+  async function accountRequest(payload) {
+    const response = await fetchImpl("/api/account", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || "account-unavailable");
+    return result;
+  }
+
   return Object.freeze({
     get state() { return current; },
-
     initialize() {
       if (initializePromise) return initializePromise;
-      subscription = client.auth.onAuthStateChange((event, session) => publish(event, session)).data?.subscription ?? null;
-      initializePromise = client.auth.getSession()
-        .then(result => publish("INITIAL_SESSION", ensureOk(result).session))
-        .catch(error => publish("ERROR", null, error));
+      subscription = client.auth.onAuthStateChange((event, session) => {
+        if (initializing || event === "INITIAL_SESSION") return;
+        // Supabase Auth holds its session lock while it invokes this callback.
+        setTimeout(() => { if (subscription) void publishSession(event, session); }, 0);
+      }).data?.subscription;
+      initializePromise = initializeSession()
+        .catch(() => publish("ERROR", "unavailable"))
+        .finally(() => { initializing = false; });
       return initializePromise;
     },
 
-    async signUp(email, password) {
-      const data = ensureOk(await client.auth.signUp({
-        email: email.trim(),
-        password,
-        options: { emailRedirectTo: getRedirectUrl() }
-      }));
-      return { user: data.user ?? null, confirmationRequired: !data.session };
+    async begin(mode, email, password) {
+      const result = await accountRequest({ step: "begin", mode, email: email.trim(), password });
+      if (result.step !== "verify") throw new Error("account-unavailable");
     },
 
-    async signIn(email, password) {
-      const data = ensureOk(await client.auth.signInWithPassword({ email: email.trim(), password }));
-      publish("SIGNED_IN", data.session);
-      return data.user;
+    async verify(code) {
+      const result = await accountRequest({ step: "verify", code: code.trim() });
+      if (result.step === "signed-in") {
+        const data = requireData(await client.auth.setSession(result.session));
+        const state = await publishSession("SIGNED_IN", data.session);
+        if (state.status !== "signed-in") throw new Error("account-unavailable");
+      } else if (result.step !== "registered" && result.step !== "password-reset") {
+        throw new Error("account-unavailable");
+      }
+      return result.step;
     },
 
     async signOut() {
-      ensureOk(await client.auth.signOut());
-      publish("SIGNED_OUT", null);
-    },
-
-    async requestPasswordReset(email) {
-      ensureOk(await client.auth.resetPasswordForEmail(email.trim(), { redirectTo: getRedirectUrl() }));
-    },
-
-    async updatePassword(password) {
-      const data = ensureOk(await client.auth.updateUser({ password }));
-      publish("USER_UPDATED", { user: data.user });
-      return data.user;
+      ++revision;
+      requireData(await client.auth.signOut({ scope: "local" }));
+      publish("SIGNED_OUT", "account-required");
     },
 
     dispose() {
+      ++revision;
+      clearTimeout(guestTimer);
       subscription?.unsubscribe?.();
       subscription = null;
     }
