@@ -10,25 +10,32 @@ Write one configured sample byte to a matching ideal I²C EEPROM address/registe
 |---|---|---|
 | V1 | `power.dc-source` | 3.3 V |
 | BUS1 | `input.i2c-read-transaction` | Address 0x50; Register 0x10; Data 0x5A; Baud 100000; Cycle write-read; ACK yes |
-| U1 | `active.i2c-eeprom-ideal` | Address 0x50; Memory 0x10=0x00 |
+| U1 | `active.24lc02b-ip` | Address 0x50; Memory 0x10=0x00 |
 | R1 | `passive.resistor` | 4.7 kΩ |
 | R2 | `passive.resistor` | 4.7 kΩ |
+| C1 | `passive.capacitor` | 100 nF supply bypass |
 | GND | `ground.signal` | 0 V |
 
 These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
 
 ## Net connections
 
-- **VCC:** `supply:+`, `eeprom:VCC`, `pullup-sda:1`, `pullup-scl:1`
-- **GND:** `supply:-`, `transaction:GND`, `eeprom:GND`, `ground:0`
+- **VCC:** `supply:+`, `eeprom:VCC`, `pullup-sda:1`, `pullup-scl:1`, `vcc-bypass:1`
+- **GND:** `supply:-`, `transaction:GND`, `eeprom:GND`, `eeprom:WP`, `ground:0`, `vcc-bypass:2`
 - **SDA:** `transaction:SDA`, `eeprom:SDA`, `pullup-sda:2`
 - **SCL:** `transaction:SCL`, `eeprom:SCL`, `pullup-scl:2`
 
 ## Views and physical-layout status
 
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
+The BB400 assembly seats U1 with pin 1 at F21. Pins 1–3 are internally unconnected and occupy isolated strips. WP (pin 7) is grounded to allow writes.
 
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
+The 53 × 39 mm two-layer PCB uses 0.35 mm minimum copper clearance. J1 takes 3.3 V and common return. BUS1 pins 1–3 carry SDA, SCL and common return, the same order as A3–A5 on the BB400 assembly. The PCB validator checks connectivity and exports copper, outline, drill and BOM files.
+
+## Hardware write and oscilloscope
+
+Use an external 3.3 V open-drain master at 100 kHz. Send address 0x50 for write, word address 0x10, byte 0x5A and STOP. Wait at least 5 ms or use ACK polling before issuing a random read of word address 0x10. The [Microchip data sheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA02-24LC02B-24FC02-2Kbit-I2C-Serial-EEPROM-DS20001709.pdf) describes the pin connections, busy behavior and readback protocol.
+
+The scope shows the ideal bus transaction with a 5 ms host idle interval. The simulator updates its logical byte immediately and does not predict the device's internal write timing or persistence through a power interruption.
 
 ## Acceptance test and expected result
 

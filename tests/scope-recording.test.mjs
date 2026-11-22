@@ -181,6 +181,18 @@ test('SPI display scope samples eight MSB-first bits while selected',async()=>{
  assert.deepEqual(samples.at(-1).nodeVoltages,{SCK:0,MOSI:1,CS:1});
 });
 
+test('24LC02B scope records a write stop, host wait and byte read-back',async()=>{
+ const p=await load('060-eeprom-data-logger'),analysis=runProjectAnalysis(p),{samples,units}=analysis.scopeRecording;
+ assert.equal(units,'logic');
+ assert.equal(analysis.result.hostWriteWaitSeconds,.005);
+ const writeStop=samples.findIndex((s,i)=>i&&s.nodeVoltages.SCL&&samples[i-1].nodeVoltages.SCL&&s.nodeVoltages.SDA&&!samples[i-1].nodeVoltages.SDA);
+ assert.ok(writeStop>0);
+ assert.ok(samples[writeStop+1].timeSeconds-samples[writeStop].timeSeconds>=.005);
+ assert.equal(samples[writeStop+2].nodeVoltages.SDA,0);
+ const busData=samples.slice(-21,-3).filter((_,i)=>i%2===1).map(s=>s.nodeVoltages.SDA);
+ assert.deepEqual(busData,[0,1,0,1,1,0,1,0,1]);
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);
