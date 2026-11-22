@@ -8,7 +8,7 @@ import {renderPcbPreviewSvg} from '../js/pcb-preview.mjs';
 import {parseExampleProject,canLoadExampleAnalysis} from '../js/example-loading.mjs';
 import {describeExample} from '../js/example-bank-ui.mjs';
 import {projectComponentsForView} from '../js/view-projection.mjs';
-import {findLibraryPart,validateProject} from '../js/core.mjs';
+import {findLibraryPart,updateComponent,validateProject} from '../js/core.mjs';
 import {validatePcbFabrication,exportPcbFabrication} from '../js/pcb-export.mjs';
 import {validateBreadboardTopology} from '../js/breadboard-topology.mjs';
 import {validateBreadboardAssembly,renderBreadboardAssemblySvg} from '../js/breadboard-assembly.mjs';
@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,98);assert.equal(index.summary.withoutStoredPcb,118);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,99);assert.equal(index.summary.withoutStoredPcb,117);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -865,10 +865,28 @@ test('Example 065 maps both off-board assemblies across breadboard, schematic an
  assert.match(runProjectAnalysis(broken).message,/OLED SDA and SCL/);
 });
 
+test('Example 066 maps the servo port, reserve capacitance and ADC throughout the native views',async()=>{
+ const p=JSON.parse(await readFile(new URL('../examples/066-arduino-servo-control.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(p,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(p,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(p,{getPartPins}).state,'complete');
+ const parts=Object.fromEntries(p.pcbFabrication.physicalEvidence.map(item=>[item.reference,item]));
+ assert.deepEqual(parts.J2.pinMapping,{'1':'GND','2':'VCC','3':'SERVO_PWM'});
+ assert.deepEqual(parts.C4.pinMapping,{'1':'VCC','2':'GND'});
+ assert.equal(parts.U1.pinMapping['15'],'SERVO_PWM');
+ assert.equal(parts.U1.pinMapping['23'],'POT_OUT');
+ assert.ok(p.pcbFabrication.routes.filter(route=>['VCC','GND'].includes(route.netId)).every(route=>route.widthMm===.75));
+ const drc=validatePcbFabrication(p);
+ assert.equal(drc.status,'passed',drc.errors.join('; '));
+ assert.equal(exportPcbFabrication(p).status,'passed');
+ assert.match(runProjectAnalysis(updateComponent(p,'servo-bulk',{value:'100 nF'})).message,/servo bulk capacitors/);
+});
+
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,98);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,99);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

@@ -251,6 +251,16 @@ test('ultrasonic scope plots the configured echo width on the echo net',async()=
  ]);
 });
 
+test('servo scope renders the modeled high pulse and 50 Hz frame',async()=>{
+ const p=await load('066-arduino-servo-control');
+ const {result,scopeRecording}=runProjectAnalysis(p);
+ assert.equal(scopeRecording.preferredNet,'SERVO_PWM');
+ assert.equal(scopeRecording.units,'logic');
+ assert.deepEqual(scopeRecording.samples[1],{timeSeconds:result.pulseWidthUs/1e6,nodeVoltages:{SERVO_PWM:1}});
+ assert.deepEqual(scopeRecording.samples[2],{timeSeconds:result.pulseWidthUs/1e6,nodeVoltages:{SERVO_PWM:0}});
+ assert.deepEqual(scopeRecording.samples[4],{timeSeconds:.02,nodeVoltages:{SERVO_PWM:1}});
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);

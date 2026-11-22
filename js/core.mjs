@@ -129,6 +129,8 @@ export const STARTER_LIBRARY = Object.freeze([
   { id: "output.ssd1306-oled-port", category: "Output", type: "Off-board SSD1306 I2C display port", prefix: "J", pins: ["GND", "VCC", "SDA", "SCL"], defaultValue: "Adafruit 4440 SSD1306; I2C 0x3C", simulation: "analytical-ultrasonic-range", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "sensor.ultrasonic-echo-ideal", category: "Sensors", type: "Ideal ultrasonic echo-time sensor model", prefix: "US", pins: ["TRIG", "ECHO", "VCC", "GND"], defaultValue: "Echo 5882 us; Minimum 20 mm; Maximum 4000 mm", simulation: "analytical-ultrasonic-range", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.oled-text-sink-ideal", category: "Output", type: "Ideal OLED text sink (behavior model)", prefix: "OLED", pins: ["DATA", "VCC", "GND"], defaultValue: "Distance result", simulation: "analytical-ultrasonic-range", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "active.atmega328p-servo-control", category: "Active", type: "ATmega328P-PU servo controller", prefix: "U", pins: ["A0", "D9", "AREF", "MCU_RESET_N", "VCC", "AVCC", "GND", "AGND"], defaultValue: "Program Servo control; ADC A0; Servo D9", simulation: "analytical-servo-position", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
+  { id: "output.fs90c-servo-port", category: "Output", type: "Off-board FEETECH FS90-C servo port", prefix: "J", pins: ["PWM", "VCC", "GND"], defaultValue: "MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz", simulation: "analytical-servo-position", status: "manufacturer candidate", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.servo-angle-ideal", category: "Output", type: "Ideal hobby-servo position model", prefix: "SERVO", pins: ["PWM", "VCC", "GND"], defaultValue: "MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz", simulation: "analytical-servo-position", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "active.stepper-driver-ideal", category: "Active", type: "Ideal dual-H-bridge stepper driver (logic model)", prefix: "U", pins: ["STEP", "DIR", "VCC", "GND", "A1", "A2", "B1", "B2"], defaultValue: "Full-step dual-phase drive", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: true, schematic: true, pcb: false } },
   { id: "output.stepper-motor-ideal", category: "Output", type: "Ideal bipolar stepper motor (position model)", prefix: "M", pins: ["A1", "A2", "B1", "B2"], defaultValue: "StepsPerRevolution 200; StepAngle 1.8 deg", simulation: "analytical-stepper-motion", status: "starter generic", views: { breadboard: false, schematic: true, pcb: false } },
@@ -1302,6 +1304,12 @@ export function runSupportedAnalysis(project, { previousState } = {}) {
   }
   if (stepperDrivers.length === 1 && stepperMotors.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuStepper(project, { source: source[0], mcu: mcuControllers[0], driver: stepperDrivers[0], motor: stepperMotors[0], ground: ground[0], validation });
+  }
+  const servoController = project.components.find(item => item.libraryId === "active.atmega328p-servo-control");
+  const servoPort = project.components.find(item => item.libraryId === "output.fs90c-servo-port");
+  const servoBulk = project.components.find(item => item.libraryId === "passive.electrolytic-capacitor");
+  if (servoController && servoPort && servoBulk && dimmerTrimmer && source.length === 1 && ground.length === 1 && capacitor.length === 3 && resistor.length === 1 && project.components.length === 10) {
+    return analyseMcuServoControl(project, { source: source[0], mcu: servoController, potentiometer: dimmerTrimmer, servo: servoPort, ground: ground[0], servoBulk, capacitors: capacitor, resistors: resistor, validation });
   }
   if (servoModels.length === 1 && adcPotentiometers.length === 1 && mcuControllers.length === 1 && source.length === 1 && ground.length === 1 && project.components.length === 5) {
     return analyseMcuServoControl(project, { source: source[0], mcu: mcuControllers[0], potentiometer: adcPotentiometers[0], servo: servoModels[0], ground: ground[0], validation });
@@ -3037,7 +3045,7 @@ function analyseMcuStepper(project,{source,mcu,driver,motor,ground,validation}){
   const phaseSequence=Array.from({length:Math.min(steps,8)},(_,index)=>{const phaseIndex=((signedSteps>0?index:3-index)%4+4)%4;return {step:index+1,phaseIndex,coils:phaseTable[phaseIndex]};});
   return {state:"complete",engine:"Ideal Uno-class bipolar stepper sequence and position model",message:"Applies a full-step phase sequence and calculates ideal angular travel from configured steps and step angle. Arduino firmware, acceleration, missed steps, torque/load, coil current/thermal behavior, resonance, and mechanical end stops are omitted.",result:{kind:"mcu-stepper-position",direction,steps,signedSteps,stepRateHz:stepRate,stepsPerRevolution,stepAngleDegrees:stepAngle,angularTravelDegrees,finalPositionDegrees,motionDurationSeconds:steps/stepRate,phaseSequence,firmwareExecuted:false},validation};
 }
-function analyseMcuServoControl(project,{source,mcu,potentiometer,servo,ground,validation}){
+function analyseMcuServoControl(project,{source,mcu,potentiometer,servo,ground,servoBulk,capacitors,resistors,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const n=(part,pin)=>netByEndpoint.get(endpoint(part,String(pin))),mcuFields=String(mcu.value).split(";").map(v=>v.trim()),servoFields=String(servo.value).split(";").map(v=>v.trim()),potFields=String(potentiometer.value).split(";").map(v=>v.trim());
   const field=(list,label)=>list.find(v=>v.startsWith(label+" "))?.slice(label.length).trim(),number=value=>Number(String(value??"").split(/\s+/)[0]);
@@ -3047,6 +3055,18 @@ function analyseMcuServoControl(project,{source,mcu,potentiometer,servo,ground,v
   const wired=n(potentiometer,"VCC")===vccNet&&n(potentiometer,"GND")===groundNet&&n(potentiometer,"OUT")===n(mcu,"A0")&&n(mcu,"D9")===n(servo,"PWM")&&n(servo,"VCC")===vccNet&&n(servo,"GND")===groundNet;
   if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||!wired||n(mcu,"GND")!==groundNet||field(mcuFields,"Program")?.toLowerCase()!=="servo control"||field(mcuFields,"ADC")!=="A0"||field(mcuFields,"Servo")!=="D9"||!Number.isFinite(position)||position<0||position>100||!Number.isInteger(adcCount)||!Number.isFinite(minPulse)||!Number.isFinite(maxPulse)||maxPulse<=minPulse||!Number.isFinite(minAngle)||!Number.isFinite(maxAngle)||maxAngle<=minAngle||!Number.isFinite(frequency)||frequency<40||frequency>333){
     return {state:"blocked",message:"Configure a 0–100% potentiometer, A0-to-ADC input, D9 servo pulse output, valid pulse/angle endpoints, and a servo frame rate from 40 to 333 Hz.",validation};
+  }
+  if (capacitors) {
+    const reference=n(mcu,"AREF");
+    const bypass=capacitors.filter(c=>Math.abs(capacitanceValue(c.value)-100e-9)<1e-12&&validSupplyBypass(c,n,vccNet,groundNet));
+    const bulk=Math.abs(capacitanceValue(servoBulk.value)-470e-6)<1e-12&&n(servoBulk,"+")===vccNet&&n(servoBulk,"-")===groundNet;
+    if (supplyVoltage!==5||bypass.length!==2||!validAvrSupply(mcu,resistors,bypass,n,vccNet,groundNet)||
+        !reference||reference===vccNet||reference===groundNet||!capacitors.some(c=>validSupplyBypass(c,n,reference,groundNet))||!bulk) {
+      return {state:"blocked",message:"Use regulated 5 V, power VCC and AVCC, connect both grounds, pull reset up and fit the bypass, AREF and correctly polarized servo bulk capacitors.",validation};
+    }
+    if (frequency!==50||minPulse!==1000||maxPulse!==2000) {
+      return {state:"blocked",message:"Use the firmware's 50 Hz frame rate and 1000 to 2000 microsecond pulse settings for the physical servo port.",validation};
+    }
   }
   const positionFraction=adcCount/1023,pulseWidthUs=minPulse+positionFraction*(maxPulse-minPulse),angleDegrees=minAngle+positionFraction*(maxAngle-minAngle);
   return {state:"complete",engine:"Ideal Uno-class hobby-servo pulse mapping",message:"Maps the 10-bit potentiometer reading linearly to the configured servo angle and pulse width. Arduino C++ execution, servo torque, mechanics, backlash, supply transients, and device-specific pulse calibration are omitted.",result:{kind:"mcu-servo-control",positionPercent:position,adcResolutionBits:10,adcCount,pwmFrequencyHz:frequency,pulseWidthUs,angleDegrees,angleRangeDegrees:[minAngle,maxAngle],firmwareExecuted:false},validation};

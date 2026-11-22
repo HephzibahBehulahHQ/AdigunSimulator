@@ -1,62 +1,19 @@
-# 066 — Uno-class potentiometer servo sweep
+# 066 — Uno-class potentiometer servo control
 
-## Purpose
+The Bourns 3296W 10 kΩ trimmer drives A0 on an ATmega328P-PU. D9 sends a 1–2 ms high pulse every 20 ms to a cabled FEETECH FS90-C servo. The analytical angle is a normalized 0–180° estimate. The FS90-C specification gives 120° of travel over 900–2100 µs. The 1000–2000 µs firmware window stays inside that pulse range. [FEETECH FS90-C specification](https://www.pololu.com/file/0J1435/FS90-specs.pdf).
 
-Map the 10-bit potentiometer range to calibrated 1–2 ms servo pulses at 50 Hz and a linear 0–180° position estimate.
+| Reference | Assembly |
+| --- | --- |
+| J1 | Regulated 5 V input and return |
+| U1 | ATmega328P-PU, internal 8 MHz oscillator without division |
+| RV1 | Bourns 3296W-1-103LF, with wiper at A0 |
+| J2 | Samtec TSW-103-07-T-S, pins 1–3 are GND, 5 V and D9/PWM |
+| R7 | 10 kΩ MCU reset pull-up |
+| C1–C3 | 100 nF at VCC, AVCC and AREF |
+| C4 | Panasonic EEUFR1A471, 470 µF, 10 V, positive at 5 V |
 
-## Bill of materials
+Power J1 from a regulated 5 V source sized for at least 1 A. Check the servo connector against GND, 5 V and PWM before energizing. The servo uses a shared return and mounts off board. Its only controller-board footprint is J2. Use the BB400 with U1 pin 1 at F10 and C4 positive at H29 and negative at H27 via insulated pigtails. [BB400 data sheet](https://www.busboard.com/documents/datasheets/BPS-DAT-%28BB400%29-Datasheet.pdf), [Samtec header](https://www.samtec.com/products/tsw-103-07-t-s), [Panasonic C4](https://industrial.panasonic.com/ww/products/pt/aluminum-cap-lead/models/EEUFR1A471).
 
-| Reference | Project library ID | Project value |
-|---|---|---|
-| V1 | `power.dc-source` | 5 V |
-| U1 | `active.mcu-uno-ideal` | Program Servo control; ADC A0; Servo D9 |
-| RV1 | `input.potentiometer-adc-ideal` | Position 50%; Resolution 10 bit |
-| SERVO1 | `output.servo-angle-ideal` | MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz |
-| GND | `ground.signal` | 0 V |
+The controller PCB is 65 × 49 mm with two copper layers, 0.35 mm clearance and 0.75 mm power traces. The native project supports the educational copper, outline, drill and BOM export. Check voltage drop and temperature under load on assembled hardware.
 
-These are the exact component records in the native example file. A library ID and value do not establish that a manufacturer part, footprint, or electrical model has been independently verified.
-
-## Net connections
-
-- **VCC:** `supply:+`, `mcu:VCC`, `pot:VCC`, `servo:VCC`
-- **GND:** `supply:-`, `mcu:GND`, `pot:GND`, `servo:GND`, `ground:0`
-- **POT_OUT:** `pot:OUT`, `mcu:A0`
-- **SERVO_PWM:** `mcu:D9`, `servo:PWM`
-
-## Views and physical-layout status
-
-No verified breadboard pin-hole map is stored; the view must not be interpreted as a wiring-ready physical breadboard.
-
-No stored PCB fabrication geometry is present. The PCB view is a conceptual/shared layout and must not be used to fabricate a board.
-
-## Acceptance test and expected result
-
-- Stable test ID: `core-arduino-servo-control`
-- Engine: Ideal Uno-class hobby-servo pulse mapping
-- Engine version: `adigun-simulator@0.1.0`
-- Model version: `ideal-uno-servo-pulse-angle-map-v1`
-- Passing CI run: https://github.com/HephzibahBehulahHQ/AdigunSimulator/actions/runs/41177468886
-
-Recorded expected result:
-
-```json
-{
-  "positionPercent": 50,
-  "adcResolutionBits": 10,
-  "adcCount": 512,
-  "pulseWidthUs": 1500.4897360703812,
-  "angleDegrees": 90.08797653958945,
-  "angleRangeDegrees": [0, 180],
-  "pwmFrequencyHz": 50,
-  "frameRateHz": 50,
-  "firmwareExecuted": false
-}
-```
-
-## Safety and model limits
-
-Ideal pulse-to-angle mapping only; Arduino firmware, servo torque, mechanical load, backlash, current transients, and model-specific calibration are omitted.
-
-Review the model's stated limits and all exact component datasheets before transferring this example to physical hardware. A passing automated test does not establish electrical safety, compliance, or manufacturing readiness.
-
-Native project: `examples/066-arduino-servo-control.adigun.json`.
+The [AVR firmware](../066-arduino-servo-control/main.c) uses Timer1 with a 1 µs timebase. Its buffered compare value changes the pulse width at the frame boundary. At the default 50% setting, the analytical scope shows a 1500.49 µs pulse in a 20 ms frame. The model omits servo torque, mechanical load, backlash, supply transients and firmware execution. Bench measurements and manufacturing qualification remain open.

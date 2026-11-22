@@ -16,6 +16,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='supercap-hold-up')return supercapHoldUpRecording(project,r);
  if(['bridge-rectifier-waveform','bridge-smoothing-capacitor'].includes(kind))return rectifierWaveformRecording(project,r);
  if(kind==='tvs-pulse-clamp')return tvsPulseRecording(project,r);
+ if(kind==='mcu-servo-control')return servoPulseRecording(project,r);
  if(kind==='mcu-ultrasonic-range')return sonarEchoRecording(project,r);
  if(kind==='mcu-temperature-monitor')return temperatureInputRecording(project,r);
  if(kind==='mcu-pwm-dimmer')return dimmerPwmRecording(project,r);
@@ -287,6 +288,22 @@ function dualTimerRecording(project, result) {
  }
  samples.push({timeSeconds:duration,nodeVoltages:{...levels}});
  return {kind:'analytical-output-recording',model:'Ideal NE556 dual astable timing (phase-normalized outputs, hardware levels omitted)',preferredNet:channels[0].output,samples};
+}
+
+function servoPulseRecording(project,result){
+ const servo=project.components.find(c=>['output.servo-angle-ideal','output.fs90c-servo-port'].includes(c.libraryId));
+ const output=servo&&project.nets.find(net=>net.endpoints.includes(servo.instanceId+':PWM'))?.id;
+ const period=1/result.pwmFrequencyHz,width=result.pulseWidthUs/1e6;
+ if(!output||!Number.isFinite(period)||!Number.isFinite(width)||width<=0||width>=period)return null;
+ const samples=[];
+ const sample=(timeSeconds,level)=>({timeSeconds,nodeVoltages:{[output]:level}});
+ for(let frame=0;frame<3;frame++){
+  const start=frame*period,end=start+width;
+  if(frame)samples.push(sample(start,0));
+  samples.push(sample(start,1),sample(end,1),sample(end,0));
+ }
+ samples.push(sample(3*period,0));
+ return {kind:'analytical-output-recording',units:'logic',model:'Ideal D9 servo command pulse',preferredNet:output,samples};
 }
 
 function sonarEchoRecording(project,result){

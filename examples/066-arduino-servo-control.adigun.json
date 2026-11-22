@@ -19,8 +19,8 @@
           60
         ],
         "schematic": [
-          45,
-          60
+          48,
+          38
         ],
         "pcb": [
           45,
@@ -30,7 +30,7 @@
     },
     {
       "instanceId": "mcu",
-      "libraryId": "active.mcu-uno-ideal",
+      "libraryId": "active.atmega328p-servo-control",
       "reference": "U1",
       "value": "Program Servo control; ADC A0; Servo D9",
       "position": {
@@ -39,8 +39,8 @@
           60
         ],
         "schematic": [
-          160,
-          60
+          278,
+          135
         ],
         "pcb": [
           160,
@@ -50,7 +50,7 @@
     },
     {
       "instanceId": "pot",
-      "libraryId": "input.potentiometer-adc-ideal",
+      "libraryId": "input.bourns-3296w-adc",
       "reference": "RV1",
       "value": "Position 50%; Resolution 10 bit",
       "position": {
@@ -59,8 +59,8 @@
           60
         ],
         "schematic": [
-          280,
-          60
+          102,
+          136
         ],
         "pcb": [
           280,
@@ -70,8 +70,8 @@
     },
     {
       "instanceId": "servo",
-      "libraryId": "output.servo-angle-ideal",
-      "reference": "SERVO1",
+      "libraryId": "output.fs90c-servo-port",
+      "reference": "J2",
       "value": "MinPulse 1000 us; MaxPulse 2000 us; MinAngle 0 deg; MaxAngle 180 deg; Frequency 50 Hz",
       "position": {
         "breadboard": [
@@ -79,8 +79,8 @@
           60
         ],
         "schematic": [
-          410,
-          60
+          510,
+          136
         ],
         "pcb": [
           410,
@@ -99,13 +99,148 @@
           60
         ],
         "schematic": [
-          530,
-          60
+          556,
+          231
         ],
         "pcb": [
           530,
           60
         ]
+      }
+    },
+    {
+      "instanceId": "reset-pullup",
+      "libraryId": "passive.resistor",
+      "reference": "R7",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          385,
+          121
+        ],
+        "pcb": [
+          385,
+          121
+        ],
+        "schematic": [
+          281,
+          241
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "vcc-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          500,
+          121
+        ],
+        "pcb": [
+          500,
+          121
+        ],
+        "schematic": [
+          188,
+          43
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "avcc-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C2",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          40,
+          187
+        ],
+        "pcb": [
+          40,
+          187
+        ],
+        "schematic": [
+          373,
+          43
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "aref-bypass",
+      "reference": "C3",
+      "libraryId": "passive.capacitor",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          0,
+          0
+        ],
+        "schematic": [
+          408,
+          196
+        ],
+        "pcb": [
+          0,
+          0
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "servo-bulk",
+      "libraryId": "passive.electrolytic-capacitor",
+      "reference": "C4",
+      "value": "470 uF",
+      "position": {
+        "breadboard": [
+          500,
+          121
+        ],
+        "pcb": [
+          500,
+          121
+        ],
+        "schematic": [
+          500,
+          40
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
       }
     }
   ],
@@ -116,7 +251,12 @@
         "supply:+",
         "mcu:VCC",
         "pot:VCC",
-        "servo:VCC"
+        "servo:VCC",
+        "mcu:AVCC",
+        "reset-pullup:1",
+        "vcc-bypass:1",
+        "avcc-bypass:1",
+        "servo-bulk:+"
       ]
     },
     {
@@ -126,7 +266,12 @@
         "mcu:GND",
         "pot:GND",
         "servo:GND",
-        "ground:0"
+        "ground:0",
+        "mcu:AGND",
+        "vcc-bypass:2",
+        "avcc-bypass:2",
+        "aref-bypass:2",
+        "servo-bulk:-"
       ]
     },
     {
@@ -142,7 +287,2958 @@
         "mcu:D9",
         "servo:PWM"
       ]
+    },
+    {
+      "id": "MCU_RESET_N",
+      "endpoints": [
+        "mcu:MCU_RESET_N",
+        "reset-pullup:2"
+      ]
+    },
+    {
+      "id": "AREF",
+      "endpoints": [
+        "mcu:AREF",
+        "aref-bypass:1"
+      ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM1",
+      "mcu:MCU_RESET_N": "F10",
+      "mcu:VCC": "F16",
+      "mcu:GND": "F17",
+      "mcu:AVCC": "E18",
+      "mcu:AGND": "E16",
+      "mcu:A0": "E15",
+      "mcu:AREF": "E17",
+      "mcu:D9": "E23",
+      "vcc-bypass:1": "J25",
+      "vcc-bypass:2": "J27",
+      "avcc-bypass:1": "A25",
+      "avcc-bypass:2": "A27",
+      "reset-pullup:1": "E26",
+      "reset-pullup:2": "E30",
+      "pot:GND": "H3",
+      "pot:OUT": "H4",
+      "pot:VCC": "H5",
+      "aref-bypass:1": "J7",
+      "aref-bypass:2": "J9",
+      "servo:GND": "A7",
+      "servo:VCC": "A8",
+      "servo:PWM": "A9",
+      "servo-bulk:+": "H29",
+      "servo-bulk:-": "H27"
+    },
+    "jumpers": [
+      {
+        "from": "TP13",
+        "to": "J16"
+      },
+      {
+        "from": "TP14",
+        "to": "C18"
+      },
+      {
+        "from": "TP15",
+        "to": "I25"
+      },
+      {
+        "from": "TP16",
+        "to": "B25"
+      },
+      {
+        "from": "TP17",
+        "to": "D26"
+      },
+      {
+        "from": "J17",
+        "to": "BM12"
+      },
+      {
+        "from": "B16",
+        "to": "BM13"
+      },
+      {
+        "from": "I27",
+        "to": "BM20"
+      },
+      {
+        "from": "B27",
+        "to": "BM19"
+      },
+      {
+        "from": "D30",
+        "to": "I10"
+      },
+      {
+        "from": "B7",
+        "to": "BM3"
+      },
+      {
+        "from": "G3",
+        "to": "BM5"
+      },
+      {
+        "from": "G4",
+        "to": "D15"
+      },
+      {
+        "from": "G5",
+        "to": "TP5"
+      },
+      {
+        "from": "I7",
+        "to": "C17"
+      },
+      {
+        "from": "I9",
+        "to": "BM7"
+      },
+      {
+        "from": "B8",
+        "to": "TP9"
+      },
+      {
+        "from": "B9",
+        "to": "D23"
+      },
+      {
+        "from": "G29",
+        "to": "TP19"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "physicalNotes": [
+      "Install U1 with pin 1 at F10 and set its internal clock to 8 MHz without division. RV1 wiper goes to A0 and D9 drives J2.",
+      "Use the regulated 5 V supply at J1 and connect the servo to J2 by signal name. Connect C4 positive to H29 and negative to H27 using insulated pigtails."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM1",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "mcu",
+          "reference": "U1",
+          "manufacturer": "Microchip",
+          "manufacturerPartNumber": "ATMEGA328P-PU",
+          "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 34.798,
+            "height": 7.493
+          },
+          "positionPx": [
+            359.72413793103476,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "MCU_RESET_N",
+              "hole": "F10",
+              "offsetMm": [
+                -16.51,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "VCC",
+              "hole": "F16",
+              "offsetMm": [
+                -1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "GND",
+              "hole": "F17",
+              "offsetMm": [
+                1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AVCC",
+              "hole": "E18",
+              "offsetMm": [
+                3.81,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AGND",
+              "hole": "E16",
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "A0",
+              "hole": "E15",
+              "offsetMm": [
+                -3.81,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AREF",
+              "hole": "E17",
+              "offsetMm": [
+                1.27,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "D9",
+              "hole": "E23",
+              "offsetMm": [
+                16.51,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            }
+          ],
+          "noConnectHoles": [
+            "F18",
+            "F19",
+            "E22",
+            "E21",
+            "E20",
+            "E10",
+            "F11",
+            "F13",
+            "F14",
+            "F15",
+            "F20",
+            "F21",
+            "F22",
+            "F23",
+            "E14",
+            "E13",
+            "E12",
+            "E11",
+            "F12",
+            "E19"
+          ]
+        },
+        {
+          "instanceId": "vcc-bypass",
+          "reference": "C1",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            547.1034482758625,
+            205
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "J25",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "J27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "avcc-bypass",
+          "reference": "C2",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            546.5034482758625,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A25",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reset-pullup",
+          "reference": "R7",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            586.5517241379315,
+            135
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "E26",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "E30",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "pot",
+          "reference": "RV1",
+          "kind": "trimmer",
+          "manufacturer": "Bourns",
+          "manufacturerPartNumber": "3296W-1-103LF",
+          "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/3296.pdf",
+          "bodyMm": {
+            "width": 9.53,
+            "height": 4.83
+          },
+          "positionPx": [
+            113.17241379310346,
+            185
+          ],
+          "pins": [
+            {
+              "pin": "GND",
+              "hole": "H3",
+              "connection": "direct",
+              "offsetMm": [
+                -2.54,
+                0
+              ],
+              "leadDiameterMm": 0.51
+            },
+            {
+              "pin": "OUT",
+              "hole": "H4",
+              "connection": "direct",
+              "offsetMm": [
+                0,
+                0
+              ],
+              "leadDiameterMm": 0.51
+            },
+            {
+              "pin": "VCC",
+              "hole": "H5",
+              "connection": "direct",
+              "offsetMm": [
+                2.54,
+                0
+              ],
+              "leadDiameterMm": 0.51
+            }
+          ]
+        },
+        {
+          "instanceId": "aref-bypass",
+          "reference": "C3",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            192.0689655172414,
+            205
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "J7",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "J9",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "servo",
+          "reference": "J2",
+          "kind": "through-hole-header",
+          "manufacturer": "Samtec",
+          "manufacturerPartNumber": "TSW-103-07-T-S",
+          "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s",
+          "bodyMm": {
+            "width": 7.62,
+            "height": 2.54
+          },
+          "positionPx": [
+            192.0689655172414,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "GND",
+              "hole": "A7",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -2.54,
+                0
+              ]
+            },
+            {
+              "pin": "VCC",
+              "hole": "A8",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                0,
+                0
+              ]
+            },
+            {
+              "pin": "PWM",
+              "hole": "A9",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                2.54,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "servo-bulk",
+          "reference": "C4",
+          "manufacturer": "Panasonic",
+          "manufacturerPartNumber": "EEUFR1A471",
+          "sourceUrl": "https://industrial.panasonic.com/ww/products/pt/aluminum-cap-lead/models/EEUFR1A471",
+          "kind": "radial-capacitor",
+          "bodyMm": {
+            "width": 8,
+            "height": 8
+          },
+          "positionPx": [
+            600,
+            177
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "H29",
+              "connection": "pigtail",
+              "offsetMm": [
+                1.75,
+                0
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "H27",
+              "connection": "pigtail",
+              "offsetMm": [
+                -1.75,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "schematicWires": [
+    {
+      "id": "servo-wire-1",
+      "from": "supply:+",
+      "to": "mcu:VCC",
+      "waypoints": [
+        [
+          32,
+          67
+        ],
+        [
+          32,
+          16
+        ],
+        [
+          350,
+          16
+        ],
+        [
+          350,
+          153.2
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-2",
+      "from": "supply:+",
+      "to": "pot:VCC",
+      "waypoints": [
+        [
+          32,
+          67
+        ],
+        [
+          32,
+          16
+        ],
+        [
+          174,
+          16
+        ],
+        [
+          174,
+          165
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-3",
+      "from": "supply:+",
+      "to": "servo:VCC",
+      "waypoints": [
+        [
+          32,
+          67
+        ],
+        [
+          32,
+          16
+        ],
+        [
+          486,
+          16
+        ],
+        [
+          486,
+          171
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-4",
+      "from": "supply:+",
+      "to": "mcu:AVCC",
+      "waypoints": [
+        [
+          32,
+          67
+        ],
+        [
+          32,
+          16
+        ],
+        [
+          350,
+          16
+        ],
+        [
+          350,
+          160.4
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-5",
+      "from": "supply:+",
+      "to": "reset-pullup:1",
+      "waypoints": [
+        [
+          32,
+          67
+        ],
+        [
+          32,
+          16
+        ],
+        [
+          265,
+          16
+        ],
+        [
+          265,
+          260.5
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-6",
+      "from": "supply:+",
+      "to": "vcc-bypass:1",
+      "waypoints": [
+        [
+          32,
+          67
+        ],
+        [
+          32,
+          16
+        ],
+        [
+          172,
+          16
+        ],
+        [
+          172,
+          62.5
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-7",
+      "from": "supply:+",
+      "to": "avcc-bypass:1",
+      "waypoints": [
+        [
+          32,
+          67
+        ],
+        [
+          32,
+          16
+        ],
+        [
+          357,
+          16
+        ],
+        [
+          357,
+          62.5
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-8",
+      "from": "supply:+",
+      "to": "servo-bulk:+",
+      "waypoints": [
+        [
+          32,
+          67
+        ],
+        [
+          32,
+          16
+        ],
+        [
+          484,
+          16
+        ],
+        [
+          484,
+          59.5
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-9",
+      "from": "supply:-",
+      "to": "mcu:GND",
+      "waypoints": [
+        [
+          172,
+          67
+        ],
+        [
+          172,
+          167.6
+        ],
+        [
+          266,
+          167.6
+        ],
+        [
+          266,
+          114
+        ],
+        [
+          349,
+          114
+        ],
+        [
+          349,
+          167.6
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-10",
+      "from": "supply:-",
+      "to": "pot:GND",
+      "waypoints": [
+        [
+          172,
+          67
+        ],
+        [
+          172,
+          225
+        ],
+        [
+          86,
+          225
+        ],
+        [
+          86,
+          159
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-11",
+      "from": "supply:-",
+      "to": "servo:GND",
+      "waypoints": [
+        [
+          172,
+          67
+        ],
+        [
+          172,
+          169
+        ],
+        [
+          266,
+          169
+        ],
+        [
+          266,
+          114
+        ],
+        [
+          349,
+          114
+        ],
+        [
+          349,
+          165
+        ],
+        [
+          494,
+          165
+        ],
+        [
+          494,
+          114
+        ],
+        [
+          578,
+          114
+        ],
+        [
+          578,
+          165
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-12",
+      "from": "supply:-",
+      "to": "ground:0",
+      "waypoints": [
+        [
+          172,
+          67
+        ],
+        [
+          172,
+          267
+        ],
+        [
+          266,
+          267
+        ],
+        [
+          266,
+          114
+        ],
+        [
+          349,
+          114
+        ],
+        [
+          349,
+          267
+        ],
+        [
+          494,
+          267
+        ],
+        [
+          494,
+          114
+        ],
+        [
+          584,
+          114
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-13",
+      "from": "supply:-",
+      "to": "mcu:AGND",
+      "waypoints": [
+        [
+          172,
+          67
+        ],
+        [
+          172,
+          174.8
+        ],
+        [
+          266,
+          174.8
+        ],
+        [
+          266,
+          114
+        ],
+        [
+          349,
+          114
+        ],
+        [
+          349,
+          174.8
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-14",
+      "from": "supply:-",
+      "to": "vcc-bypass:2",
+      "waypoints": [
+        [
+          120,
+          67
+        ],
+        [
+          120,
+          108
+        ],
+        [
+          258,
+          108
+        ],
+        [
+          258,
+          62.5
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-15",
+      "from": "supply:-",
+      "to": "avcc-bypass:2",
+      "waypoints": [
+        [
+          120,
+          67
+        ],
+        [
+          120,
+          108
+        ],
+        [
+          443,
+          108
+        ],
+        [
+          443,
+          62.5
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-16",
+      "from": "supply:-",
+      "to": "aref-bypass:2",
+      "waypoints": [
+        [
+          172,
+          67
+        ],
+        [
+          172,
+          215.5
+        ],
+        [
+          266,
+          215.5
+        ],
+        [
+          266,
+          114
+        ],
+        [
+          349,
+          114
+        ],
+        [
+          349,
+          267
+        ],
+        [
+          478,
+          267
+        ],
+        [
+          478,
+          215.5
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-17",
+      "from": "supply:-",
+      "to": "servo-bulk:-",
+      "waypoints": [
+        [
+          120,
+          67
+        ],
+        [
+          120,
+          108
+        ],
+        [
+          570,
+          108
+        ],
+        [
+          570,
+          59.5
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-18",
+      "from": "pot:OUT",
+      "to": "mcu:A0",
+      "waypoints": [
+        [
+          78,
+          171
+        ],
+        [
+          78,
+          226
+        ],
+        [
+          262,
+          226
+        ],
+        [
+          262,
+          153.2
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-19",
+      "from": "mcu:D9",
+      "to": "servo:PWM",
+      "waypoints": [
+        [
+          258,
+          160.4
+        ],
+        [
+          258,
+          111
+        ],
+        [
+          484,
+          111
+        ],
+        [
+          484,
+          159
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-20",
+      "from": "mcu:MCU_RESET_N",
+      "to": "reset-pullup:2",
+      "waypoints": [
+        [
+          258,
+          174.8
+        ],
+        [
+          258,
+          161
+        ],
+        [
+          257,
+          161
+        ],
+        [
+          257,
+          109
+        ],
+        [
+          351,
+          109
+        ],
+        [
+          351,
+          260.5
+        ]
+      ]
+    },
+    {
+      "id": "servo-wire-21",
+      "from": "mcu:AREF",
+      "to": "aref-bypass:1",
+      "waypoints": [
+        [
+          262,
+          167.6
+        ],
+        [
+          262,
+          101
+        ],
+        [
+          359,
+          101
+        ],
+        [
+          359,
+          215.5
+        ]
+      ]
+    }
+  ],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 65,
+      "heightMm": 49,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "aref-bypass",
+        "reference": "C3",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "ATMEGA328P-PU",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "footprint": "Microchip_ATMEGA328P-PU_SPDIP-28_P2.54mm_W7.62mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "3296W-1-103LF",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/3296.pdf",
+        "footprint": "Bourns_3296W-1-103LF_Inline_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "servo",
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-103-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s",
+        "footprint": "Samtec_TSW-103-07-T-S_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "servo-bulk",
+        "reference": "C4",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1A471",
+        "sourceUrl": "https://industrial.panasonic.com/ww/products/pt/aluminum-cap-lead/models/EEUFR1A471",
+        "footprint": "Panasonic_EEUFR1A471_Radial_D8.0_P3.5mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "1",
+        "pin": "+",
+        "netId": "VCC",
+        "xMm": 5.842,
+        "yMm": 24.892,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:+"
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.842,
+        "yMm": 27.432,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:-"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 32.512,
+        "yMm": 37.084,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "vcc-bypass:1"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 27.432,
+        "yMm": 37.084,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "vcc-bypass:2"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 32.004,
+        "yMm": 13.97,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avcc-bypass:1"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 26.924,
+        "yMm": 13.97,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avcc-bypass:2"
+      },
+      {
+        "instanceId": "aref-bypass",
+        "reference": "C3",
+        "number": "1",
+        "pin": "1",
+        "netId": "AREF",
+        "xMm": 37.338,
+        "yMm": 13.97,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "aref-bypass:1"
+      },
+      {
+        "instanceId": "aref-bypass",
+        "reference": "C3",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 42.418,
+        "yMm": 13.97,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "aref-bypass:2"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 10.16,
+        "yMm": 33.528,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:1"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "2",
+        "pin": "2",
+        "netId": "MCU_RESET_N",
+        "xMm": 20.32,
+        "yMm": 33.528,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:2"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "1",
+        "pin": "MCU_RESET_N",
+        "netId": "MCU_RESET_N",
+        "xMm": 17.526,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:MCU_RESET_N"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "2",
+        "pin": "NC2",
+        "netId": "NC",
+        "xMm": 20.066,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "3",
+        "pin": "NC3",
+        "netId": "NC",
+        "xMm": 22.606,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "4",
+        "pin": "NC4",
+        "netId": "NC",
+        "xMm": 25.146,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "5",
+        "pin": "NC5",
+        "netId": "NC",
+        "xMm": 27.686,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "6",
+        "pin": "NC6",
+        "netId": "NC",
+        "xMm": 30.226,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "7",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 32.766,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:VCC"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "8",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 35.306,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:GND"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "9",
+        "pin": "NC9",
+        "netId": "NC",
+        "xMm": 37.846,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "10",
+        "pin": "NC10",
+        "netId": "NC",
+        "xMm": 40.386,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "11",
+        "pin": "NC11",
+        "netId": "NC",
+        "xMm": 42.926,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "12",
+        "pin": "NC12",
+        "netId": "NC",
+        "xMm": 45.466,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "13",
+        "pin": "NC13",
+        "netId": "NC",
+        "xMm": 48.006,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "14",
+        "pin": "NC14",
+        "netId": "NC",
+        "xMm": 50.546,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "15",
+        "pin": "D9",
+        "netId": "SERVO_PWM",
+        "xMm": 50.546,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:D9"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "16",
+        "pin": "NC16",
+        "netId": "NC",
+        "xMm": 48.006,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "17",
+        "pin": "NC17",
+        "netId": "NC",
+        "xMm": 45.466,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "18",
+        "pin": "NC18",
+        "netId": "NC",
+        "xMm": 42.926,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "19",
+        "pin": "NC19",
+        "netId": "NC",
+        "xMm": 40.386,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "20",
+        "pin": "AVCC",
+        "netId": "VCC",
+        "xMm": 37.846,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:AVCC"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "21",
+        "pin": "AREF",
+        "netId": "AREF",
+        "xMm": 35.306,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:AREF"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "22",
+        "pin": "AGND",
+        "netId": "GND",
+        "xMm": 32.766,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:AGND"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "23",
+        "pin": "A0",
+        "netId": "POT_OUT",
+        "xMm": 30.226,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "mcu:A0"
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "24",
+        "pin": "NC24",
+        "netId": "NC",
+        "xMm": 27.686,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "25",
+        "pin": "NC25",
+        "netId": "NC",
+        "xMm": 25.146,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "26",
+        "pin": "NC26",
+        "netId": "NC",
+        "xMm": 22.606,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "27",
+        "pin": "NC27",
+        "netId": "NC",
+        "xMm": 20.066,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "mcu",
+        "reference": "U1",
+        "number": "28",
+        "pin": "NC28",
+        "netId": "NC",
+        "xMm": 17.526,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "number": "1",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 9.144,
+        "yMm": 7.366,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pot:GND"
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "number": "2",
+        "pin": "OUT",
+        "netId": "POT_OUT",
+        "xMm": 11.684,
+        "yMm": 7.366,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pot:OUT"
+      },
+      {
+        "instanceId": "pot",
+        "reference": "RV1",
+        "number": "3",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 14.224,
+        "yMm": 7.366,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "pot:VCC"
+      },
+      {
+        "instanceId": "servo",
+        "reference": "J2",
+        "number": "1",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 5.842,
+        "yMm": 17.018,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "servo:GND"
+      },
+      {
+        "instanceId": "servo",
+        "reference": "J2",
+        "number": "2",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 5.842,
+        "yMm": 14.478,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "servo:VCC"
+      },
+      {
+        "instanceId": "servo",
+        "reference": "J2",
+        "number": "3",
+        "pin": "PWM",
+        "netId": "SERVO_PWM",
+        "xMm": 5.842,
+        "yMm": 11.938,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "servo:PWM"
+      },
+      {
+        "instanceId": "servo-bulk",
+        "reference": "C4",
+        "number": "1",
+        "pin": "+",
+        "netId": "VCC",
+        "xMm": 11.684,
+        "yMm": 16.256,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.85,
+        "bridgeEndpoint": "servo-bulk:+"
+      },
+      {
+        "instanceId": "servo-bulk",
+        "reference": "C4",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 11.684,
+        "yMm": 19.756,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.85,
+        "bridgeEndpoint": "servo-bulk:-"
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C2",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C3",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "AREF",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "MCU_RESET_N"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "ATMEGA328P-PU",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "package": "Microchip_ATMEGA328P-PU_SPDIP-28_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "MCU_RESET_N",
+          "2": "NC",
+          "3": "NC",
+          "4": "NC",
+          "5": "NC",
+          "6": "NC",
+          "7": "VCC",
+          "8": "GND",
+          "9": "NC",
+          "10": "NC",
+          "11": "NC",
+          "12": "NC",
+          "13": "NC",
+          "14": "NC",
+          "15": "SERVO_PWM",
+          "16": "NC",
+          "17": "NC",
+          "18": "NC",
+          "19": "NC",
+          "20": "VCC",
+          "21": "AREF",
+          "22": "GND",
+          "23": "POT_OUT",
+          "24": "NC",
+          "25": "NC",
+          "26": "NC",
+          "27": "NC",
+          "28": "NC"
+        }
+      },
+      {
+        "reference": "RV1",
+        "manufacturer": "Bourns",
+        "manufacturerPartNumber": "3296W-1-103LF",
+        "sourceUrl": "https://www.bourns.com/docs/Product-Datasheets/3296.pdf",
+        "package": "Bourns_3296W-1-103LF_Inline_P2.54mm",
+        "pinMapping": {
+          "1": "GND",
+          "2": "POT_OUT",
+          "3": "VCC"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-103-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s",
+        "package": "Samtec_TSW-103-07-T-S_P2.54mm",
+        "pinMapping": {
+          "1": "GND",
+          "2": "VCC",
+          "3": "SERVO_PWM"
+        }
+      },
+      {
+        "reference": "C4",
+        "manufacturer": "Panasonic",
+        "manufacturerPartNumber": "EEUFR1A471",
+        "sourceUrl": "https://industrial.panasonic.com/ww/products/pt/aluminum-cap-lead/models/EEUFR1A471",
+        "package": "Panasonic_EEUFR1A471_Radial_D8.0_P3.5mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            5.842,
+            17.018
+          ],
+          [
+            10.16,
+            17.018
+          ],
+          [
+            10.16,
+            17.526
+          ],
+          [
+            10.414,
+            17.526
+          ],
+          [
+            10.414,
+            17.78
+          ],
+          [
+            10.922,
+            17.78
+          ],
+          [
+            10.922,
+            18.034
+          ],
+          [
+            11.684,
+            18.034
+          ],
+          [
+            11.684,
+            19.756
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            32.766,
+            20.32
+          ],
+          [
+            33.528,
+            20.32
+          ],
+          [
+            33.528,
+            21.082
+          ],
+          [
+            33.782,
+            21.082
+          ],
+          [
+            33.782,
+            21.59
+          ],
+          [
+            34.036,
+            21.59
+          ],
+          [
+            34.036,
+            21.844
+          ],
+          [
+            34.544,
+            21.844
+          ],
+          [
+            34.544,
+            22.098
+          ],
+          [
+            35.306,
+            22.098
+          ],
+          [
+            35.306,
+            27.94
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            5.842,
+            27.432
+          ],
+          [
+            6.096,
+            27.432
+          ],
+          [
+            6.096,
+            26.67
+          ],
+          [
+            6.604,
+            26.67
+          ],
+          [
+            6.604,
+            26.416
+          ],
+          [
+            7.112,
+            26.416
+          ],
+          [
+            7.112,
+            26.162
+          ],
+          [
+            7.366,
+            26.162
+          ],
+          [
+            7.366,
+            25.654
+          ],
+          [
+            7.62,
+            25.654
+          ],
+          [
+            7.62,
+            24.13
+          ],
+          [
+            7.366,
+            24.13
+          ],
+          [
+            7.366,
+            23.622
+          ],
+          [
+            7.112,
+            23.622
+          ],
+          [
+            7.112,
+            23.368
+          ],
+          [
+            6.604,
+            23.368
+          ],
+          [
+            6.604,
+            23.114
+          ],
+          [
+            5.842,
+            23.114
+          ],
+          [
+            5.842,
+            17.018
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            26.924,
+            13.97
+          ],
+          [
+            30.226,
+            13.97
+          ],
+          [
+            30.226,
+            14.732
+          ],
+          [
+            30.48,
+            14.732
+          ],
+          [
+            30.48,
+            15.24
+          ],
+          [
+            30.734,
+            15.24
+          ],
+          [
+            30.734,
+            15.494
+          ],
+          [
+            31.242,
+            15.494
+          ],
+          [
+            31.242,
+            15.748
+          ],
+          [
+            32.766,
+            15.748
+          ],
+          [
+            32.766,
+            20.32
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            5.842,
+            17.018
+          ],
+          [
+            9.144,
+            17.018
+          ],
+          [
+            9.144,
+            7.366
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            26.924,
+            13.97
+          ],
+          [
+            30.226,
+            13.97
+          ],
+          [
+            30.226,
+            14.732
+          ],
+          [
+            30.48,
+            14.732
+          ],
+          [
+            30.48,
+            15.24
+          ],
+          [
+            30.734,
+            15.24
+          ],
+          [
+            30.734,
+            15.494
+          ],
+          [
+            31.242,
+            15.494
+          ],
+          [
+            31.242,
+            15.748
+          ],
+          [
+            42.418,
+            15.748
+          ],
+          [
+            42.418,
+            13.97
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            35.306,
+            27.94
+          ],
+          [
+            34.544,
+            27.94
+          ],
+          [
+            34.544,
+            28.702
+          ],
+          [
+            34.29,
+            28.702
+          ],
+          [
+            34.29,
+            29.21
+          ],
+          [
+            34.036,
+            29.21
+          ],
+          [
+            34.036,
+            29.464
+          ],
+          [
+            33.528,
+            29.464
+          ],
+          [
+            33.528,
+            29.718
+          ],
+          [
+            27.432,
+            29.718
+          ],
+          [
+            27.432,
+            37.084
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            11.684,
+            19.756
+          ],
+          [
+            15.748,
+            19.812
+          ],
+          [
+            15.748,
+            19.558
+          ],
+          [
+            16.002,
+            19.558
+          ],
+          [
+            16.002,
+            19.05
+          ],
+          [
+            16.256,
+            19.05
+          ],
+          [
+            16.256,
+            18.796
+          ],
+          [
+            16.764,
+            18.796
+          ],
+          [
+            16.764,
+            18.542
+          ],
+          [
+            26.924,
+            18.542
+          ],
+          [
+            26.924,
+            13.97
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            5.842,
+            14.478
+          ],
+          [
+            11.684,
+            14.478
+          ],
+          [
+            11.684,
+            16.256
+          ]
+        ]
+      },
+      {
+        "netId": "MCU_RESET_N",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            20.32,
+            33.528
+          ],
+          [
+            17.526,
+            33.528
+          ],
+          [
+            17.526,
+            27.94
+          ]
+        ]
+      },
+      {
+        "netId": "AREF",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            37.338,
+            13.97
+          ],
+          [
+            35.306,
+            13.97
+          ],
+          [
+            35.306,
+            20.32
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            32.766,
+            27.94
+          ],
+          [
+            32.512,
+            27.94
+          ],
+          [
+            32.512,
+            37.084
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            5.842,
+            24.892
+          ],
+          [
+            5.842,
+            24.384
+          ],
+          [
+            5.08,
+            24.384
+          ],
+          [
+            5.08,
+            24.13
+          ],
+          [
+            4.826,
+            24.13
+          ],
+          [
+            4.826,
+            23.876
+          ],
+          [
+            4.572,
+            23.876
+          ],
+          [
+            4.572,
+            18.288
+          ],
+          [
+            4.318,
+            18.288
+          ],
+          [
+            4.318,
+            17.78
+          ],
+          [
+            4.064,
+            17.78
+          ],
+          [
+            4.064,
+            16.256
+          ],
+          [
+            4.318,
+            16.256
+          ],
+          [
+            4.318,
+            15.748
+          ],
+          [
+            4.572,
+            15.748
+          ],
+          [
+            4.572,
+            15.494
+          ],
+          [
+            5.08,
+            15.494
+          ],
+          [
+            5.08,
+            15.24
+          ],
+          [
+            5.842,
+            15.24
+          ],
+          [
+            5.842,
+            14.478
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            11.684,
+            16.256
+          ],
+          [
+            14.224,
+            16.256
+          ],
+          [
+            14.224,
+            7.366
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            32.004,
+            13.97
+          ],
+          [
+            34.29,
+            13.97
+          ],
+          [
+            34.29,
+            13.208
+          ],
+          [
+            34.544,
+            13.208
+          ],
+          [
+            34.544,
+            12.954
+          ],
+          [
+            35.814,
+            12.954
+          ],
+          [
+            35.814,
+            12.7
+          ],
+          [
+            36.068,
+            12.7
+          ],
+          [
+            36.068,
+            12.446
+          ],
+          [
+            36.576,
+            12.446
+          ],
+          [
+            36.576,
+            12.192
+          ],
+          [
+            38.1,
+            12.192
+          ],
+          [
+            38.1,
+            12.446
+          ],
+          [
+            38.608,
+            12.446
+          ],
+          [
+            38.608,
+            12.7
+          ],
+          [
+            38.862,
+            12.7
+          ],
+          [
+            38.862,
+            13.208
+          ],
+          [
+            39.116,
+            13.208
+          ],
+          [
+            39.116,
+            14.732
+          ],
+          [
+            38.862,
+            14.732
+          ],
+          [
+            38.862,
+            15.24
+          ],
+          [
+            38.608,
+            15.24
+          ],
+          [
+            38.608,
+            15.494
+          ],
+          [
+            38.1,
+            15.494
+          ],
+          [
+            38.1,
+            15.748
+          ],
+          [
+            37.846,
+            15.748
+          ],
+          [
+            37.846,
+            20.32
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            37.846,
+            20.32
+          ],
+          [
+            37.084,
+            20.32
+          ],
+          [
+            37.084,
+            21.082
+          ],
+          [
+            36.83,
+            21.082
+          ],
+          [
+            36.83,
+            21.59
+          ],
+          [
+            36.576,
+            21.59
+          ],
+          [
+            36.576,
+            21.844
+          ],
+          [
+            36.068,
+            21.844
+          ],
+          [
+            36.068,
+            22.098
+          ],
+          [
+            32.766,
+            22.098
+          ],
+          [
+            32.766,
+            27.94
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            5.842,
+            24.892
+          ],
+          [
+            10.16,
+            24.892
+          ],
+          [
+            10.16,
+            33.528
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.75,
+        "pointsMm": [
+          [
+            11.684,
+            16.256
+          ],
+          [
+            32.004,
+            16.256
+          ],
+          [
+            32.004,
+            13.97
+          ]
+        ]
+      },
+      {
+        "netId": "POT_OUT",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            30.226,
+            20.32
+          ],
+          [
+            29.21,
+            20.32
+          ],
+          [
+            29.21,
+            19.304
+          ],
+          [
+            28.956,
+            19.304
+          ],
+          [
+            28.956,
+            19.05
+          ],
+          [
+            28.702,
+            19.05
+          ],
+          [
+            28.702,
+            18.796
+          ],
+          [
+            12.954,
+            18.796
+          ],
+          [
+            12.954,
+            18.542
+          ],
+          [
+            12.7,
+            18.542
+          ],
+          [
+            12.7,
+            18.288
+          ],
+          [
+            6.858,
+            18.288
+          ],
+          [
+            6.858,
+            18.542
+          ],
+          [
+            4.826,
+            18.542
+          ],
+          [
+            4.826,
+            18.288
+          ],
+          [
+            4.572,
+            18.288
+          ],
+          [
+            4.572,
+            18.034
+          ],
+          [
+            4.318,
+            18.034
+          ],
+          [
+            4.318,
+            10.922
+          ],
+          [
+            4.572,
+            10.922
+          ],
+          [
+            4.572,
+            10.668
+          ],
+          [
+            4.826,
+            10.668
+          ],
+          [
+            4.826,
+            10.414
+          ],
+          [
+            11.684,
+            10.414
+          ],
+          [
+            11.684,
+            7.366
+          ]
+        ]
+      },
+      {
+        "netId": "SERVO_PWM",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            50.546,
+            20.32
+          ],
+          [
+            49.53,
+            20.32
+          ],
+          [
+            49.53,
+            19.304
+          ],
+          [
+            49.276,
+            19.304
+          ],
+          [
+            49.276,
+            19.05
+          ],
+          [
+            49.022,
+            19.05
+          ],
+          [
+            49.022,
+            18.796
+          ],
+          [
+            40.132,
+            18.796
+          ],
+          [
+            40.132,
+            12.446
+          ],
+          [
+            39.878,
+            12.446
+          ],
+          [
+            39.878,
+            11.938
+          ],
+          [
+            39.624,
+            11.938
+          ],
+          [
+            39.624,
+            11.684
+          ],
+          [
+            39.37,
+            11.684
+          ],
+          [
+            39.37,
+            11.43
+          ],
+          [
+            38.862,
+            11.43
+          ],
+          [
+            38.862,
+            11.176
+          ],
+          [
+            11.938,
+            11.176
+          ],
+          [
+            11.938,
+            11.43
+          ],
+          [
+            5.842,
+            11.43
+          ],
+          [
+            5.842,
+            11.938
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External stimulus or supply connects through J1."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      }
+    ],
+    "fabricationNotes": "J1 takes regulated 5 V and return. J2 connects the off-board FS90-C. Observe C4 polarity. Program U1 for its 8 MHz internal oscillator without division."
+  }
 }
