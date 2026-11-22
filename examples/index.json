@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 90,
-    "withoutStoredPcb": 126,
+    "withStoredPcb": 91,
+    "withoutStoredPcb": 125,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1118,40 +1118,15 @@
       "type": "Digital",
       "level": "Intermediate",
       "category": "Logic and serial protocols",
-      "sha256": "c0ad5497a1ffd3bd30e108e4ec50969e8a84d9204ef9c3f80c553c91db4dbcbf",
-      "components": 6,
+      "sha256": "ea9006fbd5bd9994ca90faca6e6abd6b3583adb8108abd433e0e0bf7b6db790f",
+      "components": 7,
       "analysis": "complete",
       "engine": "Ideal I²C register-read transaction model",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "BUS1",
-          "libraryId": "input.i2c-read-transaction"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.i2c-sensor-ideal"
-        },
-        {
-          "reference": "R1",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "R2",
-          "libraryId": "passive.resistor"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 6,
+      "pcbPads": 16,
+      "pcbRoutes": 11,
+      "unmapped": []
     },
     {
       "file": "059-spi-display.adigun.json",

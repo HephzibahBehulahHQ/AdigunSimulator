@@ -6,6 +6,7 @@ export function analyticalScopeRecording(project,analysis){
  if(kind==='buck-converter')return lm2596AdjustableRecording(project,r)??buckAverageRecording(project,r);
  if(kind==='boost-converter'&&r.device==='LM2577T-ADJ/NOPB')return lm2577BoostRecording(project,r);
  if(kind==='uart-transmitter-8n1'||kind==='uart-receiver-8n1')return uartFrameRecording(project,r);
+ if(kind==='i2c-register-read')return i2cRegisterRecording(project,r);
  if(kind==='digital-event-simulation')return digitalEventRecording(project,r);
  if(kind==='mcu-button-debounce')return buttonDebounceRecording(project,r);
  if(['rc-step-response','rl-step-response','rc-charge-discharge'].includes(kind))return firstOrderRecording(project,r);
@@ -55,6 +56,40 @@ function uartFrameRecording(project, result) {
  const samples=frameBits.map((bit,index)=>({timeSeconds:index*bitPeriodSeconds,nodeVoltages:{[output]:Number(bit)}}));
  samples.push({timeSeconds:frameDurationSeconds,nodeVoltages:{[output]:Number(frameBits.at(-1))}});
  return {kind:'analytical-output-recording',units:'logic',model:receiving?'Ideal UART 8N1 input frame timing':'Ideal UART 8N1 frame timing',preferredNet:output,samples};
+}
+
+function i2cRegisterRecording(project, result) {
+ const host=project.components.find(c=>c.libraryId==='input.i2c-read-transaction');
+ if(!host)return null;
+ const [data,clock]=['SDA','SCL'].map(pin=>project.nets.find(n=>n.endpoints.includes(host.instanceId+':'+pin))?.id);
+ const {address,register,baud,sensorAck,readComplete,receivedByte}=result;
+ if(!data||!clock||data===clock||(sensorAck&&!readComplete))return null;
+ const samples=[];
+ const sample=(sda,scl)=>samples.push({timeSeconds:samples.length/(2*baud),nodeVoltages:{[data]:sda,[clock]:scl}});
+ const byte=(value,ack)=>{
+  for(let bit=7;bit>=0;bit--){
+   const level=(value>>bit)&1;
+   sample(level,0);
+   sample(level,1);
+  }
+  sample(ack,0);
+  sample(ack,1);
+ };
+ sample(1,1);
+ sample(0,1);
+ byte(address<<1,sensorAck?0:1);
+ if(readComplete){
+  byte(register,0);
+  sample(1,0);
+  sample(1,1);
+  sample(0,1);
+  byte((address<<1)|1,0);
+  byte(receivedByte,1);
+ }
+ sample(0,0);
+ sample(0,1);
+ sample(1,1);
+ return {kind:'analytical-output-recording',units:'logic',model:'Ideal I²C register-read bus timing',preferredNet:data,samples};
 }
 
 function audioPowerRecording(project,result) {

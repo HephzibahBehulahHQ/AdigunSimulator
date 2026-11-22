@@ -155,6 +155,21 @@ test('UART receiver plots the supplied RX frame through a low stop bit',async()=
  assert.deepEqual(trace.points.at(-1),[10/9600,0]);
 });
 
+test('I²C sensor scope follows the modeled read and stops on address NACK',async()=>{
+ const p=await load('058-i2c-sensor-read');
+ const levels=(analysis,skip)=>analysis.scopeRecording.samples.flatMap((sample,i,samples)=>
+  i&&!samples[i-1].nodeVoltages.SCL&&sample.nodeVoltages.SCL&&!skip.includes(i)?[sample.nodeVoltages.SDA]:[]);
+ const bits=(byte)=>Array.from({length:8},(_,i)=>(byte>>(7-i))&1);
+ const analysis=runProjectAnalysis(p);
+ assert.deepEqual(levels(analysis,[39,78]),[...bits(0x90),0,...bits(0),0,...bits(0x91),0,...bits(0x2a),1]);
+ assert.equal(analysis.scopeRecording.units,'logic');
+ const fixture=p.components.find(c=>c.instanceId==='transaction');
+ fixture.value='Address 0x49; Register 0x00; Baud 100000; ACK yes';
+ assert.deepEqual(levels(runProjectAnalysis(p),[21]),[...bits(0x92),1]);
+ fixture.value='Address 0x48; Register 0x01; Baud 100000; ACK yes';
+ assert.equal(runProjectAnalysis(p).scopeRecording,undefined);
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);
