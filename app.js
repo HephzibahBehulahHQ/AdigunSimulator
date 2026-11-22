@@ -2149,7 +2149,7 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (document.querySelector("dialog[open]")) return;
+  if (document.querySelector("dialog[open]") || $("#workspace").inert) return;
   if (isGlobalSearchShortcut(event)) {
     const editable = event.target.closest?.("input, textarea, select, [contenteditable='true']");
     if (!editable || event.target.id === "global-search") {
@@ -2716,10 +2716,30 @@ const componentPropertiesUi = createComponentPropertiesUi({
 render();
 
 let accountUi;
+const workspaceAccessMessages = {
+  loading: "workspaceAccessLoading",
+  unavailable: "accountUnavailable",
+  "account-required": "workspaceAccessRequired",
+  "guest-expired": "workspaceGuestExpired"
+};
+function renderWorkspaceAccess(accountState) {
+  const allowed = accountState.status === "guest" || accountState.status === "signed-in";
+  for (const selector of ["#workspace", ".command-bar", "#bot", "#global-search-toggle", ".global-search"]) {
+    const element = $(selector);
+    element.inert = !allowed;
+    if (selector === "#workspace" || selector === "#bot" || selector === ".command-bar") element.hidden = !allowed;
+  }
+  $("#workspace-access").hidden = allowed;
+  if (allowed) return;
+  for (const dialog of document.querySelectorAll("dialog[open]:not(#account-dialog)")) dialog.close();
+  const message = $("#workspace-access-message");
+  message.dataset.i18n = workspaceAccessMessages[accountState.status] || "workspaceAccessRequired";
+  message.textContent = t(message.dataset.i18n);
+}
+$("#workspace-access-signin").addEventListener("click", () => $("#account-status").click());
 const accountClient = createAccountClient();
 const accountSession = createAccountSession(accountClient, {
-  onState: accountState => accountUi?.renderState(accountState),
-  getRedirectUrl: () => `${window.location.origin}${window.location.pathname}`
+  onState: accountState => accountUi?.renderState(accountState)
 });
 const cloudProjectsUi = createCloudProjectsUi({
   document,
@@ -2754,10 +2774,15 @@ accountUi = createAccountUi({
   getLocale: () => state.project.metadata.locale,
   onCloudSave: () => cloudProjectsUi.openSaveDialog?.(),
   onCloudManage: () => cloudProjectsUi.openManager?.(),
-  onAccountState: accountState => cloudProjectsUi.renderState(accountState)
+  onAccountState: accountState => {
+    renderWorkspaceAccess(accountState);
+    cloudProjectsUi.renderState(accountState);
+  }
 });
 void accountSession.initialize();
-window.addEventListener("pagehide", () => { accountUi.dispose(); cloudProjectsUi.dispose(); }, { once: true });
+window.addEventListener("pagehide", event => {
+  if (!event.persisted) { accountUi.dispose(); cloudProjectsUi.dispose(); }
+});
 
 const disposeDrawMenu=attachDrawMenu($("#draw-menu"),beginComponentPlacement);
 window.addEventListener("pagehide",event=>{if(!event.persisted)disposeDrawMenu();});

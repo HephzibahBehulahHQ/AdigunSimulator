@@ -12,10 +12,10 @@ class Element {
   close() { this.open = false; }
 }
 
-test("opening the account panel refreshes its session and cloud controls from the current auth state", () => {
+test("opening the account panel refreshes its session and cloud controls from the current auth state", async () => {
   const selectors = [
     "#account-status", "#account-dialog", "#account-form", "#account-email", "#account-password",
-    "#account-password-row", "#account-password-confirm-row", "#account-password-confirm", "#account-submit",
+    "#account-password-row", "#account-password-confirm-row", "#account-password-confirm", "#account-code-row", "#account-code", "#account-submit",
     "#account-mode-toggle", "#account-forgot", "#account-session", "#account-session-email",
     "#account-sign-out", "#account-cloud-save", "#account-cloud-manage", "#account-message"
   ];
@@ -24,9 +24,31 @@ test("opening the account panel refreshes its session and cloud controls from th
   elements.get("#account-dialog").querySelector = selector => selector === "[data-account-close]" ? close : null;
   const document = { querySelector: selector => elements.get(selector) };
   let current = { status: "guest", user: null };
-  const account = { get state() { return current; } };
+  const requests = [];
+  const account = {
+    get state() { return current; },
+    async begin(...args) { requests.push(args); },
+    async verify(code) { requests.push(code); return "registered"; }
+  };
 
   createAccountUi({ document, account, translate: (_locale, key) => key, getLocale: () => "en" });
+  elements.get("#account-status").click();
+  elements.get("#account-mode-toggle").click();
+  elements.get("#account-email").value = "owner@example.test";
+  elements.get("#account-password").value = "correct horse battery staple";
+  elements.get("#account-password-confirm").value = "correct horse battery staple";
+  const submit = elements.get("#account-form").listeners.submit;
+  await submit({ preventDefault() {} });
+  assert.equal(requests[0][0], "register");
+  assert.equal(elements.get("#account-code-row").hidden, false);
+  assert.equal(elements.get("#account-password").value, "");
+  elements.get("#account-code").value = "12345678";
+  await submit({ preventDefault() {} });
+  assert.equal(requests[1], "12345678");
+  assert.equal(elements.get("#account-code-row").hidden, true);
+  assert.equal(elements.get("#account-message").textContent, "accountRegistrationVerified");
+  elements.get("#account-dialog").close();
+
   current = { status: "signed-in", user: { email: "owner@example.test" } };
   elements.get("#account-status").click();
 

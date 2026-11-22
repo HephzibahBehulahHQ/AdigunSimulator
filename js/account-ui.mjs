@@ -7,6 +7,8 @@ export function createAccountUi({ document, account, translate, getLocale, onClo
   const passwordRow = document.querySelector("#account-password-row");
   const confirmRow = document.querySelector("#account-password-confirm-row");
   const confirmPassword = document.querySelector("#account-password-confirm");
+  const codeRow = document.querySelector("#account-code-row");
+  const code = document.querySelector("#account-code");
   const submit = document.querySelector("#account-submit");
   const modeToggle = document.querySelector("#account-mode-toggle");
   const forgot = document.querySelector("#account-forgot");
@@ -18,30 +20,40 @@ export function createAccountUi({ document, account, translate, getLocale, onClo
   const message = document.querySelector("#account-message");
   let mode = "sign-in";
   let busy = false;
+  let awaitingCode = false;
 
   const t = key => translate(getLocale(), key);
   const setMessage = value => { message.textContent = value; };
 
   function renderMode() {
     const recovery = mode === "recovery";
-    const passwordUpdate = mode === "password-recovery";
     const signUp = mode === "sign-up";
-    passwordRow.hidden = recovery;
-    confirmRow.hidden = !(signUp || passwordUpdate);
-    confirmPassword.required = signUp || passwordUpdate;
-    password.required = !recovery;
-    password.autocomplete = passwordUpdate ? "new-password" : signUp ? "new-password" : "current-password";
-    submit.textContent = t(passwordUpdate ? "accountSubmitUpdate" : recovery ? "accountSubmitReset" : signUp ? "accountSubmitSignUp" : "accountSubmitSignIn");
-    modeToggle.hidden = passwordUpdate;
-    modeToggle.textContent = t(signUp || recovery ? "accountBackToSignIn" : "accountModeSignUp");
-    forgot.hidden = signUp || recovery || passwordUpdate;
-    email.disabled = passwordUpdate;
-    if (passwordUpdate) email.value = account.state.user?.email ?? email.value;
+    email.disabled = awaitingCode;
+    passwordRow.hidden = awaitingCode;
+    confirmRow.hidden = awaitingCode || (!signUp && !recovery);
+    confirmPassword.required = !confirmRow.hidden;
+    password.required = !awaitingCode;
+    password.minLength = 12;
+    password.autocomplete = signUp || recovery ? "new-password" : "current-password";
+    codeRow.hidden = !awaitingCode;
+    code.required = awaitingCode;
+    submit.textContent = t(awaitingCode ? "accountVerifyCode" : recovery ? "accountSubmitReset" : signUp ? "accountSubmitSignUp" : "accountSubmitSignIn");
+    modeToggle.textContent = t(awaitingCode || signUp || recovery ? "accountBackToSignIn" : "accountModeSignUp");
+    forgot.hidden = awaitingCode || signUp || recovery;
+  }
+
+  function selectMode(next) {
+    mode = next;
+    awaitingCode = false;
+    password.value = "";
+    confirmPassword.value = "";
+    code.value = "";
+    setMessage("");
+    renderMode();
   }
 
   function renderSession(state) {
-    const passwordUpdate = mode === "password-recovery";
-    const signedIn = state.status === "signed-in" && !passwordUpdate;
+    const signedIn = state.status === "signed-in";
     const guest = state.status === "guest";
     button.dataset.authState = signedIn ? "signed-in" : guest ? "guest" : state.status;
     button.setAttribute("aria-label", t(signedIn ? "accountSignedInAria" : "accountGuestAria"));
@@ -59,46 +71,29 @@ export function createAccountUi({ document, account, translate, getLocale, onClo
     onAccountState(state);
   }
 
-  function renderState(state) {
-    if (state.event === "PASSWORD_RECOVERY") mode = "password-recovery";
-    renderSession(state);
-    if (mode !== "password-recovery" || state.status !== "signed-in") return;
-    sessionPanel.hidden = true;
-    form.hidden = false;
-    email.disabled = true;
-    if (!dialog.open) dialog.showModal();
-    renderMode();
-    password.focus();
-  }
+  function renderState(state) { renderSession(state); }
 
   button.addEventListener("click", () => {
-    setMessage("");
-    mode = "sign-in";
-    renderMode();
+    selectMode("sign-in");
     renderSession(account.state);
     dialog.showModal();
     if (account.state.status !== "signed-in") email.focus();
   });
   dialog.querySelector("[data-account-close]").addEventListener("click", () => dialog.close());
   modeToggle.addEventListener("click", () => {
-    mode = mode === "sign-up" || mode === "recovery" ? "sign-in" : "sign-up";
-    setMessage("");
-    renderMode();
-    if (mode === "sign-in") password.focus(); else email.focus();
+    selectMode(awaitingCode || mode !== "sign-in" ? "sign-in" : "sign-up");
+    email.focus();
   });
   forgot.addEventListener("click", () => {
-    mode = "recovery";
-    setMessage("");
-    renderMode();
+    selectMode("recovery");
     email.focus();
   });
   signOut.addEventListener("click", async () => {
     setBusy(true);
     try {
       await account.signOut();
-      mode = "sign-in";
+      selectMode("sign-in");
       setMessage(t("accountSignedOut"));
-      renderMode();
     } catch (error) { setMessage(error.message || t("accountAuthError")); }
     finally { setBusy(false); }
   });
@@ -107,10 +102,8 @@ export function createAccountUi({ document, account, translate, getLocale, onClo
   form.addEventListener("submit", async event => {
     event.preventDefault();
     if (busy) return;
-    const emailValue = email.value.trim();
     const passwordValue = password.value;
-    const confirmation = confirmPassword.value;
-    if ((mode === "sign-up" || mode === "password-recovery") && passwordValue !== confirmation) {
+    if (!awaitingCode && mode !== "sign-in" && passwordValue !== confirmPassword.value) {
       setMessage(t("accountPasswordsMismatch"));
       confirmPassword.focus();
       return;
@@ -118,24 +111,32 @@ export function createAccountUi({ document, account, translate, getLocale, onClo
     setBusy(true);
     setMessage("");
     try {
-      if (mode === "sign-up") {
-        const result = await account.signUp(emailValue, passwordValue);
-        setMessage(result.confirmationRequired ? t("accountCheckEmail") : t("accountSignedIn").replace("{email}", result.user?.email ?? emailValue));
-        if (result.confirmationRequired) form.reset();
-      } else if (mode === "recovery") {
-        await account.requestPasswordReset(emailValue);
-        setMessage(t("accountResetEmailSent"));
-      } else if (mode === "password-recovery") {
-        await account.updatePassword(passwordValue);
-        mode = "sign-in";
-        setMessage(t("accountPasswordUpdated"));
-        form.reset();
-        renderMode();
+      if (awaitingCode) {
+        const result = await account.verify(code.value);
+        selectMode("sign-in");
+        if (result === "signed-in") renderSession(account.state);
+        else {
+          setMessage(t(result === "registered" ? "accountRegistrationVerified" : "accountPasswordUpdated"));
+          password.focus();
+        }
       } else {
-        const user = await account.signIn(emailValue, passwordValue);
-        setMessage(t("accountSignedIn").replace("{email}", user?.email ?? emailValue));
+        const intent = mode === "sign-up" ? "register" : mode === "recovery" ? "reset-password" : "sign-in";
+        await account.begin(intent, email.value, passwordValue);
+        awaitingCode = true;
+        password.value = "";
+        confirmPassword.value = "";
+        renderMode();
+        setMessage(t("accountCodeSent"));
+        code.focus();
       }
-    } catch (error) { setMessage(error.message || t("accountAuthError")); }
+    } catch (error) {
+      const messageKey = {
+        "invalid-or-expired-email-code": "accountInvalidCode",
+        "invalid-product-credentials": "accountInvalidCredentials",
+        "wait-and-retry": "accountRetryLater"
+      }[error.message];
+      setMessage(t(messageKey || "accountAuthError"));
+    }
     finally { setBusy(false); }
   });
 
@@ -143,6 +144,8 @@ export function createAccountUi({ document, account, translate, getLocale, onClo
     busy = value;
     submit.disabled = value;
     signOut.disabled = value;
+    modeToggle.disabled = value;
+    forgot.disabled = value;
     button.disabled = value;
   }
 
