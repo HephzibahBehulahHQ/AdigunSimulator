@@ -19,8 +19,8 @@
           60
         ],
         "schematic": [
-          35,
-          60
+          51,
+          42
         ],
         "pcb": [
           35,
@@ -30,7 +30,7 @@
     },
     {
       "instanceId": "frame",
-      "libraryId": "input.ir-nec-frame",
+      "libraryId": "input.ir-nec-optical-fixture",
       "reference": "SIG1",
       "value": "Protocol NEC-like; Bytes 00 FF A2 5D; LeaderMarkUs 9000; LeaderSpaceUs 4500; BitMarkUs 560; ZeroSpaceUs 560; OneSpaceUs 1690; StopMarkUs 560; CarrierHz 38000",
       "position": {
@@ -39,8 +39,8 @@
           60
         ],
         "schematic": [
-          150,
-          60
+          109,
+          242
         ],
         "pcb": [
           150,
@@ -50,7 +50,7 @@
     },
     {
       "instanceId": "receiver",
-      "libraryId": "sensor.ir-receiver-ideal",
+      "libraryId": "sensor.vishay-tsop38438",
       "reference": "IR1",
       "value": "CarrierHz 38000; Output demodulated active-low",
       "position": {
@@ -59,8 +59,8 @@
           60
         ],
         "schematic": [
-          290,
-          60
+          110,
+          135
         ],
         "pcb": [
           290,
@@ -70,7 +70,7 @@
     },
     {
       "instanceId": "avr",
-      "libraryId": "active.avr-ir-decoder-ideal",
+      "libraryId": "active.atmega328p-ir-decoder",
       "reference": "U1",
       "value": "Program Decode NEC-like; Input INT0; Output TX; Tolerance 20%",
       "position": {
@@ -79,8 +79,8 @@
           60
         ],
         "schematic": [
-          430,
-          60
+          271,
+          130
         ],
         "pcb": [
           430,
@@ -90,17 +90,17 @@
     },
     {
       "instanceId": "display",
-      "libraryId": "output.ir-code-display-ideal",
-      "reference": "DISP1",
-      "value": "Address and command bytes",
+      "libraryId": "output.parallax-serial-lcd-port",
+      "reference": "J2",
+      "value": "Parallax 27977 off-board LCD; 9600 baud",
       "position": {
         "breadboard": [
           570,
           60
         ],
         "schematic": [
-          570,
-          60
+          504,
+          133
         ],
         "pcb": [
           570,
@@ -119,13 +119,121 @@
           60
         ],
         "schematic": [
-          620,
-          60
+          550,
+          240
         ],
         "pcb": [
           620,
           60
         ]
+      }
+    },
+    {
+      "instanceId": "vcc-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C1",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          184,
+          42
+        ],
+        "schematic": [
+          174,
+          45
+        ],
+        "pcb": [
+          184,
+          42
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "avcc-bypass",
+      "libraryId": "passive.capacitor",
+      "reference": "C2",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          358,
+          42
+        ],
+        "schematic": [
+          355,
+          45
+        ],
+        "pcb": [
+          358,
+          42
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "receiver-bypass",
+      "reference": "C3",
+      "libraryId": "passive.capacitor",
+      "value": "100 nF",
+      "position": {
+        "breadboard": [
+          99,
+          207
+        ],
+        "schematic": [
+          131,
+          198
+        ],
+        "pcb": [
+          99,
+          207
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
+      }
+    },
+    {
+      "instanceId": "reset-pullup",
+      "libraryId": "passive.resistor",
+      "reference": "R7",
+      "value": "10 kΩ",
+      "position": {
+        "breadboard": [
+          269,
+          229
+        ],
+        "schematic": [
+          276,
+          224
+        ],
+        "pcb": [
+          269,
+          229
+        ]
+      },
+      "geometry": {
+        "schematic": {
+          "width": 54,
+          "height": 39,
+          "rotation": 0
+        }
       }
     }
   ],
@@ -136,25 +244,26 @@
         "supply:+",
         "receiver:VCC",
         "avr:VCC",
-        "display:VCC"
+        "display:VCC",
+        "avr:AVCC",
+        "vcc-bypass:1",
+        "avcc-bypass:1",
+        "receiver-bypass:1",
+        "reset-pullup:1"
       ]
     },
     {
       "id": "GND",
       "endpoints": [
         "supply:-",
-        "frame:GND",
         "receiver:GND",
         "avr:GND",
         "display:GND",
-        "ground:0"
-      ]
-    },
-    {
-      "id": "OPTICAL_FRAME",
-      "endpoints": [
-        "frame:OUT",
-        "receiver:SIG"
+        "ground:0",
+        "avr:AGND",
+        "vcc-bypass:2",
+        "avcc-bypass:2",
+        "receiver-bypass:2"
       ]
     },
     {
@@ -170,7 +279,2543 @@
         "avr:TX",
         "display:DATA"
       ]
+    },
+    {
+      "id": "MCU_RESET_N",
+      "endpoints": [
+        "avr:MCU_RESET_N",
+        "reset-pullup:2"
+      ]
     }
   ],
-  "history": []
+  "history": [],
+  "breadboard": {
+    "model": "busboard-bb400",
+    "pinHoles": {
+      "supply:+": "TP2",
+      "supply:-": "BM1",
+      "avr:MCU_RESET_N": "F10",
+      "avr:VCC": "F16",
+      "avr:GND": "F17",
+      "avr:AVCC": "E18",
+      "avr:AGND": "E16",
+      "avr:TX": "F12",
+      "avr:INT0": "F13",
+      "vcc-bypass:1": "J25",
+      "vcc-bypass:2": "J27",
+      "avcc-bypass:1": "A25",
+      "avcc-bypass:2": "A27",
+      "reset-pullup:1": "E26",
+      "reset-pullup:2": "E30",
+      "receiver:VCC": "A7",
+      "receiver:GND": "A8",
+      "receiver:OUT": "A9",
+      "display:GND": "H3",
+      "display:VCC": "H4",
+      "display:DATA": "H5",
+      "receiver-bypass:1": "D6",
+      "receiver-bypass:2": "D8"
+    },
+    "jumpers": [
+      {
+        "from": "TP13",
+        "to": "J16"
+      },
+      {
+        "from": "TP14",
+        "to": "C18"
+      },
+      {
+        "from": "TP15",
+        "to": "I25"
+      },
+      {
+        "from": "TP16",
+        "to": "B25"
+      },
+      {
+        "from": "TP17",
+        "to": "D26"
+      },
+      {
+        "from": "J17",
+        "to": "BM12"
+      },
+      {
+        "from": "B16",
+        "to": "BM13"
+      },
+      {
+        "from": "I27",
+        "to": "BM20"
+      },
+      {
+        "from": "B27",
+        "to": "BM19"
+      },
+      {
+        "from": "D30",
+        "to": "I10"
+      },
+      {
+        "from": "B6",
+        "to": "B7"
+      },
+      {
+        "from": "B7",
+        "to": "TP9"
+      },
+      {
+        "from": "B8",
+        "to": "BM3"
+      },
+      {
+        "from": "B9",
+        "to": "H13"
+      },
+      {
+        "from": "G3",
+        "to": "BM5"
+      },
+      {
+        "from": "G4",
+        "to": "TP5"
+      },
+      {
+        "from": "G5",
+        "to": "I12"
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      },
+      {
+        "instanceId": "frame",
+        "reference": "SIG1",
+        "reason": "Virtual optical stimulus. A physical NEC-compatible IR transmitter couples through air without a conductor or PCB footprint."
+      }
+    ],
+    "physicalNotes": [
+      "Position U1 with pin 1 at F10. Use the undivided internal 8 MHz clock. Connect IR1 by pin numbers: pin 1 OUT to A9, pin 2 GND to A8, pin 3 VS to A7.",
+      "Cable J2 GND, +5 V and TX to the matching LCD GND, 5V and RX labels. Set LCD switches for 9600 baud."
+    ],
+    "assembly": {
+      "wire": {
+        "manufacturer": "Belden",
+        "partNumber": "8530",
+        "gaugeAwg": 22,
+        "conductorDiameterMm": 0.64,
+        "sourceUrl": "https://www.belden.com/products/cable/electronic-wire-cable/hook-up-wire/8530"
+      },
+      "packages": [
+        {
+          "instanceId": "supply",
+          "reference": "V1",
+          "kind": "external-supply",
+          "positionPx": [
+            90,
+            281
+          ],
+          "pins": [
+            {
+              "pin": "+",
+              "hole": "TP2",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                -1.27
+              ]
+            },
+            {
+              "pin": "-",
+              "hole": "BM1",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                1.27
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "avr",
+          "reference": "U1",
+          "manufacturer": "Microchip",
+          "manufacturerPartNumber": "ATMEGA328P-PU",
+          "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+          "kind": "pdip",
+          "bodyMm": {
+            "width": 34.798,
+            "height": 7.493
+          },
+          "positionPx": [
+            359.72413793103476,
+            150
+          ],
+          "pins": [
+            {
+              "pin": "MCU_RESET_N",
+              "hole": "F10",
+              "offsetMm": [
+                -16.51,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "VCC",
+              "hole": "F16",
+              "offsetMm": [
+                -1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "GND",
+              "hole": "F17",
+              "offsetMm": [
+                1.27,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AVCC",
+              "hole": "E18",
+              "offsetMm": [
+                3.81,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "AGND",
+              "hole": "E16",
+              "offsetMm": [
+                -1.27,
+                -3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "TX",
+              "hole": "F12",
+              "offsetMm": [
+                -11.43,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            },
+            {
+              "pin": "INT0",
+              "hole": "F13",
+              "offsetMm": [
+                -8.89,
+                3.81
+              ],
+              "leadDiameterMm": 0.68,
+              "connection": "direct"
+            }
+          ],
+          "noConnectHoles": [
+            "F18",
+            "F19",
+            "E22",
+            "E21",
+            "E20",
+            "E10",
+            "F11",
+            "F14",
+            "F15",
+            "F20",
+            "F21",
+            "F22",
+            "E14",
+            "E13",
+            "E12",
+            "E11",
+            "E19",
+            "E23",
+            "E15",
+            "E17",
+            "F23"
+          ]
+        },
+        {
+          "instanceId": "vcc-bypass",
+          "reference": "C1",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            547.1034482758625,
+            205
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "J25",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "J27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "avcc-bypass",
+          "reference": "C2",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            546.5034482758625,
+            95
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "A25",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "A27",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "reset-pullup",
+          "reference": "R7",
+          "kind": "axial-resistor",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "MRS25000C1002FCT00",
+          "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+          "bodyMm": {
+            "width": 6.5,
+            "height": 2.5
+          },
+          "positionPx": [
+            586.5517241379315,
+            135
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "E26",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                -5.08,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "E30",
+              "leadDiameterMm": 0.6,
+              "connection": "direct",
+              "offsetMm": [
+                5.08,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "receiver",
+          "reference": "IR1",
+          "manufacturer": "Vishay",
+          "manufacturerPartNumber": "TSOP38438",
+          "sourceUrl": "https://www.vishay.com/docs/82491/tsop382.pdf",
+          "kind": "to92",
+          "bodyMm": {
+            "width": 5,
+            "height": 4.8
+          },
+          "positionPx": [
+            192,
+            70
+          ],
+          "pins": [
+            {
+              "pin": "VCC",
+              "hole": "A7",
+              "connection": "pigtail",
+              "offsetMm": [
+                -2.54,
+                0
+              ]
+            },
+            {
+              "pin": "GND",
+              "hole": "A8",
+              "connection": "pigtail",
+              "offsetMm": [
+                0,
+                0
+              ]
+            },
+            {
+              "pin": "OUT",
+              "hole": "A9",
+              "connection": "pigtail",
+              "offsetMm": [
+                2.54,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "display",
+          "reference": "J2",
+          "kind": "through-hole-header",
+          "manufacturer": "Samtec",
+          "manufacturerPartNumber": "TSW-103-07-T-S",
+          "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s",
+          "bodyMm": {
+            "width": 7.62,
+            "height": 2.54
+          },
+          "positionPx": [
+            113.17241379310346,
+            185
+          ],
+          "pins": [
+            {
+              "pin": "GND",
+              "hole": "H3",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                -2.54,
+                0
+              ]
+            },
+            {
+              "pin": "VCC",
+              "hole": "H4",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                0,
+                0
+              ]
+            },
+            {
+              "pin": "DATA",
+              "hole": "H5",
+              "connection": "direct",
+              "leadDiameterMm": 0.64,
+              "offsetMm": [
+                2.54,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "instanceId": "receiver-bypass",
+          "reference": "C3",
+          "kind": "box-capacitor",
+          "manufacturer": "TDK",
+          "manufacturerPartNumber": "B32529C1104K189",
+          "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+          "bodyMm": {
+            "width": 7.3,
+            "height": 2.5
+          },
+          "positionPx": [
+            172.34482758620692,
+            125
+          ],
+          "pins": [
+            {
+              "pin": "1",
+              "hole": "D6",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                -2.5,
+                0
+              ]
+            },
+            {
+              "pin": "2",
+              "hole": "D8",
+              "leadDiameterMm": 0.5,
+              "connection": "direct",
+              "offsetMm": [
+                2.5,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "schematicWires": [
+    {
+      "id": "ir-receiver-wire-1",
+      "from": "supply:+",
+      "to": "receiver:VCC",
+      "waypoints": [
+        [
+          35,
+          71
+        ],
+        [
+          35,
+          18
+        ],
+        [
+          158,
+          18
+        ],
+        [
+          158,
+          116
+        ],
+        [
+          182,
+          116
+        ],
+        [
+          182,
+          164
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-2",
+      "from": "supply:+",
+      "to": "avr:VCC",
+      "waypoints": [
+        [
+          35,
+          71
+        ],
+        [
+          35,
+          18
+        ],
+        [
+          255,
+          18
+        ],
+        [
+          255,
+          169.8
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-3",
+      "from": "supply:+",
+      "to": "display:VCC",
+      "waypoints": [
+        [
+          35,
+          71
+        ],
+        [
+          35,
+          18
+        ],
+        [
+          488,
+          18
+        ],
+        [
+          488,
+          168
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-4",
+      "from": "supply:+",
+      "to": "avr:AVCC",
+      "waypoints": [
+        [
+          35,
+          71
+        ],
+        [
+          35,
+          18
+        ],
+        [
+          343,
+          18
+        ],
+        [
+          343,
+          150
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-5",
+      "from": "supply:+",
+      "to": "vcc-bypass:1",
+      "waypoints": [
+        [
+          35,
+          71
+        ],
+        [
+          35,
+          18
+        ],
+        [
+          158,
+          18
+        ],
+        [
+          158,
+          64.5
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-6",
+      "from": "supply:+",
+      "to": "avcc-bypass:1",
+      "waypoints": [
+        [
+          35,
+          71
+        ],
+        [
+          35,
+          18
+        ],
+        [
+          339,
+          18
+        ],
+        [
+          339,
+          64.5
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-7",
+      "from": "supply:+",
+      "to": "receiver-bypass:1",
+      "waypoints": [
+        [
+          35,
+          71
+        ],
+        [
+          35,
+          217.5
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-8",
+      "from": "supply:+",
+      "to": "reset-pullup:1",
+      "waypoints": [
+        [
+          35,
+          71
+        ],
+        [
+          35,
+          18
+        ],
+        [
+          260,
+          18
+        ],
+        [
+          260,
+          243.5
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-9",
+      "from": "supply:-",
+      "to": "receiver:GND",
+      "waypoints": [
+        [
+          123,
+          71
+        ],
+        [
+          123,
+          15
+        ],
+        [
+          27,
+          15
+        ],
+        [
+          27,
+          170
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-10",
+      "from": "supply:-",
+      "to": "avr:GND",
+      "waypoints": [
+        [
+          123,
+          71
+        ],
+        [
+          123,
+          108
+        ],
+        [
+          181,
+          108
+        ],
+        [
+          181,
+          171
+        ],
+        [
+          255,
+          171
+        ],
+        [
+          255,
+          292
+        ],
+        [
+          343,
+          292
+        ],
+        [
+          343,
+          159
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-11",
+      "from": "supply:-",
+      "to": "display:GND",
+      "waypoints": [
+        [
+          123,
+          71
+        ],
+        [
+          123,
+          108
+        ],
+        [
+          181,
+          108
+        ],
+        [
+          181,
+          171
+        ],
+        [
+          255,
+          171
+        ],
+        [
+          255,
+          292
+        ],
+        [
+          480,
+          292
+        ],
+        [
+          480,
+          156
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-12",
+      "from": "supply:-",
+      "to": "ground:0",
+      "waypoints": [
+        [
+          123,
+          71
+        ],
+        [
+          123,
+          108
+        ],
+        [
+          201,
+          108
+        ],
+        [
+          201,
+          292
+        ],
+        [
+          534,
+          292
+        ],
+        [
+          534,
+          215
+        ],
+        [
+          578,
+          215
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-13",
+      "from": "supply:-",
+      "to": "avr:AGND",
+      "waypoints": [
+        [
+          123,
+          71
+        ],
+        [
+          123,
+          108
+        ],
+        [
+          181,
+          108
+        ],
+        [
+          181,
+          171
+        ],
+        [
+          255,
+          171
+        ],
+        [
+          255,
+          292
+        ],
+        [
+          343,
+          292
+        ],
+        [
+          343,
+          168
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-14",
+      "from": "supply:-",
+      "to": "vcc-bypass:2",
+      "waypoints": [
+        [
+          123,
+          71
+        ],
+        [
+          123,
+          108
+        ],
+        [
+          244,
+          108
+        ],
+        [
+          244,
+          64.5
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-15",
+      "from": "supply:-",
+      "to": "avcc-bypass:2",
+      "waypoints": [
+        [
+          123,
+          71
+        ],
+        [
+          123,
+          108
+        ],
+        [
+          425,
+          108
+        ],
+        [
+          425,
+          64.5
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-16",
+      "from": "supply:-",
+      "to": "receiver-bypass:2",
+      "waypoints": [
+        [
+          123,
+          71
+        ],
+        [
+          123,
+          108
+        ],
+        [
+          201,
+          108
+        ],
+        [
+          201,
+          217.5
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-17",
+      "from": "receiver:OUT",
+      "to": "avr:INT0",
+      "waypoints": [
+        [
+          8,
+          158
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          252,
+          10
+        ],
+        [
+          252,
+          148.2
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-18",
+      "from": "avr:TX",
+      "to": "display:DATA",
+      "waypoints": [
+        [
+          247,
+          155.4
+        ],
+        [
+          247,
+          106
+        ],
+        [
+          346,
+          106
+        ],
+        [
+          346,
+          116
+        ],
+        [
+          480,
+          116
+        ],
+        [
+          480,
+          108
+        ],
+        [
+          576,
+          108
+        ],
+        [
+          576,
+          162
+        ]
+      ]
+    },
+    {
+      "id": "ir-receiver-wire-19",
+      "from": "avr:MCU_RESET_N",
+      "to": "reset-pullup:2",
+      "waypoints": [
+        [
+          244,
+          162.6
+        ],
+        [
+          244,
+          106
+        ],
+        [
+          247,
+          106
+        ],
+        [
+          247,
+          103
+        ],
+        [
+          339,
+          103
+        ],
+        [
+          339,
+          243.5
+        ]
+      ]
+    }
+  ],
+  "pcbFabrication": {
+    "board": {
+      "widthMm": 65,
+      "heightMm": 49,
+      "thicknessMm": 1.6,
+      "copperLayers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "minimumClearanceMm": 0.35,
+      "outline": "rectangle"
+    },
+    "parts": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "footprint": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "footprint": "Vishay_MRS25_Axial_P10.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "ATMEGA328P-PU",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "footprint": "Microchip_ATMEGA328P-PU_SPDIP-28_P2.54mm_W7.62mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "receiver",
+        "reference": "IR1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "TSOP38438",
+        "sourceUrl": "https://www.vishay.com/docs/82491/tsop382.pdf",
+        "footprint": "Vishay_TSOP38438_Minicast_P2.54mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "receiver-bypass",
+        "reference": "C3",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "footprint": "TDK_B32529C1104K189_P5.00mm",
+        "technology": "through-hole"
+      },
+      {
+        "instanceId": "display",
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-103-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s",
+        "footprint": "Samtec_TSW-103-07-T-S_P2.54mm",
+        "technology": "through-hole"
+      }
+    ],
+    "pads": [
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "1",
+        "pin": "+",
+        "netId": "VCC",
+        "xMm": 5.842,
+        "yMm": 24.892,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:+"
+      },
+      {
+        "instanceId": "supply",
+        "reference": "J1",
+        "number": "2",
+        "pin": "-",
+        "netId": "GND",
+        "xMm": 5.842,
+        "yMm": 27.432,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "supply:-"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 32.512,
+        "yMm": 37.084,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "vcc-bypass:1"
+      },
+      {
+        "instanceId": "vcc-bypass",
+        "reference": "C1",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 27.432,
+        "yMm": 37.084,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "vcc-bypass:2"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 32.004,
+        "yMm": 13.97,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avcc-bypass:1"
+      },
+      {
+        "instanceId": "avcc-bypass",
+        "reference": "C2",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 26.924,
+        "yMm": 13.97,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avcc-bypass:2"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 10.16,
+        "yMm": 33.528,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:1"
+      },
+      {
+        "instanceId": "reset-pullup",
+        "reference": "R7",
+        "number": "2",
+        "pin": "2",
+        "netId": "MCU_RESET_N",
+        "xMm": 20.32,
+        "yMm": 33.528,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "reset-pullup:2"
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "1",
+        "pin": "MCU_RESET_N",
+        "netId": "MCU_RESET_N",
+        "xMm": 17.526,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avr:MCU_RESET_N"
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "2",
+        "pin": "NC2",
+        "netId": "NC",
+        "xMm": 20.066,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "3",
+        "pin": "TX",
+        "netId": "DECODED_TEXT",
+        "xMm": 22.606,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avr:TX"
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "4",
+        "pin": "INT0",
+        "netId": "IR_RX",
+        "xMm": 25.146,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avr:INT0"
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "5",
+        "pin": "NC5",
+        "netId": "NC",
+        "xMm": 27.686,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "6",
+        "pin": "NC6",
+        "netId": "NC",
+        "xMm": 30.226,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "7",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 32.766,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avr:VCC"
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "8",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 35.306,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avr:GND"
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "9",
+        "pin": "NC9",
+        "netId": "NC",
+        "xMm": 37.846,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "10",
+        "pin": "NC10",
+        "netId": "NC",
+        "xMm": 40.386,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "11",
+        "pin": "NC11",
+        "netId": "NC",
+        "xMm": 42.926,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "12",
+        "pin": "NC12",
+        "netId": "NC",
+        "xMm": 45.466,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "13",
+        "pin": "NC13",
+        "netId": "NC",
+        "xMm": 48.006,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "14",
+        "pin": "NC14",
+        "netId": "NC",
+        "xMm": 50.546,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "15",
+        "pin": "NC15",
+        "netId": "NC",
+        "xMm": 50.546,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "16",
+        "pin": "NC16",
+        "netId": "NC",
+        "xMm": 48.006,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "17",
+        "pin": "NC17",
+        "netId": "NC",
+        "xMm": 45.466,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "18",
+        "pin": "NC18",
+        "netId": "NC",
+        "xMm": 42.926,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "19",
+        "pin": "NC19",
+        "netId": "NC",
+        "xMm": 40.386,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "20",
+        "pin": "AVCC",
+        "netId": "VCC",
+        "xMm": 37.846,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avr:AVCC"
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "21",
+        "pin": "NC21",
+        "netId": "NC",
+        "xMm": 35.306,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "22",
+        "pin": "AGND",
+        "netId": "GND",
+        "xMm": 32.766,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "avr:AGND"
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "23",
+        "pin": "NC23",
+        "netId": "NC",
+        "xMm": 30.226,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "24",
+        "pin": "NC24",
+        "netId": "NC",
+        "xMm": 27.686,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "25",
+        "pin": "NC25",
+        "netId": "NC",
+        "xMm": 25.146,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "26",
+        "pin": "NC26",
+        "netId": "NC",
+        "xMm": 22.606,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "27",
+        "pin": "NC27",
+        "netId": "NC",
+        "xMm": 20.066,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "avr",
+        "reference": "U1",
+        "number": "28",
+        "pin": "NC28",
+        "netId": "NC",
+        "xMm": 17.526,
+        "yMm": 20.32,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8
+      },
+      {
+        "instanceId": "receiver",
+        "reference": "IR1",
+        "number": "1",
+        "pin": "OUT",
+        "netId": "IR_RX",
+        "xMm": 7.62,
+        "yMm": 10.414,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "receiver:OUT"
+      },
+      {
+        "instanceId": "receiver",
+        "reference": "IR1",
+        "number": "2",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 10.16,
+        "yMm": 10.414,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "receiver:GND"
+      },
+      {
+        "instanceId": "receiver",
+        "reference": "IR1",
+        "number": "3",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 12.7,
+        "yMm": 10.414,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.9,
+        "bridgeEndpoint": "receiver:VCC"
+      },
+      {
+        "instanceId": "receiver-bypass",
+        "reference": "C3",
+        "number": "1",
+        "pin": "1",
+        "netId": "VCC",
+        "xMm": 12.954,
+        "yMm": 16.51,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "receiver-bypass:1"
+      },
+      {
+        "instanceId": "receiver-bypass",
+        "reference": "C3",
+        "number": "2",
+        "pin": "2",
+        "netId": "GND",
+        "xMm": 7.874,
+        "yMm": 16.51,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "receiver-bypass:2"
+      },
+      {
+        "instanceId": "display",
+        "reference": "J2",
+        "number": "1",
+        "pin": "GND",
+        "netId": "GND",
+        "xMm": 54.102,
+        "yMm": 25.4,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "display:GND"
+      },
+      {
+        "instanceId": "display",
+        "reference": "J2",
+        "number": "2",
+        "pin": "VCC",
+        "netId": "VCC",
+        "xMm": 54.102,
+        "yMm": 27.94,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "display:VCC"
+      },
+      {
+        "instanceId": "display",
+        "reference": "J2",
+        "number": "3",
+        "pin": "DATA",
+        "netId": "DECODED_TEXT",
+        "xMm": 54.102,
+        "yMm": 30.48,
+        "technology": "through-hole",
+        "diameterMm": 1.8,
+        "drillMm": 0.8,
+        "bridgeEndpoint": "display:DATA"
+      }
+    ],
+    "physicalEvidence": [
+      {
+        "reference": "J1",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-102-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "package": "Samtec_TSW-102-07-T-S_1x02_P2.54mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C1",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "C2",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "R7",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "MRS25000C1002FCT00",
+        "sourceUrl": "https://www.vishay.com/docs/28724/mrs16m25.pdf",
+        "package": "Vishay_MRS25_Axial_P10.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "MCU_RESET_N"
+        }
+      },
+      {
+        "reference": "U1",
+        "manufacturer": "Microchip",
+        "manufacturerPartNumber": "ATMEGA328P-PU",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf",
+        "package": "Microchip_ATMEGA328P-PU_SPDIP-28_P2.54mm_W7.62mm",
+        "pinMapping": {
+          "1": "MCU_RESET_N",
+          "2": "NC",
+          "3": "DECODED_TEXT",
+          "4": "IR_RX",
+          "5": "NC",
+          "6": "NC",
+          "7": "VCC",
+          "8": "GND",
+          "9": "NC",
+          "10": "NC",
+          "11": "NC",
+          "12": "NC",
+          "13": "NC",
+          "14": "NC",
+          "15": "NC",
+          "16": "NC",
+          "17": "NC",
+          "18": "NC",
+          "19": "NC",
+          "20": "VCC",
+          "21": "NC",
+          "22": "GND",
+          "23": "NC",
+          "24": "NC",
+          "25": "NC",
+          "26": "NC",
+          "27": "NC",
+          "28": "NC"
+        }
+      },
+      {
+        "reference": "IR1",
+        "manufacturer": "Vishay",
+        "manufacturerPartNumber": "TSOP38438",
+        "sourceUrl": "https://www.vishay.com/docs/82491/tsop382.pdf",
+        "package": "Vishay_TSOP38438_Minicast_P2.54mm",
+        "pinMapping": {
+          "1": "IR_RX",
+          "2": "GND",
+          "3": "VCC"
+        }
+      },
+      {
+        "reference": "C3",
+        "manufacturer": "TDK",
+        "manufacturerPartNumber": "B32529C1104K189",
+        "sourceUrl": "https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/B32520_529.pdf",
+        "package": "TDK_B32529C1104K189_P5.00mm",
+        "pinMapping": {
+          "1": "VCC",
+          "2": "GND"
+        }
+      },
+      {
+        "reference": "J2",
+        "manufacturer": "Samtec",
+        "manufacturerPartNumber": "TSW-103-07-T-S",
+        "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s",
+        "package": "Samtec_TSW-103-07-T-S_P2.54mm",
+        "pinMapping": {
+          "1": "GND",
+          "2": "VCC",
+          "3": "DECODED_TEXT"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            7.874,
+            16.51
+          ],
+          [
+            10.16,
+            16.51
+          ],
+          [
+            10.16,
+            10.414
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.766,
+            20.32
+          ],
+          [
+            33.782,
+            20.32
+          ],
+          [
+            33.782,
+            21.336
+          ],
+          [
+            34.036,
+            21.336
+          ],
+          [
+            34.036,
+            21.59
+          ],
+          [
+            34.29,
+            21.59
+          ],
+          [
+            34.29,
+            21.844
+          ],
+          [
+            35.306,
+            21.844
+          ],
+          [
+            35.306,
+            27.94
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            26.924,
+            13.97
+          ],
+          [
+            30.48,
+            13.97
+          ],
+          [
+            30.48,
+            14.986
+          ],
+          [
+            30.734,
+            14.986
+          ],
+          [
+            30.734,
+            15.24
+          ],
+          [
+            30.988,
+            15.24
+          ],
+          [
+            30.988,
+            15.494
+          ],
+          [
+            32.766,
+            15.494
+          ],
+          [
+            32.766,
+            20.32
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            27.432
+          ],
+          [
+            7.874,
+            27.432
+          ],
+          [
+            7.874,
+            16.51
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            35.306,
+            27.94
+          ],
+          [
+            34.29,
+            27.94
+          ],
+          [
+            34.29,
+            28.956
+          ],
+          [
+            34.036,
+            28.956
+          ],
+          [
+            34.036,
+            29.21
+          ],
+          [
+            33.782,
+            29.21
+          ],
+          [
+            33.782,
+            29.464
+          ],
+          [
+            27.432,
+            29.464
+          ],
+          [
+            27.432,
+            37.084
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            10.16,
+            10.414
+          ],
+          [
+            11.176,
+            10.414
+          ],
+          [
+            11.176,
+            11.43
+          ],
+          [
+            11.43,
+            11.43
+          ],
+          [
+            11.43,
+            11.684
+          ],
+          [
+            11.684,
+            11.684
+          ],
+          [
+            11.684,
+            11.938
+          ],
+          [
+            26.924,
+            11.938
+          ],
+          [
+            26.924,
+            13.97
+          ]
+        ]
+      },
+      {
+        "netId": "GND",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            35.306,
+            27.94
+          ],
+          [
+            36.322,
+            27.94
+          ],
+          [
+            36.322,
+            26.924
+          ],
+          [
+            36.576,
+            26.924
+          ],
+          [
+            36.576,
+            26.67
+          ],
+          [
+            36.83,
+            26.67
+          ],
+          [
+            36.83,
+            26.416
+          ],
+          [
+            54.102,
+            26.416
+          ],
+          [
+            54.102,
+            25.4
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            12.954,
+            16.51
+          ],
+          [
+            12.7,
+            16.51
+          ],
+          [
+            12.7,
+            10.414
+          ]
+        ]
+      },
+      {
+        "netId": "MCU_RESET_N",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            20.32,
+            33.528
+          ],
+          [
+            17.526,
+            33.528
+          ],
+          [
+            17.526,
+            27.94
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.766,
+            27.94
+          ],
+          [
+            32.512,
+            27.94
+          ],
+          [
+            32.512,
+            37.084
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.004,
+            13.97
+          ],
+          [
+            37.846,
+            13.97
+          ],
+          [
+            37.846,
+            20.32
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            37.846,
+            20.32
+          ],
+          [
+            36.83,
+            20.32
+          ],
+          [
+            36.83,
+            21.336
+          ],
+          [
+            36.576,
+            21.336
+          ],
+          [
+            36.576,
+            21.59
+          ],
+          [
+            36.322,
+            21.59
+          ],
+          [
+            36.322,
+            21.844
+          ],
+          [
+            32.766,
+            21.844
+          ],
+          [
+            32.766,
+            27.94
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            24.892
+          ],
+          [
+            10.16,
+            24.892
+          ],
+          [
+            10.16,
+            33.528
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            5.842,
+            24.892
+          ],
+          [
+            12.954,
+            24.892
+          ],
+          [
+            12.954,
+            16.51
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            32.766,
+            27.94
+          ],
+          [
+            33.782,
+            27.94
+          ],
+          [
+            33.782,
+            28.956
+          ],
+          [
+            34.036,
+            28.956
+          ],
+          [
+            34.036,
+            29.21
+          ],
+          [
+            34.29,
+            29.21
+          ],
+          [
+            34.29,
+            29.464
+          ],
+          [
+            52.832,
+            29.464
+          ],
+          [
+            52.832,
+            29.21
+          ],
+          [
+            53.086,
+            29.21
+          ],
+          [
+            53.086,
+            28.956
+          ],
+          [
+            54.102,
+            28.956
+          ],
+          [
+            54.102,
+            27.94
+          ]
+        ]
+      },
+      {
+        "netId": "VCC",
+        "layer": "B.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            12.954,
+            16.51
+          ],
+          [
+            32.004,
+            16.51
+          ],
+          [
+            32.004,
+            13.97
+          ]
+        ]
+      },
+      {
+        "netId": "DECODED_TEXT",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            22.606,
+            27.94
+          ],
+          [
+            23.622,
+            27.94
+          ],
+          [
+            23.622,
+            28.956
+          ],
+          [
+            23.876,
+            28.956
+          ],
+          [
+            23.876,
+            29.21
+          ],
+          [
+            24.13,
+            29.21
+          ],
+          [
+            24.13,
+            29.464
+          ],
+          [
+            25.908,
+            29.464
+          ],
+          [
+            25.908,
+            38.1
+          ],
+          [
+            26.162,
+            38.1
+          ],
+          [
+            26.162,
+            38.354
+          ],
+          [
+            26.416,
+            38.354
+          ],
+          [
+            26.416,
+            38.608
+          ],
+          [
+            54.102,
+            38.608
+          ],
+          [
+            54.102,
+            30.48
+          ]
+        ]
+      },
+      {
+        "netId": "IR_RX",
+        "layer": "F.Cu",
+        "widthMm": 0.4,
+        "pointsMm": [
+          [
+            25.146,
+            27.94
+          ],
+          [
+            24.638,
+            27.94
+          ],
+          [
+            24.638,
+            27.432
+          ],
+          [
+            24.384,
+            27.432
+          ],
+          [
+            24.384,
+            27.178
+          ],
+          [
+            24.13,
+            27.178
+          ],
+          [
+            24.13,
+            26.924
+          ],
+          [
+            23.876,
+            26.924
+          ],
+          [
+            23.876,
+            26.67
+          ],
+          [
+            23.622,
+            26.67
+          ],
+          [
+            23.622,
+            26.416
+          ],
+          [
+            8.89,
+            26.416
+          ],
+          [
+            8.89,
+            27.94
+          ],
+          [
+            8.636,
+            27.94
+          ],
+          [
+            8.636,
+            28.194
+          ],
+          [
+            8.382,
+            28.194
+          ],
+          [
+            8.382,
+            28.448
+          ],
+          [
+            7.112,
+            28.448
+          ],
+          [
+            7.112,
+            28.702
+          ],
+          [
+            6.858,
+            28.702
+          ],
+          [
+            6.858,
+            28.956
+          ],
+          [
+            4.826,
+            28.956
+          ],
+          [
+            4.826,
+            28.702
+          ],
+          [
+            4.572,
+            28.702
+          ],
+          [
+            4.572,
+            28.448
+          ],
+          [
+            4.318,
+            28.448
+          ],
+          [
+            4.318,
+            23.876
+          ],
+          [
+            4.572,
+            23.876
+          ],
+          [
+            4.572,
+            23.622
+          ],
+          [
+            4.826,
+            23.622
+          ],
+          [
+            4.826,
+            23.368
+          ],
+          [
+            6.35,
+            23.368
+          ],
+          [
+            6.35,
+            15.494
+          ],
+          [
+            6.604,
+            15.494
+          ],
+          [
+            6.604,
+            15.24
+          ],
+          [
+            6.858,
+            15.24
+          ],
+          [
+            6.858,
+            14.986
+          ],
+          [
+            7.62,
+            14.986
+          ],
+          [
+            7.62,
+            10.414
+          ]
+        ]
+      }
+    ],
+    "nonPhysicalItems": [
+      {
+        "instanceId": "supply",
+        "reference": "V1",
+        "reason": "External stimulus or supply connects through J1."
+      },
+      {
+        "instanceId": "ground",
+        "reference": "GND",
+        "reason": "Shared return net for the board and supply."
+      },
+      {
+        "instanceId": "frame",
+        "reference": "SIG1",
+        "reason": "Virtual optical stimulus. A physical NEC-compatible IR transmitter couples through air without a conductor or PCB footprint."
+      }
+    ],
+    "fabricationNotes": "Apply regulated 5 V at J1. J2 connects the local LCD. Aim the NEC-compatible IR transmitter at IR1; the virtual optical fixture has no PCB connection."
+  }
 }

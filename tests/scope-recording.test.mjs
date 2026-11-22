@@ -298,6 +298,17 @@ test('PIC bargraph scope displays the voltage applied to AN0',async()=>{
  assert.deepEqual(scopeRecording.samples,[0,.25].map(timeSeconds=>({timeSeconds,nodeVoltages:{ADC_IN:2.5}})));
 });
 
+test('IR scope plots the active-low leader, space and stop from the decoded frame',async()=>{
+ const p=await load('072-avr-ir-receiver');
+ const {scopeRecording,result}=runProjectAnalysis(p);
+ assert.equal(scopeRecording.preferredNet,'IR_RX');
+ assert.equal(scopeRecording.units,'logic');
+ assert.deepEqual(scopeRecording.samples[1],{timeSeconds:0,nodeVoltages:{IR_RX:0}});
+ assert.deepEqual(scopeRecording.samples[3],{timeSeconds:.009,nodeVoltages:{IR_RX:1}});
+ assert.deepEqual(scopeRecording.samples[5],{timeSeconds:.0135,nodeVoltages:{IR_RX:0}});
+ assert.deepEqual(scopeRecording.samples.at(-2),{timeSeconds:result.frameDurationUs/1e6,nodeVoltages:{IR_RX:1}});
+});
+
 test('5 V Parallel Resistor Load exposes its solved DC nodes to the oscilloscope',async()=>{
  const p=await load('004-parallel-resistor-load'),a=runProjectAnalysis(p),timeline=createFeedbackTimeline(p,a);
  const live={status:'ready',kind:'dc',data:timeline.frame(0),sampleIndex:0},channels=scopeChannels(p,a,live);

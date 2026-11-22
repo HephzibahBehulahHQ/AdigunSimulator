@@ -31,7 +31,7 @@ test('the example index audits every native project without inventing PCB packag
   assert.equal(analysis.state,EXPECTED_DIAGNOSTICS.has(entry.file)?'blocked':'complete',entry.file);
   if(pcb.parts)assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
- assert.equal(index.summary.withStoredPcb,104);assert.equal(index.summary.withoutStoredPcb,112);assert.deepEqual(index.summary.unexpectedFailures,[]);
+ assert.equal(index.summary.withStoredPcb,105);assert.equal(index.summary.withoutStoredPcb,111);assert.deepEqual(index.summary.unexpectedFailures,[]);
 });
 test('Example 001 LED current limiter routes its return without assigning a footprint to the GND symbol',async()=>{
  const entry=index.entries.find(item=>item.file==='001-led-current-limiter.adigun.json');
@@ -973,10 +973,27 @@ test('Example 071 maps each PIC sink, bargraph segment and resistor-network bran
  assert.equal(runProjectAnalysis(updateComponent(p,'limit-0',{value:'10 Ω per branch'})).state,'blocked');
 });
 
+test('Example 072 maps the TSOP38438 and the local display without a fictitious optical wire',async()=>{
+ const p=JSON.parse(await readFile(new URL('../examples/072-avr-ir-receiver.adigun.json',import.meta.url),'utf8'));
+ const getPartPins=id=>findLibraryPart(id)?.pins??[];
+ assert.equal(validateBreadboardTopology(p,{getPartPins}).state,'complete');
+ assert.equal(validateBreadboardAssembly(p,{getPartPins}).state,'complete');
+ assert.equal(p.nets.some(net=>net.endpoints.some(ep=>ep.startsWith('frame:'))),false);
+ assert.ok(p.pcbFabrication.nonPhysicalItems.some(item=>item.instanceId==='frame'));
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(p,view).reconciliationItems,[]);
+ const parts=Object.fromEntries(p.pcbFabrication.physicalEvidence.map(item=>[item.reference,item]));
+ assert.deepEqual(parts.IR1.pinMapping,{'1':'IR_RX','2':'GND','3':'VCC'});
+ assert.deepEqual(parts.J2.pinMapping,{'1':'GND','2':'VCC','3':'DECODED_TEXT'});
+ assert.equal(parts.U1.pinMapping['3'],'DECODED_TEXT');
+ assert.equal(parts.U1.pinMapping['4'],'IR_RX');
+ assert.equal(validatePcbFabrication(p).status,'passed');
+ assert.equal(exportPcbFabrication(p).status,'passed');
+});
+
 test('example filters combine type, difficulty, category, search and actual PCB availability',()=>{
  const plc=filterExamples(index.entries,{type:'PLC',category:'Executable ladder logic',level:'Intermediate'});
  assert.equal(plc.total,2);assert.ok(plc.items.every(e=>e.pcbStatus==='logic'));
- const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,104);assert.ok(pcb.items.every(e=>e.pcbPads>0));
+ const pcb=filterExamples(index.entries,{pcb:'stored'});assert.equal(pcb.total,105);assert.ok(pcb.items.every(e=>e.pcbPads>0));
  assert.equal(filterExamples(index.entries,{query:'ladder counter'}).total,1);
  assert.equal(filterExamples(index.entries,{query:'<script>nothing</script>'}).total,0);
 });

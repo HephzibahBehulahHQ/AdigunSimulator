@@ -4,8 +4,8 @@
     "projects": 216,
     "completedAnalyses": 211,
     "expectedDiagnostics": 5,
-    "withStoredPcb": 104,
-    "withoutStoredPcb": 112,
+    "withStoredPcb": 105,
+    "withoutStoredPcb": 111,
     "unexpectedFailures": []
   },
   "entries": [
@@ -1342,40 +1342,15 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "22d416631a5e3d71c1d1544d2687c853108e1c76bf24c022fc95efdbf1d15014",
-      "components": 6,
+      "sha256": "7a855ab2abf4e901a8af1f18fe9ab192faeabf80531fad7db2ab3df18212bddf",
+      "components": 10,
       "analysis": "complete",
       "engine": "Ideal AVR NEC-like infrared frame decoder",
-      "pcbStatus": "unmapped",
-      "pcbParts": 0,
-      "pcbPads": 0,
-      "pcbRoutes": 0,
-      "unmapped": [
-        {
-          "reference": "V1",
-          "libraryId": "power.dc-source"
-        },
-        {
-          "reference": "SIG1",
-          "libraryId": "input.ir-nec-frame"
-        },
-        {
-          "reference": "IR1",
-          "libraryId": "sensor.ir-receiver-ideal"
-        },
-        {
-          "reference": "U1",
-          "libraryId": "active.avr-ir-decoder-ideal"
-        },
-        {
-          "reference": "DISP1",
-          "libraryId": "output.ir-code-display-ideal"
-        },
-        {
-          "reference": "GND",
-          "libraryId": "ground.signal"
-        }
-      ]
+      "pcbStatus": "stored",
+      "pcbParts": 8,
+      "pcbPads": 44,
+      "pcbRoutes": 18,
+      "unmapped": []
     },
     {
       "file": "073-mcu-watchdog.adigun.json",

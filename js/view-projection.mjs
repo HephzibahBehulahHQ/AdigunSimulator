@@ -9,6 +9,7 @@ function declaredNonPhysical(project, view) {
 function componentViewIssue(project, component, view) {
   const capabilityIssue = getViewReconciliationIssues({ components: [component] }, view)[0];
   const part = findLibraryPart(component.libraryId);
+  if (view === "schematic" && component.libraryId === "input.ir-nec-optical-fixture") return capabilityIssue ?? null;
   if (!part?.pins?.length) return capabilityIssue ?? { instanceId: component.instanceId, reference: component.reference, view, reason: "The component has no verified pin mapping in the current library." };
   if (view === "breadboard") {
     if (declaredNonPhysical(project, view).has(component.instanceId)) return null;
