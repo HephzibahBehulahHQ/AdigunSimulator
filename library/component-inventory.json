@@ -4,17 +4,17 @@
     "placeableDefinitions": 364,
     "taxonomyTypes": 565,
     "taxonomyCategories": 15,
-    "manufacturerRecords": 21,
+    "manufacturerRecords": 24,
     "verifiedManufacturerRecords": 0,
     "byKind": {
       "generic-or-virtual-definition": 289,
       "software-instruction": 25,
       "hardware-oriented-definition": 50,
-      "manufacturer-record": 21
+      "manufacturer-record": 24
     },
     "manufacturerByStatus": {
       "in-review": 2,
-      "candidate": 19
+      "candidate": 22
     }
   },
   "records": [
@@ -14045,6 +14045,255 @@
       },
       "sources": [
         "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP970X-Data-Sheet-DS20001942.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "DATASHEET_CHECKSUM",
+          "LIFECYCLE_EVIDENCE",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "DATASHEET_CHECKSUM",
+          "LIFECYCLE_EVIDENCE",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "educational-candidate",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "samtec.tsw-102-07-t-s",
+      "manufacturer": "Samtec",
+      "partNumber": "TSW-102-07-T-S",
+      "package": "Single-row through-hole header, 2 positions, 2.54 mm pitch",
+      "category": "Connectors and interconnects",
+      "function": "Tin-plated square-post header",
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Pin 1",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Pin 2",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/samtec.tsw-102-07-t-s/symbol.svg",
+        "sha256": "7dadeb2cc894572d7b02cefd5e0b64e8a30788b2f7622adb3d0d7a8861a2cc93",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/samtec.tsw-102-07-t-s/footprint.json",
+        "sha256": "eaf01ab5f5df37b28fac27b8c7729c516e39fa9ba0115a9867cc0c0026f846de",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "viewSupport": {
+        "breadboard": {
+          "compatible": true,
+          "adapter": "Direct square posts. Confirm tail insertion depth and receptacle fit.",
+          "operatingLimits": [
+            "2.54 mm hole pitch"
+          ],
+          "evidence": "examples/068-esp32-telemetry-mock.adigun.json"
+        },
+        "schematic": "candidate-symbol",
+        "pcb": "educational-candidate"
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No contact resistance or parasitic model attached."
+      },
+      "sources": [
+        "https://www.samtec.com/products/tsw-102-07-t-s"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "DATASHEET_CHECKSUM",
+          "LIFECYCLE_EVIDENCE",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "DATASHEET_CHECKSUM",
+          "LIFECYCLE_EVIDENCE",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "educational-candidate",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "samtec.tsw-103-07-t-s",
+      "manufacturer": "Samtec",
+      "partNumber": "TSW-103-07-T-S",
+      "package": "Single-row through-hole header, 3 positions, 2.54 mm pitch",
+      "category": "Connectors and interconnects",
+      "function": "Tin-plated square-post header",
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Pin 1",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Pin 2",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Pin 3",
+          "electricalType": "passive",
+          "pad": "3"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/samtec.tsw-103-07-t-s/symbol.svg",
+        "sha256": "b2a5a48e5075d33e7b1ec30b4afc06b0da7981f081bffce4a9898a489d9bc79a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/samtec.tsw-103-07-t-s/footprint.json",
+        "sha256": "423c91bf4c3db6269165bd46e2a8ea33c5263b861be418d636e029b869cada52",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "viewSupport": {
+        "breadboard": {
+          "compatible": true,
+          "adapter": "Direct square posts. Confirm tail insertion depth and receptacle fit.",
+          "operatingLimits": [
+            "2.54 mm hole pitch"
+          ],
+          "evidence": "examples/064-arduino-temperature-monitor.adigun.json"
+        },
+        "schematic": "candidate-symbol",
+        "pcb": "educational-candidate"
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No contact resistance or parasitic model attached."
+      },
+      "sources": [
+        "https://www.samtec.com/products/tsw-103-07-t-s"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "DATASHEET_CHECKSUM",
+          "LIFECYCLE_EVIDENCE",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "DATASHEET_CHECKSUM",
+          "LIFECYCLE_EVIDENCE",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "educational-candidate",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "samtec.tsw-104-07-t-s",
+      "manufacturer": "Samtec",
+      "partNumber": "TSW-104-07-T-S",
+      "package": "Single-row through-hole header, 4 positions, 2.54 mm pitch",
+      "category": "Connectors and interconnects",
+      "function": "Tin-plated square-post header",
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Pin 1",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Pin 2",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Pin 3",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Pin 4",
+          "electricalType": "passive",
+          "pad": "4"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/samtec.tsw-104-07-t-s/symbol.svg",
+        "sha256": "c0d2824332815c2aaf9d401796b9562af0daaacd4171a77ad5175d8c92549f50",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/samtec.tsw-104-07-t-s/footprint.json",
+        "sha256": "ebaa4584d7c8e56d5389971669bad8a1f73d01979d9ea56f212d09459a78a63b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "viewSupport": {
+        "breadboard": {
+          "compatible": true,
+          "adapter": "Direct square posts. Confirm tail insertion depth and receptacle fit.",
+          "operatingLimits": [
+            "2.54 mm hole pitch"
+          ],
+          "evidence": "examples/065-arduino-ultrasonic-ranger.adigun.json"
+        },
+        "schematic": "candidate-symbol",
+        "pcb": "educational-candidate"
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No contact resistance or parasitic model attached."
+      },
+      "sources": [
+        "https://www.samtec.com/products/tsw-104-07-t-s"
       ],
       "readiness": {
         "verification": "candidate",

@@ -3029,6 +3029,300 @@
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "educational-candidate"
       }
+    },
+    {
+      "id": "samtec.tsw-102-07-t-s",
+      "manufacturer": "Samtec",
+      "manufacturerPartNumber": "TSW-102-07-T-S",
+      "category": "Connectors and interconnects",
+      "type": "Tin-plated square-post header",
+      "lifecycle": "not-verified",
+      "verificationStatus": "candidate",
+      "package": "Single-row through-hole header, 2 positions, 2.54 mm pitch",
+      "datasheet": {
+        "url": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "title": "Samtec TSW-102-07-T-S specification and drawings",
+        "accessedAt": "2026-11-23"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.samtec.com/products/tsw-102-07-t-s",
+          "kind": "exact-manufacturer-product-and-drawings"
+        }
+      ],
+      "packageEvidence": {
+        "package": "Single-row through-hole header, 2 positions, 2.54 mm pitch",
+        "pinCount": 2,
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s"
+      },
+      "symbolPinMap": {
+        "1": "Pin 1",
+        "2": "Pin 2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "breadboard": {
+        "compatible": true,
+        "adapter": "Direct square posts. Confirm tail insertion depth and receptacle fit.",
+        "operatingLimits": [
+          "2.54 mm hole pitch"
+        ],
+        "evidence": "examples/068-esp32-telemetry-mock.adigun.json"
+      },
+      "views": {
+        "schematic": "candidate-symbol",
+        "pcb": "educational-candidate"
+      },
+      "ratings": [
+        {
+          "name": "Pin pitch",
+          "value": 2.54,
+          "unit": "mm"
+        },
+        {
+          "name": "Mating post length",
+          "value": 0.23,
+          "unit": "in"
+        }
+      ],
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No contact resistance or parasitic model attached."
+      },
+      "warnings": [
+        "Pin signals are assigned by the project. These headers have no intrinsic signal or supply polarity."
+      ],
+      "alternates": [],
+      "evidenceNote": "library/evidence/samtec.tsw-102-07-t-s.md",
+      "footprintEvidence": {
+        "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+        "assetPath": "library/assets/footprints/samtec.tsw-102-07-t-s/footprint.json",
+        "drawing": "Exact Samtec TSW product drawing and 2.54 mm pin pitch.",
+        "designNote": "Round pad and drill geometry follows the educational native example. Finished-hole fit review remains open."
+      },
+      "symbolPinLabels": {
+        "1": "Pin 1",
+        "2": "Pin 2"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/samtec.tsw-102-07-t-s/symbol.svg",
+        "sha256": "7dadeb2cc894572d7b02cefd5e0b64e8a30788b2f7622adb3d0d7a8861a2cc93",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/samtec.tsw-102-07-t-s/footprint.json",
+        "sha256": "eaf01ab5f5df37b28fac27b8c7729c516e39fa9ba0115a9867cc0c0026f846de",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      }
+    },
+    {
+      "id": "samtec.tsw-103-07-t-s",
+      "manufacturer": "Samtec",
+      "manufacturerPartNumber": "TSW-103-07-T-S",
+      "category": "Connectors and interconnects",
+      "type": "Tin-plated square-post header",
+      "lifecycle": "not-verified",
+      "verificationStatus": "candidate",
+      "package": "Single-row through-hole header, 3 positions, 2.54 mm pitch",
+      "datasheet": {
+        "url": "https://www.samtec.com/products/tsw-103-07-t-s",
+        "title": "Samtec TSW-103-07-T-S specification and drawings",
+        "accessedAt": "2026-11-23"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.samtec.com/products/tsw-103-07-t-s",
+          "kind": "exact-manufacturer-product-and-drawings"
+        }
+      ],
+      "packageEvidence": {
+        "package": "Single-row through-hole header, 3 positions, 2.54 mm pitch",
+        "pinCount": 3,
+        "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s"
+      },
+      "symbolPinMap": {
+        "1": "Pin 1",
+        "2": "Pin 2",
+        "3": "Pin 3"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "breadboard": {
+        "compatible": true,
+        "adapter": "Direct square posts. Confirm tail insertion depth and receptacle fit.",
+        "operatingLimits": [
+          "2.54 mm hole pitch"
+        ],
+        "evidence": "examples/064-arduino-temperature-monitor.adigun.json"
+      },
+      "views": {
+        "schematic": "candidate-symbol",
+        "pcb": "educational-candidate"
+      },
+      "ratings": [
+        {
+          "name": "Pin pitch",
+          "value": 2.54,
+          "unit": "mm"
+        },
+        {
+          "name": "Mating post length",
+          "value": 0.23,
+          "unit": "in"
+        }
+      ],
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No contact resistance or parasitic model attached."
+      },
+      "warnings": [
+        "Pin signals are assigned by the project. These headers have no intrinsic signal or supply polarity."
+      ],
+      "alternates": [],
+      "evidenceNote": "library/evidence/samtec.tsw-103-07-t-s.md",
+      "footprintEvidence": {
+        "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s",
+        "assetPath": "library/assets/footprints/samtec.tsw-103-07-t-s/footprint.json",
+        "drawing": "Exact Samtec TSW product drawing and 2.54 mm pin pitch.",
+        "designNote": "Round pad and drill geometry follows the educational native example. Finished-hole fit review remains open."
+      },
+      "symbolPinLabels": {
+        "1": "Pin 1",
+        "2": "Pin 2",
+        "3": "Pin 3"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/samtec.tsw-103-07-t-s/symbol.svg",
+        "sha256": "b2a5a48e5075d33e7b1ec30b4afc06b0da7981f081bffce4a9898a489d9bc79a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/samtec.tsw-103-07-t-s/footprint.json",
+        "sha256": "423c91bf4c3db6269165bd46e2a8ea33c5263b861be418d636e029b869cada52",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      }
+    },
+    {
+      "id": "samtec.tsw-104-07-t-s",
+      "manufacturer": "Samtec",
+      "manufacturerPartNumber": "TSW-104-07-T-S",
+      "category": "Connectors and interconnects",
+      "type": "Tin-plated square-post header",
+      "lifecycle": "not-verified",
+      "verificationStatus": "candidate",
+      "package": "Single-row through-hole header, 4 positions, 2.54 mm pitch",
+      "datasheet": {
+        "url": "https://www.samtec.com/products/tsw-104-07-t-s",
+        "title": "Samtec TSW-104-07-T-S specification and drawings",
+        "accessedAt": "2026-11-23"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.samtec.com/products/tsw-104-07-t-s",
+          "kind": "exact-manufacturer-product-and-drawings"
+        }
+      ],
+      "packageEvidence": {
+        "package": "Single-row through-hole header, 4 positions, 2.54 mm pitch",
+        "pinCount": 4,
+        "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s"
+      },
+      "symbolPinMap": {
+        "1": "Pin 1",
+        "2": "Pin 2",
+        "3": "Pin 3",
+        "4": "Pin 4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "breadboard": {
+        "compatible": true,
+        "adapter": "Direct square posts. Confirm tail insertion depth and receptacle fit.",
+        "operatingLimits": [
+          "2.54 mm hole pitch"
+        ],
+        "evidence": "examples/065-arduino-ultrasonic-ranger.adigun.json"
+      },
+      "views": {
+        "schematic": "candidate-symbol",
+        "pcb": "educational-candidate"
+      },
+      "ratings": [
+        {
+          "name": "Pin pitch",
+          "value": 2.54,
+          "unit": "mm"
+        },
+        {
+          "name": "Mating post length",
+          "value": 0.23,
+          "unit": "in"
+        }
+      ],
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No contact resistance or parasitic model attached."
+      },
+      "warnings": [
+        "Pin signals are assigned by the project. These headers have no intrinsic signal or supply polarity."
+      ],
+      "alternates": [],
+      "evidenceNote": "library/evidence/samtec.tsw-104-07-t-s.md",
+      "footprintEvidence": {
+        "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
+        "assetPath": "library/assets/footprints/samtec.tsw-104-07-t-s/footprint.json",
+        "drawing": "Exact Samtec TSW product drawing and 2.54 mm pin pitch.",
+        "designNote": "Round pad and drill geometry follows the educational native example. Finished-hole fit review remains open."
+      },
+      "symbolPinLabels": {
+        "1": "Pin 1",
+        "2": "Pin 2",
+        "3": "Pin 3",
+        "4": "Pin 4"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/samtec.tsw-104-07-t-s/symbol.svg",
+        "sha256": "c0d2824332815c2aaf9d401796b9562af0daaacd4171a77ad5175d8c92549f50",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/samtec.tsw-104-07-t-s/footprint.json",
+        "sha256": "ebaa4584d7c8e56d5389971669bad8a1f73d01979d9ea56f212d09459a78a63b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
