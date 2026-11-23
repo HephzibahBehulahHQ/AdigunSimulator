@@ -21,7 +21,7 @@ test("manufacturer evidence search returns exact records without promoting candi
 });
 
 test("manufacturer evidence browser provides a searchable review snapshot for every ledger record", () => {
-  assert.equal(MANUFACTURER_PART_RECORDS.length, 6870);
+  assert.equal(MANUFACTURER_PART_RECORDS.length, 8214);
   assert.equal(searchManufacturerParts("Texas Instruments").length, 12);
   assert.equal(searchManufacturerParts("Texas LM555CN/NOPB").length, 1);
   assert.equal(searchManufacturerParts("LM555 Texas")[0].id, "ti.lm555p");
@@ -191,22 +191,27 @@ test("KEMET C1210C candidates match their ordering codes and rated values", () =
 
 test("KEMET C1206C candidates follow the listed capacitance and voltage limits", () => {
   const parts = MANUFACTURER_PART_RECORDS.filter(part => part.id.startsWith("kemet.c1206c"));
-  assert.equal(parts.length, 2035);
+  assert.equal(parts.length, 3379);
   const groups = Map.groupBy(parts, part => part.nominalCapacitancePf);
-  assert.equal(groups.size, 61);
-  assert.equal(Math.min(...groups.keys()), 100);
+  assert.equal(groups.size, 109);
+  assert.equal(Math.min(...groups.keys()), 1);
   assert.equal(Math.max(...groups.keys()), 100000);
   for (const [capacitance, group] of groups) {
     const voltageLimit = capacitance <= 22000 ? 250 : capacitance <= 47000 ? 100 : 50;
     const voltages = [10, 16, 25, 50, 100, 200, 250].filter(voltage => voltage <= voltageLimit);
-    assert.equal(group.length, voltages.length * 5);
+    const absolute = capacitance < 10;
+    assert.equal(group.length, voltages.length * (absolute ? 3 : 5));
     assert.deepEqual([...new Set(group.map(part => part.ratedVoltageVdc))].sort((a, b) => a - b),
       voltages);
-    assert.deepEqual([...new Set(group.map(part => part.tolerancePercent))].sort((a, b) => a - b), [1, 2, 5, 10, 20]);
+    assert.deepEqual([...new Set(group.map(part => absolute ? part.tolerancePf : part.tolerancePercent))]
+      .sort((a, b) => a - b), absolute ? [0.1, 0.25, 0.5] : [1, 2, 5, 10, 20]);
+    assert.ok(group.every(part => absolute ? part.tolerancePercent === undefined : part.tolerancePf === undefined));
     assert.ok(group.every(part => part.package === "1206 chip capacitor" && part.verificationStatus === "candidate"));
   }
   assert.ok(parts.some(part => part.manufacturerPartNumber === "C1206C101F8GACTU"));
   assert.ok(parts.some(part => part.manufacturerPartNumber === "C1206C102MAGACTU"));
   assert.ok(parts.some(part => part.manufacturerPartNumber === "C1206C104J5GACTU"));
+  assert.ok(parts.some(part => part.manufacturerPartNumber === "C1206C109B8GACTU"));
+  assert.ok(parts.some(part => part.manufacturerPartNumber === "C1206C919DAGACTU"));
   assert.ok(!parts.some(part => part.manufacturerPartNumber === "C1206C104J1GACTU"));
 });
