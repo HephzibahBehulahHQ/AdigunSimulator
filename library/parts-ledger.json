@@ -4535,7 +4535,19 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a 0603 breakout with documented terminal-to-hole mapping."
+        "adapter": "Use a 0603 breakout with documented terminal-to-hole mapping, such as SchmalzTech ST-0603-4. Record the adapter headers and breadboard holes before placement.",
+        "adapterEvidence": {
+          "partId": "schmalztech.st-0603-4",
+          "sourceUrl": "https://media.schmalztech.com/products/ST-0603-4/ST-0603-4%20Datasheet.pdf",
+          "drawingPage": 2,
+          "orientation": "Top view, with the 0603 marking at the lower left.",
+          "site": "Topmost 0603 pad pair",
+          "terminalToAdapterHole": {
+            "1": "Left column, top hole",
+            "2": "Right column, top hole"
+          },
+          "adjacentHolePitchMm": 2.54
+        }
       }
     },
     {
@@ -19585,6 +19597,29 @@
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
       }
+    },
+    {
+      "id": "schmalztech.st-0603-4",
+      "manufacturer": "SchmalzTech",
+      "manufacturerPartNumber": "ST-0603-4",
+      "category": "Connectors and interconnects",
+      "type": "Four-site 0603 SMD to DIP adapter",
+      "package": "Eight through-hole connections, four per side",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://media.schmalztech.com/products/ST-0603-4/ST-0603-4%20Datasheet.pdf",
+        "title": "SchmalzTech ST-0603-4 SMD to DIP Adapter, Rev A",
+        "accessedAt": "2026-11-23",
+        "sha256": "4e66bb0094b8a1a31917e2286387a29aad4d407497098f293866f31f1d1c4919"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.schmalztech.com/products/0603-smd-to-dip-adapter",
+          "title": "Exact adapter ordering page"
+        }
+      ],
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md"
     }
   ],
   "lastUpdated": "2026-11-13"

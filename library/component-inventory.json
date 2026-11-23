@@ -4,17 +4,17 @@
     "placeableDefinitions": 364,
     "taxonomyTypes": 565,
     "taxonomyCategories": 15,
-    "manufacturerRecords": 700,
+    "manufacturerRecords": 701,
     "verifiedManufacturerRecords": 0,
     "byKind": {
       "generic-or-virtual-definition": 289,
       "software-instruction": 25,
       "hardware-oriented-definition": 50,
-      "manufacturer-record": 700
+      "manufacturer-record": 701
     },
     "manufacturerByStatus": {
       "in-review": 2,
-      "candidate": 698
+      "candidate": 699
     }
   },
   "records": [
@@ -17428,7 +17428,19 @@
       "viewSupport": {
         "breadboard": {
           "compatible": false,
-          "adapter": "Use a 0603 breakout with documented terminal-to-hole mapping."
+          "adapter": "Use a 0603 breakout with documented terminal-to-hole mapping, such as SchmalzTech ST-0603-4. Record the adapter headers and breadboard holes before placement.",
+          "adapterEvidence": {
+            "partId": "schmalztech.st-0603-4",
+            "sourceUrl": "https://media.schmalztech.com/products/ST-0603-4/ST-0603-4%20Datasheet.pdf",
+            "drawingPage": 2,
+            "orientation": "Top view, with the 0603 marking at the lower left.",
+            "site": "Topmost 0603 pad pair",
+            "terminalToAdapterHole": {
+              "1": "Left column, top hole",
+              "2": "Right column, top hole"
+            },
+            "adjacentHolePitchMm": 2.54
+          }
         },
         "schematic": null,
         "pcb": null
@@ -57595,6 +57607,70 @@
         ],
         "footprintEvidence": "not-recorded",
         "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "schmalztech.st-0603-4",
+      "manufacturer": "SchmalzTech",
+      "partNumber": "ST-0603-4",
+      "package": "Eight through-hole connections, four per side",
+      "category": "Connectors and interconnects",
+      "function": "Four-site 0603 SMD to DIP adapter",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": null,
+      "sources": [
+        "https://media.schmalztech.com/products/ST-0603-4/ST-0603-4%20Datasheet.pdf",
+        "https://www.schmalztech.com/products/0603-smd-to-dip-adapter"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "MODEL_PROVENANCE",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "MODEL_PROVENANCE",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "unspecified"
       }
     }
   ]
