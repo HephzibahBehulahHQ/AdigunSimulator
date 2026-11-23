@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "vishay.crcw0603100rjnea",
+  "package": "Vishay D11/CRCW0603 e3",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "bodyLengthMm": { "minimum": 1.50, "maximum": 1.65 },
+    "bodyWidthMm": { "minimum": 0.75, "maximum": 0.95 },
+    "heightMaxMm": 0.50,
+    "sourceUrl": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+    "drawing": "Page 11, dimensions and recommended reflow solder pads"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 0.75,
+    "heightMm": 1.00,
+    "rowCenterSpacingMm": 1.50
+  },
+  "pads": [
+    { "number": "1", "xMm": -0.75, "yMm": 0 },
+    { "number": "2", "xMm": 0.75, "yMm": 0 }
+  ],
+  "limitations": [
+    "Terminal numbering is a local convention for this nonpolar resistor.",
+    "Review solder mask, paste, courtyard and board rules before fabrication."
+  ],
+  "license": { "id": "CC0-1.0", "url": "https://creativecommons.org/publicdomain/zero/1.0/" }
+}
