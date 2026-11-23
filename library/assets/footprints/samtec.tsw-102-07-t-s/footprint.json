@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "samtec.tsw-102-07-t-s",
+  "package": "Single-row through-hole header, 2 positions, 2.54 mm pitch",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": 0,
+    "yMm": 0
+  },
+  "packageOutline": {
+    "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
+    "drawing": "Samtec single-row exact part drawing."
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.8,
+    "drillMm": 0.8
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 0,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": 2.54,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Pin 1 is a carrier layout convention. Verify finished-hole tolerance and insertion before assembly."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

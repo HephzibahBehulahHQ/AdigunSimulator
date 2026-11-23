@@ -5,11 +5,11 @@
     "componentTypes": 565
   },
   "ledger": {
-    "total": 21,
+    "total": 24,
     "verified": 0,
     "remaining": 1000,
     "byStatus": {
-      "candidate": 19,
+      "candidate": 22,
       "in-review": 2,
       "verified": 0,
       "rejected": 0
@@ -429,6 +429,69 @@
     },
     {
       "partId": "microchip.mcp9700a-e-to",
+      "currentStatus": "candidate",
+      "readyForHumanReview": false,
+      "missingEvidenceCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE",
+        "TRANSLATIONS",
+        "TYPE_CODE",
+        "VERIFIED_EVIDENCE"
+      ],
+      "evidenceBlockerCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "TRANSLATIONS",
+        "TYPE_CODE",
+        "VERIFIED_EVIDENCE"
+      ]
+    },
+    {
+      "partId": "samtec.tsw-102-07-t-s",
+      "currentStatus": "candidate",
+      "readyForHumanReview": false,
+      "missingEvidenceCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE",
+        "TRANSLATIONS",
+        "TYPE_CODE",
+        "VERIFIED_EVIDENCE"
+      ],
+      "evidenceBlockerCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "TRANSLATIONS",
+        "TYPE_CODE",
+        "VERIFIED_EVIDENCE"
+      ]
+    },
+    {
+      "partId": "samtec.tsw-103-07-t-s",
+      "currentStatus": "candidate",
+      "readyForHumanReview": false,
+      "missingEvidenceCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE",
+        "TRANSLATIONS",
+        "TYPE_CODE",
+        "VERIFIED_EVIDENCE"
+      ],
+      "evidenceBlockerCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "TRANSLATIONS",
+        "TYPE_CODE",
+        "VERIFIED_EVIDENCE"
+      ]
+    },
+    {
+      "partId": "samtec.tsw-104-07-t-s",
       "currentStatus": "candidate",
       "readyForHumanReview": false,
       "missingEvidenceCodes": [
