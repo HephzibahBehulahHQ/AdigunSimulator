@@ -21,7 +21,7 @@ test("manufacturer evidence search returns exact records without promoting candi
 });
 
 test("manufacturer evidence browser provides a searchable review snapshot for every ledger record", () => {
-  assert.equal(MANUFACTURER_PART_RECORDS.length, 8214);
+  assert.equal(MANUFACTURER_PART_RECORDS.length, 10433);
   assert.equal(searchManufacturerParts("Texas Instruments").length, 12);
   assert.equal(searchManufacturerParts("Texas LM555CN/NOPB").length, 1);
   assert.equal(searchManufacturerParts("LM555 Texas")[0].id, "ti.lm555p");
@@ -214,4 +214,24 @@ test("KEMET C1206C candidates follow the listed capacitance and voltage limits",
   assert.ok(parts.some(part => part.manufacturerPartNumber === "C1206C109B8GACTU"));
   assert.ok(parts.some(part => part.manufacturerPartNumber === "C1206C919DAGACTU"));
   assert.ok(!parts.some(part => part.manufacturerPartNumber === "C1206C104J1GACTU"));
+});
+
+test("KEMET C0603C candidates span the selected Table 1A ranges", () => {
+  const parts = MANUFACTURER_PART_RECORDS.filter(part => part.id.startsWith("kemet.c0603c"));
+  assert.equal(parts.length, 2219);
+  const groups = Map.groupBy(parts, part => part.nominalCapacitancePf);
+  assert.equal(groups.size, 73);
+  assert.equal(Math.min(...groups.keys()), 1);
+  assert.equal(Math.max(...groups.keys()), 1000);
+  for (const [value, group] of groups) {
+    const absolute = value < 10;
+    const voltages = new Set(group.map(part => part.ratedVoltageVdc));
+    const tolerances = new Set(group.map(part => absolute ? part.tolerancePf : part.tolerancePercent));
+    assert.equal(group.length, absolute ? 21 : 35);
+    assert.deepEqual(voltages, new Set([10, 16, 25, 50, 100, 200, 250]));
+    assert.deepEqual(tolerances, new Set(absolute ? [0.1, 0.25, 0.5] : [1, 2, 5, 10, 20]));
+    assert.ok(group.every(part => part.package === "0603 chip capacitor" && part.verificationStatus === "candidate"));
+  }
+  assert.ok(parts.some(part => part.manufacturerPartNumber === "C0603C109B8GACTU"));
+  assert.ok(parts.some(part => part.manufacturerPartNumber === "C0603C102MAGACTU"));
 });
