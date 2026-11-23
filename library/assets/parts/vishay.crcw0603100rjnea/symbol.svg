@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 46" role="img" aria-label="Resistor with passive terminals 1 and 2">
+  <title>Resistor, Vishay CRCW0603100RJNEA</title>
+  <path d="M 5 26 H 24" stroke="currentColor" fill="none" data-pin="1" data-pin-name="Terminal 1" data-electrical-type="passive" />
+  <path d="M 76 26 H 95" stroke="currentColor" fill="none" data-pin="2" data-pin-name="Terminal 2" data-electrical-type="passive" />
+  <rect x="24" y="18" width="52" height="16" fill="none" stroke="currentColor" />
+  <text x="8" y="16" fill="currentColor" font-size="10" data-pin-label-for="1">1</text>
+  <text x="86" y="16" fill="currentColor" font-size="10" data-pin-label-for="2">2</text>
+</svg>
