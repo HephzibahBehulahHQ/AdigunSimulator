@@ -1,6 +1,6 @@
 # Vishay CRCW e3 resistor ordering evidence
 
-[Vishay datasheet 20035](https://www.vishay.com/docs/20035/dcrcwe3.pdf), revision 14 April 2026, gives the 5% E24 range for each selected package on page 2 and the global part number format and reel codes on page 3. The batch uses the full 1 Ω to 10 MΩ E24 range and one reel option per size (ED for 0402 and EA for 0603, 0805 and 1206). The exact order codes are derived from those ordering tables. Stock and per-code lifecycle have not been confirmed.
+[Vishay datasheet 20035](https://www.vishay.com/docs/20035/dcrcwe3.pdf), revision 14 April 2026, gives the 5% E24 range for each selected package on page 2 and the global part number format and reel codes on page 3. The batch uses the full 1 Ω to 10 MΩ E24 range for seven sizes and stops at 2.2 MΩ for 1218. It uses one reel option per size. ED applies to 0402, EA to 0603/0805/1206/1210, EK to 1218, EF to 2010 and EG to 2512. The exact order codes are derived from those ordering tables. Stock and per-code lifecycle have not been confirmed.
 
 Run `node scripts/source-vishay-crcw-e24.mjs` to add any missing records, then regenerate the public inventory. Candidates require independent review, native view mapping and model validation.
 
