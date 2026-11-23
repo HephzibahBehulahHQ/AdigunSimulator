@@ -245327,6 +245327,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-102mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-102mec/footprint.json",
+        "sha256": "b44c3d4b855a5e481107245bab8d8c9f97f04c27cdf253d8d3098e1400e0c648",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-102mec/symbol.svg",
+        "sha256": "c6b55aafba9428415768b4c2624e476cce6164111571fd9a64203982a95b62ff",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {

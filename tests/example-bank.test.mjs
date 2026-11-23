@@ -1064,7 +1064,11 @@ test("Vishay 0603 resistor projects to schematic and routed PCB with a breadboar
   assert.equal(analysis.scopeRecording.preferredNet, "FILTER_OUT");
 });
 
-for (const [orderCode, value, height] of [["XAL5030-102MEC", "1 µH", 3.1], ["XAL5050-103MEC", "10 µH", 5.1]]) {
+for (const [orderCode, value, height, startX, aperture] of [
+  ["XAL5030-102MEC", "1 µH", 3.1, 38.345, "R,1.18X4.7*"],
+  ["XAL5050-103MEC", "10 µH", 5.1, 38.345, "R,1.18X4.7*"],
+  ["XGL4030-102MEC", "1 µH", 3.1, 38.815, "R,0.98X3.4*"]
+]) {
   test(`Coilcraft ${orderCode} maps its winding start to the rotated land and RL net`, async () => {
     const load = async path => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
     const project = await load("../examples/006-rl-step-response.adigun.json");
@@ -1097,7 +1101,7 @@ for (const [orderCode, value, height] of [["XAL5030-102MEC", "1 µH", 3.1], ["XA
     }
     const windingStart = pcb.pads.find(pad => pad.instanceId === instanceId && pad.number === "1");
     assert.equal(windingStart.netId, "RL_NODE");
-    assert.equal(windingStart.xMm, 38.345);
+    assert.equal(windingStart.xMm, startX);
     for (const view of ["schematic", "pcb"]) {
       assert.ok(projectComponentsForView(project, view).components.includes(inductor));
     }
@@ -1107,7 +1111,7 @@ for (const [orderCode, value, height] of [["XAL5030-102MEC", "1 µH", 3.1], ["XA
     const fabrication = exportPcbFabrication(project);
     assert.equal(fabrication.status, "passed", fabrication.drc.errors.join("\n"));
     assert.ok(fabrication.files["BOM.csv"].includes(orderCode));
-    assert.match(fabrication.files["board-F_Cu.gbr"], /R,1\.18X4\.7\*/);
+    assert.ok(fabrication.files["board-F_Cu.gbr"].includes(aperture));
     assert.match(renderPcbPreviewSvg(project), /data-pcb-footprint="inductor-1"/);
     const analysis = runProjectAnalysis(project);
     assert.equal(analysis.state, "complete", analysis.message);
