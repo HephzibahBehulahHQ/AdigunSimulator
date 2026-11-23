@@ -246330,6 +246330,426 @@
         "compatible": false,
         "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
+    },
+    {
+      "id": "coilcraft.xgl4020-400mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-400MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.04,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-111mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-111MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.11,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-251mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-251MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.25,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-331mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-331MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.33,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-471mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-471MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.47,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-601mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-601MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.6,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-821mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-821MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.82,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-102MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-152mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-152MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 1.5,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-222mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-222MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-332mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-332MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 3.3,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-472mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-472MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 4.7,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-562mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-562MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 5.6,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-682mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-682MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 6.8,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4020-822mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4020-822MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4020 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XGL4020 Shielded Power Inductors",
+        "accessedAt": "2026-11-24",
+        "url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Coilcraft XGL4020 ordering table",
+          "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        }
+      ],
+      "nominalInductanceMicrohenries": 8.2,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4020.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
