@@ -46,7 +46,12 @@ const selections = [
   ...[10, 12, 15, 18, 22].map(value => percentageSelection(value, 3, 250, "1206")),
   ...[27, 33, 39, 47].map(value => percentageSelection(value, 3, 100, "1206")),
   ...[56, 68, 82].map(value => percentageSelection(value, 3, 50, "1206")),
-  percentageSelection(10, 4, 50, "1206")
+  percentageSelection(10, 4, 50, "1206"),
+  // Table 1A: the selected C0603C rows from 1 to 1,000 pF list all seven voltages.
+  ...e24.map(value => absoluteSelection(value, "0603")),
+  ...e24.map(value => percentageSelection(value, 0, 250, "0603")),
+  ...e24.map(value => percentageSelection(value, 1, 250, "0603")),
+  percentageSelection(10, 2, 250, "0603")
 ];
 const datasheet = {
   title: "KEMET C1003_C0G Commercial Grade C0G MLCCs",
