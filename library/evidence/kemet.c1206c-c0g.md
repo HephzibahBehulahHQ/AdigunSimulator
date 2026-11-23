@@ -5,3 +5,5 @@
 Run `node scripts/source-kemet-c0g.mjs` to add missing records. Individual lifecycle, datasheet checksum, native mapping, model validation and independent review remain pending.
 
 The higher C1206C rows on page 6 retain the five percentage tolerances. Among the listed values above 1,000 pF, the voltage columns stop at 250 V through 22,000 pF, 100 V from 27,000 to 47,000 pF, and 50 V from 56,000 pF to 0.10 µF.
+
+Table 1A on page 5 lists all seven voltage columns for the C1206C E24 values from 1.0 to 91 pF. The 1.0–9.1 pF values use B/C/D absolute tolerances, while the 10–91 pF values use F/G/J/K/M percentage tolerances. The 0.50 and 0.75 pF rows have empty C1206C columns.

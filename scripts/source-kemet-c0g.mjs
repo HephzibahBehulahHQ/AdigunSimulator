@@ -20,9 +20,16 @@ const percentageSelection = (value, exponent, maxVoltageVdc = 250, size = "1210"
   tolerances: percentageTolerances,
   toleranceField: "tolerancePercent"
 });
+const absoluteSelection = (value, size) => ({
+  code: `${value}9`,
+  size,
+  capacitancePf: value / 10,
+  tolerances: absoluteTolerances,
+  toleranceField: "tolerancePf"
+});
 const selections = [
   ...e24.map(value => percentageSelection(value, 0)),
-  ...e24.map(value => ({ code: `${value}9`, capacitancePf: value / 10, tolerances: absoluteTolerances, toleranceField: "tolerancePf" })),
+  ...e24.map(value => absoluteSelection(value, "1210")),
   ...e24.slice(1).map(value => percentageSelection(value, 1)),
   ...nanofaradMantissas.map(value => percentageSelection(value, 2)),
   ...[43, 47, 51, 56, 62, 68, 75, 82, 91].map(value => percentageSelection(value, 2)),
@@ -31,7 +38,9 @@ const selections = [
   percentageSelection(10, 4, 100),
   ...[12, 15].map(value => percentageSelection(value, 4, 50)),
   ...[18, 22].map(value => percentageSelection(value, 4, 25)),
-  // Table 1A: every selected C1206C row from 100 to 1,000 pF lists all seven voltages.
+  // Table 1A: the C1206C E24 decades below 100 pF list all seven voltages.
+  ...e24.map(value => absoluteSelection(value, "1206")),
+  ...e24.map(value => percentageSelection(value, 0, 250, "1206")),
   ...e24.map(value => percentageSelection(value, 1, 250, "1206")),
   ...e24.map(value => percentageSelection(value, 2, 250, "1206")),
   ...[10, 12, 15, 18, 22].map(value => percentageSelection(value, 3, 250, "1206")),
