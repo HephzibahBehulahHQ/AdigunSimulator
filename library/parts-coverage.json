@@ -5,11 +5,11 @@
     "componentTypes": 565
   },
   "ledger": {
-    "total": 19,
+    "total": 21,
     "verified": 0,
     "remaining": 1000,
     "byStatus": {
-      "candidate": 17,
+      "candidate": 19,
       "in-review": 2,
       "verified": 0,
       "rejected": 0
@@ -403,6 +403,48 @@
         "DATASHEET_CHECKSUM",
         "LIFECYCLE_EVIDENCE",
         "TRANSLATIONS",
+        "VERIFIED_EVIDENCE"
+      ]
+    },
+    {
+      "partId": "ti.lm35dz-nopb",
+      "currentStatus": "candidate",
+      "readyForHumanReview": false,
+      "missingEvidenceCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE",
+        "TRANSLATIONS",
+        "TYPE_CODE",
+        "VERIFIED_EVIDENCE"
+      ],
+      "evidenceBlockerCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "TRANSLATIONS",
+        "TYPE_CODE",
+        "VERIFIED_EVIDENCE"
+      ]
+    },
+    {
+      "partId": "microchip.mcp9700a-e-to",
+      "currentStatus": "candidate",
+      "readyForHumanReview": false,
+      "missingEvidenceCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE",
+        "TRANSLATIONS",
+        "TYPE_CODE",
+        "VERIFIED_EVIDENCE"
+      ],
+      "evidenceBlockerCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "TRANSLATIONS",
+        "TYPE_CODE",
         "VERIFIED_EVIDENCE"
       ]
     }
