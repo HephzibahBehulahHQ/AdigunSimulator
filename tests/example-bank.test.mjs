@@ -1018,3 +1018,48 @@ test('six compatible LED and synchronization projects retain their analysis afte
   assert.equal(pcbCoverage(p).parts,3);assert.equal(pcbCoverage(p).pads,6);assert.match(renderPcbPreviewSvg(p),/data-pcb-footprint=/);
  }
 });
+
+test("Vishay 0603 resistor projects to schematic and routed PCB with a breadboard adapter diagnostic", async () => {
+  const load = async path => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const project = await load("../examples/012-rc-low-pass.adigun.json");
+  delete project.breadboard;
+  const footprint = await load("../library/assets/footprints/vishay.crcw0603100rjnea/footprint.json");
+  const instanceId = "resistor-1";
+  const resistor = project.components.find(part => part.instanceId === instanceId);
+  resistor.value = "100 Ω";
+  const pcb = project.pcbFabrication;
+  const assembly = pcb.parts.find(part => part.instanceId === instanceId);
+  Object.assign(assembly, {
+    footprint: footprint.package,
+    technology: "smd",
+    manufacturerPartNumber: "CRCW0603100RJNEA",
+    sourceUrl: footprint.packageOutline.sourceUrl
+  });
+  pcb.physicalEvidence = pcb.physicalEvidence.filter(part => part.reference !== resistor.reference);
+  for (const pad of pcb.pads.filter(pad => pad.instanceId === instanceId)) {
+    const land = footprint.pads.find(land => land.number === pad.number);
+    const route = pcb.routes.find(route => route.netId === pad.netId);
+    const point = route.pointsMm.find(point => point[0] === pad.xMm && point[1] === pad.yMm);
+    point[0] = 21 + land.xMm;
+    Object.assign(pad, {
+      technology: "smd", xMm: point[0],
+      widthMm: footprint.padPattern.widthMm, heightMm: footprint.padPattern.heightMm
+    });
+    delete pad.diameterMm;
+    delete pad.drillMm;
+  }
+  for (const view of ["schematic", "pcb"]) {
+    assert.equal(projectComponentsForView(project, view).components.find(part => part.instanceId === instanceId), resistor);
+  }
+  const breadboard = projectComponentsForView(project, "breadboard");
+  assert.ok(!breadboard.components.includes(resistor));
+  assert.match(breadboard.reconciliationItems.find(issue => issue.instanceId === instanceId)?.reason ?? "",
+    /0603 breakout with documented terminal-to-hole mapping/);
+  const fabrication = exportPcbFabrication(project);
+  assert.equal(fabrication.status, "passed", fabrication.drc.errors.join("\n"));
+  assert.match(fabrication.files["board-F_Cu.gbr"], /R,0\.75X1\*/);
+  assert.match(renderPcbPreviewSvg(project), /data-pcb-footprint="resistor-1"/);
+  const analysis = runProjectAnalysis(project);
+  assert.equal(analysis.state, "complete", analysis.message);
+  assert.equal(analysis.scopeRecording.preferredNet, "FILTER_OUT");
+});

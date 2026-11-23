@@ -1,4 +1,9 @@
 import { findLibraryPart, getViewReconciliationIssues, validateProject } from "./core.mjs";
+import { MANUFACTURER_PART_RECORDS } from "./part-catalogue.mjs";
+
+const breadboardRestrictions = new Map(MANUFACTURER_PART_RECORDS
+  .filter(part => part.breadboard?.compatible === false && part.breadboard.adapter)
+  .map(part => [`${part.manufacturer}:${part.manufacturerPartNumber}`, part.breadboard.adapter]));
 
 function declaredNonPhysical(project, view) {
   if (view === "schematic") return new Set();
@@ -13,6 +18,11 @@ function componentViewIssue(project, component, view) {
   if (!part?.pins?.length) return capabilityIssue ?? { instanceId: component.instanceId, reference: component.reference, view, reason: "The component has no verified pin mapping in the current library." };
   if (view === "breadboard") {
     if (declaredNonPhysical(project, view).has(component.instanceId)) return null;
+    const physicalPart = project?.pcbFabrication?.parts?.find(item => item.instanceId === component.instanceId);
+    const adapter = physicalPart && breadboardRestrictions.get(`${physicalPart.manufacturer}:${physicalPart.manufacturerPartNumber}`);
+    if (adapter) {
+      return { instanceId: component.instanceId, reference: component.reference, view, reason: `${component.reference} requires an adapter for breadboard placement. ${adapter}` };
+    }
     const holes = project?.breadboard?.pinHoles ?? {};
     const allPinsMapped = part.pins.every(pin => {
       const hole = holes[`${component.instanceId}:${pin}`];
