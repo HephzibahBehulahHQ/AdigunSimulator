@@ -245076,6 +245076,538 @@
         "compatible": false,
         "adapter": "Use a documented breakout that maps both XAL5050 terminals to breadboard holes."
       }
+    },
+    {
+      "id": "coilcraft.xgl4030-450mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-450MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.045,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-131mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-131MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.13,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-271mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-271MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.27,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-301mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-301MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.3,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-401mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-401MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.4,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-471mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-471MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.47,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-621mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-621MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.62,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-761mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-761MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 0.76,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-102MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-122mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-122MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 1.2,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-152mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-152MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 1.5,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-222mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-222MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-332mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-332MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 3.3,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-472mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-472MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 4.7,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-562mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-562MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 5.6,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-682mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-682MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 6.8,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-822mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-822MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 8.2,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-103mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-103MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 10,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl4030-123mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL4030-123MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XGL4030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "url": "https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf",
+        "title": "Coilcraft XGL4030 Shielded Power Inductors",
+        "accessedAt": "2026-11-24"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/",
+          "title": "XGL4030 series ordering table"
+        }
+      ],
+      "nominalInductanceMicrohenries": 12,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xgl4030.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
