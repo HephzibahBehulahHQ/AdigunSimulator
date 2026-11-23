@@ -4,17 +4,17 @@
     "placeableDefinitions": 364,
     "taxonomyTypes": 565,
     "taxonomyCategories": 15,
-    "manufacturerRecords": 10433,
+    "manufacturerRecords": 10449,
     "verifiedManufacturerRecords": 0,
     "byKind": {
       "generic-or-virtual-definition": 289,
       "software-instruction": 25,
       "hardware-oriented-definition": 50,
-      "manufacturer-record": 10433
+      "manufacturer-record": 10449
     },
     "manufacturerByStatus": {
       "in-review": 2,
-      "candidate": 10431
+      "candidate": 10447
     }
   },
   "records": [
@@ -698621,6 +698621,1062 @@
       },
       "sources": [
         "https://content.kemet.com/datasheets/kem_c1003_c0g_smd.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5030-161mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5030-161MEC",
+      "package": "XAL5030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5030-331mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5030-331MEC",
+      "package": "XAL5030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5030-601mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5030-601MEC",
+      "package": "XAL5030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5030-801mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5030-801MEC",
+      "package": "XAL5030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5030-102mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5030-102MEC",
+      "package": "XAL5030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5030-122mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5030-122MEC",
+      "package": "XAL5030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5030-222mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5030-222MEC",
+      "package": "XAL5030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5030-332mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5030-332MEC",
+      "package": "XAL5030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5030-472mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5030-472MEC",
+      "package": "XAL5030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5050-472mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5050-472MEC",
+      "package": "XAL5050 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5050-562mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5050-562MEC",
+      "package": "XAL5050 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5050-682mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5050-682MEC",
+      "package": "XAL5050 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5050-822mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5050-822MEC",
+      "package": "XAL5050 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5050-103mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5050-103MEC",
+      "package": "XAL5050 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5050-153mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5050-153MEC",
+      "package": "XAL5050 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xal5050-223mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XAL5050-223MEC",
+      "package": "XAL5050 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
       ],
       "readiness": {
         "verification": "candidate",
