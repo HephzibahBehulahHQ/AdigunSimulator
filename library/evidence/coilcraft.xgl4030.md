@@ -1,0 +1,3 @@
+# Coilcraft XGL4030 ordering evidence
+
+The [Coilcraft series specification](https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl4030/) and [short-form catalog](https://www.coilcraft.com/getmedia/d46871f9-0aed-4757-ae22-69277909da05/ShortFormCatalog.pdf) list the 19 MEC order codes added here, from 0.045 to 12 µH, with ±20% inductance tolerance. These use standard termination and the 7-inch reel. The package drawing is referenced by the [series datasheet](https://www.coilcraft.com/getmedia/032d9c73-4222-482f-b6bc-7808590e27c9/xgl4030.pdf). Lifecycle, native view mapping, simulation validation and independent review are pending.
