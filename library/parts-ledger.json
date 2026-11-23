@@ -2717,6 +2717,108 @@
         "13": "13",
         "14": "14"
       }
+    },
+    {
+      "id": "vishay.tsop38438",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "TSOP38438",
+      "category": "RF, wireless, and communication parts",
+      "type": "38 kHz demodulating infrared receiver",
+      "typeCode": "L14",
+      "lifecycle": "not-verified",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay TSOP382.., TSOP384.. IR Receiver Modules",
+        "url": "https://www.vishay.com/docs/82491/tsop382.pdf",
+        "accessedAt": "2026-11-23"
+      },
+      "manufacturerSources": [
+        {
+          "url": "https://www.vishay.com/docs/82491/tsop382.pdf",
+          "kind": "manufacturer-datasheet-and-package-drawing"
+        }
+      ],
+      "package": "Minicast, leaded, 3 pins",
+      "packageEvidence": {
+        "package": "Minicast",
+        "pinCount": 3,
+        "sourceUrl": "https://www.vishay.com/docs/82491/tsop382.pdf"
+      },
+      "symbolPinMap": {
+        "1": "OUT",
+        "2": "GND",
+        "3": "VS"
+      },
+      "symbolPinLabels": {
+        "1": "OUT",
+        "2": "GND",
+        "3": "VS"
+      },
+      "pinElectricalTypes": {
+        "1": "output",
+        "2": "power-in",
+        "3": "power-in"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "sourceUrl": "https://www.vishay.com/docs/82491/tsop382.pdf",
+        "assetPath": "library/assets/footprints/vishay.tsop38438/footprint.json",
+        "drawing": "Minicast package dimensions and 2.54 mm nominal lead pitch.",
+        "designNote": "Circular copper and drill geometry comes from the educational Example 072 layout. Independent fit and assembly review are pending."
+      },
+      "breadboard": {
+        "compatible": true,
+        "adapter": "Insulated pigtails in Example 072.",
+        "operatingLimits": [
+          "2.0 to 5.5 V receiver supply"
+        ],
+        "evidence": "examples/072-avr-ir-receiver.adigun.json"
+      },
+      "views": {
+        "schematic": "candidate-symbol",
+        "pcb": "educational-candidate"
+      },
+      "ratings": [
+        {
+          "name": "Supply voltage",
+          "minimum": 2,
+          "maximum": 5.5,
+          "unit": "V",
+          "conditions": "Specified operating range"
+        },
+        {
+          "name": "Carrier center frequency",
+          "typical": 38,
+          "unit": "kHz",
+          "conditions": "TSOP38438 variant"
+        }
+      ],
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Example 072 uses a bounded logical waveform. Optical response, AGC and device tolerances have no qualified model."
+      },
+      "evidenceNote": "library/evidence/vishay.tsop38438.md",
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/vishay.tsop38438/symbol.svg",
+        "sha256": "8628fcbda892bf9f708578bc83fb9fa59a5949548d00df9eb199a2ba75332974",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/vishay.tsop38438/footprint.json",
+        "sha256": "591f16c25c092ebb71d05c2677d3eedb3963d160e1edf98494aa9c331d4975fd",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "educational-candidate"
+      },
+      "warnings": [
+        "Observe pin numbering in the manufacturer package drawing before wiring."
+      ],
+      "alternates": []
     }
   ],
   "lastUpdated": "2026-11-13"

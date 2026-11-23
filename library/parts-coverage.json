@@ -5,11 +5,11 @@
     "componentTypes": 565
   },
   "ledger": {
-    "total": 18,
+    "total": 19,
     "verified": 0,
     "remaining": 1000,
     "byStatus": {
-      "candidate": 16,
+      "candidate": 17,
       "in-review": 2,
       "verified": 0,
       "rejected": 0
@@ -109,7 +109,7 @@
       {
         "code": "L",
         "declaredTypes": 20,
-        "partRecords": 0,
+        "partRecords": 1,
         "verifiedRecords": 0,
         "coveredTypes": 0,
         "missingTypes": 20
@@ -386,6 +386,25 @@
         "REVIEW_DATE"
       ],
       "evidenceBlockerCodes": []
+    },
+    {
+      "partId": "vishay.tsop38438",
+      "currentStatus": "candidate",
+      "readyForHumanReview": false,
+      "missingEvidenceCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "REVIEWER_IDENTITY",
+        "REVIEW_DATE",
+        "TRANSLATIONS",
+        "VERIFIED_EVIDENCE"
+      ],
+      "evidenceBlockerCodes": [
+        "DATASHEET_CHECKSUM",
+        "LIFECYCLE_EVIDENCE",
+        "TRANSLATIONS",
+        "VERIFIED_EVIDENCE"
+      ]
     }
   ]
 }
