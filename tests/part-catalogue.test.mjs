@@ -21,7 +21,7 @@ test("manufacturer evidence search returns exact records without promoting candi
 });
 
 test("manufacturer evidence browser provides a searchable review snapshot for every ledger record", () => {
-  assert.equal(MANUFACTURER_PART_RECORDS.length, 701);
+  assert.equal(MANUFACTURER_PART_RECORDS.length, 1361);
   assert.equal(searchManufacturerParts("Texas Instruments").length, 12);
   assert.equal(searchManufacturerParts("Texas LM555CN/NOPB").length, 1);
   assert.equal(searchManufacturerParts("LM555 Texas")[0].id, "ti.lm555p");
@@ -126,13 +126,18 @@ test("2N3904 datasheet checksum is recorded without promoting the candidate", ()
 
 test("Vishay CRCW order codes retain package-specific reel codes and candidate status", () => {
   const records = MANUFACTURER_PART_RECORDS.filter(part => part.id.startsWith("vishay.crcw"));
-  assert.equal(records.length, 676);
-  const packagingBySize = { "0402": "ED", "0603": "EA", "0805": "EA", "1206": "EA" };
+  assert.equal(records.length, 1336);
+  const packagingBySize = {
+    "0402": "ED", "0603": "EA", "0805": "EA", "1206": "EA",
+    "1210": "EA", "1218": "EK", "2010": "EF", "2512": "EG"
+  };
   for (const [size, reel] of Object.entries(packagingBySize)) {
     const group = records.filter(part => part.manufacturerPartNumber.startsWith(`CRCW${size}`));
-    assert.equal(new Set(group.map(part => part.nominalResistanceOhms)).size, 169);
+    assert.equal(new Set(group.map(part => part.nominalResistanceOhms)).size, size === "1218" ? 153 : 169);
+    const maximum = size === "1218" ? [2_200_000, "2M20"] : [10_000_000, "10M0"];
+    assert.equal(Math.max(...group.map(part => part.nominalResistanceOhms)), maximum[0]);
     for (const [ohms, code] of [[1, "1R00"], [9.1, "9R10"], [10, "10R0"], [100, "100R"],
-      [1000, "1K00"], [910000, "910K"], [1000000, "1M00"], [10000000, "10M0"]]) {
+      [1000, "1K00"], [910000, "910K"], [1000000, "1M00"], maximum]) {
       const part = group.find(part => part.nominalResistanceOhms === ohms);
       assert.equal(part?.manufacturerPartNumber, `CRCW${size}${code}JN${reel}`);
     }

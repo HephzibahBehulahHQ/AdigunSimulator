@@ -5,7 +5,11 @@ const readJson = async name => JSON.parse(await readFile(new URL(`../library/${n
 const writeJson = (name, value) => writeFile(new URL(`../library/${name}.json`, import.meta.url), JSON.stringify(value, null, 2) + "\n");
 
 // Vishay document 20035, pp. 2–3. One listed packaging code per size.
-const packaging = { "0402": "ED", "0603": "EA", "0805": "EA", "1206": "EA" };
+const packaging = {
+  "0402": "ED", "0603": "EA", "0805": "EA", "1206": "EA",
+  "1210": "EA", "1218": "EK", "2010": "EF", "2512": "EG"
+};
+const packageResistanceLimits = { "1218": 2_200_000 };
 const e24Mantissas = [100, 110, 120, 130, 150, 160, 180, 200, 220, 240, 270, 300,
   330, 360, 390, 430, 470, 510, 560, 620, 680, 750, 820, 910];
 const resistanceValues = Array.from({ length: 7 }, (_, decade) =>
@@ -32,6 +36,7 @@ const [ledger, taxonomy] = await Promise.all([readJson("parts-ledger"), readJson
 const known = new Set(ledger.records.map(record => record.id));
 for (const [size, reel] of Object.entries(packaging)) {
   for (const ohms of resistanceValues) {
+    if (ohms > (packageResistanceLimits[size] ?? 10_000_000)) break;
     const manufacturerPartNumber = `CRCW${size}${resistanceCode(ohms)}JN${reel}`;
     const id = `vishay.${manufacturerPartNumber.toLowerCase()}`;
     if (known.has(id)) continue;
