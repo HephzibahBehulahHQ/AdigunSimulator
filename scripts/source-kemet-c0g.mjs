@@ -33,7 +33,11 @@ const selections = [
   ...[18, 22].map(value => percentageSelection(value, 4, 25)),
   // Table 1A: every selected C1206C row from 100 to 1,000 pF lists all seven voltages.
   ...e24.map(value => percentageSelection(value, 1, 250, "1206")),
-  percentageSelection(10, 2, 250, "1206")
+  ...e24.map(value => percentageSelection(value, 2, 250, "1206")),
+  ...[10, 12, 15, 18, 22].map(value => percentageSelection(value, 3, 250, "1206")),
+  ...[27, 33, 39, 47].map(value => percentageSelection(value, 3, 100, "1206")),
+  ...[56, 68, 82].map(value => percentageSelection(value, 3, 50, "1206")),
+  percentageSelection(10, 4, 50, "1206")
 ];
 const datasheet = {
   title: "KEMET C1003_C0G Commercial Grade C0G MLCCs",
