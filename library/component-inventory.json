@@ -4,17 +4,17 @@
     "placeableDefinitions": 364,
     "taxonomyTypes": 565,
     "taxonomyCategories": 15,
-    "manufacturerRecords": 24,
+    "manufacturerRecords": 120,
     "verifiedManufacturerRecords": 0,
     "byKind": {
       "generic-or-virtual-definition": 289,
       "software-instruction": 25,
       "hardware-oriented-definition": 50,
-      "manufacturer-record": 24
+      "manufacturer-record": 120
     },
     "manufacturerByStatus": {
       "in-review": 2,
-      "candidate": 22
+      "candidate": 118
     }
   },
   "records": [
@@ -14315,6 +14315,6150 @@
           "VERIFIED_EVIDENCE"
         ],
         "footprintEvidence": "educational-candidate",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206100rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206100RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206110rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206110RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206120rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206120RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206130rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206130RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206150rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206150RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206160rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206160RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206180rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206180RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206200rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206200RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206220rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206220RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206240rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206240RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206270rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206270RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206300rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206300RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206330rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206330RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206360rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206360RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206390rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206390RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206430rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206430RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206470rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206470RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206510rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206510RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206560rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206560RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206620rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206620RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206680rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206680RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206750rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206750RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206820rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206820RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw1206910rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW1206910RJNEA",
+      "package": "1206 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402100rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402100RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402110rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402110RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402120rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402120RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402130rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402130RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402150rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402150RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402160rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402160RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402180rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402180RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402200rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402200RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402220rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402220RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402240rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402240RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402270rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402270RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402300rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402300RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402330rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402330RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402360rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402360RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402390rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402390RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402430rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402430RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402470rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402470RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402510rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402510RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402560rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402560RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402620rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402620RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402680rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402680RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402750rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402750RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402820rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402820RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0402910rjned",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0402910RJNED",
+      "package": "0402 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603100rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603100RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603110rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603110RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603120rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603120RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603130rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603130RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603150rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603150RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603160rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603160RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603180rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603180RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603200rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603200RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603220rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603220RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603240rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603240RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603270rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603270RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603300rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603300RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603330rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603330RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603360rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603360RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603390rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603390RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603430rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603430RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603470rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603470RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603510rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603510RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603560rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603560RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603620rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603620RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603680rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603680RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603750rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603750RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603820rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603820RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0603910rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0603910RJNEA",
+      "package": "0603 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805100rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805100RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805110rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805110RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805120rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805120RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805130rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805130RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805150rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805150RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805160rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805160RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805180rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805180RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805200rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805200RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805220rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805220RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805240rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805240RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805270rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805270RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805300rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805300RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805330rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805330RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805360rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805360RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805390rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805390RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805430rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805430RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805470rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805470RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805510rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805510RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805560rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805560RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805620rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805620RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805680rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805680RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805750rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805750RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805820rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805820RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "vishay.crcw0805910rjnea",
+      "manufacturer": "Vishay",
+      "partNumber": "CRCW0805910RJNEA",
+      "package": "0805 chip resistor",
+      "category": "Passive components",
+      "function": "Thick-film chip resistor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.vishay.com/docs/20035/dcrcwe3.pdf"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
         "simulation": "not-modelled"
       }
     }

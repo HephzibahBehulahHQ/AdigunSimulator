@@ -21,7 +21,7 @@ test("manufacturer evidence search returns exact records without promoting candi
 });
 
 test("manufacturer evidence browser provides a searchable review snapshot for every ledger record", () => {
-  assert.equal(MANUFACTURER_PART_RECORDS.length, 24);
+  assert.equal(MANUFACTURER_PART_RECORDS.length, 120);
   assert.equal(searchManufacturerParts("Texas Instruments").length, 12);
   assert.equal(searchManufacturerParts("Texas LM555CN/NOPB").length, 1);
   assert.equal(searchManufacturerParts("LM555 Texas")[0].id, "ti.lm555p");
@@ -122,4 +122,21 @@ test("2N3904 datasheet checksum is recorded without promoting the candidate", ()
   assert.equal(summary.readyForHumanReview, false);
   assert.ok(summary.evidenceBlockerCodes.length > 0);
   assert.ok(!summary.evidenceBlockerCodes.includes("DATASHEET_CHECKSUM"));
+});
+
+test("Vishay CRCW order codes retain package-specific reel codes and candidate status", () => {
+  const records = MANUFACTURER_PART_RECORDS.filter(part => part.id.startsWith("vishay.crcw"));
+  assert.equal(records.length, 96);
+  const packagingBySize = { "0402": "ED", "0603": "EA", "0805": "EA", "1206": "EA" };
+  for (const [size, reel] of Object.entries(packagingBySize)) {
+    const group = records.filter(part => part.manufacturerPartNumber.startsWith(`CRCW${size}`));
+    assert.equal(new Set(group.map(part => part.nominalResistanceOhms)).size, 24);
+    assert.ok(group.some(part => part.manufacturerPartNumber === `CRCW${size}100RJN${reel}`));
+    assert.ok(group.some(part => part.manufacturerPartNumber === `CRCW${size}910RJN${reel}`));
+    for (const part of group) {
+      assert.equal(part.manufacturerPartNumber, `CRCW${size}${part.nominalResistanceOhms}RJN${reel}`);
+      assert.equal(part.verificationStatus, "candidate");
+      assert.equal(part.simulationModel.status, "not-modelled");
+    }
+  }
 });

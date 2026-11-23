@@ -3323,6 +3323,2310 @@
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "educational-candidate"
       }
+    },
+    {
+      "id": "vishay.crcw1206100rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206100RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 100,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206110rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206110RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 110,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206120rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206120RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 120,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206130rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206130RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 130,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206150rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206150RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 150,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206160rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206160RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 160,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206180rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206180RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 180,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206200rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206200RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 200,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206220rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206220RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 220,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206240rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206240RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 240,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206270rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206270RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 270,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206300rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206300RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 300,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206330rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206330RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 330,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206360rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206360RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 360,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206390rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206390RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 390,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206430rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206430RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 430,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206470rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206470RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 470,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206510rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206510RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 510,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206560rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206560RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 560,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206620rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206620RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 620,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206680rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206680RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 680,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206750rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206750RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 750,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206820rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206820RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 820,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw1206910rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW1206910RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "1206 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 910,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402100rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402100RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 100,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402110rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402110RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 110,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402120rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402120RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 120,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402130rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402130RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 130,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402150rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402150RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 150,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402160rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402160RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 160,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402180rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402180RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 180,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402200rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402200RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 200,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402220rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402220RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 220,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402240rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402240RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 240,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402270rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402270RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 270,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402300rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402300RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 300,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402330rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402330RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 330,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402360rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402360RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 360,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402390rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402390RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 390,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402430rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402430RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 430,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402470rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402470RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 470,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402510rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402510RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 510,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402560rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402560RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 560,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402620rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402620RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 620,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402680rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402680RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 680,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402750rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402750RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 750,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402820rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402820RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 820,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0402910rjned",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0402910RJNED",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0402 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 910,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603100rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603100RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 100,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603110rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603110RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 110,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603120rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603120RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 120,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603130rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603130RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 130,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603150rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603150RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 150,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603160rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603160RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 160,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603180rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603180RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 180,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603200rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603200RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 200,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603220rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603220RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 220,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603240rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603240RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 240,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603270rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603270RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 270,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603300rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603300RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 300,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603330rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603330RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 330,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603360rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603360RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 360,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603390rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603390RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 390,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603430rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603430RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 430,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603470rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603470RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 470,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603510rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603510RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 510,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603560rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603560RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 560,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603620rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603620RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 620,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603680rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603680RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 680,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603750rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603750RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 750,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603820rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603820RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 820,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0603910rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0603910RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0603 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 910,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805100rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805100RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 100,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805110rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805110RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 110,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805120rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805120RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 120,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805130rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805130RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 130,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805150rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805150RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 150,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805160rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805160RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 160,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805180rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805180RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 180,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805200rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805200RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 200,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805220rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805220RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 220,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805240rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805240RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 240,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805270rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805270RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 270,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805300rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805300RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 300,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805330rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805330RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 330,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805360rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805360RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 360,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805390rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805390RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 390,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805430rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805430RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 430,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805470rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805470RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 470,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805510rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805510RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 510,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805560rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805560RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 560,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805620rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805620RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 620,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805680rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805680RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 680,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805750rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805750RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 750,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805820rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805820RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 820,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "vishay.crcw0805910rjnea",
+      "manufacturer": "Vishay",
+      "manufacturerPartNumber": "CRCW0805910RJNEA",
+      "category": "Passive components",
+      "type": "Thick-film chip resistor",
+      "package": "0805 chip resistor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
+        "url": "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
+        "accessedAt": "2026-11-23",
+        "sha256": "7bb1860ab4bd41c7dc05d176602a33e384d64f413c17e49dce61ceb45d2cd0c1"
+      },
+      "nominalResistanceOhms": 910,
+      "tolerancePercent": 5,
+      "temperatureCoefficientPpmPerKelvin": 200,
+      "evidenceNote": "library/evidence/vishay.crcw-e24.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
