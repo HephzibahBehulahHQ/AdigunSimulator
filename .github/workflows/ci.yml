@@ -44,3 +44,37 @@ jobs:
       - name: Deploy verified static site
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+
+  deploy-cloudflare:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    concurrency:
+      group: adigunsimulator-cloudflare-production
+      cancel-in-progress: false
+    environment:
+      name: cloudflare-production
+      url: https://adigunsimulator.hephzibahbehulah.com/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build committed Worker assets
+        run: npm run build -- dist
+      - name: Deploy production Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ "$(git ls-remote origin refs/heads/main | cut -f 1)" != "$GITHUB_SHA" ]; then
+            echo "::error::This workflow revision is no longer the tip of main."
+            exit 1
+          fi
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::Configure the Cloudflare API token and account ID in cloudflare-production."
+            exit 1
+          fi
+          npm exec --yes --package=wrangler@4.124.0 -- wrangler deploy --config wrangler.account-preview.toml --env production --keep-vars
+      - name: Verify production release
+        run: node scripts/verify-cloudflare-release.mjs
