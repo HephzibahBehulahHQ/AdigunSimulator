@@ -5,3 +5,7 @@
 The datasheet provides package drawings and land patterns, plus inductance, DCR, saturation current and thermal-rise test conditions. These records have not yet been mapped to native footprints or models. Lifecycle, datasheet checksum and independent review are pending.
 
 Run `node scripts/source-coilcraft-xal50xx.mjs` to add missing records.
+
+## XAL5030-102MEC native mapping evidence
+
+The [exact order-code page](https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal50xx/xal5030-102/) links Coilcraft's drawing. The two 1.18 × 4.70 mm lands have centers 3.31 mm apart. Local pad 1 follows the winding-start stripe in the top view. The native RL test fixture rotates the package 180 degrees, places the start on the RL node, and checks PCB DRC, front-copper Gerber, preview and ideal RL scope data. The ideal analysis does not validate a manufacturer-specific saturation or loss model. Physical breakout placement, browser print review and independent verification remain pending.
