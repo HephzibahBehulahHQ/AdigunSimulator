@@ -5,3 +5,5 @@
 Run `node scripts/source-kemet-c1210c-c0g.mjs` to add missing records, then regenerate the public inventories. The ordering matrix establishes candidate codes. Individual lifecycle, native mapping, model checks, datasheet checksum and independent review are pending.
 
 Table 1B lists a separate 1.0–9.1 pF E24 row for C1210C, also with the FB thickness code in all seven voltage columns. Its capacitance codes end in 9 and allow B, C and D tolerances in pF. Those codes use the same TU reel option.
+
+The higher-capacitance batch uses Table 1B's 110–910 pF entries and its individually listed 1,000–3,900 pF values. Each selected C1210C row allows the five percentage tolerances across all seven voltages. The 100 pF value is outside the rows used for this batch.

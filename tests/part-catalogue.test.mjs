@@ -21,7 +21,7 @@ test("manufacturer evidence search returns exact records without promoting candi
 });
 
 test("manufacturer evidence browser provides a searchable review snapshot for every ledger record", () => {
-  assert.equal(MANUFACTURER_PART_RECORDS.length, 2705);
+  assert.equal(MANUFACTURER_PART_RECORDS.length, 4035);
   assert.equal(searchManufacturerParts("Texas Instruments").length, 12);
   assert.equal(searchManufacturerParts("Texas LM555CN/NOPB").length, 1);
   assert.equal(searchManufacturerParts("LM555 Texas")[0].id, "ti.lm555p");
@@ -155,20 +155,26 @@ test("Vishay CRCW order codes retain package-specific reel codes and candidate s
 
 test("KEMET C1210C candidates match their ordering codes and rated values", () => {
   const parts = MANUFACTURER_PART_RECORDS.filter(part => part.id.startsWith("kemet.c1210c"));
-  assert.equal(parts.length, 1344);
+  assert.equal(parts.length, 2674);
   const capacitances = new Set(parts.map(part => part.nominalCapacitancePf));
-  assert.equal(capacitances.size, 48);
+  assert.equal(capacitances.size, 86);
   assert.equal(Math.min(...capacitances), 1);
-  assert.equal(Math.max(...capacitances), 91);
+  assert.equal(Math.max(...capacitances), 3900);
+  assert.ok(!capacitances.has(100));
+  assert.ok(capacitances.has(110));
+  assert.ok(capacitances.has(910));
+  assert.ok(capacitances.has(1000));
+  assert.ok(!capacitances.has(2800));
   const voltageByCode = { 8: 10, 4: 16, 3: 25, 5: 50, 1: 100, 2: 200, A: 250 };
   const toleranceByCode = { F: 1, G: 2, J: 5, K: 10, M: 20 };
   const absoluteToleranceByCode = { B: 0.1, C: 0.25, D: 0.5 };
   for (const part of parts) {
-    const fields = /^C1210C(\d{2})(0[FGJKM]|9[BCD])([843512A])GACTU$/.exec(part.manufacturerPartNumber);
+    const fields = /^C1210C(\d{2})([012][FGJKM]|9[BCD])([843512A])GACTU$/.exec(part.manufacturerPartNumber);
     assert.ok(fields, part.manufacturerPartNumber);
     const [scale, toleranceCode] = fields[2];
     const absolute = scale === "9";
-    assert.equal(part.nominalCapacitancePf, Number(fields[1]) / (absolute ? 10 : 1));
+    const mantissa = Number(fields[1]);
+    assert.equal(part.nominalCapacitancePf, absolute ? mantissa / 10 : mantissa * 10 ** Number(scale));
     assert.equal(part.tolerancePercent, toleranceByCode[toleranceCode]);
     assert.equal(part.tolerancePf, absoluteToleranceByCode[toleranceCode]);
     assert.equal(part.ratedVoltageVdc, voltageByCode[fields[3]]);
