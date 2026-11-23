@@ -524,7 +524,7 @@ test("part ledger queues complete evidence for human review without marking it v
   const coverage = getLedgerCoverage(ledger);
   assert.equal(coverage.total, 18);
   assert.equal(coverage.verified, 0);
-  assert.equal(coverage.byStatus.candidate, 16);
+  assert.equal(coverage.byStatus.candidate, 17);
   assert.equal(coverage.byStatus["in-review"], 2);
   assert.equal(coverage.remaining, 1000);
   assert.deepEqual(getLibraryCoverage(ledger, taxonomy), coverageFile);
@@ -532,7 +532,7 @@ test("part ledger queues complete evidence for human review without marking it v
   assert.equal(coverageFile.taxonomy.categories.length, 15);
   assert.equal(coverageFile.ledger.total, 18);
   assert.equal(coverageFile.ledger.verified, 0);
-  assert.equal(coverageFile.ledger.byStatus.candidate, 16);
+  assert.equal(coverageFile.ledger.byStatus.candidate, 17);
   assert.equal(coverageFile.ledger.byStatus["in-review"], 2);
   const tiOrGate = ledger.records.find((record) => record.id === "ti.sn74hc32n");
   assert.equal(tiOrGate.type, "Quad 2-input OR gate");

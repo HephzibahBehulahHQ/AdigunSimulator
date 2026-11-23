@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "vishay.tsop38438",
+  "package": "Minicast, leaded, 3 pins",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": -2.54,
+    "yMm": 0
+  },
+  "packageOutline": {
+    "widthMm": 5,
+    "heightMm": 4.8,
+    "sourceUrl": "https://www.vishay.com/docs/82491/tsop382.pdf"
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.8,
+    "drillMm": 0.9
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -2.54,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": 0,
+      "yMm": 0
+    },
+    {
+      "number": "3",
+      "xMm": 2.54,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Check the receiver face and pin 1 orientation before assembly.",
+    "Independent physical fit and manufacturing checks remain pending."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
