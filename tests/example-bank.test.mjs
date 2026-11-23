@@ -1064,49 +1064,53 @@ test("Vishay 0603 resistor projects to schematic and routed PCB with a breadboar
   assert.equal(analysis.scopeRecording.preferredNet, "FILTER_OUT");
 });
 
-test("Coilcraft XAL5030 winding start maps to its rotated land and RL net", async () => {
-  const load = async path => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
-  const project = await load("../examples/006-rl-step-response.adigun.json");
-  const footprint = await load("../library/assets/footprints/coilcraft.xal5030-102mec/footprint.json");
-  delete project.breadboard;
-  const instanceId = "inductor-1";
-  const inductor = project.components.find(part => part.instanceId === instanceId);
-  inductor.value = "1 µH";
-  const pcb = project.pcbFabrication;
-  const assembly = pcb.parts.find(part => part.instanceId === instanceId);
-  Object.assign(assembly, {
-    footprint: footprint.package,
-    technology: "smd",
-    manufacturer: "Coilcraft",
-    manufacturerPartNumber: "XAL5030-102MEC",
-    sourceUrl: footprint.packageOutline.sourceUrl,
-    rotationDeg: 180
+for (const [orderCode, value, height] of [["XAL5030-102MEC", "1 µH", 3.1], ["XAL5050-103MEC", "10 µH", 5.1]]) {
+  test(`Coilcraft ${orderCode} maps its winding start to the rotated land and RL net`, async () => {
+    const load = async path => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+    const project = await load("../examples/006-rl-step-response.adigun.json");
+    const footprint = await load(`../library/assets/footprints/coilcraft.${orderCode.toLowerCase()}/footprint.json`);
+    assert.equal(footprint.packageOutline.heightMaxMm, height);
+    delete project.breadboard;
+    const instanceId = "inductor-1";
+    const inductor = project.components.find(part => part.instanceId === instanceId);
+    inductor.value = value;
+    const pcb = project.pcbFabrication;
+    const assembly = pcb.parts.find(part => part.instanceId === instanceId);
+    Object.assign(assembly, {
+      footprint: footprint.package,
+      technology: "smd",
+      manufacturer: "Coilcraft",
+      manufacturerPartNumber: orderCode,
+      sourceUrl: footprint.packageOutline.sourceUrl,
+      rotationDeg: 180
+    });
+    pcb.physicalEvidence = pcb.physicalEvidence?.filter(part => part.reference !== inductor.reference) ?? [];
+    for (const pad of pcb.pads.filter(pad => pad.instanceId === instanceId)) {
+      const land = footprint.pads.find(land => land.number === pad.number);
+      const route = pcb.routes.find(route => route.netId === pad.netId);
+      const point = route.pointsMm.find(point => point[0] === pad.xMm && point[1] === pad.yMm);
+      point[0] = 40 - land.xMm;
+      Object.assign(pad, { technology: "smd", xMm: point[0],
+        widthMm: footprint.padPattern.widthMm, heightMm: footprint.padPattern.heightMm });
+      delete pad.diameterMm;
+      delete pad.drillMm;
+    }
+    const windingStart = pcb.pads.find(pad => pad.instanceId === instanceId && pad.number === "1");
+    assert.equal(windingStart.netId, "RL_NODE");
+    assert.equal(windingStart.xMm, 38.345);
+    for (const view of ["schematic", "pcb"]) {
+      assert.ok(projectComponentsForView(project, view).components.includes(inductor));
+    }
+    const breadboard = projectComponentsForView(project, "breadboard");
+    assert.ok(!breadboard.components.includes(inductor));
+    assert.match(breadboard.reconciliationItems.find(issue => issue.instanceId === instanceId)?.reason ?? "", /documented breakout/);
+    const fabrication = exportPcbFabrication(project);
+    assert.equal(fabrication.status, "passed", fabrication.drc.errors.join("\n"));
+    assert.ok(fabrication.files["BOM.csv"].includes(orderCode));
+    assert.match(fabrication.files["board-F_Cu.gbr"], /R,1\.18X4\.7\*/);
+    assert.match(renderPcbPreviewSvg(project), /data-pcb-footprint="inductor-1"/);
+    const analysis = runProjectAnalysis(project);
+    assert.equal(analysis.state, "complete", analysis.message);
+    assert.ok(analysis.scopeRecording?.samples.length);
   });
-  pcb.physicalEvidence = pcb.physicalEvidence?.filter(part => part.reference !== inductor.reference) ?? [];
-  for (const pad of pcb.pads.filter(pad => pad.instanceId === instanceId)) {
-    const land = footprint.pads.find(land => land.number === pad.number);
-    const route = pcb.routes.find(route => route.netId === pad.netId);
-    const point = route.pointsMm.find(point => point[0] === pad.xMm && point[1] === pad.yMm);
-    point[0] = 40 - land.xMm;
-    Object.assign(pad, { technology: "smd", xMm: point[0],
-      widthMm: footprint.padPattern.widthMm, heightMm: footprint.padPattern.heightMm });
-    delete pad.diameterMm;
-    delete pad.drillMm;
-  }
-  const windingStart = pcb.pads.find(pad => pad.instanceId === instanceId && pad.number === "1");
-  assert.equal(windingStart.netId, "RL_NODE");
-  assert.equal(windingStart.xMm, 38.345);
-  for (const view of ["schematic", "pcb"]) {
-    assert.ok(projectComponentsForView(project, view).components.includes(inductor));
-  }
-  const breadboard = projectComponentsForView(project, "breadboard");
-  assert.ok(!breadboard.components.includes(inductor));
-  assert.match(breadboard.reconciliationItems.find(issue => issue.instanceId === instanceId)?.reason ?? "", /documented breakout/);
-  const fabrication = exportPcbFabrication(project);
-  assert.equal(fabrication.status, "passed", fabrication.drc.errors.join("\n"));
-  assert.match(fabrication.files["board-F_Cu.gbr"], /R,1\.18X4\.7\*/);
-  assert.match(renderPcbPreviewSvg(project), /data-pcb-footprint="inductor-1"/);
-  const analysis = runProjectAnalysis(project);
-  assert.equal(analysis.state, "complete", analysis.message);
-  assert.ok(analysis.scopeRecording?.samples.length);
-});
+}
