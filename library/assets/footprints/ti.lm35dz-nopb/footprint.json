@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "ti.lm35dz-nopb",
+  "package": "TO-92 LP",
+  "view": "top",
+  "units": "mm",
+  "pinOne": {
+    "number": 1,
+    "xMm": 0,
+    "yMm": 0
+  },
+  "packageOutline": {
+    "sourceUrl": "https://www.ti.com/lit/ds/symlink/lm35.pdf",
+    "drawing": "Manufacturer TO-92 package drawing."
+  },
+  "padPattern": {
+    "shape": "circle",
+    "diameterMm": 1.4,
+    "drillMm": 0.85
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 0,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": 1.27,
+      "yMm": 1.524
+    },
+    {
+      "number": "3",
+      "xMm": 2.54,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Educational staggered geometry from 064-arduino-temperature-monitor. Verify lead forming, part fit and fabrication tolerances."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
