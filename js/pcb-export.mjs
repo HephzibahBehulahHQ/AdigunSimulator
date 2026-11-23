@@ -174,10 +174,19 @@ function drillFile(pcb) {
 }
 
 function bomFile(project, pcb) {
-  const rows=[["Designator","Quantity","Value","Footprint","Technology","Status"]];
+  const sourceFields = part => [part.manufacturer, part.manufacturerPartNumber, part.sourceUrl].map(value => {
+    const cell = String(value ?? "");
+    return /^[\s]*[=+@-]|^[\t\r\n]/.test(cell) ? "'" + cell : cell;
+  });
+  const hasSource = part => part.manufacturer && part.manufacturerPartNumber && /^https:\/\//i.test(part.sourceUrl ?? "");
+  const includeSource = pcb.parts.some(hasSource);
+  const rows=[["Designator","Quantity","Value","Footprint","Technology","Status",
+    ...(includeSource ? ["Manufacturer","MPN","Source URL"] : [])]];
   for(const part of [...pcb.parts].sort((a,b)=>a.reference.localeCompare(b.reference))){
     const component=project.components.find((item)=>item.instanceId===part.instanceId);
-    rows.push([part.reference,"1",component.value,part.footprint,part.technology,"Generic footprint; verify selected real part"]);
+    const status = hasSource(part) ? "Project records manufacturer identity; confirm before ordering" : "Generic footprint; verify selected real part";
+    rows.push([part.reference,"1",component.value,part.footprint,part.technology,status,
+      ...(includeSource ? sourceFields(part) : [])]);
   }
   return rows.map((row)=>row.map((cell)=>`"${String(cell).replaceAll('"','""')}"`).join(",")).join("\r\n")+"\r\n";
 }
