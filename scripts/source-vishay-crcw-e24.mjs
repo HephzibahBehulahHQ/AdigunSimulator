@@ -6,8 +6,21 @@ const writeJson = (name, value) => writeFile(new URL(`../library/${name}.json`, 
 
 // Vishay document 20035, pp. 2–3. One listed packaging code per size.
 const packaging = { "0402": "ED", "0603": "EA", "0805": "EA", "1206": "EA" };
-const e24Ohms = [100, 110, 120, 130, 150, 160, 180, 200, 220, 240, 270, 300,
+const e24Mantissas = [100, 110, 120, 130, 150, 160, 180, 200, 220, 240, 270, 300,
   330, 360, 390, 430, 470, 510, 560, 620, 680, 750, 820, 910];
+const resistanceValues = Array.from({ length: 7 }, (_, decade) =>
+  e24Mantissas.map(mantissa => mantissa * 10 ** decade / 100)
+).flat();
+resistanceValues.push(10_000_000);
+
+function resistanceCode(ohms) {
+  const [unit, multiplier] = ohms >= 1_000_000 ? ["M", 1_000_000]
+    : ohms >= 1_000 ? ["K", 1_000] : ["R", 1];
+  const value = ohms / multiplier;
+  const decimalPlaces = 3 - String(Math.trunc(value)).length;
+  const [whole, fraction = ""] = value.toFixed(decimalPlaces).split(".");
+  return whole + unit + fraction;
+}
 const datasheet = {
   title: "Vishay D/CRCW e3 Standard Thick Film Chip Resistors (20035)",
   url: "https://www.vishay.com/docs/20035/dcrcwe3.pdf",
@@ -18,8 +31,8 @@ const datasheet = {
 const [ledger, taxonomy] = await Promise.all([readJson("parts-ledger"), readJson("component-types")]);
 const known = new Set(ledger.records.map(record => record.id));
 for (const [size, reel] of Object.entries(packaging)) {
-  for (const ohms of e24Ohms) {
-    const manufacturerPartNumber = `CRCW${size}${ohms}RJN${reel}`;
+  for (const ohms of resistanceValues) {
+    const manufacturerPartNumber = `CRCW${size}${resistanceCode(ohms)}JN${reel}`;
     const id = `vishay.${manufacturerPartNumber.toLowerCase()}`;
     if (known.has(id)) continue;
     ledger.records.push({
