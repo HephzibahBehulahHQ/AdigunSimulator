@@ -245103,6 +245103,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-450mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-450mec/footprint.json",
+        "sha256": "c57457b84d443703f637de74a46a9c233926e4074110fcb00ed9e7778f4e56e8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-450mec/symbol.svg",
+        "sha256": "9fe8838ddd50fbed0a649006aa537abff330c3fe8102d9afb533033f6b6d52f0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245131,6 +245169,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-131mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-131mec/footprint.json",
+        "sha256": "c5e460d7ef6cb3cb6218be3acd55cbf0f5cb4be1f1845b67a54f32bfd1e252f9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-131mec/symbol.svg",
+        "sha256": "3ef426c0d2f2178c1c9d8a88339ac4fe2e0b8d8444361d20f3a650623d6d0b5b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245159,6 +245235,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-271mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-271mec/footprint.json",
+        "sha256": "00d134c4fc598e31f9e9842ed9ed31578b272ee742385bcbaf28843b5573fc8c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-271mec/symbol.svg",
+        "sha256": "d477fe74a81a447294bbf1f2120b841f3c866b471a211da3747c3307d12302c2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245187,6 +245301,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-301mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-301mec/footprint.json",
+        "sha256": "1f5464a8ca750988103d5f7ad76ee7f4f596f806c9260b7f9039e48853a7542b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-301mec/symbol.svg",
+        "sha256": "c86b6e3bee78b5a40bd6c06dfa44368ace476a084f54c887fd1df92ff1b5b1ef",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245215,6 +245367,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-401mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-401mec/footprint.json",
+        "sha256": "163e455d67b4e8842aad117802768fcb9673dbf199e30f6047e1d981d6094bd9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-401mec/symbol.svg",
+        "sha256": "74c6f8e80b230b37fad1e64fc19a240516ea314a744fbd7ffade16823359c90b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245243,6 +245433,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-471mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-471mec/footprint.json",
+        "sha256": "a04961e69a9839d5ecda969ccf3afdbd53faefa4da39808b511339dd8b9a4940",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-471mec/symbol.svg",
+        "sha256": "144038356df4421c7c4277a3ab29693aa4b037e10d92ff4e7a72f17cf8aa2f7b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245271,6 +245499,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-621mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-621mec/footprint.json",
+        "sha256": "ba253d1cc4b4682ffcf023309d9f393a8f63f0a128bf817c73cce04d6e087f56",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-621mec/symbol.svg",
+        "sha256": "e61cbe5c75ba42609390b7f44f2b84d1971456b8379fc189e14fd761565d58ae",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245299,6 +245565,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-761mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-761mec/footprint.json",
+        "sha256": "28a19ae0ae10a13f2c1daedfe0a3d58e3f39d699cc56137efa7543a617348415",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-761mec/symbol.svg",
+        "sha256": "aea5675b984e44934a1f0366120ed13f5c57b2ae8fe82cba3c440a1b5489df73",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245393,6 +245697,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-122mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-122mec/footprint.json",
+        "sha256": "4a4e4f23da8a19344e2fc508a1b8b9a8d198064e3f70d5253f4ebb3d7fb4c1b7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-122mec/symbol.svg",
+        "sha256": "baf45ec67ebae28a14b87305ea15519562c92750b52e32b8b32de37bef2adbd2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245421,6 +245763,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-152mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-152mec/footprint.json",
+        "sha256": "79f98f2ad54be688f0e330fbe6d80b84b252a6271fa48c8c28fa50d6971e9478",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-152mec/symbol.svg",
+        "sha256": "5f434014ce43b9f931262349f326cec4ba47c6e2e49b0c7c18470a6e623b3e75",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245449,6 +245829,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-222mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-222mec/footprint.json",
+        "sha256": "f21fad9409e159f0afbc41bd938efcb4179aeba09c0c08b3f5e9fdc8cc24677e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-222mec/symbol.svg",
+        "sha256": "0d1435b5c81114f3b3cfe10ae9923cb5176fee54e980cb5bb947c42c6a20776c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245477,6 +245895,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-332mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-332mec/footprint.json",
+        "sha256": "5e9382883e576c16823fb92fde5982aeaaa6e6409e79530030535637e35a0485",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-332mec/symbol.svg",
+        "sha256": "4c8cc1c1e9c881d4998830e20ce65e31d2674f2ae00faaf12a72dd1e4c6a4985",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245505,6 +245961,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-472mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-472mec/footprint.json",
+        "sha256": "75705fe886d69b4ebdb19fa01d749bc71f6db04050468881ac474e6923079dd6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-472mec/symbol.svg",
+        "sha256": "7e18b13ebb27327c81d036ce4dae66b7a1b5524bd7414bdc944f43bbd17d62db",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245533,6 +246027,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-562mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-562mec/footprint.json",
+        "sha256": "208d469016ad327e77201b0af9f0e90a171840303edfe080f67e04b759ed2d31",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-562mec/symbol.svg",
+        "sha256": "dbcbccd41892ff00a656cc46c977b707ac44155e78eee1ec5a13b782dc3cb6ca",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245561,6 +246093,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-682mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-682mec/footprint.json",
+        "sha256": "e2fa44e1ca34c03f54bd46567a52727199a07e8d2db2acf1a73278e2f3ec0ba0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-682mec/symbol.svg",
+        "sha256": "aeec89e6de64795b2ef9e9b986e764553c8feb2652185a327aa53e8382ee4421",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245589,6 +246159,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-822mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-822mec/footprint.json",
+        "sha256": "bf3adfb1c0cc85989e73a4cfc686f171ce875e1219414fa447fd8ba6103d3f26",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-822mec/symbol.svg",
+        "sha256": "b91a0ee018011328f744626c962d62a8d470e2f86d6f984ec05582dd93d25a08",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245617,6 +246225,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-103mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-103mec/footprint.json",
+        "sha256": "faffe0a9639ca6ca64fdbf72ced31f3aecb9c4f2f2937a508dfe9ff8b20c75e9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-103mec/symbol.svg",
+        "sha256": "511178741741814825f690c930422ebb6ff6c06d2291652dc37204ed304dafc7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     },
     {
@@ -245645,6 +246291,44 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Native model mapping has not been validated for this order code."
+      },
+      "symbolPinMap": {
+        "1": "Winding start",
+        "2": "Winding end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.xgl4030-123mec/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4030-123mec/footprint.json",
+        "sha256": "d228dc123dfabdc45a5968ae68d142cf20eb72dfbc1df6003cad8081eda9a680",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4030-123mec/symbol.svg",
+        "sha256": "1ba5f12b2b6fa57869084bb159941cf33cc2364456988a4648ede7e8d881940a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented breakout that maps both XGL4030 terminals to breadboard holes."
       }
     }
   ],

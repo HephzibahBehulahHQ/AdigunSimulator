@@ -5,3 +5,7 @@ The [Coilcraft series specification](https://www.coilcraft.com/en-us/products/po
 ## XGL4030-102MEC native mapping
 
 The [manufacturer drawing](https://www.coilcraft.com/getattachment/7914338e-f23b-45de-aa1d-e782ba7e954b/xgl4030d.gif?lang=en-US) specifies 0.98 × 3.40 mm lands on 2.37 mm centers. Local pad 1 follows the winding-start stripe. The native RL fixture checks the rotated pad position, intended net, DRC, PCB preview, front-copper Gerber aperture, BOM order code and ideal RL scope output. Physical breadboard placement requires a documented breakout. Manufacturer-specific loss and saturation validation and independent review remain pending.
+
+## Shared XGL4030 land pattern
+
+All 19 XGL4030 order codes use the series drawing’s 0.98 × 3.40 mm lands on 2.37 mm centers. Each ledger record has its own checksummed symbol and footprint. The native RL fixture covers XGL4030-102MEC. Run `node scripts/map-coilcraft-inductors.mjs` to fill missing mappings before regenerating the inventories.
