@@ -21,7 +21,7 @@ test("manufacturer evidence search returns exact records without promoting candi
 });
 
 test("manufacturer evidence browser provides a searchable review snapshot for every ledger record", () => {
-  assert.equal(MANUFACTURER_PART_RECORDS.length, 4035);
+  assert.equal(MANUFACTURER_PART_RECORDS.length, 4835);
   assert.equal(searchManufacturerParts("Texas Instruments").length, 12);
   assert.equal(searchManufacturerParts("Texas LM555CN/NOPB").length, 1);
   assert.equal(searchManufacturerParts("LM555 Texas")[0].id, "ti.lm555p");
@@ -155,11 +155,11 @@ test("Vishay CRCW order codes retain package-specific reel codes and candidate s
 
 test("KEMET C1210C candidates match their ordering codes and rated values", () => {
   const parts = MANUFACTURER_PART_RECORDS.filter(part => part.id.startsWith("kemet.c1210c"));
-  assert.equal(parts.length, 2674);
+  assert.equal(parts.length, 3474);
   const capacitances = new Set(parts.map(part => part.nominalCapacitancePf));
-  assert.equal(capacitances.size, 86);
+  assert.equal(capacitances.size, 112);
   assert.equal(Math.min(...capacitances), 1);
-  assert.equal(Math.max(...capacitances), 3900);
+  assert.equal(Math.max(...capacitances), 220000);
   assert.ok(!capacitances.has(100));
   assert.ok(capacitances.has(110));
   assert.ok(capacitances.has(910));
@@ -169,7 +169,7 @@ test("KEMET C1210C candidates match their ordering codes and rated values", () =
   const toleranceByCode = { F: 1, G: 2, J: 5, K: 10, M: 20 };
   const absoluteToleranceByCode = { B: 0.1, C: 0.25, D: 0.5 };
   for (const part of parts) {
-    const fields = /^C1210C(\d{2})([012][FGJKM]|9[BCD])([843512A])GACTU$/.exec(part.manufacturerPartNumber);
+    const fields = /^C1210C(\d{2})([0-4][FGJKM]|9[BCD])([843512A])GACTU$/.exec(part.manufacturerPartNumber);
     assert.ok(fields, part.manufacturerPartNumber);
     const [scale, toleranceCode] = fields[2];
     const absolute = scale === "9";
@@ -179,5 +179,12 @@ test("KEMET C1210C candidates match their ordering codes and rated values", () =
     assert.equal(part.tolerancePf, absoluteToleranceByCode[toleranceCode]);
     assert.equal(part.ratedVoltageVdc, voltageByCode[fields[3]]);
     assert.equal(part.verificationStatus, "candidate");
+  }
+  for (const [value, highestVoltage] of [[47000, 250], [56000, 100], [100000, 100],
+    [120000, 50], [150000, 50], [180000, 25], [220000, 25]]) {
+    const matching = parts.filter(part => part.nominalCapacitancePf === value);
+    const expected = Object.values(voltageByCode).filter(voltage => voltage <= highestVoltage).sort((a, b) => a - b);
+    assert.deepEqual([...new Set(matching.map(part => part.ratedVoltageVdc))].sort((a, b) => a - b), expected);
+    assert.equal(matching.length, expected.length * 5);
   }
 });
