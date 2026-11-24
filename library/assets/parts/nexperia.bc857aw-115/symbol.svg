@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 90" role="img" aria-label="PNP bipolar transistor">
+  <title>Nexperia BC857AW,115</title>
+  <path d="M 8 45 H 49" stroke="currentColor" fill="none" data-pin="1" data-pin-name="Base" data-electrical-type="passive" />
+  <path d="M 49 57 L 91 76 H 108" stroke="currentColor" fill="none" data-pin="2" data-pin-name="Emitter" data-electrical-type="passive" />
+  <path d="M 49 33 L 91 14 H 108" stroke="currentColor" fill="none" data-pin="3" data-pin-name="Collector" data-electrical-type="passive" />
+  <path d="M 49 24 V 66" stroke="currentColor" stroke-width="2" />
+  <path d="M 64 64 L 75 64 L 71 72 Z" fill="currentColor" />
+  <text x="8" y="38" font-size="9" fill="currentColor" data-pin-label-for="1">B</text>
+  <text x="107" y="69" text-anchor="end" font-size="9" fill="currentColor" data-pin-label-for="2">E</text>
+  <text x="107" y="10" text-anchor="end" font-size="9" fill="currentColor" data-pin-label-for="3">C</text>
+</svg>

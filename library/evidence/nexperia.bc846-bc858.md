@@ -1,6 +1,6 @@
 # Nexperia BC846 through BC858 ordering evidence
 
-The four manufacturer product tables list the selected 23 active order codes, one per type. Pin mapping, native assets, model validation, and independent review remain pending.
+The four manufacturer product tables list the selected 23 active order codes, one per type. Device-specific model validation and independent review remain pending.
 
 - [BC846X-SERIES](https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bc846x-series)
 - [BC847X-SERIES](https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bc847x-series)
@@ -32,3 +32,7 @@ The four manufacturer product tables list the selected 23 active order codes, on
 | BC857CW,115 | 934021860115 |
 | BC857W,115 | 934021830115 |
 | BC858W,115 | 934021870115 |
+
+## Pin and PCB mapping
+
+All four data sheets identify base at pin 1, emitter at pin 2, and collector at pin 3. The symbols show opposite emitter arrow directions for NPN and PNP. The SOT23 and SOT323 assets use their respective reflow copper dimensions and top-view pin positions. Breadboard use requires a documented breakout. Board-level validation remains pending.

@@ -337684,6 +337684,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc846-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC846X_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc846-215/footprint.json",
+        "sha256": "17046012f3e0e3bcb36c9f9dbafd8a2cddc4d14dbe33d0cdbcd8293cb48569ec",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc846-215/symbol.svg",
+        "sha256": "006d53ad637e66c9d514c02edb833ed0546aa1aa4177a3a6560fcb67660aba44",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337704,6 +337746,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc846a-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC846X_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc846a-215/footprint.json",
+        "sha256": "7cac0e0c0fcf4f1462cfee428e0f6ce907d64c170b0031cceb928123a5f39b07",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc846a-215/symbol.svg",
+        "sha256": "90dc71b4957f6c829c29c60ee8d6bfe00088f1d4d1d09e1acf08ae014328b960",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337724,6 +337808,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc846b-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC846X_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc846b-215/footprint.json",
+        "sha256": "08cb69abc0760b24c0f523f6c436114805e54e1c8ebbae6c6c3f2b7b5008bc8a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc846b-215/symbol.svg",
+        "sha256": "df112b9615acb2ebc61397e3041988dcdc4c4be2463f1c9879ada7f161ce958f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337744,6 +337870,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc847-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC847X_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc847-215/footprint.json",
+        "sha256": "2e59d6059e8cefedcac15dbf48933791681d88ce210c307baa636b59cdc5cb2f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc847-215/symbol.svg",
+        "sha256": "5c7c91adc82d137e587b1238fce1cc67880a893649b88bdf66a43d7b7dbe5d49",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337764,6 +337932,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc847a-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC847X_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc847a-215/footprint.json",
+        "sha256": "b7619d899954eb506661836223a7cdefd01bdfeb5c0b2b193e1c2f25a8727aa2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc847a-215/symbol.svg",
+        "sha256": "d8a152753ca554d8e01ac39d88a0f9c59514c7e14fc0907e6f6618e06e890416",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337784,6 +337994,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc847b-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC847X_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc847b-215/footprint.json",
+        "sha256": "d47a0985fcab2fad6c43e90d71b471653d020204e0c90699ecd55b8e1bed1374",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc847b-215/symbol.svg",
+        "sha256": "9d46715ca4e4a4df5a7256321477fe0e20524e37cc9980ed52efa462d78ca3a6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337804,6 +338056,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc847c-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC847X_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc847c-215/footprint.json",
+        "sha256": "42187c3722928e307ad438c827ba2d783553b009321c6c1da7e5cabecff3003f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc847c-215/symbol.svg",
+        "sha256": "5a8e34ee2361cd38e114398e2ac4c2152b096db9ea700e7d2f819e6d20ef2cc6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337824,6 +338118,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc856-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc856-215/footprint.json",
+        "sha256": "334b3db3ba1fe027ad2672489aaaeb3dda56da7500610c92819e88aee393ac8a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc856-215/symbol.svg",
+        "sha256": "dc139a417075ed86feb2067a19e9897e4d3d50ab884964a59a31bfd7eec3760d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337844,6 +338180,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc856a-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc856a-215/footprint.json",
+        "sha256": "8f85ca8d2ad02a9f265c1292a1f842215075262f7434d32de9bde9a0b445d6e2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc856a-215/symbol.svg",
+        "sha256": "e464d34600ff53f869d4df2920e070301f270edcdaef242ddac9901c38b31d4a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337864,6 +338242,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc856b-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc856b-215/footprint.json",
+        "sha256": "0adaa6d46313ec0d6cb07a9e86ad79fce0d5532edeeaf5a2f8ddadc9e65fbadf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc856b-215/symbol.svg",
+        "sha256": "8fb3a0c38af0a5fdcea16b080056583a79c7b7320dc2944640a8da773fa4a184",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337884,6 +338304,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc857-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc857-215/footprint.json",
+        "sha256": "18d6495f3044b7eb5a539c3c53c9dec81995aea5e76ba401570e59be14baae02",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc857-215/symbol.svg",
+        "sha256": "99cbae79a26037c220418550a257a64b6241d2d5adc6f20920d6475406760d4d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337904,6 +338366,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc857a-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc857a-215/footprint.json",
+        "sha256": "60364d837689f3c8f32f69d935ee2f54db8ceaf32d981cf328a0ddb5b69c6b74",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc857a-215/symbol.svg",
+        "sha256": "2dda303f4a850b6a794b877af1d17e1ea9fe577e749231cd792bf3242f6a25b8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337924,6 +338428,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc857b-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc857b-215/footprint.json",
+        "sha256": "b97bcbbc36e7d02123de914317e61e8263f9ecc487ecda99771debd4140ac8b0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc857b-215/symbol.svg",
+        "sha256": "46354365457c6df23205bd83ee848fd2a2e3a73770caab3d533e70bbd41c4ae5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337944,6 +338490,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc857c-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc857c-215/footprint.json",
+        "sha256": "50f5ef9fb8bc0820d71d6d7b9a810c194df0f351a9fbb2c5d982bd1b7fd7ec7b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc857c-215/symbol.svg",
+        "sha256": "c437d8e7ec12b0fdea26d0a2e5d09fb3bc8c2e1de433e75a779e2b92fedcf3b7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337964,6 +338552,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc858b-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc858b-215/footprint.json",
+        "sha256": "c91fe3f7e93ba93ebf6df9da99227639df50c6215889419bf2da9b4d2ac6dd7b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc858b-215/symbol.svg",
+        "sha256": "2f2841035cd0800b1fb4a5d423961387d8572ee9af649426701a7ca405ce0c3c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT23 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -337984,6 +338614,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc856aw-115/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc856aw-115/footprint.json",
+        "sha256": "9fdf2075765b48ae63ce06d26176d5b02bf76255e80b4b2d0f1c12ff083bc036",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc856aw-115/symbol.svg",
+        "sha256": "e972aa3237ddeb6346cd1429b804f6aeb2e808dc1bceef262ea47a0511ca1f63",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -338004,6 +338676,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc856bw-115/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc856bw-115/footprint.json",
+        "sha256": "c141c593b7c09cce531c82aca164ff799b6a2fd221dfe8b1bdeb917d496bce23",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc856bw-115/symbol.svg",
+        "sha256": "dd87e1d851b9b9eb80c21b50ba72af3a288451b7bb2bae4e617e1ed99e3498f8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -338024,6 +338738,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc856w-115/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc856w-115/footprint.json",
+        "sha256": "2b9fda3bd0e271faef68dcd5f80e20e9dffa06a3881cdad53bb30e1e8a187a1c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc856w-115/symbol.svg",
+        "sha256": "4fb488c1197983415eef8aa68ecf81ba62fd4a7e27979f9536bae46ee81c43f2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -338044,6 +338800,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc857aw-115/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc857aw-115/footprint.json",
+        "sha256": "dec06c6526296c365a6851e1261732efbdf821cafd98c33af4655d5c4886d9f5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc857aw-115/symbol.svg",
+        "sha256": "f206065ed45ce307cdd5aca8b1285991ebdaa23e7de6c04e80d536de7f9a485f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -338064,6 +338862,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc857bw-115/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc857bw-115/footprint.json",
+        "sha256": "c5d6a35da8a10ed2f447bf05a28e67c05b9e332ffae4aa3ed47e68acdd3b620c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc857bw-115/symbol.svg",
+        "sha256": "7c851fe29d1f74a1b4a16ba0d870591285a7c2f21e13aa5441a8b8748d6b23ad",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -338084,6 +338924,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc857cw-115/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc857cw-115/footprint.json",
+        "sha256": "73b86748bc922497ecc6e931a14015ce5fdfcf9aaa7f0a9ae7ba4a28fe61d771",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc857cw-115/symbol.svg",
+        "sha256": "842eaeb0076eeedbedbb0176f0423323109cff7284a06491f97944bba66cb941",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -338104,6 +338986,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc857w-115/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc857w-115/footprint.json",
+        "sha256": "04fa6828fcbd86f86605fda8285547df1c58c39632d8b6b9ea13be89051d8f60",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc857w-115/symbol.svg",
+        "sha256": "1ad2ad0497a65fa9d54d29b22b683e2587c219f4e610b7b8064e6d07e6c16f29",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     },
     {
@@ -338124,6 +339048,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bc858w-115/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bc858w-115/footprint.json",
+        "sha256": "5f231e88b69dce70f6359b272ee3b6f5e13b268dfd212948f22f70503cd3d154",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bc858w-115/symbol.svg",
+        "sha256": "aee84514afaac82eb39d0d150cb07f34148148f2ae73716a384f29f3858365d7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that preserves base (1), emitter (2), and collector (3)."
       }
     }
   ],

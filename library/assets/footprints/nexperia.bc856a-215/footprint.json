@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "nexperia.bc856a-215",
+  "package": "Nexperia SOT23 (TO-236AB)",
+  "view": "top",
+  "units": "mm",
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 0.6,
+    "heightMm": 0.7,
+    "pitchMm": 1.9,
+    "rowCenterSpacingMm": 2
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -0.95,
+      "yMm": 1
+    },
+    {
+      "number": "2",
+      "xMm": 0.95,
+      "yMm": 1
+    },
+    {
+      "number": "3",
+      "xMm": 0,
+      "yMm": -1
+    }
+  ],
+  "limitations": [
+    "Pin 1 is base, pin 2 is emitter, and pin 3 is collector.",
+    "Verify solder paste, solder mask, and board clearances for the application."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
