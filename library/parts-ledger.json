@@ -257040,6 +257040,1062 @@
         "compatible": false,
         "adapter": "Use a documented breakout that maps both XGL1313 terminals to breadboard holes."
       }
+    },
+    {
+      "id": "coilcraft.xgl3014-820mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3014-820MEC",
+      "package": "XGL3014 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.082,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3014/",
+        "title": "Coilcraft XGL3014 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3014-101mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3014-101MEC",
+      "package": "XGL3014 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3014/",
+        "title": "Coilcraft XGL3014 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3014-201mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3014-201MEC",
+      "package": "XGL3014 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3014/",
+        "title": "Coilcraft XGL3014 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3014-331mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3014-331MEC",
+      "package": "XGL3014 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.33,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3014/",
+        "title": "Coilcraft XGL3014 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3014-471mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3014-471MEC",
+      "package": "XGL3014 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.47,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3014/",
+        "title": "Coilcraft XGL3014 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3014-651mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3014-651MEC",
+      "package": "XGL3014 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.65,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3014/",
+        "title": "Coilcraft XGL3014 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3014-801mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3014-801MEC",
+      "package": "XGL3014 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3014/",
+        "title": "Coilcraft XGL3014 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3014-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3014-102MEC",
+      "package": "XGL3014 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3014/",
+        "title": "Coilcraft XGL3014 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3014-142mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3014-142MEC",
+      "package": "XGL3014 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.4,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3014/",
+        "title": "Coilcraft XGL3014 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3014-182mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3014-182MEC",
+      "package": "XGL3014 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3014/",
+        "title": "Coilcraft XGL3014 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-101mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-101MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-181mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-181MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.18,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-281mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-281MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.28,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-301mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-301MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.3,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-401mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-401MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.4,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-561mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-561MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.56,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-681mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-681MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.68,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-851mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-851MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.85,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-102MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-152mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-152MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.5,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-222mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-222MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-820mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-820MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.082,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-900mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-900MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.09,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-101mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-101MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-201mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-201MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-331mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-331MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.33,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-401mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-401MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.4,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-521mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-521MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.52,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-621mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-621MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.62,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-821mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-821MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.82,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-102MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3512-122mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3512-122MEC",
+      "package": "XGL3512 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3512/",
+        "title": "Coilcraft XGL3512 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-900mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-900MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.09,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-101mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-101MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-181mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-181MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.18,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-221mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-221MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.22,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-331mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-331MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.33,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-451mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-451MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.45,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-561mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-561MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.56,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-681mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-681MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.68,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-821mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-821MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.82,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-102MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-122mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-122MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-332mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-332MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 3.3,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3020-452mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3020-452MEC",
+      "package": "XGL3020 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 4.5,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3020/",
+        "title": "Coilcraft XGL3020 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-152mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-152MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.5,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-182mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-182MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl3515-222mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL3515-222MEC",
+      "package": "XGL3515 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl3515/",
+        "title": "Coilcraft XGL3515 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl3014-3020-3512-3515.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
