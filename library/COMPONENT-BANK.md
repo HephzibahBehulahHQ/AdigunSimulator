@@ -10,7 +10,7 @@ Continue in source-backed batches. Attach exact pin and package evidence, retain
 
 ## Sourcing coverage after the Nexperia resistor-equipped transistor batch
 
-The ledger contains 11,987 manufacturer records. It has 11,985 candidates, two in review and zero independently verified parts. 1,562 records have symbol assets and 1,552 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
+The ledger contains 11,987 manufacturer records. It has 11,985 candidates, two in review and zero independently verified parts. 1,568 records have symbol assets and 1,558 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
 
 | Directive family | Target | Ledger records |
 | --- | ---: | ---: |
