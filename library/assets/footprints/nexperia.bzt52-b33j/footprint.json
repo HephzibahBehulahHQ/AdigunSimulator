@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "nexperia.bzt52-b33j",
+  "package": "Nexperia SOD123",
+  "view": "top",
+  "units": "mm",
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 0.91,
+    "heightMm": 1.22,
+    "rowCenterSpacingMm": 3.27
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -1.635,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": 1.635,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Pin 1 is the cathode at the marking bar.",
+    "Copper dimensions follow the manufacturer reflow drawing. Verify solder paste, solder mask and board clearances for the application."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

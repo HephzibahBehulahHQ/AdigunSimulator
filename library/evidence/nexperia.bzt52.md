@@ -1,6 +1,6 @@
 # Nexperia BZT52 ordering evidence
 
-The [BZT52-B ordering table](https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html) and [BZT52-C ordering table](https://www.nexperia.com/products/diodes/zener-diodes/serie/bzt52-c-series/) list these 111 active SOD123 order codes, one per selected manufacturer type. Native mappings, model validation and independent review remain pending.
+The [BZT52-B ordering table](https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html) and [BZT52-C ordering table](https://www.nexperia.com/products/diodes/zener-diodes/serie/bzt52-c-series/) list these 111 active SOD123 order codes, one per selected manufacturer type. Native breakdown model validation and independent review remain pending.
 
 | Order code | 12NC |
 | --- | --- |
@@ -115,3 +115,7 @@ The [BZT52-B ordering table](https://www.nexperia.com/products/diodes/zener-diod
 | BZT52-C7V5J | 934071113118 |
 | BZT52-C8V2X | 934071114115 |
 | BZT52-C9V1J | 934071117118 |
+
+## Pin and PCB mapping
+
+The [standard BZT52 data sheet](https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf) and [BZT52-Q data sheet](https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf) identify pin 1 as the cathode at the marking bar and pin 2 as the anode. Their reflow drawing prescribes 0.91 × 1.22 mm copper lands on 3.27 mm centers. The footprint refers to the applicable diagram. Board checks and breakout validation remain pending.
