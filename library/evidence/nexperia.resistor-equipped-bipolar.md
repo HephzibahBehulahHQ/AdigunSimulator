@@ -1,6 +1,6 @@
 # Nexperia resistor-equipped bipolar transistor ordering evidence
 
-These 16 active order codes are listed in the manufacturer tables. Each selected type contributes one order code. Pin mapping, internal resistor mapping, and independent review remain pending.
+These 16 active order codes are listed in the manufacturer tables. Each selected type contributes one order code. The six SOT23 records have schematic and PCB assets. The ten leadless records and independent review remain pending.
 
 - [PDTB1XXXT-SERIES](https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtb1xxxt-series)
 - [PDTD1XXXT-SERIES](https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series)
@@ -27,3 +27,7 @@ These 16 active order codes are listed in the manufacturer tables. Each selected
 | PDTA114EQAZ | 934069146147 | SOT1215 |
 | PDTA124EQAZ | 934069137147 | SOT1215 |
 | PDTA144EQAZ | 934069132147 | SOT1215 |
+
+## SOT23 pin, resistor, and PCB mapping
+
+The [PDTB data sheet](https://assets.nexperia.com/documents/data-sheet/PDTB1XXXT_SER.pdf) and the PDTD device data sheets linked by the footprint records define input at pin 1, emitter at pin 2, and collector at pin 3. R1 connects the input to the internal base. R2 connects the internal base to the emitter. Their nominal values are printed on the symbols. PCB assets use the manufacturer’s SOT23 reflow land geometry. Device-specific simulation, board checks, and breakout validation remain pending.

@@ -832611,11 +832611,44 @@
       "package": "SOT23",
       "category": "Transistors",
       "function": "PNP resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": "3"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtb114etr/symbol.svg",
+        "sha256": "a04927637ea6361c28bd4857b15bcc38e9b5490f8b5937052e96737072567114",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.pdtb114etr/footprint.json",
+        "sha256": "50b49de559e4501fd8f862ce50b2508252b384bf7684039311799704e29af904",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT23 breakout that preserves input (1), emitter (2), and collector (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -832624,7 +832657,8 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtb1xxxt-series"
+        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtb1xxxt-series",
+        "https://assets.nexperia.com/documents/data-sheet/PDTB1XXXT_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -832632,18 +832666,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -832651,21 +832679,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -832677,11 +832699,44 @@
       "package": "SOT23",
       "category": "Transistors",
       "function": "PNP resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": "3"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtb143xtvl/symbol.svg",
+        "sha256": "6e21228a0578762677ce0dac516b48cbc5e280c5bb029ecad2d8612a4acc24a4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.pdtb143xtvl/footprint.json",
+        "sha256": "5c30a7e2467c99b3b9788b372934fab603a6d7080b76fdaadc556d73eeecf984",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT23 breakout that preserves input (1), emitter (2), and collector (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -832690,7 +832745,8 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtb1xxxt-series"
+        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtb1xxxt-series",
+        "https://assets.nexperia.com/documents/data-sheet/PDTB1XXXT_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -832698,18 +832754,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -832717,21 +832767,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -832743,11 +832787,44 @@
       "package": "SOT23",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": "3"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtd114etvl/symbol.svg",
+        "sha256": "125816e1a79299766b10b72bab842dcd621d648b3696cde79c893d54eb70cf5a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.pdtd114etvl/footprint.json",
+        "sha256": "bee140bf8e76b7921dbe84896069cd58437eaf7d4d53c8269d89d621226b15bb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT23 breakout that preserves input (1), emitter (2), and collector (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -832756,7 +832833,8 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series"
+        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series",
+        "https://assets.nexperia.com/documents/data-sheet/PDTD114ET.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -832764,18 +832842,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -832783,21 +832855,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -832809,11 +832875,44 @@
       "package": "SOT23",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": "3"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtd143et-qr/symbol.svg",
+        "sha256": "29a1dd1d9715236acd0bcaaa19be0f7e81cf1ba2d4447ce8a9a73e5e4b10c561",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.pdtd143et-qr/footprint.json",
+        "sha256": "dd457b4e949f9f720c7eae66502f701da4953e03931180f34021a0b5d39b06c2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT23 breakout that preserves input (1), emitter (2), and collector (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -832822,7 +832921,8 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series"
+        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series",
+        "https://assets.nexperia.com/documents/data-sheet/PDTD143ET-Q.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -832830,18 +832930,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -832849,21 +832943,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -832875,11 +832963,44 @@
       "package": "SOT23",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": "3"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtd143xtvl/symbol.svg",
+        "sha256": "5102b4c74edd63c5a4135b741c4e294827e81c2fae46639f54c09cbd9d288821",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.pdtd143xtvl/footprint.json",
+        "sha256": "20b0b2b2c4b508a0b4a40dcc2a632b64481147c7918200f848a207de72f8a785",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT23 breakout that preserves input (1), emitter (2), and collector (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -832888,7 +833009,8 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series"
+        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series",
+        "https://assets.nexperia.com/documents/data-sheet/PDTD143XT.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -832896,18 +833018,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -832915,21 +833031,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -832941,11 +833051,44 @@
       "package": "SOT23",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": "3"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtd143xt-qr/symbol.svg",
+        "sha256": "f3c0f377c387fb362c17a5c7744e41afbf0f7be7e623965e967d5134e50acab7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.pdtd143xt-qr/footprint.json",
+        "sha256": "e70d1bc77d6e8e217c6b77b15e91e41b437ab94922b21060edcddacad2330c9c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT23 breakout that preserves input (1), emitter (2), and collector (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -832954,7 +833097,8 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series"
+        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series",
+        "https://assets.nexperia.com/documents/data-sheet/PDTD143XT-Q.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -832962,18 +833106,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -832981,21 +833119,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
