@@ -312879,6 +312879,1266 @@
         "compatible": false,
         "adapter": "Use a documented SOD523 breakout that maps pin 1 to cathode and pin 2 to anode."
       }
+    },
+    {
+      "id": "nexperia.bzx84w-b10x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B10X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b11x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B11X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b12f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B12F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b13x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B13X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b15x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B15X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b16f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B16F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b18f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B18F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b20f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B20F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b22f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B22F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b24f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B24F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b27x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B27X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b2v4x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B2V4X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b2v7x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B2V7X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b30x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B30X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b33f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B33F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b36x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B36X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b39f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B39F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b3v0x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B3V0X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b3v3x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B3V3X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b3v6f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B3V6F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b3v9f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B3V9F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b43f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B43F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b47f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B47F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b4v3x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B4V3X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b4v7f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B4V7F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b51f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B51F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b56f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B56F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b5v1x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B5V1X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b5v6x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B5V6X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b68f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B68F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b6v2x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B6V2X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b6v8f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B6V8F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-b8v2f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-B8V2F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c11f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C11F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c15x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C15X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c16x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C16X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c18x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C18X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c20x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C20X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c22x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C22X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c24x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C24X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c27x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C27X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c2v4x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C2V4X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c2v7f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C2V7F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c33x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C33X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c36x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C36X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c39x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C39X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c3v0f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C3V0F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c3v3f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C3V3F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c3v6x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C3V6X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c3v9x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C3V9X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c43x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C43X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c47x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C47X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c4v3f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C4V3F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c4v7f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C4V7F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c56x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C56X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c5v1x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C5V1X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c5v6x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C5V6X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c62x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C62X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c68f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C68F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c6v2f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C6V2F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c6v8f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C6V8F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c75f",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C75F",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzx84w-c7v5x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZX84W-C7V5X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZX84W series voltage regulator diodes",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzx84w.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
