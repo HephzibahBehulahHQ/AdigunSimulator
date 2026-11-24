@@ -8,9 +8,9 @@ The sourcing target is 11,400 distinct orderable manufacturer entries across the
 
 Continue in source-backed batches. Attach exact pin and package evidence, retain the existing verification gates, and validate native placement and analysis before reporting an entry ready for those uses.
 
-## Sourcing coverage after the Nexperia BZT52 batch
+## Sourcing coverage after the Nexperia BZX38450 and BZX884 batch
 
-The ledger contains 11,732 manufacturer records. It has 11,730 candidates, two in review and zero independently verified parts. 1,323 records have symbol assets and 1,313 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
+The ledger contains 11,929 manufacturer records. It has 11,927 candidates, two in review and zero independently verified parts. 1,323 records have symbol assets and 1,313 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
 
 | Directive family | Target | Ledger records |
 | --- | ---: | ---: |
@@ -18,7 +18,7 @@ The ledger contains 11,732 manufacturer records. It has 11,730 candidates, two i
 | Capacitors | 1,200 | 9,072 |
 | Inductors and magnetic filters | 600 | 632 |
 | Transformers | 200 | 201 |
-| Diodes | 600 | 467 |
+| Diodes | 600 | 664 |
 | Bipolar transistors | 600 | 1 |
 | Field-effect transistors | 800 | 1 |
 | Other power switching devices | 300 | 0 |
@@ -34,6 +34,6 @@ The ledger contains 11,732 manufacturer records. It has 11,730 candidates, two i
 | Connectors and interconnects | 500 | 4 |
 | Switches and electromechanical devices | 400 | 0 |
 | Protection and related devices | 350 | 0 |
-| Total | 11,400 | 11,732 |
+| Total | 11,400 | 11,929 |
 
-The family targets cover 3,691 current records when each family is capped at its target. The other families need 7,709 additional records to meet their individual targets. Continue diode sourcing and native asset mapping. Prioritize official selection tables that identify exact order codes and include land patterns and electrical limits.
+The family targets cover 3,824 current records when each family is capped at its target. The other families need 7,576 additional records to meet their individual targets. Continue native diode mapping and source the next underfilled family. Prioritize official selection tables that identify exact order codes and include land patterns and electrical limits.
