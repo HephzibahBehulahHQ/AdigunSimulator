@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.cst3015-050ed",
+  "package": "Coilcraft CST3015",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 23,
+    "lengthMaxMm": 30,
+    "heightMaxMm": 15.2,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/ed885543-9080-44c3-a16e-2a49f399185e/cst3015d-%281%29.gif?lang=en-US"
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 5.58,
+      "yMm": -9.25,
+      "shape": "rectangle",
+      "widthMm": 4.8,
+      "heightMm": 9
+    },
+    {
+      "number": "2",
+      "xMm": -5.58,
+      "yMm": -9.25,
+      "shape": "rectangle",
+      "widthMm": 4.8,
+      "heightMm": 9
+    },
+    {
+      "number": "3",
+      "xMm": -6.88,
+      "yMm": 9.25,
+      "shape": "rectangle",
+      "widthMm": 3,
+      "heightMm": 4.6
+    },
+    {
+      "number": "4",
+      "xMm": 6.88,
+      "yMm": 9.25,
+      "shape": "rectangle",
+      "widthMm": 3,
+      "heightMm": 4.6
+    }
+  ],
+  "limitations": [
+    "Review copper current capacity, solder mask and placement before fabrication.",
+    "Verify board-level isolation and a suitable secondary burden."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

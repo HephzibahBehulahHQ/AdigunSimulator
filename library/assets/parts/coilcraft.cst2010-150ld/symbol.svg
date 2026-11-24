@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 120" role="img" aria-label="Current sense transformer">
+  <title>Coilcraft CST2010-150LD</title>
+  <path d="M 106 20 V 75 M 114 20 V 75" stroke="currentColor" fill="none" />
+  <path d="M 15 25 H 95" stroke="currentColor" fill="none" data-pin="11" data-pin-name="Primary start" data-electrical-type="passive" />
+  <text x="15" y="21" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="11">11</text>
+  <path d="M 15 65 H 95" stroke="currentColor" fill="none" data-pin="12" data-pin-name="Primary end" data-electrical-type="passive" />
+  <text x="15" y="61" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="12">12</text>
+  <path d="M 95 25 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10" stroke="currentColor" fill="none" />
+  <circle cx="86" cy="29" r="1.5" fill="currentColor" />
+  <path d="M 205 25 H 125" stroke="currentColor" fill="none" data-pin="2" data-pin-name="Secondary start" data-electrical-type="passive" />
+  <text x="205" y="21" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="2">2</text>
+  <path d="M 205 65 H 125" stroke="currentColor" fill="none" data-pin="4" data-pin-name="Secondary end" data-electrical-type="passive" />
+  <text x="205" y="61" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="4">4</text>
+  <path d="M 125 25 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10" stroke="currentColor" fill="none" />
+  <circle cx="134" cy="29" r="1.5" fill="currentColor" />
+  <path d="M 15 100 H 25" stroke="currentColor" fill="none" data-pin="1" data-pin-name="No winding connection shown" data-electrical-type="passive" />
+  <text x="15" y="96" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="1">1</text>
+  <path d="M 39 100 H 49" stroke="currentColor" fill="none" data-pin="3" data-pin-name="No winding connection shown" data-electrical-type="passive" />
+  <text x="39" y="96" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="3">3</text>
+  <path d="M 63 100 H 73" stroke="currentColor" fill="none" data-pin="5" data-pin-name="No winding connection shown" data-electrical-type="passive" />
+  <text x="63" y="96" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="5">5</text>
+  <path d="M 87 100 H 97" stroke="currentColor" fill="none" data-pin="6" data-pin-name="No winding connection shown" data-electrical-type="passive" />
+  <text x="87" y="96" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="6">6</text>
+  <path d="M 111 100 H 121" stroke="currentColor" fill="none" data-pin="7" data-pin-name="No winding connection shown" data-electrical-type="passive" />
+  <text x="111" y="96" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="7">7</text>
+  <path d="M 135 100 H 145" stroke="currentColor" fill="none" data-pin="8" data-pin-name="No winding connection shown" data-electrical-type="passive" />
+  <text x="135" y="96" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="8">8</text>
+  <path d="M 159 100 H 169" stroke="currentColor" fill="none" data-pin="9" data-pin-name="No winding connection shown" data-electrical-type="passive" />
+  <text x="159" y="96" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="9">9</text>
+  <path d="M 183 100 H 193" stroke="currentColor" fill="none" data-pin="10" data-pin-name="No winding connection shown" data-electrical-type="passive" />
+  <text x="183" y="96" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="10">10</text>
+</svg>

@@ -292370,6 +292370,56 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "No winding connection shown",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2020-070l/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/ee6427c0-1964-43d0-9999-33467d66bcca/cst2020d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2020-070l/footprint.json",
+        "sha256": "840803255aada99051e08126235ddcdde7f242d2d39c4b1564f8828d77a65f4f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2020-070l/symbol.svg",
+        "sha256": "d9d9620b3e5c1d3465e9b256b0a5d2bdbd1c8f1f97b20146458d3fa94ffc013e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2020 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292390,6 +292440,56 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "No winding connection shown",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2020-100l/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/ee6427c0-1964-43d0-9999-33467d66bcca/cst2020d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2020-100l/footprint.json",
+        "sha256": "ebd43593ffd6652615b8d4bf00553486d341563b5536b81cdb48b3f034eca49c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2020-100l/symbol.svg",
+        "sha256": "1922f254bd0fd1289d0127504d44cbeec052f17373fd6ba0f54abefa15fb0ad3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2020 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292410,6 +292510,56 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "No winding connection shown",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2020-200l/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/ee6427c0-1964-43d0-9999-33467d66bcca/cst2020d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2020-200l/footprint.json",
+        "sha256": "80b8f9a66bb97eb1e90ae40f5b3f63349ddc29159ede4ce87b34de9c0c66e40a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2020-200l/symbol.svg",
+        "sha256": "02b539821cd480898d46eb75c578962b73968747175e2b1c008999063a0ed36e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2020 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292430,6 +292580,56 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "No winding connection shown",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2020-300l/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/ee6427c0-1964-43d0-9999-33467d66bcca/cst2020d.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2020-300l/footprint.json",
+        "sha256": "c43c3f3d9e39a3b1217319c3ee6a5f0150691bce2182ada94effd7f1c12a80ee",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2020-300l/symbol.svg",
+        "sha256": "b73da8753cd3802af0f0075db77fd6f1f4c37c42e6c515311bcb8bd675146afb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2020 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292450,6 +292650,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-020ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-020ld/footprint.json",
+        "sha256": "f7e44184458fd92175acdf95ae85f5c664bea7b223d859e5cc48620281d8677d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-020ld/symbol.svg",
+        "sha256": "18880316e443b35915515f1dcb9b1addb6059c91b5db9914a9a7d02f030e40e7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292470,6 +292748,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-030ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-030ld/footprint.json",
+        "sha256": "f6b558d152290561b87c4bacb0943ba988ae12f65f68f1571430433bf8123272",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-030ld/symbol.svg",
+        "sha256": "3f84ed9d427d1546adba9e12d65de8d4c152c8ab3394d4b709296ba70890cc4c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292490,6 +292846,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-040ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-040ld/footprint.json",
+        "sha256": "48e65eca21790dcc227f8712646b893ae0e94af661794fab838ce873e55f1445",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-040ld/symbol.svg",
+        "sha256": "5045c604a79c3994aff88871f30c5009298c5d277ce4abad5803e5cf582639f6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292510,6 +292944,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-050ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-050ld/footprint.json",
+        "sha256": "498a081c5ad4eb90e957797e95b123472253849f6a4b2ab1cafe359819b29027",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-050ld/symbol.svg",
+        "sha256": "f8e2ac2c33c83576196a1ca032f186f023a1d8d9922f98fa310dfe11b96b68cd",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292530,6 +293042,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-060ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-060ld/footprint.json",
+        "sha256": "bb4b21163ee28beb14bb013e17ed5ae3529e1473d0a239036d683c1e0c98d31b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-060ld/symbol.svg",
+        "sha256": "6d8b9544d3b4718fc6fb720d9666769fdc8f185989be91bc353bf9c2967016f9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292550,6 +293140,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-070ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-070ld/footprint.json",
+        "sha256": "7345a50f2feccc757905d5dc5d09633d051102ae7f2369aba14efad3541a6bed",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-070ld/symbol.svg",
+        "sha256": "1d8a638a0e51f92e4ac6d2ad7a251c2636b4cbd0d54fdc11d2962fee03db0b46",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292570,6 +293238,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-080ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-080ld/footprint.json",
+        "sha256": "da36e31dad5c8627fe2907ec2d13f2c3ea2ad06a49628f0ce1dc721be093bb0b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-080ld/symbol.svg",
+        "sha256": "85960ddaf91ce93716e17fcb1511fb4349d9f7ae2282c6de05a268ac3e12ec84",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292590,6 +293336,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-100ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-100ld/footprint.json",
+        "sha256": "a33d47d2b93ff8c93e168de30eb3c5e85dc8bdc1313ca15628c4bc6c7a0aeea2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-100ld/symbol.svg",
+        "sha256": "d41189b1b0c3b0a341affa4f7e8d1fafaae34d8b1246e7aaa2b1e1c61bf048a5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292610,6 +293434,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-125ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-125ld/footprint.json",
+        "sha256": "33a31687f8ddebd0d582832b112c825abfb4799ff5815c0d96cecfd697b97421",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-125ld/symbol.svg",
+        "sha256": "7925bf4d38be8fb64915bde695a19f1b920fed04217c9c2fcaeab38025ce03c2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292630,6 +293532,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-150ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-150ld/footprint.json",
+        "sha256": "4415ec338d9816492e8715b395eb2d1a9c8c4b29167d1b7b36859ed0c7edb192",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-150ld/symbol.svg",
+        "sha256": "b955760d96d838c9e5eabdee1af201fa3d1ab53f9f9e6ce98feff07991ede072",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292650,6 +293630,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "No winding connection shown",
+        "2": "Secondary start",
+        "3": "No winding connection shown",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "No winding connection shown",
+        "8": "No winding connection shown",
+        "9": "No winding connection shown",
+        "10": "No winding connection shown",
+        "11": "Primary start",
+        "12": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst2010-200ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2010-200ld/footprint.json",
+        "sha256": "2c8f63b08fcca4b7a3581dcfbc192906e7d0c2b543c46fd82a4284cb408df500",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2010-200ld/symbol.svg",
+        "sha256": "278249a48f14a10dcde49bd82cf9c30d48170d7345dbd14812cc99b60b312441",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST2010 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292670,6 +293728,52 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary end",
+        "2": "Secondary start",
+        "3": "Primary end",
+        "4": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst7030-020lc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/3610fe50-88d1-493d-b752-d49c29510c04/cst7030dimensions.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst7030-020lc/footprint.json",
+        "sha256": "d5c8dba53b775847f163069380ee41883f20beee0dc2237eafee767aea4bf909",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst7030-020lc/symbol.svg",
+        "sha256": "9afd0740f6176ca8c240c3f51da8aaef99eff3f283bfbdd42bc4be0aa85209ab",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST7030 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292690,6 +293794,52 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary end",
+        "2": "Secondary start",
+        "3": "Primary end",
+        "4": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst7030-050lc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/3610fe50-88d1-493d-b752-d49c29510c04/cst7030dimensions.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst7030-050lc/footprint.json",
+        "sha256": "1f422e9da83183e74e1cb3cef1f4f9222df7063e190451bbc9b452b4fe0f746b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst7030-050lc/symbol.svg",
+        "sha256": "29af6343b580bcb929b863397503f23cff2658873047cc7ac46e7c5a2bf600e9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST7030 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292710,6 +293860,52 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary end",
+        "2": "Secondary start",
+        "3": "Primary end",
+        "4": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst7030-070lc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/3610fe50-88d1-493d-b752-d49c29510c04/cst7030dimensions.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst7030-070lc/footprint.json",
+        "sha256": "710a3a8318ca7664870de32492db0f56ed002c8a7c2c1aeb64d469053efa0b68",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst7030-070lc/symbol.svg",
+        "sha256": "c8d96abf80a86526738389b9ff7e509f1c40d7f21df43a067910de32439ecf51",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST7030 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292730,6 +293926,52 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary end",
+        "2": "Secondary start",
+        "3": "Primary end",
+        "4": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst7030-100lc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/3610fe50-88d1-493d-b752-d49c29510c04/cst7030dimensions.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst7030-100lc/footprint.json",
+        "sha256": "bede501ecb8e0d22ff87bbb5f2ff3e71a7675b062c2c6dd7c85a095f98296cfd",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst7030-100lc/symbol.svg",
+        "sha256": "ffd2a8613c670517db7439e517b3a34bc036fbf948b1e77bc5cc60a83faf375b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST7030 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292750,6 +293992,52 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary end",
+        "2": "Secondary start",
+        "3": "Primary end",
+        "4": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst7030-150lc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/3610fe50-88d1-493d-b752-d49c29510c04/cst7030dimensions.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst7030-150lc/footprint.json",
+        "sha256": "a1532f8f1ce7700c2e866a6cb3f530c6d1807df9c6fa74e0d64f9e0f51d8da4a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst7030-150lc/symbol.svg",
+        "sha256": "0cceaba1c13ea6bf4ff0e3e5426c3dd2f3e355674f8480515230eb118e28d785",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST7030 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292770,6 +294058,52 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary end",
+        "2": "Primary start",
+        "3": "Secondary end",
+        "4": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst3015-050ed/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/ed885543-9080-44c3-a16e-2a49f399185e/cst3015d-%281%29.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst3015-050ed/footprint.json",
+        "sha256": "af74f61bdc0c943ed9d8a244c9adea1ca60270c575d9a3140c054b8019f11b35",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst3015-050ed/symbol.svg",
+        "sha256": "aee6d0e89f6b38344a9b98abf9854580e626bd4df22bc41f0fad70c13355909d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST3015 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292790,6 +294124,52 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary end",
+        "2": "Primary start",
+        "3": "Secondary end",
+        "4": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst3015-100ed/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/ed885543-9080-44c3-a16e-2a49f399185e/cst3015d-%281%29.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst3015-100ed/footprint.json",
+        "sha256": "46a0d22308a73d2a9715d5e1dfafb913de248d47d9be904eeca5b38b6b15f6ac",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst3015-100ed/symbol.svg",
+        "sha256": "35b7d7579165aecf2b80dc5e4358b7c6da93da54e38aab6accf2cb228dce7e6e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST3015 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292810,6 +294190,52 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary end",
+        "2": "Primary start",
+        "3": "Secondary end",
+        "4": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst3015-200ed/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/ed885543-9080-44c3-a16e-2a49f399185e/cst3015d-%281%29.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst3015-200ed/footprint.json",
+        "sha256": "c41695d325ebaae63695081ff594c247c2b44e500b2b1ca04d5689656607b62d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst3015-200ed/symbol.svg",
+        "sha256": "9b16d56312abe19e18ce101aa731dfc3d7ed0eb5e6ab285b828bc1bd485ca63f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST3015 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292830,6 +294256,52 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary end",
+        "2": "Primary start",
+        "3": "Secondary end",
+        "4": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst3015-300ed/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/ed885543-9080-44c3-a16e-2a49f399185e/cst3015d-%281%29.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst3015-300ed/footprint.json",
+        "sha256": "b8d031b148fc26333e553503314a868e0495550af0e2f59e2925373d5c937589",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst3015-300ed/symbol.svg",
+        "sha256": "54578e9ed13aadfbee4c8ac7104a7c9181419aa5bb6d58ae9a3b901f18b5ef65",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST3015 fixture with a suitable secondary burden and verified isolation."
       }
     },
     {
@@ -292850,6 +294322,52 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary end",
+        "2": "Primary start",
+        "3": "Secondary end",
+        "4": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.cst3015-400ed/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/ed885543-9080-44c3-a16e-2a49f399185e/cst3015d-%281%29.gif?lang=en-US"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst3015-400ed/footprint.json",
+        "sha256": "4746fbf97f41187f14c5030dd45e3d919bdd08e4a462c76c01699e8a3b8c3ac2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst3015-400ed/symbol.svg",
+        "sha256": "0704b6ebf27d61dc43da33038e66faafd52aa0da57e020f5d29e73cd6a614263",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented CST3015 fixture with a suitable secondary burden and verified isolation."
       }
     }
   ],

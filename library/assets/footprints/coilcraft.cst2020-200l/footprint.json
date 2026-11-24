@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-through-hole-layout",
+  "partId": "coilcraft.cst2020-200l",
+  "package": "Coilcraft CST2020",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 19.8,
+    "lengthMaxMm": 18.5,
+    "heightMaxMm": 19.8,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/ee6427c0-1964-43d0-9999-33467d66bcca/cst2020d.gif?lang=en-US"
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -5,
+      "yMm": -4.5,
+      "drillMm": 1
+    },
+    {
+      "number": "2",
+      "xMm": 0,
+      "yMm": -4.5,
+      "drillMm": 1
+    },
+    {
+      "number": "3",
+      "xMm": 5,
+      "yMm": -4.5,
+      "drillMm": 1
+    },
+    {
+      "number": "4",
+      "xMm": 5,
+      "yMm": 4.5,
+      "drillMm": 1.5
+    },
+    {
+      "number": "5",
+      "xMm": -5,
+      "yMm": 4.5,
+      "drillMm": 1.5
+    }
+  ],
+  "limitations": [
+    "The drawing specifies drill diameters. Review copper annular rings and mounting before fabrication.",
+    "Verify board-level isolation and a suitable secondary burden."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
