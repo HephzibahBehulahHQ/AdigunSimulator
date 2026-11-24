@@ -701562,11 +701562,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-400mec/symbol.svg",
+        "sha256": "f68b0df504f142fbaf3f4dee33cb13c7c97fbdf0778c503a05ae40a502975515",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-400mec/footprint.json",
+        "sha256": "1e84eb2273837114ea3c25fe4b1ad38160398fa3d2d9ea9c61a9a261a6cd62d2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -701576,7 +701603,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -701584,18 +701612,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -701603,21 +701625,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -701629,11 +701645,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-111mec/symbol.svg",
+        "sha256": "89f9c759a2e2674754e2a7c305ac0721c85ef82e189d52ca30a45c22ea29d137",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-111mec/footprint.json",
+        "sha256": "8809267a331c54e3321c34a76017254fa54f9cbe7b6fc14ab698680350fb7d0e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -701643,7 +701686,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -701651,18 +701695,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -701670,21 +701708,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -701696,11 +701728,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-251mec/symbol.svg",
+        "sha256": "e6c5cac51135ebf58347237903af15538982060ee2300eb79ac5afde98b03ca3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-251mec/footprint.json",
+        "sha256": "1e900b6e58dcb0c0fa73e0c2bdc06162868240b9fc82548273b5a91f531f0eac",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -701710,7 +701769,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -701718,18 +701778,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -701737,21 +701791,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -701763,11 +701811,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-331mec/symbol.svg",
+        "sha256": "d269cb58159a28d40e1a64ff0da824206fcaf467612080a0523e11804971a452",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-331mec/footprint.json",
+        "sha256": "eb4358d297e8960d68bccbe6510c6feb8bc6495f578961ff9a94468a1f7dbcd7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -701777,7 +701852,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -701785,18 +701861,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -701804,21 +701874,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -701830,11 +701894,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-471mec/symbol.svg",
+        "sha256": "31bf0ca69085b537cd7a53881090a21d791ff499fb777064f70c28a1dab4a134",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-471mec/footprint.json",
+        "sha256": "a083c6f2e1b27e2a65c27c847033cf33b908ecb2d6f6b48ea28c433334fc183c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -701844,7 +701935,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -701852,18 +701944,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -701871,21 +701957,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -701897,11 +701977,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-601mec/symbol.svg",
+        "sha256": "712d78db69b7805b7481ce40a2166536b80b4597c434c6f3a927705f0a5e480d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-601mec/footprint.json",
+        "sha256": "f2135c0e1c0280c7082fb3554f6a4a31e79068aaf1214fc64494a44917822d06",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -701911,7 +702018,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -701919,18 +702027,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -701938,21 +702040,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -701964,11 +702060,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-821mec/symbol.svg",
+        "sha256": "fdfbd937513be8531edcd00b09be593f9001d33ff9bee131cc0a6663b99105f6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-821mec/footprint.json",
+        "sha256": "348534d8e8e2a3de6b39be495e8f70cd941eabe197f555c7284e539b679a50a5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -701978,7 +702101,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -701986,18 +702110,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -702005,21 +702123,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -702031,11 +702143,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-102mec/symbol.svg",
+        "sha256": "ada9a2890d3363eab4b44e92ca2db0a5774a0298e7461ccd91e6fcacdaf1b516",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-102mec/footprint.json",
+        "sha256": "187877711d12fdbdd516ec4849a85ea533970b09a46cc6735134d7e2373d7b97",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -702045,7 +702184,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -702053,18 +702193,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -702072,21 +702206,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -702098,11 +702226,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-152mec/symbol.svg",
+        "sha256": "f9375d7becfcc771ed3ba829ece594d78c3df4a17112fe970a64e802cdfd93d4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-152mec/footprint.json",
+        "sha256": "f8b1634927a90c98e51e0ed93152b8a723403e6d1c4d0b1d204ef14b9aea7068",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -702112,7 +702267,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -702120,18 +702276,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -702139,21 +702289,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -702165,11 +702309,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-222mec/symbol.svg",
+        "sha256": "829ab08588252d67bcac7b717ad2f83d93a07e358dc4f55247495cb695df4231",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-222mec/footprint.json",
+        "sha256": "7495ea054582619fd8d53bcb14c5c2dedf5bae0eebd663a58b849e9052e11a13",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -702179,7 +702350,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -702187,18 +702359,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -702206,21 +702372,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -702232,11 +702392,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-332mec/symbol.svg",
+        "sha256": "c348c7eee9af8b845cdcf2b9e9a96f538c954f30c34c8d8f90d4af748488126b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-332mec/footprint.json",
+        "sha256": "e4c97729ca04888828b44d7fb25d4a301362df04599f16a386f8c70d829c1309",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -702246,7 +702433,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -702254,18 +702442,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -702273,21 +702455,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -702299,11 +702475,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-472mec/symbol.svg",
+        "sha256": "0ef2fca23dce15834edf1c4869e87a2b7717e0c64e837e7c78d6445e7b053b57",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-472mec/footprint.json",
+        "sha256": "3ae6bdda59a92d6926385ab18a18670a5f8821887fa9ae97107b5cfd18d6a989",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -702313,7 +702516,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -702321,18 +702525,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -702340,21 +702538,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -702366,11 +702558,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-562mec/symbol.svg",
+        "sha256": "b5f51f929c955fc651d43d63ef60004eaa5320e9a40c10ba8aa3b6c8de94fa47",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-562mec/footprint.json",
+        "sha256": "2cc1ae0c8c473f6ece03d2d6bbc2b380137dec97ad4aa1174ddc5eac421a3fa8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -702380,7 +702599,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -702388,18 +702608,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -702407,21 +702621,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -702433,11 +702641,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-682mec/symbol.svg",
+        "sha256": "8e8f95163ea98808e732c875b7783817e351e1450cc87c34d780b904a50e18e6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-682mec/footprint.json",
+        "sha256": "7fdfd9272a08b3230e3aa45e77c564e01bf66771124aca63e82ac59a514c30a5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -702447,7 +702682,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -702455,18 +702691,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -702474,21 +702704,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -702500,11 +702724,38 @@
       "package": "XGL4020 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xgl4020-822mec/symbol.svg",
+        "sha256": "6c2fbd6a54cbc83aecad72cb0dfc87f93d9b50b10998225b847b0bc7aa19a0cf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xgl4020-822mec/footprint.json",
+        "sha256": "d997b6a07a92a4ae01db7f253002e3ea3d594a6ab4b2c2e245a92e6cfe6aab38",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XGL4020 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -702514,7 +702765,8 @@
       },
       "sources": [
         "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
-        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/"
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/",
+        "https://www.coilcraft.com/getattachment/9c9def4a-72ad-4389-8f41-d531b2380a39/xgl4020d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -702522,18 +702774,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -702541,21 +702787,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     }
