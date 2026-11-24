@@ -31,6 +31,12 @@ async function writeAsset(folder, filename, contents, metadata) {
 }
 
 const packageDrawings = {
+  XFL5015: "https://www.coilcraft.com/getmedia/5f7b596c-8f2f-415e-931e-74a5b6804936/xfl5015.pdf",
+  XFL5018: "https://www.coilcraft.com/getmedia/5f7b596c-8f2f-415e-931e-74a5b6804936/xfl5015.pdf",
+  XFL5030: "https://www.coilcraft.com/getmedia/f01e4ccd-6be9-43eb-bb01-c23b4deeb2c5/xfl5030.pdf",
+  XFL6012: "https://www.coilcraft.com/getmedia/ae4a44fc-deeb-45d7-81a6-abe1d0432add/xfl6012.pdf",
+  XFL6060: "https://www.coilcraft.com/getmedia/9e8cc1df-cee0-4215-90fb-b5193fa22761/xfl6060-473.pdf",
+  XFL7015: "https://www.coilcraft.com/getmedia/ccf09628-6e8c-462a-9dc9-fa4346e7cf0a/xfl7015.pdf",
   XFL4012: "https://www.coilcraft.com/getattachment/576e5a0a-d63b-4cfb-8c87-cd364de1d340/xfl4012d.gif?lang=en-US",
   XFL4015: "https://www.coilcraft.com/getattachment/9db62613-5a92-45c1-a520-b8675ddfbb1a/xfl4015d.gif?lang=en-US",
   XFL4020: "https://www.coilcraft.com/getattachment/05bd99a2-1ad9-400e-9537-8219a4e4059d/xfl4020d.gif?lang=en-US",
@@ -72,6 +78,12 @@ const packageDrawings = {
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
 // Body width, length, planar tolerance, maximum height, pad width, pad height and center spacing in mm.
 const packageDimensions = {
+  XFL5015: [5.28, 5.48, 0.2, 1.5, 1.18, 4.7, 3.31],
+  XFL5018: [5.28, 5.48, 0.2, 1.8, 1.18, 4.7, 3.31],
+  XFL5030: [5.28, 5.48, 0.2, 3.1, 1.18, 4.7, 3.31],
+  XFL6012: [6.36, 6.56, 0.2, 1.2, 1.43, 5.5, 4.04],
+  XFL6060: [6.36, 6.56, 0.2, 6.1, 1.43, 5.5, 4.04],
+  XFL7015: [7.5, 7.5, 0.5, 1.5, 1.78, 6.22, 4.72],
   XFL4012: [4, 4, 0.3, 1.2, 0.98, 3.4, 2.37],
   XFL4015: [4, 4, 0.3, 1.6, 0.98, 3.4, 2.37],
   XFL4020: [4, 4, 0.3, 2.1, 0.98, 3.4, 2.37],
@@ -117,6 +129,9 @@ const heightOverrides = {
   XEL5030: { 131: 3.2, 261: 3.2, 421: 3.2, 601: 3.2 }
 };
 
+// XFL7015 drawing 1039-2, dimension B in the recommended land pattern.
+const xfl7015PadHeightByCode = { 102: 6.16, 152: 6.16 };
+
 const xal7030NarrowCodes = new Set(["472", "562", "682", "822", "103"]);
 const thirteenInchReelPackages = new Set(["XAL8080", "XAL1510", "XGL1010", "XGL1313", "XGL1712"]);
 
@@ -135,7 +150,8 @@ for (const record of ledger.records) {
   footprint.partId = record.id;
   footprint.package = `Coilcraft ${packageCode}`;
   if (packageDimensions[packageCode]) {
-    const [widthMm, lengthMm, planarToleranceMm, defaultHeight, defaultPadWidth, padHeight, defaultSpacing] = packageDimensions[packageCode];
+    const [widthMm, lengthMm, planarToleranceMm, defaultHeight, defaultPadWidth, defaultPadHeight, defaultSpacing] = packageDimensions[packageCode];
+    const padHeight = packageCode === "XFL7015" ? xfl7015PadHeightByCode[valueCode] ?? defaultPadHeight : defaultPadHeight;
     const narrow = packageCode === "XAL7030" && xal7030NarrowCodes.has(valueCode);
     const padWidth = narrow ? 1.58 : defaultPadWidth;
     const rowCenterSpacingMm = narrow ? 4.52 : defaultSpacing;
