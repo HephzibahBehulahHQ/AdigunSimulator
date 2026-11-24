@@ -294806,6 +294806,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb1010ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb1010ld/footprint.json",
+        "sha256": "368a5d6b05cc0db35fc9ff50056dba73ff3288c0f7b4c1c3c4679f600739cdf3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb1010ld/symbol.svg",
+        "sha256": "81f28c4ef3a8e91de222ec68838888483c98e3d166dcd21c1a3cf6753746bc35",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -294826,6 +294880,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb1010-1ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb1010-1ld/footprint.json",
+        "sha256": "ebe7b22465f28527cef7f240b77df05a1f36cecc43a613eebc0e9ac6cc394759",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb1010-1ld/symbol.svg",
+        "sha256": "d1ee84ae06d221a20847257d702b3795220d77977d107883b59dfcf29efef729",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -294846,6 +294954,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb1015ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb1015ld/footprint.json",
+        "sha256": "0421482d9c7082eedd5ef94863229fd55bcd326e4fb6e2fae6de82db95576349",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb1015ld/symbol.svg",
+        "sha256": "4e90233b6bf059957976e90c0527ce1de87650c6ceb0791b6a19b2eb506bc53d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -294866,6 +295028,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb1040ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb1040ld/footprint.json",
+        "sha256": "62d9e3b0d3f22eae698253cbb902b849435729587b12403490c2b7fed52a9e49",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb1040ld/symbol.svg",
+        "sha256": "6dcd5819e31e39dab8b854f1432bc20cb14e6df5de9f28917a8eef4a8570d022",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296162,6 +296378,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc3-1tlc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc3-1tlc/footprint.json",
+        "sha256": "de35c23149aee052e4be85e0dc7294a8be0e88bc6c17f31eb0391bed1ffce0b0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc3-1tlc/symbol.svg",
+        "sha256": "1ad20973e11ffa8f9d4c15aee130fb6234baf4d0e212b0c3aa59e3ce5ab1f120",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296182,6 +296452,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc4-14lc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc4-14lc/footprint.json",
+        "sha256": "0e3d1dd994e0ed045628bac4c277613f22360288cb99c515d9aff9d5595b0614",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc4-14lc/symbol.svg",
+        "sha256": "9748c2cb950ecf1e739bd91d5b5b175ab9d956e8820c7e4a749d34f61409ccf5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296202,6 +296526,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc4-1tlc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc4-1tlc/footprint.json",
+        "sha256": "ea41f2e7d67e9684ec5cf966b0621d2c8384cffe6dc16759bf6a527287af18ba",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc4-1tlc/symbol.svg",
+        "sha256": "50145bf859d100c8bd1a38514d5ea23040bacea2c404269a8042bc6971809869",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296222,6 +296600,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc4-1wlc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc4-1wlc/footprint.json",
+        "sha256": "1e9f456d4dbbcdb331a6e5975cf482cdad5e0dab377b4d3de191e4b6a5eeb81c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc4-1wlc/symbol.svg",
+        "sha256": "67a082060ccb7dbb38650fb7573abdd447dc0766e46924f9ac6310bd6c1b50ed",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296242,6 +296674,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "Primary tap",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc4-4lc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc4-4lc/footprint.json",
+        "sha256": "98db35cc74b6916e500ac14724547ee8f1beb1dc176ffe3cd99ce276aec46c79",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc4-4lc/symbol.svg",
+        "sha256": "35846ed374dacf807b3d9b43ac95995356c3128bc54b3562389b7ba943a94688",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296262,6 +296748,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc4-6tlc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc4-6tlc/footprint.json",
+        "sha256": "a24b6a69d946698f4687f3999e55b49822c92e4b9fd954d7b5ba26691476d395",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc4-6tlc/symbol.svg",
+        "sha256": "72f4f7b81ad87367b1c6e4fc6e5b8129c95ebcd7927acdead6fe5c374dcc98df",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296282,6 +296822,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary start",
+        "5": "No winding connection shown",
+        "6": "Primary end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc8-1lc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc8-1lc/footprint.json",
+        "sha256": "3be12efd85eea35f383764f40b2848ceec6b03e200b3655995a85e176f1bbc2b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc8-1lc/symbol.svg",
+        "sha256": "f04d24cc9835413646b62e10f01acd1599ea171e8842a6ae8ee4dff7576fb894",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296302,6 +296896,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc9-1lc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc9-1lc/footprint.json",
+        "sha256": "03312ecf140e6912b2e895c8bc32657a4010e584e723e903665ba097d2c6a1ba",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc9-1lc/symbol.svg",
+        "sha256": "e6ffe09db247fdc032f64f5a285a371617056fd5f503c3b6ed1c1f04c8f5fdbe",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296322,6 +296970,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-16-bld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-16-bld/footprint.json",
+        "sha256": "4a0d65ffd62b06787d7d0cc20923b663263b508f3c77fc769be3f77357e26b7e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-16-bld/symbol.svg",
+        "sha256": "1ea80d2974295a47a3d2c8f3c22b7ef2e19a6ba4396d0a74d4e93b3d1ddd8481",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296342,6 +297044,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-1-bld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-1-bld/footprint.json",
+        "sha256": "a77cc3f6e913b8a5bd615296779b5a490052768c36e91e7cdd22277fb2d0848a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-1-bld/symbol.svg",
+        "sha256": "5191b87365ca579b45bf5f1e0fdcc9878e62c24623666b43664cd744d8a4f289",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296362,6 +297118,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb2010ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb2010ld/footprint.json",
+        "sha256": "14fecb322937864cd150c546c7f180d03e8473a1c4a89e7c202fbf8c526256a3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb2010ld/symbol.svg",
+        "sha256": "b1e5c5a4949ad02c0bcb5321aa6ef123693f043d84be2d4618c4bacfa46f8ba4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296382,6 +297192,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb2010-1ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb2010-1ld/footprint.json",
+        "sha256": "a189fd2d70263dec1b2a9a4b0a91c4533df8ef0b236afb000bc5f9d170833e6c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb2010-1ld/symbol.svg",
+        "sha256": "de9dc895afe4c825f1b975709ff9448b83da6841220705c246190d2a6ae238ee",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296402,6 +297266,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb2040ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb2040ld/footprint.json",
+        "sha256": "e3d7b3f2c6cc9e05197391841f77ca07cde5b10c21f21079055b97fccf212059",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb2040ld/symbol.svg",
+        "sha256": "7129f254923cbb1e01990bef409a854b083453098b6a0b91842fbe70ac8ca91a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296422,6 +297340,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-2-bld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-2-bld/footprint.json",
+        "sha256": "1742a9b4a09373fdb3c5d3957b873f53a4d78a812def38e5022a7b5e99936edc",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-2-bld/symbol.svg",
+        "sha256": "1d55cb0b1b8ea39099995c76880000e54258cdb9e3cfd663e7eba40be246ec3a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296442,6 +297414,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-4-bld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-4-bld/footprint.json",
+        "sha256": "504335f7672ba1d09bcb799cfe9fa34b6c73ffdf4cc4ef8a17bc3cb06de390eb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-4-bld/symbol.svg",
+        "sha256": "db5c9286dfc3f47a933596acd01a2e210afc6a081e1e89ecfebcacffc3f93511",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296462,6 +297488,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "Primary tap",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-1-cld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-1-cld/footprint.json",
+        "sha256": "eb68f9f72d78beeb4296dae657ab132abfe35e825337884672411055b9604fa6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-1-cld/symbol.svg",
+        "sha256": "82cd84e498ba75c2c907ae46c4761afb03cc3c5963d043b6f95b3e7e91f0a289",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296482,6 +297562,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "Primary tap",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-2-cld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-2-cld/footprint.json",
+        "sha256": "4e6415275c3a008d5724459bc0bc841ac3cb627881b28dbdeecec691d11c41b8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-2-cld/symbol.svg",
+        "sha256": "e8d8e1fc688e0bae56163f4a1c190725b6dd14ef7612b39754b97739b2c68f18",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296502,6 +297636,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "Primary tap",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb3010ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb3010ld/footprint.json",
+        "sha256": "c8269cda66b49552bbc3710df34acd5d034809fe31c7ca3ea9d8187c489a0d38",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb3010ld/symbol.svg",
+        "sha256": "273e12665cd76f265d7e1c4841ec4e4c905188e91492befdecc11ee4676b8c13",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296522,6 +297710,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "Primary tap",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb3010-1ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb3010-1ld/footprint.json",
+        "sha256": "2560bb90c4717c10a8a4d772f4a7ff4f4f835739d3e504d4434dd008e54c5b1a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb3010-1ld/symbol.svg",
+        "sha256": "a4c16f34380d6b0cc21a93837f4d35e7ccbf155e5182f173b7137056c46b0fae",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296542,6 +297784,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "Primary tap",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb3015ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb3015ld/footprint.json",
+        "sha256": "035c3c1f99e3f67c0d6ef0d504e44691a21f663a24a8329538af374049b0e149",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb3015ld/symbol.svg",
+        "sha256": "e490ef5ee8342c7312a60de057d8673b82d729c06c98645a54edce0530a19840",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296562,6 +297858,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "Primary tap",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb3040ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb3040ld/footprint.json",
+        "sha256": "1540c98c2f0f01e946a1df1c40adeb665a7a813b463e7ce45ded51449415904c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb3040ld/symbol.svg",
+        "sha256": "8643ba999c1fab43735cefacc04a2b8ca18661e63f35d199088d76ef592e47b3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296582,6 +297932,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "Primary tap",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "Secondary tap",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-4-cld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-4-cld/footprint.json",
+        "sha256": "66f5a4bfdea2df0b3b87f236c04c565703c5bf991ac407800a200dc00475c56f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-4-cld/symbol.svg",
+        "sha256": "ff79d60db208047d63586a171d983414fc1ed4f941f475f603e28a16305bae42",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296602,6 +298006,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "No winding connection shown",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc1-1lc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc1-1lc/footprint.json",
+        "sha256": "a086edb81c4182527b2f94cbb63e4060f005e33a3691c77aa9206209632982e9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc1-1lc/symbol.svg",
+        "sha256": "f99e162059ad33fdb00e130603bf5447f0716ae76940300f834ab0248e1f617e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296622,6 +298080,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc1-1tlc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc1-1tlc/footprint.json",
+        "sha256": "e0f80a9818afa65a8e1f4a4a6ee4391d8eff28f4503972bc4859aecd421614b9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc1-1tlc/symbol.svg",
+        "sha256": "445696411d013bbb3597c69bda47a116b2d0683f4f6e84bb243467cf1833051e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296642,6 +298154,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc16-1tlc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc16-1tlc/footprint.json",
+        "sha256": "71fed428c4d7974a78503f30c5fd9b5e511533b5973cb0f7c958dcb554dbb44a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc16-1tlc/symbol.svg",
+        "sha256": "12355632b6b2ae36af2f51089802a2a4110a90ed26d3fe89dd55e193cabcd3fe",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296662,6 +298228,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Secondary start",
+        "2": "Secondary tap",
+        "3": "Secondary end",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "Primary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.wbc2-1tlc/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.wbc2-1tlc/footprint.json",
+        "sha256": "f17285d999b20d7b8063e8ed72b9a5c6529494c4e3e24bd27956c9ec49738566",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.wbc2-1tlc/symbol.svg",
+        "sha256": "f9397f0058919c2fd14511b23ef42e29a64cef9fd4516625e62617adbc7c7c4a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented WBC fixture and verify RF parasitics."
       }
     },
     {
@@ -296682,6 +298302,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-16-ald/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-16-ald/footprint.json",
+        "sha256": "7e728bed8be462707814083c4970ac20bd09d2648b26ab8f063ecccc117ca6e9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-16-ald/symbol.svg",
+        "sha256": "2a4e2a2e2a3b6c06f878ede2783484c1c1710f1fe96fd3d1138ae649b68eda2a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296702,6 +298376,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-1-ald/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-1-ald/footprint.json",
+        "sha256": "810049bc1f8ffa8bd7a92465ead7bea0ebc3b7e01857577acfc5abef27e36c0c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-1-ald/symbol.svg",
+        "sha256": "8e4efc56f15247220ddb214cd9f3f683a8bf8b7e039ad00851709e982caa2952",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296722,6 +298450,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-2-ald/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-2-ald/footprint.json",
+        "sha256": "4a41aab56954fb8abe6317263d909d795b71cdbb04af2629ed1671c7a176302a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-2-ald/symbol.svg",
+        "sha256": "d39636f8fd9fd90d64f1aa394b4a112a02a56e939e38b38622bfdf87987a950d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     },
     {
@@ -296742,6 +298524,60 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary start",
+        "2": "No winding connection shown",
+        "3": "Primary end",
+        "4": "Secondary end",
+        "5": "No winding connection shown",
+        "6": "Secondary start"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.ttwb-4-ald/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.ttwb-4-ald/footprint.json",
+        "sha256": "8c889ace7eb95525c8ff9bf054bc5b74398cd9c7229b6ca5723b6daf084bb922",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.ttwb-4-ald/symbol.svg",
+        "sha256": "601dd1663a3ebc0bc731eca2386b780c65fa1d49ed06d3dd6c66cc2c817e7b54",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented TTWB fixture and verify RF parasitics."
       }
     }
   ],

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.ttwb-1-cld",
+  "package": "Coilcraft TTWB",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMm": 6.1,
+    "lengthMm": 6.48,
+    "heightMaxMm": 4.827,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/934d405f-4d90-4122-84b2-14411347de55/ttwbd.gif"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 1.27,
+    "heightMm": 1.14,
+    "pitchMm": 2.54,
+    "rowCenterSpacingMm": 5.46
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -2.54,
+      "yMm": 2.73
+    },
+    {
+      "number": "2",
+      "xMm": 0,
+      "yMm": 2.73
+    },
+    {
+      "number": "3",
+      "xMm": 2.54,
+      "yMm": 2.73
+    },
+    {
+      "number": "4",
+      "xMm": 2.54,
+      "yMm": -2.73
+    },
+    {
+      "number": "5",
+      "xMm": 0,
+      "yMm": -2.73
+    },
+    {
+      "number": "6",
+      "xMm": -2.54,
+      "yMm": -2.73
+    }
+  ],
+  "limitations": [
+    "The pin 1 dot aligns with the lower-left land in this top view.",
+    "Unconnected lands remain in the pattern. Verify RF routing and board clearances before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
