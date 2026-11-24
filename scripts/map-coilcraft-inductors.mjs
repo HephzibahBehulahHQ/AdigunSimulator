@@ -38,7 +38,9 @@ const xglLargerPackageDrawings = {
   XGL6020: "https://www.coilcraft.com/getattachment/7ce8a46d-fefc-4273-9a8f-ae343448379b/xgl6020d.gif?lang=en-US",
   XGL7015: "https://www.coilcraft.com/getattachment/a475daa3-7f58-4bb1-bdf9-aaf0908e1878/xgl7015d.gif?lang=en-US",
   XGL7030: "https://www.coilcraft.com/getattachment/78ab5313-58ec-4c76-a1ab-552e523aa6cc/xgl7030d.gif?lang=en-US",
-  XGL1060: "https://www.coilcraft.com/getattachment/77262432-b157-4ef6-9f19-5f412ceaee12/xgl1060d.gif?lang=en-US"
+  XGL1060: "https://www.coilcraft.com/getattachment/77262432-b157-4ef6-9f19-5f412ceaee12/xgl1060d.gif?lang=en-US",
+  XGL1010: "https://www.coilcraft.com/getattachment/d836bde2-3b61-4037-a3a3-180bb07ed709/xgl1010d.gif?lang=en-US",
+  XGL1313: "https://www.coilcraft.com/getattachment/1e95a404-a436-4fb4-911b-6d43e31d12dc/xgl1313d.gif?lang=en-US"
 };
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
 // Body width, length, planar tolerance, maximum height, pad width, pad height and center spacing in mm.
@@ -48,13 +50,16 @@ const xglDimensions = {
   XGL6060: [6.51, 6.71, 0.2, 6.1, 1.43, 5.5, 4.04],
   XGL7015: [7.5, 7.5, 0.5, 1.5, 1.78, 6.5, 4.72],
   XGL7030: [7.5, 7.5, 0.5, 3.1, 1.78, 6.5, 4.72],
-  XGL1060: [10, 11.3, 0.5, 6, 2.38, 8.5, 6.65]
+  XGL1060: [10, 11.3, 0.5, 6, 2.38, 8.5, 6.65],
+  XGL1010: [10, 11.3, 0.5, 10, 2.38, 8.5, 6.65],
+  XGL1313: [13.4, 15, 0.2, 13, 2.98, 11.2, 8.6]
 };
 
 for (const record of ledger.records) {
-  const match = /^(XAL50[35]0|XGL(?:40[23]0|50[35]0|60[236]0|7015|7030|1060))-(\d{3})MEC$/.exec(record.manufacturerPartNumber);
+  const match = /^(XAL50[35]0|XGL(?:40[23]0|50[35]0|60[236]0|7015|7030|1060|1010|1313))-(\d{3})ME([CD])$/.exec(record.manufacturerPartNumber);
   if (record.manufacturer !== "Coilcraft" || !match || record.footprintAsset) continue;
-  const [, packageCode, valueCode] = match;
+  const [, packageCode, valueCode, reel] = match;
+  if (reel !== (["XGL1010", "XGL1313"].includes(packageCode) ? "D" : "C")) continue;
   const drawing = xglLargerPackageDrawings[packageCode];
   const templateKey = packageCode.startsWith("XAL") || drawing ? "XAL" : packageCode;
   const { record: template, footprint: baseFootprint, symbol: baseSymbol } = templates[templateKey];
