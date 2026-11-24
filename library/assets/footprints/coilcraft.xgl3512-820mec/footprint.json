@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.xgl3512-820mec",
+  "package": "Coilcraft XGL3512",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMm": 3.2,
+    "lengthMm": 3.5,
+    "planarToleranceMm": 0.15,
+    "heightMaxMm": 1.2,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/4a249b9d-6851-469f-89db-b56209604f53/xgl3512d.gif?lang=en-US"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 0.81,
+    "heightMm": 3.2,
+    "rowCenterSpacingMm": 1.8
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 0.9,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": -0.9,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Local pad 1 is the winding start at the right-hand stripe in the manufacturer top view.",
+    "Review solder mask, paste, courtyard and board rules before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
