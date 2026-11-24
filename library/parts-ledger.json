@@ -341112,6 +341112,246 @@
         "compatible": false,
         "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
       }
+    },
+    {
+      "id": "nexperia.bcx51-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX51,115",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX51 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx51-10-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX51-10,115",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX51 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx51-16-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX51-16,115",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX51 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx53-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX53,115",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX53 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx53-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx53-10-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX53-10,115",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX53 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx53-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx53-16-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX53-16,115",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX53 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx53-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx56-10-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX56-10-QX",
+      "category": "Transistors",
+      "type": "NPN medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX56-Q product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx56-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx56-16-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX56-16-QX",
+      "category": "Transistors",
+      "type": "NPN medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX56-Q product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx56-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx56-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX56-QX",
+      "category": "Transistors",
+      "type": "NPN medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX56-Q product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx56-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx51-10-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX51-10-QX",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX51-Q product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-q-series-general",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx51-16-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX51-16-QX",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX51-Q product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-q-series-general",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcx51-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCX51-QX",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT89",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCX51-Q product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-q-series-general",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcx-sot89.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
