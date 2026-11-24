@@ -1,0 +1,3 @@
+# Coilcraft XAL1030, XAL1060 and XAL1510 ordering evidence
+
+The [XAL1030](https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1030/), [XAL1060](https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/) and [XAL1510](https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/) series tables support the selected order codes. The batch records 4 XAL1030 MEC entries from 0.16–1 µH, 8 XAL1060 MEC entries from 0.18–4.7 µH, and 7 XAL1510 MED entries from 4.7–33 µH. Lifecycle, native mapping, model validation and independent review remain pending.
