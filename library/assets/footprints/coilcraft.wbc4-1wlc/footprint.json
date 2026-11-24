@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.wbc4-1wlc",
+  "package": "Coilcraft WBC",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 4.19,
+    "lengthMaxMm": 4.45,
+    "heightMaxMm": 3.05,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/9c44bf18-532b-4b25-a1fd-68ec3c9b92f1/wbcd.gif"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 0.76,
+    "heightMm": 1.14,
+    "pitchMm": 1.52,
+    "rowCenterSpacingMm": 3.05
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -1.52,
+      "yMm": -1.525
+    },
+    {
+      "number": "2",
+      "xMm": 0,
+      "yMm": -1.525
+    },
+    {
+      "number": "3",
+      "xMm": 1.52,
+      "yMm": -1.525
+    },
+    {
+      "number": "4",
+      "xMm": 1.52,
+      "yMm": 1.525
+    },
+    {
+      "number": "5",
+      "xMm": 0,
+      "yMm": 1.525
+    },
+    {
+      "number": "6",
+      "xMm": -1.52,
+      "yMm": 1.525
+    }
+  ],
+  "limitations": [
+    "The pin 1 dot aligns with the upper-left land in this top view.",
+    "Unconnected lands remain in the pattern. Verify RF routing and board clearances before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

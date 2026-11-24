@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 154 128" role="img" aria-label="RF transformer winding diagram">
+  <title>Coilcraft WBC4-14LC</title>
+  <path d="M 73 17 V 83 M 81 17 V 83" stroke="currentColor" fill="none" />
+  <path d="M 14 20 H 64" stroke="currentColor" fill="none" data-pin="6" data-pin-name="Primary start" data-electrical-type="passive" />
+  <text x="14" y="16" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="6">6</text>
+  <path d="M 14 80 H 64" stroke="currentColor" fill="none" data-pin="4" data-pin-name="Primary end" data-electrical-type="passive" />
+  <text x="14" y="76" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="4">4</text>
+  <path d="M 64 20 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10" stroke="currentColor" fill="none" />
+  <circle cx="56" cy="25" r="1.5" fill="currentColor" />
+  <path d="M 140 20 H 90" stroke="currentColor" fill="none" data-pin="1" data-pin-name="Secondary start" data-electrical-type="passive" />
+  <text x="140" y="16" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="1">1</text>
+  <path d="M 140 80 H 90" stroke="currentColor" fill="none" data-pin="3" data-pin-name="Secondary end" data-electrical-type="passive" />
+  <text x="140" y="76" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="3">3</text>
+  <path d="M 140 50 H 90" stroke="currentColor" fill="none" data-pin="2" data-pin-name="Secondary tap" data-electrical-type="passive" />
+  <text x="140" y="46" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="2">2</text>
+  <path d="M 90 20 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10" stroke="currentColor" fill="none" />
+  <circle cx="98" cy="25" r="1.5" fill="currentColor" />
+  <path d="M 20 111 H 31" stroke="currentColor" fill="none" data-pin="5" data-pin-name="No winding connection shown" data-electrical-type="passive" />
+  <text x="20" y="107" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="5">5</text>
+</svg>
