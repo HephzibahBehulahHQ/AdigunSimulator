@@ -737575,11 +737575,38 @@
       "package": "XAL1060 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1060-181mec/symbol.svg",
+        "sha256": "31d8b8e8cae3340d059bb9fa81709c3cc45cc7f1d32649fb3d099726858006bf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1060-181mec/footprint.json",
+        "sha256": "82d6b94ad68118a8657d95b23d9358db6abd3d66fa9fdfb5461833e9902e8f90",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1060 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -737588,7 +737615,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/",
+        "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -737596,18 +737624,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -737615,21 +737637,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -737641,11 +737657,38 @@
       "package": "XAL1060 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1060-401mec/symbol.svg",
+        "sha256": "95dfac2a73f776f99a34ce74e2e4b66a2f7b5539aaa58bced039ad69fec597a9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1060-401mec/footprint.json",
+        "sha256": "a7147a9d5ac236ec8b17051696c366ca565b36961a636935d8c225e25822e510",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1060 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -737654,7 +737697,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/",
+        "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -737662,18 +737706,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -737681,21 +737719,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -737707,11 +737739,38 @@
       "package": "XAL1060 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1060-681mec/symbol.svg",
+        "sha256": "5267ccdcddab8bc13ecf46444b7cb463dc8d3d7ad1c8d8904fbeb770be9cfff2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1060-681mec/footprint.json",
+        "sha256": "309911dcf17bf6812432b3ac0dd1e96248a8dd1746c184ecc81717852ef1e1d5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1060 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -737720,7 +737779,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/",
+        "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -737728,18 +737788,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -737747,21 +737801,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -737773,11 +737821,38 @@
       "package": "XAL1060 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1060-122mec/symbol.svg",
+        "sha256": "9c5d3e6802cf10df04fe497f1fe19220f1cae3e96a3f05e76f3a3d9fa02cf997",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1060-122mec/footprint.json",
+        "sha256": "17ead49049e78ab20486d11ce6cbf8cdd8587c31cb6bbf0fa4f90eb21de3ae5c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1060 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -737786,7 +737861,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/",
+        "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -737794,18 +737870,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -737813,21 +737883,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -737839,11 +737903,38 @@
       "package": "XAL1060 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1060-152mec/symbol.svg",
+        "sha256": "db8f64d82e49670f4e1ef0cbfb01fdb7c1df5169f1ca38a2792d6837b94b6a78",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1060-152mec/footprint.json",
+        "sha256": "cb8daba1d5afd602dec69763b43fdb8639d2a77c9e8aa7bd94055644811b4745",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1060 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -737852,7 +737943,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/",
+        "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -737860,18 +737952,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -737879,21 +737965,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -737905,11 +737985,38 @@
       "package": "XAL1060 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1060-222mec/symbol.svg",
+        "sha256": "1df87a664f5c6d4c51af40c67b92d751d573531c10af6d519e802182cc281218",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1060-222mec/footprint.json",
+        "sha256": "a507e8079b6e105feae18384bc179a6248cdadcfa131baa21acc324f83751017",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1060 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -737918,7 +738025,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/",
+        "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -737926,18 +738034,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -737945,21 +738047,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -737971,11 +738067,38 @@
       "package": "XAL1060 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1060-332mec/symbol.svg",
+        "sha256": "efa7ad255e56d479dda3b1c538e4e45fe189031dcc768371a66fe4a19e490486",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1060-332mec/footprint.json",
+        "sha256": "6b369e45366d1ec42a5a22466488ac0e108398c2418be0d358efa1972f80034b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1060 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -737984,7 +738107,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/",
+        "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -737992,18 +738116,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738011,21 +738129,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738037,11 +738149,38 @@
       "package": "XAL1060 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1060-472mec/symbol.svg",
+        "sha256": "4a140b45b0b6876c88a3ae3889c4b988349a5c041c7d933eb7179cbeb183c798",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1060-472mec/footprint.json",
+        "sha256": "610cccd2c960cb898a4cd3ca579b42f6a0340013a064c31b6fce98fa200d631f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1060 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738050,7 +738189,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1060/",
+        "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738058,18 +738198,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738077,21 +738211,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738103,11 +738231,38 @@
       "package": "XAL1510 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1510-472med/symbol.svg",
+        "sha256": "01f110b184bd39b72640d66b51a37612c2eeac5a423a515a5f5f9250e4b4f3ea",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1510-472med/footprint.json",
+        "sha256": "282b88021562e5f60f84a5b86b411305948e00526ba3365f9fbcfc001a7c0475",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1510 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738116,7 +738271,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/",
+        "https://www.coilcraft.com/getattachment/b6318cc1-0397-4668-8944-ce75f730ffcc/xal1510d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738124,18 +738280,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738143,21 +738293,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738169,11 +738313,38 @@
       "package": "XAL1510 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1510-682med/symbol.svg",
+        "sha256": "0df4eeb732992e8c8403546a36bf9532cee7e149bd769bc19765a0a4593f036c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1510-682med/footprint.json",
+        "sha256": "d4bc0d6f76597048649a2e3b27095b8409d7644c2656c7509b9d00d28d739bb7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1510 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738182,7 +738353,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/",
+        "https://www.coilcraft.com/getattachment/b6318cc1-0397-4668-8944-ce75f730ffcc/xal1510d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738190,18 +738362,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738209,21 +738375,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738235,11 +738395,38 @@
       "package": "XAL1510 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1510-822med/symbol.svg",
+        "sha256": "4fa1489bf40cedc6a839b65684ade96a0ff6f772a4effafdea53179ce2bc813c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1510-822med/footprint.json",
+        "sha256": "cbe4c98fb7e4993fab81464248ad696fd011ad2f001406f66b241742bf103959",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1510 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738248,7 +738435,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/",
+        "https://www.coilcraft.com/getattachment/b6318cc1-0397-4668-8944-ce75f730ffcc/xal1510d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738256,18 +738444,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738275,21 +738457,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738301,11 +738477,38 @@
       "package": "XAL1510 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1510-103med/symbol.svg",
+        "sha256": "43a3e4a2f2dc318e3830d8a575635bd173859498e0f67e86d23debf1aa1782e9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1510-103med/footprint.json",
+        "sha256": "ca80df9f6b2bd506940ee03a527865ec2d1c67c1c7ec13bcf1ae036426bc49b8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1510 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738314,7 +738517,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/",
+        "https://www.coilcraft.com/getattachment/b6318cc1-0397-4668-8944-ce75f730ffcc/xal1510d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738322,18 +738526,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738341,21 +738539,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738367,11 +738559,38 @@
       "package": "XAL1510 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1510-153med/symbol.svg",
+        "sha256": "f0f8f5f3cf4ca276000a5e4642cb333d5cee46ecf309a8c636937ed3800ae6eb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1510-153med/footprint.json",
+        "sha256": "ab3f50951d939655ab44a57af77e3b535e1acefd800e05c9a283476739501b0a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1510 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738380,7 +738599,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/",
+        "https://www.coilcraft.com/getattachment/b6318cc1-0397-4668-8944-ce75f730ffcc/xal1510d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738388,18 +738608,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738407,21 +738621,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738433,11 +738641,38 @@
       "package": "XAL1510 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1510-223med/symbol.svg",
+        "sha256": "1f9a54ce0cef338f078b19db8c2a342c858006a13cc5ebb0ee2b4fae1b2bb8f1",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1510-223med/footprint.json",
+        "sha256": "4b2931f189f61c6ad19c3fb34f2414ac0d5ed7155a22039e47ba6714d4784fa3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1510 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738446,7 +738681,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/",
+        "https://www.coilcraft.com/getattachment/b6318cc1-0397-4668-8944-ce75f730ffcc/xal1510d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738454,18 +738690,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738473,21 +738703,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738499,11 +738723,38 @@
       "package": "XAL1510 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1510-333med/symbol.svg",
+        "sha256": "b8814016befec69bf4ea7ca4312c8c8fc184c32577cc6d4ce37211c89af55249",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1510-333med/footprint.json",
+        "sha256": "85413d9b5f9977c710f03c23a82e5934cb455628b6290915314ef7f7757285c0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1510 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738512,7 +738763,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1510/",
+        "https://www.coilcraft.com/getattachment/b6318cc1-0397-4668-8944-ce75f730ffcc/xal1510d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738520,18 +738772,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738539,21 +738785,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738565,11 +738805,38 @@
       "package": "XAL1030 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1030-161mec/symbol.svg",
+        "sha256": "b038575b6fedc7aab54e310ccd9f2d1b4f5172168bb6bcfa8f1c1d8b3bbce4da",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1030-161mec/footprint.json",
+        "sha256": "974c11bffd486d3b31d9b79ecda63746912f6838ddf947c00a2ed412d19ca5c3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1030 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738578,7 +738845,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1030/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1030/",
+        "https://www.coilcraft.com/getattachment/0f2aa15d-eb2d-4633-a5f9-c8734257bc6a/xal1030d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738586,18 +738854,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738605,21 +738867,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738631,11 +738887,38 @@
       "package": "XAL1030 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1030-301mec/symbol.svg",
+        "sha256": "6f094d97f9880924d196a35626f37864c9b627db4d5e8152cf76b8411f101d75",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1030-301mec/footprint.json",
+        "sha256": "9fc4165d1a5c32551b7c8df4bee24492d91c57677b8e8e1838d5ca5b5c35b981",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1030 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738644,7 +738927,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1030/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1030/",
+        "https://www.coilcraft.com/getattachment/0f2aa15d-eb2d-4633-a5f9-c8734257bc6a/xal1030d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738652,18 +738936,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738671,21 +738949,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738697,11 +738969,38 @@
       "package": "XAL1030 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1030-561mec/symbol.svg",
+        "sha256": "a7049870d3e6833f46663c262949355feaee81b455cc4e3148b0d626d755bc1e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1030-561mec/footprint.json",
+        "sha256": "e779befb7e74ab6ce2093b92f44879becda74d18f61aac62128fb1a2ac58d770",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1030 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738710,7 +739009,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1030/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1030/",
+        "https://www.coilcraft.com/getattachment/0f2aa15d-eb2d-4633-a5f9-c8734257bc6a/xal1030d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738718,18 +739018,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738737,21 +739031,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -738763,11 +739051,38 @@
       "package": "XAL1030 surface mount",
       "category": "Passive components",
       "function": "Shielded power inductor",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Winding start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Winding end",
+          "electricalType": "passive",
+          "pad": "2"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.xal1030-102mec/symbol.svg",
+        "sha256": "8ae3c1d5fa415357327cf2d67f3cb92bdd8f75443f17f949876633a5ff45c88c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.xal1030-102mec/footprint.json",
+        "sha256": "0633a4d40c2eaf74373ffd90f4b04a57ccd635a65f43db6a3934c288d024b199",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented breakout that maps both XAL1030 terminals to breadboard holes."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -738776,7 +739091,8 @@
         "reason": "Native model mapping has not been validated for this order code."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1030/"
+        "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xal/xal1030/",
+        "https://www.coilcraft.com/getattachment/0f2aa15d-eb2d-4633-a5f9-c8734257bc6a/xal1030d.gif?lang=en-US"
       ],
       "readiness": {
         "verification": "candidate",
@@ -738784,18 +739100,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -738803,21 +739113,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     }

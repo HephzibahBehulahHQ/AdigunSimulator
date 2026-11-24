@@ -31,6 +31,9 @@ async function writeAsset(folder, filename, contents, metadata) {
 }
 
 const packageDrawings = {
+  XAL1030: "https://www.coilcraft.com/getattachment/0f2aa15d-eb2d-4633-a5f9-c8734257bc6a/xal1030d.gif?lang=en-US",
+  XAL1060: "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US",
+  XAL1510: "https://www.coilcraft.com/getattachment/b6318cc1-0397-4668-8944-ce75f730ffcc/xal1510d.gif?lang=en-US",
   XGL1712: "https://www.coilcraft.com/getattachment/b0a80709-fafd-4ebe-af90-b18a6cc0bc1f/xgl1712d.gif?lang=en-US",
   XAL7030: "https://www.coilcraft.com/getattachment/2fe6849e-bce3-4648-9c57-7b06c1f286b1/xal7030d.gif?lang=en-US",
   XAL7070: "https://www.coilcraft.com/getattachment/3e82b892-c10d-48ab-874a-db9e090c452e/xal7070d.gif?lang=en-US",
@@ -65,6 +68,9 @@ const packageDrawings = {
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
 // Body width, length, planar tolerance, maximum height, pad width, pad height and center spacing in mm.
 const packageDimensions = {
+  XAL1030: [10, 11.3, 0.5, 3.1, 2.38, 9, 6.65],
+  XAL1060: [10, 11.3, 0.5, 6, 2.38, 9, 6.65],
+  XAL1510: [15.2, 16.2, 0.2, 10, 3.18, 13.2, 10.6],
   XGL1712: [17.2, 18.2, 0.2, 12, 3.8, 15.1, 11.86],
   XAL7030: [7.5, 7.5, 0.5, 3.1, 1.78, 6.5, 4.72],
   XAL7070: [7.2, 7.5, 0.5, 7, 1.92, 6.5, 4.82],
@@ -96,6 +102,7 @@ const packageDimensions = {
 };
 
 const heightOverrides = {
+  XAL1510: { 333: 11 },
   XEL4020: { 800: 2.2 },
   XEL4030: { 101: 3.2, 201: 3.2, 301: 3.2 },
   XEL5020: { 101: 2.2 },
@@ -103,7 +110,7 @@ const heightOverrides = {
 };
 
 const xal7030NarrowCodes = new Set(["472", "562", "682", "822", "103"]);
-const thirteenInchReelPackages = new Set(["XAL8080", "XGL1010", "XGL1313", "XGL1712"]);
+const thirteenInchReelPackages = new Set(["XAL8080", "XAL1510", "XGL1010", "XGL1313", "XGL1712"]);
 
 for (const record of ledger.records) {
   const match = /^(X[AGE]L\d{4})-(\d{3})ME([CD])$/.exec(record.manufacturerPartNumber);
