@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 90" role="img" aria-label="NPN bipolar transistor">
+  <title>Nexperia BCP56-16,115</title>
+  <path d="M 8 45 H 49" stroke="currentColor" fill="none" data-pin="1" data-pin-name="Base" data-electrical-type="passive" />
+  <path d="M 49 57 L 91 76 H 108" stroke="currentColor" fill="none" data-pin="3" data-pin-name="Emitter" data-electrical-type="passive" />
+  <path d="M 49 33 L 91 14 H 108" stroke="currentColor" fill="none" data-pin="2" data-pin-name="Collector" data-electrical-type="passive" />
+  <path d="M 49 24 V 66" stroke="currentColor" stroke-width="2" />
+  <path d="M 83 72 L 72 72 L 76 64 Z" fill="currentColor" />
+  <text x="8" y="38" font-size="9" fill="currentColor" data-pin-label-for="1">B</text>
+  <text x="107" y="69" text-anchor="end" font-size="9" fill="currentColor" data-pin-label-for="3">E</text>
+  <text x="107" y="10" text-anchor="end" font-size="9" fill="currentColor" data-pin-label-for="2">C</text>
+  <path d="M 97 14 V 36 H 108" stroke="currentColor" fill="none" data-pin="4" data-pin-name="Collector tab" data-electrical-type="passive" />
+  <circle cx="97" cy="14" r="1.5" fill="currentColor" />
+  <text x="107" y="31" text-anchor="end" font-size="9" fill="currentColor" data-pin-label-for="4">C (4)</text>
+</svg>

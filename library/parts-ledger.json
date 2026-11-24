@@ -341663,14 +341663,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia BCP51 product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/series/BCP51-BCX51-BC51PA.html",
+        "title": "Nexperia BCP51 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device behavior has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Collector",
+        "3": "Emitter",
+        "4": "Collector tab"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "C",
+        "3": "E",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcp51-115/symbol.svg",
+        "sha256": "c23976d0c0d8a77634992a181422e5956fa4b0e41e1fad45493479fe312f5b3a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
       }
     },
     {
@@ -341683,14 +341711,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia BCP51 product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/series/BCP51-BCX51-BC51PA.html",
+        "title": "Nexperia BCP51 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device behavior has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Collector",
+        "3": "Emitter",
+        "4": "Collector tab"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "C",
+        "3": "E",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcp51-10-135/symbol.svg",
+        "sha256": "20625f6f7374c6bc18f25ad22b040cbbb7f77196bcd6b910de55641e89efedab",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
       }
     },
     {
@@ -341703,14 +341759,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia BCP51 product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/series/BCP51-BCX51-BC51PA.html",
+        "title": "Nexperia BCP51 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device behavior has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Collector",
+        "3": "Emitter",
+        "4": "Collector tab"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "C",
+        "3": "E",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcp51-16-115/symbol.svg",
+        "sha256": "012b8993cdd48fd24e46224ccc6a289fba4ca1477d047250cb1e11580d4a9954",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
       }
     },
     {
@@ -341723,14 +341807,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia BCP55 product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp55-series",
+        "title": "Nexperia BCP55 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device behavior has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Collector",
+        "3": "Emitter",
+        "4": "Collector tab"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "C",
+        "3": "E",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcp55-115/symbol.svg",
+        "sha256": "ccd150d4af39a905ee93eb90b59f60b71309b75898287a7741f36a0e0e3509a0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
       }
     },
     {
@@ -341743,14 +341855,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia BCP55 product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp55-series",
+        "title": "Nexperia BCP55 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device behavior has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Collector",
+        "3": "Emitter",
+        "4": "Collector tab"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "C",
+        "3": "E",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcp55-10-115/symbol.svg",
+        "sha256": "17b48108aaa886f43f66425a5eeeb335e6eccb8656e8559067e633c4fdb3b484",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
       }
     },
     {
@@ -341763,14 +341903,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia BCP55 product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp55-series",
+        "title": "Nexperia BCP55 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device behavior has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Collector",
+        "3": "Emitter",
+        "4": "Collector tab"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "C",
+        "3": "E",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcp55-16-115/symbol.svg",
+        "sha256": "99d76caa334aedb70228566a23804b9cf8bea3918d174c2f71efc7ced8158622",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
       }
     },
     {
@@ -341783,14 +341951,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia BCP56 product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp56-series",
+        "title": "Nexperia BCP56 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device behavior has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Collector",
+        "3": "Emitter",
+        "4": "Collector tab"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "C",
+        "3": "E",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcp56-115/symbol.svg",
+        "sha256": "1b1ff794883b3fc2a6050fd4449e932d5efded916bc23b96dbe32a7fd31bb0fb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
       }
     },
     {
@@ -341803,14 +341999,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia BCP56 product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp56-series",
+        "title": "Nexperia BCP56 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device behavior has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Collector",
+        "3": "Emitter",
+        "4": "Collector tab"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "C",
+        "3": "E",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcp56-10-115/symbol.svg",
+        "sha256": "cff1e4c543c0ad2f462777bed59c173d6682c4e8dcfc9ce80440645d38b865ed",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
       }
     },
     {
@@ -341823,14 +342047,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia BCP56 product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp56-series",
+        "title": "Nexperia BCP56 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Device behavior has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Base",
+        "2": "Collector",
+        "3": "Emitter",
+        "4": "Collector tab"
+      },
+      "symbolPinLabels": {
+        "1": "B",
+        "2": "C",
+        "3": "E",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcp56-16-115/symbol.svg",
+        "sha256": "8556afcc363ed44497b60d668a662694a368dced0f4b28b8b5203850a05e9d3d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
       }
     }
   ],
