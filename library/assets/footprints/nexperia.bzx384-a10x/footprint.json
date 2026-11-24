@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "nexperia.bzx384-a10x",
+  "package": "Nexperia SOD323",
+  "view": "top",
+  "units": "mm",
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 0.6,
+    "heightMm": 0.6,
+    "rowCenterSpacingMm": 2.2
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -1.1,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": 1.1,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Pin 1 is the cathode at the marking bar.",
+    "Copper geometry follows the reflow drawing. Validate paste, solder mask and board clearances for the application."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

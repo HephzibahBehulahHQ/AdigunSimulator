@@ -98,7 +98,7 @@ test("all ledger-mapped visible symbol labels match their source SVG assets", as
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url), "utf8"));
   const records = ledger.records.filter((record) => record.symbolPinLabels);
   const result = await validatePartAssetIntegrity({ records }, (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8"));
-  assert.equal(records.length, 952);
+  assert.equal(records.length, 1097);
   assert.deepEqual(result, { valid: true, errors: [] });
 });
 
@@ -203,5 +203,28 @@ test("BZX84 reflow footprints preserve the top-view pinout and copper land geome
     ]);
     assert.deepEqual(diode.symbolPinMap, { 1: "Anode", 2: "No connection", 3: "Cathode" });
     assert.equal(diode.simulationModel.status, "not-modelled");
+  }
+});
+
+test("BZX384 and BZX585 preserve cathode polarity and distinct reflow geometry", async () => {
+  const load = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const { records } = await load("../library/parts-ledger.json");
+  for (const [series, count, widthMm, spacing] of [
+    ["bzx384", 91, 0.6, 2.2],
+    ["bzx585", 54, 0.5, 1.4]
+  ]) {
+    const batch = records.filter((record) => record.evidenceNote === `library/evidence/nexperia.${series}.md`);
+    assert.equal(batch.length, count);
+    for (const record of batch) {
+      const footprint = await load(`../${record.footprintEvidence.assetPath}`);
+      assert.deepEqual(record.symbolPinMap, { 1: "Cathode", 2: "Anode" });
+      assert.deepEqual(footprint.padPattern, {
+        shape: "rectangle", widthMm, heightMm: 0.6, rowCenterSpacingMm: spacing
+      });
+      assert.deepEqual(footprint.pads, [
+        { number: "1", xMm: -spacing / 2, yMm: 0 },
+        { number: "2", xMm: spacing / 2, yMm: 0 }
+      ]);
+    }
   }
 });
