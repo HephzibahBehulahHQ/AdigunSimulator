@@ -283320,6 +283320,1326 @@
         "compatible": false,
         "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
       }
+    },
+    {
+      "id": "coilcraft.poe40q-33ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE40Q-33ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE40Q surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE40Q transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxq/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe40q-50ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE40Q-50ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE40Q surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE40Q transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxq/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe40q-12ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE40Q-12ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE40Q surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE40Q transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxq/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe40q-24ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE40Q-24ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE40Q surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE40Q transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxq/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe40q-48ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE40Q-48ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE40Q surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE40Q transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxq/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe62f-33ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE62F-33ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE62F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE62F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe62_71f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe62f-50ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE62F-50ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE62F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE62F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe62_71f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe62f-12ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE62F-12ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE62F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE62F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe62_71f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe62f-24ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE62F-24ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE62F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE62F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe62_71f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe62f-48ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE62F-48ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE62F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE62F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe62_71f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe71f-33ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE71F-33ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE71F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE71F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe62_71f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe600f-33ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE600F-33LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE600F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE600F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe600/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe600f-50ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE600F-50LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE600F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE600F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe600/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe600f-12ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE600F-12LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE600F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE600F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe600/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe600f-24ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE600F-24LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE600F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE600F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe600/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe120pl-33l",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE120PL-33L",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE120PL surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE120PL transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe120pl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe120pl-50l",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE120PL-50L",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE120PL surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE120PL transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe120pl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe120pl-12l",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE120PL-12L",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE120PL surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE120PL transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe120pl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe120pl-24l",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE120PL-24L",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE120PL surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE120PL transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe120pl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe300f-33ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE300F-33LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE300F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE300F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe300/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe300f-50ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE300F-50LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE300F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE300F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe300/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe300f-12ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE300F-12LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE300F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE300F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe300/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe300f-19ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE300F-19LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE300F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE300F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe300/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe300f-24ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE300F-24LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE300F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE300F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe300/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe30p-33ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE30P-33LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE30P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE30P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe30p-50ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE30P-50LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE30P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE30P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe30p-12ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE30P-12LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE30P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE30P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe70p-33ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE70P-33LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE70P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE70P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe70p-50ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE70P-50LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE70P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE70P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe70p-12ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE70P-12LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE70P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE70P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13p-33ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13P-33LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13p-50ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13P-50LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13f-18ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13F-18LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13f-25ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13F-25LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13f-33ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13F-33LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13f-50ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13F-50LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13f-12ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13F-12LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60f-18ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60F-18LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60f-25ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60F-25LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60f-33ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60F-33LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60d-18ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60D-18LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60D surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60D transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60d-25ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60D-25LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60D surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60D transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60d-33ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60D-33LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60D surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60D transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60d-50ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60D-50LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60D surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60D transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60d-12ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60D-12LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60D surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60D transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60c-18ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60C-18LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60C surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60C transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60c-25ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60C-25LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60C surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60C transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60c-33ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60C-33LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60C surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60C transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60c-50ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60C-50LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60C surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60C transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60c-12ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60C-12LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60C surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60C transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe51q-33ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE51Q-33ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE51Q surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE51Q transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxq/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe51q-50ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE51Q-50ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE51Q surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE51Q transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxq/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe51q-12ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE51Q-12ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE51Q surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE51Q transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxq/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe51q-24ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE51Q-24ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE51Q surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE51Q transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxq/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe51q-48ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE51Q-48ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE51Q surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE51Q transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxq/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe71f-50ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE71F-50ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE71F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE71F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe62_71f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe71f-12ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE71F-12ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE71F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE71F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe62_71f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe71f-24ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE71F-24ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE71F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE71F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe62_71f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe71f-48ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE71F-48ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE71F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE71F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe62_71f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13p-12ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13P-12LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13p-19ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13P-19LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13p-24ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13P-24LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13P surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13P transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxp/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60f-50ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60F-50LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe60f-12ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE60F-12LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE60F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE60F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13f-19ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13F-19LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe13f-24ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE13F-24LD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POE13F surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POE13F transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poe13_60f/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poe-power-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
