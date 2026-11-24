@@ -34,12 +34,25 @@ const xglLargerPackageDrawings = {
   XGL5030: "https://www.coilcraft.com/getattachment/e86c5bb4-0f92-4a0b-b413-3aa80ed05c9d/xgl5030d.gif?lang=en-US",
   XGL5050: "https://www.coilcraft.com/getattachment/4c56b418-bd36-431c-88a5-dd680ae7e09d/xgl5050d.gif?lang=en-US",
   XGL6030: "https://www.coilcraft.com/getattachment/04af5f0e-159c-4c20-b5cf-d118de0d6d2a/xgl6030d.gif?lang=en-US",
-  XGL6060: "https://www.coilcraft.com/getattachment/73eea929-3e6a-4a38-af9e-f0d053842c3a/xgl6060d.gif"
+  XGL6060: "https://www.coilcraft.com/getattachment/73eea929-3e6a-4a38-af9e-f0d053842c3a/xgl6060d.gif",
+  XGL6020: "https://www.coilcraft.com/getattachment/7ce8a46d-fefc-4273-9a8f-ae343448379b/xgl6020d.gif?lang=en-US",
+  XGL7015: "https://www.coilcraft.com/getattachment/a475daa3-7f58-4bb1-bdf9-aaf0908e1878/xgl7015d.gif?lang=en-US",
+  XGL7030: "https://www.coilcraft.com/getattachment/78ab5313-58ec-4c76-a1ab-552e523aa6cc/xgl7030d.gif?lang=en-US",
+  XGL1060: "https://www.coilcraft.com/getattachment/77262432-b157-4ef6-9f19-5f412ceaee12/xgl1060d.gif?lang=en-US"
 };
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
+// Body width, length, planar tolerance, maximum height, pad width, pad height and center spacing in mm.
+const xglDimensions = {
+  XGL6020: [6.51, 6.71, 0.2, 2.1, 1.43, 5.5, 4.04],
+  XGL6030: [6.51, 6.71, 0.2, 3.1, 1.43, 5.5, 4.04],
+  XGL6060: [6.51, 6.71, 0.2, 6.1, 1.43, 5.5, 4.04],
+  XGL7015: [7.5, 7.5, 0.5, 1.5, 1.78, 6.5, 4.72],
+  XGL7030: [7.5, 7.5, 0.5, 3.1, 1.78, 6.5, 4.72],
+  XGL1060: [10, 11.3, 0.5, 6, 2.38, 8.5, 6.65]
+};
 
 for (const record of ledger.records) {
-  const match = /^(XAL50[35]0|XGL(?:40[23]0|50[35]0|60[36]0))-(\d{3})MEC$/.exec(record.manufacturerPartNumber);
+  const match = /^(XAL50[35]0|XGL(?:40[23]0|50[35]0|60[236]0|7015|7030|1060))-(\d{3})MEC$/.exec(record.manufacturerPartNumber);
   if (record.manufacturer !== "Coilcraft" || !match || record.footprintAsset) continue;
   const [, packageCode, valueCode] = match;
   const drawing = xglLargerPackageDrawings[packageCode];
@@ -49,12 +62,12 @@ for (const record of ledger.records) {
   const footprint = structuredClone(baseFootprint);
   footprint.partId = record.id;
   footprint.package = `Coilcraft ${packageCode}`;
-  if (packageCode.startsWith("XGL60")) {
-    Object.assign(footprint.packageOutline, { widthMm: 6.51, lengthMm: 6.71,
-      heightMaxMm: packageCode === "XGL6060" ? 6.1 : 3.1, sourceUrl: drawing });
-    Object.assign(footprint.padPattern, { widthMm: 1.43, heightMm: 5.5, rowCenterSpacingMm: 4.04 });
-    footprint.pads[0].xMm = 2.02;
-    footprint.pads[1].xMm = -2.02;
+  if (xglDimensions[packageCode]) {
+    const [widthMm, lengthMm, planarToleranceMm, heightMaxMm, padWidth, padHeight, rowCenterSpacingMm] = xglDimensions[packageCode];
+    Object.assign(footprint.packageOutline, { widthMm, lengthMm, planarToleranceMm, heightMaxMm, sourceUrl: drawing });
+    Object.assign(footprint.padPattern, { widthMm: padWidth, heightMm: padHeight, rowCenterSpacingMm });
+    footprint.pads[0].xMm = rowCenterSpacingMm / 2;
+    footprint.pads[1].xMm = -rowCenterSpacingMm / 2;
   } else if (drawing) {
     footprint.packageOutline.sourceUrl = drawing;
     footprint.packageOutline.heightMaxMm = packageCode === "XGL5050" ? 5.1
