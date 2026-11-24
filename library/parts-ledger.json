@@ -340652,14 +340652,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia PDTC114EQA product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series",
+        "title": "Nexperia PDTC143 114 124 144EQA SER datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQA_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Input",
+        "2": "Emitter",
+        "3": "Collector",
+        "4": "Collector (exposed terminal)"
+      },
+      "symbolPinLabels": {
+        "1": "I",
+        "2": "E",
+        "3": "C",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc114eqaz/symbol.svg",
+        "sha256": "249594b8a76890f2e5eb2af4f0c8e554fe6c55c2fbf3c5233f00c2f5ae245f0f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
       }
     },
     {
@@ -340672,14 +340700,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia PDTC124EQA product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series",
+        "title": "Nexperia PDTC143 114 124 144EQA SER datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQA_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Input",
+        "2": "Emitter",
+        "3": "Collector",
+        "4": "Collector (exposed terminal)"
+      },
+      "symbolPinLabels": {
+        "1": "I",
+        "2": "E",
+        "3": "C",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc124eqaz/symbol.svg",
+        "sha256": "6c1cea838f42946dba1e955cd7bf606766efbd004f8beaaf2e3e6b0b0453128c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
       }
     },
     {
@@ -340692,14 +340748,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia PDTC143EQA product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series",
+        "title": "Nexperia PDTC143 114 124 144EQA SER datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQA_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Input",
+        "2": "Emitter",
+        "3": "Collector",
+        "4": "Collector (exposed terminal)"
+      },
+      "symbolPinLabels": {
+        "1": "I",
+        "2": "E",
+        "3": "C",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc143eqaz/symbol.svg",
+        "sha256": "0aa9387e91e58b2b1a888ba8a2ccee1f567909843d4e1147cf9febde00f31746",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
       }
     },
     {
@@ -340712,14 +340796,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia PDTC144EQA product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series",
+        "title": "Nexperia PDTC143 114 124 144EQA SER datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQA_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Input",
+        "2": "Emitter",
+        "3": "Collector",
+        "4": "Collector (exposed terminal)"
+      },
+      "symbolPinLabels": {
+        "1": "I",
+        "2": "E",
+        "3": "C",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc144eqaz/symbol.svg",
+        "sha256": "097b5a2b05791710b28d713b3ea45b37dad26fceef8d0f9bd512a519174f9aae",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
       }
     },
     {
@@ -340732,14 +340844,39 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia PDTC114EQB product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqb-series",
+        "title": "Nexperia PDTC143 114 124 144EQB SER datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQB_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Input",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "I",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc114eqbz/symbol.svg",
+        "sha256": "c63c958ec21e398e267e0fb607ba355cc2db5820331e46fa988e55b70ae64703",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT8015 breakout that preserves all numbered terminals."
       }
     },
     {
@@ -340752,14 +340889,39 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia PDTC144EQB product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqb-series",
+        "title": "Nexperia PDTC143 114 124 144EQB SER datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQB_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Input",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "I",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc144eqbz/symbol.svg",
+        "sha256": "b7ff96eaa03c3a308809bad4f14475fcc3296f2c7f91dd4e6bc9786ed9a7bfc8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT8015 breakout that preserves all numbered terminals."
       }
     },
     {
@@ -340772,14 +340934,39 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia PDTC144EQC product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqc-series",
+        "title": "Nexperia PDTC143 114 124 144EQC SER datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQC_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Input",
+        "2": "Emitter",
+        "3": "Collector"
+      },
+      "symbolPinLabels": {
+        "1": "I",
+        "2": "E",
+        "3": "C"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc144eqcz/symbol.svg",
+        "sha256": "7a21d90b7e7fdfb210813b85fb6089a0a376f284cea35acb39c48ed8e9648a58",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT8009 breakout that preserves all numbered terminals."
       }
     },
     {
@@ -340792,14 +340979,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia PDTA114EQA product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdta143-114-124-144eqa-series",
+        "title": "Nexperia PDTA143 114 124 144EQA SER datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/PDTA143_114_124_144EQA_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Input",
+        "2": "Emitter",
+        "3": "Collector",
+        "4": "Collector (exposed terminal)"
+      },
+      "symbolPinLabels": {
+        "1": "I",
+        "2": "E",
+        "3": "C",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdta114eqaz/symbol.svg",
+        "sha256": "9fa8b5138b251393bbeba6832cd4f5a956f1c8de396d348e23ba19a78385ac8d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
       }
     },
     {
@@ -340812,14 +341027,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia PDTA124EQA product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdta143-114-124-144eqa-series",
+        "title": "Nexperia PDTA143 114 124 144EQA SER datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/PDTA143_114_124_144EQA_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Input",
+        "2": "Emitter",
+        "3": "Collector",
+        "4": "Collector (exposed terminal)"
+      },
+      "symbolPinLabels": {
+        "1": "I",
+        "2": "E",
+        "3": "C",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdta124eqaz/symbol.svg",
+        "sha256": "f7513419d7a30b02c86948b5b614280565228bc4423fd8b4b92b029e7108e1bf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
       }
     },
     {
@@ -340832,14 +341075,42 @@
       "lifecycle": "active",
       "verificationStatus": "candidate",
       "datasheet": {
-        "title": "Nexperia PDTA144EQA product specifications and ordering table",
-        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdta143-114-124-144eqa-series",
+        "title": "Nexperia PDTA143 114 124 144EQA SER datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/PDTA143_114_124_144EQA_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Input",
+        "2": "Emitter",
+        "3": "Collector",
+        "4": "Collector (exposed terminal)"
+      },
+      "symbolPinLabels": {
+        "1": "I",
+        "2": "E",
+        "3": "C",
+        "4": "C (4)"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdta144eqaz/symbol.svg",
+        "sha256": "9d001e5a47b11373d4afe670d14c79bbed13edb4cf36bbcf68920b22c4daa280",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
       }
     }
   ],
