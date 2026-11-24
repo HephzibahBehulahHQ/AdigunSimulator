@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.fct1-90l2sld",
+  "package": "Coilcraft FCT1 L2SL",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMm": 10.5,
+    "lengthMaxMm": 12.7,
+    "heightMaxMm": 11,
+    "leadSpanMaxMm": 15.24,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/f4144b5b-d030-47bc-9d94-9f4cbcd78002/fct1xxl2sld.gif"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 2.03,
+    "heightMm": 1.27,
+    "rowCenterSpacingMm": 13.71,
+    "pitchMm": 2.5
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -6.855,
+      "yMm": -3.75
+    },
+    {
+      "number": "2",
+      "xMm": -6.855,
+      "yMm": -1.25
+    },
+    {
+      "number": "3",
+      "xMm": -6.855,
+      "yMm": 1.25
+    },
+    {
+      "number": "4",
+      "xMm": -6.855,
+      "yMm": 3.75
+    },
+    {
+      "number": "5",
+      "xMm": 6.855,
+      "yMm": 3.75
+    },
+    {
+      "number": "6",
+      "xMm": 6.855,
+      "yMm": 1.25
+    },
+    {
+      "number": "7",
+      "xMm": 6.855,
+      "yMm": -1.25
+    },
+    {
+      "number": "8",
+      "xMm": 6.855,
+      "yMm": -3.75
+    }
+  ],
+  "limitations": [
+    "Pin 1 is at the upper left in the manufacturer top-view land pattern.",
+    "Connect terminals together on the PCB in each group: 7, 8; 5, 6.",
+    "Review isolation, solder mask, paste and courtyard before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

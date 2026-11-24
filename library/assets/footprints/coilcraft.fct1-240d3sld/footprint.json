@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.fct1-240d3sld",
+  "package": "Coilcraft FCT1 D3SL",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 30,
+    "lengthMaxMm": 20.57,
+    "heightMaxMm": 11.43,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/a73892a2-e8c9-44a8-bf6e-c7fc7d0c61dd/fct1xxd3sldimensions.gif"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 3.3,
+    "heightMm": 1.27,
+    "rowCenterSpacingMm": 26.92,
+    "pitchMm": 3
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -13.46,
+      "yMm": -7.5
+    },
+    {
+      "number": "2",
+      "xMm": -13.46,
+      "yMm": -4.5
+    },
+    {
+      "number": "3",
+      "xMm": -13.46,
+      "yMm": -1.5
+    },
+    {
+      "number": "4",
+      "xMm": -13.46,
+      "yMm": 1.5
+    },
+    {
+      "number": "5",
+      "xMm": -13.46,
+      "yMm": 4.5
+    },
+    {
+      "number": "6",
+      "xMm": -13.46,
+      "yMm": 7.5
+    },
+    {
+      "number": "7",
+      "xMm": 13.46,
+      "yMm": 7.5
+    },
+    {
+      "number": "8",
+      "xMm": 13.46,
+      "yMm": 4.5
+    },
+    {
+      "number": "9",
+      "xMm": 13.46,
+      "yMm": 1.5
+    },
+    {
+      "number": "10",
+      "xMm": 13.46,
+      "yMm": -1.5
+    },
+    {
+      "number": "11",
+      "xMm": 13.46,
+      "yMm": -4.5
+    },
+    {
+      "number": "12",
+      "xMm": 13.46,
+      "yMm": -7.5
+    }
+  ],
+  "limitations": [
+    "Pin 1 is at the upper left in the manufacturer top-view land pattern.",
+    "Connect terminals together on the PCB in each group: 1, 2; 3, 4; 11, 12; 9, 10.",
+    "Review isolation, solder mask, paste and courtyard before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

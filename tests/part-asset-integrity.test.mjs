@@ -98,7 +98,7 @@ test("all ledger-mapped visible symbol labels match their source SVG assets", as
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url), "utf8"));
   const records = ledger.records.filter((record) => record.symbolPinLabels);
   const result = await validatePartAssetIntegrity({ records }, (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8"));
-  assert.equal(records.length, 734);
+  assert.equal(records.length, 747);
   assert.deepEqual(result, { valid: true, errors: [] });
 });
 
@@ -163,6 +163,25 @@ test("Coilcraft PoE package variants preserve omitted lands and winding starts",
     assert.ok(starts.every((pin) => part.symbolPinMap[pin].endsWith(" start")));
     if (id.startsWith("poe60f")) {
       assert.ok(footprint.pads.every(({ number }) => number !== "4" && number !== "9"));
+    }
+  }
+});
+
+test("FCT1 variants preserve numbered lands and the D3SL sync winding", async () => {
+  const load = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const { records } = await load("../library/parts-ledger.json");
+  for (const [code, count, y, span] of [
+    ["33m22sld", 10, 5, 16.54],
+    ["33d3sld", 12, -7.5, 26.92],
+    ["33l2sld", 8, -3.75, 13.71]
+  ]) {
+    const record = records.find((part) => part.id === `coilcraft.fct1-${code}`);
+    const footprint = await load(`../${record.footprintEvidence.assetPath}`);
+    assert.equal(footprint.pads.length, count);
+    assert.deepEqual(footprint.pads[0], { number: "1", xMm: -span / 2, yMm: y });
+    assert.deepEqual(footprint.pads.at(-1), { number: String(count), xMm: span / 2, yMm: y });
+    if (code === "33d3sld") {
+      assert.deepEqual([record.symbolPinMap[8], record.symbolPinMap[7]], ["Sync start", "Sync end"]);
     }
   }
 });

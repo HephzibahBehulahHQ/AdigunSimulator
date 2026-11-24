@@ -761601,11 +761601,86 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Bias start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Bias end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-120m22sld/symbol.svg",
+        "sha256": "f1e5ecd12cfcd38389183f1f1da2dc16739eef0a4fba7f9f1ffba6998aacd267",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-120m22sld/footprint.json",
+        "sha256": "531247e9ac207963c9b30431ae28c713eaf3851d938c7011108ad470fd1fbe1b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 M22SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761614,7 +761689,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/",
+        "https://www.coilcraft.com/getattachment/007a8bc1-1834-40fa-9628-5d8695e19124/fct1xxm22sld.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761622,18 +761698,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761641,21 +761711,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761667,11 +761731,86 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Bias start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Bias end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-33m22sld/symbol.svg",
+        "sha256": "13905626b22686867a3322ab496369e94907a47140f098457104aa162f523b2b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-33m22sld/footprint.json",
+        "sha256": "56dfcf100bc677ce194bcdcabadd4295b464e297673cf2aa47e4182a3fd7d1fa",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 M22SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761680,7 +761819,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/",
+        "https://www.coilcraft.com/getattachment/007a8bc1-1834-40fa-9628-5d8695e19124/fct1xxm22sld.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761688,18 +761828,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761707,21 +761841,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761733,11 +761861,86 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Bias start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Bias end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-50m22sld/symbol.svg",
+        "sha256": "79585f78fb65564e81fb2ac7903ac9172d72bb9517f6080a47550299ebc26244",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-50m22sld/footprint.json",
+        "sha256": "bb5b1a08ae609a2216f13c187194ac5be3c3e3ebf5c9cd11024ebd333d057a1c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 M22SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761746,7 +761949,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/",
+        "https://www.coilcraft.com/getattachment/007a8bc1-1834-40fa-9628-5d8695e19124/fct1xxm22sld.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761754,18 +761958,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761773,21 +761971,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761799,11 +761991,98 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary 1 start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary 2 start",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary 1 end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Primary 2 end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Bias start",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Bias end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Sync end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Sync start",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "10"
+        },
+        {
+          "pin": "11",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "11"
+        },
+        {
+          "pin": "12",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "12"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-33d3sld/symbol.svg",
+        "sha256": "8f4daf5fcda3805d00b9c0e966cf20854506817adcf11febe9fb1c46e63cedf4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-33d3sld/footprint.json",
+        "sha256": "265425751107713c83d570cb09835d83eab042a04b0729fd2c94e66cec26fbf4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 D3SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761812,7 +762091,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/",
+        "https://www.coilcraft.com/getattachment/a73892a2-e8c9-44a8-bf6e-c7fc7d0c61dd/fct1xxd3sldimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761820,18 +762100,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761839,21 +762113,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761865,11 +762133,98 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary 1 start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary 2 start",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary 1 end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Primary 2 end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Bias start",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Bias end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Sync end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Sync start",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "10"
+        },
+        {
+          "pin": "11",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "11"
+        },
+        {
+          "pin": "12",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "12"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-50d3sld/symbol.svg",
+        "sha256": "bfdb026d0d469783dd6a35dde677b188c293848e68f5fd1179fe86998607423b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-50d3sld/footprint.json",
+        "sha256": "ab01b51a23c28fc14bc3a098e8db8f87b5c6d185b493afd71859d4f8110cf541",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 D3SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761878,7 +762233,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/",
+        "https://www.coilcraft.com/getattachment/a73892a2-e8c9-44a8-bf6e-c7fc7d0c61dd/fct1xxd3sldimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761886,18 +762242,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761905,21 +762255,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761931,11 +762275,98 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary 1 start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary 2 start",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary 1 end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Primary 2 end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Bias start",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Bias end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Sync end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Sync start",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "10"
+        },
+        {
+          "pin": "11",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "11"
+        },
+        {
+          "pin": "12",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "12"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-120d3sld/symbol.svg",
+        "sha256": "f4c4aeff9f2b1402b824de52209578bb1c6dde10eb90d0457dd10e3267cd38f9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-120d3sld/footprint.json",
+        "sha256": "a9300e7da8cd7991c159949afb3c206550c93a2286dd2d0fa99fb5e268552584",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 D3SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761944,7 +762375,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/",
+        "https://www.coilcraft.com/getattachment/a73892a2-e8c9-44a8-bf6e-c7fc7d0c61dd/fct1xxd3sldimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761952,18 +762384,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761971,21 +762397,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761997,11 +762417,98 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary 1 start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary 2 start",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary 1 end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Primary 2 end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Bias start",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Bias end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Sync end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Sync start",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "10"
+        },
+        {
+          "pin": "11",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "11"
+        },
+        {
+          "pin": "12",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "12"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-195d3sld/symbol.svg",
+        "sha256": "d9d88aeb0f8f4d66318b01f7105f38ec81e0275d100dbcda71d74582082b99ee",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-195d3sld/footprint.json",
+        "sha256": "f405a73b6cc3c6e3f6f5f45f25351fe7da458d5611fc1771381466eb02a78541",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 D3SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -762010,7 +762517,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/",
+        "https://www.coilcraft.com/getattachment/a73892a2-e8c9-44a8-bf6e-c7fc7d0c61dd/fct1xxd3sldimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -762018,18 +762526,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -762037,21 +762539,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -762063,11 +762559,98 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary 1 start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary 2 start",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary 1 end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Primary 2 end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Bias start",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Bias end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Sync end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Sync start",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "10"
+        },
+        {
+          "pin": "11",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "11"
+        },
+        {
+          "pin": "12",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "12"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-240d3sld/symbol.svg",
+        "sha256": "e8fdd8cc260db97a7505c40cc58574ce9148db2652624c10a485fa72cd636e8a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-240d3sld/footprint.json",
+        "sha256": "9eeb3f580d03c2e260eb7d6f7dfea649b5aa30676ad39c871c2e5aea762375e9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 D3SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -762076,7 +762659,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/",
+        "https://www.coilcraft.com/getattachment/a73892a2-e8c9-44a8-bf6e-c7fc7d0c61dd/fct1xxd3sldimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -762084,18 +762668,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -762103,21 +762681,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -762129,11 +762701,74 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-33l2sld/symbol.svg",
+        "sha256": "56d55630db2e620c24b4604cbd2e44cc749aa3032159c798061548b4387bf80c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-33l2sld/footprint.json",
+        "sha256": "d4b357385e58fa64c04e1ac5cf38aec05c889f803ddf72a8c7729b53c13cd8e8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 L2SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -762142,7 +762777,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/",
+        "https://www.coilcraft.com/getattachment/f4144b5b-d030-47bc-9d94-9f4cbcd78002/fct1xxl2sld.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -762150,18 +762786,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -762169,21 +762799,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -762195,11 +762819,74 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-50l2sld/symbol.svg",
+        "sha256": "0a5a77d82df0e510254a85cab7f1ecc744ac80c7a8f571d8e2e6c50148cb2b69",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-50l2sld/footprint.json",
+        "sha256": "6c779e55751d7797ea318c0ee3f9118c07d6bf248da0ae9d45ccc14bf3764483",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 L2SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -762208,7 +762895,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/",
+        "https://www.coilcraft.com/getattachment/f4144b5b-d030-47bc-9d94-9f4cbcd78002/fct1xxl2sld.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -762216,18 +762904,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -762235,21 +762917,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -762261,11 +762937,74 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-90l2sld/symbol.svg",
+        "sha256": "25c6e9512100c2d9ad46cab591aba7b650bb7c1e05229f29c9f468aa04ebeea2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-90l2sld/footprint.json",
+        "sha256": "5b6745ca22fb98d951e6000f1c7c30fea672d22cd169833074d4d5e672ee78d2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 L2SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -762274,7 +763013,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/",
+        "https://www.coilcraft.com/getattachment/f4144b5b-d030-47bc-9d94-9f4cbcd78002/fct1xxl2sld.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -762282,18 +763022,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -762301,21 +763035,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -762327,11 +763055,74 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-120l2sld/symbol.svg",
+        "sha256": "1a1b9aa790b196c0583524034d30279076b22fce0f3104a181a67aff5f38df69",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-120l2sld/footprint.json",
+        "sha256": "37334f14e237dd9078d1913a544b290d1404e256ea4b748791ab273fde664013",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 L2SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -762340,7 +763131,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/",
+        "https://www.coilcraft.com/getattachment/f4144b5b-d030-47bc-9d94-9f4cbcd78002/fct1xxl2sld.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -762348,18 +763140,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -762367,21 +763153,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -762393,11 +763173,74 @@
       "package": "FCT1 surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.fct1-150l2sld/symbol.svg",
+        "sha256": "b007d205c9143b80fb7b89aeb0d0d78c04eef1404ddff0a775cc74c8348634b5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.fct1-150l2sld/footprint.json",
+        "sha256": "7ba697f7e38214a07dde88e3a75fda9f8edebe7e20877ff27e7cefae5120e81f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented FCT1 L2SL breakout and verify required isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -762406,7 +763249,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/",
+        "https://www.coilcraft.com/getattachment/f4144b5b-d030-47bc-9d94-9f4cbcd78002/fct1xxl2sld.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -762414,18 +763258,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -762433,21 +763271,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
