@@ -31,6 +31,10 @@ async function writeAsset(folder, filename, contents, metadata) {
 }
 
 const xglPackageDrawings = {
+  XGL3520: "https://www.coilcraft.com/getattachment/d011debe-62d1-475f-a40f-375e6332458f/xgl3520d.gif?lang=en-US",
+  XGL3530: "https://www.coilcraft.com/getattachment/ef12e907-fdeb-46f2-99be-0413a59149fa/xgl3530d.gif",
+  XGL4012: "https://www.coilcraft.com/getattachment/868c11e0-df52-4759-b946-d75b69e9b5a9/xgl4012d.gif?lang=en-US",
+  XGL4015: "https://www.coilcraft.com/getattachment/049b0399-3b2b-4f77-b39d-70c5352a0fe3/xgl4015d.gif?lang=en-US",
   XGL3014: "https://www.coilcraft.com/getattachment/423929ad-4529-4944-b080-65c1ca232279/xgl3014d.gif?lang=en-US",
   XGL3020: "https://www.coilcraft.com/getattachment/4753414e-ea78-4f3a-a3d1-d9d49c162fe7/xgl3020d.gif?lang=en-US",
   XGL3512: "https://www.coilcraft.com/getattachment/4a249b9d-6851-469f-89db-b56209604f53/xgl3512d.gif?lang=en-US",
@@ -49,6 +53,10 @@ const xglPackageDrawings = {
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
 // Body width, length, planar tolerance, maximum height, pad width, pad height and center spacing in mm.
 const xglDimensions = {
+  XGL3520: [3.2, 3.5, 0.15, 2, 0.81, 3.2, 1.8],
+  XGL3530: [3.2, 3.5, 0.15, 3, 0.81, 3.2, 1.8],
+  XGL4012: [4, 4, 0.3, 1.2, 0.98, 3.4, 2.37],
+  XGL4015: [4, 4, 0.3, 1.5, 0.98, 3.4, 2.37],
   XGL3014: [3, 3, 0.2, 1.4, 0.86, 3, 1.63],
   XGL3020: [3, 3, 0.2, 2, 0.86, 3, 1.63],
   XGL3512: [3.2, 3.5, 0.15, 1.2, 0.81, 3.2, 1.8],
