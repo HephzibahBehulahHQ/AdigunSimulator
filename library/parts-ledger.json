@@ -282240,6 +282240,246 @@
         "compatible": false,
         "adapter": "Use a documented breakout that maps both XFL3012 terminals to breadboard holes."
       }
+    },
+    {
+      "id": "coilcraft.poe21pr-33ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE21PR-33ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe22pr-50ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE22PR-50ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe23pr-33ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE23PR-33ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe24pr-12ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE24PR-12ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe30pr-50ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE30PR-50ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe36pr-12ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE36PR-12ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe33pr-33ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE33PR-33ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe35pr-50ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE35PR-50ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe38pr-12ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE38PR-12ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe53pr-33ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE53PR-33ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe70pr-50ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE70PR-50ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.poe72pr-12ed",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "POE72PR-12ED",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "POExxPR surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft POExxPR Flyback and Forward Mode Transformers",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.poexxpr.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
