@@ -8,9 +8,9 @@ The sourcing target is 11,400 distinct orderable manufacturer entries across the
 
 Continue in source-backed batches. Attach exact pin and package evidence, retain the existing verification gates, and validate native placement and analysis before reporting an entry ready for those uses.
 
-## Sourcing coverage after the Nexperia BC807W, BC817 and BC847W batch
+## Sourcing coverage after the Nexperia resistor-equipped transistor batch
 
-The ledger contains 11,971 manufacturer records. It has 11,969 candidates, two in review and zero independently verified parts. 1,562 records have symbol assets and 1,552 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
+The ledger contains 11,987 manufacturer records. It has 11,985 candidates, two in review and zero independently verified parts. 1,562 records have symbol assets and 1,552 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
 
 | Directive family | Target | Ledger records |
 | --- | ---: | ---: |
@@ -19,7 +19,7 @@ The ledger contains 11,971 manufacturer records. It has 11,969 candidates, two i
 | Inductors and magnetic filters | 600 | 632 |
 | Transformers | 200 | 201 |
 | Diodes | 600 | 664 |
-| Bipolar transistors | 600 | 43 |
+| Bipolar transistors | 600 | 59 |
 | Field-effect transistors | 800 | 1 |
 | Other power switching devices | 300 | 0 |
 | Analog and timing ICs | 800 | 3 |
@@ -34,6 +34,6 @@ The ledger contains 11,971 manufacturer records. It has 11,969 candidates, two i
 | Connectors and interconnects | 500 | 4 |
 | Switches and electromechanical devices | 400 | 0 |
 | Protection and related devices | 350 | 0 |
-| Total | 11,400 | 11,971 |
+| Total | 11,400 | 11,987 |
 
-The family targets cover 3,866 current records when each family is capped at its target. The other families need 7,534 additional records to meet their individual targets. Continue bipolar transistor sourcing and native mapping. Prioritize official selection tables that identify exact order codes and include land patterns and electrical limits.
+The family targets cover 3,882 current records when each family is capped at its target. The other families need 7,518 additional records to meet their individual targets. Continue bipolar transistor sourcing and native mapping. Prioritize official selection tables that identify exact order codes and include land patterns and electrical limits.
