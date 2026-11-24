@@ -312898,6 +312898,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b10x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b10x/footprint.json",
+        "sha256": "02e27b7ee7e0590affe3fd60cd104f84ddf95d9987527ba29dd05f810d286427",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b10x/symbol.svg",
+        "sha256": "b1ae4f062d3e24fd06615f1c7a05fd07a7b93e1b5898947b6e9b86b301788272",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -312918,6 +312960,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b11x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b11x/footprint.json",
+        "sha256": "1e92f91ce0c5bfa1bfcf643ef6aa0df686b9f9e0520a396fc26407b869cabed6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b11x/symbol.svg",
+        "sha256": "231d07a0225fe39a33e7811dc14f82df69475b504024600da9884c975b523f2e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -312938,6 +313022,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b12f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b12f/footprint.json",
+        "sha256": "6f3ba7ffee105322e62477cd407da2e8446503f69a71d5123c470e2442c895e3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b12f/symbol.svg",
+        "sha256": "9dada95eb6e8349f5de5535e34592c98fe90fc38719e6a05183040d9f3718cf4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -312958,6 +313084,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b13x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b13x/footprint.json",
+        "sha256": "eb7e77d26367095b56ec11fbbd9463a9a06b72247840409f29143a240efdb5b7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b13x/symbol.svg",
+        "sha256": "8ec32fe97ef1f9a75569b07315dc2785955baef11f85fc8ddfa70c153280bf84",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -312978,6 +313146,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b15x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b15x/footprint.json",
+        "sha256": "f2ecb4400af07db575e0004c9819e6d514c792ddcc90f409d23e292339f5f44e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b15x/symbol.svg",
+        "sha256": "4a3085f8e0a2b1df6c1d8ac9f83e312b43dcb2667142700c22d3af322aa9b00b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -312998,6 +313208,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b16f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b16f/footprint.json",
+        "sha256": "bfb2032a01896d1586f10477134331ed62ee8ea44a5fe43d5fed7a5559ec529d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b16f/symbol.svg",
+        "sha256": "f7848a0d1ab06f29165ac8a1c773453cbc506bcffb23f280db267681cee4eb7a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313018,6 +313270,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b18f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b18f/footprint.json",
+        "sha256": "847948fa1480a58077204011b047c81b7ef1e528d39d594d70e14fe4e1753c26",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b18f/symbol.svg",
+        "sha256": "ff3e1eb8d6ebeff73f063e1ad4eb4ace142b049b67dcfe8b2ec4a0af6a4fb06f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313038,6 +313332,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b20f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b20f/footprint.json",
+        "sha256": "39c026bbd042e3170b65b21e183f2c159949699e922a135ee8ed42e480d8d13b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b20f/symbol.svg",
+        "sha256": "0d16aba2be7ea131de12634d67c28506822761fd893c97cc08625b80389f19ea",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313058,6 +313394,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b22f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b22f/footprint.json",
+        "sha256": "00a7c5b88548c681ffff06b6319689bbba62aebc29632bda64904a5c2a3c6519",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b22f/symbol.svg",
+        "sha256": "88a16f07fe166b66ff1d87489ffba37d4939807faf88037e4b5bcaa6823f3a03",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313078,6 +313456,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b24f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b24f/footprint.json",
+        "sha256": "ba7048037fede6a2180453a7cb7b214d18d9f617e606de28aff209460cab2e2d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b24f/symbol.svg",
+        "sha256": "146b4dd40621f180215f4c51c2b911c7135df64a79f8183179399d8634370bcd",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313098,6 +313518,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b27x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b27x/footprint.json",
+        "sha256": "77c89273a52d8848fc8accdc511ed1491eba52dfefd1e285115dee3eac669b0d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b27x/symbol.svg",
+        "sha256": "1b97e792e3a5f31d32f9c5930715994d80dab0e3bc7d6eb242327f78fce8fac0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313118,6 +313580,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b2v4x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b2v4x/footprint.json",
+        "sha256": "93c0dab926d1385eaba95d8a12ad5123cf393e5e03e5da7e0b118b11c4a11057",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b2v4x/symbol.svg",
+        "sha256": "d9000950d4dcbe2375eaa604e4e6d4ab9ff516d437186d347f34986e3bd3d47f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313138,6 +313642,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b2v7x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b2v7x/footprint.json",
+        "sha256": "f861695f9ae1badb2646ba8541417d69dae85af644d304ceab5829cac2d26c25",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b2v7x/symbol.svg",
+        "sha256": "66a5f28b68a01cbd396588eacd0a764a7f0ffa61dcbc89588ad92ca0821158af",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313158,6 +313704,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b30x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b30x/footprint.json",
+        "sha256": "684057e8bb7d82e5b5c26d555ae93f7dffac3e96a974f89b9bd0c1b2157adacc",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b30x/symbol.svg",
+        "sha256": "799f3e5ee4400f05421988d58e76c16d2498abaad47df3f7f051ed0cd55214b6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313178,6 +313766,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b33f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b33f/footprint.json",
+        "sha256": "02f8963f5c5d8101e34a057d37acb9d57ef8cfa2bc38ab220c9bc04cabddf177",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b33f/symbol.svg",
+        "sha256": "0fc058535616d74f00925ede766b6da0ac3cf4ac944d1635dcaae56b8273dcf8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313198,6 +313828,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b36x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b36x/footprint.json",
+        "sha256": "0f8cd73c3b19241ac247a2a4199aaf35fdd651341d20c6b1c85736956234ccda",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b36x/symbol.svg",
+        "sha256": "f81e8a4cb8472ae56419c3b5a2285c879eb709cc76d44a758e23b69d415e1cff",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313218,6 +313890,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b39f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b39f/footprint.json",
+        "sha256": "e93c76ec1e8b7cf5f0326c4354d784b0dce5552d10702f7120367accef4d4190",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b39f/symbol.svg",
+        "sha256": "8a02987dbf5708a363e71435d64fb5e5f420ce9734886483b875079d317f7f4c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313238,6 +313952,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b3v0x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b3v0x/footprint.json",
+        "sha256": "77d8448d906318488736fb11ff3eddacad9eef10cbc3ce6026b231b36d6e8c4b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b3v0x/symbol.svg",
+        "sha256": "45381b2f4d20805de290d1ec649c72f446b872c288ee5473da4bb8e2077d34b6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313258,6 +314014,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b3v3x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b3v3x/footprint.json",
+        "sha256": "03710afcf46eb29fcdf85d96a4db140f62ef7bc52c41ee27227d57c3a64b50fc",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b3v3x/symbol.svg",
+        "sha256": "414f1141b15a6ece10a85acd4f1f8db6ed549760003e3b0c265aeb777ea2aa4a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313278,6 +314076,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b3v6f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b3v6f/footprint.json",
+        "sha256": "a1e0cb06db6cc092db1c2605af76e7ee27f74ad39451d892ccf2efef4f78afc2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b3v6f/symbol.svg",
+        "sha256": "d1ce4c679cf59447817f8395cc9bbfe06502c916670801bcea57396e868ea0b0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313298,6 +314138,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b3v9f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b3v9f/footprint.json",
+        "sha256": "b1bb5a523bb7e10496656a35ff97a3b9a2bd6fc89a14c0a0ea68348706ea060c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b3v9f/symbol.svg",
+        "sha256": "ecec3c35cfedbc1e45a17f9ce299ced3b51061bb6a2db57d7feba5c6ecf35244",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313318,6 +314200,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b43f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b43f/footprint.json",
+        "sha256": "96220996c978bbc43da3614afa9d8eba1865483dd333201a904bc54504b052e6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b43f/symbol.svg",
+        "sha256": "2773fbd2117d7afdea24408037d8152ab662e5aac6b807729a4d944d6990ca04",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313338,6 +314262,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b47f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b47f/footprint.json",
+        "sha256": "ed976029b8f45d094d55f969aab994937c4d358673c522001a3effcf403b1b54",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b47f/symbol.svg",
+        "sha256": "06f9831137d59cfd6357abe00da4b1e30e76fd1e2fc591201c3007330f2d1aa5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313358,6 +314324,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b4v3x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b4v3x/footprint.json",
+        "sha256": "82e68f2234f93d757c975521a23dcc18678421f5a852f28380eaa98d1fed9878",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b4v3x/symbol.svg",
+        "sha256": "164b86cf9dac4939335760f3fa9ae6ffb8066b88763006a6a02325cdc2aa4205",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313378,6 +314386,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b4v7f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b4v7f/footprint.json",
+        "sha256": "4d08cfdd7ee0609a709d6d44dfa96b8bb5814e43813272c6d21e00481dba7a52",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b4v7f/symbol.svg",
+        "sha256": "99c145a5999410ac72d6d3eee41e67816dd50a8dab04dc16d7d485c0c51c7eba",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313398,6 +314448,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b51f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b51f/footprint.json",
+        "sha256": "7c76727d10ce6461115106132f2d6e5c9ce733ddeedbf39932f6a36047d86215",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b51f/symbol.svg",
+        "sha256": "840addfbc074549a785379bb83af7cd175ff4bde99b6d010ce2c044704a0859e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313418,6 +314510,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b56f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b56f/footprint.json",
+        "sha256": "9568757c39b33832ae6eab80ec5e2152577f32e971d7a8eb436cc1ed29eb6f8b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b56f/symbol.svg",
+        "sha256": "97025041cade078fa3af65350124cdf4baa6f40e86f5405fe6e0a81a78459daa",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313438,6 +314572,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b5v1x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b5v1x/footprint.json",
+        "sha256": "bc2372eccc0792a0fceb4d8efe8135f8da6c949d84b2e85233db9d3e658d2508",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b5v1x/symbol.svg",
+        "sha256": "f15ab7469fe404bebbee74f0ccff32206fda56a3b5aa6c5913e3e2ecd0251ca4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313458,6 +314634,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b5v6x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b5v6x/footprint.json",
+        "sha256": "1f89318939c7cf056bb6f661683f135973f4aad7d54700a2640acd3f6f120224",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b5v6x/symbol.svg",
+        "sha256": "f402c2f8f1b39ae8f1b5f56158d869b4abe834f30fef59719ed940d9f4e84f3f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313478,6 +314696,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b68f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b68f/footprint.json",
+        "sha256": "cc7a97e8c6c3b22ec0165861fab4237e345291fde25a560d43f890881d5976e0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b68f/symbol.svg",
+        "sha256": "31a15182db2c0340678f0ba1ab7bfa2064ce7788a815974f5988dca38522fb32",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313498,6 +314758,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b6v2x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b6v2x/footprint.json",
+        "sha256": "ad1da3aeff64c2ee1593cbab639232cc0eb3b5a5f36c642e6f761377c96ac0cf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b6v2x/symbol.svg",
+        "sha256": "9582d83a8359f51c40d67ff79f7091517cceb91bdd715f3bd90cd54b7e789f13",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313518,6 +314820,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b6v8f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b6v8f/footprint.json",
+        "sha256": "99d7e974d3863c83085c024b965125c3b61af4e9d4b3938444ec74afc2e89826",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b6v8f/symbol.svg",
+        "sha256": "4b028c3431300d1b0348571f1258e1b0615393d5e3ebffd5946ea31d003e3948",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313538,6 +314882,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-b8v2f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-b8v2f/footprint.json",
+        "sha256": "ba7792b31fddd63f270d033551817699d7f0b773d9b497ee8b674d3e778de8eb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-b8v2f/symbol.svg",
+        "sha256": "7a46f041842ec083035007b6d9d24185a13aeed403687f1eb46c620f65186606",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313558,6 +314944,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c11f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c11f/footprint.json",
+        "sha256": "e540f15767c3d0607d74395333200ba89c2e450b8ddd7045837a089c9d37bdd8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c11f/symbol.svg",
+        "sha256": "a2e39ff1b708760244833ed1f401cc954890710baa99ad8c3d6be50f9e93a3f5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313578,6 +315006,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c15x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c15x/footprint.json",
+        "sha256": "a7251873aaed25c27ee9178476e7c19f486d89a5599cbf6e607efb4b4b3e94cb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c15x/symbol.svg",
+        "sha256": "9ab8a3b7297d175ec9d1703888f3779fdc04eb1c7263af358f08db1d002ac896",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313598,6 +315068,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c16x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c16x/footprint.json",
+        "sha256": "732e6fb443f2850b80c4ffb8067c519417a4f2471e1215d47d69ce0b218630e8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c16x/symbol.svg",
+        "sha256": "41679491b197dfc79136bf4b35d7b6eb08e5b556eb6e93c308dac05e33eb922c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313618,6 +315130,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c18x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c18x/footprint.json",
+        "sha256": "57110ae0458f113c657baa82aa12e92e502def07790e482553ba1a248a8ea6ab",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c18x/symbol.svg",
+        "sha256": "d5ee3d49a3eb6908f156c5b0c3f5c79a2516aff53fd1e61c655e579160ef8f2c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313638,6 +315192,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c20x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c20x/footprint.json",
+        "sha256": "0e130774f1c79d8b110e2beca7b40a14329096431f54ae5edaf055dbf6939883",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c20x/symbol.svg",
+        "sha256": "5857629fe5a7f652010e84cfdc8cee76fbe0b1d1bd3e535218e5900f924a909c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313658,6 +315254,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c22x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c22x/footprint.json",
+        "sha256": "e2ce02b7c10d9887b3d293a36286386134d49ba6e7316d374a2cc532b67f835e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c22x/symbol.svg",
+        "sha256": "ca5e9d345b6896a2b69a5e693d68975790100b96633964a3d8ec175024f55960",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313678,6 +315316,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c24x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c24x/footprint.json",
+        "sha256": "afc04ec52592b7f0c3c69c8fd94d23312c8b42a31e9a324fa558cee48bd786ae",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c24x/symbol.svg",
+        "sha256": "47ca5de1532835263171edec149d8dd1e262bb8d2a82de8df66ac7232bc8a22c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313698,6 +315378,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c27x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c27x/footprint.json",
+        "sha256": "0395eda2f345cc667918b9d26c7ed1012235c4c8124172dbcfe2910c8951af8a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c27x/symbol.svg",
+        "sha256": "85c49e58480aea826e5daadc09940684483e2dc2913691a241035c3837d151f5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313718,6 +315440,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c2v4x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c2v4x/footprint.json",
+        "sha256": "e630b07a86a594ab86200530297e194ce551386a926ff4bf83e003f7727f2a41",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c2v4x/symbol.svg",
+        "sha256": "be33e836b028c8538672fc8ba86d718a04e503958f06d41039a0f782b61c2fa7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313738,6 +315502,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c2v7f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c2v7f/footprint.json",
+        "sha256": "9fdc56744cdefa0b6905952df48b396b8bf78ab02a31c59c7e5048d883880608",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c2v7f/symbol.svg",
+        "sha256": "96ebc7817e91fa263a0be0bdb77cd146238a302453636bb3148c9997ef87536b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313758,6 +315564,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c33x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c33x/footprint.json",
+        "sha256": "1884bdd0572fcf01bd9ec724cfc68df8f7447a83e8378a7a44844245fe670e3a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c33x/symbol.svg",
+        "sha256": "0a46b5b544fc8aa0d14eb3899f7b21fb346b6df05de09791b748734ec5e6a645",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313778,6 +315626,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c36x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c36x/footprint.json",
+        "sha256": "773f173588cfdf3cb143dae739538362339aac6515aecd29db917ce09986841b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c36x/symbol.svg",
+        "sha256": "9d5beda9dd10beac7b3972a99539a9e156e1ea7dcd37fbf2697760ec0cb46b4f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313798,6 +315688,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c39x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c39x/footprint.json",
+        "sha256": "6e9f39eeafaecbe2b9285fc6e79d82e45c3fa13369bb26f1fd6965446d06d5ba",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c39x/symbol.svg",
+        "sha256": "78d45cc36c0f549383be928db06ba632a4c9390670d24d941ba8207979f6722c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313818,6 +315750,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c3v0f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c3v0f/footprint.json",
+        "sha256": "c0f3ae97ae6436849dc11f4d1df76269a1ffb63824a867565d9f57e17471a0e0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c3v0f/symbol.svg",
+        "sha256": "2f141a7a14f5c54c44cb9be3499b89c664e5837c9f7074a051d274f42c571485",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313838,6 +315812,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c3v3f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c3v3f/footprint.json",
+        "sha256": "d62b77c6cba2e82286c728f14154d954298f94dab1f6fae37fc14af277c7f1d5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c3v3f/symbol.svg",
+        "sha256": "e0cf1b3ebd85fa0480c8e90e26037351d4b20b92931e26ba04c5e4a3bd2cc967",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313858,6 +315874,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c3v6x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c3v6x/footprint.json",
+        "sha256": "5bc5b32d85fc10a269abbd81cdbc26f4db30bf8d3fcb305dc09e1be54895165e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c3v6x/symbol.svg",
+        "sha256": "4f276ac6648989a76cd9d546dab960bde081720d524b32509458bdce3bc25b35",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313878,6 +315936,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c3v9x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c3v9x/footprint.json",
+        "sha256": "f11fd85054d903666017ac451b2a44b288aa6a5bc2adcf3ab28b2671f5144e45",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c3v9x/symbol.svg",
+        "sha256": "a137b6a53d29581a586d767d49589a73b401ff69e5efbf67fb0eb42e1d52244b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313898,6 +315998,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c43x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c43x/footprint.json",
+        "sha256": "f60bdbba01ecddbee36bdeda2bb18904052ee75c704b8292902a11f2cfca6908",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c43x/symbol.svg",
+        "sha256": "fdc30c2f69da9d47a23ed718d33d4a4d7d18a374fced576a4a240b9c015641cc",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313918,6 +316060,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c47x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c47x/footprint.json",
+        "sha256": "56716afc385021ba6007f183ffed9687bc2a9975f04e6565d69d71ca445df965",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c47x/symbol.svg",
+        "sha256": "153b496acd58bc68ede50953900e5ebb0672612eac3acdc982d5bb3e2764dac1",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313938,6 +316122,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c4v3f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c4v3f/footprint.json",
+        "sha256": "42e7bc583be59f5838073226e8cf19b6f70135a24f791696a13707f0d52a416d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c4v3f/symbol.svg",
+        "sha256": "1bfe4d33e3fec7315f61e2981cdbbbe466ed3e118fc2bdd1b1dfec74ab6b19d9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313958,6 +316184,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c4v7f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c4v7f/footprint.json",
+        "sha256": "ac101918930a94710025ad065f227a88f8a045b6f248d09aa1118daeab0fda6f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c4v7f/symbol.svg",
+        "sha256": "360eb429c0e7b0b37a0550e2e5763a6bca5ac72d67fc25306c98979c0c5ddf06",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313978,6 +316246,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c56x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c56x/footprint.json",
+        "sha256": "0fa19b3c41bfaa72a24384bf7d4697b094fba0875700e722d9bad9452e1d888e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c56x/symbol.svg",
+        "sha256": "ef7cb1cbbe4680ebf578d39ba03981bb874684d3dffa987e44969d14b0df767e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -313998,6 +316308,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c5v1x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c5v1x/footprint.json",
+        "sha256": "ef683630da5465a9b0b22bb54400cd4776b1651fd79f143b18410e25510f126d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c5v1x/symbol.svg",
+        "sha256": "442048c8c20f5687f1482c2d45b864ee2aaddca2f40c2129787e15e65eabb85b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -314018,6 +316370,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c5v6x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c5v6x/footprint.json",
+        "sha256": "06bf78b5a6f4cfc0492b4b2556b726e64daeaa629853d95cefc3c092bbf93fa4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c5v6x/symbol.svg",
+        "sha256": "f78d659c64a4d36b8bdf9d2d459fb6a36bc2cda43117a9236398a53bd6a377d2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -314038,6 +316432,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c62x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c62x/footprint.json",
+        "sha256": "5436a8ad0122ce57c8500f1f9f48c3bd49463828dd9ee7c7b5a884569aeece7e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c62x/symbol.svg",
+        "sha256": "e0deee7a8b041e2d191ba8e61dfa918754b3110511e0ac12973d61bd701d24e7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -314058,6 +316494,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c68f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c68f/footprint.json",
+        "sha256": "627ed40fa5667be335aa79d1f2b84a7df494912ff4ad4ccb9b87ee684cf493af",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c68f/symbol.svg",
+        "sha256": "9444409f6f336a2ffd146d039116f6d4d1db0a397dd1223e8c0a6b3a3c8bd2da",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -314078,6 +316556,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c6v2f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c6v2f/footprint.json",
+        "sha256": "2d7eb4afc8d13018d7436d0a91d9ca933a2a9c26dedb14fef9220c529fba4b77",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c6v2f/symbol.svg",
+        "sha256": "4a6e4ea2b8f6d23404ea9a441a08341c24f3614126671698671dd10242b5b2d4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -314098,6 +316618,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c6v8f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c6v8f/footprint.json",
+        "sha256": "fd35083569a71ffeb2ac79aa21b0eb4fb8a58cfcccf8ce23544a72fd9017d9ab",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c6v8f/symbol.svg",
+        "sha256": "1c4a3f65cfec46cd23e8f1c475c41e33cc49fc1d9ef3cb10c5ef716ce2029dbf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -314118,6 +316680,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c75f/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c75f/footprint.json",
+        "sha256": "a3c3aaef30dc567421d9d16ee672ff142894a89881175f74b7b305829a3723b5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c75f/symbol.svg",
+        "sha256": "33da9d76c110d0c6703fb59830e994af3ec35e4f48c927069f69e98320fa1425",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     },
     {
@@ -314138,6 +316742,48 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Anode",
+        "2": "No connection",
+        "3": "Cathode"
+      },
+      "symbolPinLabels": {
+        "1": "A",
+        "2": "NC",
+        "3": "K"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84w-c7v5x/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84w-c7v5x/footprint.json",
+        "sha256": "5eb3d8f7a18fdc1fe21bc093b212259c25bd837ef72519b8f213e88c3b1685bb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bzx84w-c7v5x/symbol.svg",
+        "sha256": "15acaa03437c377cb49031eda2997d24901a9eb8c90ac9f95a13dd7e52230877",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented SOT323 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
       }
     }
   ],
