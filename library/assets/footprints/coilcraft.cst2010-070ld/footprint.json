@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.cst2010-070ld",
+  "package": "Coilcraft CST2010",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "lengthMaxMm": 14.55,
+    "bodyWidthMm": 13,
+    "leadSpanMaxMm": 19.91,
+    "heightMaxMm": 10.5,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/68fe74b9-e663-4f94-a41f-cc68daa8cee2/cst2010dimension.gif"
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -9.04,
+      "yMm": -5.08,
+      "shape": "rectangle",
+      "widthMm": 2.34,
+      "heightMm": 1.19
+    },
+    {
+      "number": "2",
+      "xMm": -9.04,
+      "yMm": -2.54,
+      "shape": "rectangle",
+      "widthMm": 2.34,
+      "heightMm": 1.19
+    },
+    {
+      "number": "3",
+      "xMm": -9.04,
+      "yMm": 0,
+      "shape": "rectangle",
+      "widthMm": 2.34,
+      "heightMm": 1.19
+    },
+    {
+      "number": "4",
+      "xMm": -9.04,
+      "yMm": 2.54,
+      "shape": "rectangle",
+      "widthMm": 2.34,
+      "heightMm": 1.19
+    },
+    {
+      "number": "5",
+      "xMm": -9.04,
+      "yMm": 5.08,
+      "shape": "rectangle",
+      "widthMm": 2.34,
+      "heightMm": 1.19
+    },
+    {
+      "number": "6",
+      "xMm": 9.04,
+      "yMm": 5.08,
+      "shape": "rectangle",
+      "widthMm": 2.34,
+      "heightMm": 1.19
+    },
+    {
+      "number": "7",
+      "xMm": 9.04,
+      "yMm": 2.54,
+      "shape": "rectangle",
+      "widthMm": 2.34,
+      "heightMm": 1.19
+    },
+    {
+      "number": "8",
+      "xMm": 9.04,
+      "yMm": 0,
+      "shape": "rectangle",
+      "widthMm": 2.34,
+      "heightMm": 1.19
+    },
+    {
+      "number": "9",
+      "xMm": 9.04,
+      "yMm": -2.54,
+      "shape": "rectangle",
+      "widthMm": 2.34,
+      "heightMm": 1.19
+    },
+    {
+      "number": "10",
+      "xMm": 9.04,
+      "yMm": -5.08,
+      "shape": "rectangle",
+      "widthMm": 2.34,
+      "heightMm": 1.19
+    },
+    {
+      "number": "11",
+      "xMm": 0,
+      "yMm": -5.62,
+      "shape": "rectangle",
+      "widthMm": 7.24,
+      "heightMm": 4.27
+    },
+    {
+      "number": "12",
+      "xMm": 0,
+      "yMm": 5.62,
+      "shape": "rectangle",
+      "widthMm": 7.24,
+      "heightMm": 4.27
+    }
+  ],
+  "limitations": [
+    "Review copper current capacity, solder mask and placement before fabrication.",
+    "Verify board-level isolation and a suitable secondary burden."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

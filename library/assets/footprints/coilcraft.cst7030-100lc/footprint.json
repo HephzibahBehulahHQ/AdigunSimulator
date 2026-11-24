@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.cst7030-100lc",
+  "package": "Coilcraft CST7030",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 7,
+    "lengthMaxMm": 5.2,
+    "heightMaxMm": 3,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/3610fe50-88d1-493d-b752-d49c29510c04/cst7030dimensions.gif"
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -2.425,
+      "yMm": -1.85,
+      "shape": "rectangle",
+      "widthMm": 0.75,
+      "heightMm": 1.6
+    },
+    {
+      "number": "2",
+      "xMm": -2.425,
+      "yMm": 1.85,
+      "shape": "rectangle",
+      "widthMm": 0.75,
+      "heightMm": 1.6
+    },
+    {
+      "number": "3",
+      "xMm": 2.425,
+      "yMm": 1.15,
+      "shape": "rectangle",
+      "widthMm": 1.7,
+      "heightMm": 1.6
+    },
+    {
+      "number": "4",
+      "xMm": 2.425,
+      "yMm": -1.15,
+      "shape": "rectangle",
+      "widthMm": 1.7,
+      "heightMm": 1.6
+    }
+  ],
+  "limitations": [
+    "Review copper current capacity, solder mask and placement before fabrication.",
+    "Verify board-level isolation and a suitable secondary burden."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
