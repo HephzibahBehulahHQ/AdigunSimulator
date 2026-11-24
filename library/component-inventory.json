@@ -4,17 +4,17 @@
     "placeableDefinitions": 364,
     "taxonomyTypes": 565,
     "taxonomyCategories": 15,
-    "manufacturerRecords": 10530,
+    "manufacturerRecords": 10571,
     "verifiedManufacturerRecords": 0,
     "byKind": {
       "generic-or-virtual-definition": 289,
       "software-instruction": 25,
       "hardware-oriented-definition": 50,
-      "manufacturer-record": 10530
+      "manufacturer-record": 10571
     },
     "manufacturerByStatus": {
       "in-review": 2,
-      "candidate": 10528
+      "candidate": 10569
     }
   },
   "records": [
@@ -706650,6 +706650,2712 @@
           "VERIFIED_EVIDENCE"
         ],
         "footprintEvidence": "manufacturer-recommended",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-650mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-650MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-181mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-181MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-221mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-221MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-381mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-381MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-471mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-471MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-681mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-681MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-821mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-821MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-102mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-102MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-122mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-122MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-152mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-152MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-182mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-182MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-222mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-222MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-332mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-332MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-472mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-472MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-562mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-562MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-682mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-682MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-822mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-822MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-103mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-103MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-123mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-123MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-153mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-153MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6030-183mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6030-183MEC",
+      "package": "XGL6030 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6030/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-221mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-221MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-471mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-471MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-681mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-681MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-102mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-102MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-122mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-122MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-152mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-152MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-182mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-182MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-222mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-222MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-332mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-332MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-472mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-472MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-562mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-562MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-682mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-682MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-822mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-822MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-103mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-103MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-123mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-123MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-153mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-153MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-183mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-183MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-223mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-223MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-333mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-333MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.xgl6060-473mec",
+      "manufacturer": "Coilcraft",
+      "partNumber": "XGL6060-473MEC",
+      "package": "XGL6060 surface mount",
+      "category": "Passive components",
+      "function": "Shielded power inductor",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl6060/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
         "simulation": "not-modelled"
       }
     }
