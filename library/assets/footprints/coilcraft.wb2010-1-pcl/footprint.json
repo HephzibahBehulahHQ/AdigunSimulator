@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-through-hole-layout",
+  "partId": "coilcraft.wb2010-1-pcl",
+  "package": "Coilcraft WB PCL",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 7.24,
+    "lengthMaxMm": 8.26,
+    "heightMaxMm": 5.72,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/243268cf-0233-4ce2-a3a9-ae623722cbca/wbtd-%281%29.gif"
+  },
+  "padPattern": {
+    "shape": "circle",
+    "rowCenterSpacingMm": 7.6,
+    "pitchMm": 2.54,
+    "drillMm": 0.64
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -3.8,
+      "yMm": -2.54,
+      "drillMm": 0.64
+    },
+    {
+      "number": "3",
+      "xMm": -3.8,
+      "yMm": 2.54,
+      "drillMm": 0.64
+    },
+    {
+      "number": "4",
+      "xMm": 3.8,
+      "yMm": 2.54,
+      "drillMm": 0.64
+    },
+    {
+      "number": "5",
+      "xMm": 3.8,
+      "yMm": 0,
+      "drillMm": 0.64
+    },
+    {
+      "number": "6",
+      "xMm": 3.8,
+      "yMm": -2.54,
+      "drillMm": 0.64
+    }
+  ],
+  "limitations": [
+    "Terminal 2 is removed during manufacture.",
+    "The drawing gives drill geometry. Validate board copper annular rings before fabrication.",
+    "Verify RF board routing and isolation for the application."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

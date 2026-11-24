@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.wb1040-smld",
+  "package": "Coilcraft WB SMLD",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 7.24,
+    "lengthMaxMm": 8.26,
+    "heightMaxMm": 5.72,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/243268cf-0233-4ce2-a3a9-ae623722cbca/wbtd-%281%29.gif"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "rowCenterSpacingMm": 12,
+    "pitchMm": 2.54,
+    "widthMm": 2,
+    "heightMm": 0.76
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -6,
+      "yMm": -2.54
+    },
+    {
+      "number": "3",
+      "xMm": -6,
+      "yMm": 2.54
+    },
+    {
+      "number": "4",
+      "xMm": 6,
+      "yMm": 2.54
+    },
+    {
+      "number": "6",
+      "xMm": 6,
+      "yMm": -2.54
+    }
+  ],
+  "limitations": [
+    "Terminals 2 and 5 are removed during manufacture.",
+    "Review solder mask, paste and courtyard before fabrication.",
+    "Verify RF board routing and isolation for the application."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

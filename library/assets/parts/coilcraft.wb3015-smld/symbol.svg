@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 100" role="img" aria-label="Wideband RF transformer winding diagram">
+  <title>Coilcraft WB3015-SMLD</title>
+  <path d="M 67 20 V 80 M 73 20 V 80" stroke="currentColor" fill="none" />
+  <path d="M 13 20 H 60" stroke="currentColor" fill="none" data-pin="1" data-pin-name="Primary terminal 1" data-electrical-type="passive" />
+  <text x="13" y="15" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="1">1</text>
+  <path d="M 13 50 H 60" stroke="currentColor" fill="none" data-pin="2" data-pin-name="Primary tap" data-electrical-type="passive" />
+  <text x="13" y="45" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="2">2</text>
+  <path d="M 13 80 H 60" stroke="currentColor" fill="none" data-pin="3" data-pin-name="Primary terminal 3" data-electrical-type="passive" />
+  <text x="13" y="75" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="3">3</text>
+  <path d="M 127 80 H 80" stroke="currentColor" fill="none" data-pin="4" data-pin-name="Secondary terminal 4" data-electrical-type="passive" />
+  <text x="127" y="75" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="4">4</text>
+  <path d="M 127 50 H 80" stroke="currentColor" fill="none" data-pin="5" data-pin-name="Secondary tap" data-electrical-type="passive" />
+  <text x="127" y="45" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="5">5</text>
+  <path d="M 127 20 H 80" stroke="currentColor" fill="none" data-pin="6" data-pin-name="Secondary terminal 6" data-electrical-type="passive" />
+  <text x="127" y="15" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="6">6</text>
+  <path d="M 60 20 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 10" stroke="currentColor" fill="none" />
+  <path d="M 80 20 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 10" stroke="currentColor" fill="none" />
+</svg>
