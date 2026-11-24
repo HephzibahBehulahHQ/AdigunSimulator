@@ -1,6 +1,6 @@
 # Nexperia BZX585 ordering evidence
 
-The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener-diodes/serie/bzx585-series) lists these 54 active order codes, one per base type. The [series datasheet](https://assets.nexperia.com/documents/data-sheet/BZX585_SER.pdf) identifies the SOD523 package. Native assets, model validation, and independent review remain pending.
+The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener-diodes/serie/bzx585-series) lists these 54 active order codes, one per base type. The [series datasheet](https://assets.nexperia.com/documents/data-sheet/BZX585_SER.pdf) identifies the SOD523 package. Native breakdown model validation and independent review remain pending.
 
 | Order code | 12NC |
 | --- | --- |
@@ -58,3 +58,7 @@ The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener
 | BZX585-C6V8,115 | 934055847115 |
 | BZX585-C75,115 | 934057437115 |
 | BZX585-C7V5,115 | 934055848115 |
+
+## Pin and PCB mapping
+
+Table 2 identifies the marking bar at the pin 1 cathode. Pin 2 is the anode. Figure 12 specifies two 0.50 × 0.60 mm copper lands on 1.40 mm centers. The assets preserve these assignments and dimensions. Board-level clearance and fabrication validation remain pending.

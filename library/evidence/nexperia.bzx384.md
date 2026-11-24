@@ -1,6 +1,6 @@
 # Nexperia BZX384 ordering evidence
 
-The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener-diodes/series/BZX384.html) lists these 91 active order codes, one per base type. The [series datasheet](https://assets.nexperia.com/documents/data-sheet/BZX384_SER.pdf) identifies the SOD323 package. Native assets, model validation, and independent review remain pending.
+The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener-diodes/series/BZX384.html) lists these 91 active order codes, one per base type. The [series datasheet](https://assets.nexperia.com/documents/data-sheet/BZX384_SER.pdf) identifies the SOD323 package. Native breakdown model validation and independent review remain pending.
 
 | Order code | 12NC |
 | --- | --- |
@@ -95,3 +95,7 @@ The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener
 | BZX384-C75,115 | 934057661115 |
 | BZX384-C7V5,115 | 934057637115 |
 | BZX384-C8V2,115 | 934057638115 |
+
+## Pin and PCB mapping
+
+Table 2 identifies the marking bar at the pin 1 cathode. Pin 2 is the anode. Figure 12 specifies two 0.60 × 0.60 mm copper lands on 2.20 mm centers. The assets preserve these assignments and dimensions. Board-level clearance and fabrication validation remain pending.
