@@ -10,7 +10,7 @@ Continue in source-backed batches. Attach exact pin and package evidence, retain
 
 ## Sourcing coverage after the Coilcraft POExxPR batch
 
-The ledger contains 11,077 manufacturer records. It has 11,075 candidates, two in review and zero independently verified parts. 656 records have symbol assets and 656 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
+The ledger contains 11,077 manufacturer records. It has 11,075 candidates, two in review and zero independently verified parts. 668 records have symbol assets and 668 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
 
 | Directive family | Target | Ledger records |
 | --- | ---: | ---: |
