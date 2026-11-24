@@ -6,7 +6,7 @@
 - [CST7030](https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst7030/). 5 order codes.
 - [CST3015](https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst3015/). 5 order codes.
 
-The manufacturer tables display the exact order codes. Lifecycle confirmation, model validation, and independent review are pending. D18XX and CS1XXX winding maps and footprints remain pending.
+The manufacturer tables display the exact order codes. Lifecycle confirmation, model validation, and independent review are pending. D18XX and CS1XXX footprints remain pending.
 
 ## CST winding and PCB assets
 
@@ -16,3 +16,7 @@ The manufacturer tables display the exact order codes. Lifecycle confirmation, m
 - CST3015 [winding diagram](https://www.coilcraft.com/getattachment/919732ed-8f76-480b-949c-b9f1954d6361/cst3015s.gif?lang=en-US) and [recommended PCB layout](https://www.coilcraft.com/getattachment/ed885543-9080-44c3-a16e-2a49f399185e/cst3015d-%281%29.gif?lang=en-US).
 
 The 25 CST candidates retain numbered lands and winding polarity. CST2020 uses unequal drill diameters for the primary and secondary rows. Its asset records drill geometry. The three other packages use SMT lands. Board-level isolation and native transformer analysis remain pending.
+
+## D18XX and CS1XXX aperture transformers
+
+Coilcraft’s [circuit diagram](https://www.coilcraft.com/getattachment/9e8132b4-30e7-4b6e-a48f-fe7259b1c66f/senhit.gif) shows terminals 1 and 3 on the secondary, with positive output at terminal 1 for current entering from side B. A and B label the external conductor through the aperture. They have no component pins or PCB pads. The [D18XX](https://www.coilcraft.com/getattachment/9b377b30-d467-4674-83bc-e50b49e24644/sensad.gif) and [CS1XXX](https://www.coilcraft.com/getattachment/f56a5555-4261-4015-b6be-528a225479e6/sensbd.gif) drawings specify 12.7 mm nominal lead spacing and describe lead 3 and side A as in phase in the illustrated orientation. The mechanical drawings give lead dimensions. Recommended PCB drill and copper geometry still require evidence. All seven records now have symbols. Native transformer analysis remains pending.

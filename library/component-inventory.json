@@ -764996,11 +764996,32 @@
       "package": "D18XX / CS1XXX series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary positive terminal",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Secondary negative terminal",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.d1869l/symbol.svg",
+        "sha256": "dfc724f12c2402496e68585492e4aa05f6f40e4506cd97d0468d894c541c1112",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for the aperture transformer and route the insulated primary conductor through the aperture. Verify the burden and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -765022,13 +765043,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765041,11 +765059,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765062,11 +765077,32 @@
       "package": "D18XX / CS1XXX series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary positive terminal",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Secondary negative terminal",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.d1870l/symbol.svg",
+        "sha256": "cc3754ca745cdeb9b5d07b989939daa0626f6fea02a602bb25869ba44707741e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for the aperture transformer and route the insulated primary conductor through the aperture. Verify the burden and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -765088,13 +765124,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765107,11 +765140,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765128,11 +765158,32 @@
       "package": "D18XX / CS1XXX series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary positive terminal",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Secondary negative terminal",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.d1871l/symbol.svg",
+        "sha256": "b22b92f184e035c7816f365e818e8eb7debb46762ed5479de11e7b1f4b99c071",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for the aperture transformer and route the insulated primary conductor through the aperture. Verify the burden and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -765154,13 +765205,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765173,11 +765221,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765194,11 +765239,32 @@
       "package": "D18XX / CS1XXX series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary positive terminal",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Secondary negative terminal",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cs1050l/symbol.svg",
+        "sha256": "a96d6c7de3cb9e55ad8ff2052c2f37a4b3d6927a9caa3f985c980742976a0b2b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for the aperture transformer and route the insulated primary conductor through the aperture. Verify the burden and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -765220,13 +765286,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765239,11 +765302,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765260,11 +765320,32 @@
       "package": "D18XX / CS1XXX series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary positive terminal",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Secondary negative terminal",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cs1100l/symbol.svg",
+        "sha256": "2d8fdbceec3a9e9177e0d11fab5ee0913b1f1d6deba920a5a6783946591dcbe2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for the aperture transformer and route the insulated primary conductor through the aperture. Verify the burden and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -765286,13 +765367,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765305,11 +765383,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765326,11 +765401,32 @@
       "package": "D18XX / CS1XXX series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary positive terminal",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Secondary negative terminal",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cs1200l/symbol.svg",
+        "sha256": "9565e03b9281a0e3ee1ee8e20c2c43b470a3d990ae0b5eac08edd8806b1ab67b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for the aperture transformer and route the insulated primary conductor through the aperture. Verify the burden and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -765352,13 +765448,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765371,11 +765464,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765392,11 +765482,32 @@
       "package": "D18XX / CS1XXX series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary positive terminal",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Secondary negative terminal",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cs1750l/symbol.svg",
+        "sha256": "c25b0be14b7feeec97be103349be8420ceb87ecfffbf18c9d603da2d802863bf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for the aperture transformer and route the insulated primary conductor through the aperture. Verify the burden and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -765418,13 +765529,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -765437,11 +765545,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"

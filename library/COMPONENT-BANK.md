@@ -10,7 +10,7 @@ Continue in source-backed batches. Attach exact pin and package evidence, retain
 
 ## Sourcing coverage after the Coilcraft CST, D18XX, and CS1XXX batch
 
-The ledger contains 11,210 manufacturer records. It has 11,208 candidates, two in review and zero independently verified parts. 794 records have symbol assets and 791 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
+The ledger contains 11,210 manufacturer records. It has 11,208 candidates, two in review and zero independently verified parts. 801 records have symbol assets and 791 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
 
 | Directive family | Target | Ledger records |
 | --- | ---: | ---: |

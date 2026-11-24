@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 106" role="img" aria-label="Aperture current transformer with external primary conductor">
+  <title>Coilcraft CS1050L</title>
+  <ellipse cx="49" cy="47" rx="12" ry="20" stroke="currentColor" fill="none" />
+  <path d="M 19 47 H 84 M 43 43 L 37 47 L 43 51" stroke="currentColor" fill="none" />
+  <text x="17" y="35" font-size="9" fill="currentColor">A</text>
+  <text x="80" y="35" font-size="9" fill="currentColor">B</text>
+  <text x="51" y="83" text-anchor="middle" font-size="8" fill="currentColor">External conductor</text>
+  <path d="M 99 25 V 74 M 105 25 V 74 M 117 25 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12" stroke="currentColor" fill="none" />
+  <path d="M 117 25 H 174" stroke="currentColor" fill="none" data-pin="1" data-pin-name="Secondary positive terminal" data-electrical-type="passive" />
+  <path d="M 117 73 H 174" stroke="currentColor" fill="none" data-pin="3" data-pin-name="Secondary negative terminal" data-electrical-type="passive" />
+  <text x="171" y="20" text-anchor="end" font-size="10" fill="currentColor" data-pin-label-for="1">1</text>
+  <text x="171" y="68" text-anchor="end" font-size="10" fill="currentColor" data-pin-label-for="3">3</text>
+</svg>
