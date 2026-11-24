@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.xgl1712-162med",
+  "package": "Coilcraft XGL1712",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMm": 17.2,
+    "lengthMm": 18.2,
+    "planarToleranceMm": 0.2,
+    "heightMaxMm": 12,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/b0a80709-fafd-4ebe-af90-b18a6cc0bc1f/xgl1712d.gif?lang=en-US"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 3.8,
+    "heightMm": 15.1,
+    "rowCenterSpacingMm": 11.86
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 5.93,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": -5.93,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Local pad 1 is the winding start at the right-hand stripe in the manufacturer top view.",
+    "Review solder mask, paste, courtyard and board rules before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
