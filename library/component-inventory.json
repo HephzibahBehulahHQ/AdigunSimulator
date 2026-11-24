@@ -833139,11 +833139,44 @@
       "package": "SOT1215",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Collector (exposed terminal)",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc114eqaz/symbol.svg",
+        "sha256": "249594b8a76890f2e5eb2af4f0c8e554fe6c55c2fbf3c5233f00c2f5ae245f0f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -833152,7 +833185,7 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series"
+        "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQA_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -833165,13 +833198,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833184,11 +833214,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833205,11 +833232,44 @@
       "package": "SOT1215",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Collector (exposed terminal)",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc124eqaz/symbol.svg",
+        "sha256": "6c1cea838f42946dba1e955cd7bf606766efbd004f8beaaf2e3e6b0b0453128c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -833218,7 +833278,7 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series"
+        "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQA_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -833231,13 +833291,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833250,11 +833307,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833271,11 +833325,44 @@
       "package": "SOT1215",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Collector (exposed terminal)",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc143eqaz/symbol.svg",
+        "sha256": "0aa9387e91e58b2b1a888ba8a2ccee1f567909843d4e1147cf9febde00f31746",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -833284,7 +833371,7 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series"
+        "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQA_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -833297,13 +833384,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833316,11 +833400,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833337,11 +833418,44 @@
       "package": "SOT1215",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Collector (exposed terminal)",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc144eqaz/symbol.svg",
+        "sha256": "097b5a2b05791710b28d713b3ea45b37dad26fceef8d0f9bd512a519174f9aae",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -833350,7 +833464,7 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series"
+        "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQA_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -833363,13 +833477,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833382,11 +833493,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833403,11 +833511,38 @@
       "package": "SOT8015",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc114eqbz/symbol.svg",
+        "sha256": "c63c958ec21e398e267e0fb607ba355cc2db5820331e46fa988e55b70ae64703",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT8015 breakout that preserves all numbered terminals."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -833416,7 +833551,7 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqb-series"
+        "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQB_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -833429,13 +833564,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833448,11 +833580,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833469,11 +833598,38 @@
       "package": "SOT8015",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc144eqbz/symbol.svg",
+        "sha256": "b7ff96eaa03c3a308809bad4f14475fcc3296f2c7f91dd4e6bc9786ed9a7bfc8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT8015 breakout that preserves all numbered terminals."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -833482,7 +833638,7 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqb-series"
+        "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQB_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -833495,13 +833651,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833514,11 +833667,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833535,11 +833685,38 @@
       "package": "SOT8009",
       "category": "Transistors",
       "function": "NPN resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdtc144eqcz/symbol.svg",
+        "sha256": "7a21d90b7e7fdfb210813b85fb6089a0a376f284cea35acb39c48ed8e9648a58",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT8009 breakout that preserves all numbered terminals."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -833548,7 +833725,7 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqc-series"
+        "https://assets.nexperia.com/documents/data-sheet/PDTC143_114_124_144EQC_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -833561,13 +833738,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833580,11 +833754,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833601,11 +833772,44 @@
       "package": "SOT1215",
       "category": "Transistors",
       "function": "PNP resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Collector (exposed terminal)",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdta114eqaz/symbol.svg",
+        "sha256": "9fa8b5138b251393bbeba6832cd4f5a956f1c8de396d348e23ba19a78385ac8d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -833614,7 +833818,7 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdta143-114-124-144eqa-series"
+        "https://assets.nexperia.com/documents/data-sheet/PDTA143_114_124_144EQA_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -833627,13 +833831,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833646,11 +833847,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833667,11 +833865,44 @@
       "package": "SOT1215",
       "category": "Transistors",
       "function": "PNP resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Collector (exposed terminal)",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdta124eqaz/symbol.svg",
+        "sha256": "f7513419d7a30b02c86948b5b614280565228bc4423fd8b4b92b029e7108e1bf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -833680,7 +833911,7 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdta143-114-124-144eqa-series"
+        "https://assets.nexperia.com/documents/data-sheet/PDTA143_114_124_144EQA_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -833693,13 +833924,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833712,11 +833940,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833733,11 +833958,44 @@
       "package": "SOT1215",
       "category": "Transistors",
       "function": "PNP resistor-equipped bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Input",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Collector (exposed terminal)",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.pdta144eqaz/symbol.svg",
+        "sha256": "9d001e5a47b11373d4afe670d14c79bbed13edb4cf36bbcf68920b22c4daa280",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT1215 breakout that preserves all numbered terminals."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -833746,7 +834004,7 @@
         "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdta143-114-124-144eqa-series"
+        "https://assets.nexperia.com/documents/data-sheet/PDTA143_114_124_144EQA_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -833759,13 +834017,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -833778,11 +834033,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"

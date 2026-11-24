@@ -1,6 +1,6 @@
 # Nexperia resistor-equipped bipolar transistor ordering evidence
 
-These 16 active order codes are listed in the manufacturer tables. Each selected type contributes one order code. The six SOT23 records have schematic and PCB assets. The ten leadless records and independent review remain pending.
+These 16 active order codes are listed in the manufacturer tables. Each selected type contributes one order code. The six SOT23 records have schematic and PCB assets. The ten leadless records have schematic symbols. Their PCB assets and independent review remain pending.
 
 - [PDTB1XXXT-SERIES](https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtb1xxxt-series)
 - [PDTD1XXXT-SERIES](https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series)
@@ -31,3 +31,7 @@ These 16 active order codes are listed in the manufacturer tables. Each selected
 ## SOT23 pin, resistor, and PCB mapping
 
 The [PDTB data sheet](https://assets.nexperia.com/documents/data-sheet/PDTB1XXXT_SER.pdf) and the PDTD device data sheets linked by the footprint records define input at pin 1, emitter at pin 2, and collector at pin 3. R1 connects the input to the internal base. R2 connects the internal base to the emitter. Their nominal values are printed on the symbols. PCB assets use the manufacturer’s SOT23 reflow land geometry. Device-specific simulation, board checks, and breakout validation remain pending.
+
+## Leadless pin and resistor mapping
+
+The manufacturer data sheets linked from the records specify input (1), emitter (2), and collector (3). The SOT1215 variants also expose collector terminal 4. The symbols connect both collector terminals internally and show the nominal R1 and R2 values. SOT8015 and SOT8009 use a single collector terminal. PCB geometry requires package-specific drawing confirmation. Native simulation remains pending.
