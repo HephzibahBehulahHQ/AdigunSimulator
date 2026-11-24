@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.cst2-020lc",
+  "package": "Coilcraft CST2",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 6.22,
+    "lengthMaxMm": 5.97,
+    "heightMaxMm": 5.3,
+    "leadSpanMaxMm": 8.13,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 3.6,
+      "yMm": 1.85,
+      "shape": "rectangle",
+      "widthMm": 1.6,
+      "heightMm": 1.2
+    },
+    {
+      "number": "2",
+      "xMm": 3.6,
+      "yMm": 0,
+      "shape": "rectangle",
+      "widthMm": 1.6,
+      "heightMm": 1.2
+    },
+    {
+      "number": "3",
+      "xMm": 3.6,
+      "yMm": -1.85,
+      "shape": "rectangle",
+      "widthMm": 1.6,
+      "heightMm": 1.2
+    },
+    {
+      "number": "4",
+      "xMm": -3.6,
+      "yMm": -1.85,
+      "shape": "rectangle",
+      "widthMm": 1.6,
+      "heightMm": 1.2
+    },
+    {
+      "number": "5",
+      "xMm": -3.6,
+      "yMm": 0,
+      "shape": "rectangle",
+      "widthMm": 1.6,
+      "heightMm": 1.2
+    },
+    {
+      "number": "6",
+      "xMm": -3.6,
+      "yMm": 1.85,
+      "shape": "rectangle",
+      "widthMm": 1.6,
+      "heightMm": 1.2
+    },
+    {
+      "number": "7",
+      "xMm": 0,
+      "yMm": -2.675,
+      "shape": "rectangle",
+      "widthMm": 3,
+      "heightMm": 2.65
+    },
+    {
+      "number": "8",
+      "xMm": 0,
+      "yMm": 2.675,
+      "shape": "rectangle",
+      "widthMm": 3,
+      "heightMm": 2.65
+    }
+  ],
+  "limitations": [
+    "Top view mirrors the manufacturer bottom-view pinout horizontally.",
+    "Primary pads 7 and 8 exchange positions between CST1 and CST2.",
+    "Review current path, isolation and mask before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
