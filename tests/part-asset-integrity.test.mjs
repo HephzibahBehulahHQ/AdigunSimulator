@@ -98,7 +98,7 @@ test("all ledger-mapped visible symbol labels match their source SVG assets", as
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url), "utf8"));
   const records = ledger.records.filter((record) => record.symbolPinLabels);
   const result = await validatePartAssetIntegrity({ records }, (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8"));
-  assert.equal(records.length, 1097);
+  assert.equal(records.length, 1160);
   assert.deepEqual(result, { valid: true, errors: [] });
 });
 
@@ -226,5 +226,24 @@ test("BZX384 and BZX585 preserve cathode polarity and distinct reflow geometry",
         { number: "2", xMm: spacing / 2, yMm: 0 }
       ]);
     }
+  }
+});
+
+test("BZX84W uses the SOT323 reflow dimensions and pin orientation", async () => {
+  const load = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const { records } = await load("../library/parts-ledger.json");
+  const diodes = records.filter((record) => record.evidenceNote === "library/evidence/nexperia.bzx84w.md");
+  assert.equal(diodes.length, 63);
+  for (const diode of diodes) {
+    const footprint = await load(`../${diode.footprintEvidence.assetPath}`);
+    assert.deepEqual(diode.symbolPinMap, { 1: "Anode", 2: "No connection", 3: "Cathode" });
+    assert.deepEqual(footprint.padPattern, {
+      shape: "rectangle", widthMm: 0.55, heightMm: 0.6, pitchMm: 1.3, rowCenterSpacingMm: 1.85
+    });
+    assert.deepEqual(footprint.pads, [
+      { number: "1", xMm: 0.925, yMm: 0.65 },
+      { number: "2", xMm: 0.925, yMm: -0.65 },
+      { number: "3", xMm: -0.925, yMm: 0 }
+    ]);
   }
 });

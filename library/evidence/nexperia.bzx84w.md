@@ -1,6 +1,6 @@
 # Nexperia BZX84W ordering evidence
 
-The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener-diodes/serie/bzx84w-series) lists these 63 active order codes, one per selected base type. The [series datasheet](https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf) identifies the SOT323 package. Native mappings, model validation, and independent review remain pending.
+The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener-diodes/serie/bzx84w-series) lists these 63 active order codes, one per selected base type. The [series datasheet](https://assets.nexperia.com/documents/data-sheet/BZX84W_SER.pdf) identifies the SOT323 package. Native breakdown model validation and independent review remain pending.
 
 | Order code | 12NC |
 | --- | --- |
@@ -67,3 +67,7 @@ The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener
 | BZX84W-C6V8F | 934660432135 |
 | BZX84W-C75F | 934660459135 |
 | BZX84W-C7V5X | 934660433115 |
+
+## Pin and PCB mapping
+
+The pinning table defines pin 1 as anode, pin 2 as unconnected, and pin 3 as cathode. Figure 9 specifies 0.55 × 0.60 mm reflow copper lands, 1.30 mm between pins 1 and 2, and 1.85 mm between rows. The footprints use the drawing’s top-view orientation with pin 1 at the lower right. Board-level checks remain pending.
